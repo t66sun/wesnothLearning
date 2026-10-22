@@ -1,0 +1,15 @@
+# Store LF in the repository and in every working copy: Ubuntu is the
+# acceptance environment and shell scripts break on CRLF. Overrides
+# core.autocrlf=true.
+* text=auto eol=lf
+
+# Windows batch files must keep CRLF.
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Binaries: never apply text conversion.
+*.gz binary
+*.zip binary
+*.pyd binary
+*.so binary
+*.dll binary
