@@ -1,0 +1,15 @@
+[package]
+name = "wesnoth-learning-lite"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+
+[lib]
+name = "_engine_lite"
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+pyo3 = { version = "0.23", features = ["extension-module"] }
+serde = { version = "1", features = ["derive", "rc"] }
+serde_json = "1"
+mlua = { version = "0.10", features = ["lua54", "vendored", "serialize"] }

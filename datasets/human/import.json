@@ -1,0 +1,399 @@
+{
+  "schema": 3,
+  "observer_version": "native-observer-v3.1",
+  "source_games": 43,
+  "statuses": {
+    "skipped": 41,
+    "compatible_pending_native_replay": 2
+  },
+  "samples": 0,
+  "games": [
+    {
+      "game_id": "game_0001",
+      "format": "duel",
+      "game_family": "52b288c5160ee318057e27fe34caeb1810e304cb0b3781f35f35550aa39a2ce3",
+      "split": "train",
+      "samples": 0,
+      "status": "skipped",
+      "reason": "non_standard_rules"
+    },
+    {
+      "game_id": "game_0002",
+      "format": "duel",
+      "game_family": "4a07ce6c70d1bdedaa4f6216a95d3f7b06e5144caec4d4a4da25c84843207a07",
+      "split": "validation",
+      "samples": 0,
+      "status": "skipped",
+      "reason": "non_standard_rules"
+    },
+    {
+      "game_id": "game_0003",
+      "format": "ffa4",
+      "game_family": "a47536e062c90747004e1b16edc5874426ca01d15c706ccb3ca5b159eae9e54b",
+      "split": "train",
+      "samples": 0,
+      "status": "skipped",
+      "reason": "non_standard_rules"
+    },
+    {
+      "game_id": "game_0004",
+      "format": "duel",
+      "game_family": "829d4966969aa23d148187ca1bb5098fa959246a469742a13a0f73d9742c1a7b",
+      "split": "train",
+      "samples": 0,
+      "status": "skipped",
+      "reason": "non_standard_rules"
+    },
+    {
+      "game_id": "game_0005",
+      "format": "ffa13",
+      "game_family": "0dd296b3c2e415a54c981b6b8fd8a764420de8867455b5d60e752058c32f28b4",
+      "split": "train",
+      "samples": 0,
+      "status": "skipped",
+      "reason": "non_standard_rules"
+    },
+    {
+      "game_id": "game_0006",
+      "format": "duel",
+      "game_family": "58ec25fa6e1ac99d3a4bb93c521bb9ed31d2ec1fe838ecfff0ba6de6e0deb6ba",
+      "split": "validation",
+      "samples": 0,
+      "status": "skipped",
+      "reason": "non_standard_rules"
+    },
+    {
+      "game_id": "game_0007",
+      "format": "other",
+      "game_family": "6fe4e54fecf920475268f766f648d08592c3cbe9e12730ad14a7ac99180888a9",
+      "split": "validation",
+      "samples": 0,
+      "status": "skipped",
+      "reason": "non_standard_rules"
+    },
+    {
+      "game_id": "game_0008",
+      "format": "other",
+      "game_family": "1b400709568295ad56c2d7616e0f75a00d6d3ec5c4a5a94da7512f272286063c",
+      "split": "train",
+      "samples": 0,
+      "status": "skipped",
+      "reason": "non_standard_rules"
+    },
+    {
+      "game_id": "game_0009",
+      "format": "duel",
+      "game_family": "155ade81dd1f3bedc08b0ac1f476fd341ddc2d56569d2145140614f2e8c5e871",
+      "split": "train",
+      "samples": 0,
+      "status": "skipped",
+      "reason": "non_standard_rules"
+    },
+    {
+      "game_id": "game_0010",
+      "format": "other",
+      "game_family": "8048e4e21c7c55986bbf5d3b860068664cc4faf9f8e078f68afc8959276ff238",
+      "split": "validation",
+      "samples": 0,
+      "status": "skipped",
+      "reason": "non_standard_rules"
+    },
+    {
+      "game_id": "game_0011",
+      "format": "ffa3",
+      "game_family": "997f813b87ba81e4cd0aa82e1efb4566bc86f4a3d9018e2e5a65fa4ad9b0edcd",
+      "split": "train",
+      "samples": 0,
+      "status": "skipped",
+      "reason": "non_standard_rules"
+    },
+    {
+      "game_id": "game_0012",
+      "format": "other",
+      "game_family": "838975b3457355910a740d383c1a303c13fb24b1a70444064c83aa63d8193161",
+      "split": "train",
+      "samples": 0,
+      "status": "skipped",
+      "reason": "non_standard_rules"
+    },
+    {
+      "game_id": "game_0013",
+      "format": "other",
+      "game_family": "5d3852f2c8d5d7b28a95ef8cfb57e7ca7209bd5533cc3968a2529ccd2c5108ad",
+      "split": "train",
+      "samples": 0,
+      "status": "skipped",
+      "reason": "non_standard_rules"
+    },
+    {
+      "game_id": "game_0014",
+      "format": "ffa3",
+      "game_family": "507ead777221a4f78d35380ce2da8ba5f2b78352dcc54257ae5b278884a2df0b",
+      "split": "validation",
+      "samples": 0,
+      "status": "skipped",
+      "reason": "non_standard_rules"
+    },
+    {
+      "game_id": "game_0015",
+      "format": "ffa13",
+      "game_family": "136c660112b9b396f3a5d56ea1f7a383ef4883643f934426d394775ca36ad547",
+      "split": "train",
+      "samples": 0,
+      "status": "skipped",
+      "reason": "non_standard_rules"
+    },
+    {
+      "game_id": "game_0016",
+      "format": "ffa13",
+      "game_family": "f88b313969ee6c9d253690bb17e14c9d5e31bd012671af2b376fa891218bb578",
+      "split": "train",
+      "samples": 0,
+      "status": "skipped",
+      "reason": "non_standard_rules"
+    },
+    {
+      "game_id": "game_0017",
+      "format": "ffa3",
+      "game_family": "2f23b2d76dfe92e71265fb011b3e1b61bde47d2c89231bb3311764ea16073a73",
+      "split": "train",
+      "samples": 0,
+      "status": "skipped",
+      "reason": "non_standard_rules"
+    },
+    {
+      "game_id": "game_0018",
+      "format": "ffa3",
+      "game_family": "f7da8e9b528a620e99a519970398d1fdcf93cd06bd35a4263553a26ca58fc208",
+      "split": "validation",
+      "samples": 0,
+      "status": "skipped",
+      "reason": "non_standard_rules"
+    },
+    {
+      "game_id": "game_0019",
+      "format": "ffa3",
+      "game_family": "f8588cb418de5c315922bf7b9e3a7778a9d26f71a5bf03b144ad6efc7c3da488",
+      "split": "train",
+      "samples": 0,
+      "status": "skipped",
+      "reason": "non_standard_rules"
+    },
+    {
+      "game_id": "game_0020",
+      "format": "duel",
+      "game_family": "048a6c50bcc7c4267fd152801c60ec4f1829e215e0be29ec8f73c86fe7ade39a",
+      "split": "train",
+      "samples": 0,
+      "status": "skipped",
+      "reason": "non_standard_rules"
+    },
+    {
+      "game_id": "game_0021",
+      "format": "ffa3",
+      "game_family": "4dff64b1e862d80169227fcfbf68a745f656c563e58a742ef61ad19ae395f2ae",
+      "split": "train",
+      "samples": 0,
+      "status": "skipped",
+      "reason": "non_standard_rules"
+    },
+    {
+      "game_id": "game_0022",
+      "format": "team2v2",
+      "game_family": "ef05dcd46880b7fb045aabed91f5a961cfa285fcd582159e5292e5164b5a7051",
+      "split": "train",
+      "samples": 0,
+      "status": "skipped",
+      "reason": "non_standard_rules"
+    },
+    {
+      "game_id": "game_0023",
+      "format": "ffa3",
+      "game_family": "6cd63c1329ec4cf7aaa36aa87dff6083edc9cbe0e677b7a9f22e4bd172ec2d99",
+      "split": "validation",
+      "samples": 0,
+      "status": "skipped",
+      "reason": "non_standard_rules"
+    },
+    {
+      "game_id": "game_0024",
+      "format": "duel",
+      "game_family": "07377faba17645e3e667c779d13d25c9ec08801ecf09d781ef3d41d66c43f00f",
+      "split": "validation",
+      "samples": 0,
+      "status": "skipped",
+      "reason": "non_standard_rules"
+    },
+    {
+      "game_id": "game_0025",
+      "format": "ffa5",
+      "game_family": "817f789fd2c75f5663faf481d51338a2b6dda694913605e66f0157575eb9bb08",
+      "split": "validation",
+      "samples": 0,
+      "status": "skipped",
+      "reason": "non_standard_rules"
+    },
+    {
+      "game_id": "game_0026",
+      "format": "duel",
+      "game_family": "69d35959dfbae424b8b597e47fce319cb864f514c611f63ebbdafeff2429e712",
+      "split": "train",
+      "samples": 0,
+      "status": "skipped",
+      "reason": "non_standard_rules"
+    },
+    {
+      "game_id": "game_0027",
+      "format": "duel",
+      "game_family": "4aa0c45abac20b216c840cadd8a51f80fc0e086654cf00582ee22cfddd29d3d9",
+      "split": "validation",
+      "samples": 0,
+      "status": "skipped",
+      "reason": "non_standard_rules"
+    },
+    {
+      "game_id": "game_0028",
+      "format": "duel",
+      "game_family": "5c046cf731c3de0e08d5d42396d984c1aa6d8204ce364ef4b4cbbb6da7e79898",
+      "split": "train",
+      "samples": 0,
+      "status": "skipped",
+      "reason": "non_standard_rules"
+    },
+    {
+      "game_id": "game_0029",
+      "format": "duel",
+      "game_family": "8be3316330fd877d976f660382964990998dea925db1098e6edaae51eda90d2f",
+      "split": "train",
+      "samples": 0,
+      "status": "skipped",
+      "reason": "non_standard_rules"
+    },
+    {
+      "game_id": "game_0030",
+      "format": "duel",
+      "game_family": "7f95e039d2e8bf8a954851e3a622bf6ef436d656d179bcf7fa814bda88e898d8",
+      "split": "train",
+      "samples": 0,
+      "status": "skipped",
+      "reason": "non_standard_rules"
+    },
+    {
+      "game_id": "game_0031",
+      "format": "team2v2",
+      "game_family": "09b796bb0f75bd5518b5e836a646df8c1457c62d1342a16610c92606fc3f99b7",
+      "split": "train",
+      "samples": 0,
+      "status": "skipped",
+      "reason": "non_standard_rules"
+    },
+    {
+      "game_id": "game_0032",
+      "format": "ffa3",
+      "game_family": "e21d84a992a678cf61954a3c682b562d61337e58254c2f14fc45a44ca77f64d0",
+      "split": "train",
+      "samples": 0,
+      "status": "skipped",
+      "reason": "non_standard_rules"
+    },
+    {
+      "game_id": "game_0033",
+      "format": "ffa3",
+      "game_family": "f653fcfdca2d8a976b926ba751f697d4ab3c131a1575a34637a5c5d2b5275a64",
+      "split": "train",
+      "samples": 0,
+      "status": "skipped",
+      "reason": "non_standard_rules"
+    },
+    {
+      "game_id": "game_0034",
+      "format": "duel",
+      "game_family": "d1ee639eb8c7a207b858d23e5ee2f00fa1c26902b5bfd6972aa91b0da4b054da",
+      "split": "train",
+      "samples": 0,
+      "status": "skipped",
+      "reason": "non_standard_rules"
+    },
+    {
+      "game_id": "game_0035",
+      "format": "other",
+      "game_family": "a2505e7ca6260be102fa9fd55a7043148de0c7bfac8fa89d0e411f779581c853",
+      "split": "train",
+      "samples": 0,
+      "status": "skipped",
+      "reason": "non_standard_rules"
+    },
+    {
+      "game_id": "game_0036",
+      "format": "duel",
+      "game_family": "cb96adbd58d172fd47a0016c24cf1353b71d0fdbfe1814d5b1577d820d3cf42b",
+      "split": "train",
+      "samples": 0,
+      "status": "skipped",
+      "reason": "non_standard_rules"
+    },
+    {
+      "game_id": "game_0037",
+      "format": "duel",
+      "game_family": "f80619837c1d455b83e50a2fc242dc1b21874f62374ecfaa6f2bf2204a708041",
+      "split": "train",
+      "samples": 0,
+      "status": "skipped",
+      "reason": "non_standard_rules"
+    },
+    {
+      "game_id": "game_0038",
+      "format": "ffa3",
+      "game_family": "070beaa4067a99b32eae50fca9ed40b854c86492e277a9da156457946e52490b",
+      "split": "validation",
+      "samples": 0,
+      "status": "skipped",
+      "reason": "unsupported_training_format"
+    },
+    {
+      "game_id": "game_0039",
+      "format": "duel",
+      "game_family": "5ae2a5d9507808a96ff618b062de9fc1e0bbf727a2f1a4148c2c7da2cc7fed8a",
+      "split": "validation",
+      "samples": 0,
+      "status": "skipped",
+      "reason": "custom_modifications"
+    },
+    {
+      "game_id": "game_0040",
+      "format": "duel",
+      "game_family": "8d02f25909facd03dbbd01f72024777da2c91d5d4234c58e6c09a2c8f69f6cd0",
+      "split": "train",
+      "samples": 0,
+      "status": "compatible_pending_native_replay"
+    },
+    {
+      "game_id": "game_0041",
+      "format": "ffa3",
+      "game_family": "14505e4e0400f71d400143ba676c7245c766f5182d64ad97cbcaa2794af4de3a",
+      "split": "train",
+      "samples": 0,
+      "status": "skipped",
+      "reason": "unsupported_training_format"
+    },
+    {
+      "game_id": "game_0042",
+      "format": "duel",
+      "game_family": "d312cac81cebcd4a0dfd5af40f630c26a27e8c1a71ca482367b2b8c6f4257c7f",
+      "split": "train",
+      "samples": 0,
+      "status": "compatible_pending_native_replay"
+    },
+    {
+      "game_id": "game_0043",
+      "format": "duel",
+      "game_family": "f5e915488f3a37267983bfd1a5ad4f3311755640144612b69c17840569435d7c",
+      "split": "train",
+      "samples": 0,
+      "status": "skipped",
+      "reason": "non_standard_rules"
+    }
+  ],
+  "native_replay_executed": false,
+  "note": "Preparation never launches Wesnoth. Play prepared replays in official 1.18.8, retain full logs, then use --captures. Unknown outcomes never supervise value."
+}

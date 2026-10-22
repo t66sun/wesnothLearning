@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "status": "not_run",
+  "native_version": "1.18.8",
+  "observation_schema": 4,
+  "manifest_builder": "learning.benchmark.build_manifest",
+  "formats": ["duel", "ffa4", "team2v2"],
+  "maps": {
+    "duel": ["The Freelands", "Weldyn Channel", "Sablestone Delta"],
+    "ffa4": ["Clash", "Isar's Cross"],
+    "team2v2": ["Clash", "Isar's Cross"]
+  },
+  "cache_states": ["cold", "hot"],
+  "modes": ["equal_work", "end_to_end"],
+  "density": ["regular", "dense"],
+  "complete_rotation_blocks_per_group": 30,
+  "turn_limit": 30,
+  "seeds": {"start": 190000, "count": 30},
+  "primary": {"workers": 1, "inference": "cpu", "threads": 1},
+  "secondary_workers": [4, 8],
+  "wall_speedup_minimum": 5,
+  "cpu_core_seconds_ratio_minimum": 5,
+  "pss_ratio_resource_target": 5,
+  "required_artifact_sha256": [
+    "native_executable", "lite_rules", "astra", "v4_duel", "v4_ffa4", "v4_team2v2"
+  ],
+  "measured_results": null,
+  "audit_pipeline_result": null
+}

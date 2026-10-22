@@ -1,0 +1,1954 @@
+{
+  "schema": 2,
+  "rules_version": "wesnoth-1.18.8-native-v2",
+  "result": {
+    "bots": [
+      "template_bot",
+      "baseline"
+    ],
+    "seed": 1,
+    "turns": 5,
+    "winner": 2,
+    "survivors": [
+      2
+    ],
+    "reason": "last_leader",
+    "faults": {},
+    "rank_points": {
+      "1": 0,
+      "2": 1
+    },
+    "eliminated": {
+      "1": 5
+    },
+    "seconds": 4.656,
+    "actions": 27,
+    "factions": [
+      "Drakes",
+      "Knalgan Alliance"
+    ],
+    "spawns": [
+      [
+        3,
+        7
+      ],
+      [
+        13,
+        7
+      ]
+    ],
+    "lenient": false,
+    "native_replay": "example.replay.gz",
+    "rules_version": "wesnoth-1.18.8-native-v2"
+  },
+  "map": {
+    "id": "arena2",
+    "terrain": [
+      [
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg^Fet",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg"
+      ],
+      [
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg^Fet",
+        "Gg",
+        "Hh",
+        "Gg",
+        "Hh",
+        "Gg",
+        "Gg^Fet",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg"
+      ],
+      [
+        "Gg",
+        "Gg^Fet",
+        "Gg",
+        "Hh",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Hh",
+        "Gg",
+        "Gg^Fet",
+        "Gg"
+      ],
+      [
+        "Hh",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg^Vh",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Hh"
+      ],
+      [
+        "Gg",
+        "Gg",
+        "Gg^Vh",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg^Fet",
+        "Gg",
+        "Gg^Fet",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg^Vh",
+        "Gg",
+        "Gg"
+      ],
+      [
+        "Gg",
+        "Ch",
+        "Ch",
+        "Ch",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Hh",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Ch",
+        "Ch",
+        "Ch",
+        "Gg"
+      ],
+      [
+        "Gg^Fet",
+        "Ch",
+        "Kh",
+        "Ch",
+        "Gg^Vh",
+        "Gg",
+        "Gg",
+        "Gg^Vh",
+        "Gg",
+        "Gg",
+        "Gg^Vh",
+        "Ch",
+        "Kh",
+        "Ch",
+        "Gg^Fet"
+      ],
+      [
+        "Gg",
+        "Gg",
+        "Ch",
+        "Gg^Fet",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Hh",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg^Fet",
+        "Ch",
+        "Gg",
+        "Gg"
+      ],
+      [
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg^Fet",
+        "Gg",
+        "Gg^Fet",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg"
+      ],
+      [
+        "Hh",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg^Vh",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Hh"
+      ],
+      [
+        "Gg",
+        "Gg^Fet",
+        "Gg",
+        "Hh",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Hh",
+        "Gg",
+        "Gg^Fet",
+        "Gg"
+      ],
+      [
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg^Fet",
+        "Gg",
+        "Hh",
+        "Gg",
+        "Hh",
+        "Gg",
+        "Gg^Fet",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg"
+      ],
+      [
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg^Fet",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg"
+      ]
+    ],
+    "starts": [
+      [
+        3,
+        7
+      ],
+      [
+        13,
+        7
+      ]
+    ]
+  },
+  "frames": [
+    {
+      "gold": [
+        100,
+        100
+      ],
+      "side": 1,
+      "turn": 1,
+      "units": [
+        {
+          "hp": 55,
+          "id": "Drake Flare-1",
+          "max_hp": 55,
+          "moves": 5,
+          "side": 1,
+          "type": "Drake Flare",
+          "x": 3,
+          "xp": 0,
+          "y": 7
+        },
+        {
+          "hp": 54,
+          "id": "Dwarvish Steelclad-2",
+          "max_hp": 54,
+          "moves": 5,
+          "side": 2,
+          "type": "Dwarvish Steelclad",
+          "x": 13,
+          "xp": 0,
+          "y": 7
+        }
+      ],
+      "villages": [
+        [
+          3,
+          5,
+          0
+        ],
+        [
+          5,
+          7,
+          0
+        ],
+        [
+          8,
+          4,
+          0
+        ],
+        [
+          8,
+          7,
+          0
+        ],
+        [
+          8,
+          10,
+          0
+        ],
+        [
+          11,
+          7,
+          0
+        ],
+        [
+          13,
+          5,
+          0
+        ]
+      ]
+    },
+    {
+      "gold": [
+        11,
+        100
+      ],
+      "side": 1,
+      "turn": 1,
+      "units": [
+        {
+          "hp": 47,
+          "id": "Drake Burner-3",
+          "max_hp": 47,
+          "moves": 0,
+          "side": 1,
+          "type": "Drake Burner",
+          "x": 2,
+          "xp": 0,
+          "y": 6
+        },
+        {
+          "hp": 41,
+          "id": "Drake Clasher-4",
+          "max_hp": 41,
+          "moves": 0,
+          "side": 1,
+          "type": "Drake Clasher",
+          "x": 2,
+          "xp": 0,
+          "y": 7
+        },
+        {
+          "hp": 42,
+          "id": "Drake Fighter-5",
+          "max_hp": 42,
+          "moves": 0,
+          "side": 1,
+          "type": "Drake Fighter",
+          "x": 3,
+          "xp": 0,
+          "y": 6
+        },
+        {
+          "hp": 55,
+          "id": "Drake Flare-1",
+          "max_hp": 55,
+          "moves": 5,
+          "side": 1,
+          "type": "Drake Flare",
+          "x": 3,
+          "xp": 0,
+          "y": 7
+        },
+        {
+          "hp": 38,
+          "id": "Drake Glider-6",
+          "max_hp": 38,
+          "moves": 0,
+          "side": 1,
+          "type": "Drake Glider",
+          "x": 3,
+          "xp": 0,
+          "y": 8
+        },
+        {
+          "hp": 54,
+          "id": "Dwarvish Steelclad-2",
+          "max_hp": 54,
+          "moves": 5,
+          "side": 2,
+          "type": "Dwarvish Steelclad",
+          "x": 13,
+          "xp": 0,
+          "y": 7
+        },
+        {
+          "hp": 27,
+          "id": "Saurian Augur-7",
+          "max_hp": 27,
+          "moves": 0,
+          "side": 1,
+          "type": "Saurian Augur",
+          "x": 4,
+          "xp": 0,
+          "y": 6
+        }
+      ],
+      "villages": [
+        [
+          3,
+          5,
+          0
+        ],
+        [
+          5,
+          7,
+          0
+        ],
+        [
+          8,
+          4,
+          0
+        ],
+        [
+          8,
+          7,
+          0
+        ],
+        [
+          8,
+          10,
+          0
+        ],
+        [
+          11,
+          7,
+          0
+        ],
+        [
+          13,
+          5,
+          0
+        ]
+      ]
+    },
+    {
+      "gold": [
+        11,
+        4
+      ],
+      "side": 2,
+      "turn": 1,
+      "units": [
+        {
+          "hp": 47,
+          "id": "Drake Burner-3",
+          "max_hp": 47,
+          "moves": 0,
+          "side": 1,
+          "type": "Drake Burner",
+          "x": 2,
+          "xp": 0,
+          "y": 6
+        },
+        {
+          "hp": 41,
+          "id": "Drake Clasher-4",
+          "max_hp": 41,
+          "moves": 0,
+          "side": 1,
+          "type": "Drake Clasher",
+          "x": 2,
+          "xp": 0,
+          "y": 7
+        },
+        {
+          "hp": 42,
+          "id": "Drake Fighter-5",
+          "max_hp": 42,
+          "moves": 0,
+          "side": 1,
+          "type": "Drake Fighter",
+          "x": 3,
+          "xp": 0,
+          "y": 6
+        },
+        {
+          "hp": 55,
+          "id": "Drake Flare-1",
+          "max_hp": 55,
+          "moves": 5,
+          "side": 1,
+          "type": "Drake Flare",
+          "x": 3,
+          "xp": 0,
+          "y": 7
+        },
+        {
+          "hp": 38,
+          "id": "Drake Glider-6",
+          "max_hp": 38,
+          "moves": 0,
+          "side": 1,
+          "type": "Drake Glider",
+          "x": 3,
+          "xp": 0,
+          "y": 8
+        },
+        {
+          "hp": 38,
+          "id": "Dwarvish Fighter-13",
+          "max_hp": 38,
+          "moves": 0,
+          "side": 2,
+          "type": "Dwarvish Fighter",
+          "x": 14,
+          "xp": 0,
+          "y": 7
+        },
+        {
+          "hp": 40,
+          "id": "Dwarvish Guardsman-11",
+          "max_hp": 40,
+          "moves": 0,
+          "side": 2,
+          "type": "Dwarvish Guardsman",
+          "x": 13,
+          "xp": 0,
+          "y": 8
+        },
+        {
+          "hp": 54,
+          "id": "Dwarvish Steelclad-2",
+          "max_hp": 54,
+          "moves": 0,
+          "side": 2,
+          "type": "Dwarvish Steelclad",
+          "x": 8,
+          "xp": 0,
+          "y": 4
+        },
+        {
+          "hp": 37,
+          "id": "Dwarvish Ulfserker-12",
+          "max_hp": 37,
+          "moves": 0,
+          "side": 2,
+          "type": "Dwarvish Ulfserker",
+          "x": 14,
+          "xp": 0,
+          "y": 6
+        },
+        {
+          "hp": 39,
+          "id": "Poacher-10",
+          "max_hp": 39,
+          "moves": 0,
+          "side": 2,
+          "type": "Poacher",
+          "x": 13,
+          "xp": 0,
+          "y": 6
+        },
+        {
+          "hp": 36,
+          "id": "Poacher-8",
+          "max_hp": 36,
+          "moves": 0,
+          "side": 2,
+          "type": "Poacher",
+          "x": 12,
+          "xp": 0,
+          "y": 6
+        },
+        {
+          "hp": 36,
+          "id": "Poacher-9",
+          "max_hp": 36,
+          "moves": 0,
+          "side": 2,
+          "type": "Poacher",
+          "x": 12,
+          "xp": 0,
+          "y": 7
+        },
+        {
+          "hp": 27,
+          "id": "Saurian Augur-7",
+          "max_hp": 27,
+          "moves": 0,
+          "side": 1,
+          "type": "Saurian Augur",
+          "x": 4,
+          "xp": 0,
+          "y": 6
+        }
+      ],
+      "villages": [
+        [
+          3,
+          5,
+          0
+        ],
+        [
+          5,
+          7,
+          0
+        ],
+        [
+          8,
+          4,
+          2
+        ],
+        [
+          8,
+          7,
+          0
+        ],
+        [
+          8,
+          10,
+          0
+        ],
+        [
+          11,
+          7,
+          0
+        ],
+        [
+          13,
+          5,
+          0
+        ]
+      ]
+    },
+    {
+      "gold": [
+        8,
+        4
+      ],
+      "side": 1,
+      "turn": 2,
+      "units": [
+        {
+          "hp": 47,
+          "id": "Drake Burner-3",
+          "max_hp": 47,
+          "moves": 0,
+          "side": 1,
+          "type": "Drake Burner",
+          "x": 7,
+          "xp": 2,
+          "y": 4
+        },
+        {
+          "hp": 41,
+          "id": "Drake Clasher-4",
+          "max_hp": 41,
+          "moves": 0,
+          "side": 1,
+          "type": "Drake Clasher",
+          "x": 8,
+          "xp": 0,
+          "y": 7
+        },
+        {
+          "hp": 42,
+          "id": "Drake Fighter-5",
+          "max_hp": 42,
+          "moves": 0,
+          "side": 1,
+          "type": "Drake Fighter",
+          "x": 8,
+          "xp": 0,
+          "y": 10
+        },
+        {
+          "hp": 55,
+          "id": "Drake Flare-1",
+          "max_hp": 55,
+          "moves": 5,
+          "side": 1,
+          "type": "Drake Flare",
+          "x": 3,
+          "xp": 0,
+          "y": 7
+        },
+        {
+          "hp": 34,
+          "id": "Drake Glider-6",
+          "max_hp": 38,
+          "moves": 0,
+          "side": 1,
+          "type": "Drake Glider",
+          "x": 11,
+          "xp": 1,
+          "y": 7
+        },
+        {
+          "hp": 38,
+          "id": "Dwarvish Fighter-13",
+          "max_hp": 38,
+          "moves": 0,
+          "side": 2,
+          "type": "Dwarvish Fighter",
+          "x": 14,
+          "xp": 0,
+          "y": 7
+        },
+        {
+          "hp": 40,
+          "id": "Dwarvish Guardsman-11",
+          "max_hp": 40,
+          "moves": 0,
+          "side": 2,
+          "type": "Dwarvish Guardsman",
+          "x": 13,
+          "xp": 0,
+          "y": 8
+        },
+        {
+          "hp": 47,
+          "id": "Dwarvish Steelclad-2",
+          "max_hp": 54,
+          "moves": 0,
+          "side": 2,
+          "type": "Dwarvish Steelclad",
+          "x": 8,
+          "xp": 1,
+          "y": 4
+        },
+        {
+          "hp": 37,
+          "id": "Dwarvish Ulfserker-12",
+          "max_hp": 37,
+          "moves": 0,
+          "side": 2,
+          "type": "Dwarvish Ulfserker",
+          "x": 14,
+          "xp": 0,
+          "y": 6
+        },
+        {
+          "hp": 39,
+          "id": "Poacher-10",
+          "max_hp": 39,
+          "moves": 0,
+          "side": 2,
+          "type": "Poacher",
+          "x": 13,
+          "xp": 0,
+          "y": 6
+        },
+        {
+          "hp": 36,
+          "id": "Poacher-8",
+          "max_hp": 36,
+          "moves": 0,
+          "side": 2,
+          "type": "Poacher",
+          "x": 12,
+          "xp": 1,
+          "y": 6
+        },
+        {
+          "hp": 36,
+          "id": "Poacher-9",
+          "max_hp": 36,
+          "moves": 0,
+          "side": 2,
+          "type": "Poacher",
+          "x": 12,
+          "xp": 0,
+          "y": 7
+        },
+        {
+          "hp": 27,
+          "id": "Saurian Augur-7",
+          "max_hp": 27,
+          "moves": 0,
+          "side": 1,
+          "type": "Saurian Augur",
+          "x": 10,
+          "xp": 0,
+          "y": 5
+        }
+      ],
+      "villages": [
+        [
+          3,
+          5,
+          0
+        ],
+        [
+          5,
+          7,
+          0
+        ],
+        [
+          8,
+          4,
+          2
+        ],
+        [
+          8,
+          7,
+          1
+        ],
+        [
+          8,
+          10,
+          1
+        ],
+        [
+          11,
+          7,
+          1
+        ],
+        [
+          13,
+          5,
+          0
+        ]
+      ]
+    },
+    {
+      "gold": [
+        8,
+        3
+      ],
+      "side": 2,
+      "turn": 2,
+      "units": [
+        {
+          "hp": 5,
+          "id": "Drake Burner-3",
+          "max_hp": 47,
+          "moves": 0,
+          "side": 1,
+          "type": "Drake Burner",
+          "x": 7,
+          "xp": 5,
+          "y": 4
+        },
+        {
+          "hp": 35,
+          "id": "Drake Clasher-4",
+          "max_hp": 41,
+          "moves": 0,
+          "side": 1,
+          "type": "Drake Clasher",
+          "x": 8,
+          "xp": 2,
+          "y": 7
+        },
+        {
+          "hp": 42,
+          "id": "Drake Fighter-5",
+          "max_hp": 42,
+          "moves": 0,
+          "side": 1,
+          "type": "Drake Fighter",
+          "x": 8,
+          "xp": 0,
+          "y": 10
+        },
+        {
+          "hp": 55,
+          "id": "Drake Flare-1",
+          "max_hp": 55,
+          "moves": 5,
+          "side": 1,
+          "type": "Drake Flare",
+          "x": 3,
+          "xp": 0,
+          "y": 7
+        },
+        {
+          "hp": 18,
+          "id": "Drake Glider-6",
+          "max_hp": 38,
+          "moves": 0,
+          "side": 1,
+          "type": "Drake Glider",
+          "x": 11,
+          "xp": 3,
+          "y": 7
+        },
+        {
+          "hp": 31,
+          "id": "Dwarvish Fighter-13",
+          "max_hp": 38,
+          "moves": 0,
+          "side": 2,
+          "type": "Dwarvish Fighter",
+          "x": 12,
+          "xp": 1,
+          "y": 6
+        },
+        {
+          "hp": 33,
+          "id": "Dwarvish Guardsman-11",
+          "max_hp": 40,
+          "moves": 0,
+          "side": 2,
+          "type": "Dwarvish Guardsman",
+          "x": 12,
+          "xp": 1,
+          "y": 7
+        },
+        {
+          "hp": 48,
+          "id": "Dwarvish Steelclad-2",
+          "max_hp": 54,
+          "moves": 0,
+          "side": 2,
+          "type": "Dwarvish Steelclad",
+          "x": 8,
+          "xp": 2,
+          "y": 4
+        },
+        {
+          "hp": 29,
+          "id": "Dwarvish Ulfserker-12",
+          "max_hp": 37,
+          "moves": 0,
+          "side": 2,
+          "type": "Dwarvish Ulfserker",
+          "x": 11,
+          "xp": 8,
+          "y": 6
+        },
+        {
+          "hp": 18,
+          "id": "Poacher-10",
+          "max_hp": 39,
+          "moves": 0,
+          "side": 2,
+          "type": "Poacher",
+          "x": 8,
+          "xp": 1,
+          "y": 3
+        },
+        {
+          "hp": 36,
+          "id": "Poacher-8",
+          "max_hp": 36,
+          "moves": 0,
+          "side": 2,
+          "type": "Poacher",
+          "x": 8,
+          "xp": 2,
+          "y": 6
+        },
+        {
+          "hp": 36,
+          "id": "Poacher-9",
+          "max_hp": 36,
+          "moves": 0,
+          "side": 2,
+          "type": "Poacher",
+          "x": 9,
+          "xp": 1,
+          "y": 8
+        }
+      ],
+      "villages": [
+        [
+          3,
+          5,
+          0
+        ],
+        [
+          5,
+          7,
+          0
+        ],
+        [
+          8,
+          4,
+          2
+        ],
+        [
+          8,
+          7,
+          1
+        ],
+        [
+          8,
+          10,
+          1
+        ],
+        [
+          11,
+          7,
+          1
+        ],
+        [
+          13,
+          5,
+          0
+        ]
+      ]
+    },
+    {
+      "gold": [
+        0,
+        3
+      ],
+      "side": 1,
+      "turn": 3,
+      "units": [
+        {
+          "hp": 5,
+          "id": "Drake Burner-3",
+          "max_hp": 47,
+          "moves": 0,
+          "side": 1,
+          "type": "Drake Burner",
+          "x": 7,
+          "xp": 7,
+          "y": 4
+        },
+        {
+          "hp": 37,
+          "id": "Drake Clasher-4",
+          "max_hp": 41,
+          "moves": 0,
+          "side": 1,
+          "type": "Drake Clasher",
+          "x": 8,
+          "xp": 3,
+          "y": 7
+        },
+        {
+          "hp": 42,
+          "id": "Drake Fighter-5",
+          "max_hp": 42,
+          "moves": 0,
+          "side": 1,
+          "type": "Drake Fighter",
+          "x": 3,
+          "xp": 0,
+          "y": 6
+        },
+        {
+          "hp": 55,
+          "id": "Drake Flare-1",
+          "max_hp": 55,
+          "moves": 5,
+          "side": 1,
+          "type": "Drake Flare",
+          "x": 3,
+          "xp": 0,
+          "y": 7
+        },
+        {
+          "hp": 26,
+          "id": "Drake Glider-6",
+          "max_hp": 38,
+          "moves": 0,
+          "side": 1,
+          "type": "Drake Glider",
+          "x": 11,
+          "xp": 4,
+          "y": 7
+        },
+        {
+          "hp": 28,
+          "id": "Dwarvish Fighter-13",
+          "max_hp": 38,
+          "moves": 0,
+          "side": 2,
+          "type": "Dwarvish Fighter",
+          "x": 12,
+          "xp": 2,
+          "y": 6
+        },
+        {
+          "hp": 33,
+          "id": "Dwarvish Guardsman-11",
+          "max_hp": 40,
+          "moves": 0,
+          "side": 2,
+          "type": "Dwarvish Guardsman",
+          "x": 12,
+          "xp": 1,
+          "y": 7
+        },
+        {
+          "hp": 41,
+          "id": "Dwarvish Steelclad-2",
+          "max_hp": 54,
+          "moves": 0,
+          "side": 2,
+          "type": "Dwarvish Steelclad",
+          "x": 8,
+          "xp": 3,
+          "y": 4
+        },
+        {
+          "hp": 29,
+          "id": "Dwarvish Ulfserker-12",
+          "max_hp": 37,
+          "moves": 0,
+          "side": 2,
+          "type": "Dwarvish Ulfserker",
+          "x": 11,
+          "xp": 8,
+          "y": 6
+        },
+        {
+          "hp": 18,
+          "id": "Poacher-10",
+          "max_hp": 39,
+          "moves": 0,
+          "side": 2,
+          "type": "Poacher",
+          "x": 8,
+          "xp": 1,
+          "y": 3
+        },
+        {
+          "hp": 22,
+          "id": "Poacher-8",
+          "max_hp": 36,
+          "moves": 0,
+          "side": 2,
+          "type": "Poacher",
+          "x": 8,
+          "xp": 3,
+          "y": 6
+        },
+        {
+          "hp": 36,
+          "id": "Poacher-9",
+          "max_hp": 36,
+          "moves": 0,
+          "side": 2,
+          "type": "Poacher",
+          "x": 9,
+          "xp": 1,
+          "y": 8
+        },
+        {
+          "hp": 27,
+          "id": "Saurian Skirmisher-14",
+          "max_hp": 27,
+          "moves": 0,
+          "side": 1,
+          "type": "Saurian Skirmisher",
+          "x": 2,
+          "xp": 0,
+          "y": 6
+        }
+      ],
+      "villages": [
+        [
+          3,
+          5,
+          0
+        ],
+        [
+          5,
+          7,
+          0
+        ],
+        [
+          8,
+          4,
+          2
+        ],
+        [
+          8,
+          7,
+          1
+        ],
+        [
+          8,
+          10,
+          1
+        ],
+        [
+          11,
+          7,
+          1
+        ],
+        [
+          13,
+          5,
+          0
+        ]
+      ]
+    },
+    {
+      "gold": [
+        0,
+        2
+      ],
+      "side": 2,
+      "turn": 3,
+      "units": [
+        {
+          "hp": 42,
+          "id": "Drake Fighter-5",
+          "max_hp": 42,
+          "moves": 0,
+          "side": 1,
+          "type": "Drake Fighter",
+          "x": 3,
+          "xp": 0,
+          "y": 6
+        },
+        {
+          "hp": 55,
+          "id": "Drake Flare-1",
+          "max_hp": 55,
+          "moves": 5,
+          "side": 1,
+          "type": "Drake Flare",
+          "x": 3,
+          "xp": 0,
+          "y": 7
+        },
+        {
+          "hp": 12,
+          "id": "Dwarvish Fighter-13",
+          "max_hp": 38,
+          "moves": 0,
+          "side": 2,
+          "type": "Dwarvish Fighter",
+          "x": 9,
+          "xp": 3,
+          "y": 7
+        },
+        {
+          "hp": 21,
+          "id": "Dwarvish Guardsman-11",
+          "max_hp": 40,
+          "moves": 0,
+          "side": 2,
+          "type": "Dwarvish Guardsman",
+          "x": 8,
+          "xp": 2,
+          "y": 8
+        },
+        {
+          "hp": 49,
+          "id": "Dwarvish Steelclad-2",
+          "max_hp": 54,
+          "moves": 0,
+          "side": 2,
+          "type": "Dwarvish Steelclad",
+          "x": 8,
+          "xp": 11,
+          "y": 4
+        },
+        {
+          "hp": 15,
+          "id": "Dwarvish Ulfserker-12",
+          "max_hp": 37,
+          "moves": 0,
+          "side": 2,
+          "type": "Dwarvish Ulfserker",
+          "x": 12,
+          "xp": 16,
+          "y": 7
+        },
+        {
+          "hp": 18,
+          "id": "Poacher-10",
+          "max_hp": 39,
+          "moves": 0,
+          "side": 2,
+          "type": "Poacher",
+          "x": 7,
+          "xp": 2,
+          "y": 7
+        },
+        {
+          "hp": 22,
+          "id": "Poacher-8",
+          "max_hp": 36,
+          "moves": 0,
+          "side": 2,
+          "type": "Poacher",
+          "x": 8,
+          "xp": 4,
+          "y": 6
+        },
+        {
+          "hp": 36,
+          "id": "Poacher-9",
+          "max_hp": 36,
+          "moves": 0,
+          "side": 2,
+          "type": "Poacher",
+          "x": 7,
+          "xp": 9,
+          "y": 8
+        },
+        {
+          "hp": 27,
+          "id": "Saurian Skirmisher-14",
+          "max_hp": 27,
+          "moves": 0,
+          "side": 1,
+          "type": "Saurian Skirmisher",
+          "x": 2,
+          "xp": 0,
+          "y": 6
+        }
+      ],
+      "villages": [
+        [
+          3,
+          5,
+          0
+        ],
+        [
+          5,
+          7,
+          0
+        ],
+        [
+          8,
+          4,
+          2
+        ],
+        [
+          8,
+          7,
+          1
+        ],
+        [
+          8,
+          10,
+          1
+        ],
+        [
+          11,
+          7,
+          1
+        ],
+        [
+          13,
+          5,
+          0
+        ]
+      ]
+    },
+    {
+      "gold": [
+        8,
+        2
+      ],
+      "side": 1,
+      "turn": 4,
+      "units": [
+        {
+          "hp": 42,
+          "id": "Drake Fighter-5",
+          "max_hp": 42,
+          "moves": 0,
+          "side": 1,
+          "type": "Drake Fighter",
+          "x": 9,
+          "xp": 0,
+          "y": 3
+        },
+        {
+          "hp": 55,
+          "id": "Drake Flare-1",
+          "max_hp": 55,
+          "moves": 5,
+          "side": 1,
+          "type": "Drake Flare",
+          "x": 3,
+          "xp": 0,
+          "y": 7
+        },
+        {
+          "hp": 12,
+          "id": "Dwarvish Fighter-13",
+          "max_hp": 38,
+          "moves": 0,
+          "side": 2,
+          "type": "Dwarvish Fighter",
+          "x": 9,
+          "xp": 3,
+          "y": 7
+        },
+        {
+          "hp": 21,
+          "id": "Dwarvish Guardsman-11",
+          "max_hp": 40,
+          "moves": 0,
+          "side": 2,
+          "type": "Dwarvish Guardsman",
+          "x": 8,
+          "xp": 2,
+          "y": 8
+        },
+        {
+          "hp": 46,
+          "id": "Dwarvish Steelclad-2",
+          "max_hp": 54,
+          "moves": 0,
+          "side": 2,
+          "type": "Dwarvish Steelclad",
+          "x": 8,
+          "xp": 12,
+          "y": 4
+        },
+        {
+          "hp": 15,
+          "id": "Dwarvish Ulfserker-12",
+          "max_hp": 37,
+          "moves": 0,
+          "side": 2,
+          "type": "Dwarvish Ulfserker",
+          "x": 12,
+          "xp": 16,
+          "y": 7
+        },
+        {
+          "hp": 18,
+          "id": "Poacher-10",
+          "max_hp": 39,
+          "moves": 0,
+          "side": 2,
+          "type": "Poacher",
+          "x": 7,
+          "xp": 2,
+          "y": 7
+        },
+        {
+          "hp": 22,
+          "id": "Poacher-8",
+          "max_hp": 36,
+          "moves": 0,
+          "side": 2,
+          "type": "Poacher",
+          "x": 8,
+          "xp": 4,
+          "y": 6
+        },
+        {
+          "hp": 36,
+          "id": "Poacher-9",
+          "max_hp": 36,
+          "moves": 0,
+          "side": 2,
+          "type": "Poacher",
+          "x": 7,
+          "xp": 9,
+          "y": 8
+        },
+        {
+          "hp": 27,
+          "id": "Saurian Skirmisher-14",
+          "max_hp": 27,
+          "moves": 0,
+          "side": 1,
+          "type": "Saurian Skirmisher",
+          "x": 8,
+          "xp": 2,
+          "y": 5
+        }
+      ],
+      "villages": [
+        [
+          3,
+          5,
+          0
+        ],
+        [
+          5,
+          7,
+          0
+        ],
+        [
+          8,
+          4,
+          2
+        ],
+        [
+          8,
+          7,
+          1
+        ],
+        [
+          8,
+          10,
+          1
+        ],
+        [
+          11,
+          7,
+          1
+        ],
+        [
+          13,
+          5,
+          0
+        ]
+      ]
+    },
+    {
+      "gold": [
+        8,
+        1
+      ],
+      "side": 2,
+      "turn": 4,
+      "units": [
+        {
+          "hp": 30,
+          "id": "Drake Fighter-5",
+          "max_hp": 42,
+          "moves": 0,
+          "side": 1,
+          "type": "Drake Fighter",
+          "x": 9,
+          "xp": 1,
+          "y": 3
+        },
+        {
+          "hp": 24,
+          "id": "Drake Flare-1",
+          "max_hp": 55,
+          "moves": 5,
+          "side": 1,
+          "type": "Drake Flare",
+          "x": 3,
+          "xp": 2,
+          "y": 7
+        },
+        {
+          "hp": 2,
+          "id": "Dwarvish Fighter-13",
+          "max_hp": 38,
+          "moves": 0,
+          "side": 2,
+          "type": "Dwarvish Fighter",
+          "x": 9,
+          "xp": 4,
+          "y": 5
+        },
+        {
+          "hp": 15,
+          "id": "Dwarvish Guardsman-11",
+          "max_hp": 40,
+          "moves": 0,
+          "side": 2,
+          "type": "Dwarvish Guardsman",
+          "x": 4,
+          "xp": 4,
+          "y": 7
+        },
+        {
+          "hp": 54,
+          "id": "Dwarvish Steelclad-2",
+          "max_hp": 54,
+          "moves": 0,
+          "side": 2,
+          "type": "Dwarvish Steelclad",
+          "x": 8,
+          "xp": 13,
+          "y": 4
+        },
+        {
+          "hp": 15,
+          "id": "Dwarvish Ulfserker-12",
+          "max_hp": 37,
+          "moves": 0,
+          "side": 2,
+          "type": "Dwarvish Ulfserker",
+          "x": 8,
+          "xp": 16,
+          "y": 7
+        },
+        {
+          "hp": 12,
+          "id": "Poacher-10",
+          "max_hp": 39,
+          "moves": 0,
+          "side": 2,
+          "type": "Poacher",
+          "x": 8,
+          "xp": 3,
+          "y": 3
+        },
+        {
+          "hp": 22,
+          "id": "Poacher-8",
+          "max_hp": 36,
+          "moves": 0,
+          "side": 2,
+          "type": "Poacher",
+          "x": 7,
+          "xp": 12,
+          "y": 5
+        },
+        {
+          "hp": 36,
+          "id": "Poacher-9",
+          "max_hp": 36,
+          "moves": 0,
+          "side": 2,
+          "type": "Poacher",
+          "x": 3,
+          "xp": 11,
+          "y": 6
+        }
+      ],
+      "villages": [
+        [
+          3,
+          5,
+          0
+        ],
+        [
+          5,
+          7,
+          0
+        ],
+        [
+          8,
+          4,
+          2
+        ],
+        [
+          8,
+          7,
+          2
+        ],
+        [
+          8,
+          10,
+          1
+        ],
+        [
+          11,
+          7,
+          1
+        ],
+        [
+          13,
+          5,
+          0
+        ]
+      ]
+    },
+    {
+      "gold": [
+        14,
+        1
+      ],
+      "side": 1,
+      "turn": 5,
+      "units": [
+        {
+          "hp": 22,
+          "id": "Drake Fighter-5",
+          "max_hp": 42,
+          "moves": 0,
+          "side": 1,
+          "type": "Drake Fighter",
+          "x": 9,
+          "xp": 2,
+          "y": 3
+        },
+        {
+          "hp": 17,
+          "id": "Drake Flare-1",
+          "max_hp": 55,
+          "moves": 0,
+          "side": 1,
+          "type": "Drake Flare",
+          "x": 3,
+          "xp": 3,
+          "y": 7
+        },
+        {
+          "hp": 2,
+          "id": "Dwarvish Fighter-13",
+          "max_hp": 38,
+          "moves": 0,
+          "side": 2,
+          "type": "Dwarvish Fighter",
+          "x": 9,
+          "xp": 4,
+          "y": 5
+        },
+        {
+          "hp": 7,
+          "id": "Dwarvish Guardsman-11",
+          "max_hp": 40,
+          "moves": 0,
+          "side": 2,
+          "type": "Dwarvish Guardsman",
+          "x": 4,
+          "xp": 6,
+          "y": 7
+        },
+        {
+          "hp": 54,
+          "id": "Dwarvish Steelclad-2",
+          "max_hp": 54,
+          "moves": 0,
+          "side": 2,
+          "type": "Dwarvish Steelclad",
+          "x": 8,
+          "xp": 13,
+          "y": 4
+        },
+        {
+          "hp": 15,
+          "id": "Dwarvish Ulfserker-12",
+          "max_hp": 37,
+          "moves": 0,
+          "side": 2,
+          "type": "Dwarvish Ulfserker",
+          "x": 8,
+          "xp": 16,
+          "y": 7
+        },
+        {
+          "hp": 7,
+          "id": "Poacher-10",
+          "max_hp": 39,
+          "moves": 0,
+          "side": 2,
+          "type": "Poacher",
+          "x": 8,
+          "xp": 4,
+          "y": 3
+        },
+        {
+          "hp": 22,
+          "id": "Poacher-8",
+          "max_hp": 36,
+          "moves": 0,
+          "side": 2,
+          "type": "Poacher",
+          "x": 7,
+          "xp": 12,
+          "y": 5
+        },
+        {
+          "hp": 36,
+          "id": "Poacher-9",
+          "max_hp": 36,
+          "moves": 0,
+          "side": 2,
+          "type": "Poacher",
+          "x": 3,
+          "xp": 11,
+          "y": 6
+        }
+      ],
+      "villages": [
+        [
+          3,
+          5,
+          0
+        ],
+        [
+          5,
+          7,
+          0
+        ],
+        [
+          8,
+          4,
+          2
+        ],
+        [
+          8,
+          7,
+          2
+        ],
+        [
+          8,
+          10,
+          1
+        ],
+        [
+          11,
+          7,
+          1
+        ],
+        [
+          13,
+          5,
+          0
+        ]
+      ]
+    },
+    {
+      "gold": [
+        14,
+        3
+      ],
+      "side": 2,
+      "turn": 5,
+      "units": [
+        {
+          "hp": 4,
+          "id": "Dwarvish Fighter-13",
+          "max_hp": 38,
+          "moves": 5,
+          "side": 2,
+          "type": "Dwarvish Fighter",
+          "x": 9,
+          "xp": 4,
+          "y": 5
+        },
+        {
+          "hp": 7,
+          "id": "Dwarvish Guardsman-11",
+          "max_hp": 40,
+          "moves": 5,
+          "side": 2,
+          "type": "Dwarvish Guardsman",
+          "x": 4,
+          "xp": 6,
+          "y": 7
+        },
+        {
+          "hp": 54,
+          "id": "Dwarvish Steelclad-2",
+          "max_hp": 54,
+          "moves": 0,
+          "side": 2,
+          "type": "Dwarvish Steelclad",
+          "x": 13,
+          "xp": 13,
+          "y": 7
+        },
+        {
+          "hp": 23,
+          "id": "Dwarvish Ulfserker-12",
+          "max_hp": 37,
+          "moves": 6,
+          "side": 2,
+          "type": "Dwarvish Ulfserker",
+          "x": 8,
+          "xp": 16,
+          "y": 7
+        },
+        {
+          "hp": 2,
+          "id": "Poacher-10",
+          "max_hp": 39,
+          "moves": 0,
+          "side": 2,
+          "type": "Poacher",
+          "x": 4,
+          "xp": 6,
+          "y": 6
+        },
+        {
+          "hp": 22,
+          "id": "Poacher-8",
+          "max_hp": 36,
+          "moves": 0,
+          "side": 2,
+          "type": "Poacher",
+          "x": 2,
+          "xp": 12,
+          "y": 6
+        },
+        {
+          "hp": 21,
+          "id": "Poacher-9",
+          "max_hp": 36,
+          "moves": 0,
+          "side": 2,
+          "type": "Poacher",
+          "x": 3,
+          "xp": 13,
+          "y": 6
+        }
+      ],
+      "villages": [
+        [
+          3,
+          5,
+          0
+        ],
+        [
+          5,
+          7,
+          0
+        ],
+        [
+          8,
+          4,
+          2
+        ],
+        [
+          8,
+          7,
+          2
+        ],
+        [
+          8,
+          10,
+          1
+        ],
+        [
+          11,
+          7,
+          1
+        ],
+        [
+          13,
+          5,
+          0
+        ]
+      ]
+    }
+  ]
+}

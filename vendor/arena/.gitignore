@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+submissions/
+replays/
+smoke_results/
+tournament_results/
+*.log

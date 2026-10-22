@@ -1,0 +1,53 @@
+# Python environment and package caches (setup.sh, learning/common.py)
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.cache/
+.runtime/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+.hypothesis/
+.tox/
+.nox/
+.ipynb_checkpoints/
+
+# Rust/maturin build output (engine_lite: `maturin develop --release`)
+engine_lite/target/
+
+# Run and test artifacts (run.sh, learning runs, remote CPU/GPU boxes)
+runs/
+tmp/
+verification/
+delivery/
+.ops/
+releases/
+*.log
+
+# Machine-local state, never source
+# .ssh/ already self-ignores with `*`; repeated here so its plaintext
+# server credentials and known_hosts stay untracked even if that file goes.
+.ssh/
+# Local agent-tool scheduler state and code graph index.
+.pi/
+.codegraph/
+
+# Large rule packages: captured unit/terrain tables, catalogs and native
+# captures. Provisioned per docs/instructions.md; not part of the source tree.
+rules/
+
+# Captured data, not source: raw replay dumps pulled from the Steam install,
+# curated 1.18.8 replays used for BC, and third-party source excerpts.
+humanData/
+humanData_curated/
+datasets/human/*.jsonl
+datasets/human/*.csv
+
+# Third-party sources (Wesnoth-AI clone, upstream 1.18.8 excerpts).
+references/

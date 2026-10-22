@@ -1,0 +1,138 @@
+"""Frozen schedules; official baseline participates in every 2v2 role."""
+from itertools import combinations
+from pathlib import Path
+import random
+from .common import write_json, read_json, sha256
+from .formats import FORMATS, PLAYERS, TEAM2V2
+import params
+from .maps import decorate
+
+
+def factions(block, players):
+    return [params.FACTIONS[(block*players+i)%6] for i in range(players)]
+
+
+def base_job(directory, ident, bots, seed, deadline, wesnoth, block=0, format_name=None):
+    return dict(id=ident, bots=bots, seed=seed & 0xffffffff,
+                factions=factions(block,len(bots)), max_turns=30, deadline=deadline,
+                wesnoth=wesnoth, output=str(Path(directory)/'replays'/(ident+'.json')),
+                teams=TEAM2V2 if format_name=='team2v2' else None)
+
+
+def evaluation_jobs(directory, policy, control, fixed, blocks, seed, deadline, wesnoth,
+                    label='selected', formats=FORMATS, team_contexts=('baseline_partner','self_team'),faction_cycle=0):
+    """A block contains full seat rotations; 2v2 includes two teammate contexts."""
+    jobs=[]
+    rng=random.Random(seed)
+    for fmt in formats:
+        n=PLAYERS[fmt]
+        for block in range(blocks):
+            contexts=team_contexts if fmt=='team2v2' else ('solo',)
+            for context in contexts:
+                if fmt=='team2v2':
+                    partner=('baseline' if context=='baseline_partner' and 'baseline' in fixed
+                             else next((p for p in fixed if p!='baseline'),None))
+                    if context=='astra_partner' and partner is None: raise ValueError('Astra partner missing')
+                    external=context in ('baseline_partner','astra_partner')
+                    seats=[policy,control,partner,partner] if external else [policy,control,policy,control]
+                    roles=['policy','control','partner','partner'] if external else ['policy','control','policy','control']
+                else:
+                    seats=[policy,control]+[rng.choice(fixed) for _ in range(n-2)]
+                    roles=['policy','control']+['field']*(n-2)
+                block_seed=rng.randrange(2**32)
+                for rotation in range(n):
+                    bots=seats[rotation:]+seats[:rotation]
+                    rotated=roles[rotation:]+roles[:rotation]
+                    ident=f'{label}-{fmt}-b{block:04}-{context}-r{rotation}'
+                    job=base_job(directory,ident,bots,block_seed,deadline,wesnoth,block+faction_cycle,fmt)
+                    job['meta']=dict(format=fmt,block=block,rotation=rotation,context=context,
+                        label=label,policy=policy,control=control,faction_cycle=faction_cycle,
+                        policy_sides=[i for i,r in enumerate(rotated,1) if r=='policy'],
+                        control_sides=[i for i,r in enumerate(rotated,1) if r=='control'])
+                    decorate(job,fmt,block,'final' if label.startswith('final-') else 'validation')
+                    jobs.append(job)
+    # Interleave formats and blocks so the deadline cannot systematically starve FFA8/2v2.
+    return sorted(jobs,key=lambda j:(j['meta']['block'],j['meta']['rotation'],FORMATS.index(j['meta']['format']),j['meta']['context']))
+
+
+def calibration_jobs(directory, fixed, blocks, seed, deadline, wesnoth, formats=FORMATS):
+    jobs=[]
+    for pair,(a,b) in enumerate(combinations(fixed,2)):
+        jobs.extend(evaluation_jobs(directory,a,b,fixed,blocks,seed+pair*100003,
+                                     deadline,wesnoth,label=f'cal{pair:02}',formats=formats))
+    return jobs
+
+
+def teacher_jobs(directory, teachers, fixed, support, batch_index, seed, deadline, wesnoth, formats=FORMATS,count=1,index_stride=None):
+    jobs=[]
+    rng=random.Random(seed+batch_index)
+    if len(teachers)!=1 or Path(teachers[0]).stem!='gpt6astra': raise ValueError('only Astra may provide teacher actions')
+    for fmt in formats:
+        n=PLAYERS[fmt]
+        for game in range(count):
+            i=batch_index*(index_stride or count)+game
+            teacher=teachers[0]
+            bots=[teacher]+[rng.choice(fixed) for _ in range(n-1)]
+            if fmt=='team2v2':
+                bots[2]='baseline'  # The focal teacher must learn in a team with official RCA.
+            rotation=i%n
+            bots=bots[rotation:]+bots[:rotation]
+            side=(n-rotation)%n+1
+            ident=f'teacher-{i:05}-{fmt}-t0'
+            job=base_job(directory,ident,bots,rng.randrange(2**32),deadline,wesnoth,i,fmt)
+            job.update(shard=str(Path(directory)/'data'/(ident+'.jsonl.gz')),
+                       # Collector work is training instrumentation. Formal evaluation keeps 1/10 s.
+                       timeout=10,learning=dict(support=support,sides={str(side):dict(teacher=Path(teacher).stem,version='teacher-frozen')}),
+                       meta=dict(format=fmt,teacher=teacher,seat=side,phase='teacher'))
+            decorate(job,fmt,i,'train')
+            jobs.append(job)
+    return jobs
+
+
+def rollout_jobs(directory, policy, history, fixed, support, version, batch_index, seed,
+                 deadline, wesnoth, games_per_format=4, current=None, formats=FORMATS):
+    jobs=[]
+    rng=random.Random(seed+batch_index*1009)
+    current=current or policy
+    slot=batch_index*sum((PLAYERS[f]-(2 if f=='team2v2' else 1))*games_per_format for f in formats)
+    for fmt in formats:
+        n=PLAYERS[fmt]
+        baseline='baseline' if 'baseline' in fixed else (fixed[0] if fixed else current)
+        teammates=[p for p in fixed if p!='baseline'] or [baseline]
+        for game in range(games_per_format):
+            bots=[policy];composition=[]
+            for enemy_slot in range(n-1):
+                if fmt=='team2v2' and enemy_slot==1:
+                    bots.append(baseline);composition.append(dict(role='teammate',path=baseline))
+                    continue
+                kind=('fixed','fixed','history','current')[slot%4];slot+=1
+                path=rng.choice(fixed) if kind=='fixed' else rng.choice(history) if kind=='history' else current
+                bots.append(path);composition.append(dict(role=kind,path=path))
+            if fmt=='team2v2':
+                # Exact 4-game teammate cycle: RCA, fixed teacher, current, current.
+                teammate=(baseline,rng.choice(teammates),current,current)[game%4]
+                bots[2]=teammate
+                composition[1]=dict(role='teammate',path=teammate)
+            rotation=(batch_index+game)%n
+            bots=bots[rotation:]+bots[:rotation]
+            learner_side=(n-rotation)%n+1
+            ident=f'rollout-{batch_index:05}-{fmt}-g{game}'
+            job=base_job(directory,ident,bots,rng.randrange(2**32),deadline,wesnoth,batch_index+game,fmt)
+            job.update(shard=str(Path(directory)/'data'/(ident+'.jsonl.gz')),
+                       learning=dict(support=support,sides={str(learner_side):dict(teacher=False,version=version,sampling_seed=job['seed']%2147483646+1)}),
+                       meta=dict(format=fmt,phase='ppo',version=version,seat=learner_side,composition=composition))
+            decorate(job,fmt,batch_index*games_per_format+game,'train')
+            jobs.append(job)
+    # All jobs keep their policy and history paths fixed until the batch completes.
+    return jobs
+
+
+def freeze_schedule(path, jobs):
+    path=Path(path)
+    if path.exists():
+        existing=read_json(path)
+        if existing!=jobs:
+            raise ValueError('refusing to alter an existing frozen schedule: '+str(path))
+    else:
+        write_json(path,jobs)
+    return sha256(path)
