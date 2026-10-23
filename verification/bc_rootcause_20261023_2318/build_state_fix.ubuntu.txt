@@ -1,0 +1,17 @@
+🐍 Found CPython 3.12 at /home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/.venv/bin/python
+🔗 Found pyo3 bindings
+📡 Using build options features from pyproject.toml
+   Compiling wesnoth-learning-lite v0.1.0 (/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/engine_lite)
+    Finished `release` profile [optimized] target(s) in 3.38s
+📦 Built wheel for CPython 3.12 to /tmp/.tmpZvUEIO/wesnoth_learning_lite-0.1.0-cp312-cp312-linux_x86_64.whl
+✏️ Setting installed package as editable
+🛠 Installed wesnoth-learning-lite-0.1.0
+test_adapter_reset_reuses_configured_host_once (tests.v5.test_teacher_state_reuse.TeacherStateReuseTests.test_adapter_reset_reuses_configured_host_once) ... ok
+test_teacher_query_survives_json_snapshot_round_trip (tests.v5.test_teacher_state_reuse.TeacherStateReuseTests.test_teacher_query_survives_json_snapshot_round_trip) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.142s
+
+OK
+
+EXIT 0

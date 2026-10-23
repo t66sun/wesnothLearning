@@ -1,0 +1,46 @@
+{
+  "training": {
+    "updates": 120,
+    "loss": 4.22524819821364,
+    "interrupted": false,
+    "approx_kl": 0.0,
+    "kl_stopped": false,
+    "decisions_seen": 24590,
+    "unique_families_seen": 2,
+    "effective_dataset_passes": 34.01106500691563,
+    "sequence_windows": 16,
+    "microbatch": 32
+  },
+  "development_quality": {
+    "effective": false,
+    "formats": {
+      "ffa4": {
+        "samples": 724,
+        "cross_entropy": 2.4136216864401465,
+        "uniform_entropy": 4.482836535712618,
+        "kinds": {
+          "recruit": {
+            "samples": 105,
+            "correct": 25,
+            "accuracy": 0.23809523809523808
+          },
+          "move": {
+            "samples": 268,
+            "correct": 79,
+            "accuracy": 0.2947761194029851
+          },
+          "attack": {
+            "samples": 262,
+            "correct": 56,
+            "accuracy": 0.21374045801526717
+          }
+        },
+        "accuracy": 0.30386740331491713,
+        "uniform_accuracy": 0.0135347702022052,
+        "effective": false
+      }
+    }
+  },
+  "objective": "exact CE + original auxiliary/10 + hinge(1 + max wrong logit - teacher logit)",
+  "seconds": 166.59006046300055
+}

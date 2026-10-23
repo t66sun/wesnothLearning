@@ -9,7 +9,10 @@ local view, units, by_id, legal, last_candidates
 local function copy(t)
     if type(t)~='table' then return t end
     local o={};for k,v in pairs(t) do o[k]=copy(v) end
-    return setmetatable(o,getmetatable(t))
+    local meta=getmetatable(t)
+    -- Restored JSON arrays may expose a protected boolean metatable.
+    -- Keep actual unit methods; plain copied data needs no such marker.
+    return type(meta)=='table' and setmetatable(o,meta) or o
 end
 local function position(x,y)
     if type(x)=='table' then x,y=x.x or x[1],x.y or x[2] end

@@ -1,0 +1,90 @@
+[
+  {
+    "id": "fix-ffa4-validation-0",
+    "format": "ffa4",
+    "split": "validation",
+    "map": "clash",
+    "map_sha256": "c21f9257647f99ac07b2152d7679f72ebce2ef43bf00cb444f235a35c6ae3e90",
+    "factions": [
+      "Rebels",
+      "Undead",
+      "Drakes",
+      "Knalgan Alliance"
+    ],
+    "teams": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "seed": 202710233,
+    "game_family": "50837296b2749c70e02e28088e0085f92fe92bed484a1637fc2c79c8ce8017c8",
+    "max_turns": 12
+  },
+  {
+    "id": "fix-ffa4-validation-1",
+    "format": "ffa4",
+    "split": "validation",
+    "map": "isars_cross",
+    "map_sha256": "46a2bc39ca9818605cf3a9a489083d789d945ca08d0b9fa26a229857922db8a6",
+    "factions": [
+      "Loyalists",
+      "Northerners",
+      "Rebels",
+      "Undead"
+    ],
+    "teams": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "seed": 202710232,
+    "game_family": "9baeaccad27e16c5cf0fc7826b574e5dda8e53e743a31b720712dac540ac313a",
+    "max_turns": 12
+  },
+  {
+    "id": "fix-team2v2-validation-0",
+    "format": "team2v2",
+    "split": "validation",
+    "map": "clash",
+    "map_sha256": "c21f9257647f99ac07b2152d7679f72ebce2ef43bf00cb444f235a35c6ae3e90",
+    "factions": [
+      "Rebels",
+      "Undead",
+      "Drakes",
+      "Knalgan Alliance"
+    ],
+    "teams": [
+      1,
+      2,
+      1,
+      2
+    ],
+    "seed": 202710231,
+    "game_family": "0d767d952a4b0eee010b567e3a4211dac7b6b6f3bc591f4987e8b50fb13c942b",
+    "max_turns": 12
+  },
+  {
+    "id": "fix-team2v2-validation-1",
+    "format": "team2v2",
+    "split": "validation",
+    "map": "isars_cross",
+    "map_sha256": "46a2bc39ca9818605cf3a9a489083d789d945ca08d0b9fa26a229857922db8a6",
+    "factions": [
+      "Loyalists",
+      "Northerners",
+      "Rebels",
+      "Undead"
+    ],
+    "teams": [
+      1,
+      2,
+      1,
+      2
+    ],
+    "seed": 202710234,
+    "game_family": "815a3fda0c90f04a2231f07dbc958cc266bafaf68162006f37d53733d650ff04",
+    "max_turns": 12
+  }
+]

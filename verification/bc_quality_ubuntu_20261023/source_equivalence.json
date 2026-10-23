@@ -1,0 +1,127 @@
+{
+  "learning/experiment.py": {
+    "normalized_text_equal": true,
+    "local_raw_sha256": "989c6f4923a458724b1c547de26da29248ddaad91ca30a84e2fa5ea4cf5198fe",
+    "normalized_sha256": "989c6f4923a458724b1c547de26da29248ddaad91ca30a84e2fa5ea4cf5198fe"
+  },
+  "learning/phases.py": {
+    "normalized_text_equal": true,
+    "local_raw_sha256": "46c97412612d2219ef0f3b1eb2658619ccb116ca25cf7e6bb09d6f94c92b2715",
+    "normalized_sha256": "46c97412612d2219ef0f3b1eb2658619ccb116ca25cf7e6bb09d6f94c92b2715"
+  },
+  "learning/features.py": {
+    "normalized_text_equal": true,
+    "local_raw_sha256": "23fb185dbb13e449581ff110ad2556cd4836c143f5e45d6a6af3f54d1272f47e",
+    "normalized_sha256": "23fb185dbb13e449581ff110ad2556cd4836c143f5e45d6a6af3f54d1272f47e"
+  },
+  "learning/reward_metrics.py": {
+    "normalized_text_equal": true,
+    "local_raw_sha256": "2aafe1b3480298ec65d4a6e82779ef67384f3c7b13538b64294d87847e86fd3f",
+    "normalized_sha256": "2aafe1b3480298ec65d4a6e82779ef67384f3c7b13538b64294d87847e86fd3f"
+  },
+  "learning/control.py": {
+    "normalized_text_equal": true,
+    "local_raw_sha256": "31ec73be29b73188ab53bd60678a0189f01576e195d727be128201667d48d6d6",
+    "normalized_sha256": "31ec73be29b73188ab53bd60678a0189f01576e195d727be128201667d48d6d6"
+  },
+  "learning/coordinator.py": {
+    "normalized_text_equal": true,
+    "local_raw_sha256": "7c2cc2fcec74aba82b8cf2a7815e03e9b8e93ead311a1bdd65a7184ee1638b7f",
+    "normalized_sha256": "7c2cc2fcec74aba82b8cf2a7815e03e9b8e93ead311a1bdd65a7184ee1638b7f"
+  },
+  "learning/__main__.py": {
+    "normalized_text_equal": true,
+    "local_raw_sha256": "14ac1c71c2a8006cb6fc13aa672604b69a70c83029d64291c95534f1bed26ff4",
+    "normalized_sha256": "14ac1c71c2a8006cb6fc13aa672604b69a70c83029d64291c95534f1bed26ff4"
+  },
+  "learning/lite_host.py": {
+    "normalized_text_equal": true,
+    "local_raw_sha256": "ade231d3f1e7bddc5036eb471a86b6d851d13adabfbd115a94d7326f9c2ec023",
+    "normalized_sha256": "ade231d3f1e7bddc5036eb471a86b6d851d13adabfbd115a94d7326f9c2ec023"
+  },
+  "learning/sample.py": {
+    "normalized_text_equal": true,
+    "local_raw_sha256": "ec00cd1948dab5ab9b315cd62a7fb99193479046cf118ca7b574ec34df282ab2",
+    "normalized_sha256": "ec00cd1948dab5ab9b315cd62a7fb99193479046cf118ca7b574ec34df282ab2"
+  },
+  "learning/collector.lua": {
+    "normalized_text_equal": true,
+    "local_raw_sha256": "e3b09c94810dcbf2423edbf3108557da6836f8d8bb0341c12ae4a2de0115b4de",
+    "normalized_sha256": "e3b09c94810dcbf2423edbf3108557da6836f8d8bb0341c12ae4a2de0115b4de"
+  },
+  "lua/candidates.lua": {
+    "normalized_text_equal": true,
+    "local_raw_sha256": "dee48dc961e90d01ce080bf612e7680dd1b1e8e14c689af3a97a3b6fce0a8680",
+    "normalized_sha256": "dee48dc961e90d01ce080bf612e7680dd1b1e8e14c689af3a97a3b6fce0a8680"
+  },
+  "lua/bot.lua": {
+    "normalized_text_equal": true,
+    "local_raw_sha256": "6255096cd9a986da5c730eee2c9a0428bf04af14dcafd1a01781d550ea7d6b60",
+    "normalized_sha256": "6255096cd9a986da5c730eee2c9a0428bf04af14dcafd1a01781d550ea7d6b60"
+  },
+  "lua/spatial.lua": {
+    "normalized_text_equal": true,
+    "local_raw_sha256": "7710081635052802aff1b2cfcf8300a41212e147e5bdfc7eed4f1f4910f2287f",
+    "normalized_sha256": "7710081635052802aff1b2cfcf8300a41212e147e5bdfc7eed4f1f4910f2287f"
+  },
+  "engine_lite/lua/host.lua": {
+    "normalized_text_equal": true,
+    "local_raw_sha256": "11186057410569c9463fa0a492e6ebb37b7bbdf1359a4e18e792210ef5883236",
+    "normalized_sha256": "11186057410569c9463fa0a492e6ebb37b7bbdf1359a4e18e792210ef5883236"
+  },
+  "vendor/arena/runtime/runtime.lua": {
+    "normalized_text_equal": true,
+    "local_raw_sha256": "afcb489592a750e58c5dd7e57ce0dfdcf60750d9dba89c7898a07a1d23075a97",
+    "normalized_sha256": "afcb489592a750e58c5dd7e57ce0dfdcf60750d9dba89c7898a07a1d23075a97"
+  },
+  "learning/train.py": {
+    "normalized_text_equal": true,
+    "local_raw_sha256": "ac720803686707ea1100c055c2a7215a6c86a010a27a2efa918853238b8e44ce",
+    "normalized_sha256": "7a534e611023749da32ac039116761798b53de65209f013e1351d3df4e336249"
+  },
+  "learning/model.py": {
+    "normalized_text_equal": true,
+    "local_raw_sha256": "b6012e2e6483d1b47b5a7903ba9c762e5a36e3abe7fc0371d57061af09033718",
+    "normalized_sha256": "49bbb68f3a471006bdfa2e9d43e4c44a492be984dad99a1687a94615e3a49773"
+  },
+  "learning/data.py": {
+    "normalized_text_equal": true,
+    "local_raw_sha256": "9d65eed8687b4813880de0235cc02044d590b4827b130afc52826f60e60e5d2d",
+    "normalized_sha256": "9d65eed8687b4813880de0235cc02044d590b4827b130afc52826f60e60e5d2d"
+  },
+  "learning/sequences.py": {
+    "normalized_text_equal": true,
+    "local_raw_sha256": "614f7b83dc4f35629f7f927b91b56e17df7247e191c92248c0d668083e0e7cb9",
+    "normalized_sha256": "614f7b83dc4f35629f7f927b91b56e17df7247e191c92248c0d668083e0e7cb9"
+  },
+  "learning/rowpack.py": {
+    "normalized_text_equal": true,
+    "local_raw_sha256": "b4cc5364209c843f60069141697353e7af126a16a2bbddfd91aa203f2651f283",
+    "normalized_sha256": "a3e5afa5267678a5456b8a37f1119306dfdca7f9c9f560bb6a0c496925124465"
+  },
+  "learning/lite_policy.py": {
+    "normalized_text_equal": true,
+    "local_raw_sha256": "67577b83be762783be0eafbd4782f3612dba1ca7d137280237ceab3dcd212b6e",
+    "normalized_sha256": "03423d11b8c731be7132b99c52c593f7779d1beb22012b21616856e4540f18b6"
+  },
+  "learning/maps.py": {
+    "normalized_text_equal": true,
+    "local_raw_sha256": "85f9cff8fc6399955d19aeb24679bc397d890501729d2e723222a7170ee1a090",
+    "normalized_sha256": "85f9cff8fc6399955d19aeb24679bc397d890501729d2e723222a7170ee1a090"
+  },
+  "lua/observation.lua": {
+    "normalized_text_equal": true,
+    "local_raw_sha256": "8d9ffa002cb89b2dce7407df7b7d8cc4cbcac18fc70016f6bb1a1732a77b5cba",
+    "normalized_sha256": "8d9ffa002cb89b2dce7407df7b7d8cc4cbcac18fc70016f6bb1a1732a77b5cba"
+  },
+  "lua/relational.lua": {
+    "normalized_text_equal": true,
+    "local_raw_sha256": "8c663d8d795125d1df9eb001f95f4204a0a75326908cf304e8b8243c7cc59930",
+    "normalized_sha256": "8c663d8d795125d1df9eb001f95f4204a0a75326908cf304e8b8243c7cc59930"
+  },
+  "lua/network.lua": {
+    "normalized_text_equal": true,
+    "local_raw_sha256": "5d076ec82f572f151d419c21b6e740d27feba2fb9f4c05762e4bd5b2f958aa92",
+    "normalized_sha256": "5d076ec82f572f151d419c21b6e740d27feba2fb9f4c05762e4bd5b2f958aa92"
+  }
+}

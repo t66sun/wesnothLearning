@@ -1,0 +1,6 @@
+TRADE_PROBE 40 56.6
+TRADE_PROBE 80 111.6
+TRADE_PROBE 120 165.9
+TRADE_PROBE_DONE {"effective": false, "formats": {"ffa4": {"samples": 724, "cross_entropy": 2.265899626589612, "uniform_entropy": 4.482836535712618, "kinds": {"recruit": {"samples": 105, "correct": 29, "accuracy": 0.2761904761904762}, "move": {"samples": 268, "correct": 81, "accuracy": 0.30223880597014924}, "attack": {"samples": 262, "correct": 66, "accuracy": 0.25190839694656486}}, "accuracy": 0.3328729281767956, "uniform_accuracy": 0.0135347702022052, "effective": false}}}
+
+EXIT 0

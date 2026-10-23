@@ -1,0 +1,57 @@
+{
+  "additional_train": [
+    {
+      "id": "extra-ffa4-train-0",
+      "format": "ffa4",
+      "game_family": "965ce307d5f8b0d000d290ab07c5a31683c32577be555fddc2bfb18db6cca690",
+      "split": "train",
+      "seed": 202810230,
+      "factions": [
+        "Loyalists",
+        "Northerners",
+        "Rebels",
+        "Undead"
+      ],
+      "teams": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "map": "clash",
+      "map_sha256": "c21f9257647f99ac07b2152d7679f72ebce2ef43bf00cb444f235a35c6ae3e90",
+      "max_turns": 12
+    },
+    {
+      "id": "extra-ffa4-train-1",
+      "format": "ffa4",
+      "game_family": "5a3eb960282c58b96fca2f5524413605a0e313f448d40ed64be941d86f49ad38",
+      "split": "train",
+      "seed": 202810230,
+      "factions": [
+        "Drakes",
+        "Knalgan Alliance",
+        "Loyalists",
+        "Northerners"
+      ],
+      "teams": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "map": "isars_cross",
+      "map_sha256": "46a2bc39ca9818605cf3a9a489083d789d945ca08d0b9fa26a229857922db8a6",
+      "max_turns": 12
+    }
+  ],
+  "updates_per_arm": 120,
+  "lr": 0.0003,
+  "seed": 99,
+  "arms": [
+    "normal",
+    "zeroed"
+  ],
+  "selection": "fixed final update only",
+  "fresh_holdout": "original predeclared plan, unused unless normal development movement >=35%"
+}

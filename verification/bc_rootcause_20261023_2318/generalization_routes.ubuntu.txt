@@ -1,0 +1,7 @@
+DECISION_DRAWS 40 87.6
+DECISION_DRAWS 80 175.2
+GENERALIZATION_DONE context_dropout {"effective": false, "formats": {"ffa4": {"samples": 724, "cross_entropy": 2.409111660488403, "uniform_entropy": 4.482836535712618, "kinds": {"recruit": {"samples": 105, "correct": 30, "accuracy": 0.2857142857142857}, "move": {"samples": 268, "correct": 77, "accuracy": 0.2873134328358209}, "attack": {"samples": 262, "correct": 51, "accuracy": 0.1946564885496183}}, "accuracy": 0.3052486187845304, "uniform_accuracy": 0.0135347702022052, "effective": false}}}
+DECISION_DRAWS 120 256.3
+GENERALIZATION_DONE decision_draws {"effective": false, "formats": {"ffa4": {"samples": 724, "cross_entropy": 2.3999019275054088, "uniform_entropy": 4.482836535712618, "kinds": {"recruit": {"samples": 105, "correct": 32, "accuracy": 0.3047619047619048}, "move": {"samples": 268, "correct": 82, "accuracy": 0.30597014925373134}, "attack": {"samples": 262, "correct": 56, "accuracy": 0.21374045801526717}}, "accuracy": 0.32044198895027626, "uniform_accuracy": 0.0135347702022052, "effective": false}}}
+
+EXIT 0

@@ -54,7 +54,7 @@ export SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy
 
 2026-10-22 的按座位候选优化新增了 Rust 扩展的决策参数；使用新源码前需在对应虚拟环境重新编译 `_engine_lite`，不能只复制 Python/Lua 文件。该修改及 300/600/400、8 workers 默认值已于 2026-10-22 在 Ubuntu 通过 T1–T4 受限验收（含 8 worker 真实链路、峰值 PSS 4.02 GiB），结论与证据见 architecture.md 第 8 节和 `verification/pretrain_acceptance_20261022/`；启动正式训练仍需用户后续明确指令。
 
-2026-10-23 当前实现为 schema 5 / 候选 v3。Ubuntu 隔离目录 `/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022` 已完成阶段接入与恢复的最小验收，使用其 `.venv/bin/python`（共享已安装依赖，拥有自己的新编译扩展）。若主目录尚未同步修复，使用该隔离目录核验入口或先部署已验收源码并重编对应环境；部署记录见修复报告。Rust 用 `include_str!` 嵌入 `engine_lite/lua/host.lua`，只复制 Lua 不会更新已安装扩展。原 20 小时正式实验已失败结束，旧 schema 4/v2 检查点只能使用原匹配源码；新旧语料/检查点不混用。T5 只余受限质量证据，真实 BC 门仍照常执行。
+2026-10-23 当前实现为 schema 5 / 候选 v3。Ubuntu 隔离目录 `/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022` 已完成阶段接入与恢复的最小验收，使用其 `.venv/bin/python`（共享已安装依赖，拥有自己的新编译扩展）。若主目录尚未同步修复，使用该隔离目录核验入口或先部署已验收源码并重编对应环境；部署记录见修复报告。Rust 用 `include_str!` 嵌入 `engine_lite/lua/host.lua`，只复制 Lua 不会更新已安装扩展。原 20 小时正式实验已失败结束，旧 schema 4/v2 检查点只能使用原匹配源码；新旧语料/检查点不混用。受限移动质量验收已归档至 [后续报告](../verification/bc_rootcause_20261023_2318/REPORT.md)；正式 BC 全部门仍照常执行。
 
 ## 3. 启动前核对实际可运行范围
 
