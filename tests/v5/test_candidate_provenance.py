@@ -99,7 +99,7 @@ class CandidateProvenanceTests(unittest.TestCase):
         value.update(overrides)
         return value
 
-    def test_unrecorded_teacher_seat_derives_v1_while_collected_rows_are_v2(self):
+    def test_unrecorded_teacher_uses_fallback_and_collected_rows_are_v3(self):
         job = self.job()
         calls = []
         with mock.patch.object(LiteHost, 'decision', _spy(calls)):
@@ -111,10 +111,15 @@ class CandidateProvenanceTests(unittest.TestCase):
         self.assertEqual({row['side'] for row in rows}, {1})
         self.assertEqual({row['candidate_version'] for row in rows},
                          {'schema5-fixed-20000-v3'})
-        collected = [call for call in calls if call['side'] == 1]
-        unrecorded = [call for call in calls if call['side'] != 1]
+        diagnostic = [call for call in calls if not call['teacher'] and not call['generate_candidates']]
+        collected = [call for call in calls if call['side'] == 1 and call['generate_candidates']]
+        unrecorded = [call for call in calls if call['teacher']]
         self.assertTrue(collected, calls)
         self.assertTrue(unrecorded, calls)
+        self.assertTrue(diagnostic, calls)
+        self.assertEqual(len(calls), len(collected)+len(unrecorded)+len(diagnostic))
+        self.assertTrue(all(call['side']==1 and 'budget' not in call['timing'] for call in diagnostic))
+        self.assertTrue(all('metric_event' not in row for row in rows))
         for call in unrecorded:
             self.assertTrue(call['teacher'], call)
             self.assertFalse(call['generate_candidates'], call)
@@ -133,8 +138,8 @@ class CandidateProvenanceTests(unittest.TestCase):
         helpers.validate(rows[0], 'duel')
         self.assertEqual(coverage['end_turn']['matched'], 1)
 
-    def test_human_capture_with_v2_budget_imports_as_v2(self):
-        path, row = _capture(self.directory, 'capture-v2.log',
+    def test_human_capture_with_v3_budget_imports_as_v3(self):
+        path, row = _capture(self.directory, 'capture-v3.log',
                              timing={'budget': 'fixed-20000-v3', 'truncated': False,
                                      'ms': 4, 'predictions': 0, 'work': 7})
         rows, _ = import_capture(path, row)

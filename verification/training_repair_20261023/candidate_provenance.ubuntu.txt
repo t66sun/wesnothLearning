@@ -1,0 +1,10 @@
+test_human_capture_with_v3_budget_imports_as_v3 (tests.v5.test_candidate_provenance.CandidateProvenanceTests.test_human_capture_with_v3_budget_imports_as_v3) ... ok
+test_human_capture_without_timing_keeps_v1_and_validates (tests.v5.test_candidate_provenance.CandidateProvenanceTests.test_human_capture_without_timing_keeps_v1_and_validates) ... ok
+test_unrecorded_teacher_uses_fallback_and_collected_rows_are_v3 (tests.v5.test_candidate_provenance.CandidateProvenanceTests.test_unrecorded_teacher_uses_fallback_and_collected_rows_are_v3) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.322s
+
+OK
+
+EXIT 0

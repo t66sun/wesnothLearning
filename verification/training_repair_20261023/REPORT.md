@@ -45,6 +45,8 @@ python -u - < smoke_cli_boundary.py
   Experiment: stage_complete / CLI_COORDINATOR_BOUNDARY_PASS / EXIT 0
 python -u - < check_real_opening_parity.py
   REAL_OPENING_PARITY_PASS / EXIT 0
+python -B -m unittest tests.v5.test_candidate_provenance -v
+  最终复核涉及的来源断言 / 3 tests / 0.322 s / OK
 ```
 
 71 项覆盖战术输入、真实 early-kill、终态统计、参考补采、故障边界、控制器、lite 采集/默认入口和验证调度。后续 7 项专门验证内部导出恢复、欠面板不晋升及阶段预算/切换/待训练批次语义。Windows 仅参考，不替代 Ubuntu 结果。
@@ -80,6 +82,8 @@ CLI/协调器另以极短 BC 预算实跑一个 trainer 进程，确认停止于
 首次真实恢复暴露内部导出 >16 MiB 被 SDK 拒绝，再暴露 JSON 列表/tuple schema 比较；分别修正后通过真实恢复和权重损坏反例。首次最终选择仍落在欠面板晋升的 BC best，修正为必须实际达到 12 块后，新的 `stage_outputs_v2/` 三族完整通过；旧 `stage_outputs/` 保留失败状态，没有改成新证据。
 
 开局辅助脚本起初漏了显式 allow_approximate，并直接携带 native-only baseline，分别被已有门禁拒绝；补回生产调度已有的 lite 参数/对手映射后继续，只重跑未通过项，duel/ffa4 已通过证据复用。上述为测试脚本接入错误，不放宽生产门禁。
+
+PR 复核补查发现旧来源测试把新增诊断观测也当作策略决策，导致 Windows 最小复现失败。更新断言区分诊断/策略/教师，明确诊断不生成完整候选且不进入 shard，三个受影响检查在 Ubuntu 通过（`candidate_provenance.ubuntu.txt`）；生产代码无需再改，已通过的真实阶段链路不重跑。
 
 ## 剩余验收和下一轮入口
 
