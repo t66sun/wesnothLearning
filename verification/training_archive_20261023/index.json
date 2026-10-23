@@ -1,0 +1,142 @@
+{
+  "created_at": "2026-10-23T13:22:21.755969+00:00",
+  "project": "/home/tongshu/myDev/wesnothLearning/WesnothLearning",
+  "archive_dir": "/home/tongshu/myDev/wesnothLearning/training_archives/20261023_212221",
+  "retained": [
+    "v5_lite20h_20261022_210712",
+    "v5_lite6000_replay_20261022_012336"
+  ],
+  "retained_critical_sha256": {
+    "runs/v5_lite20h_20261022_210712/clock.json": "d20ea59b07f645e7c674c779dbc79630dd79b675bfbd643f4b00ea1f43fe48c0",
+    "runs/v5_lite20h_20261022_210712/duel/bc_gate.json": "8fa0c3d86730a5aff03994950bb73de9b6b115e700de762c887ba9edacd46662",
+    "runs/v5_lite20h_20261022_210712/duel/last_bc.pt": "eb3fb28ef2370e03d51fc86b0d13bfc1c68a3db2b825ee6cafce01c0c4083277",
+    "runs/v5_lite20h_20261022_210712/duel/latest.pt": "31ba4efa5b380a943adc2bba0c19b2651c0d95a4769ac778235c0896850760ff",
+    "runs/v5_lite20h_20261022_210712/duel/selected.pt": "eb3fb28ef2370e03d51fc86b0d13bfc1c68a3db2b825ee6cafce01c0c4083277",
+    "runs/v5_lite20h_20261022_210712/duel/state.json": "182be5f39d3c66c36db967bb1daea24576eba91525cac4e7869a310136ae4437",
+    "runs/v5_lite20h_20261022_210712/ffa4/bc_gate.json": "94536eafb12897d8cc43049ce383b88682e8b586a5074439578cfe16b86904ad",
+    "runs/v5_lite20h_20261022_210712/ffa4/last_bc.pt": "acf476eb878830c5bd56e664897dfdf6ea6b1870a394d1131e0fcf104ab14bad",
+    "runs/v5_lite20h_20261022_210712/ffa4/latest.pt": "fbb50b667b8ee0bc0c51249ce1b9e4ff398942efdc3e1d8f7b04cf1d70061cb4",
+    "runs/v5_lite20h_20261022_210712/ffa4/selected.pt": "acf476eb878830c5bd56e664897dfdf6ea6b1870a394d1131e0fcf104ab14bad",
+    "runs/v5_lite20h_20261022_210712/ffa4/state.json": "8d296d37d56278d4803031ab1bbf49197ce0080fa2e17b35a9c6a850b40dd210",
+    "runs/v5_lite20h_20261022_210712/manifest.json": "b24465155b9011ce723cc946f0af99e01293c6bf3755609f014227fe28d1c7c1",
+    "runs/v5_lite20h_20261022_210712/summary.json": "d4655c3de55e282d4fb44e0d102c79e138c684323d0a662789a37924755d5e49",
+    "runs/v5_lite20h_20261022_210712/team2v2/bc_gate.json": "c347078e455a77a5515508a9e34cf73295eab1a0dbb25174ac65c663d02907f4",
+    "runs/v5_lite20h_20261022_210712/team2v2/last_bc.pt": "281afce4a57f1beb7327c8a75dff1778c1139a4dd869f3ebdf0440d312cab7fb",
+    "runs/v5_lite20h_20261022_210712/team2v2/latest.pt": "452c8415ef0553ae2306b591ed58b75380db4ea79479671f919fdf13f8ec4b62",
+    "runs/v5_lite20h_20261022_210712/team2v2/selected.pt": "281afce4a57f1beb7327c8a75dff1778c1139a4dd869f3ebdf0440d312cab7fb",
+    "runs/v5_lite20h_20261022_210712/team2v2/state.json": "d3ef18a204f7dc16e2a2c093ebc00664f513314e23d98ac1728b46aad04e7dfe",
+    "runs/v5_lite6000_replay_20261022_012336/clock.json": "4f5fc5131dc38d305c8f597c10cc579a858c63f1a6333f8ce17c3a1283806f3a",
+    "runs/v5_lite6000_replay_20261022_012336/duel/bc_gate.json": "e356ad32a21991c17fedce1a558cbc86dfb218bdf56bbfc09cadd42c372f347d",
+    "runs/v5_lite6000_replay_20261022_012336/duel/last_bc.pt": "47896e9029091f0b9c4de293e03f453777a0a4a9ea7494cb64677e6ccd0ca2bf",
+    "runs/v5_lite6000_replay_20261022_012336/duel/latest.pt": "dd4073e520a76c03e0301af4b351efbdef8bc202036593f95371c9ac8e51ddb8",
+    "runs/v5_lite6000_replay_20261022_012336/duel/state.json": "efae1d404492ebb174be043c4fe447e83e74c9f29eb5a229e46c81bff0ac8a61",
+    "runs/v5_lite6000_replay_20261022_012336/ffa4/bc_gate.json": "182a2db8678b81bd0ec72d96fdc003fe4abc85348f52cf68c81c6386770c4771",
+    "runs/v5_lite6000_replay_20261022_012336/ffa4/last_bc.pt": "d0f58aa0c26b20ac0d3fcd3f7212964fdcf72553d709f7e1799a317131d4c86e",
+    "runs/v5_lite6000_replay_20261022_012336/ffa4/latest.pt": "413e9e878ca97689c93509d773c272d0b70fa714881ad0db1d2a0d7695c57bd0",
+    "runs/v5_lite6000_replay_20261022_012336/ffa4/state.json": "8eff613c9a0ee5db914f1b4f90efe96f502faae0edd87df96c7ba64001ae077b",
+    "runs/v5_lite6000_replay_20261022_012336/manifest.json": "63d5cf92d5487dd20f0a391f0648319b5d95ff11321f1cc8a8e25156a0396dcc",
+    "runs/v5_lite6000_replay_20261022_012336/team2v2/bc_gate.json": "99493cc609a9d5b8adf569e1757d4153d5e49cd407e1fdb81ecbc489ede4fcfa",
+    "runs/v5_lite6000_replay_20261022_012336/team2v2/last_bc.pt": "5305e5f8e06c0bd64faf0a70c4948794ed2a4a31948a18eaac64ebf4cabf8132",
+    "runs/v5_lite6000_replay_20261022_012336/team2v2/latest.pt": "ebaff00367f42c3d87dde993a44031a9e47c5ae29df0034c9ea81c4315bff2fc",
+    "runs/v5_lite6000_replay_20261022_012336/team2v2/state.json": "2f4255fee9eee548b27e1b60bffa6d241a10c7dc2bf7a4355af28d4f9ec792f8"
+  },
+  "free_bytes_before": 165408858112,
+  "archives": [
+    {
+      "name": "v5_20261021_203930",
+      "members": [
+        "runs/v5_20261021_203930",
+        "runs/logs/v5_20261021_203930.log"
+      ],
+      "archive": "/home/tongshu/myDev/wesnothLearning/training_archives/20261023_212221/v5_20261021_203930.tar.zst",
+      "sha256": "38504f973d9fd3a0b43af6223027cb4fcd514b9d6a23d0d97f57ba358e7fe01f",
+      "bytes": 712625645,
+      "source_allocated_bytes": 852070400,
+      "tar_compare_exit": 0,
+      "source_removed": true,
+      "seconds": 2.13
+    },
+    {
+      "name": "v5_20261022_000850",
+      "members": [
+        "runs/v5_20261022_000850",
+        "runs/logs/v5_20261022_000850.log"
+      ],
+      "archive": "/home/tongshu/myDev/wesnothLearning/training_archives/20261023_212221/v5_20261022_000850.tar.zst",
+      "sha256": "76fdcae1cd54592210e143c01cc480d96538fecf05db85be98a5f9db66c1c557",
+      "bytes": 1102219755,
+      "source_allocated_bytes": 1259192320,
+      "tar_compare_exit": 0,
+      "source_removed": true,
+      "seconds": 3.19
+    },
+    {
+      "name": "v5_lite6000_replay_20261022_011309",
+      "members": [
+        "runs/v5_lite6000_replay_20261022_011309",
+        "runs/logs/v5_lite6000_replay_20261022_011309.log"
+      ],
+      "archive": "/home/tongshu/myDev/wesnothLearning/training_archives/20261023_212221/v5_lite6000_replay_20261022_011309.tar.zst",
+      "sha256": "ecaa996ca31f0ef1d25b99f9ae1c6bfa62236179af8bd1730e4c6a08dca6c2d4",
+      "bytes": 118778619,
+      "source_allocated_bytes": 185090048,
+      "tar_compare_exit": 0,
+      "source_removed": true,
+      "seconds": 0.79
+    },
+    {
+      "name": "loopback_20261021_232345",
+      "members": [
+        "runs/loopback_20261021_232345"
+      ],
+      "archive": "/home/tongshu/myDev/wesnothLearning/training_archives/20261023_212221/loopback_20261021_232345.tar.zst",
+      "sha256": "d617cfbc9efb0e086b52a1af9365ad1393b2bb3df977dcfb7cf5adb04d65415b",
+      "bytes": 489112631,
+      "source_allocated_bytes": 683642880,
+      "tar_compare_exit": 0,
+      "source_removed": true,
+      "seconds": 2.54
+    },
+    {
+      "name": "bc_v4_cpu_72h_20261019",
+      "members": [
+        "releases/bc_v4_20261018/runs/bc_v4_cpu_72h_20261019",
+        "releases/bc_v4_20261018/.ops/bc_v4_cpu_72h_20261019.launch.json",
+        "releases/bc_v4_20261018/.ops/bc_v4_cpu_72h_20261019.log",
+        "releases/bc_v4_20261018/.ops/bc_v4_cpu_72h_20261019.stopped.json"
+      ],
+      "archive": "/home/tongshu/myDev/wesnothLearning/training_archives/20261023_212221/bc_v4_cpu_72h_20261019.tar.zst",
+      "sha256": "323c1f8fcac378546f265ba028678c65b44727cbe993e9faad7b4a9c0a2ba6a5",
+      "bytes": 9927686,
+      "source_allocated_bytes": 41652224,
+      "tar_compare_exit": 0,
+      "source_removed": true,
+      "seconds": 0.15
+    },
+    {
+      "name": "bc_v4_cpu_72h_w8_20261019",
+      "members": [
+        "releases/bc_v4_20261018/runs/bc_v4_cpu_72h_w8_20261019",
+        "releases/bc_v4_20261018/.ops/bc_v4_cpu_72h_w8_20261019.launch.json",
+        "releases/bc_v4_20261018/.ops/bc_v4_cpu_72h_w8_20261019.log",
+        "releases/bc_v4_20261018/.ops/bc_v4_cpu_72h_w8_20261019.startup.json",
+        "releases/bc_v4_20261018/.ops/bc_v4_cpu_72h_w8_20261019.user_stopped.json"
+      ],
+      "archive": "/home/tongshu/myDev/wesnothLearning/training_archives/20261023_212221/bc_v4_cpu_72h_w8_20261019.tar.zst",
+      "sha256": "38186d84194710ebe6f0a4fc3674d27eed6ffaffe34ec41e76128f76bf12b99f",
+      "bytes": 9706254536,
+      "source_allocated_bytes": 22858055680,
+      "tar_compare_exit": 0,
+      "source_removed": true,
+      "seconds": 178.43
+    }
+  ],
+  "status": "complete",
+  "free_bytes_after": 179149643776,
+  "retained_unchanged": true,
+  "net_free_bytes": 13740785664,
+  "remaining_main_runs": [
+    "v5_lite6000_replay_20261022_012336",
+    "v5_lite20h_20261022_210712"
+  ]
+}
