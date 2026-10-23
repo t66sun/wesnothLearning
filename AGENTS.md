@@ -18,6 +18,14 @@ After acceptance, archive commands, results, source/rule identities and limits i
 
 When `.codegraph/` exists, use `codegraph_explore` or `codegraph explore` before grep/code reads to locate symbols and trace callers; otherwise skip.
 
+## Git workflow
+
+Never commit directly to `master`; make every change, however small, on a branch. Each subagent works on its own branch and, when its task is done, opens a pull request with `gh pr create --repo t66sun/wesnothLearning --body-file`.
+
+Make sure that every change that actually matters is committed. Every commit needs to be carried along with specific description of what is changed.
+
+At the end of each phase the main agent collects the open pull requests, reviews and verifies them one at a time, merges each into `master`, then pushes `master` to GitHub.
+
 ## Issue tracker
 
 Requests/specs: GitHub Issues, `t66sun/wesnothLearning`. Use `gh ... --repo t66sun/wesnothLearning` or `gh api repos/t66sun/wesnothLearning/...`; fetch comments/labels and pass multiline bodies via `--body-file`. Publishing means an issue, not a PR.
