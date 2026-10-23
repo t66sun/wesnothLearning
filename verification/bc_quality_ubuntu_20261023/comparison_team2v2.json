@@ -1,0 +1,527 @@
+{
+  "format": "team2v2",
+  "features_version": 5,
+  "stats": {
+    "train": {
+      "families": 2,
+      "selected": 2,
+      "gz_bytes": 16163094,
+      "retained_bytes": 212322816,
+      "rows": 776
+    },
+    "validation": {
+      "families": 2,
+      "selected": 2,
+      "gz_bytes": 16599034,
+      "retained_bytes": 221025568,
+      "rows": 808
+    }
+  },
+  "families": {
+    "train": [
+      "19dea0bca7e68d18e8291f05c8f182564ec08cc87e1fe80d0b04171e7841f9f9",
+      "1a7958165f5d055aa051255ecad6ed5a496d8c1a4743bf8b4cad0cd842f2a36b"
+    ],
+    "validation": [
+      "8828f0a18bfb60df03390ea7f553a97f2eff968f3994c83275cd603b8cf79023",
+      "be0de457e7f0b6a409930db480534043323d8d30014e3687db20798df9b9bd54"
+    ]
+  },
+  "factions": {
+    "train": [
+      "Drakes",
+      "Knalgan Alliance",
+      "Loyalists",
+      "Northerners",
+      "Rebels",
+      "Undead"
+    ],
+    "validation": [
+      "Drakes",
+      "Knalgan Alliance",
+      "Loyalists",
+      "Northerners",
+      "Rebels",
+      "Undead"
+    ]
+  },
+  "coverage": {
+    "train": {
+      "all": {
+        "total": 781,
+        "matched": 776,
+        "ratio": 0.9935979513444302
+      },
+      "recruit": {
+        "total": 93,
+        "matched": 93,
+        "ratio": 1.0
+      },
+      "move": {
+        "total": 480,
+        "matched": 477,
+        "ratio": 0.99375
+      },
+      "attack": {
+        "total": 112,
+        "matched": 110,
+        "ratio": 0.9821428571428571
+      }
+    },
+    "validation": {
+      "all": {
+        "total": 812,
+        "matched": 808,
+        "ratio": 0.9950738916256158
+      },
+      "recruit": {
+        "total": 99,
+        "matched": 99,
+        "ratio": 1.0
+      },
+      "move": {
+        "total": 508,
+        "matched": 507,
+        "ratio": 0.9980314960629921
+      },
+      "attack": {
+        "total": 109,
+        "matched": 106,
+        "ratio": 0.9724770642201835
+      }
+    }
+  },
+  "shard_sha256": {
+    "t5-team2v2-train-0.jsonl.gz": "6dba3dd0204c06c398e94e1e22be1f7f4d3d0ab0318d3b0f0c4a6e4acd608614",
+    "t5-team2v2-train-1.jsonl.gz": "929a39344ad81ad8e905335266de780c1728e382eb59af48bbc2dddba822eaa8",
+    "t5-team2v2-validation-0.jsonl.gz": "23a8083bbda806d847e8c29f6dfd931149ddc14ecf106d02e14674cf4414d089",
+    "t5-team2v2-validation-1.jsonl.gz": "458bafe52508b9f59dbda35754e2c2ae590ddb20fe1dd0635d43204445709e66"
+  },
+  "epochs": 30,
+  "intended_updates": 120,
+  "initialization_sha256": "9ca78889c0fa7329bfc1795528628dd8aaab46ecc78e9aeb46d3713b89edf76f",
+  "masks": {
+    "actions": [
+      "move_tactical",
+      "move_gain",
+      "move_risk",
+      "move_risk_delta",
+      "move_home_distance",
+      "move_own_support",
+      "move_primary"
+    ],
+    "entity": "next_round",
+    "history": "encode_scene masks both current and replayed raw histories"
+  },
+  "arms": {
+    "zeroed_inputs": {
+      "training": {
+        "updates": 120,
+        "loss": 3.5159177036442393,
+        "interrupted": false,
+        "approx_kl": 0.0,
+        "kl_stopped": false,
+        "decisions_seen": 24434,
+        "unique_families_seen": 2,
+        "effective_dataset_passes": 31.487113402061855,
+        "sequence_windows": 16,
+        "microbatch": 32
+      },
+      "quality": {
+        "effective": false,
+        "formats": {
+          "team2v2": {
+            "samples": 807,
+            "cross_entropy": 2.9073049363298193,
+            "uniform_entropy": 4.501827424458597,
+            "kinds": {
+              "recruit": {
+                "samples": 99,
+                "correct": 24,
+                "accuracy": 0.24242424242424243
+              },
+              "move": {
+                "samples": 507,
+                "correct": 79,
+                "accuracy": 0.15581854043392504
+              },
+              "attack": {
+                "samples": 106,
+                "correct": 24,
+                "accuracy": 0.22641509433962265
+              }
+            },
+            "accuracy": 0.24659231722428748,
+            "uniform_accuracy": 0.01293666407986618,
+            "effective": false
+          }
+        }
+      },
+      "by_faction": {
+        "Drakes": {
+          "samples": 109,
+          "cross_entropy": 2.770018691316657,
+          "uniform_entropy": 4.551542827500136,
+          "kinds": {
+            "recruit": {
+              "samples": 13,
+              "correct": 1,
+              "accuracy": 0.07692307692307693
+            },
+            "move": {
+              "samples": 70,
+              "correct": 11,
+              "accuracy": 0.15714285714285714
+            },
+            "attack": {
+              "samples": 14,
+              "correct": 2,
+              "accuracy": 0.14285714285714285
+            }
+          },
+          "accuracy": 0.22935779816513763,
+          "uniform_accuracy": 0.012158731487564117,
+          "effective": false
+        },
+        "Knalgan Alliance": {
+          "samples": 95,
+          "cross_entropy": 3.0024422896535774,
+          "uniform_entropy": 4.519649265492266,
+          "kinds": {
+            "recruit": {
+              "samples": 10,
+              "correct": 2,
+              "accuracy": 0.2
+            },
+            "move": {
+              "samples": 72,
+              "correct": 9,
+              "accuracy": 0.125
+            },
+            "attack": {
+              "samples": 1,
+              "correct": 0,
+              "accuracy": 0.0
+            }
+          },
+          "accuracy": 0.21052631578947367,
+          "uniform_accuracy": 0.012723939846177834,
+          "effective": false
+        },
+        "Loyalists": {
+          "samples": 92,
+          "cross_entropy": 2.517232148543648,
+          "uniform_entropy": 4.546243793980956,
+          "kinds": {
+            "recruit": {
+              "samples": 13,
+              "correct": 3,
+              "accuracy": 0.23076923076923078
+            },
+            "move": {
+              "samples": 48,
+              "correct": 10,
+              "accuracy": 0.20833333333333334
+            },
+            "attack": {
+              "samples": 19,
+              "correct": 10,
+              "accuracy": 0.5263157894736842
+            }
+          },
+          "accuracy": 0.358695652173913,
+          "uniform_accuracy": 0.011747570690346097,
+          "effective": false
+        },
+        "Northerners": {
+          "samples": 114,
+          "cross_entropy": 2.916391740765488,
+          "uniform_entropy": 4.534064651974757,
+          "kinds": {
+            "recruit": {
+              "samples": 13,
+              "correct": 6,
+              "accuracy": 0.46153846153846156
+            },
+            "move": {
+              "samples": 64,
+              "correct": 7,
+              "accuracy": 0.109375
+            },
+            "attack": {
+              "samples": 25,
+              "correct": 7,
+              "accuracy": 0.28
+            }
+          },
+          "accuracy": 0.2543859649122807,
+          "uniform_accuracy": 0.01229897211777152,
+          "effective": false
+        },
+        "Rebels": {
+          "samples": 188,
+          "cross_entropy": 2.8745064431048455,
+          "uniform_entropy": 4.350985269252428,
+          "kinds": {
+            "recruit": {
+              "samples": 20,
+              "correct": 3,
+              "accuracy": 0.15
+            },
+            "move": {
+              "samples": 118,
+              "correct": 25,
+              "accuracy": 0.211864406779661
+            },
+            "attack": {
+              "samples": 27,
+              "correct": 1,
+              "accuracy": 0.037037037037037035
+            }
+          },
+          "accuracy": 0.25,
+          "uniform_accuracy": 0.01583146425600525,
+          "effective": false
+        },
+        "Undead": {
+          "samples": 209,
+          "cross_entropy": 3.1319128520180732,
+          "uniform_entropy": 4.566348579559718,
+          "kinds": {
+            "recruit": {
+              "samples": 30,
+              "correct": 9,
+              "accuracy": 0.3
+            },
+            "move": {
+              "samples": 135,
+              "correct": 17,
+              "accuracy": 0.1259259259259259
+            },
+            "attack": {
+              "samples": 20,
+              "correct": 4,
+              "accuracy": 0.2
+            }
+          },
+          "accuracy": 0.215311004784689,
+          "uniform_accuracy": 0.0117063985160471,
+          "effective": false
+        }
+      },
+      "seconds": 182.0025847099605,
+      "sampling_decision_count_trace_sha256": "099ac17b558866c08d2b2f4066be29e90a6cd38394b328b65aefa92d77785bef"
+    },
+    "tactical_inputs": {
+      "training": {
+        "updates": 120,
+        "loss": 2.8869803996078796,
+        "interrupted": false,
+        "approx_kl": 0.0,
+        "kl_stopped": false,
+        "decisions_seen": 24434,
+        "unique_families_seen": 2,
+        "effective_dataset_passes": 31.487113402061855,
+        "sequence_windows": 16,
+        "microbatch": 32
+      },
+      "quality": {
+        "effective": false,
+        "formats": {
+          "team2v2": {
+            "samples": 807,
+            "cross_entropy": 1.9181863342814582,
+            "uniform_entropy": 4.501827424458597,
+            "kinds": {
+              "recruit": {
+                "samples": 99,
+                "correct": 27,
+                "accuracy": 0.2727272727272727
+              },
+              "move": {
+                "samples": 507,
+                "correct": 257,
+                "accuracy": 0.5069033530571992
+              },
+              "attack": {
+                "samples": 106,
+                "correct": 17,
+                "accuracy": 0.16037735849056603
+              }
+            },
+            "accuracy": 0.43246592317224286,
+            "uniform_accuracy": 0.01293666407986618,
+            "effective": false
+          }
+        }
+      },
+      "by_faction": {
+        "Drakes": {
+          "samples": 109,
+          "cross_entropy": 1.8794974930789492,
+          "uniform_entropy": 4.551542827500136,
+          "kinds": {
+            "recruit": {
+              "samples": 13,
+              "correct": 2,
+              "accuracy": 0.15384615384615385
+            },
+            "move": {
+              "samples": 70,
+              "correct": 38,
+              "accuracy": 0.5428571428571428
+            },
+            "attack": {
+              "samples": 14,
+              "correct": 1,
+              "accuracy": 0.07142857142857142
+            }
+          },
+          "accuracy": 0.45871559633027525,
+          "uniform_accuracy": 0.012158731487564117,
+          "effective": false
+        },
+        "Knalgan Alliance": {
+          "samples": 95,
+          "cross_entropy": 1.8160660191586142,
+          "uniform_entropy": 4.519649265492266,
+          "kinds": {
+            "recruit": {
+              "samples": 10,
+              "correct": 4,
+              "accuracy": 0.4
+            },
+            "move": {
+              "samples": 72,
+              "correct": 31,
+              "accuracy": 0.4305555555555556
+            },
+            "attack": {
+              "samples": 1,
+              "correct": 0,
+              "accuracy": 0.0
+            }
+          },
+          "accuracy": 0.43157894736842106,
+          "uniform_accuracy": 0.012723939846177834,
+          "effective": false
+        },
+        "Loyalists": {
+          "samples": 92,
+          "cross_entropy": 1.7787466463835344,
+          "uniform_entropy": 4.546243793980956,
+          "kinds": {
+            "recruit": {
+              "samples": 13,
+              "correct": 2,
+              "accuracy": 0.15384615384615385
+            },
+            "move": {
+              "samples": 48,
+              "correct": 26,
+              "accuracy": 0.5416666666666666
+            },
+            "attack": {
+              "samples": 19,
+              "correct": 9,
+              "accuracy": 0.47368421052631576
+            }
+          },
+          "accuracy": 0.4782608695652174,
+          "uniform_accuracy": 0.011747570690346097,
+          "effective": false
+        },
+        "Northerners": {
+          "samples": 114,
+          "cross_entropy": 1.9808417203133566,
+          "uniform_entropy": 4.534064651974757,
+          "kinds": {
+            "recruit": {
+              "samples": 13,
+              "correct": 5,
+              "accuracy": 0.38461538461538464
+            },
+            "move": {
+              "samples": 64,
+              "correct": 31,
+              "accuracy": 0.484375
+            },
+            "attack": {
+              "samples": 25,
+              "correct": 4,
+              "accuracy": 0.16
+            }
+          },
+          "accuracy": 0.39473684210526316,
+          "uniform_accuracy": 0.01229897211777152,
+          "effective": false
+        },
+        "Rebels": {
+          "samples": 188,
+          "cross_entropy": 1.94037116842067,
+          "uniform_entropy": 4.350985269252428,
+          "kinds": {
+            "recruit": {
+              "samples": 20,
+              "correct": 3,
+              "accuracy": 0.15
+            },
+            "move": {
+              "samples": 118,
+              "correct": 68,
+              "accuracy": 0.576271186440678
+            },
+            "attack": {
+              "samples": 27,
+              "correct": 1,
+              "accuracy": 0.037037037037037035
+            }
+          },
+          "accuracy": 0.4627659574468085,
+          "uniform_accuracy": 0.01583146425600525,
+          "effective": false
+        },
+        "Undead": {
+          "samples": 209,
+          "cross_entropy": 1.992030960521059,
+          "uniform_entropy": 4.566348579559718,
+          "kinds": {
+            "recruit": {
+              "samples": 30,
+              "correct": 11,
+              "accuracy": 0.36666666666666664
+            },
+            "move": {
+              "samples": 135,
+              "correct": 63,
+              "accuracy": 0.4666666666666667
+            },
+            "attack": {
+              "samples": 20,
+              "correct": 2,
+              "accuracy": 0.1
+            }
+          },
+          "accuracy": 0.3923444976076555,
+          "uniform_accuracy": 0.0117063985160471,
+          "effective": false
+        }
+      },
+      "seconds": 181.18440134299453,
+      "sampling_decision_count_trace_sha256": "099ac17b558866c08d2b2f4066be29e90a6cd38394b328b65aefa92d77785bef"
+    }
+  },
+  "acceptance": {
+    "status": "passed",
+    "checks": {
+      "six_training_factions": true,
+      "two_validation_families": true,
+      "move_samples": true,
+      "move_accuracy": true,
+      "move_gain": true,
+      "move_coverage": true,
+      "overall_coverage": true
+    },
+    "formal_bc_gate": false
+  }
+}

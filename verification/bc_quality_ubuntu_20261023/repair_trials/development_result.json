@@ -1,0 +1,46 @@
+{
+  "training": {
+    "updates": 120,
+    "loss": 3.8329205324801494,
+    "interrupted": false,
+    "approx_kl": 0.0,
+    "kl_stopped": false,
+    "decisions_seen": 24590,
+    "unique_families_seen": 2,
+    "effective_dataset_passes": 34.01106500691563,
+    "sequence_windows": 16,
+    "microbatch": 32
+  },
+  "development_quality": {
+    "effective": false,
+    "formats": {
+      "ffa4": {
+        "samples": 724,
+        "cross_entropy": 2.452935645593464,
+        "uniform_entropy": 4.482836535712618,
+        "kinds": {
+          "recruit": {
+            "samples": 105,
+            "correct": 23,
+            "accuracy": 0.21904761904761905
+          },
+          "move": {
+            "samples": 268,
+            "correct": 87,
+            "accuracy": 0.3246268656716418
+          },
+          "attack": {
+            "samples": 262,
+            "correct": 43,
+            "accuracy": 0.16412213740458015
+          }
+        },
+        "accuracy": 0.2983425414364641,
+        "uniform_accuracy": 0.0135347702022052,
+        "effective": false
+      }
+    }
+  },
+  "objective": "exact CE + kind CE + (actor CE + destination CE)/30",
+  "seconds": 168.8641128599993
+}

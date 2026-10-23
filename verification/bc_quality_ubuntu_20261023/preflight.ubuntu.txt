@@ -1,0 +1,3 @@
+PREFLIGHT_PASS {"root": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022", "features_version": 5, "rules_sha256": "d6fceafe7d0c9c67c750551b9901dbfb2b22290992a8daa1616a460e11826dca", "extension": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/.venv/lib/python3.12/site-packages/_engine_lite/_engine_lite.cpython-312-x86_64-linux-gnu.so", "extension_sha256": "ba4ed3c72d7ef454b40dc118a5d682d229ba19687a89d310216698941a4e6cfb", "teacher_sha256": "2a216c96081990621dc15772e9de1bf40e4f5f451223fe52e5b20625464dc933", "active_training": ""}
+
+EXIT 0

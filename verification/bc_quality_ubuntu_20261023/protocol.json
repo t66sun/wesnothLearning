@@ -1,0 +1,27 @@
+{
+  "formats": [
+    "ffa4",
+    "team2v2"
+  ],
+  "game_families": 8,
+  "max_turns": 12,
+  "workers": 2,
+  "train_families_per_format": 2,
+  "validation_families_per_format": 2,
+  "optimizer_update_cap": 120,
+  "initialization_seed": 99,
+  "sampler_seed": 99,
+  "read_seed": 71,
+  "train_record_limit": 2048,
+  "validation_record_limit": 1024,
+  "learning_rate": 0.0003,
+  "selection": "final fixed update only; no validation-based tuning",
+  "criteria": {
+    "min_move_labels": 32,
+    "min_validation_families": 2,
+    "move_accuracy": 0.35,
+    "strictly_better_than_ablation": true,
+    "move_coverage": 0.8,
+    "overall_coverage": 0.9
+  }
+}

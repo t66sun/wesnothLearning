@@ -1,0 +1,57 @@
+{
+  "stage": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022",
+  "production_sources_unchanged": true,
+  "checkpoints": {
+    "ffa4_pool_trial.pt": {
+      "path": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/verification/bc_quality_fix_20261023/ffa4_pool_trial.pt",
+      "sha256": "0a65525f1357992e9d281f28e187f38c3c04cff03dc9d543d0a612f2090d21c5",
+      "bytes": 3253134
+    },
+    "ffa4_rank_trial.pt": {
+      "path": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/verification/bc_quality_fix_20261023/ffa4_rank_trial.pt",
+      "sha256": "7f60acd2cf988f90a398b1ca51d81845ca3da5a011946443be81cfb828d6d9c3",
+      "bytes": 3124346
+    },
+    "ffa4_trial.pt": {
+      "path": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/verification/bc_quality_fix_20261023/ffa4_trial.pt",
+      "sha256": "190b3e509488d64578d5d13ed8328d8aedac524a443d82b6ae247e0784b5a4a5",
+      "bytes": 3124021
+    }
+  },
+  "data": {
+    "verification/bc_quality_ubuntu_20261023/data/ffa4/t5-ffa4-train-0.jsonl.gz": {
+      "sha256": "7d67d7e6840d82fa4c028ed10fdd8f219072920e42c16ab1ea26ccd1631ab48f",
+      "bytes": 7392973
+    },
+    "verification/bc_quality_ubuntu_20261023/data/ffa4/t5-ffa4-train-1.jsonl.gz": {
+      "sha256": "efed96e49ed4b50ff2c105108251d8549114aa69edc76253e84a70af4590c149",
+      "bytes": 7711031
+    },
+    "verification/bc_quality_ubuntu_20261023/data/ffa4/t5-ffa4-validation-0.jsonl.gz": {
+      "sha256": "687f1edd6001077c917d5bc80b0f9365771c7cc0701028fb59374ba0c855ecb7",
+      "bytes": 7655518
+    },
+    "verification/bc_quality_ubuntu_20261023/data/ffa4/t5-ffa4-validation-1.jsonl.gz": {
+      "sha256": "3689077537c164c4f52f5ab70cdac6041f366129a80fc837feee2fb06f31c443",
+      "bytes": 7597343
+    },
+    "verification/bc_quality_ubuntu_20261023/data/team2v2/t5-team2v2-train-0.jsonl.gz": {
+      "sha256": "6dba3dd0204c06c398e94e1e22be1f7f4d3d0ab0318d3b0f0c4a6e4acd608614",
+      "bytes": 8582679
+    },
+    "verification/bc_quality_ubuntu_20261023/data/team2v2/t5-team2v2-train-1.jsonl.gz": {
+      "sha256": "929a39344ad81ad8e905335266de780c1728e382eb59af48bbc2dddba822eaa8",
+      "bytes": 7580415
+    },
+    "verification/bc_quality_ubuntu_20261023/data/team2v2/t5-team2v2-validation-0.jsonl.gz": {
+      "sha256": "23a8083bbda806d847e8c29f6dfd931149ddc14ecf106d02e14674cf4414d089",
+      "bytes": 8560353
+    },
+    "verification/bc_quality_ubuntu_20261023/data/team2v2/t5-team2v2-validation-1.jsonl.gz": {
+      "sha256": "458bafe52508b9f59dbda35754e2c2ae590ddb20fe1dd0635d43204445709e66",
+      "bytes": 8038681
+    }
+  },
+  "fresh_holdout_collected": false,
+  "active_training_commands": []
+}

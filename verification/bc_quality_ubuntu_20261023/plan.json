@@ -1,0 +1,170 @@
+[
+  {
+    "id": "t5-ffa4-train-0",
+    "game_family": "f2f41ed6f88d6c42b2066d4de5b8e8da16419e4f89c1abf54ec2bad2ed592135",
+    "split": "train",
+    "seed": 202610230,
+    "factions": [
+      "Drakes",
+      "Knalgan Alliance",
+      "Loyalists",
+      "Northerners"
+    ],
+    "teams": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "map": "clash",
+    "map_sha256": "c21f9257647f99ac07b2152d7679f72ebce2ef43bf00cb444f235a35c6ae3e90",
+    "max_turns": 12
+  },
+  {
+    "id": "t5-ffa4-train-1",
+    "game_family": "bb830637a85fa2164788707aa5218e1bcdf9a18f4255e649c8abcad7a49dc87e",
+    "split": "train",
+    "seed": 202610230,
+    "factions": [
+      "Rebels",
+      "Undead",
+      "Drakes",
+      "Knalgan Alliance"
+    ],
+    "teams": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "map": "isars_cross",
+    "map_sha256": "46a2bc39ca9818605cf3a9a489083d789d945ca08d0b9fa26a229857922db8a6",
+    "max_turns": 12
+  },
+  {
+    "id": "t5-ffa4-validation-0",
+    "game_family": "b8dd3869493b5900c84d0fb0d3fc426d8336e9bb00653eef7a5db9812ebfd158",
+    "split": "validation",
+    "seed": 202610230,
+    "factions": [
+      "Rebels",
+      "Undead",
+      "Drakes",
+      "Knalgan Alliance"
+    ],
+    "teams": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "map": "clash",
+    "map_sha256": "c21f9257647f99ac07b2152d7679f72ebce2ef43bf00cb444f235a35c6ae3e90",
+    "max_turns": 12
+  },
+  {
+    "id": "t5-ffa4-validation-1",
+    "game_family": "9bed0dfe9d92b8d1f19661ef5ae0e5c6e14153c32ef0fe7dbe5fade04ef0a491",
+    "split": "validation",
+    "seed": 202610232,
+    "factions": [
+      "Loyalists",
+      "Northerners",
+      "Rebels",
+      "Undead"
+    ],
+    "teams": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "map": "isars_cross",
+    "map_sha256": "46a2bc39ca9818605cf3a9a489083d789d945ca08d0b9fa26a229857922db8a6",
+    "max_turns": 12
+  },
+  {
+    "id": "t5-team2v2-train-0",
+    "game_family": "1a7958165f5d055aa051255ecad6ed5a496d8c1a4743bf8b4cad0cd842f2a36b",
+    "split": "train",
+    "seed": 202610230,
+    "factions": [
+      "Drakes",
+      "Knalgan Alliance",
+      "Loyalists",
+      "Northerners"
+    ],
+    "teams": [
+      1,
+      2,
+      1,
+      2
+    ],
+    "map": "clash",
+    "map_sha256": "c21f9257647f99ac07b2152d7679f72ebce2ef43bf00cb444f235a35c6ae3e90",
+    "max_turns": 12
+  },
+  {
+    "id": "t5-team2v2-train-1",
+    "game_family": "19dea0bca7e68d18e8291f05c8f182564ec08cc87e1fe80d0b04171e7841f9f9",
+    "split": "train",
+    "seed": 202610230,
+    "factions": [
+      "Rebels",
+      "Undead",
+      "Drakes",
+      "Knalgan Alliance"
+    ],
+    "teams": [
+      1,
+      2,
+      1,
+      2
+    ],
+    "map": "isars_cross",
+    "map_sha256": "46a2bc39ca9818605cf3a9a489083d789d945ca08d0b9fa26a229857922db8a6",
+    "max_turns": 12
+  },
+  {
+    "id": "t5-team2v2-validation-0",
+    "game_family": "be0de457e7f0b6a409930db480534043323d8d30014e3687db20798df9b9bd54",
+    "split": "validation",
+    "seed": 202610236,
+    "factions": [
+      "Rebels",
+      "Undead",
+      "Drakes",
+      "Knalgan Alliance"
+    ],
+    "teams": [
+      1,
+      2,
+      1,
+      2
+    ],
+    "map": "clash",
+    "map_sha256": "c21f9257647f99ac07b2152d7679f72ebce2ef43bf00cb444f235a35c6ae3e90",
+    "max_turns": 12
+  },
+  {
+    "id": "t5-team2v2-validation-1",
+    "game_family": "8828f0a18bfb60df03390ea7f553a97f2eff968f3994c83275cd603b8cf79023",
+    "split": "validation",
+    "seed": 202610239,
+    "factions": [
+      "Loyalists",
+      "Northerners",
+      "Rebels",
+      "Undead"
+    ],
+    "teams": [
+      1,
+      2,
+      1,
+      2
+    ],
+    "map": "isars_cross",
+    "map_sha256": "46a2bc39ca9818605cf3a9a489083d789d945ca08d0b9fa26a229857922db8a6",
+    "max_turns": 12
+  }
+]

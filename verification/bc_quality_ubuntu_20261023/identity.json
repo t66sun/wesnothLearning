@@ -1,0 +1,41 @@
+{
+  "root": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022",
+  "features_version": 5,
+  "rules_sha256": "d6fceafe7d0c9c67c750551b9901dbfb2b22290992a8daa1616a460e11826dca",
+  "source_hashes": {
+    "learning/experiment.py": "bcabe765e544c82c5f1b92818a464ad2fb307c6a1ca916e87871d3bace54af90",
+    "learning/phases.py": "46c97412612d2219ef0f3b1eb2658619ccb116ca25cf7e6bb09d6f94c92b2715",
+    "learning/features.py": "7e286a50a5947ac5e5287d6c2b42562e6faf3e9a54ce50f184533438f25aa6f9",
+    "learning/reward_metrics.py": "28ee81a2671e20b7888b03658bb890e312c6ba0ae80799458924bc717c16e9f1",
+    "learning/control.py": "ae2140006e6cbc381f8116a4606684b8394752cf486a17a64abfbc2695e82328",
+    "learning/coordinator.py": "0fa9a37284000bef0b24e804a6d9dba50dbb02139d77fd78d7932d2fa5bc017f",
+    "learning/__main__.py": "c15d4282aa8f17bd6f8412498241dc617af8f6fc0078b46536e8d5697d335ec4",
+    "learning/lite_host.py": "58acbff6eff08af6940108825b736dc0acc81ce9d8273e39fdaaa6d128a1df16",
+    "learning/sample.py": "7c5236e7c2595a4ca0fe0af5487e3f24fed0c28282c2644dbef05698ba9c59dd",
+    "learning/collector.lua": "750b6ccaec51b19597aaf1ae9b56b80f588cc091b59a73d01a8dae3fb1c612e8",
+    "lua/candidates.lua": "c3e24933f690a93c299f0523a1fee0cd592682560f269b56f7933312403e0d35",
+    "lua/bot.lua": "6255096cd9a986da5c730eee2c9a0428bf04af14dcafd1a01781d550ea7d6b60",
+    "lua/spatial.lua": "e02a116be43549aface39c4f902378e0e35f6c8167990abbae9ebde8ad59cfe4",
+    "engine_lite/lua/host.lua": "11186057410569c9463fa0a492e6ebb37b7bbdf1359a4e18e792210ef5883236",
+    "vendor/arena/runtime/runtime.lua": "afcb489592a750e58c5dd7e57ce0dfdcf60750d9dba89c7898a07a1d23075a97"
+  },
+  "extension": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/.venv/lib/python3.12/site-packages/_engine_lite/_engine_lite.cpython-312-x86_64-linux-gnu.so",
+  "extension_sha256": "ba4ed3c72d7ef454b40dc118a5d682d229ba19687a89d310216698941a4e6cfb",
+  "teacher_sha256": "2a216c96081990621dc15772e9de1bf40e4f5f451223fe52e5b20625464dc933",
+  "active_training": "",
+  "training_source_hashes": {
+    "learning/train.py": "ac720803686707ea1100c055c2a7215a6c86a010a27a2efa918853238b8e44ce",
+    "learning/model.py": "b6012e2e6483d1b47b5a7903ba9c762e5a36e3abe7fc0371d57061af09033718",
+    "learning/data.py": "56c25e6051db3e81068b83e5dc8df36dff52f1c30d722ddd400af94a2de4a594",
+    "learning/sequences.py": "4b7603bc1b9af24c2c1ef1b10dd54b59c51a58a33c31c40501c41b7a835622aa",
+    "learning/rowpack.py": "b4cc5364209c843f60069141697353e7af126a16a2bbddfd91aa203f2651f283",
+    "learning/lite_policy.py": "67577b83be762783be0eafbd4782f3612dba1ca7d137280237ceab3dcd212b6e",
+    "learning/maps.py": "85f9cff8fc6399955d19aeb24679bc397d890501729d2e723222a7170ee1a090",
+    "lua/observation.lua": "8d9ffa002cb89b2dce7407df7b7d8cc4cbcac18fc70016f6bb1a1732a77b5cba",
+    "lua/relational.lua": "8c663d8d795125d1df9eb001f95f4204a0a75326908cf304e8b8243c7cc59930",
+    "lua/network.lua": "5d076ec82f572f151d419c21b6e740d27feba2fb9f4c05762e4bd5b2f958aa92"
+  },
+  "helper_sha256": "b83d904e9126d588c55c0eff6ce1b8036e3810cd41b582d0f9c48787aa410a59",
+  "torch": "2.9.1+cpu",
+  "active_training_after": ""
+}

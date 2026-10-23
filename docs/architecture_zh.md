@@ -237,6 +237,7 @@ PyTorch → 纯 Lua 导出、三赛制路由、检查点加载和连续序列数
 | 8 worker 受限真实链路 | 2026-10-22 Ubuntu 验收通过（T4）：9 局教师（≤10 回合，含 duel `the_freelands`、ffa4/team2v2 `clash` 原生图）+ 3 局 lite rollout，broker 峰值 8、scheduler 活跃峰值 8，三个 trainer 退出码 0；BC/PPO 各 1 批更新与版本 1/2 检查点回读，DAgger 查询 1/4/1 且 bootstrap 有效；峰值 PSS 4.02 GiB（上限 12）、最低 available 10.46 GiB、swap 增长 0、无残留进程。证据 `verification/pretrain_acceptance_20261022/T4_summary.json` |
 | 2026-10-23 阶段与故障修复 | Ubuntu 71 项相关检查及 7 项后续受影响检查通过；三赛制每族 1 次真实 BC + 2 次 PPO 更新，真实恢复与最终选中 v102 PPO；开局每族两局真实 Astra、学习方归属及留守领袖口径通过；连续两回合/128 候选的 Python/Lua 误差 <1.6e-8。小面板 1/30 块仍 inconclusive，不证明收敛或棋力。见 `verification/training_repair_20261023/REPORT.md` |
 | 冻结包测试适配 | 已修；容量随实际词表断言、真实 smoke 使用当前特征目录，Ubuntu 对应最小项通过 |
+| 修正后 schema 5 BC 移动质量（T5） | Ubuntu 六阵营受限对照完成：2v2 为 257/507（50.69%），置零 79/507（15.58%），通过；FF4 为 80/268（29.85%），置零 23/268（8.58%），未过 35% 门。三种固定 FF4 开发修复对照均失败且未采用，根因仍未查明。原 FF4 留出已成为开发集，新留出计划已冻结且未使用。两赛制的正式 BC 全部门禁仍为 false。源码、计数、CE 与边界见 [报告](../verification/bc_quality_ubuntu_20261023/REPORT.md)；剩余 FF4 范围见 TEST.md |
 | 默认启动/内存路径 | 已完成；默认 lite、统一规则绑定、训练闭包门禁与轻量受检加载；普通协调器和三训练器初始化通过 |
 | 四人 lite 教师 | 已接通真实冻结 Astra；补 WML 只读投影及 2v2 稀疏 side 记忆快照往返，最小用例和四人真实小回环通过 |
 | 正式地图 | 已补 10 张原版冻结地图及缺失的 147 个复合地形；全部地图地形覆盖和赛制检查通过 |

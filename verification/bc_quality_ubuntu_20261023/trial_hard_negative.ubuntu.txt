@@ -1,0 +1,9 @@
+RANK_TRIAL 20 29.5
+RANK_TRIAL 40 56.3
+RANK_TRIAL 60 83.3
+RANK_TRIAL 80 110.9
+RANK_TRIAL 100 137.6
+RANK_TRIAL 120 164.8
+RANK_TRIAL_RESULT {"effective": false, "formats": {"ffa4": {"samples": 724, "cross_entropy": 2.4136216864401465, "uniform_entropy": 4.482836535712618, "kinds": {"recruit": {"samples": 105, "correct": 25, "accuracy": 0.23809523809523808}, "move": {"samples": 268, "correct": 79, "accuracy": 0.2947761194029851}, "attack": {"samples": 262, "correct": 56, "accuracy": 0.21374045801526717}}, "accuracy": 0.30386740331491713, "uniform_accuracy": 0.0135347702022052, "effective": false}}}
+
+EXIT 0

@@ -1,0 +1,1117 @@
+{
+  "counts": {
+    "move": 127,
+    "end_turn": 47,
+    "move_attack": 75,
+    "move_attack_predicted_1.0": 69,
+    "move_attack_predicted_0.0": 6,
+    "attack": 19,
+    "attack_predicted_1.0": 19
+  },
+  "examples": [
+    {
+      "turn": 3,
+      "side": 3,
+      "truth": {
+        "kind": "move",
+        "x": 21,
+        "y": 13,
+        "tx": 19,
+        "ty": 15,
+        "f": {
+          "move_tactical": 11.55,
+          "move_gain": 6.45,
+          "move_risk": 0.0,
+          "move_risk_delta": 0.0,
+          "move_primary": 1.0,
+          "expected_enemy_damage": 0.0,
+          "expected_self_damage": 0.0,
+          "kill_probability": 0.0,
+          "death_probability": 0.0,
+          "combat_predicted": 0.0,
+          "visible_threat": 2.0,
+          "own_leader": 0.0
+        }
+      },
+      "chosen": {
+        "kind": "end_turn",
+        "x": null,
+        "y": null,
+        "tx": null,
+        "ty": null,
+        "f": {
+          "move_tactical": 0.0,
+          "move_gain": 0.0,
+          "move_risk": 0.0,
+          "move_risk_delta": 0.0,
+          "move_primary": 0.0,
+          "expected_enemy_damage": 0.0,
+          "expected_self_damage": 0.0,
+          "kill_probability": 0.0,
+          "death_probability": 0.0,
+          "combat_predicted": 0.0,
+          "visible_threat": 0.0,
+          "own_leader": 0.0
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "side": 3,
+      "truth": {
+        "kind": "move",
+        "x": 22,
+        "y": 16,
+        "tx": 18,
+        "ty": 13,
+        "f": {
+          "move_tactical": 12.43,
+          "move_gain": 2.33,
+          "move_risk": 5.4,
+          "move_risk_delta": 5.4,
+          "move_primary": 1.0,
+          "expected_enemy_damage": 0.0,
+          "expected_self_damage": 0.0,
+          "kill_probability": 0.0,
+          "death_probability": 0.0,
+          "combat_predicted": 0.0,
+          "visible_threat": 4.0,
+          "own_leader": 0.0
+        }
+      },
+      "chosen": {
+        "kind": "end_turn",
+        "x": null,
+        "y": null,
+        "tx": null,
+        "ty": null,
+        "f": {
+          "move_tactical": 0.0,
+          "move_gain": 0.0,
+          "move_risk": 0.0,
+          "move_risk_delta": 0.0,
+          "move_primary": 0.0,
+          "expected_enemy_damage": 0.0,
+          "expected_self_damage": 0.0,
+          "kill_probability": 0.0,
+          "death_probability": 0.0,
+          "combat_predicted": 0.0,
+          "visible_threat": 0.0,
+          "own_leader": 0.0
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "side": 3,
+      "truth": {
+        "kind": "move",
+        "x": 23,
+        "y": 9,
+        "tx": 20,
+        "ty": 12,
+        "f": {
+          "move_tactical": 10.43,
+          "move_gain": 0.33,
+          "move_risk": 5.4,
+          "move_risk_delta": 5.4,
+          "move_primary": 1.0,
+          "expected_enemy_damage": 0.0,
+          "expected_self_damage": 0.0,
+          "kill_probability": 0.0,
+          "death_probability": 0.0,
+          "combat_predicted": 0.0,
+          "visible_threat": 3.0,
+          "own_leader": 0.0
+        }
+      },
+      "chosen": {
+        "kind": "end_turn",
+        "x": null,
+        "y": null,
+        "tx": null,
+        "ty": null,
+        "f": {
+          "move_tactical": 0.0,
+          "move_gain": 0.0,
+          "move_risk": 0.0,
+          "move_risk_delta": 0.0,
+          "move_primary": 0.0,
+          "expected_enemy_damage": 0.0,
+          "expected_self_damage": 0.0,
+          "kill_probability": 0.0,
+          "death_probability": 0.0,
+          "combat_predicted": 0.0,
+          "visible_threat": 0.0,
+          "own_leader": 0.0
+        }
+      }
+    },
+    {
+      "turn": 6,
+      "side": 3,
+      "truth": {
+        "kind": "move",
+        "x": 22,
+        "y": 12,
+        "tx": 18,
+        "ty": 14,
+        "f": {
+          "move_tactical": 11.9,
+          "move_gain": 9.3,
+          "move_risk": 0.0,
+          "move_risk_delta": 0.0,
+          "move_primary": 1.0,
+          "expected_enemy_damage": 0.0,
+          "expected_self_damage": 0.0,
+          "kill_probability": 0.0,
+          "death_probability": 0.0,
+          "combat_predicted": 0.0,
+          "visible_threat": 0.0,
+          "own_leader": 0.0
+        }
+      },
+      "chosen": {
+        "kind": "end_turn",
+        "x": null,
+        "y": null,
+        "tx": null,
+        "ty": null,
+        "f": {
+          "move_tactical": 0.0,
+          "move_gain": 0.0,
+          "move_risk": 0.0,
+          "move_risk_delta": 0.0,
+          "move_primary": 0.0,
+          "expected_enemy_damage": 0.0,
+          "expected_self_damage": 0.0,
+          "kill_probability": 0.0,
+          "death_probability": 0.0,
+          "combat_predicted": 0.0,
+          "visible_threat": 0.0,
+          "own_leader": 0.0
+        }
+      }
+    },
+    {
+      "turn": 7,
+      "side": 3,
+      "truth": {
+        "kind": "move",
+        "x": 13,
+        "y": 11,
+        "tx": 14,
+        "ty": 11,
+        "f": {
+          "move_tactical": 10.79,
+          "move_gain": 14.657,
+          "move_risk": 4.2,
+          "move_risk_delta": -13.741,
+          "move_primary": 1.0,
+          "expected_enemy_damage": 0.0,
+          "expected_self_damage": 0.0,
+          "kill_probability": 0.0,
+          "death_probability": 0.0,
+          "combat_predicted": 0.0,
+          "visible_threat": 5.0,
+          "own_leader": 0.0
+        }
+      },
+      "chosen": {
+        "kind": "move_attack",
+        "x": 13,
+        "y": 11,
+        "tx": 11,
+        "ty": 12,
+        "f": {
+          "move_tactical": -6.567,
+          "move_gain": -2.699,
+          "move_risk": 22.077,
+          "move_risk_delta": 4.137,
+          "move_primary": 0.0,
+          "expected_enemy_damage": 11.383,
+          "expected_self_damage": 7.453,
+          "kill_probability": 0.109,
+          "death_probability": 0.0,
+          "combat_predicted": 1.0,
+          "visible_threat": 9.0,
+          "own_leader": 0.0
+        }
+      }
+    },
+    {
+      "turn": 7,
+      "side": 3,
+      "truth": {
+        "kind": "move",
+        "x": 21,
+        "y": 13,
+        "tx": 19,
+        "ty": 15,
+        "f": {
+          "move_tactical": 11.55,
+          "move_gain": 6.45,
+          "move_risk": 0.0,
+          "move_risk_delta": 0.0,
+          "move_primary": 1.0,
+          "expected_enemy_damage": 0.0,
+          "expected_self_damage": 0.0,
+          "kill_probability": 0.0,
+          "death_probability": 0.0,
+          "combat_predicted": 0.0,
+          "visible_threat": 1.0,
+          "own_leader": 0.0
+        }
+      },
+      "chosen": {
+        "kind": "move_attack",
+        "x": 16,
+        "y": 8,
+        "tx": 13,
+        "ty": 9,
+        "f": {
+          "move_tactical": -3.867,
+          "move_gain": -9.265,
+          "move_risk": 17.941,
+          "move_risk_delta": 9.391,
+          "move_primary": 0.0,
+          "expected_enemy_damage": 2.844,
+          "expected_self_damage": 0.0,
+          "kill_probability": 0.0,
+          "death_probability": 0.0,
+          "combat_predicted": 1.0,
+          "visible_threat": 6.0,
+          "own_leader": 0.0
+        }
+      }
+    },
+    {
+      "turn": 7,
+      "side": 3,
+      "truth": {
+        "kind": "move",
+        "x": 18,
+        "y": 14,
+        "tx": 17,
+        "ty": 16,
+        "f": {
+          "move_tactical": 12.999,
+          "move_gain": 1.099,
+          "move_risk": 13.092,
+          "move_risk_delta": 13.092,
+          "move_primary": 1.0,
+          "expected_enemy_damage": 0.0,
+          "expected_self_damage": 0.0,
+          "kill_probability": 0.0,
+          "death_probability": 0.0,
+          "combat_predicted": 0.0,
+          "visible_threat": 2.0,
+          "own_leader": 0.0
+        }
+      },
+      "chosen": {
+        "kind": "move_attack",
+        "x": 16,
+        "y": 8,
+        "tx": 13,
+        "ty": 9,
+        "f": {
+          "move_tactical": -3.867,
+          "move_gain": -9.265,
+          "move_risk": 17.941,
+          "move_risk_delta": 9.391,
+          "move_primary": 0.0,
+          "expected_enemy_damage": 2.844,
+          "expected_self_damage": 0.0,
+          "kill_probability": 0.0,
+          "death_probability": 0.0,
+          "combat_predicted": 1.0,
+          "visible_threat": 6.0,
+          "own_leader": 0.0
+        }
+      }
+    },
+    {
+      "turn": 8,
+      "side": 3,
+      "truth": {
+        "kind": "move",
+        "x": 14,
+        "y": 11,
+        "tx": 18,
+        "ty": 14,
+        "f": {
+          "move_tactical": 11.9,
+          "move_gain": 10.533,
+          "move_risk": 0.0,
+          "move_risk_delta": -15.877,
+          "move_primary": 1.0,
+          "expected_enemy_damage": 0.0,
+          "expected_self_damage": 0.0,
+          "kill_probability": 0.0,
+          "death_probability": 0.0,
+          "combat_predicted": 0.0,
+          "visible_threat": 3.0,
+          "own_leader": 0.0
+        }
+      },
+      "chosen": {
+        "kind": "move_attack",
+        "x": 14,
+        "y": 11,
+        "tx": 11,
+        "ty": 9,
+        "f": {
+          "move_tactical": -2.084,
+          "move_gain": -3.452,
+          "move_risk": 23.883,
+          "move_risk_delta": 8.006,
+          "move_primary": 0.0,
+          "expected_enemy_damage": 4.031,
+          "expected_self_damage": 0.0,
+          "kill_probability": 0.0,
+          "death_probability": 0.0,
+          "combat_predicted": 1.0,
+          "visible_threat": 6.0,
+          "own_leader": 0.0
+        }
+      }
+    },
+    {
+      "turn": 8,
+      "side": 3,
+      "truth": {
+        "kind": "move",
+        "x": 19,
+        "y": 15,
+        "tx": 16,
+        "ty": 15,
+        "f": {
+          "move_tactical": 14.177,
+          "move_gain": 2.628,
+          "move_risk": 13.132,
+          "move_risk_delta": 13.132,
+          "move_primary": 1.0,
+          "expected_enemy_damage": 0.0,
+          "expected_self_damage": 0.0,
+          "kill_probability": 0.0,
+          "death_probability": 0.0,
+          "combat_predicted": 0.0,
+          "visible_threat": 6.0,
+          "own_leader": 0.0
+        }
+      },
+      "chosen": {
+        "kind": "move_attack",
+        "x": 16,
+        "y": 8,
+        "tx": 14,
+        "ty": 6,
+        "f": {
+          "move_tactical": 0.635,
+          "move_gain": -7.155,
+          "move_risk": 6.3,
+          "move_risk_delta": 2.1,
+          "move_primary": 0.0,
+          "expected_enemy_damage": 3.312,
+          "expected_self_damage": 0.0,
+          "kill_probability": 0.0,
+          "death_probability": 0.0,
+          "combat_predicted": 1.0,
+          "visible_threat": 2.0,
+          "own_leader": 0.0
+        }
+      }
+    },
+    {
+      "turn": 9,
+      "side": 3,
+      "truth": {
+        "kind": "move",
+        "x": 17,
+        "y": 17,
+        "tx": 18,
+        "ty": 14,
+        "f": {
+          "move_tactical": 11.9,
+          "move_gain": 17.096,
+          "move_risk": 0.0,
+          "move_risk_delta": -23.205,
+          "move_primary": 1.0,
+          "expected_enemy_damage": 0.0,
+          "expected_self_damage": 0.0,
+          "kill_probability": 0.0,
+          "death_probability": 0.0,
+          "combat_predicted": 0.0,
+          "visible_threat": 2.0,
+          "own_leader": 0.0
+        }
+      },
+      "chosen": {
+        "kind": "move_attack",
+        "x": 17,
+        "y": 17,
+        "tx": 16,
+        "ty": 16,
+        "f": {
+          "move_tactical": -0.703,
+          "move_gain": 4.494,
+          "move_risk": 19.89,
+          "move_risk_delta": -3.315,
+          "move_primary": 0.0,
+          "expected_enemy_damage": 17.195,
+          "expected_self_damage": 12.0,
+          "kill_probability": 0.344,
+          "death_probability": 0.117,
+          "combat_predicted": 1.0,
+          "visible_threat": 7.0,
+          "own_leader": 0.0
+        }
+      }
+    },
+    {
+      "turn": 9,
+      "side": 3,
+      "truth": {
+        "kind": "move",
+        "x": 22,
+        "y": 14,
+        "tx": 22,
+        "ty": 16,
+        "f": {
+          "move_tactical": 9.05,
+          "move_gain": 5.35,
+          "move_risk": 0.0,
+          "move_risk_delta": 0.0,
+          "move_primary": 1.0,
+          "expected_enemy_damage": 0.0,
+          "expected_self_damage": 0.0,
+          "kill_probability": 0.0,
+          "death_probability": 0.0,
+          "combat_predicted": 0.0,
+          "visible_threat": 1.0,
+          "own_leader": 0.0
+        }
+      },
+      "chosen": {
+        "kind": "move_attack",
+        "x": 16,
+        "y": 8,
+        "tx": 15,
+        "ty": 6,
+        "f": {
+          "move_tactical": -4.905,
+          "move_gain": -11.925,
+          "move_risk": 17.1,
+          "move_risk_delta": 11.5,
+          "move_primary": 0.0,
+          "expected_enemy_damage": 4.031,
+          "expected_self_damage": 0.0,
+          "kill_probability": 0.0,
+          "death_probability": 0.0,
+          "combat_predicted": 1.0,
+          "visible_threat": 2.0,
+          "own_leader": 0.0
+        }
+      }
+    },
+    {
+      "turn": 9,
+      "side": 3,
+      "truth": {
+        "kind": "move",
+        "x": 16,
+        "y": 8,
+        "tx": 16,
+        "ty": 9,
+        "f": {
+          "move_tactical": 7.6,
+          "move_gain": 0.58,
+          "move_risk": 0.0,
+          "move_risk_delta": -5.6,
+          "move_primary": 1.0,
+          "expected_enemy_damage": 0.0,
+          "expected_self_damage": 0.0,
+          "kill_probability": 0.0,
+          "death_probability": 0.0,
+          "combat_predicted": 0.0,
+          "visible_threat": 3.0,
+          "own_leader": 0.0
+        }
+      },
+      "chosen": {
+        "kind": "move_attack",
+        "x": 16,
+        "y": 8,
+        "tx": 15,
+        "ty": 6,
+        "f": {
+          "move_tactical": -4.905,
+          "move_gain": -11.925,
+          "move_risk": 17.1,
+          "move_risk_delta": 11.5,
+          "move_primary": 0.0,
+          "expected_enemy_damage": 4.031,
+          "expected_self_damage": 0.0,
+          "kill_probability": 0.0,
+          "death_probability": 0.0,
+          "combat_predicted": 1.0,
+          "visible_threat": 2.0,
+          "own_leader": 0.0
+        }
+      }
+    },
+    {
+      "turn": 10,
+      "side": 3,
+      "truth": {
+        "kind": "move",
+        "x": 19,
+        "y": 14,
+        "tx": 19,
+        "ty": 11,
+        "f": {
+          "move_tactical": 31.9,
+          "move_gain": 4.658,
+          "move_risk": 0.0,
+          "move_risk_delta": -5.105,
+          "move_primary": 1.0,
+          "expected_enemy_damage": 0.0,
+          "expected_self_damage": 0.0,
+          "kill_probability": 0.0,
+          "death_probability": 0.0,
+          "combat_predicted": 0.0,
+          "visible_threat": 3.0,
+          "own_leader": 0.0
+        }
+      },
+      "chosen": {
+        "kind": "end_turn",
+        "x": null,
+        "y": null,
+        "tx": null,
+        "ty": null,
+        "f": {
+          "move_tactical": 0.0,
+          "move_gain": 0.0,
+          "move_risk": 0.0,
+          "move_risk_delta": 0.0,
+          "move_primary": 0.0,
+          "expected_enemy_damage": 0.0,
+          "expected_self_damage": 0.0,
+          "kill_probability": 0.0,
+          "death_probability": 0.0,
+          "combat_predicted": 0.0,
+          "visible_threat": 0.0,
+          "own_leader": 0.0
+        }
+      }
+    },
+    {
+      "turn": 10,
+      "side": 3,
+      "truth": {
+        "kind": "move",
+        "x": 21,
+        "y": 14,
+        "tx": 20,
+        "ty": 13,
+        "f": {
+          "move_tactical": 7.25,
+          "move_gain": 2.15,
+          "move_risk": 0.0,
+          "move_risk_delta": 0.0,
+          "move_primary": 1.0,
+          "expected_enemy_damage": 0.0,
+          "expected_self_damage": 0.0,
+          "kill_probability": 0.0,
+          "death_probability": 0.0,
+          "combat_predicted": 0.0,
+          "visible_threat": 2.0,
+          "own_leader": 0.0
+        }
+      },
+      "chosen": {
+        "kind": "end_turn",
+        "x": null,
+        "y": null,
+        "tx": null,
+        "ty": null,
+        "f": {
+          "move_tactical": 0.0,
+          "move_gain": 0.0,
+          "move_risk": 0.0,
+          "move_risk_delta": 0.0,
+          "move_primary": 0.0,
+          "expected_enemy_damage": 0.0,
+          "expected_self_damage": 0.0,
+          "kill_probability": 0.0,
+          "death_probability": 0.0,
+          "combat_predicted": 0.0,
+          "visible_threat": 0.0,
+          "own_leader": 0.0
+        }
+      }
+    },
+    {
+      "turn": 11,
+      "side": 3,
+      "truth": {
+        "kind": "move",
+        "x": 15,
+        "y": 12,
+        "tx": 19,
+        "ty": 11,
+        "f": {
+          "move_tactical": 21.0,
+          "move_gain": 59.461,
+          "move_risk": 5.4,
+          "move_risk_delta": -21.573,
+          "move_primary": 1.0,
+          "expected_enemy_damage": 0.0,
+          "expected_self_damage": 0.0,
+          "kill_probability": 0.0,
+          "death_probability": 0.0,
+          "combat_predicted": 0.0,
+          "visible_threat": 4.0,
+          "own_leader": 0.0
+        }
+      },
+      "chosen": {
+        "kind": "move_attack",
+        "x": 15,
+        "y": 12,
+        "tx": 16,
+        "ty": 9,
+        "f": {
+          "move_tactical": 7.08,
+          "move_gain": 45.541,
+          "move_risk": 8.25,
+          "move_risk_delta": -18.723,
+          "move_primary": 0.0,
+          "expected_enemy_damage": 10.078,
+          "expected_self_damage": 0.0,
+          "kill_probability": 0.0,
+          "death_probability": 0.0,
+          "combat_predicted": 1.0,
+          "visible_threat": 5.0,
+          "own_leader": 0.0
+        }
+      }
+    },
+    {
+      "turn": 11,
+      "side": 3,
+      "truth": {
+        "kind": "move",
+        "x": 22,
+        "y": 14,
+        "tx": 20,
+        "ty": 14,
+        "f": {
+          "move_tactical": 10.63,
+          "move_gain": 7.53,
+          "move_risk": 5.4,
+          "move_risk_delta": 5.4,
+          "move_primary": 1.0,
+          "expected_enemy_damage": 0.0,
+          "expected_self_damage": 0.0,
+          "kill_probability": 0.0,
+          "death_probability": 0.0,
+          "combat_predicted": 0.0,
+          "visible_threat": 2.0,
+          "own_leader": 0.0
+        }
+      },
+      "chosen": {
+        "kind": "end_turn",
+        "x": null,
+        "y": null,
+        "tx": null,
+        "ty": null,
+        "f": {
+          "move_tactical": 0.0,
+          "move_gain": 0.0,
+          "move_risk": 0.0,
+          "move_risk_delta": 0.0,
+          "move_primary": 0.0,
+          "expected_enemy_damage": 0.0,
+          "expected_self_damage": 0.0,
+          "kill_probability": 0.0,
+          "death_probability": 0.0,
+          "combat_predicted": 0.0,
+          "visible_threat": 0.0,
+          "own_leader": 0.0
+        }
+      }
+    },
+    {
+      "turn": 12,
+      "side": 3,
+      "truth": {
+        "kind": "move",
+        "x": 22,
+        "y": 16,
+        "tx": 19,
+        "ty": 14,
+        "f": {
+          "move_tactical": 12.139,
+          "move_gain": 3.089,
+          "move_risk": 5.292,
+          "move_risk_delta": 5.292,
+          "move_primary": 1.0,
+          "expected_enemy_damage": 0.0,
+          "expected_self_damage": 0.0,
+          "kill_probability": 0.0,
+          "death_probability": 0.0,
+          "combat_predicted": 0.0,
+          "visible_threat": 2.0,
+          "own_leader": 0.0
+        }
+      },
+      "chosen": {
+        "kind": "end_turn",
+        "x": null,
+        "y": null,
+        "tx": null,
+        "ty": null,
+        "f": {
+          "move_tactical": 0.0,
+          "move_gain": 0.0,
+          "move_risk": 0.0,
+          "move_risk_delta": 0.0,
+          "move_primary": 0.0,
+          "expected_enemy_damage": 0.0,
+          "expected_self_damage": 0.0,
+          "kill_probability": 0.0,
+          "death_probability": 0.0,
+          "combat_predicted": 0.0,
+          "visible_threat": 0.0,
+          "own_leader": 0.0
+        }
+      }
+    },
+    {
+      "turn": 2,
+      "side": 4,
+      "truth": {
+        "kind": "move",
+        "x": 5,
+        "y": 13,
+        "tx": 3,
+        "ty": 16,
+        "f": {
+          "move_tactical": 12.25,
+          "move_gain": 7.15,
+          "move_risk": 0.0,
+          "move_risk_delta": 0.0,
+          "move_primary": 1.0,
+          "expected_enemy_damage": 0.0,
+          "expected_self_damage": 0.0,
+          "kill_probability": 0.0,
+          "death_probability": 0.0,
+          "combat_predicted": 0.0,
+          "visible_threat": 0.0,
+          "own_leader": 0.0
+        }
+      },
+      "chosen": {
+        "kind": "end_turn",
+        "x": null,
+        "y": null,
+        "tx": null,
+        "ty": null,
+        "f": {
+          "move_tactical": 0.0,
+          "move_gain": 0.0,
+          "move_risk": 0.0,
+          "move_risk_delta": 0.0,
+          "move_primary": 0.0,
+          "expected_enemy_damage": 0.0,
+          "expected_self_damage": 0.0,
+          "kill_probability": 0.0,
+          "death_probability": 0.0,
+          "combat_predicted": 0.0,
+          "visible_threat": 0.0,
+          "own_leader": 0.0
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "side": 4,
+      "truth": {
+        "kind": "move",
+        "x": 7,
+        "y": 15,
+        "tx": 7,
+        "ty": 12,
+        "f": {
+          "move_tactical": 14.018,
+          "move_gain": 7.152,
+          "move_risk": 9.24,
+          "move_risk_delta": 3.36,
+          "move_primary": 1.0,
+          "expected_enemy_damage": 0.0,
+          "expected_self_damage": 0.0,
+          "kill_probability": 0.0,
+          "death_probability": 0.0,
+          "combat_predicted": 0.0,
+          "visible_threat": 4.0,
+          "own_leader": 0.0
+        }
+      },
+      "chosen": {
+        "kind": "move_attack",
+        "x": 7,
+        "y": 15,
+        "tx": 11,
+        "ty": 14,
+        "f": {
+          "move_tactical": -0.841,
+          "move_gain": -7.707,
+          "move_risk": 13.528,
+          "move_risk_delta": 7.648,
+          "move_primary": 0.0,
+          "expected_enemy_damage": 6.094,
+          "expected_self_damage": 7.031,
+          "kill_probability": 0.0,
+          "death_probability": 0.0,
+          "combat_predicted": 1.0,
+          "visible_threat": 5.0,
+          "own_leader": 0.0
+        }
+      }
+    },
+    {
+      "turn": 6,
+      "side": 4,
+      "truth": {
+        "kind": "move",
+        "x": 5,
+        "y": 13,
+        "tx": 7,
+        "ty": 15,
+        "f": {
+          "move_tactical": 10.1,
+          "move_gain": 5.0,
+          "move_risk": 0.0,
+          "move_risk_delta": 0.0,
+          "move_primary": 1.0,
+          "expected_enemy_damage": 0.0,
+          "expected_self_damage": 0.0,
+          "kill_probability": 0.0,
+          "death_probability": 0.0,
+          "combat_predicted": 0.0,
+          "visible_threat": 7.0,
+          "own_leader": 0.0
+        }
+      },
+      "chosen": {
+        "kind": "end_turn",
+        "x": null,
+        "y": null,
+        "tx": null,
+        "ty": null,
+        "f": {
+          "move_tactical": 0.0,
+          "move_gain": 0.0,
+          "move_risk": 0.0,
+          "move_risk_delta": 0.0,
+          "move_primary": 0.0,
+          "expected_enemy_damage": 0.0,
+          "expected_self_damage": 0.0,
+          "kill_probability": 0.0,
+          "death_probability": 0.0,
+          "combat_predicted": 0.0,
+          "visible_threat": 0.0,
+          "own_leader": 0.0
+        }
+      }
+    },
+    {
+      "turn": 7,
+      "side": 4,
+      "truth": {
+        "kind": "move",
+        "x": 7,
+        "y": 15,
+        "tx": 8,
+        "ty": 11,
+        "f": {
+          "move_tactical": 9.3,
+          "move_gain": 22.239,
+          "move_risk": 12.0,
+          "move_risk_delta": -6.288,
+          "move_primary": 1.0,
+          "expected_enemy_damage": 0.0,
+          "expected_self_damage": 0.0,
+          "kill_probability": 0.0,
+          "death_probability": 0.0,
+          "combat_predicted": 0.0,
+          "visible_threat": 5.0,
+          "own_leader": 0.0
+        }
+      },
+      "chosen": {
+        "kind": "move_attack",
+        "x": 7,
+        "y": 15,
+        "tx": 11,
+        "ty": 15,
+        "f": {
+          "move_tactical": -24.354,
+          "move_gain": -11.414,
+          "move_risk": 36.859,
+          "move_risk_delta": 18.572,
+          "move_primary": 0.0,
+          "expected_enemy_damage": 4.969,
+          "expected_self_damage": 3.164,
+          "kill_probability": 0.0,
+          "death_probability": 0.0,
+          "combat_predicted": 1.0,
+          "visible_threat": 6.0,
+          "own_leader": 0.0
+        }
+      }
+    },
+    {
+      "turn": 7,
+      "side": 4,
+      "truth": {
+        "kind": "move",
+        "x": 5,
+        "y": 12,
+        "tx": 6,
+        "ty": 11,
+        "f": {
+          "move_tactical": 7.25,
+          "move_gain": 2.15,
+          "move_risk": 0.0,
+          "move_risk_delta": 0.0,
+          "move_primary": 1.0,
+          "expected_enemy_damage": 0.0,
+          "expected_self_damage": 0.0,
+          "kill_probability": 0.0,
+          "death_probability": 0.0,
+          "combat_predicted": 0.0,
+          "visible_threat": 3.0,
+          "own_leader": 0.0
+        }
+      },
+      "chosen": {
+        "kind": "end_turn",
+        "x": null,
+        "y": null,
+        "tx": null,
+        "ty": null,
+        "f": {
+          "move_tactical": 0.0,
+          "move_gain": 0.0,
+          "move_risk": 0.0,
+          "move_risk_delta": 0.0,
+          "move_primary": 0.0,
+          "expected_enemy_damage": 0.0,
+          "expected_self_damage": 0.0,
+          "kill_probability": 0.0,
+          "death_probability": 0.0,
+          "combat_predicted": 0.0,
+          "visible_threat": 0.0,
+          "own_leader": 0.0
+        }
+      }
+    },
+    {
+      "turn": 8,
+      "side": 4,
+      "truth": {
+        "kind": "move",
+        "x": 5,
+        "y": 13,
+        "tx": 8,
+        "ty": 11,
+        "f": {
+          "move_tactical": 10.943,
+          "move_gain": 5.843,
+          "move_risk": 4.468,
+          "move_risk_delta": 4.468,
+          "move_primary": 1.0,
+          "expected_enemy_damage": 0.0,
+          "expected_self_damage": 0.0,
+          "kill_probability": 0.0,
+          "death_probability": 0.0,
+          "combat_predicted": 0.0,
+          "visible_threat": 3.0,
+          "own_leader": 0.0
+        }
+      },
+      "chosen": {
+        "kind": "end_turn",
+        "x": null,
+        "y": null,
+        "tx": null,
+        "ty": null,
+        "f": {
+          "move_tactical": 0.0,
+          "move_gain": 0.0,
+          "move_risk": 0.0,
+          "move_risk_delta": 0.0,
+          "move_primary": 0.0,
+          "expected_enemy_damage": 0.0,
+          "expected_self_damage": 0.0,
+          "kill_probability": 0.0,
+          "death_probability": 0.0,
+          "combat_predicted": 0.0,
+          "visible_threat": 0.0,
+          "own_leader": 0.0
+        }
+      }
+    },
+    {
+      "turn": 8,
+      "side": 4,
+      "truth": {
+        "kind": "move",
+        "x": 6,
+        "y": 11,
+        "tx": 7,
+        "ty": 13,
+        "f": {
+          "move_tactical": 8.924,
+          "move_gain": 1.674,
+          "move_risk": 5.957,
+          "move_risk_delta": 5.957,
+          "move_primary": 1.0,
+          "expected_enemy_damage": 0.0,
+          "expected_self_damage": 0.0,
+          "kill_probability": 0.0,
+          "death_probability": 0.0,
+          "combat_predicted": 0.0,
+          "visible_threat": 5.0,
+          "own_leader": 0.0
+        }
+      },
+      "chosen": {
+        "kind": "end_turn",
+        "x": null,
+        "y": null,
+        "tx": null,
+        "ty": null,
+        "f": {
+          "move_tactical": 0.0,
+          "move_gain": 0.0,
+          "move_risk": 0.0,
+          "move_risk_delta": 0.0,
+          "move_primary": 0.0,
+          "expected_enemy_damage": 0.0,
+          "expected_self_damage": 0.0,
+          "kill_probability": 0.0,
+          "death_probability": 0.0,
+          "combat_predicted": 0.0,
+          "visible_threat": 0.0,
+          "own_leader": 0.0
+        }
+      }
+    }
+  ]
+}

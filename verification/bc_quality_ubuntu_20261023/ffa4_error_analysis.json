@@ -1,0 +1,126 @@
+{
+  "train": {
+    "counts": {
+      "recruit": 95,
+      "recruit_correct": 28,
+      "all": 707,
+      "all_correct": 303,
+      "end_turn": 80,
+      "end_turn_correct": 69,
+      "move": 253,
+      "move_correct": 123,
+      "attack": 279,
+      "attack_correct": 83
+    },
+    "cross_entropy": 1.909603266264121,
+    "action_confusion": {
+      "recruit -> recruit": 92,
+      "end_turn -> end_turn": 69,
+      "move -> move": 166,
+      "attack -> attack": 216,
+      "attack -> move": 59,
+      "move -> attack": 42,
+      "recruit -> attack": 3,
+      "move -> end_turn": 45,
+      "end_turn -> move": 4,
+      "end_turn -> attack": 4,
+      "end_turn -> recruit": 3,
+      "attack -> recruit": 4
+    },
+    "move_error": {
+      "different_actor": 40,
+      "exact": 123,
+      "different_action_kind": 87,
+      "same_actor_wrong_destination_or_variant": 3
+    },
+    "move_by_faction": {
+      "Drakes": {
+        "total": 57,
+        "correct": 32
+      },
+      "Knalgan Alliance": {
+        "total": 51,
+        "correct": 24
+      },
+      "Undead": {
+        "total": 39,
+        "correct": 15
+      },
+      "Rebels": {
+        "total": 35,
+        "correct": 21
+      },
+      "Northerners": {
+        "total": 33,
+        "correct": 12
+      },
+      "Loyalists": {
+        "total": 38,
+        "correct": 19
+      }
+    }
+  },
+  "validation": {
+    "counts": {
+      "recruit": 105,
+      "recruit_correct": 26,
+      "all": 724,
+      "all_correct": 223,
+      "end_turn": 89,
+      "end_turn_correct": 69,
+      "move": 268,
+      "move_correct": 80,
+      "attack": 262,
+      "attack_correct": 48
+    },
+    "cross_entropy": 2.4077220358242646,
+    "action_confusion": {
+      "recruit -> recruit": 99,
+      "end_turn -> end_turn": 69,
+      "move -> move": 127,
+      "attack -> attack": 188,
+      "move -> end_turn": 47,
+      "attack -> move": 69,
+      "move -> attack": 94,
+      "end_turn -> attack": 10,
+      "attack -> end_turn": 3,
+      "end_turn -> move": 7,
+      "recruit -> attack": 5,
+      "end_turn -> recruit": 3,
+      "attack -> recruit": 2,
+      "recruit -> move": 1
+    },
+    "move_error": {
+      "same_actor_wrong_destination_or_variant": 3,
+      "different_actor": 44,
+      "exact": 80,
+      "different_action_kind": 141
+    },
+    "move_by_faction": {
+      "Rebels": {
+        "total": 56,
+        "correct": 22
+      },
+      "Undead": {
+        "total": 81,
+        "correct": 29
+      },
+      "Northerners": {
+        "total": 29,
+        "correct": 5
+      },
+      "Loyalists": {
+        "total": 32,
+        "correct": 9
+      },
+      "Knalgan Alliance": {
+        "total": 40,
+        "correct": 7
+      },
+      "Drakes": {
+        "total": 30,
+        "correct": 8
+      }
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "training": {
+    "updates": 120,
+    "loss": 2.9373711769934747,
+    "interrupted": false,
+    "approx_kl": 0.0,
+    "kl_stopped": false,
+    "decisions_seen": 24590,
+    "unique_families_seen": 2,
+    "effective_dataset_passes": 34.01106500691563,
+    "sequence_windows": 16,
+    "microbatch": 32
+  },
+  "development_quality": {
+    "effective": false,
+    "formats": {
+      "ffa4": {
+        "samples": 724,
+        "cross_entropy": 2.341475787083747,
+        "uniform_entropy": 4.482836535712618,
+        "kinds": {
+          "recruit": {
+            "samples": 105,
+            "correct": 35,
+            "accuracy": 0.3333333333333333
+          },
+          "move": {
+            "samples": 268,
+            "correct": 83,
+            "accuracy": 0.30970149253731344
+          },
+          "attack": {
+            "samples": 262,
+            "correct": 53,
+            "accuracy": 0.20229007633587787
+          }
+        },
+        "accuracy": 0.3287292817679558,
+        "uniform_accuracy": 0.0135347702022052,
+        "effective": false
+      }
+    }
+  },
+  "parameters": 808023,
+  "seconds": 178.78679292002926
+}

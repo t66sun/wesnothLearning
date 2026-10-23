@@ -1,0 +1,3 @@
+TYPE_MASS {'moves': 268, 'kind_mass_move': 116, 'argmax_kind_move': 127, 'wrong_argmax_but_move_mass': 13}
+
+EXIT 0

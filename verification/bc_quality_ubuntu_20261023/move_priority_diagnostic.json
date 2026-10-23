@@ -1,0 +1,16 @@
+{
+  "train": {
+    "end_turn_with_moves": 80,
+    "end_turn_positive_gain": 0,
+    "moves": 253,
+    "rank_correct": 236,
+    "chosen_gain_positive": 253
+  },
+  "validation": {
+    "end_turn_with_moves": 88,
+    "end_turn_positive_gain": 1,
+    "moves": 268,
+    "rank_correct": 253,
+    "chosen_gain_positive": 268
+  }
+}

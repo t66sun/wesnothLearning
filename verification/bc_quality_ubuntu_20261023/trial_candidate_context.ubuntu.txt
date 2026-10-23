@@ -1,0 +1,9 @@
+POOL_TRIAL 20 31.5
+POOL_TRIAL 40 60.3
+POOL_TRIAL 60 89.4
+POOL_TRIAL 80 119.0
+POOL_TRIAL 100 147.6
+POOL_TRIAL 120 176.9
+POOL_TRIAL_RESULT {"effective": false, "formats": {"ffa4": {"samples": 724, "cross_entropy": 2.341475787083747, "uniform_entropy": 4.482836535712618, "kinds": {"recruit": {"samples": 105, "correct": 35, "accuracy": 0.3333333333333333}, "move": {"samples": 268, "correct": 83, "accuracy": 0.30970149253731344}, "attack": {"samples": 262, "correct": 53, "accuracy": 0.20229007633587787}}, "accuracy": 0.3287292817679558, "uniform_accuracy": 0.0135347702022052, "effective": false}}}
+
+EXIT 0
