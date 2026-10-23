@@ -42,6 +42,27 @@ function M.snapshot()
     return {turn=wesnoth.current.turn, side=wesnoth.current.side, units=units, gold=gold, villages=villages}
 end
 
+local function metric_snapshot(side, event)
+    local training=config.learning and config.learning[tostring(side)]
+    if not training then return end
+    local ok,row=pcall(function()
+        local O=wesnoth.require '~add-ons/LearningSupport/lua/observation.lua'
+        local S=wesnoth.require '~add-ons/LearningSupport/lua/spatial.lua'
+        local W=wesnoth.require '~add-ons/LearningSupport/lua/rewards.lua'
+        local schema=wesnoth.require '~add-ons/LearningSupport/lua/features.lua'
+        local state=M.states[side];local data=state and state.data or {}
+        local memory=data.collector_memory or data.memory or {}
+        local obs=O.capture(memory,side)
+        local snapshot=S.memory_observation(obs)
+        snapshot.side=side;snapshot.metric_event=event
+        snapshot.reward_raw=W.capture(obs,memory,true)
+        snapshot.source=training.teacher and 'astra' or 'policy';snapshot.teacher=training.teacher or false
+        snapshot.rules_version=schema.rules_sha256
+        return snapshot
+    end)
+    if ok then M.emit('METRIC',row) else M.emit('METRIC_ERROR',{side=side,error=tostring(row)}) end
+end
+
 local function living()
     local sides = {}
     for side=1,#wesnoth.sides do
@@ -53,6 +74,7 @@ local function living()
                 eliminated[side] = wesnoth.current.turn
                 -- Defeated leaders eliminate their faction in the FFA profile.
                 wesnoth.wml_actions.kill {side=side, hitpoints='1-99999', fire_event=false, animate=false}
+                metric_snapshot(side,'eliminated')
                 M.emit('ELIMINATED', {side=side, turn=wesnoth.current.turn})
             end
         end
@@ -63,6 +85,9 @@ end
 function M.finish(reason)
     if finished then return end
     local survivors = living()
+    if reason~='turn_limit' then
+        for _,side in ipairs(survivors) do metric_snapshot(side,'terminal') end
+    end
     if reason=='turn_limit' and config.learning then
         for key,training in pairs(config.learning) do
             local side=tonumber(key);local s=M.states[side]
@@ -133,6 +158,7 @@ function M.setup(options)
         if config.learning and not M.reward_initialized then
             wesnoth.require('~add-ons/LearningSupport/lua/rewards.lua').initialize_all()
             M.reward_initialized=true
+            for key in pairs(config.learning) do metric_snapshot(tonumber(key),'initial') end
         end
         M.check()
         if not finished then M.emit('TURN', {side=wesnoth.current.side, turn=wesnoth.current.turn}) end

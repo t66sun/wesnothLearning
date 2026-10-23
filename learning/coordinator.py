@@ -160,7 +160,9 @@ class Experiment:
             for fmt in self.config['formats']:
                 path=self.directory/fmt/'report/summary.json'
                 reports[fmt]=read_json(path) if path.exists() else dict(status='trainer_failed',exit_code=processes[fmt].exitcode)
-            summary=dict(status='finished' if all(processes[f].exitcode==0 and not reports[f].get('error') for f in processes) else 'partial_failure',formats=reports,clock=self.clock,scheduler=scheduling)
+            successful=all(processes[f].exitcode==0 and not reports[f].get('error') for f in processes)
+            status=('stage_complete' if any(r.get('status')=='stage_complete' for r in reports.values()) else 'finished') if successful else 'partial_failure'
+            summary=dict(status=status,formats=reports,clock=self.clock,scheduler=scheduling)
             checkpoints={f:self.directory/f/'selected.pt' for f in FORMATS}
             if all(p.exists() for p in checkpoints.values()) and not (self.directory/'delivery/NeuralArena.zip').exists():
                 # Packaging is a separate, explicit command after the continuous-memory parity audit.

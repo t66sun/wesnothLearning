@@ -14,6 +14,7 @@ from .formats import PLAYERS
 from .rewards import RewardConfig, terminal_rewards, transition_reward
 
 MIN_REFERENCE_GAMES = 4
+METRICS_VERSION = 'terminal-horizons-v2'
 HORIZONS = (5, 10)
 _GLOBAL = {name: (index, scale) for index, (name, scale) in enumerate(GLOBAL)}
 _ENTITY = {name: (index, scale) for index, (name, scale) in enumerate(ENTITY)}
@@ -52,9 +53,12 @@ def _snapshot(row, after=False):
 
 def _horizon(rows, side, turn):
     selected = [row for row in rows if int(row['turn']) <= turn]
-    if not selected or not any(int(row['turn']) == turn for row in selected):
+    if not selected:
         return None
     last = selected[-1]
+    absorbing = last.get('metric_event') in ('eliminated', 'terminal')
+    if not absorbing and not any(int(row['turn']) == turn for row in selected):
+        return None
     raw = last.get('reward_after') or last.get('reward_raw')
     if not raw:
         return None
@@ -82,12 +86,15 @@ def _horizon(rows, side, turn):
         if fraction is not None:
             leader = float(fraction > 0)
     explored, control = float(raw['explored']), float(raw['control'])
+    if last.get('metric_event') == 'eliminated':
+        control, leader = 0., 0.
     if not all(math.isfinite(value) for value in (explored, control)) or not 0 <= explored <= 1 or not 0 <= control <= 1:
         return None
     return dict(coverage=explored, control=control, leader_survival=leader,
                 loss=damage / capacity if capacity > 0 and complete else None,
                 loss_definition='observed-own-hp-decrements/unique-own-unit-max-hp',
-                snapshot_turn=turn, entity_coverage_complete=complete)
+                snapshot_turn=int(last['turn']) if absorbing else turn, absorbing=absorbing,
+                entity_coverage_complete=complete)
 
 
 def _reward_statistics(rows, result, side, job):
@@ -111,7 +118,7 @@ def _reward_statistics(rows, result, side, job):
         return None
 
 
-def summarize_game(records, result, job):
+def summarize_game(records, result, job, snapshots=()):
     """Extract actual own-view metrics; absent horizons remain explicitly missing.
 
     Loss counts legal own HP decrements (including observed deaths), divided by
@@ -124,6 +131,20 @@ def summarize_game(records, result, job):
     for index, row in enumerate(records):
         if row.get('reward_raw') and row.get('committed', True):
             groups[int(row['side'])].append((int(row['turn']), row.get('decision', index), row))
+    if not result.get('faults'):
+        survivors = result.get('survivors')
+        for snapshot in snapshots:
+            side = int(snapshot['side'])
+            event = snapshot.get('metric_event')
+            eliminated = event == 'eliminated' and survivors is not None and side not in survivors and str(side) not in survivors
+            terminal = event == 'terminal' and not result.get('truncated') and result.get('reason') in ('victory','last_team','last_leader')
+            if not (eliminated or terminal or event == 'initial'):
+                continue
+            # Diagnostic-only observations have no action, post-action memory or
+            # bootstrap value. They must never become supervised/on-policy rows.
+            row = {k: snapshot[k] for k in ('side','turn','global','spatial','reward_raw',
+                   'source','teacher','format','rules_version','metric_event') if k in snapshot}
+            groups[side].append((int(row['turn']), -1 if event=='initial' else float('inf'), row))
     diagnostics = []
     factions = result.get('factions') or job.get('factions', [])
     for side, indexed in sorted(groups.items()):
@@ -132,7 +153,7 @@ def summarize_game(records, result, job):
         first = rows[0]
         teacher = first.get('teacher')
         source = first.get('source', 'astra' if teacher else 'policy')
-        diagnostic = dict(game_id=job['id'], game_family=job.get('game_family', job['id']), side=side,
+        diagnostic = dict(game_id=job['id'], game_family=job.get('game_family', job['id']), side=side,metrics_version=METRICS_VERSION,
                           format=meta.get('format', first.get('format')), engine_id=job.get('engine', 'native'),
                           rules_version=job.get('rules_version', first.get('rules_version', 'native-1.18.8' if job.get('engine', 'native') == 'native' else None)),
                           map=meta.get('map'), map_sha256=meta.get('map_sha256'),
@@ -152,13 +173,14 @@ def summarize_game(records, result, job):
             missing.extend(name for name in ('leader_survival', 'loss') if diagnostic[name] is None)
         diagnostic['complete'] = not missing and not diagnostic['faults']
         diagnostic['missing'] = missing
-        diagnostic['reward_statistics'] = _reward_statistics(rows, result, side, job)
+        action_rows = [row for row in rows if not row.get('metric_event')]
+        diagnostic['reward_statistics'] = _reward_statistics(action_rows, result, side, job) if action_rows else None
         diagnostics.append(diagnostic)
     return diagnostics
 
 
 def _stratum(row):
-    return tuple(row.get(name) for name in ('format', 'engine_id', 'rules_version', 'map', 'map_sha256', 'faction', 'context'))
+    return tuple(row.get(name) for name in ('format', 'engine_id', 'rules_version', 'map', 'map_sha256', 'faction', 'context','metrics_version'))
 
 
 def _diagnostics(evidence):
@@ -243,7 +265,7 @@ def build_control_metrics(validation_jobs, validation_results, teacher_evidence,
                                         stratum=list(key), reference_families=len(reference)))
                     continue
                 values = {name: float(row[name]) for name in ('coverage5', 'coverage10', 'control', 'leader_survival', 'loss')}
-                values.update({f'astra_{name}': mean(float(ref[f'astra_{name}']) for ref in reference) for name in values})
+                values.update({f'astra_{name}': mean(float(ref[name]) for ref in reference) for name in values})
                 calibrated[(row['map'], row['faction'])].append(values)
                 if row.get('reward_statistics'):
                     local_statistics.append(row['reward_statistics'])

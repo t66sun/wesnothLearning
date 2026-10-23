@@ -156,7 +156,7 @@ class LuaContractTests(unittest.TestCase):
         obs=modules['observation.lua'].capture(lua.table())
         actions,timing=modules['candidates.lua'].generate(obs,0)
         self.assertEqual(actions[1]['kind'],'end_turn')
-        self.assertEqual(timing['budget'],'fixed-20000-v2')
+        self.assertEqual(timing['budget'],'fixed-20000-v3')
 
     def test_team_continues_after_one_leader_dies_and_ends_after_enemy_team(self):
         lua,modules=initialize()

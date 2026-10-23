@@ -90,7 +90,7 @@ def export_checkpoints(checkpoints, destination, name='NeuralArena', evaluation=
         if state.get('runner',{}).get('version',0)<=0 and state.get('metrics',{}).get('updates',0)<=0:
             raise ValueError('delivery requires a trained checkpoint, not initial support weights: '+fmt)
         if not audit_records or not audit_records.get(fmt):
-            raise ValueError('delivery export requires actual schema-4 sequence parity data for '+fmt)
+            raise ValueError('delivery export requires actual current-schema sequence parity data for '+fmt)
         errors[fmt]=verify_numerics(models[fmt],audit_records[fmt])
         versions[fmt]=dict(checkpoint_sha256=sha256(path),version=state.get('runner',{}).get('version',state.get('version','unknown')))
     addon=export(models,destination,name=name,version=versions,evaluation=evaluation)

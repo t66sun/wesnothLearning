@@ -1,12 +1,12 @@
-"""Candidate-version provenance: v2 on generated candidates, v1 on old captures.
+"""Candidate-version provenance: current generated pools and captures without timing.
 
 ``learning/lite_host.py`` derives ``candidate_version`` from the decision
-timing: ``schema4-`` plus ``timing.budget`` when the host generated a real
+timing: ``schema5-`` plus ``timing.budget`` when the host generated a real
 candidate pool, else the frozen ``fixed-20000-v1`` default.  Astra seats the
 job does not collect take the stub path (no ``budget`` key), so their
-derivation is v1 even though only learner seats reach the shard.  Human
+derivation uses the legacy fallback even though only learner seats reach the shard.  Human
 captures carry whatever the replay observer recorded: an old capture without
-timing imports as v1, a capture with the v2 budget as v2.
+timing imports as v1, a capture with the v3 budget as v3.
 """
 from __future__ import annotations
 
@@ -30,7 +30,7 @@ from tests.v5.test_pipeline_contract import catalog_patch, frozen_rules, read_gz
 
 def _version(timing):
     """The provenance expression from learning/lite_host.py, applied to a DTO."""
-    return 'schema4-' + timing.get('budget', 'fixed-20000-v1')
+    return 'schema5-' + timing.get('budget', 'fixed-20000-v1')
 
 
 def _spy(calls):
@@ -110,7 +110,7 @@ class CandidateProvenanceTests(unittest.TestCase):
         self.assertTrue(rows)
         self.assertEqual({row['side'] for row in rows}, {1})
         self.assertEqual({row['candidate_version'] for row in rows},
-                         {'schema4-fixed-20000-v2'})
+                         {'schema5-fixed-20000-v3'})
         collected = [call for call in calls if call['side'] == 1]
         unrecorded = [call for call in calls if call['side'] != 1]
         self.assertTrue(collected, calls)
@@ -119,26 +119,26 @@ class CandidateProvenanceTests(unittest.TestCase):
             self.assertTrue(call['teacher'], call)
             self.assertFalse(call['generate_candidates'], call)
             self.assertNotIn('budget', call['timing'], call)
-            self.assertEqual(_version(call['timing']), 'schema4-fixed-20000-v1')
+            self.assertEqual(_version(call['timing']), 'schema5-fixed-20000-v1')
         for call in collected:
             self.assertFalse(call['teacher'], call)
             self.assertTrue(call['generate_candidates'], call)
-            self.assertEqual(call['timing']['budget'], 'fixed-20000-v2', call)
-            self.assertEqual(_version(call['timing']), 'schema4-fixed-20000-v2')
+            self.assertEqual(call['timing']['budget'], 'fixed-20000-v3', call)
+            self.assertEqual(_version(call['timing']), 'schema5-fixed-20000-v3')
 
     def test_human_capture_without_timing_keeps_v1_and_validates(self):
         path, row = _capture(self.directory, 'capture-v1.log')
         rows, coverage = import_capture(path, row)
-        self.assertEqual(rows[0]['candidate_version'], 'schema4-fixed-20000-v1')
+        self.assertEqual(rows[0]['candidate_version'], 'schema5-fixed-20000-v1')
         helpers.validate(rows[0], 'duel')
         self.assertEqual(coverage['end_turn']['matched'], 1)
 
     def test_human_capture_with_v2_budget_imports_as_v2(self):
         path, row = _capture(self.directory, 'capture-v2.log',
-                             timing={'budget': 'fixed-20000-v2', 'truncated': False,
+                             timing={'budget': 'fixed-20000-v3', 'truncated': False,
                                      'ms': 4, 'predictions': 0, 'work': 7})
         rows, _ = import_capture(path, row)
-        self.assertEqual(rows[0]['candidate_version'], 'schema4-fixed-20000-v2')
+        self.assertEqual(rows[0]['candidate_version'], 'schema5-fixed-20000-v3')
         helpers.validate(rows[0], 'duel')
 
 

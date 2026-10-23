@@ -14,7 +14,8 @@ function M.entity(u,side,age)
         attacks_left=u.attacks_left,experience=u.experience,max_experience=u.max_experience,level=u.level,
         leader=u.canrecruit and 1 or 0,own=u.side==side and 1 or 0,
         ally=u.side~=side and not wesnoth.sides.is_enemy(side,u.side) and 1 or 0,
-        enemy=wesnoth.sides.is_enemy(side,u.side) and 1 or 0,age=age or 0}
+        enemy=wesnoth.sides.is_enemy(side,u.side) and 1 or 0,age=age or 0,
+        next_round=u.side~=side and u.side<=side and 1 or 0}
     for _,s in ipairs {'poisoned','slowed','petrified'} do v[s]=u.status[s] and 1 or 0 end
     v['alignment_'..(u.alignment or 'neutral')]=1
     for _,t in ipairs(schema.damage_types) do v['resistance_'..t]=u:resistance_against(t) end

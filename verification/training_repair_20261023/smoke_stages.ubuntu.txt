@@ -1,0 +1,15 @@
+{"duel": {"id": "f7af42d2255a4c2d98eac2713336ab31", "phase": "ppo", "force": true, "reason": "isolated real stage-handoff smoke", "requested_at": 1792757337.5760067, "deadline": 1792758237.5760067}}
+duel: BC gates not passed; use --force --reason to enter PPO explicitly
+{"duel": {"id": "9450c9977139444b9ab4628842cabad6", "phase": "evaluate", "force": false, "reason": "", "requested_at": 1792757388.3648028, "deadline": 1792758288.3648028}}
+STAGE_SMOKE_PASS duel ['bc', 'ppo', 'ppo'] selected 102
+{"ffa4": {"id": "325df297337f4b9a84b421a369759117", "phase": "ppo", "force": true, "reason": "isolated real stage-handoff smoke", "requested_at": 1792757438.6514647, "deadline": 1792758338.6514647}}
+ffa4: BC gates not passed; use --force --reason to enter PPO explicitly
+{"ffa4": {"id": "f4166633ba444bf6b458850e663f032b", "phase": "evaluate", "force": false, "reason": "", "requested_at": 1792757539.2113597, "deadline": 1792758439.2113597}}
+STAGE_SMOKE_PASS ffa4 ['bc', 'ppo', 'ppo'] selected 102
+{"team2v2": {"id": "b74e9c132ce947339e25aec72daf9f15", "phase": "ppo", "force": true, "reason": "isolated real stage-handoff smoke", "requested_at": 1792757610.0903554, "deadline": 1792758510.0903554}}
+team2v2: BC gates not passed; use --force --reason to enter PPO explicitly
+{"team2v2": {"id": "5f510f57ea4e4da39c2266c7d4e00fa0", "phase": "evaluate", "force": false, "reason": "", "requested_at": 1792757750.316842, "deadline": 1792758650.316842}}
+STAGE_SMOKE_PASS team2v2 ['bc', 'ppo', 'ppo'] selected 102
+ALL_STAGE_SMOKES_PASS
+
+EXIT 0

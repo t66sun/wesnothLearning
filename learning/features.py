@@ -5,7 +5,7 @@ import os
 
 from .rules_catalog import load as load_catalog, resolve_dir
 
-VERSION = 4
+VERSION = 5
 RULES_DIR = resolve_dir()
 RULES_PATH = RULES_DIR / 'catalog.json'
 if (RULES_DIR / 'rules.json').exists():
@@ -62,6 +62,14 @@ ENTITY = [('x', 1), ('y', 1), ('hp', 100), ('max_hp', 100), ('moves', 10),
           ('level', 4), ('leader', 1), ('own', 1), ('ally', 1), ('enemy', 1),
           ('poisoned', 1), ('slowed', 1), ('petrified', 1), ('age', 30)]
 ENTITY += [(name, scale) for name, scale in ACTION[27:-8]]
+# Keep the legacy entity fields independent of candidate-only tactical features.
+ENTITY += [('next_round', 1)]
+MOVE_FEATURES = [('move_tactical', 50), ('move_gain', 25), ('move_risk', 50),
+                 ('move_risk_delta', 50), ('move_home_distance', 50),
+                 ('move_own_support', 10), ('move_primary', 1)]
+# Unit identity remains the final field consumed by the embedding in Python/Lua.
+ACTION[-1:-1] = MOVE_FEATURES
+
 GEOMETRY = ('actor_x', 'actor_y', 'target_x', 'target_y', 'dest_x', 'dest_y',
             'dx', 'dy', 'target_dx', 'target_dy', 'move_distance', 'target_distance',
             'has_actor', 'has_target', 'weapon', 'full')

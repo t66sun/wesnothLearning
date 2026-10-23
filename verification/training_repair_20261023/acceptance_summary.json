@@ -1,0 +1,500 @@
+{
+  "stage": {
+    "duel": {
+      "methods": [
+        "bc",
+        "ppo",
+        "ppo"
+      ],
+      "updates": [
+        1,
+        1,
+        1
+      ],
+      "optimizer_steps": 3,
+      "version": 102,
+      "selected_kind": "ppo",
+      "pretraining_complete": false,
+      "forced_ppo": {
+        "reason": "isolated real stage-handoff smoke",
+        "command_id": "f7af42d2255a4c2d98eac2713336ab31",
+        "version": 100
+      },
+      "controls": {
+        "gpt6astra": {
+          "status": "inconclusive",
+          "blocks": 1,
+          "planned_blocks": 30,
+          "missing_blocks": 29,
+          "fault_games": 0,
+          "block_differences": {
+            "0": 0
+          },
+          "difference": 0,
+          "interval95": [
+            0,
+            0
+          ],
+          "policy_score": 1,
+          "control_score": 1,
+          "contexts": {
+            "solo": {
+              "difference": 0,
+              "interval95": [
+                0,
+                0
+              ],
+              "blocks": 1
+            }
+          }
+        }
+      },
+      "selected_sha256": "d677234fa9787a85df5ae1069ed2f7cb22c3150ce861f3f06b818272ad381139"
+    },
+    "ffa4": {
+      "methods": [
+        "bc",
+        "ppo",
+        "ppo"
+      ],
+      "updates": [
+        1,
+        1,
+        1
+      ],
+      "optimizer_steps": 3,
+      "version": 102,
+      "selected_kind": "ppo",
+      "pretraining_complete": false,
+      "forced_ppo": {
+        "reason": "isolated real stage-handoff smoke",
+        "command_id": "325df297337f4b9a84b421a369759117",
+        "version": 100
+      },
+      "controls": {
+        "gpt6astra": {
+          "status": "inconclusive",
+          "blocks": 1,
+          "planned_blocks": 30,
+          "missing_blocks": 29,
+          "fault_games": 0,
+          "block_differences": {
+            "0": 0.0
+          },
+          "difference": 0.0,
+          "interval95": [
+            0.0,
+            0.0
+          ],
+          "policy_score": 0.5,
+          "control_score": 0.5,
+          "contexts": {
+            "solo": {
+              "difference": 0.0,
+              "interval95": [
+                0.0,
+                0.0
+              ],
+              "blocks": 1
+            }
+          }
+        }
+      },
+      "selected_sha256": "86a57555e4ed3dd9cead5ee60fecd6c6d14aaf6de87a1a70361f8284ca36e379"
+    },
+    "team2v2": {
+      "methods": [
+        "bc",
+        "ppo",
+        "ppo"
+      ],
+      "updates": [
+        1,
+        1,
+        1
+      ],
+      "optimizer_steps": 3,
+      "version": 102,
+      "selected_kind": "ppo",
+      "pretraining_complete": false,
+      "forced_ppo": {
+        "reason": "isolated real stage-handoff smoke",
+        "command_id": "b74e9c132ce947339e25aec72daf9f15",
+        "version": 100
+      },
+      "controls": {
+        "gpt6astra": {
+          "status": "inconclusive",
+          "blocks": 1,
+          "planned_blocks": 30,
+          "missing_blocks": 29,
+          "fault_games": 0,
+          "block_differences": {
+            "0": 0
+          },
+          "difference": 0,
+          "interval95": [
+            0,
+            0
+          ],
+          "policy_score": 1,
+          "control_score": 1,
+          "contexts": {
+            "astra_partner": {
+              "difference": 0,
+              "interval95": [
+                0,
+                0
+              ],
+              "blocks": 1
+            },
+            "self_team": {
+              "difference": 0,
+              "interval95": [
+                0,
+                0
+              ],
+              "blocks": 1
+            }
+          }
+        }
+      },
+      "selected_sha256": "07c63af5835283b3a1a21df75f0416a2974354f57a66d00b08f7ff0f056f5285"
+    }
+  },
+  "opening_parity": {
+    "features": {
+      "version": 5,
+      "rules_sha256": "d6fceafe7d0c9c67c750551b9901dbfb2b22290992a8daa1616a460e11826dca"
+    },
+    "formats": {
+      "duel": {
+        "parity_error": 1.3925625232807937e-08,
+        "parity_rows": 8,
+        "parity_turns": [
+          1,
+          2
+        ],
+        "checkpoint_sha256": "d677234fa9787a85df5ae1069ed2f7cb22c3150ce861f3f06b818272ad381139",
+        "shards": [
+          "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/verification/training_repair_20261023/stage_outputs_v2/duel/duel/data/teacher-00000-duel-t0.jsonl.gz"
+        ],
+        "opening_gate": {
+          "passed": true,
+          "games": [
+            {
+              "left_castle": true,
+              "village": true,
+              "reasonable_end": true
+            },
+            {
+              "left_castle": true,
+              "village": true,
+              "reasonable_end": true
+            }
+          ]
+        },
+        "learner_end_turns": [
+          {
+            "end_turn": true,
+            "remaining_moves": 5,
+            "repeated_move": false,
+            "side": 1,
+            "turn": 1,
+            "usable_moves": 0
+          },
+          {
+            "end_turn": true,
+            "remaining_moves": 19,
+            "repeated_move": false,
+            "side": 1,
+            "turn": 2,
+            "usable_moves": 14
+          },
+          {
+            "end_turn": true,
+            "remaining_moves": 30,
+            "repeated_move": false,
+            "side": 1,
+            "turn": 3,
+            "usable_moves": 25
+          },
+          {
+            "end_turn": true,
+            "remaining_moves": 30,
+            "repeated_move": false,
+            "side": 1,
+            "turn": 4,
+            "usable_moves": 25
+          },
+          {
+            "end_turn": true,
+            "remaining_moves": 30,
+            "repeated_move": false,
+            "side": 1,
+            "turn": 5,
+            "usable_moves": 25
+          },
+          {
+            "end_turn": true,
+            "remaining_moves": 5,
+            "repeated_move": false,
+            "side": 2,
+            "turn": 1,
+            "usable_moves": 0
+          },
+          {
+            "end_turn": true,
+            "remaining_moves": 19,
+            "repeated_move": false,
+            "side": 2,
+            "turn": 2,
+            "usable_moves": 14
+          },
+          {
+            "end_turn": true,
+            "remaining_moves": 30,
+            "repeated_move": false,
+            "side": 2,
+            "turn": 3,
+            "usable_moves": 25
+          },
+          {
+            "end_turn": true,
+            "remaining_moves": 30,
+            "repeated_move": false,
+            "side": 2,
+            "turn": 4,
+            "usable_moves": 25
+          },
+          {
+            "end_turn": true,
+            "remaining_moves": 30,
+            "repeated_move": false,
+            "side": 2,
+            "turn": 5,
+            "usable_moves": 25
+          }
+        ]
+      },
+      "ffa4": {
+        "parity_error": 1.5902660563393844e-08,
+        "parity_rows": 8,
+        "parity_turns": [
+          1,
+          2
+        ],
+        "checkpoint_sha256": "86a57555e4ed3dd9cead5ee60fecd6c6d14aaf6de87a1a70361f8284ca36e379",
+        "shards": [
+          "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/verification/training_repair_20261023/stage_outputs_v2/ffa4/ffa4/data/teacher-00000-ffa4-t0.jsonl.gz"
+        ],
+        "opening_gate": {
+          "passed": true,
+          "games": [
+            {
+              "left_castle": true,
+              "village": true,
+              "reasonable_end": true
+            },
+            {
+              "left_castle": true,
+              "village": true,
+              "reasonable_end": true
+            }
+          ]
+        },
+        "learner_end_turns": [
+          {
+            "end_turn": true,
+            "remaining_moves": 5,
+            "repeated_move": false,
+            "side": 1,
+            "turn": 1,
+            "usable_moves": 0
+          },
+          {
+            "end_turn": true,
+            "remaining_moves": 22,
+            "repeated_move": false,
+            "side": 1,
+            "turn": 2,
+            "usable_moves": 17
+          },
+          {
+            "end_turn": true,
+            "remaining_moves": 33,
+            "repeated_move": false,
+            "side": 1,
+            "turn": 3,
+            "usable_moves": 28
+          },
+          {
+            "end_turn": true,
+            "remaining_moves": 33,
+            "repeated_move": false,
+            "side": 1,
+            "turn": 4,
+            "usable_moves": 28
+          },
+          {
+            "end_turn": true,
+            "remaining_moves": 33,
+            "repeated_move": false,
+            "side": 1,
+            "turn": 5,
+            "usable_moves": 28
+          },
+          {
+            "end_turn": true,
+            "remaining_moves": 4,
+            "repeated_move": false,
+            "side": 4,
+            "turn": 1,
+            "usable_moves": 0
+          },
+          {
+            "end_turn": true,
+            "remaining_moves": 17,
+            "repeated_move": false,
+            "side": 4,
+            "turn": 2,
+            "usable_moves": 13
+          },
+          {
+            "end_turn": true,
+            "remaining_moves": 28,
+            "repeated_move": false,
+            "side": 4,
+            "turn": 3,
+            "usable_moves": 24
+          },
+          {
+            "end_turn": true,
+            "remaining_moves": 28,
+            "repeated_move": false,
+            "side": 4,
+            "turn": 4,
+            "usable_moves": 24
+          },
+          {
+            "end_turn": true,
+            "remaining_moves": 28,
+            "repeated_move": false,
+            "side": 4,
+            "turn": 5,
+            "usable_moves": 24
+          }
+        ]
+      },
+      "team2v2": {
+        "parity_error": 1.505338401153189e-08,
+        "parity_rows": 8,
+        "parity_turns": [
+          1,
+          2
+        ],
+        "checkpoint_sha256": "07c63af5835283b3a1a21df75f0416a2974354f57a66d00b08f7ff0f056f5285",
+        "shards": [
+          "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/verification/training_repair_20261023/stage_outputs_v2/team2v2/team2v2/data/teacher-00000-team2v2-t0.jsonl.gz"
+        ],
+        "opening_gate": {
+          "passed": true,
+          "games": [
+            {
+              "left_castle": true,
+              "village": true,
+              "reasonable_end": true
+            },
+            {
+              "left_castle": true,
+              "village": true,
+              "reasonable_end": true
+            }
+          ]
+        },
+        "learner_end_turns": [
+          {
+            "end_turn": true,
+            "remaining_moves": 5,
+            "repeated_move": false,
+            "side": 1,
+            "turn": 1,
+            "usable_moves": 0
+          },
+          {
+            "end_turn": true,
+            "remaining_moves": 22,
+            "repeated_move": false,
+            "side": 1,
+            "turn": 2,
+            "usable_moves": 17
+          },
+          {
+            "end_turn": true,
+            "remaining_moves": 33,
+            "repeated_move": false,
+            "side": 1,
+            "turn": 3,
+            "usable_moves": 28
+          },
+          {
+            "end_turn": true,
+            "remaining_moves": 33,
+            "repeated_move": false,
+            "side": 1,
+            "turn": 4,
+            "usable_moves": 28
+          },
+          {
+            "end_turn": true,
+            "remaining_moves": 33,
+            "repeated_move": false,
+            "side": 1,
+            "turn": 5,
+            "usable_moves": 28
+          },
+          {
+            "end_turn": true,
+            "remaining_moves": 4,
+            "repeated_move": false,
+            "side": 4,
+            "turn": 1,
+            "usable_moves": 0
+          },
+          {
+            "end_turn": true,
+            "remaining_moves": 17,
+            "repeated_move": false,
+            "side": 4,
+            "turn": 2,
+            "usable_moves": 13
+          },
+          {
+            "end_turn": true,
+            "remaining_moves": 28,
+            "repeated_move": false,
+            "side": 4,
+            "turn": 3,
+            "usable_moves": 24
+          },
+          {
+            "end_turn": true,
+            "remaining_moves": 28,
+            "repeated_move": false,
+            "side": 4,
+            "turn": 4,
+            "usable_moves": 24
+          },
+          {
+            "end_turn": true,
+            "remaining_moves": 28,
+            "repeated_move": false,
+            "side": 4,
+            "turn": 5,
+            "usable_moves": 24
+          }
+        ]
+      }
+    }
+  }
+}

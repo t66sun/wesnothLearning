@@ -63,13 +63,14 @@ def play_job(job):
     except RuntimeError as exc:
         status='budget_interrupted' if 'experiment_budget_interrupted' in str(exc) else 'infrastructure_error'
         return dict(id=job['id'], status=status, error=str(exc))
-    records=[];native_timings=[];bootstraps={}
+    records=[];native_timings=[];bootstraps={};metric_snapshots=[]
     event_path=output.with_suffix('.events.jsonl.gz') if job.get('learning') else output.with_suffix('.events.jsonl')
     event_stream=gzip.open(event_path,'rt',encoding='utf-8') if job.get('learning') else event_path.open(encoding='utf-8')
     with event_stream as stream:
         for line in stream:
             event=json.loads(line)
             if event['event']=='LEARN': records.append(event['data'])
+            elif event['event']=='METRIC': metric_snapshots.append(event['data'])
             elif event['event']=='BOOTSTRAP':bootstraps[str(event['data']['side'])]=event['data']
             elif event['event']=='RETURN' and 'elapsed_ms' in event['data']:
                 native_timings.append(event['data'])
@@ -94,7 +95,7 @@ def play_job(job):
             teammate_context=job.get('meta',{}).get('context','baseline_partner' if job.get('teams') else 'solo'))
         for i,r in enumerate(records):
             r['decision']=i
-            r.setdefault('candidate_version','schema4-'+r['timing'].get('budget','fixed-20000-v1'))
+            r.setdefault('candidate_version',f"schema{r.get('schema')}-"+r['timing'].get('budget','fixed-20000-v1'))
         written=write_shard(job['shard'],job['id'],records,result,bootstraps,provenance)
         if job.get('learning',{}).get('dagger_teacher'):
             dagger=[]
@@ -108,7 +109,7 @@ def play_job(job):
             write_shard(dagger_path,job['id'],dagger,result,bootstraps,dict(provenance,data_pool='dagger'))
     timings=[r['timing']['ms']+r['timing'].get('inference_ms',0) for r in records]
     from .reward_metrics import summarize_game
-    return dict(id=job['id'],status='complete',result=result,meta=job.get('meta',{}),reward_diagnostics=summarize_game(records,result,job),
+    return dict(id=job['id'],status='complete',result=result,meta=job.get('meta',{}),reward_diagnostics=summarize_game(records,result,job,snapshots=metric_snapshots),
         training_eligible=not result.get('faults') and (written is None or bool(written['written'])),training_shard=written,
         coverage=dict(total=len(eligible),matched=sum(r['choice']>=0 for r in eligible),
                       all_actions=len(records),all_matched=matched,kinds=coverage),

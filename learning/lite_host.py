@@ -127,7 +127,7 @@ def play_lite_job(job):
                              and Path(p).suffix == '.zip'), None)
         host = LiteHost(job['game_spec'], job.get('rules_dir'),
                         require_accepted=job.get('require_accepted', True), teacher_path=teacher_path)
-        records, timings, behavior, bootstraps = [], [], [], {}
+        records, timings, behavior, bootstraps, metric_snapshots = [], [], [], {}, []
         config = job.get('reward_config') or RewardConfig().to_dict()
         config = RewardConfig(**config).to_dict()
         rank_points, defeated = {}, set()
@@ -135,6 +135,15 @@ def play_lite_job(job):
         current = 1
         learning=job.get('learning',{}).get('sides',{})
         learner_sides=set(map(int,learning)) if learning else set(job.get('learner_sides',[]))
+        def metric_snapshot(side,event):
+            row=host.decision(side,teacher=False,generate_candidates=False)
+            snapshot={k:row[k] for k in ('side','turn','global','spatial','reward_raw')}
+            snapshot.update(metric_event=event,source='astra' if is_astra(bots[side-1]) else 'policy',
+                            teacher='gpt6astra' if is_astra(bots[side-1]) else False,
+                            rules_version=host.adapter.catalog['rules_version'])
+            metric_snapshots.append(snapshot)
+        for side in sorted(learner_sides):
+            metric_snapshot(side,'initial')
         query_count={};side_decisions={};dagger=[];query_total=0
         while True:
             view = host.adapter.observe(current)
@@ -154,12 +163,12 @@ def play_lite_job(job):
             decision = host.decision(current, teacher=teacher or bool(query),
                                      generate_candidates=not teacher or current in learner_sides)
             training=learning.get(str(current),{})
-            decision.update(schema=4, format=job.get('format', job.get('meta', {}).get('format')),
+            decision.update(schema=schema()['version'], format=job.get('format', job.get('meta', {}).get('format')),
                             source='astra' if teacher else 'policy', engine_id='lite',
                             rules_version=host.adapter.catalog['rules_version'],
                             rules_sha256=host.adapter.rules_sha256, rng_version='xoshiro256++-1',
                             version=training.get('version','teacher-frozen' if teacher else 'v5-validation'),decision=decision_count,
-                            architecture_id='relational_v5', candidate_version='schema4-'+decision['timing'].get('budget','fixed-20000-v1'),
+                            architecture_id='relational_v5', candidate_version=f"schema{schema()['version']}-"+decision['timing'].get('budget','fixed-20000-v1'),
                             engine='lite', engine_version='lite-0.1',
                             teacher_impl='astra_lite' if teacher else None,
                             teammate_context=job.get('meta',{}).get('context','astra_partner' if job.get('teams') else 'solo'),
@@ -205,6 +214,8 @@ def play_lite_job(job):
             if newly:
                 points = len(defeated) + (len(newly)-1)/2
                 rank_points.update({str(s): points for s in newly});defeated.update(newly)
+                for side in sorted(newly & learner_sides):
+                    metric_snapshot(side,'eliminated')
             if view['finished']:
                 break
         if view['truncated'] and any(not is_astra(bots[side-1]) for side in learner_sides):
@@ -220,6 +231,9 @@ def play_lite_job(job):
                                              potential=decision['potential'], reward_raw=decision['reward_raw'], turn=decision['turn'],
                                              version=job.get('learning', {}).get('version', 'v5-validation'))
         survivors = [s['id'] for s in view['sides'] if not s['eliminated']]
+        if not view['truncated']:
+            for side in sorted(learner_sides-set(defeated)):
+                metric_snapshot(side,'terminal')
         points = len(defeated) + (len(survivors)-1)/2
         rank_points.update({str(s): points for s in survivors})
         teams = [s['team'] for s in job['game_spec']['sides']]
@@ -238,7 +252,7 @@ def play_lite_job(job):
                               for kind in ('recruit', 'move', 'attack', 'move_attack', 'end_turn')}}
         for key in ('total','matched'): coverage['kinds']['attack'][key]+=coverage['kinds']['move_attack'][key]
         return dict(id=job_id, status='complete', engine='lite', result=result, coverage=coverage,
-                    reward_diagnostics=summarize_game(records,result,job),
+                    reward_diagnostics=summarize_game(records,result,job,snapshots=metric_snapshots),
                     training_eligible=written is None or bool(written['written']), training_shard=written,
                     behavior=behavior, timings=timings, native_timings=[], meta=job.get('meta', {}),
                     truncated=sum(r['timing'].get('truncated', False) for r in records))

@@ -1,6 +1,6 @@
 # Agent 训练操作指南
 
-更新日期：2026-10-22。面向接手启动、维护和按指令调参的 agent。架构与当前参数以 [architecture.md](architecture.md) 为准，已实现但未验收的事项及最小方案见 [TEST.md](TEST.md)，历史验收证据从架构文档链接查阅。本文件提供操作步骤，不重复维护架构状态和完整超参数表。
+更新日期：2026-10-23。面向接手启动、维护和按指令调参的 agent。架构与当前参数以 [architecture.md](architecture.md) 为准，已实现但未验收的事项及最小方案见 [TEST.md](TEST.md)，历史验收证据从架构文档链接查阅。本文件提供操作步骤，不重复维护架构状态和完整超参数表。
 
 ## 1. 接手时先确定任务
 
@@ -51,6 +51,8 @@ export SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy
 原版应为 1.18.8，项目冻结入口要求 PyTorch 2.9.1。CPU 服务器默认全局 8 个游戏 worker、每训练器 1 线程，三个训练器共享这 8 个 worker。Windows 只作参考，不安排 Windows 全量验收。
 
 2026-10-22 的按座位候选优化新增了 Rust 扩展的决策参数；使用新源码前需在对应虚拟环境重新编译 `_engine_lite`，不能只复制 Python/Lua 文件。该修改及 300/600/400、8 workers 默认值已于 2026-10-22 在 Ubuntu 通过 T1–T4 受限验收（含 8 worker 真实链路、峰值 PSS 4.02 GiB），结论与证据见 architecture.md 第 8 节和 `verification/pretrain_acceptance_20261022/`；启动正式训练仍需用户后续明确指令。
+
+2026-10-23 当前实现为 schema 5 / 候选 v3。Ubuntu 隔离目录 `/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022` 已完成阶段接入与恢复的最小验收，使用其 `.venv/bin/python`（共享已安装依赖，拥有自己的新编译扩展）。若主目录尚未同步修复，使用该隔离目录核验入口或先部署已验收源码并重编对应环境；部署记录见修复报告。Rust 用 `include_str!` 嵌入 `engine_lite/lua/host.lua`，只复制 Lua 不会更新已安装扩展。原 20 小时正式实验已失败结束，旧 schema 4/v2 检查点只能使用原匹配源码；新旧语料/检查点不混用。T5 只余受限质量证据，真实 BC 门仍照常执行。
 
 ## 3. 启动前核对实际可运行范围
 
@@ -123,6 +125,26 @@ test -f "$run_dir/manifest.json" || exit 1
 
 ## 6. 日常维护与进度判断
 
+### 分开运行 BC、PPO 和最终评测
+
+以下入口用于与当前 schema/源码匹配的新实验。旧 schema 4 的已结束实验不能用 schema 5 直接恢复。默认 `run` 仍是 auto 一键流程；只做 BC 时创建实验加 `--phase bc`，BC 达标或阶段预算结束后保存为 `bc_complete`，不自动开始 PPO/最终评测。
+
+```bash
+"$python" -m learning run --run-dir runs/new_bc --phase bc --hours 4
+"$python" -m learning phase show --run-dir runs/new_bc
+# 正常切换要求 BC 门已通过；可用 --formats 仅选择部分赛制。
+"$python" -m learning phase ppo --run-dir runs/new_bc --hours 8
+# 仅在用户明确指示强转时使用：保留未达标的门结果，记录原因，不改 effective。
+"$python" -m learning phase ppo --run-dir runs/new_bc --force --reason '用户明确要求结束 BC' --hours 8
+"$python" -m learning run --resume runs/new_bc
+"$python" -m learning phase evaluate --run-dir runs/new_bc --hours 2
+"$python" -m learning run --resume runs/new_bc
+```
+
+上述正常/强制 PPO 命令是二选一示例。命令先写阶段请求：运行中的训练器在当前批次完成后读取；已经停止的实验需随后 resume，不能向仍持锁的实验启动第二个进程。恢复时先完成已有 pending_train 的冻结方法，再开始新阶段采样。PPO 阶段结束保存为 `ppo_complete`，最终评测需显式请求。正式 BC/PPO 的样本、奖励版本和 rehearsal 要求仍生效，强转不保证训练质量，也不凭空生成 BC 数据。
+
+`run --phase bc --hours 4` 给 BC 完整 4 小时，不预留自动最终评测时间。`phase --hours` 明确分配这次请求的阶段截止时间，从请求时刻计时，持久化在检查点；不改原 manifest/clock。省略则沿用原总预算的剩余时间（auto 沿用原更新截止），原预算过期时必须明确给出新阶段时长。普通 `run --resume --hours` 仍不会续预算。最终评测启动后不可在原目录返回训练；需要新实验。阶段命令不会自动启动或恢复训练，也不绕过源码/schema 冻结检查。
+
 对已有实验一次读取足够的状态；首次检查或实际异常才扩大范围。先确认 manifest 存在，再查看控制器，避免对不存在的实验路径创建控制目录。
 
 ```bash
@@ -132,13 +154,14 @@ test -f "$run_dir/manifest.json" || exit 1
 
 | 文件 | 读取内容与判断 |
 | --- | --- |
+| `phase/*.pending.json`、state.phase_history | 阶段请求、原因、独立截止时间、是否显式强转与应用记录；命令排队不等于已切换 |
 | `manifest.json`、`clock.json` | 实际配置、源码/对手/词表身份、更新和最终截止时间 |
 | `<format>/state.json` | stage、batch、version、effective、counters、pending_train/pending_validation、error；只取需要的字段，history 可能很大 |
 | `<format>/jobs.jsonl` | 最近任务的 status、faults、training_eligible、教师覆盖、引擎和阶段；统计有效局而非单看文件行数 |
 | `<format>/bc_gate.json` | 语料数量、模仿质量、候选覆盖、开局行为分别是否通过 |
 | `<format>/validation/*.json` | 区分 trend/promotion、native/lite 和队友上下文；一次小面板胜利不等于最终棋力 |
 | `<format>/latest.pt`、`last_bc.pt`、`last_ppo.pt` | 检查点是否更新、是否匹配状态与当前阶段；best/selected 是选模结果，不能当 latest 恢复状态的替身 |
-| `control/*.json`、`control/events.jsonl` | 当前配置、pending 命令、已应用序号、reward_version、last_error |
+| `control/*.json`、`control/events.jsonl` | 当前配置、pending 命令、已应用序号、reward_version、last_error、metrics_error（非空时 adaptive 冻结） |
 | 主日志、`scheduler.jsonl`、`trainer_error.log`、`errors.log` | 是否仍有任务完成、哪个赛制/阶段故障、实际异常栈 |
 
 BC 局数不增长不一定挂住：配额已满而质量未过时会继续学习已有数据，平台期才追加采样。采集阶段短时不更新权重也可能正常。结合最新任务完成时间、待处理批次、optimizer_steps 和检查点时间判断；CPU 利用率高本身不能证明更快或异常，先看有效局/小时、CPU 核秒/局、内存与超时。

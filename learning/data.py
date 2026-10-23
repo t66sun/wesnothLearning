@@ -31,7 +31,7 @@ def validate_record(r, format_name=None):
         raise ValueError('nonfinite features')
     spatial=r.get('spatial')
     if not spatial or len(spatial['entities'])>128 or len(spatial['board'])!=len(SPATIAL_CHANNELS):
-        raise ValueError('schema 4 requires a legal spatial observation')
+        raise ValueError('current schema requires a legal spatial observation')
     for channel in spatial['board']:
         if len(channel)!=16 or any(len(row)!=16 or any(not math.isfinite(v) for v in row) for row in channel):
             raise ValueError('invalid public spatial grid')
@@ -45,7 +45,7 @@ def validate_record(r, format_name=None):
         for key in ('actor','target'):
             if c.get(key): entity(c[key])
     if r.get('architecture_id')!='relational_v5' or not all(r.get(k) is not None for k in ('engine_id','rules_version','rng_version','candidate_version','reward_version','reward_formula_id')):
-        raise ValueError('sample lacks schema-4 provenance')
+        raise ValueError('sample lacks current-schema provenance')
     from .rewards import RewardConfig
     config=RewardConfig(**r['reward_config'])
     if config.reward_version!=r['reward_version'] or config.reward_formula_id!=r['reward_formula_id']:

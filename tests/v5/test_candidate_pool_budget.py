@@ -52,7 +52,7 @@ class CandidatePoolBudgetTests(unittest.TestCase):
     def test_pool_is_capped_and_reports_truncation(self):
         self.assertEqual(len(self.actions), 128, len(self.actions))
         self.assertTrue(self.timing['truncated'])
-        self.assertEqual(self.timing['budget'], 'fixed-20000-v2')
+        self.assertEqual(self.timing['budget'], 'fixed-20000-v3')
         self.assertEqual({action['kind'] for action in self.actions} - KINDS, set())
 
     def test_every_unit_with_moves_keeps_one_full_move_from_its_hex(self):

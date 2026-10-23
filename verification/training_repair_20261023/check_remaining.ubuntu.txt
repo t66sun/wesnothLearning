@@ -1,0 +1,18 @@
+test_underfilled_promotion_never_selects_best (tests.v5.test_training_failure_fixes.FailureBoundaryTests.test_underfilled_promotion_never_selects_best) ... ok
+test_internal_export_resume_keeps_weights_integrity_without_sdk_size_cap (tests.v5.test_training_failure_fixes.FailureBoundaryTests.test_internal_export_resume_keeps_weights_integrity_without_sdk_size_cap) ... ok
+test_auto_uses_next_sampling_method_after_bc_gate (tests.v5.test_training_failure_fixes.PhaseEntryTests.test_auto_uses_next_sampling_method_after_bc_gate) ... ok
+test_bc_only_stops_without_ppo_or_final_and_can_resume_as_ppo (tests.v5.test_training_failure_fixes.PhaseEntryTests.test_bc_only_stops_without_ppo_or_final_and_can_resume_as_ppo) ... ok
+test_cli_phase_entry_is_separate_from_reward_controls (tests.v5.test_training_failure_fixes.PhaseEntryTests.test_cli_phase_entry_is_separate_from_reward_controls) ... ok
+test_forced_phase_is_explicit_preserves_gates_and_original_clock (tests.v5.test_training_failure_fixes.PhaseEntryTests.test_forced_phase_is_explicit_preserves_gates_and_original_clock) ... ok
+test_resumed_pending_batch_keeps_method_before_new_phase (tests.v5.test_training_failure_fixes.PhaseEntryTests.test_resumed_pending_batch_keeps_method_before_new_phase) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.409s
+
+OK
+STAGE_RESULT {"format": "duel", "methods": ["bc", "ppo", "ppo"], "updates": [1, 1, 1], "optimizer_steps": 3, "selected_version": 102, "selected_kind": "ppo", "pretraining_complete": false, "forced_ppo": {"reason": "isolated real stage-handoff smoke", "command_id": "f7af42d2255a4c2d98eac2713336ab31", "version": 100}, "controls": {"gpt6astra": {"status": "inconclusive", "blocks": 1, "planned_blocks": 30, "missing_blocks": 29, "fault_games": 0, "block_differences": {"0": 0}, "difference": 0, "interval95": [0, 0], "policy_score": 1, "control_score": 1, "contexts": {"solo": {"difference": 0, "interval95": [0, 0], "blocks": 1}}}}, "selected_sha256": "d677234fa9787a85df5ae1069ed2f7cb22c3150ce861f3f06b818272ad381139"}
+STAGE_RESULT {"format": "ffa4", "methods": ["bc", "ppo", "ppo"], "updates": [1, 1, 1], "optimizer_steps": 3, "selected_version": 102, "selected_kind": "ppo", "pretraining_complete": false, "forced_ppo": {"reason": "isolated real stage-handoff smoke", "command_id": "325df297337f4b9a84b421a369759117", "version": 100}, "controls": {"gpt6astra": {"status": "inconclusive", "blocks": 1, "planned_blocks": 30, "missing_blocks": 29, "fault_games": 0, "block_differences": {"0": 0.0}, "difference": 0.0, "interval95": [0.0, 0.0], "policy_score": 0.5, "control_score": 0.5, "contexts": {"solo": {"difference": 0.0, "interval95": [0.0, 0.0], "blocks": 1}}}}, "selected_sha256": "86a57555e4ed3dd9cead5ee60fecd6c6d14aaf6de87a1a70361f8284ca36e379"}
+STAGE_RESULT {"format": "team2v2", "methods": ["bc", "ppo", "ppo"], "updates": [1, 1, 1], "optimizer_steps": 3, "selected_version": 102, "selected_kind": "ppo", "pretraining_complete": false, "forced_ppo": {"reason": "isolated real stage-handoff smoke", "command_id": "b74e9c132ce947339e25aec72daf9f15", "version": 100}, "controls": {"gpt6astra": {"status": "inconclusive", "blocks": 1, "planned_blocks": 30, "missing_blocks": 29, "fault_games": 0, "block_differences": {"0": 0}, "difference": 0, "interval95": [0, 0], "policy_score": 1, "control_score": 1, "contexts": {"astra_partner": {"difference": 0, "interval95": [0, 0], "blocks": 1}, "self_team": {"difference": 0, "interval95": [0, 0], "blocks": 1}}}}, "selected_sha256": "07c63af5835283b3a1a21df75f0416a2974354f57a66d00b08f7ff0f056f5285"}
+AFFECTED_NEW_CHECKS_PASS 7
+
+EXIT 0
