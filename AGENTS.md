@@ -1,12 +1,8 @@
 ## Documentation
 
-Every maintained doc exists twice: an English file with no suffix and a Chinese mirror with a `_zh` suffix. Read the English file by default; open `_zh` only when the task concerns the Chinese text. English is authoritative: create, edit, rename or move both files together, keep the top language-switch link correct, and fix the mirror in the same change when the two disagree.
+Maintained docs live in `docs/`; the repository root keeps only `README.md`, whose Chinese mirror is `docs/README_zh.md`. Module docs under `benchmarks/`, `engine_lite/` and `learning/` stay beside their code. Mirrors use the `_zh` suffix.
 
-Maintained docs live in `docs/`; the repository root keeps only `README.md`, whose Chinese mirror is `docs/README_zh.md`. Module docs under `benchmarks/`, `engine_lite/` and `learning/` stay beside their code and follow the same pair rule.
-
-`AGENTS.md` is the single exception: English only, no `_zh` twin.
-
-Docs inside vendored, evidence and artifact trees are not maintained docs: leave `vendor/`, `references/`, `verification/`, `rules/`, `humanData*`, `delivery/`, `runs/` and `tmp/` as found, untranslated and unmoved.
+Not maintained docs: `vendor/`, `references/`, `verification/`, `rules/`, `humanData*`, `delivery/`, `runs/`, `tmp/`.
 
 Read `docs/architecture.md` before architecture, parameter or status changes; maintain it and report decision conflicts. Read `docs/instructions.md` before training operations or tuning.
 
@@ -21,14 +17,6 @@ After acceptance, archive commands, results, source/rule identities and limits i
 ## CodeGraph
 
 When `.codegraph/` exists, use `codegraph_explore` or `codegraph explore` before grep/code reads to locate symbols and trace callers; otherwise skip.
-
-## Git workflow
-
-Never commit directly to `master`; make every change, however small, on a branch. Each subagent works on its own branch and, when its task is done, opens a pull request with `gh pr create --repo t66sun/wesnothLearning --body-file`.
-
-Make sure that every change that actually matters is committed. Every commit needs to be carried along with specific description of what is changed.
-
-At the end of each phase the main agent collects the open pull requests, reviews and verifies them one at a time, merges each into `master`, then pushes `master` to GitHub.
 
 ## Issue tracker
 
