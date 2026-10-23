@@ -1,0 +1,203 @@
+{
+  "root": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022",
+  "source_sha256": {
+    "engine_lite/lua/host.lua": "03bbfcad4d97948cee56178bb1303f5d61490d7b4170e438bc4490edaefa1a64",
+    "learning/__main__.py": "c15d4282aa8f17bd6f8412498241dc617af8f6fc0078b46536e8d5697d335ec4",
+    "learning/adapters.py": "ce3b42351369de72565ea487585dd134811e158321ce20596c462230e8f8199b",
+    "learning/collector.lua": "750b6ccaec51b19597aaf1ae9b56b80f588cc091b59a73d01a8dae3fb1c612e8",
+    "learning/control.py": "ae2140006e6cbc381f8116a4606684b8394752cf486a17a64abfbc2695e82328",
+    "learning/coordinator.py": "0fa9a37284000bef0b24e804a6d9dba50dbb02139d77fd78d7932d2fa5bc017f",
+    "learning/data.py": "56c25e6051db3e81068b83e5dc8df36dff52f1c30d722ddd400af94a2de4a594",
+    "learning/experiment.py": "bcabe765e544c82c5f1b92818a464ad2fb307c6a1ca916e87871d3bace54af90",
+    "learning/features.py": "7e286a50a5947ac5e5287d6c2b42562e6faf3e9a54ce50f184533438f25aa6f9",
+    "learning/lite_host.py": "58acbff6eff08af6940108825b736dc0acc81ce9d8273e39fdaaa6d128a1df16",
+    "learning/lite_policy.py": "67577b83be762783be0eafbd4782f3612dba1ca7d137280237ceab3dcd212b6e",
+    "learning/maps.py": "85f9cff8fc6399955d19aeb24679bc397d890501729d2e723222a7170ee1a090",
+    "learning/model.py": "b6012e2e6483d1b47b5a7903ba9c762e5a36e3abe7fc0371d57061af09033718",
+    "learning/phases.py": "46c97412612d2219ef0f3b1eb2658619ccb116ca25cf7e6bb09d6f94c92b2715",
+    "learning/reward_metrics.py": "28ee81a2671e20b7888b03658bb890e312c6ba0ae80799458924bc717c16e9f1",
+    "learning/rowpack.py": "b4cc5364209c843f60069141697353e7af126a16a2bbddfd91aa203f2651f283",
+    "learning/sample.py": "7c5236e7c2595a4ca0fe0af5487e3f24fed0c28282c2644dbef05698ba9c59dd",
+    "learning/sequences.py": "4b7603bc1b9af24c2c1ef1b10dd54b59c51a58a33c31c40501c41b7a835622aa",
+    "learning/train.py": "ac720803686707ea1100c055c2a7215a6c86a010a27a2efa918853238b8e44ce",
+    "lua/bot.lua": "6255096cd9a986da5c730eee2c9a0428bf04af14dcafd1a01781d550ea7d6b60",
+    "lua/candidates.lua": "c3e24933f690a93c299f0523a1fee0cd592682560f269b56f7933312403e0d35",
+    "lua/network.lua": "5d076ec82f572f151d419c21b6e740d27feba2fb9f4c05762e4bd5b2f958aa92",
+    "lua/observation.lua": "8d9ffa002cb89b2dce7407df7b7d8cc4cbcac18fc70016f6bb1a1732a77b5cba",
+    "lua/relational.lua": "8c663d8d795125d1df9eb001f95f4204a0a75326908cf304e8b8243c7cc59930",
+    "lua/spatial.lua": "e02a116be43549aface39c4f902378e0e35f6c8167990abbae9ebde8ad59cfe4",
+    "tests/v5/test_teacher_state_reuse.py": "95bb802b0f2b99db7b9599f257f8ec7fd3d55b043d167eb5795b361edaa69c9c",
+    "vendor/arena/runtime/runtime.lua": "afcb489592a750e58c5dd7e57ce0dfdcf60750d9dba89c7898a07a1d23075a97"
+  },
+  "extension_sha256": "86e07264fe6f54359a7c5c25d255a1e6877a31f0da1efa9302b099d00cfcab24",
+  "rule_sha256": "d6fceafe7d0c9c67c750551b9901dbfb2b22290992a8daa1616a460e11826dca",
+  "teacher_sha256": "2a216c96081990621dc15772e9de1bf40e4f5f451223fe52e5b20625464dc933",
+  "artifacts": {
+    "bottom_up.json": {
+      "path": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/verification/bc_rootcause_20261023_2318/bottom_up.json",
+      "sha256": "215f14ab078f72f82faa414c0bbd581ddc52e6ee59ac3c9f2d565f49d37b443d",
+      "bytes": 40297
+    },
+    "full_history.json": {
+      "path": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/verification/bc_rootcause_20261023_2318/full_history.json",
+      "sha256": "fde22fcda81968409ba864a5fe53c0c10835b3914e27445d55ae9390e0a308fc",
+      "bytes": 4932
+    },
+    "empty_history.json": {
+      "path": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/verification/bc_rootcause_20261023_2318/empty_history.json",
+      "sha256": "717158dd340eeb1d99199a0925fd3c535b42225add448112e1d3a1f6658eefbb",
+      "bytes": 4752
+    },
+    "production_window_sampling.json": {
+      "path": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/verification/bc_rootcause_20261023_2318/production_window_sampling.json",
+      "sha256": "820b33a3721d9883a13e1c0be444e676309de8eb5d0024640b31d8eb831afbb1",
+      "bytes": 3753
+    },
+    "baseline_route.json": {
+      "path": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/verification/bc_rootcause_20261023_2318/baseline_route.json",
+      "sha256": "e57f8f25cfec1ac5790323abd214733d6961449c3b1aa5a648742e11eb0e7894",
+      "bytes": 125126
+    },
+    "no_value_route.json": {
+      "path": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/verification/bc_rootcause_20261023_2318/no_value_route.json",
+      "sha256": "226890a54df4151acab5f5fc3ea7fd366dffb099e0814684060d75676d4a813a",
+      "bytes": 116798
+    },
+    "value_detached_route.json": {
+      "path": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/verification/bc_rootcause_20261023_2318/value_detached_route.json",
+      "sha256": "bac54979672cc0b0816c27ded438bb6d36c0cf365e0f00dda9fc0e7174028817",
+      "bytes": 125172
+    },
+    "empty_history_route.json": {
+      "path": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/verification/bc_rootcause_20261023_2318/empty_history_route.json",
+      "sha256": "c037375847ec68c33afdc1d81218785968006d783c35a78676a39d740b913380",
+      "bytes": 98155
+    },
+    "extended_480.json": {
+      "path": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/verification/bc_rootcause_20261023_2318/extended_480.json",
+      "sha256": "5eeba9edb43fd6404b8cc43c77fd329c1481b3e0b53813f0970ad3e450a34026",
+      "bytes": 22234
+    },
+    "faster_lr_120.json": {
+      "path": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/verification/bc_rootcause_20261023_2318/faster_lr_120.json",
+      "sha256": "f3c1000c3dd15cc1fc0313d1774e6efa7faeae27df6efc0d0377b266a6476337",
+      "bytes": 5962
+    },
+    "trade_diagnostic.json": {
+      "path": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/verification/bc_rootcause_20261023_2318/trade_diagnostic.json",
+      "sha256": "e20a93a10c105ca7eb546ee9ecd86de4f2abf1eb84b3d5f8a138197632f3d4c8",
+      "bytes": 2602
+    },
+    "trade_probe.json": {
+      "path": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/verification/bc_rootcause_20261023_2318/trade_probe.json",
+      "sha256": "25052964fcf3bb9086cd6028c9728ef93fcfdfe913a34b335c4093011d2e1b0d",
+      "bytes": 1958
+    },
+    "context_dropout_generalization.json": {
+      "path": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/verification/bc_rootcause_20261023_2318/context_dropout_generalization.json",
+      "sha256": "79253dda9105db2039703d21d9e899b143bf4137ad765c5b77c92c530dff8629",
+      "bytes": 1835
+    },
+    "decision_draws_generalization.json": {
+      "path": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/verification/bc_rootcause_20261023_2318/decision_draws_generalization.json",
+      "sha256": "f7768600eb9cad64eb1606fb043fa4c134ab8cc41925c6f81ed52181b0042c33",
+      "bytes": 1601
+    },
+    "diversity_normal.json": {
+      "path": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/verification/bc_rootcause_20261023_2318/diversity_normal.json",
+      "sha256": "8b8e24c9e6cadec221d0820387d1053c444fad0d74116bae22576c9ddecc5ca3",
+      "bytes": 1395
+    },
+    "diversity_zeroed.json": {
+      "path": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/verification/bc_rootcause_20261023_2318/diversity_zeroed.json",
+      "sha256": "6655c18c3b6b9add42969a4751bfad983366b4000d7b608c6e5c0bc1145fe6d1",
+      "bytes": 1393
+    },
+    "teacher_replay.json": {
+      "path": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/verification/bc_rootcause_20261023_2318/teacher_replay.json",
+      "sha256": "d1a1bb20de404a253c70dfc02396257d23ddb252e071e12109a77897d0eb1a3f",
+      "bytes": 13058
+    },
+    "restore_real_case.json": {
+      "path": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/verification/bc_rootcause_20261023_2318/restore_real_case.json",
+      "sha256": "d81bda98bb395711967e119143d163d849517b1108298e1fc88fc535045fdbfe",
+      "bytes": 351
+    },
+    "state_fix_identity.json": {
+      "path": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/verification/bc_rootcause_20261023_2318/state_fix_identity.json",
+      "sha256": "f0e483c34e977de02b0ccdf4f4cd51ddf4d99606387787ffdd2c280f76661452",
+      "bytes": 710
+    },
+    "diversity_plan.json": {
+      "path": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/verification/bc_rootcause_20261023_2318/diversity_plan.json",
+      "sha256": "4164c9102dae66885c83f1325144ea0d8d516b8324c4f3e9f495f541507b5b37",
+      "bytes": 1322
+    },
+    "tiny_plan.json": {
+      "path": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/verification/bc_rootcause_20261023_2318/tiny_plan.json",
+      "sha256": "640b7e4fa970ebca81fa96414f53a733e16575e789eaba1993fdb322761ad3c1",
+      "bytes": 8057
+    }
+  },
+  "data": {
+    "verification/bc_rootcause_20261023_2318/data/ffa4/extra-ffa4-train-0.jsonl.gz": {
+      "sha256": "34f0d1380ed95e0cc77a554b6f5a4f2fee3f0871ec5f035634b9cc85ca5f960d",
+      "bytes": 7593416
+    },
+    "verification/bc_rootcause_20261023_2318/data/ffa4/extra-ffa4-train-1.jsonl.gz": {
+      "sha256": "b645a0d16e31f4a787f0a2ad0452709f4d7c6f6a78faa6a01ec96bdcc8ff19a1",
+      "bytes": 7380082
+    },
+    "verification/bc_rootcause_20261023_2318/data/ffa4/fix-ffa4-validation-0.jsonl.gz": {
+      "sha256": "302394ef571e792a1bcd63a0aad314834b7741bb7796eb2de949d19d485e6a85",
+      "bytes": 7372849
+    },
+    "verification/bc_rootcause_20261023_2318/data/ffa4/fix-ffa4-validation-1.jsonl.gz": {
+      "sha256": "8f0c6dfc06e6015083c2fec80cea78ae391922b1e8c54bdc2884dda7ee5ac357",
+      "bytes": 7603762
+    }
+  },
+  "checkpoints": {
+    "baseline.pt": {
+      "path": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/verification/bc_rootcause_20261023_2318/baseline.pt",
+      "sha256": "992284f454c2a8f1838d227f61a007047c496efe494fc6ec11cc10a298320232"
+    },
+    "context_dropout.pt": {
+      "path": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/verification/bc_rootcause_20261023_2318/context_dropout.pt",
+      "sha256": "ae101275c6d757ed6d907a7ba6077502a546c669de2b72924e78f8c114873811"
+    },
+    "decision_draws.pt": {
+      "path": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/verification/bc_rootcause_20261023_2318/decision_draws.pt",
+      "sha256": "3ed48d992d6c0df1749b518e25ff6e1735276c3a716bae4ccfb7062d4fb7bc0e"
+    },
+    "diversity_normal.pt": {
+      "path": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/verification/bc_rootcause_20261023_2318/diversity_normal.pt",
+      "sha256": "3a8445be9871ecec26fda6f62d050151eac3ca593a708d4aa58f655b469fabcf"
+    },
+    "diversity_zeroed.pt": {
+      "path": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/verification/bc_rootcause_20261023_2318/diversity_zeroed.pt",
+      "sha256": "5d587a7d48bac064e16cf7677144c12d048b8e1bc67a70763b5921a8beb75aed"
+    },
+    "empty_history.pt": {
+      "path": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/verification/bc_rootcause_20261023_2318/empty_history.pt",
+      "sha256": "11ec42b07d5ea4c2d563e691e23a494a2abc0fe65a93bd25bee85e8daa2b7e20"
+    },
+    "extended_480.pt": {
+      "path": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/verification/bc_rootcause_20261023_2318/extended_480.pt",
+      "sha256": "76dbe59c78e2568f4a1c40e9cd78fb49fd56460dd8625ee3bc215ceb2038481e"
+    },
+    "faster_lr_120.pt": {
+      "path": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/verification/bc_rootcause_20261023_2318/faster_lr_120.pt",
+      "sha256": "34ae0ea08a63939a91c3c47c5c218bc2237fcda82fa905f3666bae6b23cb7edc"
+    },
+    "no_value.pt": {
+      "path": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/verification/bc_rootcause_20261023_2318/no_value.pt",
+      "sha256": "382a7b507548576f07d743a5673ae4b77d72db8a5129ddaac04071d521af915d"
+    },
+    "value_detached.pt": {
+      "path": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/verification/bc_rootcause_20261023_2318/value_detached.pt",
+      "sha256": "4129a98a91e0d4f78069654f2eb099f0c98d0b00ab96150a2892854cad336195"
+    }
+  },
+  "active_training_commands": []
+}

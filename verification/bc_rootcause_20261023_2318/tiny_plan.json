@@ -1,0 +1,463 @@
+{
+  "seed": 23,
+  "rows": [
+    {
+      "game": "t5-ffa4-train-0",
+      "side": 1,
+      "turn": 1,
+      "decision": 5,
+      "choice": 5
+    },
+    {
+      "game": "t5-ffa4-train-0",
+      "side": 1,
+      "turn": 4,
+      "decision": 93,
+      "choice": 4
+    },
+    {
+      "game": "t5-ffa4-train-0",
+      "side": 1,
+      "turn": 6,
+      "decision": 145,
+      "choice": 111
+    },
+    {
+      "game": "t5-ffa4-train-0",
+      "side": 1,
+      "turn": 7,
+      "decision": 176,
+      "choice": 42
+    },
+    {
+      "game": "t5-ffa4-train-0",
+      "side": 1,
+      "turn": 7,
+      "decision": 180,
+      "choice": 0
+    },
+    {
+      "game": "t5-ffa4-train-0",
+      "side": 1,
+      "turn": 8,
+      "decision": 207,
+      "choice": 2
+    },
+    {
+      "game": "t5-ffa4-train-0",
+      "side": 1,
+      "turn": 10,
+      "decision": 282,
+      "choice": 0
+    },
+    {
+      "game": "t5-ffa4-train-0",
+      "side": 1,
+      "turn": 11,
+      "decision": 312,
+      "choice": 81
+    },
+    {
+      "game": "t5-ffa4-train-0",
+      "side": 1,
+      "turn": 11,
+      "decision": 317,
+      "choice": 1
+    },
+    {
+      "game": "t5-ffa4-train-0",
+      "side": 1,
+      "turn": 12,
+      "decision": 346,
+      "choice": 42
+    },
+    {
+      "game": "t5-ffa4-train-0",
+      "side": 1,
+      "turn": 12,
+      "decision": 348,
+      "choice": 0
+    },
+    {
+      "game": "t5-ffa4-train-0",
+      "side": 2,
+      "turn": 4,
+      "decision": 98,
+      "choice": 29
+    },
+    {
+      "game": "t5-ffa4-train-0",
+      "side": 2,
+      "turn": 4,
+      "decision": 100,
+      "choice": 3
+    },
+    {
+      "game": "t5-ffa4-train-0",
+      "side": 2,
+      "turn": 7,
+      "decision": 184,
+      "choice": 2
+    },
+    {
+      "game": "t5-ffa4-train-0",
+      "side": 3,
+      "turn": 1,
+      "decision": 13,
+      "choice": 46
+    },
+    {
+      "game": "t5-ffa4-train-0",
+      "side": 3,
+      "turn": 1,
+      "decision": 18,
+      "choice": 0
+    },
+    {
+      "game": "t5-ffa4-train-0",
+      "side": 3,
+      "turn": 11,
+      "decision": 328,
+      "choice": 31
+    },
+    {
+      "game": "t5-ffa4-train-0",
+      "side": 3,
+      "turn": 11,
+      "decision": 329,
+      "choice": 1
+    },
+    {
+      "game": "t5-ffa4-train-0",
+      "side": 4,
+      "turn": 2,
+      "decision": 54,
+      "choice": 13
+    },
+    {
+      "game": "t5-ffa4-train-0",
+      "side": 4,
+      "turn": 5,
+      "decision": 141,
+      "choice": 12
+    },
+    {
+      "game": "t5-ffa4-train-0",
+      "side": 4,
+      "turn": 6,
+      "decision": 166,
+      "choice": 46
+    },
+    {
+      "game": "t5-ffa4-train-0",
+      "side": 4,
+      "turn": 6,
+      "decision": 168,
+      "choice": 35
+    },
+    {
+      "game": "t5-ffa4-train-0",
+      "side": 4,
+      "turn": 7,
+      "decision": 198,
+      "choice": 2
+    },
+    {
+      "game": "t5-ffa4-train-0",
+      "side": 4,
+      "turn": 10,
+      "decision": 307,
+      "choice": 26
+    },
+    {
+      "game": "t5-ffa4-train-0",
+      "side": 4,
+      "turn": 10,
+      "decision": 309,
+      "choice": 11
+    },
+    {
+      "game": "t5-ffa4-train-0",
+      "side": 4,
+      "turn": 11,
+      "decision": 333,
+      "choice": 26
+    },
+    {
+      "game": "t5-ffa4-train-0",
+      "side": 4,
+      "turn": 12,
+      "decision": 360,
+      "choice": 27
+    },
+    {
+      "game": "t5-ffa4-train-0",
+      "side": 4,
+      "turn": 12,
+      "decision": 365,
+      "choice": 5
+    },
+    {
+      "game": "t5-ffa4-train-1",
+      "side": 1,
+      "turn": 3,
+      "decision": 53,
+      "choice": 2
+    },
+    {
+      "game": "t5-ffa4-train-1",
+      "side": 1,
+      "turn": 5,
+      "decision": 115,
+      "choice": 3
+    },
+    {
+      "game": "t5-ffa4-train-1",
+      "side": 1,
+      "turn": 5,
+      "decision": 118,
+      "choice": 0
+    },
+    {
+      "game": "t5-ffa4-train-1",
+      "side": 1,
+      "turn": 9,
+      "decision": 247,
+      "choice": 4
+    },
+    {
+      "game": "t5-ffa4-train-1",
+      "side": 1,
+      "turn": 10,
+      "decision": 281,
+      "choice": 26
+    },
+    {
+      "game": "t5-ffa4-train-1",
+      "side": 1,
+      "turn": 11,
+      "decision": 311,
+      "choice": 0
+    },
+    {
+      "game": "t5-ffa4-train-1",
+      "side": 1,
+      "turn": 12,
+      "decision": 339,
+      "choice": 0
+    },
+    {
+      "game": "t5-ffa4-train-1",
+      "side": 2,
+      "turn": 1,
+      "decision": 9,
+      "choice": 6
+    },
+    {
+      "game": "t5-ffa4-train-1",
+      "side": 2,
+      "turn": 2,
+      "decision": 35,
+      "choice": 0
+    },
+    {
+      "game": "t5-ffa4-train-1",
+      "side": 2,
+      "turn": 3,
+      "decision": 61,
+      "choice": 0
+    },
+    {
+      "game": "t5-ffa4-train-1",
+      "side": 2,
+      "turn": 5,
+      "decision": 125,
+      "choice": 15
+    },
+    {
+      "game": "t5-ffa4-train-1",
+      "side": 2,
+      "turn": 5,
+      "decision": 131,
+      "choice": 0
+    },
+    {
+      "game": "t5-ffa4-train-1",
+      "side": 2,
+      "turn": 6,
+      "decision": 153,
+      "choice": 37
+    },
+    {
+      "game": "t5-ffa4-train-1",
+      "side": 2,
+      "turn": 6,
+      "decision": 156,
+      "choice": 59
+    },
+    {
+      "game": "t5-ffa4-train-1",
+      "side": 2,
+      "turn": 9,
+      "decision": 258,
+      "choice": 2
+    },
+    {
+      "game": "t5-ffa4-train-1",
+      "side": 2,
+      "turn": 11,
+      "decision": 316,
+      "choice": 3
+    },
+    {
+      "game": "t5-ffa4-train-1",
+      "side": 3,
+      "turn": 1,
+      "decision": 12,
+      "choice": 4
+    },
+    {
+      "game": "t5-ffa4-train-1",
+      "side": 3,
+      "turn": 1,
+      "decision": 13,
+      "choice": 7
+    },
+    {
+      "game": "t5-ffa4-train-1",
+      "side": 3,
+      "turn": 1,
+      "decision": 14,
+      "choice": 3
+    },
+    {
+      "game": "t5-ffa4-train-1",
+      "side": 3,
+      "turn": 4,
+      "decision": 94,
+      "choice": 2
+    },
+    {
+      "game": "t5-ffa4-train-1",
+      "side": 3,
+      "turn": 6,
+      "decision": 164,
+      "choice": 0
+    },
+    {
+      "game": "t5-ffa4-train-1",
+      "side": 3,
+      "turn": 7,
+      "decision": 195,
+      "choice": 22
+    },
+    {
+      "game": "t5-ffa4-train-1",
+      "side": 3,
+      "turn": 10,
+      "decision": 294,
+      "choice": 80
+    },
+    {
+      "game": "t5-ffa4-train-1",
+      "side": 3,
+      "turn": 12,
+      "decision": 344,
+      "choice": 52
+    },
+    {
+      "game": "t5-ffa4-train-1",
+      "side": 4,
+      "turn": 1,
+      "decision": 18,
+      "choice": 3
+    },
+    {
+      "game": "t5-ffa4-train-1",
+      "side": 4,
+      "turn": 2,
+      "decision": 48,
+      "choice": 0
+    },
+    {
+      "game": "t5-ffa4-train-1",
+      "side": 4,
+      "turn": 3,
+      "decision": 68,
+      "choice": 6
+    },
+    {
+      "game": "t5-ffa4-train-1",
+      "side": 4,
+      "turn": 4,
+      "decision": 100,
+      "choice": 13
+    },
+    {
+      "game": "t5-ffa4-train-1",
+      "side": 4,
+      "turn": 4,
+      "decision": 110,
+      "choice": 0
+    },
+    {
+      "game": "t5-ffa4-train-1",
+      "side": 4,
+      "turn": 5,
+      "decision": 145,
+      "choice": 0
+    },
+    {
+      "game": "t5-ffa4-train-1",
+      "side": 4,
+      "turn": 6,
+      "decision": 177,
+      "choice": 0
+    },
+    {
+      "game": "t5-ffa4-train-1",
+      "side": 4,
+      "turn": 8,
+      "decision": 240,
+      "choice": 3
+    },
+    {
+      "game": "t5-ffa4-train-1",
+      "side": 4,
+      "turn": 12,
+      "decision": 354,
+      "choice": 46
+    },
+    {
+      "game": "t5-ffa4-train-1",
+      "side": 4,
+      "turn": 12,
+      "decision": 355,
+      "choice": 78
+    },
+    {
+      "game": "t5-ffa4-train-1",
+      "side": 4,
+      "turn": 12,
+      "decision": 357,
+      "choice": 32
+    },
+    {
+      "game": "t5-ffa4-train-1",
+      "side": 4,
+      "turn": 12,
+      "decision": 365,
+      "choice": 0
+    }
+  ],
+  "classes": {
+    "recruit": 16,
+    "end_turn": 16,
+    "move": 16,
+    "attack": 16
+  },
+  "optimizer_updates": 120,
+  "learning_rate": 0.0003,
+  "clip": 0.5,
+  "objective": "production exact CE + .1 auxiliary; value validity counted separately"
+}

@@ -83,7 +83,7 @@ class LiteAdapter:
     def reset(self, game_spec):
         self.spec = dict(game_spec)
         self.core.reset(json.dumps(game_spec))
-        if hasattr(self,'modules'): self.configure_host(self.modules)
+        # Rust reset creates a new Lua VM and reinstalls its saved modules.
 
     def close(self): self.core=None
 

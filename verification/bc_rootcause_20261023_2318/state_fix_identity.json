@@ -1,0 +1,12 @@
+{
+  "before": {
+    "engine_lite/lua/host.lua": "11186057410569c9463fa0a492e6ebb37b7bbdf1359a4e18e792210ef5883236",
+    "learning/adapters.py": "a91ea9821e742ab350a778a4a86e503acc7036c15aae6c6fb85d4156e75fd0d2"
+  },
+  "after": {
+    "engine_lite/lua/host.lua": "03bbfcad4d97948cee56178bb1303f5d61490d7b4170e438bc4490edaefa1a64",
+    "learning/adapters.py": "ce3b42351369de72565ea487585dd134811e158321ce20596c462230e8f8199b"
+  },
+  "extension": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/.venv/lib/python3.12/site-packages/_engine_lite/_engine_lite.cpython-312-x86_64-linux-gnu.so",
+  "extension_sha256": "86e07264fe6f54359a7c5c25d255a1e6877a31f0da1efa9302b099d00cfcab24"
+}

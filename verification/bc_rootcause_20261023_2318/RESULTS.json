@@ -1,0 +1,5881 @@
+{
+  "bottom_up": {
+    "ffa4_train": {
+      "rows": 723,
+      "counts": {
+        "recruit": 95,
+        "candidate_total": 71621,
+        "history_turns": 4687,
+        "value_valid": 95,
+        "end_turn": 96,
+        "move": 253,
+        "attack": 279
+      },
+      "duplicate_candidate_inputs": 0,
+      "ambiguous_teacher_input_rows": 0,
+      "clipped_chosen_features": {
+        "move_cost_mountain": 7
+      },
+      "chosen_feature_ranges": {
+        "end_turn": [
+          0.0,
+          1.0
+        ],
+        "recruit": [
+          0.0,
+          1.0
+        ],
+        "move": [
+          0.0,
+          1.0
+        ],
+        "attack": [
+          0.0,
+          1.0
+        ],
+        "move_attack": [
+          0.0,
+          1.0
+        ],
+        "unit_hp_fraction": [
+          0.0,
+          1.0
+        ],
+        "unit_cost": [
+          0.0,
+          0.7200000286102295
+        ],
+        "movement_used": [
+          0.0,
+          0.800000011920929
+        ],
+        "enemy_approach": [
+          -0.3499999940395355,
+          0.30000001192092896
+        ],
+        "village_gain": [
+          0.0,
+          1.0
+        ],
+        "healing": [
+          0.0,
+          1.0
+        ],
+        "defense": [
+          0.0,
+          0.699999988079071
+        ],
+        "friendly_support": [
+          0.0,
+          0.6000000238418579
+        ],
+        "visible_threat": [
+          0.0,
+          1.2000000476837158
+        ],
+        "expected_enemy_damage": [
+          0.0,
+          0.4650000035762787
+        ],
+        "expected_self_damage": [
+          0.0,
+          0.3746874928474426
+        ],
+        "kill_probability": [
+          0.0,
+          0.9921875
+        ],
+        "death_probability": [
+          0.0,
+          0.078125
+        ],
+        "target_leader": [
+          0.0,
+          1.0
+        ],
+        "own_leader": [
+          0.0,
+          1.0
+        ],
+        "gold_cost": [
+          0.0,
+          0.41999998688697815
+        ],
+        "village_approach": [
+          -0.30000001192092896,
+          0.30000001192092896
+        ],
+        "remaining_moves": [
+          0.0,
+          0.800000011920929
+        ],
+        "combat_predicted": [
+          0.0,
+          1.0
+        ],
+        "max_hp": [
+          0.0,
+          0.5799999833106995
+        ],
+        "max_moves": [
+          0.0,
+          0.800000011920929
+        ],
+        "unit_level": [
+          0.0,
+          0.5
+        ],
+        "alignment_lawful": [
+          0.0,
+          1.0
+        ],
+        "alignment_neutral": [
+          0.0,
+          1.0
+        ],
+        "alignment_chaotic": [
+          0.0,
+          1.0
+        ],
+        "alignment_liminal": [
+          0.0,
+          0.0
+        ],
+        "resistance_blade": [
+          -0.30000001192092896,
+          0.4000000059604645
+        ],
+        "resistance_pierce": [
+          -0.20000000298023224,
+          0.6000000238418579
+        ],
+        "resistance_impact": [
+          -0.20000000298023224,
+          0.4000000059604645
+        ],
+        "resistance_fire": [
+          -0.20000000298023224,
+          0.5
+        ],
+        "resistance_cold": [
+          -0.5,
+          0.6000000238418579
+        ],
+        "resistance_arcane": [
+          -0.4000000059604645,
+          0.10000000149011612
+        ],
+        "move_cost_flat": [
+          0.0,
+          0.10000000149011612
+        ],
+        "terrain_defense_flat": [
+          0.0,
+          0.6000000238418579
+        ],
+        "move_cost_forest": [
+          0.0,
+          0.30000001192092896
+        ],
+        "terrain_defense_forest": [
+          0.0,
+          0.699999988079071
+        ],
+        "move_cost_hills": [
+          0.0,
+          0.20000000298023224
+        ],
+        "terrain_defense_hills": [
+          0.0,
+          0.699999988079071
+        ],
+        "move_cost_mountain": [
+          0.0,
+          4.0
+        ],
+        "terrain_defense_mountain": [
+          0.0,
+          0.699999988079071
+        ],
+        "move_cost_water": [
+          0.0,
+          0.4000000059604645
+        ],
+        "terrain_defense_water": [
+          0.0,
+          0.6000000238418579
+        ],
+        "move_cost_swamp": [
+          0.0,
+          0.4000000059604645
+        ],
+        "terrain_defense_swamp": [
+          0.0,
+          0.6000000238418579
+        ],
+        "weapon1_damage": [
+          0.0,
+          0.2199999988079071
+        ],
+        "weapon1_strikes": [
+          0.0,
+          0.4000000059604645
+        ],
+        "weapon1_melee": [
+          0.0,
+          1.0
+        ],
+        "weapon1_ranged": [
+          0.0,
+          1.0
+        ],
+        "weapon1_blade": [
+          0.0,
+          1.0
+        ],
+        "weapon1_pierce": [
+          0.0,
+          1.0
+        ],
+        "weapon1_impact": [
+          0.0,
+          1.0
+        ],
+        "weapon1_fire": [
+          0.0,
+          0.0
+        ],
+        "weapon1_cold": [
+          0.0,
+          1.0
+        ],
+        "weapon1_arcane": [
+          0.0,
+          0.0
+        ],
+        "weapon1_poison": [
+          0.0,
+          0.0
+        ],
+        "weapon1_slow": [
+          0.0,
+          0.0
+        ],
+        "weapon1_drains": [
+          0.0,
+          1.0
+        ],
+        "weapon1_magical": [
+          0.0,
+          1.0
+        ],
+        "weapon1_marksman": [
+          0.0,
+          0.0
+        ],
+        "weapon1_charge": [
+          0.0,
+          0.0
+        ],
+        "weapon1_firststrike": [
+          0.0,
+          1.0
+        ],
+        "weapon1_berserk": [
+          0.0,
+          0.0
+        ],
+        "weapon2_damage": [
+          0.0,
+          0.36000001430511475
+        ],
+        "weapon2_strikes": [
+          0.0,
+          0.4000000059604645
+        ],
+        "weapon2_melee": [
+          0.0,
+          1.0
+        ],
+        "weapon2_ranged": [
+          0.0,
+          1.0
+        ],
+        "weapon2_blade": [
+          0.0,
+          1.0
+        ],
+        "weapon2_pierce": [
+          0.0,
+          1.0
+        ],
+        "weapon2_impact": [
+          0.0,
+          1.0
+        ],
+        "weapon2_fire": [
+          0.0,
+          1.0
+        ],
+        "weapon2_cold": [
+          0.0,
+          1.0
+        ],
+        "weapon2_arcane": [
+          0.0,
+          1.0
+        ],
+        "weapon2_poison": [
+          0.0,
+          1.0
+        ],
+        "weapon2_slow": [
+          0.0,
+          1.0
+        ],
+        "weapon2_drains": [
+          0.0,
+          0.0
+        ],
+        "weapon2_magical": [
+          0.0,
+          1.0
+        ],
+        "weapon2_marksman": [
+          0.0,
+          1.0
+        ],
+        "weapon2_charge": [
+          0.0,
+          0.0
+        ],
+        "weapon2_firststrike": [
+          0.0,
+          1.0
+        ],
+        "weapon2_berserk": [
+          0.0,
+          0.0
+        ],
+        "weapon3_damage": [
+          0.0,
+          0.18000000715255737
+        ],
+        "weapon3_strikes": [
+          0.0,
+          0.20000000298023224
+        ],
+        "weapon3_melee": [
+          0.0,
+          0.0
+        ],
+        "weapon3_ranged": [
+          0.0,
+          1.0
+        ],
+        "weapon3_blade": [
+          0.0,
+          0.0
+        ],
+        "weapon3_pierce": [
+          0.0,
+          0.0
+        ],
+        "weapon3_impact": [
+          0.0,
+          0.0
+        ],
+        "weapon3_fire": [
+          0.0,
+          1.0
+        ],
+        "weapon3_cold": [
+          0.0,
+          0.0
+        ],
+        "weapon3_arcane": [
+          0.0,
+          1.0
+        ],
+        "weapon3_poison": [
+          0.0,
+          0.0
+        ],
+        "weapon3_slow": [
+          0.0,
+          0.0
+        ],
+        "weapon3_drains": [
+          0.0,
+          0.0
+        ],
+        "weapon3_magical": [
+          0.0,
+          1.0
+        ],
+        "weapon3_marksman": [
+          0.0,
+          0.0
+        ],
+        "weapon3_charge": [
+          0.0,
+          0.0
+        ],
+        "weapon3_firststrike": [
+          0.0,
+          0.0
+        ],
+        "weapon3_berserk": [
+          0.0,
+          0.0
+        ],
+        "village_own": [
+          0.0,
+          1.0
+        ],
+        "village_ally": [
+          0.0,
+          0.0
+        ],
+        "village_neutral": [
+          0.0,
+          1.0
+        ],
+        "village_enemy": [
+          0.0,
+          1.0
+        ],
+        "village_unknown": [
+          0.0,
+          0.0
+        ],
+        "goal_progress": [
+          -0.019999999552965164,
+          0.1599999964237213
+        ],
+        "repeated_move": [
+          0.0,
+          1.0
+        ],
+        "move_tactical": [
+          -1.0740835666656494,
+          0.8309999704360962
+        ],
+        "move_gain": [
+          -2.012476921081543,
+          3.9290010929107666
+        ],
+        "move_risk": [
+          0.0,
+          1.2885469198226929
+        ],
+        "move_risk_delta": [
+          -1.294124960899353,
+          0.8662499785423279
+        ],
+        "move_home_distance": [
+          0.0,
+          0.3400000035762787
+        ],
+        "move_own_support": [
+          0.0,
+          0.6000000238418579
+        ],
+        "move_primary": [
+          0.0,
+          1.0
+        ]
+      },
+      "class_by_turn": {
+        "1:recruit": 36,
+        "1:end_turn": 8,
+        "2:move": 28,
+        "2:recruit": 14,
+        "2:attack": 14,
+        "2:end_turn": 8,
+        "3:attack": 15,
+        "3:move": 32,
+        "3:end_turn": 8,
+        "4:recruit": 4,
+        "4:attack": 28,
+        "4:move": 23,
+        "4:end_turn": 8,
+        "5:attack": 28,
+        "5:move": 18,
+        "5:end_turn": 8,
+        "6:attack": 32,
+        "6:end_turn": 8,
+        "7:attack": 24,
+        "7:move": 22,
+        "7:end_turn": 8,
+        "8:attack": 26,
+        "8:move": 22,
+        "8:recruit": 8,
+        "8:end_turn": 8,
+        "9:attack": 41,
+        "9:move": 24,
+        "9:end_turn": 8,
+        "10:recruit": 3,
+        "10:attack": 27,
+        "10:move": 23,
+        "10:end_turn": 8,
+        "11:recruit": 4,
+        "11:attack": 21,
+        "11:move": 27,
+        "11:end_turn": 8,
+        "12:recruit": 3,
+        "12:attack": 23,
+        "12:move": 18,
+        "12:end_turn": 8,
+        "5:recruit": 7,
+        "6:recruit": 5,
+        "6:move": 16,
+        "7:recruit": 6,
+        "9:recruit": 4,
+        "3:recruit": 1
+      }
+    },
+    "ffa4_validation": {
+      "rows": 731,
+      "counts": {
+        "recruit": 105,
+        "candidate_total": 71077,
+        "history_turns": 4781,
+        "value_valid": 0,
+        "end_turn": 96,
+        "move": 268,
+        "attack": 262
+      },
+      "duplicate_candidate_inputs": 0,
+      "ambiguous_teacher_input_rows": 0,
+      "clipped_chosen_features": {
+        "move_cost_mountain": 9,
+        "move_gain": 1
+      },
+      "chosen_feature_ranges": {
+        "end_turn": [
+          0.0,
+          1.0
+        ],
+        "recruit": [
+          0.0,
+          1.0
+        ],
+        "move": [
+          0.0,
+          1.0
+        ],
+        "attack": [
+          0.0,
+          1.0
+        ],
+        "move_attack": [
+          0.0,
+          1.0
+        ],
+        "unit_hp_fraction": [
+          0.0,
+          1.0
+        ],
+        "unit_cost": [
+          0.0,
+          0.6800000071525574
+        ],
+        "movement_used": [
+          0.0,
+          0.800000011920929
+        ],
+        "enemy_approach": [
+          -0.30000001192092896,
+          0.30000001192092896
+        ],
+        "village_gain": [
+          0.0,
+          1.0
+        ],
+        "healing": [
+          0.0,
+          1.0
+        ],
+        "defense": [
+          0.0,
+          0.699999988079071
+        ],
+        "friendly_support": [
+          0.0,
+          0.699999988079071
+        ],
+        "visible_threat": [
+          0.0,
+          1.0
+        ],
+        "expected_enemy_damage": [
+          0.0,
+          0.37171876430511475
+        ],
+        "expected_self_damage": [
+          0.0,
+          0.2606250047683716
+        ],
+        "kill_probability": [
+          0.0,
+          0.984375
+        ],
+        "death_probability": [
+          0.0,
+          0.21875
+        ],
+        "target_leader": [
+          0.0,
+          1.0
+        ],
+        "own_leader": [
+          0.0,
+          1.0
+        ],
+        "gold_cost": [
+          0.0,
+          0.41999998688697815
+        ],
+        "village_approach": [
+          -0.30000001192092896,
+          0.30000001192092896
+        ],
+        "remaining_moves": [
+          0.0,
+          0.800000011920929
+        ],
+        "combat_predicted": [
+          0.0,
+          1.0
+        ],
+        "max_hp": [
+          0.0,
+          0.550000011920929
+        ],
+        "max_moves": [
+          0.0,
+          0.800000011920929
+        ],
+        "unit_level": [
+          0.0,
+          0.5
+        ],
+        "alignment_lawful": [
+          0.0,
+          1.0
+        ],
+        "alignment_neutral": [
+          0.0,
+          1.0
+        ],
+        "alignment_chaotic": [
+          0.0,
+          1.0
+        ],
+        "alignment_liminal": [
+          0.0,
+          0.0
+        ],
+        "resistance_blade": [
+          -0.30000001192092896,
+          0.4000000059604645
+        ],
+        "resistance_pierce": [
+          -0.20000000298023224,
+          0.6000000238418579
+        ],
+        "resistance_impact": [
+          -0.20000000298023224,
+          0.4000000059604645
+        ],
+        "resistance_fire": [
+          -0.5,
+          0.5
+        ],
+        "resistance_cold": [
+          -0.5,
+          0.6000000238418579
+        ],
+        "resistance_arcane": [
+          -0.4000000059604645,
+          0.10000000149011612
+        ],
+        "move_cost_flat": [
+          0.0,
+          0.10000000149011612
+        ],
+        "terrain_defense_flat": [
+          0.0,
+          0.6000000238418579
+        ],
+        "move_cost_forest": [
+          0.0,
+          0.30000001192092896
+        ],
+        "terrain_defense_forest": [
+          0.0,
+          0.699999988079071
+        ],
+        "move_cost_hills": [
+          0.0,
+          0.20000000298023224
+        ],
+        "terrain_defense_hills": [
+          0.0,
+          0.699999988079071
+        ],
+        "move_cost_mountain": [
+          0.0,
+          4.0
+        ],
+        "terrain_defense_mountain": [
+          0.0,
+          0.699999988079071
+        ],
+        "move_cost_water": [
+          0.0,
+          0.4000000059604645
+        ],
+        "terrain_defense_water": [
+          0.0,
+          0.6000000238418579
+        ],
+        "move_cost_swamp": [
+          0.0,
+          0.4000000059604645
+        ],
+        "terrain_defense_swamp": [
+          0.0,
+          0.6000000238418579
+        ],
+        "weapon1_damage": [
+          0.0,
+          0.25999999046325684
+        ],
+        "weapon1_strikes": [
+          0.0,
+          0.4000000059604645
+        ],
+        "weapon1_melee": [
+          0.0,
+          1.0
+        ],
+        "weapon1_ranged": [
+          0.0,
+          1.0
+        ],
+        "weapon1_blade": [
+          0.0,
+          1.0
+        ],
+        "weapon1_pierce": [
+          0.0,
+          1.0
+        ],
+        "weapon1_impact": [
+          0.0,
+          1.0
+        ],
+        "weapon1_fire": [
+          0.0,
+          0.0
+        ],
+        "weapon1_cold": [
+          0.0,
+          1.0
+        ],
+        "weapon1_arcane": [
+          0.0,
+          0.0
+        ],
+        "weapon1_poison": [
+          0.0,
+          1.0
+        ],
+        "weapon1_slow": [
+          0.0,
+          0.0
+        ],
+        "weapon1_drains": [
+          0.0,
+          1.0
+        ],
+        "weapon1_magical": [
+          0.0,
+          1.0
+        ],
+        "weapon1_marksman": [
+          0.0,
+          0.0
+        ],
+        "weapon1_charge": [
+          0.0,
+          0.0
+        ],
+        "weapon1_firststrike": [
+          0.0,
+          1.0
+        ],
+        "weapon1_berserk": [
+          0.0,
+          0.0
+        ],
+        "weapon2_damage": [
+          0.0,
+          0.36000001430511475
+        ],
+        "weapon2_strikes": [
+          0.0,
+          0.4000000059604645
+        ],
+        "weapon2_melee": [
+          0.0,
+          1.0
+        ],
+        "weapon2_ranged": [
+          0.0,
+          1.0
+        ],
+        "weapon2_blade": [
+          0.0,
+          1.0
+        ],
+        "weapon2_pierce": [
+          0.0,
+          1.0
+        ],
+        "weapon2_impact": [
+          0.0,
+          1.0
+        ],
+        "weapon2_fire": [
+          0.0,
+          1.0
+        ],
+        "weapon2_cold": [
+          0.0,
+          1.0
+        ],
+        "weapon2_arcane": [
+          0.0,
+          1.0
+        ],
+        "weapon2_poison": [
+          0.0,
+          1.0
+        ],
+        "weapon2_slow": [
+          0.0,
+          1.0
+        ],
+        "weapon2_drains": [
+          0.0,
+          0.0
+        ],
+        "weapon2_magical": [
+          0.0,
+          1.0
+        ],
+        "weapon2_marksman": [
+          0.0,
+          1.0
+        ],
+        "weapon2_charge": [
+          0.0,
+          0.0
+        ],
+        "weapon2_firststrike": [
+          0.0,
+          1.0
+        ],
+        "weapon2_berserk": [
+          0.0,
+          0.0
+        ],
+        "weapon3_damage": [
+          0.0,
+          0.18000000715255737
+        ],
+        "weapon3_strikes": [
+          0.0,
+          0.20000000298023224
+        ],
+        "weapon3_melee": [
+          0.0,
+          0.0
+        ],
+        "weapon3_ranged": [
+          0.0,
+          1.0
+        ],
+        "weapon3_blade": [
+          0.0,
+          0.0
+        ],
+        "weapon3_pierce": [
+          0.0,
+          0.0
+        ],
+        "weapon3_impact": [
+          0.0,
+          0.0
+        ],
+        "weapon3_fire": [
+          0.0,
+          0.0
+        ],
+        "weapon3_cold": [
+          0.0,
+          0.0
+        ],
+        "weapon3_arcane": [
+          0.0,
+          1.0
+        ],
+        "weapon3_poison": [
+          0.0,
+          0.0
+        ],
+        "weapon3_slow": [
+          0.0,
+          0.0
+        ],
+        "weapon3_drains": [
+          0.0,
+          0.0
+        ],
+        "weapon3_magical": [
+          0.0,
+          1.0
+        ],
+        "weapon3_marksman": [
+          0.0,
+          0.0
+        ],
+        "weapon3_charge": [
+          0.0,
+          0.0
+        ],
+        "weapon3_firststrike": [
+          0.0,
+          0.0
+        ],
+        "weapon3_berserk": [
+          0.0,
+          0.0
+        ],
+        "village_own": [
+          0.0,
+          1.0
+        ],
+        "village_ally": [
+          0.0,
+          0.0
+        ],
+        "village_neutral": [
+          0.0,
+          1.0
+        ],
+        "village_enemy": [
+          0.0,
+          1.0
+        ],
+        "village_unknown": [
+          0.0,
+          0.0
+        ],
+        "goal_progress": [
+          -0.019999999552965164,
+          0.1599999964237213
+        ],
+        "repeated_move": [
+          0.0,
+          1.0
+        ],
+        "move_tactical": [
+          -1.5962165594100952,
+          0.878000020980835
+        ],
+        "move_gain": [
+          -1.565469741821289,
+          4.0
+        ],
+        "move_risk": [
+          0.0,
+          1.0038000345230103
+        ],
+        "move_risk_delta": [
+          -1.051686406135559,
+          0.826729416847229
+        ],
+        "move_home_distance": [
+          0.0,
+          0.36000001430511475
+        ],
+        "move_own_support": [
+          0.0,
+          0.699999988079071
+        ],
+        "move_primary": [
+          0.0,
+          1.0
+        ]
+      },
+      "class_by_turn": {
+        "1:recruit": 36,
+        "1:end_turn": 8,
+        "2:move": 31,
+        "2:recruit": 14,
+        "2:end_turn": 8,
+        "3:recruit": 4,
+        "3:attack": 18,
+        "3:move": 29,
+        "3:end_turn": 8,
+        "4:attack": 23,
+        "4:move": 23,
+        "4:end_turn": 8,
+        "5:recruit": 6,
+        "5:attack": 26,
+        "5:move": 27,
+        "5:end_turn": 8,
+        "6:recruit": 7,
+        "6:attack": 28,
+        "6:move": 23,
+        "6:end_turn": 8,
+        "7:attack": 33,
+        "7:move": 16,
+        "7:end_turn": 8,
+        "8:recruit": 5,
+        "8:attack": 24,
+        "8:move": 19,
+        "8:end_turn": 8,
+        "9:recruit": 6,
+        "9:attack": 15,
+        "9:move": 32,
+        "9:end_turn": 8,
+        "10:recruit": 6,
+        "10:attack": 20,
+        "10:move": 20,
+        "10:end_turn": 8,
+        "11:recruit": 8,
+        "11:attack": 22,
+        "11:move": 29,
+        "11:end_turn": 8,
+        "12:recruit": 4,
+        "12:attack": 40,
+        "12:move": 19,
+        "12:end_turn": 8,
+        "4:recruit": 4,
+        "7:recruit": 5,
+        "2:attack": 13
+      }
+    },
+    "team2v2_train": {
+      "rows": 776,
+      "counts": {
+        "recruit": 93,
+        "candidate_total": 77105,
+        "history_turns": 5483,
+        "value_valid": 0,
+        "end_turn": 96,
+        "move": 477,
+        "attack": 110
+      },
+      "duplicate_candidate_inputs": 0,
+      "ambiguous_teacher_input_rows": 0,
+      "clipped_chosen_features": {
+        "move_cost_mountain": 13,
+        "move_gain": 1
+      },
+      "chosen_feature_ranges": {
+        "end_turn": [
+          0.0,
+          1.0
+        ],
+        "recruit": [
+          0.0,
+          1.0
+        ],
+        "move": [
+          0.0,
+          1.0
+        ],
+        "attack": [
+          0.0,
+          1.0
+        ],
+        "move_attack": [
+          0.0,
+          1.0
+        ],
+        "unit_hp_fraction": [
+          0.0,
+          1.0
+        ],
+        "unit_cost": [
+          0.0,
+          0.7200000286102295
+        ],
+        "movement_used": [
+          0.0,
+          0.800000011920929
+        ],
+        "enemy_approach": [
+          -0.30000001192092896,
+          0.30000001192092896
+        ],
+        "village_gain": [
+          0.0,
+          1.0
+        ],
+        "healing": [
+          0.0,
+          1.0
+        ],
+        "defense": [
+          0.0,
+          0.699999988079071
+        ],
+        "friendly_support": [
+          0.0,
+          0.800000011920929
+        ],
+        "visible_threat": [
+          0.0,
+          0.8999999761581421
+        ],
+        "expected_enemy_damage": [
+          0.0,
+          0.3412500023841858
+        ],
+        "expected_self_damage": [
+          0.0,
+          0.22031250596046448
+        ],
+        "kill_probability": [
+          0.0,
+          0.96875
+        ],
+        "death_probability": [
+          0.0,
+          0.0
+        ],
+        "target_leader": [
+          0.0,
+          0.0
+        ],
+        "own_leader": [
+          0.0,
+          1.0
+        ],
+        "gold_cost": [
+          0.0,
+          0.41999998688697815
+        ],
+        "village_approach": [
+          -0.30000001192092896,
+          0.30000001192092896
+        ],
+        "remaining_moves": [
+          0.0,
+          0.800000011920929
+        ],
+        "combat_predicted": [
+          0.0,
+          1.0
+        ],
+        "max_hp": [
+          0.0,
+          0.5699999928474426
+        ],
+        "max_moves": [
+          0.0,
+          0.800000011920929
+        ],
+        "unit_level": [
+          0.0,
+          0.5
+        ],
+        "alignment_lawful": [
+          0.0,
+          1.0
+        ],
+        "alignment_neutral": [
+          0.0,
+          1.0
+        ],
+        "alignment_chaotic": [
+          0.0,
+          1.0
+        ],
+        "alignment_liminal": [
+          0.0,
+          0.0
+        ],
+        "resistance_blade": [
+          -0.30000001192092896,
+          0.4000000059604645
+        ],
+        "resistance_pierce": [
+          -0.20000000298023224,
+          0.6000000238418579
+        ],
+        "resistance_impact": [
+          -0.20000000298023224,
+          0.4000000059604645
+        ],
+        "resistance_fire": [
+          -0.20000000298023224,
+          0.5
+        ],
+        "resistance_cold": [
+          -0.5,
+          0.6000000238418579
+        ],
+        "resistance_arcane": [
+          -0.4000000059604645,
+          0.10000000149011612
+        ],
+        "move_cost_flat": [
+          0.0,
+          0.10000000149011612
+        ],
+        "terrain_defense_flat": [
+          0.0,
+          0.6000000238418579
+        ],
+        "move_cost_forest": [
+          0.0,
+          0.30000001192092896
+        ],
+        "terrain_defense_forest": [
+          0.0,
+          0.699999988079071
+        ],
+        "move_cost_hills": [
+          0.0,
+          0.20000000298023224
+        ],
+        "terrain_defense_hills": [
+          0.0,
+          0.699999988079071
+        ],
+        "move_cost_mountain": [
+          0.0,
+          4.0
+        ],
+        "terrain_defense_mountain": [
+          0.0,
+          0.699999988079071
+        ],
+        "move_cost_water": [
+          0.0,
+          0.4000000059604645
+        ],
+        "terrain_defense_water": [
+          0.0,
+          0.6000000238418579
+        ],
+        "move_cost_swamp": [
+          0.0,
+          0.4000000059604645
+        ],
+        "terrain_defense_swamp": [
+          0.0,
+          0.6000000238418579
+        ],
+        "weapon1_damage": [
+          0.0,
+          0.2199999988079071
+        ],
+        "weapon1_strikes": [
+          0.0,
+          0.4000000059604645
+        ],
+        "weapon1_melee": [
+          0.0,
+          1.0
+        ],
+        "weapon1_ranged": [
+          0.0,
+          1.0
+        ],
+        "weapon1_blade": [
+          0.0,
+          1.0
+        ],
+        "weapon1_pierce": [
+          0.0,
+          1.0
+        ],
+        "weapon1_impact": [
+          0.0,
+          1.0
+        ],
+        "weapon1_fire": [
+          0.0,
+          0.0
+        ],
+        "weapon1_cold": [
+          0.0,
+          1.0
+        ],
+        "weapon1_arcane": [
+          0.0,
+          0.0
+        ],
+        "weapon1_poison": [
+          0.0,
+          0.0
+        ],
+        "weapon1_slow": [
+          0.0,
+          0.0
+        ],
+        "weapon1_drains": [
+          0.0,
+          1.0
+        ],
+        "weapon1_magical": [
+          0.0,
+          1.0
+        ],
+        "weapon1_marksman": [
+          0.0,
+          0.0
+        ],
+        "weapon1_charge": [
+          0.0,
+          0.0
+        ],
+        "weapon1_firststrike": [
+          0.0,
+          1.0
+        ],
+        "weapon1_berserk": [
+          0.0,
+          0.0
+        ],
+        "weapon2_damage": [
+          0.0,
+          0.36000001430511475
+        ],
+        "weapon2_strikes": [
+          0.0,
+          0.4000000059604645
+        ],
+        "weapon2_melee": [
+          0.0,
+          1.0
+        ],
+        "weapon2_ranged": [
+          0.0,
+          1.0
+        ],
+        "weapon2_blade": [
+          0.0,
+          1.0
+        ],
+        "weapon2_pierce": [
+          0.0,
+          1.0
+        ],
+        "weapon2_impact": [
+          0.0,
+          1.0
+        ],
+        "weapon2_fire": [
+          0.0,
+          1.0
+        ],
+        "weapon2_cold": [
+          0.0,
+          1.0
+        ],
+        "weapon2_arcane": [
+          0.0,
+          1.0
+        ],
+        "weapon2_poison": [
+          0.0,
+          1.0
+        ],
+        "weapon2_slow": [
+          0.0,
+          1.0
+        ],
+        "weapon2_drains": [
+          0.0,
+          0.0
+        ],
+        "weapon2_magical": [
+          0.0,
+          1.0
+        ],
+        "weapon2_marksman": [
+          0.0,
+          1.0
+        ],
+        "weapon2_charge": [
+          0.0,
+          0.0
+        ],
+        "weapon2_firststrike": [
+          0.0,
+          1.0
+        ],
+        "weapon2_berserk": [
+          0.0,
+          0.0
+        ],
+        "weapon3_damage": [
+          0.0,
+          0.14000000059604645
+        ],
+        "weapon3_strikes": [
+          0.0,
+          0.20000000298023224
+        ],
+        "weapon3_melee": [
+          0.0,
+          0.0
+        ],
+        "weapon3_ranged": [
+          0.0,
+          1.0
+        ],
+        "weapon3_blade": [
+          0.0,
+          0.0
+        ],
+        "weapon3_pierce": [
+          0.0,
+          0.0
+        ],
+        "weapon3_impact": [
+          0.0,
+          0.0
+        ],
+        "weapon3_fire": [
+          0.0,
+          1.0
+        ],
+        "weapon3_cold": [
+          0.0,
+          0.0
+        ],
+        "weapon3_arcane": [
+          0.0,
+          0.0
+        ],
+        "weapon3_poison": [
+          0.0,
+          0.0
+        ],
+        "weapon3_slow": [
+          0.0,
+          0.0
+        ],
+        "weapon3_drains": [
+          0.0,
+          0.0
+        ],
+        "weapon3_magical": [
+          0.0,
+          0.0
+        ],
+        "weapon3_marksman": [
+          0.0,
+          0.0
+        ],
+        "weapon3_charge": [
+          0.0,
+          0.0
+        ],
+        "weapon3_firststrike": [
+          0.0,
+          0.0
+        ],
+        "weapon3_berserk": [
+          0.0,
+          0.0
+        ],
+        "village_own": [
+          0.0,
+          1.0
+        ],
+        "village_ally": [
+          0.0,
+          1.0
+        ],
+        "village_neutral": [
+          0.0,
+          1.0
+        ],
+        "village_enemy": [
+          0.0,
+          1.0
+        ],
+        "village_unknown": [
+          0.0,
+          0.0
+        ],
+        "goal_progress": [
+          0.0,
+          0.14000000059604645
+        ],
+        "repeated_move": [
+          0.0,
+          1.0
+        ],
+        "move_tactical": [
+          -0.781309187412262,
+          1.0709999799728394
+        ],
+        "move_gain": [
+          -2.158618450164795,
+          4.0
+        ],
+        "move_risk": [
+          0.0,
+          1.0820074081420898
+        ],
+        "move_risk_delta": [
+          -0.9885749816894531,
+          1.0820074081420898
+        ],
+        "move_home_distance": [
+          0.0,
+          0.3199999928474426
+        ],
+        "move_own_support": [
+          0.0,
+          0.800000011920929
+        ],
+        "move_primary": [
+          0.0,
+          1.0
+        ]
+      },
+      "class_by_turn": {
+        "1:recruit": 36,
+        "1:end_turn": 8,
+        "2:move": 36,
+        "2:recruit": 13,
+        "2:end_turn": 8,
+        "3:recruit": 4,
+        "3:attack": 2,
+        "3:move": 34,
+        "3:end_turn": 8,
+        "4:attack": 9,
+        "4:move": 27,
+        "4:end_turn": 8,
+        "5:recruit": 4,
+        "5:move": 33,
+        "5:end_turn": 8,
+        "6:attack": 16,
+        "6:move": 36,
+        "6:end_turn": 8,
+        "7:recruit": 4,
+        "7:attack": 21,
+        "7:move": 38,
+        "7:end_turn": 8,
+        "8:attack": 8,
+        "8:move": 51,
+        "8:end_turn": 8,
+        "9:recruit": 6,
+        "9:attack": 15,
+        "9:move": 43,
+        "9:end_turn": 8,
+        "10:attack": 4,
+        "10:move": 61,
+        "10:end_turn": 8,
+        "11:recruit": 4,
+        "11:attack": 15,
+        "11:move": 56,
+        "11:end_turn": 8,
+        "12:attack": 13,
+        "12:move": 62,
+        "12:end_turn": 8,
+        "4:recruit": 7,
+        "5:attack": 7,
+        "12:recruit": 4,
+        "6:recruit": 5,
+        "8:recruit": 3,
+        "10:recruit": 3
+      }
+    },
+    "team2v2_validation": {
+      "rows": 808,
+      "counts": {
+        "recruit": 99,
+        "candidate_total": 80168,
+        "history_turns": 5643,
+        "value_valid": 0,
+        "end_turn": 96,
+        "move": 507,
+        "attack": 106
+      },
+      "duplicate_candidate_inputs": 0,
+      "ambiguous_teacher_input_rows": 0,
+      "clipped_chosen_features": {
+        "move_cost_mountain": 6,
+        "move_gain": 3
+      },
+      "chosen_feature_ranges": {
+        "end_turn": [
+          0.0,
+          1.0
+        ],
+        "recruit": [
+          0.0,
+          1.0
+        ],
+        "move": [
+          0.0,
+          1.0
+        ],
+        "attack": [
+          0.0,
+          1.0
+        ],
+        "move_attack": [
+          0.0,
+          1.0
+        ],
+        "unit_hp_fraction": [
+          0.0,
+          1.0
+        ],
+        "unit_cost": [
+          0.0,
+          0.6800000071525574
+        ],
+        "movement_used": [
+          0.0,
+          0.800000011920929
+        ],
+        "enemy_approach": [
+          -0.30000001192092896,
+          0.4000000059604645
+        ],
+        "village_gain": [
+          0.0,
+          1.0
+        ],
+        "healing": [
+          0.0,
+          1.0
+        ],
+        "defense": [
+          0.0,
+          0.699999988079071
+        ],
+        "friendly_support": [
+          0.0,
+          0.8999999761581421
+        ],
+        "visible_threat": [
+          0.0,
+          1.399999976158142
+        ],
+        "expected_enemy_damage": [
+          0.0,
+          0.44859373569488525
+        ],
+        "expected_self_damage": [
+          0.0,
+          0.22421875596046448
+        ],
+        "kill_probability": [
+          0.0,
+          0.9765625
+        ],
+        "death_probability": [
+          0.0,
+          0.046875
+        ],
+        "target_leader": [
+          0.0,
+          0.0
+        ],
+        "own_leader": [
+          0.0,
+          1.0
+        ],
+        "gold_cost": [
+          0.0,
+          0.41999998688697815
+        ],
+        "village_approach": [
+          -0.30000001192092896,
+          0.4000000059604645
+        ],
+        "remaining_moves": [
+          0.0,
+          0.800000011920929
+        ],
+        "combat_predicted": [
+          0.0,
+          1.0
+        ],
+        "max_hp": [
+          0.0,
+          0.47999998927116394
+        ],
+        "max_moves": [
+          0.0,
+          0.800000011920929
+        ],
+        "unit_level": [
+          0.0,
+          0.5
+        ],
+        "alignment_lawful": [
+          0.0,
+          1.0
+        ],
+        "alignment_neutral": [
+          0.0,
+          1.0
+        ],
+        "alignment_chaotic": [
+          0.0,
+          1.0
+        ],
+        "alignment_liminal": [
+          0.0,
+          0.0
+        ],
+        "resistance_blade": [
+          -0.30000001192092896,
+          0.4000000059604645
+        ],
+        "resistance_pierce": [
+          -0.20000000298023224,
+          0.6000000238418579
+        ],
+        "resistance_impact": [
+          -0.20000000298023224,
+          0.4000000059604645
+        ],
+        "resistance_fire": [
+          -0.20000000298023224,
+          0.5
+        ],
+        "resistance_cold": [
+          -0.5,
+          0.6000000238418579
+        ],
+        "resistance_arcane": [
+          -0.4000000059604645,
+          0.10000000149011612
+        ],
+        "move_cost_flat": [
+          0.0,
+          0.10000000149011612
+        ],
+        "terrain_defense_flat": [
+          0.0,
+          0.6000000238418579
+        ],
+        "move_cost_forest": [
+          0.0,
+          0.30000001192092896
+        ],
+        "terrain_defense_forest": [
+          0.0,
+          0.699999988079071
+        ],
+        "move_cost_hills": [
+          0.0,
+          0.20000000298023224
+        ],
+        "terrain_defense_hills": [
+          0.0,
+          0.699999988079071
+        ],
+        "move_cost_mountain": [
+          0.0,
+          4.0
+        ],
+        "terrain_defense_mountain": [
+          0.0,
+          0.699999988079071
+        ],
+        "move_cost_water": [
+          0.0,
+          0.4000000059604645
+        ],
+        "terrain_defense_water": [
+          0.0,
+          0.6000000238418579
+        ],
+        "move_cost_swamp": [
+          0.0,
+          0.4000000059604645
+        ],
+        "terrain_defense_swamp": [
+          0.0,
+          0.6000000238418579
+        ],
+        "weapon1_damage": [
+          0.0,
+          0.20000000298023224
+        ],
+        "weapon1_strikes": [
+          0.0,
+          0.4000000059604645
+        ],
+        "weapon1_melee": [
+          0.0,
+          1.0
+        ],
+        "weapon1_ranged": [
+          0.0,
+          1.0
+        ],
+        "weapon1_blade": [
+          0.0,
+          1.0
+        ],
+        "weapon1_pierce": [
+          0.0,
+          1.0
+        ],
+        "weapon1_impact": [
+          0.0,
+          1.0
+        ],
+        "weapon1_fire": [
+          0.0,
+          0.0
+        ],
+        "weapon1_cold": [
+          0.0,
+          1.0
+        ],
+        "weapon1_arcane": [
+          0.0,
+          0.0
+        ],
+        "weapon1_poison": [
+          0.0,
+          1.0
+        ],
+        "weapon1_slow": [
+          0.0,
+          0.0
+        ],
+        "weapon1_drains": [
+          0.0,
+          1.0
+        ],
+        "weapon1_magical": [
+          0.0,
+          1.0
+        ],
+        "weapon1_marksman": [
+          0.0,
+          0.0
+        ],
+        "weapon1_charge": [
+          0.0,
+          0.0
+        ],
+        "weapon1_firststrike": [
+          0.0,
+          1.0
+        ],
+        "weapon1_berserk": [
+          0.0,
+          0.0
+        ],
+        "weapon2_damage": [
+          0.0,
+          0.36000001430511475
+        ],
+        "weapon2_strikes": [
+          0.0,
+          0.4000000059604645
+        ],
+        "weapon2_melee": [
+          0.0,
+          1.0
+        ],
+        "weapon2_ranged": [
+          0.0,
+          1.0
+        ],
+        "weapon2_blade": [
+          0.0,
+          1.0
+        ],
+        "weapon2_pierce": [
+          0.0,
+          1.0
+        ],
+        "weapon2_impact": [
+          0.0,
+          1.0
+        ],
+        "weapon2_fire": [
+          0.0,
+          1.0
+        ],
+        "weapon2_cold": [
+          0.0,
+          1.0
+        ],
+        "weapon2_arcane": [
+          0.0,
+          1.0
+        ],
+        "weapon2_poison": [
+          0.0,
+          1.0
+        ],
+        "weapon2_slow": [
+          0.0,
+          1.0
+        ],
+        "weapon2_drains": [
+          0.0,
+          0.0
+        ],
+        "weapon2_magical": [
+          0.0,
+          1.0
+        ],
+        "weapon2_marksman": [
+          0.0,
+          1.0
+        ],
+        "weapon2_charge": [
+          0.0,
+          0.0
+        ],
+        "weapon2_firststrike": [
+          0.0,
+          1.0
+        ],
+        "weapon2_berserk": [
+          0.0,
+          0.0
+        ],
+        "weapon3_damage": [
+          0.0,
+          0.18000000715255737
+        ],
+        "weapon3_strikes": [
+          0.0,
+          0.20000000298023224
+        ],
+        "weapon3_melee": [
+          0.0,
+          0.0
+        ],
+        "weapon3_ranged": [
+          0.0,
+          1.0
+        ],
+        "weapon3_blade": [
+          0.0,
+          0.0
+        ],
+        "weapon3_pierce": [
+          0.0,
+          0.0
+        ],
+        "weapon3_impact": [
+          0.0,
+          0.0
+        ],
+        "weapon3_fire": [
+          0.0,
+          1.0
+        ],
+        "weapon3_cold": [
+          0.0,
+          0.0
+        ],
+        "weapon3_arcane": [
+          0.0,
+          1.0
+        ],
+        "weapon3_poison": [
+          0.0,
+          0.0
+        ],
+        "weapon3_slow": [
+          0.0,
+          0.0
+        ],
+        "weapon3_drains": [
+          0.0,
+          0.0
+        ],
+        "weapon3_magical": [
+          0.0,
+          1.0
+        ],
+        "weapon3_marksman": [
+          0.0,
+          0.0
+        ],
+        "weapon3_charge": [
+          0.0,
+          0.0
+        ],
+        "weapon3_firststrike": [
+          0.0,
+          0.0
+        ],
+        "weapon3_berserk": [
+          0.0,
+          0.0
+        ],
+        "village_own": [
+          0.0,
+          1.0
+        ],
+        "village_ally": [
+          0.0,
+          1.0
+        ],
+        "village_neutral": [
+          0.0,
+          1.0
+        ],
+        "village_enemy": [
+          0.0,
+          1.0
+        ],
+        "village_unknown": [
+          0.0,
+          0.0
+        ],
+        "goal_progress": [
+          0.0,
+          0.1599999964237213
+        ],
+        "repeated_move": [
+          0.0,
+          1.0
+        ],
+        "move_tactical": [
+          -1.6331849098205566,
+          0.8379999995231628
+        ],
+        "move_gain": [
+          -1.6868250370025635,
+          4.0
+        ],
+        "move_risk": [
+          0.0,
+          1.0762499570846558
+        ],
+        "move_risk_delta": [
+          -1.0263750553131104,
+          0.8455263376235962
+        ],
+        "move_home_distance": [
+          0.0,
+          0.36000001430511475
+        ],
+        "move_own_support": [
+          0.0,
+          0.6000000238418579
+        ],
+        "move_primary": [
+          0.0,
+          1.0
+        ]
+      },
+      "class_by_turn": {
+        "1:recruit": 36,
+        "1:end_turn": 8,
+        "2:move": 36,
+        "2:recruit": 14,
+        "2:end_turn": 8,
+        "3:recruit": 5,
+        "3:attack": 4,
+        "3:move": 38,
+        "3:end_turn": 8,
+        "4:attack": 16,
+        "4:move": 26,
+        "4:end_turn": 8,
+        "5:attack": 5,
+        "5:move": 39,
+        "5:end_turn": 8,
+        "6:recruit": 4,
+        "6:attack": 12,
+        "6:move": 46,
+        "6:end_turn": 8,
+        "7:recruit": 5,
+        "7:attack": 11,
+        "7:move": 43,
+        "7:end_turn": 8,
+        "8:attack": 15,
+        "8:move": 46,
+        "8:end_turn": 8,
+        "9:attack": 9,
+        "9:move": 60,
+        "9:end_turn": 8,
+        "10:recruit": 4,
+        "10:attack": 9,
+        "10:move": 61,
+        "10:end_turn": 8,
+        "11:recruit": 3,
+        "11:attack": 15,
+        "11:move": 54,
+        "11:end_turn": 8,
+        "12:attack": 10,
+        "12:move": 58,
+        "12:end_turn": 8,
+        "4:recruit": 5,
+        "5:recruit": 7,
+        "8:recruit": 6,
+        "9:recruit": 5,
+        "12:recruit": 5
+      }
+    },
+    "baseline_reproduced": {
+      "counts": {
+        "recruit": 105,
+        "recruit_correct": 26,
+        "all": 724,
+        "correct": 223,
+        "end_turn": 89,
+        "end_turn_correct": 69,
+        "move": 268,
+        "move_correct": 80,
+        "attack": 262,
+        "attack_correct": 48
+      },
+      "ce": 2.4077220358242646,
+      "accuracy": 0.3080110497237569
+    },
+    "invariance": [
+      {
+        "row": {
+          "game": "t5-ffa4-validation-1",
+          "side": 1,
+          "turn": 1,
+          "decision": 4,
+          "choice": 10
+        },
+        "batch_delta": 9.5367431640625e-07,
+        "candidate_permutation_delta": 0.0,
+        "entity_permutation_delta": 9.5367431640625e-07,
+        "grad_mode_delta": 0.0
+      },
+      {
+        "row": {
+          "game": "t5-ffa4-validation-1",
+          "side": 3,
+          "turn": 10,
+          "decision": 303,
+          "choice": 0
+        },
+        "batch_delta": 1.1920928955078125e-06,
+        "candidate_permutation_delta": 0.0,
+        "entity_permutation_delta": 1.9073486328125e-06,
+        "grad_mode_delta": 0.0
+      },
+      {
+        "row": {
+          "game": "t5-ffa4-validation-1",
+          "side": 3,
+          "turn": 3,
+          "decision": 70,
+          "choice": 3
+        },
+        "batch_delta": 9.5367431640625e-07,
+        "candidate_permutation_delta": 0.0,
+        "entity_permutation_delta": 9.5367431640625e-07,
+        "grad_mode_delta": 0.0
+      },
+      {
+        "row": {
+          "game": "t5-ffa4-validation-0",
+          "side": 1,
+          "turn": 8,
+          "decision": 207,
+          "choice": 0
+        },
+        "batch_delta": 9.5367431640625e-07,
+        "candidate_permutation_delta": 1.1920928955078125e-06,
+        "entity_permutation_delta": 9.5367431640625e-07,
+        "grad_mode_delta": 0.0
+      },
+      {
+        "row": {
+          "game": "t5-ffa4-validation-1",
+          "side": 1,
+          "turn": 4,
+          "decision": 88,
+          "choice": 3
+        },
+        "batch_delta": 9.5367431640625e-07,
+        "candidate_permutation_delta": 1.1920928955078125e-07,
+        "entity_permutation_delta": 1.0728836059570312e-06,
+        "grad_mode_delta": 0.0
+      },
+      {
+        "row": {
+          "game": "t5-ffa4-validation-0",
+          "side": 4,
+          "turn": 8,
+          "decision": 225,
+          "choice": 41
+        },
+        "batch_delta": 9.5367431640625e-07,
+        "candidate_permutation_delta": 4.76837158203125e-07,
+        "entity_permutation_delta": 9.5367431640625e-07,
+        "grad_mode_delta": 0.0
+      },
+      {
+        "row": {
+          "game": "t5-ffa4-validation-0",
+          "side": 4,
+          "turn": 3,
+          "decision": 78,
+          "choice": 31
+        },
+        "batch_delta": 9.5367431640625e-07,
+        "candidate_permutation_delta": 7.152557373046875e-07,
+        "entity_permutation_delta": 9.5367431640625e-07,
+        "grad_mode_delta": 0.0
+      },
+      {
+        "row": {
+          "game": "t5-ffa4-validation-0",
+          "side": 3,
+          "turn": 11,
+          "decision": 311,
+          "choice": 107
+        },
+        "batch_delta": 9.5367431640625e-07,
+        "candidate_permutation_delta": 3.5762786865234375e-07,
+        "entity_permutation_delta": 9.5367431640625e-07,
+        "grad_mode_delta": 0.0
+      }
+    ]
+  },
+  "full_history": {
+    "arm": "full_history",
+    "training": {
+      "updates": 120
+    },
+    "trace": null,
+    "final": {
+      "counts": {
+        "recruit": 16,
+        "recruit_correct": 15,
+        "all": 64,
+        "correct": 60,
+        "move": 16,
+        "move_correct": 16,
+        "attack": 16,
+        "attack_correct": 13,
+        "end_turn": 16,
+        "end_turn_correct": 16
+      },
+      "ce": 0.1649390086531639,
+      "accuracy": 0.9375
+    },
+    "seconds": 69.11253725498682
+  },
+  "empty_history": {
+    "arm": "empty_history",
+    "training": {
+      "updates": 120
+    },
+    "trace": null,
+    "final": {
+      "counts": {
+        "recruit": 16,
+        "recruit_correct": 14,
+        "all": 64,
+        "correct": 59,
+        "move": 16,
+        "move_correct": 16,
+        "attack": 16,
+        "attack_correct": 13,
+        "end_turn": 16,
+        "end_turn_correct": 16
+      },
+      "ce": 0.21944193542003632,
+      "accuracy": 0.921875
+    },
+    "seconds": 44.03563895000843
+  },
+  "production_window_sampling": {
+    "arm": "production_window_sampling",
+    "training": {
+      "updates": 120,
+      "loss": 2.1835522443676987,
+      "interrupted": false,
+      "approx_kl": 0.0,
+      "kl_stopped": false,
+      "decisions_seen": 4437,
+      "unique_families_seen": 2,
+      "effective_dataset_passes": 69.328125,
+      "sequence_windows": 8,
+      "microbatch": 32
+    },
+    "trace": null,
+    "final": {
+      "counts": {
+        "recruit": 16,
+        "recruit_correct": 6,
+        "all": 64,
+        "correct": 50,
+        "move": 16,
+        "move_correct": 16,
+        "attack": 16,
+        "attack_correct": 12,
+        "end_turn": 16,
+        "end_turn_correct": 16
+      },
+      "ce": 0.543638676404953,
+      "accuracy": 0.78125
+    },
+    "seconds": 38.015561140025966
+  },
+  "baseline_route": {
+    "arm": "baseline",
+    "training": {
+      "updates": 120,
+      "loss": 2.9737314487268565,
+      "interrupted": false,
+      "approx_kl": 0.0,
+      "kl_stopped": false,
+      "decisions_seen": 24590,
+      "unique_families_seen": 2,
+      "effective_dataset_passes": 34.01106500691563,
+      "sequence_windows": 16,
+      "microbatch": 32
+    },
+    "development": {
+      "effective": false,
+      "formats": {
+        "ffa4": {
+          "samples": 724,
+          "cross_entropy": 2.4077220358242646,
+          "uniform_entropy": 4.482836535712618,
+          "kinds": {
+            "recruit": {
+              "samples": 105,
+              "correct": 26,
+              "accuracy": 0.24761904761904763
+            },
+            "move": {
+              "samples": 268,
+              "correct": 80,
+              "accuracy": 0.29850746268656714
+            },
+            "attack": {
+              "samples": 262,
+              "correct": 48,
+              "accuracy": 0.183206106870229
+            }
+          },
+          "accuracy": 0.3080110497237569,
+          "uniform_accuracy": 0.0135347702022052,
+          "effective": false
+        }
+      }
+    },
+    "training_quality": {
+      "effective": false,
+      "formats": {
+        "ffa4": {
+          "samples": 707,
+          "cross_entropy": 1.909603266264121,
+          "uniform_entropy": 4.52552680636604,
+          "kinds": {
+            "recruit": {
+              "samples": 95,
+              "correct": 28,
+              "accuracy": 0.29473684210526313
+            },
+            "move": {
+              "samples": 253,
+              "correct": 123,
+              "accuracy": 0.48616600790513836
+            },
+            "attack": {
+              "samples": 279,
+              "correct": 83,
+              "accuracy": 0.2974910394265233
+            }
+          },
+          "accuracy": 0.42857142857142855,
+          "uniform_accuracy": 0.0126005065258764,
+          "effective": false
+        }
+      }
+    },
+    "trace": [
+      {
+        "update": 20,
+        "loss": 4.45655276522084,
+        "classes": {
+          "recruit": 33,
+          "end_turn": 28,
+          "move_attack": 79,
+          "move": 64,
+          "attack": 13
+        },
+        "unique_rows": 217,
+        "decisions": 217,
+        "gradient": {
+          "norm": 1.4593682289123535,
+          "groups": {
+            "unit_embedding": 0.019403687785763752,
+            "entity": 0.283120786272886,
+            "entities": 0.3706329474794714,
+            "opponent": 0.01518466708687401,
+            "conv1": 0.0027032993208352366,
+            "conv2": 0.0034465111608118575,
+            "local": 0.04061240783707442,
+            "gru": 0.05628263334358424,
+            "summary": 0.029585093318637838,
+            "memory_query": 7.0762425481566866e-06,
+            "memory_key": 5.92125869720083e-06,
+            "memory_value": 0.02421699381044533,
+            "scorer": 1.3803369438931723
+          }
+        },
+        "development": {
+          "effective": false,
+          "formats": {
+            "ffa4": {
+              "samples": 724,
+              "cross_entropy": 3.82831096122278,
+              "uniform_entropy": 4.482836535712618,
+              "kinds": {
+                "recruit": {
+                  "samples": 105,
+                  "correct": 0,
+                  "accuracy": 0.0
+                },
+                "move": {
+                  "samples": 268,
+                  "correct": 0,
+                  "accuracy": 0.0
+                },
+                "attack": {
+                  "samples": 262,
+                  "correct": 44,
+                  "accuracy": 0.16793893129770993
+                }
+              },
+              "accuracy": 0.1712707182320442,
+              "uniform_accuracy": 0.0135347702022052,
+              "effective": false
+            }
+          }
+        }
+      },
+      {
+        "update": 40,
+        "loss": 4.060731301530723,
+        "classes": {
+          "recruit": 20,
+          "end_turn": 24,
+          "move": 65,
+          "move_attack": 96,
+          "attack": 8
+        },
+        "unique_rows": 140,
+        "decisions": 213,
+        "gradient": {
+          "norm": 1.3526031970977783,
+          "groups": {
+            "unit_embedding": 0.02608008506233159,
+            "entity": 0.2868443424652455,
+            "entities": 0.20412063478914896,
+            "opponent": 0.006945332633316903,
+            "conv1": 0.0008283831358166427,
+            "conv2": 0.0020557185706054698,
+            "local": 0.11690223785038743,
+            "gru": 0.059017268158530374,
+            "summary": 0.021559739822601176,
+            "memory_query": 1.2889744528631816e-05,
+            "memory_key": 9.822403070803036e-06,
+            "memory_value": 0.02447582412352674,
+            "scorer": 1.2987130650801635
+          }
+        },
+        "development": {
+          "effective": false,
+          "formats": {
+            "ffa4": {
+              "samples": 724,
+              "cross_entropy": 3.3360185465101377,
+              "uniform_entropy": 4.482836535712618,
+              "kinds": {
+                "recruit": {
+                  "samples": 105,
+                  "correct": 14,
+                  "accuracy": 0.13333333333333333
+                },
+                "move": {
+                  "samples": 268,
+                  "correct": 0,
+                  "accuracy": 0.0
+                },
+                "attack": {
+                  "samples": 262,
+                  "correct": 50,
+                  "accuracy": 0.19083969465648856
+                }
+              },
+              "accuracy": 0.19613259668508287,
+              "uniform_accuracy": 0.0135347702022052,
+              "effective": false
+            }
+          }
+        }
+      },
+      {
+        "update": 60,
+        "loss": 3.713255511429217,
+        "classes": {
+          "valid:move_attack": 13,
+          "valid:attack": 2,
+          "valid:move": 11,
+          "valid:end_turn": 4,
+          "recruit": 23,
+          "end_turn": 20,
+          "move_attack": 43,
+          "move": 52,
+          "attack": 6
+        },
+        "unique_rows": 174,
+        "decisions": 174,
+        "gradient": {
+          "norm": 1.5692776441574097,
+          "groups": {
+            "unit_embedding": 0.05716557630023249,
+            "entity": 0.5863272959825931,
+            "entities": 0.4372914098986505,
+            "opponent": 0.0056435403487227484,
+            "conv1": 0.00040566398398364777,
+            "conv2": 0.001421763953792997,
+            "local": 0.34057178409033284,
+            "gru": 0.026062444101843548,
+            "summary": 0.00873911550453511,
+            "memory_query": 8.11679288394425e-06,
+            "memory_key": 5.058601482907818e-06,
+            "memory_value": 0.009719738686417338,
+            "scorer": 1.3428582198296972,
+            "value": 0.06524507433413458
+          }
+        },
+        "development": {
+          "effective": false,
+          "formats": {
+            "ffa4": {
+              "samples": 724,
+              "cross_entropy": 2.817922687003626,
+              "uniform_entropy": 4.482836535712618,
+              "kinds": {
+                "recruit": {
+                  "samples": 105,
+                  "correct": 17,
+                  "accuracy": 0.1619047619047619
+                },
+                "move": {
+                  "samples": 268,
+                  "correct": 42,
+                  "accuracy": 0.15671641791044777
+                },
+                "attack": {
+                  "samples": 262,
+                  "correct": 47,
+                  "accuracy": 0.17938931297709923
+                }
+              },
+              "accuracy": 0.2513812154696133,
+              "uniform_accuracy": 0.0135347702022052,
+              "effective": false
+            }
+          }
+        }
+      },
+      {
+        "update": 80,
+        "loss": 3.4095834268439766,
+        "classes": {
+          "move_attack": 60,
+          "move": 49,
+          "end_turn": 24,
+          "recruit": 26,
+          "attack": 11
+        },
+        "unique_rows": 170,
+        "decisions": 170,
+        "gradient": {
+          "norm": 2.3764092922210693,
+          "groups": {
+            "unit_embedding": 0.07670234624743597,
+            "entity": 0.8868919436584978,
+            "entities": 0.6842077195984835,
+            "opponent": 0.04570125903086175,
+            "conv1": 0.0018927031854892983,
+            "conv2": 0.0030715594627863016,
+            "local": 0.8741742840385173,
+            "gru": 0.11703641118378943,
+            "summary": 0.04081141242795622,
+            "memory_query": 2.224483393221008e-05,
+            "memory_key": 1.680719948398692e-05,
+            "memory_value": 0.04157413088398019,
+            "scorer": 1.8982618948087713
+          }
+        },
+        "development": {
+          "effective": false,
+          "formats": {
+            "ffa4": {
+              "samples": 724,
+              "cross_entropy": 2.5467723403846363,
+              "uniform_entropy": 4.482836535712618,
+              "kinds": {
+                "recruit": {
+                  "samples": 105,
+                  "correct": 19,
+                  "accuracy": 0.18095238095238095
+                },
+                "move": {
+                  "samples": 268,
+                  "correct": 74,
+                  "accuracy": 0.27611940298507465
+                },
+                "attack": {
+                  "samples": 262,
+                  "correct": 39,
+                  "accuracy": 0.14885496183206107
+                }
+              },
+              "accuracy": 0.2845303867403315,
+              "uniform_accuracy": 0.0135347702022052,
+              "effective": false
+            }
+          }
+        }
+      },
+      {
+        "update": 100,
+        "loss": 3.1602934972903927,
+        "classes": {
+          "recruit": 32,
+          "end_turn": 24,
+          "move_attack": 48,
+          "move": 66,
+          "valid:move_attack": 13,
+          "valid:attack": 2,
+          "valid:move": 11,
+          "valid:end_turn": 4,
+          "attack": 12
+        },
+        "unique_rows": 212,
+        "decisions": 212,
+        "gradient": {
+          "norm": 2.1351284980773926,
+          "groups": {
+            "unit_embedding": 0.0626207764252066,
+            "entity": 0.8703761502109999,
+            "entities": 0.9095183954603128,
+            "opponent": 0.02274613072345889,
+            "conv1": 0.0016244207187422603,
+            "conv2": 0.0042087648133688395,
+            "local": 0.6992027234925975,
+            "gru": 0.09107554081153038,
+            "summary": 0.026187985601364667,
+            "memory_query": 1.619184711279074e-05,
+            "memory_key": 1.099774091924641e-05,
+            "memory_value": 0.028744033731013106,
+            "scorer": 1.5718866832761476,
+            "value": 0.009151991306152747
+          }
+        },
+        "development": {
+          "effective": false,
+          "formats": {
+            "ffa4": {
+              "samples": 724,
+              "cross_entropy": 2.497469074818311,
+              "uniform_entropy": 4.482836535712618,
+              "kinds": {
+                "recruit": {
+                  "samples": 105,
+                  "correct": 20,
+                  "accuracy": 0.19047619047619047
+                },
+                "move": {
+                  "samples": 268,
+                  "correct": 79,
+                  "accuracy": 0.2947761194029851
+                },
+                "attack": {
+                  "samples": 262,
+                  "correct": 44,
+                  "accuracy": 0.16793893129770993
+                }
+              },
+              "accuracy": 0.28591160220994477,
+              "uniform_accuracy": 0.0135347702022052,
+              "effective": false
+            }
+          }
+        }
+      },
+      {
+        "update": 120,
+        "loss": 2.9737314487268565,
+        "classes": {
+          "recruit": 31,
+          "end_turn": 24,
+          "attack": 10,
+          "move_attack": 57,
+          "move": 53,
+          "valid:move_attack": 13,
+          "valid:attack": 2,
+          "valid:move": 11,
+          "valid:end_turn": 4
+        },
+        "unique_rows": 205,
+        "decisions": 205,
+        "gradient": {
+          "norm": 2.4821584224700928,
+          "groups": {
+            "unit_embedding": 0.05572044921405847,
+            "entity": 0.9928545324153045,
+            "entities": 1.027401757368175,
+            "opponent": 0.02593850748923376,
+            "conv1": 0.0020748568039188264,
+            "conv2": 0.004988732471564218,
+            "local": 0.8275811106362293,
+            "gru": 0.06919732108385529,
+            "summary": 0.03225064613855607,
+            "memory_query": 1.7800182059281244e-05,
+            "memory_key": 1.416297707691947e-05,
+            "memory_value": 0.030167184693329303,
+            "scorer": 1.850325396013935,
+            "value": 0.02810971259215168
+          }
+        },
+        "development": {
+          "effective": false,
+          "formats": {
+            "ffa4": {
+              "samples": 724,
+              "cross_entropy": 2.4077220358242646,
+              "uniform_entropy": 4.482836535712618,
+              "kinds": {
+                "recruit": {
+                  "samples": 105,
+                  "correct": 26,
+                  "accuracy": 0.24761904761904763
+                },
+                "move": {
+                  "samples": 268,
+                  "correct": 80,
+                  "accuracy": 0.29850746268656714
+                },
+                "attack": {
+                  "samples": 262,
+                  "correct": 48,
+                  "accuracy": 0.183206106870229
+                }
+              },
+              "accuracy": 0.3080110497237569,
+              "uniform_accuracy": 0.0135347702022052,
+              "effective": false
+            }
+          }
+        }
+      }
+    ],
+    "seconds": 194.28172541904496,
+    "valid_targets": {
+      "-1.0:Undead": 95
+    }
+  },
+  "no_value_route": {
+    "arm": "no_value",
+    "training": {
+      "updates": 120,
+      "loss": 2.9957128469337477,
+      "interrupted": false,
+      "approx_kl": 0.0,
+      "kl_stopped": false,
+      "decisions_seen": 24590,
+      "unique_families_seen": 2,
+      "effective_dataset_passes": 34.01106500691563,
+      "sequence_windows": 16,
+      "microbatch": 32
+    },
+    "development": {
+      "effective": false,
+      "formats": {
+        "ffa4": {
+          "samples": 724,
+          "cross_entropy": 2.4318963519776067,
+          "uniform_entropy": 4.482836535712618,
+          "kinds": {
+            "recruit": {
+              "samples": 105,
+              "correct": 26,
+              "accuracy": 0.24761904761904763
+            },
+            "move": {
+              "samples": 268,
+              "correct": 73,
+              "accuracy": 0.27238805970149255
+            },
+            "attack": {
+              "samples": 262,
+              "correct": 52,
+              "accuracy": 0.1984732824427481
+            }
+          },
+          "accuracy": 0.30386740331491713,
+          "uniform_accuracy": 0.0135347702022052,
+          "effective": false
+        }
+      }
+    },
+    "training_quality": {
+      "effective": false,
+      "formats": {
+        "ffa4": {
+          "samples": 707,
+          "cross_entropy": 1.9453422240860223,
+          "uniform_entropy": 4.52552680636604,
+          "kinds": {
+            "recruit": {
+              "samples": 95,
+              "correct": 29,
+              "accuracy": 0.30526315789473685
+            },
+            "move": {
+              "samples": 253,
+              "correct": 120,
+              "accuracy": 0.4743083003952569
+            },
+            "attack": {
+              "samples": 279,
+              "correct": 88,
+              "accuracy": 0.3154121863799283
+            }
+          },
+          "accuracy": 0.42998585572843,
+          "uniform_accuracy": 0.0126005065258764,
+          "effective": false
+        }
+      }
+    },
+    "trace": null,
+    "seconds": 193.29288138903212,
+    "valid_targets": {}
+  },
+  "value_detached_route": {
+    "arm": "value_detached",
+    "training": {
+      "updates": 120,
+      "loss": 3.0019417657749137,
+      "interrupted": false,
+      "approx_kl": 0.0,
+      "kl_stopped": false,
+      "decisions_seen": 24590,
+      "unique_families_seen": 2,
+      "effective_dataset_passes": 34.01106500691563,
+      "sequence_windows": 16,
+      "microbatch": 32
+    },
+    "development": {
+      "effective": false,
+      "formats": {
+        "ffa4": {
+          "samples": 724,
+          "cross_entropy": 2.4066039343565206,
+          "uniform_entropy": 4.482836535712618,
+          "kinds": {
+            "recruit": {
+              "samples": 105,
+              "correct": 31,
+              "accuracy": 0.29523809523809524
+            },
+            "move": {
+              "samples": 268,
+              "correct": 81,
+              "accuracy": 0.30223880597014924
+            },
+            "attack": {
+              "samples": 262,
+              "correct": 51,
+              "accuracy": 0.1946564885496183
+            }
+          },
+          "accuracy": 0.31767955801104975,
+          "uniform_accuracy": 0.0135347702022052,
+          "effective": false
+        }
+      }
+    },
+    "training_quality": {
+      "effective": false,
+      "formats": {
+        "ffa4": {
+          "samples": 707,
+          "cross_entropy": 1.9213934821489003,
+          "uniform_entropy": 4.52552680636604,
+          "kinds": {
+            "recruit": {
+              "samples": 95,
+              "correct": 30,
+              "accuracy": 0.3157894736842105
+            },
+            "move": {
+              "samples": 253,
+              "correct": 133,
+              "accuracy": 0.525691699604743
+            },
+            "attack": {
+              "samples": 279,
+              "correct": 84,
+              "accuracy": 0.3010752688172043
+            }
+          },
+          "accuracy": 0.44837340876944837,
+          "uniform_accuracy": 0.0126005065258764,
+          "effective": false
+        }
+      }
+    },
+    "trace": null,
+    "seconds": 192.84259474399732,
+    "valid_targets": {
+      "-1.0:Undead": 95
+    }
+  },
+  "empty_history_route": {
+    "arm": "empty_history",
+    "training": {
+      "updates": 120,
+      "loss": 2.918571811008348,
+      "interrupted": false,
+      "approx_kl": 0.0,
+      "kl_stopped": false,
+      "decisions_seen": 24590,
+      "unique_families_seen": 2,
+      "effective_dataset_passes": 34.01106500691563,
+      "sequence_windows": 16,
+      "microbatch": 32
+    },
+    "development": {
+      "effective": false,
+      "formats": {
+        "ffa4": {
+          "samples": 724,
+          "cross_entropy": 2.46154475870712,
+          "uniform_entropy": 4.482836535712618,
+          "kinds": {
+            "recruit": {
+              "samples": 105,
+              "correct": 30,
+              "accuracy": 0.2857142857142857
+            },
+            "move": {
+              "samples": 268,
+              "correct": 62,
+              "accuracy": 0.23134328358208955
+            },
+            "attack": {
+              "samples": 262,
+              "correct": 53,
+              "accuracy": 0.20229007633587787
+            }
+          },
+          "accuracy": 0.2969613259668508,
+          "uniform_accuracy": 0.0135347702022052,
+          "effective": false
+        }
+      }
+    },
+    "training_quality": {
+      "effective": false,
+      "formats": {
+        "ffa4": {
+          "samples": 707,
+          "cross_entropy": 1.8892878002290847,
+          "uniform_entropy": 4.52552680636604,
+          "kinds": {
+            "recruit": {
+              "samples": 95,
+              "correct": 31,
+              "accuracy": 0.3263157894736842
+            },
+            "move": {
+              "samples": 253,
+              "correct": 115,
+              "accuracy": 0.45454545454545453
+            },
+            "attack": {
+              "samples": 279,
+              "correct": 93,
+              "accuracy": 0.3333333333333333
+            }
+          },
+          "accuracy": 0.43422913719943423,
+          "uniform_accuracy": 0.0126005065258764,
+          "effective": false
+        }
+      }
+    },
+    "trace": null,
+    "seconds": 169.12748057499994,
+    "valid_targets": {
+      "-1.0:Undead": 95
+    }
+  },
+  "extended_480": {
+    "arm": "extended_480",
+    "learning_rate": 0.0003,
+    "training": {
+      "updates": 480,
+      "loss": 1.6046783949390877,
+      "interrupted": false,
+      "approx_kl": 0.0,
+      "kl_stopped": false,
+      "decisions_seen": 97088,
+      "unique_families_seen": 2,
+      "effective_dataset_passes": 134.28492392807746,
+      "sequence_windows": 16,
+      "microbatch": 32
+    },
+    "trace": [
+      {
+        "update": 40,
+        "development": {
+          "effective": false,
+          "formats": {
+            "ffa4": {
+              "samples": 724,
+              "cross_entropy": 3.3360185465101377,
+              "uniform_entropy": 4.482836535712618,
+              "kinds": {
+                "recruit": {
+                  "samples": 105,
+                  "correct": 14,
+                  "accuracy": 0.13333333333333333
+                },
+                "move": {
+                  "samples": 268,
+                  "correct": 0,
+                  "accuracy": 0.0
+                },
+                "attack": {
+                  "samples": 262,
+                  "correct": 50,
+                  "accuracy": 0.19083969465648856
+                }
+              },
+              "accuracy": 0.19613259668508287,
+              "uniform_accuracy": 0.0135347702022052,
+              "effective": false
+            }
+          }
+        },
+        "training": {
+          "effective": false,
+          "formats": {
+            "ffa4": {
+              "samples": 707,
+              "cross_entropy": 3.2897235864965717,
+              "uniform_entropy": 4.52552680636604,
+              "kinds": {
+                "recruit": {
+                  "samples": 95,
+                  "correct": 15,
+                  "accuracy": 0.15789473684210525
+                },
+                "move": {
+                  "samples": 253,
+                  "correct": 0,
+                  "accuracy": 0.0
+                },
+                "attack": {
+                  "samples": 279,
+                  "correct": 51,
+                  "accuracy": 0.1827956989247312
+                }
+              },
+              "accuracy": 0.1966053748231966,
+              "uniform_accuracy": 0.0126005065258764,
+              "effective": false
+            }
+          }
+        },
+        "seconds": 65.70785304304445
+      },
+      {
+        "update": 80,
+        "development": {
+          "effective": false,
+          "formats": {
+            "ffa4": {
+              "samples": 724,
+              "cross_entropy": 2.5467723403846363,
+              "uniform_entropy": 4.482836535712618,
+              "kinds": {
+                "recruit": {
+                  "samples": 105,
+                  "correct": 19,
+                  "accuracy": 0.18095238095238095
+                },
+                "move": {
+                  "samples": 268,
+                  "correct": 74,
+                  "accuracy": 0.27611940298507465
+                },
+                "attack": {
+                  "samples": 262,
+                  "correct": 39,
+                  "accuracy": 0.14885496183206107
+                }
+              },
+              "accuracy": 0.2845303867403315,
+              "uniform_accuracy": 0.0135347702022052,
+              "effective": false
+            }
+          }
+        },
+        "training": {
+          "effective": false,
+          "formats": {
+            "ffa4": {
+              "samples": 707,
+              "cross_entropy": 2.2576400286068843,
+              "uniform_entropy": 4.52552680636604,
+              "kinds": {
+                "recruit": {
+                  "samples": 95,
+                  "correct": 17,
+                  "accuracy": 0.17894736842105263
+                },
+                "move": {
+                  "samples": 253,
+                  "correct": 109,
+                  "accuracy": 0.4308300395256917
+                },
+                "attack": {
+                  "samples": 279,
+                  "correct": 58,
+                  "accuracy": 0.2078853046594982
+                }
+              },
+              "accuracy": 0.3592644978783593,
+              "uniform_accuracy": 0.0126005065258764,
+              "effective": false
+            }
+          }
+        },
+        "seconds": 128.16632371704327
+      },
+      {
+        "update": 120,
+        "development": {
+          "effective": false,
+          "formats": {
+            "ffa4": {
+              "samples": 724,
+              "cross_entropy": 2.4077220358242646,
+              "uniform_entropy": 4.482836535712618,
+              "kinds": {
+                "recruit": {
+                  "samples": 105,
+                  "correct": 26,
+                  "accuracy": 0.24761904761904763
+                },
+                "move": {
+                  "samples": 268,
+                  "correct": 80,
+                  "accuracy": 0.29850746268656714
+                },
+                "attack": {
+                  "samples": 262,
+                  "correct": 48,
+                  "accuracy": 0.183206106870229
+                }
+              },
+              "accuracy": 0.3080110497237569,
+              "uniform_accuracy": 0.0135347702022052,
+              "effective": false
+            }
+          }
+        },
+        "training": {
+          "effective": false,
+          "formats": {
+            "ffa4": {
+              "samples": 707,
+              "cross_entropy": 1.909603266264121,
+              "uniform_entropy": 4.52552680636604,
+              "kinds": {
+                "recruit": {
+                  "samples": 95,
+                  "correct": 28,
+                  "accuracy": 0.29473684210526313
+                },
+                "move": {
+                  "samples": 253,
+                  "correct": 123,
+                  "accuracy": 0.48616600790513836
+                },
+                "attack": {
+                  "samples": 279,
+                  "correct": 83,
+                  "accuracy": 0.2974910394265233
+                }
+              },
+              "accuracy": 0.42857142857142855,
+              "uniform_accuracy": 0.0126005065258764,
+              "effective": false
+            }
+          }
+        },
+        "seconds": 190.78500058304053
+      },
+      {
+        "update": 160,
+        "development": {
+          "effective": false,
+          "formats": {
+            "ffa4": {
+              "samples": 724,
+              "cross_entropy": 2.3113920570078474,
+              "uniform_entropy": 4.482836535712618,
+              "kinds": {
+                "recruit": {
+                  "samples": 105,
+                  "correct": 33,
+                  "accuracy": 0.3142857142857143
+                },
+                "move": {
+                  "samples": 268,
+                  "correct": 95,
+                  "accuracy": 0.35447761194029853
+                },
+                "attack": {
+                  "samples": 262,
+                  "correct": 53,
+                  "accuracy": 0.20229007633587787
+                }
+              },
+              "accuracy": 0.3411602209944751,
+              "uniform_accuracy": 0.0135347702022052,
+              "effective": false
+            }
+          }
+        },
+        "training": {
+          "effective": false,
+          "formats": {
+            "ffa4": {
+              "samples": 707,
+              "cross_entropy": 1.6818157419288344,
+              "uniform_entropy": 4.52552680636604,
+              "kinds": {
+                "recruit": {
+                  "samples": 95,
+                  "correct": 30,
+                  "accuracy": 0.3157894736842105
+                },
+                "move": {
+                  "samples": 253,
+                  "correct": 156,
+                  "accuracy": 0.616600790513834
+                },
+                "attack": {
+                  "samples": 279,
+                  "correct": 106,
+                  "accuracy": 0.37992831541218636
+                }
+              },
+              "accuracy": 0.512022630834512,
+              "uniform_accuracy": 0.0126005065258764,
+              "effective": false
+            }
+          }
+        },
+        "seconds": 247.26940479304176
+      },
+      {
+        "update": 200,
+        "development": {
+          "effective": false,
+          "formats": {
+            "ffa4": {
+              "samples": 724,
+              "cross_entropy": 2.394989614328627,
+              "uniform_entropy": 4.482836535712618,
+              "kinds": {
+                "recruit": {
+                  "samples": 105,
+                  "correct": 34,
+                  "accuracy": 0.3238095238095238
+                },
+                "move": {
+                  "samples": 268,
+                  "correct": 102,
+                  "accuracy": 0.3805970149253731
+                },
+                "attack": {
+                  "samples": 262,
+                  "correct": 69,
+                  "accuracy": 0.2633587786259542
+                }
+              },
+              "accuracy": 0.3494475138121547,
+              "uniform_accuracy": 0.0135347702022052,
+              "effective": false
+            }
+          }
+        },
+        "training": {
+          "effective": false,
+          "formats": {
+            "ffa4": {
+              "samples": 707,
+              "cross_entropy": 1.5104804814620605,
+              "uniform_entropy": 4.52552680636604,
+              "kinds": {
+                "recruit": {
+                  "samples": 95,
+                  "correct": 32,
+                  "accuracy": 0.3368421052631579
+                },
+                "move": {
+                  "samples": 253,
+                  "correct": 174,
+                  "accuracy": 0.6877470355731226
+                },
+                "attack": {
+                  "samples": 279,
+                  "correct": 135,
+                  "accuracy": 0.4838709677419355
+                }
+              },
+              "accuracy": 0.5487977369165488,
+              "uniform_accuracy": 0.0126005065258764,
+              "effective": false
+            }
+          }
+        },
+        "seconds": 303.85468428599415
+      },
+      {
+        "update": 240,
+        "development": {
+          "effective": false,
+          "formats": {
+            "ffa4": {
+              "samples": 724,
+              "cross_entropy": 2.395718432263116,
+              "uniform_entropy": 4.482836535712618,
+              "kinds": {
+                "recruit": {
+                  "samples": 105,
+                  "correct": 31,
+                  "accuracy": 0.29523809523809524
+                },
+                "move": {
+                  "samples": 268,
+                  "correct": 93,
+                  "accuracy": 0.34701492537313433
+                },
+                "attack": {
+                  "samples": 262,
+                  "correct": 71,
+                  "accuracy": 0.27099236641221375
+                }
+              },
+              "accuracy": 0.34668508287292815,
+              "uniform_accuracy": 0.0135347702022052,
+              "effective": false
+            }
+          }
+        },
+        "training": {
+          "effective": false,
+          "formats": {
+            "ffa4": {
+              "samples": 707,
+              "cross_entropy": 1.3631855372492292,
+              "uniform_entropy": 4.52552680636604,
+              "kinds": {
+                "recruit": {
+                  "samples": 95,
+                  "correct": 34,
+                  "accuracy": 0.35789473684210527
+                },
+                "move": {
+                  "samples": 253,
+                  "correct": 173,
+                  "accuracy": 0.6837944664031621
+                },
+                "attack": {
+                  "samples": 279,
+                  "correct": 155,
+                  "accuracy": 0.5555555555555556
+                }
+              },
+              "accuracy": 0.5968882602545968,
+              "uniform_accuracy": 0.0126005065258764,
+              "effective": false
+            }
+          }
+        },
+        "seconds": 357.30203875002917
+      },
+      {
+        "update": 280,
+        "development": {
+          "effective": false,
+          "formats": {
+            "ffa4": {
+              "samples": 724,
+              "cross_entropy": 2.5111806037017654,
+              "uniform_entropy": 4.482836535712618,
+              "kinds": {
+                "recruit": {
+                  "samples": 105,
+                  "correct": 40,
+                  "accuracy": 0.38095238095238093
+                },
+                "move": {
+                  "samples": 268,
+                  "correct": 99,
+                  "accuracy": 0.3694029850746269
+                },
+                "attack": {
+                  "samples": 262,
+                  "correct": 65,
+                  "accuracy": 0.2480916030534351
+                }
+              },
+              "accuracy": 0.35773480662983426,
+              "uniform_accuracy": 0.0135347702022052,
+              "effective": false
+            }
+          }
+        },
+        "training": {
+          "effective": false,
+          "formats": {
+            "ffa4": {
+              "samples": 707,
+              "cross_entropy": 1.1834823731148596,
+              "uniform_entropy": 4.52552680636604,
+              "kinds": {
+                "recruit": {
+                  "samples": 95,
+                  "correct": 42,
+                  "accuracy": 0.4421052631578947
+                },
+                "move": {
+                  "samples": 253,
+                  "correct": 188,
+                  "accuracy": 0.7430830039525692
+                },
+                "attack": {
+                  "samples": 279,
+                  "correct": 164,
+                  "accuracy": 0.5878136200716846
+                }
+              },
+              "accuracy": 0.6506364922206507,
+              "uniform_accuracy": 0.0126005065258764,
+              "effective": false
+            }
+          }
+        },
+        "seconds": 411.94171473104507
+      },
+      {
+        "update": 320,
+        "development": {
+          "effective": false,
+          "formats": {
+            "ffa4": {
+              "samples": 724,
+              "cross_entropy": 2.7154067181750556,
+              "uniform_entropy": 4.482836535712618,
+              "kinds": {
+                "recruit": {
+                  "samples": 105,
+                  "correct": 41,
+                  "accuracy": 0.3904761904761905
+                },
+                "move": {
+                  "samples": 268,
+                  "correct": 87,
+                  "accuracy": 0.3246268656716418
+                },
+                "attack": {
+                  "samples": 262,
+                  "correct": 71,
+                  "accuracy": 0.27099236641221375
+                }
+              },
+              "accuracy": 0.3674033149171271,
+              "uniform_accuracy": 0.0135347702022052,
+              "effective": false
+            }
+          }
+        },
+        "training": {
+          "effective": false,
+          "formats": {
+            "ffa4": {
+              "samples": 707,
+              "cross_entropy": 1.012169943840534,
+              "uniform_entropy": 4.52552680636604,
+              "kinds": {
+                "recruit": {
+                  "samples": 95,
+                  "correct": 45,
+                  "accuracy": 0.47368421052631576
+                },
+                "move": {
+                  "samples": 253,
+                  "correct": 194,
+                  "accuracy": 0.766798418972332
+                },
+                "attack": {
+                  "samples": 279,
+                  "correct": 188,
+                  "accuracy": 0.6738351254480287
+                }
+              },
+              "accuracy": 0.7057991513437057,
+              "uniform_accuracy": 0.0126005065258764,
+              "effective": false
+            }
+          }
+        },
+        "seconds": 468.972899054992
+      },
+      {
+        "update": 360,
+        "development": {
+          "effective": false,
+          "formats": {
+            "ffa4": {
+              "samples": 724,
+              "cross_entropy": 2.790867552572851,
+              "uniform_entropy": 4.482836535712618,
+              "kinds": {
+                "recruit": {
+                  "samples": 105,
+                  "correct": 46,
+                  "accuracy": 0.4380952380952381
+                },
+                "move": {
+                  "samples": 268,
+                  "correct": 106,
+                  "accuracy": 0.39552238805970147
+                },
+                "attack": {
+                  "samples": 262,
+                  "correct": 64,
+                  "accuracy": 0.24427480916030533
+                }
+              },
+              "accuracy": 0.36049723756906077,
+              "uniform_accuracy": 0.0135347702022052,
+              "effective": false
+            }
+          }
+        },
+        "training": {
+          "effective": false,
+          "formats": {
+            "ffa4": {
+              "samples": 707,
+              "cross_entropy": 0.884322724720039,
+              "uniform_entropy": 4.52552680636604,
+              "kinds": {
+                "recruit": {
+                  "samples": 95,
+                  "correct": 52,
+                  "accuracy": 0.5473684210526316
+                },
+                "move": {
+                  "samples": 253,
+                  "correct": 218,
+                  "accuracy": 0.8616600790513834
+                },
+                "attack": {
+                  "samples": 279,
+                  "correct": 183,
+                  "accuracy": 0.6559139784946236
+                }
+              },
+              "accuracy": 0.7284299858557284,
+              "uniform_accuracy": 0.0126005065258764,
+              "effective": false
+            }
+          }
+        },
+        "seconds": 524.8302490960341
+      },
+      {
+        "update": 400,
+        "development": {
+          "effective": false,
+          "formats": {
+            "ffa4": {
+              "samples": 724,
+              "cross_entropy": 3.0790236720722683,
+              "uniform_entropy": 4.482836535712618,
+              "kinds": {
+                "recruit": {
+                  "samples": 105,
+                  "correct": 49,
+                  "accuracy": 0.4666666666666667
+                },
+                "move": {
+                  "samples": 268,
+                  "correct": 98,
+                  "accuracy": 0.3656716417910448
+                },
+                "attack": {
+                  "samples": 262,
+                  "correct": 67,
+                  "accuracy": 0.25572519083969464
+                }
+              },
+              "accuracy": 0.3867403314917127,
+              "uniform_accuracy": 0.0135347702022052,
+              "effective": false
+            }
+          }
+        },
+        "training": {
+          "effective": true,
+          "formats": {
+            "ffa4": {
+              "samples": 707,
+              "cross_entropy": 0.7168168041544217,
+              "uniform_entropy": 4.52552680636604,
+              "kinds": {
+                "recruit": {
+                  "samples": 95,
+                  "correct": 58,
+                  "accuracy": 0.6105263157894737
+                },
+                "move": {
+                  "samples": 253,
+                  "correct": 225,
+                  "accuracy": 0.8893280632411067
+                },
+                "attack": {
+                  "samples": 279,
+                  "correct": 205,
+                  "accuracy": 0.7347670250896058
+                }
+              },
+              "accuracy": 0.7991513437057991,
+              "uniform_accuracy": 0.0126005065258764,
+              "effective": true
+            }
+          }
+        },
+        "seconds": 580.9017607780406
+      },
+      {
+        "update": 440,
+        "development": {
+          "effective": false,
+          "formats": {
+            "ffa4": {
+              "samples": 724,
+              "cross_entropy": 3.181191302136163,
+              "uniform_entropy": 4.482836535712618,
+              "kinds": {
+                "recruit": {
+                  "samples": 105,
+                  "correct": 49,
+                  "accuracy": 0.4666666666666667
+                },
+                "move": {
+                  "samples": 268,
+                  "correct": 109,
+                  "accuracy": 0.40671641791044777
+                },
+                "attack": {
+                  "samples": 262,
+                  "correct": 66,
+                  "accuracy": 0.25190839694656486
+                }
+              },
+              "accuracy": 0.40193370165745856,
+              "uniform_accuracy": 0.0135347702022052,
+              "effective": false
+            }
+          }
+        },
+        "training": {
+          "effective": true,
+          "formats": {
+            "ffa4": {
+              "samples": 707,
+              "cross_entropy": 0.6590589107853351,
+              "uniform_entropy": 4.52552680636604,
+              "kinds": {
+                "recruit": {
+                  "samples": 95,
+                  "correct": 62,
+                  "accuracy": 0.6526315789473685
+                },
+                "move": {
+                  "samples": 253,
+                  "correct": 225,
+                  "accuracy": 0.8893280632411067
+                },
+                "attack": {
+                  "samples": 279,
+                  "correct": 197,
+                  "accuracy": 0.7060931899641577
+                }
+              },
+              "accuracy": 0.7963224893917963,
+              "uniform_accuracy": 0.0126005065258764,
+              "effective": true
+            }
+          }
+        },
+        "seconds": 637.8832283960073
+      },
+      {
+        "update": 480,
+        "development": {
+          "effective": false,
+          "formats": {
+            "ffa4": {
+              "samples": 724,
+              "cross_entropy": 3.5281433927420096,
+              "uniform_entropy": 4.482836535712618,
+              "kinds": {
+                "recruit": {
+                  "samples": 105,
+                  "correct": 54,
+                  "accuracy": 0.5142857142857142
+                },
+                "move": {
+                  "samples": 268,
+                  "correct": 100,
+                  "accuracy": 0.373134328358209
+                },
+                "attack": {
+                  "samples": 262,
+                  "correct": 65,
+                  "accuracy": 0.2480916030534351
+                }
+              },
+              "accuracy": 0.39502762430939226,
+              "uniform_accuracy": 0.0135347702022052,
+              "effective": false
+            }
+          }
+        },
+        "training": {
+          "effective": true,
+          "formats": {
+            "ffa4": {
+              "samples": 707,
+              "cross_entropy": 0.49674282831046335,
+              "uniform_entropy": 4.52552680636604,
+              "kinds": {
+                "recruit": {
+                  "samples": 95,
+                  "correct": 68,
+                  "accuracy": 0.7157894736842105
+                },
+                "move": {
+                  "samples": 253,
+                  "correct": 236,
+                  "accuracy": 0.932806324110672
+                },
+                "attack": {
+                  "samples": 279,
+                  "correct": 217,
+                  "accuracy": 0.7777777777777778
+                }
+              },
+              "accuracy": 0.8500707213578501,
+              "uniform_accuracy": 0.0126005065258764,
+              "effective": true
+            }
+          }
+        },
+        "seconds": 694.2706733720261
+      }
+    ],
+    "seconds": 694.2714643790387,
+    "acceptance": false,
+    "reason": "development-only optimization diagnostic; extended arm exceeds original T5 cap"
+  },
+  "faster_lr_120": {
+    "arm": "faster_lr_120",
+    "learning_rate": 0.001,
+    "training": {
+      "updates": 120,
+      "loss": 2.416513857078206,
+      "interrupted": false,
+      "approx_kl": 0.0,
+      "kl_stopped": false,
+      "decisions_seen": 24590,
+      "unique_families_seen": 2,
+      "effective_dataset_passes": 34.01106500691563,
+      "sequence_windows": 16,
+      "microbatch": 32
+    },
+    "trace": [
+      {
+        "update": 40,
+        "development": {
+          "effective": false,
+          "formats": {
+            "ffa4": {
+              "samples": 724,
+              "cross_entropy": 2.787240444625939,
+              "uniform_entropy": 4.482836535712618,
+              "kinds": {
+                "recruit": {
+                  "samples": 105,
+                  "correct": 18,
+                  "accuracy": 0.17142857142857143
+                },
+                "move": {
+                  "samples": 268,
+                  "correct": 53,
+                  "accuracy": 0.19776119402985073
+                },
+                "attack": {
+                  "samples": 262,
+                  "correct": 40,
+                  "accuracy": 0.15267175572519084
+                }
+              },
+              "accuracy": 0.2569060773480663,
+              "uniform_accuracy": 0.0135347702022052,
+              "effective": false
+            }
+          }
+        },
+        "training": {
+          "effective": false,
+          "formats": {
+            "ffa4": {
+              "samples": 707,
+              "cross_entropy": 2.4133505086075973,
+              "uniform_entropy": 4.52552680636604,
+              "kinds": {
+                "recruit": {
+                  "samples": 95,
+                  "correct": 17,
+                  "accuracy": 0.17894736842105263
+                },
+                "move": {
+                  "samples": 253,
+                  "correct": 83,
+                  "accuracy": 0.32806324110671936
+                },
+                "attack": {
+                  "samples": 279,
+                  "correct": 68,
+                  "accuracy": 0.24372759856630824
+                }
+              },
+              "accuracy": 0.3323903818953324,
+              "uniform_accuracy": 0.0126005065258764,
+              "effective": false
+            }
+          }
+        },
+        "seconds": 65.6387643860071
+      },
+      {
+        "update": 80,
+        "development": {
+          "effective": false,
+          "formats": {
+            "ffa4": {
+              "samples": 724,
+              "cross_entropy": 2.3410301840766357,
+              "uniform_entropy": 4.482836535712618,
+              "kinds": {
+                "recruit": {
+                  "samples": 105,
+                  "correct": 31,
+                  "accuracy": 0.29523809523809524
+                },
+                "move": {
+                  "samples": 268,
+                  "correct": 100,
+                  "accuracy": 0.373134328358209
+                },
+                "attack": {
+                  "samples": 262,
+                  "correct": 51,
+                  "accuracy": 0.1946564885496183
+                }
+              },
+              "accuracy": 0.3314917127071823,
+              "uniform_accuracy": 0.0135347702022052,
+              "effective": false
+            }
+          }
+        },
+        "training": {
+          "effective": false,
+          "formats": {
+            "ffa4": {
+              "samples": 707,
+              "cross_entropy": 1.8121758593191015,
+              "uniform_entropy": 4.52552680636604,
+              "kinds": {
+                "recruit": {
+                  "samples": 95,
+                  "correct": 35,
+                  "accuracy": 0.3684210526315789
+                },
+                "move": {
+                  "samples": 253,
+                  "correct": 151,
+                  "accuracy": 0.5968379446640316
+                },
+                "attack": {
+                  "samples": 279,
+                  "correct": 97,
+                  "accuracy": 0.34767025089605735
+                }
+              },
+              "accuracy": 0.4823196605374823,
+              "uniform_accuracy": 0.0126005065258764,
+              "effective": false
+            }
+          }
+        },
+        "seconds": 127.99139737797668
+      },
+      {
+        "update": 120,
+        "development": {
+          "effective": false,
+          "formats": {
+            "ffa4": {
+              "samples": 724,
+              "cross_entropy": 2.39677161011248,
+              "uniform_entropy": 4.482836535712618,
+              "kinds": {
+                "recruit": {
+                  "samples": 105,
+                  "correct": 30,
+                  "accuracy": 0.2857142857142857
+                },
+                "move": {
+                  "samples": 268,
+                  "correct": 63,
+                  "accuracy": 0.23507462686567165
+                },
+                "attack": {
+                  "samples": 262,
+                  "correct": 63,
+                  "accuracy": 0.24045801526717558
+                }
+              },
+              "accuracy": 0.32044198895027626,
+              "uniform_accuracy": 0.0135347702022052,
+              "effective": false
+            }
+          }
+        },
+        "training": {
+          "effective": false,
+          "formats": {
+            "ffa4": {
+              "samples": 707,
+              "cross_entropy": 1.691153362414456,
+              "uniform_entropy": 4.52552680636604,
+              "kinds": {
+                "recruit": {
+                  "samples": 95,
+                  "correct": 29,
+                  "accuracy": 0.30526315789473685
+                },
+                "move": {
+                  "samples": 253,
+                  "correct": 107,
+                  "accuracy": 0.42292490118577075
+                },
+                "attack": {
+                  "samples": 279,
+                  "correct": 126,
+                  "accuracy": 0.45161290322580644
+                }
+              },
+              "accuracy": 0.4738330975954738,
+              "uniform_accuracy": 0.0126005065258764,
+              "effective": false
+            }
+          }
+        },
+        "seconds": 190.03320212702965
+      }
+    ],
+    "seconds": 190.0361479819985,
+    "acceptance": false,
+    "reason": "development-only optimization diagnostic; extended arm exceeds original T5 cap"
+  },
+  "trade_diagnostic": {
+    "train": {
+      "counts": {
+        "recruit:samples": 95,
+        "recruit:top1": 28,
+        "recruit:top3": 62,
+        "recruit:top5": 71,
+        "recruit:random1_sum": 1.4124158103978566,
+        "end_turn:samples": 96,
+        "end_turn:top1": 85,
+        "end_turn:top3": 93,
+        "end_turn:top5": 93,
+        "end_turn:random1_sum": 18.09195448531176,
+        "move:samples": 253,
+        "move:top1": 123,
+        "move:top3": 206,
+        "move:top5": 232,
+        "move:random1_sum": 3.146432418020546,
+        "attack:samples": 279,
+        "attack:top1": 83,
+        "attack:top3": 160,
+        "attack:top5": 191,
+        "attack:random1_sum": 2.2577554000644535,
+        "wrong_attack_own_leader": 1
+      },
+      "trade": {
+        "teacher_attack_trade": {
+          "samples": 220,
+          "positive": 182,
+          "negative": 38,
+          "quantiles": [
+            -6.735887191707086,
+            1.1930248397475365,
+            2.6920723395659807,
+            5.924999635025518,
+            17.011930274958317
+          ]
+        },
+        "wrong_attack_trade": {
+          "samples": 41,
+          "positive": 5,
+          "negative": 36,
+          "quantiles": [
+            -18.266751150840403,
+            -3.4536513283045265,
+            -1.8865840688425684,
+            -1.0806179516577115,
+            10.370590087857797
+          ]
+        }
+      }
+    },
+    "validation": {
+      "counts": {
+        "recruit:samples": 105,
+        "recruit:top1": 26,
+        "recruit:top3": 57,
+        "recruit:top5": 71,
+        "recruit:random1_sum": 1.4338863657624517,
+        "end_turn:samples": 96,
+        "end_turn:top1": 76,
+        "end_turn:top3": 88,
+        "end_turn:top5": 89,
+        "end_turn:random1_sum": 9.794018820444343,
+        "move:samples": 268,
+        "move:top1": 80,
+        "move:top3": 163,
+        "move:top5": 188,
+        "move:random1_sum": 3.3656028196548404,
+        "attack:samples": 262,
+        "attack:top1": 48,
+        "attack:top3": 111,
+        "attack:top5": 142,
+        "attack:random1_sum": 2.205665620534925,
+        "wrong_attack_own_leader": 0
+      },
+      "trade": {
+        "teacher_attack_trade": {
+          "samples": 210,
+          "positive": 186,
+          "negative": 24,
+          "quantiles": [
+            -4.1690072674276,
+            1.4671355586281685,
+            3.2198421856203066,
+            5.83867668618323,
+            16.439885237826765
+          ]
+        },
+        "wrong_attack_trade": {
+          "samples": 88,
+          "positive": 14,
+          "negative": 74,
+          "quantiles": [
+            -15.2561975367006,
+            -7.037991510084732,
+            -2.717986765736093,
+            0.17336301448555347,
+            11.184175181592705
+          ]
+        }
+      }
+    }
+  },
+  "trade_probe": {
+    "training": {
+      "updates": 120,
+      "loss": 2.8997487747673887,
+      "interrupted": false,
+      "approx_kl": 0.0,
+      "kl_stopped": false,
+      "decisions_seen": 24590,
+      "unique_families_seen": 2,
+      "effective_dataset_passes": 34.01106500691563,
+      "sequence_windows": 16,
+      "microbatch": 32
+    },
+    "development": {
+      "effective": false,
+      "formats": {
+        "ffa4": {
+          "samples": 724,
+          "cross_entropy": 2.265899626589612,
+          "uniform_entropy": 4.482836535712618,
+          "kinds": {
+            "recruit": {
+              "samples": 105,
+              "correct": 29,
+              "accuracy": 0.2761904761904762
+            },
+            "move": {
+              "samples": 268,
+              "correct": 81,
+              "accuracy": 0.30223880597014924
+            },
+            "attack": {
+              "samples": 262,
+              "correct": 66,
+              "accuracy": 0.25190839694656486
+            }
+          },
+          "accuracy": 0.3328729281767956,
+          "uniform_accuracy": 0.0135347702022052,
+          "effective": false
+        }
+      }
+    },
+    "fit": {
+      "effective": false,
+      "formats": {
+        "ffa4": {
+          "samples": 707,
+          "cross_entropy": 1.7722208176171763,
+          "uniform_entropy": 4.52552680636604,
+          "kinds": {
+            "recruit": {
+              "samples": 95,
+              "correct": 29,
+              "accuracy": 0.30526315789473685
+            },
+            "move": {
+              "samples": 253,
+              "correct": 132,
+              "accuracy": 0.5217391304347826
+            },
+            "attack": {
+              "samples": 279,
+              "correct": 117,
+              "accuracy": 0.41935483870967744
+            }
+          },
+          "accuracy": 0.48656294200848654,
+          "uniform_accuracy": 0.0126005065258764,
+          "effective": false
+        }
+      }
+    },
+    "seconds": 170.15201902098488,
+    "experimental": true,
+    "substitution": "combat-only unused gold_cost slot; no data/schema claim, no deployment"
+  },
+  "context_dropout_generalization": {
+    "training": {
+      "updates": 120,
+      "loss": 2.944706578793891,
+      "interrupted": false,
+      "approx_kl": 0.0,
+      "kl_stopped": false,
+      "decisions_seen": 24590,
+      "unique_families_seen": 2,
+      "effective_dataset_passes": 34.01106500691563,
+      "sequence_windows": 16,
+      "microbatch": 32
+    },
+    "development": {
+      "effective": false,
+      "formats": {
+        "ffa4": {
+          "samples": 724,
+          "cross_entropy": 2.409111660488403,
+          "uniform_entropy": 4.482836535712618,
+          "kinds": {
+            "recruit": {
+              "samples": 105,
+              "correct": 30,
+              "accuracy": 0.2857142857142857
+            },
+            "move": {
+              "samples": 268,
+              "correct": 77,
+              "accuracy": 0.2873134328358209
+            },
+            "attack": {
+              "samples": 262,
+              "correct": 51,
+              "accuracy": 0.1946564885496183
+            }
+          },
+          "accuracy": 0.3052486187845304,
+          "uniform_accuracy": 0.0135347702022052,
+          "effective": false
+        }
+      }
+    },
+    "fit": {
+      "effective": false,
+      "formats": {
+        "ffa4": {
+          "samples": 707,
+          "cross_entropy": 1.8791383671794282,
+          "uniform_entropy": 4.52552680636604,
+          "kinds": {
+            "recruit": {
+              "samples": 95,
+              "correct": 31,
+              "accuracy": 0.3263157894736842
+            },
+            "move": {
+              "samples": 253,
+              "correct": 124,
+              "accuracy": 0.4901185770750988
+            },
+            "attack": {
+              "samples": 279,
+              "correct": 89,
+              "accuracy": 0.31899641577060933
+            }
+          },
+          "accuracy": 0.44413012729844414,
+          "uniform_accuracy": 0.0126005065258764,
+          "effective": false
+        }
+      }
+    },
+    "seconds": 192.090982883994
+  },
+  "decision_draws_generalization": {
+    "training": {
+      "updates": 120,
+      "decisions_seen": 23040
+    },
+    "development": {
+      "effective": false,
+      "formats": {
+        "ffa4": {
+          "samples": 724,
+          "cross_entropy": 2.3999019275054088,
+          "uniform_entropy": 4.482836535712618,
+          "kinds": {
+            "recruit": {
+              "samples": 105,
+              "correct": 32,
+              "accuracy": 0.3047619047619048
+            },
+            "move": {
+              "samples": 268,
+              "correct": 82,
+              "accuracy": 0.30597014925373134
+            },
+            "attack": {
+              "samples": 262,
+              "correct": 56,
+              "accuracy": 0.21374045801526717
+            }
+          },
+          "accuracy": 0.32044198895027626,
+          "uniform_accuracy": 0.0135347702022052,
+          "effective": false
+        }
+      }
+    },
+    "fit": {
+      "effective": false,
+      "formats": {
+        "ffa4": {
+          "samples": 707,
+          "cross_entropy": 1.73185665300577,
+          "uniform_entropy": 4.52552680636604,
+          "kinds": {
+            "recruit": {
+              "samples": 95,
+              "correct": 30,
+              "accuracy": 0.3157894736842105
+            },
+            "move": {
+              "samples": 253,
+              "correct": 153,
+              "accuracy": 0.6047430830039525
+            },
+            "attack": {
+              "samples": 279,
+              "correct": 105,
+              "accuracy": 0.3763440860215054
+            }
+          },
+          "accuracy": 0.49504950495049505,
+          "uniform_accuracy": 0.0126005065258764,
+          "effective": false
+        }
+      }
+    },
+    "seconds": 259.798824136029
+  },
+  "diversity_normal": {
+    "arm": "normal",
+    "training": {
+      "updates": 120,
+      "decisions_seen": 24788,
+      "interrupted": false,
+      "stop": "frozen optimizer cap"
+    },
+    "development": {
+      "effective": false,
+      "formats": {
+        "ffa4": {
+          "samples": 724,
+          "cross_entropy": 2.3087260999732253,
+          "uniform_entropy": 4.482836535712618,
+          "kinds": {
+            "recruit": {
+              "samples": 105,
+              "correct": 29,
+              "accuracy": 0.2761904761904762
+            },
+            "move": {
+              "samples": 268,
+              "correct": 110,
+              "accuracy": 0.41044776119402987
+            },
+            "attack": {
+              "samples": 262,
+              "correct": 45,
+              "accuracy": 0.1717557251908397
+            }
+          },
+          "accuracy": 0.35082872928176795,
+          "uniform_accuracy": 0.0135347702022052,
+          "effective": false
+        }
+      }
+    },
+    "families": [
+      "5a3eb960282c58b96fca2f5524413605a0e313f448d40ed64be941d86f49ad38",
+      "965ce307d5f8b0d000d290ab07c5a31683c32577be555fddc2bfb18db6cca690",
+      "bb830637a85fa2164788707aa5218e1bcdf9a18f4255e649c8abcad7a49dc87e",
+      "f2f41ed6f88d6c42b2066d4de5b8e8da16419e4f89c1abf54ec2bad2ed592135"
+    ],
+    "training_rows": 1443,
+    "factions": [
+      "Drakes",
+      "Knalgan Alliance",
+      "Loyalists",
+      "Northerners",
+      "Rebels",
+      "Undead"
+    ],
+    "seconds": 181.1550027790363
+  },
+  "diversity_zeroed": {
+    "arm": "zeroed",
+    "training": {
+      "updates": 120,
+      "decisions_seen": 24788,
+      "interrupted": false,
+      "stop": "frozen optimizer cap"
+    },
+    "development": {
+      "effective": false,
+      "formats": {
+        "ffa4": {
+          "samples": 724,
+          "cross_entropy": 3.07984977005595,
+          "uniform_entropy": 4.482836535712618,
+          "kinds": {
+            "recruit": {
+              "samples": 105,
+              "correct": 28,
+              "accuracy": 0.26666666666666666
+            },
+            "move": {
+              "samples": 268,
+              "correct": 23,
+              "accuracy": 0.08582089552238806
+            },
+            "attack": {
+              "samples": 262,
+              "correct": 48,
+              "accuracy": 0.183206106870229
+            }
+          },
+          "accuracy": 0.23895027624309392,
+          "uniform_accuracy": 0.0135347702022052,
+          "effective": false
+        }
+      }
+    },
+    "families": [
+      "5a3eb960282c58b96fca2f5524413605a0e313f448d40ed64be941d86f49ad38",
+      "965ce307d5f8b0d000d290ab07c5a31683c32577be555fddc2bfb18db6cca690",
+      "bb830637a85fa2164788707aa5218e1bcdf9a18f4255e649c8abcad7a49dc87e",
+      "f2f41ed6f88d6c42b2066d4de5b8e8da16419e4f89c1abf54ec2bad2ed592135"
+    ],
+    "training_rows": 1443,
+    "factions": [
+      "Drakes",
+      "Knalgan Alliance",
+      "Loyalists",
+      "Northerners",
+      "Rebels",
+      "Undead"
+    ],
+    "seconds": 181.96691336401273
+  },
+  "teacher_replay": [
+    {
+      "game": "t5-ffa4-validation-0",
+      "side": 1,
+      "turn": 5,
+      "decision": 113,
+      "original": {
+        "kind": "move",
+        "x": 4,
+        "y": 11,
+        "tx": 7,
+        "ty": 16,
+        "full": true
+      },
+      "repeated": [
+        {
+          "action": {
+            "kind": "move",
+            "x": 4,
+            "y": 11,
+            "tx": 7,
+            "ty": 16,
+            "full": true
+          },
+          "seconds": 0.008979998005088419
+        },
+        {
+          "action": {
+            "kind": "move",
+            "x": 4,
+            "y": 11,
+            "tx": 7,
+            "ty": 16,
+            "full": true
+          },
+          "seconds": 0.008328052994329482
+        },
+        {
+          "action": {
+            "kind": "move",
+            "x": 4,
+            "y": 11,
+            "tx": 7,
+            "ty": 16,
+            "full": true
+          },
+          "seconds": 0.008192979032173753
+        }
+      ],
+      "diagnostic_plan": {
+        "_scan": {
+          "cut": "none",
+          "sims": 0
+        },
+        "id": "lite-5",
+        "kind": "move",
+        "tx": 7,
+        "ty": 16,
+        "x": 4,
+        "y": 11
+      }
+    },
+    {
+      "game": "t5-ffa4-validation-0",
+      "side": 1,
+      "turn": 5,
+      "decision": 114,
+      "original": {
+        "kind": "move",
+        "x": 2,
+        "y": 8,
+        "tx": 3,
+        "ty": 9,
+        "full": true
+      },
+      "repeated": [
+        {
+          "action": {
+            "kind": "move",
+            "x": 2,
+            "y": 8,
+            "tx": 3,
+            "ty": 9,
+            "full": true
+          },
+          "seconds": 0.008545054006390274
+        },
+        {
+          "action": {
+            "kind": "move",
+            "x": 2,
+            "y": 8,
+            "tx": 3,
+            "ty": 9,
+            "full": true
+          },
+          "seconds": 0.008520317962393165
+        },
+        {
+          "action": {
+            "kind": "move",
+            "x": 2,
+            "y": 8,
+            "tx": 3,
+            "ty": 9,
+            "full": true
+          },
+          "seconds": 0.00870457902783528
+        }
+      ],
+      "diagnostic_plan": {
+        "_scan": {
+          "cut": "none",
+          "sims": 2
+        },
+        "id": "leader_1",
+        "kind": "move",
+        "tx": 3,
+        "ty": 9,
+        "x": 2,
+        "y": 8
+      }
+    },
+    {
+      "game": "t5-ffa4-validation-0",
+      "side": 1,
+      "turn": 5,
+      "decision": 115,
+      "original": {
+        "kind": "move",
+        "x": 5,
+        "y": 11,
+        "tx": 9,
+        "ty": 9,
+        "full": true
+      },
+      "repeated": [
+        {
+          "action": {
+            "kind": "move",
+            "x": 5,
+            "y": 11,
+            "tx": 9,
+            "ty": 9,
+            "full": true
+          },
+          "seconds": 0.008584983996115625
+        },
+        {
+          "action": {
+            "kind": "move",
+            "x": 5,
+            "y": 11,
+            "tx": 9,
+            "ty": 9,
+            "full": true
+          },
+          "seconds": 0.007869253982789814
+        },
+        {
+          "action": {
+            "kind": "move",
+            "x": 5,
+            "y": 11,
+            "tx": 9,
+            "ty": 9,
+            "full": true
+          },
+          "seconds": 0.007846610969863832
+        }
+      ],
+      "diagnostic_plan": {
+        "_scan": {
+          "cut": "none",
+          "sims": 2
+        },
+        "id": "lite-1",
+        "kind": "move",
+        "tx": 9,
+        "ty": 9,
+        "x": 5,
+        "y": 11
+      }
+    },
+    {
+      "game": "t5-ffa4-validation-0",
+      "side": 1,
+      "turn": 5,
+      "decision": 116,
+      "original": {
+        "kind": "move",
+        "x": 4,
+        "y": 14,
+        "tx": 9,
+        "ty": 16,
+        "full": true
+      },
+      "repeated": [
+        {
+          "action": {
+            "kind": "move",
+            "x": 4,
+            "y": 14,
+            "tx": 9,
+            "ty": 16,
+            "full": true
+          },
+          "seconds": 0.007568656001240015
+        },
+        {
+          "action": {
+            "kind": "move",
+            "x": 4,
+            "y": 14,
+            "tx": 9,
+            "ty": 16,
+            "full": true
+          },
+          "seconds": 0.007342085998971015
+        },
+        {
+          "action": {
+            "kind": "move",
+            "x": 4,
+            "y": 14,
+            "tx": 9,
+            "ty": 16,
+            "full": true
+          },
+          "seconds": 0.007636598020326346
+        }
+      ],
+      "diagnostic_plan": {
+        "_scan": {
+          "cut": "none",
+          "sims": 2
+        },
+        "id": "lite-4",
+        "kind": "move",
+        "tx": 9,
+        "ty": 16,
+        "x": 4,
+        "y": 14
+      }
+    },
+    {
+      "game": "t5-ffa4-validation-0",
+      "side": 2,
+      "turn": 5,
+      "decision": 120,
+      "original": {
+        "kind": "move",
+        "x": 23,
+        "y": 18,
+        "tx": 18,
+        "ty": 17,
+        "full": true
+      },
+      "repeated": [
+        {
+          "action": {
+            "kind": "move",
+            "x": 23,
+            "y": 18,
+            "tx": 18,
+            "ty": 17,
+            "full": true
+          },
+          "seconds": 0.013825208006892353
+        },
+        {
+          "action": {
+            "kind": "move",
+            "x": 23,
+            "y": 18,
+            "tx": 18,
+            "ty": 17,
+            "full": true
+          },
+          "seconds": 0.013465293974149972
+        },
+        {
+          "action": {
+            "kind": "move",
+            "x": 23,
+            "y": 18,
+            "tx": 18,
+            "ty": 17,
+            "full": true
+          },
+          "seconds": 0.013160343980416656
+        }
+      ],
+      "diagnostic_plan": {
+        "_scan": {
+          "cut": "none",
+          "sims": 8
+        },
+        "id": "lite-22",
+        "kind": "move",
+        "tx": 18,
+        "ty": 17,
+        "x": 23,
+        "y": 18
+      }
+    },
+    {
+      "game": "t5-ffa4-validation-0",
+      "side": 2,
+      "turn": 5,
+      "decision": 121,
+      "original": {
+        "kind": "move",
+        "x": 18,
+        "y": 21,
+        "tx": 18,
+        "ty": 23,
+        "full": true
+      },
+      "repeated": [
+        {
+          "action": {
+            "kind": "move",
+            "x": 18,
+            "y": 21,
+            "tx": 18,
+            "ty": 23,
+            "full": true
+          },
+          "seconds": 0.02181213500443846
+        },
+        {
+          "action": {
+            "kind": "move",
+            "x": 18,
+            "y": 21,
+            "tx": 18,
+            "ty": 23,
+            "full": true
+          },
+          "seconds": 0.01049898995552212
+        },
+        {
+          "action": {
+            "kind": "move",
+            "x": 18,
+            "y": 21,
+            "tx": 18,
+            "ty": 23,
+            "full": true
+          },
+          "seconds": 0.010007524979300797
+        }
+      ],
+      "diagnostic_plan": {
+        "_scan": {
+          "cut": "none",
+          "sims": 2
+        },
+        "id": "lite-8",
+        "kind": "move",
+        "tx": 18,
+        "ty": 23,
+        "x": 18,
+        "y": 21
+      }
+    },
+    {
+      "game": "t5-ffa4-validation-1",
+      "side": 1,
+      "turn": 5,
+      "decision": 118,
+      "original": {
+        "kind": "move",
+        "x": 9,
+        "y": 16,
+        "tx": 9,
+        "ty": 18,
+        "full": true
+      },
+      "repeated": [
+        {
+          "action": {
+            "kind": "move",
+            "x": 9,
+            "y": 16,
+            "tx": 9,
+            "ty": 18,
+            "full": true
+          },
+          "seconds": 0.01649242895655334
+        },
+        {
+          "action": {
+            "kind": "move",
+            "x": 9,
+            "y": 16,
+            "tx": 9,
+            "ty": 18,
+            "full": true
+          },
+          "seconds": 0.015687775041442364
+        },
+        {
+          "action": {
+            "kind": "move",
+            "x": 9,
+            "y": 16,
+            "tx": 9,
+            "ty": 18,
+            "full": true
+          },
+          "seconds": 0.015634084993507713
+        }
+      ],
+      "diagnostic_plan": {
+        "_scan": {
+          "cut": "none",
+          "sims": 23
+        },
+        "id": "lite-1",
+        "kind": "move",
+        "tx": 9,
+        "ty": 18,
+        "x": 9,
+        "y": 16
+      }
+    },
+    {
+      "game": "t5-ffa4-validation-1",
+      "side": 1,
+      "turn": 5,
+      "decision": 119,
+      "original": {
+        "kind": "move",
+        "x": 10,
+        "y": 16,
+        "tx": 8,
+        "ty": 17,
+        "full": true
+      },
+      "repeated": [
+        {
+          "action": {
+            "kind": "move",
+            "x": 10,
+            "y": 16,
+            "tx": 8,
+            "ty": 17,
+            "full": true
+          },
+          "seconds": 0.01454776304308325
+        },
+        {
+          "action": {
+            "kind": "move",
+            "x": 10,
+            "y": 16,
+            "tx": 8,
+            "ty": 17,
+            "full": true
+          },
+          "seconds": 0.014135663979686797
+        },
+        {
+          "action": {
+            "kind": "move",
+            "x": 10,
+            "y": 16,
+            "tx": 8,
+            "ty": 17,
+            "full": true
+          },
+          "seconds": 0.013886286993511021
+        }
+      ],
+      "diagnostic_plan": {
+        "_scan": {
+          "cut": "none",
+          "sims": 18
+        },
+        "id": "lite-18",
+        "kind": "move",
+        "tx": 8,
+        "ty": 17,
+        "x": 10,
+        "y": 16
+      }
+    },
+    {
+      "game": "t5-ffa4-validation-1",
+      "side": 1,
+      "turn": 5,
+      "decision": 120,
+      "original": {
+        "kind": "move",
+        "x": 9,
+        "y": 19,
+        "tx": 7,
+        "ty": 17,
+        "full": true
+      },
+      "repeated": [
+        {
+          "action": {
+            "kind": "move",
+            "x": 9,
+            "y": 19,
+            "tx": 7,
+            "ty": 17,
+            "full": true
+          },
+          "seconds": 0.010542441974394023
+        },
+        {
+          "action": {
+            "kind": "move",
+            "x": 9,
+            "y": 19,
+            "tx": 7,
+            "ty": 17,
+            "full": true
+          },
+          "seconds": 0.009613452013581991
+        },
+        {
+          "action": {
+            "kind": "move",
+            "x": 9,
+            "y": 19,
+            "tx": 7,
+            "ty": 17,
+            "full": true
+          },
+          "seconds": 0.009515960002318025
+        }
+      ],
+      "diagnostic_plan": {
+        "_scan": {
+          "cut": "none",
+          "sims": 8
+        },
+        "id": "lite-28",
+        "kind": "move",
+        "tx": 7,
+        "ty": 17,
+        "x": 9,
+        "y": 19
+      }
+    },
+    {
+      "game": "t5-ffa4-validation-1",
+      "side": 1,
+      "turn": 5,
+      "decision": 121,
+      "original": {
+        "kind": "move",
+        "x": 16,
+        "y": 22,
+        "tx": 15,
+        "ty": 23,
+        "full": true
+      },
+      "repeated": [
+        {
+          "action": {
+            "kind": "move",
+            "x": 16,
+            "y": 22,
+            "tx": 15,
+            "ty": 23,
+            "full": true
+          },
+          "seconds": 0.009834602009505033
+        },
+        {
+          "action": {
+            "kind": "move",
+            "x": 16,
+            "y": 22,
+            "tx": 15,
+            "ty": 23,
+            "full": true
+          },
+          "seconds": 0.009417911991477013
+        },
+        {
+          "action": {
+            "kind": "move",
+            "x": 16,
+            "y": 22,
+            "tx": 15,
+            "ty": 23,
+            "full": true
+          },
+          "seconds": 0.009605846018530428
+        }
+      ],
+      "diagnostic_plan": {
+        "_scan": {
+          "cut": "none",
+          "sims": 8
+        },
+        "id": "lite-3",
+        "kind": "move",
+        "tx": 15,
+        "ty": 23,
+        "x": 16,
+        "y": 22
+      }
+    },
+    {
+      "game": "t5-ffa4-validation-1",
+      "side": 2,
+      "turn": 5,
+      "decision": 127,
+      "original": {
+        "kind": "move",
+        "x": 9,
+        "y": 9,
+        "tx": 12,
+        "ty": 11,
+        "full": true
+      },
+      "repeated": [
+        {
+          "action": {
+            "kind": "move",
+            "x": 9,
+            "y": 9,
+            "tx": 12,
+            "ty": 11,
+            "full": true
+          },
+          "seconds": 0.010432848997879773
+        },
+        {
+          "action": {
+            "kind": "move",
+            "x": 9,
+            "y": 9,
+            "tx": 12,
+            "ty": 11,
+            "full": true
+          },
+          "seconds": 0.010115323006175458
+        },
+        {
+          "action": {
+            "kind": "move",
+            "x": 9,
+            "y": 9,
+            "tx": 12,
+            "ty": 11,
+            "full": true
+          },
+          "seconds": 0.019818884029518813
+        }
+      ],
+      "diagnostic_plan": {
+        "_scan": {
+          "cut": "none",
+          "sims": 6
+        },
+        "id": "lite-22",
+        "kind": "move",
+        "tx": 12,
+        "ty": 11,
+        "x": 9,
+        "y": 9
+      }
+    },
+    {
+      "game": "t5-ffa4-validation-1",
+      "side": 2,
+      "turn": 5,
+      "decision": 128,
+      "original": {
+        "kind": "move",
+        "x": 9,
+        "y": 10,
+        "tx": 7,
+        "ty": 12,
+        "full": true
+      },
+      "repeated": [
+        {
+          "action": {
+            "kind": "move",
+            "x": 9,
+            "y": 10,
+            "tx": 7,
+            "ty": 12,
+            "full": true
+          },
+          "seconds": 0.009289844951126724
+        },
+        {
+          "action": {
+            "kind": "move",
+            "x": 9,
+            "y": 10,
+            "tx": 7,
+            "ty": 12,
+            "full": true
+          },
+          "seconds": 0.009157131018582731
+        },
+        {
+          "action": {
+            "kind": "move",
+            "x": 9,
+            "y": 10,
+            "tx": 7,
+            "ty": 12,
+            "full": true
+          },
+          "seconds": 0.009166407049633563
+        }
+      ],
+      "diagnostic_plan": {
+        "_scan": {
+          "cut": "none",
+          "sims": 3
+        },
+        "id": "lite-7",
+        "kind": "move",
+        "tx": 7,
+        "ty": 12,
+        "x": 9,
+        "y": 10
+      }
+    }
+  ],
+  "restore_real_case": {
+    "game": "t5-ffa4-validation-0",
+    "decision": 113,
+    "side": 1,
+    "turn": 5,
+    "expected": {
+      "kind": "move",
+      "x": 4,
+      "y": 11,
+      "tx": 7,
+      "ty": 16,
+      "full": true
+    },
+    "restored": {
+      "kind": "move",
+      "x": 4,
+      "y": 11,
+      "tx": 7,
+      "ty": 16,
+      "full": true
+    },
+    "game_unchanged": true,
+    "workaround": false
+  },
+  "state_fix_identity": {
+    "before": {
+      "engine_lite/lua/host.lua": "11186057410569c9463fa0a492e6ebb37b7bbdf1359a4e18e792210ef5883236",
+      "learning/adapters.py": "a91ea9821e742ab350a778a4a86e503acc7036c15aae6c6fb85d4156e75fd0d2"
+    },
+    "after": {
+      "engine_lite/lua/host.lua": "03bbfcad4d97948cee56178bb1303f5d61490d7b4170e438bc4490edaefa1a64",
+      "learning/adapters.py": "ce3b42351369de72565ea487585dd134811e158321ce20596c462230e8f8199b"
+    },
+    "extension": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/.venv/lib/python3.12/site-packages/_engine_lite/_engine_lite.cpython-312-x86_64-linux-gnu.so",
+    "extension_sha256": "86e07264fe6f54359a7c5c25d255a1e6877a31f0da1efa9302b099d00cfcab24"
+  },
+  "diversity_plan": {
+    "additional_train": [
+      {
+        "id": "extra-ffa4-train-0",
+        "format": "ffa4",
+        "game_family": "965ce307d5f8b0d000d290ab07c5a31683c32577be555fddc2bfb18db6cca690",
+        "split": "train",
+        "seed": 202810230,
+        "factions": [
+          "Loyalists",
+          "Northerners",
+          "Rebels",
+          "Undead"
+        ],
+        "teams": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "map": "clash",
+        "map_sha256": "c21f9257647f99ac07b2152d7679f72ebce2ef43bf00cb444f235a35c6ae3e90",
+        "max_turns": 12
+      },
+      {
+        "id": "extra-ffa4-train-1",
+        "format": "ffa4",
+        "game_family": "5a3eb960282c58b96fca2f5524413605a0e313f448d40ed64be941d86f49ad38",
+        "split": "train",
+        "seed": 202810230,
+        "factions": [
+          "Drakes",
+          "Knalgan Alliance",
+          "Loyalists",
+          "Northerners"
+        ],
+        "teams": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "map": "isars_cross",
+        "map_sha256": "46a2bc39ca9818605cf3a9a489083d789d945ca08d0b9fa26a229857922db8a6",
+        "max_turns": 12
+      }
+    ],
+    "updates_per_arm": 120,
+    "lr": 0.0003,
+    "seed": 99,
+    "arms": [
+      "normal",
+      "zeroed"
+    ],
+    "selection": "fixed final update only",
+    "fresh_holdout": "original predeclared plan, unused unless normal development movement >=35%"
+  },
+  "tiny_plan": {
+    "seed": 23,
+    "rows": [
+      {
+        "game": "t5-ffa4-train-0",
+        "side": 1,
+        "turn": 1,
+        "decision": 5,
+        "choice": 5
+      },
+      {
+        "game": "t5-ffa4-train-0",
+        "side": 1,
+        "turn": 4,
+        "decision": 93,
+        "choice": 4
+      },
+      {
+        "game": "t5-ffa4-train-0",
+        "side": 1,
+        "turn": 6,
+        "decision": 145,
+        "choice": 111
+      },
+      {
+        "game": "t5-ffa4-train-0",
+        "side": 1,
+        "turn": 7,
+        "decision": 176,
+        "choice": 42
+      },
+      {
+        "game": "t5-ffa4-train-0",
+        "side": 1,
+        "turn": 7,
+        "decision": 180,
+        "choice": 0
+      },
+      {
+        "game": "t5-ffa4-train-0",
+        "side": 1,
+        "turn": 8,
+        "decision": 207,
+        "choice": 2
+      },
+      {
+        "game": "t5-ffa4-train-0",
+        "side": 1,
+        "turn": 10,
+        "decision": 282,
+        "choice": 0
+      },
+      {
+        "game": "t5-ffa4-train-0",
+        "side": 1,
+        "turn": 11,
+        "decision": 312,
+        "choice": 81
+      },
+      {
+        "game": "t5-ffa4-train-0",
+        "side": 1,
+        "turn": 11,
+        "decision": 317,
+        "choice": 1
+      },
+      {
+        "game": "t5-ffa4-train-0",
+        "side": 1,
+        "turn": 12,
+        "decision": 346,
+        "choice": 42
+      },
+      {
+        "game": "t5-ffa4-train-0",
+        "side": 1,
+        "turn": 12,
+        "decision": 348,
+        "choice": 0
+      },
+      {
+        "game": "t5-ffa4-train-0",
+        "side": 2,
+        "turn": 4,
+        "decision": 98,
+        "choice": 29
+      },
+      {
+        "game": "t5-ffa4-train-0",
+        "side": 2,
+        "turn": 4,
+        "decision": 100,
+        "choice": 3
+      },
+      {
+        "game": "t5-ffa4-train-0",
+        "side": 2,
+        "turn": 7,
+        "decision": 184,
+        "choice": 2
+      },
+      {
+        "game": "t5-ffa4-train-0",
+        "side": 3,
+        "turn": 1,
+        "decision": 13,
+        "choice": 46
+      },
+      {
+        "game": "t5-ffa4-train-0",
+        "side": 3,
+        "turn": 1,
+        "decision": 18,
+        "choice": 0
+      },
+      {
+        "game": "t5-ffa4-train-0",
+        "side": 3,
+        "turn": 11,
+        "decision": 328,
+        "choice": 31
+      },
+      {
+        "game": "t5-ffa4-train-0",
+        "side": 3,
+        "turn": 11,
+        "decision": 329,
+        "choice": 1
+      },
+      {
+        "game": "t5-ffa4-train-0",
+        "side": 4,
+        "turn": 2,
+        "decision": 54,
+        "choice": 13
+      },
+      {
+        "game": "t5-ffa4-train-0",
+        "side": 4,
+        "turn": 5,
+        "decision": 141,
+        "choice": 12
+      },
+      {
+        "game": "t5-ffa4-train-0",
+        "side": 4,
+        "turn": 6,
+        "decision": 166,
+        "choice": 46
+      },
+      {
+        "game": "t5-ffa4-train-0",
+        "side": 4,
+        "turn": 6,
+        "decision": 168,
+        "choice": 35
+      },
+      {
+        "game": "t5-ffa4-train-0",
+        "side": 4,
+        "turn": 7,
+        "decision": 198,
+        "choice": 2
+      },
+      {
+        "game": "t5-ffa4-train-0",
+        "side": 4,
+        "turn": 10,
+        "decision": 307,
+        "choice": 26
+      },
+      {
+        "game": "t5-ffa4-train-0",
+        "side": 4,
+        "turn": 10,
+        "decision": 309,
+        "choice": 11
+      },
+      {
+        "game": "t5-ffa4-train-0",
+        "side": 4,
+        "turn": 11,
+        "decision": 333,
+        "choice": 26
+      },
+      {
+        "game": "t5-ffa4-train-0",
+        "side": 4,
+        "turn": 12,
+        "decision": 360,
+        "choice": 27
+      },
+      {
+        "game": "t5-ffa4-train-0",
+        "side": 4,
+        "turn": 12,
+        "decision": 365,
+        "choice": 5
+      },
+      {
+        "game": "t5-ffa4-train-1",
+        "side": 1,
+        "turn": 3,
+        "decision": 53,
+        "choice": 2
+      },
+      {
+        "game": "t5-ffa4-train-1",
+        "side": 1,
+        "turn": 5,
+        "decision": 115,
+        "choice": 3
+      },
+      {
+        "game": "t5-ffa4-train-1",
+        "side": 1,
+        "turn": 5,
+        "decision": 118,
+        "choice": 0
+      },
+      {
+        "game": "t5-ffa4-train-1",
+        "side": 1,
+        "turn": 9,
+        "decision": 247,
+        "choice": 4
+      },
+      {
+        "game": "t5-ffa4-train-1",
+        "side": 1,
+        "turn": 10,
+        "decision": 281,
+        "choice": 26
+      },
+      {
+        "game": "t5-ffa4-train-1",
+        "side": 1,
+        "turn": 11,
+        "decision": 311,
+        "choice": 0
+      },
+      {
+        "game": "t5-ffa4-train-1",
+        "side": 1,
+        "turn": 12,
+        "decision": 339,
+        "choice": 0
+      },
+      {
+        "game": "t5-ffa4-train-1",
+        "side": 2,
+        "turn": 1,
+        "decision": 9,
+        "choice": 6
+      },
+      {
+        "game": "t5-ffa4-train-1",
+        "side": 2,
+        "turn": 2,
+        "decision": 35,
+        "choice": 0
+      },
+      {
+        "game": "t5-ffa4-train-1",
+        "side": 2,
+        "turn": 3,
+        "decision": 61,
+        "choice": 0
+      },
+      {
+        "game": "t5-ffa4-train-1",
+        "side": 2,
+        "turn": 5,
+        "decision": 125,
+        "choice": 15
+      },
+      {
+        "game": "t5-ffa4-train-1",
+        "side": 2,
+        "turn": 5,
+        "decision": 131,
+        "choice": 0
+      },
+      {
+        "game": "t5-ffa4-train-1",
+        "side": 2,
+        "turn": 6,
+        "decision": 153,
+        "choice": 37
+      },
+      {
+        "game": "t5-ffa4-train-1",
+        "side": 2,
+        "turn": 6,
+        "decision": 156,
+        "choice": 59
+      },
+      {
+        "game": "t5-ffa4-train-1",
+        "side": 2,
+        "turn": 9,
+        "decision": 258,
+        "choice": 2
+      },
+      {
+        "game": "t5-ffa4-train-1",
+        "side": 2,
+        "turn": 11,
+        "decision": 316,
+        "choice": 3
+      },
+      {
+        "game": "t5-ffa4-train-1",
+        "side": 3,
+        "turn": 1,
+        "decision": 12,
+        "choice": 4
+      },
+      {
+        "game": "t5-ffa4-train-1",
+        "side": 3,
+        "turn": 1,
+        "decision": 13,
+        "choice": 7
+      },
+      {
+        "game": "t5-ffa4-train-1",
+        "side": 3,
+        "turn": 1,
+        "decision": 14,
+        "choice": 3
+      },
+      {
+        "game": "t5-ffa4-train-1",
+        "side": 3,
+        "turn": 4,
+        "decision": 94,
+        "choice": 2
+      },
+      {
+        "game": "t5-ffa4-train-1",
+        "side": 3,
+        "turn": 6,
+        "decision": 164,
+        "choice": 0
+      },
+      {
+        "game": "t5-ffa4-train-1",
+        "side": 3,
+        "turn": 7,
+        "decision": 195,
+        "choice": 22
+      },
+      {
+        "game": "t5-ffa4-train-1",
+        "side": 3,
+        "turn": 10,
+        "decision": 294,
+        "choice": 80
+      },
+      {
+        "game": "t5-ffa4-train-1",
+        "side": 3,
+        "turn": 12,
+        "decision": 344,
+        "choice": 52
+      },
+      {
+        "game": "t5-ffa4-train-1",
+        "side": 4,
+        "turn": 1,
+        "decision": 18,
+        "choice": 3
+      },
+      {
+        "game": "t5-ffa4-train-1",
+        "side": 4,
+        "turn": 2,
+        "decision": 48,
+        "choice": 0
+      },
+      {
+        "game": "t5-ffa4-train-1",
+        "side": 4,
+        "turn": 3,
+        "decision": 68,
+        "choice": 6
+      },
+      {
+        "game": "t5-ffa4-train-1",
+        "side": 4,
+        "turn": 4,
+        "decision": 100,
+        "choice": 13
+      },
+      {
+        "game": "t5-ffa4-train-1",
+        "side": 4,
+        "turn": 4,
+        "decision": 110,
+        "choice": 0
+      },
+      {
+        "game": "t5-ffa4-train-1",
+        "side": 4,
+        "turn": 5,
+        "decision": 145,
+        "choice": 0
+      },
+      {
+        "game": "t5-ffa4-train-1",
+        "side": 4,
+        "turn": 6,
+        "decision": 177,
+        "choice": 0
+      },
+      {
+        "game": "t5-ffa4-train-1",
+        "side": 4,
+        "turn": 8,
+        "decision": 240,
+        "choice": 3
+      },
+      {
+        "game": "t5-ffa4-train-1",
+        "side": 4,
+        "turn": 12,
+        "decision": 354,
+        "choice": 46
+      },
+      {
+        "game": "t5-ffa4-train-1",
+        "side": 4,
+        "turn": 12,
+        "decision": 355,
+        "choice": 78
+      },
+      {
+        "game": "t5-ffa4-train-1",
+        "side": 4,
+        "turn": 12,
+        "decision": 357,
+        "choice": 32
+      },
+      {
+        "game": "t5-ffa4-train-1",
+        "side": 4,
+        "turn": 12,
+        "decision": 365,
+        "choice": 0
+      }
+    ],
+    "classes": {
+      "recruit": 16,
+      "end_turn": 16,
+      "move": 16,
+      "attack": 16
+    },
+    "optimizer_updates": 120,
+    "learning_rate": 0.0003,
+    "clip": 0.5,
+    "objective": "production exact CE + .1 auxiliary; value validity counted separately"
+  },
+  "fresh_holdout": {
+    "families": [
+      "50837296b2749c70e02e28088e0085f92fe92bed484a1637fc2c79c8ce8017c8",
+      "9baeaccad27e16c5cf0fc7826b574e5dda8e53e743a31b720712dac540ac313a"
+    ],
+    "factions": [
+      "Drakes",
+      "Knalgan Alliance",
+      "Loyalists",
+      "Northerners",
+      "Rebels",
+      "Undead"
+    ],
+    "arms": {
+      "normal": {
+        "effective": false,
+        "formats": {
+          "ffa4": {
+            "samples": 722,
+            "cross_entropy": 2.2240642537040394,
+            "uniform_entropy": 4.4823948474113475,
+            "kinds": {
+              "recruit": {
+                "samples": 105,
+                "correct": 31,
+                "accuracy": 0.29523809523809524
+              },
+              "move": {
+                "samples": 257,
+                "correct": 126,
+                "accuracy": 0.490272373540856
+              },
+              "attack": {
+                "samples": 272,
+                "correct": 44,
+                "accuracy": 0.16176470588235295
+              }
+            },
+            "accuracy": 0.3628808864265928,
+            "uniform_accuracy": 0.013297877728107633,
+            "effective": false
+          }
+        }
+      },
+      "zeroed": {
+        "effective": false,
+        "formats": {
+          "ffa4": {
+            "samples": 722,
+            "cross_entropy": 3.042284492640614,
+            "uniform_entropy": 4.4823948474113475,
+            "kinds": {
+              "recruit": {
+                "samples": 105,
+                "correct": 28,
+                "accuracy": 0.26666666666666666
+              },
+              "move": {
+                "samples": 257,
+                "correct": 28,
+                "accuracy": 0.10894941634241245
+              },
+              "attack": {
+                "samples": 272,
+                "correct": 48,
+                "accuracy": 0.17647058823529413
+              }
+            },
+            "accuracy": 0.23961218836565096,
+            "uniform_accuracy": 0.013297877728107633,
+            "effective": false
+          }
+        }
+      }
+    },
+    "coverage": {
+      "all": {
+        "total": 742,
+        "matched": 730,
+        "ratio": 0.9838274932614556
+      },
+      "move": {
+        "total": 257,
+        "matched": 257,
+        "ratio": 1.0
+      },
+      "recruit": {
+        "total": 105,
+        "matched": 105,
+        "ratio": 1.0
+      },
+      "attack": {
+        "total": 284,
+        "matched": 272,
+        "ratio": 0.9577464788732394
+      }
+    },
+    "checks": {
+      "move_samples": true,
+      "movement": true,
+      "gain": true,
+      "movement_coverage": true,
+      "overall_coverage": true,
+      "training_six_factions": true,
+      "two_holdout_families": true
+    },
+    "passed": true
+  }
+}

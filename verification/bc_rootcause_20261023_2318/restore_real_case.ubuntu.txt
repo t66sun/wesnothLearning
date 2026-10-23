@@ -1,0 +1,3 @@
+REAL_RESTORE_PASS {"game": "t5-ffa4-validation-0", "decision": 113, "side": 1, "turn": 5, "expected": {"kind": "move", "x": 4, "y": 11, "tx": 7, "ty": 16, "full": true}, "restored": {"kind": "move", "x": 4, "y": 11, "tx": 7, "ty": 16, "full": true}, "game_unchanged": true, "workaround": false}
+
+EXIT 0

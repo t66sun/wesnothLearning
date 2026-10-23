@@ -2,17 +2,7 @@
 
 > Language: English | [中文](TEST_zh.md)
 
-Updated 2026-10-23. Only unfinished evidence scopes remain; accepted Ubuntu wiring, phase switching, two real PPO rounds, final model selection and the opening check are archived in the [repair report](../verification/training_repair_20261023/REPORT.md) and not retested. Original document snapshots and old reports keep their original dates/hashes.
-
-## T5: Restricted BC quality with corrected tactical inputs
-
-**Status/reason:** Ubuntu six-faction, two-train/two-validation-family comparisons completed with exactly 120 updates per arm. 2v2 movement passed: 257/507 (50.69%) versus zeroed 79/507 (15.58%); reuse this evidence while its sources/data remain valid. FF4 failed: 80/268 (29.85%) versus 23/268 (8.58%). Three fixed FF4 development repair trials reached 32.46%, 30.97% and 29.48%; none was adopted. Production implementation is unchanged, and the root cause remains unresolved. Full formal BC quality gates still fail in both formats. Counts, CE, source/rule hashes and rejected trials are in the [Ubuntu report](../verification/bc_quality_ubuntu_20261023/REPORT.md).
-
-**Minimal Ubuntu plan:** the next unwritten diagnostic uses at most 64 frozen existing FF4 training decisions and complete prefixes, balanced across action classes, to compare small-set fitting with current versus empty history at the same initialization and a 120-update cap; report full-action train accuracy/CE and actual loss/gradients, not acceptance. Establish a specific failure mechanism before another repair trial. The old FF4 validation set is now development data and cannot clear acceptance. A new independent holdout plan was frozen before repair optimization in `verification/bc_quality_ubuntu_20261023/repair_trials/holdout_plan.json`; it has not been collected/evaluated. After freezing a concrete repair, reuse the existing six-faction training corpus and `quality_t5.py` matched-ablation method, collecting only the two planned FF4 holdout families (≤12 turns) and keeping the 120-update cap. Retest 2v2 only if shared sources/data change; then use its two planned fresh families. Record actual hashes/families; insufficient samples remain inconclusive. No full 1300-game collection or full-pipeline matrix is needed.
-
-**Pass:** full-action argmax moves of at least 32 each across at least two validation families, with normal inputs ≥35% in both formats and better than the ablation; also list actual recruit/attack/overall correct counts, totals, CE and six-faction coverage. Teacher candidate move coverage ≥80% and overall ≥90%. Conditional accuracy, top-k and training-set accuracy cannot substitute for holdout accuracy.
-
-**Training blocker and evidence:** only the FF4 portion of "corrected BC movement quality gain proven" remains pending; accepted 2v2 movement and phase entries are unaffected. The next formal training still needs user authorization, automatic PPO is bound by all real BC gates, and force override uses the explicit entry. Preserve the original failed report and archive new evidence separately; after the remaining acceptance passes, update architecture status and delete this entire item. No formal training was started; none of the three failed development trials was adopted in production.
+Updated 2026-10-24. Only native terminal-state capture remains pending. Accepted phase/PPO evidence is in the [repair report](../verification/training_repair_20261023/REPORT.md); corrected movement quality and state reuse are in the [follow-up report](../verification/bc_rootcause_20261023_2318/REPORT.md). Passed scopes are archived and not repeated.
 
 ## T6: New native terminal-state observation capture
 
