@@ -1,59 +1,61 @@
-# P0 审计、序列数据和引擎基准的后续测试范围
+# Follow-up test scope for P0 audit, sequence data and engine benchmarks
 
-本次只实现代码，不编写/运行测试，不运行训练、对局、基准或 64 决策拟合。
-以下为历史分项清单；当前状态与验证范围统一维护在 [docs/TEST.md](../docs/TEST.md)。
+> Language: English | [中文](AUDIT_TEST_SCOPE_zh.md)
 
-## 审计
+This round implemented code only: no tests were written or run, and no training, game, benchmark or 64-decision fit was executed.
+The following is a historical per-item list; current status and validation scope are maintained in [docs/TEST.md](../docs/TEST.md).
 
-- 对完整固定验证集逐块遍历；覆盖已覆盖和 choice=-1 的未覆盖教师决策，
-  禁止用成功标签的分片推断总体覆盖率。没有教师原始意图时明确分母与缺失。
-- 完全同输入比较包含 global/opponents/spatial/turn/raw history 和候选全部
-  features/actor/target/local/geometry；不舍入浮点，不只比较 schema-3 features。
-- 同向量而目标/行动者/落点不同必须可区分；完全同输入仍保留精确标签，
-  不自动创建等价类；记录非首项 alias、相同完整输入的冲突精确标签。
-- 地图、阵营、动作类型、回合阶段、赛制、来源、引擎分层统计；缺层不通过。
-- 总体覆盖≥90%，招募/移动/攻击各≥80%；数据缺失必须 inconclusive。
-- 中断移动以教师合法原始意图检查覆盖，实际落点另列；actual-only 证据注明局限。
-- 64 决策小集必须每赛制包含招募/移动/攻击且保留完整 raw prefix；未来运行
-  fit_small_set 时只训练模型副本，验证原模型/优化器/RNG未被改变，精确≥90%。
-  只在独立规则/教师证据存在时报告显式 equivalent_choices，不能把 alias 当等价。
+## Audit
 
-## 序列
+- Walk the complete fixed validation set block by block; cover both covered teacher decisions and uncovered ones with choice=-1,
+  never inferring overall coverage from shards of successful labels. State the denominator and gaps explicitly when teacher original intent is missing.
+- Compare on exactly identical inputs including global/opponents/spatial/turn/raw history and every candidate
+  feature/actor/target/local/geometry; do not round floats and do not compare only schema-3 features.
+- Identical vectors with different target/actor/endpoint must be distinguishable; exactly identical inputs keep exact labels,
+  never auto-creating equivalence classes; record non-first aliases and conflicting exact labels for the same full input.
+- Break down by map, faction, action type, turn phase, format, source and engine; a missing stratum does not pass.
+- Overall coverage ≥90% and recruit/move/attack each ≥80%; missing data must be inconclusive.
+- Check interrupted moves against the teacher's legal original intent as coverage and list the actual endpoint separately; actual-only evidence states its limits.
+- The 64-decision small set must include recruit/move/attack per format and keep full raw prefixes; a future `fit_small_set` run only
+  trains a model copy and verifies the original model/optimizer/RNG are unchanged, exact ≥90%.
+  Report explicit equivalent_choices only with independent rule/teacher evidence and never treat an alias as equivalent.
 
-- SQLite 一个压缩块包含一个有序 game/side/source/engine；按 family 稳定
-  train/validation 分区，native/lite 变体共用 family 不跨分区。
-- 每批复用同一 store 实例的解码 LRU；验证迭代按索引完整遍历，不能固定小面板。
-- 读写 raw 不持久化 embedding/旧权重隐藏状态；每turn首个成功 committed 决策
-  的合法执行后 memory_write 进入记忆，同turn其余决策包含该首条，
-  失败提交与无执行教师查询由 committed=False 保证不推进记忆。
-- choice<0 的真实提交保留作历史，但不进入监督 loss。
-- 连续完整回放与8自身回合窗口重放一致；窗口保留真实完整前缀，由当前权重
-  从头重算；新权重更新后不复用旧 embedding；只有最近8历史turn保留梯度。
-- 未声明完整、缺前缀的中途样本必须拒绝；明确前缀的 suffix 可还原。
-- 不同赛制、来源、引擎、game_id、side 记忆不串流；乱序回合拒绝。
-- 兼容 gzip reader 在完整重放后才过滤未覆盖决策和限制监督条数；不随机抽单步
-  后丢失该步之前的记忆。training_windows 在训练批次开始时分组一次。
+## Sequences
 
-## 引擎基准
+- One SQLite compressed block holds one ordered game/side/source/engine; train/validation partition stably
+  by family, and native/lite variants sharing a family never cross the partition.
+- Reuse one store instance's decoding LRU per batch; validation iteration walks the full index and never a fixed small panel.
+- Raw read/write persists no embedding or old-weight hidden state; each turn's first successfully committed decision's
+  post-execution memory_write enters memory, the turn's other decisions include that first one,
+  and failed commits and unexecuted teacher queries are guaranteed by committed=False not to advance memory.
+- A real commit with choice<0 is kept as history but never enters the supervision loss.
+- Continuous full replay matches the 8-own-turn window replay; the window keeps the true full prefix and recomputes it
+  from scratch with current weights; no old embedding is reused after an update; only the last 8 history turns keep gradients.
+- Partially declared or prefix-missing mid-sequence samples must be rejected; a suffix with an explicit prefix may be restored.
+- Memory never streams across format, source, engine, game_id or side; out-of-order turns are rejected.
+- The compatible gzip reader filters uncovered decisions and limits supervision counts only after full replay; it never randomly picks single
+  steps and loses the memory before them. training_windows groups once at the start of a training batch.
 
-- 冻结 V4三模型、原版1.18.8、Astra和lite规则的真实哈希；清单重建稳定。
-- 相同主机、配额、线程、冻结模型/对手、规则、地图、阵营与缓存状态；
-  单worker CPU主验收。常规/密集、cold/hot、三赛制分别≥30完整轮换块。
-- 等工作量脚本固定状态、动作、回合、可注入战斗结果；哈希或动作数不一致
-  不能通过。端到端实际动作数、终局原因另外报告，避免早胜冒充规则加速。
-- 子进程树总CPU核秒覆盖短命进程与协调开销；峰值RSS/PSS、磁盘字节数、
-  启动时间、七项分项耗时各自真实测量；无法测PSS必须缺失，不能写0。
-- p50/p95 与按完整轮换块 bootstrap 区间、缺失座位/故障/无效行原因；
-  缺资源、缺工件、缺块、重复行、配置不符均不能通过。
-- wall倍率与CPU倍率分别≥5，PSS目标独立报告；4/8worker吞吐不替代主验收。
-- 纯lite与含原版审计pipeline分别实测；没有pipeline结果保持inconclusive。
+## Engine benchmarks
 
-## 汇报格式
+- Freeze real hashes of the V4 three models, native 1.18.8, Astra and lite rules; manifest rebuilds are stable.
+- Identical host, quota, threads, frozen models/opponents, rules, maps, factions and cache state;
+  single-worker CPU is primary acceptance. Regular/dense, cold/hot and all three formats each ≥30 full rotation blocks.
+- Equal-work scripts fix state, actions, turns and injectable combat results; a hash or action-count mismatch
+  cannot pass. End-to-end actual action counts and terminal reasons are reported separately so early wins cannot pass as rule speedup.
+- Subprocess-tree total CPU core-seconds cover short-lived processes and coordination cost; peak RSS/PSS, disk bytes,
+  startup time and all seven component timings are each really measured; unmeasurable PSS must be missing, never 0.
+- p50/p95 with per-full-rotation-block bootstrap intervals, plus reasons for missing seats/faults/invalid rows;
+  missing resources, artifacts, blocks, duplicate rows or config mismatch cannot pass.
+- Wall and CPU ratios are each ≥5 and the PSS target is reported separately; 4/8 worker throughput never replaces primary acceptance.
+- Pure lite and the audit-inclusive pipeline are measured separately; without a pipeline result it stays inconclusive.
 
-每份结果写明命令、提交、主机、赛制、引擎/规则/RNG/候选/观测/架构/策略/
-奖励版本、工件哈希、数据族分区、队友上下文、开始/结束时间、状态
-passed/failed/inconclusive/skipped、原始数据与报告路径。
-审计附总体与各分层分母/覆盖/alias/非首项alias/缺目标属性、64小集精确率；
-序列附完整/窗口重放误差和当前权重更新前后检查；性能附每组完整块数、
-p50/p95、wall/CPU/PSS倍率和区间、故障排除清单及独立pipeline结果。
-空白和未执行项目标注“未执行”；禁止把计划门槛、历史最好数或假想倍率填入实测列。
+## Reporting format
+
+Every result states command, commit, host, format, engine/rules/RNG/candidate/observation/architecture/policy/
+reward versions, artifact hashes, data-family partition, teammate context, start/end time, status
+passed/failed/inconclusive/skipped, and raw data and report paths.
+The audit adds overall and per-stratum denominators/coverage/alias/non-first-alias/missing-target-attribute counts and the 64-set exact rate;
+sequences add full/window replay error and pre/post-update checks with current weights; performance adds per-group complete block counts,
+p50/p95, wall/CPU/PSS ratios and intervals, the fault-exclusion list and the separate pipeline result.
+Blank and unexecuted items are marked "not executed"; planned thresholds, best historical numbers or hypothetical ratios must never be filled into measured columns.

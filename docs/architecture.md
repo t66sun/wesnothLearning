@@ -1,173 +1,175 @@
-# WesnothLearning V5 架构与实现状态
+# WesnothLearning V5 Architecture and Implementation Status
 
-更新日期：2026-10-23。本文件取代根目录 PLAN.md，作为后续唯一维护的架构、参数与实施状态文档。已实现但未验收的事项及其最小测试方案归入 [TEST.md](TEST.md)（T5 仅余受限质量证据，原版新增终态采集另列待验收），接手运行、维护与按指令调参见 [instructions.md](instructions.md)；[历史验收报告](../verification/archive/TEST_before_cleanup_20261022.md)及原始结果留在 `verification/`，实验和权重留在 `runs/`、`delivery/`，不复制到 docs。
+> Language: English | [中文](architecture_zh.md)
 
-状态含义：**已实现**表示存在可用代码和对应入口；**部分实现**表示仍有明确缺口或证据只覆盖有限场景；**未实现/未执行**分别表示缺少实现或尚未开展实际运行。实现、最小测试通过、整体验收通过、训练强度提升是四件不同的事。
+Updated 2026-10-23. This file replaces the root PLAN.md and is the single maintained document for architecture, parameters and implementation status. Implemented-but-unaccepted items and their minimal test plans belong in [TEST.md](TEST.md) (T5 keeps only limited quality evidence; the new native terminal-state capture is listed separately as pending acceptance); handover startup, maintenance and instruction-driven tuning are in [instructions.md](instructions.md). The [historical acceptance report](../verification/archive/TEST_before_cleanup_20261022.md) and raw results stay in `verification/`; experiments and weights stay in `runs/` and `delivery/` and are not copied into docs.
 
-## 1. 目标与边界
+Status meanings: **implemented** means usable code and the corresponding entry points exist; **partially implemented** means explicit gaps remain or evidence covers only limited scenarios; **not implemented** / **not executed** mean the implementation is missing or no real run has happened. Implementation, minimal test pass, full acceptance pass and stronger play are four different things.
 
-- 训练三套独立模型：`duel`、`ffa4`、`team2v2`。参数、优化器、随机状态、记忆、奖励控制器、数据与历史策略池按赛制隔离。
-- 高频采样目标采用自主 Rust 精简引擎，原版 Wesnoth **1.18.8**保留迁移审计、原版棋力评测和最终部署入口；本轮正式实验按用户要求全部使用 lite。
-- 最终游戏 AI 使用纯 Lua 推理与三份独立权重，运行时不依赖 Python、Rust、CUDA 或外部推理进程。
-- 优先级：合法部署与无隐藏信息泄露 → 单局时间和 CPU 效率 → 核心对战语义 → 次要机制的完整复现。允许有记录的近似，不删除兵种/地形来伪造覆盖，不把脚本能力当普通攻击。
-- 唯一自写教师/固定自写对手为 Astra。官方 RCA baseline 仅在原版可用；lite 使用 Astra、同赛制历史策略和当前策略，不另造廉价 baseline。
-- 任意战役 WML/Lua 解释器、第三方时代、GUI、动画、音频、联网与回放渲染不属于 lite 的通用运行范围。
-- Ubuntu CPU 服务器是主要验收环境；Windows 只供参考。V4 权重、已安装 AI 和历史实验保留。2026-10-21/22 的 OOM、停止与重放优化记录见归档报告；T1–T4 已于 2026-10-22 通过受限验收。
+## 1. Goals and boundaries
 
-2026-10-23 按用户要求归档清理服务器旧训练：只保留 `v5_lite20h_20261022_210712`、`v5_lite6000_replay_20261022_012336` 两次正式实验的原始目录与日志。更早 5 次正式实验（含 V4 权重）及 1 次回环已压缩至 `/home/tongshu/myDev/wesnothLearning/training_archives/20261023_212221/`，逐项比对通过后删除原目录，原日期、冻结源码、规则身份与产物保留在归档内。已安装 AI、规则、源码与最近隔离验收目录保持原样；索引与恢复说明见 [归档记录](../verification/training_archive_20261023/REPORT.md)。
+- Train three independent models: `duel`, `ffa4` and `team2v2`. Parameters, optimizers, RNG state, memory, reward controllers, data and historical policy pools are isolated per format.
+- High-frequency sampling targets the self-owned Rust lite engine; native Wesnoth **1.18.8** keeps migration audits, native play-strength evaluation and the final deployment entry. This round of formal experiments used lite only, per user instruction.
+- The final game AI runs pure Lua inference with three independent weight sets and depends at runtime on no Python, Rust, CUDA or external inference process.
+- Priority order: legal deployment with no hidden-information leakage → per-game wall time and CPU efficiency → core combat semantics → faithful reproduction of secondary mechanics. Documented approximations are allowed; unit/terrain types are not deleted to fake coverage, and scripted abilities are not treated as ordinary attacks.
+- The only self-written teacher / fixed self-written opponent is Astra. The official RCA baseline is available only in native; lite uses Astra, same-format historical policies and the current policy, and does not invent cheap baselines.
+- A general campaign WML/Lua interpreter, third-party eras, GUI, animation, audio, networking and replay rendering are outside the lite runtime scope.
+- The Ubuntu CPU server is the primary acceptance environment; Windows is reference only. V4 weights, the installed AI and historical experiments are retained. The 2026-10-21/22 OOM, stop and replay optimizations are recorded in archive reports; T1–T4 passed restricted acceptance on 2026-10-22.
 
-最近正式实验 `runs/v5_lite20h_20261022_210712` 使用冻结 schema 4/v2、300/600/400 纯 lite、8 workers、CPU，已因 v100 控制度量的 `KeyError('astra_coverage5')` 失败结束。三训练器异常时间分别为 2026-10-23 03:42:59、07:05:52、约 07:55，主进程于 08:10 退出；均停在 v100、只有 BC，教师有效局 332/624/440，真实 BC 资格均未过。09:00 的旧强转任务未执行，也未改检查点。原报告的重放混入参考局，精确冻结面板重放应为 4/0/0 个控制块；层数为 6/6/12，每次参考采集上限 12，不是整个实验只能采 12。详见 [失败复核](../verification/training_failure_review_20261023/REPORT.md)，原始汇报保留原日期与内容。
+On 2026-10-23 old server training was archived and cleaned per user instruction: only the raw directories and logs of the two formal experiments `v5_lite20h_20261022_210712` and `v5_lite6000_replay_20261022_012336` remain. The five earlier formal experiments (including V4 weights) and one loopback run were compressed to `/home/tongshu/myDev/wesnothLearning/training_archives/20261023_212221/`, compared item by item and then deleted from their original directories; original dates, frozen sources, rule identities and artifacts are preserved inside the archive. The installed AI, rules, sources and the most recent isolated acceptance directory are untouched; the index and restore instructions are in the [archive record](../verification/training_archive_20261023/REPORT.md).
 
-用户随后授权修复和 Ubuntu 最小测试：保留 `ref[name]` 修复，补齐有界参考补采、真实终态统计、学习方开局门、故障阶段及 schema 5 索引回归，并新增独立阶段入口。当前没有正式训练运行；schema 4 旧实验不能用 schema 5 源码直接恢复。Ubuntu 隔离目录三赛制真实 BC→显式强转 PPO→两轮 PPO→最终评测链路已通过，仍保留真实未过的 BC 门与不完整最终面板。验收范围与命令见 [修复报告](../verification/training_repair_20261023/REPORT.md)。
+The most recent formal experiment `runs/v5_lite20h_20261022_210712` used frozen schema 4/v2, 300/600/400 pure lite, 8 workers and CPU, and ended in failure from `KeyError('astra_coverage5')` in the v100 control metrics. The three trainers failed at 2026-10-23 03:42:59, 07:05:52 and about 07:55; the main process exited at 08:10. All stopped at v100 with BC only; valid teacher games were 332/624/440 and none met the real BC eligibility gates. The old 09:00 force-entry task did not run and did not modify checkpoints. The original report mixed reference games into the replay; the exact frozen panel replay is 4/0/0 control blocks, with layer counts 6/6/12 and a per-collection reference cap of 12, not a whole-experiment cap. See the [failure review](../verification/training_failure_review_20261023/REPORT.md); the original report keeps its date and content.
 
-## 2. 总体结构与责任
+The user then authorized repairs and minimal Ubuntu tests: keep the `ref[name]` fix, add bounded reference re-collection, real terminal-state statistics, the learning-side opening gate, the failure phase and the schema 5 index regression, and add independent phase entry points. No formal training is running now; schema 4 experiments cannot be resumed directly with schema 5 sources. The Ubuntu isolated directory passed real BC → explicit-override PPO → two PPO rounds → final evaluation for all three formats, but real unpassed BC gates and an incomplete final panel remain. Acceptance scope and commands are in the [repair report](../verification/training_repair_20261023/REPORT.md).
+
+## 2. Overall structure and responsibilities
 
 ```mermaid
 flowchart TD
-    Config[冻结配置、规则、地图与对手] --> Coordinator[协调器：三个独立训练器 / 全局游戏进程池]
-    Coordinator --> Native[NativeAdapter / 常驻原版进程]
-    Coordinator --> Lite[LiteAdapter / Rust 真状态 / 常驻 Lua]
-    Native --> Public[共同合法观测、空间编码、候选与奖励接口]
+    Config[Frozen config, rules, maps and opponents] --> Coordinator[Coordinator: three independent trainers / global game process pool]
+    Coordinator --> Native[NativeAdapter / resident native process]
+    Coordinator --> Lite[LiteAdapter / Rust truth state / resident Lua]
+    Native --> Public[Shared legal observations, spatial encoding, candidate and reward interfaces]
     Lite --> Public
-    Public --> Teacher[Astra 教师标签 / DAgger 纠偏]
-    Public --> Policy[对应赛制策略与价值网络]
-    Teacher --> Data[带来源和版本的有序序列]
+    Public --> Teacher[Astra teacher labels / DAgger correction]
+    Public --> Policy[Per-format policy and value network]
+    Teacher --> Data[Ordered sequences with source and version]
     Policy --> Data
-    Data --> Train[BC / PPO 更新与检查点]
-    Train --> Validate[趋势验证 / 晋升比较 / 原版最终评测]
-    Validate --> Export[三份 Lua 权重与原生 AI 包]
+    Data --> Train[BC / PPO updates and checkpoints]
+    Train --> Validate[Trend validation / promotion comparison / native final evaluation]
+    Validate --> Export[Three Lua weight sets and native AI package]
 ```
 
-| 责任 | 入口 | 状态 |
+| Responsibility | Entry points | Status |
 | --- | --- | --- |
-| 规则捕获、冻结、声明审计 | `engine_lite/capture.py`、`freeze.py`、`audit.py` | 已实现，覆盖边界见第 3 节 |
-| Rust 唯一真状态、规则结算与 PyO3 批量 API | `engine_lite/src/{model,state,combat,lib}.rs` | 已实现，仍有公开近似 |
-| Native/lite 适配、Lua 宿主与 Astra 查询 | `learning/adapters.py`、`native_transport.py`、`lite_host.py`、`engine_lite/lua/host.lua` | 已接通三赛制 Astra；有限验证范围见第 8 节 |
-| 共同观测、候选、空间与路由 | `lua/{observation,candidates,spatial,routing}.lua` | 已实现；学生候选先于教师查询生成 |
-| 模型、序列、监督与强化训练 | `learning/{model,sequences,data,train}.py` | 已实现，已做有限真实更新 |
-| 三训练器协调与共享 worker 池 | `learning/coordinator.py`、`experiment.py`、`schedule.py` | 已实现，默认 lite；按六阵营训练闭包检查启动 |
-| 奖励公式、度量、批次控制 | `learning/{rewards,reward_metrics,control}.py`、`lua/rewards.lua` | 已实现，非梯度学习奖励系数 |
-| 基准、原版差分、BC 诊断与导出 | `learning/{benchmark,benchmark_runner,audit,export}.py`、`engine_lite/differential.py` | 入口已实现，完整验收和强度实验未完成 |
+| Rule capture, freezing, declaration audit | `engine_lite/capture.py`, `freeze.py`, `audit.py` | Implemented; coverage boundaries in section 3 |
+| Rust single source of truth, rule resolution and PyO3 batch API | `engine_lite/src/{model,state,combat,lib}.rs` | Implemented; public approximations remain |
+| Native/lite adapters, Lua host and Astra queries | `learning/adapters.py`, `native_transport.py`, `lite_host.py`, `engine_lite/lua/host.lua` | Astra wired for all three formats; limited validation scope in section 8 |
+| Shared observations, candidates, spatial and routing | `lua/{observation,candidates,spatial,routing}.lua` | Implemented; student candidates are generated before teacher queries |
+| Model, sequences, supervision and RL training | `learning/{model,sequences,data,train}.py` | Implemented; limited real updates done |
+| Three-trainer coordination and shared worker pool | `learning/coordinator.py`, `experiment.py`, `schedule.py` | Implemented, lite by default; startup checks the six-faction training closure |
+| Reward formula, metrics, batch-boundary control | `learning/{rewards,reward_metrics,control}.py`, `lua/rewards.lua` | Implemented; reward coefficients are non-gradient |
+| Benchmarks, native differential, BC diagnostics and export | `learning/{benchmark,benchmark_runner,audit,export}.py`, `engine_lite/differential.py` | Entry points implemented; full acceptance and strength experiments are not |
 
-共同接口覆盖 `reset`、`observe`、`legal_actions`、`step`、`snapshot/restore`、`close`，并提供批量观测/路径/预测与 Lua 决策调用。Python `pos/to` 为零起始行优先索引，Lua 为一基六角坐标；Python 武器索引从 0 起，Lua 从 1 起。`snapshot` 为裁判真状态，策略只能获取玩家合法视图。
+The shared interface covers `reset`, `observe`, `legal_actions`, `step`, `snapshot/restore` and `close`, and provides batch observation/path/prediction plus Lua decision calls. Python `pos/to` are zero-based row-major indices; Lua uses one-based hex coordinates. Python weapon indices start at 0, Lua at 1. `snapshot` is the referee truth state; policies only ever receive the player's legal view.
 
-lite 决策新增 `generate_candidates`（默认 true）：采样循环只对未采集的 Astra 座位关闭完整学生候选生成，保留其合法观测、Astra 规划、执行和记忆更新；教师采集座位、学生推理、DAgger 与 bootstrap 保留完整候选。2026-10-22 通过 T2 验收：未采集座位 `C.generate` 调用 0 次、候选仅 1 个 `end_turn`，两条路径的教师动作与执行后状态一致；此前临时探针的约 39–40% 循环耗时下降仍是非验收数据。
+Lite decisions add `generate_candidates` (default true): the sampling loop disables full student candidate generation only for Astra seats that are not being collected, while keeping their legal observations, Astra planning, execution and memory updates; teacher-collected seats, student inference, DAgger and bootstrap keep full candidates. T2 acceptance passed on 2026-10-22: `C.generate` was called 0 times on uncollected seats and their candidates were just one `end_turn`, and both paths agreed on teacher actions and post-execution state; the earlier temporary probe's ~39–40% loop-time reduction remains non-acceptance data.
 
-## 3. 规则数据、运行语义与隔离
+## 3. Rule data, runtime semantics and isolation
 
-### 3.1 当前冻结数据
+### 3.1 Current frozen data
 
-默认规则包：`rules/1.18.8-training/`，从 Ubuntu 的 `verification/v5_lite_default_20261021/capture-maps/frozen/` 原样提升；旧 `rules/1.18.8/` 和带日期的证据保留。
+Default rule package: `rules/1.18.8-training/`, promoted unchanged from Ubuntu's `verification/v5_lite_default_20261021/capture-maps/frozen/`; the old `rules/1.18.8/` and dated evidence are retained.
 
-| 项目 | 当前结果 |
+| Item | Current result |
 | --- | --- |
-| 原版作用域 | 20/20，缺失 0 |
-| 数据 | 587 单位、438 地形，完整保留原始 WML、来源和作用域；含 10 张正式地图的复合地形 |
-| 单位覆盖标签 | 0 exact、470 approximate、117 unsupported_script |
-| core | 308 单位中 303 可运行；5 个保留单位事件限制 |
-| 实际六阵营闭包 | 158 个不同单位；领袖/招募 → 全部升级/瘟疫类型，无缺失和未支持声明 |
-| 规则 SHA-256 | `d6fceafe7d0c9c67c750551b9901dbfb2b22290992a8daa1616a460e11826dca` |
-| 整包标志 | `complete=false`、`native_accepted=false`、`performance_accepted=false` |
+| Native scopes | 20/20, 0 missing |
+| Data | 587 units, 438 terrains, original WML, provenance and scope fully retained; includes the composite terrains of the 10 formal maps |
+| Unit coverage labels | 0 exact, 470 approximate, 117 unsupported_script |
+| core | 303 of 308 units runnable; 5 units limited by retained unit events |
+| Actual six-faction closure | 158 distinct units; leaders/recruitment → all upgrade/plague types, with no missing or unsupported declarations |
+| Rules SHA-256 | `d6fceafe7d0c9c67c750551b9901dbfb2b22290992a8daa1616a460e11826dca` |
+| Package-level flags | `complete=false`, `native_accepted=false`, `performance_accepted=false` |
 
-用户已认可目前训练范围内的规则覆盖。158 单位闭包通过不表示所有 587 个类型的战役行为被实现，也不表示所有语义为 exact。core 的事件限制类型是 Fire Ant Egg、Fog Clearer、Giant Ant Egg、Giant Scorpion、Sand Scuttler。
+The user accepted the rule coverage within the current training scope. The 158-unit closure passing does not mean campaign behavior of all 587 types is implemented, nor that every semantic is exact. The core event-limited types are Fire Ant Egg, Fog Clearer, Giant Ant Egg, Giant Scorpion and Sand Scuttler.
 
-### 3.2 已实现
+### 3.2 Implemented
 
-- 原版隔离捕获、战役 define/难度上下文、跨作用域地形统一、冲突类型 ID 命名空间、升级与瘟疫引用重写、来源哈希及损坏 WML 拒绝。
-- 六角移动、地形代价、阻挡、ZOC/游击、连接城堡招募、村庄经济、逐击攻击/反击、死亡中断、经验与默认升级路径。
-- 时间/阵营/抗性修正，中毒、减速、吸血、先攻、魔法、精准、冲锋、狂暴、swarm、基础瘟疫、背刺、steadfast。
-- 标准治疗/治毒/休息、feeding、传送、声明隐匿/夜隐；补齐沼泽/满移动掘地隐匿、stun/ZOC、absorb、deflect、diversion、参数化吸血、shock/swift、distract、inspire、vanguard、initiative、参数化/地形限定再生、暗化与 Quenoth 条件治疗。
-- 独立可复现的对战/招募 RNG，快引擎不要求与原版同 seed 同结果；可注入逐击命中用于差分。候选、教师和预测不得推进真实对战随机流。
-- 每方独立 fog/shroud、已探索地形、最后合法敌情及年龄、村庄记忆；按配置共享地图/视野，支持四方轮转、淘汰和团队胜负。
+- Isolated native capture, campaign define/difficulty contexts, cross-scope terrain unification, namespaced conflicting type IDs, upgrade and plague reference rewriting, provenance hashing and rejection of corrupted WML.
+- Hex movement, terrain costs, blocking, ZOC/ambush, castle recruitment connectivity, village economy, per-strike attack/counterattack, death interruption, experience and the default upgrade path.
+- Time-of-day/faction/resistance modifiers; poison, slow, drain, firststrike, magical, marksman, charge, berserk, swarm, basic plague, backstab and steadfast.
+- Standard heal/cure/rest, feeding, teleport, declared concealment/nightstalk; added swamp/full-move burrow concealment, stun/ZOC, absorb, deflect, diversion, parameterized drain, shock/swift, distract, inspire, vanguard, initiative, parameterized/terrain-scoped regeneration, darken and Quenoth conditional healing.
+- Independent reproducible combat/recruit RNG; the fast engine does not need to match native for a given seed; per-strike hits can be injected for differential tests. Candidates, teacher and predictions never advance the real combat RNG stream.
+- Per-side fog/shroud, explored terrain, last legal enemy information with age, village memory; configured map/view sharing, four-way rotation, elimination and team victory.
 
-### 3.3 明确近似与未实现项
+### 3.3 Explicit approximations and unimplemented items
 
-复合修正舍入、反击武器选择、完整原版声明过滤条件等仍有近似。随机 traits 生成与跨升级保留、AMLA/升级选择、独立 `vision_costs/jamming`、运行时变体尚不完整。剩余 117 个类型主要依赖战役事件、dummy、脚本瘟疫、WML 变量/多次攻击/歌曲状态等；运行入口拒绝使用含未实现声明的初始单位、招募、升级或瘟疫链。
+Composite modifier rounding, counterattack weapon selection and full native declaration filters remain approximate. Random trait generation and retention across upgrades, AMLA/upgrade choices, independent `vision_costs/jamming` and runtime variants are still incomplete. The remaining 117 types mostly depend on campaign events, dummies, scripted plague, WML variables/multi-attack/song states and similar; the launcher refuses initial units, recruitment, upgrade or plague chains containing unimplemented declarations.
 
-原计划中的增量视野/寻路缓存、邻接预计算、跨游戏规则共享和更紧凑的轨迹 I/O 尚未全部落地；当前仍有完整视野重算、JSON 边界传输及预测状态复制。批量 API 已实现不等于整个训练器已经采用批量推理或消除了这些成本。
+The originally planned incremental vision/pathfinding caches, adjacency precomputation, cross-game rule sharing and tighter trajectory I/O have not all landed; full vision recomputation, JSON boundary transport and prediction-state copies remain. A batch API existing does not mean the whole trainer uses batch inference or has eliminated these costs.
 
-规则真状态仅供裁判、结算、差分及明确的奖励标签。策略、Astra、候选与预测不能通过对象引用、共享缓存、隐藏友敌信息或未知地图绕过视野。正常伏击/接敌造成移动中断后重新观察，不记为策略故障。
+Rule truth state is only for the referee, resolution, differential tests and explicit reward labels. Policies, Astra, candidates and predictions may not bypass visibility through object references, shared caches, hidden friend/enemy information or unknown maps. Re-observing after a normal ambush/contact movement interruption is not a policy fault.
 
-### 3.4 默认入口与训练范围验收
+### 3.4 Default entry and training-scope acceptance
 
-新实验默认采用 lite 和已记录的规则近似，不自动回退 native。规则选择顺序为显式 `--rules-dir` → `WESNOTH_RULES_DIR` → `rules/1.18.8-training/`。CLI 在导入特征/模型前绑定目录，程序创建实验在构造模型前绑定；同一目录传入任务和适配器，并在 manifest 冻结目录、规则哈希、来源和训练闭包。恢复使用原 manifest 的规则目录，拒绝冲突参数。地图仍使用现有冻结地图入口。
+New experiments use lite and the recorded rule approximations by default and never fall back to native automatically. Rule selection order is explicit `--rules-dir` → `WESNOTH_RULES_DIR` → `rules/1.18.8-training/`. The CLI binds the directory before importing features/models; programmatic experiment creation binds it before constructing models; the same directory is passed to jobs and adapters and frozen into the manifest together with rule hash, provenance and training closure. Resuming uses the rule directory from the original manifest and rejects conflicting parameters. Maps keep the existing frozen map entry.
 
-默认受检加载读取小型 `catalog-summary.json`，验证 rules.json 哈希、来源与 1.18.8 版本，再按实际六阵营配置现场检查完整招募/领袖/升级/瘟疫闭包。未支持或缺失引用仍阻止启动，外围战役脚本不阻止标准训练。运行时不解析/保留约 50 MB 的完整 catalog；缺少 summary 的历史包保留兼容加载。`training_acceptance` 记录范围和 profile 哈希，表示实现覆盖已就绪，不表示原版全部语义或性能达标；`acceptance_scope='full'` 保留原整包三标志门禁，原标志保持 false。
+Default checked loading reads the small `catalog-summary.json`, verifies the rules.json hash, provenance and the 1.18.8 version, then checks the full recruit/leader/upgrade/plague closure on the actual six-faction configuration. Unsupported or missing references still block startup; peripheral campaign scripts do not block standard training. Runtime does not parse or retain the ~50 MB full catalog; historical packages without a summary keep compatible loading. `training_acceptance` records scope and profile hash and means implementation coverage is ready, not that all native semantics or performance targets are met; `acceptance_scope='full'` keeps the original three-flag package gate with the original flags still false.
 
-10 张训练/验证/保留原版地图已按发行包来源冻结到 `rules/1.18.8/maps/`。捕获入口默认读取这些地图，另支持 `--maps-dir`，将复合地形交给原版查询实际单位移动/防御数值；不通过猜测 alias 或替换地形补表。由原 291 地形扩至 438，规则身份和特征 schema 随之改变，旧检查点不能直接按新词表恢复。
+The 10 training/validation/holdout native maps are frozen into `rules/1.18.8/maps/` with their distribution provenance. The capture entry reads these maps by default and also supports `--maps-dir`, delegating composite terrain to native queries for real unit movement/defense values; aliases are not guessed and terrains are not substituted to fill tables. Expanding from 291 to 438 terrains changed rule identity and feature schema, so old checkpoints cannot resume directly against the new vocabulary.
 
-## 4. 模型：三个实例、六个组成部分
+## 4. Model: three instances, six components
 
-架构标识 `relational_v5`。当前实现为 **schema 5、每套 776,178 参数**（587 单位词表），增加战术动作特征与实体相对出手轮次；网络主体不变。Ubuntu 隔离接入、实际更新、检查点恢复和 Python/Lua 数值已验收。受限六阵营 BC 质量证据仍见 T5；不能将接入通过当作全部质量门通过。已失败的旧实验冻结 schema 4、772,530 参数；旧 schema 3/4 数据、权重和优化器不补零迁移。
+Architecture id `relational_v5`. The current implementation is **schema 5, 776,178 parameters per set** (587-unit vocabulary), adding tactical action features and each entity's relative next strike round; the network body is unchanged. Ubuntu isolated wiring, real updates, checkpoint restore and Python/Lua numerics are accepted. Restricted six-faction BC quality evidence is still T5; a passing wiring test is not a passing quality gate. The failed older experiments froze schema 4 with 772,530 parameters; schema 3/4 data, weights and optimizers are not zero-filled into the new schema.
 
-| 部分 | 已实现结构 |
+| Component | Implemented structure |
 | --- | --- |
-| 单位与关系 | 类型嵌入 16，单位投影 64，2 层 4 头实体注意力，FFN 128；行动者和目标使用完整表示 |
-| 空间 | 16×16 公共棋盘，2 层 3×3、16 通道卷积；候选落点周围半径 2 的 19 格投影至 32 维 |
-| 短期记忆 | GRU 128，每方每个自身回合提交一次更新 |
-| 长期记忆 | 最多 32 个、每个 64 维回合摘要，附年龄，注意力读取、FIFO 写入 |
-| 动作头 | 场景/记忆、行动者/目标、动作特征、局部地形和几何关系 → 512 → 256 → 128 → 1 |
-| 价值头 | 同一合法观测上下文 → 隐藏 128 → 标量价值 |
+| Units and relations | Type embedding 16, unit projection 64, 2 layers × 4-head entity attention, FFN 128; actor and target use the full representation |
+| Spatial | 16×16 shared board, 2 layers of 3×3, 16-channel convolutions; 19 cells within radius 2 around the candidate destination projected to 32 dims |
+| Short-term memory | GRU 128, updated once per side per own turn |
+| Long-term memory | Up to 32 turn summaries of 64 dims each with age, attention read, FIFO write |
+| Action head | Scene/memory, actor/target, action features, local terrain and geometry → 512 → 256 → 128 → 1 |
+| Value head | Same legal-observation context → hidden 128 → scalar value |
 
-对手编码为 16 维，按均值/最大值汇总。最多 128 个实体参加注意力，候选相关单位和领袖优先，溢出单位仍进入空间汇总，未入注意力的行动实体单独投影；最多 128 个动作候选、16 次高成本战斗预测。工作量预算、排序和 tie-break 应在两个引擎一致，原版动作时限作为外层保护。
+Opponents are encoded in 16 dims and pooled by mean/max. Up to 128 entities join attention, with candidate-relevant units and leaders first; overflow units still enter the spatial summary and un-attended acting entities are projected separately; at most 128 action candidates and 16 high-cost combat forecasts. Work budget, ordering and tie-breaks must agree across both engines, with the native action deadline as the outer guard.
 
-旧正式实验冻结的候选规则为 `fixed-20000-v2`，以下为其已验收行为（v3 保留）：复用公开信息评分，先保留每单位主要合法完整移动，再按单位/类型轮转填充剩余位置；2v2 保留友军占据村庄的战略目标，实际落点仍排除占用格。lite 向 Astra 传递村庄记忆时使用教师要求的 `x*1000+y` 键，快照负责 JSON 键转换。此批针对 duel/2v2 移动覆盖的修改已于 2026-10-22 通过 T3 验收：固定状态语义覆盖键/视野/快照/友军村/受伤分支/128 上限与 16 次预测，真实样本 duel 移动 84/84、team2v2 移动 135/135，`audit_bc` coverage 0.983 且 `coverage_pass` true；旧移动覆盖 88.45%/65.79% 作为历史数据保留，不改写为新结论。
+The candidate rules frozen by older formal experiments are `fixed-20000-v2`; the following accepted behavior persists (v3 keeps it): score with public information, first keep each unit's primary legal full moves, then fill remaining slots by unit/type rotation; 2v2 keeps allied-occupied villages as strategic targets while destinations still exclude occupied cells. When lite passes village memory to Astra it uses the teacher-required `x*1000+y` key, and the snapshot handles JSON key conversion. This batch of duel/2v2 move-coverage changes passed T3 acceptance on 2026-10-22: fixed-state semantics covered keys/vision/snapshot/allied village/injured branches/128 cap and 16 forecasts; real samples gave duel moves 84/84 and team2v2 moves 135/135, `audit_bc` coverage 0.983 with `coverage_pass` true; the old move coverage of 88.45%/65.79% is retained as historical data and not rewritten as a new conclusion.
 
-2026-10-23 本地新增候选 `fixed-20000-v3`：将已计算的公开战术落点评分、相对原地收益、风险及风险变化、守家距离、己方支援和首选移动标记传入动作头；实体补充敌方下一次出手是否跨轮。原地评分复用已有威胁图，不新增战斗预测、教师调用或隐藏信息。覆盖用的候选集合不因这些输入被裁掉，候选/预测上限不变。本地同数据、同初始化、各 120 次全网络更新的三对局族留出对照：FF4 移动 10/73→37/73（13.70%→50.68%），2v2 19/90→46/90（21.11%→51.11%），duel 25/80→46/80（31.25%→57.50%）；这是输入消融对照，不是现有远程检查点对比。169 项相关回归通过。证据见 `verification/bc_move_fix_20261023/REPORT.md`；冻结权重再做另外 8 个短局验证，联合六阵营留出移动为 FF4 28/223→98/223（12.56%→43.95%）、2v2 34/237→111/237（14.35%→46.84%），没有额外优化更新；FF4 亡灵挑战单项仍为 15/49（30.61%）。Windows 仅作参考，训练采集方仅三阵营且短局；本次还修正了 v3 插入字段后 repeated_move 误读 move_primary 的回归，历史对照保留原身份，不能自动代表修正后的新轨迹质量。Ubuntu 接入/阶段链路和真实权重数值已通过，正常六阵营的受限质量证据仍见 T5。该小样本的招募/攻击与整体 BC 门尚未全部通过。
+On 2026-10-23 a local candidate `fixed-20000-v3` was added: computed public tactical destination scores, relative gain versus staying put, risk and risk change, home-guard distance, allied support and a preferred-move flag feed the action head; entities additionally carry whether the enemy's next strike crosses a round. The stay-put score reuses the existing threat map and adds no combat forecasts, teacher calls or hidden information. The candidate set used for coverage is not trimmed by these inputs, and candidate/forecast caps are unchanged. A local holdout comparison on the same data, same initialization and 120 full-network updates per arm across three game families: FF4 moves 10/73→37/73 (13.70%→50.68%), 2v2 19/90→46/90 (21.11%→51.11%), duel 25/80→46/80 (31.25%→57.50%); this is an input ablation, not a comparison against the existing remote checkpoint. 169 related regressions pass. Evidence: `verification/bc_move_fix_20261023/REPORT.md`; the frozen weights then ran on 8 other short games, giving a joint six-faction holdout move rate of FF4 28/223→98/223 (12.56%→43.95%) and 2v2 34/237→111/237 (14.35%→46.84%) with no further optimization updates; FF4 undead challenge alone is still 15/49 (30.61%). Windows is reference only, and the training collection side covered only three factions in short games; this round also fixed the regression where the v3 inserted field made repeated_move misread move_primary, and historical comparisons keep their original identity and do not automatically represent the corrected new-trajectory quality. Ubuntu wiring/phase chains and real weight numerics passed, but restricted six-faction quality evidence remains T5. On this small sample the recruit/attack and overall BC gates are not all passed.
 
-新游戏重置记忆，淘汰/队友死亡不重置；重复 evaluation、教师只读查询和 bootstrap 不提交记忆。训练按 8 个自身回合截断反传，使用当前权重重算前缀，不跨参数更新复用旧隐藏状态。同一次 forward 批量编码唯一历史观测，并按共享前缀复用状态；GRU 图只在截断边界相同的样本间共享，老前缀无梯度，32 槽长期记忆保持不变。张量按字段批量构建。冻结 lite 学生在单局、单 side 内按历史长度和当前回合缓存历史编码，历史或回合改变立即重算，bootstrap 不提交记忆。纯 Lua 与 PyTorch 对应实现、序列重放和数值核验入口均已实现；正式长训练权重的连续序列部署验收尚未执行。
+New games reset memory; elimination or teammate death does not. Repeated evaluation, read-only teacher queries and bootstrap do not commit memory. Training backpropagates over 8 own turns, recomputes prefixes with current weights and does not reuse old hidden states across parameter updates. One forward pass batch-encodes unique historical observations and reuses state along shared prefixes; the GRU graph is shared only among samples with the same truncation boundary, old prefixes carry no gradient, and the 32-slot long-term memory is unchanged. Tensors are built in batches by field. The frozen lite student caches history encodings per game and side keyed by history length and current turn, recomputes immediately when either changes, and bootstrap does not commit memory. Pure Lua and PyTorch counterparts, sequence replay and numeric verification entry points all exist; continuous-sequence deployment acceptance on formal long-training weights has not been executed.
 
-## 5. 数据与训练流程
+## 5. Data and training flow
 
-### 5.1 采集目标（2026-10-22 用户调整）
+### 5.1 Collection target (user adjustment on 2026-10-22)
 
-| 赛制 | 原版有效教师局 | 追加 lite 教师局 | 合计 |
+| Format | Native valid teacher games | Added lite teacher games | Total |
 | --- | ---: | ---: | ---: |
 | duel | 0 | 300 | 300 |
 | ffa4 | 0 | 600 | 600 |
 | team2v2 | 0 | 400 | 400 |
-| 总计 | 0 | 1300 | 1300 |
+| Total | 0 | 1300 | 1300 |
 
-默认配置、CLI 和程序创建实验统一为单挑/FF4/2v2 300/600/400 个有效 lite 教师局，原版锚点为 0，保留 Astra 教师；失败局不计入目标，批次按剩余额度截断。默认采样与最终比较均用 lite，最终比较只对冻结 Astra，不宣称原版棋力。显式选择 native 时总目标同为 300/600/400，原版下限默认等于对应总目标。CLI 的 --native-bc-games 与 --evaluation-engine 保留显式覆盖能力；已有冻结实验恢复使用其原配置。本次仅修改默认值，未授权新一轮启动，旧 18000 局/18 h 实验保持停止。
+Default config, CLI and programmatic experiment creation all use 300/600/400 valid lite teacher games for duel/FF4/2v2 with 0 native anchors, keeping the Astra teacher; failed games do not count toward the target and batches truncate to the remaining quota. Default sampling and final comparison both use lite, and the final comparison is against a frozen Astra only and does not claim native strength. Explicit native selection keeps the same 300/600/400 total target, with the native floor defaulting to the corresponding total target. The CLI `--native-bc-games` and `--evaluation-engine` keep explicit overrides; existing frozen experiments resume with their original config. Only defaults changed here; no new launch was authorized, and the old 18000-game/18 h experiment stays stopped.
 
-### 5.2 BC → 学生 rollout / DAgger → PPO
+### 5.2 BC → student rollout / DAgger → PPO
 
-1. 冻结规则、地图、对手、源码、配置与预算；三个训练器共享全局游戏进程池。
-2. Astra 教师采样与 BC 更新交替执行，每赛制每批默认新增 8 局。保留精确动作交叉熵，同时监督行动类型、行动单位、目标/落点；正常路径中断保留原始合法意图和实际执行结果。
-3. BC 同时满足语料量、候选覆盖、模仿质量和开局行为才切到 PPO。连续 10 次 BC 质量记录未改善时追加教师局和学生纠偏，之后再降低 BC 学习率，不自动放宽门槛。
-4. 学生 rollout 中查询 Astra，当前 lite 按每四次学习方决策一次、每局最多 32 次执行。教师有独立合法历史，只规划；未覆盖/失败的标签记录诊断，不冒充学生 on-policy 行为。按高熵、重复移动等困难程度优先查询仍是后续优化方向。
-5. PPO 每赛制每批默认 4 局，消费同一冻结策略/奖励/引擎版本的学生轨迹，同时做同赛制 BC rehearsal。BC 与 DAgger 数据均存在时各取 50%；原始池若有合格人类数据，Astra/人类为 75%/25%；原版/lite 均存在时训练抽样各取 50%。这些训练重采样权重不等于采集局数比例。
+1. Freeze rules, maps, opponents, sources, config and budget; the three trainers share the global game process pool.
+2. Astra teacher sampling alternates with BC updates, adding 8 games per format per batch by default. Exact action cross-entropy is kept while action type, acting unit and target/destination are also supervised; normal path interruptions keep the original legal intent and the actual execution result.
+3. BC switches to PPO only after satisfying corpus size, candidate coverage, imitation quality and opening behavior together. After 10 consecutive BC quality records without improvement, more teacher games and student corrections are added, and only then is the BC learning rate lowered; gates are never relaxed automatically.
+4. Student rollouts query Astra, currently once per four learner decisions in lite with at most 32 per game. The teacher keeps an independent legal history and only plans; uncovered/failed labels are recorded as diagnostics and never masquerade as on-policy student behavior. Prioritizing queries by difficulty such as high entropy or repeated moves remains a later optimization.
+5. PPO consumes 4 games per format per batch by default, using student trajectories from the same frozen policy/reward/engine version, plus same-format BC rehearsal. When both BC and DAgger data exist they split 50/50; if the raw pool has qualified human data, Astra/human is 75%/25%; when both native and lite exist, training samples split 50/50. These resampling weights are not collection-ratio claims.
 
-2026-10-23 用户要求新增分阶段入口：默认 auto 保持上述自动资格门；`run --phase bc` 只跑 BC，`phase ppo`/`phase evaluate` 请求下一个独立阶段，运行中在批次边界生效，停止后需 resume。BC/PPO 分别以 `bc_complete`/`ppo_complete` 保存，不隐式执行后续阶段。`phase ppo --force --reason` 是显式跳过 BC 资格的入口，保留真实 effective/门结果并记录原因与命令 ID；不改写检查点资格位。阶段请求可用 `--hours` 明确增加该阶段预算，保存独立 phase_deadline，不改原 clock/manifest。最终评测开始后不允许在原目录返回训练。最终选择优先已有晋升 best，其次 last_ppo、last_bc、latest，避免有 PPO 更新却退回旧 BC。实现与最小验收证据见本轮 verification 报告；当前未授权启动正式训练。
+On 2026-10-23 the user asked for phase entry points: default auto keeps the automatic eligibility gates above; `run --phase bc` runs BC only, while `phase ppo`/`phase evaluate` request the next independent phase, effective at batch boundaries during a run and requiring resume after a stop. BC/PPO are saved as `bc_complete`/`ppo_complete` respectively and later phases never run implicitly. `phase ppo --force --reason` is the explicit entry that skips BC eligibility, keeps the real effective/gate results and records the reason and command id; it does not rewrite checkpoint eligibility bits. A phase request can raise that phase's budget explicitly with `--hours`, saving an independent phase_deadline without touching the original clock/manifest. Once final evaluation starts, training cannot resume in the same directory. Final selection prefers an existing promoted best, then last_ppo, last_bc, latest, avoiding a fallback to old BC when PPO updates exist. Implementation and minimal acceptance evidence are in this round's verification report; no formal training launch is authorized now.
 
-人类回放还原、兼容性检查和导入入口已实现；正式可用人类语料与其预训练收益尚无完成证据，不能把候选回放数当训练样本数。每个样本保存赛制、schema/架构、引擎/规则/RNG、策略/奖励版本、来源、教师、队友上下文、对局族与截断 bootstrap。`game_family` 按约 80%/20% 分训练/验证，同族不能跨区，按对局等权再抽决策。
+Human-replay restoration, compatibility checks and the import entry are implemented; formally usable human corpora and their pretraining benefit have no completed evidence, so candidate replay counts are not training-sample counts. Each sample stores format, schema/architecture, engine/rules/RNG, policy/reward versions, provenance, teacher, teammate context, game family and truncated bootstrap. `game_family` splits training/validation at about 80%/20%, families never cross the split, and decisions are drawn with equal weight per game.
 
-有序序列、压缩 SQLite 索引块、完整前缀、窗口抽样与分块验证均已实现。分片行按「元数据 + 定长 float32 数值块」写入（`learning/rowpack.py`），读取逐局流式：按 gz 字节（96 MiB）与保留字节（768 MiB）双重预算只留被抽中的窗口，整局不再跨更新缓存；验证读取受 `bc_validation_records` 限制并用固定 seed。每批把分片数、gz 字节、保留字节、行数与峰值 RSS 记进 `state.history`，训练器另有 `RLIMIT_AS` 兜底，非零退出落盘 `trainer_exit.log`。指标分别记录环境局数、采集批次、优化步数、不同对局族、决策数、有效数据遍历量，避免用一个“轮数”混淆。
+Ordered sequences, compressed SQLite index blocks, full prefixes, window sampling and sharded validation are implemented. Shard rows are written as "metadata + fixed-width float32 numeric block" (`learning/rowpack.py`), and reads stream game by game: under a dual budget of gz bytes (96 MiB) and retained bytes (768 MiB) only sampled windows are kept, and whole games are no longer cached across updates; validation reads are bounded by `bc_validation_records` with a fixed seed. Each batch records shard count, gz bytes, retained bytes, rows and peak RSS into `state.history`; trainers also keep an `RLIMIT_AS` backstop and write `trainer_exit.log` on nonzero exit. Metrics separately record environment games, collection batches, optimization steps, distinct game families, decisions and effective data passes, so one "epoch" number cannot conflate them.
 
-### 5.3 训练默认参数
+### 5.3 Training defaults
 
-| 参数 | CPU | CUDA / 共同规则 |
+| Parameter | CPU | CUDA / shared rules |
 | --- | --- | --- |
-| 全局游戏 worker | 8 | 8；2026-10-22 通过 T1 配置与 T4 8 worker 真实链路（峰值 PSS 4.02 GiB）验收 |
-| 每训练器线程 | 1 | 1 |
-| 每次 BC 读取决策上限 | 2048 | 8192，按版本轮换，不是总语料上限 |
-| 序列/微批 | 4 条 / 32 决策 | 8 条 / 64 决策，8 自身回合窗口 |
-| 更新 | 4 epochs | BC 学习率 3e-4；PPO 1e-4 |
-| PPO | clip 0.2，价值损失 0.5，梯度裁剪 0.5 | 熵 0.01、BC 辅助 0.10，近似 KL >0.02 停止当前批次后续更新 |
-| 回合上限 | 训练 60 | 常规原版对照 30，分别报告截断率 |
-| 预算 | 默认 12 小时 | 前 10/12 允许更新，后 2/12 冻结评测，恢复不重置截止时间 |
+| Global game workers | 8 | 8; T1 config and the T4 real 8-worker chain (peak PSS 4.02 GiB) accepted on 2026-10-22 |
+| Threads per trainer | 1 | 1 |
+| Decisions read per BC step | 2048 | 8192, rotated by version, not a corpus cap |
+| Sequences / micro-batch | 4 / 32 decisions | 8 / 64 decisions, 8-own-turn window |
+| Updates | 4 epochs | BC learning rate 3e-4; PPO 1e-4 |
+| PPO | clip 0.2, value loss 0.5, gradient clip 0.5 | entropy 0.01, BC auxiliary 0.10, stop the batch's remaining updates when approximate KL > 0.02 |
+| Turn cap | 60 in training | 30 for routine native comparisons, truncation rates reported separately |
+| Budget | 12 hours by default | updates allowed in the first 10/12, frozen evaluation in the last 2/12, resume does not reset the deadline |
 
-BC 门槛：候选总体覆盖 ≥90%、招募/移动/攻击各 ≥80%；精确一致率总体 ≥40%、招募 ≥60%、移动/攻击各 ≥35%，每类至少 32 条，交叉熵低于均匀策略的 85%；开局需出城、占村和合理结束回合。64 决策小集拟合、完整留出输入混淆和学生状态上的教师纠偏有独立诊断入口，正式全语料诊断与训练结果尚未完成。
+BC gates: overall candidate coverage ≥90%, recruit/move/attack each ≥80%; exact-match rate ≥40% overall, ≥60% recruit, ≥35% move/attack, ≥32 records per class, cross-entropy below 85% of the uniform policy; openings must leave the keep, take villages and end turns sensibly. A 64-decision small-set fit, full holdout input confusion and teacher correction on student states have separate diagnostic entries; formal full-corpus diagnostics and training results are not complete.
 
-### 5.4 教师与对手
+### 5.4 Teachers and opponents
 
-原版三赛制可用 Astra 教师，原版 2v2 保留 baseline 队友。lite 宿主提供真实 Astra 四人脚本实际需要的只读 WML/unit/helper 接口，含 `wml.get_child`、治疗/武器声明；使用实验冻结的 Astra ZIP，不修改教师策略。三赛制教师 BC、学生 DAgger/PPO 的历史最小回环结果见上述归档报告；当前采集目标已调整为合计 1300 局纯 lite，该规格的 20 小时正式实验已失败结束，本轮未重启正式训练；原 18000/38400 方案保留历史记录。
+Astra is available as a native teacher in all three formats, with the baseline teammate retained in native 2v2. The lite host provides the read-only WML/unit/helper interface that the real four-player Astra scripts use, including `wml.get_child` and heal/weapon declarations; the experiment-frozen Astra ZIP is used and teacher policies are not modified. Minimal historical loopback results for teacher BC and student DAgger/PPO across the three formats are in the archive reports above; the current collection target is a total of 1300 pure lite games, the 20-hour formal experiment at this specification has failed, and formal training was not restarted this round; the earlier 18000/38400 plan is kept as history.
 
-PPO 原版对手池按固定/历史/当前 50%/25%/25%，2v2 队友分上下文；lite 固定对手只含 Astra，baseline 队友位置使用 Astra，并独立标记 `astra_partner`，不混作原版 baseline 结果。
+The native PPO opponent pool is 50%/25%/25% fixed/historical/current, with 2v2 teammates split by context; the lite fixed opponent pool contains only Astra, baseline teammate slots use Astra and are separately marked `astra_partner`, never mixed into native baseline results.
 
-## 6. 奖励与在线控制
+## 6. Rewards and online control
 
-已实现的训练奖励：终局 + 经济/控制潜势差分 + 首次探索增量。
+Implemented training reward: terminal + economy/control potential difference + first-exploration delta.
 
 ```text
 r = r_terminal
@@ -176,91 +178,93 @@ r = r_terminal
   + w_explore * first_exploration_delta
 ```
 
-单挑/团队胜 +1、平 0、负 -1；FFA 按本局名次居中并缩放到 [-1,1]。gamma=1、GAE lambda=0.95，按自身回合跨度处理；正常终局势能归零，截断保留合法末状态的价值/势能 bootstrap，故障局不训练。原版棋力评测看原版胜负/名次；本轮 lite 比较只报告 lite 胜负/名次，不按 shaping 总分选模，也不据此声称原版强度。
+Duel/team wins are +1, draws 0, losses -1; FFA ranks are centered within the game and scaled to [-1,1]. gamma=1, GAE lambda=0.95 handled over own-turn spans; normal terminals zero the potential while truncation keeps the value/potential bootstrap of the legal final state, and failed games are not trained. Native play-strength evaluation looks at native wins/ranks; this round's lite comparison reports only lite wins/ranks, does not select models by shaping totals and makes no native-strength claim.
 
-经济量含 gold、按 HP 折算兵力价值和每村 20，团队取成员平均，相对其他对抗方归一化，避免招募凭空加分。地图控制使用合法己方/可见盟军/带年龄 last-seen 信息、多源有界路径与按回合缓存；战略格权重村庄/要塞/通路采样为 4/2/1。探索按每局首次合法观察去重，扣除初始已知区域，队友共享不重复计分，关 fog 时默认关闭。裁判可导出奖励标量，隐藏单位/地图字段不进入 actor 或公共价值输入。
+Economy includes gold, HP-converted army value and 20 per village, averaged across team members, normalized against the other opposing side so recruiting cannot earn free points. Map control uses legal own-visible/allied with last-seen age information, bounded multi-source paths and per-turn caching; strategic tile weights sample villages/keeps/passages at 4/2/1. Exploration de-duplicates per game on first legal observation, excludes the initial known area, does not double-count shared teammate areas and is off by default when fog is disabled. The referee can export reward scalars; hidden unit/map fields never enter the actor or shared value inputs.
 
-| 系数 | 初值 | 自动范围 |
-| --- | ---: | --- |
-| 终局 | 1.0 | 固定 |
+| Coefficient | Initial | Automatic range |
+| --- | ---: | ---: |
+| terminal | 1.0 | fixed |
 | economy | 0.15 | 0.05–0.20 |
 | control | 0.10 | 0.02–0.15 |
-| explore（整局上限） | 0.10 | 0–0.15 |
+| explore (whole-game cap) | 0.10 | 0–0.15 |
 
-每个赛制的 `RewardController` 支持 fixed/scheduled/adaptive，默认 adaptive；依据实际行为、奖励和验证度量作有界调整，属于规则控制器，不是优化器学习系数。人工和自动更新走同一原子队列，仅在批次边界生效并递增 `reward_version`；一局和一次 PPO 更新使用同一冻结配置。事件日志和检查点记录旧/新配置、来源、原因、序号与校验和，恢复重放而不重置状态。长期自动调参是否改善棋力尚未通过长实验验证。
+Each format's `RewardController` supports fixed/scheduled/adaptive, adaptive by default; it adjusts within bounds from actual behavior, reward and validation metrics as a rule-based controller, not optimizer-learned coefficients. Manual and automatic updates share one atomic queue, take effect only at batch boundaries and increment `reward_version`; a game and a PPO update both use the same frozen config. Event logs and checkpoints record old/new config, source, reason, sequence number and checksum, replay on resume without resetting state. Whether long-term automatic tuning improves play has not been verified by long experiments.
 
-## 7. 地图、验证、性能与部署
+## 7. Maps, validation, performance and deployment
 
-2026-10-23 修复决定（lite 最小验收见修复报告，原版新增采集待 TEST 验收）：控制指标使用独立初始/淘汰/终局观测，正常淘汰和提前获胜均纳入统计；第 5/10 回合前进入终态时，后续 horizon 使用明确的吸收态。淘汰侧控制/领袖生存为零，探索保留最后合法累计量，HP 损失由真实己方终态与已有观测计算；胜方保留真实终态。预算截断和故障不补终态，不把缺失数据补零；这些快照不进入 actor、BC/PPO 数据或记忆。指标版本 `terminal-horizons-v2` 与旧统计不混用。开局只检查学习方，结束回合看有合法落点的非领袖剩余移动量（仍为 ≤4），不惩罚留守领袖或无法移动的单位。任意指标故障记录并冻结 adaptive 自动调参，真正的训练故障以 failed 阶段非零退出，保留 pending 数据，不自动执行最终留出评测。参考不足显式 inconclusive；每次补采最多 12，后续验证按缺口继续，已尝试失败编号也不复用。晋升必须实际达到 12 完整块；最终不足 30 块保持 inconclusive。内部策略恢复核验 schema/权重哈希，不对内部目录施加 SDK 提交包大小限制，正式提交限制仍保留。
+Repair decisions of 2026-10-23 (lite minimal acceptance in the repair report; new native capture awaits TEST acceptance): control metrics use separate initial/eliminated/terminal observations, and both normal elimination and early victory count; when a terminal is reached before turns 5/10, later horizons use an explicit absorbing state. Eliminated sides have zero control/leader survival, exploration keeps the last legal cumulative amount, HP loss comes from the real own terminal state and existing observations; the winning side keeps its real terminal. Budget truncation and failures do not synthesize terminals and missing data is not zero-filled; none of these snapshots enter the actor, BC/PPO data or memory. Metric version `terminal-horizons-v2` is not mixed with old statistics. The opening check covers only the learning side, and end-turn checks the remaining movement of non-leader units that still have legal destinations (still ≤4), never penalizing a kept-home leader or immobile units. Any metric failure is recorded and freezes adaptive auto-tuning; a real training failure exits nonzero through the failed phase, retains pending data and does not run the final holdout evaluation automatically. Insufficient references stay explicitly inconclusive; each re-collection adds at most 12, later validation continues by gap, and attempted failed sequences are not reused. Promotion must actually reach 12 full blocks; fewer than 30 blocks at the end stays inconclusive. Internal policy restore verifies schema/weight hash, the internal directory is not subject to the SDK submission package size limit, and the formal submission limit remains.
 
-### 7.1 地图和模型选择
+### 7.1 Maps and model selection
 
-| 赛制 | 训练地图（另有 50% Arena） | 验证 | 最终留出 |
+| Format | Training maps (plus 50% Arena) | Validation | Final holdout |
 | --- | --- | --- | --- |
-| duel | The Freelands、Weldyn Channel、Sablestone Delta | Hamlets | Caves of the Basilisk、Ruined Passage |
-| ffa4 / team2v2 | Clash、Isar's Cross | Loris River | Morituri |
+| duel | The Freelands, Weldyn Channel, Sablestone Delta | Hamlets | Caves of the Basilisk, Ruined Passage |
+| ffa4 / team2v2 | Clash, Isar's Cross | Loris River | Morituri |
 
-地图冻结记录原版版本、哈希、地形/起点和统一规则，不宣称完整 Ladder 场景语义。留出地图不参加奖励调参、困难采样或选模。
+Map freezes record native version, hash, terrain/start positions and the unified rules; full Ladder scenario semantics are not claimed. Holdout maps never participate in reward tuning, hard-example sampling or model selection.
 
-趋势验证默认每 10 个更新批次执行，局数 6/4/8；每 100 个更新批次用晋升面板替代趋势面板，对 Astra 及已有冠军各至少 12 个完整轮换块，2v2 分队友上下文。这些调度与报告代码已实现，但正式候选晋升和棋力结论未执行。最终原版评测至少 30 个完整轮换块/对手，报告胜平负/名次及按块 bootstrap 区间。运行中受预算约束的原版审计队列、约 5% 审计成本及完整 mixed pipeline 尚未形成实际证据。
+Trend validation runs every 10 update batches by default with 6/4/8 games; every 100 update batches replaces the trend panel with a promotion panel against Astra and each existing champion with at least 12 full rotation blocks each, splitting 2v2 by teammate context. This scheduling and reporting code exists, but formal candidate promotion and play-strength conclusions have not run. Final native evaluation uses at least 30 full rotation blocks per opponent and reports wins/draws/losses/ranks with per-block bootstrap intervals. The budget-constrained in-run native audit queue, the ~5% audit cost and the full mixed pipeline still lack real evidence.
 
-### 7.2 性能目标与已有证据
+### 7.2 Performance targets and existing evidence
 
-目标是同等工作量下 native/lite wall 和总 CPU 核秒各 ≥5；当前内存验收口径为 native/lite 峰值 PSS 比 ≥1.3，原 PLAN 的 5 倍内存目标已废止。比值 1.3 对应 lite PSS 约为 native 的 76.9%，不是“降低 30%”。冷启动/常驻热态分开，包含进程树 CPU 和采样 PSS，不能靠增加并发、提前结束、换较少动作宣称加速。
+The target is native/lite ≥5× on both wall time and total CPU core-seconds at equal work; the current memory acceptance criterion is a native/lite peak PSS ratio ≥1.3, superseding the original PLAN's 5× memory target. A ratio of 1.3 means lite PSS is about 76.9% of native, not "30% lower". Cold start and resident hot state are reported separately and include process-tree CPU and sampled PSS; speed may not be claimed by raising concurrency, ending early or using fewer actions.
 
-已有旧冻结包的 regular、单 worker、30 完整轮换块基准：duel 冷/热 wall 约 5.44/11.88 倍，FFA4 约 5.88/22.30 倍，2v2 约 5.94/22.36 倍，PSS 比约 1.65–1.69。**这些只覆盖 observe/legal_actions/end_turn，不含完整候选、教师和学生推理，也不是新规则包的重新验收。** 端到端原版/lite 终止原因和动作数不同，已明确判为不可比较。dense、4/8 worker 吞吐、混合审计流水线及完整决策的端到端性能仍缺证据，后续按实际改动做最小验证，不为补文档重复跑矩阵。
+The existing old frozen-package regular, single-worker, 30-full-rotation-block benchmarks: duel cold/hot wall about 5.44/11.88×, FFA4 about 5.88/22.30×, 2v2 about 5.94/22.36×, PSS ratio about 1.65–1.69. **These cover only observe/legal_actions/end_turn, exclude full candidates, teacher and student inference, and are not a re-acceptance of the new rule package.** End-to-end native/lite termination reasons and action counts differ and were explicitly judged incomparable. Dense, 4/8-worker throughput, mixed audit pipelines and full-decision end-to-end performance still lack evidence; future changes get minimal verification only, and the matrix is not rerun to fill documentation.
 
-### 7.3 原版交付
+### 7.3 Native delivery
 
-PyTorch → 纯 Lua 导出、三赛制路由、检查点加载和连续序列数值审计入口已实现。分别输出 `weights_duel.lua`、`weights_ffa4.lua`、`weights_team2v2.lua`，开局选择并缓存对应权重，其他人数 FFA 可复用 ffa4 而不承诺强度，其他团队关系需明确处理。小闭环检查点已有 Python/Lua 最大误差约 2.3e-8，正式长训练权重的 128 候选/连续记忆审计仍待执行。
+PyTorch → pure Lua export, three-format routing, checkpoint loading and continuous-sequence numeric audit entries are implemented. `weights_duel.lua`, `weights_ffa4.lua` and `weights_team2v2.lua` are emitted separately, the matching weights are selected and cached at game start, other-player-count FFA may reuse ffa4 without a strength claim, and other team relationships need explicit handling. Small closed-loop checkpoints already show about 2.3e-8 maximum Python/Lua error; the 128-candidate/continuous-memory audit on formal long-training weights has not run.
 
-最终包当前超过原 SDK 16 MiB 限制。用户暂时忽略该包限制和严格 1pp/0.5 HP 统计门槛，不作为当前推进阻塞；忽略不表示已解决，也不应偷偷放宽原版生产 SDK。尚无最终模型包、正式 native 强度结论或新 AI 安装替换。
+The final package currently exceeds the original SDK 16 MiB limit. The user is temporarily ignoring that package limit and the strict 1pp/0.5 HP statistical gates as a current blocker; ignoring is not resolving, and the official production SDK must not be quietly relaxed. There is still no final model package, no formal native strength conclusion and no replacement of the installed AI.
 
-参考项目仅供设计对照；未明确许可的代码不复制。原版语义以固定 1.18.8 构建/数据为准；实际移植 GPL 代码时保留适用版权、许可和对应源码，不能把整个交付笼统标为项目自有 MIT。
+Reference projects are design comparisons only; unlicensed code is not copied. Native semantics follow the fixed 1.18.8 build/data; if GPL code is actually ported, applicable copyright, license and corresponding source are retained, and the whole delivery cannot be blanket-labelled as project-owned MIT.
 
-## 8. 已有验证与未完成项
+## 8. Existing validation and unfinished items
 
-本节是状态摘要；已通过验收的范围与证据见[历史验收报告](../verification/archive/TEST_before_cleanup_20261022.md)及 2026-10-22 的 `verification/pretrain_acceptance_20261022/`，当前已实现但未验收的事项见 [TEST.md](TEST.md)（仅列尚缺证据的范围）。
+This section is a status summary; accepted scope and evidence are in the [historical acceptance report](../verification/archive/TEST_before_cleanup_20261022.md) and the 2026-10-22 `verification/pretrain_acceptance_20261022/`, while implemented-but-unaccepted items are in [TEST.md](TEST.md) (only scopes still lacking evidence).
 
-| 范围 | 状态与证据边界 |
+| Scope | Status and evidence boundary |
 | --- | --- |
-| 新规则覆盖 | 已完成本轮实现：25 个类型新增支持，158 单位训练闭包清零；Ubuntu 新增 23 项最小用例与 2 个新原版逐击场景通过 |
-| 代表原版差分 | 历史旧规则包 13/13 通过；不能据此自动把新规则包或全部能力标 exact |
-| 配额与并发调整 | 2026-10-22 Ubuntu 验收通过（T1）：单挑/FF4/2v2 为 300/600/400 lite、0 原版，总 1300，全局 8 workers、每 trainer 1 线程；CLI 省略参数与程序默认一致，显式 `--bc-games`/`--workers` 生效，恢复保留冻结目标与截止时间，末批按剩余额度截断且失败局不计额。证据 `verification/pretrain_acceptance_20261022/T1_ubuntu.txt` |
-| 按座位生成候选 | 2026-10-22 Ubuntu 验收通过（T2）：未采集 Astra 座位完整候选调用数为 0（仅 1 个 `end_turn` 候选）；采集座位、学生策略、DAgger 与截断 bootstrap 仍生成完整候选，两条路径的教师动作、状态与采集标签一致。证据 `verification/pretrain_acceptance_20261022/T123_affected_suite.txt` |
-| duel/2v2 移动覆盖 | 2026-10-22 Ubuntu 验收通过（T3）：教师村庄记忆键 `x*1000+y` 及失视野保留、side 隔离与快照往返；2v2 友军占村只影响战略目标且不可落脚；单挑受伤分支；候选池 128 上限、主要完整移动保留、战斗预测 16。真实样本 duel move 84/84、team2v2 135/135，`audit_bc` coverage 0.983 且 `coverage_pass` true，来源 v2。证据 `verification/pretrain_acceptance_20261022/t3_coverage.json` |
-| 原版真实小回环 | 已执行 7 局、4 worker，三赛制各有限 BC/PPO 更新，检查点和数值审计通过 |
-| 历史原版锚点验证 | 额外 1 局 native 2v2 / Clash / 1 回合通过，6/6 教师动作匹配；验证新规则绑定、实际调度与有效分片 |
-| lite 真实小回环 | 最终 438 地形包上 6 局、3 worker：三赛制各真实 Astra 教师/BC、学生/DAgger/PPO，检查点与数值核验通过，最大误差约 2.38e-8 |
-| 8 worker 受限真实链路 | 2026-10-22 Ubuntu 验收通过（T4）：9 局教师（≤10 回合，含 duel `the_freelands`、ffa4/team2v2 `clash` 原生图）+ 3 局 lite rollout，broker 峰值 8、scheduler 活跃峰值 8，三个 trainer 退出码 0；BC/PPO 各 1 批更新与版本 1/2 检查点回读，DAgger 查询 1/4/1 且 bootstrap 有效；峰值 PSS 4.02 GiB（上限 12）、最低 available 10.46 GiB、swap 增长 0、无残留进程。证据 `verification/pretrain_acceptance_20261022/T4_summary.json` |
-| 2026-10-23 阶段与故障修复 | Ubuntu 71 项相关检查及 7 项后续受影响检查通过；三赛制每族 1 次真实 BC + 2 次 PPO 更新，真实恢复与最终选中 v102 PPO；开局每族两局真实 Astra、学习方归属及留守领袖口径通过；连续两回合/128 候选的 Python/Lua 误差 <1.6e-8。小面板 1/30 块仍 inconclusive，不证明收敛或棋力。见 `verification/training_repair_20261023/REPORT.md` |
-| 冻结包测试适配 | 已修；容量随实际词表断言、真实 smoke 使用当前特征目录，Ubuntu 对应最小项通过 |
-| 默认启动/内存路径 | 已完成；默认 lite、统一规则绑定、训练闭包门禁与轻量受检加载；普通协调器和三训练器初始化通过 |
-| 四人 lite 教师 | 已接通真实冻结 Astra；补 WML 只读投影及 2v2 稀疏 side 记忆快照往返，最小用例和四人真实小回环通过 |
-| 正式地图 | 已补 10 张原版冻结地图及缺失的 147 个复合地形；全部地图地形覆盖和赛制检查通过 |
-| 全流水线性能 | 未完成：端到端等价工作、dense、并发和含审计成本尚缺证据 |
-| 生产语料与长训练 | 读取内存缺口已修复，历史 42 min 回环峰值 PSS 6.4 GiB；历史重放与批张量优化已通过 10 项最小测试、三赛制真实微批输出/梯度比较及 BC 更新/检查点回读。旧 18000 局纯 lite / 18 h 实验已停止；1300 局规格的正式实验已在 schema 4 失败结束，schema 5 的正式训练和收敛未完成 |
-| 最终原版评测/交付 | 未执行；包体限制暂忽略，未声称胜过 Astra 或人类强者 |
+| New rule coverage | This round's implementation done: 25 types newly supported, 158-unit training closure cleared; 23 new minimal Ubuntu cases and 2 new native per-strike scenarios passed |
+| Representative native differential | Older rule package 13/13 passed; the new package or all abilities cannot be marked exact from this |
+| Quota and concurrency changes | Ubuntu acceptance passed on 2026-10-22 (T1): duel/FF4/2v2 at 300/600/400 lite, 0 native, 1300 total, 8 global workers, 1 thread per trainer; CLI defaults match programmatic defaults, explicit `--bc-games`/`--workers` take effect, resume keeps the frozen target and deadline, the last batch truncates to the remaining quota and failed games do not count. Evidence `verification/pretrain_acceptance_20261022/T1_ubuntu.txt` |
+| Per-seat candidate generation | Ubuntu acceptance passed on 2026-10-22 (T2): uncollected Astra seats had 0 full candidate calls (just one `end_turn` candidate); collected seats, student policy, DAgger and truncated bootstrap still generate full candidates, and both paths agree on teacher actions, state and collection labels. Evidence `verification/pretrain_acceptance_20261022/T123_affected_suite.txt` |
+| duel/2v2 move coverage | Ubuntu acceptance passed on 2026-10-22 (T3): teacher village memory key `x*1000+y` with retention on lost vision, side isolation and snapshot round-trip; 2v2 allied-occupied villages affect strategic targets only and are not destinations; duel injured branch; candidate pool cap 128, primary full moves retained, 16 combat forecasts. Real samples: duel move 84/84, team2v2 135/135, `audit_bc` coverage 0.983 with `coverage_pass` true, source v2. Evidence `verification/pretrain_acceptance_20261022/t3_coverage.json` |
+| Real native small loopback | Ran 7 games with 4 workers, limited BC/PPO updates in all three formats, checkpoints and numeric audit passed |
+| Historical native anchor validation | One extra native 2v2 / Clash / 1-turn game passed with 6/6 teacher actions matching; validated new rule binding, real scheduling and effective shards |
+| Real lite small loopback | 6 games with 3 workers on the final 438-terrain package: real Astra teacher/BC, student/DAgger/PPO per format, checkpoints and numeric verification passed with about 2.38e-8 maximum error |
+| 8-worker restricted real chain | Ubuntu acceptance passed on 2026-10-22 (T4): 9 teacher games (≤10 turns, including duel `the_freelands` and ffa4/team2v2 `clash` native maps) plus 3 lite rollout games, broker peak 8, scheduler active peak 8, all three trainers exit code 0; one BC and one PPO batch update with checkpoint readback of versions 1/2, DAgger queries 1/4/1 and valid bootstrap; peak PSS 4.02 GiB (cap 12), lowest available 10.46 GiB, swap growth 0, no leftover processes. Evidence `verification/pretrain_acceptance_20261022/T4_summary.json` |
+| 2026-10-23 phase and failure repairs | 71 related Ubuntu checks and 7 later affected checks passed; one real BC plus two PPO updates per game family in all three formats, real resume and final selection of v102 PPO; two real Astra games per family for the opening check, learner side and kept-home leader accounting passed; Python/Lua error <1.6e-8 over two consecutive turns and 128 candidates. The small 1/30-block panel stays inconclusive and proves neither convergence nor strength. See `verification/training_repair_20261023/REPORT.md` |
+| Frozen-package test adaptation | Fixed; capacity assertions follow the actual vocabulary, the real smoke uses the current feature directory, and the corresponding minimal Ubuntu items pass |
+| Default startup/memory path | Done; lite by default, unified rule binding, training-closure gate and light checked loading; normal coordinator and three-trainer initialization pass |
+| Four-player lite teacher | Real frozen Astra wired; added the read-only WML projection and 2v2 sparse-side memory snapshot round-trip; minimal cases and the real four-player small loopback pass |
+| Formal maps | Added the 10 frozen native maps and the 147 missing composite terrains; all map terrain coverage and format checks pass |
+| Full-pipeline performance | Not done: end-to-end equal work, dense, concurrency and audit-inclusive costs still lack evidence |
+| Production corpus and long training | Read-memory gap fixed, historical 42 min loopback peak PSS 6.4 GiB; historical replay and batch-tensor optimizations passed 10 minimal tests, real micro-batch output/gradient comparison in all three formats and BC update/checkpoint readback. The old 18000-game pure lite / 18 h experiment is stopped; the 1300-game formal experiment failed under schema 4, and schema 5 formal training and convergence are unfinished |
+| Final native evaluation/delivery | Not executed; package limits temporarily ignored, no claim of beating Astra or strong humans |
 
-普通训练接入和短局链路已完成；正式运行暴露的高内存问题已修复并通过真实回环验收，证据见上述归档报告；最新纯 lite 正式实验已失败结束，具体状态见第 1 节。全流水线性能与正式强度仍需实际实验积累证据；外围战役和高成本完整语义保留明确限制，不默认扩张为通用 WML 引擎。
+Ordinary training wiring and short-game chains are complete; the high-memory problem exposed by formal runs is fixed and passed real loopback acceptance, with evidence in the archive reports above; the latest pure lite formal experiment failed, see section 1. Full-pipeline performance and formal strength still need real experiment evidence; peripheral campaigns and costly full semantics keep explicit limits and are not expanded into a general WML engine by default.
 
-## 9. 文件布局与维护
+## 9. File layout and maintenance
 
 ```text
-docs/architecture.md       架构、当前参数、已实现/未实现状态（本文件）
-docs/TEST.md               已实现但未验收的事项及通向正式训练的最小测试方案
-docs/instructions.md       Agent 启动/恢复、维护训练与按指令调参
-AGENTS.md                  代理工作与文档维护规则
-engine_lite/               Rust、PyO3、原版捕获/冻结/审计、直接 Lua 宿主
-learning/                  协调器、适配器、模型、序列、训练、奖励、评测与导出
-lua/                       原版部署与两引擎共用的合法观测/候选/记忆/奖励
-rules/1.18.8-training/     默认 587 单位规则包，可随开发工程分发
-rules/1.18.8/              历史旧规则包及原版冻结地图，保留原实验身份
-datasets/                  人类与教师数据、序列索引
-runs/<run>/<format>/       独立训练状态、权重、调度与策略历史
-runs/<run>/control/        批次边界配置和追加式控制事件
-verification/              带日期/规则哈希的原始证据；源码开发包默认不包含
-delivery/                  明确导出的模型包与清单；历史实验保持原状
+README.md                  repository entry (English); Chinese mirror docs/README_zh.md
+docs/architecture.md       architecture, current parameters, implemented/unimplemented status (this file)
+docs/instructions.md       agent startup/resume, training maintenance and instruction-driven tuning
+docs/TEST.md               implemented but unaccepted items and the minimal tests toward formal training
+docs/THIRD_PARTY.md        third-party code, reference opponent packages and official licensing
+AGENTS.md                  agent working and documentation maintenance rules (English only)
+engine_lite/               Rust, PyO3, native capture/freeze/audit, direct Lua host
+learning/                  coordinator, adapters, model, sequences, training, rewards, evaluation and export
+lua/                       native deployment and the legal observation/candidate/memory/reward shared by both engines
+rules/1.18.8-training/     default 587-unit rule package, distributable with the development tree
+rules/1.18.8/              historical rule package and frozen native maps, keeping the original experiment identity
+datasets/                  human and teacher data, sequence indexes
+runs/<run>/<format>/       per-format training state, weights, schedules and policy history
+runs/<run>/control/        batch-boundary config and append-only control events
+verification/              raw evidence with dates/rule hashes; the source development package excludes it by default
+delivery/                  explicitly exported model packages and manifests; historical experiments stay as-is
 ```
 
-新增功能、修改参数或完成验收时，更新本文件对应责任行、状态和证据链接；TEST.md 只维护已实现但未验收的事项及最小方案。实际命令、结果、版本/规则哈希写入带日期的 verification 报告，验收通过后从 TEST.md 删除整项，具体维护准则见根目录 AGENTS.md。运行入口或维护流程变化时同步 instructions.md。只运行本次改动必需且尚未通过的最小检查；已通过项仅在对应源码/数据变化或新失败确有影响时重测。历史报告保留其原时间和哈希，不把旧证据改写为新验收。docs 保持这三个入口，详细日志/研究数据归入对应代码或 verification，避免再增加平行计划和状态文件。
+Each English doc has a `_zh` mirror beside it (`docs/architecture_zh.md`, module docs such as `engine_lite/README_zh.md`); edits update both in the same change. When adding features, changing parameters or completing acceptance, update the corresponding responsibility row, status and evidence links in this file; TEST.md keeps only implemented-but-unaccepted items and minimal plans. Real commands, results, version/rule hashes go into dated verification reports, and an accepted item is deleted from TEST.md as a whole; the maintenance rules are in the root AGENTS.md. Sync instructions.md when run entries or maintenance flows change. Run only the minimal checks this change requires and that have not already passed; retest accepted items only when the corresponding sources/data changed or a new failure makes it relevant. Historical reports keep their original dates and hashes and are not rewritten as new acceptance. `docs/` keeps only these maintained entries; detailed logs and research data belong in the corresponding code directory or `verification/`, avoiding parallel plans and status files.

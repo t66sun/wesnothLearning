@@ -1,5 +1,7 @@
 # 来源与许可
 
+> 语言：[English](THIRD_PARTY.md) | 中文
+
 `vendor/arena/` 来自上级只读的 WesnothArena 原生 v2 SDK，保留其 MIT LICENSE 与第三方说明。训练工程与团队扩展以同一 MIT 许可提供。
 
 `opponents/` 四个 zip 是用户指定的参考选手原始包，按原样保存；每次实验再次复制并冻结哈希。选手源码和权重的许可由各提交方说明。
