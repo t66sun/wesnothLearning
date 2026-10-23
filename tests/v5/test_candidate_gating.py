@@ -84,7 +84,7 @@ class CandidateGatingTests(unittest.TestCase):
         after = _load(engine.snapshot())['game']
         self.assertEqual(before, middle)
         self.assertEqual(middle, after)
-        self.assertEqual(full['timing']['budget'], 'fixed-20000-v2')
+        self.assertEqual(full['timing']['budget'], 'fixed-20000-v3')
         self.assertGreater(len(full['candidates']), 1)
         self.assertNotIn('budget', fast['timing'])
         self.assertEqual(fast['timing'],

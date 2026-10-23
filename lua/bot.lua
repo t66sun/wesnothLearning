@@ -31,7 +31,7 @@ function M:evaluation(cfg,data)
     data.learning_record={schema=schema.version,global=obs.global,opponents=obs.opponents,spatial=obs.spatial,candidates=candidates,
         choice=choice-1,log_probability=logp,value=value,version=config.version,
         side=wesnoth.current.side,turn=wesnoth.current.turn,timing=timing,teacher=false,source='policy',format=fmt,
-        diagnostics=C.diagnostics(obs,data.plan)}
+        diagnostics=C.diagnostics(obs,data.plan,candidates)}
     data.learning_record.potential=obs.potential
     data.learning_record.reward_raw=raw
     data.learning_record.committed=false

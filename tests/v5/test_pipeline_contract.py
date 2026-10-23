@@ -123,8 +123,7 @@ def diagnostic(*, side=1, game_family='family-1', **overrides):
                game_family=game_family, side=side, complete=True, faults=[],
                source='astra', teacher='gpt6astra', map_partition='validation',
                coverage5=0.5, coverage10=0.6, control=0.4, leader_survival=1.0,
-               loss=0.1, astra_coverage5=0.6, astra_coverage10=0.7,
-               astra_control=0.6, astra_leader_survival=1.0, astra_loss=0.1)
+               loss=0.1)
     row.update(overrides)
     return row
 
@@ -328,7 +327,7 @@ class LiteJobTests(unittest.TestCase):
         rows = read_gzip(job['shard'])
         self.assertEqual(len(rows), 24)
         for row in rows:
-            self.assertEqual(row['schema'], 4)
+            self.assertEqual(row['schema'], features.VERSION)
             self.assertEqual(row['source'], 'astra')
             self.assertEqual(row['engine_id'], 'lite')
             self.assertEqual(row['rules_version'], 'synthetic-v5')
@@ -492,8 +491,10 @@ class LiteJobTests(unittest.TestCase):
             self.assertFalse(call['generate_candidates'], call)
             self.assertFalse(call['budget'], call)
         for call in collected:
-            self.assertTrue(call['generate_candidates'], call)
-            self.assertTrue(call['budget'], call)
+            # Initial/terminal metrics use a public observation without search;
+            # actual policy decisions still generate the full candidate set.
+            self.assertEqual(call['generate_candidates'],call['budget'],call)
+        self.assertTrue(any(call['generate_candidates'] for call in collected))
 
     def test_query_and_bootstrap_decisions_get_full_candidates(self):
         job = self.four_seat_job(id='query-bootstrap',
@@ -521,7 +522,7 @@ class LiteJobTests(unittest.TestCase):
         self.assertIs(calls[-1], bootstrap[0])
         rows = read_gzip(job['shard'])
         self.assertTrue(rows)
-        self.assertTrue(all(row['candidate_version'] == 'schema4-fixed-20000-v2' for row in rows))
+        self.assertTrue(all(row['candidate_version'] == 'schema5-fixed-20000-v3' for row in rows))
         bootstrapped = [row for row in rows if row.get('bootstrap_value') is not None]
         self.assertTrue(bootstrapped)
         dagger_path = Path(job['shard']).with_name(
@@ -531,7 +532,7 @@ class LiteJobTests(unittest.TestCase):
         self.assertLessEqual(len(query_rows), 32)
         for row in query_rows:
             self.assertGreater(len(row['candidates']), 1)
-            self.assertEqual(row['candidate_version'], 'schema4-fixed-20000-v2')
+            self.assertEqual(row['candidate_version'], 'schema5-fixed-20000-v3')
 
     def test_missing_catalog_is_reported_as_infrastructure_error(self):
         job = self.job(rules_dir=str(self.directory / 'missing'))
@@ -1141,14 +1142,14 @@ class ConfigScheduleTests(unittest.TestCase):
 
     def test_opening_gate_needs_two_complete_games(self):
         def completed():
-            return dict(status='complete', result=dict(faults=[]), behavior=[
-                dict(left_castle=True, village_captured=True, end_turn=True,
-                     remaining_moves=2)])
+            return dict(status='complete', meta=dict(seat=1), result=dict(faults=[]), behavior=[
+                dict(side=1,left_castle=True, village_captured=True, end_turn=True,
+                     remaining_moves=2,usable_moves=2)])
         self.assertTrue(opening_gate([completed(), completed()])['passed'])
         self.assertFalse(opening_gate([completed()])['passed'])
         broken = completed()
-        broken['behavior'] = [dict(left_castle=False, village_captured=True,
-                                   end_turn=True, remaining_moves=2)]
+        broken['behavior'] = [dict(side=1,left_castle=False, village_captured=True,
+                                   end_turn=True, remaining_moves=2,usable_moves=2)]
         self.assertFalse(opening_gate([completed(), broken])['passed'])
 
     def _evaluation(self, **kwargs):
@@ -1330,7 +1331,7 @@ class BenchmarkReportTests(unittest.TestCase):
     def test_manifest_requires_thirty_complete_rotation_blocks(self):
         self.assertEqual(self.manifest['version'], 1)
         self.assertEqual(self.manifest['native_version'], '1.18.8')
-        self.assertEqual(self.manifest['observation_schema'], 4)
+        self.assertEqual(self.manifest['observation_schema'], features.VERSION)
         self.assertEqual(self.manifest['minimum_complete_rotation_blocks'], 30)
         self.assertEqual(self.manifest['required_speedup'], 5)
         self.assertEqual(self.manifest['required_cpu_ratio'], 5)

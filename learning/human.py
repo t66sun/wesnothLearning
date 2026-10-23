@@ -19,7 +19,7 @@ from .data import split, validate_record
 from .replay_curate import Node, parse_wml, unpack
 import native
 
-OBSERVER_VERSION='native-observer-v4.0'
+OBSERVER_VERSION='native-observer-v5.0'
 PREFIX='LEARNING_HUMAN '
 
 
@@ -127,7 +127,7 @@ def import_capture(path,row):
         from .rewards import RewardConfig
         config=asdict(RewardConfig())
         r.update(engine='native',engine_id='native',rules_version=schema().get('rules_sha256') or 'native-1.18.8',rng_version='native-1.18.8',
-            architecture_id='relational_v5',candidate_version=r.get('candidate_version','schema4-'+r.get('timing',{}).get('budget','fixed-20000-v1')),data_pool='original',
+            architecture_id='relational_v5',candidate_version=r.get('candidate_version',f"schema{r.get('schema')}-"+r.get('timing',{}).get('budget','fixed-20000-v1')),data_pool='original',
             reward_config=config,reward_version=config['reward_version'],reward_formula_id=config['reward_formula_id'])
         if r['choice']>=0: validate_record(r,row['format']);matched[kind]+=1
         rows.append(r)

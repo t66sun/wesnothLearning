@@ -4,6 +4,8 @@ local M={}
 local S=wesnoth.require '~add-ons/@ADDON@/lua/spatial.lua'
 local unit_index={}
 for i,name in ipairs(schema.unit_types) do unit_index[name]=i-1 end
+local feature_index={}
+for i,field in ipairs(schema.action_features) do feature_index[field[1]]=i end
 local function owner_kind(obs,p)
     local owner=obs.memory.villages[p[1]..','..p[2]]
     if owner==nil then return 'unknown' end
@@ -96,8 +98,8 @@ local function tactical_ratings(obs,u,destinations,threats)
         if #goals==0 then for _,p in pairs(obs.tiles) do if p.terrain:match('^K') then goal(p.x,p.y,8) end end end
     end
     local radius=6+math.max(0,#obs.own-7)*.75
-    for _,d in ipairs(destinations) do
-        local x,y=d.p[1],d.p[2];local tile=obs.tiles[x..','..y];local terrain=tile and tile.terrain or 'Gg'
+    local function rating(x,y)
+        local tile=obs.tiles[x..','..y];local terrain=tile and tile.terrain or 'Gg'
         local defense=u:defense_on(terrain);local hits={}
         for _,e in ipairs(threats[x..','..y] or {}) do
             local damage=0
@@ -145,9 +147,16 @@ local function tactical_ratings(obs,u,destinations,threats)
         end
         if home and x==home[1] and y==home[2] then utility=utility+(u.canrecruit and 9 or multiplayer and -15 or 0) end
         local risk_weight=u.canrecruit and 2.8 or hurt and 1.5 or multiplayer and .55 or .25
-        d.tactical=utility-risk*risk_weight
-        d.safe=utility-risk*(risk_weight+.5)
-        d.advance=utility-risk*math.max(0,risk_weight-.2)
+        return utility-risk*risk_weight,utility-risk*(risk_weight+.5),
+            utility-risk*math.max(0,risk_weight-.2),risk,support,
+            home and distance(x,y,home) or 0
+    end
+    -- The actor's improvement, not just the absolute destination score, determines
+    -- which unit should move first. Reuse the same public threat map at its origin.
+    local current,_,_,current_risk=rating(u.x,u.y)
+    for _,d in ipairs(destinations) do
+        d.tactical,d.safe,d.advance,d.risk,d.support,d.home_distance=rating(d.p[1],d.p[2])
+        d.gain=d.tactical-current;d.risk_delta=d.risk-current_risk
     end
 end
 local function features(obs,a,u,target)
@@ -185,6 +194,11 @@ local function features(obs,a,u,target)
     f.repeated_move=last and last.x==x and last.y==y and 1 or 0
     f.village_approach=minimum(u.x,u.y,targets)-minimum(x,y,targets)
     if target then f.target_leader=target.canrecruit and 1 or 0 end
+    if a._tactical then
+        f.move_tactical=a._tactical;f.move_gain=a._gain;f.move_risk=a._risk
+        f.move_risk_delta=a._risk_delta;f.move_home_distance=a._home_distance
+        f.move_own_support=a._support;f.move_primary=a._primary_move and 1 or 0
+    end
     local score=(f.village_gain or 0)*6+f.village_approach*.4+f.enemy_approach*.15
         +(f.healing or 0)*.3+f.friendly_support*.1-f.visible_threat*(u.canrecruit and 1 or .15)
     if a.kind=='recruit' then score=4 end
@@ -197,7 +211,7 @@ function M.generate(obs,budget_ms)
     local work=0
     local function expired() work=work+1;if work>20000 then cut=true;return true end;return false end
     local actions={{kind='end_turn',features=O.normalize({end_turn=1},schema.action_features),rule=-1}}
-    if not obs.leader then S.actions(obs,actions);return actions,{truncated=false,ms=wesnoth.ms_since_init()-started,predictions=0,work=work,budget='fixed-20000-v2'} end
+    if not obs.leader then S.actions(obs,actions);return actions,{truncated=false,ms=wesnoth.ms_since_init()-started,predictions=0,work=work,budget='fixed-20000-v3'} end
     local pool={};local serial=0
     local function add(a,u,e)
         -- Features are comparatively expensive; only materialize retained slots.
@@ -332,6 +346,8 @@ function M.generate(obs,budget_ms)
                         if full or (p[3] or 0)>0 then
                         add({kind='move',category=d.category,x=u.x,y=u.y,tx=p[1],ty=p[2],used=full and u.moves or u.moves-p[3],full=full,
                             _primary_move=full and primary_move,
+                            _tactical=d.tactical,_gain=d.gain,_risk=d.risk,
+                            _risk_delta=d.risk_delta,_home_distance=d.home_distance,_support=d.support,
                             priority=(d.category=='position' and 6 or 1)+(full and 0 or -20),
                             goal_x=d.goal and d.goal[1],goal_y=d.goal and d.goal[2]},u)
                         if full then primary_move=false end
@@ -342,7 +358,8 @@ function M.generate(obs,budget_ms)
                             if distance(p[1],p[2],e)==1 then
                                 for wi=1,#u.attacks do
                                     add({kind='move_attack',x=u.x,y=u.y,tx=p[1],ty=p[2],ex=e.x,ey=e.y,
-                                        weapon=wi,used=u.moves-p[3]},u,e)
+                                        weapon=wi,used=u.moves-p[3],_tactical=d.tactical,_gain=d.gain,_risk=d.risk,
+                                        _risk_delta=d.risk_delta,_home_distance=d.home_distance,_support=d.support},u,e)
                                 end
                             end
                         end
@@ -394,13 +411,27 @@ function M.generate(obs,budget_ms)
             predictions=predictions+1
         end
         a._unit=nil;a._enemy=nil;a._serial=nil;a._home=nil;a._primary_move=nil;a.priority=nil
+        a._tactical=nil;a._gain=nil;a._risk=nil;a._risk_delta=nil;a._home_distance=nil;a._support=nil
     end
-    return actions,{truncated=cut,ms=wesnoth.ms_since_init()-started,predictions=predictions,work=work,budget='fixed-20000-v2'}
+    return actions,{truncated=cut,ms=wesnoth.ms_since_init()-started,predictions=predictions,work=work,budget='fixed-20000-v3'}
 end
-function M.diagnostics(obs,a)
+function M.diagnostics(obs,a,candidates)
     local moves=0;for _,u in ipairs(obs.own) do moves=moves+u.moves end
-    local d={end_turn=a.kind=='end_turn',remaining_moves=moves,recruit_type=a.kind=='recruit' and a.type or nil,
-        repeated_move=not not (a.features and a.features[#a.features-1]~=0),turn=wesnoth.current.turn}
+    local usable
+    if a.kind=='end_turn' and candidates then
+        -- Reuse generated legal destinations; no extra pathfinding. A leader
+        -- holding the keep, or an immobile blocked unit, is not an idle scout.
+        local mobile={};usable=0
+        for _,candidate in ipairs(candidates) do
+            if candidate.kind=='move' or candidate.kind=='move_attack' then mobile[candidate.x..','..candidate.y]=true end
+        end
+        for _,u in ipairs(obs.own) do
+            if not u.canrecruit and u.x and mobile[u.x..','..u.y] then usable=usable+u.moves end
+        end
+    end
+    local d={side=obs.side,end_turn=a.kind=='end_turn',remaining_moves=moves,usable_moves=usable,
+        recruit_type=a.kind=='recruit' and a.type or nil,
+        repeated_move=not not (a.features and (a.features[feature_index.repeated_move] or 0)~=0),turn=wesnoth.current.turn}
     if a.kind=='move' or a.kind=='move_attack' then
         local terrain=wesnoth.current.map[{a.tx,a.ty}]
         d.left_castle=not string.match(terrain,'^[CK]')
@@ -415,7 +446,7 @@ function M.remember(obs,a)
         if u then
             obs.memory.last_move=obs.memory.last_move or {}
             obs.memory.last_move[u.id]={x=a.x,y=a.y}
-            local previous=a.features and a.features[#a.features-1]
+            local previous=a.features and a.features[feature_index.repeated_move]
             if previous and previous~=0 then obs.memory.repeated_moves=(obs.memory.repeated_moves or 0)+1 end
         end
     end

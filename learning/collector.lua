@@ -17,7 +17,7 @@ local function record(data,training)
     -- Post-action diagnostics need pre-action moves and identity, not native
     -- handles that combat can invalidate when a unit dies or advances.
     local own,occupied={},{}
-    for i,u in ipairs(obs.own) do own[i]={moves=u.moves} end
+    for i,u in ipairs(obs.own) do own[i]={moves=u.moves,x=u.x,y=u.y,canrecruit=u.canrecruit} end
     for key,u in pairs(obs.occupied) do occupied[key]={id=u.id} end
     obs.own=own;obs.occupied=occupied
     return {schema=schema.version,global=obs.global,opponents=obs.opponents,spatial=obs.spatial,candidates=candidates,
@@ -41,7 +41,7 @@ end
 function M.finish(data,training)
     local r,obs=record(data,training)
     match(r,{kind='end_turn'})
-    r.diagnostics=C.diagnostics(obs,r.candidates[1]);C.remember(obs,r.candidates[1])
+    r.diagnostics=C.diagnostics(obs,r.candidates[1],r.candidates);C.remember(obs,r.candidates[1])
     r.committed=true;r.memory_write=S.memory_observation(obs);r.reward_after=r.reward_raw
     judge.emit('LEARN',r)
 end
@@ -115,7 +115,7 @@ function M.wrap(data,training)
         r.committed=true;r.memory_write=S.memory_observation(post);r.reward_after=W.capture(post,data.collector_memory,true)
         if r.choice>=0 then
             local action=r.candidates[r.choice+1]
-            r.diagnostics=C.diagnostics(obs,action);C.remember(obs,action);C.outcome(action,r.diagnostics)
+            r.diagnostics=C.diagnostics(obs,action,r.candidates);C.remember(obs,action);C.outcome(action,r.diagnostics)
         end
         judge.emit('LEARN',r)
     end

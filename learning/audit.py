@@ -87,6 +87,7 @@ def _finish(counts):
 
 def audit_bc(records):
     """Consume the complete fixed validation iterable; no reservoir or rounding."""
+    from .features import VERSION
     totals = _empty()
     strata = defaultdict(_empty)
     examples = []
@@ -95,8 +96,8 @@ def audit_bc(records):
     for row in records:
         if row.get('faults'):
             continue
-        if row.get('schema') != 4:
-            raise ValueError('BC audit requires schema 4; old vectors are not new observations')
+        if row.get('schema') != VERSION:
+            raise ValueError('BC audit requires the current schema; old vectors are not new observations')
         candidates = row['candidates']
         selected = row.get('choice', -1)
         intent = None
@@ -151,7 +152,7 @@ def audit_bc(records):
     coverage = totals['covered'] / max(1, totals['decisions'] - totals['missing_intent'])
     class_checks = {kind: by_axis.get('action', {}).get(kind, {}).get('coverage') for kind in ('recruit', 'move', 'attack')}
     sufficient = totals['missing_intent'] == 0 and all(v is not None for v in class_checks.values())
-    return dict(schema=4, status='measured' if sufficient else 'inconclusive',
+    return dict(schema=VERSION, status='measured' if sufficient else 'inconclusive',
         totals=_finish(totals), strata=dict(by_axis), intent_sources=dict(intent_sources),
         identical_decision_inputs=len(input_labels), conflicting_exact_input_groups=len(conflicts),
         conflicting_exact_input_decisions=sum(sum(c.values()) for c in conflicts),

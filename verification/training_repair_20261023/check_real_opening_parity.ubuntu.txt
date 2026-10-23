@@ -1,0 +1,7 @@
+REUSE_PASSED_OPENING_PARITY duel
+REUSE_PASSED_OPENING_PARITY ffa4
+REAL_PARITY team2v2 rows 8 turns [1, 2] max_error 1.505338401153189e-08
+REAL_OPENING team2v2 {"gate": {"passed": true, "games": [{"left_castle": true, "village": true, "reasonable_end": true}, {"left_castle": true, "village": true, "reasonable_end": true}]}, "end_turns": [{"end_turn": true, "remaining_moves": 5, "repeated_move": false, "side": 1, "turn": 1, "usable_moves": 0}, {"end_turn": true, "remaining_moves": 22, "repeated_move": false, "side": 1, "turn": 2, "usable_moves": 17}, {"end_turn": true, "remaining_moves": 33, "repeated_move": false, "side": 1, "turn": 3, "usable_moves": 28}, {"end_turn": true, "remaining_moves": 33, "repeated_move": false, "side": 1, "turn": 4, "usable_moves": 28}, {"end_turn": true, "remaining_moves": 33, "repeated_move": false, "side": 1, "turn": 5, "usable_moves": 28}, {"end_turn": true, "remaining_moves": 4, "repeated_move": false, "side": 4, "turn": 1, "usable_moves": 0}, {"end_turn": true, "remaining_moves": 17, "repeated_move": false, "side": 4, "turn": 2, "usable_moves": 13}, {"end_turn": true, "remaining_moves": 28, "repeated_move": false, "side": 4, "turn": 3, "usable_moves": 24}, {"end_turn": true, "remaining_moves": 28, "repeated_move": false, "side": 4, "turn": 4, "usable_moves": 24}, {"end_turn": true, "remaining_moves": 28, "repeated_move": false, "side": 4, "turn": 5, "usable_moves": 24}]}
+REAL_OPENING_PARITY_PASS
+
+EXIT 0

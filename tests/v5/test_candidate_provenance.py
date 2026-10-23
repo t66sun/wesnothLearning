@@ -1,12 +1,12 @@
-"""Candidate-version provenance: v2 on generated candidates, v1 on old captures.
+"""Candidate-version provenance: current generated pools and captures without timing.
 
 ``learning/lite_host.py`` derives ``candidate_version`` from the decision
-timing: ``schema4-`` plus ``timing.budget`` when the host generated a real
+timing: ``schema5-`` plus ``timing.budget`` when the host generated a real
 candidate pool, else the frozen ``fixed-20000-v1`` default.  Astra seats the
 job does not collect take the stub path (no ``budget`` key), so their
-derivation is v1 even though only learner seats reach the shard.  Human
+derivation uses the legacy fallback even though only learner seats reach the shard.  Human
 captures carry whatever the replay observer recorded: an old capture without
-timing imports as v1, a capture with the v2 budget as v2.
+timing imports as v1, a capture with the v3 budget as v3.
 """
 from __future__ import annotations
 
@@ -30,7 +30,7 @@ from tests.v5.test_pipeline_contract import catalog_patch, frozen_rules, read_gz
 
 def _version(timing):
     """The provenance expression from learning/lite_host.py, applied to a DTO."""
-    return 'schema4-' + timing.get('budget', 'fixed-20000-v1')
+    return 'schema5-' + timing.get('budget', 'fixed-20000-v1')
 
 
 def _spy(calls):
@@ -99,7 +99,7 @@ class CandidateProvenanceTests(unittest.TestCase):
         value.update(overrides)
         return value
 
-    def test_unrecorded_teacher_seat_derives_v1_while_collected_rows_are_v2(self):
+    def test_unrecorded_teacher_uses_fallback_and_collected_rows_are_v3(self):
         job = self.job()
         calls = []
         with mock.patch.object(LiteHost, 'decision', _spy(calls)):
@@ -110,35 +110,40 @@ class CandidateProvenanceTests(unittest.TestCase):
         self.assertTrue(rows)
         self.assertEqual({row['side'] for row in rows}, {1})
         self.assertEqual({row['candidate_version'] for row in rows},
-                         {'schema4-fixed-20000-v2'})
-        collected = [call for call in calls if call['side'] == 1]
-        unrecorded = [call for call in calls if call['side'] != 1]
+                         {'schema5-fixed-20000-v3'})
+        diagnostic = [call for call in calls if not call['teacher'] and not call['generate_candidates']]
+        collected = [call for call in calls if call['side'] == 1 and call['generate_candidates']]
+        unrecorded = [call for call in calls if call['teacher']]
         self.assertTrue(collected, calls)
         self.assertTrue(unrecorded, calls)
+        self.assertTrue(diagnostic, calls)
+        self.assertEqual(len(calls), len(collected)+len(unrecorded)+len(diagnostic))
+        self.assertTrue(all(call['side']==1 and 'budget' not in call['timing'] for call in diagnostic))
+        self.assertTrue(all('metric_event' not in row for row in rows))
         for call in unrecorded:
             self.assertTrue(call['teacher'], call)
             self.assertFalse(call['generate_candidates'], call)
             self.assertNotIn('budget', call['timing'], call)
-            self.assertEqual(_version(call['timing']), 'schema4-fixed-20000-v1')
+            self.assertEqual(_version(call['timing']), 'schema5-fixed-20000-v1')
         for call in collected:
             self.assertFalse(call['teacher'], call)
             self.assertTrue(call['generate_candidates'], call)
-            self.assertEqual(call['timing']['budget'], 'fixed-20000-v2', call)
-            self.assertEqual(_version(call['timing']), 'schema4-fixed-20000-v2')
+            self.assertEqual(call['timing']['budget'], 'fixed-20000-v3', call)
+            self.assertEqual(_version(call['timing']), 'schema5-fixed-20000-v3')
 
     def test_human_capture_without_timing_keeps_v1_and_validates(self):
         path, row = _capture(self.directory, 'capture-v1.log')
         rows, coverage = import_capture(path, row)
-        self.assertEqual(rows[0]['candidate_version'], 'schema4-fixed-20000-v1')
+        self.assertEqual(rows[0]['candidate_version'], 'schema5-fixed-20000-v1')
         helpers.validate(rows[0], 'duel')
         self.assertEqual(coverage['end_turn']['matched'], 1)
 
-    def test_human_capture_with_v2_budget_imports_as_v2(self):
-        path, row = _capture(self.directory, 'capture-v2.log',
-                             timing={'budget': 'fixed-20000-v2', 'truncated': False,
+    def test_human_capture_with_v3_budget_imports_as_v3(self):
+        path, row = _capture(self.directory, 'capture-v3.log',
+                             timing={'budget': 'fixed-20000-v3', 'truncated': False,
                                      'ms': 4, 'predictions': 0, 'work': 7})
         rows, _ = import_capture(path, row)
-        self.assertEqual(rows[0]['candidate_version'], 'schema4-fixed-20000-v2')
+        self.assertEqual(rows[0]['candidate_version'], 'schema5-fixed-20000-v3')
         helpers.validate(rows[0], 'duel')
 
 

@@ -5,7 +5,7 @@ __bridge=nil; __clock_ms=nil
 local sources=assert(__module_sources)
 local rules=bridge('rules',{})
 local modules, memories, teacher_memories = {}, {}, {}
-local view, units, by_id, legal
+local view, units, by_id, legal, last_candidates
 local function copy(t)
     if type(t)~='table' then return t end
     local o={};for k,v in pairs(t) do o[k]=copy(v) end
@@ -210,9 +210,9 @@ function lite_decision(side,budget_ms,teacher,generate_candidates)
     local O=require_module('observation.lua');local C=require_module('candidates.lua')
     memories[side]=memories[side] or {};local obs=O.capture(memories[side],side)
     local candidates,timing
-    if teacher and generate_candidates==false then
-        -- Unrecorded Astra seats retain observation, planning and execution.
-        -- Keep the normal DTO shape without computing unused student features.
+    if generate_candidates==false then
+        -- Unrecorded Astra seats and diagnostic terminal observations need no
+        -- candidate search. Teacher planning below remains unchanged.
         local schema=require_module('features.lua')
         candidates={{kind='end_turn',features=O.normalize({end_turn=1},schema.action_features),rule=-1}}
         require_module('spatial.lua').actions(obs,candidates)
@@ -220,6 +220,7 @@ function lite_decision(side,budget_ms,teacher,generate_candidates)
     else
         candidates,timing=C.generate(obs,budget_ms)
     end
+    last_candidates=candidates
     local labels=rpc('reward_labels')
     local W=require_module('rewards.lua')
     local raw=W.capture(obs,obs.memory,{judge=false,total_strategic_weight=labels.total_strategic_weight,
@@ -255,7 +256,7 @@ function lite_execute(action)
     local schema=require_module('features.lua')
     if not action.features then action.features=O.normalize({[action.kind]=1},schema.action_features) end
     local prior=require_module('spatial.lua').memory_observation(obs)
-    local diagnostics=C.diagnostics(obs,action)
+    local diagnostics=C.diagnostics(obs,action,last_candidates)
     local execution
     if action.kind=='end_turn' then perform{kind='end_turn'};execution={changed=true} else execution=C.execute(action) end
     if not execution or execution.changed then C.remember(obs,action) end

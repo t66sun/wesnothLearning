@@ -23,7 +23,7 @@ for entry in (str(ROOT), str(ROOT / 'vendor' / 'arena')):
 
 import torch
 
-from learning.features import ACTION, ENTITY, GLOBAL, GEOMETRY, OPPONENT, SPATIAL_CHANNELS, UNIT_TYPES
+from learning.features import VERSION, ACTION, ENTITY, GLOBAL, GEOMETRY, OPPONENT, SPATIAL_CHANNELS, UNIT_TYPES
 from learning.formats import FORMATS
 from learning.rewards import RewardConfig, FORMULA_ID
 
@@ -181,11 +181,11 @@ def record_from_decision(decision_row, *, format_name='duel', source='astra', ga
                   'move_attack': ('x', 'y', 'tx', 'ty', 'ex', 'ey', 'weapon')}[candidate['kind']]
         actual = dict(kind=candidate['kind'], **{key: candidate[key] for key in fields})
     row = dict(decision_row)
-    row.update(schema=4, format=format_name, source=source, game_id=game_id,
+    row.update(schema=VERSION, format=format_name, source=source, game_id=game_id,
                game_family=game_family, side=side, role='astra' if source == 'astra' else source,
                teacher=teacher if source == 'astra' else None, version=version,
                engine_id=engine_id, rules_version='synthetic-v5', rng_version='xoshiro256++-1',
-               candidate_version='schema4-fixed-20000-v1', reward_version=0,
+               candidate_version=f'schema{VERSION}-fixed-20000-v3', reward_version=0,
                reward_formula_id=FORMULA_ID, architecture_id='relational_v5',
                reward_config=config(), choice=choice, actual=actual)
     if raw is not None:

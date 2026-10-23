@@ -21,6 +21,7 @@ def parser():
     run.add_argument('--evaluation-engine',choices=['native','lite'],default=None,help='最终评测引擎，默认跟随 --engine')
     run.add_argument('--rules-dir',help='冻结规则目录，默认 rules/1.18.8-training；恢复时使用 manifest')
     run.add_argument('--reward-mode',choices=['fixed','scheduled','adaptive'],default='adaptive')
+    run.add_argument('--phase',choices=['auto','bc'],default=None,help='auto 一键流程；bc 只做 BC，完成后等待显式 PPO/评测指令')
     run.add_argument('--allow-approximate',action=argparse.BooleanOptionalAction,default=None,help='lite 默认接受已记录近似；不允许未支持的训练单位')
     run.add_argument('--trainer-threads',type=int,default=1,help='每个训练器的 CPU 计算线程数（默认 1）')
     run.add_argument('--wesnoth');run.add_argument('--opponents',default=str(ROOT/'opponents'))
@@ -32,6 +33,13 @@ def parser():
     run.add_argument('--bc-records',type=int,help='轮换教师训练样本池容量（CPU 默认 2048，CUDA 默认 8192）')
     run.add_argument('--bc-validation-records',type=int,help='固定验证样本池容量（CPU 默认 1024，CUDA 默认 4096）')
     run.add_argument('--shaping-weight',type=float,help='训练潜势差分权重（默认 0.05；设 0 可关闭）')
+    phase=commands.add_parser('phase',help='在批次边界切换 BC/PPO/最终评测；停止的实验需随后 resume')
+    phase.add_argument('phase',choices=['show','auto','bc','ppo','evaluate'])
+    phase.add_argument('--run-dir',required=True)
+    phase.add_argument('--formats',nargs='+',choices=FORMATS,help='默认该实验的全部赛制')
+    phase.add_argument('--force',action='store_true',help='仅 PPO：明确跳过未通过的 BC 资格门，不改写门结果')
+    phase.add_argument('--reason',default='')
+    phase.add_argument('--hours',type=float,help='显式分配本阶段预算；不修改原 clock/manifest，省略沿用原剩余预算')
     collect=commands.add_parser('collect',help='执行固定 JSON 采样任务清单（启动游戏）')
     collect.add_argument('--jobs',required=True);collect.add_argument('--workers',type=int,default=8)
     collect.add_argument('--output',required=True)
@@ -52,7 +60,7 @@ def parser():
     export=commands.add_parser('export',help='将检查点导出为 SDK 原生附加组件')
     for fmt in FORMATS: export.add_argument('--'+fmt,required=True,metavar='CHECKPOINT')
     export.add_argument('--output',required=True)
-    export.add_argument('--audit-data',required=True,help='每赛制子目录中的实际schema-4连续序列（含128候选）')
+    export.add_argument('--audit-data',required=True,help='每赛制子目录中的实际当前schema连续序列（含128候选）')
     export.add_argument('--name',default='NeuralArena');export.add_argument('--mode',choices=['greedy','rule','sample'],default='greedy')
     report=commands.add_parser('report',help='只从已有结果重算区间（不启动游戏）')
     report.add_argument('--jobs',required=True);report.add_argument('--results',required=True);report.add_argument('--output',required=True)
@@ -110,7 +118,7 @@ def run_config(args):
     directory=bind_rules(args)
     from .experiment import default_config
     names=('hours','workers','device','trainer_threads','seed','final_blocks','formats','human_data','validation_interval',
-           'bc_batch_games','bc_records','bc_validation_records','shaping_weight','engine','evaluation_engine','reward_mode','allow_approximate')
+           'bc_batch_games','bc_records','bc_validation_records','shaping_weight','engine','evaluation_engine','reward_mode','allow_approximate','phase')
     config=default_config(args.device,engine=args.engine)|{name:getattr(args,name) for name in names if getattr(args,name) is not None}
     config['rules_dir']=str(directory)
     if args.bc_games is not None:config['bc_games']=dict(zip(FORMATS,args.bc_games))
@@ -126,10 +134,17 @@ def main(argv=None):
         bind_rules(args)
         from .manifest import output_path
         if args.command=='run':
+            if args.resume and args.phase is not None: raise ValueError('resume keeps the saved phase; use phase --run-dir to change it')
             from .coordinator import Experiment
             config=run_config(args)
             result=Experiment(args.resume or args.run_dir,config=config,opponents=args.opponents,wesnoth=args.wesnoth,resume=bool(args.resume)).run()
             print('Experiment:',result['status'])
+        elif args.command=='phase':
+            from .phases import request_phase,show_phases
+            directory=output_path(args.run_dir)
+            result=show_phases(directory) if args.phase=='show' else request_phase(directory,args.phase,
+                formats=args.formats,force=args.force,reason=args.reason,hours=args.hours)
+            print(json.dumps(result,ensure_ascii=False))
         elif args.command in ('collect','evaluate'):
             from .sample import collect
             jobs=read_json(args.jobs)

@@ -14,8 +14,9 @@ import unittest
 from pathlib import Path
 
 from learning.common import ROOT
-from learning.features import RULES_PATH
+from learning.features import RULES_PATH, VERSION
 from learning.lite_host import play_lite_job
+from learning.rowpack import unpack_line
 
 from .helpers import engine, legal, observe, step
 
@@ -116,8 +117,8 @@ class RealRulesSmokeTests(unittest.TestCase):
             self.assertGreater(outcome['coverage']['total'], 0)
             self.assertGreater(outcome['coverage']['matched'], 0)
             with gzip.open(shard, 'rt', encoding='utf-8') as stream:
-                rows = [json.loads(line) for line in stream]
-            self.assertTrue(all(row['schema'] == 4 for row in rows))
+                rows = [unpack_line(line)[0] for line in stream]
+            self.assertTrue(all(row['schema'] == VERSION for row in rows))
             self.assertTrue(all(row['engine_id'] == 'lite' for row in rows))
             self.assertTrue(all(row['actual']['kind'] != 'baseline' for row in rows))
             self.assertEqual(outcome['result']['bots'], ['astra', 'astra'])

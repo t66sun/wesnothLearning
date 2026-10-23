@@ -160,7 +160,8 @@ def show_control(run_dir, format_name=None):
                 if event['format'] == fmt:
                     config = event['new']
             result[fmt] = dict(config=config, pending=_read(directory / f'{fmt}.pending.json', []),
-                               applied_event_seq=state.get('cursor', 0), last_error=state.get('last_error'))
+                               applied_event_seq=state.get('cursor', 0), last_error=state.get('last_error'),
+                               metrics_error=state.get('metrics_error'))
         return result
 
 
@@ -184,6 +185,7 @@ class RewardController:
         self.windows = saved.get('windows', [])
         self.control_previous = saved.get('control_previous')
         self.last_error = saved.get('last_error')
+        self.metrics_error = saved.get('metrics_error')
         self.applied_schedule = set(saved.get('applied_schedule', []))
         with _locked(self.directory):
             self._replay(_events(self.directory))
@@ -213,7 +215,7 @@ class RewardController:
         return dict(config=self.freeze(), cursor=self.cursor, last_check=self.last_check,
                     games=self.games, blocks=self.blocks, seen_blocks=sorted(self.seen_blocks),
                     windows=self.windows, control_previous=self.control_previous,
-                    last_error=self.last_error, applied_schedule=sorted(self.applied_schedule))
+                    last_error=self.last_error, metrics_error=self.metrics_error, applied_schedule=sorted(self.applied_schedule))
 
     def _save(self):
         _atomic(self.directory / f'{self.format}.json', self.state_dict())
@@ -358,13 +360,17 @@ class RewardController:
         self._apply_pending(batch)
         metrics = metrics or {}
         self._ingest(metrics)
+        if metrics.get('status') == 'error':
+            self.metrics_error = metrics.get('error', 'control metrics unavailable')
+        elif 'validation_blocks' in metrics:
+            self.metrics_error = None
         if self.config.mode == 'scheduled':
             for index, item in enumerate(self.schedule):
                 if index not in self.applied_schedule and batch >= item['batch']:
                     command_id = _digest(dict(format=self.format, schedule_index=index, item=item))
                     queue_control(self.run_dir, self.format, item['changes'], source='scheduled', reason=f'schedule {index}', command_id=command_id)
                     self.applied_schedule.add(index)
-        elif self.config.mode == 'adaptive' and batch - self.last_check >= 50 and self.games >= 64:
+        elif self.config.mode == 'adaptive' and self.metrics_error is None and batch - self.last_check >= 50 and self.games >= 64:
             self.last_check = batch
             changes, reason = self._decision(metrics)
             if changes:

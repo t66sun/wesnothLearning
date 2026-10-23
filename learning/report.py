@@ -2,6 +2,7 @@
 import csv
 from pathlib import Path
 from .common import write_json
+from .features import VERSION
 
 STATUSES=('passed','failed','inconclusive','not_run','blocked')
 REPORT_KEYS=('report_version','stage','status','revision','source_sha256','command',
@@ -48,7 +49,7 @@ def build_report(*,stage='P1',status=None,revision=None,source_sha256=None,comma
         'finished_at':finished_at,
         'host':dict({'os':None,'cpu':None,'ram_bytes':None,'threads':None,'workers':None},**(host or {})),
         'versions':dict({'native':'1.18.8','engine':None,'rules':None,'rng':None,
-            'schema':4,'candidates':None,'architecture':'relational_v5','policy':None,
+            'schema':VERSION,'candidates':None,'architecture':'relational_v5','policy':None,
             'reward_formula':None,'reward_config':None},**(versions or {})),
         'format':format if format is not None else format_name,
         'context':dict({'map':None,'map_sha256':None,'faction':None,'teammate':None,

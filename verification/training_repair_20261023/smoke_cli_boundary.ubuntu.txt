@@ -1,0 +1,8 @@
+COMMAND ['/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/.venv/bin/python', '-m', 'learning', 'run', '--run-dir', '/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/verification/training_repair_20261023/cli_bc_boundary', '--phase', 'bc', '--hours', '0.000001', '--formats', 'duel', '--workers', '1', '--wesnoth', '/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/.runtime/install/bin/wesnoth']
+Experiment: stage_complete
+ 
+{"duel": {"stage": "bc_complete", "phase": "bc", "pretraining_complete": false, "history": [], "pending": null}}
+ 
+CLI_COORDINATOR_BOUNDARY_PASS
+
+EXIT 0

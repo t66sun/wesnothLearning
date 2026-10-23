@@ -2,6 +2,7 @@
 from contextlib import contextmanager
 from pathlib import Path
 import copy
+import hashlib
 import json
 import random
 import shutil
@@ -58,7 +59,7 @@ def default_config(device='cuda', *, engine=None):
     from .rules_catalog import resolve_dir
     if engine is None: engine='lite'
     bc_games=dict(duel=300,ffa4=600,team2v2=400)
-    return dict(hours=12.,workers=8,device=device,trainer_threads=1,seed=20261018,engine=engine,evaluation_engine=engine,reward_mode='adaptive',allow_approximate=engine=='lite',rules_dir=str(resolve_dir()),
+    return dict(hours=12.,workers=8,device=device,trainer_threads=1,seed=20261018,engine=engine,evaluation_engine=engine,reward_mode='adaptive',phase='auto',allow_approximate=engine=='lite',rules_dir=str(resolve_dir()),
         formats=list(FORMATS),calibration_blocks=3,validation_interval=10,
         validation_games=dict(duel=6,ffa4=4,team2v2=8),final_blocks=30,
         bc_games=bc_games,
@@ -71,6 +72,7 @@ def default_config(device='cuda', *, engine=None):
 
 
 def validate_config(config):
+    if config.get('phase','auto') not in ('auto','bc'): raise ValueError('new runs start in auto or bc; use phase for PPO/evaluation')
     if config['hours']<=0: raise ValueError('hours must be positive')
     if not 1<=config['workers']<=16: raise ValueError('workers is the GLOBAL game process count, in [1,16]')
     if config['final_blocks']<30: raise ValueError('formal evaluation needs 30 full blocks per control')
@@ -122,10 +124,12 @@ def opening_gate(results):
     checks=[]
     for r in results:
         if r.get('status')!='complete' or not r.get('behavior'): continue
-        rows=r['behavior'];ended=[d for d in rows if d.get('end_turn')]
+        seat=r.get('meta',{}).get('seat')
+        rows=[d for d in r['behavior'] if seat is not None and d.get('side')==seat]
+        ended=[d for d in rows if d.get('end_turn')]
         checks.append(dict(left_castle=any(d.get('left_castle') for d in rows),
             village=any(d.get('village_captured') for d in rows),
-            reasonable_end=bool(ended) and any(d.get('remaining_moves',0)<=4 for d in ended)))
+            reasonable_end=any(d.get('usable_moves') is not None and d['usable_moves']<=4 for d in ended)))
     return dict(passed=len(checks)>=2 and all(all(c.values()) for c in checks),games=checks)
 
 
@@ -164,7 +168,7 @@ class FormatExperiment:
             random.seed(seed);torch.manual_seed(seed)
             self.model=Policy(fmt).to(self.device)
             self.optimizer=torch.optim.Adam(self.model.parameters(),lr=self.config['learning_rate'])
-            self.state=dict(format=fmt,stage='calibration',clock=clock,batch=0,version=0,history=[],snapshots=[],
+            self.state=dict(format=fmt,stage='calibration',phase=self.config.get('phase','auto'),clock=clock,batch=0,version=0,history=[],snapshots=[],
                 best_key=None,bc_key=None,ppo_key=None,best_kind=None,pending_train=None,pending_validation=None,
                 teacher_shards=[],effective=False,error=None)
             self.save()
@@ -187,8 +191,15 @@ class FormatExperiment:
     def ensure_export(self,model,folder,name,mode='greedy',version=None):
         destination=self.directory/'policies'/folder;addon=destination/name
         if addon.exists():
-            import addons
-            addons.validate(addon)
+            # Internal exports are not SDK submissions (export(package=False)).
+            # Check their frozen schema and weights without imposing the SDK's
+            # 16 MiB submission limit during resume.
+            metadata=read_json(destination/'export.json')
+            weights=metadata.get('models',{}).get(model.format_name,{})
+            if metadata.get('features')!=json.loads(json.dumps(schema())) or not (addon/'lua/bot.lua').is_file():
+                raise ValueError('internal policy export schema or entry differs')
+            if sha256(addon/'lua'/f'weights_{model.format_name}.lua')!=weights.get('sha256'):
+                raise ValueError('internal policy export weights differ')
         else: export(model,destination,name=name,mode=mode,version=version or folder,package=False)
         tensor_path=destination/'model.pt'
         if not tensor_path.exists():
@@ -220,6 +231,22 @@ class FormatExperiment:
 
     def human_paths(self): return sorted((Path(self.config['human_data'])/self.fmt).glob('*.jsonl.gz'))
 
+    def update_deadline(self):
+        key='deadline' if self.state.get('phase') in ('bc','ppo') else 'update_deadline'
+        return self.state.get('phase_deadline') or self.clock.get(key,self.clock['update_deadline'])
+
+    def evaluation_deadline(self):
+        return (self.state.get('phase_deadline') if self.state.get('phase')=='evaluate' else None) or self.clock['deadline']
+
+    def complete_phase(self):
+        phase=self.state['phase'];self.state.update(stage=phase+'_complete',status='stage_complete')
+        self.save()
+        summary=dict(format=self.fmt,status='stage_complete',phase=phase,version=self.state['version'],
+            pretraining_complete=self.state['effective'],forced_ppo=self.state.get('forced_ppo'),
+            checkpoint=str(self.directory/'latest.pt'),error=self.state.get('error'),clock=self.clock)
+        write_json(self.directory/'report/summary.json',summary)
+        return summary
+
     def teacher_evidence(self):
         return [r for r in read_log(self.directory/'jobs.jsonl') if r.get('meta',{}).get('phase')=='teacher'
             and r.get('status')=='complete' and not r.get('result',{}).get('faults')
@@ -240,7 +267,7 @@ class FormatExperiment:
         if method=='ppo':
             for group in self.optimizer.param_groups: group['lr']=1e-4
         metrics=train(self.model,self.optimizer,rows,method,epochs=self.config['epochs'],minibatch=self.config['minibatch'],
-            deadline=self.clock['update_deadline'],progress=pending['cursor'],on_step=progress,bc_records=bc,entropy=frozen['entropy'],bc_aux=frozen['bc_aux'])
+            deadline=self.update_deadline(),progress=pending['cursor'],on_step=progress,bc_records=bc,entropy=frozen['entropy'],bc_aux=frozen['bc_aux'])
         if metrics['interrupted']: self.save();return False
         self.state['version']+=1
         counters=self.state['counters']
@@ -274,26 +301,37 @@ class FormatExperiment:
         promotion=version%100==0
         blocks=12 if promotion else self.config['validation_games'][self.fmt]//(PLAYERS[self.fmt]*(len(contexts) if self.fmt=='team2v2' else 1))
         jobs=evaluation_jobs(self.directory,greedy,control,self.fixed,blocks,
-            self.config['seed']+1000000+(0 if promotion else version*101),self.clock['update_deadline'],self.exe,label=f'val{version:06}',formats=[self.fmt],team_contexts=contexts,
+            self.config['seed']+1000000+(0 if promotion else version*101),self.update_deadline(),self.exe,label=f'val{version:06}',formats=[self.fmt],team_contexts=contexts,
             faction_cycle=0 if promotion else (version//self.config['validation_interval']-1)%3)
         for job in jobs:
             job['learning']=dict(support=self.support,sides={str(side):dict(teacher=False,version=f'v{version}') for side in job['meta']['policy_sides']})
-        if promotion and self.controller.freeze()['mode']=='adaptive':
-            self.collect_reward_references(jobs,version)
         jobs,results=self.execute(jobs,f'validation-{version:06}')
         comparison=comparisons(jobs,results,min_blocks=blocks,team_contexts=contexts)
         write_json(self.directory/'validation'/f'v{version:06}.json',dict(tier='promotion' if promotion else 'trend',engine_id=self.config['engine'],comparison=comparison))
         from .reward_metrics import build_control_metrics
-        references=[r for r in read_log(self.directory/'jobs.jsonl') if r.get('meta',{}).get('phase')=='reward_reference']
-        metrics=build_control_metrics(jobs,results,references,comparison)
+        try:
+            if self.controller.freeze()['mode']=='adaptive':
+                self.collect_reward_references(jobs,version)
+            references=[r for r in read_log(self.directory/'jobs.jsonl') if r.get('meta',{}).get('phase')=='reward_reference']
+            metrics=build_control_metrics(jobs,results,references,comparison)
+            metrics['status']='complete' if len(metrics['validation_blocks'])>=blocks else 'inconclusive'
+            self.state.pop('control_metrics_error',None)
+        except Exception as exc:
+            # Optional reward diagnostics must not skip BC/opening checks.
+            # Preserve the fault; never turn failed metrics into passing evidence.
+            error_path=self.directory/'validation'/f'control-v{version:06}.error.log'
+            error_path.parent.mkdir(parents=True,exist_ok=True)
+            error_path.write_text(traceback.format_exc(),encoding='utf-8')
+            metrics=dict(status='error',error=repr(exc),partition='validation',validation_blocks=[],excluded_evidence=[])
+            self.state['control_metrics_error']=dict(version=version,error=repr(exc))
         metrics['new_games']=self.state.get('control_metrics',{}).get('new_games',0)
         self.state['control_metrics']=metrics
         write_json(self.directory/'validation'/f'control-v{version:06}.json',metrics)
-        key=selection_key(comparison) if promotion else None
+        key=selection_key(comparison) if promotion and comparison[self.fmt]['blocks']>=blocks else None
         champion=self.state.get('champion')
         if promotion and champion:
             champion_jobs=evaluation_jobs(self.directory,greedy,champion,self.fixed,12,self.config['seed']+1000000,
-                self.clock['update_deadline'],self.exe,label=f'champion{version:06}',formats=[self.fmt],team_contexts=contexts)
+                self.update_deadline(),self.exe,label=f'champion{version:06}',formats=[self.fmt],team_contexts=contexts)
             champion_jobs,champion_results=self.execute(champion_jobs,f'champion-{version:06}')
             champion_comparison=comparisons(champion_jobs,champion_results,min_blocks=12,team_contexts=contexts)
             write_json(self.directory/'validation'/f'champion-v{version:06}.json',champion_comparison)
@@ -308,15 +346,19 @@ class FormatExperiment:
                 self.state['champion']=greedy
                 self.state['best_engine']='best_lite' if self.config['engine']=='lite' else 'native_candidate'
         gate=read_json(self.directory/'bc_gate.json') if method=='bc' else None
-        if method=='bc' and gate['imitation']['effective'] and gate['coverage']['passed'] and gate['corpus']['passed'] and time.time()<self.clock['update_deadline']:
+        if method=='bc' and gate['imitation']['effective'] and gate['coverage']['passed'] and gate['corpus']['passed'] and time.time()<self.update_deadline():
             from .sample import opening_map
             probes=rollout_jobs(self.directory,greedy,[greedy],self.fixed,self.support,f'v{version}',0,
-                self.config['seed']+900000,self.clock['update_deadline'],self.exe,4,current=greedy,formats=[self.fmt])
+                self.config['seed']+900000,self.update_deadline(),self.exe,4,current=greedy,formats=[self.fmt])
             for j in probes:
                 j['id']='opening-'+str(version)+'-'+j['id'];j['max_turns']=5
                 focal=j['meta']['seat']
                 j['bots']=[greedy if i==focal else 'baseline' for i in range(1,len(j['bots'])+1)]
                 j['map_override']=opening_map(len(j['bots']))
+                map_hash=hashlib.sha256(json.dumps(j['map_override'],sort_keys=True,separators=(',',':')).encode()).hexdigest()
+                j['meta'].update(map='opening_probe',map_sha256=map_hash)
+                family=dict(format=self.fmt,map=map_hash,seed=j['seed'],factions=j['factions'],teams=j.get('teams'))
+                j['game_family']=hashlib.sha256(json.dumps(family,sort_keys=True,separators=(',',':')).encode()).hexdigest()
                 j['output']=str(self.directory/'replays'/(j['id']+'.json'));j.pop('shard',None)
             _,opening=self.execute(probes,f'opening-{version:06}')
             gate['opening']=opening_gate(opening)
@@ -326,25 +368,37 @@ class FormatExperiment:
 
     def collect_reward_references(self,jobs,version):
         """Bounded Astra calibration on validation layouts; never added to BC data."""
-        import hashlib
-        existing=[d for r in read_log(self.directory/'jobs.jsonl') if r.get('meta',{}).get('phase')=='reward_reference'
-                  for d in r.get('reward_diagnostics',[]) if d.get('complete')]
+        from .reward_metrics import METRICS_VERSION, MIN_REFERENCE_GAMES, _diagnostics
+        from .rules_catalog import load, resolve_dir
+        rows=[r for r in read_log(self.directory/'jobs.jsonl') if r.get('meta',{}).get('phase')=='reward_reference']
+        existing=list(_diagnostics(rows));attempted={r['id'] for r in rows}
+        engine=self.config['engine']
+        rules=schema()['rules_sha256'] if engine=='native' else load(resolve_dir(self.config.get('rules_dir')))['rules_version']
         proposals=[];seen=set()
         for job in jobs:
+            if job['meta'].get('map_partition')!='validation': continue
             for side in job['meta']['policy_sides']:
                 context=job['meta']['context'];faction=job['factions'][side-1];map_hash=job['meta']['map_sha256']
                 key=(map_hash,faction,context)
                 if key in seen: continue
                 seen.add(key)
-                known={d['game_family'] for d in existing if (d['map_sha256'],d['faction'],d['context'])==key and d['engine_id']==self.config['engine']}
-                for repeat in range(len(known),4):
+                known={d['game_family'] for d in existing if (d['map_sha256'],d['faction'],d['context'])==key
+                       and d['engine_id']==engine and d.get('rules_version')==rules and d.get('format')==self.fmt
+                       and d.get('metrics_version')==METRICS_VERSION and d.get('source')=='astra'
+                       and d.get('teacher')=='gpt6astra' and d.get('map_partition')=='validation'}
+                identity=hashlib.sha256(json.dumps([self.fmt,engine,rules,*key,METRICS_VERSION]).encode()).hexdigest()[:16]
+                repeat=0
+                for _ in range(max(0,MIN_REFERENCE_GAMES-len(known))):
+                    ident=f'reward-reference-{self.fmt}-{identity}-{repeat}'
+                    while ident in attempted:
+                        repeat+=1;ident=f'reward-reference-{self.fmt}-{identity}-{repeat}'
+                    attempted.add(ident);repeat+=1
                     reference=copy.deepcopy(job)
-                    ident=f'reward-reference-{self.fmt}-{map_hash[:8]}-{faction}-{context}-{repeat}'
                     reference['id']=ident;reference['seed']=int(hashlib.sha256(ident.encode()).hexdigest()[:8],16)
                     reference['bots'][side-1]=self.teachers[0]
                     reference['output']=str(self.directory/'replays'/(ident+'.json'))
                     reference['learning']=dict(support=self.support,sides={str(side):dict(teacher='gpt6astra',version='teacher-frozen')})
-                    reference['meta'].update(phase='reward_reference',seat=side)
+                    reference['meta'].update(phase='reward_reference',label=f'reward-reference-v{version:06}',seat=side)
                     family=dict(format=self.fmt,map=map_hash,seed=reference['seed'],factions=reference['factions'],teams=reference.get('teams'))
                     reference['game_family']=hashlib.sha256(json.dumps(family,sort_keys=True,separators=(',',':')).encode()).hexdigest()
                     proposals.append(reference)
@@ -357,11 +411,16 @@ class FormatExperiment:
         if self.state['pending_train']:
             method=self.state['pending_train']['method']
             if not self.finish_train(): return
-            if self.state['pending_validation']: self.validate_model(method)
-        elif self.state['pending_validation']: self.validate_model(self.state['pending_validation'])
-        while time.time()<self.clock['update_deadline']:
+        while True:
+            from .phases import apply_phase
+            apply_phase(self)
+            phase=self.state.get('phase','auto')
+            if phase=='evaluate': return
+            if self.state['pending_validation']: self.validate_model(self.state['pending_validation'])
+            if phase=='bc' and self.state['effective']: return
+            if time.time()>=self.update_deadline(): return
             self.controller.boundary(self.state['batch'],self.state.pop('control_metrics',None))
-            method='ppo' if self.state['effective'] else 'bc'
+            method='ppo' if phase=='ppo' or (phase!='bc' and self.state['effective']) else 'bc'
             self.state['stage']=method;index=self.state['batch'];version=self.state['version']
             if method=='bc':
                 evidence=self.teacher_evidence()
@@ -372,13 +431,13 @@ class FormatExperiment:
                 count=min(self.config['bc_batch_games'],remaining) if remaining else self.config['bc_batch_games'] if refresh else 0
                 if anchor: count=min(count,self.config['native_bc_games'][self.fmt]-native_count)
                 jobs=teacher_jobs(self.directory,self.teachers,self.native_fixed if anchor else self.fixed,self.support,index,self.config['seed'],
-                    self.clock['update_deadline'],self.exe,formats=[self.fmt],count=count,index_stride=self.config['bc_batch_games'])
+                    self.update_deadline(),self.exe,formats=[self.fmt],count=count,index_stride=self.config['bc_batch_games'])
                 if anchor:
                     for job in jobs: job['engine']='native'
                 if refresh:
                     student=self.ensure_export(self.model,f'v{version:06}-greedy',f'SnapV{version:06}',version=f'v{version}')
                     corrections=rollout_jobs(self.directory,student,[student],self.fixed,self.support,f'v{version}',index,
-                        self.config['seed']+7100000,self.clock['update_deadline'],self.exe,4,current=student,formats=[self.fmt])
+                        self.config['seed']+7100000,self.update_deadline(),self.exe,4,current=student,formats=[self.fmt])
                     for job in corrections:
                         job['learning']['dagger_teacher']=self.teachers[0];job['meta']['phase']='dagger_refresh'
                     jobs.extend(corrections)
@@ -389,7 +448,7 @@ class FormatExperiment:
                 sample=self.ensure_export(self.model,f'v{version:06}-sample',f'RollV{version:06}',mode='sample',version=f'v{version}')
                 current=self.ensure_export(self.model,f'v{version:06}-greedy',f'SnapV{version:06}',version=f'v{version}')
                 jobs=rollout_jobs(self.directory,sample,self.state['snapshots'] or [current],self.fixed,self.support,f'v{version}',
-                    index,self.config['seed'],self.clock['update_deadline'],self.exe,self.config['rollout_games'],current=current,formats=[self.fmt])
+                    index,self.config['seed'],self.update_deadline(),self.exe,self.config['rollout_games'],current=current,formats=[self.fmt])
                 for job in jobs: job['learning']['dagger_teacher']=self.teachers[0]
             jobs,results=self.execute(jobs,f'{method}-batch-{index:06}')
             if any(r['status']=='infrastructure_error' for r in results): raise RuntimeError('sampling failed; inspect jobs.jsonl')
@@ -408,11 +467,10 @@ class FormatExperiment:
                 self.state['batch']+=1;self.save();continue
             self.state['pending_train']=dict(paths=paths,method=method,cursor=dict(epoch=0,step=0),reward_config=self.controller.freeze());self.save()
             if not self.finish_train(): break
-            if self.state['pending_validation']: self.validate_model(method)
 
     def final_evaluation(self):
         self.state['stage']='final';self.save()
-        chosen=next(p for p in [self.directory/'best.pt',self.directory/'last_bc.pt',self.directory/'latest.pt'] if p.exists())
+        chosen=next(p for p in [self.directory/'best.pt',self.directory/'last_ppo.pt',self.directory/'last_bc.pt',self.directory/'latest.pt'] if p.exists())
         frozen=self.directory/'selected.pt'
         if not frozen.exists(): shutil.copyfile(chosen,frozen)
         selected,selected_state=load_model(frozen,self.fmt)
@@ -425,17 +483,19 @@ class FormatExperiment:
         for i,control in enumerate(fixed):
             label=Path(control).stem
             plans[label]=evaluation_jobs(self.directory,policy,control,fixed,self.config['final_blocks'],
-                self.config['seed']+200000000+i*100003,self.clock['deadline'],self.exe,label='final-'+label,formats=[self.fmt],team_contexts=contexts)
+                self.config['seed']+200000000+i*100003,self.evaluation_deadline(),self.exe,label='final-'+label,formats=[self.fmt],team_contexts=contexts)
         jobs=sorted([j for plan in plans.values() for j in plan],key=lambda j:(j['meta']['block'],j['meta']['rotation'],j['meta']['context'],j['meta']['label']))
         for job in jobs: job['engine']=evaluation_engine
         _,results=self.execute(jobs,'final')
         reports={label:comparisons(plan,results,team_contexts=contexts)[self.fmt] for label,plan in plans.items()}
-        summary=dict(format=self.fmt,status=overall_status(reports),controls=reports,selected_kind=self.state['best_kind'] or 'bc_or_untrained',
+        last_method=(selected_state.get('runner',{}).get('history') or [{}])[-1].get('method')
+        summary=dict(format=self.fmt,status=overall_status(reports),controls=reports,selected_kind=self.state['best_kind'] or ('ppo' if last_method=='ppo' else 'bc_or_untrained'),
             pretraining_complete=self.state['effective'],bc_games_collected=len(self.teacher_evidence()),bc_games_required=self.config['bc_games'][self.fmt],
             version=selected_version,evaluation_engine=evaluation_engine,
             evaluation_scope='lite Astra comparison only; not native Wesnoth playing strength' if evaluation_engine=='lite' else 'native Wesnoth 1.18.8 comparison',
             checkpoint=str(frozen),checkpoint_sha256=sha256(frozen),parameters=sum(p.numel() for p in selected.parameters()),
             feature_version=schema()['version'],error=self.state['error'],clock=self.clock,
+            forced_ppo=self.state.get('forced_ppo'),phase_history=self.state.get('phase_history',[]),
             bc_gate=read_json(self.directory/'bc_gate.json') if (self.directory/'bc_gate.json').exists() else None)
         from .report import write_profile_report
         write_profile_report(self.directory/'report',summary,self.state['history'])
@@ -443,19 +503,35 @@ class FormatExperiment:
 
     def run(self):
         if self.state['stage']=='finished': return read_json(self.directory/'report/summary.json')
+        if self.state['stage']=='failed':
+            self.state['stage']=self.state.pop('failed_stage')
+            self.state['error']=None
+            self.state.pop('status',None)
         try:
+            from .phases import apply_phase
+            apply_phase(self)
+            if self.state['stage'].endswith('_complete'): return read_json(self.directory/'report/summary.json')
+            if self.state.get('phase')=='evaluate':
+                if self.state.get('pending_train'): self.finish_train()
+                return self.final_evaluation()
             if self.state['stage']=='calibration':
                 if len(self.fixed)==1:
                     write_json(self.directory/'controls.json',dict(controls={self.fmt:self.fixed[0]},calibration='single fixed Astra'))
                     self.state['stage']='bc';self.save()
             if self.state['stage']=='calibration':
-                jobs=calibration_jobs(self.directory,self.fixed,self.config['calibration_blocks'],self.config['seed'],self.clock['update_deadline'],self.exe,formats=[self.fmt])
+                jobs=calibration_jobs(self.directory,self.fixed,self.config['calibration_blocks'],self.config['seed'],self.update_deadline(),self.exe,formats=[self.fmt])
                 jobs,results=self.execute(jobs,'calibration')
                 if len(results)==len(jobs) and all(r['status']=='complete' for r in results):
                     write_json(self.directory/'controls.json',choose_controls(jobs,results,self.fixed));self.state['stage']='bc';self.save()
                 elif any(r['status']=='infrastructure_error' for r in results): raise RuntimeError('calibration failed')
             if self.state['stage'] in ('bc','ppo'): self.learn()
+            if self.state.get('phase','auto') in ('bc','ppo'): return self.complete_phase()
+            return self.final_evaluation()
         except KeyboardInterrupt: self.save();raise
         except Exception as exc:
-            (self.directory/'errors.log').write_text(traceback.format_exc(),encoding='utf-8');self.state['error']=repr(exc);self.save()
-        return self.final_evaluation()
+            (self.directory/'errors.log').write_text(traceback.format_exc(),encoding='utf-8')
+            self.state.update(failed_stage=self.state['stage'],stage='failed',status='trainer_failed',error=repr(exc))
+            self.save()
+            write_json(self.directory/'report/summary.json',dict(format=self.fmt,status='trainer_failed',
+                version=self.state['version'],failed_stage=self.state['failed_stage'],error=self.state['error'],clock=self.clock))
+            raise

@@ -11,6 +11,7 @@ from pathlib import Path
 import random
 
 from .formats import FORMATS, PLAYERS
+from .features import VERSION
 
 
 COMPONENTS = ('rules', 'visibility_pathfinding', 'candidates', 'teacher', 'inference', 'serialization', 'logging')
@@ -45,7 +46,7 @@ def build_manifest(artifacts=None):
                                 factions_rotation=block % 6, teammate_context='astra_partner' if fmt == 'team2v2' else 'none')
                             work['id'] = _digest(work)
                             workloads.append(work)
-    manifest = dict(version=1, native_version='1.18.8', observation_schema=4,
+    manifest = dict(version=1, native_version='1.18.8', observation_schema=VERSION,
         minimum_complete_rotation_blocks=30, required_speedup=5, required_cpu_ratio=5,
         resource_memory_ratio_target=1.3, artifacts=artifacts or {}, workloads=workloads,
         cpu_scope='all game/host/inference processes plus coordination',
