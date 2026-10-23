@@ -1,6 +1,14 @@
-## Documentation and training
+## Documentation
 
-Read `docs/architecture.md` before architecture, parameter or status changes; maintain it and report decision conflicts. Read `docs/instructions.md` before training operations or tuning. Keep `docs/` limited to these and `TEST.md`.
+Every maintained doc exists twice: an English file with no suffix and a Chinese mirror with a `_zh` suffix. Read the English file by default; open `_zh` only when the task concerns the Chinese text. English is authoritative: create, edit, rename or move both files together, keep the top language-switch link correct, and fix the mirror in the same change when the two disagree.
+
+Maintained docs live in `docs/`; the repository root keeps only `README.md`, whose Chinese mirror is `docs/README_zh.md`. Module docs under `benchmarks/`, `engine_lite/` and `learning/` stay beside their code and follow the same pair rule.
+
+`AGENTS.md` is the single exception: English only, no `_zh` twin.
+
+Docs inside vendored, evidence and artifact trees are not maintained docs: leave `vendor/`, `references/`, `verification/`, `rules/`, `humanData*`, `delivery/`, `runs/` and `tmp/` as found, untranslated and unmoved.
+
+Read `docs/architecture.md` before architecture, parameter or status changes; maintain it and report decision conflicts. Read `docs/instructions.md` before training operations or tuning.
 
 Ubuntu is the acceptance environment; Windows is reference. Run affected minimal checks, reuse valid evidence; collect/train only when asked. Minimal acceptance never bypasses BC/PPO gates or proves convergence or strength.
 
