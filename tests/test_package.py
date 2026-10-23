@@ -16,10 +16,10 @@ class PackageTests(unittest.TestCase):
                 self.assertIn('WesnothLearning/run.sh',names)
                 self.assertIn('WesnothLearning/learning/model.py',names)
                 self.assertIn('WesnothLearning/vendor/arena/runtime/runtime.lua',names)
-                self.assertEqual(sum(n.startswith('WesnothLearning/opponents/') and n.endswith('.zip') for n in names),1)
+                self.assertEqual(sum(n.startswith('WesnothLearning/data/opponents/') and n.endswith('.zip') for n in names),1)
                 for name in names:
                     self.assertFalse(set(name.split('/')) & {'.venv','.cache','.ssh','runs','tmp','verification','delivery','__pycache__','references','humanData','datasets'})
-                self.assertIn('WesnothLearning/humanData_curated/games.jsonl',names)
+                self.assertIn('WesnothLearning/data/humanData_curated/games.jsonl',names)
                 for name in ('setup.sh','run.sh'):
                     info=archive.getinfo('WesnothLearning/'+name)
                     self.assertEqual(info.create_system,3)

@@ -58,18 +58,18 @@ export SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy
 
 ## 3. 启动前核对实际可运行范围
 
-新实验默认 lite，规则默认 `rules/1.18.8-training`（587 单位、438 地形）。启动门禁核验实际六阵营的 158 单位闭包，接受已记录近似，拒绝未支持类型及缺失引用；整包语义/性能标志仍保留原值。三赛制使用冻结的真实 Astra 教师，已有验收范围与证据见 architecture.md 第 8 节。
+新实验默认 lite，规则默认 `data/rules/1.18.8-training`（587 单位、438 地形）。启动门禁核验实际六阵营的 158 单位闭包，接受已记录近似，拒绝未支持类型及缺失引用；整包语义/性能标志仍保留原值。三赛制使用冻结的真实 Astra 教师，已有验收范围与证据见 architecture.md 第 8 节。
 
-通常使用默认目录即可。需要用户指定其他冻结包时，传入：
+通常使用默认目录即可。采集输入已于 2026-10-24 迁入 `data/`；早于该迁移的检出仍把 `rules/`、`datasets/`、`humanData*`、`opponents/`、`references/` 放在根目录，须先移入 `data/`，否则默认路径无法解析。需要用户指定其他冻结包时，传入：
 
 ```bash
-rules_dir="$project/rules/1.18.8-training"
+rules_dir="$project/data/rules/1.18.8-training"
 # 新训练命令增加 --rules-dir "$rules_dir"
 ```
 
 `--rules-dir` 同时绑定特征、job、adapter 和 manifest，优先于环境变量；没有显式参数时也可使用 `WESNOTH_RULES_DIR`。程序 API 传入 `config.rules_dir`。恢复自动使用原 manifest 的目录，不能直接套用最新包。
 
-默认规则身份为 `d6fceafe7d0c9c67c750551b9901dbfb2b22290992a8daa1616a460e11826dca`；10 张正式地图已冻结在 `rules/1.18.8/maps`。捕获新包时使用 `python -m engine_lite.capture --maps-dir rules/1.18.8/maps` 并补齐其他必需参数，保留地图复合地形。切换规则哈希/词表后建立新实验，历史权重仍用原匹配 schema。
+默认规则身份为 `d6fceafe7d0c9c67c750551b9901dbfb2b22290992a8daa1616a460e11826dca`；10 张正式地图已冻结在 `data/rules/1.18.8/maps`。捕获新包时使用 `python -m engine_lite.capture --maps-dir data/rules/1.18.8/maps` 并补齐其他必需参数，保留地图复合地形。切换规则哈希/词表后建立新实验，历史权重仍用原匹配 schema。
 
 核对通过标准：规则哈希与 `features.schema()` 一致，六阵营闭包无缺失/未支持声明，地图和 Astra 存在，选择的赛制确有教师链；已有验证有效时复用证据，只有接入代码变动才做一次受影响的最小核验。严格统计精度、外围战役和包体限制的处理边界见架构文档，不能因此重新扩张成全量测试任务。
 

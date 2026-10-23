@@ -121,7 +121,7 @@ class Experiment:
             self.manifest=read_json(self.directory/'manifest.json')
             self.config=self.manifest['config']
             from .features import select_rules
-            select_rules(self.config.get('rules_dir',ROOT/'rules/1.18.8'))
+            select_rules(self.config.get('rules_dir',ROOT/'data/rules/1.18.8'))
             verify_frozen(self.manifest)
             self.clock=read_json(self.directory/'clock.json')
         else:
@@ -135,7 +135,7 @@ class Experiment:
             if self.config['engine']=='lite' and not self.config['allow_approximate']:
                 raise ValueError('training rules contain documented approximations; enable allow_approximate for lite')
             self.directory.mkdir(parents=True,exist_ok=False)
-            self.manifest,_=freeze(self.directory,opponents or ROOT/'opponents',wesnoth,self.config)
+            self.manifest,_=freeze(self.directory,opponents or ROOT/'data/opponents',wesnoth,self.config)
             started=time.time();duration=self.config['hours']*3600
             self.clock=dict(started=started,update_deadline=started+duration*10/12,deadline=started+duration)
             write_json(self.directory/'clock.json',self.clock)

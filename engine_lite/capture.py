@@ -193,7 +193,7 @@ def run(executable, data_root, output, *, scopes=None, terrain_rules=None, maps_
         terrain_codes.update(re.findall(r'^\s*string\s*=\s*"?([A-Za-z0-9_^+/-]+)"?\s*(?:#.*)?$', source, re.M))
     if terrain_rules:
         terrain_codes.update(json.loads(Path(terrain_rules).read_text(encoding='utf-8'))['terrains'])
-    frozen_maps = Path(maps_dir) if maps_dir is not None else ROOT / 'rules/1.18.8/maps'
+    frozen_maps = Path(maps_dir) if maps_dir is not None else ROOT / 'data/rules/1.18.8/maps'
     if maps_dir is not None or frozen_maps.exists():
         terrain_codes.update(map_terrain_codes(frozen_maps))
     terrain_codes = sorted(terrain_codes)
@@ -229,7 +229,7 @@ def main():
     parser.add_argument('--output', required=True)
     parser.add_argument('--scope', action='append')
     parser.add_argument('--terrain-rules')
-    parser.add_argument('--maps-dir', help='frozen map JSON directory; defaults to rules/1.18.8/maps when present')
+    parser.add_argument('--maps-dir', help='frozen map JSON directory; defaults to data/rules/1.18.8/maps when present')
     parser.add_argument('--timeout', type=float, default=180)
     args = parser.parse_args()
     run(args.executable, args.data_root, args.output, scopes=args.scope,

@@ -59,7 +59,7 @@ lite 决策新增 `generate_candidates`（默认 true）：采样循环只对未
 
 ### 3.1 当前冻结数据
 
-默认规则包：`rules/1.18.8-training/`，从 Ubuntu 的 `verification/v5_lite_default_20261021/capture-maps/frozen/` 原样提升；旧 `rules/1.18.8/` 和带日期的证据保留。
+默认规则包：`data/rules/1.18.8-training/`，从 Ubuntu 的 `verification/v5_lite_default_20261021/capture-maps/frozen/` 原样提升；旧 `data/rules/1.18.8/` 和带日期的证据保留。
 
 | 项目 | 当前结果 |
 | --- | --- |
@@ -92,11 +92,11 @@ lite 决策新增 `generate_candidates`（默认 true）：采样循环只对未
 
 ### 3.4 默认入口与训练范围验收
 
-新实验默认采用 lite 和已记录的规则近似，不自动回退 native。规则选择顺序为显式 `--rules-dir` → `WESNOTH_RULES_DIR` → `rules/1.18.8-training/`。CLI 在导入特征/模型前绑定目录，程序创建实验在构造模型前绑定；同一目录传入任务和适配器，并在 manifest 冻结目录、规则哈希、来源和训练闭包。恢复使用原 manifest 的规则目录，拒绝冲突参数。地图仍使用现有冻结地图入口。
+新实验默认采用 lite 和已记录的规则近似，不自动回退 native。规则选择顺序为显式 `--rules-dir` → `WESNOTH_RULES_DIR` → `data/rules/1.18.8-training/`。CLI 在导入特征/模型前绑定目录，程序创建实验在构造模型前绑定；同一目录传入任务和适配器，并在 manifest 冻结目录、规则哈希、来源和训练闭包。恢复使用原 manifest 的规则目录，拒绝冲突参数。地图仍使用现有冻结地图入口。
 
 默认受检加载读取小型 `catalog-summary.json`，验证 rules.json 哈希、来源与 1.18.8 版本，再按实际六阵营配置现场检查完整招募/领袖/升级/瘟疫闭包。未支持或缺失引用仍阻止启动，外围战役脚本不阻止标准训练。运行时不解析/保留约 50 MB 的完整 catalog；缺少 summary 的历史包保留兼容加载。`training_acceptance` 记录范围和 profile 哈希，表示实现覆盖已就绪，不表示原版全部语义或性能达标；`acceptance_scope='full'` 保留原整包三标志门禁，原标志保持 false。
 
-10 张训练/验证/保留原版地图已按发行包来源冻结到 `rules/1.18.8/maps/`。捕获入口默认读取这些地图，另支持 `--maps-dir`，将复合地形交给原版查询实际单位移动/防御数值；不通过猜测 alias 或替换地形补表。由原 291 地形扩至 438，规则身份和特征 schema 随之改变，旧检查点不能直接按新词表恢复。
+10 张训练/验证/保留原版地图已按发行包来源冻结到 `data/rules/1.18.8/maps/`。捕获入口默认读取这些地图，另支持 `--maps-dir`，将复合地形交给原版查询实际单位移动/防御数值；不通过猜测 alias 或替换地形补表。由原 291 地形扩至 438，规则身份和特征 schema 随之改变，旧检查点不能直接按新词表恢复。
 
 ## 4. 模型：三个实例、六个组成部分
 
@@ -260,13 +260,24 @@ AGENTS.md                  代理工作与文档维护规则（仅英文）
 engine_lite/               Rust、PyO3、原版捕获/冻结/审计、直接 Lua 宿主
 learning/                  协调器、适配器、模型、序列、训练、奖励、评测与导出
 lua/                       原版部署与两引擎共用的合法观测/候选/记忆/奖励
-rules/1.18.8-training/     默认 587 单位规则包，可随开发工程分发
-rules/1.18.8/              历史旧规则包及原版冻结地图，保留原实验身份
-datasets/                  人类与教师数据、序列索引
+tests/                     按行为族划分的测试；共享夹具在 tests/v5/helpers.py
+benchmarks/                引擎基准契约
+vendor/arena/              内置的 WesnothArena native v2 SDK
+data/                      采集输入，非源码；由流程供给，不手工编辑
+data/rules/1.18.8-training/ 默认 587 单位规则包，可随开发工程分发
+data/rules/1.18.8/         历史旧规则包及原版冻结地图，保留原实验身份
+data/datasets/             人类与教师数据、序列索引
+data/humanData/            从游戏安装目录拉取的原始回放
+data/humanData_curated/    用于 BC 的 1.18.8 精选回放
+data/opponents/            冻结的参考对手包
+data/references/           第三方源码摘录，不入库
 runs/<run>/<format>/       独立训练状态、权重、调度与策略历史
 runs/<run>/control/        批次边界配置和追加式控制事件
 verification/              带日期/规则哈希的原始证据；源码开发包默认不包含
 delivery/                  明确导出的模型包与清单；历史实验保持原状
+tmp/                       临时空间，不作为证据
 ```
+
+`data/` 汇总所有采集输入，使源码树只有一个可重新供给的目录。2026-10-24 的迁移把 `rules/`、`datasets/`、`humanData*`、`opponents/`、`references/` 移入其中，默认值、CLI 帮助、测试与操作手册均按此布局。`verification/`、`delivery/`、`runs/`、`tmp/` 保留在根目录：冻结报告、运行清单与哈希记录的就是这些路径，移动会破坏审计链。
 
 每份英文文档旁都有 `_zh` 镜像（`docs/architecture_zh.md`、`engine_lite/README_zh.md` 等模块文档），修改时在同一次变更内成对更新。新增功能、修改参数或完成验收时，更新本文件对应责任行、状态和证据链接；TEST.md 只维护已实现但未验收的事项及最小方案。实际命令、结果、版本/规则哈希写入带日期的 verification 报告，验收通过后从 TEST.md 删除整项，具体维护准则见根目录 AGENTS.md。运行入口或维护流程变化时同步 instructions.md。只运行本次改动必需且尚未通过的最小检查；已通过项仅在对应源码/数据变化或新失败确有影响时重测。历史报告保留其原时间和哈希，不把旧证据改写为新验收。docs 只保留这些维护入口，详细日志/研究数据归入对应代码或 verification，避免再增加平行计划和状态文件。

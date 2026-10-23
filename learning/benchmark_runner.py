@@ -319,7 +319,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--worker', help=argparse.SUPPRESS)
     parser.add_argument('--executable', default=os.environ.get('WESNOTH_EXE'))
-    parser.add_argument('--rules-dir', default=str(ROOT / 'rules/1.18.8'))
+    parser.add_argument('--rules-dir', default=str(ROOT / 'data/rules/1.18.8'))
     parser.add_argument('--output')
     parser.add_argument('--formats', nargs='+', choices=tuple(PLAYERS), default=list(PLAYERS))
     parser.add_argument('--modes', nargs='+', choices=('equal_work', 'end_to_end'), default=['equal_work', 'end_to_end'])
@@ -344,7 +344,7 @@ def main():
     output = Path(args.output)
     output.mkdir(parents=True, exist_ok=True)
     artifacts = freeze_artifacts(dict(native_executable=args.executable,
-        lite_rules=Path(args.rules_dir) / 'rules.json', astra=ROOT / 'opponents/gpt6astra.zip'))
+        lite_rules=Path(args.rules_dir) / 'rules.json', astra=ROOT / 'data/opponents/gpt6astra.zip'))
     workloads = []
     for fmt in args.formats:
         for cache in args.caches:

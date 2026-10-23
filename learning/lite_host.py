@@ -39,7 +39,7 @@ def host_modules(teacher_path=None):
     modules = {name: (ROOT / 'lua' / name).read_text(encoding='utf-8')
                for name in ('observation.lua', 'candidates.lua', 'spatial.lua', 'routing.lua', 'rewards.lua')}
     modules['features.lua'] = 'return ' + _lua(schema())
-    with zipfile.ZipFile(teacher_path or ROOT / 'opponents/gpt6astra.zip') as archive:
+    with zipfile.ZipFile(teacher_path or ROOT / 'data/opponents/gpt6astra.zip') as archive:
         for name in ('duel.lua', 'four.lua', 'bot.lua'):
             modules['astra/' + name] = archive.read('gpt6astra/lua/' + name).decode('utf-8')
     return modules

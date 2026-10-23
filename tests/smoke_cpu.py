@@ -63,7 +63,7 @@ def main():
     assert run_config(parser().parse_args(['run','--device','cpu','--workers','2']))['workers']==2
     validate_config(config)
     out=(ROOT/args.output).resolve();assert out.is_relative_to(ROOT);out.mkdir(parents=True,exist_ok=False)
-    manifest=dict(config=config,opponents=[dict(path=str(ROOT/'opponents/gpt6astra.zip'))],baseline=dict(path='simulated-no-game'))
+    manifest=dict(config=config,opponents=[dict(path=str(ROOT/'data/opponents/gpt6astra.zip'))],baseline=dict(path='simulated-no-game'))
     write_json(out/'manifest.json',manifest)
     ctx=get_context('spawn');requests=ctx.Queue();replies={f:ctx.Queue() for f in FORMATS};processes={}
     try:

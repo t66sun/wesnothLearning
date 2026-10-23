@@ -782,7 +782,7 @@ def plan_only(args):
         return dict(created=str(probe), exclusive=True, removed=True)
 
     def plan_check():
-        teachers = [str(ROOT / 'opponents/gpt6astra.zip')]
+        teachers = [str(ROOT / 'data/opponents/gpt6astra.zip')]
         if not Path(teachers[0]).is_file():
             raise RuntimeError(f'missing frozen teacher {teachers[0]}')
         plan = resolve_plan(ROOT / 'tmp/t4_plan_probe', teachers)

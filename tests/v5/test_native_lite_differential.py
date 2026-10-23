@@ -18,8 +18,8 @@ from learning.native_transport import NativeTransport
 
 from .helpers import engine, legal, observe, step
 
-RULES = ROOT / 'rules/1.18.8/rules.json'
-CATALOG = ROOT / 'rules/1.18.8/catalog.json'
+RULES = ROOT / 'data/rules/1.18.8/rules.json'
+CATALOG = ROOT / 'data/rules/1.18.8/catalog.json'
 WESNOTH = os.environ.get('WESNOTH_EXE')
 
 

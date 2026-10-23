@@ -87,7 +87,7 @@ class LiteDefaultTests(unittest.TestCase):
             frozen = default_config('cpu') | dict(
                 workers=4, hours=18., bc_games=dict.fromkeys(FORMATS, 6000),
                 native_bc_games=dict.fromkeys(FORMATS, 0),
-                rules_dir=str((ROOT / 'rules/1.18.8-training').resolve()))
+                rules_dir=str((ROOT / 'data/rules/1.18.8-training').resolve()))
             write_json(run / 'manifest.json', dict(config=frozen, opponents=[],
                 baseline=dict(path=str(baseline), sha256=sha256(baseline)), source={}))
             clock = dict(started=1000., update_deadline=2000., deadline=3000.)
@@ -216,7 +216,7 @@ class LiteDefaultTests(unittest.TestCase):
 
     def test_cli_binds_rules_before_features_and_restores_resume(self):
         # A fresh interpreter catches an eager feature import in the CLI itself.
-        rules = (ROOT / 'rules/1.18.8').resolve()
+        rules = (ROOT / 'data/rules/1.18.8').resolve()
         with tempfile.TemporaryDirectory() as temporary:
             run = Path(temporary)
             (run / 'manifest.json').write_text(json.dumps({'config': {'rules_dir': str(rules)}}), encoding='utf-8')
@@ -252,7 +252,7 @@ else:
 
     def test_native_anchor_and_lite_jobs_share_frozen_rules(self):
         from learning.experiment import FormatExperiment
-        rules = str((ROOT / 'rules/1.18.8-training').resolve())
+        rules = str((ROOT / 'data/rules/1.18.8-training').resolve())
         with tempfile.TemporaryDirectory() as temporary:
             runner = object.__new__(FormatExperiment)
             runner.directory = Path(temporary)

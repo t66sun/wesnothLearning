@@ -500,7 +500,7 @@ class LiteJobTests(unittest.TestCase):
         job = self.four_seat_job(id='query-bootstrap',
                                  bootstrap_policy=lambda row: 0.5,
                                  learning=dict(sides={'1': {}}, version='v5-test',
-                                               dagger_teacher='opponents/gpt6astra.zip'))
+                                               dagger_teacher='data/opponents/gpt6astra.zip'))
         calls = []
         with mock.patch.object(LiteHost, 'decision', self.decision_spy(calls)):
             with catalog_patch(self.rules_dir):

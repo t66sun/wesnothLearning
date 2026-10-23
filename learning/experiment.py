@@ -68,7 +68,7 @@ def default_config(device='cuda', *, engine=None):
         rollout_games=4,minibatch=256,bc_records=2048 if device=='cpu' else 8192,
         bc_validation_records=1024 if device=='cpu' else 4096,epochs=4,learning_rate=3e-4,
         trainer_memory_gb=6.,
-        human_data=str(ROOT/'datasets/human'))
+        human_data=str(ROOT/'data/datasets/human'))
 
 
 def validate_config(config):

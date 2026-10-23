@@ -16,7 +16,7 @@ def freeze_map(source,name,output=None,catalog=None):
     import re
     source=Path(source);raw=source.read_bytes();text=raw.decode('utf-8-sig')
     if not re.fullmatch(r'[a-z0-9_]+',name): raise ValueError('map name must be a lowercase slug')
-    provenance=json.loads(Path(catalog or ROOT/'rules/1.18.8/catalog.json').read_text(encoding='utf-8'))
+    provenance=json.loads(Path(catalog or ROOT/'data/rules/1.18.8/catalog.json').read_text(encoding='utf-8'))
     digest=hashlib.sha256(raw).hexdigest()
     inventories=[entry.get('source_manifest',{}).get('files',{}) for entry in provenance.get('captures',[])]
     if provenance.get('source_version')!='1.18.8' or not any(digest in inventory.values() for inventory in inventories):
@@ -44,13 +44,13 @@ def freeze_map(source,name,output=None,catalog=None):
     data=dict(native_version='1.18.8',name=name,source_path=str(source.resolve()),source_sha256=digest,
         board=dict(width=width,height=height,terrain=terrain,starts=[starts[i] for i in sorted(starts)]))
     from .common import write_json
-    path=Path(output or ROOT/'rules/1.18.8/maps')/(name+'.json')
+    path=Path(output or ROOT/'data/rules/1.18.8/maps')/(name+'.json')
     if path.exists(): raise FileExistsError(path)
     write_json(path,data);return path
 
 
 def frozen_map(name):
-    path=ROOT/'rules/1.18.8/maps'/(name+'.json')
+    path=ROOT/'data/rules/1.18.8/maps'/(name+'.json')
     if not path.exists(): raise ValueError(f'missing frozen 1.18.8 map: {path}; export it before collecting')
     data=json.loads(path.read_text(encoding='utf-8'))
     if data.get('native_version')!='1.18.8' or not data.get('source_sha256'):
