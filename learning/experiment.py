@@ -281,9 +281,10 @@ class FormatExperiment:
             # An unlogged or infrastructure-failed attempt may have left a shard.
             # The batch was not committed, so discard that attempt before retrying.
             if job.get('shard'):
-                shard=Path(job['shard'])
-                for path in (shard,shard.with_name(shard.name.replace('.jsonl.gz','.dagger.jsonl.gz'))):
-                    if path.exists(): path.unlink()
+                for name in (job['shard'],job['shard'].replace('.jsonl.gz','.dagger.jsonl.gz')):
+                    if Path(name).exists():
+                        from .sequences import discard_sequences
+                        discard_sequences(name)
             pending.append(job)
         if pending: self.collector(pending,log)
         latest={r['id']:r for r in read_log(log)}
