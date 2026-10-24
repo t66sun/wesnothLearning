@@ -5,7 +5,7 @@ SQLite indexes metadata without decoding observations. An instance keeps a bound
 decoded-block cache across minibatches. Pass complete sequences to attach_histories;
 slice its result, rather than attaching history to a random suffix.
 """
-from collections import OrderedDict, defaultdict
+from collections import Counter, OrderedDict, defaultdict
 from functools import lru_cache
 import hashlib
 import json
@@ -413,7 +413,7 @@ def _read_all(indexed, partition, format_name, turns, seed, stats):
         selected.extend((key, family, indexed[key][family]) for family in families)
     rng.shuffle(selected)
     kept = []
-    used = retained = decoded = 0
+    used = retained = decoded = retained_families = 0
     for _, _, files in selected:
         cost = sum(stat.st_size for _, stat in files)
         used += cost
@@ -422,12 +422,18 @@ def _read_all(indexed, partition, format_name, turns, seed, stats):
         rng.shuffle(windows)
         if not windows:
             continue
+        retained_families += 1
         retained += prefix + sum(_row_bytes(row) for window in windows for row in window)
         kept.extend(windows)
     rows = _ordered_rows(kept)
     if stats is not None:
         stats.update(requested=None, rows=len(rows), families=decoded, selected=len(selected),
                      families_decoded=decoded, families_selected=len(selected),
+                     families_admitted=decoded, families_retained=retained_families,
+                     windows=len(kept),
+                     sources=dict(Counter(row['source'] for row in rows)),
+                     engines=dict(Counter(row['engine_id'] for row in rows)),
+                     kinds=dict(Counter(row['candidates'][row['choice']]['kind'] for row in rows)),
                      gz_bytes=used, retained_bytes=retained, deficit=0,
                      # A full read has no request to miss, so it never reports a
                      # budget reason; the reason stays inside the bounded set.
@@ -499,6 +505,7 @@ def _read_bounded(indexed, partition, format_name, turns, limit, seed, gz_budget
             pending.discard(key)
     selected = []
     retained = 0
+    retained_families = 0
     for entry, share in zip(admitted, allocation()):
         taken = []
         remaining = share
@@ -509,6 +516,7 @@ def _read_bounded(indexed, partition, format_name, turns, limit, seed, gz_budget
             taken.append(piece)
             remaining -= len(piece)
         if taken:
+            retained_families += 1
             retained += entry['prefix'] + sum(_row_bytes(row) for piece in taken for row in piece)
             selected.extend(taken)
     rows = _ordered_rows(selected)
@@ -524,6 +532,11 @@ def _read_bounded(indexed, partition, format_name, turns, limit, seed, gz_budget
     if stats is not None:
         stats.update(requested=limit, rows=len(rows), families=decoded, selected=len(plan),
                      families_decoded=decoded, families_selected=len(plan),
+                     families_admitted=len(admitted), families_retained=retained_families,
+                     windows=len(selected),
+                     sources=dict(Counter(row['source'] for row in rows)),
+                     engines=dict(Counter(row['engine_id'] for row in rows)),
+                     kinds=dict(Counter(row['candidates'][row['choice']]['kind'] for row in rows)),
                      gz_bytes=gz_used, retained_bytes=retained, deficit=deficit, stop_reason=reason)
     return rows
 

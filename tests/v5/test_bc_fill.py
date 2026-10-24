@@ -88,6 +88,9 @@ class BoundedFillTests(unittest.TestCase):
         self.assertEqual(stats['deficit'], 8)
         self.assertEqual(stats['stop_reason'], 'gz_budget')
         self.assertEqual(stats['families_decoded'], 1)
+        self.assertEqual(stats['families_admitted'], 1)
+        self.assertEqual(stats['families_retained'], 1)
+        self.assertEqual(stats['families_selected'], 3)
 
     def test_retain_budget_stops_with_a_smaller_deterministic_result(self):
         alone = {}
@@ -147,6 +150,10 @@ class BoundedFillTests(unittest.TestCase):
         self.assertEqual(stats['deficit'], 0)
         self.assertEqual(stats['stop_reason'], 'window_limit')
         self.assertEqual(stats['families_decoded'], 3)
+        self.assertEqual(stats['families_admitted'], 3)
+        self.assertEqual(stats['families_retained'], 3)
+        self.assertEqual(stats['windows'], 13)
+        self.assertEqual(stats['kinds'], {'end_turn': 13})
 
 
 if __name__ == '__main__':
