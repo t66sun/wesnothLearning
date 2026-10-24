@@ -26,6 +26,8 @@ The later schema-5 run `runs/v5_lite18h_20261024_003512` in the isolated Ubuntu 
 
 The collection-side OOM repair is now accepted for a bounded Ubuntu pressure replay: full exact trajectories/DAgger records use private temporary buffers, coverage counters stay small, diagnostics read only their required legal fields, and shard/index writers consume records without rebuilding a whole-game row list or JSON string. Eight concurrent 1,621-decision replays plus three resident trainer replay pools completed with 5.40 GiB group peak PSS and 9.14 GiB minimum MemAvailable; complete sequence hashes match the old baseline. This does not measure eight live-engine rollouts, worst-case training activations or formal throughput. The original run remains stopped; no frozen-source migration or BC read-share repair was performed. See the [collection memory acceptance](../verification/bc_memory_repair_20261024_1321/REPORT.md).
 
+The shared-pool failure shutdown is also accepted: any coordinator exception terminates its remaining trainers before joining, so a worker loss cannot leave trainers waiting indefinitely for replies. A real spawned worker-death injection completed with zero active children; failure remains explicit and is not retried or hidden. See the [pool-exit acceptance](../verification/bc_pool_exit_20261024/REPORT.md). The stopped formal experiment has not been migrated or resumed.
+
 ## 2. Overall structure and responsibilities
 
 ```mermaid
