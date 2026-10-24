@@ -1,0 +1,295 @@
+Traceback (most recent call last):
+{
+  "duel": {
+    "version": 259,
+    "since_restore": {
+      "batches": 47,
+      "optimizer_steps": 170,
+      "mean_steps": 3.617021276595745,
+      "median_steps": 4,
+      "min_steps": 2,
+      "max_steps": 6,
+      "kl_stopped": 42,
+      "zero_step": 0,
+      "missing_decisions_metric": 42,
+      "last_kl": [
+        0.08104542642831802,
+        0.02124319225549698,
+        0.03472094237804413,
+        0.030340809375047684,
+        0.005542104132473469
+      ]
+    },
+    "reward_config": {
+      "bc_aux": 0.1,
+      "control": 0.1,
+      "economy": 0.15,
+      "entropy": 0.01,
+      "explore": 0.1,
+      "gae_lambda": 0.95,
+      "gamma": 1.0,
+      "mode": "adaptive",
+      "reward_formula_id": "v5-potential-1",
+      "reward_version": 0
+    },
+    "controller": {
+      "pending_blocks": 55,
+      "windows": 3,
+      "blocks_after_decision": 55,
+      "windows_unchanged": true,
+      "decision": {},
+      "reason": "",
+      "frozen_windows": [
+        {
+          "control": 0.5208948562942012,
+          "fixed_score": -0.75,
+          "low_control": false,
+          "low_explore": false,
+          "met_explore": false,
+          "native_score": null,
+          "safe": false,
+          "strata": [
+            "hamlets|Drakes",
+            "hamlets|Knalgan Alliance",
+            "hamlets|Loyalists",
+            "hamlets|Northerners",
+            "hamlets|Rebels",
+            "hamlets|Undead"
+          ]
+        },
+        {
+          "control": 0.5281094848983259,
+          "fixed_score": -0.25,
+          "low_control": false,
+          "low_explore": false,
+          "met_explore": false,
+          "native_score": null,
+          "safe": false,
+          "strata": [
+            "hamlets|Drakes",
+            "hamlets|Knalgan Alliance",
+            "hamlets|Loyalists",
+            "hamlets|Northerners",
+            "hamlets|Rebels",
+            "hamlets|Undead"
+          ]
+        },
+        {
+          "control": 0.5251034060235397,
+          "fixed_score": -1.25,
+          "low_control": false,
+          "low_explore": false,
+          "met_explore": false,
+          "native_score": null,
+          "safe": false,
+          "strata": [
+            "hamlets|Drakes",
+            "hamlets|Knalgan Alliance",
+            "hamlets|Loyalists",
+            "hamlets|Northerners",
+            "hamlets|Rebels",
+            "hamlets|Undead"
+          ]
+        }
+      ],
+      "latest_12_block_window": {
+        "low_explore": false,
+        "met_explore": true,
+        "low_control": false,
+        "safe": false,
+        "fixed_score": -0.25,
+        "native_score": null,
+        "control": 0.5411818195730169,
+        "strata": [
+          "hamlets|Drakes",
+          "hamlets|Knalgan Alliance",
+          "hamlets|Loyalists",
+          "hamlets|Northerners",
+          "hamlets|Rebels",
+          "hamlets|Undead"
+        ]
+      },
+      "pending_labels": [
+        "val000100",
+        "val000110",
+        "val000110",
+        "val000110",
+        "val000120",
+        "val000120",
+        "val000120",
+        "val000130",
+        "val000130",
+        "val000130",
+        "val000140",
+        "val000140",
+  File "<frozen runpy>", line 198, in _run_module_as_main
+        "val000140",
+  File "<frozen runpy>", line 88, in _run_code
+        "val000150",
+  File "C:\dev\WesnothLearning\verification\training_stall_20261024_1544\analyze_quality.py", line 25, in <module>
+        "val000150",
+    assert not out['duel']['controller']['windows_unchanged'], 'Adaptive rolling window is frozen at three windows despite newer complete blocks'
+        "val000150",
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        "val000160",
+AssertionError: Adaptive rolling window is frozen at three windows despite newer complete blocks
+        "val000160",
+        "val000160",
+        "val000170",
+        "val000170",
+        "val000170",
+        "val000180",
+        "val000180",
+        "val000180",
+        "val000190",
+        "val000190",
+        "val000190",
+        "val000200",
+        "val000200",
+        "val000200",
+        "val000200",
+        "val000200",
+        "val000200",
+        "val000200",
+        "val000200",
+        "val000200",
+        "val000200",
+        "val000200",
+        "val000200",
+        "val000210",
+        "val000210",
+        "val000210",
+        "val000220",
+        "val000220",
+        "val000220",
+        "val000230",
+        "val000230",
+        "val000230",
+        "val000240",
+        "val000240",
+        "val000240",
+        "val000250",
+        "val000250",
+        "val000250"
+      ]
+    }
+  },
+  "ffa4": {
+    "version": 106,
+    "since_restore": {
+      "batches": 18,
+      "optimizer_steps": 71,
+      "mean_steps": 3.9444444444444446,
+      "median_steps": 4.0,
+      "min_steps": 2,
+      "max_steps": 7,
+      "kl_stopped": 18,
+      "zero_step": 0,
+      "missing_decisions_metric": 18,
+      "last_kl": [
+        0.021115228533744812,
+        0.02698405086994171,
+        0.028885191306471825,
+        0.02008994109928608,
+        0.021058550104498863
+      ]
+    },
+    "reward_config": {
+      "bc_aux": 0.1,
+      "control": 0.1,
+      "economy": 0.15,
+      "entropy": 0.01,
+      "explore": 0.1,
+      "gae_lambda": 0.95,
+      "gamma": 1.0,
+      "mode": "adaptive",
+      "reward_formula_id": "v5-potential-1",
+      "reward_version": 0
+    },
+    "controller": {
+      "pending_blocks": 8,
+      "windows": 1,
+      "blocks_after_decision": 8,
+      "windows_unchanged": true,
+      "decision": {},
+      "reason": "insufficient rotation blocks",
+      "frozen_windows": [
+        {
+          "control": 0.5066455225358285,
+          "fixed_score": -0.2743055555555556,
+          "low_control": false,
+          "low_explore": false,
+          "met_explore": false,
+          "native_score": null,
+          "safe": false,
+          "strata": [
+            "loris_river|Drakes",
+            "loris_river|Knalgan Alliance",
+            "loris_river|Loyalists",
+            "loris_river|Northerners",
+            "loris_river|Rebels",
+            "loris_river|Undead"
+          ]
+        }
+      ],
+      "latest_12_block_window": null,
+      "pending_labels": [
+        "val000100",
+        "val000100",
+        "val000100",
+        "val000100",
+        "val000100",
+        "val000100",
+        "val000100",
+        "val000100"
+      ]
+    }
+  },
+  "team2v2": {
+    "version": 57,
+    "since_restore": {
+      "batches": 7,
+      "optimizer_steps": 32,
+      "mean_steps": 4.571428571428571,
+      "median_steps": 4,
+      "min_steps": 3,
+      "max_steps": 8,
+      "kl_stopped": 7,
+      "zero_step": 0,
+      "missing_decisions_metric": 7,
+      "last_kl": [
+        0.024405697360634804,
+        0.02011238783597946,
+        0.025670867413282394,
+        0.02040402591228485,
+        0.02574196085333824
+      ]
+    },
+    "reward_config": {
+      "bc_aux": 0.1,
+      "control": 0.1,
+      "economy": 0.15,
+      "entropy": 0.01,
+      "explore": 0.1,
+      "gae_lambda": 0.95,
+      "gamma": 1.0,
+      "mode": "adaptive",
+      "reward_formula_id": "v5-potential-1",
+      "reward_version": 0
+    },
+    "controller": {
+      "pending_blocks": 2,
+      "windows": 0,
+      "blocks_after_decision": 2,
+      "windows_unchanged": true,
+      "decision": {},
+      "reason": "insufficient rotation blocks",
+      "frozen_windows": [],
+      "latest_12_block_window": null,
+      "pending_labels": [
+        "val000040",
+        "val000050"
+      ]
+    }
+  }
+}
