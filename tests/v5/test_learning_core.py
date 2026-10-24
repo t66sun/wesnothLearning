@@ -730,7 +730,7 @@ class AuditExportTests(unittest.TestCase):
         self.assertFalse(low['coverage_pass'])
 
     def test_imitation_quality_gate(self):
-        with mock.patch('learning.train.batch', side_effect=lambda rows, device: (rows,)):
+        with mock.patch('learning.bc.batch', side_effect=lambda rows, device: (rows,)):
             good = _FixedModel([[3., 0.]])
             accepted = imitation_quality(good, _quality_set())
             self.assertTrue(accepted['effective'])
@@ -750,7 +750,7 @@ class AuditExportTests(unittest.TestCase):
                 _quality_rows('move'))
         for index, row in enumerate(rows[-32:]):
             row['choice'] = 0 if index < 10 else 1
-        with mock.patch('learning.train.batch', side_effect=lambda rows, device: (rows,)):
+        with mock.patch('learning.bc.batch', side_effect=lambda rows, device: (rows,)):
             report = imitation_quality(_FixedModel([[1., 0.]]), rows)['formats']['duel']
         self.assertGreaterEqual(report['accuracy'], .4)
         self.assertGreaterEqual(report['kinds']['recruit']['accuracy'], .6)

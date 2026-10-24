@@ -306,11 +306,23 @@ tmp/                       scratch space; nothing here is evidence
 
 Each English doc has a `_zh` mirror beside it (`docs/architecture_zh.md`, module docs such as `engine_lite/README_zh.md`); edits update both in the same change. When adding features, changing parameters or completing acceptance, update the corresponding responsibility row, status and evidence links in this file; TEST.md keeps only implemented-but-unaccepted items and minimal plans. Real commands, results, version/rule hashes go into dated verification reports, and an accepted item is deleted from TEST.md as a whole; the maintenance rules are in the root AGENTS.md. Sync instructions.md when run entries or maintenance flows change. Run only the minimal checks this change requires and that have not already passed; retest accepted items only when the corresponding sources/data changed or a new failure makes it relevant. Historical reports keep their original dates and hashes and are not rewritten as new acceptance. `docs/` keeps only these maintained entries; detailed logs and research data belong in the corresponding code directory or `verification/`, avoiding parallel plans and status files.
 
-## 10. Detailed training and delivery refactor plan — NOT IMPLEMENTED
+## 10. Detailed training and delivery refactor plan — IN PROGRESS
 
 ### 10.1 Decision, authority and intended outcome
 
-This section is the maintained plan, replacing the short proposal in section 1 for implementation decisions. The user explicitly stopped implementation and requested a detailed document first. **Only planning documents are being changed; P1–P7 have not started.** Writing this plan authorizes neither implementation, server access, collection, optimization experiments nor formal training. Existing source, installed models and frozen runs remain as they were at `a869e95d79faf267362af2374ae1c794777f2a13`.
+This section is the maintained plan, replacing the short proposal in section 1 for implementation decisions. Implementation started only after a later explicit user instruction; this text, not authorization to train or collect, remains the contract.
+
+| Phase | Status |
+|---|---|
+| P1 learners extracted (`bc.py`, `ppo.py`, `checkpoints.py`) | Implemented, awaiting acceptance |
+| P2 bounded BC filling | Not implemented |
+| P3 PPO traversal and recovery | Not implemented |
+| P4 logical-batch stopping | Not implemented |
+| P5a checkpoint operations | Not implemented |
+| P5b final nomination | Not implemented |
+| P6a/P6b external inference | Not implemented |
+| P7a deterministic lite combat | Not implemented |
+| P7b Astra adaptation | Not implemented |
 
 The user also accepts **a standalone inference engine with Lua as the game adapter**. Pure Lua remains the current working delivery, rather than a mandatory target for every future network. External inference feasibility and packaging are a separate workstream; they are not prerequisites for correcting BC/PPO. No backend, IPC mechanism or new model architecture is claimed implemented by this decision.
 
