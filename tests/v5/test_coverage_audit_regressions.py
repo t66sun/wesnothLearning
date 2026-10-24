@@ -170,7 +170,6 @@ class StandardFeedingEngineTests(unittest.TestCase):
             H._unit('leader1', 'Fighter', 1, 0, 0, leader=True),
             H._unit('leader2', 'Fighter', 2, 7, 5, leader=True)])
         engine = H.engine(game_spec=spec, rules_data=rules)
-        engine.inject_hits(json.dumps([True, True]))
         H.step(engine, dict(kind='attack', unit='victim' if defending else 'feeder',
                            target='feeder' if defending else 'victim', weapon=0))
         return H, engine

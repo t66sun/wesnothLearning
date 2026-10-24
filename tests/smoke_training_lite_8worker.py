@@ -505,7 +505,7 @@ def lite_trainer(directory, fmt, manifest, clock, requests, replies, plan, ready
         if len(rewards) != 1:
             raise RuntimeError(f'{fmt}: teacher rows mix {len(rewards)} reward configs')
         missing = [key for key in ('reward_version', 'reward_formula_id', 'rules_version',
-                                   'rng_version', 'candidate_version')
+                                   'rng_version', 'combat_version', 'candidate_version')
                    if any(row.get(key) is None
                           for row in (train_rows[0], validation_rows[0]))]
         if missing:

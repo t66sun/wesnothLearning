@@ -13,18 +13,20 @@ def weapon(**overrides):
 
 
 def fight(attack, defense, *, attacker_hp=40, defender_hp=40,
-          defender_abilities=(), hits=(True,) * 8):
+          defender_abilities=(), defender_defense=None):
     from _engine_lite import LiteEngine
     rules = H.rules()
     for unit_type, selected in [('Fighter', attack), ('Skeleton', defense)]:
         rules['units'][unit_type] = H._unit_type(
             unit_type, alignment='neutral', weapons=[selected])
     rules['units']['Skeleton']['abilities'] = list(defender_abilities)
+    if defender_defense is not None:
+        # Both units stand on Gg; a zero defense makes every strike a certain miss.
+        rules['units']['Skeleton']['defense']['Gg'] = defender_defense
     units = [H._unit('a', 'Fighter', 1, 2, 2, leader=True, hp=attacker_hp),
              H._unit('d', 'Skeleton', 2, 3, 2, leader=True, hp=defender_hp)]
     spec = H.spec(units=units, terrain=['Gg'] * (H.WIDTH * H.HEIGHT), fog=False)
     engine = LiteEngine(json.dumps(rules), json.dumps(spec))
-    engine.inject_hits(json.dumps(hits))
     result = H.step(engine, dict(kind='attack', unit='a', target='d', weapon=0))
     return engine, result['strikes']
 
@@ -35,17 +37,20 @@ def unit(engine, identifier):
 
 class WeaponCoverageCompletionTests(unittest.TestCase):
     def test_stun_requires_hit_and_surviving_target(self):
-        for hits, hp, expected in [((True, False), 40, ['stunned']),
-                                   ((False, False), 40, []),
-                                   ((True,), 1, None)]:
-            with self.subTest(hits=hits, hp=hp):
+        # 7 damage at 40% resolves to 4: a surviving target is stunned, a killed
+        # one is gone, and a zero chance applies nothing.
+        for hp, defense, expected in [(40, None, ['stunned']),
+                                      (40, 0, []),
+                                      (1, None, None)]:
+            with self.subTest(hp=hp, defense=defense):
                 engine, _ = fight(weapon(specials=['stun']), weapon(),
-                                  defender_hp=hp, hits=hits)
+                                  defender_hp=hp, defender_defense=defense)
                 target = unit(engine, 'd')
                 self.assertEqual(None if target is None else target['status'], expected)
 
     def test_absorb_uses_opponents_selected_weapon_on_both_sides(self):
-        for percent, expected in [(60, 4), (75, 5)]:
+        # Base 7 damage becomes 4 (60%) or 5 (75%) before the 40% connection.
+        for percent, expected in [(60, 2), (75, 3)]:
             with self.subTest(percent=percent):
                 _, strikes = fight(
                     weapon(specials=['absorb'], opponent_damage_percent=percent),
@@ -59,8 +64,10 @@ class WeaponCoverageCompletionTests(unittest.TestCase):
                          [('a', 30), ('d', 40)])
 
     def test_greater_drains_default_rounding_immunity_and_overkill(self):
-        for percent, hp, immune, expected in [(None, 40, False, 23),
-                                             (100, 40, False, 27),
+        # 7 damage at 40% deals 4, so half drain heals 2 and full drain heals 4;
+        # overkill is capped at the defender's 3 HP.
+        for percent, hp, immune, expected in [(None, 40, False, 22),
+                                             (100, 40, False, 24),
                                              (100, 3, False, 23),
                                              (100, 40, True, 20)]:
             with self.subTest(percent=percent, hp=hp, immune=immune):

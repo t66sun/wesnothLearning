@@ -86,7 +86,7 @@ def result(bots=('astra', 'astra'), *, reason='victory', winner=1, faults=None,
     winning_team = 0
     if teams and winner:
         winning_team = teams[winner - 1]
-    return dict(engine_id='lite-0.1', winner=winner, winning_team=winning_team,
+    return dict(engine_id='lite-0.2', winner=winner, winning_team=winning_team,
                 truncated=reason == 'turn_limit',
                 reason=reason,
                 survivors=list(survivors) if survivors is not None else None,
@@ -203,7 +203,7 @@ class AdapterContractTests(unittest.TestCase):
         rules_dir = frozen_rules(self.directory / 'rules')
         adapter = LiteAdapter(helpers.spec(), rules_dir)
         view = adapter.observe(1)
-        self.assertEqual(adapter.engine_id, 'lite-0.1')
+        self.assertEqual(adapter.engine_id, 'lite-0.2')
         self.assertIn('current_side', view)
         self.assertTrue(adapter.rules_sha256)
 
