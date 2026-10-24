@@ -10,7 +10,7 @@ import addons
 
 class OpponentTests(unittest.TestCase):
     def test_active_astra_archive_validates_without_changes(self):
-        paths=sorted((ROOT/'opponents').glob('*.zip'))
+        paths=sorted((ROOT/'data/opponents').glob('*.zip'))
         self.assertEqual([p.stem for p in paths],['gpt6astra'])
         for path in paths:
             with self.subTest(archive=path.name):
@@ -24,7 +24,7 @@ class OpponentTests(unittest.TestCase):
             run=Path(temporary)
             runtime=run/'not-an-executable';runtime.write_bytes(b'unit-test runtime reference')
             with patch('learning.manifest.native.find_wesnoth',return_value=str(runtime)),patch('learning.manifest.dependency_versions',return_value=dict(packages=dict(torch='2.9.1+cpu'))):
-                manifest,teachers=freeze(run,ROOT/'opponents',None,dict(device='cuda'))
+                manifest,teachers=freeze(run,ROOT/'data/opponents',None,dict(device='cuda'))
             self.assertEqual(len(teachers),1)
             for opponent in manifest['opponents']:
                 self.assertEqual(sha256(opponent['source']),opponent['sha256'])

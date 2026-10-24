@@ -1,7 +1,7 @@
 """Bounded native 1.18.8/lite rule audit; no training or installed add-on changes.
 
 python -m engine_lite.differential --wesnoth /opt/wesnoth-1.18.8/bin/wesnoth \
-    --rules rules/1.18.8 --output verification/native-differential
+    --rules data/rules/1.18.8 --output verification/native-differential
 
 Native executes one real battle per case and exports its exact combat distribution.
 Actual native hit/miss events drive deterministic lite replay. Independent lite RNG
@@ -249,7 +249,7 @@ def state_cases(native, lite, rules):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--wesnoth', required=True)
-    parser.add_argument('--rules', type=Path, default=Path('rules/1.18.8'))
+    parser.add_argument('--rules', type=Path, default=Path('data/rules/1.18.8'))
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--minimum-samples', type=int, default=DEFAULT_MINIMUM_SAMPLES,
                         help='initial samples per combat (default: 512; formal audit: 16384)')

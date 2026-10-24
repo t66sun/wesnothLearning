@@ -197,7 +197,7 @@ location="~add-ons/LearningNativeRPC/native_rpc.lua"
 [/ai]
 ''', encoding='utf-8')
                 command += ['--controller', f'{number}:ai', '--ai-config', f'{number}:~add-ons/LearningNativeRPC/side{number}.cfg']
-            source_files = [Path(__file__), Path(__file__).with_name('native_rpc.lua'), ROOT / 'opponents/gpt6astra.zip', *sorted((ROOT / 'lua').glob('*.lua'))]
+            source_files = [Path(__file__), Path(__file__).with_name('native_rpc.lua'), ROOT / 'data/opponents/gpt6astra.zip', *sorted((ROOT / 'lua').glob('*.lua'))]
             if self.spec.get('differential_probe'):
                 source_files.append(ROOT / 'engine_lite/lua/differential_probe.lua')
             self.source_hash = _hash({str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()

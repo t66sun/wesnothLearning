@@ -58,18 +58,18 @@ The current implementation as of 2026-10-23 is schema 5 / candidate v3. The Ubun
 
 ## 3. Verify the actually runnable scope before starting
 
-New experiments use lite by default, with rules defaulting to `rules/1.18.8-training` (587 units, 438 terrains). The startup gate verifies the actual 158-unit closure of the six factions, accepts recorded approximations and rejects unsupported types and missing references; whole-package semantics/performance flags keep their original values. All three formats use the frozen real Astra teacher; accepted scope and evidence are in architecture.md section 8.
+New experiments use lite by default, with rules defaulting to `data/rules/1.18.8-training` (587 units, 438 terrains). The startup gate verifies the actual 158-unit closure of the six factions, accepts recorded approximations and rejects unsupported types and missing references; whole-package semantics/performance flags keep their original values. All three formats use the frozen real Astra teacher; accepted scope and evidence are in architecture.md section 8.
 
-The default directory is usually enough. When the user specifies another frozen package, pass it:
+The default directory is usually enough. Captured inputs moved under `data/` on 2026-10-24, so a checkout predating that move keeps `rules/`, `datasets/`, `humanData*`, `opponents/` and `references/` at the root: move them into `data/` before running, or the defaults no longer resolve. When the user specifies another frozen package, pass it:
 
 ```bash
-rules_dir="$project/rules/1.18.8-training"
+rules_dir="$project/data/rules/1.18.8-training"
 # add --rules-dir "$rules_dir" to the new training command
 ```
 
 `--rules-dir` binds features, jobs, adapters and the manifest at once and takes precedence over the environment variable; without an explicit parameter `WESNOTH_RULES_DIR` may be used. The programmatic API passes `config.rules_dir`. Resume automatically uses the original manifest's directory and must not be pointed at the newest package.
 
-The default rule identity is `d6fceafe7d0c9c67c750551b9901dbfb2b22290992a8daa1616a460e11826dca`; the 10 formal maps are frozen in `rules/1.18.8/maps`. When capturing a new package use `python -m engine_lite.capture --maps-dir rules/1.18.8/maps` plus the other required parameters, keeping map composite terrains. After changing the rule hash/vocabulary, start a new experiment; historical weights keep their original matching schema.
+The default rule identity is `d6fceafe7d0c9c67c750551b9901dbfb2b22290992a8daa1616a460e11826dca`; the 10 formal maps are frozen in `data/rules/1.18.8/maps`. When capturing a new package use `python -m engine_lite.capture --maps-dir data/rules/1.18.8/maps` plus the other required parameters, keeping map composite terrains. After changing the rule hash/vocabulary, start a new experiment; historical weights keep their original matching schema.
 
 Pass criteria: the rule hash matches `features.schema()`, the six-faction closure has no missing/unsupported declarations, the maps and Astra exist, and the chosen format really has a teacher chain; reuse evidence when existing validation is valid and run one affected minimal check only if the wiring code changed. Handling of strict statistical precision, peripheral campaigns and package limits is bounded by the architecture document and must not re-expand into a full test task.
 

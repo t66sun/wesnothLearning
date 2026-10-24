@@ -20,7 +20,7 @@ ROOT = Path(__file__).resolve().parents[1]
 def resolve_dir(value=None):
     """Resolve one rule directory consistently for features, jobs and adapters."""
     return Path(value or os.environ.get('WESNOTH_RULES_DIR') or
-                ROOT / 'rules/1.18.8-training').resolve()
+                ROOT / 'data/rules/1.18.8-training').resolve()
 
 
 def _validate(metadata, rules_dir):

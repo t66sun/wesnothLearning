@@ -29,7 +29,7 @@ def main():
     torch.set_num_threads(1);torch.manual_seed(17)
     models={f:Policy(f).to('cpu') for f in FORMATS};optimizers={f:torch.optim.Adam(m.parameters(),lr=3e-4) for f,m in models.items()}
     support=export(models,out/'support',name='LearningSupport',package=False)
-    fixed=[str(ROOT/'opponents/gpt6astra.zip'),'baseline'];deadline=time.time()+600
+    fixed=[str(ROOT/'data/opponents/gpt6astra.zip'),'baseline'];deadline=time.time()+600
     jobs=teacher_jobs(out,fixed[:1],fixed,str(support),0,17,deadline,args.wesnoth,count=1)
     teacher_paths={}
     for job in jobs:

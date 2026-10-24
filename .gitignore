@@ -38,16 +38,17 @@ releases/
 .pi/
 .codegraph/
 
-# Large rule packages: captured unit/terrain tables, catalogs and native
-# captures. Provisioned per docs/instructions.md; not part of the source tree.
-rules/
+# Captured inputs live under data/, never in the source tree. Rule packages
+# hold captured unit/terrain tables, catalogs and native captures and are
+# provisioned per docs/instructions.md.
+data/rules/
 
-# Captured data, not source: raw replay dumps pulled from the Steam install,
-# curated 1.18.8 replays used for BC, and third-party source excerpts.
-humanData/
-humanData_curated/
-datasets/human/*.jsonl
-datasets/human/*.csv
+# Raw replay dumps pulled from the Steam install, curated 1.18.8 replays used
+# for BC, and third-party source excerpts.
+data/humanData/
+data/humanData_curated/
+data/datasets/human/*.jsonl
+data/datasets/human/*.csv
 
 # Third-party sources (Wesnoth-AI clone, upstream 1.18.8 excerpts).
-references/
+data/references/

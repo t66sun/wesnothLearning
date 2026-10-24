@@ -10,7 +10,7 @@
 
 接口：reset、observe/observe_batch、legal_actions/legal_batch、step/step_batch、snapshot/restore、inject_hits、forecast、configure_host、decision、execute_candidate。step_batch 遇到非法动作恢复批前状态与 RNG。snapshot 是裁判真状态，不提供给策略；直接 Lua 桥固定观察方，不允许 Astra 切换其他方视图。原始奖励裁判只导出标量，策略回调收不到它们。
 
-`learning.lite_host.LiteHost` 加载项目同一份 observation/candidates/spatial/rewards 和 `opponents/gpt6astra.zip` 中真正 Astra，不另造教师；Lua 路径、战斗预测和结算直接调用 Rust，不经 Python 逐格往返。共享 Lua 支持的原版 API 以外调用明确报错。`learning.lite_policy` 可从固定标准时代阵营和冻结地图创建 GameSpec，读取导出 addon 旁的 model.pt 进行 CPU 张量推理；官方 baseline 仅原版可用。默认要求规则、语义、性能验收通过，因此当前正常训练会明确拒绝使用未验收引擎。
+`learning.lite_host.LiteHost` 加载项目同一份 observation/candidates/spatial/rewards 和 `data/opponents/gpt6astra.zip` 中真正 Astra，不另造教师；Lua 路径、战斗预测和结算直接调用 Rust，不经 Python 逐格往返。共享 Lua 支持的原版 API 以外调用明确报错。`learning.lite_policy` 可从固定标准时代阵营和冻结地图创建 GameSpec，读取导出 addon 旁的 model.pt 进行 CPU 张量推理；官方 baseline 仅原版可用。默认要求规则、语义、性能验收通过，因此当前正常训练会明确拒绝使用未验收引擎。
 
 `NativeAdapter` 默认接入 `learning.native_transport.NativeTransport` 和 `native_rpc.lua`：独立临时用户目录、常驻原版进程、共同 Lua 观测/候选及串行文件 RPC；原版 snapshot 使用冻结种子与完整请求日志重启重放，成本较高。该实现尚未运行原版核验；日常 native 整局采样继续使用 `match.play_game`。
 

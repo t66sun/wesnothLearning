@@ -14,7 +14,7 @@ from unittest import mock
 from learning import rules_catalog
 
 ROOT = Path(__file__).resolve().parents[2]
-DIR = ROOT / 'rules/1.18.8'
+DIR = ROOT / 'data/rules/1.18.8'
 
 
 @unittest.skipUnless((DIR / 'catalog.json').is_file(), 'no captured 1.18.8 catalog')
@@ -152,4 +152,4 @@ class TrainingReadinessTests(unittest.TestCase):
             self.assertEqual(rules_catalog.resolve_dir(), (ROOT / 'from-env').resolve())
             self.assertEqual(rules_catalog.resolve_dir(ROOT / 'explicit'), (ROOT / 'explicit').resolve())
         with mock.patch.dict(os.environ, {}, clear=True):
-            self.assertEqual(rules_catalog.resolve_dir(), (ROOT / 'rules/1.18.8-training').resolve())
+            self.assertEqual(rules_catalog.resolve_dir(), (ROOT / 'data/rules/1.18.8-training').resolve())

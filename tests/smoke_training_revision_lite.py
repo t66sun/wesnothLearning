@@ -40,7 +40,7 @@ def write_policy(model, destination):
 
 def make_job(out, fmt, label, policy_addon, teacher=False):
     n = PLAYERS[fmt]
-    astra = str((ROOT / 'opponents/gpt6astra.zip').resolve())
+    astra = str((ROOT / 'data/opponents/gpt6astra.zip').resolve())
     if teacher:
         bots = [astra] * n
         learning = dict(sides={'1': {'teacher': 'gpt6astra', 'version': 'teacher-frozen'}})

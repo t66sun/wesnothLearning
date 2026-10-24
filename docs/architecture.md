@@ -59,7 +59,7 @@ Lite decisions add `generate_candidates` (default true): the sampling loop disab
 
 ### 3.1 Current frozen data
 
-Default rule package: `rules/1.18.8-training/`, promoted unchanged from Ubuntu's `verification/v5_lite_default_20261021/capture-maps/frozen/`; the old `rules/1.18.8/` and dated evidence are retained.
+Default rule package: `data/rules/1.18.8-training/`, promoted unchanged from Ubuntu's `verification/v5_lite_default_20261021/capture-maps/frozen/`; the old `data/rules/1.18.8/` and dated evidence are retained.
 
 | Item | Current result |
 | --- | --- |
@@ -92,11 +92,11 @@ Rule truth state is only for the referee, resolution, differential tests and exp
 
 ### 3.4 Default entry and training-scope acceptance
 
-New experiments use lite and the recorded rule approximations by default and never fall back to native automatically. Rule selection order is explicit `--rules-dir` → `WESNOTH_RULES_DIR` → `rules/1.18.8-training/`. The CLI binds the directory before importing features/models; programmatic experiment creation binds it before constructing models; the same directory is passed to jobs and adapters and frozen into the manifest together with rule hash, provenance and training closure. Resuming uses the rule directory from the original manifest and rejects conflicting parameters. Maps keep the existing frozen map entry.
+New experiments use lite and the recorded rule approximations by default and never fall back to native automatically. Rule selection order is explicit `--rules-dir` → `WESNOTH_RULES_DIR` → `data/rules/1.18.8-training/`. The CLI binds the directory before importing features/models; programmatic experiment creation binds it before constructing models; the same directory is passed to jobs and adapters and frozen into the manifest together with rule hash, provenance and training closure. Resuming uses the rule directory from the original manifest and rejects conflicting parameters. Maps keep the existing frozen map entry.
 
 Default checked loading reads the small `catalog-summary.json`, verifies the rules.json hash, provenance and the 1.18.8 version, then checks the full recruit/leader/upgrade/plague closure on the actual six-faction configuration. Unsupported or missing references still block startup; peripheral campaign scripts do not block standard training. Runtime does not parse or retain the ~50 MB full catalog; historical packages without a summary keep compatible loading. `training_acceptance` records scope and profile hash and means implementation coverage is ready, not that all native semantics or performance targets are met; `acceptance_scope='full'` keeps the original three-flag package gate with the original flags still false.
 
-The 10 training/validation/holdout native maps are frozen into `rules/1.18.8/maps/` with their distribution provenance. The capture entry reads these maps by default and also supports `--maps-dir`, delegating composite terrain to native queries for real unit movement/defense values; aliases are not guessed and terrains are not substituted to fill tables. Expanding from 291 to 438 terrains changed rule identity and feature schema, so old checkpoints cannot resume directly against the new vocabulary.
+The 10 training/validation/holdout native maps are frozen into `data/rules/1.18.8/maps/` with their distribution provenance. The capture entry reads these maps by default and also supports `--maps-dir`, delegating composite terrain to native queries for real unit movement/defense values; aliases are not guessed and terrains are not substituted to fill tables. Expanding from 291 to 438 terrains changed rule identity and feature schema, so old checkpoints cannot resume directly against the new vocabulary.
 
 ## 4. Model: three instances, six components
 
@@ -260,13 +260,24 @@ AGENTS.md                  agent working and documentation maintenance rules (En
 engine_lite/               Rust, PyO3, native capture/freeze/audit, direct Lua host
 learning/                  coordinator, adapters, model, sequences, training, rewards, evaluation and export
 lua/                       native deployment and the legal observation/candidate/memory/reward shared by both engines
-rules/1.18.8-training/     default 587-unit rule package, distributable with the development tree
-rules/1.18.8/              historical rule package and frozen native maps, keeping the original experiment identity
-datasets/                  human and teacher data, sequence indexes
+tests/                     one suite per behavior family; shared fixtures in tests/v5/helpers.py
+benchmarks/                engine benchmark contracts
+vendor/arena/              vendored WesnothArena native v2 SDK
+data/                      captured inputs, not source; provisioned, never hand-edited
+data/rules/1.18.8-training/ default 587-unit rule package, distributable with the development tree
+data/rules/1.18.8/         historical rule package and frozen native maps, keeping the original experiment identity
+data/datasets/             human and teacher data, sequence indexes
+data/humanData/            raw replay dumps pulled from the game install
+data/humanData_curated/    curated 1.18.8 replays used for BC
+data/opponents/            frozen reference opponent packages
+data/references/           third-party source excerpts, untracked
 runs/<run>/<format>/       per-format training state, weights, schedules and policy history
 runs/<run>/control/        batch-boundary config and append-only control events
 verification/              raw evidence with dates/rule hashes; the source development package excludes it by default
 delivery/                  explicitly exported model packages and manifests; historical experiments stay as-is
+tmp/                       scratch space; nothing here is evidence
 ```
+
+`data/` groups every captured input, so the source tree has one directory for material that can be re-provisioned. The 2026-10-24 move put `rules/`, `datasets/`, `humanData*`, `opponents/` and `references/` under it, and the defaults, CLI help, tests and instructions follow that layout. `verification/`, `delivery/`, `runs/` and `tmp/` stay at the root because frozen reports, run manifests and hashes record those exact paths; moving them would break the audit trail.
 
 Each English doc has a `_zh` mirror beside it (`docs/architecture_zh.md`, module docs such as `engine_lite/README_zh.md`); edits update both in the same change. When adding features, changing parameters or completing acceptance, update the corresponding responsibility row, status and evidence links in this file; TEST.md keeps only implemented-but-unaccepted items and minimal plans. Real commands, results, version/rule hashes go into dated verification reports, and an accepted item is deleted from TEST.md as a whole; the maintenance rules are in the root AGENTS.md. Sync instructions.md when run entries or maintenance flows change. Run only the minimal checks this change requires and that have not already passed; retest accepted items only when the corresponding sources/data changed or a new failure makes it relevant. Historical reports keep their original dates and hashes and are not rewritten as new acceptance. `docs/` keeps only these maintained entries; detailed logs and research data belong in the corresponding code directory or `verification/`, avoiding parallel plans and status files.
