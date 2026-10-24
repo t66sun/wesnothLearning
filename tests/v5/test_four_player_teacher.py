@@ -1,8 +1,6 @@
 """Minimal regression for the unchanged Astra four-player teacher in lite."""
 import json
-import tempfile
 import unittest
-import zipfile
 from pathlib import Path
 
 from learning.lite_host import host_modules, teacher_candidate
@@ -10,13 +8,12 @@ from . import helpers
 
 
 class FourPlayerTeacherTests(unittest.TestCase):
-    def test_modules_use_the_frozen_teacher_archive(self):
-        with tempfile.TemporaryDirectory() as directory:
-            archive_path = Path(directory) / 'gpt6astra.zip'
-            with zipfile.ZipFile(archive_path, 'w') as archive:
-                for name in ('duel.lua', 'four.lua', 'bot.lua'):
-                    archive.writestr('gpt6astra/lua/' + name, '-- frozen ' + name)
-            self.assertEqual(host_modules(archive_path)['astra/four.lua'], '-- frozen four.lua')
+    def test_modules_use_the_maintained_teacher_source(self):
+        from learning.teachers import lua_modules
+
+        modules = host_modules(Path('data/opponents/gpt6astra.zip'))
+        self.assertEqual(modules['astra/four.lua'], lua_modules()['astra/four.lua'])
+        self.assertIn('expected_damage_v1', modules['astra/value.lua'])
 
     def test_four_player_astra_reads_native_configs_without_advancing_state(self):
         from _engine_lite import LiteEngine
