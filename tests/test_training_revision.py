@@ -44,9 +44,11 @@ class RevisionTests(unittest.TestCase):
                     for _ in range(20):f.write(json.dumps(row)+'\n')
                 paths.append(path)
             pools=[read_shards(paths,partition='train',limit=192,seed=s,format_name='duel') for s in (19,20)]
-            self.assertTrue(all(len(pool)<=192 for pool in pools))
+            # A bounded read admits as many families as the request needs: the old
+            # limit//32 pool could not fill 192 rows from twenty-row games.
+            self.assertEqual([len(pool) for pool in pools],[192,192])
             families=[{r['game_family'] for r in pool} for pool in pools]
-            self.assertLessEqual(len(families[0]),192//32)
+            self.assertEqual(len(families[0]),10)
             self.assertGreater(len(families[0]),1)
             self.assertNotEqual(families[0],families[1])
             validation=read_shards(paths,partition='validation',limit=192,seed=19,format_name='duel')
