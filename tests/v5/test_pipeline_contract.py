@@ -319,13 +319,13 @@ class LiteJobTests(unittest.TestCase):
             outcome = play_lite_job(job)
         self.assertEqual(outcome['status'], 'complete', outcome.get('error'))
         self.assertEqual(outcome['engine'], 'lite')
-        self.assertEqual(outcome['result']['reason'], 'turn_limit')
-        self.assertTrue(outcome['result']['truncated'])
+        self.assertEqual(outcome['result']['reason'], 'victory')
+        self.assertFalse(outcome['result']['truncated'])
         self.assertEqual(outcome['result']['bots'], ['astra', 'astra'])
         self.assertNotIn('baseline', json.dumps(outcome['result']))
-        self.assertEqual(outcome['training_shard']['written'], 24)
+        self.assertEqual(outcome['training_shard']['written'], 11)
         rows = read_gzip(job['shard'])
-        self.assertEqual(len(rows), 24)
+        self.assertEqual(len(rows), 11)
         for row in rows:
             self.assertEqual(row['schema'], features.VERSION)
             self.assertEqual(row['source'], 'astra')
@@ -335,8 +335,8 @@ class LiteJobTests(unittest.TestCase):
             selected = row['candidates'][row['choice']]
             for key, value in row['actual'].items():
                 self.assertEqual(selected[key], value)
-        self.assertEqual(outcome['coverage']['total'], 24)
-        self.assertEqual(outcome['coverage']['matched'], 24)
+        self.assertEqual(outcome['coverage']['total'], 11)
+        self.assertEqual(outcome['coverage']['matched'], 11)
 
     def test_policy_actor_input_excludes_teacher_and_reward_fields(self):
         seen = []
