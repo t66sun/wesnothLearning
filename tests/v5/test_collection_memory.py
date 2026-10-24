@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+import weakref
 from unittest import mock
 import zlib
 
@@ -16,6 +17,27 @@ from learning import data, lite_host, rowpack, sequences
 
 
 class CollectionMemoryTests(unittest.TestCase):
+    def test_collector_spools_complete_rows_without_retaining_their_arrays(self):
+        from learning.trajectory_buffer import TrajectoryBuffer
+        row = rowpack.compact_row(helpers.synthetic_decision_row())
+        original = rowpack.plain_row(row)
+        reference = weakref.ref(row['global'])
+        with TrajectoryBuffer() as buffer:
+            buffer.append(row)
+            del row
+            self.assertIsNone(reference())
+            self.assertEqual(len(buffer), 1)
+            for _ in range(2):
+                self.assertEqual(rowpack.plain_row(next(iter(buffer))), original)
+            metrics = list(buffer.metric_rows())
+            self.assertNotIn('candidates', metrics[0])
+            self.assertNotIn('board', metrics[0]['spatial'])
+            self.assertEqual(rowpack.plain_row(metrics[0]['spatial']['entities']), original['spatial']['entities'])
+
+    def test_missing_metric_vector_stays_missing_after_numpy_support(self):
+        from learning.reward_metrics import _field
+        self.assertIsNone(_field({'global': None, 'global_features': None}, 'own_units'))
+
     def test_compaction_preserves_precision_labels_and_container_types(self):
         row = helpers.synthetic_decision_row()
         row['global'][0] = 0.12345678901234567
@@ -35,7 +57,19 @@ class CollectionMemoryTests(unittest.TestCase):
         fixture.setUp()
         self.addCleanup(fixture.doCleanups)
         baseline_job = fixture.job(shard=str(fixture.directory / 'baseline/game.jsonl.gz'))
-        with fixtures.catalog_patch(fixture.rules_dir), mock.patch.object(lite_host, 'compact_row', side_effect=lambda r:r):
+        class LegacyRows(list):
+            def metric_rows(self):return iter(self)
+            def close(self):pass
+            @property
+            def truncated(self):return sum(r['timing'].get('truncated', False) for r in self)
+            @property
+            def coverage(self):
+                kinds = {kind: dict(total=sum(r['actual']['kind'] == kind for r in self),
+                                   matched=sum(r['actual']['kind'] == kind and r['choice'] >= 0 for r in self))
+                         for kind in ('recruit','move','attack','move_attack','end_turn')}
+                for name in ('total','matched'):kinds['attack'][name] += kinds['move_attack'][name]
+                return dict(total=len(self),matched=sum(r['choice'] >= 0 for r in self),kinds=kinds)
+        with fixtures.catalog_patch(fixture.rules_dir), mock.patch.object(lite_host, 'compact_row', side_effect=lambda r:r), mock.patch.object(lite_host, 'TrajectoryBuffer', LegacyRows):
             baseline = lite_host.play_lite_job(baseline_job)
         self.assertEqual(baseline['status'], 'complete', baseline)
         job = fixture.job()
@@ -43,6 +77,8 @@ class CollectionMemoryTests(unittest.TestCase):
         captured = []
 
         def check_write(path, game_id, rows, *args, **kwargs):
+            from learning.trajectory_buffer import TrajectoryBuffer
+            self.assertIsInstance(rows, TrajectoryBuffer)
             captured.extend(rows)
             self.assertTrue(rows)
             self.assertTrue(all(isinstance(r['global'], np.ndarray) for r in rows))

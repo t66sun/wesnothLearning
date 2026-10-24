@@ -78,7 +78,7 @@ def validate_record(r, format_name=None):
 def write_shard(path, game_id, records, result, bootstraps=None, provenance=None):
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
-    written=0;bootstraps=bootstraps or {};raw_rows=[]
+    written=raw_count=0;bootstraps=bootstraps or {}
     excluded='faulted_game' if result.get('faults') else None
     def is_truncated(side):
         if result.get('reason')!='turn_limit':return False
@@ -91,24 +91,26 @@ def write_shard(path, game_id, records, result, bootstraps=None, provenance=None
             excluded='missing_truncation_bootstrap'
     with gzip.open(path, 'wt', encoding='utf-8') as f:
         if excluded:return dict(written=0,excluded=excluded)
-        for r in records:
-            r = dict(provenance or {}, **r)
-            family=r.get('game_family', game_id)
-            truncated=is_truncated(r['side'])
-            bootstrap=bootstraps.get(str(r['side']),{})
-            r = dict(r, game_id=game_id, game_family=family, split=split(family), reward=reward(result, r['side']), value_valid=r.get('value_valid',True) and not truncated,
-                     truncated=truncated,bootstrap_value=bootstrap.get('value'),bootstrap_potential=bootstrap.get('potential'),
-                     bootstrap_raw=bootstrap.get('reward_raw'),bootstrap_turn=bootstrap.get('turn'),
-                     players=len(result['bots']), format=infer_format(result), faults=result['faults'],
-                     faction=result.get('factions',[None]*len(result['bots']))[r['side']-1])
-            r.setdefault('source', 'astra' if r.get('teacher') else 'policy')
-            if r.get('choice',-1)>=0: validate_record(r);written+=1
-            f.write(pack_line(r) + '\n')
-            raw_rows.append(r)
-    if raw_rows:
+        def augmented():
+            nonlocal written, raw_count
+            for r in records:
+                r = dict(provenance or {}, **r)
+                family=r.get('game_family', game_id)
+                truncated=is_truncated(r['side'])
+                bootstrap=bootstraps.get(str(r['side']),{})
+                r = dict(r, game_id=game_id, game_family=family, split=split(family), reward=reward(result, r['side']), value_valid=r.get('value_valid',True) and not truncated,
+                         truncated=truncated,bootstrap_value=bootstrap.get('value'),bootstrap_potential=bootstrap.get('potential'),
+                         bootstrap_raw=bootstrap.get('reward_raw'),bootstrap_turn=bootstrap.get('turn'),
+                         players=len(result['bots']), format=infer_format(result), faults=result['faults'],
+                         faction=result.get('factions',[None]*len(result['bots']))[r['side']-1])
+                r.setdefault('source', 'astra' if r.get('teacher') else 'policy')
+                if r.get('choice',-1)>=0: validate_record(r);written+=1
+                f.write(pack_line(r) + '\n')
+                raw_count += 1
+                yield r
         from .sequences import IndexedSequenceStore
-        with IndexedSequenceStore(path.parent/'sequences') as store: store.write(raw_rows)
-    return dict(written=written,raw_records=len(raw_rows),excluded=None)
+        with IndexedSequenceStore(path.parent/'sequences') as store: store.write(augmented())
+    return dict(written=written,raw_records=raw_count,excluded=None)
 
 
 @lru_cache(maxsize=8192)

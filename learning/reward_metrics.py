@@ -27,7 +27,7 @@ def _field(observation, name):
     values = observation.get('global')
     if values is None or len(values) == 0:
         values = observation.get('global_features', [])
-    return float(values[index]) * scale if len(values) > index else None
+    return float(values[index]) * scale if values is not None and len(values) > index else None
 
 
 def _own_units(observation, side):
