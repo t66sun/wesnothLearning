@@ -88,17 +88,19 @@ class ExperimentTests(unittest.TestCase):
                 runner=FormatExperiment(root/'duel','duel',manifest,clock,None)
                 (root/'duel/schedules').mkdir(parents=True,exist_ok=True)
                 job=dict(id='job-1',shard=str(root/'job-1.jsonl.gz'),bots=['a','b'],deadline=clock['deadline'])
+                job2=dict(id='job-2',bots=['a','b'],deadline=clock['deadline'])
                 Path(job['shard']).write_bytes(b'old')
                 (root/'duel/jobs.jsonl').write_text(json.dumps(dict(id='job-1',status='infrastructure_error'))+'\n')
                 seen={}
                 def collect(pending,log):
                     seen['exists']=Path(job['shard']).exists()
-                    with open(log,'a') as handle: handle.write(json.dumps(dict(id='job-1',status='complete'))+'\n')
+                    with open(log,'a') as handle:
+                        for item in pending: handle.write(json.dumps(dict(id=item['id'],status='complete'))+'\n')
                 runner.collector=collect
-                jobs,results=runner.execute([job],'retry')
+                jobs,results=runner.execute([job,job2],'retry')
                 self.assertFalse(seen['exists'])
-                self.assertEqual(results[0]['status'],'complete')
-                self.assertEqual(len((root/'duel/jobs.jsonl').read_text().splitlines()),2)
+                self.assertEqual([r['status'] for r in results],['complete','complete'])
+                self.assertEqual(len((root/'duel/jobs.jsonl').read_text().splitlines()),3)
 
     def test_gates_fail_without_evidence(self):
         self.assertFalse(coverage_gate([])['passed']);self.assertFalse(opening_gate([])['passed'])
