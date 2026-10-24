@@ -3,6 +3,9 @@ use serde::{Deserialize,Serialize};
 use serde_json::{json,Value};
 use std::{cmp::Reverse,collections::{BTreeMap,BTreeSet,BinaryHeap},sync::Arc};
 
+/// `expected_damage_v1` poison: one six-HP tick at the poisoned unit's own turn.
+pub const POISON_TICK: i32 = 6;
+
 #[derive(Clone,Serialize,Deserialize)]
 pub struct Game {
     pub rules: Arc<Rules>,
@@ -11,8 +14,6 @@ pub struct Game {
     pub sides: Vec<Side>,
     pub village_owner: Vec<usize>,
     pub knowledge: Vec<Knowledge>,
-    pub combat_rng: Random,
-    pub recruit_rng: Random,
     pub turn: u32,
     pub current: usize,
     pub revision: u64,
@@ -57,16 +58,15 @@ impl Game {
         }
         // The current combat/economy/vision contract has documented approximations even
         // for ordinary units. Never label a game an exact native-equivalent simulation.
-        if !spec.allow_approximate {return Err("lite-0.1 requires allow_approximate=true; native differential acceptance is pending".into());}
+        if !spec.allow_approximate {return Err(format!("{ENGINE_VERSION} requires allow_approximate=true; native differential acceptance is pending"));}
         let mut owner=vec![0;n];
         for (&p,&s) in &spec.village_owner {
             if p>=n || s>spec.sides.len() || !rules.terrains[&spec.terrain[p]].village {return Err("invalid village owner".into());}
             owner[p]=s;
         }
-        let count=spec.sides.len();let seed=spec.seed;
+        let count=spec.sides.len();
         let mut g=Self{rules,units:spec.units.clone(),sides:spec.sides.clone(),village_owner:owner,
             knowledge:vec![Knowledge{visible:vec![false;n],explored:vec![false;n],terrain:vec![None;n],..Knowledge::default()};count],
-            combat_rng:Random::new(seed),recruit_rng:Random::new(seed^0xa0761d6478bd642f),
             spec,turn:1,current:1,revision:0,next_id:1,finished:false,truncated:false,winner:None,
             exploration_seen:BTreeMap::new(),exploration_earned:BTreeMap::new()};
         g.update_visibility();g.update_exploration(true);Ok(g)
@@ -157,7 +157,7 @@ impl Game {
             "fog":other.fog,"shroud":other.shroud,"share_view":other.share_view,"share_maps":other.share_maps,
             "recruit":if other.id==s{Some(&other.recruit)}else{None}})).collect();
         Ok(json!({"engine_id":ENGINE_VERSION,"rules_version":self.rules.rules_version,"rules_hash":self.rules.source_hash,
-            "rng_version":RNG_VERSION,"approximate":true,"side":s,"current_side":self.current,"turn":self.turn,
+            "rng_version":RNG_VERSION,"combat_version":COMBAT_VERSION,"approximate":true,"side":s,"current_side":self.current,"turn":self.turn,
             "width":self.spec.width,"height":self.spec.height,"terrain":k.terrain,"visible":k.visible,
             "explored":k.explored,"units":public,"sides":sides,"villages":k.villages,
             "last_seen":k.enemies,"finished":self.finished,"truncated":self.truncated,"winner":self.winner}))
@@ -293,7 +293,7 @@ impl Game {
                 let modifiers=self.combat_modifiers(&a,&d,&self.units);
                 let attacking=self.rules.units[&a.unit_type].weapons[weapon].clone();
                 let counter=combat::counter_weapon(&self.rules,&d,&attacking).map(|i|self.rules.units[&d.unit_type].weapons[i].clone());
-                strikes=combat::resolve(&self.rules,&mut self.combat_rng,&mut a,&mut d,weapon,
+                strikes=combat::resolve(&self.rules,&mut a,&mut d,weapon,
                     &self.spec.terrain[apos],&self.spec.terrain[dpos],self.turn,&modifiers);
                 // This is the standard core feeding death rule, not a WML event
                 // interpreter. Its permanent object bonus survives advancement.
@@ -387,7 +387,7 @@ impl Game {
                 let rest=if own_turn && (!u.acted || u.traits.contains("healthy")){2}else{0};
                 let change=if u.status.contains("poisoned") {
                     if poison==2 {u.status.remove("poisoned");}
-                    rest-if own_turn && poison==0{8}else{0}
+                    rest-if own_turn && poison==0{POISON_TICK}else{0}
                 }else{rest+healing};
                 u.hp=(u.hp+change).clamp(1,u.max_hp(&self.rules));
             }
@@ -436,9 +436,11 @@ impl Game {
             "explored":if self.sides[s-1].fog{*self.exploration_earned.get(&self.exploration_scope(s)).unwrap_or(&0.)}else{0.},
             "total_strategic_weight":weight.max(1.)})
     }
-    pub fn forecast(&self,s:usize,attacker:&str,target:&str,weapon:usize,samples:usize)->Result<Value,String>{
+    /// `expected_damage_v1` forecast: one deterministic resolution from the
+    /// requesting side's public context. `samples` stays accepted for compatibility
+    /// with existing callers and is ignored, because there is nothing to sample.
+    pub fn forecast(&self,s:usize,attacker:&str,target:&str,weapon:usize,_samples:usize)->Result<Value,String>{
         self.side_check(s)?;
-        if samples==0 || samples>4096 {return Err("forecast samples must be in [1,4096]".into());}
         let public=self.public_units(s);
         let a=public.iter().find(|u|u.id==attacker).ok_or("attacker not visible")?;
         let d=public.iter().find(|u|u.id==target).ok_or("target not visible")?;
@@ -446,18 +448,15 @@ impl Game {
         let at=self.knowledge[s-1].terrain[a.pos].as_ref().ok_or("unknown attacker terrain")?;
         let dt=self.knowledge[s-1].terrain[d.pos].as_ref().ok_or("unknown defender terrain")?;
         let modifiers=self.combat_modifiers(a,d,&public);
-        let mut rng=Random::new(0x666f726563617374);let mut ah=BTreeMap::new();let mut dh=BTreeMap::new();
-        let mut am=0.;let mut dm=0.;let mut ap=0.;let mut dp=0.;let mut asl=0.;let mut dsl=0.;
-        for _ in 0..samples {
-            let mut aa=a.clone();let mut dd=d.clone();
-            combat::resolve(&self.rules,&mut rng,&mut aa,&mut dd,weapon,at,dt,self.turn,&modifiers);
-            *ah.entry(aa.hp.max(0)).or_insert(0.)+=1./samples as f64;*dh.entry(dd.hp.max(0)).or_insert(0.)+=1./samples as f64;
-            am+=aa.hp.max(0) as f64/samples as f64;dm+=dd.hp.max(0) as f64/samples as f64;
-            ap+=if aa.status.contains("poisoned"){1./samples as f64}else{0.};dp+=if dd.status.contains("poisoned"){1./samples as f64}else{0.};
-            asl+=if aa.status.contains("slowed"){1./samples as f64}else{0.};dsl+=if dd.status.contains("slowed"){1./samples as f64}else{0.};
-        }
-        Ok(json!({"approximate":true,"samples":samples,"attacker":{"average_hp":am,"hp_chance":ah,"poisoned":ap,"slowed":asl},
-            "defender":{"average_hp":dm,"hp_chance":dh,"poisoned":dp,"slowed":dsl}}))
+        let mut aa=a.clone();let mut dd=d.clone();
+        combat::resolve(&self.rules,&mut aa,&mut dd,weapon,at,dt,self.turn,&modifiers);
+        let side=|u:&Unit|{
+            let hp=u.hp.max(0);
+            json!({"average_hp":hp,"hp_chance":BTreeMap::from([(hp.to_string(),1.0)]),
+                "poisoned":i32::from(u.status.contains("poisoned")),"slowed":i32::from(u.status.contains("slowed"))})
+        };
+        Ok(json!({"approximate":false,"samples":1,"combat_version":COMBAT_VERSION,
+            "attacker":side(&aa),"defender":side(&dd)}))
     }
     fn combat_modifiers(&self,a:&Unit,d:&Unit,context:&[Unit])->combat::Modifiers {
         let leadership=|target:&Unit|{

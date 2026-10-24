@@ -3,9 +3,9 @@
 python -m engine_lite.differential --wesnoth /opt/wesnoth-1.18.8/bin/wesnoth \
     --rules data/rules/1.18.8 --output verification/native-differential
 
-Native executes one real battle per case and exports its exact combat distribution.
-Actual native hit/miss events drive deterministic lite replay. Independent lite RNG
-samples are compared to that native distribution, avoiding thousands of restarts.
+Native executes one real battle per case. Lite runs the same state through the
+deterministic `expected_damage_v1` rules; the native random rolls are recorded but
+are not treated as an oracle for damage, statuses or death timing.
 """
 from __future__ import annotations
 
@@ -13,16 +13,11 @@ import argparse
 import copy
 import hashlib
 import json
-import math
 from pathlib import Path
 import time
 
 from learning.adapters import LiteAdapter
 from learning.native_transport import NativeTransport
-
-DEFAULT_MINIMUM_SAMPLES = 512
-DEFAULT_MAXIMUM_SAMPLES = 2048
-
 
 COMBATS = (
     ('ordinary', 'Elvish Fighter', 'Orcish Grunt', 0),
@@ -80,93 +75,26 @@ def _compare(label, native, lite):
     return differences
 
 
-def wilson(successes, count):
-    if not count:
-        return [0., 1.]
-    p, z = successes / count, 1.959963984540054
-    den = 1 + z*z/count
-    middle = (p + z*z/(2*count))/den
-    radius = z*math.sqrt(p*(1-p)/count + z*z/(4*count*count))/den
-    return [max(0., middle-radius), min(1., middle+radius)]
-
-
-def _probability(successes, count, expected):
-    interval = wilson(successes, count)
-    error = abs(successes/count-expected)
-    upper = max(abs(x-expected) for x in interval)
-    status = _interval_status(interval, expected, .01)
-    return dict(native=expected, lite=successes/count, error=error, ci95=interval,
-                error_upper95=upper, passed=status == 'passed', status=status)
-
-
-def _interval_status(interval, expected, tolerance):
-    low, high = interval
-    if low >= expected-tolerance and high <= expected+tolerance:
-        return 'passed'
-    if high < expected-tolerance or low > expected+tolerance:
-        return 'failed'
-    return 'inconclusive'
-
-
 def _combined_status(results):
     statuses = [item.get('status', 'passed' if item['passed'] else 'failed') for item in results]
-    return 'failed' if 'failed' in statuses else 'inconclusive' if 'inconclusive' in statuses else 'passed'
+    if 'failed' in statuses:
+        return 'failed'
+    if 'inconclusive' in statuses:
+        return 'inconclusive'
+    if 'expected_difference' in statuses:
+        return 'expected_difference'
+    return 'passed'
 
 
-def statistics(lite, spec, action, oracle, *, minimum=DEFAULT_MINIMUM_SAMPLES,
-               maximum=DEFAULT_MAXIMUM_SAMPLES):
-    """Increase only when the 1 pp/0.5 HP bound needs more evidence."""
-    count = 0
-    sums = {who: dict(hp=0., hp2=0., dead=0, poisoned=0, slowed=0, hits=0, blows=0)
-            for who in ('attacker', 'defender')}
-    target = minimum
-    while True:
-        while count < target:
-            trial = dict(spec, seed=spec['seed']+count+1)
-            lite.reset(trial)
-            outcome = lite.step(action)
-            units = {u['id']: u for u in lite.observe(1)['units']}
-            for who in sums:
-                value = sums[who]
-                u = units.get(who)
-                hp = u['hp'] if u else 0
-                value['hp'] += hp
-                value['hp2'] += hp*hp
-                value['dead'] += hp == 0
-                for status in ('poisoned', 'slowed'):
-                    value[status] += bool(u and status in u['status'])
-            for strike in outcome['strikes']:
-                value = sums[strike['attacker']]
-                value['hits'] += strike['hit']
-                value['blows'] += 1
-            count += 1
-        metrics = {}
-        for who, value in sums.items():
-            expected = oracle[who]
-            mean = value['hp']/count
-            variance = max(0., value['hp2']/count-mean*mean)
-            half = 1.959963984540054*math.sqrt(variance/count)
-            native_variance = sum(float(p)*(int(hp)-expected['average_hp'])**2
-                                  for hp, p in expected['hp_chance'].items())
-            hp_status = _interval_status([mean-half, mean+half], expected['average_hp'], .5)
-            metrics[who] = dict(
-                hp=dict(native=expected['average_hp'], lite=mean, variance=variance,
-                        native_variance=native_variance, ci95=[mean-half, mean+half],
-                        error=abs(mean-expected['average_hp']),
-                        passed=hp_status == 'passed', status=hp_status),
-                death=_probability(value['dead'], count, expected['hp_chance'].get('0', 0.)),
-                poisoned=_probability(value['poisoned'], count, expected['poisoned']),
-                slowed=_probability(value['slowed'], count, expected['slowed']),
-                hit=_probability(value['hits'], value['blows'], oracle[who+'_hit'])
-                    if value['blows'] else dict(passed=True, not_applicable='no retaliation'))
-        status = _combined_status([metric for row in metrics.values() for metric in row.values()])
-        if status != 'inconclusive' or target == maximum:
-            return dict(samples=count, passed=status == 'passed', status=status, metrics=metrics,
-                        confidence='individual 95% Wilson probability / normal HP mean intervals; native oracle is exact engine simulation')
-        target = min(maximum, target*2)
+def combat_case(native, lite, rules, case):
+    """Record a native battle and the deterministic lite battle for the same state.
 
-
-def combat_case(native, lite, rules, case, minimum, maximum):
+    Native resolves every strike with a random roll, so its damage, statuses and
+    death turn are not an oracle for `expected_damage_v1`. The rule-invariant
+    comparison is the strike order (who strikes first, and the alternation) up to
+    the first death; damage and status deltas are recorded as expected differences
+    instead of being reported as parity or as a failed gate.
+    """
     name, attacker, defender, weapon = case
     spec = game_spec(rules, attacker, defender)
     # Make healing by drains observable even when the attacker receives no retaliation.
@@ -175,25 +103,36 @@ def combat_case(native, lite, rules, case, minimum, maximum):
     action = dict(kind='attack', unit='attacker', target='defender', weapon=weapon)
     native.reset(spec)
     lite.reset(spec)
-    initial = _compare('initial', _state(native.observe(1)), _state(lite.observe(1)))
-    result = native.step(action)
-    probe = result['differential']
-    lite.inject_hits(strike['hit'] for strike in probe['strikes'])
+    differences = _compare('initial', _state(native.observe(1)), _state(lite.observe(1)))
+    probe = native.step(action)['differential']
     outcome = lite.step(action)
-    native_strikes = [{k: s[k] for k in ('attacker', 'defender', 'hit', 'defender_hp')}
-                      for s in probe['strikes']]
-    lite_strikes = [{k: s[k] for k in ('attacker', 'defender', 'hit', 'defender_hp')}
-                    for s in outcome['strikes']]
-    differences = initial + _compare('injected battle', {'strikes': native_strikes}, {'strikes': lite_strikes})
-    differences += _compare('post battle', _units(native.observe(1)), _units(lite.observe(1)))
-    if differences:
-        stats = dict(samples=0, passed=False, status='not_run',
-                     reason='deterministic state/strike mismatch; fix it before statistical sampling')
-    else:
-        stats = statistics(lite, spec, action, probe['oracle'], minimum=minimum, maximum=maximum)
-    status = 'failed' if differences else stats['status']
-    return dict(name=name, passed=status == 'passed', status=status, differences=differences,
-                native_actual=probe, statistics=stats)
+    native_strikes = probe.get('strikes', [])
+    lite_strikes = outcome.get('strikes', [])
+    native_order = [(s['attacker'], s['defender']) for s in native_strikes]
+    lite_order = [(s['attacker'], s['defender']) for s in lite_strikes]
+    shared = min(len(native_order), len(lite_order))
+    if native_order[:shared] != lite_order[:shared]:
+        differences.append(dict(check='strike order', native=native_order, lite=lite_order))
+    expected = []
+    for label, native_row, lite_row in zip(('strike '+str(i) for i in range(shared)),
+                                           native_strikes, lite_strikes):
+        delta = {key: dict(native=native_row.get(key), lite=lite_row.get(key))
+                 for key in ('hit', 'chance', 'damage', 'defender_hp')
+                 if native_row.get(key) != lite_row.get(key)}
+        if delta:
+            expected.append(dict(check=label, difference=delta))
+    native_units = _units(native.observe(1))
+    lite_units = _units(lite.observe(1))
+    for unit_id in sorted(set(native_units) | set(lite_units)):
+        if native_units.get(unit_id) != lite_units.get(unit_id):
+            expected.append(dict(check='post battle unit '+unit_id,
+                                 native=native_units.get(unit_id), lite=lite_units.get(unit_id)))
+    return dict(name=name, passed=not differences,
+                status='failed' if differences else 'expected_difference',
+                differences=differences, expected_differences=expected,
+                native_actual=probe, lite_actual=outcome,
+                rule_profile='expected_damage_v1',
+                note='native stochastic strikes are not an oracle for deterministic expected damage')
 
 
 def state_cases(native, lite, rules):
@@ -251,22 +190,15 @@ def main(argv=None):
     parser.add_argument('--wesnoth', required=True)
     parser.add_argument('--rules', type=Path, default=Path('data/rules/1.18.8'))
     parser.add_argument('--output', type=Path, required=True)
-    parser.add_argument('--minimum-samples', type=int, default=DEFAULT_MINIMUM_SAMPLES,
-                        help='initial samples per combat (default: 512; formal audit: 16384)')
-    parser.add_argument('--maximum-samples', type=int, default=DEFAULT_MAXIMUM_SAMPLES,
-                        help='sample cap per combat (default: 2048; formal audit: 65536)')
     parser.add_argument('--case', action='append', choices=[c[0] for c in COMBATS])
     parser.add_argument('--skip-state', action='store_true')
     args = parser.parse_args(argv)
-    if not 1 <= args.minimum_samples <= args.maximum_samples:
-        parser.error('samples must satisfy 1 <= minimum <= maximum')
     args.output.mkdir(parents=True, exist_ok=True)
     rules_bytes = (args.rules/'rules.json').read_bytes()
     rules = json.loads(rules_bytes)
     start = time.monotonic()
     report = dict(kind='native_lite_differential_v1', rules_sha256=hashlib.sha256(rules_bytes).hexdigest(),
-                  cases=[], probability_tolerance=.01, mean_hp_tolerance=.5,
-                  minimum_samples=args.minimum_samples, maximum_samples=args.maximum_samples)
+                  cases=[], combat_version='expected_damage_v1')
     lite = LiteAdapter(game_spec(rules), rules_dir=args.rules, require_accepted=False)
     with NativeTransport(wesnoth=args.wesnoth, timeout=60, startup_timeout=120) as native:
         if not args.skip_state:
@@ -274,7 +206,7 @@ def main(argv=None):
         for case in COMBATS:
             if args.case and case[0] not in args.case:
                 continue
-            result = combat_case(native, lite, rules, case, args.minimum_samples, args.maximum_samples)
+            result = combat_case(native, lite, rules, case)
             report['cases'].append(result)
             print(case[0], result['status'], flush=True)
         report['native_executable_sha256'] = native.executable_hash
@@ -285,11 +217,12 @@ def main(argv=None):
     lines = ['# Native/lite differential', '', f"Result: {report['status']}", '',
              '| Case | Result |', '|---|---|']
     lines += [f"| {c['name']} | {c.get('status', 'passed' if c['passed'] else 'failed')} |" for c in report['cases']]
-    lines += ['', 'The JSON contains real native strike traces, injected replay differences, native exact distributions,',
-              'lite sample counts and individual 95% confidence intervals. This is a representative rule audit,',
-              'not a claim that arbitrary campaign scripts are supported.', '']
+    lines += ['', 'The JSON contains real native strike traces and the deterministic lite battle for the same',
+              'state. Native random rolls are not an oracle for `expected_damage_v1`: damage, status and',
+              'death deltas are recorded as expected differences, and only strike order is compared.',
+              'This is a representative rule audit, not a claim that arbitrary campaign scripts are supported.', '']
     (args.output/'REPORT.md').write_text('\n'.join(lines), encoding='utf-8')
-    return {'passed': 0, 'failed': 1, 'inconclusive': 2}[report['status']]
+    return {'passed': 0, 'failed': 1, 'expected_difference': 2, 'inconclusive': 2}[report['status']]
 
 
 if __name__ == '__main__':

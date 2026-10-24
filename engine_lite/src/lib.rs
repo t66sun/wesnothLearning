@@ -2,9 +2,10 @@ mod model;
 mod combat;
 mod state;
 mod host;
+#[cfg(test)] mod engine_tests;
 
 use mlua::{Lua,LuaSerdeExt,Function};
-use model::{Action,GameSpec,Rules,ENGINE_VERSION,RNG_VERSION};
+use model::{Action,GameSpec,Rules,COMBAT_VERSION,ENGINE_VERSION,RNG_VERSION};
 use pyo3::{exceptions::PyValueError,prelude::*};
 use serde::{Deserialize,Serialize};
 use serde_json::{json,Value};
@@ -58,7 +59,7 @@ impl LiteEngine {
     fn step(&mut self,action_json:&str)->PyResult<String>{
         let a:Action=decode(action_json)?;encode(&self.game.lock().map_err(error)?.step(a).map_err(error)?)
     }
-    /// A batch is atomic: any invalid action restores the pre-batch state/RNG.
+    /// A batch is atomic: any invalid action restores the pre-batch state.
     fn step_batch(&mut self,actions_json:&str)->PyResult<String>{
         let actions:Vec<Action>=decode(actions_json)?;let mut g=self.game.lock().map_err(error)?;let saved=g.clone();
         let mut results=vec![];
@@ -67,12 +68,13 @@ impl LiteEngine {
     }
     fn snapshot(&self)->PyResult<String>{
         let g=self.game.lock().map_err(error)?;
-        encode(&json!({"engine_id":ENGINE_VERSION,"rng_version":RNG_VERSION,"game":&*g,
-            "host":host::snapshot(&self.lua).map_err(error)?}))
+        encode(&json!({"engine_id":ENGINE_VERSION,"rng_version":RNG_VERSION,"combat_version":COMBAT_VERSION,
+            "game":&*g,"host":host::snapshot(&self.lua).map_err(error)?}))
     }
     fn restore(&mut self,snapshot_json:&str)->PyResult<()> {
         let value:Value=decode(snapshot_json)?;
-        if value["engine_id"]!=ENGINE_VERSION || value["rng_version"]!=RNG_VERSION {return Err(error("snapshot version mismatch"));}
+        if value["engine_id"]!=ENGINE_VERSION || value["rng_version"]!=RNG_VERSION
+            || value["combat_version"]!=COMBAT_VERSION {return Err(error("snapshot version mismatch"));}
         let g:Game=serde_json::from_value(value["game"].clone()).map_err(error)?;
         let expected=self.game.lock().map_err(error)?.rules.source_hash.clone();
         if g.rules.source_hash!=expected{return Err(error("snapshot rules hash mismatch"));}
@@ -80,10 +82,8 @@ impl LiteEngine {
         *self.game.lock().map_err(error)?=g;
         host::restore(&self.lua,value["host"].clone()).map_err(error)?;Ok(())
     }
-    fn inject_hits(&mut self,hits_json:&str)->PyResult<()> {
-        let hits:Vec<bool>=decode(hits_json)?;let mut g=self.game.lock().map_err(error)?;
-        g.combat_rng.injected_hits=hits;g.combat_rng.injected_cursor=0;Ok(())
-    }
+    /// `samples` remains in the signature for existing callers and is ignored:
+    /// one deterministic resolution replaces the former Monte Carlo estimate.
     #[pyo3(signature=(side,attacker,target,weapon,samples=128))]
     fn forecast(&self,side:usize,attacker:&str,target:&str,weapon:usize,samples:usize)->PyResult<String>{
         encode(&self.game.lock().map_err(error)?.forecast(side,attacker,target,weapon,samples).map_err(error)?)
@@ -112,5 +112,6 @@ impl LiteEngine {
 
 #[pymodule]
 fn _engine_lite(m:&Bound<'_,PyModule>)->PyResult<()> {
-    m.add_class::<LiteEngine>()?;m.add("ENGINE_VERSION",ENGINE_VERSION)?;m.add("RNG_VERSION",RNG_VERSION)?;Ok(())
+    m.add_class::<LiteEngine>()?;m.add("ENGINE_VERSION",ENGINE_VERSION)?;m.add("RNG_VERSION",RNG_VERSION)?;
+    m.add("COMBAT_VERSION",COMBAT_VERSION)?;Ok(())
 }

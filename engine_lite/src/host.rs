@@ -40,7 +40,8 @@ pub fn create(game:Arc<Mutex<Game>>)->mlua::Result<Lua> {
                 let pos=a["pos"].as_u64().ok_or_else(||mlua::Error::external("missing combat location"))? as usize;
                 if pos>=g.spec.terrain.len() || g.knowledge[side-1].terrain[pos].is_none() {return Err(mlua::Error::external("forecast terrain is unknown"));}
                 let mut copy=g.clone();let i=copy.unit(attacker).unwrap();copy.units[i].pos=pos;
-                copy.forecast(side,attacker,target,a["weapon"].as_u64().unwrap_or(0) as usize,128).map_err(mlua::Error::external)?
+                // One deterministic resolution; the former sample count is gone.
+                copy.forecast(side,attacker,target,a["weapon"].as_u64().unwrap_or(0) as usize,1).map_err(mlua::Error::external)?
             },
             "step"=>{
                 if side!=g.current{return Err(mlua::Error::external("cannot act for another side"));}
