@@ -181,6 +181,16 @@ R1–R3 are activated by P7 only. Unchanged C1–C9 reuse their evidence; refres
 
 **Minimal Ubuntu procedure/pass:** one fixed native 1.18.8 early-elimination/endgame scenario capped at five turns plus existing truncation counterexample. Actual initial/eliminated/terminal events preserve surviving side/real own HP; T5/T10 absorption only for real terminal. Failure/truncation cannot invent terminal. Missing events mean missing evidence, not zero-valued success. Diagnostic rows enter neither actor/BC/PPO shards nor memory writes. Save raw events/command/identities in `N1/`; no native rules/performance matrix.
 
+## L1 — Post-refactor reduced full-loop run
+
+**Status/trigger:** planned, not run. Authorized by the user after P1–P7 acceptance; blocks nothing in the refactor itself. It is not formal training and cannot support a convergence or strength claim.
+
+**Minimal Ubuntu procedure:** on the isolated source tree, freeze one lite config with the smallest format/game panel that reaches BC, at least two applied PPO updates, one stop/resume from a committed-batch checkpoint, and the final-evaluation entry. Record the exact counts, seed, manifest and checkpoint identities before launch. Poll the run status/log every 30 minutes and retain anomalies; do not raise game counts, lower gates or edit frozen evidence during the run.
+
+**Pass:** the run reaches final evaluation; both PPO updates commit; resuming from the saved boundary reproduces the uninterrupted future exactly where identity matches; the selected checkpoint and export are recorded; every stop reason is reported rather than hidden. Any reduced-panel limitation is labelled inconclusive for strength, and a failure remains a failure.
+
+**Evidence/blocker:** new dated `verification/<run>_<date>/REPORT.md` with commands, counts, identities, checkpoint/resume trace, final-evaluation entry and resource readings. No new collection/formal training from this item alone.
+
 ## Execution order and report
 
 1. Identify changed owners, activated cases, reused evidence and missing fixtures. Predeclare maximum rows/windows/steps/games and numeric tolerances. Implement only needed assertions/helpers; record real test commands before running.
