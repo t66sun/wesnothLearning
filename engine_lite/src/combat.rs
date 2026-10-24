@@ -8,7 +8,8 @@ pub const SLOW_DAMAGE_NUMERATOR: i64 = 3;
 pub const SLOW_DAMAGE_DENOMINATOR: i64 = 4;
 /// Ten percent uplift applied once, folded into the same integer rounding.
 pub const DAMAGE_PERCENT: i64 = 110;
-pub const DAMAGE_SCALE: i64 = 1000;
+/// Percent uplift times percent chance: 110 * 100.
+pub const DAMAGE_SCALE: i64 = 10_000;
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Strike {
@@ -199,6 +200,11 @@ mod tests {
         let hit = strike_once(&rules, &mut a, &mut d, 0);
         assert_eq!((hit.chance, hit.damage, hit.hit), (60, 7, true));
         assert_eq!(d.hp, 33);
+        // A second damage value catches a scale error that still rounds 10@60 to 7.
+        let rules = rules(60, vec![weapon(13, 1, &[])], vec![]);
+        let mut a = unit("a", "A", 40);
+        let mut d = unit("d", "D", 40);
+        assert_eq!(strike_once(&rules, &mut a, &mut d, 0).damage, 9);
         // 100% chance: exactly the 10% uplift, 11.
         let rules = rules(100, vec![weapon(10, 1, &[])], vec![]);
         let mut a = unit("a", "A", 40);
