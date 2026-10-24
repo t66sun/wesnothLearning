@@ -13,6 +13,8 @@ def parser():
     commands=p.add_subparsers(dest='command',required=True)
     run=commands.add_parser('run',help='运行或恢复有固定截止时间的完整实验')
     run.add_argument('--run-dir',default='runs/first');run.add_argument('--resume',metavar='RUN_DIR',help='恢复原目录冻结的设备、进程数和截止时间')
+    run.add_argument('--branch-from',metavar='RUN_DIR',help='从另一实验的 latest.pt 建立显式分支（新目录、新预算，保留父记录）')
+    run.add_argument('--branch-reset-optimizer',action='store_true',help='分支时只保留权重，重新初始化 Adam')
     run.add_argument('--hours',type=float,default=12);run.add_argument('--workers',type=int,default=None,help='全局游戏进程数（1–16；默认 8）')
     run.add_argument('--formats',nargs='+',choices=FORMATS,default=list(FORMATS))
     run.add_argument('--human-data',default=str(ROOT/'data/datasets/human'))
@@ -101,8 +103,9 @@ def bind_rules(args):
     """Resolve rules before importing feature/model modules, including resume."""
     from .rules_catalog import resolve_dir
     directory=getattr(args,'rules_dir',None)
-    if getattr(args,'resume',None):
-        manifest=read_json(Path(args.resume)/'manifest.json')
+    source=getattr(args,'resume',None) or getattr(args,'branch_from',None)
+    if source:
+        manifest=read_json(Path(source)/'manifest.json')
         frozen=manifest['config'].get('rules_dir',str(ROOT/'data/rules/1.18.8'))
         if directory and resolve_dir(directory)!=resolve_dir(frozen):
             raise ValueError('resume must use the frozen rules directory')
@@ -135,9 +138,13 @@ def main(argv=None):
         from .manifest import output_path
         if args.command=='run':
             if args.resume and args.phase is not None: raise ValueError('resume keeps the saved phase; use phase --run-dir to change it')
+            if args.resume and args.branch_from: raise ValueError('choose resume or branch, not both')
+            if args.branch_from and Path(args.branch_from).resolve()==Path(args.run_dir).resolve(): raise ValueError('branch needs a new run directory')
             from .coordinator import Experiment
             config=run_config(args)
-            result=Experiment(args.resume or args.run_dir,config=config,opponents=args.opponents,wesnoth=args.wesnoth,resume=bool(args.resume)).run()
+            if args.branch_from: config['branch_reset_optimizer']=bool(args.branch_reset_optimizer)
+            result=Experiment(args.resume or args.run_dir,config=config,opponents=args.opponents,wesnoth=args.wesnoth,
+                resume=bool(args.resume),branch_from=args.branch_from).run()
             print('Experiment:',result['status'])
         elif args.command=='phase':
             from .phases import request_phase,show_phases

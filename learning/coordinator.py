@@ -6,9 +6,11 @@ from pathlib import Path
 from queue import Empty
 import json
 import time
+from pathlib import Path
 import traceback
-from .common import ROOT, read_json, write_json
+from .common import ROOT, read_json, sha256, write_json
 from .formats import FORMATS
+from .branch import prepare as prepare_branch
 from .manifest import output_path, freeze, verify_frozen
 from .experiment import FormatExperiment, default_config, validate_config, run_lock
 from .export import export_checkpoints
@@ -46,14 +48,14 @@ def limit_memory(gigabytes):
         return None
 
 
-def trainer_main(directory,fmt,manifest,clock,requests,replies,resume):
+def trainer_main(directory,fmt,manifest,clock,requests,replies,resume,branch=False):
     limit_memory(manifest.get('config',{}).get('trainer_memory_gb'))
     def collect(jobs,log):
         requests.put((fmt,jobs,str(log)))
         reply=replies.get()
         if reply.get('error'): raise RuntimeError(reply['error'])
         return reply['results']
-    try: FormatExperiment(directory,fmt,manifest,clock,collect,resume).run()
+    try: FormatExperiment(directory,fmt,manifest,clock,collect,resume,branch=branch).run()
     except BaseException:
         Path(directory).mkdir(parents=True,exist_ok=True)
         Path(directory,'trainer_error.log').write_text(traceback.format_exc(),encoding='utf-8')
@@ -115,8 +117,8 @@ def broker(processes,requests,replies,workers,directory,play=play_job):
 
 
 class Experiment:
-    def __init__(self,directory,config=None,opponents=None,wesnoth=None,resume=False):
-        self.directory=output_path(directory);self.resume=resume
+    def __init__(self,directory,config=None,opponents=None,wesnoth=None,resume=False,branch_from=None):
+        self.directory=output_path(directory);self.resume=resume;self.branch_from=branch_from
         if resume:
             self.manifest=read_json(self.directory/'manifest.json')
             self.config=self.manifest['config']
@@ -124,6 +126,34 @@ class Experiment:
             select_rules(self.config.get('rules_dir',ROOT/'data/rules/1.18.8'))
             verify_frozen(self.manifest)
             self.clock=read_json(self.directory/'clock.json')
+        elif branch_from:
+            source=Path(branch_from).resolve()
+            parent=read_json(source/'manifest.json');parent_clock=read_json(source/'clock.json')
+            requested=dict(config or {})
+            self.config=default_config(requested.get('device','cuda'),engine=requested.get('engine'))|requested
+            validate_config(self.config)
+            from .features import select_rules
+            from .rules_catalog import load, resolve_dir
+            self.config['rules_dir']=str(resolve_dir(self.config.get('rules_dir')))
+            if self.config['engine']!=parent['config']['engine']:
+                raise ValueError('branch must keep the parent engine')
+            if set(self.config['formats'])!=set(parent['config']['formats']):
+                raise ValueError('branch must keep the parent formats')
+            select_rules(self.config['rules_dir']);load(self.config['rules_dir'])
+            self.directory.mkdir(parents=True,exist_ok=False)
+            opponents_dir=source/'frozen/opponents'
+            self.manifest,_=freeze(self.directory,opponents_dir if opponents_dir.exists() else (opponents or ROOT/'data/opponents'),
+                parent.get('baseline',{}).get('path') or wesnoth,self.config)
+            if self.manifest['rules']!=parent['rules']:
+                raise ValueError('branch rules differ from the parent')
+            started=time.time();duration=self.config['hours']*3600
+            self.clock=dict(started=started,update_deadline=started+duration*10/12,deadline=started+duration)
+            records=prepare_branch(source,self.directory,self.config['formats'],seed=self.config['seed'],
+                reset_optimizer=bool(self.config.get('branch_reset_optimizer')),clock=parent_clock)
+            records.update(parent=str(source),parent_manifest_sha256=sha256(source/'manifest.json'),
+                parent_clock=parent_clock)
+            write_json(self.directory/'branch.json',records)
+            write_json(self.directory/'clock.json',self.clock)
         else:
             requested=dict(config or {})
             self.config=default_config(requested.get('device','cuda'),engine=requested.get('engine'))|requested;validate_config(self.config)
@@ -145,7 +175,7 @@ class Experiment:
             ctx=get_context('spawn');requests=ctx.Queue();processes={};replies={}
             for fmt in self.config['formats']:
                 replies[fmt]=ctx.Queue()
-                p=ctx.Process(target=trainer_main,args=(str(self.directory/fmt),fmt,self.manifest,self.clock,requests,replies[fmt],self.resume),name='trainer-'+fmt)
+                p=ctx.Process(target=trainer_main,args=(str(self.directory/fmt),fmt,self.manifest,self.clock,requests,replies[fmt],self.resume,bool(self.branch_from)),name='trainer-'+fmt)
                 processes[fmt]=p;p.start()
             try: scheduling=broker(processes,requests,replies,self.config['workers'],self.directory)
             except BaseException:
