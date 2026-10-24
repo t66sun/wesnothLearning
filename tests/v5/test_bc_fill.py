@@ -175,14 +175,13 @@ class BoundedFillTests(unittest.TestCase):
         rows[0]['split']=data.split('family-3')
         with tempfile.TemporaryDirectory() as temp:
             root=Path(temp)
-            with IndexedSequenceStore(root) as store: store.write(rows)
+            with IndexedSequenceStore(root/'sequences') as store: store.write(rows)
             shard=root/'retry.jsonl.gz'
-            with gzip.open(shard,'wt',encoding='utf-8') as handle:
-                for row in rows: handle.write(json.dumps(row)+'\n')
-            with IndexedSequenceStore(root) as store: self.assertEqual(len(store.index()),1)
-            self.assertEqual(discard_sequences(shard),len({row['game_id'] for row in rows}))
+            shard.write_bytes(b'cut off before the stream marker')
+            with IndexedSequenceStore(root/'sequences') as store: self.assertEqual(len(store.index()),1)
+            self.assertEqual(discard_sequences(shard,'retry-1'),1)
             self.assertFalse(shard.exists())
-            with IndexedSequenceStore(root) as store: self.assertEqual(store.index(),[])
+            with IndexedSequenceStore(root/'sequences') as store: self.assertEqual(store.index(),[])
 
 
 if __name__ == '__main__':

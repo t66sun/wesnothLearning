@@ -284,7 +284,7 @@ class FormatExperiment:
                 for name in (job['shard'],job['shard'].replace('.jsonl.gz','.dagger.jsonl.gz')):
                     if Path(name).exists():
                         from .sequences import discard_sequences
-                        discard_sequences(name)
+                        discard_sequences(name,job['id'])
             pending.append(job)
         if pending: self.collector(pending,log)
         latest={r['id']:r for r in read_log(log)}
