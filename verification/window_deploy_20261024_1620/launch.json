@@ -1,0 +1,11 @@
+{
+  "pid": 202233,
+  "pgid": 202233,
+  "time": 1792830689.9557967,
+  "source_root": "/home/tongshu/myDev/wesnothLearning/validation_window_fix_20261024_1630",
+  "command": [
+    "/home/tongshu/myDev/wesnothLearning/validation_window_fix_20261024_1630/.venv/bin/python",
+    "-u",
+    "/home/tongshu/myDev/wesnothLearning/validation_window_fix_20261024_1630/runs/v5_lite_windowfix_20261024_1630/continue_run.py"
+  ]
+}

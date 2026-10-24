@@ -1,0 +1,103 @@
+{
+  "authorization": "Stop current training, deploy accepted window fix, resume strongest recent complete usable checkpoints, extend total deadline to 2026-10-25 00:00 Asia/Shanghai.",
+  "parent": "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/runs/v5_lite_resume_20261024_1420",
+  "parent_manifest_sha256": "8ec090d7b5626a093695a5f94fb6a809f5d7bb0f252aaf49af73067cc0140569",
+  "manifest_sha256": "1ceea35797063f5eb44ede68707826540c4bcd372d9faa2424e85623ac54a3ee",
+  "source_commit": "cccf6fec2c97a5a93ad016c9bb7e8e28d371ff05",
+  "created_at": 1792830578.3732417,
+  "previous_clock": {
+    "started": 1792773314.067086,
+    "deadline": 1792852200.0,
+    "update_deadline": 1792839052.3445144
+  },
+  "clock": {
+    "started": 1792773314.067086,
+    "deadline": 1792857600.0,
+    "update_deadline": 1792843552.3445144
+  },
+  "changed_config_keys": [
+    "hours"
+  ],
+  "checkpoints": {
+    "duel": {
+      "source": "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/runs/v5_lite_resume_20261024_1420/duel/best.pt",
+      "source_sha256": "6e63648d10c88243198d7af577574b4cfbe4471a45d3e6aa0d31e7153a524ec4",
+      "reason": "Retained promoted champion; v200 did not pass its champion comparison. Later trend exports are not complete resumable checkpoints.",
+      "version": 100,
+      "batch": 101,
+      "effective": true,
+      "forced_ppo": null,
+      "counters": {
+        "environment_games": 548,
+        "collection_batches": 101,
+        "optimizer_steps": 1780,
+        "unique_families_seen": 543,
+        "decisions_seen": 342817,
+        "effective_dataset_passes": 178.26044342340205
+      },
+      "parent_latest_version": 277,
+      "parent_latest_sha256": "8a967fe61d4edd569ae7d4979ea562e76518a8254ba64102c143539abb40fb2d",
+      "kept_job_results": 654,
+      "excluded_future_results": 856,
+      "pending_validation": "ppo",
+      "ready_sha256": "3947d90cd46eb28fb90aa97acdc0207d070e5b873b2f1fb21076e223d5f16420",
+      "completed_validation_replayed": true
+    },
+    "ffa4": {
+      "source": "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/runs/v5_lite_resume_20261024_1420/ffa4/best.pt",
+      "source_sha256": "8d5d8d2fcd0f42385c92309b3943d74636b66541aabc914d6c3c3603f394e92e",
+      "reason": "Most recent complete promoted-best PPO checkpoint, backed by its 12-block panel.",
+      "version": 100,
+      "batch": 100,
+      "effective": false,
+      "forced_ppo": {
+        "reason": "scheduled 08:00 override: BC gate not met, user asked for switch per instructions.md",
+        "command_id": "e77b9a5b6b89466898c9c189fec26939",
+        "version": 63
+      },
+      "counters": {
+        "environment_games": 656,
+        "collection_batches": 100,
+        "optimizer_steps": 1820,
+        "unique_families_seen": 624,
+        "decisions_seen": 347015,
+        "effective_dataset_passes": 295.11171634648474
+      },
+      "parent_latest_version": 111,
+      "parent_latest_sha256": "cdde02e9fdafbfccef378cd570bde42b51c86a1b67383f14a31383c312437795",
+      "kept_job_results": 764,
+      "excluded_future_results": 52,
+      "pending_validation": "ppo",
+      "ready_sha256": "5b942f0893731ff870a6c920c363ebd7e7f78976b6f6f41aed4020c1a374c193",
+      "completed_validation_replayed": true
+    },
+    "team2v2": {
+      "source": "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/runs/v5_lite_resume_20261024_1420/team2v2/latest.pt",
+      "source_sha256": "41cda3629f2237f2b999ff0dfbab7f57ddffe250694f371c25c1f860550b8306",
+      "reason": "No promoted best exists; latest complete legal PPO checkpoint is fallback, not a claim of strongest playing strength.",
+      "version": 60,
+      "batch": 60,
+      "effective": false,
+      "forced_ppo": {
+        "reason": "scheduled 08:00 override: BC gate not met, user asked for switch per instructions.md",
+        "command_id": "09eceeaa3d0c4942aea1be095ac123fb",
+        "version": 41
+      },
+      "counters": {
+        "environment_games": 408,
+        "collection_batches": 60,
+        "optimizer_steps": 746,
+        "unique_families_seen": 345,
+        "decisions_seen": 164598,
+        "effective_dataset_passes": 207.70332966717578
+      },
+      "parent_latest_version": 60,
+      "parent_latest_sha256": "41cda3629f2237f2b999ff0dfbab7f57ddffe250694f371c25c1f860550b8306",
+      "kept_job_results": 504,
+      "excluded_future_results": 1,
+      "pending_validation": null,
+      "ready_sha256": "883681632392da79467cf1e97bfe8a1eb74942d4ce70c0215326ba02488af5e9",
+      "completed_validation_replayed": false
+    }
+  }
+}

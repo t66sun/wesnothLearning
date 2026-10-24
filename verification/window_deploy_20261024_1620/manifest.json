@@ -1,0 +1,2628 @@
+{
+  "schema": 4,
+  "config": {
+    "hours": 23.412759142782953,
+    "workers": 8,
+    "device": "cpu",
+    "trainer_threads": 1,
+    "seed": 20261017,
+    "engine": "lite",
+    "evaluation_engine": "lite",
+    "reward_mode": "adaptive",
+    "phase": "auto",
+    "allow_approximate": true,
+    "rules_dir": "/home/tongshu/myDev/wesnothLearning/WesnothLearning/rules/1.18.8-training",
+    "formats": [
+      "duel",
+      "ffa4",
+      "team2v2"
+    ],
+    "calibration_blocks": 3,
+    "validation_interval": 10,
+    "validation_games": {
+      "duel": 6,
+      "ffa4": 4,
+      "team2v2": 8
+    },
+    "final_blocks": 30,
+    "bc_games": {
+      "duel": 300,
+      "ffa4": 600,
+      "team2v2": 400
+    },
+    "native_bc_games": {
+      "duel": 0,
+      "ffa4": 0,
+      "team2v2": 0
+    },
+    "bc_batch_games": 8,
+    "bc_accuracy": {
+      "all": 0.4,
+      "recruit": 0.6,
+      "move": 0.35,
+      "attack": 0.35
+    },
+    "shaping_weight": null,
+    "rollout_games": 4,
+    "minibatch": 256,
+    "bc_records": 2048,
+    "bc_validation_records": 1024,
+    "epochs": 4,
+    "learning_rate": 0.0003,
+    "trainer_memory_gb": 6.0,
+    "human_data": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/datasets/human"
+  },
+  "features": {
+    "version": 5,
+    "normalization": "value / scale, clipped to [-4, 4]; unit_type_index is an unscaled integer",
+    "global_features": [
+      [
+        "initial_opponents",
+        8
+      ],
+      [
+        "size_duel",
+        1
+      ],
+      [
+        "size_medium",
+        1
+      ],
+      [
+        "size_large",
+        1
+      ],
+      [
+        "known_alive",
+        8
+      ],
+      [
+        "alive_unknown",
+        1
+      ],
+      [
+        "gold",
+        200
+      ],
+      [
+        "income",
+        20
+      ],
+      [
+        "own_units",
+        40
+      ],
+      [
+        "own_hp",
+        1500
+      ],
+      [
+        "leader_hp_fraction",
+        1
+      ],
+      [
+        "leader_visible_threat",
+        10
+      ],
+      [
+        "lawful_bonus",
+        25
+      ],
+      [
+        "turn",
+        30
+      ],
+      [
+        "visible_enemies",
+        40
+      ],
+      [
+        "known_owned_villages",
+        20
+      ],
+      [
+        "teammates",
+        8
+      ],
+      [
+        "visible_allied_units",
+        40
+      ],
+      [
+        "visible_allied_hp",
+        1500
+      ],
+      [
+        "nearest_allied_leader",
+        50
+      ],
+      [
+        "own_level0",
+        40
+      ],
+      [
+        "own_level1",
+        40
+      ],
+      [
+        "own_level2plus",
+        40
+      ],
+      [
+        "own_fast",
+        40
+      ],
+      [
+        "own_injured",
+        40
+      ],
+      [
+        "own_damage_blade",
+        40
+      ],
+      [
+        "own_damage_pierce",
+        40
+      ],
+      [
+        "own_damage_impact",
+        40
+      ],
+      [
+        "own_damage_fire",
+        40
+      ],
+      [
+        "own_damage_cold",
+        40
+      ],
+      [
+        "own_damage_arcane",
+        40
+      ],
+      [
+        "enemy_level0",
+        40
+      ],
+      [
+        "enemy_level1",
+        40
+      ],
+      [
+        "enemy_level2plus",
+        40
+      ],
+      [
+        "enemy_fast",
+        40
+      ],
+      [
+        "enemy_injured",
+        40
+      ],
+      [
+        "enemy_damage_blade",
+        40
+      ],
+      [
+        "enemy_damage_pierce",
+        40
+      ],
+      [
+        "enemy_damage_impact",
+        40
+      ],
+      [
+        "enemy_damage_fire",
+        40
+      ],
+      [
+        "enemy_damage_cold",
+        40
+      ],
+      [
+        "enemy_damage_arcane",
+        40
+      ],
+      [
+        "remaining_unit_moves",
+        200
+      ],
+      [
+        "previous_end_turns",
+        30
+      ],
+      [
+        "repeated_moves",
+        100
+      ]
+    ],
+    "opponent_features": [
+      [
+        "visible_units",
+        40
+      ],
+      [
+        "visible_hp",
+        1500
+      ],
+      [
+        "visible_cost",
+        600
+      ],
+      [
+        "visible_leaders",
+        2
+      ],
+      [
+        "nearest_to_own_leader",
+        50
+      ],
+      [
+        "known_villages",
+        20
+      ],
+      [
+        "ever_seen",
+        1
+      ],
+      [
+        "alive_unknown",
+        1
+      ],
+      [
+        "level0",
+        40
+      ],
+      [
+        "level1",
+        40
+      ],
+      [
+        "level2plus",
+        40
+      ],
+      [
+        "fast",
+        40
+      ],
+      [
+        "injured",
+        40
+      ],
+      [
+        "damage_blade",
+        40
+      ],
+      [
+        "damage_pierce",
+        40
+      ],
+      [
+        "damage_impact",
+        40
+      ],
+      [
+        "damage_fire",
+        40
+      ],
+      [
+        "damage_cold",
+        40
+      ],
+      [
+        "damage_arcane",
+        40
+      ]
+    ],
+    "action_features": [
+      [
+        "end_turn",
+        1
+      ],
+      [
+        "recruit",
+        1
+      ],
+      [
+        "move",
+        1
+      ],
+      [
+        "attack",
+        1
+      ],
+      [
+        "move_attack",
+        1
+      ],
+      [
+        "unit_hp_fraction",
+        1
+      ],
+      [
+        "unit_cost",
+        50
+      ],
+      [
+        "movement_used",
+        10
+      ],
+      [
+        "enemy_approach",
+        20
+      ],
+      [
+        "village_gain",
+        1
+      ],
+      [
+        "healing",
+        8
+      ],
+      [
+        "defense",
+        100
+      ],
+      [
+        "friendly_support",
+        10
+      ],
+      [
+        "visible_threat",
+        10
+      ],
+      [
+        "expected_enemy_damage",
+        50
+      ],
+      [
+        "expected_self_damage",
+        50
+      ],
+      [
+        "kill_probability",
+        1
+      ],
+      [
+        "death_probability",
+        1
+      ],
+      [
+        "target_leader",
+        1
+      ],
+      [
+        "own_leader",
+        1
+      ],
+      [
+        "gold_cost",
+        50
+      ],
+      [
+        "village_approach",
+        20
+      ],
+      [
+        "remaining_moves",
+        10
+      ],
+      [
+        "combat_predicted",
+        1
+      ],
+      [
+        "max_hp",
+        100
+      ],
+      [
+        "max_moves",
+        10
+      ],
+      [
+        "unit_level",
+        4
+      ],
+      [
+        "alignment_lawful",
+        1
+      ],
+      [
+        "alignment_neutral",
+        1
+      ],
+      [
+        "alignment_chaotic",
+        1
+      ],
+      [
+        "alignment_liminal",
+        1
+      ],
+      [
+        "resistance_blade",
+        100
+      ],
+      [
+        "resistance_pierce",
+        100
+      ],
+      [
+        "resistance_impact",
+        100
+      ],
+      [
+        "resistance_fire",
+        100
+      ],
+      [
+        "resistance_cold",
+        100
+      ],
+      [
+        "resistance_arcane",
+        100
+      ],
+      [
+        "move_cost_flat",
+        10
+      ],
+      [
+        "terrain_defense_flat",
+        100
+      ],
+      [
+        "move_cost_forest",
+        10
+      ],
+      [
+        "terrain_defense_forest",
+        100
+      ],
+      [
+        "move_cost_hills",
+        10
+      ],
+      [
+        "terrain_defense_hills",
+        100
+      ],
+      [
+        "move_cost_mountain",
+        10
+      ],
+      [
+        "terrain_defense_mountain",
+        100
+      ],
+      [
+        "move_cost_water",
+        10
+      ],
+      [
+        "terrain_defense_water",
+        100
+      ],
+      [
+        "move_cost_swamp",
+        10
+      ],
+      [
+        "terrain_defense_swamp",
+        100
+      ],
+      [
+        "weapon1_damage",
+        50
+      ],
+      [
+        "weapon1_strikes",
+        10
+      ],
+      [
+        "weapon1_melee",
+        1
+      ],
+      [
+        "weapon1_ranged",
+        1
+      ],
+      [
+        "weapon1_blade",
+        1
+      ],
+      [
+        "weapon1_pierce",
+        1
+      ],
+      [
+        "weapon1_impact",
+        1
+      ],
+      [
+        "weapon1_fire",
+        1
+      ],
+      [
+        "weapon1_cold",
+        1
+      ],
+      [
+        "weapon1_arcane",
+        1
+      ],
+      [
+        "weapon1_poison",
+        1
+      ],
+      [
+        "weapon1_slow",
+        1
+      ],
+      [
+        "weapon1_drains",
+        1
+      ],
+      [
+        "weapon1_magical",
+        1
+      ],
+      [
+        "weapon1_marksman",
+        1
+      ],
+      [
+        "weapon1_charge",
+        1
+      ],
+      [
+        "weapon1_firststrike",
+        1
+      ],
+      [
+        "weapon1_berserk",
+        1
+      ],
+      [
+        "weapon2_damage",
+        50
+      ],
+      [
+        "weapon2_strikes",
+        10
+      ],
+      [
+        "weapon2_melee",
+        1
+      ],
+      [
+        "weapon2_ranged",
+        1
+      ],
+      [
+        "weapon2_blade",
+        1
+      ],
+      [
+        "weapon2_pierce",
+        1
+      ],
+      [
+        "weapon2_impact",
+        1
+      ],
+      [
+        "weapon2_fire",
+        1
+      ],
+      [
+        "weapon2_cold",
+        1
+      ],
+      [
+        "weapon2_arcane",
+        1
+      ],
+      [
+        "weapon2_poison",
+        1
+      ],
+      [
+        "weapon2_slow",
+        1
+      ],
+      [
+        "weapon2_drains",
+        1
+      ],
+      [
+        "weapon2_magical",
+        1
+      ],
+      [
+        "weapon2_marksman",
+        1
+      ],
+      [
+        "weapon2_charge",
+        1
+      ],
+      [
+        "weapon2_firststrike",
+        1
+      ],
+      [
+        "weapon2_berserk",
+        1
+      ],
+      [
+        "weapon3_damage",
+        50
+      ],
+      [
+        "weapon3_strikes",
+        10
+      ],
+      [
+        "weapon3_melee",
+        1
+      ],
+      [
+        "weapon3_ranged",
+        1
+      ],
+      [
+        "weapon3_blade",
+        1
+      ],
+      [
+        "weapon3_pierce",
+        1
+      ],
+      [
+        "weapon3_impact",
+        1
+      ],
+      [
+        "weapon3_fire",
+        1
+      ],
+      [
+        "weapon3_cold",
+        1
+      ],
+      [
+        "weapon3_arcane",
+        1
+      ],
+      [
+        "weapon3_poison",
+        1
+      ],
+      [
+        "weapon3_slow",
+        1
+      ],
+      [
+        "weapon3_drains",
+        1
+      ],
+      [
+        "weapon3_magical",
+        1
+      ],
+      [
+        "weapon3_marksman",
+        1
+      ],
+      [
+        "weapon3_charge",
+        1
+      ],
+      [
+        "weapon3_firststrike",
+        1
+      ],
+      [
+        "weapon3_berserk",
+        1
+      ],
+      [
+        "village_own",
+        1
+      ],
+      [
+        "village_ally",
+        1
+      ],
+      [
+        "village_neutral",
+        1
+      ],
+      [
+        "village_enemy",
+        1
+      ],
+      [
+        "village_unknown",
+        1
+      ],
+      [
+        "goal_progress",
+        50
+      ],
+      [
+        "repeated_move",
+        1
+      ],
+      [
+        "move_tactical",
+        50
+      ],
+      [
+        "move_gain",
+        25
+      ],
+      [
+        "move_risk",
+        50
+      ],
+      [
+        "move_risk_delta",
+        50
+      ],
+      [
+        "move_home_distance",
+        50
+      ],
+      [
+        "move_own_support",
+        10
+      ],
+      [
+        "move_primary",
+        1
+      ],
+      [
+        "unit_type_index",
+        1
+      ]
+    ],
+    "unit_types": [
+      "<unknown>",
+      "Ancient Lich",
+      "Ancient Ogre",
+      "Ancient Wose",
+      "Ant Queen",
+      "Apprentice Mage",
+      "Apprentice Necromancer",
+      "Arch Mage",
+      "Armageddon Drake",
+      "Assassin",
+      "Autumn Shyde",
+      "Bandit",
+      "Bandit_Peasant",
+      "Banebow",
+      "Banneret",
+      "Barrow Wight",
+      "Battle Princess",
+      "Bay Horse",
+      "Black Horse",
+      "Blood Bat",
+      "Boat",
+      "Bone Bird",
+      "Bone Captain",
+      "Bone Knight",
+      "Bone Shooter",
+      "Bowman",
+      "Caravan",
+      "Caravel",
+      "Caribe",
+      "Cavalier",
+      "Cavalryman",
+      "Cave Bear",
+      "Cave Serpent",
+      "Cave Spider",
+      "Cave Wyrm",
+      "Cave Wyrmlet",
+      "Central Body Base",
+      "Central Body1",
+      "Central Body2",
+      "Chocobone",
+      "Commander",
+      "Corrupted Quenoth Elf",
+      "Crab Man",
+      "Crawling Horror",
+      "Cuttle Fish",
+      "Dacyn L2",
+      "Dacyn L3",
+      "Dark Adept",
+      "Dark Assassin Cloaked",
+      "Dark Assassin Uncloaked",
+      "Dark Horse",
+      "Dark Mage",
+      "Dark Omen",
+      "Dark Queen",
+      "Dark Shape",
+      "Dark Sorcerer",
+      "Dawarf",
+      "Death Knight",
+      "Death Squire",
+      "Deathblade",
+      "Delinquent",
+      "Direwolf",
+      "Direwolf Rider",
+      "Divine Avatar",
+      "Divine Incarnation",
+      "Dolphin",
+      "Dragonfly",
+      "Dragonfly Naiad",
+      "Dragoon",
+      "Drake Arbiter",
+      "Drake Blademaster",
+      "Drake Burner",
+      "Drake Clasher",
+      "Drake Enforcer",
+      "Drake Fighter",
+      "Drake Flameheart",
+      "Drake Flare",
+      "Drake Glider",
+      "Drake Thrasher",
+      "Drake Warden",
+      "Drake Warrior",
+      "Draug",
+      "Dread Bat",
+      "Dread Lich",
+      "Duelist",
+      "Dummy",
+      "Dune Alchemist",
+      "Dune Apothecary",
+      "Dune Blademaster",
+      "Dune Burner",
+      "Dune Captain",
+      "Dune Cataphract",
+      "Dune Explorer",
+      "Dune Falconer",
+      "Dune Firetrooper",
+      "Dune Harrier",
+      "Dune Herbalist",
+      "Dune Horse Archer",
+      "Dune Luminary",
+      "Dune Marauder",
+      "Dune Paragon",
+      "Dune Raider",
+      "Dune Rider",
+      "Dune Rover",
+      "Dune Scorcher",
+      "Dune Skirmisher",
+      "Dune Sky Hunter",
+      "Dune Soldier",
+      "Dune Spearguard",
+      "Dune Spearmaster",
+      "Dune Strider",
+      "Dune Sunderer",
+      "Dune Swordsman",
+      "Dune Warmaster",
+      "Dune Wayfarer",
+      "Dune Windbolt",
+      "Dunefolk",
+      "Dust Devil",
+      "Dwarvish Annalist",
+      "Dwarvish Arcanister",
+      "Dwarvish Berserker",
+      "Dwarvish Dragonguard",
+      "Dwarvish Explorer",
+      "Dwarvish Fighter",
+      "Dwarvish Guardsman",
+      "Dwarvish Lord",
+      "Dwarvish Loremaster",
+      "Dwarvish Masked Berserker",
+      "Dwarvish Masked Dragonguard",
+      "Dwarvish Masked Fighter",
+      "Dwarvish Masked Guardsman",
+      "Dwarvish Masked Lord",
+      "Dwarvish Masked Sentinel",
+      "Dwarvish Masked Stalwart",
+      "Dwarvish Masked Steelclad",
+      "Dwarvish Masked Thunderer",
+      "Dwarvish Masked Thunderguard",
+      "Dwarvish Masked Ulfserker",
+      "Dwarvish Miner",
+      "Dwarvish Pathfinder",
+      "Dwarvish Rune Lord",
+      "Dwarvish Runemaster",
+      "Dwarvish Runesmith",
+      "Dwarvish Scout",
+      "Dwarvish Sentinel",
+      "Dwarvish Stalwart",
+      "Dwarvish Steelclad",
+      "Dwarvish Thunderer",
+      "Dwarvish Thunderguard",
+      "Dwarvish Ulfserker",
+      "Dwarvish Witness",
+      "EGhost",
+      "ENightgaunt",
+      "EShadow",
+      "ESpectre",
+      "EWraith",
+      "Eastern_Invasion::Dark Shape",
+      "Eastern_Invasion::King of Wesnoth",
+      "Egg Sac",
+      "Eidolon",
+      "Elder Falcon",
+      "Elder Mage",
+      "Elder Wose",
+      "Elvish Archer",
+      "Elvish Avenger",
+      "Elvish Captain",
+      "Elvish Champion",
+      "Elvish Champion Kalian",
+      "Elvish Druid",
+      "Elvish Enchantress",
+      "Elvish Fighter",
+      "Elvish Hero",
+      "Elvish High Lord",
+      "Elvish Lady",
+      "Elvish Lord",
+      "Elvish Marksman",
+      "Elvish Marshal",
+      "Elvish Outrider",
+      "Elvish Ranger",
+      "Elvish Rider",
+      "Elvish Scout",
+      "Elvish Shaman",
+      "Elvish Sharpshooter",
+      "Elvish Shyde",
+      "Elvish Sorceress",
+      "Elvish Sylph",
+      "Eyestalk",
+      "Falcon",
+      "Fallen Mage",
+      "Familiar",
+      "Fencer",
+      "Fighter",
+      "Fighteress",
+      "Fire Ant",
+      "Fire Ant Egg",
+      "Fire Ant Queen",
+      "Fire Dragon",
+      "Fire Drake",
+      "Fire Guardian",
+      "Fire Guardian2",
+      "Fire Guardian3",
+      "Fire Wraith",
+      "Firebane Ant",
+      "Firebomb Ant",
+      "Flesh Golem",
+      "Fog Clearer",
+      "Footpad",
+      "Footpad_Peasant",
+      "Frontier Baroness",
+      "Frontier Lieutenant",
+      "Frontier Sergeant",
+      "Frost Stoat",
+      "Fugitive",
+      "Fugitive_Peasant",
+      "Galleon",
+      "Gate",
+      "General",
+      "Ghast",
+      "Ghast DiD",
+      "Ghast Necron",
+      "Ghost",
+      "Ghoul",
+      "Ghoul DiD",
+      "Giant Ant",
+      "Giant Ant Egg",
+      "Giant Ant Queen",
+      "Giant Mudcrawler",
+      "Giant Rat",
+      "Giant Scorpion",
+      "Giant Scorpling",
+      "Giant Spider",
+      "Goblin Impaler",
+      "Goblin Knight",
+      "Goblin Pillager",
+      "Goblin Rouser",
+      "Goblin Spearman",
+      "Grand Dragonfly",
+      "Grand Knight",
+      "Grand Marshal",
+      "Great Horse",
+      "Great Icemonax",
+      "Great Mage",
+      "Great Ogre",
+      "Great Seahorse",
+      "Great Troll",
+      "Great Wolf",
+      "Gryphon",
+      "Gryphon Master",
+      "Gryphon Rider",
+      "Halberdier",
+      "Haldric II",
+      "Haunt",
+      "Heavy Infantryman",
+      "Highwayman",
+      "Highwayman_Peasant",
+      "Horned Scarab",
+      "Horse Lord",
+      "Horseman",
+      "Horseman Commander",
+      "Human Commander",
+      "Hunter Caribe",
+      "Huntsman",
+      "Huntsman_Peasant",
+      "Hurricane Drake",
+      "Icemonax",
+      "Infantry Commander",
+      "Infantry Lieutenant",
+      "Inferno Drake",
+      "Injured Lieutenant",
+      "Iron Mauler",
+      "Ixthala Demon",
+      "Javelineer",
+      "Jevyan",
+      "Jevyan Cloaked",
+      "Jinn",
+      "Journeyman Mage",
+      "Junior Commander",
+      "King of Wesnoth",
+      "Knight",
+      "Kraken",
+      "Lancer",
+      "Leopard",
+      "Liberty::Shadow Lord",
+      "Liberty::Shadow Mage",
+      "Lich",
+      "Lieutenant",
+      "Longbowman",
+      "Lord",
+      "Mage",
+      "Mage Commander",
+      "Mage Leader",
+      "Mage Magister",
+      "Mage of Light",
+      "Mal Keshar",
+      "Malin Keshar",
+      "MalinDarkMage",
+      "MalinNecromancer",
+      "Master Bowman",
+      "Master at Arms",
+      "Mermaid Diviner",
+      "Mermaid Enchantress",
+      "Mermaid Initiate",
+      "Mermaid Priestess",
+      "Mermaid Siren",
+      "Merman Brawler",
+      "Merman Child King",
+      "Merman Citizen",
+      "Merman Entangler",
+      "Merman Fighter",
+      "Merman Hoplite",
+      "Merman Hunter",
+      "Merman Javelineer",
+      "Merman Netcaster",
+      "Merman Soldier King",
+      "Merman Spearman",
+      "Merman Triton",
+      "Merman Warrior",
+      "Merman Warrior King",
+      "Merman Young King",
+      "Mounted Fighter",
+      "Mounted General",
+      "Mounted Warrior",
+      "Mudcrawler",
+      "Naga Centurion",
+      "Naga Dirkfang",
+      "Naga Fighter",
+      "Naga Guard",
+      "Naga Guardian",
+      "Naga High Guard",
+      "Naga Hunter",
+      "Naga Myrmidon",
+      "Naga Ophidian",
+      "Naga Ringcaster",
+      "Naga Sentinel",
+      "Naga Shield Guard",
+      "Naga Sicarius",
+      "Naga Warden",
+      "Naga Warrior",
+      "Naga Zephyr",
+      "Necromancer",
+      "Necrophage",
+      "Necrophage DiD",
+      "Necrophage Necron",
+      "Nibbler",
+      "Nightgaunt",
+      "Noble",
+      "Noble Commander",
+      "Noble Fighter",
+      "Noble Lord",
+      "Noble Youth",
+      "Ogre",
+      "Orcish Archer",
+      "Orcish Assassin",
+      "Orcish Crossbowman",
+      "Orcish Grunt",
+      "Orcish Leader",
+      "Orcish Nightblade",
+      "Orcish Ruler",
+      "Orcish Shaman",
+      "Orcish Slayer",
+      "Orcish Slurbow",
+      "Orcish Sovereign",
+      "Orcish Warlord",
+      "Orcish Warrior",
+      "Outlaw",
+      "Outlaw_Peasant",
+      "Outrigger",
+      "Paladin",
+      "Peasant",
+      "Phantom",
+      "Piglet",
+      "Pikeman",
+      "Pirate Galleon",
+      "Poacher",
+      "Poacher_Peasant",
+      "Princess",
+      "Pulsing Spire",
+      "Pyre Wight",
+      "Quenoth Archer",
+      "Quenoth Champion",
+      "Quenoth Druid",
+      "Quenoth Dustbok",
+      "Quenoth Fighter",
+      "Quenoth Fighter1",
+      "Quenoth Fighter10",
+      "Quenoth Fighter2",
+      "Quenoth Fighter3",
+      "Quenoth Fighter4",
+      "Quenoth Fighter5",
+      "Quenoth Fighter6",
+      "Quenoth Fighter7",
+      "Quenoth Fighter8",
+      "Quenoth Fighter9",
+      "Quenoth Flanker",
+      "Quenoth Marksman",
+      "Quenoth Mystic",
+      "Quenoth Mystic1",
+      "Quenoth Mystic10",
+      "Quenoth Mystic2",
+      "Quenoth Mystic3",
+      "Quenoth Mystic4",
+      "Quenoth Mystic5",
+      "Quenoth Mystic6",
+      "Quenoth Mystic7",
+      "Quenoth Mystic8",
+      "Quenoth Mystic9",
+      "Quenoth Outrider",
+      "Quenoth Pathfinder",
+      "Quenoth Ranger",
+      "Quenoth Scout",
+      "Quenoth Scout1",
+      "Quenoth Scout10",
+      "Quenoth Scout2",
+      "Quenoth Scout3",
+      "Quenoth Scout4",
+      "Quenoth Scout5",
+      "Quenoth Scout6",
+      "Quenoth Scout7",
+      "Quenoth Scout8",
+      "Quenoth Scout9",
+      "Quenoth Shaman",
+      "Quenoth Shyde",
+      "Quenoth Sun Singer",
+      "Quenoth Sun Sylph",
+      "Quenoth Warrior",
+      "Quenoth Youth",
+      "Quintain",
+      "Ranger",
+      "Raven",
+      "Red Mage",
+      "Red Wyrm",
+      "Red Wyrmlet",
+      "Revenant",
+      "Roc",
+      "Rock Scorpion",
+      "Rogue",
+      "Rogue Mage",
+      "Royal Guard",
+      "Royal Warrior",
+      "Ruffian",
+      "Sacrifice",
+      "Sailor",
+      "Sand Scamperer",
+      "Sand Scuttler",
+      "Saurian Ambusher",
+      "Saurian Augur",
+      "Saurian Flanker",
+      "Saurian Javelineer",
+      "Saurian Oracle",
+      "Saurian Prophet",
+      "Saurian Seer",
+      "Saurian Skirmisher",
+      "Saurian Soothsayer",
+      "Saurian Spearthrower",
+      "Sea Captain",
+      "Sea Orc",
+      "Sea Serpent",
+      "Sergeant",
+      "Shadow",
+      "Shadow Jumping Spider",
+      "Shadow Lord",
+      "Shadow Mage",
+      "Shock Trooper",
+      "Silver Mage",
+      "Skeletal Corpse",
+      "Skeletal Dragon",
+      "Skeletal Soulless",
+      "Skeleton",
+      "Skeleton Archer",
+      "Skeleton Rider",
+      "Sky Drake",
+      "Sleeping Gryphon",
+      "Small Mudcrawler",
+      "Soldier Ant",
+      "SotA Ancient Lich",
+      "SotA Blood Bat",
+      "SotA Dark Adept",
+      "SotA Dark Sorcerer",
+      "SotA Dread Bat",
+      "SotA Flying Corpse_Bat",
+      "SotA Flying Corpse_Gryphon",
+      "SotA Lich",
+      "SotA Necromancer",
+      "SotA Ruffian",
+      "SotA Skeleton",
+      "SotA Soulless_Bat",
+      "SotA Soulless_Dwarf",
+      "SotA Soulless_Goblin",
+      "SotA Soulless_Gryphon",
+      "SotA Soulless_Human",
+      "SotA Soulless_Mounted",
+      "SotA Soulless_Rat",
+      "SotA Soulless_Saurian",
+      "SotA Soulless_Spider",
+      "SotA Soulless_Swimmer",
+      "SotA Soulless_Troll",
+      "SotA Soulless_Wolf",
+      "SotA Soulless_Wolf Rider",
+      "SotA Soulless_Wose",
+      "SotA Swimming Corpse",
+      "SotA Vampire Bat",
+      "SotA Walking Corpse_Dummy",
+      "SotA Walking Corpse_Dwarf",
+      "SotA Walking Corpse_Goblin",
+      "SotA Walking Corpse_Human",
+      "SotA Walking Corpse_Mounted",
+      "SotA Walking Corpse_Rat",
+      "SotA Walking Corpse_Saurian",
+      "SotA Walking Corpse_Spider",
+      "SotA Walking Corpse_Troll",
+      "SotA Walking Corpse_Wolf",
+      "SotA Walking Corpse_Wolf Rider",
+      "SotA Walking Corpse_Wose",
+      "Soulless",
+      "Spearman",
+      "Spectral Servant",
+      "Spectre",
+      "Spider Lich",
+      "Storm Wisp",
+      "Stymphalian",
+      "Swamp Lizard",
+      "Swordsman",
+      "Tauroch",
+      "Tauroch Flagbearer",
+      "Tauroch Protector",
+      "Tauroch Rider",
+      "Tauroch Rider1",
+      "Tauroch Rider10",
+      "Tauroch Rider2",
+      "Tauroch Rider3",
+      "Tauroch Rider4",
+      "Tauroch Rider5",
+      "Tauroch Rider6",
+      "Tauroch Rider7",
+      "Tauroch Rider8",
+      "Tauroch Rider9",
+      "Tauroch Stalwart",
+      "Tauroch Vanguard",
+      "Tentacle of the Deep",
+      "Terraent",
+      "Thief",
+      "Thug",
+      "Thug_Peasant",
+      "Townsfolk",
+      "Transport Galleon",
+      "Trapper",
+      "Trapper_Peasant",
+      "Troll",
+      "Troll Hero",
+      "Troll Rocklobber",
+      "Troll Shaman",
+      "Troll Warrior",
+      "Troll Whelp",
+      "Twilight Mage",
+      "Undead Dwarvish Rune Lord",
+      "Vampire Bat",
+      "Vampire Lady",
+      "Veteran Commander",
+      "Veteran Lieutenant",
+      "Walking Corpse",
+      "Walking Corpse Shynal",
+      "War Harbinger",
+      "Warrior",
+      "Warrior King",
+      "Warrioress",
+      "Water Serpent",
+      "Wesfolk Lady",
+      "Wesfolk Leader",
+      "Wesfolk Outcast",
+      "White Horse",
+      "White Mage",
+      "Wild Wyvern",
+      "Winds_of_Fate::Gate",
+      "WoF Hurricane Drake",
+      "WoF Sky Drake",
+      "Wolf",
+      "Wolf Rider",
+      "Woodland Boar",
+      "Woodsman",
+      "Wose",
+      "Wose Sapling",
+      "Wose Shaman",
+      "Wraith",
+      "Wyrm",
+      "Wyvern Rider",
+      "Yeti",
+      "Young Ogre",
+      "tutorial::Fighter"
+    ],
+    "damage_types": [
+      "blade",
+      "pierce",
+      "impact",
+      "fire",
+      "cold",
+      "arcane"
+    ],
+    "terrains": {
+      "flat": "Gg",
+      "forest": "Gg^Fet",
+      "hills": "Hh",
+      "mountain": "Mm",
+      "water": "Ww",
+      "swamp": "Ss"
+    },
+    "weapon_specials": [
+      "poison",
+      "slow",
+      "drains",
+      "magical",
+      "marksman",
+      "charge",
+      "firststrike",
+      "berserk"
+    ],
+    "entity_features": [
+      [
+        "x",
+        1
+      ],
+      [
+        "y",
+        1
+      ],
+      [
+        "hp",
+        100
+      ],
+      [
+        "max_hp",
+        100
+      ],
+      [
+        "moves",
+        10
+      ],
+      [
+        "max_moves",
+        10
+      ],
+      [
+        "attacks_left",
+        2
+      ],
+      [
+        "experience",
+        100
+      ],
+      [
+        "max_experience",
+        100
+      ],
+      [
+        "level",
+        4
+      ],
+      [
+        "leader",
+        1
+      ],
+      [
+        "own",
+        1
+      ],
+      [
+        "ally",
+        1
+      ],
+      [
+        "enemy",
+        1
+      ],
+      [
+        "poisoned",
+        1
+      ],
+      [
+        "slowed",
+        1
+      ],
+      [
+        "petrified",
+        1
+      ],
+      [
+        "age",
+        30
+      ],
+      [
+        "alignment_lawful",
+        1
+      ],
+      [
+        "alignment_neutral",
+        1
+      ],
+      [
+        "alignment_chaotic",
+        1
+      ],
+      [
+        "alignment_liminal",
+        1
+      ],
+      [
+        "resistance_blade",
+        100
+      ],
+      [
+        "resistance_pierce",
+        100
+      ],
+      [
+        "resistance_impact",
+        100
+      ],
+      [
+        "resistance_fire",
+        100
+      ],
+      [
+        "resistance_cold",
+        100
+      ],
+      [
+        "resistance_arcane",
+        100
+      ],
+      [
+        "move_cost_flat",
+        10
+      ],
+      [
+        "terrain_defense_flat",
+        100
+      ],
+      [
+        "move_cost_forest",
+        10
+      ],
+      [
+        "terrain_defense_forest",
+        100
+      ],
+      [
+        "move_cost_hills",
+        10
+      ],
+      [
+        "terrain_defense_hills",
+        100
+      ],
+      [
+        "move_cost_mountain",
+        10
+      ],
+      [
+        "terrain_defense_mountain",
+        100
+      ],
+      [
+        "move_cost_water",
+        10
+      ],
+      [
+        "terrain_defense_water",
+        100
+      ],
+      [
+        "move_cost_swamp",
+        10
+      ],
+      [
+        "terrain_defense_swamp",
+        100
+      ],
+      [
+        "weapon1_damage",
+        50
+      ],
+      [
+        "weapon1_strikes",
+        10
+      ],
+      [
+        "weapon1_melee",
+        1
+      ],
+      [
+        "weapon1_ranged",
+        1
+      ],
+      [
+        "weapon1_blade",
+        1
+      ],
+      [
+        "weapon1_pierce",
+        1
+      ],
+      [
+        "weapon1_impact",
+        1
+      ],
+      [
+        "weapon1_fire",
+        1
+      ],
+      [
+        "weapon1_cold",
+        1
+      ],
+      [
+        "weapon1_arcane",
+        1
+      ],
+      [
+        "weapon1_poison",
+        1
+      ],
+      [
+        "weapon1_slow",
+        1
+      ],
+      [
+        "weapon1_drains",
+        1
+      ],
+      [
+        "weapon1_magical",
+        1
+      ],
+      [
+        "weapon1_marksman",
+        1
+      ],
+      [
+        "weapon1_charge",
+        1
+      ],
+      [
+        "weapon1_firststrike",
+        1
+      ],
+      [
+        "weapon1_berserk",
+        1
+      ],
+      [
+        "weapon2_damage",
+        50
+      ],
+      [
+        "weapon2_strikes",
+        10
+      ],
+      [
+        "weapon2_melee",
+        1
+      ],
+      [
+        "weapon2_ranged",
+        1
+      ],
+      [
+        "weapon2_blade",
+        1
+      ],
+      [
+        "weapon2_pierce",
+        1
+      ],
+      [
+        "weapon2_impact",
+        1
+      ],
+      [
+        "weapon2_fire",
+        1
+      ],
+      [
+        "weapon2_cold",
+        1
+      ],
+      [
+        "weapon2_arcane",
+        1
+      ],
+      [
+        "weapon2_poison",
+        1
+      ],
+      [
+        "weapon2_slow",
+        1
+      ],
+      [
+        "weapon2_drains",
+        1
+      ],
+      [
+        "weapon2_magical",
+        1
+      ],
+      [
+        "weapon2_marksman",
+        1
+      ],
+      [
+        "weapon2_charge",
+        1
+      ],
+      [
+        "weapon2_firststrike",
+        1
+      ],
+      [
+        "weapon2_berserk",
+        1
+      ],
+      [
+        "weapon3_damage",
+        50
+      ],
+      [
+        "weapon3_strikes",
+        10
+      ],
+      [
+        "weapon3_melee",
+        1
+      ],
+      [
+        "weapon3_ranged",
+        1
+      ],
+      [
+        "weapon3_blade",
+        1
+      ],
+      [
+        "weapon3_pierce",
+        1
+      ],
+      [
+        "weapon3_impact",
+        1
+      ],
+      [
+        "weapon3_fire",
+        1
+      ],
+      [
+        "weapon3_cold",
+        1
+      ],
+      [
+        "weapon3_arcane",
+        1
+      ],
+      [
+        "weapon3_poison",
+        1
+      ],
+      [
+        "weapon3_slow",
+        1
+      ],
+      [
+        "weapon3_drains",
+        1
+      ],
+      [
+        "weapon3_magical",
+        1
+      ],
+      [
+        "weapon3_marksman",
+        1
+      ],
+      [
+        "weapon3_charge",
+        1
+      ],
+      [
+        "weapon3_firststrike",
+        1
+      ],
+      [
+        "weapon3_berserk",
+        1
+      ],
+      [
+        "next_round",
+        1
+      ]
+    ],
+    "geometry": [
+      "actor_x",
+      "actor_y",
+      "target_x",
+      "target_y",
+      "dest_x",
+      "dest_y",
+      "dx",
+      "dy",
+      "target_dx",
+      "target_dy",
+      "move_distance",
+      "target_distance",
+      "has_actor",
+      "has_target",
+      "weapon",
+      "full"
+    ],
+    "spatial_channels": [
+      "known",
+      "visible",
+      "own_hp",
+      "ally_hp",
+      "enemy_hp",
+      "village",
+      "castle",
+      "water",
+      "terrain_identity"
+    ],
+    "terrain_types": [
+      "<unknown>",
+      "Aa",
+      "Aa^Em",
+      "Aa^Fpa",
+      "Aa^Vhha",
+      "Ai",
+      "At",
+      "Cd",
+      "Cdr",
+      "Ce",
+      "Cea",
+      "Cer",
+      "Cf",
+      "Cfa",
+      "Cfr",
+      "Ch",
+      "Cha",
+      "Chr",
+      "Chs",
+      "Chw",
+      "Cm",
+      "Cme",
+      "Co",
+      "Coa",
+      "Ct",
+      "Cte",
+      "Cud",
+      "Cv",
+      "Cva",
+      "Cvr",
+      "Cyd",
+      "Dd",
+      "Dd^Dc",
+      "Dd^Edp",
+      "Dd^Fp",
+      "Dd^Ftd",
+      "Dd^Tf",
+      "Dd^Vda",
+      "Ds",
+      "Ds^Bw/r",
+      "Ds^Dr",
+      "Ds^Esd",
+      "Ds^Fdf",
+      "Ds^Fet",
+      "Ds^Fmf",
+      "Ds^Fp",
+      "Ds^Ft",
+      "Ds^Ftd",
+      "Ds^Tf",
+      "Dt",
+      "Exos",
+      "Ft",
+      "Gd",
+      "Gd^Dr",
+      "Gd^Em",
+      "Gd^Es",
+      "Gd^Fdf",
+      "Gd^Fetd",
+      "Gd^Fmf",
+      "Gd^Fms",
+      "Gd^Fp",
+      "Gd^Ft",
+      "Gd^Ftd",
+      "Gd^Tf",
+      "Gd^Vhcr",
+      "Gg",
+      "Gg^Dr",
+      "Gg^Edp",
+      "Gg^Edpp",
+      "Gg^Efm",
+      "Gg^Em",
+      "Gg^Emf",
+      "Gg^Fds",
+      "Gg^Fet",
+      "Gg^Fms",
+      "Gg^Fp",
+      "Gg^Ft",
+      "Gg^Gvs",
+      "Gg^Tf",
+      "Gg^Vc",
+      "Gg^Vct",
+      "Gg^Ve",
+      "Gg^Vh",
+      "Gg^Vhcr",
+      "Gg^Wm",
+      "Gll",
+      "Gll^Fmf",
+      "Gll^Fp",
+      "Gll^Gvs",
+      "Gll^Tf",
+      "Gs",
+      "Gs^Do",
+      "Gs^Efm",
+      "Gs^Es",
+      "Gs^Fds",
+      "Gs^Fet",
+      "Gs^Fms",
+      "Gs^Fp",
+      "Gs^Ft",
+      "Gs^Gvs",
+      "Gs^Tf",
+      "Gs^Vc",
+      "Gs^Vct",
+      "Gs^Ve",
+      "Gs^Vh",
+      "Gs^Vhc",
+      "Gs^Vht",
+      "Gs^Vl",
+      "Gt",
+      "Ha",
+      "Ha^Fpa",
+      "Hd",
+      "Hd^Fdf",
+      "Hd^Fds",
+      "Hh",
+      "Hh^Emf",
+      "Hh^Fds",
+      "Hh^Fms",
+      "Hh^Fmw",
+      "Hh^Fp",
+      "Hh^Ft",
+      "Hh^Tf",
+      "Hh^Vc",
+      "Hh^Vhh",
+      "Hh^Vo",
+      "Hh^Wm",
+      "Hhd",
+      "Hhd^Emf",
+      "Hhd^Fdf",
+      "Hhd^Fdw",
+      "Hhd^Fmf",
+      "Hhd^Fmw",
+      "Hhd^Vc",
+      "Hhd^Vhhr",
+      "Ht",
+      "Ias",
+      "Icn",
+      "Icr",
+      "Ior",
+      "Irs",
+      "Isa",
+      "Isay",
+      "Isc",
+      "Isr",
+      "Iwc",
+      "Iwo",
+      "Iwr",
+      "Kd",
+      "Kdr",
+      "Ke",
+      "Kea",
+      "Ker",
+      "Ket",
+      "Kf",
+      "Kfa",
+      "Kfr",
+      "Kh",
+      "Kha",
+      "Khr",
+      "Khs",
+      "Khw",
+      "Km",
+      "Kme",
+      "Ko",
+      "Koa",
+      "Kte",
+      "Kud",
+      "Kv",
+      "Kva",
+      "Kvr",
+      "Kyd",
+      "Md",
+      "Md^Ft",
+      "Md^Xm",
+      "Mdd",
+      "Mdd^Xm",
+      "Mm",
+      "Mm^Xm",
+      "Ms",
+      "Ms^Xm",
+      "Mt",
+      "Mv",
+      "Ql",
+      "Qlf",
+      "Qt",
+      "Qxe",
+      "Qxu",
+      "Qxua",
+      "Rb",
+      "Rb^Wm",
+      "Rd",
+      "Rd^Do",
+      "Rd^Edp",
+      "Rd^Esd",
+      "Rd^Fdf",
+      "Rd^Fdw",
+      "Re",
+      "Re^Ft",
+      "Re^Gvs",
+      "Re^Tf",
+      "Re^Vct",
+      "Rp",
+      "Rr",
+      "Rr^Vd",
+      "Rr^Vhhr",
+      "Rr^Vhr",
+      "Rra",
+      "Rrc",
+      "Rrd",
+      "Rt",
+      "Sm",
+      "Sm^Bw/r",
+      "Sm^Bw\\r",
+      "Sm^Em",
+      "Sm^Ft",
+      "Sm^Ftr",
+      "Ss",
+      "Ss^Bsb/",
+      "Ss^Bw/r",
+      "Ss^Bw\\r",
+      "Ss^Bw|r",
+      "Ss^Efm",
+      "Ss^Emf",
+      "Ss^Ewf",
+      "Ss^Fds",
+      "Ss^Fms",
+      "Ss^Fp",
+      "Ss^Ft",
+      "Ss^Tf",
+      "Ss^Vhs",
+      "St",
+      "Tb",
+      "Tb^Tf",
+      "Tt",
+      "Uh",
+      "Uhe",
+      "Ur",
+      "Urb",
+      "Urc",
+      "Ut",
+      "Uu",
+      "Uu^Vu",
+      "Uu^Vud",
+      "Uue",
+      "VdS",
+      "Vt",
+      "Wdt",
+      "Wo",
+      "Wog",
+      "Wot",
+      "Wrt",
+      "Wst",
+      "Ww",
+      "Ww^Bw/",
+      "Ww^Bw\\",
+      "Ww^Do",
+      "Ww^Ewf",
+      "Ww^Ft",
+      "Ww^Vm",
+      "Wwf",
+      "Wwf^Bsb\\",
+      "Wwf^Bsb|",
+      "Wwf^Bw\\",
+      "Wwf^Bw|",
+      "Wwf^Edp",
+      "Wwf^Edpp",
+      "Wwf^Emf",
+      "Wwf^Ewf",
+      "Wwf^Fms",
+      "Wwf^Vc",
+      "Wwf^Vhr",
+      "Wwf^Vhs",
+      "Wwg",
+      "Wwg^Ewf",
+      "Wwgz",
+      "Wwr",
+      "Wwrg",
+      "Wwrt",
+      "Wwt",
+      "Wwt^Bs/",
+      "Wwt^Bsb/",
+      "Wwt^Bw/r",
+      "Wwt^Bw\\r",
+      "Wwt^Do",
+      "Xoa",
+      "Xoc",
+      "Xof",
+      "Xoi",
+      "Xol",
+      "Xom",
+      "Xor",
+      "Xos",
+      "Xot",
+      "Xt",
+      "Xu",
+      "Xuc",
+      "Xuce",
+      "Xue",
+      "Xuf",
+      "Xur",
+      "Xv",
+      "^Bcx/",
+      "^Bh/",
+      "^Bp/",
+      "^Br/",
+      "^Bs/",
+      "^Bsa/",
+      "^Bsb/",
+      "^Bw/",
+      "^Bw/r",
+      "^Cov",
+      "^CruS",
+      "^Dc",
+      "^Do",
+      "^Dr",
+      "^EafS",
+      "^Eb",
+      "^Ebn",
+      "^Ecf",
+      "^Edb",
+      "^Edp",
+      "^Edpp",
+      "^Edt",
+      "^Eff",
+      "^Efm",
+      "^Efs",
+      "^Em",
+      "^Emf",
+      "^Eqf",
+      "^Eqp",
+      "^Es",
+      "^Esa",
+      "^Esd",
+      "^Ewf",
+      "^Ewl",
+      "^Ewsh",
+      "^Exw",
+      "^Fda",
+      "^Fdf",
+      "^Fds",
+      "^Fdw",
+      "^Fet",
+      "^Feta",
+      "^Fetd",
+      "^Feth",
+      "^Fma",
+      "^Fmf",
+      "^Fms",
+      "^Fmw",
+      "^FnbS",
+      "^FntS",
+      "^Fp",
+      "^Fpa",
+      "^Ft",
+      "^Ftd",
+      "^Ftp",
+      "^Ftr",
+      "^Fts",
+      "^GrvS",
+      "^GtcS",
+      "^GtoS",
+      "^Gvs",
+      "^Ii",
+      "^Kov",
+      "^NohS",
+      "^Pr/",
+      "^Pr/o",
+      "^PsgS",
+      "^Pw/",
+      "^Pw/o",
+      "^Qhh",
+      "^Qhhf",
+      "^Qhu",
+      "^Qhuf",
+      "^Qhux",
+      "^Qov",
+      "^Tf",
+      "^Tfi",
+      "^Uf",
+      "^Ufi",
+      "^Vaa",
+      "^Vc",
+      "^Vca",
+      "^Vct",
+      "^Vd",
+      "^Vda",
+      "^VdhS",
+      "^VdoS",
+      "^Vdr",
+      "^Vdt",
+      "^Ve",
+      "^Vea",
+      "^Vh",
+      "^Vha",
+      "^Vhc",
+      "^Vhca",
+      "^Vhcr",
+      "^Vhh",
+      "^Vhha",
+      "^Vhhr",
+      "^Vhr",
+      "^Vhs",
+      "^Vht",
+      "^Vka",
+      "^Vl",
+      "^Vla",
+      "^Vm",
+      "^Vo",
+      "^Voa",
+      "^Vov",
+      "^Vu",
+      "^Vud",
+      "^Vwm",
+      "^WebS",
+      "^Wkf",
+      "^Wm",
+      "^Wyc",
+      "^Xo",
+      "^Xxxx",
+      "^Yl",
+      "^_fme",
+      "^_mh",
+      "^_mhh",
+      "^_ml",
+      "^_mll",
+      "^_s",
+      "^dekS",
+      "^focS",
+      "^hulS",
+      "^pieS",
+      "^pooS",
+      "^ralS",
+      "^rigS",
+      "^rlpS",
+      "_f",
+      "_off^_usr",
+      "_s",
+      "ldS",
+      "ldeS"
+    ],
+    "architecture_id": "relational_v5",
+    "coordinates": "1-based odd-q offset; normalized x/width,y/height; cube hex distance",
+    "rules_sha256": "d6fceafe7d0c9c67c750551b9901dbfb2b22290992a8daa1616a460e11826dca",
+    "unknown_alive": "known_alive=0, alive_unknown=1; no hidden-unit inference",
+    "missing_village_owner": "unknown until tile observed; last observed owner retained"
+  },
+  "architecture": {
+    "id": "relational_v5",
+    "unit_embedding": 16,
+    "entity_hidden": 64,
+    "entity_layers": 2,
+    "heads": 4,
+    "ffn": 128,
+    "spatial_size": 16,
+    "spatial_channels": 9,
+    "conv_channels": 16,
+    "local_hexes": 19,
+    "local_hidden": 32,
+    "gru": 128,
+    "memory_slots": 32,
+    "memory_hidden": 64,
+    "scorer_hidden": [
+      512,
+      256,
+      128
+    ],
+    "value_hidden": 128,
+    "replay_turns": 8
+  },
+  "rules": {
+    "directory": "/home/tongshu/myDev/wesnothLearning/WesnothLearning/rules/1.18.8-training",
+    "rules_sha256": "d6fceafe7d0c9c67c750551b9901dbfb2b22290992a8daa1616a460e11826dca",
+    "source_hash": "c08f8a08d6fb802d2bd80e8057bd315b8f19aa031dd161d3e162e5eb682a886e",
+    "training_acceptance": {
+      "scope": "leaders/recruits -> advancement/plague transitive closure",
+      "profile": "vendor/arena/params.py",
+      "profile_sha256": "3c1423bd63ac8ac708e65d39cc59265076abbb9325f58fa5f32a69cff972d71a",
+      "rules_file_sha256": "d6fceafe7d0c9c67c750551b9901dbfb2b22290992a8daa1616a460e11826dca",
+      "unit_count": 158,
+      "unit_ids": [
+        "Ancient Wose",
+        "Arch Mage",
+        "Assassin",
+        "Banebow",
+        "Blood Bat",
+        "Bone Shooter",
+        "Bowman",
+        "Cavalier",
+        "Cavalryman",
+        "Dark Adept",
+        "Dark Sorcerer",
+        "Deathblade",
+        "Direwolf Rider",
+        "Dragoon",
+        "Drake Arbiter",
+        "Drake Blademaster",
+        "Drake Burner",
+        "Drake Clasher",
+        "Drake Enforcer",
+        "Drake Fighter",
+        "Drake Flameheart",
+        "Drake Flare",
+        "Drake Glider",
+        "Drake Thrasher",
+        "Drake Warden",
+        "Drake Warrior",
+        "Draug",
+        "Dread Bat",
+        "Duelist",
+        "Dwarvish Berserker",
+        "Dwarvish Dragonguard",
+        "Dwarvish Fighter",
+        "Dwarvish Guardsman",
+        "Dwarvish Lord",
+        "Dwarvish Sentinel",
+        "Dwarvish Stalwart",
+        "Dwarvish Steelclad",
+        "Dwarvish Thunderer",
+        "Dwarvish Thunderguard",
+        "Dwarvish Ulfserker",
+        "Elder Wose",
+        "Elvish Archer",
+        "Elvish Avenger",
+        "Elvish Captain",
+        "Elvish Champion",
+        "Elvish Druid",
+        "Elvish Enchantress",
+        "Elvish Fighter",
+        "Elvish Hero",
+        "Elvish Marksman",
+        "Elvish Marshal",
+        "Elvish Outrider",
+        "Elvish Ranger",
+        "Elvish Rider",
+        "Elvish Scout",
+        "Elvish Shaman",
+        "Elvish Sharpshooter",
+        "Elvish Shyde",
+        "Elvish Sorceress",
+        "Elvish Sylph",
+        "Fencer",
+        "Fire Drake",
+        "Footpad",
+        "Fugitive",
+        "General",
+        "Ghast",
+        "Ghost",
+        "Ghoul",
+        "Goblin Impaler",
+        "Goblin Knight",
+        "Goblin Pillager",
+        "Goblin Rouser",
+        "Goblin Spearman",
+        "Grand Knight",
+        "Grand Marshal",
+        "Great Mage",
+        "Gryphon Master",
+        "Gryphon Rider",
+        "Halberdier",
+        "Heavy Infantryman",
+        "Horseman",
+        "Huntsman",
+        "Hurricane Drake",
+        "Inferno Drake",
+        "Iron Mauler",
+        "Javelineer",
+        "Knight",
+        "Lancer",
+        "Lich",
+        "Lieutenant",
+        "Longbowman",
+        "Mage",
+        "Mage of Light",
+        "Master Bowman",
+        "Master at Arms",
+        "Merman Entangler",
+        "Merman Fighter",
+        "Merman Hoplite",
+        "Merman Hunter",
+        "Merman Javelineer",
+        "Merman Netcaster",
+        "Merman Spearman",
+        "Merman Triton",
+        "Merman Warrior",
+        "Naga Fighter",
+        "Naga Myrmidon",
+        "Naga Warrior",
+        "Necromancer",
+        "Necrophage",
+        "Nightgaunt",
+        "Orcish Archer",
+        "Orcish Assassin",
+        "Orcish Crossbowman",
+        "Orcish Grunt",
+        "Orcish Nightblade",
+        "Orcish Slayer",
+        "Orcish Slurbow",
+        "Orcish Warlord",
+        "Orcish Warrior",
+        "Outlaw",
+        "Paladin",
+        "Pikeman",
+        "Poacher",
+        "Ranger",
+        "Red Mage",
+        "Revenant",
+        "Rogue",
+        "Royal Guard",
+        "Saurian Ambusher",
+        "Saurian Augur",
+        "Saurian Flanker",
+        "Saurian Oracle",
+        "Saurian Prophet",
+        "Saurian Seer",
+        "Saurian Skirmisher",
+        "Saurian Soothsayer",
+        "Shadow",
+        "Shock Trooper",
+        "Silver Mage",
+        "Skeleton",
+        "Skeleton Archer",
+        "Sky Drake",
+        "Soulless",
+        "Spearman",
+        "Spectre",
+        "Swordsman",
+        "Thief",
+        "Trapper",
+        "Troll",
+        "Troll Rocklobber",
+        "Troll Warrior",
+        "Troll Whelp",
+        "Vampire Bat",
+        "Walking Corpse",
+        "White Mage",
+        "Wolf Rider",
+        "Wose",
+        "Wraith"
+      ],
+      "implementation_complete": true,
+      "native_semantics_accepted": false,
+      "performance_accepted": false
+    }
+  },
+  "parameters": 776178,
+  "dependencies": {
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.39",
+    "packages": {
+      "torch": "2.9.1+cpu",
+      "numpy": "2.2.6",
+      "lupa": "2.6",
+      "matplotlib": "3.10.6"
+    }
+  },
+  "opponents": [
+    {
+      "name": "gpt6astra",
+      "path": "/home/tongshu/myDev/wesnothLearning/validation_window_fix_20261024_1630/runs/v5_lite_windowfix_20261024_1630/frozen/opponents/gpt6astra.zip",
+      "source": "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/runs/v5_lite_resume_20261024_1420/frozen/opponents/gpt6astra.zip",
+      "sha256": "2a216c96081990621dc15772e9de1bf40e4f5f451223fe52e5b20625464dc933"
+    }
+  ],
+  "baseline": {
+    "name": "baseline",
+    "version": "1.18.8",
+    "path": "/home/tongshu/myDev/wesnothLearning/WesnothLearning/.runtime/install/bin/wesnoth",
+    "sha256": "33f64aa3f5ee40228bd44e357b3f4d784121d4392ff774d6c059c7defa3e5fcf"
+  },
+  "source": {
+    "learning": {
+      "AUDIT_TEST_SCOPE.md": "d8526fef9880d14afbf870bc8546b08a8ad61217c0a689d9250085fb28eeac65",
+      "AUDIT_TEST_SCOPE_zh.md": "737d70a7910b690cca70d333af71cdc2896b27fa9221df4c04f48472fe00ca22",
+      "REWARD_TEST_SCOPE.md": "9f1fde0323a410a298a56ad47090691b15748fb940a431babb29017a0296d066",
+      "REWARD_TEST_SCOPE_zh.md": "30ed2935235a2adfda08f22a5dea7f3b17c69d07d130821cfb340fe3fcd98490",
+      "__init__.py": "e01c9d60a9a2fe2e5d3cb4db843246a4f39d4a0d9857b90bc80eb3569f23fe30",
+      "__main__.py": "b2d8419a4a89fea85553061ed1a7ca8d26f0bfe915293275a532ade65efdb16e",
+      "adapters.py": "aa7f8bbe3f00520b36e1bdb9988a4edab542d2730f25fd3388e5805be517367f",
+      "audit.py": "1fcbcd2bcd466953d16cc578dd0441bca81b5492ad07f9239e7d0be3724bdef7",
+      "benchmark.py": "695cc9998c1db5102f6e9888d2e84071ec234a74948c0ac70b41cdfc172189d0",
+      "benchmark_runner.py": "02e96f1274c5ca67dceaac2c8b20f1dfff24af05089bde815cf6c990cb55fe9c",
+      "collector.lua": "e3b09c94810dcbf2423edbf3108557da6836f8d8bb0341c12ae4a2de0115b4de",
+      "common.py": "5e3a8c09001660596e2adb3737467953103b43db39cbe45dc90c1c48efec4981",
+      "control.py": "2d79571785ab3ebd1b4299653791b78e7a3f85c3cf9338684de855a3c858d1a9",
+      "coordinator.py": "2b1195bf17d6167dde7ac12753c28ec0496ed24c2c4aa9ff2d4bab3f00001d23",
+      "data.py": "7dfb39a78928b85b5504baa2e7247d11101c33b3a0dd2238282da37f1a8d37bf",
+      "evaluate.py": "58b5284b8d2ea61ef4643885d4f216c7762f42f73489c95e8c6e99ed0e5d6173",
+      "experiment.py": "9f908f899e7b951433b468566a4fa181016d0d4de3e498b5e38703c55bcf9f3c",
+      "export.py": "db5b9ac3c107ed6011b5b8cfefe241a4e5421057d3b92af6605f348bf04526ed",
+      "features.py": "23fb185dbb13e449581ff110ad2556cd4836c143f5e45d6a6af3f54d1272f47e",
+      "formats.py": "7a96482458abadb517f77278c307c02d2c9c3dcff02518517c4b72c16c83fb4b",
+      "human.py": "5d7ed4d975b67f7002e2f4b788364406897041ebe89ea35a83a80964b00debd9",
+      "lite_host.py": "3553438c31db2825ea3f0ffbbccf345fb497c8756a2deeaa1200defc4d1a9667",
+      "lite_policy.py": "5f8451fa92c2ab147d759fc6253c8150d6fb963fcf1b5797cc6f8153ee2d38d2",
+      "manifest.py": "7be2d347f50d4ec3b7acff0e0cf05fb2deac96d15bfbc528c3d49965215be202",
+      "maps.py": "e50618efb4681c780dc0be4678379420d77f10a77161f5abdd34bccd4a0f21ea",
+      "model.py": "b6012e2e6483d1b47b5a7903ba9c762e5a36e3abe7fc0371d57061af09033718",
+      "native_rpc.lua": "452083b6ccf6350d41d8b4323e521127f3b3c78203600dcbb8e3e2107fe6ae09",
+      "native_transport.py": "87709e42a7f30986274f9ad567e354974dfdc859fe7734dfc4afde0ea781eaff",
+      "package.py": "bb1706e20f3f37f1366891b072dfd3803d05e146ac9d842b4635ec07704d958b",
+      "phases.py": "46c97412612d2219ef0f3b1eb2658619ccb116ca25cf7e6bb09d6f94c92b2715",
+      "replay_curate.py": "e2c62317576299dc98ae91df0d2d9437d8bbaa0e904d11992ec29e30fc16975c",
+      "replay_observer.lua": "54d5131168c68bdbe84fb299b2deda93b22a319da72ad225646b5920082a75bb",
+      "report.py": "6d9e8eb724e68d478c1cad90166a1f896903cb5cb34a16be7fdd71c9a6661e7f",
+      "reward_metrics.py": "2c4ac56d1976b72a57bd8fcd33b2d08015f49ce81bd995c5b57d21e02ce8eb96",
+      "rewards.py": "edb87062a64d4f757d4f670e0b1cecf4689f794c3d74ef0037fff468fe0abbd0",
+      "rowpack.py": "a31c79f271c1ebe9a1e78e6f25566ee451a38feb01100fc3c88a625b8e4063c1",
+      "rules.py": "cf78e7c93952b5248d651af725f662f6bd3e65e1f73a3ed945ee9c8bc61eb1a6",
+      "rules_catalog.py": "00881a46d8a2c97472a43e265fa81a65eca5b1ac3264d5050a9b904cc57d0d7e",
+      "sample.py": "ec00cd1948dab5ab9b315cd62a7fb99193479046cf118ca7b574ec34df282ab2",
+      "schedule.py": "d27f1b09c83d8305b65ee4c4f9d5c7214835b272ca8868d1c7272d418a53a5ea",
+      "sequences.py": "7eed3b8829a96b9fb6ad3b4145e465c05ec3a45a61b324d30d1b2789384ffa77",
+      "train.py": "ac720803686707ea1100c055c2a7215a6c86a010a27a2efa918853238b8e44ce",
+      "trajectory_buffer.py": "258949c82f854335b19c5ccd675e576749ac2f5b5e7fa66d1cd9ecf75234e46a",
+      "unit_vocabulary.json": "576c315b9ec49906509158708495211a3cf1964c5216a0a158a3cce83e104d6e"
+    },
+    "lua": {
+      "bot.lua": "6255096cd9a986da5c730eee2c9a0428bf04af14dcafd1a01781d550ea7d6b60",
+      "candidates.lua": "dee48dc961e90d01ce080bf612e7680dd1b1e8e14c689af3a97a3b6fce0a8680",
+      "network.lua": "5d076ec82f572f151d419c21b6e740d27feba2fb9f4c05762e4bd5b2f958aa92",
+      "observation.lua": "8d9ffa002cb89b2dce7407df7b7d8cc4cbcac18fc70016f6bb1a1732a77b5cba",
+      "relational.lua": "8c663d8d795125d1df9eb001f95f4204a0a75326908cf304e8b8243c7cc59930",
+      "rewards.lua": "d28c4b357ea9d2d3ebea0d638d87244ea564d4bb8fe7f8c4e8dddd2691953a4a",
+      "routing.lua": "f15321b0af0f9a7bdc0679b715ee50bfac8f7c68d82c01b2b604d222aa7566b2",
+      "spatial.lua": "7710081635052802aff1b2cfcf8300a41212e147e5bdfc7eed4f1f4910f2287f",
+      "teacher.lua": "abe5d8ce0957e1067dc5d63e6c815d30b5948f9e7ca07123079006d1d7a124e4"
+    },
+    "vendor/arena": {
+      ".gitignore": "a02bdefc98fa06f7bbf1dbd410245bca5466e3304cc57fc180787bb3e5c304a9",
+      "LICENSE": "aeee0e57f016bc95fea3c20dd6a2168493c4134ba5ae481217467613a1953e30",
+      "Makefile": "2e591562f8fb134757b39c14992a1159a269ac4caba8f0637f31563629288a58",
+      "README.md": "f5bd20d2b0dc5242eb4ac597c63a204aaee32e1439824e23474bd712cf63ca67",
+      "THIRD_PARTY.md": "a7f78de37e0cdc56f661a2c92eba2615a96e5a4c3d91abb121cfa2d45e99488e",
+      "VERIFICATION.md": "e1b5eddc62c5478317bfb1576ce269a96b1c84ecce34bc68a1514b6ac89937ae",
+      "addons.py": "0fad10b89b5d638c540ee101aa87e0f113e8323532f6e27d4e7f6fef3ee43474",
+      "arena.py": "1d5bf7242c473165fe094094ae11278a34c7d89c6435254aae4cb5443e1e08cf",
+      "bots/baseline/README.md": "97228a8a128442d7433463e64d386d3dc2a068843f0c3c12b336fad775713d35",
+      "competing_bots/README.md": "682c99cec937465b381854a5d5b2300f94b6663fc09f75270c03e73943720b7e",
+      "examples/example.json": "3a9131fcdc34aecf1a4e5d5f4265a5184e84a9f4c0134618efe2579ef0b3dd04",
+      "examples/example.replay.gz": "3e7fdd09c6c772e635ada3ee3dd9fc61a256fc33394117f4bc477fb93a58bea5",
+      "gui.py": "88ed8b285613a2e03e9782cfe8f8d63b81e326a5240788f8b546d67bfe7aed51",
+      "maps/arena2.json": "883c0e63933e5adb3dd242d6347ec2ee48b4bec434a928471cb6d8f131723922",
+      "maps/arena4.json": "232d678247a68918c0d3aa5a3ec22831fb6a925a78d9896afaeee4a1afcbc530",
+      "maps/arena8.json": "3d95df717370f8108e7e151401200e060280e7486f60105352e74dc86ec89a91",
+      "match.py": "e5cc56cefb264880fda9490d6b8362f29d2e0629e01c5d44a03d0375623fb33a",
+      "native.py": "9b2a3169a5a9b590472e5212e548371a46ad2c107cc9ee3a4813e0b4469269df",
+      "params.py": "3c1423bd63ac8ac708e65d39cc59265076abbb9325f58fa5f32a69cff972d71a",
+      "run_arena.bat": "8fec1749ae3ae5f4d51cc6e25907f88288bd90fbf3bf42fe836382f3ee7e7f96",
+      "run_tournament.bat": "ca5e183b74c03402eef48f57252cf9dae05f8b4605d0ad0ddec0173834054e16",
+      "runtime/candidate.lua": "dc05acc8450a832bc7793e191b3f40f03892bd55e17fc49a9d9b7a3aaf7c73d7",
+      "runtime/runtime.lua": "afcb489592a750e58c5dd7e57ce0dfdcf60750d9dba89c7898a07a1d23075a97",
+      "sdk/COMPATIBILITY.md": "0e1f0a25681ee370da2a9df119a6d9d4e2569ba3fb8d29cc658d46fd5a6287c9",
+      "sdk/CONTEST.md": "cef891f62dbf57a43296eeee2695d41beb4e33d05d66c323783187c33126e67f",
+      "sdk/DELIVERY.md": "5482964de3c7c03131852be25d1525e273be3ceee7acf1ef6b5dacdb53339343",
+      "sdk/PROTOCOL.md": "4e464d0d869dff88217d7471ee76ba95af392c68d015fa994e98b61c70ae56df",
+      "sdk/README.md": "ec8b3af4fc8335c6bdff80be1016df79a152906937f6b851b177f4730e8a7550",
+      "sdk/RULES.md": "35486c4519d9f2aace54ffda1c285f1f0f89dfbb6ab07c5c944bacb4531cb0f8",
+      "sdk/sample_bot/_main.cfg": "e066cb97fd3890a2ee2b95cf00e2f7b159e32f1956db536b89ccac427cb5d53d",
+      "sdk/sample_bot/ai.cfg": "6c44359b54743c5d6694a373f1c83a8fef238c9dbc584c1e962b809cc60cdba5",
+      "sdk/sample_bot/arena.json": "d67b5995b1076bac5647e34bff621d113462e5eaf7d93059ba2bb511cd1d47d7",
+      "sdk/sample_bot/lua/bot.lua": "e142022752fc7b0bb21d6899ddfe770df74d045bc6e03fa81fc1cb759ab386d9",
+      "sdk/template_bot/_main.cfg": "564294746887e0ce516380f75ffb9e6367f7f52bba93cca09b551e0f286b3d34",
+      "sdk/template_bot/ai.cfg": "4bcaa88e848b81b566620dafd05b71ec5dc8cfe1ca806373912a9a5f91a719aa",
+      "sdk/template_bot/arena.json": "c8d4a0690d7a9ddf258b1a20b74192747b41e2ff8ae93d8e4c40407160825fee",
+      "sdk/template_bot/lua/bot.lua": "200939b45de6f9f2da2ba84fa81ecd3494d2bfa1b1ea9a451a6802f21493d95a",
+      "teams.py": "e76b6f9d0d6ddb711319af553b098a4d1297ef53b5f7cc218934a34bb5bc2451",
+      "tests/smoke_native.py": "abbbca722e41c35fdf9c2e2bc41f37d91aafb8803d0a9cb3505a735f1ebc20fb",
+      "tests/test_sdk.py": "dd15ad807b6639acc9fcb7419d16c26dda72634051478a72cf7debf3f062a6e2",
+      "tests/test_tournament.py": "57b1b63e1157dfa401157cc2d946be714895a7d6a4332354d63911cc17f10e11",
+      "tournament.py": "cedadfdd75d5b0386a5c191a64a0e87d090d4e39a54b4ed4994bcf5a9bb6b14f"
+    },
+    "engine_lite": {
+      "Cargo.lock": "458313a048cc19ad76b2b220621d05afc35d2f49769ecb4b7c0cec0e93c193bc",
+      "Cargo.toml": "f8c71d3719d9b150fa7f588c69018fd2cad1bcddb4b17fce6220836117e21108",
+      "README.md": "08bb7b561f0cf0f238bbd8daaf359ddc6268838cc05ab4d3ff500a25f746db28",
+      "README_zh.md": "d91083685763c19ca75cdf63db9a486a333e9d929f3e0b21fd0ea6c8d05a68e4",
+      "TEST_SCOPE.md": "eb3345e984e4c0f4014a5e97e8d05a41c838afff9993c75155b338f1b206020e",
+      "TEST_SCOPE_zh.md": "a825fca33bbdb8ed6256e6c1f0b6d2a015a331223d091f572d3f2a0f0aeef254",
+      "__init__.py": "d8d5f399267284d816a275b3eec186139d416c97074bcfc186aab4d6c8938590",
+      "audit.py": "8b7b433647c3e882500e0f055e9405e5c55049dd2f986a7b3097024308043b27",
+      "capture.py": "5fb68f86efd5d80326dc72df782746fbbeda56c54aee693703b53502c25527b9",
+      "differential.py": "c10ca8cfd9d0eb89744310b0f99d725ec3d6ff6ed7bd5a996526b6aaa3634fc2",
+      "freeze.py": "031511d8a76b44119b9d257872ff0ee5b39ecf2cfa0ce3077ca2c1f305872df7",
+      "inventory.py": "8f09898d2c34b559c43607bb8a7826077f48723c14944944420bf0f9d2220eb0",
+      "lua/capture_json.lua": "61ae81212ed9dc978b57e7184233afc78d34775e99d9a353f979b82b8cf17fec",
+      "lua/differential_probe.lua": "88f083d7b74d0eabd2219bf4b80c073467f64d4aa34a7bdeaa4d9222f9396643",
+      "lua/export_rules.lua": "0fc936c5fc1666ea467ae1acb82cb8f4c2bacb05310a173145a7c38a50002253",
+      "lua/host.lua": "add0328d609ec8ff338c877a70bd93d6cffc6af21616a0490f82b287b13058e8",
+      "pyproject.toml": "f5a719ff3d682d0eb091186b3c476497c4a79e70a76032da3f3f5068ae08f858",
+      "src/combat.rs": "a536e3376a881ac98ccc08b7d4590f7a268c24bd5c0a01001fa9a31f8408628d",
+      "src/host.rs": "ba7e4c087dfbc96d8f3a408a20e25f020713282cc0e0725fc27b8f9cc20aed49",
+      "src/lib.rs": "cbcd919088d49c87e60f783f0893ede1973ae9c8d842ba427aad532c50ab9560",
+      "src/model.rs": "aa20f9801e224c19a2445d2bb9f642818e59b75c2de167a9ea28c06cf94d216b",
+      "src/state.rs": "70b70aed0152ae9d4c0467a530b18c363767a3aa1785f1463c6619c46c964ee7"
+    },
+    "rules": {},
+    "benchmarks": {}
+  },
+  "baseline_in_2v2": {
+    "teacher_partner": true,
+    "rollout_partner_fraction": 0.25,
+    "opponent_pool": true,
+    "control_candidate": true,
+    "evaluation_contexts": [
+      "baseline_partner",
+      "self_team"
+    ]
+  }
+}
