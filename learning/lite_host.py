@@ -11,7 +11,7 @@ import time
 import zipfile
 from pathlib import Path
 
-from .adapters import LiteAdapter, ROOT
+from .adapters import COMBAT_VERSION, ENGINE_VERSION, LiteAdapter, RNG_VERSION, ROOT
 from .rowpack import compact_row
 from .trajectory_buffer import TrajectoryBuffer
 
@@ -143,7 +143,8 @@ def play_lite_job(job):
             snapshot={k:row[k] for k in ('side','turn','global','spatial','reward_raw')}
             snapshot.update(metric_event=event,source='astra' if is_astra(bots[side-1]) else 'policy',
                             teacher='gpt6astra' if is_astra(bots[side-1]) else False,
-                            rules_version=host.adapter.catalog['rules_version'])
+                            rules_version=host.adapter.catalog['rules_version'],
+                            engine_version=ENGINE_VERSION, combat_version=COMBAT_VERSION)
             metric_snapshots.append(snapshot)
         for side in sorted(learner_sides):
             metric_snapshot(side,'initial')
@@ -169,10 +170,11 @@ def play_lite_job(job):
             decision.update(schema=schema()['version'], format=job.get('format', job.get('meta', {}).get('format')),
                             source='astra' if teacher else 'policy', engine_id='lite',
                             rules_version=host.adapter.catalog['rules_version'],
-                            rules_sha256=host.adapter.rules_sha256, rng_version='xoshiro256++-1',
+                            rules_sha256=host.adapter.rules_sha256, rng_version=RNG_VERSION,
+                            combat_version=COMBAT_VERSION,
                             version=training.get('version','teacher-frozen' if teacher else 'v5-validation'),decision=decision_count,
                             architecture_id='relational_v5', candidate_version=f"schema{schema()['version']}-"+decision['timing'].get('budget','fixed-20000-v1'),
-                            engine='lite', engine_version='lite-0.1',
+                            engine='lite', engine_version=ENGINE_VERSION,
                             teacher_impl='astra_lite' if teacher else None,
                             teammate_context=job.get('meta',{}).get('context','astra_partner' if job.get('teams') else 'solo'),
                             data_pool=job.get('data_pool', 'original'),
@@ -242,7 +244,8 @@ def play_lite_job(job):
         rank_points.update({str(s): points for s in survivors})
         teams = [s['team'] for s in job['game_spec']['sides']]
         winning_sides = [s['id'] for s in view['sides'] if s['team'] == view['winner']]
-        result = dict(engine_id='lite-0.1', winner=winning_sides[0] if len(winning_sides)==1 else 0,
+        result = dict(engine_id=ENGINE_VERSION, rng_version=RNG_VERSION, combat_version=COMBAT_VERSION,
+                      winner=winning_sides[0] if len(winning_sides)==1 else 0,
                       winning_team=view['winner'] or 0, truncated=view['truncated'],
                       reason='turn_limit' if view['truncated'] else 'victory', survivors=survivors,
                       bots=bots or ['gpt6astra']*len(teams), factions=job.get('factions') or [None]*len(teams), teams=teams if len(set(teams))<len(teams) else None,

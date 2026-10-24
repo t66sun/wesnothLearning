@@ -114,7 +114,8 @@ local function tactical_ratings(obs,u,destinations,threats)
                             if s[1]=='berserk' then multiplier=multiplier*2.5 end
                         end end
                     end
-                    if e.status.slowed then multiplier=multiplier*.5 end
+                    -- expected_damage_v1: slow keeps 75% of damage, rounded up per strike.
+                    if e.status.slowed then multiplier=multiplier*.75 end
                 end
                 local turn=wesnoth.current.turn+(e.side>obs.side and 0 or 1)
                 local bonus=({0,.25,.25,0,-.25,-.25})[(turn-1)%6+1]
@@ -136,7 +137,7 @@ local function tactical_ratings(obs,u,destinations,threats)
         if multiplayer and not u.canrecruit and home then utility=utility-math.max(0,distance(x,y,home)-radius)*1.2 end
         if vmap[x..','..y] then
             if obs.memory.villages[x..','..y]~=obs.side then utility=utility+7 end
-            utility=utility+math.min(8,u.max_hitpoints-u.hitpoints)*(hurt and 1.1 or .5)+(u.status.poisoned and 12 or 0)
+            utility=utility+math.min(8,u.max_hitpoints-u.hitpoints)*(hurt and 1.1 or .5)+(u.status.poisoned and 9 or 0)
             if multiplayer and not u.canrecruit and u.hitpoints>u.max_hitpoints*.8 then
                 for _,f in ipairs(obs.own) do
                     if f.id~=u.id and f.hitpoints<f.max_hitpoints*.65 and distance(x,y,f)<=3 then
