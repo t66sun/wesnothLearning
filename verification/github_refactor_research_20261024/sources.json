@@ -1,0 +1,83 @@
+{
+  "retrieved": "2026-10-24",
+  "sources": [
+    {
+      "repository": "HumanCompatibleAI/imitation",
+      "commit": "e5ef18806c449ca47153b494a02471c5e2ae3a14",
+      "files": [
+        {
+          "path": "src/imitation/algorithms/bc.py",
+          "sha256": "6fd968d4db3142147717805662f42beaf70a2236d062ea0a2b36e174323742a9",
+          "bytes": 19505,
+          "url": "https://github.com/HumanCompatibleAI/imitation/blob/e5ef18806c449ca47153b494a02471c5e2ae3a14/src/imitation/algorithms/bc.py"
+        },
+        {
+          "path": "src/imitation/algorithms/base.py",
+          "sha256": "47bfb6cd4a07a1474d512b689fa9680e5b80e7b42fac88c67c0e5a6744c37f09",
+          "bytes": 11334,
+          "url": "https://github.com/HumanCompatibleAI/imitation/blob/e5ef18806c449ca47153b494a02471c5e2ae3a14/src/imitation/algorithms/base.py"
+        },
+        {
+          "path": "LICENSE",
+          "sha256": "1c969418d43fc93deb5d313dd4fd9f1b7eda3b4a2eed889e7b6eb2329fa111f7",
+          "bytes": 1107,
+          "url": "https://github.com/HumanCompatibleAI/imitation/blob/e5ef18806c449ca47153b494a02471c5e2ae3a14/LICENSE"
+        }
+      ]
+    },
+    {
+      "repository": "ARISE-Initiative/robomimic",
+      "commit": "d309eaecc18acf4152a830a895a6984b8ac71b05",
+      "files": [
+        {
+          "path": "robomimic/utils/dataset.py",
+          "sha256": "603bde0f2b15b7bf7eac0bed128df984fae38682572e7c907dbafc935b7a62f5",
+          "bytes": 39127,
+          "url": "https://github.com/ARISE-Initiative/robomimic/blob/d309eaecc18acf4152a830a895a6984b8ac71b05/robomimic/utils/dataset.py"
+        },
+        {
+          "path": "LICENSE",
+          "sha256": "7cdbfab482b23a4d925d59ff169ab0bc5f8c97ceb0db79f9fd5bf46ef8aa1556",
+          "bytes": 1089,
+          "url": "https://github.com/ARISE-Initiative/robomimic/blob/d309eaecc18acf4152a830a895a6984b8ac71b05/LICENSE"
+        }
+      ]
+    },
+    {
+      "repository": "DLR-RM/stable-baselines3",
+      "commit": "b2878f4b83e21f16a53c54a62def628e05fd2e96",
+      "files": [
+        {
+          "path": "stable_baselines3/common/callbacks.py",
+          "sha256": "29c3b9668239ef872fbf94a2ef37c672889947b0531c9a6ec963fd12c00d255e",
+          "bytes": 27529,
+          "url": "https://github.com/DLR-RM/stable-baselines3/blob/b2878f4b83e21f16a53c54a62def628e05fd2e96/stable_baselines3/common/callbacks.py"
+        },
+        {
+          "path": "LICENSE",
+          "sha256": "2d8fbeee75e0acd13e75b30470b3521b12fb55c26c90c2060c6bd525345870a9",
+          "bytes": 1075,
+          "url": "https://github.com/DLR-RM/stable-baselines3/blob/b2878f4b83e21f16a53c54a62def628e05fd2e96/LICENSE"
+        }
+      ]
+    },
+    {
+      "repository": "pytorch/rl",
+      "commit": "b763b5cf3056c615b104775ece1ef529b7b6f22c",
+      "files": [
+        {
+          "path": "tutorials/sphinx-tutorials/rb_tutorial.py",
+          "sha256": "d382c3d425e515801afdc224f3310fb09af66e998a81cdaddc175453d63371ab",
+          "bytes": 37194,
+          "url": "https://github.com/pytorch/rl/blob/b763b5cf3056c615b104775ece1ef529b7b6f22c/tutorials/sphinx-tutorials/rb_tutorial.py"
+        },
+        {
+          "path": "LICENSE",
+          "sha256": "c5d8d2e3fc64f88c272ee2050af4d84e5f58f1a5d17a3aa99a47b77466a6fe72",
+          "bytes": 1098,
+          "url": "https://github.com/pytorch/rl/blob/b763b5cf3056c615b104775ece1ef529b7b6f22c/LICENSE"
+        }
+      ]
+    }
+  ]
+}
