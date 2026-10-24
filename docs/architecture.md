@@ -30,6 +30,8 @@ The shared-pool failure shutdown is also accepted: any coordinator exception ter
 
 On 2026-10-24 at 14:20 the user-authorized continuation started as `runs/v5_lite_resume_20261024_1420` under `/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321`. The controlled migration preserves the original run, manifest and checkpoints; the derivative freezes the accepted memory/shutdown repairs and restores duel/FF4/2v2 v212/v88/v50 with identical model, optimizer, RNG, counters and real eligibility. FF4/2v2 retain their original forced-PPO provenance and unpassed BC gates. Only the total budget changes: original start retained, total deadline **2026-10-24 22:30 Asia/Shanghai**, update boundary **18:50:52** using the existing 10/12 split. All formats use explicit PPO until that boundary, then the continuation wrapper requests final evaluation using the remaining shared budget. CPU, 8 global workers, 1 trainer thread and all training/reward settings remain frozen. The parent remains a required read-only corpus/policy source. Recovery assertions and observed live progress are in the [continuation report](../verification/training_resume_20261024_1415/REPORT.md).
 
+At 14:33:55 all three continuations had saved new PPO updates: duel v219 / 2198 optimizer steps, FF4 v91 / 1786, and 2v2 v51 / 698, with no new errors. See the [final recovery check](../verification/training_resume_20261024_1415/HANDOFF_1434.md); this confirms resumed training, not future convergence or final evaluation completion.
+
 ## 2. Overall structure and responsibilities
 
 ```mermaid
