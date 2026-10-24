@@ -24,6 +24,8 @@ The user then authorized repairs and minimal Ubuntu tests: keep the `ref[name]` 
 
 The later schema-5 run `runs/v5_lite18h_20261024_003512` in the isolated Ubuntu directory suffered a global OOM during PPO collection on 2026-10-24 at 10:07–10:08 and was stopped at the user's request around 12:58. Its latest duel/FF4/2v2 checkpoints (versions 212/88/50) load successfully; training remains stopped. Collection retains full live trajectories, outside the trainer read budgets, and the shared pool failure left a waiting coordinator/trainer. Exact memory evidence, remaining allocation uncertainty and unapplied repair directions are in the [OOM investigation](../verification/bc_oom_20261024/REPORT.md). No restart, source migration or parameter change was performed.
 
+The collection-side OOM repair is now accepted for a bounded Ubuntu pressure replay: full exact trajectories/DAgger records use private temporary buffers, coverage counters stay small, diagnostics read only their required legal fields, and shard/index writers consume records without rebuilding a whole-game row list or JSON string. Eight concurrent 1,621-decision replays plus three resident trainer replay pools completed with 5.40 GiB group peak PSS and 9.14 GiB minimum MemAvailable; complete sequence hashes match the old baseline. This does not measure eight live-engine rollouts, worst-case training activations or formal throughput. The original run remains stopped; no frozen-source migration or BC read-share repair was performed. See the [collection memory acceptance](../verification/bc_memory_repair_20261024_1321/REPORT.md).
+
 ## 2. Overall structure and responsibilities
 
 ```mermaid

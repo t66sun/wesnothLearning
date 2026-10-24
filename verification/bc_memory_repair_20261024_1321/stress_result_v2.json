@@ -1,0 +1,171 @@
+{
+  "passed": true,
+  "trace": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/runs/v5_lite18h_20261024_003512/team2v2/data/rollout-00042-team2v2-g1.jsonl.gz",
+  "baseline_reference": {
+    "source": "pressure.ubuntu.txt",
+    "source_sha256": "e496238a1a41cadef71526229e56a1816e6b55629b0e31f19ca14ab05c2c9a4d",
+    "result": {
+      "role": "collector",
+      "index": 0,
+      "rows": 1621,
+      "payloads": [
+        [
+          "6cf2e5d1fcd77ad254e918e5273e536fb2c04c1c610d597a656d0bac4fdef6d5",
+          "ffa95af6695d12cea9d3c219466160db9d6b68036a9b8366227b269ecb9c0437"
+        ]
+      ],
+      "indexed_decisions": 1621,
+      "peak_rss_kib": 6486308
+    }
+  },
+  "pressure": {
+    "seconds": 149.28721594397211,
+    "peak_pss_kib": 5660355,
+    "peak_rss_kib": 6001848,
+    "peak_swap_used_kib": 184076,
+    "min_available_kib": 9585616,
+    "results": [
+      {
+        "role": "collector",
+        "index": 7,
+        "rows": 1621,
+        "payloads": [
+          [
+            "6cf2e5d1fcd77ad254e918e5273e536fb2c04c1c610d597a656d0bac4fdef6d5",
+            "ffa95af6695d12cea9d3c219466160db9d6b68036a9b8366227b269ecb9c0437"
+          ]
+        ],
+        "indexed_decisions": 1621,
+        "metric_sides": 1,
+        "temporary_bytes": 83600923,
+        "peak_rss_kib": 423072
+      },
+      {
+        "role": "collector",
+        "index": 1,
+        "rows": 1621,
+        "payloads": [
+          [
+            "6cf2e5d1fcd77ad254e918e5273e536fb2c04c1c610d597a656d0bac4fdef6d5",
+            "ffa95af6695d12cea9d3c219466160db9d6b68036a9b8366227b269ecb9c0437"
+          ]
+        ],
+        "indexed_decisions": 1621,
+        "metric_sides": 1,
+        "temporary_bytes": 83600923,
+        "peak_rss_kib": 423044
+      },
+      {
+        "role": "collector",
+        "index": 3,
+        "rows": 1621,
+        "payloads": [
+          [
+            "6cf2e5d1fcd77ad254e918e5273e536fb2c04c1c610d597a656d0bac4fdef6d5",
+            "ffa95af6695d12cea9d3c219466160db9d6b68036a9b8366227b269ecb9c0437"
+          ]
+        ],
+        "indexed_decisions": 1621,
+        "metric_sides": 1,
+        "temporary_bytes": 83600923,
+        "peak_rss_kib": 422696
+      },
+      {
+        "role": "collector",
+        "index": 6,
+        "rows": 1621,
+        "payloads": [
+          [
+            "6cf2e5d1fcd77ad254e918e5273e536fb2c04c1c610d597a656d0bac4fdef6d5",
+            "ffa95af6695d12cea9d3c219466160db9d6b68036a9b8366227b269ecb9c0437"
+          ]
+        ],
+        "indexed_decisions": 1621,
+        "metric_sides": 1,
+        "temporary_bytes": 83600923,
+        "peak_rss_kib": 423304
+      },
+      {
+        "role": "collector",
+        "index": 5,
+        "rows": 1621,
+        "payloads": [
+          [
+            "6cf2e5d1fcd77ad254e918e5273e536fb2c04c1c610d597a656d0bac4fdef6d5",
+            "ffa95af6695d12cea9d3c219466160db9d6b68036a9b8366227b269ecb9c0437"
+          ]
+        ],
+        "indexed_decisions": 1621,
+        "metric_sides": 1,
+        "temporary_bytes": 83600923,
+        "peak_rss_kib": 423088
+      },
+      {
+        "role": "collector",
+        "index": 4,
+        "rows": 1621,
+        "payloads": [
+          [
+            "6cf2e5d1fcd77ad254e918e5273e536fb2c04c1c610d597a656d0bac4fdef6d5",
+            "ffa95af6695d12cea9d3c219466160db9d6b68036a9b8366227b269ecb9c0437"
+          ]
+        ],
+        "indexed_decisions": 1621,
+        "metric_sides": 1,
+        "temporary_bytes": 83600923,
+        "peak_rss_kib": 423184
+      },
+      {
+        "role": "collector",
+        "index": 2,
+        "rows": 1621,
+        "payloads": [
+          [
+            "6cf2e5d1fcd77ad254e918e5273e536fb2c04c1c610d597a656d0bac4fdef6d5",
+            "ffa95af6695d12cea9d3c219466160db9d6b68036a9b8366227b269ecb9c0437"
+          ]
+        ],
+        "indexed_decisions": 1621,
+        "metric_sides": 1,
+        "temporary_bytes": 83600923,
+        "peak_rss_kib": 422940
+      },
+      {
+        "role": "collector",
+        "index": 0,
+        "rows": 1621,
+        "payloads": [
+          [
+            "6cf2e5d1fcd77ad254e918e5273e536fb2c04c1c610d597a656d0bac4fdef6d5",
+            "ffa95af6695d12cea9d3c219466160db9d6b68036a9b8366227b269ecb9c0437"
+          ]
+        ],
+        "indexed_decisions": 1621,
+        "metric_sides": 1,
+        "temporary_bytes": 83600923,
+        "peak_rss_kib": 422112
+      },
+      {
+        "role": "trainer",
+        "format": "duel",
+        "rows": 2026,
+        "loss": 1.7152373790740967,
+        "peak_rss_kib": 1117304
+      },
+      {
+        "role": "trainer",
+        "format": "team2v2",
+        "rows": 852,
+        "loss": 2.6320641040802,
+        "peak_rss_kib": 947964
+      },
+      {
+        "role": "trainer",
+        "format": "ffa4",
+        "rows": 1137,
+        "loss": 0.7128534317016602,
+        "peak_rss_kib": 989752
+      }
+    ]
+  }
+}
