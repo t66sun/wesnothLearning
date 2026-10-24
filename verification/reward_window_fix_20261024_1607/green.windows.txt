@@ -1,0 +1,19 @@
+test_backlog_retains_newest_three_windows_and_unfinished_tail (tests.test_reward_windows.RewardWindowTests.test_backlog_retains_newest_three_windows_and_unfinished_tail) ... ok
+test_new_windows_change_decision_after_three_and_survive_resume (tests.test_reward_windows.RewardWindowTests.test_new_windows_change_decision_after_three_and_survive_resume) ... ok
+test_partial_window_waits_for_twelfth_block (tests.test_reward_windows.RewardWindowTests.test_partial_window_waits_for_twelfth_block) ... ok
+test_adaptive_requires_fifty_batches (tests.v5.test_pipeline_contract.BoundaryTests.test_adaptive_requires_fifty_batches) ... ok
+test_adaptive_requires_sixty_four_games (tests.v5.test_pipeline_contract.BoundaryTests.test_adaptive_requires_sixty_four_games) ... ok
+test_eleven_blocks_are_insufficient_and_twelve_are_consumed (tests.v5.test_pipeline_contract.BoundaryTests.test_eleven_blocks_are_insufficient_and_twelve_are_consumed) ... ok
+test_holdout_and_final_partitions_are_rejected (tests.v5.test_pipeline_contract.BoundaryTests.test_holdout_and_final_partitions_are_rejected) ... ok
+test_mismatched_windows_do_not_change_config (tests.v5.test_pipeline_contract.BoundaryTests.test_mismatched_windows_do_not_change_config) ... ok
+test_missing_faulted_and_duplicate_blocks_leave_config_unchanged (tests.v5.test_pipeline_contract.BoundaryTests.test_missing_faulted_and_duplicate_blocks_leave_config_unchanged) ... ok
+test_rollback_after_two_consecutive_declines (tests.v5.test_pipeline_contract.BoundaryTests.test_rollback_after_two_consecutive_declines) ... ok
+test_scheduled_change_applies_at_batch_50_not_49 (tests.v5.test_pipeline_contract.BoundaryTests.test_scheduled_change_applies_at_batch_50_not_49) ... ok
+test_six_game_sample_cannot_trigger_adaptive_change (tests.v5.test_pipeline_contract.BoundaryTests.test_six_game_sample_cannot_trigger_adaptive_change) ... ok
+test_training_partition_is_tunable_but_holdout_is_not (tests.v5.test_pipeline_contract.BoundaryTests.test_training_partition_is_tunable_but_holdout_is_not) ... ok
+test_two_comparable_windows_raise_explore_and_control (tests.v5.test_pipeline_contract.BoundaryTests.test_two_comparable_windows_raise_explore_and_control) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.639s
+
+OK

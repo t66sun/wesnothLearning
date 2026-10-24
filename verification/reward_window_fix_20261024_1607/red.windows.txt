@@ -1,0 +1,44 @@
+test_backlog_retains_newest_three_windows_and_unfinished_tail (tests.test_reward_windows.RewardWindowTests.test_backlog_retains_newest_three_windows_and_unfinished_tail) ... FAIL
+test_new_windows_change_decision_after_three_and_survive_resume (tests.test_reward_windows.RewardWindowTests.test_new_windows_change_decision_after_three_and_survive_resume) ... FAIL
+test_partial_window_waits_for_twelfth_block (tests.test_reward_windows.RewardWindowTests.test_partial_window_waits_for_twelfth_block) ... FAIL
+
+======================================================================
+FAIL: test_backlog_retains_newest_three_windows_and_unfinished_tail (tests.test_reward_windows.RewardWindowTests.test_backlog_retains_newest_three_windows_and_unfinished_tail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\dev\WesnothLearning\tests\test_reward_windows.py", line 70, in test_backlog_retains_newest_three_windows_and_unfinished_tail
+    self.assertEqual(self.controller.windows, expected)
+AssertionError: Lists differ: [{'lo[87 chars]re': 0.0, 'native_score': None, 'control': 0.9[361 chars]s']}] != [{'lo[87 chars]re': 1.0, 'native_score': None, 'control': 0.9[361 chars]s']}]
+
+First differing element 0:
+{'low[86 chars]re': 0.0, 'native_score': None, 'control': 0.9[24 chars]ls']}
+{'low[86 chars]re': 1.0, 'native_score': None, 'control': 0.9[24 chars]ls']}
+
+Diff is 801 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_new_windows_change_decision_after_three_and_survive_resume (tests.test_reward_windows.RewardWindowTests.test_new_windows_change_decision_after_three_and_survive_resume)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\dev\WesnothLearning\tests\test_reward_windows.py", line 43, in test_new_windows_change_decision_after_three_and_survive_resume
+    self.assertAlmostEqual(config['control'], .11)
+AssertionError: 0.1 != 0.11 within 7 places (0.009999999999999995 difference)
+
+======================================================================
+FAIL: test_partial_window_waits_for_twelfth_block (tests.test_reward_windows.RewardWindowTests.test_partial_window_waits_for_twelfth_block)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\dev\WesnothLearning\tests\test_reward_windows.py", line 82, in test_partial_window_waits_for_twelfth_block
+    self.assertEqual(self.controller.windows, old[1:] + [self.controller._window(fresh)])
+AssertionError: Lists differ: [{'lo[423 chars]re': 0.0, 'native_score': None, 'control': 0.9[25 chars]s']}] != [{'lo[423 chars]re': 3.0, 'native_score': None, 'control': 0.9[25 chars]s']}]
+
+First differing element 2:
+{'low[86 chars]re': 0.0, 'native_score': None, 'control': 0.9[24 chars]ls']}
+{'low[86 chars]re': 3.0, 'native_score': None, 'control': 0.9[24 chars]ls']}
+
+Diff is 665 characters long. Set self.maxDiff to None to see it.
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.083s
+
+FAILED (failures=3)
