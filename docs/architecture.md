@@ -22,6 +22,8 @@ The most recent formal experiment `runs/v5_lite20h_20261022_210712` used frozen 
 
 The user then authorized repairs and minimal Ubuntu tests: keep the `ref[name]` fix, add bounded reference re-collection, real terminal-state statistics, the learning-side opening gate, the failure phase and the schema 5 index regression, and add independent phase entry points. No formal training is running now; schema 4 experiments cannot be resumed directly with schema 5 sources. The Ubuntu isolated directory passed real BC → explicit-override PPO → two PPO rounds → final evaluation for all three formats, but real unpassed BC gates and an incomplete final panel remain. Acceptance scope and commands are in the [repair report](../verification/training_repair_20261023/REPORT.md).
 
+The later schema-5 run `runs/v5_lite18h_20261024_003512` in the isolated Ubuntu directory suffered a global OOM during PPO collection on 2026-10-24 at 10:07–10:08 and was stopped at the user's request around 12:58. Its latest duel/FF4/2v2 checkpoints (versions 212/88/50) load successfully; training remains stopped. Collection retains full live trajectories, outside the trainer read budgets, and the shared pool failure left a waiting coordinator/trainer. Exact memory evidence, remaining allocation uncertainty and unapplied repair directions are in the [OOM investigation](../verification/bc_oom_20261024/REPORT.md). No restart, source migration or parameter change was performed.
+
 ## 2. Overall structure and responsibilities
 
 ```mermaid

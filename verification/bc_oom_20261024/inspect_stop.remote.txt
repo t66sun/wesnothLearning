@@ -1,0 +1,265 @@
+TIME 2026-10-24T12:58:36.747224
+ROOTS [192814] OWNED {"192814": {"ppid": 1, "cmd": ".venv/bin/python -u -m learning run --run-dir runs/v5_lite18h_20261024_003512 --engine lite --evaluation-engine lite --bc-games 300 600 400 --native-bc-games 0 0 0 --device cpu --workers 8 --trainer-threads 1 --hours 18 --formats duel ffa4 team2v2 --wesnoth /home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/.runtime/install/bin/wesnoth ", "cwd": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022", "rss": "41680 kB", "state": "S (sleeping)"}, "192821": {"ppid": 192814, "cmd": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/.venv/bin/python -c from multiprocessing.resource_tracker import main;main(6) ", "cwd": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022", "rss": "2100 kB", "state": "S (sleeping)"}, "192822": {"ppid": 192814, "cmd": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/.venv/bin/python -c from multiprocessing.spawn import spawn_main; spawn_main(tracker_fd=7, pipe_handle=11) --multiprocessing-fork ", "cwd": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022", "rss": "1510376 kB", "state": "S (sleeping)"}}
+STAGE_PROCESSES {"192814": {"ppid": 1, "cmd": ".venv/bin/python -u -m learning run --run-dir runs/v5_lite18h_20261024_003512 --engine lite --evaluation-engine lite --bc-games 300 600 400 --native-bc-games 0 0 0 --device cpu --workers 8 --trainer-threads 1 --hours 18 --formats duel ffa4 team2v2 --wesnoth /home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/.runtime/install/bin/wesnoth ", "cwd": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022", "rss": "41680 kB", "state": "S (sleeping)"}, "192821": {"ppid": 192814, "cmd": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/.venv/bin/python -c from multiprocessing.resource_tracker import main;main(6) ", "cwd": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022", "rss": "2100 kB", "state": "S (sleeping)"}, "192822": {"ppid": 192814, "cmd": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/.venv/bin/python -c from multiprocessing.spawn import spawn_main; spawn_main(tracker_fd=7, pipe_handle=11) --multiprocessing-fork ", "cwd": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022", "rss": "1510376 kB", "state": "S (sleeping)"}}
+STATE duel {"stage": "ppo", "version": 212, "batch": 213, "error": null, "counters": {"environment_games": 996, "collection_batches": 213, "optimizer_steps": 2173, "unique_families_seen": 991, "decisions_seen": 345737, "effective_dataset_passes": 195.86185576098703}, "pending_validation": null}
+PENDING duel null
+FILE duel latest.pt 9734450 2026-10-24T10:08:24.908230
+FILE duel last_bc.pt 9507429 2026-10-24T03:45:14.450329
+STATE ffa4 {"stage": "failed", "version": 88, "batch": 88, "error": "RuntimeError('sampling failed; inspect jobs.jsonl')", "counters": {"environment_games": 608, "collection_batches": 88, "optimizer_steps": 1772, "unique_families_seen": 565, "decisions_seen": 347015, "effective_dataset_passes": 295.11171634648474}, "pending_validation": null}
+PENDING ffa4 null
+FILE ffa4 latest.pt 9588722 2026-10-24T10:08:25.549261
+FILE ffa4 last_bc.pt 9556453 2026-10-24T08:07:00.799832
+FILE ffa4 trainer_error.log 999 2026-10-24T10:08:25.570190
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/learning/coordinator.py", line 56, in trainer_main
+    try: FormatExperiment(directory,fmt,manifest,clock,collect,resume).run()
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/learning/experiment.py", line 527, in run
+    if self.state['stage'] in ('bc','ppo'): self.learn()
+                                            ^^^^^^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/learning/experiment.py", line 454, in learn
+    if any(r['status']=='infrastructure_error' for r in results): raise RuntimeError('sampling failed; inspect jobs.jsonl')
+                                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: sampling failed; inspect jobs.jsonl
+
+FILE ffa4 errors.log 707 2026-10-24T10:08:25.485960
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/learning/experiment.py", line 527, in run
+    if self.state['stage'] in ('bc','ppo'): self.learn()
+                                            ^^^^^^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/learning/experiment.py", line 454, in learn
+    if any(r['status']=='infrastructure_error' for r in results): raise RuntimeError('sampling failed; inspect jobs.jsonl')
+                                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: sampling failed; inspect jobs.jsonl
+
+STATE team2v2 {"stage": "failed", "version": 50, "batch": 50, "error": "RuntimeError('sampling failed; inspect jobs.jsonl')", "counters": {"environment_games": 368, "collection_batches": 50, "optimizer_steps": 695, "unique_families_seen": 292, "decisions_seen": 164598, "effective_dataset_passes": 207.70332966717578}, "pending_validation": null}
+PENDING team2v2 null
+FILE team2v2 latest.pt 9515826 2026-10-24T10:08:30.390500
+FILE team2v2 last_bc.pt 9505829 2026-10-24T08:06:53.972584
+FILE team2v2 trainer_error.log 999 2026-10-24T10:08:30.411875
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/learning/coordinator.py", line 56, in trainer_main
+    try: FormatExperiment(directory,fmt,manifest,clock,collect,resume).run()
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/learning/experiment.py", line 527, in run
+    if self.state['stage'] in ('bc','ppo'): self.learn()
+                                            ^^^^^^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/learning/experiment.py", line 454, in learn
+    if any(r['status']=='infrastructure_error' for r in results): raise RuntimeError('sampling failed; inspect jobs.jsonl')
+                                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: sampling failed; inspect jobs.jsonl
+
+FILE team2v2 errors.log 707 2026-10-24T10:08:30.328532
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/learning/experiment.py", line 527, in run
+    if self.state['stage'] in ('bc','ppo'): self.learn()
+                                            ^^^^^^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/learning/experiment.py", line 454, in learn
+    if any(r['status']=='infrastructure_error' for r in results): raise RuntimeError('sampling failed; inspect jobs.jsonl')
+                                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: sampling failed; inspect jobs.jsonl
+
+MAINLOG /home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/runs/logs/v5_lite18h_20261024_003512.log Process trainer-ffa4:
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/learning/coordinator.py", line 56, in trainer_main
+    try: FormatExperiment(directory,fmt,manifest,clock,collect,resume).run()
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/learning/experiment.py", line 527, in run
+    if self.state['stage'] in ('bc','ppo'): self.learn()
+                                            ^^^^^^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/learning/experiment.py", line 454, in learn
+    if any(r['status']=='infrastructure_error' for r in results): raise RuntimeError('sampling failed; inspect jobs.jsonl')
+                                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: sampling failed; inspect jobs.jsonl
+Process trainer-team2v2:
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/learning/coordinator.py", line 56, in trainer_main
+    try: FormatExperiment(directory,fmt,manifest,clock,collect,resume).run()
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/learning/experiment.py", line 527, in run
+    if self.state['stage'] in ('bc','ppo'): self.learn()
+                                            ^^^^^^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/learning/experiment.py", line 454, in learn
+    if any(r['status']=='infrastructure_error' for r in results): raise RuntimeError('sampling failed; inspect jobs.jsonl')
+                                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: sampling failed; inspect jobs.jsonl
+
+SEND_SIGINT 192814
+SEND_SIGTERM_REMAINING 192814
+SEND_SIGTERM_REMAINING 192821
+SEND_SIGTERM_REMAINING 192822
+REMAINING_OWNED []
+MEMINFO MemTotal:       16206980 kB
+MemFree:        14228156 kB
+MemAvailable:   15202740 kB
+Buffers:           30248 kB
+Cached:          1188100 kB
+SwapCached:         6692 kB
+Active:           703084 kB
+Inactive:         785996 kB
+Active(anon):     274360 kB
+Inactive(anon):     8748 kB
+Active(file):     428724 kB
+Inactive(file):   777248 kB
+Unevictable:           0 kB
+Mlocked:               0 kB
+SwapTotal:       4194300 kB
+SwapFree:        4010216 kB
+Zswap:                 0 kB
+Zswapped:              0 kB
+Dirty:               520 kB
+Writeback:             0 kB
+AnonPages:        268424 kB
+Mapped:           207696 kB
+Shmem:             12368 kB
+KReclaimable:     123120 kB
+Slab:             312968 kB
+SReclaimable:     123120 kB
+SUnreclaim:       189848 kB
+KernelStack:        7840 kB
+PageTables:        15836 kB
+SecPageTables:      2488 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:    12297788 kB
+Committed_AS:    3153460 kB
+VmallocTotal:   34359738367 kB
+VmallocUsed:       39620 kB
+VmallocChunk:          0 kB
+Percpu:             9152 kB
+HardwareCorrupted:     0 kB
+AnonHugePages:         0 kB
+ShmemHugePages:        0 kB
+ShmemPmdMapped:        0 kB
+FileHugePages:     90112 kB
+FilePmdMapped:         0 kB
+CmaTotal:              0 kB
+CmaFree:         1179088 kB
+Unaccepted:            0 kB
+Balloon:               0 kB
+GPUActive:         16812 kB
+GPUReclaim:            0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+Hugetlb:               0 kB
+DirectMap4k:      185956 kB
+DirectMap2M:     5941248 kB
+DirectMap1G:    10485760 kB
+
+PRESSURE some avg10=0.00 avg60=0.00 avg300=0.00 total=56141376
+full avg10=0.00 avg60=0.00 avg300=0.00 total=54193772
+
+DMESG 
+KERNEL_JOURNAL Oct 24 10:08:23 server kernel: [    890]   108   890     2174       54       52        2         0    57344       68             0 avahi-daemon
+Oct 24 10:08:23 server kernel: [    891]   101   891     3069      597      595        2         0    69632      125          -900 dbus-daemon
+Oct 24 10:08:23 server kernel: [    894]   988   894    91392       93       91        2         0   167936      539             0 gnome-remote-de
+Oct 24 10:08:23 server kernel: [    898]   987   898   100636     1851     1849        2         0   135168      451             0 polkitd
+Oct 24 10:08:23 server kernel: [    901]     0   901    80548       91       89        2         0   114688      115             0 power-profiles-
+Oct 24 10:08:23 server kernel: [    912]     0   912    80494      145      143        2         0   110592       92             0 accounts-daemon
+Oct 24 10:08:23 server kernel: [    915]     0   915     4526       27       25        2         0    61440       38             0 cron
+Oct 24 10:08:23 server kernel: [    917]     0   917    79620       83       81        2         0    98304       80             0 switcheroo-cont
+Oct 24 10:08:23 server kernel: [    920]     0   920     4688      194      192        2         0    86016      279             0 systemd-logind
+Oct 24 10:08:23 server kernel: [    921]     0   921   108398       87       85        2         0   147456      184             0 thermald
+Oct 24 10:08:23 server kernel: [    922]     0   922   117369      396      394        2         0   143360      480             0 udisksd
+Oct 24 10:08:23 server kernel: [    926]   108   926     2126        2        2        0         0    57344       91             0 avahi-daemon
+Oct 24 10:08:23 server kernel: [    969]     0   969    86268      287      285        2         0   167936      485             0 NetworkManager
+Oct 24 10:08:23 server kernel: [    975]     0   975     4350       26       24        2         0    77824      194             0 wpa_supplicant
+Oct 24 10:08:23 server kernel: [    983]   102   983    55645      281      279        2         0    77824      218             0 rsyslogd
+Oct 24 10:08:23 server kernel: [   1013]     0  1013    98033      103      101        2         0   135168      423             0 ModemManager
+Oct 24 10:08:23 server kernel: [   1105]     0  1105    81543      185      183        2         0   126976      439             0 upowerd
+Oct 24 10:08:23 server kernel: [   1180]     0  1180    30237        3        1        2         0   131072     2353             0 unattended-upgr
+Oct 24 10:08:23 server kernel: [   1207]   106  1207     3190       28       26        2         0    65536       95             0 kerneloops
+Oct 24 10:08:23 server kernel: [   1210]   106  1210     3190       24       22        2         0    65536       99             0 kerneloops
+Oct 24 10:08:23 server kernel: [   1221]     0  1221    80873      194      192        2         0   114688       95             0 gdm3
+Oct 24 10:08:23 server kernel: [   1268]   117  1268     5739       37       35        2         0    57344       41             0 rtkit-daemon
+Oct 24 10:08:23 server kernel: [   1385]   118  1385   235902      125      123        2         0   192512     1202             0 colord
+Oct 24 10:08:23 server kernel: [   1748]  1000  1748     5433      593      591        2         0    86016      266           100 systemd
+Oct 24 10:08:23 server kernel: [   1754]  1000  1754     5372        1        1        0         0    73728      450           100 (sd-pam)
+Oct 24 10:08:23 server kernel: [   6683]     0  6683     3009       36       34        2         0    73728      250         -1000 sshd
+Oct 24 10:08:23 server kernel: [  16744]     0 16744   146191      494      492        2         0   319488     1336             0 fwupd
+Oct 24 10:08:23 server kernel: [  90759]     0 90759   574799     2347     2345        2         0   364544     2456          -900 snapd
+Oct 24 10:08:23 server kernel: [ 107126]  1000 107126    69492       22       20        2         0   327680     4542             0 Xvfb
+Oct 24 10:08:23 server kernel: [ 107424]  1000 107424    69492       39       37        2         0   335872     4526             0 Xvfb
+Oct 24 10:08:23 server kernel: [ 107584]  1000 107584    69491       26       24        2         0   323584     4538             0 Xvfb
+Oct 24 10:08:23 server kernel: [ 107799]  1000 107799    69492       22       20        2         0   335872     4542             0 Xvfb
+Oct 24 10:08:23 server kernel: [ 107911]  1000 107911    69492       24       22        2         0   331776     4541             0 Xvfb
+Oct 24 10:08:23 server kernel: [ 108021]  1000 108021    69492       24       22        2         0   323584     4541             0 Xvfb
+Oct 24 10:08:23 server kernel: [ 192457]     0 192457    11770      163      161        2         0   114688      393             0 cupsd
+Oct 24 10:08:23 server kernel: [ 192460]   115 192460    67129       40       38        2         0   167936      728             0 cups-browsed
+Oct 24 10:08:23 server kernel: [ 192814]  1000 192814   256892     8588     8579        2         7   933888    47166             0 python
+Oct 24 10:08:23 server kernel: [ 192821]  1000 192821     7742        3        1        2         0    86016     1437             0 python
+Oct 24 10:08:23 server kernel: [ 192822]  1000 192822   578879   363399   363393        2         4  4165632    58551             0 python
+Oct 24 10:08:23 server kernel: [ 192823]  1000 192823   607811   318665   318659        2         4  4456448   131724             0 python
+Oct 24 10:08:23 server kernel: [ 192824]  1000 192824   656635   120621   120617        2         2  4837376   378966             0 python
+Oct 24 10:08:23 server kernel: [ 192826]  1000 192826   555981   380242   380237        2         3  4206592    45192             0 python
+Oct 24 10:08:23 server kernel: [ 192829]  1000 192829   426315   261155   261150        2         3  3694592    39306             0 python
+Oct 24 10:08:23 server kernel: [ 192831]  1000 192831   464444   252538   252533        2         3  3837952    86333             0 python
+Oct 24 10:08:23 server kernel: [ 192832]  1000 192832   669496   513367   513362        2         3  4988928    30501             0 python
+Oct 24 10:08:23 server kernel: [ 192833]  1000 192833   479538   299443   299438        2         3  3600384    54473             0 python
+Oct 24 10:08:23 server kernel: [ 192834]  1000 192834   971750   811908   811903        2         3  7417856    34163             0 python
+Oct 24 10:08:23 server kernel: [ 192835]  1000 192835   439186   280170   280165        2         3  3473408    33149             0 python
+Oct 24 10:08:23 server kernel: [ 192836]  1000 192836   401187   227724   227719        2         3  3317760    47843             0 python
+Oct 24 10:08:23 server kernel: [ 192948]     0 192948     3821       11        9        2         0    73728      441             0 sshd
+Oct 24 10:08:23 server kernel: [ 192991]  1000 192991     3861       37       35        2         0    73728      481             0 sshd
+Oct 24 10:08:23 server kernel: [ 193311]     0 193311     3821       11        9        2         0    69632      441             0 sshd
+Oct 24 10:08:23 server kernel: [ 193354]  1000 193354     3861       40       38        2         0    69632      478             0 sshd
+Oct 24 10:08:23 server kernel: [ 196642]   989 196642   168638      338      336        2         0   225280     1939             0 fwupdmgr
+Oct 24 10:08:23 server kernel: [ 197167]     0 197167    62676      241      239        2         0   110592       39             0 gdm-session-wor
+Oct 24 10:08:23 server kernel: [ 197178]   120 197178     5201      648      646        2         0    86016        3           100 systemd
+Oct 24 10:08:23 server kernel: [ 197179]   120 197179     5373      449      449        0         0    77824        3           100 (sd-pam)
+Oct 24 10:08:23 server kernel: [ 197193]   120 197193    61087       61       59        2         0    94208       67             0 gdm-wayland-ses
+Oct 24 10:08:23 server kernel: [ 197217]   120 197217     1629       20       19        1         0    53248       43             0 dbus-run-sessio
+Oct 24 10:08:23 server kernel: [ 197218]   120 197218     2493      168      166        2         0    57344       80             0 dbus-daemon
+Oct 24 10:08:23 server kernel: [ 197220]   120 197220   150775      300      297        2         1   196608      353             0 gnome-session-b
+Oct 24 10:08:23 server kernel: [ 197236]   120 197236   985934    11222    11219        2         1   978944     6501             0 gnome-shell
+Oct 24 10:08:23 server kernel: [ 197285]   120 197285    95780       75       72        2         1   110592      123             0 at-spi-bus-laun
+Oct 24 10:08:23 server kernel: [ 197292]   120 197292     2377       46       44        2         0    65536       81             0 dbus-daemon
+Oct 24 10:08:23 server kernel: [ 197294]   120 197294    83428     3989     3970        2        17   430080     2596             0 Xwayland
+Oct 24 10:08:23 server kernel: [ 197301]   120 197301    59022       63       61        2         0    98304      132             0 at-spi2-registr
+Oct 24 10:08:23 server kernel: [ 197359]     0 197359     4327      223      221        2         0    77824        0             0 systemd-localed
+Oct 24 10:08:23 server kernel: [ 197373]   120 197373    79497       37       35        2         0   106496       93             0 xdg-permission-
+Oct 24 10:08:23 server kernel: [ 197391]     0 197391    95973      746      744        2         0   188416        0             0 packagekitd
+Oct 24 10:08:23 server kernel: [ 197394]   120 197394   651462     1227     1225        2         0   249856       27             0 gjs
+Oct 24 10:08:23 server kernel: [ 197403]   120 197403   138009      402      399        2         1   155648        0             0 gsd-sharing
+Oct 24 10:08:23 server kernel: [ 197415]   120 197415   123683      646      581        2        63   180224      258             0 gsd-wacom
+Oct 24 10:08:23 server kernel: [ 197418]   120 197418   105455      656      591        2        63   180224      148             0 gsd-color
+Oct 24 10:08:23 server kernel: [ 197422]   120 197422   123473      633      568        2        63   184320      138             0 gsd-keyboard
+Oct 24 10:08:23 server kernel: [ 197423]   120 197423    83111      394      392        2         0   143360        0             0 gsd-print-notif
+Oct 24 10:08:23 server kernel: [ 197431]   120 197431   134941      176      174        2         0   135168        0             0 gsd-rfkill
+Oct 24 10:08:23 server kernel: [ 197435]   120 197435    98665      245      242        2         1   114688        0             0 gsd-smartcard
+Oct 24 10:08:23 server kernel: [ 197442]   120 197442   110129      344      341        2         1   163840        0             0 gsd-datetime
+Oct 24 10:08:23 server kernel: [ 197444]   120 197444   134347      933      868        2        63   217088       57             0 gsd-media-keys
+Oct 24 10:08:23 server kernel: [ 197449]   120 197449    79560      140      138        2         0   102400        0             0 gsd-screensaver
+Oct 24 10:08:23 server kernel: [ 197457]   120 197457   100589      293      290        2         1   135168        0             0 gsd-sound
+Oct 24 10:08:23 server kernel: [ 197468]   120 197468    98090      160      157        2         1   114688        0             0 gsd-a11y-settin
+Oct 24 10:08:23 server kernel: [ 197472]   120 197472   116895      190      187        2         1   122880        0             0 gsd-housekeepin
+Oct 24 10:08:23 server kernel: [ 197492]   120 197492   151511      849      784        2        63   217088      185             0 gsd-power
+Oct 24 10:08:23 server kernel: [ 197512]     0 197512     4325      230      228        2         0    81920        0             0 systemd-hostnam
+Oct 24 10:08:23 server kernel: [ 197545]   120 197545   106234      508      506        2         0   172032        0             0 gsd-printer
+Oct 24 10:08:23 server kernel: [ 197580]   114 197580   173723      620      618        2         0   200704        0             0 geoclue
+Oct 24 10:08:23 server kernel: [ 197653]   120 197653   201369     3108     3105        2         1   507904     1071             0 mutter-x11-fram
+Oct 24 10:08:23 server kernel: [ 197654]   120 197654   117780     1028     1026        2         0   135168      254             0 ibus-daemon
+Oct 24 10:08:23 server kernel: [ 197666]   120 197666   667846      944      942        2         0   258048      315             0 gjs
+Oct 24 10:08:23 server kernel: [ 197673]   120 197673    61331      105      103        2         0    98304       46             0 ibus-memconf
+Oct 24 10:08:23 server kernel: [ 197684]   120 197684   142774     2724     2722        2         0   458752      265             0 ibus-x11
+Oct 24 10:08:23 server kernel: [ 197692]   120 197692    79776      160      158        2         0   106496        0             0 ibus-portal
+Oct 24 10:08:23 server kernel: [ 197701]   120 197701    61329      161      159        2         0   102400        0             0 ibus-engine-sim
+Oct 24 10:08:23 server kernel: oom-kill:constraint=CONSTRAINT_NONE,nodemask=(null),cpuset=/,mems_allowed=0,global_oom,task_memcg=/user.slice/user-1000.slice/session-1746.scope,task=python,pid=192834,uid=1000
+Oct 24 10:08:23 server kernel: Out of memory: Killed process 192834 (python) total-vm:3887000kB, anon-rss:3247612kB, file-rss:8kB, shmem-rss:12kB, UID:1000 pgtables:7244kB oom_score_adj:0
+Oct 24 10:08:23 server systemd-journald[344]: /dev/kmsg buffer overrun, some messages lost.
+Oct 24 10:08:23 server kernel: rfkill: input handler enabled
+Oct 24 10:08:24 server kernel: rfkill: input handler disabled
+Oct 24 12:00:18 server kernel: audit: type=1400 audit(1792814418.429:285): apparmor="DENIED" operation="open" class="file" profile="snap.firmware-updater.firmware-notifier" name="/proc/sys/vm/max_map_count" pid=199399 comm="firmware-notifi" requested_mask="r" denied_mask="r" fsuid=1000 ouid=0
+

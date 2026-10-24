@@ -1,0 +1,1194 @@
+KERNEL_LOG 0 lines 4071
+Oct 24 10:07:18 server kernel: python invoked oom-killer: gfp_mask=0x440dc0(GFP_KERNEL_ACCOUNT|__GFP_ZERO|__GFP_COMP), order=0, oom_score_adj=0
+Oct 24 10:07:19 server kernel: CPU: 2 UID: 1000 PID: 192826 Comm: python Not tainted 7.0.0-38-generic #38~24.04.4-Ubuntu PREEMPT(lazy) 
+Oct 24 10:07:19 server kernel:  oom_kill_process+0xd7/0x250
+Oct 24 10:07:19 server kernel:  __alloc_pages_may_oom+0x109/0x1d0
+Oct 24 10:07:19 server kernel: Mem-Info:
+Oct 24 10:07:19 server kernel: active_anon:1134815 inactive_anon:2745183 isolated_anon:0
+                                slab_reclaimable:28880 slab_unreclaimable:49233
+Oct 24 10:07:19 server kernel: Node 0 active_anon:4539260kB inactive_anon:10980732kB active_file:64kB inactive_file:4432kB unevictable:16kB isolated(anon):0kB isolated(file):0kB mapped:2232kB dirty:964kB writeback:1080kB shmem:108kB shmem_thp:0kB shmem_pmdmapped:0kB anon_thp:116736kB kernel_stack:10928kB pagetables:69212kB sec_pagetables:2484kB all_unreclaimable? yes Balloon:0kB gpu_active:24184kB gpu_reclaim:0kB
+Oct 24 10:07:19 server kernel: Node 0 DMA free:13312kB boost:0kB min:72kB low:88kB high:104kB reserved_highatomic:0KB free_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB zspages:0kB present:15992kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB
+Oct 24 10:07:19 server kernel: Node 0 DMA32 free:65680kB boost:0kB min:3428kB low:4284kB high:5140kB reserved_highatomic:0KB free_highatomic:0KB active_anon:124700kB inactive_anon:897780kB active_file:28kB inactive_file:1584kB unevictable:0kB writepending:1340kB zspages:0kB present:1162852kB managed:1097244kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:32980kB
+Oct 24 10:07:19 server kernel: Node 0 Normal free:101748kB boost:10240kB min:74320kB low:90340kB high:106360kB reserved_highatomic:0KB free_highatomic:0KB active_anon:4414560kB inactive_anon:10082952kB active_file:36kB inactive_file:2996kB unevictable:16kB writepending:704kB zspages:0kB present:15433728kB managed:15094376kB mlocked:16kB bounce:0kB free_pcp:948kB local_pcp:0kB free_cma:31020kB
+Oct 24 10:07:19 server kernel: Node 0 DMA: 0*4kB 0*8kB 0*16kB 0*32kB 0*64kB 0*128kB 0*256kB 0*512kB 1*1024kB (U) 2*2048kB (UM) 2*4096kB (M) = 13312kB
+Oct 24 10:07:19 server kernel: Node 0 DMA32: 78*4kB (UMEC) 184*8kB (UMEC) 145*16kB (UMEC) 106*32kB (UMEC) 76*64kB (UMEC) 120*128kB (UMEC) 49*256kB (UEC) 18*512kB (UMEC) 16*1024kB (UC) 0*2048kB 0*4096kB = 65864kB
+Oct 24 10:07:19 server kernel: Node 0 Normal: 3044*4kB (UMEC) 3229*8kB (UEC) 1342*16kB (UMEC) 648*32kB (UMEC) 184*64kB (UMEC) 49*128kB (UMEC) 7*256kB (EC) 4*512kB (UMEC) 0*1024kB 0*2048kB 0*4096kB = 102104kB
+Oct 24 10:07:19 server kernel: Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=1048576kB
+Oct 24 10:07:19 server kernel: Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=2048kB
+Oct 24 10:07:19 server kernel: 3197 total pagecache pages
+Oct 24 10:07:19 server kernel: Free swap  = 0kB
+Oct 24 10:07:19 server kernel: Total swap = 4194300kB
+Oct 24 10:07:19 server kernel: 4153143 pages RAM
+Oct 24 10:07:19 server kernel: 0 pages HighMem/MovableOnly
+Oct 24 10:07:19 server kernel: 101398 pages reserved
+Oct 24 10:07:19 server kernel: [  pid  ]   uid  tgid total_vm      rss rss_anon rss_file rss_shmem pgtables_bytes swapents oom_score_adj name
+Oct 24 10:07:19 server kernel: [    793]   990   793     4395      257       37      220         0    77824      196          -900 systemd-oomd
+Oct 24 10:07:19 server kernel: [ 192814]  1000 192814   256892     8879     8843       29         7   933888    46902             0 python
+Oct 24 10:07:19 server kernel: [ 192821]  1000 192821     7742       13        1       12         0    86016     1437             0 python
+Oct 24 10:07:19 server kernel: [ 192822]  1000 192822   585269   371625   371589       32         4  4218880    56745             0 python
+Oct 24 10:07:19 server kernel: [ 192823]  1000 192823   607811   400701   400683       14         4  4456448    49700             0 python
+Oct 24 10:07:19 server kernel: [ 192824]  1000 192824   656635   120782   120766       14         2  4837376   378817             0 python
+Oct 24 10:07:19 server kernel: [ 192826]  1000 192826   512328   335670   335639       28         3  3846144    44635             0 python
+Oct 24 10:07:19 server kernel: [ 192829]  1000 192829   426315   261324   261307       14         3  3694592    39149             0 python
+Oct 24 10:07:19 server kernel: [ 192831]  1000 192831   464444   255714   255697       14         3  3837952    83169             0 python
+Oct 24 10:07:19 server kernel: [ 192832]  1000 192832   657208   502037   502007       27         3  4890624    29564             0 python
+Oct 24 10:07:19 server kernel: [ 192833]  1000 192833   455730   270531   270478       50         3  3461120    59506             0 python
+Oct 24 10:07:19 server kernel: [ 192834]  1000 192834   970726   822518   822493       22         3  7409664    22545             0 python
+Oct 24 10:07:19 server kernel: [ 192835]  1000 192835   418194   263629   263606       20         3  3387392    28741             0 python
+Oct 24 10:07:19 server kernel: [ 192836]  1000 192836   401187   244207   244190       14         3  3317760    31372             0 python
+Oct 24 10:07:19 server kernel: oom-kill:constraint=CONSTRAINT_NONE,nodemask=(null),cpuset=/,mems_allowed=0,global_oom,task_memcg=/user.slice/user-1000.slice/user@1000.service/app.slice/app-gnome-update\x2dnotifier-4182.scope,task=update-manager,pid=7009,uid=1000
+Oct 24 10:07:19 server kernel: Out of memory: Killed process 7009 (update-manager) total-vm:842624kB, anon-rss:16kB, file-rss:48kB, shmem-rss:0kB, UID:1000 pgtables:596kB oom_score_adj:200
+Oct 24 10:07:24 server kernel: python invoked oom-killer: gfp_mask=0x440dc0(GFP_KERNEL_ACCOUNT|__GFP_ZERO|__GFP_COMP), order=0, oom_score_adj=0
+Oct 24 10:07:25 server kernel: CPU: 0 UID: 1000 PID: 192826 Comm: python Not tainted 7.0.0-38-generic #38~24.04.4-Ubuntu PREEMPT(lazy) 
+Oct 24 10:07:43 server kernel:  oom_kill_process+0xd7/0x250
+Oct 24 10:07:43 server kernel:  ? oom_evaluate_task+0x105/0x200
+Oct 24 10:07:43 server kernel:  __alloc_pages_may_oom+0x109/0x1d0
+Oct 24 10:07:43 server kernel: Mem-Info:
+Oct 24 10:07:43 server kernel: active_anon:784910 inactive_anon:3102755 isolated_anon:0
+                                slab_reclaimable:28862 slab_unreclaimable:49256
+Oct 24 10:07:43 server kernel: Node 0 active_anon:3139640kB inactive_anon:12411020kB active_file:300kB inactive_file:508kB unevictable:16kB isolated(anon):0kB isolated(file):0kB mapped:440kB dirty:0kB writeback:0kB shmem:112kB shmem_thp:0kB shmem_pmdmapped:0kB anon_thp:116736kB kernel_stack:10768kB pagetables:68680kB sec_pagetables:2484kB all_unreclaimable? yes Balloon:0kB gpu_active:24184kB gpu_reclaim:0kB
+Oct 24 10:07:43 server kernel: Node 0 DMA free:13312kB boost:0kB min:72kB low:88kB high:104kB reserved_highatomic:0KB free_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB zspages:0kB present:15992kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB
+Oct 24 10:07:43 server kernel: Node 0 DMA32 free:62324kB boost:0kB min:3428kB low:4284kB high:5140kB reserved_highatomic:0KB free_highatomic:0KB active_anon:242284kB inactive_anon:784820kB active_file:176kB inactive_file:0kB unevictable:0kB writepending:0kB zspages:0kB present:1162852kB managed:1097244kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:10252kB
+Oct 24 10:07:43 server kernel: Node 0 Normal free:80356kB boost:32768kB min:96848kB low:112868kB high:128888kB reserved_highatomic:0KB free_highatomic:0KB active_anon:2897356kB inactive_anon:11626200kB active_file:300kB inactive_file:508kB unevictable:16kB writepending:0kB zspages:0kB present:15433728kB managed:15094376kB mlocked:16kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:4380kB
+Oct 24 10:07:43 server kernel: Node 0 DMA: 0*4kB 0*8kB 0*16kB 0*32kB 0*64kB 0*128kB 0*256kB 0*512kB 1*1024kB (U) 2*2048kB (UM) 2*4096kB (M) = 13312kB
+Oct 24 10:07:43 server kernel: Node 0 DMA32: 86*4kB (UMEC) 160*8kB (UMEC) 116*16kB (UMEC) 100*32kB (UMEC) 71*64kB (UMEC) 52*128kB (UMEC) 41*256kB (UMEC) 15*512kB (UMEC) 12*1024kB (UMC) 3*2048kB (M) 2*4096kB (M) = 62680kB
+Oct 24 10:07:43 server kernel: Node 0 Normal: 2402*4kB (UMEC) 1971*8kB (UMEC) 1170*16kB (UMEC) 505*32kB (UMEC) 166*64kB (UME) 44*128kB (UME) 7*256kB (ME) 5*512kB (UM) 0*1024kB 0*2048kB 0*4096kB = 80864kB
+Oct 24 10:07:43 server kernel: Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=1048576kB
+Oct 24 10:07:43 server kernel: Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=2048kB
+Oct 24 10:07:43 server kernel: 2576 total pagecache pages
+Oct 24 10:07:43 server kernel: Free swap  = 212kB
+Oct 24 10:07:43 server kernel: Total swap = 4194300kB
+Oct 24 10:07:43 server kernel: 4153143 pages RAM
+Oct 24 10:07:43 server kernel: 0 pages HighMem/MovableOnly
+Oct 24 10:07:43 server kernel: 101398 pages reserved
+Oct 24 10:07:43 server kernel: [  pid  ]   uid  tgid total_vm      rss rss_anon rss_file rss_shmem pgtables_bytes swapents oom_score_adj name
+Oct 24 10:07:43 server kernel: [    793]   990   793     4395       39       37        2         0    77824      196          -900 systemd-oomd
+Oct 24 10:07:43 server kernel: [ 192814]  1000 192814   256892     8591     8582        2         7   933888    47163             0 python
+Oct 24 10:07:43 server kernel: [ 192821]  1000 192821     7742        3        1        2         0    86016     1437             0 python
+Oct 24 10:07:43 server kernel: [ 192822]  1000 192822   585269   363059   363053        2         4  4218880    65281             0 python
+Oct 24 10:07:43 server kernel: [ 192823]  1000 192823   607811   400356   400350        2         4  4456448    50033             0 python
+Oct 24 10:07:43 server kernel: [ 192824]  1000 192824   656635   120770   120766        2         2  4837376   378817             0 python
+Oct 24 10:07:43 server kernel: [ 192826]  1000 192826   555271   367986   367981        2         3  4112384    45125             0 python
+Oct 24 10:07:43 server kernel: [ 192829]  1000 192829   426315   261186   261181        2         3  3694592    39275             0 python
+Oct 24 10:07:43 server kernel: [ 192831]  1000 192831   464444   253755   253750        2         3  3837952    85116             0 python
+Oct 24 10:07:43 server kernel: [ 192832]  1000 192832   657208   501982   501977        2         3  4890624    29594             0 python
+Oct 24 10:07:43 server kernel: [ 192833]  1000 192833   456754   271178   271173        2         3  3469312    59915             0 python
+Oct 24 10:07:43 server kernel: [ 192834]  1000 192834   970726   822389   822384        2         3  7409664    22722             0 python
+Oct 24 10:07:43 server kernel: [ 192835]  1000 192835   419218   257857   257852        2         3  3391488    35530             0 python
+Oct 24 10:07:43 server kernel: [ 192836]  1000 192836   401187   232667   232662        2         3  3317760    42900             0 python
+Oct 24 10:07:43 server kernel: oom-kill:constraint=CONSTRAINT_NONE,nodemask=(null),cpuset=/,mems_allowed=0,global_oom,task_memcg=/user.slice/user-1000.slice/user@1000.service/session.slice/org.gnome.SettingsDaemon.XSettings.service,task=gsd-xsettings,pid=4519,uid=1000
+Oct 24 10:07:43 server kernel: Out of memory: Killed process 4519 (gsd-xsettings) total-vm:726672kB, anon-rss:400kB, file-rss:8kB, shmem-rss:4kB, UID:1000 pgtables:484kB oom_score_adj:200
+Oct 24 10:07:43 server kernel: python invoked oom-killer: gfp_mask=0x440dc0(GFP_KERNEL_ACCOUNT|__GFP_ZERO|__GFP_COMP), order=0, oom_score_adj=0
+Oct 24 10:07:43 server kernel: CPU: 6 UID: 1000 PID: 192826 Comm: python Not tainted 7.0.0-38-generic #38~24.04.4-Ubuntu PREEMPT(lazy) 
+Oct 24 10:07:43 server kernel:  oom_kill_process+0xd7/0x250
+Oct 24 10:07:43 server kernel:  ? oom_evaluate_task+0x105/0x200
+Oct 24 10:07:43 server kernel:  __alloc_pages_may_oom+0x109/0x1d0
+Oct 24 10:07:43 server kernel: Mem-Info:
+Oct 24 10:07:43 server kernel: active_anon:2777655 inactive_anon:1105078 isolated_anon:0
+                                slab_reclaimable:28862 slab_unreclaimable:49252
+Oct 24 10:07:43 server kernel: Node 0 active_anon:11110620kB inactive_anon:4420312kB active_file:372kB inactive_file:1780kB unevictable:16kB isolated(anon):0kB isolated(file):0kB mapped:1172kB dirty:0kB writeback:56kB shmem:112kB shmem_thp:0kB shmem_pmdmapped:0kB anon_thp:116736kB kernel_stack:10672kB pagetables:68196kB sec_pagetables:2484kB all_unreclaimable? yes Balloon:0kB gpu_active:22056kB gpu_reclaim:0kB
+Oct 24 10:07:43 server kernel: Node 0 DMA free:13312kB boost:0kB min:72kB low:88kB high:104kB reserved_highatomic:0KB free_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB zspages:0kB present:15992kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB
+Oct 24 10:07:43 server kernel: Node 0 DMA32 free:62460kB boost:0kB min:3428kB low:4284kB high:5140kB reserved_highatomic:0KB free_highatomic:0KB active_anon:897912kB inactive_anon:129044kB active_file:88kB inactive_file:264kB unevictable:0kB writepending:0kB zspages:0kB present:1162852kB managed:1097244kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:10340kB
+Oct 24 10:07:43 server kernel: Node 0 Normal free:97828kB boost:32768kB min:96848kB low:112868kB high:128888kB reserved_highatomic:0KB free_highatomic:0KB active_anon:10212580kB inactive_anon:4291396kB active_file:480kB inactive_file:1580kB unevictable:16kB writepending:56kB zspages:0kB present:15433728kB managed:15094376kB mlocked:16kB bounce:0kB free_pcp:1004kB local_pcp:0kB free_cma:15676kB
+Oct 24 10:07:43 server kernel: Node 0 DMA: 0*4kB 0*8kB 0*16kB 0*32kB 0*64kB 0*128kB 0*256kB 0*512kB 1*1024kB (U) 2*2048kB (UM) 2*4096kB (M) = 13312kB
+Oct 24 10:07:43 server kernel: Node 0 DMA32: 93*4kB (UMEC) 171*8kB (UMEC) 120*16kB (UMEC) 102*32kB (UMEC) 67*64kB (UMEC) 51*128kB (UMEC) 41*256kB (UMEC) 15*512kB (UMEC) 12*1024kB (UMC) 3*2048kB (M) 2*4096kB (M) = 62540kB
+Oct 24 10:07:43 server kernel: Node 0 Normal: 4013*4kB (UMEC) 2352*8kB (UMEC) 1447*16kB (UMEC) 528*32kB (UMEC) 171*64kB (UMEC) 44*128kB (UME) 7*256kB (ME) 7*512kB (UM) 1*1024kB (U) 0*2048kB 0*4096kB = 97892kB
+Oct 24 10:07:43 server kernel: Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=1048576kB
+Oct 24 10:07:43 server kernel: Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=2048kB
+Oct 24 10:07:43 server kernel: 3074 total pagecache pages
+Oct 24 10:07:43 server kernel: Free swap  = 8kB
+Oct 24 10:07:43 server kernel: Total swap = 4194300kB
+Oct 24 10:07:43 server kernel: 4153143 pages RAM
+Oct 24 10:07:43 server kernel: 0 pages HighMem/MovableOnly
+Oct 24 10:07:43 server kernel: 101398 pages reserved
+Oct 24 10:07:43 server kernel: [  pid  ]   uid  tgid total_vm      rss rss_anon rss_file rss_shmem pgtables_bytes swapents oom_score_adj name
+Oct 24 10:07:43 server kernel: [    793]   990   793     4395       53       37       16         0    77824      196          -900 systemd-oomd
+Oct 24 10:07:43 server kernel: [ 192814]  1000 192814   256892     8636     8582       47         7   933888    47163             0 python
+Oct 24 10:07:43 server kernel: [ 192821]  1000 192821     7742        3        1        2         0    86016     1437             0 python
+Oct 24 10:07:43 server kernel: [ 192822]  1000 192822   585269   363106   363053       49         4  4218880    65281             0 python
+Oct 24 10:07:43 server kernel: [ 192823]  1000 192823   607811   400356   400350        2         4  4456448    50033             0 python
+Oct 24 10:07:43 server kernel: [ 192824]  1000 192824   656635   120770   120766        2         2  4837376   378817             0 python
+Oct 24 10:07:43 server kernel: [ 192826]  1000 192826   555271   367956   367951        2         3  4112384    45155             0 python
+Oct 24 10:07:43 server kernel: [ 192829]  1000 192829   426315   261186   261181        2         3  3694592    39275             0 python
+Oct 24 10:07:43 server kernel: [ 192831]  1000 192831   464444   253755   253750        2         3  3837952    85116             0 python
+Oct 24 10:07:43 server kernel: [ 192832]  1000 192832   657208   501090   501023       64         3  4890624    30548             0 python
+Oct 24 10:07:43 server kernel: [ 192833]  1000 192833   456754   270655   270650        2         3  3469312    60438             0 python
+Oct 24 10:07:43 server kernel: [ 192834]  1000 192834   970726   820108   820054       51         3  7409664    25052             0 python
+Oct 24 10:07:43 server kernel: [ 192835]  1000 192835   419218   257729   257715       11         3  3391488    35667             0 python
+Oct 24 10:07:43 server kernel: [ 192836]  1000 192836   401187   232667   232662        2         3  3317760    42900             0 python
+Oct 24 10:07:43 server kernel: oom-kill:constraint=CONSTRAINT_NONE,nodemask=(null),cpuset=/,mems_allowed=0,global_oom,task_memcg=/user.slice/user-1000.slice/user@1000.service/app.slice/app-gnome-org.gnome.Evolution\x2dalarm\x2dnotify-2272.scope,task=evolution-alarm,pid=2272,uid=1000
+Oct 24 10:07:43 server kernel: Out of memory: Killed process 2272 (evolution-alarm) total-vm:913324kB, anon-rss:336kB, file-rss:8kB, shmem-rss:4kB, UID:1000 pgtables:364kB oom_score_adj:200
+Oct 24 10:07:43 server kernel: python invoked oom-killer: gfp_mask=0x440dc0(GFP_KERNEL_ACCOUNT|__GFP_ZERO|__GFP_COMP), order=0, oom_score_adj=0
+Oct 24 10:07:43 server kernel: CPU: 7 UID: 1000 PID: 192826 Comm: python Not tainted 7.0.0-38-generic #38~24.04.4-Ubuntu PREEMPT(lazy) 
+Oct 24 10:07:43 server kernel:  oom_kill_process+0xd7/0x250
+Oct 24 10:07:43 server kernel:  ? oom_evaluate_task+0x105/0x200
+Oct 24 10:07:43 server kernel:  __alloc_pages_may_oom+0x109/0x1d0
+Oct 24 10:07:43 server kernel: Mem-Info:
+Oct 24 10:07:43 server kernel: active_anon:2771173 inactive_anon:1109166 isolated_anon:0
+                                slab_reclaimable:28862 slab_unreclaimable:49238
+Oct 24 10:07:43 server kernel: Node 0 active_anon:11084692kB inactive_anon:4436664kB active_file:520kB inactive_file:1940kB unevictable:16kB isolated(anon):0kB isolated(file):0kB mapped:144kB dirty:0kB writeback:0kB shmem:112kB shmem_thp:0kB shmem_pmdmapped:0kB anon_thp:116736kB kernel_stack:10544kB pagetables:67840kB sec_pagetables:2484kB all_unreclaimable? yes Balloon:0kB gpu_active:22056kB gpu_reclaim:0kB
+Oct 24 10:07:43 server kernel: Node 0 DMA free:13312kB boost:0kB min:72kB low:88kB high:104kB reserved_highatomic:0KB free_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB zspages:0kB present:15992kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB
+Oct 24 10:07:43 server kernel: Node 0 DMA32 free:62752kB boost:0kB min:3428kB low:4284kB high:5140kB reserved_highatomic:0KB free_highatomic:0KB active_anon:898552kB inactive_anon:128408kB active_file:40kB inactive_file:40kB unevictable:0kB writepending:0kB zspages:0kB present:1162852kB managed:1097244kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:10340kB
+Oct 24 10:07:43 server kernel: Node 0 Normal free:109676kB boost:32768kB min:96848kB low:112868kB high:128888kB reserved_highatomic:0KB free_highatomic:0KB active_anon:10186052kB inactive_anon:4308344kB active_file:524kB inactive_file:1920kB unevictable:16kB writepending:0kB zspages:0kB present:15433728kB managed:15094376kB mlocked:16kB bounce:0kB free_pcp:1012kB local_pcp:0kB free_cma:16332kB
+Oct 24 10:07:43 server kernel: Node 0 DMA: 0*4kB 0*8kB 0*16kB 0*32kB 0*64kB 0*128kB 0*256kB 0*512kB 1*1024kB (U) 2*2048kB (UM) 2*4096kB (M) = 13312kB
+Oct 24 10:07:43 server kernel: Node 0 DMA32: 97*4kB (UMEC) 166*8kB (UMEC) 121*16kB (UMEC) 101*32kB (UMEC) 70*64kB (UMEC) 52*128kB (UMEC) 41*256kB (UMEC) 15*512kB (UMEC) 12*1024kB (UMC) 3*2048kB (M) 2*4096kB (M) = 62820kB
+Oct 24 10:07:43 server kernel: Node 0 Normal: 5619*4kB (UMEC) 2725*8kB (UMEC) 1539*16kB (UMEC) 552*32kB (UMEC) 173*64kB (UMEC) 44*128kB (UME) 7*256kB (ME) 7*512kB (UM) 1*1024kB (U) 0*2048kB 0*4096kB = 109668kB
+Oct 24 10:07:43 server kernel: Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=1048576kB
+Oct 24 10:07:43 server kernel: Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=2048kB
+Oct 24 10:07:43 server kernel: 3201 total pagecache pages
+Oct 24 10:07:43 server kernel: Free swap  = 0kB
+Oct 24 10:07:43 server kernel: Total swap = 4194300kB
+Oct 24 10:07:43 server kernel: 4153143 pages RAM
+Oct 24 10:07:43 server kernel: 0 pages HighMem/MovableOnly
+Oct 24 10:07:43 server kernel: 101398 pages reserved
+Oct 24 10:07:43 server kernel: [  pid  ]   uid  tgid total_vm      rss rss_anon rss_file rss_shmem pgtables_bytes swapents oom_score_adj name
+Oct 24 10:07:43 server kernel: [    793]   990   793     4395       41       37        4         0    77824      196          -900 systemd-oomd
+Oct 24 10:07:43 server kernel: [ 192814]  1000 192814   256892     8590     8581        2         7   933888    47164             0 python
+Oct 24 10:07:43 server kernel: [ 192821]  1000 192821     7742        3        1        2         0    86016     1437             0 python
+Oct 24 10:07:43 server kernel: [ 192822]  1000 192822   585269   363046   363040        2         4  4218880    65294             0 python
+Oct 24 10:07:43 server kernel: [ 192823]  1000 192823   607811   400356   400350        2         4  4456448    50033             0 python
+Oct 24 10:07:43 server kernel: [ 192824]  1000 192824   656635   120770   120766        2         2  4837376   378817             0 python
+Oct 24 10:07:43 server kernel: [ 192826]  1000 192826   555271   368934   368929        2         3  4120576    45201             0 python
+Oct 24 10:07:43 server kernel: [ 192829]  1000 192829   426315   261183   261178        2         3  3694592    39278             0 python
+Oct 24 10:07:43 server kernel: [ 192831]  1000 192831   464444   253751   253746        2         3  3837952    85120             0 python
+Oct 24 10:07:43 server kernel: [ 192832]  1000 192832   657208   499818   499813        2         3  4890624    31758             0 python
+Oct 24 10:07:43 server kernel: [ 192833]  1000 192833   456754   270500   270493        4         3  3469312    60595             0 python
+Oct 24 10:07:43 server kernel: [ 192834]  1000 192834   970726   818013   818008        2         3  7409664    27098             0 python
+Oct 24 10:07:43 server kernel: [ 192835]  1000 192835   419218   257551   257546        2         3  3391488    35836             0 python
+Oct 24 10:07:43 server kernel: [ 192836]  1000 192836   401187   232333   232328        2         3  3317760    43234             0 python
+Oct 24 10:07:43 server kernel: oom-kill:constraint=CONSTRAINT_NONE,nodemask=(null),cpuset=/,mems_allowed=0,global_oom,task_memcg=/user.slice/user-1000.slice/user@1000.service/session.slice/pipewire-pulse.service,task=pipewire-pulse,pid=1768,uid=1000
+Oct 24 10:07:43 server kernel: Out of memory: Killed process 1768 (pipewire-pulse) total-vm:129944kB, anon-rss:1276kB, file-rss:8kB, shmem-rss:0kB, UID:1000 pgtables:136kB oom_score_adj:200
+Oct 24 10:07:43 server kernel: python invoked oom-killer: gfp_mask=0x440dc0(GFP_KERNEL_ACCOUNT|__GFP_ZERO|__GFP_COMP), order=0, oom_score_adj=0
+Oct 24 10:07:43 server kernel: CPU: 3 UID: 1000 PID: 192826 Comm: python Not tainted 7.0.0-38-generic #38~24.04.4-Ubuntu PREEMPT(lazy) 
+Oct 24 10:07:43 server kernel:  oom_kill_process+0xd7/0x250
+Oct 24 10:07:43 server kernel:  ? oom_evaluate_task+0x105/0x200
+Oct 24 10:07:43 server kernel:  __alloc_pages_may_oom+0x109/0x1d0
+Oct 24 10:07:43 server kernel: Mem-Info:
+Oct 24 10:07:43 server kernel: active_anon:2770294 inactive_anon:1113364 isolated_anon:0
+                                slab_reclaimable:28862 slab_unreclaimable:49235
+Oct 24 10:07:43 server kernel: Node 0 active_anon:11081176kB inactive_anon:4453456kB active_file:36kB inactive_file:1984kB unevictable:16kB isolated(anon):0kB isolated(file):0kB mapped:352kB dirty:0kB writeback:0kB shmem:112kB shmem_thp:0kB shmem_pmdmapped:0kB anon_thp:116736kB kernel_stack:10496kB pagetables:67752kB sec_pagetables:2484kB all_unreclaimable? yes Balloon:0kB gpu_active:22056kB gpu_reclaim:0kB
+Oct 24 10:07:43 server kernel: Node 0 DMA free:13312kB boost:0kB min:72kB low:88kB high:104kB reserved_highatomic:0KB free_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB zspages:0kB present:15992kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB
+Oct 24 10:07:43 server kernel: Node 0 DMA32 free:62368kB boost:0kB min:3428kB low:4284kB high:5140kB reserved_highatomic:0KB free_highatomic:0KB active_anon:898016kB inactive_anon:129304kB active_file:16kB inactive_file:0kB unevictable:0kB writepending:0kB zspages:0kB present:1162852kB managed:1097244kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:10384kB
+Oct 24 10:07:43 server kernel: Node 0 Normal free:97896kB boost:32768kB min:96848kB low:112868kB high:128888kB reserved_highatomic:0KB free_highatomic:0KB active_anon:10183232kB inactive_anon:4324080kB active_file:36kB inactive_file:1984kB unevictable:16kB writepending:0kB zspages:0kB present:15433728kB managed:15094376kB mlocked:16kB bounce:0kB free_pcp:976kB local_pcp:0kB free_cma:3164kB
+Oct 24 10:07:43 server kernel: Node 0 DMA: 0*4kB 0*8kB 0*16kB 0*32kB 0*64kB 0*128kB 0*256kB 0*512kB 1*1024kB (U) 2*2048kB (UM) 2*4096kB (M) = 13312kB
+Oct 24 10:07:43 server kernel: Node 0 DMA32: 92*4kB (UMEC) 158*8kB (UMEC) 114*16kB (UMEC) 102*32kB (UMEC) 71*64kB (UMEC) 50*128kB (UMEC) 41*256kB (UMEC) 15*512kB (UMEC) 12*1024kB (UMC) 3*2048kB (M) 2*4096kB (M) = 62464kB
+Oct 24 10:07:43 server kernel: Node 0 Normal: 1752*4kB (UMEC) 1859*8kB (UMEC) 1271*16kB (UMEC) 600*32kB (UMEC) 222*64kB (UMEC) 78*128kB (UME) 21*256kB (ME) 8*512kB (UM) 2*1024kB (UM) 0*2048kB 0*4096kB = 97128kB
+Oct 24 10:07:43 server kernel: Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=1048576kB
+Oct 24 10:07:43 server kernel: Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=2048kB
+Oct 24 10:07:43 server kernel: 3065 total pagecache pages
+Oct 24 10:07:43 server kernel: Free swap  = 0kB
+Oct 24 10:07:43 server kernel: Total swap = 4194300kB
+Oct 24 10:07:43 server kernel: 4153143 pages RAM
+Oct 24 10:07:43 server kernel: 0 pages HighMem/MovableOnly
+Oct 24 10:07:43 server kernel: 101398 pages reserved
+Oct 24 10:07:43 server kernel: [  pid  ]   uid  tgid total_vm      rss rss_anon rss_file rss_shmem pgtables_bytes swapents oom_score_adj name
+Oct 24 10:07:43 server kernel: [    793]   990   793     4395       39       37        2         0    77824      196          -900 systemd-oomd
+Oct 24 10:07:43 server kernel: [ 192814]  1000 192814   256892     8590     8581        2         7   933888    47164             0 python
+Oct 24 10:07:43 server kernel: [ 192821]  1000 192821     7742        3        1        2         0    86016     1437             0 python
+Oct 24 10:07:43 server kernel: [ 192822]  1000 192822   585269   363045   363039        2         4  4218880    65295             0 python
+Oct 24 10:07:43 server kernel: [ 192823]  1000 192823   607811   400355   400349        2         4  4456448    50034             0 python
+Oct 24 10:07:43 server kernel: [ 192824]  1000 192824   656635   120770   120766        2         2  4837376   378817             0 python
+Oct 24 10:07:43 server kernel: [ 192826]  1000 192826   555271   375099   375094        2         3  4173824    45692             0 python
+Oct 24 10:07:43 server kernel: [ 192829]  1000 192829   426315   261183   261178        2         3  3694592    39278             0 python
+Oct 24 10:07:43 server kernel: [ 192831]  1000 192831   464444   253700   253695        2         3  3837952    85171             0 python
+Oct 24 10:07:43 server kernel: [ 192832]  1000 192832   657208   499728   499723        2         3  4890624    31848             0 python
+Oct 24 10:07:43 server kernel: [ 192833]  1000 192833   456754   270488   270483        2         3  3469312    60605             0 python
+Oct 24 10:07:43 server kernel: [ 192834]  1000 192834   970726   817707   817702        2         3  7409664    27404             0 python
+Oct 24 10:07:43 server kernel: [ 192835]  1000 192835   419218   257539   257532        4         3  3391488    35850             0 python
+Oct 24 10:07:43 server kernel: [ 192836]  1000 192836   401187   232100   232095        2         3  3317760    43467             0 python
+Oct 24 10:07:43 server kernel: oom-kill:constraint=CONSTRAINT_NONE,nodemask=(null),cpuset=/,mems_allowed=0,global_oom,task_memcg=/user.slice/user-1000.slice/user@1000.service/session.slice/org.freedesktop.IBus.session.GNOME.service,task=ibus-extension-,pid=2316,uid=1000
+Oct 24 10:07:43 server kernel: Out of memory: Killed process 2316 (ibus-extension-) total-vm:430268kB, anon-rss:604kB, file-rss:8kB, shmem-rss:0kB, UID:1000 pgtables:192kB oom_score_adj:200
+Oct 24 10:07:43 server kernel: python invoked oom-killer: gfp_mask=0x440dc0(GFP_KERNEL_ACCOUNT|__GFP_ZERO|__GFP_COMP), order=0, oom_score_adj=0
+Oct 24 10:07:43 server kernel: CPU: 0 UID: 1000 PID: 192826 Comm: python Not tainted 7.0.0-38-generic #38~24.04.4-Ubuntu PREEMPT(lazy) 
+Oct 24 10:07:43 server kernel:  oom_kill_process+0xd7/0x250
+Oct 24 10:07:43 server kernel:  ? oom_evaluate_task+0x105/0x200
+Oct 24 10:07:43 server kernel:  __alloc_pages_may_oom+0x109/0x1d0
+Oct 24 10:07:43 server kernel: Mem-Info:
+Oct 24 10:07:43 server kernel: active_anon:3087789 inactive_anon:795806 isolated_anon:0
+                                slab_reclaimable:28862 slab_unreclaimable:49230
+Oct 24 10:07:43 server kernel: Node 0 active_anon:12351156kB inactive_anon:3183224kB active_file:376kB inactive_file:2412kB unevictable:16kB isolated(anon):0kB isolated(file):0kB mapped:252kB dirty:0kB writeback:0kB shmem:112kB shmem_thp:0kB shmem_pmdmapped:0kB anon_thp:116736kB kernel_stack:10416kB pagetables:67560kB sec_pagetables:2484kB all_unreclaimable? yes Balloon:0kB gpu_active:22056kB gpu_reclaim:0kB
+Oct 24 10:07:43 server kernel: Node 0 DMA free:13312kB boost:0kB min:72kB low:88kB high:104kB reserved_highatomic:0KB free_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB zspages:0kB present:15992kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB
+Oct 24 10:07:43 server kernel: Node 0 DMA32 free:62332kB boost:0kB min:3428kB low:4284kB high:5140kB reserved_highatomic:0KB free_highatomic:0KB active_anon:777700kB inactive_anon:249616kB active_file:40kB inactive_file:0kB unevictable:0kB writepending:0kB zspages:0kB present:1162852kB managed:1097244kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:10388kB
+Oct 24 10:07:43 server kernel: Node 0 Normal free:98296kB boost:32768kB min:96848kB low:112868kB high:128888kB reserved_highatomic:0KB free_highatomic:0KB active_anon:11573692kB inactive_anon:2933372kB active_file:376kB inactive_file:2412kB unevictable:16kB writepending:0kB zspages:0kB present:15433728kB managed:15094376kB mlocked:16kB bounce:0kB free_pcp:408kB local_pcp:0kB free_cma:3912kB
+Oct 24 10:07:43 server kernel: Node 0 DMA: 0*4kB 0*8kB 0*16kB 0*32kB 0*64kB 0*128kB 0*256kB 0*512kB 1*1024kB (U) 2*2048kB (UM) 2*4096kB (M) = 13312kB
+Oct 24 10:07:43 server kernel: Node 0 DMA32: 91*4kB (UMEC) 157*8kB (UMEC) 115*16kB (UMEC) 102*32kB (UMEC) 71*64kB (UMEC) 50*128kB (UMEC) 41*256kB (UMEC) 15*512kB (UMEC) 12*1024kB (UMC) 3*2048kB (M) 2*4096kB (M) = 62468kB
+Oct 24 10:07:43 server kernel: Node 0 Normal: 1890*4kB (UEC) 1877*8kB (UMEC) 1257*16kB (UMEC) 608*32kB (UMEC) 222*64kB (UMEC) 78*128kB (UME) 21*256kB (ME) 8*512kB (UM) 2*1024kB (UM) 0*2048kB 0*4096kB = 97856kB
+Oct 24 10:07:43 server kernel: Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=1048576kB
+Oct 24 10:07:43 server kernel: Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=2048kB
+Oct 24 10:07:43 server kernel: 5354 total pagecache pages
+Oct 24 10:07:43 server kernel: Free swap  = 0kB
+Oct 24 10:07:43 server kernel: Total swap = 4194300kB
+Oct 24 10:07:43 server kernel: 4153143 pages RAM
+Oct 24 10:07:43 server kernel: 0 pages HighMem/MovableOnly
+Oct 24 10:07:43 server kernel: 101398 pages reserved
+Oct 24 10:07:43 server kernel: [  pid  ]   uid  tgid total_vm      rss rss_anon rss_file rss_shmem pgtables_bytes swapents oom_score_adj name
+Oct 24 10:07:43 server kernel: [    793]   990   793     4395       40       37        3         0    77824      196          -900 systemd-oomd
+Oct 24 10:07:43 server kernel: [ 192814]  1000 192814   256892     8590     8581        2         7   933888    47164             0 python
+Oct 24 10:07:43 server kernel: [ 192821]  1000 192821     7742        3        1        2         0    86016     1437             0 python
+Oct 24 10:07:43 server kernel: [ 192822]  1000 192822   585269   363045   363039        2         4  4218880    65295             0 python
+Oct 24 10:07:43 server kernel: [ 192823]  1000 192823   607811   400355   400349        2         4  4456448    50034             0 python
+Oct 24 10:07:43 server kernel: [ 192824]  1000 192824   656635   120770   120766        2         2  4837376   378817             0 python
+Oct 24 10:07:43 server kernel: [ 192826]  1000 192826   555271   375611   375606        2         3  4177920    45692             0 python
+Oct 24 10:07:43 server kernel: [ 192829]  1000 192829   426315   261183   261178        2         3  3694592    39278             0 python
+Oct 24 10:07:43 server kernel: [ 192831]  1000 192831   464444   253260   253255        2         3  3837952    85611             0 python
+Oct 24 10:07:43 server kernel: [ 192832]  1000 192832   657208   499729   499723        3         3  4890624    31848             0 python
+Oct 24 10:07:43 server kernel: [ 192833]  1000 192833   456754   270488   270483        2         3  3469312    60605             0 python
+Oct 24 10:07:43 server kernel: [ 192834]  1000 192834   970726   817662   817647       12         3  7409664    27459             0 python
+Oct 24 10:07:43 server kernel: [ 192835]  1000 192835   419218   257537   257532        2         3  3391488    35850             0 python
+Oct 24 10:07:43 server kernel: [ 192836]  1000 192836   401187   231193   231188        2         3  3317760    44374             0 python
+Oct 24 10:07:43 server kernel: oom-kill:constraint=CONSTRAINT_NONE,nodemask=(null),cpuset=/,mems_allowed=0,global_oom,task_memcg=/user.slice/user-1000.slice/user@1000.service/app.slice/xdg-desktop-portal-gnome.service,task=xdg-desktop-por,pid=2555,uid=1000
+Oct 24 10:07:43 server kernel: Out of memory: Killed process 2555 (xdg-desktop-por) total-vm:917848kB, anon-rss:1232kB, file-rss:8kB, shmem-rss:0kB, UID:1000 pgtables:316kB oom_score_adj:200
+Oct 24 10:07:43 server kernel: in:imklog invoked oom-killer: gfp_mask=0x140cca(GFP_HIGHUSER_MOVABLE|__GFP_COMP), order=0, oom_score_adj=0
+Oct 24 10:07:43 server kernel:  oom_kill_process+0xd7/0x250
+Oct 24 10:07:43 server kernel:  ? oom_evaluate_task+0x105/0x200
+Oct 24 10:07:43 server kernel:  __alloc_pages_may_oom+0x109/0x1d0
+Oct 24 10:07:43 server kernel: Mem-Info:
+Oct 24 10:07:43 server kernel: active_anon:3083123 inactive_anon:800728 isolated_anon:0
+                                slab_reclaimable:28858 slab_unreclaimable:49204
+Oct 24 10:07:43 server kernel: Node 0 active_anon:12332492kB inactive_anon:3202912kB active_file:0kB inactive_file:556kB unevictable:16kB isolated(anon):0kB isolated(file):0kB mapped:268kB dirty:0kB writeback:0kB shmem:112kB shmem_thp:0kB shmem_pmdmapped:0kB anon_thp:116736kB kernel_stack:10320kB pagetables:67264kB sec_pagetables:2484kB all_unreclaimable? yes Balloon:0kB gpu_active:22056kB gpu_reclaim:0kB
+Oct 24 10:07:43 server kernel: Node 0 DMA free:13312kB boost:0kB min:72kB low:88kB high:104kB reserved_highatomic:0KB free_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB zspages:0kB present:15992kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB
+Oct 24 10:07:43 server kernel: Node 0 DMA32 free:62384kB boost:0kB min:3428kB low:4284kB high:5140kB reserved_highatomic:0KB free_highatomic:0KB active_anon:128896kB inactive_anon:898400kB active_file:0kB inactive_file:8kB unevictable:0kB writepending:0kB zspages:0kB present:1162852kB managed:1097244kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:10396kB
+Oct 24 10:07:43 server kernel: Node 0 Normal free:96800kB boost:32768kB min:96848kB low:112868kB high:128888kB reserved_highatomic:0KB free_highatomic:0KB active_anon:4377396kB inactive_anon:10130712kB active_file:0kB inactive_file:556kB unevictable:16kB writepending:0kB zspages:0kB present:15433728kB managed:15094376kB mlocked:16kB bounce:0kB free_pcp:3572kB local_pcp:288kB free_cma:3816kB
+Oct 24 10:07:43 server kernel: Node 0 DMA: 0*4kB 0*8kB 0*16kB 0*32kB 0*64kB 0*128kB 0*256kB 0*512kB 1*1024kB (U) 2*2048kB (UM) 2*4096kB (M) = 13312kB
+Oct 24 10:07:43 server kernel: Node 0 DMA32: 94*4kB (UMEC) 158*8kB (UMEC) 115*16kB (UMEC) 102*32kB (UMEC) 71*64kB (UMEC) 50*128kB (UMEC) 41*256kB (UMEC) 15*512kB (UMEC) 12*1024kB (UMC) 3*2048kB (M) 2*4096kB (M) = 62488kB
+Oct 24 10:07:43 server kernel: Node 0 Normal: 1789*4kB (UEC) 1885*8kB (UMEC) 1245*16kB (UMEC) 626*32kB (UMEC) 217*64kB (UMEC) 73*128kB (UME) 18*256kB (ME) 9*512kB (UM) 2*1024kB (UM) 0*2048kB 0*4096kB = 96684kB
+Oct 24 10:07:43 server kernel: Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=1048576kB
+Oct 24 10:07:43 server kernel: Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=2048kB
+Oct 24 10:07:43 server kernel: 5194 total pagecache pages
+Oct 24 10:07:43 server kernel: Free swap  = 148kB
+Oct 24 10:07:43 server kernel: Total swap = 4194300kB
+Oct 24 10:07:43 server kernel: 4153143 pages RAM
+Oct 24 10:07:43 server kernel: 0 pages HighMem/MovableOnly
+Oct 24 10:07:43 server kernel: 101398 pages reserved
+Oct 24 10:07:43 server kernel: [  pid  ]   uid  tgid total_vm      rss rss_anon rss_file rss_shmem pgtables_bytes swapents oom_score_adj name
+Oct 24 10:07:43 server kernel: [    793]   990   793     4395       39       37        2         0    77824      196          -900 systemd-oomd
+Oct 24 10:07:43 server kernel: [ 192814]  1000 192814   256892     8590     8581        2         7   933888    47164             0 python
+Oct 24 10:07:43 server kernel: [ 192821]  1000 192821     7742        3        1        2         0    86016     1437             0 python
+Oct 24 10:07:43 server kernel: [ 192822]  1000 192822   585269   363045   363039        2         4  4218880    65295             0 python
+Oct 24 10:07:43 server kernel: [ 192823]  1000 192823   607811   400355   400349        2         4  4456448    50034             0 python
+Oct 24 10:07:43 server kernel: [ 192824]  1000 192824   656635   120770   120766        2         2  4837376   378817             0 python
+Oct 24 10:07:43 server kernel: [ 192826]  1000 192826   555271   377318   377313        2         3  4198400    46545             0 python
+Oct 24 10:07:43 server kernel: [ 192829]  1000 192829   426315   261183   261178        2         3  3694592    39278             0 python
+Oct 24 10:07:43 server kernel: [ 192831]  1000 192831   464444   253260   253255        2         3  3837952    85611             0 python
+Oct 24 10:07:43 server kernel: [ 192832]  1000 192832   657208   499693   499688        2         3  4890624    31883             0 python
+Oct 24 10:07:43 server kernel: [ 192833]  1000 192833   456754   270054   270049        2         3  3469312    61039             0 python
+Oct 24 10:07:43 server kernel: [ 192834]  1000 192834   970726   816840   816835        2         3  7409664    28271             0 python
+Oct 24 10:07:43 server kernel: [ 192835]  1000 192835   419218   257537   257532        2         3  3391488    35850             0 python
+Oct 24 10:07:43 server kernel: [ 192836]  1000 192836   401187   231193   231188        2         3  3317760    44374             0 python
+Oct 24 10:07:43 server kernel: oom-kill:constraint=CONSTRAINT_NONE,nodemask=(null),cpuset=/,mems_allowed=0,global_oom,task_memcg=/user.slice/user-1000.slice/user@1000.service/session.slice/dbus.service,task=snap,pid=3025,uid=1000
+Oct 24 10:07:43 server kernel: Out of memory: Killed process 3025 (snap) total-vm:2136132kB, anon-rss:4972kB, file-rss:8kB, shmem-rss:0kB, UID:1000 pgtables:264kB oom_score_adj:200
+Oct 24 10:07:43 server kernel: python invoked oom-killer: gfp_mask=0x440dc0(GFP_KERNEL_ACCOUNT|__GFP_ZERO|__GFP_COMP), order=0, oom_score_adj=0
+Oct 24 10:07:43 server kernel: CPU: 4 UID: 1000 PID: 192826 Comm: python Not tainted 7.0.0-38-generic #38~24.04.4-Ubuntu PREEMPT(lazy) 
+Oct 24 10:07:43 server kernel:  oom_kill_process+0xd7/0x250
+Oct 24 10:07:43 server kernel:  ? oom_evaluate_task+0x105/0x200
+Oct 24 10:07:43 server kernel:  __alloc_pages_may_oom+0x109/0x1d0
+Oct 24 10:07:43 server kernel: Mem-Info:
+Oct 24 10:07:43 server kernel: active_anon:2757429 inactive_anon:1126376 isolated_anon:0
+                                slab_reclaimable:28858 slab_unreclaimable:49201
+Oct 24 10:07:43 server kernel: Node 0 active_anon:11029716kB inactive_anon:4505504kB active_file:4kB inactive_file:472kB unevictable:16kB isolated(anon):0kB isolated(file):0kB mapped:440kB dirty:0kB writeback:0kB shmem:112kB shmem_thp:0kB shmem_pmdmapped:0kB anon_thp:116736kB kernel_stack:10080kB pagetables:67024kB sec_pagetables:2484kB all_unreclaimable? yes Balloon:0kB gpu_active:22056kB gpu_reclaim:0kB
+Oct 24 10:07:43 server kernel: Node 0 DMA free:13312kB boost:0kB min:72kB low:88kB high:104kB reserved_highatomic:0KB free_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB zspages:0kB present:15992kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB
+Oct 24 10:07:43 server kernel: Node 0 DMA32 free:62260kB boost:0kB min:3428kB low:4284kB high:5140kB reserved_highatomic:0KB free_highatomic:0KB active_anon:898300kB inactive_anon:128996kB active_file:160kB inactive_file:0kB unevictable:0kB writepending:0kB zspages:0kB present:1162852kB managed:1097244kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:10400kB
+Oct 24 10:07:43 server kernel: Node 0 Normal free:95612kB boost:32768kB min:96848kB low:112868kB high:128888kB reserved_highatomic:0KB free_highatomic:0KB active_anon:10131464kB inactive_anon:4376460kB active_file:4kB inactive_file:472kB unevictable:16kB writepending:0kB zspages:0kB present:15433728kB managed:15094376kB mlocked:16kB bounce:0kB free_pcp:5536kB local_pcp:324kB free_cma:4224kB
+Oct 24 10:07:43 server kernel: Node 0 DMA: 0*4kB 0*8kB 0*16kB 0*32kB 0*64kB 0*128kB 0*256kB 0*512kB 1*1024kB (U) 2*2048kB (UM) 2*4096kB (M) = 13312kB
+Oct 24 10:07:43 server kernel: Node 0 DMA32: 94*4kB (UMEC) 158*8kB (UMEC) 115*16kB (UMEC) 102*32kB (UMEC) 71*64kB (UMEC) 50*128kB (UMEC) 41*256kB (UMEC) 15*512kB (UMEC) 12*1024kB (UMC) 3*2048kB (M) 2*4096kB (M) = 62488kB
+Oct 24 10:07:43 server kernel: Node 0 Normal: 1995*4kB (UEC) 1884*8kB (UMEC) 1072*16kB (UMEC) 617*32kB (UMEC) 220*64kB (UMEC) 77*128kB (UME) 19*256kB (ME) 9*512kB (UM) 2*1024kB (UM) 0*2048kB 0*4096kB = 95404kB
+Oct 24 10:07:43 server kernel: Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=1048576kB
+Oct 24 10:07:43 server kernel: Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=2048kB
+Oct 24 10:07:43 server kernel: 4351 total pagecache pages
+Oct 24 10:07:43 server kernel: Free swap  = 144kB
+Oct 24 10:07:43 server kernel: Total swap = 4194300kB
+Oct 24 10:07:43 server kernel: 4153143 pages RAM
+Oct 24 10:07:43 server kernel: 0 pages HighMem/MovableOnly
+Oct 24 10:07:43 server kernel: 101398 pages reserved
+Oct 24 10:07:43 server kernel: [  pid  ]   uid  tgid total_vm      rss rss_anon rss_file rss_shmem pgtables_bytes swapents oom_score_adj name
+Oct 24 10:07:43 server kernel: [    793]   990   793     4395       38       36        2         0    77824      197          -900 systemd-oomd
+Oct 24 10:07:43 server kernel: [ 192814]  1000 192814   256892     8589     8580        2         7   933888    47165             0 python
+Oct 24 10:07:43 server kernel: [ 192821]  1000 192821     7742        3        1        2         0    86016     1437             0 python
+Oct 24 10:07:43 server kernel: [ 192822]  1000 192822   585269   363045   363039        2         4  4218880    65295             0 python
+Oct 24 10:07:43 server kernel: [ 192823]  1000 192823   607811   400355   400349        2         4  4456448    50034             0 python
+Oct 24 10:07:43 server kernel: [ 192824]  1000 192824   656635   120770   120766        2         2  4837376   378817             0 python
+Oct 24 10:07:43 server kernel: [ 192826]  1000 192826   555271   380029   380024        2         3  4222976    46906             0 python
+Oct 24 10:07:43 server kernel: [ 192829]  1000 192829   426315   261183   261178        2         3  3694592    39278             0 python
+Oct 24 10:07:43 server kernel: [ 192831]  1000 192831   464444   253260   253255        2         3  3837952    85611             0 python
+Oct 24 10:07:43 server kernel: [ 192832]  1000 192832   657208   499673   499668        2         3  4890624    31903             0 python
+Oct 24 10:07:43 server kernel: [ 192833]  1000 192833   456754   269808   269803        2         3  3469312    61285             0 python
+Oct 24 10:07:43 server kernel: [ 192834]  1000 192834   970726   816671   816666        2         3  7409664    28440             0 python
+Oct 24 10:07:43 server kernel: [ 192835]  1000 192835   419218   257497   257492        2         3  3391488    35890             0 python
+Oct 24 10:07:43 server kernel: [ 192836]  1000 192836   401187   231193   231188        2         3  3317760    44374             0 python
+Oct 24 10:07:43 server kernel: oom-kill:constraint=CONSTRAINT_NONE,nodemask=(null),cpuset=/,mems_allowed=0,global_oom,task_memcg=/user.slice/user-1000.slice/user@1000.service/app.slice/snap.snapd-desktop-integration.snapd-desktop-integration.service,task=snapd-desktop-i,pid=2995,uid=1000
+Oct 24 10:07:43 server kernel: Out of memory: Killed process 2995 (snapd-desktop-i) total-vm:438436kB, anon-rss:84kB, file-rss:8kB, shmem-rss:0kB, UID:1000 pgtables:220kB oom_score_adj:200
+Oct 24 10:08:04 server kernel: python invoked oom-killer: gfp_mask=0x440dc0(GFP_KERNEL_ACCOUNT|__GFP_ZERO|__GFP_COMP), order=0, oom_score_adj=0
+Oct 24 10:08:04 server kernel: CPU: 2 UID: 1000 PID: 192826 Comm: python Not tainted 7.0.0-38-generic #38~24.04.4-Ubuntu PREEMPT(lazy) 
+Oct 24 10:08:23 server kernel: Free swap  = 52kB
+Oct 24 10:08:23 server kernel: Total swap = 4194300kB
+Oct 24 10:08:23 server kernel: 4153143 pages RAM
+Oct 24 10:08:23 server kernel: 0 pages HighMem/MovableOnly
+Oct 24 10:08:23 server kernel: 101398 pages reserved
+Oct 24 10:08:23 server kernel: [  pid  ]   uid  tgid total_vm      rss rss_anon rss_file rss_shmem pgtables_bytes swapents oom_score_adj name
+Oct 24 10:08:23 server kernel: [    793]   990   793     4438       45       43        2         0    77824      193          -900 systemd-oomd
+Oct 24 10:08:23 server kernel: [ 192814]  1000 192814   256892     8588     8579        2         7   933888    47166             0 python
+Oct 24 10:08:23 server kernel: [ 192821]  1000 192821     7742        3        1        2         0    86016     1437             0 python
+Oct 24 10:08:23 server kernel: [ 192822]  1000 192822   578879   363399   363393        2         4  4165632    58551             0 python
+Oct 24 10:08:23 server kernel: [ 192823]  1000 192823   607811   318683   318677        2         4  4456448   131706             0 python
+Oct 24 10:08:23 server kernel: [ 192824]  1000 192824   656635   120621   120617        2         2  4837376   378966             0 python
+Oct 24 10:08:23 server kernel: [ 192826]  1000 192826   555981   375649   375644        2         3  4169728    45177             0 python
+Oct 24 10:08:23 server kernel: [ 192829]  1000 192829   426315   261155   261150        2         3  3694592    39306             0 python
+Oct 24 10:08:23 server kernel: [ 192831]  1000 192831   464444   252543   252538        2         3  3837952    86328             0 python
+Oct 24 10:08:23 server kernel: [ 192832]  1000 192832   669496   513367   513362        2         3  4988928    30501             0 python
+Oct 24 10:08:23 server kernel: [ 192833]  1000 192833   479538   299443   299438        2         3  3600384    54473             0 python
+Oct 24 10:08:23 server kernel: [ 192834]  1000 192834   971750   811974   811969        2         3  7417856    34097             0 python
+Oct 24 10:08:23 server kernel: [ 192835]  1000 192835   439186   280217   280212        2         3  3473408    33102             0 python
+Oct 24 10:08:23 server kernel: [ 192836]  1000 192836   401187   227724   227719        2         3  3317760    47843             0 python
+Oct 24 10:08:23 server kernel: oom-kill:constraint=CONSTRAINT_NONE,nodemask=(null),cpuset=/,mems_allowed=0,global_oom,task_memcg=/user.slice/user-120.slice/user@120.service/session.slice/pipewire.service,task=pipewire,pid=197190,uid=120
+Oct 24 10:08:23 server kernel: Out of memory: Killed process 197190 (pipewire) total-vm:119564kB, anon-rss:2848kB, file-rss:8kB, shmem-rss:8kB, UID:120 pgtables:108kB oom_score_adj:200
+Oct 24 10:08:23 server kernel: systemd invoked oom-killer: gfp_mask=0x140cca(GFP_HIGHUSER_MOVABLE|__GFP_COMP), order=0, oom_score_adj=100
+Oct 24 10:08:23 server kernel:  oom_kill_process+0xd7/0x250
+Oct 24 10:08:23 server kernel:  ? oom_evaluate_task+0x105/0x200
+Oct 24 10:08:23 server kernel:  __alloc_pages_may_oom+0x109/0x1d0
+Oct 24 10:08:23 server kernel: Mem-Info:
+Oct 24 10:08:23 server kernel: active_anon:3031103 inactive_anon:856371 isolated_anon:0
+                                slab_reclaimable:28571 slab_unreclaimable:47886
+Oct 24 10:08:23 server kernel: Node 0 active_anon:12124412kB inactive_anon:3425484kB active_file:0kB inactive_file:32kB unevictable:0kB isolated(anon):0kB isolated(file):0kB mapped:1964kB dirty:0kB writeback:0kB shmem:12348kB shmem_thp:0kB shmem_pmdmapped:0kB anon_thp:116736kB kernel_stack:8688kB pagetables:64264kB sec_pagetables:2488kB all_unreclaimable? yes Balloon:0kB gpu_active:17076kB gpu_reclaim:0kB
+Oct 24 10:08:23 server kernel: Node 0 DMA free:13312kB boost:0kB min:72kB low:88kB high:104kB reserved_highatomic:0KB free_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB zspages:0kB present:15992kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB
+Oct 24 10:08:23 server kernel: Node 0 DMA32 free:62348kB boost:0kB min:3428kB low:4284kB high:5140kB reserved_highatomic:0KB free_highatomic:0KB active_anon:774080kB inactive_anon:253168kB active_file:4kB inactive_file:8kB unevictable:0kB writepending:0kB zspages:0kB present:1162852kB managed:1097244kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:12584kB
+Oct 24 10:08:23 server kernel: Node 0 Normal free:96712kB boost:32768kB min:96848kB low:112868kB high:128888kB reserved_highatomic:0KB free_highatomic:0KB active_anon:11350316kB inactive_anon:3172332kB active_file:0kB inactive_file:32kB unevictable:0kB writepending:0kB zspages:0kB present:15433728kB managed:15094376kB mlocked:0kB bounce:0kB free_pcp:5472kB local_pcp:48kB free_cma:2628kB
+Oct 24 10:08:23 server kernel: Node 0 DMA: 0*4kB 0*8kB 0*16kB 0*32kB 0*64kB 0*128kB 0*256kB 0*512kB 1*1024kB (U) 2*2048kB (UM) 2*4096kB (M) = 13312kB
+Oct 24 10:08:23 server kernel: Node 0 DMA32: 117*4kB (UMEC) 189*8kB (UMEC) 151*16kB (UMEC) 119*32kB (UMEC) 81*64kB (UMEC) 44*128kB (UMEC) 36*256kB (UMEC) 15*512kB (UMEC) 12*1024kB (UMC) 3*2048kB (M) 2*4096kB (M) = 62540kB
+Oct 24 10:08:23 server kernel: Node 0 Normal: 1925*4kB (UMEC) 1118*8kB (UMEC) 1062*16kB (UMEC) 698*32kB (UMEC) 231*64kB (UME) 81*128kB (UME) 18*256kB (ME) 7*512kB (M) 1*1024kB (M) 3*2048kB (U) 0*4096kB = 96484kB
+Oct 24 10:08:23 server kernel: Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=1048576kB
+Oct 24 10:08:23 server kernel: Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=2048kB
+Oct 24 10:08:23 server kernel: 6019 total pagecache pages
+Oct 24 10:08:23 server kernel: Free swap  = 52kB
+Oct 24 10:08:23 server kernel: Total swap = 4194300kB
+Oct 24 10:08:23 server kernel: 4153143 pages RAM
+Oct 24 10:08:23 server kernel: 0 pages HighMem/MovableOnly
+Oct 24 10:08:23 server kernel: 101398 pages reserved
+Oct 24 10:08:23 server kernel: [  pid  ]   uid  tgid total_vm      rss rss_anon rss_file rss_shmem pgtables_bytes swapents oom_score_adj name
+Oct 24 10:08:23 server kernel: [    793]   990   793     4438       45       43        2         0    77824      193          -900 systemd-oomd
+Oct 24 10:08:23 server kernel: [ 192814]  1000 192814   256892     8588     8579        2         7   933888    47166             0 python
+Oct 24 10:08:23 server kernel: [ 192821]  1000 192821     7742        3        1        2         0    86016     1437             0 python
+Oct 24 10:08:23 server kernel: [ 192822]  1000 192822   578879   363399   363393        2         4  4165632    58551             0 python
+Oct 24 10:08:23 server kernel: [ 192823]  1000 192823   607811   318683   318677        2         4  4456448   131706             0 python
+Oct 24 10:08:23 server kernel: [ 192824]  1000 192824   656635   120621   120617        2         2  4837376   378966             0 python
+Oct 24 10:08:23 server kernel: [ 192826]  1000 192826   555981   375649   375644        2         3  4169728    45177             0 python
+Oct 24 10:08:23 server kernel: [ 192829]  1000 192829   426315   261155   261150        2         3  3694592    39306             0 python
+Oct 24 10:08:23 server kernel: [ 192831]  1000 192831   464444   252543   252538        2         3  3837952    86328             0 python
+Oct 24 10:08:23 server kernel: [ 192832]  1000 192832   669496   513367   513362        2         3  4988928    30501             0 python
+Oct 24 10:08:23 server kernel: [ 192833]  1000 192833   479538   299443   299438        2         3  3600384    54473             0 python
+Oct 24 10:08:23 server kernel: [ 192834]  1000 192834   971750   811974   811969        2         3  7417856    34097             0 python
+Oct 24 10:08:23 server kernel: [ 192835]  1000 192835   439186   280217   280212        2         3  3473408    33102             0 python
+Oct 24 10:08:23 server kernel: [ 192836]  1000 192836   401187   227724   227719        2         3  3317760    47843             0 python
+Oct 24 10:08:23 server kernel: oom-kill:constraint=CONSTRAINT_NONE,nodemask=(null),cpuset=/,mems_allowed=0,global_oom,task_memcg=/user.slice/user-120.slice/user@120.service/session.slice/pipewire-pulse.service,task=pipewire-pulse,pid=197197,uid=120
+Oct 24 10:08:23 server kernel: Out of memory: Killed process 197197 (pipewire-pulse) total-vm:118488kB, anon-rss:2000kB, file-rss:8kB, shmem-rss:0kB, UID:120 pgtables:108kB oom_score_adj:200
+Oct 24 10:08:23 server kernel: systemd invoked oom-killer: gfp_mask=0x140cca(GFP_HIGHUSER_MOVABLE|__GFP_COMP), order=0, oom_score_adj=0
+Oct 24 10:08:23 server kernel:  oom_kill_process+0xd7/0x250
+Oct 24 10:08:23 server kernel:  ? oom_evaluate_task+0x105/0x200
+Oct 24 10:08:23 server kernel:  __alloc_pages_may_oom+0x109/0x1d0
+Oct 24 10:08:23 server kernel: Mem-Info:
+Oct 24 10:08:23 server kernel: active_anon:3030694 inactive_anon:856280 isolated_anon:0
+                                slab_reclaimable:28571 slab_unreclaimable:47886
+Oct 24 10:08:23 server kernel: Node 0 active_anon:12122776kB inactive_anon:3425120kB active_file:0kB inactive_file:200kB unevictable:0kB isolated(anon):0kB isolated(file):0kB mapped:1964kB dirty:0kB writeback:0kB shmem:12348kB shmem_thp:0kB shmem_pmdmapped:0kB anon_thp:116736kB kernel_stack:8688kB pagetables:64264kB sec_pagetables:2488kB all_unreclaimable? yes Balloon:0kB gpu_active:17076kB gpu_reclaim:0kB
+Oct 24 10:08:23 server kernel: Node 0 DMA free:13312kB boost:0kB min:72kB low:88kB high:104kB reserved_highatomic:0KB free_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB zspages:0kB present:15992kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB
+Oct 24 10:08:23 server kernel: Node 0 DMA32 free:62348kB boost:0kB min:3428kB low:4284kB high:5140kB reserved_highatomic:0KB free_highatomic:0KB active_anon:774100kB inactive_anon:253148kB active_file:4kB inactive_file:8kB unevictable:0kB writepending:0kB zspages:0kB present:1162852kB managed:1097244kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:12584kB
+Oct 24 10:08:23 server kernel: Node 0 Normal free:96712kB boost:32768kB min:96848kB low:112868kB high:128888kB reserved_highatomic:0KB free_highatomic:0KB active_anon:11348680kB inactive_anon:3171968kB active_file:0kB inactive_file:200kB unevictable:0kB writepending:0kB zspages:0kB present:15433728kB managed:15094376kB mlocked:0kB bounce:0kB free_pcp:7748kB local_pcp:236kB free_cma:2628kB
+Oct 24 10:08:23 server kernel: Node 0 DMA: 0*4kB 0*8kB 0*16kB 0*32kB 0*64kB 0*128kB 0*256kB 0*512kB 1*1024kB (U) 2*2048kB (UM) 2*4096kB (M) = 13312kB
+Oct 24 10:08:23 server kernel: Node 0 DMA32: 117*4kB (UMEC) 189*8kB (UMEC) 151*16kB (UMEC) 119*32kB (UMEC) 81*64kB (UMEC) 44*128kB (UMEC) 36*256kB (UMEC) 15*512kB (UMEC) 12*1024kB (UMC) 3*2048kB (M) 2*4096kB (M) = 62540kB
+Oct 24 10:08:23 server kernel: Node 0 Normal: 1862*4kB (UMEC) 1118*8kB (UMEC) 1062*16kB (UMEC) 698*32kB (UMEC) 231*64kB (UME) 81*128kB (UME) 18*256kB (ME) 7*512kB (M) 1*1024kB (M) 3*2048kB (U) 0*4096kB = 96232kB
+Oct 24 10:08:23 server kernel: Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=1048576kB
+Oct 24 10:08:23 server kernel: Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=2048kB
+Oct 24 10:08:23 server kernel: 6019 total pagecache pages
+Oct 24 10:08:23 server kernel: Free swap  = 52kB
+Oct 24 10:08:23 server kernel: Total swap = 4194300kB
+Oct 24 10:08:23 server kernel: 4153143 pages RAM
+Oct 24 10:08:23 server kernel: 0 pages HighMem/MovableOnly
+Oct 24 10:08:23 server kernel: 101398 pages reserved
+Oct 24 10:08:23 server kernel: [  pid  ]   uid  tgid total_vm      rss rss_anon rss_file rss_shmem pgtables_bytes swapents oom_score_adj name
+Oct 24 10:08:23 server kernel: [    793]   990   793     4438       45       43        2         0    77824      193          -900 systemd-oomd
+Oct 24 10:08:23 server kernel: [ 192814]  1000 192814   256892     8588     8579        2         7   933888    47166             0 python
+Oct 24 10:08:23 server kernel: [ 192821]  1000 192821     7742        3        1        2         0    86016     1437             0 python
+Oct 24 10:08:23 server kernel: [ 192822]  1000 192822   578879   363399   363393        2         4  4165632    58551             0 python
+Oct 24 10:08:23 server kernel: [ 192823]  1000 192823   607811   318683   318677        2         4  4456448   131706             0 python
+Oct 24 10:08:23 server kernel: [ 192824]  1000 192824   656635   120621   120617        2         2  4837376   378966             0 python
+Oct 24 10:08:23 server kernel: [ 192826]  1000 192826   555981   375649   375644        2         3  4169728    45177             0 python
+Oct 24 10:08:23 server kernel: [ 192829]  1000 192829   426315   261155   261150        2         3  3694592    39306             0 python
+Oct 24 10:08:23 server kernel: [ 192831]  1000 192831   464444   252543   252538        2         3  3837952    86328             0 python
+Oct 24 10:08:23 server kernel: [ 192832]  1000 192832   669496   513367   513362        2         3  4988928    30501             0 python
+Oct 24 10:08:23 server kernel: [ 192833]  1000 192833   479538   299443   299438        2         3  3600384    54473             0 python
+Oct 24 10:08:23 server kernel: [ 192834]  1000 192834   971750   811974   811969        2         3  7417856    34097             0 python
+Oct 24 10:08:23 server kernel: [ 192835]  1000 192835   439186   280217   280212        2         3  3473408    33102             0 python
+Oct 24 10:08:23 server kernel: [ 192836]  1000 192836   401187   227724   227719        2         3  3317760    47843             0 python
+Oct 24 10:08:23 server kernel: oom-kill:constraint=CONSTRAINT_NONE,nodemask=(null),cpuset=/,mems_allowed=0,global_oom,task_memcg=/user.slice/user-1000.slice/user@1000.service/session.slice/pipewire-pulse.service,task=pipewire-pulse,pid=197101,uid=1000
+Oct 24 10:08:23 server kernel: Out of memory: Killed process 197101 (pipewire-pulse) total-vm:118300kB, anon-rss:1772kB, file-rss:8kB, shmem-rss:0kB, UID:1000 pgtables:108kB oom_score_adj:200
+Oct 24 10:08:23 server kernel: systemd-oomd invoked oom-killer: gfp_mask=0x140cca(GFP_HIGHUSER_MOVABLE|__GFP_COMP), order=0, oom_score_adj=-900
+Oct 24 10:08:23 server kernel: CPU: 2 UID: 990 PID: 793 Comm: systemd-oomd Not tainted 7.0.0-38-generic #38~24.04.4-Ubuntu PREEMPT(lazy) 
+Oct 24 10:08:23 server kernel:  oom_kill_process+0xd7/0x250
+Oct 24 10:08:23 server kernel:  ? oom_evaluate_task+0x105/0x200
+Oct 24 10:08:23 server kernel:  __alloc_pages_may_oom+0x109/0x1d0
+Oct 24 10:08:23 server kernel: Mem-Info:
+Oct 24 10:08:23 server kernel: active_anon:3018342 inactive_anon:868189 isolated_anon:0
+                                slab_reclaimable:28571 slab_unreclaimable:47886
+Oct 24 10:08:23 server kernel: Node 0 active_anon:12073368kB inactive_anon:3472756kB active_file:0kB inactive_file:200kB unevictable:0kB isolated(anon):0kB isolated(file):0kB mapped:1964kB dirty:0kB writeback:0kB shmem:12348kB shmem_thp:0kB shmem_pmdmapped:0kB anon_thp:116736kB kernel_stack:8688kB pagetables:64264kB sec_pagetables:2488kB all_unreclaimable? yes Balloon:0kB gpu_active:17076kB gpu_reclaim:0kB
+Oct 24 10:08:23 server kernel: Node 0 DMA free:13312kB boost:0kB min:72kB low:88kB high:104kB reserved_highatomic:0KB free_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB zspages:0kB present:15992kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB
+Oct 24 10:08:23 server kernel: Node 0 DMA32 free:62348kB boost:0kB min:3428kB low:4284kB high:5140kB reserved_highatomic:0KB free_highatomic:0KB active_anon:773264kB inactive_anon:253984kB active_file:4kB inactive_file:8kB unevictable:0kB writepending:0kB zspages:0kB present:1162852kB managed:1097244kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:12584kB
+Oct 24 10:08:23 server kernel: Node 0 Normal free:96452kB boost:32768kB min:96848kB low:112868kB high:128888kB reserved_highatomic:0KB free_highatomic:0KB active_anon:11348384kB inactive_anon:3170492kB active_file:0kB inactive_file:200kB unevictable:0kB writepending:0kB zspages:0kB present:15433728kB managed:15094376kB mlocked:0kB bounce:0kB free_pcp:9796kB local_pcp:2320kB free_cma:2628kB
+Oct 24 10:08:23 server kernel: Node 0 DMA: 0*4kB 0*8kB 0*16kB 0*32kB 0*64kB 0*128kB 0*256kB 0*512kB 1*1024kB (U) 2*2048kB (UM) 2*4096kB (M) = 13312kB
+Oct 24 10:08:23 server kernel: Node 0 DMA32: 117*4kB (UMEC) 189*8kB (UMEC) 151*16kB (UMEC) 119*32kB (UMEC) 81*64kB (UMEC) 44*128kB (UMEC) 36*256kB (UMEC) 15*512kB (UMEC) 12*1024kB (UMC) 3*2048kB (M) 2*4096kB (M) = 62540kB
+Oct 24 10:08:23 server kernel: Node 0 Normal: 1799*4kB (UMEC) 1118*8kB (UMEC) 1062*16kB (UMEC) 698*32kB (UMEC) 231*64kB (UME) 81*128kB (UME) 18*256kB (ME) 7*512kB (M) 1*1024kB (M) 3*2048kB (U) 0*4096kB = 95980kB
+Oct 24 10:08:23 server kernel: Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=1048576kB
+Oct 24 10:08:23 server kernel: Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=2048kB
+Oct 24 10:08:23 server kernel: 6019 total pagecache pages
+Oct 24 10:08:23 server kernel: Free swap  = 52kB
+Oct 24 10:08:23 server kernel: Total swap = 4194300kB
+Oct 24 10:08:23 server kernel: 4153143 pages RAM
+Oct 24 10:08:23 server kernel: 0 pages HighMem/MovableOnly
+Oct 24 10:08:23 server kernel: 101398 pages reserved
+Oct 24 10:08:23 server kernel: [  pid  ]   uid  tgid total_vm      rss rss_anon rss_file rss_shmem pgtables_bytes swapents oom_score_adj name
+Oct 24 10:08:23 server kernel: [    793]   990   793     4438       45       43        2         0    77824      193          -900 systemd-oomd
+Oct 24 10:08:23 server kernel: [ 192814]  1000 192814   256892     8588     8579        2         7   933888    47166             0 python
+Oct 24 10:08:23 server kernel: [ 192821]  1000 192821     7742        3        1        2         0    86016     1437             0 python
+Oct 24 10:08:23 server kernel: [ 192822]  1000 192822   578879   363399   363393        2         4  4165632    58551             0 python
+Oct 24 10:08:23 server kernel: [ 192823]  1000 192823   607811   318683   318677        2         4  4456448   131706             0 python
+Oct 24 10:08:23 server kernel: [ 192824]  1000 192824   656635   120621   120617        2         2  4837376   378966             0 python
+Oct 24 10:08:23 server kernel: [ 192826]  1000 192826   555981   375649   375644        2         3  4169728    45177             0 python
+Oct 24 10:08:23 server kernel: [ 192829]  1000 192829   426315   261155   261150        2         3  3694592    39306             0 python
+Oct 24 10:08:23 server kernel: [ 192831]  1000 192831   464444   252543   252538        2         3  3837952    86328             0 python
+Oct 24 10:08:23 server kernel: [ 192832]  1000 192832   669496   513367   513362        2         3  4988928    30501             0 python
+Oct 24 10:08:23 server kernel: [ 192833]  1000 192833   479538   299443   299438        2         3  3600384    54473             0 python
+Oct 24 10:08:23 server kernel: [ 192834]  1000 192834   971750   811974   811969        2         3  7417856    34097             0 python
+Oct 24 10:08:23 server kernel: [ 192835]  1000 192835   439186   280217   280212        2         3  3473408    33102             0 python
+Oct 24 10:08:23 server kernel: [ 192836]  1000 192836   401187   227724   227719        2         3  3317760    47843             0 python
+Oct 24 10:08:23 server kernel: oom-kill:constraint=CONSTRAINT_NONE,nodemask=(null),cpuset=/,mems_allowed=0,global_oom,task_memcg=/user.slice/user-120.slice/user@120.service/session.slice/filter-chain.service,task=pipewire,pid=197191,uid=120
+Oct 24 10:08:23 server kernel: Out of memory: Killed process 197191 (pipewire) total-vm:106420kB, anon-rss:880kB, file-rss:8kB, shmem-rss:0kB, UID:120 pgtables:84kB oom_score_adj:200
+Oct 24 10:08:23 server kernel: packagekitd invoked oom-killer: gfp_mask=0x140cca(GFP_HIGHUSER_MOVABLE|__GFP_COMP), order=0, oom_score_adj=0
+Oct 24 10:08:23 server kernel:  oom_kill_process+0xd7/0x250
+Oct 24 10:08:23 server kernel:  ? oom_evaluate_task+0x105/0x200
+Oct 24 10:08:23 server kernel:  __alloc_pages_may_oom+0x109/0x1d0
+Oct 24 10:08:23 server kernel: Mem-Info:
+Oct 24 10:08:23 server kernel: active_anon:3030648 inactive_anon:855663 isolated_anon:0
+                                slab_reclaimable:28571 slab_unreclaimable:47886
+Oct 24 10:08:23 server kernel: Node 0 active_anon:12122592kB inactive_anon:3422652kB active_file:0kB inactive_file:592kB unevictable:0kB isolated(anon):0kB isolated(file):0kB mapped:1964kB dirty:0kB writeback:0kB shmem:12348kB shmem_thp:0kB shmem_pmdmapped:0kB anon_thp:116736kB kernel_stack:8688kB pagetables:64264kB sec_pagetables:2488kB all_unreclaimable? yes Balloon:0kB gpu_active:17076kB gpu_reclaim:0kB
+Oct 24 10:08:23 server kernel: Node 0 DMA free:13312kB boost:0kB min:72kB low:88kB high:104kB reserved_highatomic:0KB free_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB zspages:0kB present:15992kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB
+Oct 24 10:08:23 server kernel: Node 0 DMA32 free:62348kB boost:0kB min:3428kB low:4284kB high:5140kB reserved_highatomic:0KB free_highatomic:0KB active_anon:774116kB inactive_anon:253132kB active_file:4kB inactive_file:8kB unevictable:0kB writepending:0kB zspages:0kB present:1162852kB managed:1097244kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:12584kB
+Oct 24 10:08:23 server kernel: Node 0 Normal free:96452kB boost:32768kB min:96848kB low:112868kB high:128888kB reserved_highatomic:0KB free_highatomic:0KB active_anon:11346204kB inactive_anon:3171792kB active_file:0kB inactive_file:592kB unevictable:0kB writepending:0kB zspages:0kB present:15433728kB managed:15094376kB mlocked:0kB bounce:0kB free_pcp:10952kB local_pcp:2544kB free_cma:2628kB
+Oct 24 10:08:23 server kernel: Node 0 DMA: 0*4kB 0*8kB 0*16kB 0*32kB 0*64kB 0*128kB 0*256kB 0*512kB 1*1024kB (U) 2*2048kB (UM) 2*4096kB (M) = 13312kB
+Oct 24 10:08:23 server kernel: Node 0 DMA32: 117*4kB (UMEC) 189*8kB (UMEC) 151*16kB (UMEC) 119*32kB (UMEC) 81*64kB (UMEC) 44*128kB (UMEC) 36*256kB (UMEC) 15*512kB (UMEC) 12*1024kB (UMC) 3*2048kB (M) 2*4096kB (M) = 62540kB
+Oct 24 10:08:23 server kernel: Node 0 Normal: 1736*4kB (UMEC) 1118*8kB (UMEC) 1062*16kB (UMEC) 698*32kB (UMEC) 231*64kB (UME) 81*128kB (UME) 18*256kB (ME) 7*512kB (M) 1*1024kB (M) 3*2048kB (U) 0*4096kB = 95728kB
+Oct 24 10:08:23 server kernel: Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=1048576kB
+Oct 24 10:08:23 server kernel: Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=2048kB
+Oct 24 10:08:23 server kernel: 6019 total pagecache pages
+Oct 24 10:08:23 server kernel: Free swap  = 52kB
+Oct 24 10:08:23 server kernel: Total swap = 4194300kB
+Oct 24 10:08:23 server kernel: 4153143 pages RAM
+Oct 24 10:08:23 server kernel: 0 pages HighMem/MovableOnly
+Oct 24 10:08:23 server kernel: 101398 pages reserved
+Oct 24 10:08:23 server kernel: [  pid  ]   uid  tgid total_vm      rss rss_anon rss_file rss_shmem pgtables_bytes swapents oom_score_adj name
+Oct 24 10:08:23 server kernel: [    793]   990   793     4438       45       43        2         0    77824      193          -900 systemd-oomd
+Oct 24 10:08:23 server kernel: [ 192814]  1000 192814   256892     8588     8579        2         7   933888    47166             0 python
+Oct 24 10:08:23 server kernel: [ 192821]  1000 192821     7742        3        1        2         0    86016     1437             0 python
+Oct 24 10:08:23 server kernel: [ 192822]  1000 192822   578879   363399   363393        2         4  4165632    58551             0 python
+Oct 24 10:08:23 server kernel: [ 192823]  1000 192823   607811   318683   318677        2         4  4456448   131706             0 python
+Oct 24 10:08:23 server kernel: [ 192824]  1000 192824   656635   120621   120617        2         2  4837376   378966             0 python
+Oct 24 10:08:23 server kernel: [ 192826]  1000 192826   555981   375649   375644        2         3  4169728    45177             0 python
+Oct 24 10:08:23 server kernel: [ 192829]  1000 192829   426315   261155   261150        2         3  3694592    39306             0 python
+Oct 24 10:08:23 server kernel: [ 192831]  1000 192831   464444   252543   252538        2         3  3837952    86328             0 python
+Oct 24 10:08:23 server kernel: [ 192832]  1000 192832   669496   513367   513362        2         3  4988928    30501             0 python
+Oct 24 10:08:23 server kernel: [ 192833]  1000 192833   479538   299443   299438        2         3  3600384    54473             0 python
+Oct 24 10:08:23 server kernel: [ 192834]  1000 192834   971750   811974   811969        2         3  7417856    34097             0 python
+Oct 24 10:08:23 server kernel: [ 192835]  1000 192835   439186   280217   280212        2         3  3473408    33102             0 python
+Oct 24 10:08:23 server kernel: [ 192836]  1000 192836   401187   227724   227719        2         3  3317760    47843             0 python
+Oct 24 10:08:23 server kernel: oom-kill:constraint=CONSTRAINT_NONE,nodemask=(null),cpuset=/,mems_allowed=0,global_oom,task_memcg=/user.slice/user-1000.slice/user@1000.service/session.slice/filter-chain.service,task=pipewire,pid=1764,uid=1000
+Oct 24 10:08:23 server kernel: Out of memory: Killed process 1764 (pipewire) total-vm:106420kB, anon-rss:72kB, file-rss:8kB, shmem-rss:0kB, UID:1000 pgtables:80kB oom_score_adj:200
+Oct 24 10:08:23 server kernel: python invoked oom-killer: gfp_mask=0x440dc0(GFP_KERNEL_ACCOUNT|__GFP_ZERO|__GFP_COMP), order=0, oom_score_adj=0
+Oct 24 10:08:23 server kernel: CPU: 2 UID: 1000 PID: 192826 Comm: python Not tainted 7.0.0-38-generic #38~24.04.4-Ubuntu PREEMPT(lazy) 
+Oct 24 10:08:23 server kernel:  oom_kill_process+0xd7/0x250
+Oct 24 10:08:23 server kernel:  ? oom_evaluate_task+0x105/0x200
+Oct 24 10:08:23 server kernel:  __alloc_pages_may_oom+0x109/0x1d0
+Oct 24 10:08:23 server kernel: Mem-Info:
+Oct 24 10:08:23 server kernel: active_anon:1095339 inactive_anon:2792436 isolated_anon:0
+                                slab_reclaimable:28569 slab_unreclaimable:47883
+Oct 24 10:08:23 server kernel: Node 0 active_anon:4381356kB inactive_anon:11169744kB active_file:16kB inactive_file:2456kB unevictable:0kB isolated(anon):0kB isolated(file):0kB mapped:1404kB dirty:0kB writeback:28kB shmem:12336kB shmem_thp:0kB shmem_pmdmapped:0kB anon_thp:116736kB kernel_stack:8608kB pagetables:64076kB sec_pagetables:2488kB all_unreclaimable? yes Balloon:0kB gpu_active:17076kB gpu_reclaim:0kB
+Oct 24 10:08:23 server kernel: Node 0 DMA free:13312kB boost:0kB min:72kB low:88kB high:104kB reserved_highatomic:0KB free_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB zspages:0kB present:15992kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB
+Oct 24 10:08:23 server kernel: Node 0 DMA32 free:62356kB boost:0kB min:3428kB low:4284kB high:5140kB reserved_highatomic:0KB free_highatomic:0KB active_anon:132648kB inactive_anon:894600kB active_file:4kB inactive_file:8kB unevictable:0kB writepending:0kB zspages:0kB present:1162852kB managed:1097244kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:12584kB
+Oct 24 10:08:23 server kernel: Node 0 Normal free:99404kB boost:32768kB min:96848kB low:112868kB high:128888kB reserved_highatomic:0KB free_highatomic:0KB active_anon:4248804kB inactive_anon:10275048kB active_file:16kB inactive_file:2452kB unevictable:0kB writepending:28kB zspages:0kB present:15433728kB managed:15094376kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:2888kB
+Oct 24 10:08:23 server kernel: Node 0 DMA: 0*4kB 0*8kB 0*16kB 0*32kB 0*64kB 0*128kB 0*256kB 0*512kB 1*1024kB (U) 2*2048kB (UM) 2*4096kB (M) = 13312kB
+Oct 24 10:08:23 server kernel: Node 0 DMA32: 117*4kB (UMEC) 189*8kB (UMEC) 151*16kB (UMEC) 119*32kB (UMEC) 81*64kB (UMEC) 44*128kB (UMEC) 36*256kB (UMEC) 15*512kB (UMEC) 12*1024kB (UMC) 3*2048kB (M) 2*4096kB (M) = 62540kB
+Oct 24 10:08:23 server kernel: Node 0 Normal: 2316*4kB (UMEC) 1125*8kB (UMEC) 1075*16kB (UMEC) 708*32kB (UMEC) 234*64kB (UME) 81*128kB (UME) 18*256kB (ME) 7*512kB (M) 1*1024kB (M) 3*2048kB (U) 0*4096kB = 98824kB
+Oct 24 10:08:23 server kernel: Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=1048576kB
+Oct 24 10:08:23 server kernel: Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=2048kB
+Oct 24 10:08:23 server kernel: 5483 total pagecache pages
+Oct 24 10:08:23 server kernel: Free swap  = 0kB
+Oct 24 10:08:23 server kernel: Total swap = 4194300kB
+Oct 24 10:08:23 server kernel: 4153143 pages RAM
+Oct 24 10:08:23 server kernel: 0 pages HighMem/MovableOnly
+Oct 24 10:08:23 server kernel: 101398 pages reserved
+Oct 24 10:08:23 server kernel: [  pid  ]   uid  tgid total_vm      rss rss_anon rss_file rss_shmem pgtables_bytes swapents oom_score_adj name
+Oct 24 10:08:23 server kernel: [    793]   990   793     4438       45       43        2         0    77824      193          -900 systemd-oomd
+Oct 24 10:08:23 server kernel: [ 192814]  1000 192814   256892     8588     8579        2         7   933888    47166             0 python
+Oct 24 10:08:23 server kernel: [ 192821]  1000 192821     7742        3        1        2         0    86016     1437             0 python
+Oct 24 10:08:23 server kernel: [ 192822]  1000 192822   578879   363399   363393        2         4  4165632    58551             0 python
+Oct 24 10:08:23 server kernel: [ 192823]  1000 192823   607811   318683   318677        2         4  4456448   131706             0 python
+Oct 24 10:08:23 server kernel: [ 192824]  1000 192824   656635   120621   120617        2         2  4837376   378966             0 python
+Oct 24 10:08:23 server kernel: [ 192826]  1000 192826   555981   378209   378204        2         3  4190208    45177             0 python
+Oct 24 10:08:23 server kernel: [ 192829]  1000 192829   426315   261155   261150        2         3  3694592    39306             0 python
+Oct 24 10:08:23 server kernel: [ 192831]  1000 192831   464444   252538   252533        2         3  3837952    86333             0 python
+Oct 24 10:08:23 server kernel: [ 192832]  1000 192832   669496   513367   513362        2         3  4988928    30501             0 python
+Oct 24 10:08:23 server kernel: [ 192833]  1000 192833   479538   299443   299438        2         3  3600384    54473             0 python
+Oct 24 10:08:23 server kernel: [ 192834]  1000 192834   971750   811945   811940        2         3  7417856    34126             0 python
+Oct 24 10:08:23 server kernel: [ 192835]  1000 192835   439186   280217   280212        2         3  3473408    33102             0 python
+Oct 24 10:08:23 server kernel: [ 192836]  1000 192836   401187   227724   227719        2         3  3317760    47843             0 python
+Oct 24 10:08:23 server kernel: oom-kill:constraint=CONSTRAINT_NONE,nodemask=(null),cpuset=/,mems_allowed=0,global_oom,task_memcg=/user.slice/user-1000.slice/user@1000.service/session.slice/xdg-document-portal.service,task=xdg-document-po,pid=197321,uid=1000
+Oct 24 10:08:23 server kernel: Out of memory: Killed process 197321 (xdg-document-po) total-vm:545244kB, anon-rss:748kB, file-rss:8kB, shmem-rss:0kB, UID:1000 pgtables:144kB oom_score_adj:200
+Oct 24 10:08:23 server kernel: python invoked oom-killer: gfp_mask=0x440dc0(GFP_KERNEL_ACCOUNT|__GFP_ZERO|__GFP_COMP), order=0, oom_score_adj=0
+Oct 24 10:08:23 server kernel: CPU: 2 UID: 1000 PID: 192826 Comm: python Not tainted 7.0.0-38-generic #38~24.04.4-Ubuntu PREEMPT(lazy) 
+Oct 24 10:08:23 server kernel:  oom_kill_process+0xd7/0x250
+Oct 24 10:08:23 server kernel:  ? oom_evaluate_task+0x105/0x200
+Oct 24 10:08:23 server kernel:  __alloc_pages_may_oom+0x109/0x1d0
+Oct 24 10:08:23 server kernel: Mem-Info:
+Oct 24 10:08:23 server kernel: active_anon:1087103 inactive_anon:2800997 isolated_anon:0
+                                slab_reclaimable:28569 slab_unreclaimable:47875
+Oct 24 10:08:23 server kernel: Node 0 active_anon:4348412kB inactive_anon:11203988kB active_file:372kB inactive_file:2748kB unevictable:0kB isolated(anon):0kB isolated(file):0kB mapped:1952kB dirty:0kB writeback:24kB shmem:12336kB shmem_thp:0kB shmem_pmdmapped:0kB anon_thp:116736kB kernel_stack:8476kB pagetables:64012kB sec_pagetables:2488kB all_unreclaimable? yes Balloon:0kB gpu_active:17076kB gpu_reclaim:0kB
+Oct 24 10:08:23 server kernel: Node 0 DMA free:13312kB boost:0kB min:72kB low:88kB high:104kB reserved_highatomic:0KB free_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB zspages:0kB present:15992kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB
+Oct 24 10:08:23 server kernel: Node 0 DMA32 free:62276kB boost:0kB min:3428kB low:4284kB high:5140kB reserved_highatomic:0KB free_highatomic:0KB active_anon:132572kB inactive_anon:894680kB active_file:4kB inactive_file:8kB unevictable:0kB writepending:0kB zspages:0kB present:1162852kB managed:1097244kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:12584kB
+Oct 24 10:08:23 server kernel: Node 0 Normal free:97904kB boost:32768kB min:96848kB low:112868kB high:128888kB reserved_highatomic:0KB free_highatomic:0KB active_anon:4215868kB inactive_anon:10309280kB active_file:372kB inactive_file:2744kB unevictable:0kB writepending:24kB zspages:0kB present:15433728kB managed:15094376kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:3112kB
+Oct 24 10:08:23 server kernel: Node 0 DMA: 0*4kB 0*8kB 0*16kB 0*32kB 0*64kB 0*128kB 0*256kB 0*512kB 1*1024kB (U) 2*2048kB (UM) 2*4096kB (M) = 13312kB
+Oct 24 10:08:23 server kernel: Node 0 DMA32: 115*4kB (UMEC) 189*8kB (UMEC) 151*16kB (UMEC) 119*32kB (UMEC) 81*64kB (UMEC) 44*128kB (UMEC) 36*256kB (UMEC) 15*512kB (UMEC) 12*1024kB (UMC) 3*2048kB (M) 2*4096kB (M) = 62532kB
+Oct 24 10:08:23 server kernel: Node 0 Normal: 2166*4kB (UMEC) 1117*8kB (UMEC) 1016*16kB (UMEC) 708*32kB (UMEC) 234*64kB (UME) 81*128kB (UME) 18*256kB (ME) 7*512kB (M) 1*1024kB (M) 3*2048kB (U) 0*4096kB = 97216kB
+Oct 24 10:08:23 server kernel: Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=1048576kB
+Oct 24 10:08:23 server kernel: Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=2048kB
+Oct 24 10:08:23 server kernel: 5636 total pagecache pages
+Oct 24 10:08:23 server kernel: Free swap  = 0kB
+Oct 24 10:08:23 server kernel: Total swap = 4194300kB
+Oct 24 10:08:23 server kernel: 4153143 pages RAM
+Oct 24 10:08:23 server kernel: 0 pages HighMem/MovableOnly
+Oct 24 10:08:23 server kernel: 101398 pages reserved
+Oct 24 10:08:23 server kernel: [  pid  ]   uid  tgid total_vm      rss rss_anon rss_file rss_shmem pgtables_bytes swapents oom_score_adj name
+Oct 24 10:08:23 server kernel: [    793]   990   793     4438       49       43        6         0    77824      193          -900 systemd-oomd
+Oct 24 10:08:23 server kernel: [ 192814]  1000 192814   256892     8588     8579        2         7   933888    47166             0 python
+Oct 24 10:08:23 server kernel: [ 192821]  1000 192821     7742        3        1        2         0    86016     1437             0 python
+Oct 24 10:08:23 server kernel: [ 192822]  1000 192822   578879   363399   363393        2         4  4165632    58551             0 python
+Oct 24 10:08:23 server kernel: [ 192823]  1000 192823   607811   318683   318677        2         4  4456448   131706             0 python
+Oct 24 10:08:23 server kernel: [ 192824]  1000 192824   656635   120621   120617        2         2  4837376   378966             0 python
+Oct 24 10:08:23 server kernel: [ 192826]  1000 192826   555981   378722   378716        3         3  4194304    45177             0 python
+Oct 24 10:08:23 server kernel: [ 192829]  1000 192829   426315   261155   261150        2         3  3694592    39306             0 python
+Oct 24 10:08:23 server kernel: [ 192831]  1000 192831   464444   252538   252533        2         3  3837952    86333             0 python
+Oct 24 10:08:23 server kernel: [ 192832]  1000 192832   669496   513379   513362       14         3  4988928    30501             0 python
+Oct 24 10:08:23 server kernel: [ 192833]  1000 192833   479538   299443   299438        2         3  3600384    54473             0 python
+Oct 24 10:08:23 server kernel: [ 192834]  1000 192834   971750   811946   811940        3         3  7417856    34126             0 python
+Oct 24 10:08:23 server kernel: [ 192835]  1000 192835   439186   280217   280212        2         3  3473408    33102             0 python
+Oct 24 10:08:23 server kernel: [ 192836]  1000 192836   401187   227724   227719        2         3  3317760    47843             0 python
+Oct 24 10:08:23 server kernel: oom-kill:constraint=CONSTRAINT_NONE,nodemask=(null),cpuset=/,mems_allowed=0,global_oom,task_memcg=/user.slice/user-120.slice/user@120.service/session.slice/xdg-document-portal.service,task=xdg-document-po,pid=197322,uid=120
+Oct 24 10:08:23 server kernel: Out of memory: Killed process 197322 (xdg-document-po) total-vm:545244kB, anon-rss:744kB, file-rss:8kB, shmem-rss:0kB, UID:120 pgtables:140kB oom_score_adj:200
+Oct 24 10:08:23 server kernel: python invoked oom-killer: gfp_mask=0x440dc0(GFP_KERNEL_ACCOUNT|__GFP_ZERO|__GFP_COMP), order=0, oom_score_adj=0
+Oct 24 10:08:23 server kernel: CPU: 3 UID: 1000 PID: 192826 Comm: python Not tainted 7.0.0-38-generic #38~24.04.4-Ubuntu PREEMPT(lazy) 
+Oct 24 10:08:23 server kernel:  oom_kill_process+0xd7/0x250
+Oct 24 10:08:23 server kernel:  ? oom_evaluate_task+0x105/0x200
+Oct 24 10:08:23 server kernel:  __alloc_pages_may_oom+0x109/0x1d0
+Oct 24 10:08:23 server kernel: Mem-Info:
+Oct 24 10:08:23 server kernel: active_anon:3034893 inactive_anon:853533 isolated_anon:0
+                                slab_reclaimable:28569 slab_unreclaimable:47875
+Oct 24 10:08:23 server kernel: Node 0 active_anon:12139572kB inactive_anon:3414132kB active_file:0kB inactive_file:1796kB unevictable:0kB isolated(anon):0kB isolated(file):0kB mapped:1584kB dirty:0kB writeback:24kB shmem:12336kB shmem_thp:0kB shmem_pmdmapped:0kB anon_thp:116736kB kernel_stack:8408kB pagetables:64012kB sec_pagetables:2488kB all_unreclaimable? yes Balloon:0kB gpu_active:17076kB gpu_reclaim:0kB
+Oct 24 10:08:23 server kernel: Node 0 DMA free:13312kB boost:0kB min:72kB low:88kB high:104kB reserved_highatomic:0KB free_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB zspages:0kB present:15992kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB
+Oct 24 10:08:23 server kernel: Node 0 DMA32 free:62676kB boost:0kB min:3428kB low:4284kB high:5140kB reserved_highatomic:0KB free_highatomic:0KB active_anon:774760kB inactive_anon:252500kB active_file:16kB inactive_file:0kB unevictable:0kB writepending:0kB zspages:0kB present:1162852kB managed:1097244kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:12584kB
+Oct 24 10:08:23 server kernel: Node 0 Normal free:97736kB boost:32768kB min:96848kB low:112868kB high:128888kB reserved_highatomic:0KB free_highatomic:0KB active_anon:11364924kB inactive_anon:3161520kB active_file:72kB inactive_file:1776kB unevictable:0kB writepending:24kB zspages:0kB present:15433728kB managed:15094376kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:3128kB
+Oct 24 10:08:23 server kernel: Node 0 DMA: 0*4kB 0*8kB 0*16kB 0*32kB 0*64kB 0*128kB 0*256kB 0*512kB 1*1024kB (U) 2*2048kB (UM) 2*4096kB (M) = 13312kB
+Oct 24 10:08:23 server kernel: Node 0 DMA32: 119*4kB (UMEC) 193*8kB (UMEC) 156*16kB (UMEC) 120*32kB (UMEC) 80*64kB (UMEC) 45*128kB (UMEC) 35*256kB (UMEC) 15*512kB (UMEC) 12*1024kB (UMC) 3*2048kB (M) 2*4096kB (M) = 62500kB
+Oct 24 10:08:23 server kernel: Node 0 Normal: 2223*4kB (UMEC) 1127*8kB (UMEC) 987*16kB (UMEC) 704*32kB (UMEC) 234*64kB (UME) 81*128kB (UME) 18*256kB (ME) 7*512kB (M) 1*1024kB (M) 3*2048kB (U) 0*4096kB = 96932kB
+Oct 24 10:08:23 server kernel: Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=1048576kB
+Oct 24 10:08:23 server kernel: Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=2048kB
+Oct 24 10:08:23 server kernel: 5473 total pagecache pages
+Oct 24 10:08:23 server kernel: Free swap  = 0kB
+Oct 24 10:08:23 server kernel: Total swap = 4194300kB
+Oct 24 10:08:23 server kernel: 4153143 pages RAM
+Oct 24 10:08:23 server kernel: 0 pages HighMem/MovableOnly
+Oct 24 10:08:23 server kernel: 101398 pages reserved
+Oct 24 10:08:23 server kernel: [  pid  ]   uid  tgid total_vm      rss rss_anon rss_file rss_shmem pgtables_bytes swapents oom_score_adj name
+Oct 24 10:08:23 server kernel: [    793]   990   793     4438       48       43        5         0    77824      193          -900 systemd-oomd
+Oct 24 10:08:23 server kernel: [ 192814]  1000 192814   256892     8588     8579        2         7   933888    47166             0 python
+Oct 24 10:08:23 server kernel: [ 192821]  1000 192821     7742        3        1        2         0    86016     1437             0 python
+Oct 24 10:08:23 server kernel: [ 192822]  1000 192822   578879   363399   363393        2         4  4165632    58551             0 python
+Oct 24 10:08:23 server kernel: [ 192823]  1000 192823   607811   318683   318677        2         4  4456448   131706             0 python
+Oct 24 10:08:23 server kernel: [ 192824]  1000 192824   656635   120621   120617        2         2  4837376   378966             0 python
+Oct 24 10:08:23 server kernel: [ 192826]  1000 192826   555981   379236   379228        5         3  4198400    45177             0 python
+Oct 24 10:08:23 server kernel: [ 192829]  1000 192829   426315   261155   261150        2         3  3694592    39306             0 python
+Oct 24 10:08:23 server kernel: [ 192831]  1000 192831   464444   252538   252533        2         3  3837952    86333             0 python
+Oct 24 10:08:23 server kernel: [ 192832]  1000 192832   669496   513367   513362        2         3  4988928    30501             0 python
+Oct 24 10:08:23 server kernel: [ 192833]  1000 192833   479538   299443   299438        2         3  3600384    54473             0 python
+Oct 24 10:08:23 server kernel: [ 192834]  1000 192834   971750   811948   811940        5         3  7417856    34126             0 python
+Oct 24 10:08:23 server kernel: [ 192835]  1000 192835   439186   280217   280212        2         3  3473408    33102             0 python
+Oct 24 10:08:23 server kernel: [ 192836]  1000 192836   401187   227724   227719        2         3  3317760    47843             0 python
+Oct 24 10:08:23 server kernel: oom-kill:constraint=CONSTRAINT_NONE,nodemask=(null),cpuset=/,mems_allowed=0,global_oom,task_memcg=/user.slice/user-1000.slice/user@1000.service/app.slice/gcr-ssh-agent.service,task=gcr-ssh-agent,pid=1972,uid=1000
+Oct 24 10:08:23 server kernel: Out of memory: Killed process 1972 (gcr-ssh-agent) total-vm:162668kB, anon-rss:32kB, file-rss:4kB, shmem-rss:0kB, UID:1000 pgtables:84kB oom_score_adj:200
+Oct 24 10:08:23 server kernel: gmain invoked oom-killer: gfp_mask=0x140cca(GFP_HIGHUSER_MOVABLE|__GFP_COMP), order=0, oom_score_adj=0
+Oct 24 10:08:23 server kernel:  oom_kill_process+0xd7/0x250
+Oct 24 10:08:23 server kernel:  ? oom_evaluate_task+0x105/0x200
+Oct 24 10:08:23 server kernel:  __alloc_pages_may_oom+0x109/0x1d0
+Oct 24 10:08:23 server kernel: Mem-Info:
+Oct 24 10:08:23 server kernel: active_anon:2799045 inactive_anon:1089387 isolated_anon:0
+                                slab_reclaimable:28559 slab_unreclaimable:47849
+Oct 24 10:08:23 server kernel: Node 0 active_anon:11196180kB inactive_anon:4357548kB active_file:116kB inactive_file:0kB unevictable:0kB isolated(anon):0kB isolated(file):0kB mapped:1452kB dirty:0kB writeback:0kB shmem:12336kB shmem_thp:0kB shmem_pmdmapped:0kB anon_thp:116736kB kernel_stack:8176kB pagetables:63436kB sec_pagetables:2488kB all_unreclaimable? yes Balloon:0kB gpu_active:17076kB gpu_reclaim:0kB
+Oct 24 10:08:23 server kernel: Node 0 DMA free:13312kB boost:0kB min:72kB low:88kB high:104kB reserved_highatomic:0KB free_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB zspages:0kB present:15992kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB
+Oct 24 10:08:23 server kernel: Node 0 DMA32 free:62352kB boost:0kB min:3428kB low:4284kB high:5140kB reserved_highatomic:0KB free_highatomic:0KB active_anon:894572kB inactive_anon:132692kB active_file:4kB inactive_file:0kB unevictable:0kB writepending:0kB zspages:0kB present:1162852kB managed:1097244kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:12584kB
+Oct 24 10:08:23 server kernel: Node 0 Normal free:96788kB boost:32768kB min:96848kB low:112868kB high:128888kB reserved_highatomic:0KB free_highatomic:0KB active_anon:10301524kB inactive_anon:4224940kB active_file:116kB inactive_file:0kB unevictable:0kB writepending:0kB zspages:0kB present:15433728kB managed:15094376kB mlocked:0kB bounce:0kB free_pcp:2900kB local_pcp:340kB free_cma:3176kB
+Oct 24 10:08:23 server kernel: Node 0 DMA: 0*4kB 0*8kB 0*16kB 0*32kB 0*64kB 0*128kB 0*256kB 0*512kB 1*1024kB (U) 2*2048kB (UM) 2*4096kB (M) = 13312kB
+Oct 24 10:08:23 server kernel: Node 0 DMA32: 119*4kB (UMEC) 190*8kB (UMEC) 153*16kB (UMEC) 117*32kB (UMEC) 81*64kB (UMEC) 44*128kB (UMEC) 36*256kB (UMEC) 15*512kB (UMEC) 12*1024kB (UMC) 3*2048kB (M) 2*4096kB (M) = 62524kB
+Oct 24 10:08:23 server kernel: Node 0 Normal: 2169*4kB (UEC) 1126*8kB (UMEC) 992*16kB (UMEC) 701*32kB (UMEC) 235*64kB (UME) 81*128kB (UME) 18*256kB (ME) 7*512kB (M) 1*1024kB (M) 3*2048kB (U) 0*4096kB = 96756kB
+Oct 24 10:08:23 server kernel: Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=1048576kB
+Oct 24 10:08:23 server kernel: Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=2048kB
+Oct 24 10:08:23 server kernel: 5173 total pagecache pages
+Oct 24 10:08:23 server kernel: Free swap  = 76kB
+Oct 24 10:08:23 server kernel: Total swap = 4194300kB
+Oct 24 10:08:23 server kernel: 4153143 pages RAM
+Oct 24 10:08:23 server kernel: 0 pages HighMem/MovableOnly
+Oct 24 10:08:23 server kernel: 101398 pages reserved
+Oct 24 10:08:23 server kernel: [  pid  ]   uid  tgid total_vm      rss rss_anon rss_file rss_shmem pgtables_bytes swapents oom_score_adj name
+Oct 24 10:08:23 server kernel: [    793]   990   793     4438       45       43        2         0    77824      193          -900 systemd-oomd
+Oct 24 10:08:23 server kernel: [ 192814]  1000 192814   256892     8588     8579        2         7   933888    47166             0 python
+Oct 24 10:08:23 server kernel: [ 192821]  1000 192821     7742        3        1        2         0    86016     1437             0 python
+Oct 24 10:08:23 server kernel: [ 192822]  1000 192822   578879   363399   363393        2         4  4165632    58551             0 python
+Oct 24 10:08:23 server kernel: [ 192823]  1000 192823   607811   318683   318677        2         4  4456448   131706             0 python
+Oct 24 10:08:23 server kernel: [ 192824]  1000 192824   656635   120621   120617        2         2  4837376   378966             0 python
+Oct 24 10:08:23 server kernel: [ 192826]  1000 192826   555981   379233   379228        2         3  4198400    45177             0 python
+Oct 24 10:08:23 server kernel: [ 192829]  1000 192829   426315   261155   261150        2         3  3694592    39306             0 python
+Oct 24 10:08:23 server kernel: [ 192831]  1000 192831   464444   252538   252533        2         3  3837952    86333             0 python
+Oct 24 10:08:23 server kernel: [ 192832]  1000 192832   669496   513367   513362        2         3  4988928    30501             0 python
+Oct 24 10:08:23 server kernel: [ 192833]  1000 192833   479538   299443   299438        2         3  3600384    54473             0 python
+Oct 24 10:08:23 server kernel: [ 192834]  1000 192834   971750   811908   811903        2         3  7417856    34163             0 python
+Oct 24 10:08:23 server kernel: [ 192835]  1000 192835   439186   280217   280212        2         3  3473408    33102             0 python
+Oct 24 10:08:23 server kernel: [ 192836]  1000 192836   401187   227724   227719        2         3  3317760    47843             0 python
+Oct 24 10:08:23 server kernel: oom-kill:constraint=CONSTRAINT_NONE,nodemask=(null),cpuset=/,mems_allowed=0,global_oom,task_memcg=/user.slice/user-1000.slice/user@1000.service/app.slice/snap.snapd-desktop-integration.snapd-desktop-integration.service,task=user-session-he,pid=197254,uid=1000
+Oct 24 10:08:23 server kernel: Out of memory: Killed process 197254 (user-session-he) total-vm:164660kB, anon-rss:640kB, file-rss:8kB, shmem-rss:0kB, UID:1000 pgtables:76kB oom_score_adj:200
+Oct 24 10:08:23 server kernel: systemd invoked oom-killer: gfp_mask=0x140cca(GFP_HIGHUSER_MOVABLE|__GFP_COMP), order=0, oom_score_adj=0
+Oct 24 10:08:23 server kernel:  oom_kill_process+0xd7/0x250
+Oct 24 10:08:23 server kernel:  ? oom_evaluate_task+0x105/0x200
+Oct 24 10:08:23 server kernel:  __alloc_pages_may_oom+0x109/0x1d0
+Oct 24 10:08:23 server kernel: Mem-Info:
+Oct 24 10:08:23 server kernel: active_anon:858326 inactive_anon:3029949 isolated_anon:0
+                                slab_reclaimable:28559 slab_unreclaimable:47849
+Oct 24 10:08:23 server kernel: Node 0 active_anon:3433304kB inactive_anon:12119796kB active_file:64kB inactive_file:292kB unevictable:0kB isolated(anon):0kB isolated(file):0kB mapped:2096kB dirty:0kB writeback:0kB shmem:12336kB shmem_thp:0kB shmem_pmdmapped:0kB anon_thp:116736kB kernel_stack:8176kB pagetables:63436kB sec_pagetables:2488kB all_unreclaimable? yes Balloon:0kB gpu_active:17076kB gpu_reclaim:0kB
+Oct 24 10:08:23 server kernel: Node 0 DMA free:13312kB boost:0kB min:72kB low:88kB high:104kB reserved_highatomic:0KB free_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB zspages:0kB present:15992kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB
+Oct 24 10:08:23 server kernel: Node 0 DMA32 free:62132kB boost:0kB min:3428kB low:4284kB high:5140kB reserved_highatomic:0KB free_highatomic:0KB active_anon:253320kB inactive_anon:773944kB active_file:0kB inactive_file:12kB unevictable:0kB writepending:0kB zspages:0kB present:1162852kB managed:1097244kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:12584kB
+Oct 24 10:08:23 server kernel: Node 0 Normal free:96344kB boost:32768kB min:96848kB low:112868kB high:128888kB reserved_highatomic:0KB free_highatomic:0KB active_anon:3236036kB inactive_anon:11289800kB active_file:64kB inactive_file:292kB unevictable:0kB writepending:0kB zspages:0kB present:15433728kB managed:15094376kB mlocked:0kB bounce:0kB free_pcp:3004kB local_pcp:532kB free_cma:3188kB
+Oct 24 10:08:23 server kernel: Node 0 DMA: 0*4kB 0*8kB 0*16kB 0*32kB 0*64kB 0*128kB 0*256kB 0*512kB 1*1024kB (U) 2*2048kB (UM) 2*4096kB (M) = 13312kB
+Oct 24 10:08:23 server kernel: Node 0 DMA32: 119*4kB (UMEC) 190*8kB (UMEC) 153*16kB (UMEC) 117*32kB (UMEC) 81*64kB (UMEC) 44*128kB (UMEC) 36*256kB (UMEC) 15*512kB (UMEC) 12*1024kB (UMC) 3*2048kB (M) 2*4096kB (M) = 62524kB
+Oct 24 10:08:23 server kernel: Node 0 Normal: 2175*4kB (UMEC) 1128*8kB (UMEC) 1019*16kB (UMEC) 705*32kB (UMEC) 235*64kB (UME) 81*128kB (UME) 18*256kB (ME) 7*512kB (M) 1*1024kB (M) 3*2048kB (U) 0*4096kB = 97356kB
+Oct 24 10:08:23 server kernel: Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=1048576kB
+Oct 24 10:08:23 server kernel: Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=2048kB
+Oct 24 10:08:23 server kernel: 5275 total pagecache pages
+Oct 24 10:08:23 server kernel: Free swap  = 76kB
+Oct 24 10:08:23 server kernel: Total swap = 4194300kB
+Oct 24 10:08:23 server kernel: 4153143 pages RAM
+Oct 24 10:08:23 server kernel: 0 pages HighMem/MovableOnly
+Oct 24 10:08:23 server kernel: 101398 pages reserved
+Oct 24 10:08:23 server kernel: [  pid  ]   uid  tgid total_vm      rss rss_anon rss_file rss_shmem pgtables_bytes swapents oom_score_adj name
+Oct 24 10:08:23 server kernel: [    793]   990   793     4438       45       43        2         0    77824      193          -900 systemd-oomd
+Oct 24 10:08:23 server kernel: [ 192814]  1000 192814   256892     8588     8579        2         7   933888    47166             0 python
+Oct 24 10:08:23 server kernel: [ 192821]  1000 192821     7742        3        1        2         0    86016     1437             0 python
+Oct 24 10:08:23 server kernel: [ 192822]  1000 192822   578879   363399   363393        2         4  4165632    58551             0 python
+Oct 24 10:08:23 server kernel: [ 192823]  1000 192823   607811   318683   318677        2         4  4456448   131706             0 python
+Oct 24 10:08:23 server kernel: [ 192824]  1000 192824   656635   120621   120617        2         2  4837376   378966             0 python
+Oct 24 10:08:23 server kernel: [ 192826]  1000 192826   555981   379233   379228        2         3  4198400    45177             0 python
+Oct 24 10:08:23 server kernel: [ 192829]  1000 192829   426315   261155   261150        2         3  3694592    39306             0 python
+Oct 24 10:08:23 server kernel: [ 192831]  1000 192831   464444   252538   252533        2         3  3837952    86333             0 python
+Oct 24 10:08:23 server kernel: [ 192832]  1000 192832   669496   513367   513362        2         3  4988928    30501             0 python
+Oct 24 10:08:23 server kernel: [ 192833]  1000 192833   479538   299443   299438        2         3  3600384    54473             0 python
+Oct 24 10:08:23 server kernel: [ 192834]  1000 192834   971750   811908   811903        2         3  7417856    34163             0 python
+Oct 24 10:08:23 server kernel: [ 192835]  1000 192835   439186   280217   280212        2         3  3473408    33102             0 python
+Oct 24 10:08:23 server kernel: [ 192836]  1000 192836   401187   227724   227719        2         3  3317760    47843             0 python
+Oct 24 10:08:23 server kernel: oom-kill:constraint=CONSTRAINT_NONE,nodemask=(null),cpuset=/,mems_allowed=0,global_oom,task_memcg=/user.slice/user-120.slice/user@120.service/session.slice/xdg-permission-store.service,task=xdg-permission-,pid=197333,uid=120
+Oct 24 10:08:23 server kernel: Out of memory: Killed process 197333 (xdg-permission-) total-vm:317988kB, anon-rss:500kB, file-rss:8kB, shmem-rss:0kB, UID:120 pgtables:104kB oom_score_adj:200
+Oct 24 10:08:23 server kernel: Out of memory: Killed process 197198 (dbus-daemon) total-vm:9516kB, anon-rss:548kB, file-rss:8kB, shmem-rss:0kB, UID:120 pgtables:56kB oom_score_adj:200
+Oct 24 10:08:23 server kernel: Out of memory: Killed process 197326 (xdg-permission-) total-vm:317988kB, anon-rss:496kB, file-rss:8kB, shmem-rss:0kB, UID:1000 pgtables:104kB oom_score_adj:200
+Oct 24 10:08:23 server kernel: Out of memory: Killed process 197163 (dbus-daemon) total-vm:9520kB, anon-rss:508kB, file-rss:8kB, shmem-rss:0kB, UID:1000 pgtables:64kB oom_score_adj:200
+Oct 24 10:08:23 server kernel: Out of memory: Killed process 197340 (fusermount3) total-vm:2724kB, anon-rss:244kB, file-rss:4kB, shmem-rss:0kB, UID:1000 pgtables:48kB oom_score_adj:200
+Oct 24 10:08:23 server kernel: oom_kill_process: 4 callbacks suppressed
+Oct 24 10:08:23 server kernel: thermald invoked oom-killer: gfp_mask=0x140cca(GFP_HIGHUSER_MOVABLE|__GFP_COMP), order=0, oom_score_adj=0
+Oct 24 10:08:23 server kernel:  oom_kill_process+0xd7/0x250
+Oct 24 10:08:23 server kernel:  ? oom_evaluate_task+0x105/0x200
+Oct 24 10:08:23 server kernel:  __alloc_pages_may_oom+0x109/0x1d0
+Oct 24 10:08:23 server kernel: Mem-Info:
+Oct 24 10:08:23 server kernel: active_anon:3027688 inactive_anon:860662 isolated_anon:0
+                                slab_reclaimable:28559 slab_unreclaimable:47847
+Oct 24 10:08:23 server kernel: Node 0 active_anon:12110752kB inactive_anon:3442648kB active_file:0kB inactive_file:120kB unevictable:0kB isolated(anon):0kB isolated(file):0kB mapped:2220kB dirty:0kB writeback:0kB shmem:12336kB shmem_thp:0kB shmem_pmdmapped:0kB anon_thp:116736kB kernel_stack:7936kB pagetables:63088kB sec_pagetables:2488kB all_unreclaimable? yes Balloon:0kB gpu_active:17076kB gpu_reclaim:0kB
+Oct 24 10:08:23 server kernel: Node 0 DMA free:13312kB boost:0kB min:72kB low:88kB high:104kB reserved_highatomic:0KB free_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB zspages:0kB present:15992kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB
+Oct 24 10:08:23 server kernel: Node 0 DMA32 free:62308kB boost:0kB min:3428kB low:4284kB high:5140kB reserved_highatomic:0KB free_highatomic:0KB active_anon:774620kB inactive_anon:252648kB active_file:0kB inactive_file:16kB unevictable:0kB writepending:0kB zspages:0kB present:1162852kB managed:1097244kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:12584kB
+Oct 24 10:08:23 server kernel: Node 0 Normal free:96648kB boost:32768kB min:96848kB low:112868kB high:128888kB reserved_highatomic:0KB free_highatomic:0KB active_anon:11336096kB inactive_anon:3190036kB active_file:0kB inactive_file:120kB unevictable:0kB writepending:0kB zspages:0kB present:15433728kB managed:15094376kB mlocked:0kB bounce:0kB free_pcp:3452kB local_pcp:364kB free_cma:3192kB
+Oct 24 10:08:23 server kernel: Node 0 DMA: 0*4kB 0*8kB 0*16kB 0*32kB 0*64kB 0*128kB 0*256kB 0*512kB 1*1024kB (U) 2*2048kB (UM) 2*4096kB (M) = 13312kB
+Oct 24 10:08:23 server kernel: Node 0 DMA32: 118*4kB (UMEC) 190*8kB (UMEC) 153*16kB (UMEC) 117*32kB (UMEC) 81*64kB (UMEC) 44*128kB (UMEC) 36*256kB (UMEC) 15*512kB (UMEC) 12*1024kB (UMC) 3*2048kB (M) 2*4096kB (M) = 62520kB
+Oct 24 10:08:23 server kernel: Node 0 Normal: 2211*4kB (UMEC) 1195*8kB (UMEC) 1110*16kB (UMEC) 701*32kB (UMEC) 226*64kB (UME) 75*128kB (UME) 15*256kB (ME) 7*512kB (M) 1*1024kB (M) 3*2048kB (U) 0*4096kB = 97252kB
+Oct 24 10:08:23 server kernel: Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=1048576kB
+Oct 24 10:08:23 server kernel: Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=2048kB
+Oct 24 10:08:23 server kernel: 5215 total pagecache pages
+Oct 24 10:08:23 server kernel: Free swap  = 240kB
+Oct 24 10:08:23 server kernel: Total swap = 4194300kB
+Oct 24 10:08:23 server kernel: 4153143 pages RAM
+Oct 24 10:08:23 server kernel: 0 pages HighMem/MovableOnly
+Oct 24 10:08:23 server kernel: 101398 pages reserved
+Oct 24 10:08:23 server kernel: [  pid  ]   uid  tgid total_vm      rss rss_anon rss_file rss_shmem pgtables_bytes swapents oom_score_adj name
+Oct 24 10:08:23 server kernel: [    793]   990   793     4438       45       43        2         0    77824      193          -900 systemd-oomd
+Oct 24 10:08:23 server kernel: [ 192814]  1000 192814   256892     8588     8579        2         7   933888    47166             0 python
+Oct 24 10:08:23 server kernel: [ 192821]  1000 192821     7742        3        1        2         0    86016     1437             0 python
+Oct 24 10:08:23 server kernel: [ 192822]  1000 192822   578879   363399   363393        2         4  4165632    58551             0 python
+Oct 24 10:08:23 server kernel: [ 192823]  1000 192823   607811   318683   318677        2         4  4456448   131706             0 python
+Oct 24 10:08:23 server kernel: [ 192824]  1000 192824   656635   120621   120617        2         2  4837376   378966             0 python
+Oct 24 10:08:23 server kernel: [ 192826]  1000 192826   555981   379745   379740        2         3  4202496    45177             0 python
+Oct 24 10:08:23 server kernel: [ 192829]  1000 192829   426315   261155   261150        2         3  3694592    39306             0 python
+Oct 24 10:08:23 server kernel: [ 192831]  1000 192831   464444   252538   252533        2         3  3837952    86333             0 python
+Oct 24 10:08:23 server kernel: [ 192832]  1000 192832   669496   513367   513362        2         3  4988928    30501             0 python
+Oct 24 10:08:23 server kernel: [ 192833]  1000 192833   479538   299443   299438        2         3  3600384    54473             0 python
+Oct 24 10:08:23 server kernel: [ 192834]  1000 192834   971750   811908   811903        2         3  7417856    34163             0 python
+Oct 24 10:08:23 server kernel: [ 192835]  1000 192835   439186   280217   280212        2         3  3473408    33102             0 python
+Oct 24 10:08:23 server kernel: [ 192836]  1000 192836   401187   227724   227719        2         3  3317760    47843             0 python
+Oct 24 10:08:23 server kernel: oom-kill:constraint=CONSTRAINT_NONE,nodemask=(null),cpuset=/,mems_allowed=0,global_oom,task_memcg=/user.slice/user-120.slice/user@120.service/session.slice/xdg-document-portal.service,task=fusermount3,pid=197346,uid=120
+Oct 24 10:08:23 server kernel: Out of memory: Killed process 197346 (fusermount3) total-vm:2720kB, anon-rss:240kB, file-rss:4kB, shmem-rss:0kB, UID:120 pgtables:48kB oom_score_adj:200
+Oct 24 10:08:23 server kernel: systemd invoked oom-killer: gfp_mask=0x140cca(GFP_HIGHUSER_MOVABLE|__GFP_COMP), order=0, oom_score_adj=0
+Oct 24 10:08:23 server kernel:  oom_kill_process+0xd7/0x250
+Oct 24 10:08:23 server kernel:  ? oom_evaluate_task+0x105/0x200
+Oct 24 10:08:23 server kernel:  __alloc_pages_may_oom+0x109/0x1d0
+Oct 24 10:08:23 server kernel: Mem-Info:
+Oct 24 10:08:23 server kernel: active_anon:3013079 inactive_anon:875731 isolated_anon:0
+                                slab_reclaimable:28559 slab_unreclaimable:47855
+Oct 24 10:08:23 server kernel: Node 0 active_anon:12052316kB inactive_anon:3502924kB active_file:0kB inactive_file:352kB unevictable:0kB isolated(anon):0kB isolated(file):0kB mapped:1268kB dirty:0kB writeback:0kB shmem:12336kB shmem_thp:0kB shmem_pmdmapped:0kB anon_thp:116736kB kernel_stack:7920kB pagetables:63044kB sec_pagetables:2488kB all_unreclaimable? yes Balloon:0kB gpu_active:17076kB gpu_reclaim:0kB
+Oct 24 10:08:23 server kernel: Node 0 DMA free:13312kB boost:0kB min:72kB low:88kB high:104kB reserved_highatomic:0KB free_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB zspages:0kB present:15992kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB
+Oct 24 10:08:23 server kernel: Node 0 DMA32 free:62344kB boost:0kB min:3428kB low:4284kB high:5140kB reserved_highatomic:0KB free_highatomic:0KB active_anon:773896kB inactive_anon:253368kB active_file:0kB inactive_file:24kB unevictable:0kB writepending:0kB zspages:0kB present:1162852kB managed:1097244kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:12584kB
+Oct 24 10:08:23 server kernel: Node 0 Normal free:96836kB boost:32768kB min:96848kB low:112868kB high:128888kB reserved_highatomic:0KB free_highatomic:0KB active_anon:11279700kB inactive_anon:3248276kB active_file:0kB inactive_file:352kB unevictable:0kB writepending:0kB zspages:0kB present:15433728kB managed:15094376kB mlocked:0kB bounce:0kB free_pcp:2072kB local_pcp:180kB free_cma:3232kB
+Oct 24 10:08:23 server kernel: Node 0 DMA: 0*4kB 0*8kB 0*16kB 0*32kB 0*64kB 0*128kB 0*256kB 0*512kB 1*1024kB (U) 2*2048kB (UM) 2*4096kB (M) = 13312kB
+Oct 24 10:08:23 server kernel: Node 0 DMA32: 117*4kB (UMEC) 189*8kB (UMEC) 152*16kB (UMEC) 118*32kB (UMEC) 81*64kB (UMEC) 44*128kB (UMEC) 36*256kB (UMEC) 15*512kB (UMEC) 12*1024kB (UMC) 3*2048kB (M) 2*4096kB (M) = 62524kB
+Oct 24 10:08:23 server kernel: Node 0 Normal: 2261*4kB (UMEC) 1148*8kB (UMEC) 1089*16kB (UMEC) 701*32kB (UMEC) 226*64kB (UME) 75*128kB (UME) 15*256kB (ME) 7*512kB (M) 1*1024kB (M) 3*2048kB (U) 0*4096kB = 96740kB
+Oct 24 10:08:23 server kernel: Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=1048576kB
+Oct 24 10:08:23 server kernel: Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=2048kB
+Oct 24 10:08:23 server kernel: 5184 total pagecache pages
+Oct 24 10:08:23 server kernel: Free swap  = 120kB
+Oct 24 10:08:23 server kernel: Total swap = 4194300kB
+Oct 24 10:08:23 server kernel: 4153143 pages RAM
+Oct 24 10:08:23 server kernel: 0 pages HighMem/MovableOnly
+Oct 24 10:08:23 server kernel: 101398 pages reserved
+Oct 24 10:08:23 server kernel: [  pid  ]   uid  tgid total_vm      rss rss_anon rss_file rss_shmem pgtables_bytes swapents oom_score_adj name
+Oct 24 10:08:23 server kernel: [    793]   990   793     4438       45       43        2         0    77824      193          -900 systemd-oomd
+Oct 24 10:08:23 server kernel: [ 192814]  1000 192814   256892     8588     8579        2         7   933888    47166             0 python
+Oct 24 10:08:23 server kernel: [ 192821]  1000 192821     7742        3        1        2         0    86016     1437             0 python
+Oct 24 10:08:23 server kernel: [ 192822]  1000 192822   578879   363399   363393        2         4  4165632    58551             0 python
+Oct 24 10:08:23 server kernel: [ 192823]  1000 192823   607811   318665   318659        2         4  4456448   131724             0 python
+Oct 24 10:08:23 server kernel: [ 192824]  1000 192824   656635   120621   120617        2         2  4837376   378966             0 python
+Oct 24 10:08:23 server kernel: [ 192826]  1000 192826   555981   380242   380237        2         3  4206592    45192             0 python
+Oct 24 10:08:23 server kernel: [ 192829]  1000 192829   426315   261155   261150        2         3  3694592    39306             0 python
+Oct 24 10:08:23 server kernel: [ 192831]  1000 192831   464444   252538   252533        2         3  3837952    86333             0 python
+Oct 24 10:08:23 server kernel: [ 192832]  1000 192832   669496   513367   513362        2         3  4988928    30501             0 python
+Oct 24 10:08:23 server kernel: [ 192833]  1000 192833   479538   299443   299438        2         3  3600384    54473             0 python
+Oct 24 10:08:23 server kernel: [ 192834]  1000 192834   971750   811908   811903        2         3  7417856    34163             0 python
+Oct 24 10:08:23 server kernel: [ 192835]  1000 192835   439186   280170   280165        2         3  3473408    33149             0 python
+Oct 24 10:08:23 server kernel: [ 192836]  1000 192836   401187   227724   227719        2         3  3317760    47843             0 python
+Oct 24 10:08:23 server kernel: oom-kill:constraint=CONSTRAINT_NONE,nodemask=(null),cpuset=/,mems_allowed=0,global_oom,task_memcg=/user.slice/user-1000.slice/user@1000.service/session.slice/xdg-document-portal.service,task=fusermount3,pid=197731,uid=1000
+Oct 24 10:08:23 server kernel: Out of memory: Killed process 197731 (fusermount3) total-vm:2724kB, anon-rss:244kB, file-rss:0kB, shmem-rss:0kB, UID:1000 pgtables:44kB oom_score_adj:200
+Oct 24 10:08:23 server kernel: systemd invoked oom-killer: gfp_mask=0x140cca(GFP_HIGHUSER_MOVABLE|__GFP_COMP), order=0, oom_score_adj=100
+Oct 24 10:08:23 server kernel:  oom_kill_process+0xd7/0x250
+Oct 24 10:08:23 server kernel:  ? oom_evaluate_task+0x183/0x200
+Oct 24 10:08:23 server kernel:  __alloc_pages_may_oom+0x109/0x1d0
+Oct 24 10:08:23 server kernel: Mem-Info:
+Oct 24 10:08:23 server kernel: active_anon:850496 inactive_anon:3038253 isolated_anon:0
+                                slab_reclaimable:28559 slab_unreclaimable:47855
+Oct 24 10:08:23 server kernel: Node 0 active_anon:3401984kB inactive_anon:12153012kB active_file:0kB inactive_file:712kB unevictable:0kB isolated(anon):0kB isolated(file):0kB mapped:1008kB dirty:0kB writeback:0kB shmem:12336kB shmem_thp:0kB shmem_pmdmapped:0kB anon_thp:116736kB kernel_stack:7920kB pagetables:63044kB sec_pagetables:2488kB all_unreclaimable? yes Balloon:0kB gpu_active:17076kB gpu_reclaim:0kB
+Oct 24 10:08:23 server kernel: Node 0 DMA free:13312kB boost:0kB min:72kB low:88kB high:104kB reserved_highatomic:0KB free_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB zspages:0kB present:15992kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB
+Oct 24 10:08:23 server kernel: Node 0 DMA32 free:62344kB boost:0kB min:3428kB low:4284kB high:5140kB reserved_highatomic:0KB free_highatomic:0KB active_anon:253016kB inactive_anon:774248kB active_file:0kB inactive_file:24kB unevictable:0kB writepending:0kB zspages:0kB present:1162852kB managed:1097244kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:12584kB
+Oct 24 10:08:23 server kernel: Node 0 Normal free:96836kB boost:32768kB min:96848kB low:112868kB high:128888kB reserved_highatomic:0KB free_highatomic:0KB active_anon:3144940kB inactive_anon:11382792kB active_file:0kB inactive_file:712kB unevictable:0kB writepending:0kB zspages:0kB present:15433728kB managed:15094376kB mlocked:0kB bounce:0kB free_pcp:2636kB local_pcp:132kB free_cma:3232kB
+Oct 24 10:08:23 server kernel: Node 0 DMA: 0*4kB 0*8kB 0*16kB 0*32kB 0*64kB 0*128kB 0*256kB 0*512kB 1*1024kB (U) 2*2048kB (UM) 2*4096kB (M) = 13312kB
+Oct 24 10:08:23 server kernel: Node 0 DMA32: 117*4kB (UMEC) 189*8kB (UMEC) 152*16kB (UMEC) 118*32kB (UMEC) 81*64kB (UMEC) 44*128kB (UMEC) 36*256kB (UMEC) 15*512kB (UMEC) 12*1024kB (UMC) 3*2048kB (M) 2*4096kB (M) = 62524kB
+Oct 24 10:08:23 server kernel: Node 0 Normal: 2198*4kB (UMEC) 1148*8kB (UMEC) 1089*16kB (UMEC) 701*32kB (UMEC) 226*64kB (UME) 75*128kB (UME) 15*256kB (ME) 7*512kB (M) 1*1024kB (M) 3*2048kB (U) 0*4096kB = 96488kB
+Oct 24 10:08:23 server kernel: Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=1048576kB
+Oct 24 10:08:23 server kernel: Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=2048kB
+Oct 24 10:08:23 server kernel: 5184 total pagecache pages
+Oct 24 10:08:23 server kernel: Free swap  = 120kB
+Oct 24 10:08:23 server kernel: Total swap = 4194300kB
+Oct 24 10:08:23 server kernel: 4153143 pages RAM
+Oct 24 10:08:23 server kernel: 0 pages HighMem/MovableOnly
+Oct 24 10:08:23 server kernel: 101398 pages reserved
+Oct 24 10:08:23 server kernel: [  pid  ]   uid  tgid total_vm      rss rss_anon rss_file rss_shmem pgtables_bytes swapents oom_score_adj name
+Oct 24 10:08:23 server kernel: [    793]   990   793     4438       45       43        2         0    77824      193          -900 systemd-oomd
+Oct 24 10:08:23 server kernel: [ 192814]  1000 192814   256892     8588     8579        2         7   933888    47166             0 python
+Oct 24 10:08:23 server kernel: [ 192821]  1000 192821     7742        3        1        2         0    86016     1437             0 python
+Oct 24 10:08:23 server kernel: [ 192822]  1000 192822   578879   363399   363393        2         4  4165632    58551             0 python
+Oct 24 10:08:23 server kernel: [ 192823]  1000 192823   607811   318665   318659        2         4  4456448   131724             0 python
+Oct 24 10:08:23 server kernel: [ 192824]  1000 192824   656635   120621   120617        2         2  4837376   378966             0 python
+Oct 24 10:08:23 server kernel: [ 192826]  1000 192826   555981   380242   380237        2         3  4206592    45192             0 python
+Oct 24 10:08:23 server kernel: [ 192829]  1000 192829   426315   261155   261150        2         3  3694592    39306             0 python
+Oct 24 10:08:23 server kernel: [ 192831]  1000 192831   464444   252538   252533        2         3  3837952    86333             0 python
+Oct 24 10:08:23 server kernel: [ 192832]  1000 192832   669496   513367   513362        2         3  4988928    30501             0 python
+Oct 24 10:08:23 server kernel: [ 192833]  1000 192833   479538   299443   299438        2         3  3600384    54473             0 python
+Oct 24 10:08:23 server kernel: [ 192834]  1000 192834   971750   811908   811903        2         3  7417856    34163             0 python
+Oct 24 10:08:23 server kernel: [ 192835]  1000 192835   439186   280170   280165        2         3  3473408    33149             0 python
+Oct 24 10:08:23 server kernel: [ 192836]  1000 192836   401187   227724   227719        2         3  3317760    47843             0 python
+Oct 24 10:08:23 server kernel: oom-kill:constraint=CONSTRAINT_NONE,nodemask=(null),cpuset=/,mems_allowed=0,global_oom,task_memcg=/user.slice/user-120.slice/user@120.service/session.slice/xdg-document-portal.service,task=fusermount3,pid=197730,uid=120
+Oct 24 10:08:23 server kernel: Out of memory: Killed process 197730 (fusermount3) total-vm:2720kB, anon-rss:216kB, file-rss:0kB, shmem-rss:0kB, UID:120 pgtables:48kB oom_score_adj:200
+Oct 24 10:08:23 server kernel: systemd invoked oom-killer: gfp_mask=0x140cca(GFP_HIGHUSER_MOVABLE|__GFP_COMP), order=0, oom_score_adj=0
+Oct 24 10:08:23 server kernel:  oom_kill_process+0xd7/0x250
+Oct 24 10:08:23 server kernel:  ? oom_evaluate_task+0x183/0x200
+Oct 24 10:08:23 server kernel:  __alloc_pages_may_oom+0x109/0x1d0
+Oct 24 10:08:23 server kernel: Mem-Info:
+Oct 24 10:08:23 server kernel: active_anon:850833 inactive_anon:3037860 isolated_anon:0
+                                slab_reclaimable:28559 slab_unreclaimable:47855
+Oct 24 10:08:23 server kernel: Node 0 active_anon:3403332kB inactive_anon:12151440kB active_file:160kB inactive_file:0kB unevictable:0kB isolated(anon):0kB isolated(file):0kB mapped:1008kB dirty:0kB writeback:0kB shmem:12336kB shmem_thp:0kB shmem_pmdmapped:0kB anon_thp:116736kB kernel_stack:7920kB pagetables:63044kB sec_pagetables:2488kB all_unreclaimable? yes Balloon:0kB gpu_active:17076kB gpu_reclaim:0kB
+Oct 24 10:08:23 server kernel: Node 0 DMA free:13312kB boost:0kB min:72kB low:88kB high:104kB reserved_highatomic:0KB free_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB zspages:0kB present:15992kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB
+Oct 24 10:08:23 server kernel: Node 0 DMA32 free:62344kB boost:0kB min:3428kB low:4284kB high:5140kB reserved_highatomic:0KB free_highatomic:0KB active_anon:253200kB inactive_anon:774064kB active_file:0kB inactive_file:24kB unevictable:0kB writepending:0kB zspages:0kB present:1162852kB managed:1097244kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:12584kB
+Oct 24 10:08:23 server kernel: Node 0 Normal free:96836kB boost:32768kB min:96848kB low:112868kB high:128888kB reserved_highatomic:0KB free_highatomic:0KB active_anon:3150148kB inactive_anon:11377360kB active_file:160kB inactive_file:0kB unevictable:0kB writepending:0kB zspages:0kB present:15433728kB managed:15094376kB mlocked:0kB bounce:0kB free_pcp:3104kB local_pcp:244kB free_cma:3232kB
+Oct 24 10:08:23 server kernel: Node 0 DMA: 0*4kB 0*8kB 0*16kB 0*32kB 0*64kB 0*128kB 0*256kB 0*512kB 1*1024kB (U) 2*2048kB (UM) 2*4096kB (M) = 13312kB
+Oct 24 10:08:23 server kernel: Node 0 DMA32: 117*4kB (UMEC) 189*8kB (UMEC) 152*16kB (UMEC) 118*32kB (UMEC) 81*64kB (UMEC) 44*128kB (UMEC) 36*256kB (UMEC) 15*512kB (UMEC) 12*1024kB (UMC) 3*2048kB (M) 2*4096kB (M) = 62524kB
+Oct 24 10:08:23 server kernel: Node 0 Normal: 2135*4kB (UMEC) 1148*8kB (UMEC) 1089*16kB (UMEC) 701*32kB (UMEC) 226*64kB (UME) 75*128kB (UME) 15*256kB (ME) 7*512kB (M) 1*1024kB (M) 3*2048kB (U) 0*4096kB = 96236kB
+Oct 24 10:08:23 server kernel: Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=1048576kB
+Oct 24 10:08:23 server kernel: Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=2048kB
+Oct 24 10:08:23 server kernel: 5184 total pagecache pages
+Oct 24 10:08:23 server kernel: Free swap  = 144kB
+Oct 24 10:08:23 server kernel: Total swap = 4194300kB
+Oct 24 10:08:23 server kernel: 4153143 pages RAM
+Oct 24 10:08:23 server kernel: 0 pages HighMem/MovableOnly
+Oct 24 10:08:23 server kernel: 101398 pages reserved
+Oct 24 10:08:23 server kernel: [  pid  ]   uid  tgid total_vm      rss rss_anon rss_file rss_shmem pgtables_bytes swapents oom_score_adj name
+Oct 24 10:08:23 server kernel: [    793]   990   793     4438       45       43        2         0    77824      193          -900 systemd-oomd
+Oct 24 10:08:23 server kernel: [ 192814]  1000 192814   256892     8588     8579        2         7   933888    47166             0 python
+Oct 24 10:08:23 server kernel: [ 192821]  1000 192821     7742        3        1        2         0    86016     1437             0 python
+Oct 24 10:08:23 server kernel: [ 192822]  1000 192822   578879   363399   363393        2         4  4165632    58551             0 python
+Oct 24 10:08:23 server kernel: [ 192823]  1000 192823   607811   318665   318659        2         4  4456448   131724             0 python
+Oct 24 10:08:23 server kernel: [ 192824]  1000 192824   656635   120621   120617        2         2  4837376   378966             0 python
+Oct 24 10:08:23 server kernel: [ 192826]  1000 192826   555981   380242   380237        2         3  4206592    45192             0 python
+Oct 24 10:08:23 server kernel: [ 192829]  1000 192829   426315   261155   261150        2         3  3694592    39306             0 python
+Oct 24 10:08:23 server kernel: [ 192831]  1000 192831   464444   252538   252533        2         3  3837952    86333             0 python
+Oct 24 10:08:23 server kernel: [ 192832]  1000 192832   669496   513367   513362        2         3  4988928    30501             0 python
+Oct 24 10:08:23 server kernel: [ 192833]  1000 192833   479538   299443   299438        2         3  3600384    54473             0 python
+Oct 24 10:08:23 server kernel: [ 192834]  1000 192834   971750   811908   811903        2         3  7417856    34163             0 python
+Oct 24 10:08:23 server kernel: [ 192835]  1000 192835   439186   280170   280165        2         3  3473408    33149             0 python
+Oct 24 10:08:23 server kernel: [ 192836]  1000 192836   401187   227724   227719        2         3  3317760    47843             0 python
+Oct 24 10:08:23 server kernel: oom-kill:constraint=CONSTRAINT_NONE,nodemask=(null),cpuset=/,mems_allowed=0,global_oom,task_memcg=/user.slice/user-1000.slice/session-1746.scope,task=python,pid=192834,uid=1000
+Oct 24 10:08:23 server kernel: Out of memory: Killed process 192834 (python) total-vm:3887000kB, anon-rss:3247612kB, file-rss:8kB, shmem-rss:12kB, UID:1000 pgtables:7244kB oom_score_adj:0
+STATE_META duel {"stage": "ppo", "failed_stage": null, "phase": "auto", "phase_history": null, "forced_ppo": null, "effective": true, "version": 212, "batch": 213, "bc_quality_best": 0.7289915966386554, "bc_plateau": 7}
+HISTORY_TAIL duel [{"batch": 210, "method": "ppo", "elapsed_hours": 9.459411897261937, "reads": {"bc": {"families": 51, "selected": 64, "gz_bytes": 99770660, "retained_bytes": 380368544, "rows": 1589}}, "peak_rss_mb": 1804, "updates": 4, "loss": 1.1602064025646541, "interrupted": false, "approx_kl": 0.03645581752061844, "kl_stopped": true}, {"batch": 211, "method": "ppo", "elapsed_hours": 9.513731926944521, "reads": {"bc": {"families": 60, "selected": 64, "gz_bytes": 98600284, "retained_bytes": 415563168, "rows": 1758}}, "peak_rss_mb": 1804, "updates": 7, "loss": 0.11494256729617648, "interrupted": false, "approx_kl": 0.030013108626008034, "kl_stopped": true}, {"batch": 212, "method": "ppo", "elapsed_hours": 9.553004620273908, "reads": {"bc": {"families": 60, "selected": 64, "gz_bytes": 97045425, "retained_bytes": 500624796, "rows": 2047}}, "peak_rss_mb": 1804, "updates": 4, "loss": 0.36993125453591347, "interrupted": false, "approx_kl": 0.007836869917809963, "kl_stopped": false, "decisions_seen": 596, "unique_families_seen": 2, "effective_dataset_passes": 3.7721518987341773, "sequence_windows": 4, "microbatch": 32}]
+JOBS_COUNTS duel 1210 bad 0
+LAST_IDS duel [('rollout-00211-duel-g1', 'complete', 'victory'), ('rollout-00211-duel-g0', 'complete', 'victory'), ('rollout-00211-duel-g2', 'complete', 'victory'), ('rollout-00211-duel-g3', 'complete', 'victory'), ('rollout-00212-duel-g0', 'complete', 'victory'), ('rollout-00212-duel-g1', 'complete', 'victory'), ('rollout-00212-duel-g2', 'complete', 'victory'), ('rollout-00212-duel-g3', 'complete', 'victory')]
+SCHEDULE duel validation-000200.json [{"id": "val000200-duel-b0000-solo-r0", "bots": ["/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/runs/v5_lite18h_20261024_003512/duel/policies/v000200-greedy/SnapV000200", "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/runs/v5_lite18h_20261024_003512/frozen/opponents/gpt6astra.zip"], "seed": 4293045150, "factions": ["Drakes", "Knalgan Alliance"], "max_turns": 30, "deadline": 1792827314.067086, "wesnoth": "/home/tongshu/myDev/wesnothLearning/WesnothLearning/.runtime/install/bin/wesnoth", "output": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/runs/v5_lite18h_20261024_003512/duel/replays/val000200-duel-b0000-solo-r0.json", "teams": null, "meta": {"format": "duel", "block": 0, "rotation": 0, "context": "solo", "label": "val000200", "policy": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/runs/v5_lite18h_20261024_003512/duel/policies/v000200-greedy/SnapV000200", "control": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/runs/v5_lite18h_20261024_003512/frozen/opponents/gpt6astra.zip", "faction_cycle": 0, "policy_sides": [1], "control_sides": [2], "map": "hamlets", "map_sha256": "7326c073cbc8422b279d57039da7f4fd4b73f91b8a1052e7426cbfbc30514b7e", "map_partition": "validation", "engine_id": "lite"}, "map_override": {"width": 27, "height": 28, "terrain": [["Hh^Fp", "Wwf", "Mm", "Tb^Tf", "Hh^Fms", "Gg^Fms", "Hh^Fms", "Gs^Fp", "Hh", "Hh", "Gg", "Gs^Fms", "Gs^Fp", "Wwf", "Wwf", "Mm", "Gs^Fms", "Gs^Fms", "Wwf", "Wwf", "Hh", "Hh", "Hh^Fp", "Gs^Fms", "Mm", "Mm", "Mm^Xm"], ["Gg^Tf", "Gg", "Wwf", "Wwf", "Hh", "Gg^Vh", "Gg^Efm", "Gg", "Mm", "Hh", "Gg", "Gg", "Gg", "Wwf", "Wwf", "Wwf", "Hh", "Wwf", "Wwf", "Gg^Efm", "Gs^Fp", "Mm", "Hh", "Mm", "Hh", "Gg^Efm", "Mm"], ["Wwf", "Wwf", "Gg^Fms", "Hh", "Wwf", "Gg", "Gg", "Gg", "Gg", "Gg", "Gg", "Wwf", "Wwf", "Hh", "Wwf", "Gg", "Wwf", "Gg", "Gg", "Gg^Tf", "Hh", "Wwf", "Wwf", "Wwf", "Hh", "Wwf", "Wwf"], ["Mm^Xm", "Wwf", "Mm", "Gg", "Wwf", "Wwf", "Wwf", "Wwf", "Gg", "Wwf", "Wwf", "Gg", "Wwf", "Kh", "Gg^Fp", "Ch", "Gg", "Gg", "Gg", "Wwf", "Wwf", "Gg^Fp", "Gg^Fms", "Hh", "Wwf", "Gg", "Hh^Fms"], ["Mm", "Wwf", "Wwf", "Hh", "Gg", "Gg^Fp", "Gg^Fms", "Wwf", "Wwf", "Gg", "Gg^Vh", "Gg", "Gg", "Ch", "Ch", "Wwf", "Ch", "Wwf", "Wwf", "Gs^Fp", "Gg^Vh", "Re^Gvs", "Re^Gvs", "Re^Gvs", "Re^Tf", "Gg", "Hh"], ["Wwf", "Wwf", "Wwf", "Wwf", "Gg^Vh", "Wwf", "Wwf", "Gg^Fms", "Gg", "Re^Gvs", "Re^Gvs
+SCHEDULE duel validation-000210.json [{"id": "val000210-duel-b0000-solo-r0", "bots": ["/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/runs/v5_lite18h_20261024_003512/duel/policies/v000210-greedy/SnapV000210", "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/runs/v5_lite18h_20261024_003512/frozen/opponents/gpt6astra.zip"], "seed": 2119977421, "factions": ["Rebels", "Undead"], "max_turns": 30, "deadline": 1792827314.067086, "wesnoth": "/home/tongshu/myDev/wesnothLearning/WesnothLearning/.runtime/install/bin/wesnoth", "output": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/runs/v5_lite18h_20261024_003512/duel/replays/val000210-duel-b0000-solo-r0.json", "teams": null, "meta": {"format": "duel", "block": 0, "rotation": 0, "context": "solo", "label": "val000210", "policy": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/runs/v5_lite18h_20261024_003512/duel/policies/v000210-greedy/SnapV000210", "control": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/runs/v5_lite18h_20261024_003512/frozen/opponents/gpt6astra.zip", "faction_cycle": 2, "policy_sides": [1], "control_sides": [2], "map": "hamlets", "map_sha256": "7326c073cbc8422b279d57039da7f4fd4b73f91b8a1052e7426cbfbc30514b7e", "map_partition": "validation", "engine_id": "lite"}, "map_override": {"width": 27, "height": 28, "terrain": [["Hh^Fp", "Wwf", "Mm", "Tb^Tf", "Hh^Fms", "Gg^Fms", "Hh^Fms", "Gs^Fp", "Hh", "Hh", "Gg", "Gs^Fms", "Gs^Fp", "Wwf", "Wwf", "Mm", "Gs^Fms", "Gs^Fms", "Wwf", "Wwf", "Hh", "Hh", "Hh^Fp", "Gs^Fms", "Mm", "Mm", "Mm^Xm"], ["Gg^Tf", "Gg", "Wwf", "Wwf", "Hh", "Gg^Vh", "Gg^Efm", "Gg", "Mm", "Hh", "Gg", "Gg", "Gg", "Wwf", "Wwf", "Wwf", "Hh", "Wwf", "Wwf", "Gg^Efm", "Gs^Fp", "Mm", "Hh", "Mm", "Hh", "Gg^Efm", "Mm"], ["Wwf", "Wwf", "Gg^Fms", "Hh", "Wwf", "Gg", "Gg", "Gg", "Gg", "Gg", "Gg", "Wwf", "Wwf", "Hh", "Wwf", "Gg", "Wwf", "Gg", "Gg", "Gg^Tf", "Hh", "Wwf", "Wwf", "Wwf", "Hh", "Wwf", "Wwf"], ["Mm^Xm", "Wwf", "Mm", "Gg", "Wwf", "Wwf", "Wwf", "Wwf", "Gg", "Wwf", "Wwf", "Gg", "Wwf", "Kh", "Gg^Fp", "Ch", "Gg", "Gg", "Gg", "Wwf", "Wwf", "Gg^Fp", "Gg^Fms", "Hh", "Wwf", "Gg", "Hh^Fms"], ["Mm", "Wwf", "Wwf", "Hh", "Gg", "Gg^Fp", "Gg^Fms", "Wwf", "Wwf", "Gg", "Gg^Vh", "Gg", "Gg", "Ch", "Ch", "Wwf", "Ch", "Wwf", "Wwf", "Gs^Fp", "Gg^Vh", "Re^Gvs", "Re^Gvs", "Re^Gvs", "Re^Tf", "Gg", "Hh"], ["Wwf", "Wwf", "Wwf", "Wwf", "Gg^Vh", "Wwf", "Wwf", "Gg^Fms", "Gg", "Re^Gvs", "Re^Gvs", "Ch", "
+STATE_META ffa4 {"stage": "failed", "failed_stage": "ppo", "phase": "ppo", "phase_history": [{"deadline": 1792827023.3913438, "force": true, "id": "e77b9a5b6b89466898c9c189fec26939", "phase": "ppo", "reason": "scheduled 08:00 override: BC gate not met, user asked for switch per instructions.md", "requested_at": 1792800023.3913438, "previous_phase": "auto", "pretraining_complete": false, "applied_at": 1792800421.0077257}], "forced_ppo": {"reason": "scheduled 08:00 override: BC gate not met, user asked for switch per instructions.md", "command_id": "e77b9a5b6b89466898c9c189fec26939", "version": 63}, "effective": false, "version": 88, "batch": 88, "bc_quality_best": 0.6446384039900249, "bc_plateau": 8}
+HISTORY_TAIL ffa4 [{"batch": 85, "method": "ppo", "elapsed_hours": 9.32507517768277, "reads": {"bc": {"families": 23, "selected": 64, "gz_bytes": 99309439, "retained_bytes": 363224600, "rows": 1260}}, "peak_rss_mb": 1979, "updates": 3, "loss": -0.29420048316630226, "interrupted": false, "approx_kl": 0.02274227887392044, "kl_stopped": true}, {"batch": 86, "method": "ppo", "elapsed_hours": 9.432118573387465, "reads": {"bc": {"families": 23, "selected": 64, "gz_bytes": 89703847, "retained_bytes": 352266848, "rows": 1238}}, "peak_rss_mb": 1979, "updates": 3, "loss": 1.5808609273129453, "interrupted": false, "approx_kl": 0.039804451167583466, "kl_stopped": true}, {"batch": 87, "method": "ppo", "elapsed_hours": 9.510384367042118, "reads": {"bc": {"families": 16, "selected": 64, "gz_bytes": 98604299, "retained_bytes": 230471636, "rows": 791}}, "peak_rss_mb": 1979, "updates": 4, "loss": 0.47873416857328266, "interrupted": false, "approx_kl": 0.02218218892812729, "kl_stopped": true}]
+JOBS_COUNTS ffa4 668 bad 3
+BAD_JOB ffa4 {"id": "rollout-00088-ffa4-g0", "status": "infrastructure_error", "error": "BrokenProcessPool('A process in the process pool was terminated abruptly while the future was running or pending.')"}
+BAD_JOB ffa4 {"id": "rollout-00088-ffa4-g1", "status": "infrastructure_error", "error": "BrokenProcessPool('A process in the process pool was terminated abruptly while the future was running or pending.')"}
+BAD_JOB ffa4 {"id": "rollout-00088-ffa4-g3", "status": "infrastructure_error", "error": "BrokenProcessPool('A process in the process pool was terminated abruptly while the future was running or pending.')"}
+LAST_IDS ffa4 [('rollout-00087-ffa4-g0', 'complete', 'victory'), ('rollout-00087-ffa4-g2', 'complete', 'victory'), ('rollout-00087-ffa4-g1', 'complete', 'victory'), ('rollout-00087-ffa4-g3', 'complete', 'turn_limit'), ('rollout-00088-ffa4-g2', 'complete', 'victory'), ('rollout-00088-ffa4-g0', 'infrastructure_error', None), ('rollout-00088-ffa4-g1', 'infrastructure_error', None), ('rollout-00088-ffa4-g3', 'infrastructure_error', None)]
+SCHEDULE ffa4 validation-000070.json [{"id": "val000070-ffa4-b0000-solo-r0", "bots": ["/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/runs/v5_lite18h_20261024_003512/ffa4/policies/v000070-greedy/SnapV000070", "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/runs/v5_lite18h_20261024_003512/frozen/opponents/gpt6astra.zip", "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/runs/v5_lite18h_20261024_003512/frozen/opponents/gpt6astra.zip", "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/runs/v5_lite18h_20261024_003512/frozen/opponents/gpt6astra.zip"], "seed": 423027995, "factions": ["Drakes", "Knalgan Alliance", "Loyalists", "Northerners"], "max_turns": 30, "deadline": 1792827023.3913438, "wesnoth": "/home/tongshu/myDev/wesnothLearning/WesnothLearning/.runtime/install/bin/wesnoth", "output": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/runs/v5_lite18h_20261024_003512/ffa4/replays/val000070-ffa4-b0000-solo-r0.json", "teams": null, "meta": {"format": "ffa4", "block": 0, "rotation": 0, "context": "solo", "label": "val000070", "policy": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/runs/v5_lite18h_20261024_003512/ffa4/policies/v000070-greedy/SnapV000070", "control": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/runs/v5_lite18h_20261024_003512/frozen/opponents/gpt6astra.zip", "faction_cycle": 0, "policy_sides": [1], "control_sides": [2], "map": "loris_river", "map_sha256": "802e2ac8a47429517a18d941be8cca22d404bd913772f1c0977be0d79348b8a8", "map_partition": "validation", "engine_id": "lite"}, "map_override": {"width": 25, "height": 25, "terrain": [["Mm^Xm", "Mm^Xm", "Mm^Xm", "Hh^Ft", "Hh", "Cv", "Ww", "Ww", "Wo", "Wo", "Wo", "Wo", "Ww", "Ss", "Ss^Ft", "Gs^Ft", "Hh", "Hh", "Hh", "Hh", "Hh", "Hh^Vc", "Mm^Xm", "Mm^Xm", "Mm^Xm"], ["Mm^Xm", "Mm^Xm", "Hh", "Hh", "Kv", "Cv", "Cv", "Ww", "Wo", "Wo", "Wo", "Ww", "Ww", "Ss", "Ss^Vhs", "Hh", "Gs^Ft", "Gs^Es", "Hh", "Gs^Es", "Gs^Ft", "Rp", "Hh^Emf", "Mm", "Mm^Xm"], ["Rp", "Rp", "Rr^Vd", "Rp", "Cv", "Rp", "Cv", "Rp", "Ww", "Ww", "Ww", "Gs^Es", "Ss", "Gs", "Gs", "Chs", "Gs^Ft", "Gs", "Gs", "Gs^Gvs", "Gs", "Rp", "Gs^Ft", "Gs^Ft", "Hh"], ["Mm^Xm", "Gg^Fet", "Rp", "Rp", "Rp", "Rp", "Rp", "Rr^Vd", "Ww^Bw\\", "Ww^Bw\\", "Ww", "Gs", "Gs^Es", "Gs", "Hh", "Gs", "Gs", "Ss^Vhs", "Gs^Gvs", "Gs^Ft", "Gs^Gvs", "Rp", "Hh", "Hh", "Rr^Vd"], ["Mm^Xm", "Mm^Xm", 
+SCHEDULE ffa4 validation-000080.json [{"id": "val000080-ffa4-b0000-solo-r0", "bots": ["/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/runs/v5_lite18h_20261024_003512/ffa4/policies/v000080-greedy/SnapV000080", "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/runs/v5_lite18h_20261024_003512/frozen/opponents/gpt6astra.zip", "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/runs/v5_lite18h_20261024_003512/frozen/opponents/gpt6astra.zip", "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/runs/v5_lite18h_20261024_003512/frozen/opponents/gpt6astra.zip"], "seed": 1314124646, "factions": ["Rebels", "Undead", "Drakes", "Knalgan Alliance"], "max_turns": 30, "deadline": 1792827023.3913438, "wesnoth": "/home/tongshu/myDev/wesnothLearning/WesnothLearning/.runtime/install/bin/wesnoth", "output": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/runs/v5_lite18h_20261024_003512/ffa4/replays/val000080-ffa4-b0000-solo-r0.json", "teams": null, "meta": {"format": "ffa4", "block": 0, "rotation": 0, "context": "solo", "label": "val000080", "policy": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/runs/v5_lite18h_20261024_003512/ffa4/policies/v000080-greedy/SnapV000080", "control": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/runs/v5_lite18h_20261024_003512/frozen/opponents/gpt6astra.zip", "faction_cycle": 1, "policy_sides": [1], "control_sides": [2], "map": "loris_river", "map_sha256": "802e2ac8a47429517a18d941be8cca22d404bd913772f1c0977be0d79348b8a8", "map_partition": "validation", "engine_id": "lite"}, "map_override": {"width": 25, "height": 25, "terrain": [["Mm^Xm", "Mm^Xm", "Mm^Xm", "Hh^Ft", "Hh", "Cv", "Ww", "Ww", "Wo", "Wo", "Wo", "Wo", "Ww", "Ss", "Ss^Ft", "Gs^Ft", "Hh", "Hh", "Hh", "Hh", "Hh", "Hh^Vc", "Mm^Xm", "Mm^Xm", "Mm^Xm"], ["Mm^Xm", "Mm^Xm", "Hh", "Hh", "Kv", "Cv", "Cv", "Ww", "Wo", "Wo", "Wo", "Ww", "Ww", "Ss", "Ss^Vhs", "Hh", "Gs^Ft", "Gs^Es", "Hh", "Gs^Es", "Gs^Ft", "Rp", "Hh^Emf", "Mm", "Mm^Xm"], ["Rp", "Rp", "Rr^Vd", "Rp", "Cv", "Rp", "Cv", "Rp", "Ww", "Ww", "Ww", "Gs^Es", "Ss", "Gs", "Gs", "Chs", "Gs^Ft", "Gs", "Gs", "Gs^Gvs", "Gs", "Rp", "Gs^Ft", "Gs^Ft", "Hh"], ["Mm^Xm", "Gg^Fet", "Rp", "Rp", "Rp", "Rp", "Rp", "Rr^Vd", "Ww^Bw\\", "Ww^Bw\\", "Ww", "Gs", "Gs^Es", "Gs", "Hh", "Gs", "Gs", "Ss^Vhs", "Gs^Gvs", "Gs^Ft", "Gs^Gvs", "Rp", "Hh", "Hh", "Rr^Vd"], ["Mm^Xm", "Mm^Xm", "Gs^Ft"
+STATE_META team2v2 {"stage": "failed", "failed_stage": "ppo", "phase": "ppo", "phase_history": [{"deadline": 1792827023.3913438, "force": true, "id": "09eceeaa3d0c4942aea1be095ac123fb", "phase": "ppo", "reason": "scheduled 08:00 override: BC gate not met, user asked for switch per instructions.md", "requested_at": 1792800023.3913438, "previous_phase": "auto", "pretraining_complete": false, "applied_at": 1792800414.1211102}], "forced_ppo": {"reason": "scheduled 08:00 override: BC gate not met, user asked for switch per instructions.md", "command_id": "09eceeaa3d0c4942aea1be095ac123fb", "version": 41}, "effective": false, "version": 50, "batch": 50, "bc_quality_best": 0.6159754224270353, "bc_plateau": 1}
+HISTORY_TAIL team2v2 [{"batch": 47, "method": "ppo", "elapsed_hours": 8.968655170202256, "reads": {"bc": {"families": 13, "selected": 64, "gz_bytes": 90874772, "retained_bytes": 259523044, "rows": 761}}, "peak_rss_mb": 2149, "updates": 5, "loss": 0.25806939304457044, "interrupted": false, "approx_kl": 0.021079353988170624, "kl_stopped": true}, {"batch": 48, "method": "ppo", "elapsed_hours": 9.144062154359288, "reads": {"bc": {"families": 6, "selected": 64, "gz_bytes": 99662547, "retained_bytes": 158580984, "rows": 420}}, "peak_rss_mb": 2149, "updates": 4, "loss": 0.017379296477884054, "interrupted": false, "approx_kl": 0.038453809916973114, "kl_stopped": true}, {"batch": 49, "method": "ppo", "elapsed_hours": 9.346468079818619, "reads": {"bc": {"families": 13, "selected": 64, "gz_bytes": 99379612, "retained_bytes": 288120172, "rows": 814}}, "peak_rss_mb": 2149, "updates": 6, "loss": 0.15858543994060406, "interrupted": false, "approx_kl": 0.04615267738699913, "kl_stopped": true}]
+JOBS_COUNTS team2v2 460 bad 2
+BAD_JOB team2v2 {"id": "rollout-00050-team2v2-g1", "status": "infrastructure_error", "error": "BrokenProcessPool('A process in the process pool was terminated abruptly while the future was running or pending.')"}
+BAD_JOB team2v2 {"id": "rollout-00050-team2v2-g3", "status": "infrastructure_error", "error": "BrokenProcessPool('A process in the process pool was terminated abruptly while the future was running or pending.')"}
+LAST_IDS team2v2 [('reward-reference-team2v2-7b00d04c792cf668-2', 'complete', 'victory'), ('reward-reference-team2v2-7b00d04c792cf668-0', 'complete', 'victory'), ('reward-reference-team2v2-7b00d04c792cf668-1', 'complete', 'victory'), ('reward-reference-team2v2-7b00d04c792cf668-3', 'complete', 'victory'), ('rollout-00050-team2v2-g0', 'complete', 'victory'), ('rollout-00050-team2v2-g2', 'complete', 'victory'), ('rollout-00050-team2v2-g1', 'infrastructure_error', None), ('rollout-00050-team2v2-g3', 'infrastructure_error', None)]
+SCHEDULE team2v2 validation-000040.json [{"id": "val000040-team2v2-b0000-astra_partner-r0", "bots": ["/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/runs/v5_lite18h_20261024_003512/team2v2/policies/v000040-greedy/SnapV000040", "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/runs/v5_lite18h_20261024_003512/frozen/opponents/gpt6astra.zip", "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/runs/v5_lite18h_20261024_003512/frozen/opponents/gpt6astra.zip", "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/runs/v5_lite18h_20261024_003512/frozen/opponents/gpt6astra.zip"], "seed": 1582359337, "factions": ["Drakes", "Knalgan Alliance", "Loyalists", "Northerners"], "max_turns": 30, "deadline": 1792827314.067086, "wesnoth": "/home/tongshu/myDev/wesnothLearning/WesnothLearning/.runtime/install/bin/wesnoth", "output": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/runs/v5_lite18h_20261024_003512/team2v2/replays/val000040-team2v2-b0000-astra_partner-r0.json", "teams": [1, 2, 1, 2], "meta": {"format": "team2v2", "block": 0, "rotation": 0, "context": "astra_partner", "label": "val000040", "policy": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/runs/v5_lite18h_20261024_003512/team2v2/policies/v000040-greedy/SnapV000040", "control": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/runs/v5_lite18h_20261024_003512/frozen/opponents/gpt6astra.zip", "faction_cycle": 0, "policy_sides": [1], "control_sides": [2], "map": "loris_river", "map_sha256": "802e2ac8a47429517a18d941be8cca22d404bd913772f1c0977be0d79348b8a8", "map_partition": "validation", "engine_id": "lite"}, "map_override": {"width": 25, "height": 25, "terrain": [["Mm^Xm", "Mm^Xm", "Mm^Xm", "Hh^Ft", "Hh", "Cv", "Ww", "Ww", "Wo", "Wo", "Wo", "Wo", "Ww", "Ss", "Ss^Ft", "Gs^Ft", "Hh", "Hh", "Hh", "Hh", "Hh", "Hh^Vc", "Mm^Xm", "Mm^Xm", "Mm^Xm"], ["Mm^Xm", "Mm^Xm", "Hh", "Hh", "Kv", "Cv", "Cv", "Ww", "Wo", "Wo", "Wo", "Ww", "Ww", "Ss", "Ss^Vhs", "Hh", "Gs^Ft", "Gs^Es", "Hh", "Gs^Es", "Gs^Ft", "Rp", "Hh^Emf", "Mm", "Mm^Xm"], ["Rp", "Rp", "Rr^Vd", "Rp", "Cv", "Rp", "Cv", "Rp", "Ww", "Ww", "Ww", "Gs^Es", "Ss", "Gs", "Gs", "Chs", "Gs^Ft", "Gs", "Gs", "Gs^Gvs", "Gs", "Rp", "Gs^Ft", "Gs^Ft", "Hh"], ["Mm^Xm", "Gg^Fet", "Rp", "Rp", "Rp", "Rp", "Rp", "Rr^Vd", "Ww^Bw\\", "Ww^Bw\\", "Ww", "Gs", "Gs^Es", "Gs", "Hh", "Gs", "Gs", "Ss^Vhs", "Gs^Gvs", "Gs^Ft", "Gs^
+SCHEDULE team2v2 validation-000050.json [{"id": "val000050-team2v2-b0000-astra_partner-r0", "bots": ["/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/runs/v5_lite18h_20261024_003512/team2v2/policies/v000050-greedy/SnapV000050", "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/runs/v5_lite18h_20261024_003512/frozen/opponents/gpt6astra.zip", "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/runs/v5_lite18h_20261024_003512/frozen/opponents/gpt6astra.zip", "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/runs/v5_lite18h_20261024_003512/frozen/opponents/gpt6astra.zip"], "seed": 3406084336, "factions": ["Rebels", "Undead", "Drakes", "Knalgan Alliance"], "max_turns": 30, "deadline": 1792827023.3913438, "wesnoth": "/home/tongshu/myDev/wesnothLearning/WesnothLearning/.runtime/install/bin/wesnoth", "output": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/runs/v5_lite18h_20261024_003512/team2v2/replays/val000050-team2v2-b0000-astra_partner-r0.json", "teams": [1, 2, 1, 2], "meta": {"format": "team2v2", "block": 0, "rotation": 0, "context": "astra_partner", "label": "val000050", "policy": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/runs/v5_lite18h_20261024_003512/team2v2/policies/v000050-greedy/SnapV000050", "control": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/runs/v5_lite18h_20261024_003512/frozen/opponents/gpt6astra.zip", "faction_cycle": 1, "policy_sides": [1], "control_sides": [2], "map": "loris_river", "map_sha256": "802e2ac8a47429517a18d941be8cca22d404bd913772f1c0977be0d79348b8a8", "map_partition": "validation", "engine_id": "lite"}, "map_override": {"width": 25, "height": 25, "terrain": [["Mm^Xm", "Mm^Xm", "Mm^Xm", "Hh^Ft", "Hh", "Cv", "Ww", "Ww", "Wo", "Wo", "Wo", "Wo", "Ww", "Ss", "Ss^Ft", "Gs^Ft", "Hh", "Hh", "Hh", "Hh", "Hh", "Hh^Vc", "Mm^Xm", "Mm^Xm", "Mm^Xm"], ["Mm^Xm", "Mm^Xm", "Hh", "Hh", "Kv", "Cv", "Cv", "Ww", "Wo", "Wo", "Wo", "Ww", "Ww", "Ss", "Ss^Vhs", "Hh", "Gs^Ft", "Gs^Es", "Hh", "Gs^Es", "Gs^Ft", "Rp", "Hh^Emf", "Mm", "Mm^Xm"], ["Rp", "Rp", "Rr^Vd", "Rp", "Cv", "Rp", "Cv", "Rp", "Ww", "Ww", "Ww", "Gs^Es", "Ss", "Gs", "Gs", "Chs", "Gs^Ft", "Gs", "Gs", "Gs^Gvs", "Gs", "Rp", "Gs^Ft", "Gs^Ft", "Hh"], ["Mm^Xm", "Gg^Fet", "Rp", "Rp", "Rp", "Rp", "Rp", "Rr^Vd", "Ww^Bw\\", "Ww^Bw\\", "Ww", "Gs", "Gs^Es", "Gs", "Hh", "Gs", "Gs", "Ss^Vhs", "Gs^Gvs", "Gs^Ft", "Gs^Gvs", "
+TAIL scheduler.jsonl "rollout-00205-duel-g1", "active": 4}
+{"time": 1792806644.4582133, "event": "start", "format": "duel", "id": "rollout-00205-duel-g2", "active": 5}
+{"time": 1792806644.4584122, "event": "start", "format": "duel", "id": "rollout-00205-duel-g3", "active": 6}
+{"time": 1792806649.3941755, "event": "finish", "format": "duel", "id": "rollout-00205-duel-g0", "active": 5}
+{"time": 1792806650.5264363, "event": "finish", "format": "duel", "id": "rollout-00205-duel-g1", "active": 4}
+{"time": 1792806654.0597947, "event": "finish", "format": "duel", "id": "rollout-00205-duel-g2", "active": 3}
+{"time": 1792806658.258353, "event": "start", "format": "ffa4", "id": "rollout-00085-ffa4-g0", "active": 4}
+{"time": 1792806658.2586145, "event": "start", "format": "ffa4", "id": "rollout-00085-ffa4-g1", "active": 5}
+{"time": 1792806658.2588167, "event": "start", "format": "ffa4", "id": "rollout-00085-ffa4-g2", "active": 6}
+{"time": 1792806658.2588842, "event": "start", "format": "ffa4", "id": "rollout-00085-ffa4-g3", "active": 7}
+{"time": 1792806723.6042693, "event": "finish", "format": "team2v2", "id": "rollout-00049-team2v2-g3", "active": 6}
+{"time": 1792806726.0111043, "event": "finish", "format": "ffa4", "id": "rollout-00085-ffa4-g1", "active": 5}
+{"time": 1792806757.9211605, "event": "finish", "format": "duel", "id": "rollout-00205-duel-g3", "active": 4}
+{"time": 1792806771.2328832, "event": "finish", "format": "ffa4", "id": "rollout-00085-ffa4-g0", "active": 3}
+{"time": 1792806798.42738, "event": "finish", "format": "ffa4", "id": "rollout-00085-ffa4-g2", "active": 2}
+{"time": 1792806803.5391214, "event": "start", "format": "duel", "id": "rollout-00206-duel-g0", "active": 3}
+{"time": 1792806803.5393653, "event": "start", "format": "duel", "id": "rollout-00206-duel-g1", "active": 4}
+{"time": 1792806803.5395515, "event": "start", "format": "duel", "id": "rollout-00206-duel-g2", "active": 5}
+{"time": 1792806803.5396988, "event": "start", "format": "duel", "id": "rollout-00206-duel-g3", "active": 6}
+{"time": 1792806809.8285277, "event": "finish", "format": "duel", "id": "rollout-00206-duel-g2", "active": 5}
+{"time": 1792806811.3380442, "event": "finish", "format": "duel", "id": "rollout-00206-duel-g0", "active": 4}
+{"time": 1792806821.7671335, "event": "finish", "format": "duel", "id": "rollout-00206-duel-g1", "active": 3}
+{"time": 1792806822.126893, "event": "finish", "format": "duel", "id": "rollout-00206-duel-g3", "active": 2}
+{"time": 1792806831.3133767, "event": "finish", "format": "ffa4", "id": "rollout-00085-ffa4-g3", "active": 1}
+{"time": 1792806858.5522382, "event": "finish", "format": "team2v2", "id": "rollout-00049-team2v2-g1", "active": 0}
+{"time": 1792806871.9763334, "event": "start", "format": "duel", "id": "rollout-00207-duel-g0", "active": 1}
+{"time": 1792806871.9767356, "event": "start", "format": "duel", "id": "rollout-00207-duel-g1", "active": 2}
+{"time": 1792806871.976857, "event": "start", "format": "duel", "id": "rollout-00207-duel-g2", "active": 3}
+{"time": 1792806871.976953, "event": "start", "format": "duel", "id": "rollout-00207-duel-g3", "active": 4}
+{"time": 1792806881.4725049, "event": "finish", "format": "duel", "id": "rollout-00207-duel-g2", "active": 3}
+{"time": 1792806886.574725, "event": "start", "format": "ffa4", "id": "rollout-00086-ffa4-g0", "active": 4}
+{"time": 1792806886.5749834, "event": "start", "format": "ffa4", "id": "rollout-00086-ffa4-g1", "active": 5}
+{"time": 1792806886.5750859, "event": "start", "format": "ffa4", "id": "rollout-00086-ffa4-g2", "active": 6}
+{"time": 1792806886.5753527, "event": "start", "format": "ffa4", "id": "rollout-00086-ffa4-g3", "active": 7}
+{"time": 1792806890.859415, "event": "finish", "format": "duel", "id": "rollout-00207-duel-g0", "active": 6}
+{"time": 1792806907.268815, "event": "finish", "format": "duel", "id": "rollout-00207-duel-g1", "active": 5}
+{"time": 1792806941.9551284, "event": "finish", "format": "ffa4", "id": "rollout-00086-ffa4-g0", "active": 4}
+{"time": 1792806947.6250384, "event": "finish", "format": "ffa4", "id": "rollout-00086-ffa4-g2", "active": 3}
+{"time": 1792806948.8358605, "event": "finish", "format": "duel", "id": "rollout-00207-duel-g3", "active": 2}
+{"time": 1792806962.3169634, "event": "start", "format": "team2v2", "id": "val000050-team2v2-b0000-astra_partner-r0", "active": 3}
+{"time": 1792806962.3183074, "event": "start", "format": "team2v2", "id": "val000050-team2v2-b0000-self_team-r0", "active": 4}
+{"time": 1792806962.3185744, "event": "start", "format": "team2v2", "id": "val000050-team2v2-b0000-astra_partner-r1", "active": 5}
+{"time": 1792806962.3187778, "event": "start", "format": "team2v2", "id": "val000050-team2v2-b0000-self_team-r1", "active": 6}
+{"time": 1792806962.3231542, "event": "start", "format": "team2v2", "id": "val000050-team2v2-b0000-astra_partner-r2", "active": 7}
+{"time": 1792806962.323635, "event": "start", "format": "team2v2", "id": "val000050-team2v2-b0000-self_team-r2", "active": 8}
+{"time": 1792807042.9855552, "event": "finish", "format": "team2v2", "id": "val000050-team2v2-b0000-astra_partner-r2", "active": 7}
+{"time": 1792807042.9857574, "event": "start", "format": "duel", "id": "rollout-00208-duel-g0", "active": 8}
+{"time": 1792807051.5438657, "event": "finish", "format": "team2v2", "id": "val000050-team2v2-b0000-self_team-r0", "active": 7}
+{"time": 1792807051.5443351, "event": "start", "format": "team2v2", "id": "val000050-team2v2-b0000-astra_partner-r3", "active": 8}
+{"time": 1792807052.4857507, "event": "finish", "format": "team2v2", "id": "val000050-team2v2-b0000-self_team-r2", "active": 7}
+{"time": 1792807052.486232, "event": "start", "format": "duel", "id": "rollout-00208-duel-g1", "active": 8}
+{"time": 1792807053.044264, "event": "finish", "format": "team2v2", "id": "val000050-team2v2-b0000-astra_partner-r1", "active": 7}
+{"time": 1792807053.0444534, "event": "start", "format": "team2v2", "id": "val000050-team2v2-b0000-self_team-r3", "active": 8}
+{"time": 1792807057.0075314, "event": "finish", "format": "duel", "id": "rollout-00208-duel-g0", "active": 7}
+{"time": 1792807057.0077145, "event": "start", "format": "duel", "id": "rollout-00208-duel-g2", "active": 8}
+{"time": 1792807066.3745546, "event": "finish", "format": "team2v2", "id": "val000050-team2v2-b0000-astra_partner-r0", "active": 7}
+{"time": 1792807066.3747945, "event": "start", "format": "duel", "id": "rollout-00208-duel-g3", "active": 8}
+{"time": 1792807066.5996292, "event": "finish", "format": "duel", "id": "rollout-00208-duel-g2", "active": 7}
+{"time": 1792807075.219968, "event": "finish", "format": "team2v2", "id": "val000050-team2v2-b0000-self_team-r1", "active": 6}
+{"time": 1792807081.587854, "event": "finish", "format": "duel", "id": "rollout-00208-duel-g1", "active": 5}
+{"time": 1792807096.3986158, "event": "finish", "format": "duel", "id": "rollout-00208-duel-g3", "active": 4}
+{"time": 1792807112.3692462, "event": "finish", "format": "team2v2", "id": "val000050-team2v2-b0000-astra_partner-r3", "active": 3}
+{"time": 1792807114.1303232, "event": "finish", "format": "ffa4", "id": "rollout-00086-ffa4-g3", "active": 2}
+{"time": 1792807126.8562465, "event": "finish", "format": "team2v2", "id": "val000050-team2v2-b0000-self_team-r3", "active": 1}
+{"time": 1792807128.6031044, "event": "start", "format": "team2v2", "id": "reward-reference-team2v2-7b00d04c792cf668-0", "active": 2}
+{"time": 1792807128.6033578, "event": "start", "format": "team2v2", "id": "reward-reference-team2v2-7b00d04c792cf668-1", "active": 3}
+{"time": 1792807128.603601, "event": "start", "format": "team2v2", "id": "reward-reference-team2v2-7b00d04c792cf668-2", "active": 4}
+{"time": 1792807128.6037445, "event": "start", "format": "team2v2", "id": "reward-reference-team2v2-7b00d04c792cf668-3", "active": 5}
+{"time": 1792807138.3938625, "event": "start", "format": "duel", "id": "rollout-00209-duel-g0", "active": 6}
+{"time": 1792807138.393937, "event": "start", "format": "duel", "id": "rollout-00209-duel-g1", "active": 7}
+{"time": 1792807138.3939674, "event": "start", "format": "duel", "id": "rollout-00209-duel-g2", "active": 8}
+{"time": 1792807144.6214736, "event": "finish", "format": "duel", "id": "rollout-00209-duel-g2", "active": 7}
+{"time": 1792807144.6216543, "event": "start", "format": "duel", "id": "rollout-00209-duel-g3", "active": 8}
+{"time": 1792807151.025601, "event": "finish", "format": "duel", "id": "rollout-00209-duel-g0", "active": 7}
+{"time": 1792807155.9129114, "event": "finish", "format": "team2v2", "id": "reward-reference-team2v2-7b00d04c792cf668-2", "active": 6}
+{"time": 1792807156.8677897, "event": "finish", "format": "team2v2", "id": "reward-reference-team2v2-7b00d04c792cf668-0", "active": 5}
+{"time": 1792807156.9667897, "event": "finish", "format": "duel", "id": "rollout-00209-duel-g3", "active": 4}
+{"time": 1792807157.9481483, "event": "finish", "format": "team2v2", "id": "reward-reference-team2v2-7b00d04c792cf668-1", "active": 3}
+{"time": 1792807168.4599826, "event": "finish", "format": "duel", "id": "rollout-00209-duel-g1", "active": 2}
+{"time": 1792807168.7785873, "event": "finish", "format": "team2v2", "id": "reward-reference-team2v2-7b00d04c792cf668-3", "active": 1}
+{"time": 1792807170.6676838, "event": "start", "format": "team2v2", "id": "rollout-00050-team2v2-g0", "active": 2}
+{"time": 1792807170.6678846, "event": "start", "format": "team2v2", "id": "rollout-00050-team2v2-g1", "active": 3}
+{"time": 1792807170.6680992, "event": "start", "format": "team2v2", "id": "rollout-00050-team2v2-g2", "active": 4}
+{"time": 1792807170.6681225, "event": "start", "format": "team2v2", "id": "rollout-00050-team2v2-g3", "active": 5}
+{"time": 1792807201.1687438, "event": "finish", "format": "team2v2", "id": "rollout-00050-team2v2-g0", "active": 4}
+{"time": 1792807212.5353298, "event": "finish", "format": "ffa4", "id": "rollout-00086-ffa4-g1", "active": 3}
+{"time": 1792807217.7591746, "event": "start", "format": "duel", "id": "rollout-00210-duel-g0", "active": 4}
+{"time": 1792807217.7594175, "event": "start", "format": "duel", "id": "rollout-00210-duel-g1", "active": 5}
+{"time": 1792807217.7595172, "event": "start", "format": "duel", "id": "rollout-00210-duel-g2", "active": 6}
+{"time": 1792807217.7595932, "event": "start", "format": "duel", "id": "rollout-00210-duel-g3", "active": 7}
+{"time": 1792807227.2406135, "event": "finish", "format": "team2v2", "id": "rollout-00050-team2v2-g2", "active": 6}
+{"time": 1792807228.0906894, "event": "finish", "format": "duel", "id": "rollout-00210-duel-g2", "active": 5}
+{"time": 1792807228.1312914, "event": "finish", "format": "duel", "id": "rollout-00210-duel-g0", "active": 4}
+{"time": 1792807243.8341007, "event": "finish", "format": "duel", "id": "rollout-00210-duel-g3", "active": 3}
+{"time": 1792807271.0433002, "event": "start", "format": "ffa4", "id": "rollout-00087-ffa4-g0", "active": 4}
+{"time": 1792807271.0433846, "event": "start", "format": "ffa4", "id": "rollout-00087-ffa4-g1", "active": 5}
+{"time": 1792807271.043421, "event": "start", "format": "ffa4", "id": "rollout-00087-ffa4-g2", "active": 6}
+{"time": 1792807271.043453, "event": "start", "format": "ffa4", "id": "rollout-00087-ffa4-g3", "active": 7}
+{"time": 1792807296.141571, "event": "finish", "format": "duel", "id": "rollout-00210-duel-g1", "active": 6}
+{"time": 1792807305.6927927, "event": "finish", "format": "ffa4", "id": "rollout-00087-ffa4-g0", "active": 5}
+{"time": 1792807351.621796, "event": "finish", "format": "ffa4", "id": "rollout-00087-ffa4-g2", "active": 4}
+{"time": 1792807368.6494021, "event": "start", "format": "duel", "id": "val000210-duel-b0000-solo-r0", "active": 5}
+{"time": 1792807368.6495423, "event": "start", "format": "duel", "id": "val000210-duel-b0000-solo-r1", "active": 6}
+{"time": 1792807368.6496003, "event": "start", "format": "duel", "id": "val000210-duel-b0001-solo-r0", "active": 7}
+{"time": 1792807368.6496305, "event": "start", "format": "duel", "id": "val000210-duel-b0001-solo-r1", "active": 8}
+{"time": 1792807394.2736, "event": "finish", "format": "duel", "id": "val000210-duel-b0000-solo-r1", "active": 7}
+{"time": 1792807394.2738993, "event": "start", "format": "duel", "id": "val000210-duel-b0002-solo-r0", "active": 8}
+{"time": 1792807404.3611274, "event": "finish", "format": "duel", "id": "val000210-duel-b0001-solo-r0", "active": 7}
+{"time": 1792807404.361468, "event": "start", "format": "duel", "id": "val000210-duel-b0002-solo-r1", "active": 8}
+{"time": 1792807405.2746964, "event": "finish", "format": "duel", "id": "val000210-duel-b0000-solo-r0", "active": 7}
+{"time": 1792807405.3174844, "event": "finish", "format": "duel", "id": "val000210-duel-b0001-solo-r1", "active": 6}
+{"time": 1792807419.2234037, "event": "finish", "format": "duel", "id": "val000210-duel-b0002-solo-r0", "active": 5}
+{"time": 1792807451.4858248, "event": "finish", "format": "duel", "id": "val000210-duel-b0002-solo-r1", "active": 4}
+{"time": 1792807454.0464134, "event": "start", "format": "duel", "id": "rollout-00211-duel-g0", "active": 5}
+{"time": 1792807454.046637, "event": "start", "format": "duel", "id": "rollout-00211-duel-g1", "active": 6}
+{"time": 1792807454.0467198, "event": "start", "format": "duel", "id": "rollout-00211-duel-g2", "active": 7}
+{"time": 1792807454.0470014, "event": "start", "format": "duel", "id": "rollout-00211-duel-g3", "active": 8}
+{"time": 1792807459.5475621, "event": "finish", "format": "duel", "id": "rollout-00211-duel-g1", "active": 7}
+{"time": 1792807461.321941, "event": "finish", "format": "duel", "id": "rollout-00211-duel-g0", "active": 6}
+{"time": 1792807464.704379, "event": "finish", "format": "ffa4", "id": "rollout-00087-ffa4-g1", "active": 5}
+{"time": 1792807466.4581354, "event": "finish", "format": "duel", "id": "rollout-00211-duel-g2", "active": 4}
+{"time": 1792807487.9630902, "event": "finish", "format": "ffa4", "id": "rollout-00087-ffa4-g3", "active": 3}
+{"time": 1792807505.4551551, "event": "finish", "format": "duel", "id": "rollout-00211-duel-g3", "active": 2}
+{"time": 1792807552.952848, "event": "start", "format": "ffa4", "id": "rollout-00088-ffa4-g0", "active": 3}
+{"time": 1792807552.9530842, "event": "start", "format": "ffa4", "id": "rollout-00088-ffa4-g1", "active": 4}
+{"time": 1792807552.9532, "event": "start", "format": "ffa4", "id": "rollout-00088-ffa4-g2", "active": 5}
+{"time": 1792807552.9537194, "event": "start", "format": "ffa4", "id": "rollout-00088-ffa4-g3", "active": 6}
+{"time": 1792807565.3505561, "event": "start", "format": "duel", "id": "rollout-00212-duel-g0", "active": 7}
+{"time": 1792807565.3506758, "event": "start", "format": "duel", "id": "rollout-00212-duel-g1", "active": 8}
+{"time": 1792807572.4896414, "event": "finish", "format": "duel", "id": "rollout-00212-duel-g0", "active": 7}
+{"time": 1792807572.4898064, "event": "start", "format": "duel", "id": "rollout-00212-duel-g2", "active": 8}
+{"time": 1792807586.9278977, "event": "finish", "format": "duel", "id": "rollout-00212-duel-g1", "active": 7}
+{"time": 1792807586.928163, "event": "start", "format": "duel", "id": "rollout-00212-duel-g3", "active": 8}
+{"time": 1792807588.000333, "event": "finish", "format": "duel", "id": "rollout-00212-duel-g2", "active": 7}
+{"time": 1792807596.3815253, "event": "finish", "format": "ffa4", "id": "rollout-00088-ffa4-g2", "active": 6}
+{"time": 1792807602.6099403, "event": "finish", "format": "duel", "id": "rollout-00212-duel-g3", "active": 5}
+{"time": 1792807703.5114934, "event": "finish", "format": "team2v2", "id": "rollout-00050-team2v2-g1", "active": 4}
+{"time": 1792807703.5641434, "event": "finish", "format": "team2v2", "id": "rollout-00050-team2v2-g3", "active": 3}
+{"time": 1792807703.7521162, "event": "finish", "format": "ffa4", "id": "rollout-00088-ffa4-g0", "active": 2}
+{"time": 1792807703.7882557, "event": "finish", "format": "ffa4", "id": "rollout-00088-ffa4-g1", "active": 1}
+{"time": 1792807703.8244576, "event": "finish", "format": "ffa4", "id": "rollout-00088-ffa4-g3", "active": 0}
+
+POST_STOP_PROCESSES main PID absent
+FROZEN {"config": {"hours": 18.0, "workers": 8, "device": "cpu", "trainer_threads": 1, "seed": 20261017, "engine": "lite", "evaluation_engine": "lite", "reward_mode": "adaptive", "phase": "auto", "allow_approximate": true, "rules_dir": "/home/tongshu/myDev/wesnothLearning/WesnothLearning/rules/1.18.8-training", "formats": ["duel", "ffa4", "team2v2"], "calibration_blocks": 3, "validation_interval": 10, "validation_games": {"duel": 6, "ffa4": 4, "team2v2": 8}, "final_blocks": 30, "bc_games": {"duel": 300, "ffa4": 600, "team2v2": 400}, "native_bc_games": {"duel": 0, "ffa4": 0, "team2v2": 0}, "bc_batch_games": 8, "bc_accuracy": {"all": 0.4, "recruit": 0.6, "move": 0.35, "attack": 0.35}, "shaping_weight": null, "rollout_games": 4, "minibatch": 256, "bc_records": 2048, "bc_validation_records": 1024, "epochs": 4, "learning_rate": 0.0003, "trainer_memory_gb": 6.0, "human_data": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/datasets/human"}, "rules": {"directory": "/home/tongshu/myDev/wesnothLearning/WesnothLearning/rules/1.18.8-training", "rules_sha256": "d6fceafe7d0c9c67c750551b9901dbfb2b22290992a8daa1616a460e11826dca", "source_hash": "c08f8a08d6fb802d2bd80e8057bd315b8f19aa031dd161d3e162e5eb682a886e", "training_acceptance": {"scope": "leaders/recruits -> advancement/plague transitive closure", "profile": "vendor/arena/params.py", "profile_sha256": "3c1423bd63ac8ac708e65d39cc59265076abbb9325f58fa5f32a69cff972d71a", "rules_file_sha256": "d6fceafe7d0c9c67c750551b9901dbfb2b22290992a8daa1616a460e11826dca", "unit_count": 158, "unit_ids": ["Ancient Wose", "Arch Mage", "Assassin", "Banebow", "Blood Bat", "Bone Shooter", "Bowman", "Cavalier", "Cavalryman", "Dark Adept", "Dark Sorcerer", "Deathblade", "Direwolf Rider", "Dragoon", "Drake Arbiter", "Drake Blademaster", "Drake Burner", "Drake Clasher", "Drake Enforcer", "Drake Fighter", "Drake Flameheart", "Drake Flare", "Drake Glider", "Drake Thrasher", "Drake Warden", "Drake Warrior", "Draug", "Dread Bat", "Duelist", "Dwarvish Berserker", "Dwarvish Dragonguard", "Dwarvish Fighter", "Dwarvish Guardsman", "Dwarvish Lord", "Dwarvish Sentinel", "Dwarvish Stalwart", "Dwarvish Steelclad", "Dwarvish Thunderer", "Dwarvish Thunderguard", "Dwarvish Ulfserker", "Elder Wose", "Elvish Archer", "Elvish Avenger", "Elvish Captain", "Elvish Champion", "Elvish Druid", "Elvish Enchantress", "Elvish Fighter", "Elvish Hero", "Elvish Marksman", "Elvish Marshal", "Elvish Outrider", "Elvish Ranger", "Elvish Rider", "Elvish Scout", "Elvish Shaman", "Elvish Sharpshooter", "Elvish Shyde", "Elvish Sorceress", "Elvish Sylph", "Fencer", "Fire Drake", "Footpad", "Fugitive", "General", "Ghast", "Ghost", "Ghoul", "Goblin Impaler", "Goblin Knight", "Goblin Pillager", "Goblin Rouser", "Goblin Spearman", "Grand Knight", "Grand Marshal", "Great Mage", "Gryphon Master", "Gryphon Rider", "Halberdier", "Heavy Infantryman", "Horseman", "Huntsman", "Hurricane Drake", "Inferno Drake", "Iron Mauler", "Javelineer", "Knight", "Lancer", "Lich", "Lieutenant", "Longbowman", "Mage", "Mage of Light", "Master Bowman", "Master at Arms", "Merman Entangler", "Merman Fighter", "Merman Hoplite", "Merman Hunter", "Merman Javelineer", "Merman Netcaster", "Merman Spearman", "Merman Triton", "Merman Warrior", "Naga Fighter", "Naga Myrmidon", "Naga Warrior", "Necromancer", "Necrophage", "Nightgaunt", "Orcish Archer", "Orcish Assassin", "Orcish Crossbowman", "Orcish Grunt", "Orcish Nightblade", "Orcish Slayer", "Orcish Slurbow", "Orcish Warlord", "Orcish Warrior", "Outlaw", "Paladin", "Pikeman", "Poacher", "Ranger", "Red Mage", "Revenant", "Rogue", "Royal Guard", "Saurian Ambusher", "Saurian Augur", "Saurian Flanker", "Saurian Oracle", "Saurian Prophet", "Saurian Seer", "Saurian Skirmisher", "Saurian Soothsayer", "Shadow", "Shock Trooper", "Silver Mage", "Skeleton", "Skeleton Archer", "Sky Drake", "Soulless", "Spearman", "Spectre", "Swordsman", "Thief", "Trapper", "Troll", "Troll Rocklobber", "Troll Warrior", "Troll Whelp", "Vampire Bat", "Walking Corpse", "White Mage", "Wolf Rider", "Wose", "Wraith"], "implementation_complete": true, "native_semantics_accepted": false, "performance_accepted": false}}, "parameters": 776178}
+SERVER_SOURCE learning/coordinator.py 
+30: 
+31: def limit_memory(gigabytes):
+32:     """Cap trainer address space so a runaway read fails inside the trainer.
+33: 
+34:     The kernel then raises MemoryError, the trainer records its traceback and the
+35:     coordinator reports a partial failure instead of an OOM kill of the run.
+36:     """
+37:     if not gigabytes: return None
+38:     try:
+39:         import resource
+40:         budget=int(float(gigabytes)*1024**3)
+41:         soft,hard=resource.getrlimit(resource.RLIMIT_AS)
+42:         if hard!=resource.RLIM_INFINITY: budget=min(budget,hard)
+43:         resource.setrlimit(resource.RLIMIT_AS,(budget,budget))
+44:         return budget
+45:     except (ImportError,ValueError,OSError):
+46:         return None
+47: 
+48: 
+49: def trainer_main(directory,fmt,manifest,clock,requests,replies,resume):
+50:     limit_memory(manifest.get('config',{}).get('trainer_memory_gb'))
+51:     def collect(jobs,log):
+52:         requests.put((fmt,jobs,str(log)))
+53:         reply=replies.get()
+54:         if reply.get('error'): raise RuntimeError(reply['error'])
+55:         return reply['results']
+56:     try: FormatExperiment(directory,fmt,manifest,clock,collect,resume).run()
+57:     except BaseException:
+58:         Path(directory).mkdir(parents=True,exist_ok=True)
+59:         Path(directory,'trainer_error.log').write_text(traceback.format_exc(),encoding='utf-8')
+60:         raise
+61: 
+62: 
+63: def broker(processes,requests,replies,workers,directory,play=play_job):
+64:     """At most workers submitted games across all trainers, round robin by format."""
+65:     if not 1<=workers<=16: raise ValueError('workers must be in [1,16]')
+66:     scheduler=FairScheduler(processes);batches={};inflight={};peak=0
+67:     events=Path(directory)/'scheduler.jsonl'
+68:     def emit(row):
+69:         with events.open('a',encoding='utf-8') as f: f.write(json.dumps(dict(time=time.time(),**row))+'\n')
+70:     def complete(fmt,job,result):
+71:         batch=batches[fmt];batch['results'].append(result)
+72:         log=Path(batch['log']);log.parent.mkdir(parents=True,exist_ok=True)
+73:         if log.exists():
+74:             with log.open('r+b') as f:
+75:                 raw=f.read()
+76:                 if raw and not raw.endswith(b'\n'): f.truncate(raw.rfind(b'\n')+1)
+77:         with log.open('a',encoding='utf-8') as f: f.write(json.dumps(result,ensure_ascii=False)+'\n')
+78:         batch['remaining']-=1
+79:         if batch['remaining']==0:
+80:             replies[fmt].put(dict(results=batch['results']));del batches[fmt]
+81:     exits=Path(directory)/'trainer_exit.log';reported=set()
+82:     with ProcessPoolExecutor(max_workers=workers,mp_context=get_context('spawn')) as pool:
+83:         while any(p.is_alive() for p in processes.values()) or inflight or batches:
+84:             try:
+85:                 while True:
+86:                     fmt,jobs,log=requests.get_nowait()
+87:                     if fmt in batches: raise RuntimeError('overlapping trainer batches')
+88:                     if not jobs: replies[fmt].put(dict(results=[]));continue
+89:                     batches[fmt]=dict(remaining=len(jobs),results=[],log=log);scheduler.add(fmt,jobs)
+90:             except Empty: pass
+91:             for fmt,p in processes.items():
+92:                 if not p.is_alive() and p.exitcode not in (None,0) and fmt not in reported:
+93:                     reported.add(fmt)
+94:                     with exits.open('a',encoding='utf-8') as f:
+95:                         f.write(json.dumps(dict(time=time.time(),format=fmt,exit_code=p.exitcode))+ '\n')
+96:                 if not p.is_alive() and fmt in batches:
+97:                     while scheduler.pending[fmt]:
+98:                         job=scheduler.pending[fmt].popleft();complete(fmt,job,dict(id=job['id'],status='trainer_failed'))
+99:             while len(inflight)<workers:
+100:                 item=scheduler.pop()
+101:                 if item is None: break
+102:                 fmt,job=item
+103:                 if time.time()>=job['deadline']:
+104:                     complete(fmt,job,dict(id=job['id'],status='budget_interrupted'));continue
+105:                 inflight[pool.submit(play,job)]=(fmt,job)
+106:                 peak=max(peak,len(inflight));emit(dict(event='start',format=fmt,id=job['id'],active=len(inflight)))
+107:             done=[f for f in inflight if f.done()]
+108:             for future in done:
+109:                 fmt,job=inflight.pop(future)
+110:                 try: result=future.result()
+111:                 except Exception as exc: result=dict(id=job['id'],status='infrastructure_error',error=repr(exc))
+112:                 complete(fmt,job,result);emit(dict(event='finish',format=fmt,id=job['id'],active=len(inflight)))
+113:             if not done: time.sleep(.02)
+114:     return dict(workers=workers,peak_native_games=peak,exit_codes={f:p.exitcode for f,p in processes.items()})
+SERVER_SOURCE learning/lite_host.py 
+100: def play_lite_job(job):
+101:     """Play one accepted-lite Astra or explicit policy job; never fallback native.
+102: 
+103:     policy callbacks receive only the common decision DTO. Official baseline is
+104:     unsupported in lite. No hidden true state enters Astra or policy callbacks.
+105:     """
+106:     from .features import schema
+107:     from .data import write_shard
+108:     from .rewards import RewardConfig
+109:     from .lite_policy import FrozenPolicies,game_spec,is_astra
+110:     from .reward_metrics import summarize_game
+111:     job_id = job['id']
+112:     try:
+113:         if time.time() >= job.get('deadline', float('inf')):
+114:             return dict(id=job_id, status='budget_interrupted', engine='lite')
+115:         if 'game_spec' not in job:
+116:             from .rules_catalog import resolve_dir
+117:             rules_dir=resolve_dir(job.get('rules_dir'))
+118:             rules=json.loads((rules_dir/'rules.json').read_text(encoding='utf-8'))
+119:             job=dict(job,game_spec=game_spec(job,rules))
+120:         bots = job.get('bots', [])
+121:         policy = job.get('policy')
+122:         if any(bot=='baseline' for bot in bots): raise ValueError('official baseline is native-only')
+123:         policies=FrozenPolicies(job) if policy is None else None
+124:         teacher_paths = list(bots) + [job.get('learning', {}).get('dagger_teacher')]
+125:         teacher_path = next((Path(p) for p in teacher_paths
+126:                              if isinstance(p, (str, Path)) and is_astra(p)
+127:                              and Path(p).suffix == '.zip'), None)
+128:         host = LiteHost(job['game_spec'], job.get('rules_dir'),
+129:                         require_accepted=job.get('require_accepted', True), teacher_path=teacher_path)
+130:         records, timings, behavior, bootstraps, metric_snapshots = [], [], [], {}, []
+131:         config = job.get('reward_config') or RewardConfig().to_dict()
+132:         config = RewardConfig(**config).to_dict()
+133:         rank_points, defeated = {}, set()
+134:         decision_count = 0
+135:         current = 1
+SERVER_SOURCE learning/lite_host.py 
+220:                 break
+221:         if view['truncated'] and any(not is_astra(bots[side-1]) for side in learner_sides):
+222:             # Never replace missing truncation values with zero or a teacher score.
+223:             bootstrap_policy = job.get('bootstrap_policy')
+224:             if bootstrap_policy is None and policies is None:
+225:                 raise RuntimeError('truncated policy game requires a frozen bootstrap_policy callback')
+226:             for side in learner_sides:
+227:                 if is_astra(bots[side-1]): continue
+228:                 decision = host.decision(side, teacher=False)
+229:                 actor_input = {k: v for k, v in decision.items() if k not in ('reward_raw', 'reward_after', 'teacher_action')}
+230:                 bootstraps[str(side)] = dict(side=side, value=policies.choose(actor_input,side,bootstrap=True) if policies else float(bootstrap_policy(actor_input)),
+231:                                              potential=decision['potential'], reward_raw=decision['reward_raw'], turn=decision['turn'],
+232:                                              version=job.get('learning', {}).get('version', 'v5-validation'))
+233:         survivors = [s['id'] for s in view['sides'] if not s['eliminated']]
+234:         if not view['truncated']:
+235:             for side in sorted(learner_sides-set(defeated)):
+236:                 metric_snapshot(side,'terminal')
+237:         points = len(defeated) + (len(survivors)-1)/2
+238:         rank_points.update({str(s): points for s in survivors})
+239:         teams = [s['team'] for s in job['game_spec']['sides']]
+240:         winning_sides = [s['id'] for s in view['sides'] if s['team'] == view['winner']]
+241:         result = dict(engine_id='lite-0.1', winner=winning_sides[0] if len(winning_sides)==1 else 0,
+242:                       winning_team=view['winner'] or 0, truncated=view['truncated'],
+243:                       reason='turn_limit' if view['truncated'] else 'victory', survivors=survivors,
+244:                       bots=bots or ['gpt6astra']*len(teams), factions=job.get('factions') or [None]*len(teams), teams=teams if len(set(teams))<len(teams) else None,
+245:                       turns=view['turn'], faults=[], rank_points=rank_points, approximate=True)
+246:         written = write_shard(job['shard'], job_id, records, result, bootstraps) if job.get('shard') else None
+247:         if dagger and job.get('shard'):
+248:             path=Path(job['shard']);write_shard(path.with_name(path.name.replace('.jsonl.gz','.dagger.jsonl.gz')),job_id,dagger,result,bootstraps)
+249:         coverage = {'total': len(records), 'matched': sum(r['choice'] >= 0 for r in records),
+250:                     'kinds': {kind: {'total': sum(r['actual']['kind'] == kind for r in records),
+251:                                      'matched': sum(r['actual']['kind'] == kind and r['choice'] >= 0 for r in records)}
+252:                               for kind in ('recruit', 'move', 'attack', 'move_attack', 'end_turn')}}
+253:         for key in ('total','matched'): coverage['kinds']['attack'][key]+=coverage['kinds']['move_attack'][key]
+254:         return dict(id=job_id, status='complete', engine='lite', result=result, coverage=coverage,
+255:                     reward_diagnostics=summarize_game(records,result,job,snapshots=metric_snapshots),
+256:                     training_eligible=written is None or bool(written['written']), training_shard=written,
+257:                     behavior=behavior, timings=timings, native_timings=[], meta=job.get('meta', {}),
+258:                     truncated=sum(r['timing'].get('truncated', False) for r in records))
+259:     except (RuntimeError, ValueError, ImportError, OSError, KeyError) as exc:
+260:         return dict(id=job_id, status='infrastructure_error', engine='lite', error=str(exc))
+CHECKPOINT_LOAD duel {"version": 212, "stage": "ppo", "features": 5, "optimizer_entries": 59, "model_tensors": 59, "sha256": "718b9bb17d078826f7c729e3c557934ec1857e373e0387df6cec766c3cf813ff"}
+CHECKPOINT_LOAD ffa4 {"version": 88, "stage": "failed", "features": 5, "optimizer_entries": 59, "model_tensors": 59, "sha256": "7755cedaea876a201e6816bf166045802c87844c1e47c7bae1fc2e88b4e37c6a"}
+CHECKPOINT_LOAD team2v2 {"version": 50, "stage": "failed", "features": 5, "optimizer_entries": 59, "model_tensors": 59, "sha256": "0a9638c797e3bd648561d15160d2d3b36ca59de9c6fcc5721f34a65b24d01779"}
