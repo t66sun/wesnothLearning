@@ -38,6 +38,8 @@ The adaptive reward rolling-window fix is accepted on 2026-10-24: every complete
 
 On the user's next instruction, the former continuation was stopped at 16:21:48 and the accepted window fix deployed to a new frozen source root `/home/tongshu/myDev/wesnothLearning/validation_window_fix_20261024_1630`. The derivative `runs/v5_lite_windowfix_20261024_1630` started at 16:31:29 from the retained complete best PPO checkpoints duel/FF4 v100/v100, with 2v2 latest legal v60 as an explicitly unpromoted fallback. Selected model, optimizer and RNG states are preserved; completed v100 validation is replayed from existing results without new games. The original runs/checkpoints remain intact. Config changes only extend the total deadline to **2026-10-25 00:00 Asia/Shanghai**; the original start and 10/12 split put the PPO cutoff at **2026-10-24 20:05:52**. The wrapper then enters final evaluation within the remaining budget. CPU, 8 workers, 1 trainer thread, all reward coefficients, BC eligibility and existing forced-PPO provenance are preserved. Deployment, checkpoint selection and live progress are in the [deployment handoff](../verification/window_deploy_20261024_1620/REPORT.md).
 
+At 16:41:14 the deployed continuation has committed PPO updates in all formats: duel v105 / 1795 optimizer steps, FF4 v103 / 1828, team2v2 v61 / 756, with error=null. See the [completed deployment check](../verification/window_deploy_20261024_1620/HANDOFF_1642.md).
+
 ## 2. Overall structure and responsibilities
 
 ```mermaid
