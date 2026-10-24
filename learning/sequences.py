@@ -448,6 +448,14 @@ def _read_bounded(indexed, partition, format_name, turns, limit, seed, gz_budget
     admitted = []
     groups = {}
     buckets = sorted(indexed, key=str)
+    if not buckets:
+        if stats is not None:
+            stats.update(requested=limit, rows=0, families=0, selected=0,
+                         families_decoded=0, families_selected=0, families_admitted=0,
+                         families_retained=0, windows=0, sources={}, engines={}, kinds={},
+                         gz_bytes=0, retained_bytes=0, deficit=limit,
+                         stop_reason='insufficient_data')
+        return []
     targets = _bucket_targets(buckets, limit)
     pending = {key for key in buckets if targets[key] > 0}
     gz_used = charged = decoded = 0
