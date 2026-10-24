@@ -8,7 +8,6 @@ from __future__ import annotations
 import json
 import math
 import time
-import zipfile
 from pathlib import Path
 
 from .adapters import COMBAT_VERSION, ENGINE_VERSION, LiteAdapter, RNG_VERSION, ROOT
@@ -38,12 +37,13 @@ def _lua(value):
 
 def host_modules(teacher_path=None):
     from .features import schema
+    from .teachers import lua_modules
     modules = {name: (ROOT / 'lua' / name).read_text(encoding='utf-8')
                for name in ('observation.lua', 'candidates.lua', 'spatial.lua', 'routing.lua', 'rewards.lua')}
     modules['features.lua'] = 'return ' + _lua(schema())
-    with zipfile.ZipFile(teacher_path or ROOT / 'data/opponents/gpt6astra.zip') as archive:
-        for name in ('duel.lua', 'four.lua', 'bot.lua'):
-            modules['astra/' + name] = archive.read('gpt6astra/lua/' + name).decode('utf-8')
+    # The frozen archive remains lineage only; the host runs the maintained
+    # derived source adapted to expected_damage_v1.
+    modules.update(lua_modules())
     return modules
 
 
@@ -108,6 +108,7 @@ def play_lite_job(job):
     from .features import schema
     from .data import write_shard
     from .rewards import RewardConfig
+    from .teachers import identity as teacher_identity
     from .lite_policy import FrozenPolicies,game_spec,is_astra
     from .reward_metrics import summarize_game
     job_id = job['id']
@@ -130,6 +131,7 @@ def play_lite_job(job):
                              and Path(p).suffix == '.zip'), None)
         host = LiteHost(job['game_spec'], job.get('rules_dir'),
                         require_accepted=job.get('require_accepted', True), teacher_path=teacher_path)
+        teacher_profile=teacher_identity()['teacher_profile']
         timings, behavior, bootstraps, metric_snapshots = [], [], {}, []
         config = job.get('reward_config') or RewardConfig().to_dict()
         config = RewardConfig(**config).to_dict()
@@ -144,7 +146,8 @@ def play_lite_job(job):
             snapshot.update(metric_event=event,source='astra' if is_astra(bots[side-1]) else 'policy',
                             teacher='gpt6astra' if is_astra(bots[side-1]) else False,
                             rules_version=host.adapter.catalog['rules_version'],
-                            engine_version=ENGINE_VERSION, combat_version=COMBAT_VERSION)
+                            engine_version=ENGINE_VERSION, combat_version=COMBAT_VERSION,
+                            teacher_profile=teacher_profile)
             metric_snapshots.append(snapshot)
         for side in sorted(learner_sides):
             metric_snapshot(side,'initial')
@@ -171,7 +174,7 @@ def play_lite_job(job):
                             source='astra' if teacher else 'policy', engine_id='lite',
                             rules_version=host.adapter.catalog['rules_version'],
                             rules_sha256=host.adapter.rules_sha256, rng_version=RNG_VERSION,
-                            combat_version=COMBAT_VERSION,
+                            combat_version=COMBAT_VERSION, teacher_profile=teacher_profile,
                             version=training.get('version','teacher-frozen' if teacher else 'v5-validation'),decision=decision_count,
                             architecture_id='relational_v5', candidate_version=f"schema{schema()['version']}-"+decision['timing'].get('budget','fixed-20000-v1'),
                             engine='lite', engine_version=ENGINE_VERSION,

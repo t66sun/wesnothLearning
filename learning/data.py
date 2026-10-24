@@ -58,6 +58,9 @@ def validate_record(r, format_name=None):
     if format_name is not None and fmt != format_name: raise ValueError('cross-format sample rejected')
     if r.get('source') not in ('astra', 'human', 'policy'): raise ValueError('unknown data source')
     if r.get('faults'): raise ValueError('faulted games cannot provide training samples')
+    from .teachers import PROFILE as TEACHER_PROFILE
+    if r['source']=='astra' and r.get('teacher_profile')!=TEACHER_PROFILE:
+        raise ValueError('sample was produced by a different Astra teacher profile')
     if r['source']=='astra' and r.get('teacher')!='gpt6astra': raise ValueError('only gpt6astra is an active teacher')
     if r['source']=='human':
         if r.get('human_control') is not True or r.get('native_version')!='1.18.8': raise ValueError('human sample lacks native/control provenance')

@@ -89,9 +89,10 @@ def export_checkpoints(checkpoints, destination, name='NeuralArena', evaluation=
     models={};versions={};errors={};identities={}
     for fmt,path in checkpoints.items():
         models[fmt],state=load_model(path,fmt)
-        identity={key:state.get(key) for key in ('engine','engine_version','rng_version','combat_version')}
+        identity={key:state.get(key) for key in ('engine','engine_version','rng_version','combat_version',
+                                                   'teacher','teacher_profile','teacher_source_sha256')}
         if not all(identity.values()):
-            raise ValueError('checkpoint lacks combat profile identity; old weights are explicit initialization only: '+fmt)
+            raise ValueError('checkpoint lacks combat or teacher profile identity; old weights are explicit initialization only: '+fmt)
         identities[fmt]=identity
         if state.get('runner',{}).get('version',0)<=0 and state.get('metrics',{}).get('updates',0)<=0:
             raise ValueError('delivery requires a trained checkpoint, not initial support weights: '+fmt)

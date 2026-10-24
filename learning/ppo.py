@@ -56,7 +56,7 @@ def update(model, optimizer, records, bc_records=None, epochs=4, minibatch=256, 
     records = prepare(model, records, bc_records)
     if len({r['version'] for r in records}) != 1:
         raise ValueError('PPO batch must use one frozen policy version')
-    for key in ('reward_version', 'reward_formula_id', 'engine_id', 'rules_version', 'rng_version', 'combat_version'):
+    for key in ('reward_version', 'reward_formula_id', 'engine_id', 'rules_version', 'rng_version', 'combat_version', 'teacher_profile'):
         if len({r[key] for r in records}) != 1:
             raise ValueError('PPO batch mixes ' + key)
     if len({json.dumps(r['reward_config'], sort_keys=True) for r in records}) != 1:
