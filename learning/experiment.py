@@ -273,7 +273,17 @@ class FormatExperiment:
         if schedule.exists(): jobs=read_json(schedule)
         else: freeze_schedule(schedule,jobs)
         log=self.directory/'jobs.jsonl';existing={r['id']:r for r in read_log(log)}
-        pending=[j for j in jobs if j['id'] not in existing]
+        pending=[]
+        for job in jobs:
+            record=existing.get(job['id'])
+            if record is not None and record.get('status')!='infrastructure_error':
+                continue
+            # An unlogged or infrastructure-failed attempt may have left a shard.
+            # The batch was not committed, so discard that attempt before retrying.
+            shard=Path(job['shard'])
+            for path in (shard,shard.with_name(shard.name.replace('.jsonl.gz','.dagger.jsonl.gz'))):
+                if path.exists(): path.unlink()
+            pending.append(job)
         if pending: self.collector(pending,log)
         latest={r['id']:r for r in read_log(log)}
         return jobs,[latest[j['id']] for j in jobs if j['id'] in latest]

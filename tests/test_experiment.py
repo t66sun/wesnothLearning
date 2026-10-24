@@ -76,6 +76,30 @@ class ExperimentTests(unittest.TestCase):
             requests.close()
             for q in replies.values(): q.close()
 
+    def test_execute_retries_infrastructure_errors_and_discards_their_shards(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp);write_json(root/'manifest.json',{})
+            config=default_config()|dict(device='cpu')
+            manifest=dict(config=config,opponents=[dict(path='gpt6astra.zip')],baseline=dict(path='unused'))
+            clock=dict(started=1.,update_deadline=3000000000.,deadline=3000001000.)
+            with patch.object(FormatExperiment,'ensure_export',return_value='unused'), \
+                    patch('learning.rules_catalog.resolve_dir',return_value=root), \
+                    patch('learning.experiment.freeze_schedule',side_effect=lambda path,jobs: write_json(path,jobs)):
+                runner=FormatExperiment(root/'duel','duel',manifest,clock,None)
+                (root/'duel/schedules').mkdir(parents=True,exist_ok=True)
+                job=dict(id='job-1',shard=str(root/'job-1.jsonl.gz'),bots=['a','b'],deadline=clock['deadline'])
+                Path(job['shard']).write_bytes(b'old')
+                (root/'duel/jobs.jsonl').write_text(json.dumps(dict(id='job-1',status='infrastructure_error'))+'\n')
+                seen={}
+                def collect(pending,log):
+                    seen['exists']=Path(job['shard']).exists()
+                    with open(log,'a') as handle: handle.write(json.dumps(dict(id='job-1',status='complete'))+'\n')
+                runner.collector=collect
+                jobs,results=runner.execute([job],'retry')
+                self.assertFalse(seen['exists'])
+                self.assertEqual(results[0]['status'],'complete')
+                self.assertEqual(len((root/'duel/jobs.jsonl').read_text().splitlines()),2)
+
     def test_gates_fail_without_evidence(self):
         self.assertFalse(coverage_gate([])['passed']);self.assertFalse(opening_gate([])['passed'])
         c=dict(total=100,matched=90,kinds={k:dict(total=10,matched=8) for k in ('recruit','move','attack')})
