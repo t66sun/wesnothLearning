@@ -1,0 +1,4 @@
+DEPLOYED_ISOLATED_SOURCE /home/tongshu/myDev/wesnothLearning/validation_window_fix_20261024_1630 sole change learning/control.py
+ORIGINAL_MANIFEST_UNCHANGED 8ec090d7b5626a093695a5f94fb6a809f5d7bb0f252aaf49af73067cc0140569
+
+EXIT 0

@@ -1,0 +1,33 @@
+TIME 2026-10-24 16:39:14 CST
+LAUNCH {"pid": 202233, "pgid": 202233, "time": 1792830689.9557967, "source_root": "/home/tongshu/myDev/wesnothLearning/validation_window_fix_20261024_1630", "command": ["/home/tongshu/myDev/wesnothLearning/validation_window_fix_20261024_1630/.venv/bin/python", "-u", "/home/tongshu/myDev/wesnothLearning/validation_window_fix_20261024_1630/runs/v5_lite_windowfix_20261024_1630/continue_run.py"]}
+CLOCK {"started": 1792773314.067086, "deadline": 1792857600.0, "update_deadline": 1792843552.3445144}
+STATE duel {"stage": "ppo", "version": 104, "batch": 105, "optimizer_step": 1791.0, "advanced": true, "effective": true, "error": null, "pending_cursor": {"epoch": 0, "step": 0}, "pending_validation": null, "phase": "ppo", "phase_deadline": 1792843552.3447018}
+CONTROL duel {"config": {"bc_aux": 0.1, "control": 0.1, "economy": 0.15, "entropy": 0.01, "explore": 0.1, "gae_lambda": 0.95, "gamma": 1.0, "mode": "adaptive", "reward_formula_id": "v5-potential-1", "reward_version": 0}, "windows": 2, "pending_blocks": 13}
+NEW_RESULTS duel [{"id": "rollout-00103-duel-g1", "status": "complete", "error": null, "eligible": true}, {"id": "rollout-00103-duel-g0", "status": "complete", "error": null, "eligible": true}, {"id": "rollout-00103-duel-g2", "status": "complete", "error": null, "eligible": true}, {"id": "rollout-00103-duel-g3", "status": "complete", "error": null, "eligible": true}, {"id": "rollout-00104-duel-g0", "status": "complete", "error": null, "eligible": true}, {"id": "rollout-00104-duel-g3", "status": "complete", "error": null, "eligible": true}, {"id": "rollout-00104-duel-g2", "status": "complete", "error": null, "eligible": true}, {"id": "rollout-00104-duel-g1", "status": "complete", "error": null, "eligible": true}, {"id": "rollout-00105-duel-g0", "status": "complete", "error": null, "eligible": true}, {"id": "rollout-00105-duel-g2", "status": "complete", "error": null, "eligible": true}, {"id": "rollout-00105-duel-g1", "status": "complete", "error": null, "eligible": true}, {"id": "rollout-00105-duel-g3", "status": "complete", "error": null, "eligible": true}]
+STATE ffa4 {"stage": "ppo", "version": 102, "batch": 102, "optimizer_step": 1825.0, "advanced": true, "effective": false, "error": null, "pending_cursor": null, "pending_validation": null, "phase": "ppo", "phase_deadline": 1792843552.3445144}
+CONTROL ffa4 {"config": {"bc_aux": 0.1, "control": 0.1, "economy": 0.15, "entropy": 0.01, "explore": 0.1, "gae_lambda": 0.95, "gamma": 1.0, "mode": "adaptive", "reward_formula_id": "v5-potential-1", "reward_version": 0}, "windows": 1, "pending_blocks": 8}
+NEW_RESULTS ffa4 [{"id": "rollout-00100-ffa4-g1", "status": "complete", "error": null, "eligible": true}, {"id": "rollout-00100-ffa4-g0", "status": "complete", "error": null, "eligible": true}, {"id": "rollout-00100-ffa4-g3", "status": "complete", "error": null, "eligible": true}, {"id": "rollout-00100-ffa4-g2", "status": "complete", "error": null, "eligible": true}, {"id": "rollout-00101-ffa4-g0", "status": "complete", "error": null, "eligible": true}, {"id": "rollout-00101-ffa4-g3", "status": "complete", "error": null, "eligible": true}, {"id": "rollout-00101-ffa4-g2", "status": "complete", "error": null, "eligible": true}, {"id": "rollout-00101-ffa4-g1", "status": "complete", "error": null, "eligible": true}, {"id": "rollout-00102-ffa4-g2", "status": "complete", "error": null, "eligible": true}, {"id": "rollout-00102-ffa4-g0", "status": "complete", "error": null, "eligible": true}, {"id": "rollout-00102-ffa4-g3", "status": "complete", "error": null, "eligible": true}]
+STATE team2v2 {"stage": "ppo", "version": 60, "batch": 60, "optimizer_step": 746.0, "advanced": false, "effective": false, "error": null, "pending_cursor": null, "pending_validation": null, "phase": "ppo", "phase_deadline": 1792843552.3445144}
+CONTROL team2v2 {"config": {"bc_aux": 0.1, "control": 0.1, "economy": 0.15, "entropy": 0.01, "explore": 0.1, "gae_lambda": 0.95, "gamma": 1.0, "mode": "adaptive", "reward_formula_id": "v5-potential-1", "reward_version": 0}, "windows": 0, "pending_blocks": 3}
+NEW_RESULTS team2v2 [{"id": "rollout-00060-team2v2-g2", "status": "complete", "error": null, "eligible": true}, {"id": "rollout-00060-team2v2-g0", "status": "complete", "error": null, "eligible": true}, {"id": "rollout-00060-team2v2-g3", "status": "complete", "error": null, "eligible": true}]
+GROUP [202233, 202234, 202235, 202236, 202237, 202238, 202240, 202243, 202244, 202245, 202247, 202248, 202249, 202250] PSS_GIB 6.166153907775879
+MEMORY                total        used        free      shared  buff/cache   available
+Mem:           15827        7777         418          12        7980        8050
+Swap:           4095         174        3921
+
+SCHEDULER {"time": 1792831099.728724, "event": "start", "format": "duel", "id": "rollout-00105-duel-g1", "active": 7}
+{"time": 1792831099.7287483, "event": "start", "format": "duel", "id": "rollout-00105-duel-g2", "active": 8}
+{"time": 1792831106.9241385, "event": "finish", "format": "duel", "id": "rollout-00105-duel-g0", "active": 7}
+{"time": 1792831106.9242682, "event": "start", "format": "duel", "id": "rollout-00105-duel-g3", "active": 8}
+{"time": 1792831108.6060584, "event": "finish", "format": "duel", "id": "rollout-00105-duel-g2", "active": 7}
+{"time": 1792831118.6726866, "event": "finish", "format": "ffa4", "id": "rollout-00102-ffa4-g2", "active": 6}
+{"time": 1792831118.7767923, "event": "finish", "format": "duel", "id": "rollout-00105-duel-g1", "active": 5}
+{"time": 1792831142.1319344, "event": "finish", "format": "duel", "id": "rollout-00105-duel-g3", "active": 4}
+{"time": 1792831143.7366886, "event": "finish", "format": "ffa4", "id": "rollout-00102-ffa4-g0", "active": 3}
+{"time": 1792831146.7855062, "event": "finish", "format": "ffa4", "id": "rollout-00102-ffa4-g3", "active": 2}
+WRAPPER_LOG 
+EXIT_FILE False
+PARENT_UNCHANGED True
+PARENT_LATEST_HASHES_UNCHANGED True
+
+EXIT 0
