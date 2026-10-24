@@ -1,0 +1,21 @@
+version 1.18.8
+userdata C:\Users\Toshu\OneDrive\文档\My Games\Wesnoth1.18
+  --noreplaycheck                 don't try to validate replay of unit test.
+  -S [ --use-schema ] arg         specify a schema to validate WML against 
+  -V [ --validate ] arg           validate a specified WML file against a 
+  --validate-addon addon_id       validate the specified addon's WML against 
+  --validate-core                 validate the core WML against the schema.
+  --validate-schema arg           validate a specified WML schema. Implies 
+  -D [ --diff ] arg               diff two preprocessed WML documents. Implies 
+  -P [ --patch ] arg              apply a patch to a preprocessed WML document.
+  -p [ --preprocess ] arg         requires two arguments: <file/folder> <target
+                                  file/folder. The preprocessed file(s) will be
+  --preprocess-defines arg        comma separated list of defines to be used by
+                                  '--preprocess' command. If 'SKIP_CORE' is in 
+                                  preprocessed. Example: --preprocess-defines=F
+  --preprocess-input-macros arg   used only by the '--preprocess' command. 
+                                  preprocessing.
+  --preprocess-output-macros arg  used only by the '--preprocess' command. Will
+                                  output all preprocessed macros in the target 
+                                  target directory of preprocess's command.
+exit 0

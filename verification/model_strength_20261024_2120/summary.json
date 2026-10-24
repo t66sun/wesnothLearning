@@ -1,0 +1,566 @@
+{
+  "status": "finished",
+  "formats": {
+    "duel": {
+      "format": "duel",
+      "status": "not_passed",
+      "controls": {
+        "gpt6astra": {
+          "status": "not_passed",
+          "blocks": 30,
+          "planned_blocks": 30,
+          "missing_blocks": 0,
+          "fault_games": 0,
+          "block_differences": {
+            "0": -3,
+            "1": 0,
+            "2": 0.0,
+            "3": -3,
+            "4": -3,
+            "5": -1.5,
+            "6": -1.5,
+            "7": -3,
+            "8": 0.0,
+            "9": -3,
+            "10": -1.5,
+            "11": 0.0,
+            "12": -3,
+            "13": -1.5,
+            "14": 0.0,
+            "15": -3,
+            "16": 0,
+            "17": -1.5,
+            "18": 0,
+            "19": -3,
+            "20": 0.0,
+            "21": -3,
+            "22": -1.5,
+            "23": -3,
+            "24": -1.5,
+            "25": 1.5,
+            "26": 0.0,
+            "27": -3,
+            "28": -3,
+            "29": -1.5
+          },
+          "difference": -1.55,
+          "interval95": [
+            -2.05,
+            -1.05
+          ],
+          "policy_score": 0.6,
+          "control_score": 2.15,
+          "contexts": {
+            "solo": {
+              "difference": -1.55,
+              "interval95": [
+                -2.05,
+                -1.05
+              ],
+              "blocks": 30
+            }
+          }
+        }
+      },
+      "selected_kind": "ppo",
+      "pretraining_complete": true,
+      "bc_games_collected": 300,
+      "bc_games_required": 300,
+      "version": 100,
+      "evaluation_engine": "lite",
+      "evaluation_scope": "lite Astra comparison only; not native Wesnoth playing strength",
+      "checkpoint": "/home/tongshu/myDev/wesnothLearning/validation_window_fix_20261024_1630/runs/v5_lite_windowfix_20261024_1630/duel/selected.pt",
+      "checkpoint_sha256": "ff2298f86f49726a36bcbf3a6f58142d796d5ed167466a69449ea25988c70c00",
+      "parameters": 776178,
+      "feature_version": 5,
+      "error": null,
+      "clock": {
+        "started": 1792773314.067086,
+        "deadline": 1792857600.0,
+        "update_deadline": 1792843552.3445144
+      },
+      "forced_ppo": null,
+      "phase_history": [
+        {
+          "deadline": 1792843552.3447018,
+          "force": false,
+          "id": "43667310d7dc4f38ab6f330afcbee4ce",
+          "phase": "ppo",
+          "reason": "Authorized best-checkpoint continuation with fixed reward windows and midnight deadline",
+          "requested_at": 1792830580.6740224,
+          "previous_phase": "auto",
+          "pretraining_complete": true,
+          "applied_at": 1792830692.0803933
+        },
+        {
+          "deadline": null,
+          "force": false,
+          "id": "8540865a4ce54183bbcc0eba25ced7b8",
+          "phase": "evaluate",
+          "reason": "Authorized continuation: PPO complete, enter final acceptance within 00:00 deadline",
+          "requested_at": 1792843581.8986082,
+          "previous_phase": "ppo",
+          "pretraining_complete": true,
+          "applied_at": 1792843584.0752416
+        }
+      ],
+      "bc_gate": {
+        "imitation": {
+          "effective": true,
+          "formats": {
+            "duel": {
+              "samples": 975,
+              "cross_entropy": 1.27114560347337,
+              "uniform_entropy": 4.392271247517022,
+              "kinds": {
+                "recruit": {
+                  "samples": 162,
+                  "correct": 120,
+                  "accuracy": 0.7407407407407407
+                },
+                "move": {
+                  "samples": 338,
+                  "correct": 282,
+                  "accuracy": 0.834319526627219
+                },
+                "attack": {
+                  "samples": 401,
+                  "correct": 210,
+                  "accuracy": 0.5236907730673317
+                }
+              },
+              "accuracy": 0.6964102564102564,
+              "uniform_accuracy": 0.015996951333184257,
+              "effective": true
+            }
+          }
+        },
+        "coverage": {
+          "passed": true,
+          "actions": {
+            "all": {
+              "matched": 34279,
+              "total": 34833,
+              "ratio": 0.98409554158413
+            },
+            "recruit": {
+              "matched": 5073,
+              "total": 5136,
+              "ratio": 0.9877336448598131
+            },
+            "move": {
+              "matched": 15594,
+              "total": 15665,
+              "ratio": 0.9954676029364826
+            },
+            "attack": {
+              "matched": 9838,
+              "total": 10258,
+              "ratio": 0.9590563462663287
+            }
+          }
+        },
+        "corpus": {
+          "games": 300,
+          "required": 300,
+          "passed": true
+        },
+        "opening": {
+          "passed": true,
+          "games": [
+            {
+              "left_castle": true,
+              "village": true,
+              "reasonable_end": true
+            },
+            {
+              "left_castle": true,
+              "village": true,
+              "reasonable_end": true
+            },
+            {
+              "left_castle": true,
+              "village": true,
+              "reasonable_end": true
+            },
+            {
+              "left_castle": true,
+              "village": true,
+              "reasonable_end": true
+            }
+          ]
+        },
+        "passed": true
+      }
+    },
+    "ffa4": {
+      "format": "ffa4",
+      "status": "not_passed",
+      "controls": {
+        "gpt6astra": {
+          "status": "not_passed",
+          "blocks": 30,
+          "planned_blocks": 30,
+          "missing_blocks": 0,
+          "fault_games": 0,
+          "block_differences": {
+            "0": -0.41666666666666663,
+            "1": -0.375,
+            "2": 0.2916666666666667,
+            "3": -0.41666666666666663,
+            "4": -0.08333333333333337,
+            "5": -0.5833333333333334,
+            "6": -0.16666666666666674,
+            "7": -0.12499999999999994,
+            "8": -0.16666666666666674,
+            "9": -0.08333333333333337,
+            "10": -5.551115123125783e-17,
+            "11": 0.0,
+            "12": 0.08333333333333337,
+            "13": -0.25,
+            "14": -0.5,
+            "15": -0.25,
+            "16": 0.125,
+            "17": -0.5,
+            "18": -0.20833333333333326,
+            "19": 0.5416666666666667,
+            "20": 0.08333333333333331,
+            "21": -0.20833333333333337,
+            "22": 0.16666666666666663,
+            "23": -0.37499999999999994,
+            "24": 0.2916666666666667,
+            "25": 0.3333333333333333,
+            "26": 0.04166666666666663,
+            "27": -0.3333333333333333,
+            "28": -0.33333333333333337,
+            "29": -0.04166666666666663
+          },
+          "difference": -0.11527777777777778,
+          "interval95": [
+            -0.21111111111111114,
+            -0.016666666666666663
+          ],
+          "policy_score": 0.47777777777777775,
+          "control_score": 0.5930555555555556,
+          "contexts": {
+            "solo": {
+              "difference": -0.11527777777777777,
+              "interval95": [
+                -0.2111111111111111,
+                -0.016666666666666666
+              ],
+              "blocks": 30
+            }
+          }
+        }
+      },
+      "selected_kind": "ppo",
+      "pretraining_complete": false,
+      "bc_games_collected": 504,
+      "bc_games_required": 600,
+      "version": 100,
+      "evaluation_engine": "lite",
+      "evaluation_scope": "lite Astra comparison only; not native Wesnoth playing strength",
+      "checkpoint": "/home/tongshu/myDev/wesnothLearning/validation_window_fix_20261024_1630/runs/v5_lite_windowfix_20261024_1630/ffa4/selected.pt",
+      "checkpoint_sha256": "fbf7d683618e4b79c61f8529bc2d6f56e4b551bfecabfdd43b6431dfdfe85e3d",
+      "parameters": 776178,
+      "feature_version": 5,
+      "error": null,
+      "clock": {
+        "started": 1792773314.067086,
+        "deadline": 1792857600.0,
+        "update_deadline": 1792843552.3445144
+      },
+      "forced_ppo": {
+        "reason": "scheduled 08:00 override: BC gate not met, user asked for switch per instructions.md",
+        "command_id": "e77b9a5b6b89466898c9c189fec26939",
+        "version": 63
+      },
+      "phase_history": [
+        {
+          "deadline": 1792827023.3913438,
+          "force": true,
+          "id": "e77b9a5b6b89466898c9c189fec26939",
+          "phase": "ppo",
+          "reason": "scheduled 08:00 override: BC gate not met, user asked for switch per instructions.md",
+          "requested_at": 1792800023.3913438,
+          "previous_phase": "auto",
+          "pretraining_complete": false,
+          "applied_at": 1792800421.0077257
+        },
+        {
+          "deadline": null,
+          "force": false,
+          "id": "9ecc2f910fc648628b9adbb86cc79db8",
+          "phase": "evaluate",
+          "reason": "Authorized continuation: PPO complete, enter final acceptance within 00:00 deadline",
+          "requested_at": 1792843581.8986082,
+          "previous_phase": "ppo",
+          "pretraining_complete": false,
+          "applied_at": 1792843584.0276628
+        }
+      ],
+      "bc_gate": {
+        "imitation": {
+          "effective": true,
+          "formats": {
+            "ffa4": {
+              "samples": 950,
+              "cross_entropy": 1.4417101729543587,
+              "uniform_entropy": 4.457536345198972,
+              "kinds": {
+                "recruit": {
+                  "samples": 107,
+                  "correct": 65,
+                  "accuracy": 0.6074766355140186
+                },
+                "move": {
+                  "samples": 376,
+                  "correct": 224,
+                  "accuracy": 0.5957446808510638
+                },
+                "attack": {
+                  "samples": 339,
+                  "correct": 140,
+                  "accuracy": 0.41297935103244837
+                }
+              },
+              "accuracy": 0.5726315789473684,
+              "uniform_accuracy": 0.015211500968724131,
+              "effective": true
+            }
+          }
+        },
+        "coverage": {
+          "passed": true,
+          "actions": {
+            "all": {
+              "matched": 127539,
+              "total": 130820,
+              "ratio": 0.9749197370432655
+            },
+            "recruit": {
+              "matched": 11303,
+              "total": 11423,
+              "ratio": 0.9894948787533923
+            },
+            "move": {
+              "matched": 56055,
+              "total": 56113,
+              "ratio": 0.9989663714290806
+            },
+            "attack": {
+              "matched": 41631,
+              "total": 44734,
+              "ratio": 0.9306344167747127
+            }
+          }
+        },
+        "corpus": {
+          "games": 504,
+          "required": 600,
+          "passed": false
+        },
+        "opening": {
+          "passed": false
+        }
+      }
+    },
+    "team2v2": {
+      "format": "team2v2",
+      "status": "not_passed",
+      "controls": {
+        "gpt6astra": {
+          "status": "not_passed",
+          "blocks": 30,
+          "planned_blocks": 30,
+          "missing_blocks": 0,
+          "fault_games": 0,
+          "block_differences": {
+            "0": 0.375,
+            "1": -2.25,
+            "2": -1.5,
+            "3": -1.5,
+            "4": -1.875,
+            "5": -1.5,
+            "6": -1.875,
+            "7": 0.0,
+            "8": -2.25,
+            "9": -1.5,
+            "10": -0.75,
+            "11": 0.0,
+            "12": -1.125,
+            "13": -0.375,
+            "14": -0.75,
+            "15": -1.125,
+            "16": -1.125,
+            "17": -1.5,
+            "18": 0.0,
+            "19": -1.5,
+            "20": -1.5,
+            "21": -3,
+            "22": -0.75,
+            "23": -0.75,
+            "24": -1.875,
+            "25": -0.375,
+            "26": -1.5,
+            "27": -1.5,
+            "28": -0.75,
+            "29": -1.125
+          },
+          "difference": -1.175,
+          "interval95": [
+            -1.4375,
+            -0.9
+          ],
+          "policy_score": 0.7333333333333333,
+          "control_score": 1.9083333333333334,
+          "contexts": {
+            "astra_partner": {
+              "difference": -0.95,
+              "interval95": [
+                -1.275,
+                -0.625
+              ],
+              "blocks": 30
+            },
+            "self_team": {
+              "difference": -1.4,
+              "interval95": [
+                -1.75,
+                -1.05
+              ],
+              "blocks": 30
+            }
+          }
+        }
+      },
+      "selected_kind": "ppo",
+      "pretraining_complete": false,
+      "bc_games_collected": 328,
+      "bc_games_required": 400,
+      "version": 80,
+      "evaluation_engine": "lite",
+      "evaluation_scope": "lite Astra comparison only; not native Wesnoth playing strength",
+      "checkpoint": "/home/tongshu/myDev/wesnothLearning/validation_window_fix_20261024_1630/runs/v5_lite_windowfix_20261024_1630/team2v2/selected.pt",
+      "checkpoint_sha256": "837b90f15d1ee3e9c04b79eea8e16ac100b8664b221901e6f1f95a5747a918b8",
+      "parameters": 776178,
+      "feature_version": 5,
+      "error": null,
+      "clock": {
+        "started": 1792773314.067086,
+        "deadline": 1792857600.0,
+        "update_deadline": 1792843552.3445144
+      },
+      "forced_ppo": {
+        "reason": "scheduled 08:00 override: BC gate not met, user asked for switch per instructions.md",
+        "command_id": "09eceeaa3d0c4942aea1be095ac123fb",
+        "version": 41
+      },
+      "phase_history": [
+        {
+          "deadline": 1792827023.3913438,
+          "force": true,
+          "id": "09eceeaa3d0c4942aea1be095ac123fb",
+          "phase": "ppo",
+          "reason": "scheduled 08:00 override: BC gate not met, user asked for switch per instructions.md",
+          "requested_at": 1792800023.3913438,
+          "previous_phase": "auto",
+          "pretraining_complete": false,
+          "applied_at": 1792800414.1211102
+        },
+        {
+          "deadline": null,
+          "force": false,
+          "id": "3eada44e2d8845748e91d58e8e78d5d9",
+          "phase": "evaluate",
+          "reason": "Authorized continuation: PPO complete, enter final acceptance within 00:00 deadline",
+          "requested_at": 1792843581.8986082,
+          "previous_phase": "ppo",
+          "pretraining_complete": false,
+          "applied_at": 1792843584.1178913
+        }
+      ],
+      "bc_gate": {
+        "imitation": {
+          "effective": false,
+          "formats": {
+            "team2v2": {
+              "samples": 651,
+              "cross_entropy": 1.4645184840657928,
+              "uniform_entropy": 4.456078603427878,
+              "kinds": {
+                "recruit": {
+                  "samples": 29,
+                  "correct": 15,
+                  "accuracy": 0.5172413793103449
+                },
+                "move": {
+                  "samples": 461,
+                  "correct": 280,
+                  "accuracy": 0.6073752711496746
+                },
+                "attack": {
+                  "samples": 85,
+                  "correct": 12,
+                  "accuracy": 0.1411764705882353
+                }
+              },
+              "accuracy": 0.576036866359447,
+              "uniform_accuracy": 0.014500265583114836,
+              "effective": false
+            }
+          }
+        },
+        "coverage": {
+          "passed": true,
+          "actions": {
+            "all": {
+              "matched": 136289,
+              "total": 138159,
+              "ratio": 0.9864648701858004
+            },
+            "recruit": {
+              "matched": 6928,
+              "total": 6944,
+              "ratio": 0.9976958525345622
+            },
+            "move": {
+              "matched": 93017,
+              "total": 93584,
+              "ratio": 0.9939412720123098
+            },
+            "attack": {
+              "matched": 20589,
+              "total": 21876,
+              "ratio": 0.9411684037301152
+            }
+          }
+        },
+        "corpus": {
+          "games": 328,
+          "required": 400,
+          "passed": false
+        },
+        "opening": {
+          "passed": false
+        }
+      }
+    }
+  },
+  "clock": {
+    "started": 1792773314.067086,
+    "deadline": 1792857600.0,
+    "update_deadline": 1792843552.3445144
+  },
+  "scheduler": {
+    "workers": 8,
+    "peak_native_games": 8,
+    "exit_codes": {
+      "duel": 0,
+      "ffa4": 0,
+      "team2v2": 0
+    }
+  },
+  "delivery": "pending_explicit_export_with_sequence_audit"
+}

@@ -1,0 +1,5 @@
+EXPOSURE duel batches 111 actual 389 planned_estimate 928 fraction 0.4191810344827586 last [(208, 3, 8), (209, 3, 8), (210, 4, 8), (211, 7, 8)]
+EXPOSURE ffa4 batches 43 actual 211 planned_estimate 708 fraction 0.2980225988700565 last [(139, 10, 20), (140, 9, 32), (141, 6, 16), (142, 3, 16)]
+EXPOSURE team2v2 batches 20 actual 85 planned_estimate 448 fraction 0.18973214285714285 last [(76, 6, 24), (77, 3, 24), (78, 2, 20), (79, 2, 20)]
+
+EXIT 0

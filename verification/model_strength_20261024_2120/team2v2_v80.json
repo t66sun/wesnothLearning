@@ -1,0 +1,41 @@
+{
+  "tier": "trend",
+  "engine_id": "lite",
+  "comparison": {
+    "team2v2": {
+      "status": "not_passed",
+      "blocks": 1,
+      "planned_blocks": 1,
+      "missing_blocks": 0,
+      "fault_games": 0,
+      "block_differences": {
+        "0": -1.5
+      },
+      "difference": -1.5,
+      "interval95": [
+        -1.5,
+        -1.5
+      ],
+      "policy_score": 0.625,
+      "control_score": 2.125,
+      "contexts": {
+        "astra_partner": {
+          "difference": 0,
+          "interval95": [
+            0,
+            0
+          ],
+          "blocks": 1
+        },
+        "self_team": {
+          "difference": -3,
+          "interval95": [
+            -3,
+            -3
+          ],
+          "blocks": 1
+        }
+      }
+    }
+  }
+}

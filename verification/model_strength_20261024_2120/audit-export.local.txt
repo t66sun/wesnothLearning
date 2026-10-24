@@ -1,0 +1,4 @@
+AUDIT duel {'rows': 8, 'turns': [1, 2], 'full_candidates': True, 'python_lua_max_error': 7.744235904993957e-06}
+AUDIT ffa4 {'rows': 8, 'turns': [1, 2], 'full_candidates': True, 'python_lua_max_error': 4.2190049480694825e-06}
+AUDIT team2v2 {'rows': 8, 'turns': [1, 2], 'full_candidates': True, 'python_lua_max_error': 1.685285155872407e-06}
+EXPORTED delivery\lite_final_20261024\NeuralArena20261024

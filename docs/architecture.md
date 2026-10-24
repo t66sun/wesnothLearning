@@ -40,6 +40,8 @@ On the user's next instruction, the former continuation was stopped at 16:21:48 
 
 At 16:41:14 the deployed continuation has committed PPO updates in all formats: duel v105 / 1795 optimizer steps, FF4 v103 / 1828, team2v2 v61 / 756, with error=null. See the [completed deployment check](../verification/window_deploy_20261024_1620/HANDOFF_1642.md).
 
+The continuation completed normally at **20:42:45 on 2026-10-24**, exit code 0, with all 30 final blocks per format. Latest trained versions are duel/FFA4/2v2 **211/143/80**; final selection retained **100/100/80**. All lite Astra comparisons are **not_passed**, with score differences -1.55/-.11528/-1.175 and 95% intervals wholly below zero. Final models are downloaded to `delivery/lite_final_20261024/` and installed as the separate local add-on **NeuralArena20261024**; old installed models remain. Three real two-turn export audits pass the existing 1e-5 Python/Lua threshold, and native 1.18.8 registration preprocessing succeeds; native playing strength remains untested. The [strength review](../verification/model_strength_20261024_2120/REPORT.md) records incomplete FFA4/2v2 BC, bounded-read underfill, frequent micro-chunk KL stops and exact duel v110/v200 weight duplication after rollback. No training fix or reward tuning was made during this review; T6 remains pending. The historical startup snapshots above do not mean a process is still active.
+
 ## 2. Overall structure and responsibilities
 
 ```mermaid

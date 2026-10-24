@@ -1,0 +1,5 @@
+DUPLICATE duel 110 source ../validation_training_repair_20261023_194022/runs/v5_lite18h_20261024_003512/duel/policies/v000110-greedy/model.pt all_tensors_equal True max_difference 0.0
+DUPLICATE duel 200 source ../validation_training_repair_20261023_194022/runs/v5_lite18h_20261024_003512/duel/policies/v000200-greedy/model.pt all_tensors_equal True max_difference 0.0
+DUPLICATE ffa4 110 source ../validation_memory_repair_20261024_1321/runs/v5_lite_resume_20261024_1420/ffa4/policies/v000110-greedy/model.pt all_tensors_equal False max_difference 0.010322317481040955
+
+EXIT 0
