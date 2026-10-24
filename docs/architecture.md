@@ -10,7 +10,7 @@ Status meanings: **implemented** means usable code and the corresponding entry p
 
 - Train three independent models: `duel`, `ffa4` and `team2v2`. Parameters, optimizers, RNG state, memory, reward controllers, data and historical policy pools are isolated per format.
 - High-frequency sampling targets the self-owned Rust lite engine; native Wesnoth **1.18.8** keeps migration audits, native play-strength evaluation and the final deployment entry. This round of formal experiments used lite only, per user instruction.
-- The final game AI runs pure Lua inference with three independent weight sets and depends at runtime on no Python, Rust, CUDA or external inference process.
+- The current installed AI uses pure Lua inference with three independent weight sets. The user also accepts a separate inference engine with Lua as the game adapter; pure Lua is no longer a mandatory delivery constraint. The external-engine route is planned, not implemented or validated; its protocol must expose only legal public observations and candidates (section 10).
 - Priority order: legal deployment with no hidden-information leakage → per-game wall time and CPU efficiency → core combat semantics → faithful reproduction of secondary mechanics. Documented approximations are allowed; unit/terrain types are not deleted to fake coverage, and scripted abilities are not treated as ordinary attacks.
 - The only self-written teacher / fixed self-written opponent is Astra. The official RCA baseline is available only in native; lite uses Astra, same-format historical policies and the current policy, and does not invent cheap baselines.
 - A general campaign WML/Lua interpreter, third-party eras, GUI, animation, audio, networking and replay rendering are outside the lite runtime scope.
@@ -236,9 +236,9 @@ The existing old frozen-package regular, single-worker, 30-full-rotation-block b
 
 ### 7.3 Native delivery
 
-PyTorch → pure Lua export, three-format routing, checkpoint loading and continuous-sequence numeric audit entries are implemented. `weights_duel.lua`, `weights_ffa4.lua` and `weights_team2v2.lua` are emitted separately, the matching weights are selected and cached at game start, other-player-count FFA may reuse ffa4 without a strength claim, and other team relationships need explicit handling. Small closed-loop checkpoints already show about 2.3e-8 maximum Python/Lua error; the 128-candidate/continuous-memory audit on formal long-training weights has not run.
+PyTorch → pure Lua export, three-format routing, checkpoint loading and continuous-sequence numeric audit entries are implemented. `weights_duel.lua`, `weights_ffa4.lua` and `weights_team2v2.lua` are emitted separately, the matching weights are selected and cached at game start, other-player-count FFA may reuse ffa4 without a strength claim, and other team relationships need explicit handling. Small closed-loop checkpoints already show about 2.3e-8 maximum Python/Lua error. The 2026-10-24 final weights passed a minimal real two-turn/128-candidate audit (<1e-5), not a long native-game deployment audit; see the [installation record](../verification/model_strength_20261024_2120/REPORT.md). A separate inference engine with a Lua adapter is an accepted design option, with its implementation and acceptance planned in section 10.
 
-The final package currently exceeds the original SDK 16 MiB limit. The user is temporarily ignoring that package limit and the strict 1pp/0.5 HP statistical gates as a current blocker; ignoring is not resolving, and the official production SDK must not be quietly relaxed. There is still no final model package, no formal native strength conclusion and no replacement of the installed AI.
+The three-model local add-on exceeds the original SDK 16 MiB limit and was installed as a separate local package on 2026-10-24, retaining previous installed models. It is not an accepted competition submission. The user temporarily ignores that package limit and the strict 1pp/0.5 HP statistical gates as current blockers; the official SDK remains unchanged. There is no formal native strength conclusion. External-engine delivery has its own proposed local package contract in section 10 and cannot be labelled SDK-compatible without separate evidence.
 
 Reference projects are design comparisons only; unlicensed code is not copied. Native semantics follow the fixed 1.18.8 build/data; if GPL code is actually ported, applicable copyright, license and corresponding source are retained, and the whole delivery cannot be blanket-labelled as project-owned MIT.
 
@@ -266,7 +266,7 @@ This section is a status summary; accepted scope and evidence are in the [histor
 | Formal maps | Added the 10 frozen native maps and the 147 missing composite terrains; all map terrain coverage and format checks pass |
 | Full-pipeline performance | Not done: end-to-end equal work, dense, concurrency and audit-inclusive costs still lack evidence |
 | Production corpus and long training | Read-memory gap fixed, historical 42 min loopback peak PSS 6.4 GiB; historical replay and batch-tensor optimizations passed 10 minimal tests, real micro-batch output/gradient comparison in all three formats and BC update/checkpoint readback. The old 18000-game pure lite / 18 h experiment is stopped; the 1300-game formal experiment failed under schema 4, and schema 5 formal training and convergence are unfinished |
-| Final native evaluation/delivery | Not executed; package limits temporarily ignored, no claim of beating Astra or strong humans |
+| Final native evaluation/delivery | Native strength not evaluated; final lite models installed locally on 2026-10-24 with bounded numeric/registration checks. External-engine delivery is planned only; no claim of beating Astra or strong humans |
 
 Ordinary training wiring and short-game chains are complete; the high-memory problem exposed by formal runs is fixed and passed real loopback acceptance, with evidence in the archive reports above; the latest pure lite formal experiment failed, see section 1. Full-pipeline performance and formal strength still need real experiment evidence; peripheral campaigns and costly full semantics keep explicit limits and are not expanded into a general WML engine by default.
 
@@ -303,3 +303,237 @@ tmp/                       scratch space; nothing here is evidence
 `data/` groups every captured input, so the source tree has one directory for material that can be re-provisioned. The 2026-10-24 move put `rules/`, `datasets/`, `humanData*`, `opponents/` and `references/` under it, and the defaults, CLI help, tests and instructions follow that layout. `verification/`, `delivery/`, `runs/` and `tmp/` stay at the root because frozen reports, run manifests and hashes record those exact paths; moving them would break the audit trail.
 
 Each English doc has a `_zh` mirror beside it (`docs/architecture_zh.md`, module docs such as `engine_lite/README_zh.md`); edits update both in the same change. When adding features, changing parameters or completing acceptance, update the corresponding responsibility row, status and evidence links in this file; TEST.md keeps only implemented-but-unaccepted items and minimal plans. Real commands, results, version/rule hashes go into dated verification reports, and an accepted item is deleted from TEST.md as a whole; the maintenance rules are in the root AGENTS.md. Sync instructions.md when run entries or maintenance flows change. Run only the minimal checks this change requires and that have not already passed; retest accepted items only when the corresponding sources/data changed or a new failure makes it relevant. Historical reports keep their original dates and hashes and are not rewritten as new acceptance. `docs/` keeps only these maintained entries; detailed logs and research data belong in the corresponding code directory or `verification/`, avoiding parallel plans and status files.
+
+## 10. Detailed training and delivery refactor plan — NOT IMPLEMENTED
+
+### 10.1 Decision, authority and intended outcome
+
+This section is the maintained plan, replacing the short proposal in section 1 for implementation decisions. The user explicitly stopped implementation and requested a detailed document first. **Only this document is being changed; P1–P6 have not started.** Writing this plan authorizes neither implementation, server access, collection, optimization experiments nor formal training. Existing source, installed models and frozen runs remain as they were at `a869e95d79faf267362af2374ae1c794777f2a13`.
+
+The user also accepts **a standalone inference engine with Lua as the game adapter**. Pure Lua remains the current working delivery, rather than a mandatory target for every future network. External inference feasibility and packaging are a separate workstream; they are not prerequisites for correcting BC/PPO. No backend, IPC mechanism or new model architecture is claimed implemented by this decision.
+
+The intended outcomes are concrete:
+
+1. A caller can see how much valid teacher data actually entered BC and why a requested batch was underfilled.
+2. A PPO epoch has an inspectable window plan; visited samples, applied updates, KL rejection and deadline cancellation are counted separately.
+3. Computation microbatch size controls memory rather than silently defining the statistical batch or changing the stop rule.
+4. Recovery continues the saved experiment, a branch explicitly changes its future plan, and final evaluation tests one frozen selected candidate.
+5. Training and deployment can use the same tensor model through an external engine, provided ordinary Wesnoth 1.18.8 can support the required Lua bridge.
+
+These are structural and correctness goals. No specific convergence gain, throughput multiplier or Astra victory is promised. Strength still requires the original complete comparison panels.
+
+### 10.2 Baseline, preserved contracts and exclusions
+
+Use the [final-run review](../verification/model_strength_20261024_2120/REPORT.md) as the frozen baseline, not a newly sampled corpus: selected versions 100/100/80, final scores below Astra, 2v2 BC attack accuracy 12/85, BC rehearsal read median about 550/2048, frequent KL stops, and identical old/new duel v110/v200 weights after restoring v100. These are separate observations, not proof of a single root cause.
+
+Preserve during P1–P5:
+
+- Lite rules and their hash; legal public observations; candidate ordering, action semantics and 128-candidate cap; teacher identity; feature schema 5 and the current model architecture.
+- Three independent format models, optimizers, RNGs, histories and controllers; shared 8-worker collection and 1 trainer thread. Do not add a second game pool or permanent loader workers.
+- Existing 300/600/400 valid teacher-game targets, zero native anchors, four update epochs, BC/PPO learning rates 3e-4/1e-4, PPO clip .2, gradient clip .5, current reward coefficients and BC gates. New configuration names may expose existing effective quantities without silently changing them.
+- Complete raw legal prefixes, first committed observation per own turn, read-only teacher queries, genuine termination versus truncation, bootstrap validity and family-level train/validation separation.
+- Frozen manifest/source checks, input provenance, the existing evaluation block requirements and confidence-based champion checks. A failed or incomplete check is not repaired by lowering its threshold.
+
+Not in this refactor: rule-engine semantics, new rewards, increasing teacher-game counts, expanding the network, changing to a different RL algorithm, full corpus re-encoding, generic plugin systems or broad benchmark matrices. New model research can be proposed separately once the delivery constraint is relaxed.
+
+### 10.3 Target responsibilities and interfaces
+
+```mermaid
+flowchart TD
+    Orchestrator[FormatExperiment: phases, budgets, gates] --> Data[Sequence loading and batch planning]
+    Data --> BC[BC update]
+    Data --> PPO[PPO epoch plan and update]
+    BC --> State[Complete checkpoint plus update cursor]
+    PPO --> State
+    State --> Select[Validation candidate and champion selection]
+    Select --> Holdout[One frozen final holdout]
+    Select --> Package[Current Lua package or planned inference engine]
+```
+
+| Responsibility | Current owner | Planned owner and small interface |
+| --- | --- | --- |
+| Compatibility entry | `learning/train.py` | Keep `train`, `checkpoint`, `restore_rng`, quality/auxiliary entry imports available; dispatch to the owning modules |
+| BC objective and update | BC branches inside `train.py` | `learning/bc.py`: update one planned BC input and return update metrics |
+| PPO objective and update | PPO branches inside `train.py` | `learning/ppo.py`: update a frozen on-policy rollout using an explicit epoch plan |
+| Shared update mechanics | Mixed into `train.py` | Small private helpers for weighted accumulation/counters; add a module only if both learners really share it |
+| Raw sequence storage/replay | `learning/sequences.py` | Retain raw prefix/index ownership; extract bounded batch planning only when its own inputs/outputs become clearer |
+| Recovery state | `train.py`, `experiment.py`, external continuation scripts | `learning/checkpoints.py` for serialization/restore invariants; orchestration still owns phases and deadlines |
+| Promotion and final nomination | `FormatExperiment.validate_model/final_evaluation` | A focused selection module/helper; `FormatExperiment` retains scheduling and the established collector |
+| Optional external inference | No production delivery implementation | A later `learning/inference/` package and a small Lua adapter, only after P6a feasibility |
+
+Names are implementation destinations, not an instruction to create empty classes. Keep each changed source below 1000 lines and avoid editing the grandfathered large tests; use new focused suites with existing helpers. Move code before changing its behavior, in a separate PR.
+
+Draft data interfaces, **not runnable commands or implemented types**:
+
+| Value | Required content and meaning |
+| --- | --- |
+| Batch request | Format, partition, source/engine quotas, requested target rows, own-turn window length, seed/cursor, compressed-read and retained-memory budgets |
+| Window reference | Stable sequence/family/side identity, supervised target interval, raw prefix reference and original provenance; never a saved policy hidden vector |
+| Loaded batch | Target rows, shared raw prefixes, actual source/family/type counts, bytes admitted, and an explicit underfill reason |
+| Epoch plan | Rollout/model identity, ordered eligible window references per epoch, next unapplied logical-batch position and sampler state |
+| Update result | Stop reason, applied optimizer steps, committed decision exposures, visited-but-unapplied decisions, unique windows/decisions, weighted losses/KL, clip fraction and resumable cursor |
+| Selection result | Candidate/champion hashes, validation schedule identity, full comparison outcome, chosen hash/version and reason; never a holdout-derived tuning decision |
+
+### 10.4 Sequence reading and BC underfill
+
+**Problem:** current `read_shards` assigns each selected family a share before knowing how many families fit the 96 MiB gz budget. Long games exhaust that budget after few families, leaving usable examples in already decoded games while the target remains underfilled.
+
+Planned operation:
+
+1. Read existing metadata before large payloads: format, source, engine, partition, family, sequence lengths and compressed sizes. Reuse the SQLite metadata where its content identity is verified; old shards must still have a read-compatible path.
+2. Keep the existing provenance buckets and family weighting. Make a deterministic admission plan under the compressed-read budget; record selected versus admitted families. Avoid reserving target slots for families that cannot be admitted.
+3. Decode admitted families one at a time, attach complete raw histories once and choose supervised windows. Fill a first fair allocation, then backfill unused target capacity from additional windows of admitted families where retained memory permits. A second allocation must not decode the same gz again or fabricate new family diversity.
+4. Backfill inside the original quota bucket before changing a source mix. If a bucket has insufficient legal data or budget, return that deficit explicitly; do not silently borrow away native/human/DAgger guarantees. BC's existing original-versus-DAgger and family sampling rules remain visible.
+5. Prefix data are charged once per shared retained sequence, target rows separately. Only supervised targets may be shortened to respect the target limit; their actual prior committed history remains intact. Uncovered teacher intents remain prefix context, not invented supervised labels.
+6. Release windows not retained. Do not retain an entire decoded corpus between updates. Stop with `gz_budget`, `retain_budget`, `insufficient_data` or `window_limit` as appropriate, rather than returning an unexplained small batch.
+
+Keep defaults 96 MiB compressed admission and 768 MiB estimated retained memory initially. These are input/retention budgets, **not a proven whole-process RSS bound**: transient decoding, tensors and optimizer activations also cost memory. A family larger than the admission budget must be reported as such; do not grant the first game an unrecorded unlimited exception. Preserve the existing trainer memory guard and collector streaming behavior.
+
+Statistics: requested/returned supervised rows; decoded/admitted/retained family counts; unique supervised windows; compressed bytes and retained estimate; source/engine/family and recruit/move/attack/end-turn counts; underfill reason. Retained counts are not counts of every example optimized; the learner records that separately.
+
+First implementation uses the existing gzip and SQLite representation. SQLite currently stores a whole compressed sequence payload, and gzip is not cheap random access to arbitrary windows. Indexed window storage, HDF5 and mmap are deferred unless measurements after this repair still identify decoding as the bottleneck.
+
+### 10.5 BC update and validation semantics
+
+Separate BC from PPO without changing its objective: exact teacher-choice cross entropy, existing grouped auxiliary supervision and valid value-target loss keep their weights. Preserve the sampler's original/DAgger/source/engine/family rules. Do not silently add per-action loss weighting to compensate for the poor 2v2 attack result.
+
+Expose three quantities independently: input-pool target (currently CPU 2048), windows contributing to one optimizer step (currently 4 on CPU), and decisions in one computation microbatch (currently capped at 32). The existing `minibatch` option must be documented as its actual cap until an explicit compatible replacement is implemented; old manifests must not acquire new effective defaults on resume.
+
+Retain window-equal weighting: each window has weight `1 / windows_in_step`; each decision in that window has weight `1 / window_decisions`. Microbatch loss scaling must reproduce that objective, including a short final chunk. A CPU/GPU change must not accidentally change sample meaning through padding or chunk boundaries.
+
+Keep validation families separate and deterministic. Report sample count alongside every action accuracy; fewer than 32 required examples is insufficient evidence, not zero accuracy or a gate pass. Teacher-game quota, imitation, coverage and opening checks all remain real prerequisites for automatic PPO. Explicit forced PPO continues to record its unmet gates and reason; it is never re-labelled as successful BC.
+
+### 10.6 PPO traversal, KL and measurable learning
+
+**P3: coverage first.** Create a stable list of eligible on-policy target windows for the frozen rollout. Shuffle references once per epoch and traverse without replacement while keeping within-window time order. Prefix overlap is expected; supervised target intervals should be disjoint within the plan. Report a deliberately repeated target if any future sampling rule introduces one. A KL stop can leave the epoch incomplete; do not pad the count by replaying visited windows.
+
+**P4: statistical batch separate from computation chunks.** Group the planned windows into one logical optimizer batch. All its microbatches use the same pre-step parameter state. Accumulate gradients as today to bound activations, and accumulate KL with the same window/decision weights as the objective:
+
+```text
+logical_KL = mean_over_windows(mean_over_real_target_decisions(exp(logp-old_logp)-1-(logp-old_logp)))
+```
+
+Check the completed logical-batch KL before applying its optimizer step. If it exceeds the unchanged .02 threshold, discard that batch's accumulated gradients, record its inspected targets, and finish the update with `kl_stop`. Do not average KL across different parameter updates. Keep PPO clip .2, entropy/BC auxiliary coefficients and gradient clipping unchanged. Compare this design with the current microchunk stop on one frozen input before adopting the behavioral change; upstream minibatch stopping alone is not a diagnosed defect.
+
+Every exit must produce the same result schema:
+
+- `completed`: all intended epochs/batches applied; a final short batch uses its actual window count.
+- `kl_stop`: some planned work was rejected; record pre-step KL, rejected position and applied versus inspected work.
+- `deadline`: no partially accumulated step is applied; preserve the next unapplied batch and its reproducible sampling state.
+- A genuine exception remains a failure with the existing traceback/failed-stage path; it is not converted to a successful stop.
+
+Count committed decisions only after optimizer.step. Count inspection separately, include unique target IDs and per-source rehearsal exposure, and label diagnostics as pre-step or post-step. Existing completed-batch `version` semantics stay unchanged initially; a completed zero-step batch must explicitly report zero changed-weight steps rather than implying improvement.
+
+PPO must still reject mixed behavior versions/reward configurations and invalid bootstrap; BC rehearsal is not on-policy trajectory data. Preserve current-weight raw-prefix replay and its truncation-of-gradient contract; do not substitute stale stored RNN states. Any cache crossing a weight update must be invalidated; fixed-weight deployment sessions may retain their own incremental state.
+
+### 10.7 Recovery, branching and final selection
+
+Persist model, optimizer, owned RNG states, reward controller, rollout identity, epoch permutation and next unapplied logical batch in one atomic checkpoint. Saving weights after one step with a cursor from another step is invalid. A mid-batch deadline discards gradients and restores the pre-batch sampling RNG state, so the same BC rehearsal choices can be recreated. Save frequency remains an explicit policy; crash recovery restores the most recent atomic saved point, not an unsaved last instruction.
+
+Keep three operations distinct:
+
+| Operation | State restored/changed | Permitted effect |
+| --- | --- | --- |
+| Resume original run | Latest valid full checkpoint, optimizer/RNG/cursor/config/clock | Continue its saved future plan; no new hours or seed by implication |
+| Branch from checkpoint | Explicit source checkpoint plus specified new future seed/plan/config and lineage | New run/manifest, with the choice to keep or reset optimizer explicit; defaults proposed to retain it |
+| Evaluate/export selected model | Frozen chosen weights and identity | No training-state mutation, no random-state scrambling, no new optimizer |
+
+The normal loader already uses latest.pt; the duplicated duel path came from an explicit best-v100 derivative migration. Do not weaken exact recovery to conceal that choice. An old checkpoint lacking a new epoch plan stays with its original matching sources, or needs a documented migration at a completed batch boundary. Do not invent an exact continuation in the middle of an old randomly sampled batch.
+
+For final selection, nominate at most one latest complete candidate against the retained champion on the established validation layouts. Reuse an already complete matching panel only when weights, source/rule identity and schedule match. Off-cycle nomination must use full 12-block promotion/Astra evidence and the existing champion comparison rule, rather than promoting a one-block trend score.
+
+For a future run, the final budget must explicitly contain selection validation followed by the untouched 30-block final holdout. The original total deadline is not extended; reserve timing is frozen in the new manifest before launch. If selection cannot finish, keep the already qualified champion or an explicitly unpromoted fallback and report why. If the final panel cannot finish, it is inconclusive. Freeze one selection before the holdout; never compare several candidates on the holdout and then pick the winner. This is a proposed scheduling change, not an edit to any existing run's clock.
+
+Selection checkpoints must represent completed bookkeeping: no new best file should look as though its own completed validation is still pending. Save selected-kind/version/reason from the actual chosen checkpoint, not from a different current runner state. Preserve the original weights and evidence when a candidate loses or is inconclusive.
+
+### 10.8 Standalone inference plus Lua bridge
+
+**Proposed first backend:** a persistent local CPU process running the existing PyTorch Policy/checkpoint loader. Reuse the exact training feature encoder and inference code before considering TorchScript/ONNX/C++ or a different network. This removes mandatory Lua tensor reimplementation from future model choices; it does not itself authorize a larger model or a CUDA dependency.
+
+Responsibilities:
+
+| Lua/game side | Inference-engine side |
+| --- | --- |
+| Capture the legal player's view, build legal ordered candidates, infer format from the public opening roster | Load only the matching format's frozen weights; encode the supplied public payload and score candidates |
+| Execute the returned candidate in Wesnoth and report actual changed/committed outcome | Maintain per-game/per-side recurrent state and pending predictions, using actual commit notifications |
+| Produce public post-action memory-write observations; handle the end-turn commit exactly once | Commit memory only after confirmation; queries/bootstrap/repeated evaluation do not advance it |
+| Own game action legality and cancellation | Return index/log-probability/value plus identities; never run rule simulation to discover unseen state |
+
+Draft wire contract, protocol version independent of feature schema. Specify UTF-8 framing, finite numeric values and the schema's coordinate/feature conventions; establish one round-trip representation before optimizing binary encoding. Predict sends the current public row, and commit sends its public memory write, rather than retransmitting the entire game history for each action:
+
+- Session: protocol/feature/model/rule identities, supported format, game ID and side. Load one fixed model version for a game; an evaluation game cannot hot-swap weights.
+- Predict: session ID, monotonic request ID, own turn, observation/candidate identity, public global/opponent/spatial/action features, and purpose (`act` or read-only `bootstrap`). No referee snapshot, RNG draws, reward_raw, hidden units or opponent weights.
+- Response: matching IDs/identity, **zero-based** candidate index, value/log-probability and pending-memory token. Lua converts the index once to its one-based array, verifies it belongs to the outstanding candidate list, then executes that list entry.
+- Commit: matching pending token and actual committed flag plus the public memory-write observation. Duplicate confirmation is idempotent; a stale response cannot execute against a newer observation.
+- Reset/close: game/side identity; a new game cannot inherit a previous game's memory. Retries must not duplicate an action or memory commit.
+
+Bootstrap must leave both committed state and an outstanding action's pending token unchanged. If an engine exits, times out or returns a mismatched model/session, report a failed inference and do not silently substitute another policy or execute a stale choice. Initial external delivery may support only newly started games if declared; saved-game reload or process reconnection requires a version-bound state snapshot or legal-prefix reconstruction and its own minimal check, rather than silently restarting memory at zero.
+
+Do not attach a training/referee RPC endpoint to the policy. Existing `native_transport.py`/`native_rpc.lua` demonstrate a **controller-launched training/differential transport**, not an accepted ordinary-game inference plugin. Its judge-capable payload cannot simply be forwarded to a model.
+
+**P6a must settle transport feasibility first.** Inspect which communication operations stock Wesnoth 1.18.8 actually permits in an ordinary multiplayer Lua add-on on Ubuntu. Prototype one request/response and one confirmed commit through that supported route, before choosing socket, launcher-mediated stdio or the project's existing command-file pattern. The last pattern currently drives a custom training scenario; normal gameplay, blocking behavior and reload semantics remain unverified. Do not assume LuaSocket or an arbitrary native extension is available.
+
+If a launcher is required, the delivery states that requirement openly. It owns one engine process per game, a persistent channel and shutdown; never launch Python or reload weights for every decision. Use the smallest supported local transport, not a new HTTP/gRPC service. Windows packaging is a separate reference-target check after Ubuntu feasibility, not an acceptance blocker for the training refactor. A feasible bridge is not the same as an approved multiplayer-server feature.
+
+Planned local delivery: model files and their manifest, inference executable/runtime launcher, Lua add-on, backend/protocol version, dependencies/licenses and install/start instructions. The existing pure Lua package remains usable until the external route passes its own tests. Package size is measured and reported; neither route gains an SDK competition-compatibility claim automatically.
+
+Minimal inference acceptance uses the same actual frozen observations as the reference tensor model: all three formats, continuous own-turn memory, 128 candidates, interleaved sides, query-without-commit, duplicate evaluation and game reset. Compare logits/value to the declared reference tolerance (initially 1e-5) and deterministic action selection; investigate near-tie action differences explicitly. Later run one short native integration scenario to prove the bridge actually executes a legal action and closes cleanly. Measure model-load/cold and steady inference plus round-trip time on that same bounded input; set any latency gate from the observed baseline before a larger deployment, not from an invented speedup target.
+
+### 10.9 Phases, PR ownership and completion gates
+
+Implementation phases P1–P6 below are **not started**; P0 is this plan-only deliverable. Each PR owns one behavior; keep mechanical moves separate from sampling, objective or scheduling changes. The main reviewer checks the exact head/evidence before merging to master and pushing. Independent work may use separate branches, but dependent PRs do not assume one another's unmerged interfaces.
+
+| Phase | Owned change and likely files | Completion gate and excluded work |
+| --- | --- | --- |
+| P0: this plan | `docs/architecture.md` and `_zh` | Detailed mirrored plan, user delivery-option update, no production changes; no test execution |
+| P1: extract learners | `learning/train.py`, `bc.py`, `ppo.py`, minimal shared helper if needed | Public imports/signature and old numerical/update behavior preserved; no new sampler, KL decision or coefficient |
+| P2: bounded BC filling | `learning/sequences.py` or a focused loader module, read stats in `experiment.py` | Deterministic fair filling/backfill, complete prefixes and truthful memory/source counts; no larger budgets or rewritten corpus |
+| P3: PPO traversal/recovery | `ppo.py`, a small epoch-plan helper, checkpoint cursor wiring | No-replacement target coverage and resumable plan agree; do not combine with a KL estimator change |
+| P4: logical-batch stopping/metrics | `ppo.py`, owning result/counter wiring | Same weighted objective across micro sizes, pre-step KL rejection, all exits counted; .02/clip/rewards unchanged |
+| P5a: checkpoint operations | `checkpoints.py`, existing run/phase entry owners | Resume versus explicit branch semantics and atomic cursor/RNG restore; no new implicit deadline or seed |
+| P5b: final nomination | Existing validation/final selection owners | One off-cycle validation candidate can be considered before one frozen holdout; preserve full panels and champion rules |
+| P6a/P6b: external inference | Later inference package/Lua bridge, then packaging | First ordinary-game IPC feasibility; then real model/session parity and minimal native execution. Training changes do not wait for this optional delivery |
+
+P1 precedes P3/P4. P2 is logically independent after the loader interface is understood. P3 needs recovery support in the same change for its new traversal cursor; P5a must not defer that guarantee. P5b waits for reliable complete checkpoint identities. P6a can be investigated after separate authorization without changing the learner. Numeric model/feature changes, if eventually desired, form a later separately accepted experiment.
+
+### 10.10 Minimal verification plan — NOT RUN
+
+Use existing `tests/v5/helpers.py` plus small new suites, not broad edits to the grandfathered files. Reuse existing passing engine/teacher/rule evidence unless the relevant source changes. Every new behavior needs an assertion that fails on reverting it. Proposed test names below are specifications, not existing tests.
+
+| Change | Smallest discriminating check | Required assertion |
+| --- | --- | --- |
+| P1 | Fixed tiny BC and PPO inputs, identical weights/optimizer/RNG, before/after extraction | Losses, parameter/optimizer changes, calls and legacy return contract agree within existing numeric tolerances |
+| P2 | Two admitted families with many windows and a third outside a small gz budget | Additional rows use already decoded families without extra gz reads, proper buckets and prefix identity remain; insufficient retained memory reports a deficit rather than claiming target fulfillment |
+| P3 | A few unequal-length non-overlapping windows for two epochs | Each target window occurs once per complete epoch, chronology stays ordered, interrupted/resumed next indices and final parameters match the uninterrupted saved-plan reference |
+| P4 | One fixed logical batch partitioned into micro sizes 8 and 32 | Weighted loss/KL/gradient and stop outcome match; a rejected batch changes no parameters; normal/KL/deadline exits count only applied work as committed |
+| P5a | Two complete checkpoints with distinct model/RNG/cursor identities | Resume loads latest completely; explicit fork records its source and new plan; no hybrid optimizer/RNG; old incompatible mid-batch state is not silently accepted |
+| P5b | Existing collector replaced with recorded schedule/results | An eligible off-cycle candidate may win; incomplete or inconclusive evidence cannot promote it; holdout is created only after the selected identity is frozen and never chooses between candidates |
+| P6 | Recorded public sequence and later one authorized short native scenario | No hidden fields cross the adapter, per-side memory and commit order match reference, action maps to the supplied list, process persists and shuts down |
+
+After local affected checks, planned Ubuntu acceptance reuses the downloaded real teacher/on-policy records from `verification/model_strength_20261024_2120/` read-only. One input per affected format is sufficient to check parsing and current-model replay; no new teacher corpus is needed. P2 may use the recorded long 2v2 game once to check actual fill and memory, rather than repeat the 8-worker pressure matrix.
+
+Key transitions must be exercised after their owners change: BC completion/failed BC gate → PPO request; first two PPO updates and checkpoint readback; interruption/resume of a pending update; PPO completion → candidate freeze → final evaluator. Start with a recorded collector to avoid new games and prove orchestration. A later explicitly authorized minimal real Ubuntu chain verifies runtime wiring; its reduced game panel remains inconclusive and cannot substitute for the 30-block strength gate. Native terminal capture T6 stays a separate existing item.
+
+No suite, gradient experiment, engine game or server command runs merely because this table is present. Tests that require absent data/runtime are reported not run, with the missing input stated.
+
+### 10.11 Compatibility, rollback and delivery records
+
+- **Raw data:** preserve schema-5 captured rows and original hashes. New scheduling metadata gets its own execution-format version; a learner refactor does not by itself justify changing observation schema. Any required storage conversion writes a new derived index, not an edited original shard.
+- **Checkpoints:** old runs retain original sources, environments and clocks. New code can load matching model weights for explicit initialization, but exact optimizer/cursor resume requires a declared compatible execution version. Migration is explicit, at a defined complete boundary, and records model/optimizer/RNG identities and source parent.
+- **Rollback:** revert the owning PR on a branch and resume only a checkpoint compatible with that source. Keep old and derivative run directories; do not rewrite a manifest, re-sort history or overwrite installed models to simulate rollback.
+- **Evidence:** per-phase dated `verification/` report with exact commands, commit/rule/model/data identities, before/after failures and limits. Do not edit the earlier research or strength reports to describe future success.
+- **Maintained docs:** update this section's phase status as work actually happens; update `instructions.md` only when an entry point becomes runnable, and keep its mirror. TEST.md receives only implemented-but-unaccepted changes, each with a minimal Ubuntu plan; it receives none for this plan-only change. After acceptance archive evidence and delete the whole pending item.
+- **Delivery:** retain both unaccepted and accepted evaluation labels. Structural checks or exported files do not turn a model that failed Astra into a passed model.
+
+### 10.12 Decisions still requiring evidence
+
+| Decision | What will settle it | Blocks |
+| --- | --- | --- |
+| Whether admitted-family backfill is enough, or a chunked sequence index is needed | Actual fill/decoded cost and transient memory of the existing long 2v2 record after P2 | Further storage optimization only |
+| Whether logical-batch KL improves useful exposure at a safe step size | One fixed-batch comparison after P3, then separately authorized small training evidence | Adopting P4 behavior, not learner extraction |
+| Timing reserved for final nomination under the unchanged total budget | Existing panel durations and a predeclared schedule in the next run's manifest | Launching a run with P5b scheduling |
+| Which ordinary-game Lua transport works without assuming extra runtime facilities | P6a one-request/commit prototype on native Ubuntu 1.18.8 | External inference delivery only |
+| Whether eager CPU PyTorch should become a packaged/compiled backend | Same-input numeric parity, process/load cost and observed round-trip latency | Compiled backend choice only |
+| Whether the current model or reward must change | Corrected training exposure plus comparable validation and behavior evidence | A later model/reward experiment |
+
+No decision here should be filled in with a guessed performance number or a weakened gate. The next action remains plan review; implementation and training await subsequent user instructions.
