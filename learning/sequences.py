@@ -14,7 +14,7 @@ import sqlite3
 import zlib
 
 from .data import split
-from .rowpack import unpack_line
+from .rowpack import unpack_line, plain_row
 
 
 def sequence_key(row):
@@ -152,7 +152,16 @@ class IndexedSequenceStore:
                 attach_histories(rows)  # validates ordering without storing history
                 fmt, source, engine, family, game_id, side = key
                 identity = hashlib.sha256(json.dumps(key, separators=(',', ':')).encode()).hexdigest()
-                payload = zlib.compress(json.dumps(rows, separators=(',', ':'), allow_nan=False).encode())
+                compressor = zlib.compressobj()
+                chunks = [compressor.compress(b'[')]
+                for position, row in enumerate(rows):
+                    if position:
+                        chunks.append(compressor.compress(b','))
+                    encoded = json.dumps(plain_row(row), separators=(',', ':'), allow_nan=False).encode()
+                    chunks.append(compressor.compress(encoded))
+                chunks.append(compressor.compress(b']'))
+                chunks.append(compressor.flush())
+                payload = b''.join(chunks)
                 existing = self.connection.execute('SELECT payload FROM sequences WHERE id=?', (identity,)).fetchone()
                 if existing is not None:
                     if existing[0] != payload:

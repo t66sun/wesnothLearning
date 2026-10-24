@@ -12,6 +12,7 @@ import zipfile
 from pathlib import Path
 
 from .adapters import LiteAdapter, ROOT
+from .rowpack import compact_row
 
 
 def _lua(value):
@@ -202,6 +203,7 @@ def play_lite_job(job):
             if policies and not teacher: policies.commit(current,decision,outcome)
             behavior.append(outcome['diagnostics']);timings.append(decision['timing']['ms'])
             if current in learner_sides:
+                decision = compact_row(decision)
                 records.append(decision)
                 if not teacher and job.get('learning',{}).get('dagger_teacher'):
                     label=dict(decision,source='astra',teacher='gpt6astra',teacher_impl='astra_lite',choice=-1,value_valid=False,data_pool='dagger')

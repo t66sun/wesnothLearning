@@ -161,6 +161,22 @@ def plain_row(row):
     return row
 
 
+def compact_row(row):
+    """Release boxed numeric vectors while retaining online float64 precision.
+
+    Keep container lists (opponents, candidates, boards) and scalar metadata as
+    they were. Only numeric vector leaves become arrays; shard packing still
+    owns the existing float32 disk contract.
+    """
+    if isinstance(row, dict):
+        return {key: compact_row(value) for key, value in row.items()}
+    if isinstance(row, list):
+        if row and all(_element(value) for value in row):
+            return np.asarray(row, dtype=np.float64)
+        return [compact_row(value) for value in row]
+    return row
+
+
 def _board_count(board):
     count = 1
     for dimension in np.shape(board):
