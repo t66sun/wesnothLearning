@@ -341,7 +341,7 @@ impl Game {
         let teams:BTreeSet<String>=self.sides.iter().filter(|s|!s.eliminated).map(|s|s.team.clone()).collect();
         if teams.len()<=1{self.finished=true;self.winner=teams.into_iter().next();}
     }
-    fn end_turn(&mut self) {
+    pub(crate) fn end_turn(&mut self) {
         let old=self.current;
         for u in self.units.iter_mut().filter(|u|u.hp>0 && u.side==old){u.status.remove("slowed");}
         for _ in 0..self.sides.len(){

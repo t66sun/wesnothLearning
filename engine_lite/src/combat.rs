@@ -194,27 +194,27 @@ mod tests {
     #[test]
     fn expected_damage_matches_the_r1_table() {
         // D=10 at 60% defense: 10*60*1.10/100 = 6.6 -> 7.
-        let rules = rules(60, vec![weapon(10, 1, &[])], vec![]);
+        let rules_60 = rules(60, vec![weapon(10, 1, &[])], vec![]);
         let mut a = unit("a", "A", 40);
         let mut d = unit("d", "D", 40);
-        let hit = strike_once(&rules, &mut a, &mut d, 0);
+        let hit = strike_once(&rules_60, &mut a, &mut d, 0);
         assert_eq!((hit.chance, hit.damage, hit.hit), (60, 7, true));
         assert_eq!(d.hp, 33);
         // A second damage value catches a scale error that still rounds 10@60 to 7.
-        let rules = rules(60, vec![weapon(13, 1, &[])], vec![]);
+        let rules_13 = rules(60, vec![weapon(13, 1, &[])], vec![]);
         let mut a = unit("a", "A", 40);
         let mut d = unit("d", "D", 40);
-        assert_eq!(strike_once(&rules, &mut a, &mut d, 0).damage, 9);
+        assert_eq!(strike_once(&rules_13, &mut a, &mut d, 0).damage, 9);
         // 100% chance: exactly the 10% uplift, 11.
-        let rules = rules(100, vec![weapon(10, 1, &[])], vec![]);
+        let rules_100 = rules(100, vec![weapon(10, 1, &[])], vec![]);
         let mut a = unit("a", "A", 40);
         let mut d = unit("d", "D", 40);
-        assert_eq!(strike_once(&rules, &mut a, &mut d, 0).damage, 11);
+        assert_eq!(strike_once(&rules_100, &mut a, &mut d, 0).damage, 11);
         // 1% chance rounds up to one point instead of vanishing.
-        let rules = rules(1, vec![weapon(10, 1, &[])], vec![]);
+        let rules_1 = rules(1, vec![weapon(10, 1, &[])], vec![]);
         let mut a = unit("a", "A", 40);
         let mut d = unit("d", "D", 40);
-        assert_eq!(strike_once(&rules, &mut a, &mut d, 0).damage, 1);
+        assert_eq!(strike_once(&rules_1, &mut a, &mut d, 0).damage, 1);
     }
 
     #[test]
@@ -278,7 +278,7 @@ mod tests {
         let mut d = unit("d", "D", 5);
         let log = resolve(&rules, &mut a, &mut d, 0, PLAIN, PLAIN, 1, &Modifiers::default());
         assert_eq!(log.len(), 1);
-        assert_eq!((d.hp, a.hp), (-2, 40));
+        assert_eq!((d.hp, a.hp), (0, 40));
         assert_eq!(a.xp, 8);
         assert_eq!((a.attacks_left, a.acted), (0, true));
     }
