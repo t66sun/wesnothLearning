@@ -1,0 +1,275 @@
+NOW 2026-10-24T14:16:34+08:00
+
+PROCESSES     PID    PPID    PGID   RSS COMMAND
+      1       0       1  9252 /sbin/init splash
+      2       0       0     0 [kthreadd]
+      3       2       0     0 [pool_workqueue_release]
+      4       2       0     0 [kworker/R-rcu_gp]
+      5       2       0     0 [kworker/R-sync_wq]
+      6       2       0     0 [kworker/R-kvfree_rcu_reclaim]
+      7       2       0     0 [kworker/R-slub_flushwq]
+      8       2       0     0 [kworker/R-netns]
+     10       2       0     0 [kworker/0:0H-kblockd]
+     13       2       0     0 [kworker/R-mm_percpu_wq]
+     14       2       0     0 [ksoftirqd/0]
+     15       2       0     0 [rcu_preempt]
+     16       2       0     0 [rcu_exp_par_gp_kthread_worker/0]
+     17       2       0     0 [rcu_exp_gp_kthread_worker]
+     18       2       0     0 [migration/0]
+     19       2       0     0 [kprobe-optimizer]
+     20       2       0     0 [idle_inject/0]
+     21       2       0     0 [cpuhp/0]
+     22       2       0     0 [cpuhp/2]
+     23       2       0     0 [idle_inject/2]
+     24       2       0     0 [migration/2]
+     25       2       0     0 [ksoftirqd/2]
+     27       2       0     0 [kworker/2:0H-kblockd]
+     28       2       0     0 [cpuhp/4]
+     29       2       0     0 [idle_inject/4]
+     30       2       0     0 [migration/4]
+     31       2       0     0 [ksoftirqd/4]
+     33       2       0     0 [kworker/4:0H-kblockd]
+     34       2       0     0 [cpuhp/6]
+     35       2       0     0 [idle_inject/6]
+     36       2       0     0 [migration/6]
+     37       2       0     0 [ksoftirqd/6]
+     39       2       0     0 [kworker/6:0H-kblockd]
+     40       2       0     0 [cpuhp/1]
+     41       2       0     0 [idle_inject/1]
+     42       2       0     0 [migration/1]
+     43       2       0     0 [ksoftirqd/1]
+     45       2       0     0 [kworker/1:0H-kblockd]
+     46       2       0     0 [cpuhp/3]
+     47       2       0     0 [idle_inject/3]
+     48       2       0     0 [migration/3]
+     49       2       0     0 [ksoftirqd/3]
+     51       2       0     0 [kworker/3:0H-kblockd]
+     52       2       0     0 [cpuhp/5]
+     53       2       0     0 [idle_inject/5]
+     54       2       0     0 [migration/5]
+     55       2       0     0 [ksoftirqd/5]
+     57       2       0     0 [kworker/5:0H-kblockd]
+     58       2       0     0 [cpuhp/7]
+     59       2       0     0 [idle_inject/7]
+     60       2       0     0 [migration/7]
+     61       2       0     0 [ksoftirqd/7]
+     63       2       0     0 [kworker/7:0H-kblockd]
+     64       2       0     0 [kdevtmpfs]
+     65       2       0     0 [kworker/R-inet_frag_wq]
+     66       2       0     0 [rcu_tasks_kthread]
+     67       2       0     0 [rcu_tasks_rude_kthread]
+     68       2       0     0 [kauditd]
+     69       2       0     0 [khungtaskd]
+     70       2       0     0 [oom_reaper]
+     73       2       0     0 [kworker/R-writeback]
+     74       2       0     0 [kcompactd0]
+     75       2       0     0 [ksmd]
+     76       2       0     0 [khugepaged]
+     77       2       0     0 [kworker/R-kblockd]
+     78       2       0     0 [kworker/R-blkcg_punt_bio]
+     79       2       0     0 [kworker/R-kintegrityd]
+     80       2       0     0 [irq/9-acpi]
+     84       2       0     0 [kworker/R-tpm_dev_wq]
+     85       2       0     0 [kworker/R-ata_sff]
+     86       2       0     0 [kworker/R-md_bitmap]
+     87       2       0     0 [kworker/R-md_llbitmap_io]
+     88       2       0     0 [kworker/R-md_llbitmap_unplug]
+     89       2       0     0 [kworker/R-edac-poller]
+     90       2       0     0 [kworker/R-devfreq_wq]
+     91       2       0     0 [watchdogd]
+     92       2       0     0 [kworker/R-quota_events_unbound]
+     94       2       0     0 [kswapd0]
+     95       2       0     0 [ecryptfs-kthread]
+     96       2       0     0 [kworker/R-kthrotld]
+     98       2       0     0 [kworker/R-acpi_thermal_pm]
+    101       2       0     0 [hwrng]
+    103       2       0     0 [kworker/R-hfi-updates]
+    104       2       0     0 [kworker/R-mld]
+    105       2       0     0 [kworker/R-ipv6_addrconf]
+    106       2       0     0 [kworker/R-kstrp]
+    121       2       0     0 [kworker/R-charger_manager]
+    213       2       0     0 [kworker/R-nvme-wq]
+    214       2       0     0 [kworker/R-nvme-reset-wq]
+    215       2       0     0 [kworker/R-nvme-delete-wq]
+    216       2       0     0 [kworker/R-nvme-auth-wq]
+    217       2       0     0 [scsi_eh_0]
+    218       2       0     0 [kworker/R-scsi_tmf_0]
+    219       2       0     0 [scsi_eh_1]
+    220       2       0     0 [kworker/R-scsi_tmf_1]
+    221       2       0     0 [scsi_eh_2]
+    222       2       0     0 [kworker/R-scsi_tmf_2]
+    223       2       0     0 [scsi_eh_3]
+    224       2       0     0 [kworker/R-scsi_tmf_3]
+    225       2       0     0 [scsi_eh_4]
+    226       2       0     0 [kworker/R-scsi_tmf_4]
+    227       2       0     0 [scsi_eh_5]
+    228       2       0     0 [kworker/R-scsi_tmf_5]
+    229       2       0     0 [scsi_eh_6]
+    230       2       0     0 [kworker/R-scsi_tmf_6]
+    231       2       0     0 [scsi_eh_7]
+    232       2       0     0 [kworker/R-scsi_tmf_7]
+    250       2       0     0 [spi0]
+    290       2       0     0 [kworker/0:1H-kblockd]
+    292       2       0     0 [jbd2/nvme0n1p2-8]
+    293       2       0     0 [kworker/R-ext4-rsv-conversion]
+    332       2       0     0 [kworker/3:1H-kblockd]
+    344       1     344 28756 /usr/lib/systemd/systemd-journald
+    378       2       0     0 [kworker/6:1H-kblockd]
+    380       2       0     0 [kworker/4:1H-kblockd]
+    382       1     382  4148 /usr/lib/systemd/systemd-udevd
+    396       2       0     0 [kworker/1:1H-kblockd]
+    397       2       0     0 [kworker/2:1H-kblockd]
+    433       2       0     0 [psimon]
+    511       2       0     0 [irq/143-mei_me]
+    556       2       0     0 [irq/16-processor_thermal_device_pci]
+    575       2       0     0 [kworker/R-nvkm-disp]
+    580       2       0     0 [kworker/R-ttm]
+    581       2       0     0 [card1-crtc0]
+    582       2       0     0 [card1-crtc1]
+    793       1     793  2752 /usr/lib/systemd/systemd-oomd
+    839       1     839  4428 /usr/lib/systemd/systemd-resolved
+    843       1     843  2560 /usr/lib/systemd/systemd-timesyncd
+    890       1     890  1744 avahi-daemon: running [server.local]
+    891       1     891  4432 @dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation --syslog-only
+    894       1     894  3220 /usr/libexec/gnome-remote-desktop-daemon --system
+    895       2       0     0 [kworker/5:1H-kblockd]
+    898       1     898 12748 /usr/lib/polkit-1/polkitd --no-debug
+    901       1     901  3312 /usr/libexec/power-profiles-daemon
+    912       1     912  3896 /usr/libexec/accounts-daemon
+    915       1     915  1312 /usr/sbin/cron -f -P
+    917       1     917  3188 /usr/libexec/switcheroo-control
+    920       1     920  5884 /usr/lib/systemd/systemd-logind
+    921       1     921  3760 /usr/sbin/thermald --systemd --dbus-enable --adaptive
+    922       1     922  6124 /usr/libexec/udisks2/udisksd
+    926     890     890    12 avahi-daemon: chroot helper
+    969       1     969  8064 /usr/sbin/NetworkManager --no-daemon
+    975       1     975   532 /usr/sbin/wpa_supplicant -u -s -O DIR=/run/wpa_supplicant GROUP=netdev
+    983       1     983  2688 /usr/sbin/rsyslogd -n -iNONE
+   1013       1    1013  3352 /usr/sbin/ModemManager
+   1090       2       0     0 [kworker/7:1H-kblockd]
+   1105       1    1105  4016 /usr/libexec/upowerd
+   1180       1    1180    12 /usr/bin/python3 /usr/share/unattended-upgrades/unattended-upgrade-shutdown --wait-for-signal
+   1207       1    1207  1208 /usr/sbin/kerneloops --test
+   1210       1    1210  1260 /usr/sbin/kerneloops
+   1221       1    1221  5932 /usr/sbin/gdm3
+   1268       1    1268  2144 /usr/libexec/rtkit-daemon
+   1385       1    1385  3504 /usr/libexec/colord
+   1748       1    1748  6992 /usr/lib/systemd/systemd --user
+   1754    1748    1748     4 (sd-pam)
+   4287       2       0     0 [kworker/R-uas]
+   6683       1    6683  2732 sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups
+   6853       2       0     0 [kworker/R-tls-strp]
+  16744       1   16744 17828 /usr/libexec/fwupd/fwupd
+  90759       1   90759 31088 /snap/snapd/current/usr/lib/snapd/snapd
+ 101321       2       0     0 [kworker/u33:4-ttm]
+ 107126       1  107113   772 Xvfb :99 -screen 0 1280x1024x24 -nolisten tcp -auth /tmp/xvfb-run.naYSMe/Xauthority
+ 107424       1  107412   768 Xvfb :100 -screen 0 1280x1024x24 -nolisten tcp -auth /tmp/xvfb-run.gIppW3/Xauthority
+ 107584       1  107572   720 Xvfb :101 -screen 0 1280x1024x24 -nolisten tcp -auth /tmp/xvfb-run.T1JvRx/Xauthority
+ 107799       1  107787   748 Xvfb :102 -screen 0 1280x1024x24 -nolisten tcp -auth /tmp/xvfb-run.BEfsgP/Xauthority
+ 107911       1  107899   752 Xvfb :103 -screen 0 1280x1024x24 -nolisten tcp -auth /tmp/xvfb-run.mwE1Tn/Xauthority
+ 108021       1  108009   740 Xvfb :104 -screen 0 1280x1024x24 -nolisten tcp -auth /tmp/xvfb-run.BH6NC7/Xauthority
+ 108758       2       0     0 [kworker/u33:0-ttm]
+ 184511       2       0     0 [psimon]
+ 192457       1  192457  5868 /usr/sbin/cupsd -l
+ 192460       1  192460  3528 /usr/sbin/cups-browsed
+ 196642       1  196642  1972 /usr/bin/fwupdmgr refresh
+ 196895       2       0     0 [kworker/1:1-events]
+ 197178       1  197178  7208 /usr/lib/systemd/systemd --user
+ 197179  197178  197178  1552 (sd-pam)
+ 197774    1221    1221  9976 gdm-session-worker [pam/gdm-launch-environment]
+ 197783    1748  197783  6788 /usr/libexec/gcr-ssh-agent --base-dir /run/user/1000/gcr
+ 197784  197178  197784 12504 /usr/bin/pipewire
+ 197785    1748  197785  8768 /usr/bin/pipewire
+ 197786  197178  197786  5964 /usr/bin/pipewire -c filter-chain.conf
+ 197787  197178  197787 18836 /usr/bin/wireplumber
+ 197788    1748  197788 16024 /usr/bin/wireplumber
+ 197789  197178  197789 11216 /usr/bin/pipewire-pulse
+ 197790    1748  197790 10528 /usr/bin/pipewire-pulse
+ 197791  197774  197791  6168 /usr/libexec/gdm-wayland-session dbus-run-session -- gnome-session --autostart /usr/share/gdm/greeter/autostart
+ 197794  197178  197794  5152 /usr/bin/dbus-daemon --session --address=systemd: --nofork --nopidfile --systemd-activation --syslog-only
+ 197795    1748  197795  5236 /usr/bin/dbus-daemon --session --address=systemd: --nofork --nopidfile --systemd-activation --syslog-only
+ 197802  197791  197791  2520 dbus-run-session -- gnome-session --autostart /usr/share/gdm/greeter/autostart
+ 197805  197802  197791  5700 dbus-daemon --nofork --print-address 4 --session
+ 197810  197802  197791 18308 /usr/libexec/gnome-session-binary --autostart /usr/share/gdm/greeter/autostart
+ 197846  197810  197791 172620 /usr/bin/gnome-shell
+ 197874       1  197791  8036 /usr/libexec/at-spi-bus-launcher
+ 197880  197874  197791  5140 /usr/bin/dbus-daemon --config-file=/usr/share/defaults/at-spi2/accessibility.conf --nofork --print-address 11 --address=unix:path=/run/user/120/at-spi/bus
+ 197881  197846  197791 83344 /usr/bin/Xwayland :1024 -rootless -noreset -accessx -core -auth /run/user/120/.mutter-Xwaylandauth.X0POX3 -listenfd 4 -listenfd 5 -displayfd 6 -initfd 7 -byteswappedclients
+ 197884       1  197791  7792 /usr/libexec/at-spi2-registryd --use-gnome-session
+ 197905       1  197791  6276 /usr/libexec/xdg-permission-store
+ 197912       1  197791 26688 /usr/bin/gjs -m /usr/share/gnome-shell/org.gnome.Shell.Notifications
+ 197922  197810  197791 11516 /usr/libexec/gsd-sharing
+ 197925  197810  197791 19008 /usr/libexec/gsd-wacom
+ 197927  197810  197791 19220 /usr/libexec/gsd-color
+ 197932  197810  197791 18332 /usr/libexec/gsd-keyboard
+ 197934  197810  197791 11520 /usr/libexec/gsd-print-notifications
+ 197946  197810  197791  6920 /usr/libexec/gsd-rfkill
+ 197951  197810  197791  8396 /usr/libexec/gsd-smartcard
+ 197953  197810  197791 12324 /usr/libexec/gsd-datetime
+ 197960  197810  197791 24024 /usr/libexec/gsd-media-keys
+ 197970  197810  197791  6332 /usr/libexec/gsd-screensaver-proxy
+ 197972  197810  197791  9900 /usr/libexec/gsd-sound
+ 197993  197810  197791  6868 /usr/libexec/gsd-a11y-settings
+ 197997  197810  197791  8036 /usr/libexec/gsd-housekeeping
+ 198002  197810  197791 22680 /usr/libexec/gsd-power
+ 198095       1  197791 15204 /usr/libexec/gsd-printer
+ 198136  197846  197791 80288 /usr/libexec/mutter-x11-frames
+ 198139  197846  198139 12288 ibus-daemon --panel disable -r --xim
+ 198148       1  197791 27168 /usr/bin/gjs -m /usr/share/gnome-shell/org.gnome.ScreenSaver
+ 198162  198139  198139  7244 /usr/libexec/ibus-memconf
+ 198167       1  198139 69472 /usr/libexec/ibus-x11 --kill-daemon
+ 198171       1  197791  7308 /usr/libexec/ibus-portal
+ 198185  198139  198139  7332 /usr/libexec/ibus-engine-simple
+ 198193    1748  198193  6112 /snap/snapd-desktop-integration/391/usr/bin/user-session-helper /snap/snapd-desktop-integration/391/usr/bin/snapd-desktop-integration
+ 199393       2       0     0 [kworker/2:0-events]
+ 199665       2       0     0 [kworker/5:1-events]
+ 199792       2       0     0 [kworker/u32:0-events_unbound]
+ 199922       2       0     0 [kworker/u32:1-flush-259:0]
+ 199927       2       0     0 [kworker/4:1-events]
+ 199929       2       0     0 [kworker/5:2-events]
+ 200000       2       0     0 [kworker/0:1-events]
+ 200003       2       0     0 [kworker/7:1-events]
+ 200013       2       0     0 [kworker/u32:2-events_power_efficient]
+ 200103       2       0     0 [kworker/3:0-cgroup_free]
+ 200179       2       0     0 [kworker/7:0-events]
+ 200220       2       0     0 [kworker/1:2]
+ 200222       2       0     0 [kworker/6:1-events]
+ 200229       2       0     0 [kworker/0:0-events]
+ 200240       2       0     0 [kworker/4:0-events]
+ 200254       2       0     0 [kworker/3:2-events]
+ 200255       2       0     0 [kworker/6:2-events]
+ 200259       2       0     0 [kworker/2:2-events]
+ 200260       2       0     0 [kworker/4:2]
+ 200262       2       0     0 [kworker/7:2-events]
+ 200266    6683  200266 10768 sshd: tongshu [priv]
+ 200332  200266  200266  7164 sshd: tongshu@notty
+ 200333  200332  200333  1856 /usr/lib/openssh/sftp-server
+ 200334  200332  200334 212676 .venv/bin/python -u -
+ 200336  200334  200334  4340 ps -eo pid,ppid,pgid,rss,args
+
+MEMORY                total        used        free      shared  buff/cache   available
+Mem:           15827        1093       12916          12        2150       14733
+Swap:           4095         174        3921
+
+DISK Filesystem      Size  Used Avail Use% Mounted on
+/dev/nvme0n1p2  233G   80G  142G  36% /
+
+MANIFEST_HASH 43cd83777cd213771cf7e574143a848020dcd975b073763c143fe66048de1bf3
+CONFIG {"hours": 18.0, "workers": 8, "device": "cpu", "trainer_threads": 1, "seed": 20261017, "engine": "lite", "evaluation_engine": "lite", "reward_mode": "adaptive", "phase": "auto", "allow_approximate": true, "rules_dir": "/home/tongshu/myDev/wesnothLearning/WesnothLearning/rules/1.18.8-training", "formats": ["duel", "ffa4", "team2v2"], "calibration_blocks": 3, "validation_interval": 10, "validation_games": {"duel": 6, "ffa4": 4, "team2v2": 8}, "final_blocks": 30, "bc_games": {"duel": 300, "ffa4": 600, "team2v2": 400}, "native_bc_games": {"duel": 0, "ffa4": 0, "team2v2": 0}, "bc_batch_games": 8, "bc_accuracy": {"all": 0.4, "recruit": 0.6, "move": 0.35, "attack": 0.35}, "shaping_weight": null, "rollout_games": 4, "minibatch": 256, "bc_records": 2048, "bc_validation_records": 1024, "epochs": 4, "learning_rate": 0.0003, "trainer_memory_gb": 6.0, "human_data": "/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022/datasets/human"}
+CLOCK {"started": 1792773314.067086, "update_deadline": 1792827314.067086, "deadline": 1792838114.067086}
+CHANGED learning ['AUDIT_TEST_SCOPE.md', 'AUDIT_TEST_SCOPE_zh.md', 'REWARD_TEST_SCOPE.md', 'REWARD_TEST_SCOPE_zh.md', '__main__.py', 'adapters.py', 'audit.py', 'benchmark.py', 'benchmark_runner.py', 'collector.lua', 'control.py', 'coordinator.py', 'data.py', 'experiment.py', 'export.py', 'features.py', 'human.py', 'lite_host.py', 'lite_policy.py', 'maps.py', 'native_transport.py', 'report.py', 'reward_metrics.py', 'rowpack.py', 'rules_catalog.py', 'sample.py', 'sequences.py', 'trajectory_buffer.py']
+CHANGED lua ['candidates.lua', 'spatial.lua']
+CHANGED engine_lite ['README.md', 'README_zh.md', 'TEST_SCOPE.md', 'TEST_SCOPE_zh.md', 'capture.py', 'differential.py', 'lua/host.lua']
+CHANGED vendor/arena []
+CHECKPOINT duel 718b9bb17d078826f7c729e3c557934ec1857e373e0387df6cec766c3cf813ff {"version": 212, "batch": 213, "stage": "ppo", "failed_stage": null, "effective": true, "phase": "auto", "phase_deadline": null, "forced_ppo": null, "pending_train": null, "pending_validation": null, "counters": {"environment_games": 996, "collection_batches": 213, "optimizer_steps": 2173, "unique_families_seen": 991, "decisions_seen": 345737, "effective_dataset_passes": 195.86185576098703}}
+BOUND duel True False
+PHASE_HISTORY duel null
+CHECKPOINT ffa4 7755cedaea876a201e6816bf166045802c87844c1e47c7bae1fc2e88b4e37c6a {"version": 88, "batch": 88, "stage": "failed", "failed_stage": "ppo", "effective": false, "phase": "ppo", "phase_deadline": 1792827023.3913438, "forced_ppo": {"reason": "scheduled 08:00 override: BC gate not met, user asked for switch per instructions.md", "command_id": "e77b9a5b6b89466898c9c189fec26939", "version": 63}, "pending_train": null, "pending_validation": null, "counters": {"environment_games": 608, "collection_batches": 88, "optimizer_steps": 1772, "unique_families_seen": 565, "decisions_seen": 347015, "effective_dataset_passes": 295.11171634648474}}
+BOUND ffa4 True False
+PHASE_HISTORY ffa4 [{"deadline": 1792827023.3913438, "force": true, "id": "e77b9a5b6b89466898c9c189fec26939", "phase": "ppo", "reason": "scheduled 08:00 override: BC gate not met, user asked for switch per instructions.md", "requested_at": 1792800023.3913438, "previous_phase": "auto", "pretraining_complete": false, "applied_at": 1792800421.0077257}]
+CHECKPOINT team2v2 0a9638c797e3bd648561d15160d2d3b36ca59de9c6fcc5721f34a65b24d01779 {"version": 50, "batch": 50, "stage": "failed", "failed_stage": "ppo", "effective": false, "phase": "ppo", "phase_deadline": 1792827023.3913438, "forced_ppo": {"reason": "scheduled 08:00 override: BC gate not met, user asked for switch per instructions.md", "command_id": "09eceeaa3d0c4942aea1be095ac123fb", "version": 41}, "pending_train": null, "pending_validation": null, "counters": {"environment_games": 368, "collection_batches": 50, "optimizer_steps": 695, "unique_families_seen": 292, "decisions_seen": 164598, "effective_dataset_passes": 207.70332966717578}}
+BOUND team2v2 True False
+PHASE_HISTORY team2v2 [{"deadline": 1792827023.3913438, "force": true, "id": "09eceeaa3d0c4942aea1be095ac123fb", "phase": "ppo", "reason": "scheduled 08:00 override: BC gate not met, user asked for switch per instructions.md", "requested_at": 1792800023.3913438, "previous_phase": "auto", "pretraining_complete": false, "applied_at": 1792800414.1211102}]
+NEWSTAGE_CONFIG /home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321
+
+EXIT 0

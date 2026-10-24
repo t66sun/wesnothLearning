@@ -1,0 +1,11 @@
+{
+  "pid": 200356,
+  "pgid": 200356,
+  "time": 1792822814.6242163,
+  "source_root": "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321",
+  "command": [
+    "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/.venv/bin/python",
+    "-u",
+    "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/runs/v5_lite_resume_20261024_1420/continue_run.py"
+  ]
+}

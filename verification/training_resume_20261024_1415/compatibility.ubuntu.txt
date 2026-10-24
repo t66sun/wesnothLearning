@@ -1,0 +1,260 @@
+
+FILE learning/model.py text_equal True
+AST_EQUAL True
+
+FILE learning/train.py text_equal True
+AST_EQUAL True
+
+FILE learning/features.py text_equal True
+AST_EQUAL True
+
+FILE learning/experiment.py text_equal False
+AST_EQUAL False
+--- 
+
++++ 
+
+@@ -69,5 +69,5 @@
+
+         bc_validation_records=1024 if device=='cpu' else 4096,epochs=4,learning_rate=3e-4,
+         trainer_memory_gb=6.,
+-        human_data=str(ROOT/'datasets/human'))
++        human_data=str(ROOT/'data/datasets/human'))
+ 
+ 
+DIFF_LINES 9
+
+FILE learning/lite_host.py text_equal False
+AST_EQUAL False
+--- 
+
++++ 
+
+@@ -13,4 +13,6 @@
+
+ 
+ from .adapters import LiteAdapter, ROOT
++from .rowpack import compact_row
++from .trajectory_buffer import TrajectoryBuffer
+ 
+ 
+@@ -40,5 +42,5 @@
+
+                for name in ('observation.lua', 'candidates.lua', 'spatial.lua', 'routing.lua', 'rewards.lua')}
+     modules['features.lua'] = 'return ' + _lua(schema())
+-    with zipfile.ZipFile(teacher_path or ROOT / 'opponents/gpt6astra.zip') as archive:
++    with zipfile.ZipFile(teacher_path or ROOT / 'data/opponents/gpt6astra.zip') as archive:
+         for name in ('duel.lua', 'four.lua', 'bot.lua'):
+             modules['astra/' + name] = archive.read('gpt6astra/lua/' + name).decode('utf-8')
+@@ -110,4 +112,5 @@
+
+     from .reward_metrics import summarize_game
+     job_id = job['id']
++    records, dagger = TrajectoryBuffer(), TrajectoryBuffer()
+     try:
+         if time.time() >= job.get('deadline', float('inf')):
+@@ -128,5 +131,5 @@
+
+         host = LiteHost(job['game_spec'], job.get('rules_dir'),
+                         require_accepted=job.get('require_accepted', True), teacher_path=teacher_path)
+-        records, timings, behavior, bootstraps, metric_snapshots = [], [], [], {}, []
++        timings, behavior, bootstraps, metric_snapshots = [], [], {}, []
+         config = job.get('reward_config') or RewardConfig().to_dict()
+         config = RewardConfig(**config).to_dict()
+@@ -145,5 +148,5 @@
+
+         for side in sorted(learner_sides):
+             metric_snapshot(side,'initial')
+-        query_count={};side_decisions={};dagger=[];query_total=0
++        query_count={};side_decisions={};query_total=0
+         while True:
+             view = host.adapter.observe(current)
+@@ -203,4 +206,5 @@
+
+             behavior.append(outcome['diagnostics']);timings.append(decision['timing']['ms'])
+             if current in learner_sides:
++                decision = compact_row(decision)
+                 records.append(decision)
+                 if not teacher and job.get('learning',{}).get('dagger_teacher'):
+@@ -247,14 +251,13 @@
+
+         if dagger and job.get('shard'):
+             path=Path(job['shard']);write_shard(path.with_name(path.name.replace('.jsonl.gz','.dagger.jsonl.gz')),job_id,dagger,result,bootstraps)
+-        coverage = {'total': len(records), 'matched': sum(r['choice'] >= 0 for r in records),
+-                    'kinds': {kind: {'total': sum(r['actual']['kind'] == kind for r in records),
+-                                     'matched': sum(r['actual']['kind'] == kind and r['choice'] >= 0 for r in records)}
+-                              for kind in ('recruit', 'move', 'attack', 'move_attack', 'end_turn')}}
+-        for key in ('total','matched'): coverage['kinds']['attack'][key]+=coverage['kinds']['move_attack'][key]
++        coverage = records.coverage
+         return dict(id=job_id, status='complete', engine='lite', result=result, coverage=coverage,
+-                    reward_diagnostics=summarize_game(records,result,job,snapshots=metric_snapshots),
++                    reward_diagnostics=summarize_game(records.metric_rows(),result,job,snapshots=metric_snapshots),
+                     training_eligible=written is None or bool(written['written']), training_shard=written,
+                     behavior=behavior, timings=timings, native_timings=[], meta=job.get('meta', {}),
+-                    truncated=sum(r['timing'].get('truncated', False) for r in records))
++                    truncated=records.truncated)
+     except (RuntimeError, ValueError, ImportError, OSError, KeyError) as exc:
+         return dict(id=job_id, status='infrastructure_error', engine='lite', error=str(exc))
++    finally:
++        records.close()
++        dagger.close()
+DIFF_LINES 63
+
+FILE learning/manifest.py text_equal True
+AST_EQUAL True
+
+FILE lua/candidates.lua text_equal True
+
+FILE lua/spatial.lua text_equal True
+
+FILE engine_lite/lua/host.lua text_equal False
+--- 
+
++++ 
+
+@@ -312,3 +312,2 @@
+
+     view=nil;units=nil;by_id=nil;legal=nil
+ end
+-
+DIFF_LINES 6
+
+FILE learning/sequences.py text_equal False
+AST_EQUAL False
+--- 
+
++++ 
+
+@@ -15,5 +15,5 @@
+
+ 
+ from .data import split
+-from .rowpack import unpack_line
++from .rowpack import unpack_line, plain_row
+ 
+ 
+@@ -138,20 +138,38 @@
+
+     def write(self, records):
+         """Atomically insert complete sequences, preserving decision order per side."""
+-        groups = defaultdict(list)
+-        for row in records:
+-            _validate_raw(row)
+-            if not row.get('engine_id', row.get('engine')):
+-                raise ValueError('sequence requires explicit engine provenance')
+-            if row.get('_sequence_complete') is False or row.get('sequence_start') is False:
+-                raise ValueError('cannot store an incomplete sequence without raw prefix')
+-            if row.get('split', split(row['game_family'])) != split(row['game_family']):
+-                raise ValueError('family crosses partitions')
+-            groups[sequence_key(row)].append(_raw(row))
++        groups = {}
+         with self.connection:
+-            for key, rows in groups.items():
+-                attach_histories(rows)  # validates ordering without storing history
++            for row in records:
++                _validate_raw(row)
++                if not row.get('engine_id', row.get('engine')):
++                    raise ValueError('sequence requires explicit engine provenance')
++                if row.get('_sequence_complete') is False or row.get('sequence_start') is False:
++                    raise ValueError('cannot store an incomplete sequence without raw prefix')
++                if row.get('split', split(row['game_family'])) != split(row['game_family']):
++                    raise ValueError('family crosses partitions')
++                key = sequence_key(row)
++                raw = _raw(row)
++                if key not in groups:
++                    attach_histories([raw])  # retain the original complete-prefix check
++                    groups[key] = dict(compressor=zlib.compressobj(), chunks=[], count=0,
++                                       decisions=0, turns=set(), last_turn=row['turn'])
++                group = groups[key]
++                if row['turn'] < group['last_turn']:
++                    raise ValueError('sequence must preserve chronological turn order')
++                group['last_turn'] = row['turn']
++                compressor = group['compressor']
++                group['chunks'].append(compressor.compress(b',' if group['count'] else b'['))
++                encoded = json.dumps(plain_row(raw), separators=(',', ':'), allow_nan=False).encode()
++                group['chunks'].append(compressor.compress(encoded))
++                group['count'] += 1
++                group['decisions'] += row.get('choice', -1) >= 0
++                group['turns'].add(row['turn'])
++            for key, group in groups.items():
+                 fmt, source, engine, family, game_id, side = key
+                 identity = hashlib.sha256(json.dumps(key, separators=(',', ':')).encode()).hexdigest()
+-                payload = zlib.compress(json.dumps(rows, separators=(',', ':'), allow_nan=False).encode())
++                compressor = group['compressor']
++                group['chunks'].append(compressor.compress(b']'))
++                group['chunks'].append(compressor.flush())
++                payload = b''.join(group['chunks'])
+                 existing = self.connection.execute('SELECT payload FROM sequences WHERE id=?', (identity,)).fetchone()
+                 if existing is not None:
+@@ -161,6 +179,6 @@
+
+                 self.connection.execute('INSERT INTO sequences VALUES (?,?,?,?,?,?,?,?,?,?,?)',
+                     (identity, fmt, source, engine, split(family), family, game_id, side,
+-                     sum(r.get('choice', -1) >= 0 for r in rows), len({r['turn'] for r in rows}), payload))
+-        return sum(map(len, groups.values()))
++                     group['decisions'], len(group['turns']), payload))
++        return sum(group['count'] for group in groups.values())
+ 
+     def index(self, partition=None, format_name=None, source=None, engine=None):
+DIFF_LINES 70
+
+FILE learning/data.py text_equal False
+AST_EQUAL False
+--- 
+
++++ 
+
+@@ -79,5 +79,5 @@
+
+     path = Path(path)
+     path.parent.mkdir(parents=True, exist_ok=True)
+-    written=0;bootstraps=bootstraps or {};raw_rows=[]
++    written=raw_count=0;bootstraps=bootstraps or {}
+     excluded='faulted_game' if result.get('faults') else None
+     def is_truncated(side):
+@@ -92,22 +92,24 @@
+
+     with gzip.open(path, 'wt', encoding='utf-8') as f:
+         if excluded:return dict(written=0,excluded=excluded)
+-        for r in records:
+-            r = dict(provenance or {}, **r)
+-            family=r.get('game_family', game_id)
+-            truncated=is_truncated(r['side'])
+-            bootstrap=bootstraps.get(str(r['side']),{})
+-            r = dict(r, game_id=game_id, game_family=family, split=split(family), reward=reward(result, r['side']), value_valid=r.get('value_valid',True) and not truncated,
+-                     truncated=truncated,bootstrap_value=bootstrap.get('value'),bootstrap_potential=bootstrap.get('potential'),
+-                     bootstrap_raw=bootstrap.get('reward_raw'),bootstrap_turn=bootstrap.get('turn'),
+-                     players=len(result['bots']), format=infer_format(result), faults=result['faults'],
+-                     faction=result.get('factions',[None]*len(result['bots']))[r['side']-1])
+-            r.setdefault('source', 'astra' if r.get('teacher') else 'policy')
+-            if r.get('choice',-1)>=0: validate_record(r);written+=1
+-            f.write(pack_line(r) + '\n')
+-            raw_rows.append(r)
+-    if raw_rows:
++        def augmented():
++            nonlocal written, raw_count
++            for r in records:
++                r = dict(provenance or {}, **r)
++                family=r.get('game_family', game_id)
++                truncated=is_truncated(r['side'])
++                bootstrap=bootstraps.get(str(r['side']),{})
++                r = dict(r, game_id=game_id, game_family=family, split=split(family), reward=reward(result, r['side']), value_valid=r.get('value_valid',True) and not truncated,
++                         truncated=truncated,bootstrap_value=bootstrap.get('value'),bootstrap_potential=bootstrap.get('potential'),
++                         bootstrap_raw=bootstrap.get('reward_raw'),bootstrap_turn=bootstrap.get('turn'),
++                         players=len(result['bots']), format=infer_format(result), faults=result['faults'],
++                         faction=result.get('factions',[None]*len(result['bots']))[r['side']-1])
++                r.setdefault('source', 'astra' if r.get('teacher') else 'policy')
++                if r.get('choice',-1)>=0: validate_record(r);written+=1
++                f.write(pack_line(r) + '\n')
++                raw_count += 1
++                yield r
+         from .sequences import IndexedSequenceStore
+-        with IndexedSequenceStore(path.parent/'sequences') as store: store.write(raw_rows)
+-    return dict(written=written,raw_records=len(raw_rows),excluded=None)
++        with IndexedSequenceStore(path.parent/'sequences') as store: store.write(augmented())
++    return dict(written=written,raw_records=raw_count,excluded=None)
+ 
+ 
+DIFF_LINES 51
+
+EXIT 0
