@@ -1,0 +1,28 @@
+test_collector_spools_complete_rows_without_retaining_their_arrays (tests.v5.test_collection_memory.CollectionMemoryTests.test_collector_spools_complete_rows_without_retaining_their_arrays) ... ok
+test_compaction_preserves_precision_labels_and_container_types (tests.v5.test_collection_memory.CollectionMemoryTests.test_compaction_preserves_precision_labels_and_container_types) ... ok
+test_index_streams_rows_with_identical_legacy_payload (tests.v5.test_collection_memory.CollectionMemoryTests.test_index_streams_rows_with_identical_legacy_payload) ... ok
+test_missing_metric_vector_stays_missing_after_numpy_support (tests.v5.test_collection_memory.CollectionMemoryTests.test_missing_metric_vector_stays_missing_after_numpy_support) ... ok
+test_projected_metric_rows_preserve_turn_five_and_ten_diagnostics (tests.v5.test_collection_memory.CollectionMemoryTests.test_projected_metric_rows_preserve_turn_five_and_ten_diagnostics) ... ok
+test_real_collector_compacts_before_write_without_changing_output (tests.v5.test_collection_memory.CollectionMemoryTests.test_real_collector_compacts_before_write_without_changing_output) ... ok
+test_sequence_writer_releases_prior_rows_while_consuming_generator (tests.v5.test_collection_memory.CollectionMemoryTests.test_sequence_writer_releases_prior_rows_while_consuming_generator) ... ok
+test_shard_writer_does_not_rebuild_an_entire_raw_row_list (tests.v5.test_collection_memory.CollectionMemoryTests.test_shard_writer_does_not_rebuild_an_entire_raw_row_list) ... ok
+test_faulted_game_is_excluded (tests.v5.test_pipeline_contract.ShardSequenceTests.test_faulted_game_is_excluded) ... ok
+test_missing_truncation_bootstrap_is_excluded_but_file_is_written (tests.v5.test_pipeline_contract.ShardSequenceTests.test_missing_truncation_bootstrap_is_excluded_but_file_is_written) ... ok
+test_sequence_store_roundtrip_and_content_guard (tests.v5.test_pipeline_contract.ShardSequenceTests.test_sequence_store_roundtrip_and_content_guard) ... ok
+test_write_shard_attaches_full_history_before_filtering (tests.v5.test_pipeline_contract.ShardSequenceTests.test_write_shard_attaches_full_history_before_filtering) ... ok
+test_astra_job_writes_schema_four_shard (tests.v5.test_pipeline_contract.LiteJobTests.test_astra_job_writes_schema_four_shard) ... ok
+test_baseline_in_lite_is_an_infrastructure_error (tests.v5.test_pipeline_contract.LiteJobTests.test_baseline_in_lite_is_an_infrastructure_error) ... ok
+test_missing_catalog_is_reported_as_infrastructure_error (tests.v5.test_pipeline_contract.LiteJobTests.test_missing_catalog_is_reported_as_infrastructure_error) ... ok
+test_policy_actor_input_excludes_teacher_and_reward_fields (tests.v5.test_pipeline_contract.LiteJobTests.test_policy_actor_input_excludes_teacher_and_reward_fields) ... ok
+test_query_and_bootstrap_decisions_get_full_candidates (tests.v5.test_pipeline_contract.LiteJobTests.test_query_and_bootstrap_decisions_get_full_candidates) ... ok
+test_teacher_queries_are_capped_per_game (tests.v5.test_pipeline_contract.LiteJobTests.test_teacher_queries_are_capped_per_game) ... ok
+test_truncated_policy_game_requires_a_bootstrap_callback (tests.v5.test_pipeline_contract.LiteJobTests.test_truncated_policy_game_requires_a_bootstrap_callback) ... ok
+test_truncated_policy_game_writes_bootstrap_values (tests.v5.test_pipeline_contract.LiteJobTests.test_truncated_policy_game_writes_bootstrap_values) ... ok
+test_uncollected_seats_skip_candidate_generation (tests.v5.test_pipeline_contract.LiteJobTests.test_uncollected_seats_skip_candidate_generation) ... ok
+
+----------------------------------------------------------------------
+Ran 21 tests in 12.315s
+
+OK
+
+EXIT 0

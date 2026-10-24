@@ -1,0 +1,22 @@
+READY {"role": "collector", "index": 0, "rows": 1621, "pid": 200069}
+MEMORY {"rss_kib": 5231080, "pss_kib": 5221252, "available_kib": 9947504, "swap_used_kib": 184076}
+DONE {"role": "collector", "index": 0, "rows": 1621, "payloads": [["6cf2e5d1fcd77ad254e918e5273e536fb2c04c1c610d597a656d0bac4fdef6d5", "ffa95af6695d12cea9d3c219466160db9d6b68036a9b8366227b269ecb9c0437"]], "indexed_decisions": 1621, "peak_rss_kib": 6486308}
+MEMORY {"rss_kib": 4706728, "pss_kib": 4407639, "available_kib": 10817880, "swap_used_kib": 184076}
+MEMORY {"rss_kib": 8030184, "pss_kib": 7731095, "available_kib": 7486616, "swap_used_kib": 184076}
+READY {"role": "trainer", "format": "team2v2", "rows": 852, "pid": 200082}
+MEMORY {"rss_kib": 10975888, "pss_kib": 10676797, "available_kib": 4540824, "swap_used_kib": 184076}
+READY {"role": "trainer", "format": "duel", "rows": 2026, "pid": 200080}
+READY {"role": "trainer", "format": "ffa4", "rows": 1137, "pid": 200081}
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/verification/bc_memory_repair_20261024_1321/stress_probe.py", line 144, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/verification/bc_memory_repair_20261024_1321/stress_probe.py", line 131, in main
+    pressure=phase(str(output/'pressure'))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/verification/bc_memory_repair_20261024_1321/stress_probe.py", line 100, in phase
+    if m['available_kib'] < 1536*1024:raise MemoryError(f'host reserve reached: {m}')
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+MemoryError: host reserve reached: {'rss_kib': 14006632, 'pss_kib': 13671921, 'available_kib': 1552128, 'swap_used_kib': 184076}
+
+EXIT 1

@@ -24,8 +24,10 @@ def _field(observation, name):
     index, scale = _GLOBAL[name]
     # Rollout observations name the vector ``global``; memory snapshots emitted
     # by the Lua host name it ``global_features``. Both are the same vector.
-    values = observation.get('global') or observation.get('global_features') or []
-    return float(values[index]) * scale if len(values) > index else None
+    values = observation.get('global')
+    if values is None or len(values) == 0:
+        values = observation.get('global_features', [])
+    return float(values[index]) * scale if values is not None and len(values) > index else None
 
 
 def _own_units(observation, side):

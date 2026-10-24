@@ -12,6 +12,8 @@ import zipfile
 from pathlib import Path
 
 from .adapters import LiteAdapter, ROOT
+from .rowpack import compact_row
+from .trajectory_buffer import TrajectoryBuffer
 
 
 def _lua(value):
@@ -109,6 +111,7 @@ def play_lite_job(job):
     from .lite_policy import FrozenPolicies,game_spec,is_astra
     from .reward_metrics import summarize_game
     job_id = job['id']
+    records, dagger = TrajectoryBuffer(), TrajectoryBuffer()
     try:
         if time.time() >= job.get('deadline', float('inf')):
             return dict(id=job_id, status='budget_interrupted', engine='lite')
@@ -127,7 +130,7 @@ def play_lite_job(job):
                              and Path(p).suffix == '.zip'), None)
         host = LiteHost(job['game_spec'], job.get('rules_dir'),
                         require_accepted=job.get('require_accepted', True), teacher_path=teacher_path)
-        records, timings, behavior, bootstraps, metric_snapshots = [], [], [], {}, []
+        timings, behavior, bootstraps, metric_snapshots = [], [], {}, []
         config = job.get('reward_config') or RewardConfig().to_dict()
         config = RewardConfig(**config).to_dict()
         rank_points, defeated = {}, set()
@@ -144,7 +147,7 @@ def play_lite_job(job):
             metric_snapshots.append(snapshot)
         for side in sorted(learner_sides):
             metric_snapshot(side,'initial')
-        query_count={};side_decisions={};dagger=[];query_total=0
+        query_count={};side_decisions={};query_total=0
         while True:
             view = host.adapter.observe(current)
             if view['finished']:
@@ -202,6 +205,7 @@ def play_lite_job(job):
             if policies and not teacher: policies.commit(current,decision,outcome)
             behavior.append(outcome['diagnostics']);timings.append(decision['timing']['ms'])
             if current in learner_sides:
+                decision = compact_row(decision)
                 records.append(decision)
                 if not teacher and job.get('learning',{}).get('dagger_teacher'):
                     label=dict(decision,source='astra',teacher='gpt6astra',teacher_impl='astra_lite',choice=-1,value_valid=False,data_pool='dagger')
@@ -246,15 +250,14 @@ def play_lite_job(job):
         written = write_shard(job['shard'], job_id, records, result, bootstraps) if job.get('shard') else None
         if dagger and job.get('shard'):
             path=Path(job['shard']);write_shard(path.with_name(path.name.replace('.jsonl.gz','.dagger.jsonl.gz')),job_id,dagger,result,bootstraps)
-        coverage = {'total': len(records), 'matched': sum(r['choice'] >= 0 for r in records),
-                    'kinds': {kind: {'total': sum(r['actual']['kind'] == kind for r in records),
-                                     'matched': sum(r['actual']['kind'] == kind and r['choice'] >= 0 for r in records)}
-                              for kind in ('recruit', 'move', 'attack', 'move_attack', 'end_turn')}}
-        for key in ('total','matched'): coverage['kinds']['attack'][key]+=coverage['kinds']['move_attack'][key]
+        coverage = records.coverage
         return dict(id=job_id, status='complete', engine='lite', result=result, coverage=coverage,
-                    reward_diagnostics=summarize_game(records,result,job,snapshots=metric_snapshots),
+                    reward_diagnostics=summarize_game(records.metric_rows(),result,job,snapshots=metric_snapshots),
                     training_eligible=written is None or bool(written['written']), training_shard=written,
                     behavior=behavior, timings=timings, native_timings=[], meta=job.get('meta', {}),
-                    truncated=sum(r['timing'].get('truncated', False) for r in records))
+                    truncated=records.truncated)
     except (RuntimeError, ValueError, ImportError, OSError, KeyError) as exc:
         return dict(id=job_id, status='infrastructure_error', engine='lite', error=str(exc))
+    finally:
+        records.close()
+        dagger.close()

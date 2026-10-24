@@ -5,6 +5,7 @@ import math
 from pathlib import Path
 import random
 from collections import OrderedDict
+from .rowpack import compact_row
 
 _models=OrderedDict()
 
@@ -82,4 +83,4 @@ class FrozenPolicies:
         history=self.histories[side]
         if not history or history[-1]['turn']!=row['turn']:
             write=dict(outcome['memory_write'],turn=row['turn'],candidates=[])
-            history.append(write)
+            history.append(compact_row(write))

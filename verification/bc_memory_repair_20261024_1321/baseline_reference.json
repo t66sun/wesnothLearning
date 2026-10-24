@@ -1,0 +1,17 @@
+{
+  "source": "pressure.ubuntu.txt",
+  "source_sha256": "e496238a1a41cadef71526229e56a1816e6b55629b0e31f19ca14ab05c2c9a4d",
+  "result": {
+    "role": "collector",
+    "index": 0,
+    "rows": 1621,
+    "payloads": [
+      [
+        "6cf2e5d1fcd77ad254e918e5273e536fb2c04c1c610d597a656d0bac4fdef6d5",
+        "ffa95af6695d12cea9d3c219466160db9d6b68036a9b8366227b269ecb9c0437"
+      ]
+    ],
+    "indexed_decisions": 1621,
+    "peak_rss_kib": 6486308
+  }
+}

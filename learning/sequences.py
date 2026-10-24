@@ -14,7 +14,7 @@ import sqlite3
 import zlib
 
 from .data import split
-from .rowpack import unpack_line
+from .rowpack import unpack_line, plain_row
 
 
 def sequence_key(row):
@@ -137,22 +137,40 @@ class IndexedSequenceStore:
 
     def write(self, records):
         """Atomically insert complete sequences, preserving decision order per side."""
-        groups = defaultdict(list)
-        for row in records:
-            _validate_raw(row)
-            if not row.get('engine_id', row.get('engine')):
-                raise ValueError('sequence requires explicit engine provenance')
-            if row.get('_sequence_complete') is False or row.get('sequence_start') is False:
-                raise ValueError('cannot store an incomplete sequence without raw prefix')
-            if row.get('split', split(row['game_family'])) != split(row['game_family']):
-                raise ValueError('family crosses partitions')
-            groups[sequence_key(row)].append(_raw(row))
+        groups = {}
         with self.connection:
-            for key, rows in groups.items():
-                attach_histories(rows)  # validates ordering without storing history
+            for row in records:
+                _validate_raw(row)
+                if not row.get('engine_id', row.get('engine')):
+                    raise ValueError('sequence requires explicit engine provenance')
+                if row.get('_sequence_complete') is False or row.get('sequence_start') is False:
+                    raise ValueError('cannot store an incomplete sequence without raw prefix')
+                if row.get('split', split(row['game_family'])) != split(row['game_family']):
+                    raise ValueError('family crosses partitions')
+                key = sequence_key(row)
+                raw = _raw(row)
+                if key not in groups:
+                    attach_histories([raw])  # retain the original complete-prefix check
+                    groups[key] = dict(compressor=zlib.compressobj(), chunks=[], count=0,
+                                       decisions=0, turns=set(), last_turn=row['turn'])
+                group = groups[key]
+                if row['turn'] < group['last_turn']:
+                    raise ValueError('sequence must preserve chronological turn order')
+                group['last_turn'] = row['turn']
+                compressor = group['compressor']
+                group['chunks'].append(compressor.compress(b',' if group['count'] else b'['))
+                encoded = json.dumps(plain_row(raw), separators=(',', ':'), allow_nan=False).encode()
+                group['chunks'].append(compressor.compress(encoded))
+                group['count'] += 1
+                group['decisions'] += row.get('choice', -1) >= 0
+                group['turns'].add(row['turn'])
+            for key, group in groups.items():
                 fmt, source, engine, family, game_id, side = key
                 identity = hashlib.sha256(json.dumps(key, separators=(',', ':')).encode()).hexdigest()
-                payload = zlib.compress(json.dumps(rows, separators=(',', ':'), allow_nan=False).encode())
+                compressor = group['compressor']
+                group['chunks'].append(compressor.compress(b']'))
+                group['chunks'].append(compressor.flush())
+                payload = b''.join(group['chunks'])
                 existing = self.connection.execute('SELECT payload FROM sequences WHERE id=?', (identity,)).fetchone()
                 if existing is not None:
                     if existing[0] != payload:
@@ -160,8 +178,8 @@ class IndexedSequenceStore:
                     continue
                 self.connection.execute('INSERT INTO sequences VALUES (?,?,?,?,?,?,?,?,?,?,?)',
                     (identity, fmt, source, engine, split(family), family, game_id, side,
-                     sum(r.get('choice', -1) >= 0 for r in rows), len({r['turn'] for r in rows}), payload))
-        return sum(map(len, groups.values()))
+                     group['decisions'], len(group['turns']), payload))
+        return sum(group['count'] for group in groups.values())
 
     def index(self, partition=None, format_name=None, source=None, engine=None):
         filters = dict(partition=partition, format=format_name, source=source, engine=engine)

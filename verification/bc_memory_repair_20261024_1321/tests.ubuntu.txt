@@ -1,0 +1,268 @@
+test_compaction_preserves_precision_labels_and_container_types (tests.v5.test_collection_memory.CollectionMemoryTests.test_compaction_preserves_precision_labels_and_container_types) ... ERROR
+test_index_streams_rows_with_identical_legacy_payload (tests.v5.test_collection_memory.CollectionMemoryTests.test_index_streams_rows_with_identical_legacy_payload) ... ERROR
+test_real_collector_compacts_before_write_without_changing_output (tests.v5.test_collection_memory.CollectionMemoryTests.test_real_collector_compacts_before_write_without_changing_output) ... FAIL
+test_broken_pool_terminates_live_trainers_before_join (tests.test_pool_failure.PoolFailureTests.test_broken_pool_terminates_live_trainers_before_join) ... ok
+test_faulted_game_is_excluded (tests.v5.test_pipeline_contract.ShardSequenceTests.test_faulted_game_is_excluded) ... ERROR
+test_missing_truncation_bootstrap_is_excluded_but_file_is_written (tests.v5.test_pipeline_contract.ShardSequenceTests.test_missing_truncation_bootstrap_is_excluded_but_file_is_written) ... ERROR
+test_sequence_store_roundtrip_and_content_guard (tests.v5.test_pipeline_contract.ShardSequenceTests.test_sequence_store_roundtrip_and_content_guard) ... ERROR
+test_write_shard_attaches_full_history_before_filtering (tests.v5.test_pipeline_contract.ShardSequenceTests.test_write_shard_attaches_full_history_before_filtering) ... ERROR
+test_memory_cache_is_separate_for_sides_and_new_jobs (tests.v5.test_lite_policy_memory.FrozenMemoryTests.test_memory_cache_is_separate_for_sides_and_new_jobs) ... ok
+test_real_policy_parity_and_one_replay_until_history_or_turn_changes (tests.v5.test_lite_policy_memory.FrozenMemoryTests.test_real_policy_parity_and_one_replay_until_history_or_turn_changes) ... ok
+test_astra_job_writes_schema_four_shard (tests.v5.test_pipeline_contract.LiteJobTests.test_astra_job_writes_schema_four_shard) ... FAIL
+test_baseline_in_lite_is_an_infrastructure_error (tests.v5.test_pipeline_contract.LiteJobTests.test_baseline_in_lite_is_an_infrastructure_error) ... ok
+test_missing_catalog_is_reported_as_infrastructure_error (tests.v5.test_pipeline_contract.LiteJobTests.test_missing_catalog_is_reported_as_infrastructure_error) ... ok
+test_policy_actor_input_excludes_teacher_and_reward_fields (tests.v5.test_pipeline_contract.LiteJobTests.test_policy_actor_input_excludes_teacher_and_reward_fields) ... FAIL
+test_query_and_bootstrap_decisions_get_full_candidates (tests.v5.test_pipeline_contract.LiteJobTests.test_query_and_bootstrap_decisions_get_full_candidates) ... FAIL
+test_teacher_queries_are_capped_per_game (tests.v5.test_pipeline_contract.LiteJobTests.test_teacher_queries_are_capped_per_game) ... FAIL
+test_truncated_policy_game_requires_a_bootstrap_callback (tests.v5.test_pipeline_contract.LiteJobTests.test_truncated_policy_game_requires_a_bootstrap_callback) ... FAIL
+test_truncated_policy_game_writes_bootstrap_values (tests.v5.test_pipeline_contract.LiteJobTests.test_truncated_policy_game_writes_bootstrap_values) ... FAIL
+test_uncollected_seats_skip_candidate_generation (tests.v5.test_pipeline_contract.LiteJobTests.test_uncollected_seats_skip_candidate_generation) ... FAIL
+test_scheduler_round_robin_and_global_process_limit (tests.test_experiment.ExperimentTests.test_scheduler_round_robin_and_global_process_limit) ... ok
+
+======================================================================
+ERROR: test_compaction_preserves_precision_labels_and_container_types (tests.v5.test_collection_memory.CollectionMemoryTests.test_compaction_preserves_precision_labels_and_container_types)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/tests/v5/test_collection_memory.py", line 20, in test_compaction_preserves_precision_labels_and_container_types
+    row = helpers.synthetic_decision_row()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/tests/v5/helpers.py", line 224, in synthetic_decision_row
+    instance = engine(game_spec=spec(seed=seed))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/tests/v5/helpers.py", line 130, in engine
+    instance.configure_host(json.dumps(host_modules()))
+                                       ^^^^^^^^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/tests/v5/helpers.py", line 122, in host_modules
+    return build()
+           ^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/learning/lite_host.py", line 43, in host_modules
+    with zipfile.ZipFile(teacher_path or ROOT / 'data/opponents/gpt6astra.zip') as archive:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/zipfile/__init__.py", line 1347, in __init__
+    self.fp = io.open(file, filemode)
+              ^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/data/opponents/gpt6astra.zip'
+
+======================================================================
+ERROR: test_index_streams_rows_with_identical_legacy_payload (tests.v5.test_collection_memory.CollectionMemoryTests.test_index_streams_rows_with_identical_legacy_payload)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/tests/v5/test_collection_memory.py", line 68, in test_index_streams_rows_with_identical_legacy_payload
+    rows = helpers.sequence_rows(turns=3, decisions_per_turn=3)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/tests/v5/helpers.py", line 240, in sequence_rows
+    instance = engine(game_spec=spec(seed=seed))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/tests/v5/helpers.py", line 130, in engine
+    instance.configure_host(json.dumps(host_modules()))
+                                       ^^^^^^^^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/tests/v5/helpers.py", line 122, in host_modules
+    return build()
+           ^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/learning/lite_host.py", line 43, in host_modules
+    with zipfile.ZipFile(teacher_path or ROOT / 'data/opponents/gpt6astra.zip') as archive:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/zipfile/__init__.py", line 1347, in __init__
+    self.fp = io.open(file, filemode)
+              ^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/data/opponents/gpt6astra.zip'
+
+======================================================================
+ERROR: test_faulted_game_is_excluded (tests.v5.test_pipeline_contract.ShardSequenceTests.test_faulted_game_is_excluded)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/tests/v5/test_pipeline_contract.py", line 585, in test_faulted_game_is_excluded
+    rows = self.policy_rows()
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/tests/v5/test_pipeline_contract.py", line 551, in policy_rows
+    rows = helpers.sequence_rows(turns=turns, decisions_per_turn=decisions,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/tests/v5/helpers.py", line 240, in sequence_rows
+    instance = engine(game_spec=spec(seed=seed))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/tests/v5/helpers.py", line 130, in engine
+    instance.configure_host(json.dumps(host_modules()))
+                                       ^^^^^^^^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/tests/v5/helpers.py", line 122, in host_modules
+    return build()
+           ^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/learning/lite_host.py", line 43, in host_modules
+    with zipfile.ZipFile(teacher_path or ROOT / 'data/opponents/gpt6astra.zip') as archive:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/zipfile/__init__.py", line 1347, in __init__
+    self.fp = io.open(file, filemode)
+              ^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/data/opponents/gpt6astra.zip'
+
+======================================================================
+ERROR: test_missing_truncation_bootstrap_is_excluded_but_file_is_written (tests.v5.test_pipeline_contract.ShardSequenceTests.test_missing_truncation_bootstrap_is_excluded_but_file_is_written)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/tests/v5/test_pipeline_contract.py", line 593, in test_missing_truncation_bootstrap_is_excluded_but_file_is_written
+    rows = self.policy_rows()
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/tests/v5/test_pipeline_contract.py", line 551, in policy_rows
+    rows = helpers.sequence_rows(turns=turns, decisions_per_turn=decisions,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/tests/v5/helpers.py", line 240, in sequence_rows
+    instance = engine(game_spec=spec(seed=seed))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/tests/v5/helpers.py", line 130, in engine
+    instance.configure_host(json.dumps(host_modules()))
+                                       ^^^^^^^^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/tests/v5/helpers.py", line 122, in host_modules
+    return build()
+           ^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/learning/lite_host.py", line 43, in host_modules
+    with zipfile.ZipFile(teacher_path or ROOT / 'data/opponents/gpt6astra.zip') as archive:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/zipfile/__init__.py", line 1347, in __init__
+    self.fp = io.open(file, filemode)
+              ^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/data/opponents/gpt6astra.zip'
+
+======================================================================
+ERROR: test_sequence_store_roundtrip_and_content_guard (tests.v5.test_pipeline_contract.ShardSequenceTests.test_sequence_store_roundtrip_and_content_guard)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/tests/v5/test_pipeline_contract.py", line 609, in test_sequence_store_roundtrip_and_content_guard
+    rows = self.policy_rows()
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/tests/v5/test_pipeline_contract.py", line 551, in policy_rows
+    rows = helpers.sequence_rows(turns=turns, decisions_per_turn=decisions,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/tests/v5/helpers.py", line 240, in sequence_rows
+    instance = engine(game_spec=spec(seed=seed))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/tests/v5/helpers.py", line 130, in engine
+    instance.configure_host(json.dumps(host_modules()))
+                                       ^^^^^^^^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/tests/v5/helpers.py", line 122, in host_modules
+    return build()
+           ^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/learning/lite_host.py", line 43, in host_modules
+    with zipfile.ZipFile(teacher_path or ROOT / 'data/opponents/gpt6astra.zip') as archive:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/zipfile/__init__.py", line 1347, in __init__
+    self.fp = io.open(file, filemode)
+              ^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/data/opponents/gpt6astra.zip'
+
+======================================================================
+ERROR: test_write_shard_attaches_full_history_before_filtering (tests.v5.test_pipeline_contract.ShardSequenceTests.test_write_shard_attaches_full_history_before_filtering)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/tests/v5/test_pipeline_contract.py", line 559, in test_write_shard_attaches_full_history_before_filtering
+    rows = self.policy_rows(turns=8)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/tests/v5/test_pipeline_contract.py", line 551, in policy_rows
+    rows = helpers.sequence_rows(turns=turns, decisions_per_turn=decisions,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/tests/v5/helpers.py", line 240, in sequence_rows
+    instance = engine(game_spec=spec(seed=seed))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/tests/v5/helpers.py", line 130, in engine
+    instance.configure_host(json.dumps(host_modules()))
+                                       ^^^^^^^^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/tests/v5/helpers.py", line 122, in host_modules
+    return build()
+           ^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/learning/lite_host.py", line 43, in host_modules
+    with zipfile.ZipFile(teacher_path or ROOT / 'data/opponents/gpt6astra.zip') as archive:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/zipfile/__init__.py", line 1347, in __init__
+    self.fp = io.open(file, filemode)
+              ^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/data/opponents/gpt6astra.zip'
+
+======================================================================
+FAIL: test_real_collector_compacts_before_write_without_changing_output (tests.v5.test_collection_memory.CollectionMemoryTests.test_real_collector_compacts_before_write_without_changing_output)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/tests/v5/test_collection_memory.py", line 40, in test_real_collector_compacts_before_write_without_changing_output
+    self.assertEqual(baseline['status'], 'complete', baseline)
+AssertionError: 'infrastructure_error' != 'complete'
+- infrastructure_error
++ complete
+ : {'id': 'lite-job', 'status': 'infrastructure_error', 'engine': 'lite', 'error': "[Errno 2] No such file or directory: '/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/data/opponents/gpt6astra.zip'"}
+
+======================================================================
+FAIL: test_astra_job_writes_schema_four_shard (tests.v5.test_pipeline_contract.LiteJobTests.test_astra_job_writes_schema_four_shard)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/tests/v5/test_pipeline_contract.py", line 320, in test_astra_job_writes_schema_four_shard
+    self.assertEqual(outcome['status'], 'complete', outcome.get('error'))
+AssertionError: 'infrastructure_error' != 'complete'
+- infrastructure_error
++ complete
+ : [Errno 2] No such file or directory: '/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/data/opponents/gpt6astra.zip'
+
+======================================================================
+FAIL: test_policy_actor_input_excludes_teacher_and_reward_fields (tests.v5.test_pipeline_contract.LiteJobTests.test_policy_actor_input_excludes_teacher_and_reward_fields)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/tests/v5/test_pipeline_contract.py", line 355, in test_policy_actor_input_excludes_teacher_and_reward_fields
+    self.assertEqual(outcome['status'], 'complete', outcome.get('error'))
+AssertionError: 'infrastructure_error' != 'complete'
+- infrastructure_error
++ complete
+ : [Errno 2] No such file or directory: '/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/data/opponents/gpt6astra.zip'
+
+======================================================================
+FAIL: test_query_and_bootstrap_decisions_get_full_candidates (tests.v5.test_pipeline_contract.LiteJobTests.test_query_and_bootstrap_decisions_get_full_candidates)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/tests/v5/test_pipeline_contract.py", line 508, in test_query_and_bootstrap_decisions_get_full_candidates
+    self.assertEqual(outcome['status'], 'complete', outcome.get('error'))
+AssertionError: 'infrastructure_error' != 'complete'
+- infrastructure_error
++ complete
+ : [Errno 2] No such file or directory: 'data/opponents/gpt6astra.zip'
+
+======================================================================
+FAIL: test_teacher_queries_are_capped_per_game (tests.v5.test_pipeline_contract.LiteJobTests.test_teacher_queries_are_capped_per_game)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/tests/v5/test_pipeline_contract.py", line 386, in test_teacher_queries_are_capped_per_game
+    self.assertEqual(outcome['status'], 'complete', outcome.get('error'))
+AssertionError: 'infrastructure_error' != 'complete'
+- infrastructure_error
++ complete
+ : [Errno 2] No such file or directory: '/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/data/opponents/gpt6astra.zip'
+
+======================================================================
+FAIL: test_truncated_policy_game_requires_a_bootstrap_callback (tests.v5.test_pipeline_contract.LiteJobTests.test_truncated_policy_game_requires_a_bootstrap_callback)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/tests/v5/test_pipeline_contract.py", line 408, in test_truncated_policy_game_requires_a_bootstrap_callback
+    self.assertIn('truncated policy game requires a frozen bootstrap_policy callback',
+AssertionError: 'truncated policy game requires a frozen bootstrap_policy callback' not found in "[Errno 2] No such file or directory: '/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/data/opponents/gpt6astra.zip'"
+
+======================================================================
+FAIL: test_truncated_policy_game_writes_bootstrap_values (tests.v5.test_pipeline_contract.LiteJobTests.test_truncated_policy_game_writes_bootstrap_values)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/tests/v5/test_pipeline_contract.py", line 421, in test_truncated_policy_game_writes_bootstrap_values
+    self.assertEqual(outcome['status'], 'complete', outcome.get('error'))
+AssertionError: 'infrastructure_error' != 'complete'
+- infrastructure_error
++ complete
+ : [Errno 2] No such file or directory: '/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/data/opponents/gpt6astra.zip'
+
+======================================================================
+FAIL: test_uncollected_seats_skip_candidate_generation (tests.v5.test_pipeline_contract.LiteJobTests.test_uncollected_seats_skip_candidate_generation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/tests/v5/test_pipeline_contract.py", line 479, in test_uncollected_seats_skip_candidate_generation
+    self.assertEqual(outcome['status'], 'complete', outcome.get('error'))
+AssertionError: 'infrastructure_error' != 'complete'
+- infrastructure_error
++ complete
+ : [Errno 2] No such file or directory: '/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/data/opponents/gpt6astra.zip'
+
+----------------------------------------------------------------------
+Ran 20 tests in 2.437s
+
+FAILED (failures=8, errors=6)
+
+EXIT 1
