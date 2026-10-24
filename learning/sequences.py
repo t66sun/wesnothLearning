@@ -5,12 +5,14 @@ SQLite indexes metadata without decoding observations. An instance keeps a bound
 decoded-block cache across minibatches. Pass complete sequences to attach_histories;
 slice its result, rather than attaching history to a random suffix.
 """
-from collections import OrderedDict, defaultdict
+from collections import Counter, OrderedDict, defaultdict
+from functools import lru_cache
 import hashlib
 import json
 from pathlib import Path
 import random
 import sqlite3
+import struct
 import zlib
 
 from .data import split
@@ -310,20 +312,249 @@ def _family_windows(files, partition, format_name, turns):
     return windows, prefix
 
 
+@lru_cache(maxsize=8192)
+def _payload_bytes(path, size, modified):
+    """Uncompressed payload size from the gzip trailer; the body is never read."""
+    if size < 8:
+        return size
+    with open(path, 'rb') as stream:
+        stream.seek(-4, 2)
+        return int(struct.unpack('<I', stream.read(4))[0])
+
+
+def _candidate_plan(indexed, limit, rng):
+    """Shuffle families inside each provenance bucket, then interleave buckets.
+
+    The first tier keeps the historical pool size of at most ``limit // 32``
+    families per bucket; the remaining families follow only when that pool
+    cannot fill the request. Round-robin interleaving stops one bucket from
+    consuming the whole read before the others contribute.
+    """
+    keys = sorted(indexed, key=str)
+    orders = {}
+    for key in keys:
+        families = list(indexed[key])
+        rng.shuffle(families)
+        orders[key] = families
+    depth = max((len(families) for families in orders.values()), default=0)
+    first = max(1, limit // max(1, FAMILIES_PER_32_ROWS * len(keys)))
+    plan = []
+    for start, stop in ((0, min(first, depth)), (min(first, depth), depth)):
+        for position in range(start, stop):
+            for key in keys:
+                families = orders[key]
+                if position < len(families):
+                    plan.append((key, families[position], indexed[key][families[position]]))
+    return plan
+
+
+def _water_fill(capacities, requested):
+    """Equal share per family, then hand leftover capacity to whoever has room."""
+    allocation = [0] * len(capacities)
+    remaining = requested
+    if not capacities or remaining <= 0:
+        return allocation
+    share = -(-requested // len(capacities))
+    for index in range(len(capacities)):
+        take = min(capacities[index], share, remaining)
+        allocation[index] = take
+        remaining -= take
+        if remaining <= 0:
+            return allocation
+    while remaining > 0:
+        active = [index for index, capacity in enumerate(capacities) if allocation[index] < capacity]
+        if not active:
+            break
+        give = max(1, remaining // len(active))
+        for index in active:
+            take = min(capacities[index] - allocation[index], give, remaining)
+            allocation[index] += take
+            remaining -= take
+            if remaining <= 0:
+                break
+    return allocation
+
+
+def _fair_total(capacities, target):
+    """Rows a bucket can serve if every family gets an equal share of the target."""
+    if not capacities or target <= 0:
+        return 0
+    share = -(-target // len(capacities))
+    return sum(min(capacity, share) for capacity in capacities)
+
+
+def _bucket_targets(buckets, limit):
+    """Spread the request over the indexed buckets before anything is decoded.
+
+    Every bucket owns its target rows, so a bucket that runs out of legal data
+    reports a deficit instead of silently borrowing another bucket's rows.
+    """
+    base, extra = divmod(limit, len(buckets))
+    return {key: base + (1 if index < extra else 0) for index, key in enumerate(buckets)}
+
+
+def _ordered_rows(windows):
+    """Restore chronology per sequence while keeping the sampling decision fixed."""
+    ordered = defaultdict(list)
+    for window in windows:
+        for row in window:
+            ordered[sequence_key(row)].append(row)
+    return [row for rows in ordered.values()
+            for row in sorted(rows, key=lambda r: (r['turn'], r.get('decision', 0)))]
+
+
+def _read_all(indexed, partition, format_name, turns, seed, stats):
+    """Full read: every indexed family is decoded, so nothing is truncated."""
+    rng = random.Random(seed)
+    selected = []
+    for key in sorted(indexed, key=str):
+        families = list(indexed[key])
+        rng.shuffle(families)
+        selected.extend((key, family, indexed[key][family]) for family in families)
+    rng.shuffle(selected)
+    kept = []
+    used = retained = decoded = retained_families = 0
+    for _, _, files in selected:
+        cost = sum(stat.st_size for _, stat in files)
+        used += cost
+        decoded += 1
+        windows, prefix = _family_windows(files, partition, format_name, turns)
+        rng.shuffle(windows)
+        if not windows:
+            continue
+        retained_families += 1
+        retained += prefix + sum(_row_bytes(row) for window in windows for row in window)
+        kept.extend(windows)
+    rows = _ordered_rows(kept)
+    if stats is not None:
+        stats.update(requested=None, rows=len(rows), families=decoded, selected=len(selected),
+                     families_decoded=decoded, families_selected=len(selected),
+                     families_admitted=decoded, families_retained=retained_families,
+                     windows=len(kept),
+                     sources=dict(Counter(row['source'] for row in rows)),
+                     engines=dict(Counter(row['engine_id'] for row in rows)),
+                     kinds=dict(Counter(row['candidates'][row['choice']]['kind'] for row in rows)),
+                     gz_bytes=used, retained_bytes=retained, deficit=0,
+                     # A full read has no request to miss, so it never reports a
+                     # budget reason; the reason stays inside the bounded set.
+                     stop_reason='window_limit')
+    return rows
+
+
+def _read_bounded(indexed, partition, format_name, turns, limit, seed, gz_budget, retain_budget, stats):
+    """Fair first allocation then backfill from families already decoded."""
+    rng = random.Random(seed)
+    plan = _candidate_plan(indexed, limit, rng)
+    admitted = []
+    groups = {}
+    buckets = sorted(indexed, key=str)
+    targets = _bucket_targets(buckets, limit)
+    pending = {key for key in buckets if targets[key] > 0}
+    gz_used = charged = decoded = 0
+    blocked_gz = blocked_retain = 0
+
+    def allocation():
+        values = [0] * len(admitted)
+        for key in buckets:
+            indexes = groups.get(key, [])
+            if indexes:
+                shares = _water_fill([admitted[index]['capacity'] for index in indexes], targets[key])
+                for index, share in zip(indexes, shares):
+                    values[index] = share
+        return values
+
+    for key, family, files in plan:
+        # A bucket stops at its own target; the other buckets keep their turn,
+        # so one bucket cannot consume the request before the rest contribute.
+        if not pending:
+            break
+        if key not in pending:
+            continue
+        cost = sum(stat.st_size for _, stat in files)
+        # Compressed admission is decided from metadata; a family that does not
+        # fit is skipped instead of being granted an unrecorded exception.
+        if gz_used + cost > gz_budget:
+            blocked_gz += 1
+            continue
+        estimate = sum(_payload_bytes(str(path), stat.st_size, stat.st_mtime_ns) for path, stat in files)
+        if charged + estimate > retain_budget:
+            blocked_retain += 1
+            continue
+        windows, prefix = _family_windows(files, partition, format_name, turns)
+        decoded += 1
+        gz_used += cost
+        rng.shuffle(windows)
+        kept = []
+        size = 0
+        for window in windows:
+            row_cost = sum(_row_bytes(row) for row in window)
+            if charged + (prefix if not kept else 0) + size + row_cost > retain_budget:
+                # Only supervised targets are shortened; the raw prefix and the
+                # windows already retained stay exactly as decoded.
+                blocked_retain += 1
+                break
+            kept.append(window)
+            size += row_cost
+        if not kept:
+            continue
+        charged += prefix + size
+        capacity = sum(len(window) for window in kept)
+        groups.setdefault(key, []).append(len(admitted))
+        admitted.append(dict(windows=kept, prefix=prefix, capacity=capacity))
+        if _fair_total([admitted[index]['capacity'] for index in groups[key]], targets[key]) >= targets[key]:
+            pending.discard(key)
+    selected = []
+    retained = 0
+    retained_families = 0
+    for entry, share in zip(admitted, allocation()):
+        taken = []
+        remaining = share
+        for window in entry['windows']:
+            if remaining <= 0:
+                break
+            piece = window[:remaining]
+            taken.append(piece)
+            remaining -= len(piece)
+        if taken:
+            retained_families += 1
+            retained += entry['prefix'] + sum(_row_bytes(row) for piece in taken for row in piece)
+            selected.extend(taken)
+    rows = _ordered_rows(selected)
+    deficit = limit - len(rows)
+    if not deficit:
+        reason = 'window_limit'
+    elif blocked_gz:
+        reason = 'gz_budget'
+    elif blocked_retain:
+        reason = 'retain_budget'
+    else:
+        reason = 'insufficient_data'
+    if stats is not None:
+        stats.update(requested=limit, rows=len(rows), families=decoded, selected=len(plan),
+                     families_decoded=decoded, families_selected=len(plan),
+                     families_admitted=len(admitted), families_retained=retained_families,
+                     windows=len(selected),
+                     sources=dict(Counter(row['source'] for row in rows)),
+                     engines=dict(Counter(row['engine_id'] for row in rows)),
+                     kinds=dict(Counter(row['candidates'][row['choice']]['kind'] for row in rows)),
+                     gz_bytes=gz_used, retained_bytes=retained, deficit=deficit, stop_reason=reason)
+    return rows
+
+
 def read_shards(paths, partition=None, limit=None, seed=19, format_name=None, turns=WINDOW_TURNS,
                 gz_budget=GZ_BUDGET, retain_budget=RETAIN_BUDGET, stats=None):
-    """Read complete games under an explicit compressed-byte budget.
+    """Read complete games under explicit compressed and retained-byte budgets.
 
     limit bounds returned supervised rows, never their raw prefix: a returned
-    window keeps every earlier decision of its game. Selected families are
-    decoded one at a time and released before the next opens, so a read costs a
-    bounded number of games instead of the whole shard pool. A full read
-    (``limit=None``) keeps the historical semantics and decodes everything.
+    window keeps every earlier decision of its game. Bounded reads admit
+    families from cached shard metadata, decode each admitted family once, give
+    every admitted family a fair target-row share and then backfill unused
+    capacity from those already decoded families. A full read (``limit=None``)
+    keeps the historical semantics and decodes everything.
     """
     from .data import _shard_identity
     if limit is not None and limit < 1:
         raise ValueError('record limit must be positive')
-    rng = random.Random(seed)
     indexed = defaultdict(lambda: defaultdict(list))
     for value in paths:
         path = Path(value).resolve()
@@ -337,75 +568,10 @@ def read_shards(paths, partition=None, limit=None, seed=19, format_name=None, tu
         if format_name is not None and fmt != format_name:
             raise ValueError('cross-format sample rejected')
         indexed[(fmt, source, part, engine)][family].append((path, stat))
-    selected = []
-    for key in sorted(indexed, key=str):
-        families = list(indexed[key])
-        rng.shuffle(families)
-        # A bounded, rotating family pool per provenance bucket keeps the
-        # ``limit // 32`` games rule; complete selected games are decoded.
-        quota = len(families) if limit is None else max(1, limit // max(1, FAMILIES_PER_32_ROWS * len(indexed)))
-        for family in families[:quota]:
-            selected.append((key, family, indexed[key][family]))
-    rng.shuffle(selected)
-    kept = []
-    label = limit is not None
-    rows_kept = used = retained = decoded = 0
-    for position, (key, family, files) in enumerate(selected):
-        if limit is not None and rows_kept >= limit:
-            break
-        cost = sum(stat.st_size for _, stat in files)
-        if kept and (used + cost > gz_budget or retained > retain_budget):
-            break
-        used += cost
-        decoded += 1
-        windows, prefix = _family_windows(files, partition, format_name, turns)
-        rng.shuffle(windows)
-        # Only the few windows this game will actually contribute are kept; the
-        # remaining windows die with ``windows`` and release their sequences.
-        share = None if limit is None else max(1, -(-(limit - rows_kept) // max(1, len(selected) - position)))
-        taken = [windows[0]] if windows else []
-        taken_rows = len(taken[0]) if taken else 0
-        for window in windows[1:]:
-            if share is not None and taken_rows >= share:
-                break
-            taken.append(window)
-            taken_rows += len(window)
-        while taken and limit is not None and rows_kept and rows_kept + taken_rows > limit:
-            taken_rows -= len(taken.pop())
-        if not taken:
-            del windows
-            continue
-        size = sum(_row_bytes(row) for window in taken for row in window)
-        if label is not None and retained + prefix + size > retain_budget:
-            del taken, windows
-            continue
-        retained += prefix + size
-        rows_kept += taken_rows
-        kept.extend(taken)
-        del taken, windows
     if limit is None:
-        ordered = defaultdict(list)
-        for window in kept:
-            for row in window:
-                ordered[sequence_key(row)].append(row)
-        result = [row for rows in ordered.values() for row in sorted(rows, key=lambda r: (r['turn'], r.get('decision', 0)))]
-        if stats is not None:
-            stats.update(families=decoded, selected=len(selected), gz_bytes=used, retained_bytes=retained, rows=len(result))
-        return result
-    result = []
-    for window in kept:
-        if len(result) >= limit:
-            break
-        result.extend(window[:limit - len(result)])
-    ordered = defaultdict(list)
-    for row in result:
-        ordered[sequence_key(row)].append(row)
-    # Keep the sampling decision fixed while restoring chronology for the window
-    # consumer. Already attached prefixes remain exactly as collected.
-    rows = [row for rows in ordered.values() for row in sorted(rows, key=lambda r: (r['turn'], r.get('decision', 0)))]
-    if stats is not None:
-        stats.update(families=decoded, selected=len(selected), gz_bytes=used, retained_bytes=retained, rows=len(rows))
-    return rows
+        return _read_all(indexed, partition, format_name, turns, seed, stats)
+    return _read_bounded(indexed, partition, format_name, turns, limit, seed,
+                         gz_budget, retain_budget, stats)
 
 
 def read_raw_shards(paths,format_name=None):

@@ -315,7 +315,7 @@ This section is the maintained plan, replacing the short proposal in section 1 f
 | Phase | Status |
 |---|---|
 | P1 learners extracted (`bc.py`, `ppo.py`, `checkpoints.py`) | Implemented, awaiting acceptance |
-| P2 bounded BC filling | Not implemented |
+| P2 bounded BC filling | Implemented, awaiting acceptance |
 | P3 PPO traversal and recovery | Not implemented |
 | P4 logical-batch stopping | Not implemented |
 | P5a checkpoint operations | Not implemented |
