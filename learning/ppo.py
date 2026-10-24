@@ -104,7 +104,7 @@ def update(model, optimizer, records, bc_records=None, epochs=4, minibatch=256, 
                     inspected_decisions=inspected, committed_decisions=committed,
                     policy_sha256_before=before, policy_sha256_after=_digest(model), cursor=cursor)
 
-    plan_migrated = not progress or progress.get('plan_version', 1) != PLAN_VERSION
+    plan_migrated = progress is not None and progress.get('plan_version', 1) != PLAN_VERSION
     if not windows:
         return result('completed')
 
