@@ -89,7 +89,9 @@ class ExperimentTests(unittest.TestCase):
                 (root/'duel/schedules').mkdir(parents=True,exist_ok=True)
                 job=dict(id='job-1',shard=str(root/'job-1.jsonl.gz'),bots=['a','b'],deadline=clock['deadline'])
                 job2=dict(id='job-2',bots=['a','b'],deadline=clock['deadline'])
-                Path(job['shard']).write_bytes(b'old')
+                with __import__('gzip').open(job['shard'],'wt',encoding='utf-8') as handle:
+                    handle.write(json.dumps(dict(format='duel',source='astra',engine_id='lite-0.2',
+                                                 game_family='family-3',game_id='retry-1',side=1))+'\n')
                 (root/'duel/jobs.jsonl').write_text(json.dumps(dict(id='job-1',status='infrastructure_error'))+'\n')
                 seen={}
                 def collect(pending,log):

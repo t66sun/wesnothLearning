@@ -3,11 +3,15 @@
 Rows come from the real Lua capture path in ``tests/v5/helpers`` and are packed
 by ``learning.data.write_shard``; the shards differ only in supervised capacity.
 """
+import gzip
+import json
+import tempfile
 import unittest
+from pathlib import Path
 from unittest import mock
 
 from learning import data, sequences
-from learning.sequences import read_shards
+from learning.sequences import IndexedSequenceStore, discard_sequences, read_shards
 from tests.v5 import helpers
 
 
@@ -164,6 +168,21 @@ class BoundedFillTests(unittest.TestCase):
         self.assertEqual(stats['families_retained'], 3)
         self.assertEqual(stats['windows'], 13)
         self.assertEqual(stats['kinds'], {'end_turn': 13})
+
+
+    def test_discard_sequences_removes_index_and_shard(self):
+        rows=helpers.sequence_rows(turns=1,decisions_per_turn=1,game_id='retry-1',game_family='family-3')
+        rows[0]['split']=data.split('family-3')
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp)
+            with IndexedSequenceStore(root) as store: store.write(rows)
+            shard=root/'retry.jsonl.gz'
+            with gzip.open(shard,'wt',encoding='utf-8') as handle:
+                for row in rows: handle.write(json.dumps(row)+'\n')
+            with IndexedSequenceStore(root) as store: self.assertEqual(len(store.index()),1)
+            self.assertEqual(discard_sequences(shard),len({row['game_id'] for row in rows}))
+            self.assertFalse(shard.exists())
+            with IndexedSequenceStore(root) as store: self.assertEqual(store.index(),[])
 
 
 if __name__ == '__main__':

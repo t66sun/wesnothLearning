@@ -7,6 +7,7 @@ slice its result, rather than attaching history to a random suffix.
 """
 from collections import Counter, OrderedDict, defaultdict
 from functools import lru_cache
+import gzip
 import hashlib
 import json
 from pathlib import Path
@@ -596,6 +597,33 @@ def read_raw_shards(paths,format_name=None):
         result.extend(attach_histories(rows))
     return result
 
+
+def discard_sequences(path):
+    """Remove an uncommitted shard and the sequence rows it indexed.
+
+    A retried job rewrites the same game ids. Deleting only the gzip leaves the
+    SQLite index holding the failed attempt, which write() correctly rejects as
+    a conflicting identity.
+    """
+    path=Path(path)
+    if not path.exists():
+        return 0
+    identities=set()
+    with gzip.open(path,'rt',encoding='utf-8') as handle:
+        for line in handle:
+            if not line.strip():
+                continue
+            row=json.loads(line)
+            identities.add((row.get('format'),row.get('source'),row.get('engine_id',row.get('engine')),
+                            row.get('game_family'),row.get('game_id'),row.get('side')))
+    database=path.parent/'sequences.sqlite3'
+    if database.exists() and identities:
+        with IndexedSequenceStore(path.parent) as store, store.connection:
+            for identity in identities:
+                store.connection.execute('DELETE FROM sequences WHERE format IS ? AND source IS ? AND engine IS ? '
+                                         'AND family IS ? AND game_id IS ? AND side IS ?',identity)
+    path.unlink()
+    return len(identities)
 
 def _iter_rows(path):
     """Yield packed shard rows one line at a time; never cache whole games."""
