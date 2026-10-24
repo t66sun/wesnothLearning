@@ -633,6 +633,8 @@ class TrainingTests(unittest.TestCase):
             'reward configurations': lambda copy_rows: copy_rows[1].__setitem__(
                 'reward_config', helpers.config(economy=.12)),
             'rng_version': lambda copy_rows: copy_rows[1].__setitem__('rng_version', 'other-rng'),
+            'combat_version': lambda copy_rows: copy_rows[1].__setitem__(
+                'combat_version', 'other-combat-profile'),
         }
         for message, mutate in variants.items():
             with self.subTest(message=message):

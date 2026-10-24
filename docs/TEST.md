@@ -119,7 +119,7 @@ R1–R3 are activated by P7 only. Unchanged C1–C9 reuse their evidence; refres
 
 ## R1 — Deterministic per-strike damage and weakened statuses
 
-**Status/trigger:** P7a unimplemented; new Rust table/status assertions unwritten. Blocks new deterministic-rule collection/training, not use of the frozen old engine.
+**Status/trigger:** P7a implemented, awaiting acceptance (`lite-0.2`, `expected_damage_v1`); Rust table/status assertions written but not yet built or run on Ubuntu. Blocks new deterministic-rule collection/training, not use of the frozen old engine.
 
 **Minimal Ubuntu procedure:** one small table through the real resolver, plus three short status/order scripts. No game corpus or probabilistic confidence sampling. Use an independent integer formula oracle rather than invoking the production helper for the expected value.
 
@@ -139,7 +139,7 @@ R1–R3 are activated by P7 only. Unchanged C1–C9 reuse their evidence; refres
 
 ## R2 — Exact public forecast, identity isolation and stage chain
 
-**Status/trigger:** P7a unimplemented; forecast/provenance assertions unwritten. Blocks new-profile training/export wiring.
+**Status/trigger:** P7a implemented, awaiting acceptance; forecast/provenance assertions written but not yet built or run on Ubuntu. Blocks new-profile training/export wiring.
 
 **Minimal Ubuntu procedure:** reuse three R1 states (plain/slow/poison), forecast then execute in an all-visible controlled state, and one hidden-context counterexample. Hold initial state/action script fixed and vary only seed among 0/1/713; compare direct step with snapshot/restore/step. Compare legacy forecast requests `samples=1/128` if that argument is retained. Parameterize routing for three formats, then share C7's new-profile BC → two PPO updates → resume → final-entry trace; do not run a second separate chain.
 

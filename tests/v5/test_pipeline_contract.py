@@ -86,7 +86,7 @@ def result(bots=('astra', 'astra'), *, reason='victory', winner=1, faults=None,
     winning_team = 0
     if teams and winner:
         winning_team = teams[winner - 1]
-    return dict(engine_id='lite-0.1', winner=winner, winning_team=winning_team,
+    return dict(engine_id='lite-0.2', winner=winner, winning_team=winning_team,
                 truncated=reason == 'turn_limit',
                 reason=reason,
                 survivors=list(survivors) if survivors is not None else None,
@@ -203,7 +203,7 @@ class AdapterContractTests(unittest.TestCase):
         rules_dir = frozen_rules(self.directory / 'rules')
         adapter = LiteAdapter(helpers.spec(), rules_dir)
         view = adapter.observe(1)
-        self.assertEqual(adapter.engine_id, 'lite-0.1')
+        self.assertEqual(adapter.engine_id, 'lite-0.2')
         self.assertIn('current_side', view)
         self.assertTrue(adapter.rules_sha256)
 
@@ -319,13 +319,13 @@ class LiteJobTests(unittest.TestCase):
             outcome = play_lite_job(job)
         self.assertEqual(outcome['status'], 'complete', outcome.get('error'))
         self.assertEqual(outcome['engine'], 'lite')
-        self.assertEqual(outcome['result']['reason'], 'turn_limit')
-        self.assertTrue(outcome['result']['truncated'])
+        self.assertEqual(outcome['result']['reason'], 'victory')
+        self.assertFalse(outcome['result']['truncated'])
         self.assertEqual(outcome['result']['bots'], ['astra', 'astra'])
         self.assertNotIn('baseline', json.dumps(outcome['result']))
-        self.assertEqual(outcome['training_shard']['written'], 24)
+        self.assertEqual(outcome['training_shard']['written'], 11)
         rows = read_gzip(job['shard'])
-        self.assertEqual(len(rows), 24)
+        self.assertEqual(len(rows), 11)
         for row in rows:
             self.assertEqual(row['schema'], features.VERSION)
             self.assertEqual(row['source'], 'astra')
@@ -335,8 +335,8 @@ class LiteJobTests(unittest.TestCase):
             selected = row['candidates'][row['choice']]
             for key, value in row['actual'].items():
                 self.assertEqual(selected[key], value)
-        self.assertEqual(outcome['coverage']['total'], 24)
-        self.assertEqual(outcome['coverage']['matched'], 24)
+        self.assertEqual(outcome['coverage']['total'], 11)
+        self.assertEqual(outcome['coverage']['matched'], 11)
 
     def test_policy_actor_input_excludes_teacher_and_reward_fields(self):
         seen = []

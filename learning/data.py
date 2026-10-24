@@ -44,7 +44,7 @@ def validate_record(r, format_name=None):
         if not all(math.isfinite(v) for part in (c.get('geometry', ()), c.get('local', ())) for v in part): raise ValueError('nonfinite action context')
         for key in ('actor','target'):
             if c.get(key): entity(c[key])
-    if r.get('architecture_id')!='relational_v5' or not all(r.get(k) is not None for k in ('engine_id','rules_version','rng_version','candidate_version','reward_version','reward_formula_id')):
+    if r.get('architecture_id')!='relational_v5' or not all(r.get(k) is not None for k in ('engine_id','rules_version','rng_version','combat_version','candidate_version','reward_version','reward_formula_id')):
         raise ValueError('sample lacks current-schema provenance')
     from .rewards import RewardConfig
     config=RewardConfig(**r['reward_config'])

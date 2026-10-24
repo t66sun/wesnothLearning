@@ -2,7 +2,26 @@ import unittest
 from pathlib import Path
 from unittest import mock
 
-from engine_lite.differential import _probability, combat_case, wilson
+from engine_lite.differential import _combined_status, combat_case
+
+
+def strike(attacker, defender, *, hit=True, chance=60, damage=7, defender_hp=13):
+    return dict(attacker=attacker, defender=defender, hit=hit, chance=chance,
+                damage=damage, defender_hp=defender_hp)
+
+
+def run(native_strikes, lite_strikes):
+    """Run combat_case with a fake native probe against a mock formula-free lite engine."""
+    native = mock.Mock()
+    lite = mock.Mock(spec=['reset', 'step', 'observe'])  # no inject_hits: the engine has no RNG
+    native.observe.return_value = {'units': []}
+    native.step.return_value = {'differential': {'strikes': native_strikes}}
+    lite.step.return_value = {'strikes': lite_strikes}
+    lite.observe.return_value = {'units': []}
+    with mock.patch('engine_lite.differential.game_spec', return_value={'units': [{}, {}, {}]}), \
+            mock.patch('engine_lite.differential._state', return_value={'turn': 1}), \
+            mock.patch('engine_lite.differential._units', return_value={}):
+        return combat_case(native, lite, {}, ('ordinary', 'a', 'b', 0))
 
 
 class DifferentialRunnerTests(unittest.TestCase):
@@ -13,30 +32,28 @@ class DifferentialRunnerTests(unittest.TestCase):
         self.assertEqual(transport.decision(2, teacher=True, budget_ms=20000),
                          dict(kind='decision', side=2, teacher=True, budget_ms=20000))
 
-    def test_small_sample_cannot_claim_one_percentage_point(self):
-        self.assertFalse(_probability(16, 32, .5)['passed'])
-        self.assertEqual(_probability(16, 32, .5)['status'], 'inconclusive')
-        self.assertTrue(_probability(32768, 65536, .5)['passed'])
-        self.assertFalse(_probability(34000, 65536, .5)['passed'])
-        self.assertEqual(_probability(34000, 65536, .5)['status'], 'failed')
-
-    def test_deterministic_mismatch_skips_statistical_sampling(self):
-        native, lite = mock.Mock(), mock.Mock()
-        native.step.return_value = {'differential': {'strikes': [], 'oracle': {}}}
-        lite.step.return_value = {'strikes': []}
-        with mock.patch('engine_lite.differential.game_spec', return_value={}), \
-                mock.patch('engine_lite.differential._state', side_effect=[{'turn': 1}, {'turn': 2}]), \
-                mock.patch('engine_lite.differential._units', return_value={}), \
-                mock.patch('engine_lite.differential.statistics') as sample:
-            result = combat_case(native, lite, {}, ('ordinary', 'a', 'b', 0), 512, 2048)
-        sample.assert_not_called()
+    def test_strike_order_mismatch_is_a_failure(self):
+        result = run([strike('a', 'b'), strike('b', 'a')], [strike('b', 'a')])
         self.assertEqual(result['status'], 'failed')
-        self.assertEqual(result['statistics']['samples'], 0)
+        self.assertFalse(result['passed'])
+        self.assertEqual(result['differences'][0]['check'], 'strike order')
 
-    def test_zero_observed_events_still_have_uncertainty(self):
-        low, high = wilson(0, 32)
-        self.assertEqual(low, 0.)
-        self.assertGreater(high, .01)
+    def test_random_damage_deltas_are_expected_differences(self):
+        # The native roll hit for 4; the deterministic formula connects for 7.
+        result = run([strike('a', 'b', damage=4, defender_hp=16)], [strike('a', 'b', damage=7)])
+        self.assertEqual(result['status'], 'expected_difference')
+        self.assertTrue(result['passed'])
+        self.assertEqual(result['expected_differences'][0]['check'], 'strike 0')
+        self.assertEqual(result['expected_differences'][0]['difference']['damage'],
+                         dict(native=4, lite=7))
+        self.assertEqual(result['rule_profile'], 'expected_damage_v1')
+
+    def test_combined_status_orders_expected_differences_below_failures(self):
+        self.assertEqual(_combined_status([dict(status='failed', passed=False), dict(status='expected_difference', passed=True)]), 'failed')
+        self.assertEqual(_combined_status([dict(status='expected_difference', passed=True), dict(status='passed', passed=True)]),
+                         'expected_difference')
+        self.assertEqual(_combined_status([dict(status='passed', passed=True), dict(status='inconclusive', passed=False)]), 'inconclusive')
+        self.assertEqual(_combined_status([dict(status='passed', passed=True)]), 'passed')
 
     def test_native_probe_preserves_strike_order_and_handles_death(self):
         from lupa import LuaRuntime

@@ -8,6 +8,12 @@ from typing import Protocol, Any
 
 ROOT = Path(__file__).resolve().parents[1]
 
+# Identity of the Rust engine build this adapter speaks to. The build itself is
+# cross-checked in LiteAdapter so a stale extension can never write new rows.
+ENGINE_VERSION = 'lite-0.2'
+RNG_VERSION = 'deterministic-expected_damage_v1'
+COMBAT_VERSION = 'expected_damage_v1'
+
 
 class GameAdapter(Protocol):
     engine_id: str
@@ -24,6 +30,8 @@ class GameAdapter(Protocol):
 class NativeAdapter:
     """Persistent original game. Native snapshots restart and replay the full log."""
     engine_id = 'native-1.18.8'
+    rng_version = 'native-1.18.8'
+    combat_version = 'native-1.18.8'
 
     def __init__(self, game_spec=None, transport=None, **kwargs):
         if transport is None:
@@ -53,7 +61,9 @@ class NativeAdapter:
 
 
 class LiteAdapter:
-    engine_id = 'lite-0.1'
+    engine_id = ENGINE_VERSION
+    rng_version = RNG_VERSION
+    combat_version = COMBAT_VERSION
 
     def __init__(self, game_spec, rules_dir=None, *, require_accepted=True):
         from .rules_catalog import load as load_catalog, resolve_dir
@@ -73,9 +83,16 @@ class LiteAdapter:
         if not isinstance(modifier,int) or modifier<1: raise ValueError('invalid experience modifier')
         for unit in rules['units'].values(): unit['experience']=max(1,(unit['experience']*modifier+50)//100)
         try:
+            import _engine_lite
             from _engine_lite import LiteEngine
         except ImportError as exc:
             raise RuntimeError('Rust extension is not built: install Rust, then build engine_lite with maturin') from exc
+        built = tuple(getattr(_engine_lite, key, None)
+                      for key in ('ENGINE_VERSION', 'RNG_VERSION', 'COMBAT_VERSION'))
+        declared = (ENGINE_VERSION, RNG_VERSION, COMBAT_VERSION)
+        if built != declared:
+            raise RuntimeError('engine_lite build identity %s does not match the declared %s; '
+                               'rebuild the extension with maturin develop' % (built, declared))
         self.spec = dict(game_spec)
         self.rules_sha256 = digest
         self.core = LiteEngine(json.dumps(rules), json.dumps(game_spec))
@@ -112,10 +129,9 @@ class LiteAdapter:
         self.core.restore(json.dumps(snapshot))
 
     def forecast(self, side, attacker, target, weapon, samples=128):
+        # `samples` is kept for callers that still pass it; the resolver is
+        # deterministic, so the value is ignored by the engine.
         return json.loads(self.core.forecast(side, attacker, target, weapon, samples))
-
-    def inject_hits(self, hits):
-        self.core.inject_hits(json.dumps(list(hits)))
 
     def configure_host(self, modules):
         self.modules=modules

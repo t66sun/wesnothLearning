@@ -107,7 +107,8 @@ class RuleAbilityCompletionTests(unittest.TestCase):
                     self.assertEqual(row(core, 'a')['moves'], 0)
 
     def test_inspire_affects_equal_levels_and_excludes_higher_levels(self):
-        for target_level, expected in ((1, 10), (2, 8)):
+        # base damage 8 at 40% chance: expected_damage_v1 reports ceil(D*1.10*40/100).
+        for target_level, expected in ((1, 5), (2, 4)):
             with self.subTest(target_level=target_level):
                 types = {'attacker': unit_type('attacker', level=target_level),
                          'plain': unit_type('plain'),
@@ -115,7 +116,6 @@ class RuleAbilityCompletionTests(unittest.TestCase):
                 core = engine(types, [unit('a', 'attacker', 1, 24),
                                       unit('d', 'plain', 2, 25),
                                       unit('h', 'inspirer', 1, 17)])
-                core.inject_hits('[true,true]')
                 result = step(core, kind='attack', unit='a', target='d', weapon=0)
                 self.assertEqual(result['strikes'][0]['damage'], expected)
 
@@ -130,7 +130,7 @@ class RuleAbilityCompletionTests(unittest.TestCase):
                 (dict(regeneration_amount=6, regeneration_poison='none',
                       regeneration_terrains=['Ww']), 'Gg', [], 10, False),
                 (dict(regeneration_amount=6, regeneration_poison='none',
-                      regeneration_terrains=['Ww']), 'Ww', ['poisoned'], 2, True)):
+                      regeneration_terrains=['Ww']), 'Ww', ['poisoned'], 4, True)):
             with self.subTest(fields=fields, terrain=terrain_code, status=status):
                 terrain = ['Gg'] * 49
                 terrain[24] = terrain_code
@@ -161,12 +161,11 @@ class RuleAbilityCompletionTests(unittest.TestCase):
         types = {'lawful': unit_type('lawful', alignment='lawful'),
                  'plain': unit_type('plain'),
                  'dark': unit_type('dark', illumination=-25)}
-        for base, expected in ((25, 8), (-25, 6)):
+        for base, expected in ((25, 4), (-25, 3)):
             with self.subTest(base=base):
                 core = engine(types, [unit('a', 'lawful', 1, 24),
                                       unit('d', 'plain', 2, 25),
                                       unit('h', 'dark', 1, 17)], lawful_bonus=[base])
-                core.inject_hits('[true,true]')
                 result = step(core, kind='attack', unit='a', target='d', weapon=0)
                 self.assertEqual(result['strikes'][0]['damage'], expected)
 
@@ -178,7 +177,6 @@ class RuleAbilityCompletionTests(unittest.TestCase):
                 core = engine(types, [unit('a', 'diverter', 1, 17),
                                       unit('d', 'plain', 2, 24),
                                       unit('h', 'diverter' if second_diversion else 'plain', 3, 31)])
-                core.inject_hits('[true,true]')
                 result = step(core, kind='attack', unit='a', target='d', weapon=0)
                 self.assertEqual(result['strikes'][1]['chance'], expected)
 
@@ -187,11 +185,10 @@ class RuleAbilityCompletionTests(unittest.TestCase):
                  'vanguard': unit_type('vanguard', abilities=['vanguard'])}
         extras = [unit('h' + str(i), 'plain', 1 if i % 2 else 2, pos)
                   for i, pos in enumerate((17, 31, 23, 30, 32))]
-        for extra_count, expected in ((0, 8), (1, 10), (5, 18)):
+        for extra_count, expected in ((0, 4), (1, 5), (5, 8)):
             with self.subTest(extra_count=extra_count):
                 core = engine(types, [unit('a', 'vanguard', 1, 24),
                                       unit('d', 'plain', 2, 25)] + extras[:extra_count])
-                core.inject_hits('[true,true]')
                 result = step(core, kind='attack', unit='a', target='d', weapon=0)
                 self.assertEqual(result['strikes'][0]['damage'], expected)
         # Native add= vanguard is added after the external value= leadership.
@@ -199,9 +196,8 @@ class RuleAbilityCompletionTests(unittest.TestCase):
         core = engine(types, [unit('a', 'vanguard', 1, 24),
                               unit('d', 'plain', 2, 25),
                               unit('h', 'commander', 1, 17)])
-        core.inject_hits('[true,true]')
         result = step(core, kind='attack', unit='a', target='d', weapon=0)
-        self.assertEqual(result['strikes'][0]['damage'], 12)
+        self.assertEqual(result['strikes'][0]['damage'], 6)
 
     def test_initiative_aura_requires_melee_opponent_and_active_source(self):
         types = {'plain': unit_type('plain'),
@@ -214,7 +210,6 @@ class RuleAbilityCompletionTests(unittest.TestCase):
                 core = engine(types, [unit('a', 'plain', 1, 17),
                                       unit('d', 'plain', 2, 24),
                                       unit('h', 'initiative', 2, 31, status=source_status)])
-                core.inject_hits('[true,true]')
                 result = step(core, kind='attack', unit='a', target='d', weapon=weapon)
                 self.assertEqual(result['strikes'][0]['attacker'], first)
 

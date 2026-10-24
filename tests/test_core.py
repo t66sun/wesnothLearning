@@ -28,13 +28,17 @@ def record(players=2, game='g', index=0):
         candidates=[dict(kind='end_turn',features=[rng.uniform(-1,1) for _ in ACTION[:-1]]+[0],
                          geometry=[0.0]*len(GEOMETRY),local=[0.0]*(19*len(SPATIAL_CHANNELS)))
                     for _ in range(8)],
-        spatial=_spatial(),architecture_id='relational_v5',engine_id='lite-0.1',
-        rules_version='fixture',rng_version='fixture',candidate_version='candidates-v1',
+        spatial=_spatial(),architecture_id='relational_v5',engine_id='lite-0.2',
+        rules_version='fixture',rng_version='fixture',combat_version='fixture',candidate_version='candidates-v1',
         reward_version=0,reward_formula_id=RewardConfig().reward_formula_id,
         reward_config=RewardConfig().to_dict(),
         reward_raw=dict(economy=0.,control=0.,explored=0.),
         choice=1,log_probability=-2.0794415,value=.2,version='v1',side=1,turn=index,
         game_id=game,game_family=game,split='train',reward=1.,value_valid=True,players=players,teacher='gpt6astra',source='astra',format='duel')
+
+
+IDENTITY=dict(engine='lite',engine_version='lite-0.2',
+              rng_version='deterministic-expected_damage_v1',combat_version='expected_damage_v1')
 
 
 class CoreTests(unittest.TestCase):
@@ -126,7 +130,7 @@ class CoreTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             checkpoints={}
             for fmt in FORMATS:
-                model=Policy(fmt);p=Path(tmp)/(fmt+'.pt');checkpoint(p,model,torch.optim.Adam(model.parameters()),metrics={'updates':1})
+                model=Policy(fmt);p=Path(tmp)/(fmt+'.pt');checkpoint(p,model,torch.optim.Adam(model.parameters()),metrics={'updates':1},**IDENTITY)
                 checkpoints[fmt]=p
             audit={}
             for fmt in FORMATS:
@@ -146,6 +150,16 @@ class CoreTests(unittest.TestCase):
                     for fmt in FORMATS: self.assertTrue((addon/'lua'/f'weights_{fmt}.lua').exists())
             finally:
                 addons.MAX_PACKAGE_BYTES=old_limit
+
+    def test_export_rejects_checkpoint_without_combat_profile(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            checkpoints={}
+            for fmt in FORMATS:
+                model=Policy(fmt);p=Path(tmp)/(fmt+'.pt')
+                checkpoint(p,model,torch.optim.Adam(model.parameters()),metrics={'updates':1})
+                checkpoints[fmt]=p
+            with self.assertRaisesRegex(ValueError,'lacks combat profile identity'):
+                export_checkpoints(checkpoints,tmp,audit_records={})
 
     def test_old_shared_checkpoint_rejected(self):
         with tempfile.TemporaryDirectory() as tmp:

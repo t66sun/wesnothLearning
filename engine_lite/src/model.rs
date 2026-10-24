@@ -2,8 +2,12 @@
 use serde::{Deserialize, Serialize};
 use std::collections::{BTreeMap, BTreeSet};
 
-pub const ENGINE_VERSION: &str = "lite-0.1";
-pub const RNG_VERSION: &str = "xoshiro256++-1";
+pub const ENGINE_VERSION: &str = "lite-0.2";
+/// Lite combat resolves every strike deterministically, so the engine declares a
+/// stable marker instead of a random stream identity.
+pub const RNG_VERSION: &str = "deterministic-expected_damage_v1";
+/// Combat/status rule profile recorded in observations, snapshots, jobs and data.
+pub const COMBAT_VERSION: &str = "expected_damage_v1";
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Weapon {
@@ -176,38 +180,6 @@ pub struct Knowledge {
     pub terrain: Vec<Option<String>>,
     pub villages: BTreeMap<usize,(usize,u32)>,
     pub enemies: BTreeMap<String,SeenUnit>,
-}
-
-#[derive(Clone, Debug, Serialize, Deserialize)]
-pub struct Random {
-    pub state: [u64;4],
-    #[serde(default)] pub injected_hits: Vec<bool>,
-    #[serde(default)] pub injected_cursor: usize,
-}
-impl Random {
-    pub fn new(mut seed: u64) -> Self {
-        let mut state=[0;4];
-        for s in &mut state {
-            seed=seed.wrapping_add(0x9e3779b97f4a7c15);
-            let mut z=seed; z=(z^(z>>30)).wrapping_mul(0xbf58476d1ce4e5b9);
-            z=(z^(z>>27)).wrapping_mul(0x94d049bb133111eb); *s=z^(z>>31);
-        }
-        Self {state,injected_hits:vec![],injected_cursor:0}
-    }
-    pub fn next(&mut self) -> u64 {
-        let s=&mut self.state;
-        let result=s[0].wrapping_add(s[3]).rotate_left(23).wrapping_add(s[0]);
-        let t=s[1]<<17;
-        s[2]^=s[0];s[3]^=s[1];s[1]^=s[2];s[0]^=s[3];s[2]^=t;s[3]=s[3].rotate_left(45);
-        result
-    }
-    pub fn hit(&mut self,chance:u32) -> bool {
-        if self.injected_cursor < self.injected_hits.len() {
-            let v=self.injected_hits[self.injected_cursor];self.injected_cursor+=1;return v;
-        }
-        // Rejection sampling avoids modulo bias and fixes the RNG contract.
-        loop { let n=self.next(); if n < u64::MAX-u64::MAX%100 { return n%100 < chance as u64; } }
-    }
 }
 
 pub fn neighbors(pos:usize,width:usize,height:usize) -> Vec<usize> {

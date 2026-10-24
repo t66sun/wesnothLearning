@@ -30,7 +30,8 @@ def compact_lua(value):
     return native.lua(value)
 
 
-def export(models, destination, name='NeuralArena', mode='greedy', version='untrained', package=True, evaluation=None):
+def export(models, destination, name='NeuralArena', mode='greedy', version='untrained', package=True, evaluation=None,
+           identity=None):
     """A single-format support export is permitted; a delivery requires all three."""
     if isinstance(models, Policy): models={models.format_name:models}
     if not models or any(k not in FORMATS or v.format_name!=k for k,v in models.items()): raise ValueError('model format mismatch')
@@ -55,7 +56,7 @@ def export(models, destination, name='NeuralArena', mode='greedy', version='untr
         path.write_text('return '+compact_lua(lua_parameters(model))+'\n',encoding='utf-8')
         weight_manifest[fmt]=dict(version=version.get(fmt) if isinstance(version,dict) else version,
             parameters=sum(p.numel() for p in model.parameters()),sha256=sha256(path),
-            evaluation=(evaluation or {}).get(fmt,'not_evaluated'))
+            evaluation=(evaluation or {}).get(fmt,'not_evaluated'),**(identity or {}))
     (addon / 'lua' / 'features.lua').write_text('return ' + native.lua(schema()) + '\n', encoding='utf-8')
     (addon / 'lua' / 'config.lua').write_text('return ' + native.lua(dict(mode=mode, version=version,formats=list(models),candidate_budget_ms=200)) + '\n', encoding='utf-8')
     (addon / 'README.md').write_text('三个独立网络原生 AI。权重与评测状态见交付清单。\n', encoding='utf-8')
@@ -67,8 +68,9 @@ def export(models, destination, name='NeuralArena', mode='greedy', version='untr
         addons.validate(addon)
         archive = addons.pack(addon, destination / (name + '.zip'))
         write_json(destination / 'export.json', dict(id=name,version=version,sha256=sha256(archive),features=schema(),
-                   architecture=ARCHITECTURE,models=weight_manifest))
-    else: write_json(destination/'export.json',dict(models=weight_manifest,features=schema(),architecture=ARCHITECTURE))
+                   architecture=ARCHITECTURE,models=weight_manifest,identity=identity))
+    else: write_json(destination/'export.json',dict(models=weight_manifest,features=schema(),
+                    architecture=ARCHITECTURE,identity=identity))
     return addon
 
 
@@ -84,9 +86,13 @@ def load_model(checkpoint, format_name, device='cpu'):
 
 def export_checkpoints(checkpoints, destination, name='NeuralArena', evaluation=None, audit_records=None):
     if set(checkpoints)!=set(FORMATS): raise ValueError('provide duel, ffa4 and team2v2 checkpoints')
-    models={};versions={};errors={}
+    models={};versions={};errors={};identities={}
     for fmt,path in checkpoints.items():
         models[fmt],state=load_model(path,fmt)
+        identity={key:state.get(key) for key in ('engine','engine_version','rng_version','combat_version')}
+        if not all(identity.values()):
+            raise ValueError('checkpoint lacks combat profile identity; old weights are explicit initialization only: '+fmt)
+        identities[fmt]=identity
         if state.get('runner',{}).get('version',0)<=0 and state.get('metrics',{}).get('updates',0)<=0:
             raise ValueError('delivery requires a trained checkpoint, not initial support weights: '+fmt)
         if not audit_records or not audit_records.get(fmt):
@@ -95,7 +101,8 @@ def export_checkpoints(checkpoints, destination, name='NeuralArena', evaluation=
         versions[fmt]=dict(checkpoint_sha256=sha256(path),version=state.get('runner',{}).get('version',state.get('version','unknown')))
     addon=export(models,destination,name=name,version=versions,evaluation=evaluation)
     manifest=json.loads((Path(destination)/'export.json').read_text(encoding='utf-8'))
-    for fmt,error in errors.items(): manifest['models'][fmt]['python_lua_max_error']=error
+    for fmt,error in errors.items():
+        manifest['models'][fmt].update(identities[fmt], python_lua_max_error=error)
     write_json(Path(destination)/'export.json',manifest)
     return addon
 

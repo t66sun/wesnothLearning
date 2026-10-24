@@ -9,6 +9,7 @@ import shutil
 import time
 import traceback
 import torch
+from .adapters import COMBAT_VERSION, ENGINE_VERSION, RNG_VERSION
 from .common import ROOT, read_json, write_json, sha256
 from .data import read_shards
 from .evaluate import comparisons, choose_controls, selection_key, overall_status
@@ -188,6 +189,14 @@ class FormatExperiment:
             else:
                 self.state=loaded['runner']
                 if self.state['clock']!=clock: raise ValueError('resume cannot reset shared budget')
+            expected=self.identity()
+            inherited={key:loaded.get(key) for key in expected}
+            if any(inherited[key]!=value for key,value in expected.items()):
+                # Old weights may still seed a fresh plan, but never continue a run.
+                if not (branch and info.get('reset_optimizer')):
+                    raise ValueError(f'checkpoint combat profile {inherited!r} does not match {expected!r}; '
+                                     'old weights are explicit initialization only')
+                self.state['initialized_from']=inherited
         else:
             if branch: raise ValueError('branch source has no latest checkpoint')
             seed=self.config['seed']+FORMATS.index(fmt)*100003
@@ -211,8 +220,14 @@ class FormatExperiment:
     def save(self):
         if hasattr(self,'controller'): self.state['reward_controller']=self.controller.state_dict()
         checkpoint(self.directory/'latest.pt',self.model,self.optimizer,runner=copy.deepcopy(self.state),
-            execution=dict(plan_version=PLAN_VERSION),manifest_sha256=sha256(self.directory.parent/'manifest.json'))
+            execution=dict(plan_version=PLAN_VERSION),manifest_sha256=sha256(self.directory.parent/'manifest.json'),**self.identity())
         write_json(self.directory/'state.json',self.state)
+
+    def identity(self):
+        """Provenance of the combat engine this run trains against."""
+        if self.config['engine']=='lite':
+            return dict(engine='lite',engine_version=ENGINE_VERSION,rng_version=RNG_VERSION,combat_version=COMBAT_VERSION)
+        return dict(engine='native',engine_version='1.18.8',rng_version='native-1.18.8',combat_version='native-1.18.8')
 
     def ensure_export(self,model,folder,name,mode='greedy',version=None):
         destination=self.directory/'policies'/folder;addon=destination/name
@@ -226,7 +241,7 @@ class FormatExperiment:
                 raise ValueError('internal policy export schema or entry differs')
             if sha256(addon/'lua'/f'weights_{model.format_name}.lua')!=weights.get('sha256'):
                 raise ValueError('internal policy export weights differ')
-        else: export(model,destination,name=name,mode=mode,version=version or folder,package=False)
+        else: export(model,destination,name=name,mode=mode,version=version or folder,package=False,identity=self.identity())
         tensor_path=destination/'model.pt'
         if not tensor_path.exists():
             from .model import ARCHITECTURE
@@ -243,6 +258,7 @@ class FormatExperiment:
             job.setdefault('reward_config',self.controller.freeze())
             job.setdefault('meta',{})['engine_id']=job['engine']
             if job['engine']=='lite':
+                job['meta'].update(engine_version=ENGINE_VERSION,rng_version=RNG_VERSION,combat_version=COMBAT_VERSION)
                 job.setdefault('allow_approximate',self.config.get('allow_approximate',False))
                 job['bots']=[self.teachers[0] if bot=='baseline' else bot for bot in job['bots']]
                 if job.get('meta',{}).get('context')=='baseline_partner': job['meta']['context']='astra_partner'

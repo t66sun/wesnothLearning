@@ -159,6 +159,7 @@ function wesnoth.paths.find_path(u,x,y,options)
 end
 function wesnoth.schedule.get_time_of_day() return {lawful_bonus=rules.lawful_bonus[(view.turn-1)%#rules.lawful_bonus+1]} end
 function wesnoth.simulate_combat(u,weapon,target)
+    -- Deterministic forecast: one resolved battle, a point mass per side.
     local result=rpc('forecast',{attacker=u.id,target=target.id,weapon=weapon-1,pos=position(u)})
     local function decode(c)
         local chance={};for hp,p in pairs(c.hp_chance) do chance[tonumber(hp)]=p end
@@ -250,7 +251,7 @@ function lite_decision(side,budget_ms,teacher,generate_candidates)
     end
     return {global=obs.global,opponents=obs.opponents,spatial=obs.spatial,candidates=candidates,timing=timing,
         side=side,turn=view.turn,teacher_action=teacher_action,potential=obs.potential,reward_raw=raw,
-        engine_id='lite-0.1',approximate=true}
+        engine_id='lite-0.2',approximate=true,combat_version=view.combat_version}
 end
 function lite_execute(action)
     local side=view.side;events={}

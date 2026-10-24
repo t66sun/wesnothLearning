@@ -23,6 +23,7 @@ for entry in (str(ROOT), str(ROOT / 'vendor' / 'arena')):
 
 import torch
 
+from learning.adapters import COMBAT_VERSION, ENGINE_VERSION, RNG_VERSION
 from learning.features import VERSION, ACTION, ENTITY, GLOBAL, GEOMETRY, OPPONENT, SPATIAL_CHANNELS, UNIT_TYPES
 from learning.formats import FORMATS
 from learning.rewards import RewardConfig, FORMULA_ID
@@ -168,8 +169,8 @@ def config(**overrides):
 
 def record_from_decision(decision_row, *, format_name='duel', source='astra', game_id='game-1',
                          game_family='family-1', side=None, choice=0, actual=None,
-                         teacher='gpt6astra', version='v5-test', engine_id='lite-0.1',
-                         raw=None):
+                         teacher='gpt6astra', version='v5-test', engine_id=ENGINE_VERSION,
+                         rng_version=RNG_VERSION, combat_version=COMBAT_VERSION, raw=None):
     side = decision_row.get('side', 1) if side is None else side
     candidates = decision_row['candidates']
     choice = max(0, min(int(choice), len(candidates) - 1))
@@ -184,7 +185,8 @@ def record_from_decision(decision_row, *, format_name='duel', source='astra', ga
     row.update(schema=VERSION, format=format_name, source=source, game_id=game_id,
                game_family=game_family, side=side, role='astra' if source == 'astra' else source,
                teacher=teacher if source == 'astra' else None, version=version,
-               engine_id=engine_id, rules_version='synthetic-v5', rng_version='xoshiro256++-1',
+               engine_id=engine_id, rules_version='synthetic-v5', rng_version=rng_version,
+               combat_version=combat_version,
                candidate_version=f'schema{VERSION}-fixed-20000-v3', reward_version=0,
                reward_formula_id=FORMULA_ID, architecture_id='relational_v5',
                reward_config=config(), choice=choice, actual=actual)

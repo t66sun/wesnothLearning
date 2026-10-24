@@ -9,7 +9,10 @@ import copy
 import json
 import unittest
 
-from _engine_lite import ENGINE_VERSION, LiteEngine, RNG_VERSION
+from _engine_lite import COMBAT_VERSION, ENGINE_VERSION, LiteEngine, RNG_VERSION
+
+from learning.adapters import COMBAT_VERSION as DECLARED_COMBAT, ENGINE_VERSION as DECLARED_ENGINE
+from learning.adapters import RNG_VERSION as DECLARED_RNG
 
 from tests.v5 import helpers as H
 
@@ -139,16 +142,21 @@ def _hex_ring(center, radius):
 class EngineIdentityTest(unittest.TestCase):
 
     def test_module_and_snapshot_identity(self):
-        self.assertEqual(ENGINE_VERSION, "lite-0.1")
-        self.assertEqual(RNG_VERSION, "xoshiro256++-1")
+        self.assertEqual(ENGINE_VERSION, "lite-0.2")
+        self.assertEqual(RNG_VERSION, "deterministic-expected_damage_v1")
+        self.assertEqual(COMBAT_VERSION, "expected_damage_v1")
+        self.assertEqual((ENGINE_VERSION, RNG_VERSION, COMBAT_VERSION),
+                         (DECLARED_ENGINE, DECLARED_RNG, DECLARED_COMBAT))
         self.assertIsInstance(LiteEngine, type)
         engine = H.engine()
         snapshot = H.snapshot(engine)
-        self.assertEqual(snapshot["engine_id"], "lite-0.1")
-        self.assertEqual(snapshot["rng_version"], "xoshiro256++-1")
+        self.assertEqual(snapshot["engine_id"], "lite-0.2")
+        self.assertEqual(snapshot["rng_version"], "deterministic-expected_damage_v1")
+        self.assertEqual(snapshot["combat_version"], "expected_damage_v1")
         observation = H.observe(engine, 1)
-        self.assertEqual(observation["engine_id"], "lite-0.1")
-        self.assertEqual(observation["rng_version"], "xoshiro256++-1")
+        self.assertEqual(observation["engine_id"], "lite-0.2")
+        self.assertEqual(observation["rng_version"], "deterministic-expected_damage_v1")
+        self.assertEqual(observation["combat_version"], "expected_damage_v1")
         self.assertEqual(observation["rules_version"], "synthetic-v5")
         self.assertTrue(observation["approximate"])
 
@@ -531,7 +539,7 @@ class MovementTest(unittest.TestCase):
 
 
 def _combat_engine(attacker_type, defender_type, *, rules_data=None,
-                   defender_hp=None, attacker_xp=0, inject=None, terrain=None):
+                   defender_hp=None, attacker_xp=0, terrain=None):
     rules = rules_data or H.rules()
     codes = list(terrain) if terrain is not None else list(PLAIN)
     units = [
@@ -540,10 +548,7 @@ def _combat_engine(attacker_type, defender_type, *, rules_data=None,
         _unit_row(defender_type, 2, 3, 2, uid="d1", rules_data=rules,
                   leader=True, hp=defender_hp),
     ]
-    engine = H.engine(game_spec=_spec(units, codes), rules_data=rules)
-    if inject is not None:
-        engine.inject_hits(_dumps(inject))
-    return engine
+    return H.engine(game_spec=_spec(units, codes), rules_data=rules)
 
 
 def _attack(engine, weapon=0):
@@ -556,8 +561,7 @@ class CombatTest(unittest.TestCase):
     def test_strike_chance_equals_terrain_defense(self):
         terrain = list(PLAIN)
         terrain[19] = "Ss"
-        engine = _combat_engine("Archer", "Skeleton", terrain=terrain,
-                                inject=[True, True, True])
+        engine = _combat_engine("Archer", "Skeleton", terrain=terrain)
         result = _attack(engine)
         attacker_strikes = [strike for strike in result["strikes"]
                             if strike["attacker"] == "a1"]
@@ -567,8 +571,7 @@ class CombatTest(unittest.TestCase):
     def test_magical_attack_uses_seventy_percent(self):
         terrain = list(PLAIN)
         terrain[19] = "Ss"
-        engine = _combat_engine("Mage", "Fighter", terrain=terrain,
-                                inject=[True, True, True])
+        engine = _combat_engine("Mage", "Fighter", terrain=terrain)
         strikes = [strike for strike in _attack(engine)["strikes"]
                    if strike["attacker"] == "a1"]
         self.assertTrue(strikes)
@@ -579,8 +582,7 @@ class CombatTest(unittest.TestCase):
         rules["units"]["Sniper"] = H._unit_type("Sniper", weapons=[
             {"id": "shot", "damage": 4, "strikes": 2, "damage_type": "pierce",
              "range": "ranged", "specials": ["marksman"]}])
-        engine = _combat_engine("Sniper", "Fighter", rules_data=rules,
-                                inject=[True, True])
+        engine = _combat_engine("Sniper", "Fighter", rules_data=rules)
         strikes = [strike for strike in _attack(engine)["strikes"]
                    if strike["attacker"] == "a1"]
         self.assertTrue(strikes)
@@ -590,25 +592,31 @@ class CombatTest(unittest.TestCase):
         """The frozen ``resistance`` map stores percent damage taken (100 =
         no resistance), matching freeze.py's ``100 - resistance_against``.
         """
-        engine = _combat_engine("Fighter", "Skeleton", inject=[True, True])
+        # The default defender hex is 40% defense; a 10-damage single strike
+        # rounds to 5 under `expected_damage_v1` and 6 when vulnerability is 125%.
+        rules = H.rules()
+        rules["units"]["Fighter"]["weapons"][0].update(damage=10, strikes=1)
+        engine = _combat_engine("Fighter", "Skeleton", rules_data=rules)
         plain = _attack(engine)["strikes"][0]["damage"]
 
-        rules = H.rules()
         rules["units"]["Skeleton"]["resistance"]["blade"] = 125
-        engine = _combat_engine("Fighter", "Skeleton", rules_data=rules,
-                                inject=[True, True])
+        engine = _combat_engine("Fighter", "Skeleton", rules_data=rules)
         vulnerable = _attack(engine)["strikes"][0]["damage"]
         self.assertEqual((plain, vulnerable), (5, 6))
 
-    def test_injected_hits_follow_per_strike_order_and_stop_on_death(self):
-        engine = _combat_engine("Fighter", "Fighter", defender_hp=7,
-                                inject=[True, False, True])
+    def test_strikes_follow_deterministic_order_and_stop_on_death(self):
+        # Fighter 5 damage at 40% defense: every strike connects for 3, so both
+        # sides trade three times before the defender dies on the fifth strike.
+        engine = _combat_engine("Fighter", "Fighter", defender_hp=7)
         result = _attack(engine)
-        self.assertEqual([(strike["attacker"], strike["hit"])
+        self.assertEqual([(strike["attacker"], strike["hit"], strike["damage"])
                           for strike in result["strikes"]],
-                         [("a1", True), ("d1", False), ("a1", True)])
-        self.assertEqual(result["strikes"][0]["defender_hp"], 2)
-        self.assertEqual(result["strikes"][1]["defender_hp"], 40)
+                         [("a1", True, 3), ("d1", True, 3), ("a1", True, 3),
+                          ("d1", True, 3), ("a1", True, 1)])
+        self.assertEqual(result["strikes"][0]["defender_hp"], 4)
+        self.assertEqual(result["strikes"][1]["defender_hp"], 37)
+        self.assertEqual(result["strikes"][2]["defender_hp"], 1)
+        self.assertEqual(result["strikes"][3]["defender_hp"], 34)
         self.assertEqual(result["strikes"][-1]["defender_hp"], 0)
         self.assertTrue(result["finished"])
         self.assertEqual(result["winner"], "A")
@@ -616,7 +624,7 @@ class CombatTest(unittest.TestCase):
         self.assertEqual(_unit_at(engine, 1, "a1")["xp"], 8)
 
     def test_xp_is_awarded_per_surviving_strike(self):
-        engine = _combat_engine("Fighter", "Fighter", inject=[False] * 6)
+        engine = _combat_engine("Fighter", "Fighter")
         result = _attack(engine)
         self.assertFalse(result["finished"])
         self.assertEqual(_unit_at(engine, 1, "a1")["xp"], 1)
@@ -631,7 +639,7 @@ class CombatTest(unittest.TestCase):
         rules["units"]["Veteran"] = H._unit_type("Veteran", hp=55, moves=5,
                                                  cost=20, level=2)
         engine = _combat_engine("Fighter", "Fighter", rules_data=rules,
-                                defender_hp=2, inject=[True] * 6)
+                                defender_hp=2)
         _attack(engine)
         attacker = _unit_at(engine, 1, "a1")
         self.assertEqual(attacker["unit_type"], "Veteran")
@@ -645,27 +653,36 @@ class CombatTest(unittest.TestCase):
              "damage_type": "blade", "range": "melee",
              "specials": ["poison", "slow"]}])
 
-        engine = _combat_engine("Poisoner", "Fighter", rules_data=rules,
-                                inject=[True] * 6)
+        engine = _combat_engine("Poisoner", "Fighter", rules_data=rules)
         _attack(engine)
         self.assertEqual(sorted(_unit_at(engine, 1, "d1")["status"]),
                          ["poisoned", "slowed"])
 
-        engine = _combat_engine("Poisoner", "Fighter", rules_data=rules,
-                                inject=[False] * 6)
-        _attack(engine)
+        # A zero chance (defender terrain defense 0) never connects and never
+        # applies an on-hit status, without any injected roll.
+        no_hit = H.rules()
+        no_hit["units"]["Poisoner"] = rules["units"]["Poisoner"]
+        no_hit["units"]["Fighter"] = dict(rules["units"]["Fighter"],
+                                          defense=dict(rules["units"]["Fighter"]["defense"], Ss=0))
+        terrain = list(PLAIN)
+        terrain[19] = "Ss"
+        engine = _combat_engine("Poisoner", "Fighter", rules_data=no_hit, terrain=terrain)
+        missed = [strike for strike in _attack(engine)["strikes"] if strike["attacker"] == "a1"]
+        self.assertEqual({strike["chance"] for strike in missed}, {0})
+        self.assertEqual({strike["hit"] for strike in missed}, {False})
+        self.assertEqual({strike["damage"] for strike in missed}, {0})
         self.assertEqual(_unit_at(engine, 1, "d1")["status"], [])
+        self.assertEqual(_unit_at(engine, 1, "d1")["hp"], 40)
 
         engine = _combat_engine("Poisoner", "Fighter", rules_data=rules,
-                                defender_hp=1, inject=[True] * 6)
+                                defender_hp=1)
         result = _attack(engine)
         self.assertEqual(len(result["strikes"]), 1)
         self.assertEqual(result["strikes"][0]["defender_hp"], 0)
         self.assertIsNone(_unit_at(engine, 1, "d1"))
 
     def test_leader_death_eliminates_the_side_and_ends_the_game(self):
-        engine = _combat_engine("Fighter", "Fighter", defender_hp=1,
-                                inject=[True, True])
+        engine = _combat_engine("Fighter", "Fighter", defender_hp=1)
         result = _attack(engine)
         self.assertTrue(result["finished"])
         self.assertEqual(result["winner"], "A")
@@ -673,37 +690,42 @@ class CombatTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "game has ended"):
             H.step(engine, {"kind": "end_turn"})
 
-    def test_forecast_bounds_and_statistics(self):
+    def test_forecast_is_a_single_point_mass(self):
         engine = H.engine()
-        for samples in (1, 4096):
+        first = json.loads(engine.forecast(1, "p1", "e1", 0, 128))
+        self.assertEqual(first["combat_version"], "expected_damage_v1")
+        self.assertFalse(first["approximate"])
+        self.assertEqual(first["samples"], 1)
+        # The sample count stays accepted for compatibility and is ignored,
+        # including values the stochastic resolver used to reject.
+        for samples in (0, 1, 128, 4096, 4097, 10 ** 6):
             with self.subTest(samples=samples):
-                forecast = json.loads(engine.forecast(1, "p1", "e1", 0, samples))
-                self.assertEqual(forecast["samples"], samples)
-        for samples in (0, 4097):
-            with self.subTest(samples=samples):
-                with self.assertRaisesRegex(ValueError, r"\[1,4096\]"):
-                    engine.forecast(1, "p1", "e1", 0, samples)
+                self.assertEqual(json.loads(engine.forecast(1, "p1", "e1", 0, samples)), first)
         with self.assertRaisesRegex(ValueError, "invalid weapon"):
             engine.forecast(1, "p1", "e1", 9, 16)
-
-        first = json.loads(engine.forecast(1, "p1", "e1", 0, 512))
-        second = json.loads(engine.forecast(1, "p1", "e1", 0, 512))
-        self.assertEqual(first, second)
-        for role, max_hp in (("attacker", 40), ("defender", 40)):
-            stats = first[role]
+        for role in ("attacker", "defender"):
             with self.subTest(role=role):
-                self.assertAlmostEqual(sum(stats["hp_chance"].values()), 1.0,
-                                       places=9)
-                for hp in stats["hp_chance"]:
-                    self.assertGreaterEqual(int(hp), 0)
-                    self.assertLessEqual(int(hp), max_hp)
-                self.assertGreaterEqual(stats["average_hp"], 0)
-                self.assertLessEqual(stats["average_hp"], max_hp)
-                self.assertGreaterEqual(stats["poisoned"], 0)
-                self.assertLessEqual(stats["poisoned"], 1)
-                self.assertGreaterEqual(stats["slowed"], 0)
-                self.assertLessEqual(stats["slowed"], 1)
+                stats = first[role]
+                self.assertEqual(len(stats["hp_chance"]), 1)
+                ((hp, probability),) = stats["hp_chance"].items()
+                self.assertEqual(probability, 1.0)
+                self.assertEqual(stats["average_hp"], int(hp))
+                self.assertIn(stats["poisoned"], (0, 1))
+                self.assertIn(stats["slowed"], (0, 1))
 
+    def test_forecast_resolves_once_without_mutating_the_game(self):
+        engine = _combat_engine("Fighter", "Fighter", defender_hp=7)
+        snapshot = H.snapshot(engine)
+        observation = H.observe(engine, 1)
+        forecast = json.loads(engine.forecast(1, "a1", "d1", 0, 512))
+        self.assertEqual(H.snapshot(engine), snapshot)
+        self.assertEqual(H.observe(engine, 1), observation)
+        self.assertEqual(forecast["defender"]["average_hp"], 0)
+        self.assertEqual(forecast["attacker"]["average_hp"], 34)
+        result = _attack(engine)
+        self.assertEqual(len(result["strikes"]), 5)
+        self.assertIsNone(_unit_at(engine, 1, "d1"))
+        self.assertEqual(_unit_at(engine, 1, "a1")["hp"], forecast["attacker"]["average_hp"])
 
 def _hidden_spec(*, enemy_pos=47, enemy_hp=40, enemy_status=(),
                  terrain=None, village_owner=None):
@@ -818,6 +840,11 @@ class SnapshotTest(unittest.TestCase):
         wrong_rng["rng_version"] = "mt19937"
         with self.assertRaisesRegex(ValueError, "snapshot version mismatch"):
             H.restore(engine, wrong_rng)
+
+        old_combat = copy.deepcopy(snapshot)
+        old_combat["combat_version"] = "native-1.18.8"
+        with self.assertRaisesRegex(ValueError, "snapshot version mismatch"):
+            H.restore(engine, old_combat)
 
         wrong_rules = copy.deepcopy(snapshot)
         wrong_rules["game"]["rules"]["source_hash"] = "0" * 64
