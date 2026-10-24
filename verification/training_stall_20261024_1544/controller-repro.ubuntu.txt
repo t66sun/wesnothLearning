@@ -1,0 +1,10 @@
+SOURCE control.py 31ec73be29b73188ab53bd60678a0189f01576e195d727be128201667d48d6d6 matches_frozen True
+SOURCE train.py ac720803686707ea1100c055c2a7215a6c86a010a27a2efa918853238b8e44ce matches_frozen True
+SOURCE rewards.py edb87062a64d4f757d4f670e0b1cecf4689f794c3d74ef0037fff468fe0abbd0 matches_frozen True
+SOURCE experiment.py 9f908f899e7b951433b468566a4fa181016d0d4de3e498b5e38703c55bcf9f3c matches_frozen True
+OBSERVED {"blocks_before": 58, "blocks_after": 58, "windows_before": 3, "windows_after": 3, "windows_unchanged": true, "decision": [{}, ""], "newest_pending_label": "val000260"}
+Traceback (most recent call last):
+  File "<stdin>", line 17, in <module>
+AssertionError: three-window controller ignores newly accumulated complete validation blocks
+
+EXIT 1
