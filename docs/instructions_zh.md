@@ -109,7 +109,9 @@ set -o pipefail
 
 ## 5. 恢复已有训练
 
-**2026-10-24 16:31 当前续训：**使用 `/home/tongshu/myDev/wesnothLearning/validation_window_fix_20261024_1630` 下的 `runs/v5_lite_windowfix_20261024_1630`。脱离 SSH 的脚本 PID/PGID 为 202233，初始协调器为 202234；进度读取 `launch.json`、`continuation.log`、各赛制状态和 scheduler 事件。上一轮 `validation_memory_repair_20261024_1321/runs/v5_lite_resume_20261024_1420` 已于 16:21:48 停止，它与 `validation_training_repair_20261023_194022/runs/v5_lite18h_20261024_003512` 都是必需的只读语料、策略和检查点来源，不能删除、移动或恢复。Duel/FF4 从保留的最佳完整 v100 检查点恢复；2v2 没有晋级最佳模型，采用最近合法 v60。三者继续 PPO，滑动窗口修复已部署。**10 月 24 日 20:05:52** 停止 PPO 更新，随后脚本请求最终验收，总截止为 **10 月 25 日 00:00（北京时间）**。不要另开脚本、恢复父实验或覆盖阶段指令；失败时先查证据，不能重跑迁移。选择依据、模型/优化器/RNG 核对及真实进度见 [部署交接](../verification/window_deploy_20261024_1620/REPORT.md)。
+**当前状态，2026-10-24：**16:31 续训在 20:05:52 截止 PPO 更新，随后完成每赛制 30 块最终评估，于 **20:42:45** 正常退出，退出码 0。三个 lite Astra 实力对照均为 **not_passed**，现在没有训练运行。最终所选 Duel/FFA4 v100、2v2 v80，最新训练版本为 211/143/80。模型已下载到 `delivery/lite_final_20261024/`，本地安装为 **Arena AI: NeuralArena20261024**，旧附加组件保留。多人游戏启用该模组并选择同名电脑 AI，自动按赛制路由。导出数值与注册检查通过，原版棋力未验收。详见 [安装与实力复盘](../verification/model_strength_20261024_2120/REPORT.md)。下方启动记录是历史信息，未经新指令不要恢复。
+
+**2026-10-24 16:31 历史启动记录：**使用 `/home/tongshu/myDev/wesnothLearning/validation_window_fix_20261024_1630` 下的 `runs/v5_lite_windowfix_20261024_1630`。脱离 SSH 的脚本 PID/PGID 为 202233，初始协调器为 202234；进度读取 `launch.json`、`continuation.log`、各赛制状态和 scheduler 事件。上一轮 `validation_memory_repair_20261024_1321/runs/v5_lite_resume_20261024_1420` 已于 16:21:48 停止，它与 `validation_training_repair_20261023_194022/runs/v5_lite18h_20261024_003512` 都是必需的只读语料、策略和检查点来源，不能删除、移动或恢复。Duel/FF4 从保留的最佳完整 v100 检查点恢复；2v2 没有晋级最佳模型，采用最近合法 v60。三者继续 PPO，滑动窗口修复已部署。**10 月 24 日 20:05:52** 停止 PPO 更新，随后脚本请求最终验收，总截止为 **10 月 25 日 00:00（北京时间）**。不要另开脚本、恢复父实验或覆盖阶段指令；失败时先查证据，不能重跑迁移。选择依据、模型/优化器/RNG 核对及真实进度见 [部署交接](../verification/window_deploy_20261024_1620/REPORT.md)。
 
 `runs/v5_20261021_203930` 因两个训练器 OOM 已于 2026-10-21 21:48 停止，其数据与检查点保留；读取链路修复并验收后，2026-10-22 00:08 的 `runs/v5_20261022_000850` 又于 01:03:45 按用户要求停止。最近纯 lite / 6000×3 / 18 h 实验 `runs/v5_lite6000_replay_20261022_012336` 已按用户要求于 2026-10-22 06:53:44 停止，未进入 PPO；原计划 19:23:37 截止不表示仍在运行。停止状态见 architecture.md 第 1 节，历史问题见其中的归档报告，未获新指令不恢复或新建训练。旧实验源码哈希已变，直接恢复会触发 `verify_frozen`，只在用户明确要求时按受控迁移处理并保留原 manifest 与预算。
 
@@ -127,7 +129,7 @@ test -f "$run_dir/manifest.json" || exit 1
 
 `run.lock` 是文件锁，文件存在不等于正在运行；遇到 `already running` 先确认持锁进程，不通过删除锁文件启动第二个同目录实验。
 
-2026-10-24 奖励滑动窗口修复已通过 [隔离 Ubuntu 验收](../verification/reward_window_fix_20261024_1607/REPORT.md)，并经授权迁移部署到当前 16:31 续训。新 manifest 冻结的控制器 SHA-256 为 `2d79571785ab3ebd1b4299653791b78e7a3f85c3cf9338684de855a3c858d1a9`；后续修改仍需新实验或明确受控迁移，不能覆盖冻结源码或清单。
+2026-10-24 奖励滑动窗口修复已通过 [隔离 Ubuntu 验收](../verification/reward_window_fix_20261024_1607/REPORT.md)，并经授权迁移部署到现已结束的 16:31 续训。新 manifest 冻结的控制器 SHA-256 为 `2d79571785ab3ebd1b4299653791b78e7a3f85c3cf9338684de855a3c858d1a9`；后续修改仍需新实验或明确受控迁移，不能覆盖冻结源码或清单。
 
 ## 6. 日常维护与进度判断
 

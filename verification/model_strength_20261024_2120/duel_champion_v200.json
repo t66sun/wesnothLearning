@@ -1,0 +1,40 @@
+{
+  "duel": {
+    "status": "inconclusive",
+    "blocks": 12,
+    "planned_blocks": 12,
+    "missing_blocks": 0,
+    "fault_games": 0,
+    "block_differences": {
+      "0": -1.5,
+      "1": 0.0,
+      "2": 0.0,
+      "3": 3,
+      "4": 3,
+      "5": 0.0,
+      "6": 0.0,
+      "7": 0.0,
+      "8": 0.0,
+      "9": 1.5,
+      "10": 1.5,
+      "11": 0.0
+    },
+    "difference": 0.625,
+    "interval95": [
+      -0.125,
+      1.375
+    ],
+    "policy_score": 1.75,
+    "control_score": 1.125,
+    "contexts": {
+      "solo": {
+        "difference": 0.625,
+        "interval95": [
+          -0.125,
+          1.375
+        ],
+        "blocks": 12
+      }
+    }
+  }
+}

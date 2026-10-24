@@ -1,0 +1,24 @@
+{
+  "source_identity": "all frozen Python/Lua/JSON sources match, allowing only LF/CRLF conversion",
+  "line_ending_only": [
+    "learning\\lite_policy.py",
+    "learning\\rowpack.py"
+  ],
+  "checkpoints": {
+    "duel": {
+      "bytes": 9576844,
+      "sha256": "ff2298f86f49726a36bcbf3a6f58142d796d5ed167466a69449ea25988c70c00",
+      "selected_version": 100
+    },
+    "ffa4": {
+      "bytes": 9618316,
+      "sha256": "fbf7d683618e4b79c61f8529bc2d6f56e4b551bfecabfdd43b6431dfdfe85e3d",
+      "selected_version": 100
+    },
+    "team2v2": {
+      "bytes": 9562520,
+      "sha256": "837b90f15d1ee3e9c04b79eea8e16ac100b8664b221901e6f1f95a5747a918b8",
+      "selected_version": 80
+    }
+  }
+}

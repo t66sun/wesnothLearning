@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\dev\WesnothLearning\verification\model_strength_20261024_2120\verify_local.py", line 15, in <module>
+    assert not mismatches,mismatches
+           ^^^^^^^^^^^^^^
+AssertionError: ['learning\\benchmark_runner.py', 'learning\\lite_policy.py', 'learning\\model.py', 'learning\\native_rpc.lua', 'learning\\native_transport.py', 'learning\\rowpack.py', 'learning\\train.py', 'learning\\unit_vocabulary.json', 'lua\\rewards.lua']

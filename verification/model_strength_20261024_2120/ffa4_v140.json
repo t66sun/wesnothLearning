@@ -1,0 +1,33 @@
+{
+  "tier": "trend",
+  "engine_id": "lite",
+  "comparison": {
+    "ffa4": {
+      "status": "not_passed",
+      "blocks": 1,
+      "planned_blocks": 1,
+      "missing_blocks": 0,
+      "fault_games": 0,
+      "block_differences": {
+        "0": -0.37499999999999994
+      },
+      "difference": -0.37499999999999994,
+      "interval95": [
+        -0.37499999999999994,
+        -0.37499999999999994
+      ],
+      "policy_score": 0.2916666666666667,
+      "control_score": 0.6666666666666666,
+      "contexts": {
+        "solo": {
+          "difference": -0.375,
+          "interval95": [
+            -0.375,
+            -0.375
+          ],
+          "blocks": 1
+        }
+      }
+    }
+  }
+}
