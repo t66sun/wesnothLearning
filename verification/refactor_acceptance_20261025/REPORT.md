@@ -88,7 +88,7 @@ python -m learning run --resume .../runs/l1_reduced_20261025e
 
 **Observed run:**
 
-- BC committed 11 batches, 4 optimizer updates each, reaching `bc_complete` at version 11 with the BC gate not claimed.
+- BC committed 12 batches (versions 0–11), 4 optimizer updates each, reaching `bc_complete` at version 11 with the BC gate not claimed.
 - PPO committed 5 batches at versions 12–16: updates `6 (kl_stop, 1262 committed decisions)`, `4 (kl_stop, 510)`, `8 (completed, 796)`, `7 (kl_stop, 852)`, `4 (completed, 84)`. Two or more PPO updates were applied before the deadline.
 - Checkpoint recovery: after batch 12 committed at version 13, the trainer process was killed with `SIGKILL` while batch 13 had three complete rollout jobs and one incomplete shard. Resume retried the unlogged rollout job, committed batch 13 (`4` updates, `kl_stop`, `510` decisions), then continued through versions 14–16 and stopped at the PPO deadline with stage `ppo_complete`.
 - Final entry: stage `final` selected `last_ppo.pt` at version 17 as a fallback (`reason: no retained champion`), wrote `selection.json` with `frozen_before_holdout: true` and `selected_sha256 b9a40e3eead8adf9b69a722e93364769289615e2af79582e4ecf25d584766006`, ran 30 complete control blocks / 60 games, and finished at stage `finished`. The summary status is `not_passed` (policy `0.75` versus Astra `2.25`, difference `-1.5`, 95% interval `[-2.0, -1.0]`); this reduced panel is not a strength claim.
