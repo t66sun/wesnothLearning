@@ -17,7 +17,11 @@ from .features import schema
 from .formats import FORMATS, PLAYERS
 from .model import Policy
 from .schedule import calibration_jobs, teacher_jobs, rollout_jobs, evaluation_jobs, freeze_schedule
+from .checkpoints import validate_checkpoint, EXECUTION_VERSION
+from .ppo import PLAN_VERSION
 from .train import checkpoint, restore_rng, train, imitation_quality
+from .updates import rollout_identity
+from .selection import decide, validate_frozen_selection
 
 
 def read_log(path):
@@ -146,7 +150,7 @@ def human_coverage(directory,fmt):
 
 
 class FormatExperiment:
-    def __init__(self,directory,fmt,manifest,clock,collector,resume=False):
+    def __init__(self,directory,fmt,manifest,clock,collector,resume=False,branch=False):
         self.directory=Path(directory);self.fmt=fmt;self.manifest=manifest
         self.config=manifest['config'];self.clock=clock;self.collector=collector
         self.directory.mkdir(parents=True,exist_ok=True)
@@ -157,13 +161,35 @@ class FormatExperiment:
         self.teachers=[p['path'] for p in manifest['opponents']];self.native_fixed=self.teachers+['baseline']
         self.fixed=self.native_fixed if self.config['engine']=='native' else self.teachers
         self.exe=manifest['baseline']['path']
-        if resume and (self.directory/'latest.pt').exists():
+        info=None;loaded=None
+        if (resume or branch) and (self.directory/'latest.pt').exists():
             self.model,loaded=load_model(self.directory/'latest.pt',fmt,self.device)
+            if branch:
+                info=read_json(self.directory.parent/'branch.json')
+                record=info['checkpoints'][fmt]
+                if sha256(self.directory/'latest.pt')!=record['sha256']:
+                    raise ValueError('branch checkpoint changed after it was copied')
+                validate_checkpoint(loaded,fmt,None)
+                if loaded.get('manifest_sha256')!=info['parent_manifest_sha256']:
+                    raise ValueError('branch checkpoint belongs to a different parent manifest')
+            else:
+                validate_checkpoint(loaded,fmt,sha256(self.directory.parent/'manifest.json'))
+        if loaded is not None:
             self.optimizer=torch.optim.Adam(self.model.parameters(),lr=self.config['learning_rate'])
-            self.optimizer.load_state_dict(loaded['optimizer']);restore_rng(loaded,self.device);self.state=loaded['runner']
-            if self.state['clock']!=clock: raise ValueError('resume cannot reset shared budget')
-            if loaded['manifest_sha256']!=sha256(self.directory.parent/'manifest.json'): raise ValueError('manifest changed')
+            if not (branch and info['reset_optimizer']):
+                self.optimizer.load_state_dict(loaded['optimizer'])
+            restore_rng(loaded,self.device)
+            if branch:
+                from .branch import adopt
+                self.state=adopt(loaded['runner'],info,clock,
+                    self.config.get('phase','auto'))
+                seed=self.config['seed']+FORMATS.index(fmt)*100003
+                random.seed(seed);torch.manual_seed(seed)
+            else:
+                self.state=loaded['runner']
+                if self.state['clock']!=clock: raise ValueError('resume cannot reset shared budget')
         else:
+            if branch: raise ValueError('branch source has no latest checkpoint')
             seed=self.config['seed']+FORMATS.index(fmt)*100003
             random.seed(seed);torch.manual_seed(seed)
             self.model=Policy(fmt).to(self.device)
@@ -185,7 +211,7 @@ class FormatExperiment:
     def save(self):
         if hasattr(self,'controller'): self.state['reward_controller']=self.controller.state_dict()
         checkpoint(self.directory/'latest.pt',self.model,self.optimizer,runner=copy.deepcopy(self.state),
-            manifest_sha256=sha256(self.directory.parent/'manifest.json'))
+            execution=dict(plan_version=PLAN_VERSION),manifest_sha256=sha256(self.directory.parent/'manifest.json'))
         write_json(self.directory/'state.json',self.state)
 
     def ensure_export(self,model,folder,name,mode='greedy',version=None):
@@ -260,6 +286,12 @@ class FormatExperiment:
         bc=read_shards(pool,partition='train',limit=self.config['bc_records'],seed=pool_seed,format_name=self.fmt,stats=reads.setdefault('bc',{}))
         validation=read_shards(pool,partition='validation',limit=self.config['bc_validation_records'],seed=self.config['seed'],format_name=self.fmt,stats=reads.setdefault('validation',{})) if method=='bc' else []
         rows=bc+validation if method=='bc' else read_shards(pending['paths'],format_name=self.fmt)
+        identity=dict(train=rollout_identity(rows))
+        if method=='ppo': identity['bc']=rollout_identity(bc)
+        if pending.get('identity') is not None and pending['identity']!=identity:
+            raise ValueError('scheduled rollout changed since the checkpoint')
+        pending['identity']=identity
+        self.save()
         def progress(cursor):
             self.state['pending_train']['cursor']=cursor
             if cursor['updates']%50==0: self.save()
@@ -267,16 +299,25 @@ class FormatExperiment:
         if method=='ppo':
             for group in self.optimizer.param_groups: group['lr']=1e-4
         metrics=train(self.model,self.optimizer,rows,method,epochs=self.config['epochs'],minibatch=self.config['minibatch'],
-            deadline=self.update_deadline(),progress=pending['cursor'],on_step=progress,bc_records=bc,entropy=frozen['entropy'],bc_aux=frozen['bc_aux'])
+            deadline=self.update_deadline(),progress=pending['cursor'],on_step=progress,bc_records=bc,entropy=frozen['entropy'],bc_aux=frozen['bc_aux'],plan_seed=int(self.config['seed']))
         if metrics['interrupted']: self.save();return False
+        committed=metrics.get('committed_decisions',metrics.get('decisions_seen',0))
+        history=dict(batch=self.state['batch'],method=method,
+            elapsed_hours=(time.time()-self.clock['started'])/3600,reads=reads,peak_rss_mb=peak_rss_mb(),**metrics)
+        if metrics.get('kl_stopped') and metrics.get('updates',0)==0:
+            # The whole logical batch was rejected before any parameter change.
+            self.state['history'].append(history)
+            self.state['kl_stops']=self.state.get('kl_stops',0)+1
+            self.state['pending_train']=None
+            self.state['batch']+=1
+            self.save();return True
         self.state['version']+=1
         counters=self.state['counters']
-        counters['optimizer_steps']+=metrics['updates'];counters['decisions_seen']+=metrics.get('decisions_seen',0)
+        counters['optimizer_steps']+=metrics['updates'];counters['decisions_seen']+=committed
         self.state['families_seen']=sorted(set(self.state.get('families_seen',[]))|{r['game_family'] for r in bc+rows})
         counters['unique_families_seen']=len(self.state['families_seen'])
         counters['effective_dataset_passes']+=metrics.get('effective_dataset_passes',0.)
-        self.state['history'].append(dict(batch=self.state['batch'],method=method,
-            elapsed_hours=(time.time()-self.clock['started'])/3600,reads=reads,peak_rss_mb=peak_rss_mb(),**metrics))
+        self.state['history'].append(history)
         if method=='bc':
             quality=imitation_quality(self.model,rows,thresholds=self.config['bc_accuracy'])
             accuracy=quality['formats'][self.fmt]['accuracy']
@@ -290,7 +331,7 @@ class FormatExperiment:
         self.state['pending_train']=None
         self.state['pending_validation']=method if self.state['version']%self.config['validation_interval']==0 else None
         self.save()
-        checkpoint(self.directory/f'last_{method}.pt',self.model,self.optimizer,runner=copy.deepcopy(self.state))
+        checkpoint(self.directory/f'last_{method}.pt',self.model,self.optimizer,execution=dict(plan_version=PLAN_VERSION),runner=copy.deepcopy(self.state))
         return True
 
     def validate_model(self,method):
@@ -307,7 +348,9 @@ class FormatExperiment:
             job['learning']=dict(support=self.support,sides={str(side):dict(teacher=False,version=f'v{version}') for side in job['meta']['policy_sides']})
         jobs,results=self.execute(jobs,f'validation-{version:06}')
         comparison=comparisons(jobs,results,min_blocks=blocks,team_contexts=contexts)
-        write_json(self.directory/'validation'/f'v{version:06}.json',dict(tier='promotion' if promotion else 'trend',engine_id=self.config['engine'],comparison=comparison))
+        write_json(self.directory/'validation'/f'v{version:06}.json',dict(tier='promotion' if promotion else 'trend',format=self.fmt,
+            engine_id=self.config['engine'],seed=self.config['seed']+1000000+(0 if promotion else version*101),blocks=blocks,control=control,
+            contexts=list(contexts),comparison=comparison))
         from .reward_metrics import build_control_metrics
         try:
             if self.controller.freeze()['mode']=='adaptive':
@@ -334,7 +377,9 @@ class FormatExperiment:
                 self.update_deadline(),self.exe,label=f'champion{version:06}',formats=[self.fmt],team_contexts=contexts)
             champion_jobs,champion_results=self.execute(champion_jobs,f'champion-{version:06}')
             champion_comparison=comparisons(champion_jobs,champion_results,min_blocks=12,team_contexts=contexts)
-            write_json(self.directory/'validation'/f'champion-v{version:06}.json',champion_comparison)
+            write_json(self.directory/'validation'/f'champion-v{version:06}.json',dict(tier='promotion',format=self.fmt,
+                engine_id=self.config['engine'],seed=self.config['seed']+1000000,blocks=12,control=champion,
+                contexts=list(contexts),comparison=champion_comparison))
             if champion_comparison[self.fmt]['status']!='passed': key=None
         if key is not None:
             field=method+'_key'
@@ -468,11 +513,45 @@ class FormatExperiment:
             self.state['pending_train']=dict(paths=paths,method=method,cursor=dict(epoch=0,step=0),reward_config=self.controller.freeze());self.save()
             if not self.finish_train(): break
 
+    def _checkpoint_version(self,path):
+        state=torch.load(path,map_location='cpu',weights_only=False)
+        return int(state.get('runner',{}).get('version',-1))
+
+    def _select_final(self):
+        frozen=self.directory/'selected.pt';record=self.directory/'selection.json'
+        if frozen.exists() and record.exists():
+            saved=validate_frozen_selection(record,sha256(frozen));return frozen,saved['selected_kind'],saved
+        champion=self.directory/'best.pt'
+        candidates=[p for p in [self.directory/'last_ppo.pt',self.directory/'last_bc.pt',self.directory/'latest.pt'] if p.exists()]
+        if not champion.exists() and not candidates:
+            raise RuntimeError('no complete checkpoint to select')
+        if not champion.exists():
+            chosen=candidates[0];kind='fallback';version=self._checkpoint_version(chosen);candidate=chosen;candidate_version=version
+            detail=dict(choice='fallback',reason='no retained champion')
+        else:
+            champion_version=self._checkpoint_version(champion)
+            ranked=sorted(candidates,key=lambda p:self._checkpoint_version(p),reverse=True)
+            candidate=ranked[0] if ranked else champion
+            candidate_version=self._checkpoint_version(candidate)
+            candidate_panel=read_json(self.directory/'validation'/f'v{candidate_version:06}.json')
+            champion_panel=read_json(self.directory/'validation'/f'v{champion_version:06}.json')
+            detail=decide(candidate_panel,champion_panel,self.fmt)
+            if detail['choice']=='candidate':
+                chosen=candidate;kind='candidate';version=candidate_version
+            else:
+                chosen=champion;kind='champion';version=champion_version
+        temp=frozen.with_suffix('.tmp')
+        shutil.copyfile(chosen,temp);temp.replace(frozen)
+        record_data=dict(candidate=str(candidate) if candidate else None,candidate_version=candidate_version if candidate else None,
+            champion=str(champion) if champion.exists() else None,champion_version=self._checkpoint_version(champion) if champion.exists() else None,
+            selected=str(chosen),selected_kind=kind,selected_version=version,reason=detail['reason'],
+            selected_sha256=sha256(frozen),frozen_before_holdout=True,format=self.fmt)
+        write_json(record,record_data)
+        return frozen,kind,record_data
+
     def final_evaluation(self):
         self.state['stage']='final';self.save()
-        chosen=next(p for p in [self.directory/'best.pt',self.directory/'last_ppo.pt',self.directory/'last_bc.pt',self.directory/'latest.pt'] if p.exists())
-        frozen=self.directory/'selected.pt'
-        if not frozen.exists(): shutil.copyfile(chosen,frozen)
+        frozen,selected_kind,selection=self._select_final()
         selected,selected_state=load_model(frozen,self.fmt)
         selected_version=selected_state['runner']['version']
         policy=self.ensure_export(selected,'final-selected','FinalSelected',version=self.fmt+'-v'+str(selected_version))
@@ -489,7 +568,8 @@ class FormatExperiment:
         _,results=self.execute(jobs,'final')
         reports={label:comparisons(plan,results,team_contexts=contexts)[self.fmt] for label,plan in plans.items()}
         last_method=(selected_state.get('runner',{}).get('history') or [{}])[-1].get('method')
-        summary=dict(format=self.fmt,status=overall_status(reports),controls=reports,selected_kind=self.state['best_kind'] or ('ppo' if last_method=='ppo' else 'bc_or_untrained'),
+        summary=dict(format=self.fmt,status=overall_status(reports),controls=reports,selected_kind=selected_kind,
+            selection=selection,
             pretraining_complete=self.state['effective'],bc_games_collected=len(self.teacher_evidence()),bc_games_required=self.config['bc_games'][self.fmt],
             version=selected_version,evaluation_engine=evaluation_engine,
             evaluation_scope='lite Astra comparison only; not native Wesnoth playing strength' if evaluation_engine=='lite' else 'native Wesnoth 1.18.8 comparison',

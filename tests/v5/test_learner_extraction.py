@@ -54,15 +54,17 @@ class LearnerExtractionTests(unittest.TestCase):
         self.assertAlmostEqual(result['loss'], 4.353553771972656, places=5)
         self.assertTrue(any(not torch.equal(a, b.detach()) for a, b in zip(before, model.parameters())))
 
-    def test_ppo_update_matches_recorded_baseline(self):
+    def test_ppo_update_visits_each_window_once(self):
         rows, model = _ppo_rows()
         random.seed(13)
         torch.manual_seed(0)
         optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
         result = train(model, optimizer, rows, method='ppo', epochs=1, minibatch=4, bc_records=_rows())
         self.assertEqual(result['updates'], 1)
-        self.assertEqual(result['decisions_seen'], 16)
-        self.assertAlmostEqual(result['loss'], 0.9339953809976578, places=5)
+        self.assertEqual(result['decisions_seen'], 4)
+        self.assertEqual(result['planned_windows'], 1)
+        self.assertEqual(result['repeated_targets'], 0)
+        self.assertAlmostEqual(result['loss'], 0.9339116811752319, places=5)
         self.assertFalse(result['kl_stopped'])
 
     def test_train_dispatches_to_extracted_modules(self):
