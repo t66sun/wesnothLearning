@@ -316,13 +316,13 @@ This section is the maintained plan, replacing the short proposal in section 1 f
 |---|---|
 | P1 learners extracted (`bc.py`, `ppo.py`, `checkpoints.py`) | Implemented, awaiting acceptance |
 | P2 bounded BC filling | Implemented, awaiting acceptance |
-| P3 PPO traversal and recovery | Not implemented |
-| P4 logical-batch stopping | Not implemented |
-| P5a checkpoint operations | Not implemented |
-| P5b final nomination | Not implemented |
+| P3 PPO traversal and recovery | Implemented, awaiting acceptance |
+| P4 logical-batch stopping | Implemented, awaiting acceptance |
+| P5a checkpoint operations | Implemented, awaiting acceptance |
+| P5b final nomination | Implemented, awaiting acceptance |
 | P6a/P6b external inference | Not implemented |
-| P7a deterministic lite combat | Not implemented |
-| P7b Astra adaptation | Not implemented |
+| P7a deterministic lite combat | Implemented, awaiting acceptance |
+| P7b Astra adaptation | Implemented, awaiting acceptance |
 
 The user also accepts **a standalone inference engine with Lua as the game adapter**. Pure Lua remains the current working delivery, rather than a mandatory target for every future network. External inference feasibility and packaging are a separate workstream; they are not prerequisites for correcting BC/PPO. No backend, IPC mechanism or new model architecture is claimed implemented by this decision.
 
