@@ -17,6 +17,46 @@ from learning import data, lite_host, rowpack, sequences
 
 
 class CollectionMemoryTests(unittest.TestCase):
+    def ephemeral_rows(self):
+        template = helpers.synthetic_decision_row()
+        references = []
+        for number in range(4):
+            row = rowpack.compact_row(template)
+            row['decision'] = number
+            references.append(weakref.ref(row['global']))
+            if number >= 2:
+                self.assertIsNone(references[number - 2](), 'consumer retained prior decision arrays')
+            yield row
+
+    def test_sequence_writer_releases_prior_rows_while_consuming_generator(self):
+        with tempfile.TemporaryDirectory() as directory, sequences.IndexedSequenceStore(directory) as store:
+            self.assertEqual(store.write(self.ephemeral_rows()), 4)
+
+    def test_shard_writer_does_not_rebuild_an_entire_raw_row_list(self):
+        test = self
+        class Replayable:
+            def __iter__(self):return test.ephemeral_rows()
+        with tempfile.TemporaryDirectory() as directory:
+            result = data.write_shard(Path(directory)/'rows.jsonl.gz', 'game-1', Replayable(), fixtures.result())
+        self.assertEqual(result['written'], 4)
+
+    def test_projected_metric_rows_preserve_turn_five_and_ten_diagnostics(self):
+        from learning.trajectory_buffer import TrajectoryBuffer
+        from learning.reward_metrics import summarize_game
+        rows = helpers.sequence_rows(turns=10, decisions_per_turn=1)
+        for row in rows:
+            row['reward_raw'] = dict(economy=.1, control=.2, explored=.3)
+            row['reward_after'] = dict(row['reward_raw'])
+        job = dict(id='seq-1', engine='lite', factions=['Rebels','Undead'],
+                   meta=dict(format='duel',map='test',map_sha256='test',map_partition='train',context='solo'))
+        expected = summarize_game(rows, fixtures.result(), job)
+        with TrajectoryBuffer() as buffer:
+            for row in rows:buffer.append(row)
+            actual = summarize_game(buffer.metric_rows(), fixtures.result(), job)
+        self.assertIsNotNone(expected[0]['horizons']['5']['loss'])
+        self.assertIsNotNone(expected[0]['horizons']['10']['loss'])
+        self.assertEqual(actual, expected)
+
     def test_collector_spools_complete_rows_without_retaining_their_arrays(self):
         from learning.trajectory_buffer import TrajectoryBuffer
         row = rowpack.compact_row(helpers.synthetic_decision_row())
