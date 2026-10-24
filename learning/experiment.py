@@ -224,10 +224,14 @@ class FormatExperiment:
         write_json(self.directory/'state.json',self.state)
 
     def identity(self):
-        """Provenance of the combat engine this run trains against."""
+        """Provenance of the combat engine and teacher this run trains against."""
         if self.config['engine']=='lite':
-            return dict(engine='lite',engine_version=ENGINE_VERSION,rng_version=RNG_VERSION,combat_version=COMBAT_VERSION)
-        return dict(engine='native',engine_version='1.18.8',rng_version='native-1.18.8',combat_version='native-1.18.8')
+            from .teachers import identity as teacher_identity
+            return dict(engine='lite',engine_version=ENGINE_VERSION,rng_version=RNG_VERSION,
+                        combat_version=COMBAT_VERSION,**teacher_identity())
+        return dict(engine='native',engine_version='1.18.8',rng_version='native-1.18.8',
+                    combat_version='native-1.18.8',teacher='gpt6astra',teacher_profile='native',
+                    teacher_source_sha256='native-1.18.8',teacher_parent_sha256=None)
 
     def ensure_export(self,model,folder,name,mode='greedy',version=None):
         destination=self.directory/'policies'/folder;addon=destination/name
@@ -258,7 +262,10 @@ class FormatExperiment:
             job.setdefault('reward_config',self.controller.freeze())
             job.setdefault('meta',{})['engine_id']=job['engine']
             if job['engine']=='lite':
+                from .teachers import identity as teacher_identity, lineage as teacher_lineage
                 job['meta'].update(engine_version=ENGINE_VERSION,rng_version=RNG_VERSION,combat_version=COMBAT_VERSION)
+                job['meta'].update(**teacher_identity())
+                job['meta']['teacher_lineage']=teacher_lineage()
                 job.setdefault('allow_approximate',self.config.get('allow_approximate',False))
                 job['bots']=[self.teachers[0] if bot=='baseline' else bot for bot in job['bots']]
                 if job.get('meta',{}).get('context')=='baseline_partner': job['meta']['context']='astra_partner'

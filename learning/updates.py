@@ -52,7 +52,7 @@ def rollout_identity(rows):
     targets.sort(key=lambda item: (str(item[0]), str(item[1]), int(item[2]), str(item[3])))
     for game_id, side, turn, decision, row in targets:
         payload = {key: row.get(key) for key in ('version', 'engine_id', 'rules_version', 'rng_version',
-                                                  'combat_version', 'reward_version', 'reward_formula_id',
+                                                  'combat_version', 'teacher_profile', 'reward_version', 'reward_formula_id',
                                                   'game_family')}
         digest.update(json.dumps(payload, sort_keys=True, separators=(',', ':')).encode())
         digest.update(b'\n')

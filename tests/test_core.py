@@ -29,7 +29,7 @@ def record(players=2, game='g', index=0):
                          geometry=[0.0]*len(GEOMETRY),local=[0.0]*(19*len(SPATIAL_CHANNELS)))
                     for _ in range(8)],
         spatial=_spatial(),architecture_id='relational_v5',engine_id='lite-0.2',
-        rules_version='fixture',rng_version='fixture',combat_version='fixture',candidate_version='candidates-v1',
+        rules_version='fixture',rng_version='fixture',combat_version='fixture',teacher_profile='expected_damage_v1',candidate_version='candidates-v1',
         reward_version=0,reward_formula_id=RewardConfig().reward_formula_id,
         reward_config=RewardConfig().to_dict(),
         reward_raw=dict(economy=0.,control=0.,explored=0.),
@@ -38,7 +38,8 @@ def record(players=2, game='g', index=0):
 
 
 IDENTITY=dict(engine='lite',engine_version='lite-0.2',
-              rng_version='deterministic-expected_damage_v1',combat_version='expected_damage_v1')
+              rng_version='deterministic-expected_damage_v1',combat_version='expected_damage_v1',
+              teacher='gpt6astra',teacher_profile='expected_damage_v1',teacher_source_sha256='fixture')
 
 
 class CoreTests(unittest.TestCase):
@@ -158,7 +159,14 @@ class CoreTests(unittest.TestCase):
                 model=Policy(fmt);p=Path(tmp)/(fmt+'.pt')
                 checkpoint(p,model,torch.optim.Adam(model.parameters()),metrics={'updates':1})
                 checkpoints[fmt]=p
-            with self.assertRaisesRegex(ValueError,'lacks combat profile identity'):
+            with self.assertRaisesRegex(ValueError,'lacks combat or teacher profile'):
+                export_checkpoints(checkpoints,tmp,audit_records={})
+            for fmt in FORMATS:
+                model=Policy(fmt);p=Path(tmp)/(fmt+'.pt')
+                old={k:v for k,v in IDENTITY.items() if not k.startswith('teacher')}
+                checkpoint(p,model,torch.optim.Adam(model.parameters()),metrics={'updates':1},**old)
+                checkpoints[fmt]=p
+            with self.assertRaisesRegex(ValueError,'lacks combat or teacher profile'):
                 export_checkpoints(checkpoints,tmp,audit_records={})
 
     def test_old_shared_checkpoint_rejected(self):

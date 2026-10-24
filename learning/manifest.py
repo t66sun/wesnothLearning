@@ -52,6 +52,7 @@ def freeze(run_dir, opponents, wesnoth, config):
     if not str(versions['packages']['torch']).startswith('2.9.1'):
         raise ValueError('PyTorch 2.9.1 is required; run setup.sh')
     from .rules_catalog import load, resolve_dir
+    from .teachers import lineage
     rules_dir=resolve_dir(config.get('rules_dir'))
     catalog=load(rules_dir)
     manifest=dict(schema=4,config=config,features=schema(),architecture=ARCHITECTURE,
@@ -59,6 +60,7 @@ def freeze(run_dir, opponents, wesnoth, config):
                    source_hash=catalog['source_hash'],training_acceptance=catalog.get('training_acceptance')),
         parameters=sum(p.numel() for p in Policy('duel').parameters()),dependencies=versions,
         opponents=refs,baseline=dict(name='baseline',version='1.18.8',path=exe,sha256=sha256(exe)),
+        teacher=lineage(),
         source={folder:tree_hashes(ROOT/folder) for folder in ('learning','lua','vendor/arena','engine_lite','rules','benchmarks')},
         baseline_in_2v2=dict(teacher_partner=True,rollout_partner_fraction=.25,
                              opponent_pool=True,control_candidate=True,

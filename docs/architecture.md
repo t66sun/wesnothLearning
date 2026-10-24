@@ -316,13 +316,13 @@ This section is the maintained plan, replacing the short proposal in section 1 f
 |---|---|
 | P1 learners extracted (`bc.py`, `ppo.py`, `checkpoints.py`) | Implemented, awaiting acceptance |
 | P2 bounded BC filling | Implemented, awaiting acceptance |
-| P3 PPO traversal and recovery | Not implemented |
-| P4 logical-batch stopping | Not implemented |
-| P5a checkpoint operations | Not implemented |
-| P5b final nomination | Not implemented |
+| P3 PPO traversal and recovery | Implemented, awaiting acceptance |
+| P4 logical-batch stopping | Implemented, awaiting acceptance |
+| P5a checkpoint operations | Implemented, awaiting acceptance |
+| P5b final nomination | Implemented, awaiting acceptance |
 | P6a/P6b external inference | Not implemented |
-| P7a deterministic lite combat | Not implemented |
-| P7b Astra adaptation | Not implemented |
+| P7a deterministic lite combat | Implemented, awaiting acceptance |
+| P7b Astra adaptation | Implemented, awaiting acceptance |
 
 The user also accepts **a standalone inference engine with Lua as the game adapter**. Pure Lua remains the current working delivery, rather than a mandatory target for every future network. External inference feasibility and packaging are a separate workstream; they are not prerequisites for correcting BC/PPO. No backend, IPC mechanism or new model architecture is claimed implemented by this decision.
 
@@ -509,11 +509,11 @@ Implementation phases P1–P7 below are **not started**; P0 is this plan-only de
 | P5b: final nomination | Existing validation/final selection owners | One off-cycle validation candidate can be considered before one frozen holdout; preserve full panels and champion rules |
 | P6a/P6b: external inference | Later inference package/Lua bridge, then packaging | First ordinary-game IPC feasibility; then real model/session parity and minimal native execution. Training changes do not wait for this optional delivery |
 | P7a: deterministic lite rules — Implemented, awaiting acceptance | `engine_lite/src/{combat,state,model,lib}.rs`, forecast/host/adapters and owning provenance checks | One versioned combat/status contract shared by execution and public forecast; no combat RNG or old sampled forecast; TEST R1/R2; no teacher heuristic tuning |
-| P7b: Astra rule adaptation | Maintained teacher source/loader and lite host; new derived teacher package | Teacher consumes new damage/status rules and uses revised heuristics; original package stays frozen; TEST R3; no network/reward/BC-count tuning |
+| P7b: Astra rule adaptation — Implemented, awaiting acceptance | Maintained teacher source/loader and lite host; new derived teacher package | Teacher consumes new damage/status rules and uses revised heuristics; original package stays frozen; TEST R3; no network/reward/BC-count tuning |
 
 P1 precedes P3/P4. P2 is logically independent after the loader interface is understood. P3 needs recovery support in the same change for its new traversal cursor; P5a must not defer that guarantee. P5b waits for reliable complete checkpoint identities. P6a can be investigated after separate authorization without changing the learner. Numeric model/feature changes, if eventually desired, form a later separately accepted experiment.
 
-P7a is implemented as `lite-0.2` (`expected_damage_v1`) and awaits the Ubuntu R1/R2 runs. P7a follows the P1 parity baseline and precedes P7b. P7 is a separate behavior change, not a new requirement to rewrite P2–P5. Before any new formal corpus/run adopts deterministic lite, P7a/R1/R2 and P7b/R3 wiring must pass, with teacher-strength acceptance reported separately. Optional P6 does not block that training; native transfer strength remains separate.
+P7a is implemented as `lite-0.2` (`expected_damage_v1`) and awaits the Ubuntu R1/R2 runs. P7b derives `learning/teachers/gpt6astra/` from the frozen archive and routes lite Astra seats through that source; the archive stays read-only and the source hash travels in rows, checkpoints, jobs and exports. P7a follows the P1 parity baseline and precedes P7b. P7 is a separate behavior change, not a new requirement to rewrite P2–P5. Before any new formal corpus/run adopts deterministic lite, P7a/R1/R2 and P7b/R3 wiring must pass, with teacher-strength acceptance reported separately. Optional P6 does not block that training; native transfer strength remains separate.
 
 ### 10.10 Minimal verification plan — NOT RUN
 
@@ -593,3 +593,7 @@ No decision here should be filled in with a guessed performance number or a weak
 - Compare adapted versus unadapted frozen Astra **inside the same new deterministic environment**, using matched maps/factions/roles/initial states, never old-rule win rates as parity evidence. R3 defines bounded tactical/smoke checks and the separate complete-panel strength requirement. Native transfer strength must later be measured in unchanged original Wesnoth; no deterministic-lite result satisfies that gate.
 
 **Acceptance:** TEST R1 (hand-calculated rules), R2 (forecast/provenance/phase wiring), R3 (teacher adaptation and separately labelled strength). Existing stochastic-combat distribution/differential evidence is superseded only for the intentionally changed behavior; preserve unrelated legal/movement tests. Differential mismatches for damage/slow/poison are recorded expected rule differences, not misreported native parity or weakened global differential gates. The engine/forecast/provenance code and its Rust/Python assertions exist under `lite-0.2`; no Ubuntu build, test, collection or training has run yet, so acceptance remains open.
+
+### 10.14 Post-refactor reduced full-loop run — planned, not started
+
+After P1–P7 acceptance and merge, the user authorizes one reduced-game end-to-end lite run on the isolated Ubuntu tree: BC, at least two PPO updates, a checkpoint stop/resume at an applied-batch boundary, and the final-evaluation entry. It uses the smallest game/format panel that still exercises those transitions, freezes its config/manifest before launch, and checks progress every 30 minutes. This is wiring/loop evidence only: it is not formal training, does not claim convergence or strength, and does not relax any BC/PPO/promotion/holdout gate. Results go to a new dated `verification/` report.
