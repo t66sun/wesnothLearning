@@ -148,7 +148,10 @@ class Experiment:
                 p=ctx.Process(target=trainer_main,args=(str(self.directory/fmt),fmt,self.manifest,self.clock,requests,replies[fmt],self.resume),name='trainer-'+fmt)
                 processes[fmt]=p;p.start()
             try: scheduling=broker(processes,requests,replies,self.config['workers'],self.directory)
-            except KeyboardInterrupt:
+            except BaseException:
+                # A broken pool can leave a trainer blocked on replies.get().
+                # Stop our remaining trainers before the final join on any
+                # coordinator failure, as well as on an explicit interrupt.
                 for p in processes.values():
                     if p.is_alive(): p.terminate()
                 raise
