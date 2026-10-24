@@ -104,6 +104,8 @@ The user accepted the rule coverage within the current training scope. The 158-u
 - Independent reproducible combat/recruit RNG; the fast engine does not need to match native for a given seed; per-strike hits can be injected for differential tests. Candidates, teacher and predictions never advance the real combat RNG stream.
 - Per-side fog/shroud, explored terrain, last legal enemy information with age, village memory; configured map/view sharing, four-way rotation, elimination and team victory.
 
+**New user decision, not implemented:** replace lite's random combat with a versioned deterministic expected-damage ruleset, weaken slow/poison and adapt Astra (10.13). The RNG description above is the current implementation, not the target. Native 1.18.8 keeps its original rules.
+
 ### 3.3 Explicit approximations and unimplemented items
 
 Composite modifier rounding, counterattack weapon selection and full native declaration filters remain approximate. Random trait generation and retention across upgrades, AMLA/upgrade choices, independent `vision_costs/jamming` and runtime variants are still incomplete. The remaining 117 types mostly depend on campaign events, dummies, scripted plague, WML variables/multi-attack/song states and similar; the launcher refuses initial units, recruitment, upgrade or plague chains containing unimplemented declarations.
@@ -308,7 +310,7 @@ Each English doc has a `_zh` mirror beside it (`docs/architecture_zh.md`, module
 
 ### 10.1 Decision, authority and intended outcome
 
-This section is the maintained plan, replacing the short proposal in section 1 for implementation decisions. The user explicitly stopped implementation and requested a detailed document first. **Only this document is being changed; P1–P6 have not started.** Writing this plan authorizes neither implementation, server access, collection, optimization experiments nor formal training. Existing source, installed models and frozen runs remain as they were at `a869e95d79faf267362af2374ae1c794777f2a13`.
+This section is the maintained plan, replacing the short proposal in section 1 for implementation decisions. The user explicitly stopped implementation and requested a detailed document first. **Only planning documents are being changed; P1–P7 have not started.** Writing this plan authorizes neither implementation, server access, collection, optimization experiments nor formal training. Existing source, installed models and frozen runs remain as they were at `a869e95d79faf267362af2374ae1c794777f2a13`.
 
 The user also accepts **a standalone inference engine with Lua as the game adapter**. Pure Lua remains the current working delivery, rather than a mandatory target for every future network. External inference feasibility and packaging are a separate workstream; they are not prerequisites for correcting BC/PPO. No backend, IPC mechanism or new model architecture is claimed implemented by this decision.
 
@@ -319,6 +321,7 @@ The intended outcomes are concrete:
 3. Computation microbatch size controls memory rather than silently defining the statistical batch or changing the stop rule.
 4. Recovery continues the saved experiment, a branch explicitly changes its future plan, and final evaluation tests one frozen selected candidate.
 5. Training and deployment can use the same tensor model through an external engine, provided ordinary Wesnoth 1.18.8 can support the required Lua bridge.
+6. Lite combat resolves each strike deterministically under the new expected-damage/slow/poison contract, and Astra plans against those same rules (P7, 10.13).
 
 These are structural and correctness goals. No specific convergence gain, throughput multiplier or Astra victory is promised. Strength still requires the original complete comparison panels.
 
@@ -334,7 +337,7 @@ Preserve during P1–P5:
 - Complete raw legal prefixes, first committed observation per own turn, read-only teacher queries, genuine termination versus truncation, bootstrap validity and family-level train/validation separation.
 - Frozen manifest/source checks, input provenance, the existing evaluation block requirements and confidence-based champion checks. A failed or incomplete check is not repaired by lowering its threshold.
 
-Not in this refactor: rule-engine semantics, new rewards, increasing teacher-game counts, expanding the network, changing to a different RL algorithm, full corpus re-encoding, generic plugin systems or broad benchmark matrices. New model research can be proposed separately once the delivery constraint is relaxed.
+P1–P5 exclude rule-engine semantics; the user's later decision adds that change as separate P7, not part of mechanical learner extraction. New rewards, increasing teacher-game counts, expanding the network, changing RL algorithm, full corpus re-encoding, generic plugin systems and broad benchmark matrices remain excluded. New model research can be proposed separately once the delivery constraint is relaxed.
 
 ### 10.3 Target responsibilities and interfaces
 
@@ -481,7 +484,7 @@ Minimal inference acceptance uses the same actual frozen observations as the ref
 
 ### 10.9 Phases, PR ownership and completion gates
 
-Implementation phases P1–P6 below are **not started**; P0 is this plan-only deliverable. Each PR owns one behavior; keep mechanical moves separate from sampling, objective or scheduling changes. The main reviewer checks the exact head/evidence before merging to master and pushing. Independent work may use separate branches, but dependent PRs do not assume one another's unmerged interfaces.
+Implementation phases P1–P7 below are **not started**; P0 is this plan-only deliverable. Each PR owns one behavior; keep mechanical moves separate from sampling, objective or scheduling changes. The main reviewer checks the exact head/evidence before merging to master and pushing. Independent work may use separate branches, but dependent PRs do not assume one another's unmerged interfaces.
 
 | Phase | Owned change and likely files | Completion gate and excluded work |
 | --- | --- | --- |
@@ -493,8 +496,12 @@ Implementation phases P1–P6 below are **not started**; P0 is this plan-only de
 | P5a: checkpoint operations | `checkpoints.py`, existing run/phase entry owners | Resume versus explicit branch semantics and atomic cursor/RNG restore; no new implicit deadline or seed |
 | P5b: final nomination | Existing validation/final selection owners | One off-cycle validation candidate can be considered before one frozen holdout; preserve full panels and champion rules |
 | P6a/P6b: external inference | Later inference package/Lua bridge, then packaging | First ordinary-game IPC feasibility; then real model/session parity and minimal native execution. Training changes do not wait for this optional delivery |
+| P7a: deterministic lite rules | `engine_lite/src/{combat,state,model,lib}.rs`, forecast/host/adapters and owning provenance checks | One versioned combat/status contract shared by execution and public forecast; no combat RNG or old sampled forecast; TEST R1/R2; no teacher heuristic tuning |
+| P7b: Astra rule adaptation | Maintained teacher source/loader and lite host; new derived teacher package | Teacher consumes new damage/status rules and uses revised heuristics; original package stays frozen; TEST R3; no network/reward/BC-count tuning |
 
 P1 precedes P3/P4. P2 is logically independent after the loader interface is understood. P3 needs recovery support in the same change for its new traversal cursor; P5a must not defer that guarantee. P5b waits for reliable complete checkpoint identities. P6a can be investigated after separate authorization without changing the learner. Numeric model/feature changes, if eventually desired, form a later separately accepted experiment.
+
+P7a follows the P1 parity baseline and precedes P7b. P7 is a separate behavior change, not a new requirement to rewrite P2–P5. Before any new formal corpus/run adopts deterministic lite, P7a/R1/R2 and P7b/R3 wiring must pass, with teacher-strength acceptance reported separately. Optional P6 does not block that training; native transfer strength remains separate.
 
 ### 10.10 Minimal verification plan — NOT RUN
 
@@ -509,10 +516,12 @@ Use existing `tests/v5/helpers.py` plus small new suites, not broad edits to the
 | P5a | Two complete checkpoints with distinct model/RNG/cursor identities | Resume loads latest completely; explicit fork records its source and new plan; no hybrid optimizer/RNG; old incompatible mid-batch state is not silently accepted |
 | P5b | Existing collector replaced with recorded schedule/results | An eligible off-cycle candidate may win; incomplete or inconclusive evidence cannot promote it; holdout is created only after the selected identity is frozen and never chooses between candidates |
 | P6 | Recorded public sequence and later one authorized short native scenario | No hidden fields cross the adapter, per-side memory and commit order match reference, action maps to the supplied list, process persists and shuts down |
+| P7a | Hand-calculated per-strike/status fixtures plus public forecast/execution comparison | Damage/rounding/turn timing are exact, no combat RNG remains, forecasts and consumers agree; incompatible old trajectories/snapshots are rejected (TEST R1/R2) |
+| P7b | Six fixed tactical decisions plus one shared three-format route/phase trace | Adapted Astra values damage/slow/poison under the new profile, remains legal/public-only and is versioned; bounded checks do not claim preserved strength (TEST R3) |
 
 After local affected checks, planned Ubuntu acceptance reuses the downloaded real teacher/on-policy records from `verification/model_strength_20261024_2120/` read-only. One input per affected format is sufficient to check parsing and current-model replay; no new teacher corpus is needed. P2 may use the recorded long 2v2 game once to check actual fill and memory, rather than repeat the 8-worker pressure matrix.
 
-Key transitions must be exercised after their owners change: BC completion/failed BC gate → PPO request; first two PPO updates and checkpoint readback; interruption/resume of a pending update; PPO completion → candidate freeze → final evaluator. Start with a recorded collector to avoid new games and prove orchestration. A later explicitly authorized minimal real Ubuntu chain verifies runtime wiring; its reduced game panel remains inconclusive and cannot substitute for the 30-block strength gate. [TEST.md](TEST.md) consolidates these checks as C1–C9, optional inference as D1, and the existing native terminal capture gap (formerly T6) as N1. No runtime checks have been executed for this plan.
+Key transitions must be exercised after their owners change: BC completion/failed BC gate → PPO request; first two PPO updates and checkpoint readback; interruption/resume of a pending update; PPO completion → candidate freeze → final evaluator. Start with a recorded collector to avoid new games and prove orchestration. A later explicitly authorized minimal real Ubuntu chain verifies runtime wiring; its reduced game panel remains inconclusive and cannot substitute for the 30-block strength gate. [TEST.md](TEST.md) consolidates these checks as C1–C9, deterministic rules/Astra as R1–R3, optional inference as D1, and the existing native terminal capture gap (formerly T6) as N1. No runtime checks have been executed for this plan.
 
 No suite, gradient experiment, engine game or server command runs merely because this table is present. Tests that require absent data/runtime are reported not run, with the missing input stated.
 
@@ -537,3 +546,38 @@ No suite, gradient experiment, engine game or server command runs merely because
 | Whether the current model or reward must change | Corrected training exposure plus comparable validation and behavior evidence | A later model/reward experiment |
 
 No decision here should be filled in with a guessed performance number or a weakened gate. The next action remains plan review; implementation and training await subsequent user instructions.
+
+### 10.13 Deterministic lite combat and Astra adaptation — NOT IMPLEMENTED
+
+**Decision and scope.** The user requests replacing the lite combat RNG with deterministic damage to remove hit/miss luck from training fights. This is a new training ruleset, not an unbiased reproduction of native combat: the 10% uplift, upward rounding, death order and guaranteed on-hit effects change balance. It removes combat-outcome noise, not stochastic policy exploration, data shuffling, initialization or scenario sampling. No convergence/strength gain is assumed. Native gameplay remains stochastic; a Lua inference bridge cannot change native rules by itself.
+
+**Per-strike contract, proposed identity `expected_damage_v1`:**
+
+1. Let `D` be nonnegative integer damage for one successful strike after existing time-of-day, resistance, leadership, charge/backstab/absorb and other non-slow modifiers, with their documented compound-rounding approximation retained. Apply these modifiers once, identically for attack and retaliation.
+2. If the striking unit is slowed, use `S = ceil(3 * D / 4)`; otherwise `S = D`. This means **75% remaining damage**, not a 75% reduction. Slow's rounding occurs here, before the expectation calculation.
+3. Let `p` be original effective hit chance in integer percent after terrain, magical/marksman and chance-reducing specials, bounded to 0–100. Resolve each eligible strike as `E = ceil(S * p * 1.10 / 100)`, implemented with wide integer arithmetic `(11*S*p + 999) // 1000`. “Add 10%” means multiply expected damage by **1.10**, not add ten percentage points to hit chance. Do not round `S*p/100` first. If `S=0` or `p=0`, damage is zero; `p=0` cannot apply hit effects. With `p>0`, the strike connects deterministically, including a zero-damage weapon's existing on-hit semantics.
+4. Example: `D=10,p=60` gives **7 per strike**; three strikes are three separate 7-damage opportunities, not one collapsed attack. `D=10,p=100` gives 11. A slowed `D=10,p=60` gives `ceil(10*.75)=8`, then `ceil(8*.6*1.1)=6`. The final HP loss is capped by current HP.
+5. Preserve strike counts/order, retaliation, firststrike, berserk/swarm, early death interruption, XP/advance, drain/plague/feeding and other declared semantics. Use actual dealt HP loss for drain and downstream accounting. Chance-based connection is replaced, not terrain defense: `p` still scales damage. Do not multiply by `p`/1.10 again in predictions, candidates, reward or Astra.
+
+**Statuses:**
+
+- Slow keeps its existing movement restriction and lifetime: currently slowed terrain movement costs are doubled. Keep that shared path/execution behavior; do not also halve the movement budget. Only its attack-damage multiplier changes from half to 75%, rounded upward as above. Newly applied slow affects subsequent eligible strikes, including retaliation, and expires at the existing side boundary.
+- Poison deals **6 HP per normal poison tick**, at the poisoned unit's own turn boundary, not every side's turn in ffa4/team2v2. Preserve immunity, non-stacking, existing nonlethal HP floor, rest/heal/cure/regeneration precedence and tick timing; isolated no-rest/no-heal poison loses exactly 6, while existing rest/treatment can alter net HP change.
+- For otherwise eligible connected strikes, poison/slow apply deterministically to surviving susceptible targets; do not introduce a second status roll. Other on-hit statuses retain existing eligibility/immunity/lifetime. Audit their stronger guaranteed application, but additional nerfs or status stacking changes need a separate decision rather than guessed coefficients.
+
+**One rule implementation, all consumers:**
+
+- Refactor `combat::resolve/strike` and the narrow status tick owner. Remove `Random`, combat RNG state and hit-draw/injection paths from the new lite runtime, plus the currently unused recruit-RNG placeholder; keep Python policy/sampler/optimizer RNGs and scenario seeds. Old runs replay with their frozen old build, not a second stochastic branch inside the new resolver. Old `inject_hits` must be removed or fail explicitly as unsupported, never silently influence results.
+- Replace `Game::forecast`'s 128-sample Monte Carlo loop with one deterministic resolution on a clone built only from the same legal public context. Preserve required `average_hp`, HP-distribution and poisoned/slowed interface fields using point-mass outcomes and 0/1 statuses, with effective sample count 1. A legacy `samples` argument may be accepted only as ignored compatibility input, clearly marked; it cannot cause repeated simulation or report invented sample counts. Hypothetical attacker position must be honored. Prediction cannot mutate live state or reveal hidden aura/units/terrain.
+- `engine_lite/lua/host.lua`'s `simulate_combat`, `lua/candidates.lua`, teacher forecasts and any handcrafted damage/kill/status features must use that same rule contract. Audit embedded 50%-slow/8-poison/old variance assumptions and avoid double-discounting. Native `simulate_combat` remains native; delivery records which rules produced features. Keep observation tensor layout/model architecture unless a required semantic encoding change is explicitly versioned.
+
+**Astra adaptation (P7b):** first route visible-context simulation to the exact new resolver, then change only proven mismatches in weapon/retaliation/kill-risk ranking, poison value (6 per valid future tick with immunity/cure), slow value (75% damage plus unchanged movement restriction), and probabilistic risk bonuses that are no longer meaningful. Preserve recruitment, movement and team-role logic unless the six tactical fixtures show a rule-dependent error; retain finite forecast/candidate budgets. Freeze a new teacher source/config hash and rule identity for all three formats. Do not hand-edit frozen opponent packages: derive a new package from maintained source and record lineage. Teacher queries remain read-only and cannot access the referee. Tactical success is wiring acceptance; strength under the new rules still needs matched validation.
+
+**Provenance, compatibility and rollout:**
+
+- The captured unit catalog may retain its original bytes/hash, but that hash alone no longer identifies dynamics. Add an explicit effective combat/status profile version/hash and new engine/snapshot identity; include them with teacher hash in jobs, manifests, shards/indexes, checkpoints, reference metrics, caches, historical opponent entries and exports. Replace the old combat `rng_version` with an explicit deterministic/not-applicable marker rather than falsely advertising xoshiro. Public metadata may expose the rule profile, never referee RNG/state.
+- Old stochastic teacher labels/returns, PPO trajectories, BC caches and calibration panels do not count as new-rule evidence and cannot silently mix into the new formal run. Frozen F2 data can still supply public starting contexts for recomputation, not new-rule outcomes. Old weights are usable only as explicitly recorded initialization in a new run with freshly declared optimizer/controller/plan and newly computed rule-dependent features; not exact continuation of an old optimizer/rollout/clock. Preserve all original files/hashes. Record execution/profile compatibility separately from the observation schema number.
+- Once R1/R2 and R3 wiring pass on Ubuntu, use a new run/data namespace and the new profile for the next explicitly authorized lite training. Keep 300/600/400, 8 workers, trainer thread, learner/reward coefficients and quality/promotion/holdout gates unchanged. Reuse the C7 short phase chain under the new profile; do not launch another chain just for P7 if the same new-profile trace already covers it.
+- Compare adapted versus unadapted frozen Astra **inside the same new deterministic environment**, using matched maps/factions/roles/initial states, never old-rule win rates as parity evidence. R3 defines bounded tactical/smoke checks and the separate complete-panel strength requirement. Native transfer strength must later be measured in unchanged original Wesnoth; no deterministic-lite result satisfies that gate.
+
+**Acceptance:** TEST R1 (hand-calculated rules), R2 (forecast/provenance/phase wiring), R3 (teacher adaptation and separately labelled strength). Existing stochastic-combat distribution/differential evidence is superseded only for the intentionally changed behavior; preserve unrelated legal/movement tests. Differential mismatches for damage/slow/poison are recorded expected rule differences, not misreported native parity or weakened global differential gates. This update writes plans only; no engine/teacher code, test, collection or training has run.

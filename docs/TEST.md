@@ -2,7 +2,7 @@
 
 > Language: English | [中文](TEST_zh.md)
 
-Updated 2026-10-24. This user-requested replacement clears the former checklist and designs acceptance for the [refactor plan, chapter 10](architecture.md). **It authorizes no implementation, test execution, SSH, collection or training.** P1–P6 remain planned. New assertions described below are unwritten unless identified as existing evidence. N1 is implemented but unaccepted. No new runtime result is claimed.
+Updated 2026-10-24. This user-requested replacement clears the former checklist and designs acceptance for the [refactor plan, chapter 10](architecture.md). **It authorizes no implementation, test execution, SSH, collection or training.** P1–P7 remain planned. New assertions described below are unwritten unless identified as existing evidence. N1 is implemented but unaccepted. No new runtime result is claimed.
 
 For this planning request, planned cases are included explicitly. When an owning change is implemented, add its commit and real test entry point, retain its pending scope; after acceptance archive evidence and delete the item. Reopen only affected behavior.
 
@@ -21,8 +21,11 @@ Prepare these once as separate derived fixtures with parent hashes, without edit
 | F2: recorded sequences | Existing teacher/on-policy data and matching behavior weights in `verification/model_strength_20261024_2120/`; short continuous slices per format with complete legal prefixes and 128 candidates | C1–C3/D1; full long 2v2 only for C3/C8 |
 | F3: state/schedule | Two tiny complete checkpoints with different weights, optimizer/RNG/cursor; recorded collector/panel replies | C4–C7/C9 |
 | F4: terminal | Existing lite early-terminal and budget-truncation counterexamples | C7/N1 |
+| F5: deterministic combat | Tiny hand-calculated combat/status states; six public tactical positions; new-profile F3 state/schedule | R1–R3/C7; no new corpus, no old stochastic returns relabelled |
 
 Default volume: seed 20261024; F1 learner windows of 17/41 targets, at most two epochs/four optimizer steps per comparison branch; compare the same logical batch at micro sizes 8/32. C3 may reuse further windows up to 256 requested targets to expose backfill. F2 parity uses at most eight supervised targets per format across two own turns, preserving full raw prefixes. All three formats share a tiny routing/parsing case; detailed fault injection uses team2v2. Add another seed/format only for an unresolved format-dependent failure. Proposed IDs below are specifications, not runnable test names.
+
+R1–R3 are activated by P7 only. Unchanged C1–C9 reuse their evidence; refresh rule-dependent features/fixtures and the affected C1/C6/C7/C9 paths, not the entire suite. F2 old public contexts may be recomputed, but old transitions/teacher labels/log-probabilities/returns cannot become new-rule BC/PPO inputs. Keep old numerical extraction parity tied to its original rules.
 
 ## C1 — Public inputs, routing and recurrent memory
 
@@ -114,6 +117,54 @@ Default volume: seed 20261024; F1 learner windows of 17/41 targets, at most two 
 
 **Blocker/evidence:** P5b/final selection; schedule, actual block counts, selection reason and freeze-before-holdout trace in `C9/`. One block never stands in for 12/30 real blocks.
 
+## R1 — Deterministic per-strike damage and weakened statuses
+
+**Status/trigger:** P7a unimplemented; new Rust table/status assertions unwritten. Blocks new deterministic-rule collection/training, not use of the frozen old engine.
+
+**Minimal Ubuntu procedure:** one small table through the real resolver, plus three short status/order scripts. No game corpus or probabilistic confidence sampling. Use an independent integer formula oracle rather than invoking the production helper for the expected value.
+
+| Input/sequence | Required result |
+| --- | --- |
+| Resolved damage 10, original hit chance 60% | Each eligible strike deals `ceil(10*.6*1.1)=7`; retain multiple strikes, no collapsed attack |
+| Damage/chance boundaries | Zero base damage or 0% chance gives zero damage; 0% applies no hit effects; 10 at 100% gives 11; 1 at 1% gives 1, exposing upward-rounding bias |
+| Slowed striker, damage 10, chance 60% | First `ceil(10*.75)=8`, then `ceil(8*.6*1.1)=6`; not old half damage, not single final rounding |
+| Terrain/special/modifier cases | One resistance/time modifier and magical/marksman/chance-reducer representative each produce the hand-calculated `D,p`; apply chance/uplift once, for both attack and retaliation |
+| Firststrike/death/drain | Preserve order/strike count; killed unit cannot retaliate; drain uses capped actual HP loss; newly applied slow changes subsequent retaliation |
+| Poison 10 HP, no rest/healing | Own-turn ticks give 4 then 1 HP, no lethal poison; other sides' turns do not tick it; repeated poison does not stack |
+| Status controls | Immunity/cure/suppression/rest precedence unchanged except poison 6; slow retains doubled terrain movement cost/lifetime without an additional half-budget penalty |
+
+**Pass:** all exact integer/state assertions hold; inspect the new runtime to confirm old `Random`, combat/recruit RNG placeholders and hit injection have been removed/explicitly retired, not bypassed only in the test. Connected poison/slow apply without a second roll; retain eligibility of zero-damage on-hit weapons. One focused kill follow-up covers XP/plague/feeding wiring without a special-by-special matrix. Reverting new formula/slow/poison constants must fail the relevant assertions.
+
+**Evidence:** `verification/acceptance_<date>/R1/`, oracle table, state traces, engine/profile/source IDs. Native stochastic outcome distributions are not the oracle for these intentional changes.
+
+## R2 — Exact public forecast, identity isolation and stage chain
+
+**Status/trigger:** P7a unimplemented; forecast/provenance assertions unwritten. Blocks new-profile training/export wiring.
+
+**Minimal Ubuntu procedure:** reuse three R1 states (plain/slow/poison), forecast then execute in an all-visible controlled state, and one hidden-context counterexample. Hold initial state/action script fixed and vary only seed among 0/1/713; compare direct step with snapshot/restore/step. Compare legacy forecast requests `samples=1/128` if that argument is retained. Parameterize routing for three formats, then share C7's new-profile BC → two PPO updates → resume → final-entry trace; do not run a second separate chain.
+
+**Pass assertions:**
+
+- Forecast predicts exact HP/status/kill for matching public context; point-mass `hp_chance` sums to 1, effective samples=1, one resolver call per uncached forecast. Query does not advance state, change revision/memory or mutate any remaining noncombat RNG. Hypothetical attacker position affects relevant terrain/modifiers. Hidden-only changes cannot affect predictions/candidates/Astra; hidden combat factors may affect later execution, so equality is required only when public contexts are complete.
+- Seeds/injected old hit lists cannot alter fixed-state combat. Old injection entry is absent or rejects explicitly. New snapshot round-trip preserves deterministic outcome; old stochastic snapshots fail identity checks, not silently discard RNG and resume.
+- Candidate features, kill/status scores, Astra `simulate_combat` and actual resolver share the new profile; no second chance/1.10 multiplication or leftover eight-poison/half-slow assumptions. Any native consumer keeps native rules and declares that identity.
+- New profile/hash, engine/snapshot identity and teacher hash propagate through jobs, manifest, data/index/cache, checkpoints, panels and export; a catalog hash/schema match alone cannot accept old dynamics. Negative temporary copies with old/missing/mixed profile fail before update. Old weights require explicit new-run initialization; old optimizer/rollout/clock cannot silently resume. Original records remain byte-identical.
+- Shared C7 trace uses new-rule data/model/teacher identity through all three routes. Preserve quality/force provenance, bootstrap, controller, final selection and untouched holdout. A bounded trace remains inconclusive for strength. Record resolver-call counts and same-input forecast time, with no unmeasured speedup claim or repeat pressure matrix.
+
+**Evidence:** `R2/` forecast/execution/public-input deltas, build/profile propagation, rejected-mismatch logs and link to the single C7 trace. If changed feature consumers affect D1, rerun its numeric slice only when implemented, not its unrelated transport matrix.
+
+## R3 — Astra adaptation and separate strength evidence
+
+**Status/trigger:** P7b unimplemented; six-position tactical fixture and matched comparison harness unwritten. Blocks adapted-teacher readiness; minimal pass does not prove preserved playing strength.
+
+**Minimal Ubuntu procedure:** six public positions with independently specified admissible best actions/rankings: (1) deterministic lethal versus nonlethal, (2) firststrike/retaliation survival, (3) two weapons with different original hit chances, (4) slow value including movement restriction, (5) poison tick worth 6, (6) poison immunity/near cure making a normal attack preferable. Each has two meaningful alternatives, fixed budget and deterministic tie-break. Ensure the source-dependent heuristic change has at least one counterexample failing the old teacher. Reuse three-format route checks and C1 query/commit isolation.
+
+**Pass:** teacher queries remain public/read-only/legal, no execution/RNG/memory leak. Predictions and ranking reflect the exact new damage/slow/poison contract; no automatic increase of teacher budget or unrelated recruitment/team-logic rewrite. Record teacher source/config/parent hash plus profile. Preserve the frozen original package; archive a new derived version. Report tactical assertions separately from strength.
+
+**Strength, only with separate game authorization:** compare frozen unadapted versus adapted Astra under the **same new rules** and fixed paired initial maps/factions/roles, using one complete existing rotation block per format as a bounded smoke (predeclare actual games and turn cap). Reuse new-profile C7 games where roles/schedule match; truncated/underfilled results remain inconclusive. This detects obvious tactical/runtime deterioration, not statistical non-regression. Claiming maintained/improved strength requires the unchanged complete 12-block validation/champion contract on a frozen hold-out validation schedule; do not tune on that panel. If it is inconclusive or fails, retain that status and revise hypotheses rather than add seeds until a win. Formal final/native strength keeps its separate 30-block gate; deterministic-lite versus native or old-rule historical scores cannot establish parity.
+
+**Evidence/blocker:** `R3/` six decisions/rankings, budgets, teacher/profile identities and separately labelled tactical/smoke/full-validation result. Minimal readiness can permit explicitly authorized new-rule training, but architecture must continue to mark teacher strength unverified until full matching evidence exists. No new collection starts from this written plan.
+
 ## D1 — Optional external inference
 
 **Status/trigger:** P6 unimplemented; transport prototype/tests unwritten; blocks external delivery only.
@@ -133,14 +184,15 @@ Default volume: seed 20261024; F1 learner windows of 17/41 targets, at most two 
 ## Execution order and report
 
 1. Identify changed owners, activated cases, reused evidence and missing fixtures. Predeclare maximum rows/windows/steps/games and numeric tolerances. Implement only needed assertions/helpers; record real test commands before running.
+   For P7, run R1 → R2 → R3 tactical checks, sharing C7; authorize any real-game smoke/strength panel separately. Archive new rules' evidence separately from old stochastic acceptance.
 2. Affected local deterministic checks, then relevant Ubuntu checks. C4/C5/C6 share a recovery trace; C7/C9 share recorded orchestration. Actual processes/games run only when activated and authorized. Use short slices rather than full records unless C3/C8 needs them.
 3. Stop once affected checks pass. After a fix rerun failed cases/changed dependencies only. No new collection/formal training without instruction.
 
 One dated `verification/acceptance_<date>/REPORT.md`, with artifact subdirectories only when used:
 
 ```text
-Scope: behavior/commit; activated C*/D*/N*; exclusions and reasons
-Identity: source/extension build, Ubuntu/Python/torch, rules/schema,
+Scope: behavior/commit; activated C*/R*/D*/N*; exclusions and reasons
+Identity: source/extension build, Ubuntu/Python/torch, catalog/combat-profile/teacher/schema,
           input/model/optimizer hashes, seed/plan/cursor when relevant
 Commands: executable, cwd, arguments, exit code, duration
 Results: case | PASS / FAIL / NOT RUN / REUSED | assertion/counts | artifact
