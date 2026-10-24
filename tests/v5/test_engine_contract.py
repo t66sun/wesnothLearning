@@ -592,8 +592,8 @@ class CombatTest(unittest.TestCase):
         """The frozen ``resistance`` map stores percent damage taken (100 =
         no resistance), matching freeze.py's ``100 - resistance_against``.
         """
-        # A 10-damage single strike keeps the resistance step visible after
-        # `expected_damage_v1` rounds 10*1.10*60% to 7 and 13*1.10*60% to 9.
+        # The default defender hex is 40% defense; a 10-damage single strike
+        # rounds to 5 under `expected_damage_v1` and 6 when vulnerability is 125%.
         rules = H.rules()
         rules["units"]["Fighter"]["weapons"][0].update(damage=10, strikes=1)
         engine = _combat_engine("Fighter", "Skeleton", rules_data=rules)
@@ -602,18 +602,21 @@ class CombatTest(unittest.TestCase):
         rules["units"]["Skeleton"]["resistance"]["blade"] = 125
         engine = _combat_engine("Fighter", "Skeleton", rules_data=rules)
         vulnerable = _attack(engine)["strikes"][0]["damage"]
-        self.assertEqual((plain, vulnerable), (7, 9))
+        self.assertEqual((plain, vulnerable), (5, 6))
 
     def test_strikes_follow_deterministic_order_and_stop_on_death(self):
-        # Fighter 5 damage at 60%: every strike connects for 4 and the defender
-        # dies on the second attacker strike.
+        # Fighter 5 damage at 40% defense: every strike connects for 3, so both
+        # sides trade three times before the defender dies on the fifth strike.
         engine = _combat_engine("Fighter", "Fighter", defender_hp=7)
         result = _attack(engine)
         self.assertEqual([(strike["attacker"], strike["hit"], strike["damage"])
                           for strike in result["strikes"]],
-                         [("a1", True, 4), ("d1", True, 4), ("a1", True, 3)])
-        self.assertEqual(result["strikes"][0]["defender_hp"], 3)
-        self.assertEqual(result["strikes"][1]["defender_hp"], 36)
+                         [("a1", True, 3), ("d1", True, 3), ("a1", True, 3),
+                          ("d1", True, 3), ("a1", True, 1)])
+        self.assertEqual(result["strikes"][0]["defender_hp"], 4)
+        self.assertEqual(result["strikes"][1]["defender_hp"], 37)
+        self.assertEqual(result["strikes"][2]["defender_hp"], 1)
+        self.assertEqual(result["strikes"][3]["defender_hp"], 34)
         self.assertEqual(result["strikes"][-1]["defender_hp"], 0)
         self.assertTrue(result["finished"])
         self.assertEqual(result["winner"], "A")
@@ -718,9 +721,9 @@ class CombatTest(unittest.TestCase):
         self.assertEqual(H.snapshot(engine), snapshot)
         self.assertEqual(H.observe(engine, 1), observation)
         self.assertEqual(forecast["defender"]["average_hp"], 0)
-        self.assertEqual(forecast["attacker"]["average_hp"], 36)
+        self.assertEqual(forecast["attacker"]["average_hp"], 34)
         result = _attack(engine)
-        self.assertEqual(len(result["strikes"]), 3)
+        self.assertEqual(len(result["strikes"]), 5)
         self.assertIsNone(_unit_at(engine, 1, "d1"))
         self.assertEqual(_unit_at(engine, 1, "a1")["hp"], forecast["attacker"]["average_hp"])
 

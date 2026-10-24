@@ -130,7 +130,7 @@ class RuleAbilityCompletionTests(unittest.TestCase):
                 (dict(regeneration_amount=6, regeneration_poison='none',
                       regeneration_terrains=['Ww']), 'Gg', [], 10, False),
                 (dict(regeneration_amount=6, regeneration_poison='none',
-                      regeneration_terrains=['Ww']), 'Ww', ['poisoned'], 2, True)):
+                      regeneration_terrains=['Ww']), 'Ww', ['poisoned'], 4, True)):
             with self.subTest(fields=fields, terrain=terrain_code, status=status):
                 terrain = ['Gg'] * 49
                 terrain[24] = terrain_code
