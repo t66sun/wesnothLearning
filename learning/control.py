@@ -304,7 +304,7 @@ class RewardController:
                     strata=sorted('|'.join(key) for key in strata))
 
     def _decision(self, metrics):
-        while len(self.blocks) >= 12 and len(self.windows) < 3:
+        while len(self.blocks) >= 12:
             blocks, self.blocks = self.blocks[:12], self.blocks[12:]
             window = self._window(blocks)
             if window is None:

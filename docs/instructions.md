@@ -127,6 +127,8 @@ Confirm that checkpoints, optimizer, RNG, reward controller and unfinished batch
 
 `run.lock` is a file lock; an existing file does not mean it is running. On `already running`, identify the lock holder first and never start a second process in the same directory by deleting the lock file.
 
+The 2026-10-24 rolling reward-window fix has passed isolated Ubuntu acceptance but is not deployed to the active continuation's frozen source. Do not copy the new `control.py` into that directory or rewrite its manifest. Apply it to a new run or an explicitly authorized controlled migration; the [acceptance report](../verification/reward_window_fix_20261024_1607/REPORT.md) records the exact code and evidence.
+
 ## 6. Daily maintenance and progress judgement
 
 ### Running BC, PPO and final evaluation separately

@@ -1,0 +1,67 @@
+IDENTITY {"original_sha256": "31ec73be29b73188ab53bd60678a0189f01576e195d727be128201667d48d6d6", "patched_sha256": "2d79571785ab3ebd1b4299653791b78e7a3f85c3cf9338684de855a3c858d1a9"}
+test_backlog_retains_newest_three_windows_and_unfinished_tail (reward_window_red.RewardWindowTests.test_backlog_retains_newest_three_windows_and_unfinished_tail) ... RED_EXPECTED_FAILURES 3
+FAIL
+test_new_windows_change_decision_after_three_and_survive_resume (reward_window_red.RewardWindowTests.test_new_windows_change_decision_after_three_and_survive_resume) ... FAIL
+test_partial_window_waits_for_twelfth_block (reward_window_red.RewardWindowTests.test_partial_window_waits_for_twelfth_block) ... FAIL
+
+======================================================================
+FAIL: test_backlog_retains_newest_three_windows_and_unfinished_tail (reward_window_red.RewardWindowTests.test_backlog_retains_newest_three_windows_and_unfinished_tail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<isolated-reward-window-tests>", line 70, in test_backlog_retains_newest_three_windows_and_unfinished_tail
+AssertionError: Lists differ: [{'lo[87 chars]re': 0.0, 'native_score': None, 'control': 0.9[361 chars]s']}] != [{'lo[87 chars]re': 1.0, 'native_score': None, 'control': 0.9[361 chars]s']}]
+
+First differing element 0:
+{'low[86 chars]re': 0.0, 'native_score': None, 'control': 0.9[24 chars]ls']}
+{'low[86 chars]re': 1.0, 'native_score': None, 'control': 0.9[24 chars]ls']}
+
+Diff is 801 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_new_windows_change_decision_after_three_and_survive_resume (reward_window_red.RewardWindowTests.test_new_windows_change_decision_after_three_and_survive_resume)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<isolated-reward-window-tests>", line 43, in test_new_windows_change_decision_after_three_and_survive_resume
+AssertionError: 0.1 != 0.11 within 7 places (0.009999999999999995 difference)
+
+======================================================================
+FAIL: test_partial_window_waits_for_twelfth_block (reward_window_red.RewardWindowTests.test_partial_window_waits_for_twelfth_block)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<isolated-reward-window-tests>", line 82, in test_partial_window_waits_for_twelfth_block
+AssertionError: Lists differ: [{'lo[423 chars]re': 0.0, 'native_score': None, 'control': 0.9[25 chars]s']}] != [{'lo[423 chars]re': 3.0, 'native_score': None, 'control': 0.9[25 chars]s']}]
+
+First differing element 2:
+{'low[86 chars]re': 0.0, 'native_score': None, 'control': 0.9[24 chars]ls']}
+{'low[86 chars]re': 3.0, 'native_score': None, 'control': 0.9[24 chars]ls']}
+
+Diff is 665 characters long. Set self.maxDiff to None to see it.
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.085s
+
+FAILED (failures=3)
+test_backlog_retains_newest_three_windows_and_unfinished_tail (reward_window_green.RewardWindowTests.test_backlog_retains_newest_three_windows_and_unfinished_tail) ... ok
+test_new_windows_change_decision_after_three_and_survive_resume (reward_window_green.RewardWindowTests.test_new_windows_change_decision_after_three_and_survive_resume) ... ok
+test_partial_window_waits_for_twelfth_block (reward_window_green.RewardWindowTests.test_partial_window_waits_for_twelfth_block) ... ok
+test_adaptive_requires_fifty_batches (tests.v5.test_pipeline_contract.BoundaryTests.test_adaptive_requires_fifty_batches) ... ok
+test_adaptive_requires_sixty_four_games (tests.v5.test_pipeline_contract.BoundaryTests.test_adaptive_requires_sixty_four_games) ... ok
+test_eleven_blocks_are_insufficient_and_twelve_are_consumed (tests.v5.test_pipeline_contract.BoundaryTests.test_eleven_blocks_are_insufficient_and_twelve_are_consumed) ... ok
+test_holdout_and_final_partitions_are_rejected (tests.v5.test_pipeline_contract.BoundaryTests.test_holdout_and_final_partitions_are_rejected) ... ok
+test_mismatched_windows_do_not_change_config (tests.v5.test_pipeline_contract.BoundaryTests.test_mismatched_windows_do_not_change_config) ... ok
+test_missing_faulted_and_duplicate_blocks_leave_config_unchanged (tests.v5.test_pipeline_contract.BoundaryTests.test_missing_faulted_and_duplicate_blocks_leave_config_unchanged) ... ok
+test_rollback_after_two_consecutive_declines (tests.v5.test_pipeline_contract.BoundaryTests.test_rollback_after_two_consecutive_declines) ... ok
+test_scheduled_change_applies_at_batch_50_not_49 (tests.v5.test_pipeline_contract.BoundaryTests.test_scheduled_change_applies_at_batch_50_not_49) ... ok
+test_six_game_sample_cannot_trigger_adaptive_change (tests.v5.test_pipeline_contract.BoundaryTests.test_six_game_sample_cannot_trigger_adaptive_change) ... ok
+test_training_partition_is_tunable_but_holdout_is_not (tests.v5.test_pipeline_contract.BoundaryTests.test_training_partition_is_tunable_but_holdout_is_not) ... CAPTURED_BACKLOG {"before": 55, "after": 7, "windows": 3, "changes": {}, "reward_version": 0}
+UNCHANGED_LIVE_FILES {"/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/learning/control.py": "31ec73be29b73188ab53bd60678a0189f01576e195d727be128201667d48d6d6", "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/runs/v5_lite_resume_20261024_1420/manifest.json": "8ec090d7b5626a093695a5f94fb6a809f5d7bb0f252aaf49af73067cc0140569", "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/runs/v5_lite_resume_20261024_1420/clock.json": "16936330a8b89607e356a8f080312531a3fdd0e30eeeb64b47e9bf758929934a"}
+PASS: Ubuntu isolated red/green, boundary integration, captured-state replay; no training process or frozen source changed.
+ok
+test_two_comparable_windows_raise_explore_and_control (tests.v5.test_pipeline_contract.BoundaryTests.test_two_comparable_windows_raise_explore_and_control) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.635s
+
+OK
+
+EXIT 0

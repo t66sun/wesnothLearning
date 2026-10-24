@@ -34,6 +34,8 @@ At 14:33:55 all three continuations had saved new PPO updates: duel v219 / 2198 
 
 The 2026-10-24 15:47–15:53 read-only quality review finds continuing PPO progress (v261/v107/v57), but small/noisy validation panels and limited updates per collected batch. All reward configs remain at version 0. A real Ubuntu reproduction confirms that adaptive reward windows stop refreshing once three exist (58 newer duel blocks remain queued); FF4/2v2 instead still lack two windows. A KL-stop metrics return also omits exposure counters, so those counters and historical BC accuracies cannot establish PPO stagnation. Neither defect was changed, and the offline refreshed duel windows still recommend no coefficient change. See the [quality investigation](../verification/training_stall_20261024_1544/REPORT.md) for measured limits and the next narrow checks; the running experiment and rewards were left untouched.
 
+The adaptive reward rolling-window fix is accepted on 2026-10-24: every complete 12-block window is now processed, only the newest three windows are retained, and incomplete blocks remain queued. Three new regressions fail on the old code and pass with the fix; the 14 related Ubuntu checks and captured 55-block backlog replay pass. The captured backlog becomes 7 pending blocks with the latest three windows and no recommended coefficient change. Trigger thresholds, reward rules, event/version handling and PPO are unchanged. This is source acceptance only: the running continuation keeps its original frozen implementation until an explicitly authorized migration or new run. See the [window-fix acceptance](../verification/reward_window_fix_20261024_1607/REPORT.md).
+
 ## 2. Overall structure and responsibilities
 
 ```mermaid

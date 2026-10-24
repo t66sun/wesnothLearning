@@ -127,6 +127,8 @@ test -f "$run_dir/manifest.json" || exit 1
 
 `run.lock` 是文件锁，文件存在不等于正在运行；遇到 `already running` 先确认持锁进程，不通过删除锁文件启动第二个同目录实验。
 
+2026-10-24 奖励滑动窗口修复已通过隔离 Ubuntu 验收，但尚未部署到当前续训的冻结源码。不能直接覆盖该目录的 `control.py` 或改写 manifest；在新实验或明确授权的受控迁移中应用。准确源码和证据见 [验收报告](../verification/reward_window_fix_20261024_1607/REPORT.md)。
+
 ## 6. 日常维护与进度判断
 
 ### 分开运行 BC、PPO 和最终评测
