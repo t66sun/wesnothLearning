@@ -598,32 +598,35 @@ def read_raw_shards(paths,format_name=None):
     return result
 
 
-def discard_sequences(path):
+def discard_sequences(path, game_id=None):
     """Remove an uncommitted shard and the sequence rows it indexed.
 
-    A retried job rewrites the same game ids. Deleting only the gzip leaves the
-    SQLite index holding the failed attempt, which write() correctly rejects as
-    a conflicting identity.
+    A retried job rewrites the same game. Deleting only the packed shard leaves
+    the SQLite index holding the failed attempt, which write() correctly rejects
+    as a conflicting identity. A shard cut off mid-write cannot be decoded, so
+    the owning job id identifies the rows instead.
     """
     path=Path(path)
     if not path.exists():
         return 0
     identities=set()
-    with gzip.open(path,'rt',encoding='utf-8') as handle:
-        for line in handle:
-            if not line.strip():
-                continue
-            row=json.loads(line)
+    try:
+        for row in _iter_rows(path):
             identities.add((row.get('format'),row.get('source'),row.get('engine_id',row.get('engine')),
                             row.get('game_family'),row.get('game_id'),row.get('side')))
-    database=path.parent/'sequences.sqlite3'
-    if database.exists() and identities:
-        with IndexedSequenceStore(path.parent) as store, store.connection:
+    except (EOFError,OSError,ValueError):
+        if game_id is None:
+            raise
+    database=path.parent/'sequences'/'sequences.sqlite3'
+    if database.exists():
+        with IndexedSequenceStore(path.parent/'sequences') as store, store.connection:
+            if game_id is not None:
+                store.connection.execute('DELETE FROM sequences WHERE game_id IS ?',(game_id,))
             for identity in identities:
                 store.connection.execute('DELETE FROM sequences WHERE format IS ? AND source IS ? AND engine IS ? '
                                          'AND family IS ? AND game_id IS ? AND side IS ?',identity)
     path.unlink()
-    return len(identities)
+    return len(identities) or (1 if game_id is not None else 0)
 
 def _iter_rows(path):
     """Yield packed shard rows one line at a time; never cache whole games."""
