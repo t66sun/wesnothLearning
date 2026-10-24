@@ -877,7 +877,7 @@ def run(args):
           bc_games=config['bc_games'], bc_batch_games=config['bc_batch_games'])
 
     wesnoth = resolve_wesnoth(args.wesnoth)
-    manifest, teachers = freeze(run_dir, str(ROOT / 'opponents'), wesnoth, config)
+    manifest, teachers = freeze(run_dir, str(ROOT / 'data/opponents'), wesnoth, config)
     plan = resolve_plan(run_dir / 'plan', teachers, support='support',
                         wesnoth=manifest['baseline']['path'])
     write_json(run_dir / 'plan.json', plan)
