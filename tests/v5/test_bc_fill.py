@@ -110,6 +110,16 @@ class BoundedFillTests(unittest.TestCase):
         self.assertEqual([(row['game_id'], row['turn']) for row in rows],
                          [(row['game_id'], row['turn']) for row in again])
 
+    def test_no_indexed_families_reports_insufficient_data(self):
+        stats = {}
+        rows = read_shards([], limit=16, seed=7, turns=1, stats=stats)
+        self.assertEqual(rows, [])
+        self.assertEqual(stats['requested'], 16)
+        self.assertEqual(stats['deficit'], 16)
+        self.assertEqual(stats['rows'], 0)
+        self.assertEqual(stats['families_decoded'], 0)
+        self.assertEqual(stats['stop_reason'], 'insufficient_data')
+
     def test_request_beyond_capacity_reports_insufficient_data(self):
         stats = {}
         rows = read_shards(self.paths, limit=self.capacity + 5, seed=7, turns=1, stats=stats)
