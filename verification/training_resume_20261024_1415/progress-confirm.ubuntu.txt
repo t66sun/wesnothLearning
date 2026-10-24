@@ -1,0 +1,207 @@
+TIME 2026-10-24 14:26:18 CST
+LAUNCH {"pid": 200356, "pgid": 200356, "time": 1792822814.6242163, "source_root": "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321", "command": ["/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/.venv/bin/python", "-u", "/home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321/runs/v5_lite_resume_20261024_1420/continue_run.py"]}
+CHECKPOINTS [
+  {
+    "stage": "ppo",
+    "phase": "ppo",
+    "phase_deadline": 1792839052.344736,
+    "version": 215,
+    "batch": 216,
+    "effective": true,
+    "error": null,
+    "counters": {
+      "environment_games": 1012,
+      "collection_batches": 217,
+      "optimizer_steps": 2185,
+      "unique_families_seen": 1003,
+      "decisions_seen": 346290,
+      "effective_dataset_passes": 199.15352242765368
+    },
+    "format": "duel",
+    "optimizer_max_step": 2185.0,
+    "checkpoint_mtime": 1792823153.7638505,
+    "pending_cursor": {
+      "epoch": 0,
+      "step": 0
+    },
+    "new_results": [
+      {
+        "id": "rollout-00213-duel-g0",
+        "status": "complete",
+        "error": null
+      },
+      {
+        "id": "rollout-00213-duel-g2",
+        "status": "complete",
+        "error": null
+      },
+      {
+        "id": "rollout-00213-duel-g1",
+        "status": "complete",
+        "error": null
+      },
+      {
+        "id": "rollout-00213-duel-g3",
+        "status": "complete",
+        "error": null
+      },
+      {
+        "id": "rollout-00214-duel-g0",
+        "status": "complete",
+        "error": null
+      },
+      {
+        "id": "rollout-00214-duel-g2",
+        "status": "complete",
+        "error": null
+      },
+      {
+        "id": "rollout-00214-duel-g1",
+        "status": "complete",
+        "error": null
+      },
+      {
+        "id": "rollout-00214-duel-g3",
+        "status": "complete",
+        "error": null
+      },
+      {
+        "id": "rollout-00215-duel-g0",
+        "status": "complete",
+        "error": null
+      },
+      {
+        "id": "rollout-00215-duel-g3",
+        "status": "complete",
+        "error": null
+      },
+      {
+        "id": "rollout-00215-duel-g2",
+        "status": "complete",
+        "error": null
+      },
+      {
+        "id": "rollout-00215-duel-g1",
+        "status": "complete",
+        "error": null
+      },
+      {
+        "id": "rollout-00216-duel-g2",
+        "status": "complete",
+        "error": null
+      },
+      {
+        "id": "rollout-00216-duel-g0",
+        "status": "complete",
+        "error": null
+      },
+      {
+        "id": "rollout-00216-duel-g1",
+        "status": "complete",
+        "error": null
+      },
+      {
+        "id": "rollout-00216-duel-g3",
+        "status": "complete",
+        "error": null
+      }
+    ],
+    "new_errors_file": false
+  },
+  {
+    "stage": "ppo",
+    "phase": "ppo",
+    "phase_deadline": 1792839052.3445144,
+    "version": 89,
+    "batch": 89,
+    "effective": false,
+    "error": null,
+    "counters": {
+      "environment_games": 612,
+      "collection_batches": 89,
+      "optimizer_steps": 1777,
+      "unique_families_seen": 570,
+      "decisions_seen": 347015,
+      "effective_dataset_passes": 295.11171634648474
+    },
+    "format": "ffa4",
+    "optimizer_max_step": 1777.0,
+    "checkpoint_mtime": 1792823098.064212,
+    "pending_cursor": null,
+    "new_results": [
+      {
+        "id": "rollout-00088-ffa4-g2",
+        "status": "complete",
+        "error": null
+      },
+      {
+        "id": "rollout-00088-ffa4-g0",
+        "status": "complete",
+        "error": null
+      },
+      {
+        "id": "rollout-00088-ffa4-g3",
+        "status": "complete",
+        "error": null
+      },
+      {
+        "id": "rollout-00088-ffa4-g1",
+        "status": "complete",
+        "error": null
+      }
+    ],
+    "new_errors_file": false
+  },
+  {
+    "stage": "failed",
+    "phase": "ppo",
+    "phase_deadline": 1792839052.3445144,
+    "version": 50,
+    "batch": 50,
+    "effective": false,
+    "error": "RuntimeError('sampling failed; inspect jobs.jsonl')",
+    "counters": {
+      "environment_games": 368,
+      "collection_batches": 50,
+      "optimizer_steps": 695,
+      "unique_families_seen": 292,
+      "decisions_seen": 164598,
+      "effective_dataset_passes": 207.70332966717578
+    },
+    "format": "team2v2",
+    "optimizer_max_step": 695.0,
+    "checkpoint_mtime": 1792822816.645066,
+    "pending_cursor": null,
+    "new_results": [
+      {
+        "id": "rollout-00050-team2v2-g0",
+        "status": "complete",
+        "error": null
+      },
+      {
+        "id": "rollout-00050-team2v2-g2",
+        "status": "complete",
+        "error": null
+      }
+    ],
+    "new_errors_file": false
+  }
+]
+GROUP [200356, 200357, 200358, 200359, 200360, 200361, 200363, 200366, 200367, 200368, 200370, 200371, 200372, 200373] PSS_GIB 6.324892997741699
+MEMORY                total        used        free      shared  buff/cache   available
+Mem:           15827        8073        3886          12        4214        7753
+Swap:           4095         174        3921
+
+SCHEDULER_TAIL {"time": 1792823094.5208309, "event": "finish", "format": "duel", "id": "rollout-00216-duel-g2", "active": 5}
+{"time": 1792823098.7193272, "event": "finish", "format": "duel", "id": "rollout-00216-duel-g0", "active": 4}
+{"time": 1792823100.4738326, "event": "start", "format": "ffa4", "id": "rollout-00089-ffa4-g0", "active": 5}
+{"time": 1792823100.4739811, "event": "start", "format": "ffa4", "id": "rollout-00089-ffa4-g1", "active": 6}
+{"time": 1792823100.4742918, "event": "start", "format": "ffa4", "id": "rollout-00089-ffa4-g2", "active": 7}
+{"time": 1792823100.4743419, "event": "start", "format": "ffa4", "id": "rollout-00089-ffa4-g3", "active": 8}
+{"time": 1792823145.836693, "event": "finish", "format": "duel", "id": "rollout-00216-duel-g1", "active": 7}
+{"time": 1792823151.1617, "event": "finish", "format": "duel", "id": "rollout-00216-duel-g3", "active": 6}
+WRAPPER_LOG 
+EXIT_FILE False
+ORIGINAL_CHECKPOINT_HASHES {'duel': '718b9bb17d078826f7c729e3c557934ec1857e373e0387df6cec766c3cf813ff', 'ffa4': '7755cedaea876a201e6816bf166045802c87844c1e47c7bae1fc2e88b4e37c6a', 'team2v2': '0a9638c797e3bd648561d15160d2d3b36ca59de9c6fcc5721f34a65b24d01779'}
+
+EXIT 0
