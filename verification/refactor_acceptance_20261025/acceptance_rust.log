@@ -1,0 +1,26 @@
+    Finished `release` profile [optimized] target(s) in 0.05s
+     Running unittests src/lib.rs (/home/tongshu/myDev/wesnothLearning/acceptance_refactor_20261025/target/release/deps/_engine_lite-8d1fb197ecca6620)
+
+running 13 tests
+test combat::tests::a_killed_defender_cannot_retaliate_and_grants_kill_experience ... ok
+test combat::tests::a_new_slow_changes_the_following_retaliation ... ok
+test combat::tests::defender_firststrike_strikes_before_the_attacker ... ok
+test combat::tests::drain_heals_from_the_actual_capped_hp_loss ... ok
+test combat::tests::resolve_keeps_strike_order_and_retaliation ... ok
+test combat::tests::expected_damage_matches_the_r1_table ... ok
+test combat::tests::slowed_damage_is_three_quarters_rounded_up_then_scaled ... ok
+test combat::tests::zero_chance_never_connects_or_applies_status ... ok
+test combat::tests::zero_damage_strike_connects_and_applies_status ... ok
+test engine_tests::poison_ticks_six_on_its_own_turn_and_floors_at_one_hp ... ok
+test engine_tests::slow_doubles_movement_cost_until_the_side_boundary ... ok
+test engine_tests::forecast_is_a_single_point_mass_that_matches_the_resolved_battle ... ok
+test engine_tests::attack_damage_is_seed_independent ... ok
+
+test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests _engine_lite
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
