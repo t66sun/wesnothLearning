@@ -1,0 +1,5 @@
+EXPECTED_POOL_FAILURE A child process terminated abruptly, the process pool is not usable anymore
+FAULT_RESULT {"passed": true, "children": 0}
+
+
+EXIT 0
