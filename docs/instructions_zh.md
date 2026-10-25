@@ -56,6 +56,19 @@ export SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy
 
 2026-10-23 当前实现为 schema 5 / 候选 v3。Ubuntu 隔离目录 `/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022` 已完成阶段接入与恢复的最小验收，使用其 `.venv/bin/python`（共享已安装依赖，拥有自己的新编译扩展）。若主目录尚未同步修复，使用该隔离目录核验入口或先部署已验收源码并重编对应环境；部署记录见修复报告。Rust 用 `include_str!` 嵌入 `engine_lite/lua/host.lua`，只复制 Lua 不会更新已安装扩展。原 20 小时正式实验已失败结束，旧 schema 4/v2 检查点只能使用原匹配源码；新旧语料/检查点不混用。受限移动质量验收已归档至 [后续报告](../verification/bc_rootcause_20261023_2318/REPORT.md)；正式 BC 全部门仍照常执行。
 
+### 干净 Ubuntu 24.04 归档包
+
+`python -m learning bundle --output PATH` 生成的归档包是上述服务器环境在干净 Ubuntu 24.04 x86_64 机器上的替代方案，而不是替代品；现有服务器目录及其说明保持不变。
+
+```bash
+tar -xzf WesnothLearning-training.tar.gz && cd WesnothLearning
+./setup.sh --preflight          # 只检查归档包：不做系统门禁、不下载、不写入
+./setup.sh --device cpu         # apt 包、venv、torch 2.9.1、_engine_lite、Wesnoth 1.18.8
+./train.sh --help               # 打印选项；不创建任何内容
+```
+
+`--device auto`（默认）仅在 `nvidia-smi` 可用时选择 `cu128`，因此纯 CPU 机器应显式写 `--device cpu`。安装不启动采样或训练，归档包的存在也不等于授权开工；只在用户明确指令后启动实验。归档包只证明安装可用，从不证明收敛或棋力。完整说明与故障排查见 [bundle_zh.md](bundle_zh.md)。
+
 ## 3. 启动前核对实际可运行范围
 
 新实验默认 lite，规则默认 `data/rules/1.18.8-training`（587 单位、438 地形）。启动门禁核验实际六阵营的 158 单位闭包，接受已记录近似，拒绝未支持类型及缺失引用；整包语义/性能标志仍保留原值。三赛制使用冻结的真实 Astra 教师，已有验收范围与证据见 architecture.md 第 8 节。
