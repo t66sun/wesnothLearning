@@ -1,0 +1,133 @@
+{
+  "observed_utc": "2026-10-25T06:47:07.185292+00:00",
+  "alive": true,
+  "pid": 225153,
+  "startup_ready": false,
+  "config": {
+    "hours": 30.0,
+    "workers": 8,
+    "device": "cpu",
+    "trainer_threads": 1,
+    "seed": 20261017,
+    "engine": "lite",
+    "evaluation_engine": "lite",
+    "reward_mode": "adaptive",
+    "phase": "auto",
+    "allow_approximate": true,
+    "rules_dir": "/home/tongshu/myDev/wesnothLearning/WesnothLearning/rules/1.18.8-training",
+    "formats": [
+      "duel",
+      "ffa4",
+      "team2v2"
+    ],
+    "calibration_blocks": 3,
+    "validation_interval": 10,
+    "validation_games": {
+      "duel": 6,
+      "ffa4": 4,
+      "team2v2": 8
+    },
+    "final_blocks": 30,
+    "final_holdout_hours": 4.0,
+    "bc_games": {
+      "duel": 300,
+      "ffa4": 600,
+      "team2v2": 400
+    },
+    "native_bc_games": {
+      "duel": 0,
+      "ffa4": 0,
+      "team2v2": 0
+    },
+    "bc_batch_games": 8,
+    "bc_accuracy": {
+      "all": 0.4,
+      "recruit": 0.6,
+      "move": 0.35,
+      "attack": 0.35
+    },
+    "shaping_weight": null,
+    "rollout_games": 4,
+    "minibatch": 256,
+    "bc_records": 2048,
+    "bc_validation_records": 1024,
+    "epochs": 4,
+    "learning_rate": 0.0003,
+    "trainer_memory_gb": 6.0,
+    "human_data": "/home/tongshu/myDev/wesnothLearning/training_lite30h_20261025/source/data/datasets/human"
+  },
+  "clock": {
+    "started": 1792910427.990259,
+    "update_deadline": 1793000427.990259,
+    "deadline": 1793018427.990259
+  },
+  "formats": {
+    "duel": {
+      "stage": "bc",
+      "version": 1,
+      "batch": 1,
+      "counters": {
+        "environment_games": 16,
+        "collection_batches": 2,
+        "optimizer_steps": 16,
+        "unique_families_seen": 8,
+        "decisions_seen": 4508,
+        "effective_dataset_passes": 5.451027811366385
+      },
+      "effective": false,
+      "valid_teacher_games": 16,
+      "job_statuses": {
+        "complete": 16
+      },
+      "checkpoint_bytes": 9420466,
+      "checkpoint_mtime": 1792910798.607776,
+      "error": null,
+      "errors": {}
+    },
+    "ffa4": {
+      "stage": "bc",
+      "version": 1,
+      "batch": 1,
+      "counters": {
+        "environment_games": 8,
+        "collection_batches": 1,
+        "optimizer_steps": 40,
+        "unique_families_seen": 8,
+        "decisions_seen": 8494,
+        "effective_dataset_passes": 4.433194154488517
+      },
+      "effective": false,
+      "valid_teacher_games": 8,
+      "job_statuses": {
+        "complete": 8
+      },
+      "checkpoint_bytes": 9418738,
+      "checkpoint_mtime": 1792910823.2536182,
+      "error": null,
+      "errors": {}
+    },
+    "team2v2": {
+      "stage": "bc",
+      "version": 0,
+      "batch": 0,
+      "counters": {
+        "environment_games": 0,
+        "collection_batches": 0,
+        "optimizer_steps": 0,
+        "unique_families_seen": 0,
+        "decisions_seen": 0,
+        "effective_dataset_passes": 0.0
+      },
+      "effective": false,
+      "valid_teacher_games": 7,
+      "job_statuses": {
+        "complete": 7
+      },
+      "checkpoint_bytes": 3160749,
+      "checkpoint_mtime": 1792910429.6377592,
+      "error": null,
+      "errors": {}
+    }
+  },
+  "training_log_tail": ""
+}

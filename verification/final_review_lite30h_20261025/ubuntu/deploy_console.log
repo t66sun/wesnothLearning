@@ -1,0 +1,371 @@
+/tmp/wesnoth-lite30h-20261025.tar: OK
+{
+  "source_revision": "822082d654cd19a6474aa36f837137c1ec7cb83c",
+  "archive_sha256": "4e32bb063a9c53fd403bf1d93a1bcb21c8bafe1b38d62239e8834e9161ac2ce4",
+  "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.39",
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "torch": "2.9.1+cpu",
+  "extension": "/home/tongshu/venv/lib/python3.12/site-packages/_engine_lite/__init__.py",
+  "engine": {
+    "ENGINE_VERSION": "lite-0.2",
+    "RNG_VERSION": "deterministic-expected_damage_v1",
+    "COMBAT_VERSION": "expected_damage_v1"
+  },
+  "rules": "d6fceafe7d0c9c67c750551b9901dbfb2b22290992a8daa1616a460e11826dca",
+  "teacher": {
+    "teacher": "gpt6astra",
+    "teacher_profile": "expected_damage_v1",
+    "teacher_source_sha256": "a5d4b3a69d5af0378fa22119f315c1300fb6ad965c79b08071eb4a37c0addbef"
+  },
+  "baseline": "Battle for Wesnoth v1.18.8 x86_64\nStarted on Sun Oct 25 14:40:24 2026\n\nBattle for Wesnoth 1.18.8\n\nLibrary versions:\nBoost:             1.83\nLua:               5.4.7\nOpenSSL/libcrypto: 3.0.0m-dev (runtime 3.0.0m-dev)\nlibcurl:           8.5.0 (runtime 8.5.0)\nCairo:             1.18.0 (runtime 1.18.0)\nPango:             1.52.1 (runtime 1.52.1)\nSDL:               2.30.0 (runtime 2.30.0)\nSDL_image:         2.8.2 (runtime 2.8.2)\nSDL_mixer:         2.8.0 (runtime 2.8.0)\n\n\nOptional features:\nLua console completion:       yes\nD-Bus notifications back end: yes\n\n",
+  "config": {
+    "hours": 30.0,
+    "workers": 8,
+    "device": "cpu",
+    "trainer_threads": 1,
+    "seed": 20261017,
+    "engine": "lite",
+    "evaluation_engine": "lite",
+    "reward_mode": "adaptive",
+    "phase": "auto",
+    "allow_approximate": true,
+    "rules_dir": "/home/tongshu/myDev/wesnothLearning/WesnothLearning/rules/1.18.8-training",
+    "formats": [
+      "duel",
+      "ffa4",
+      "team2v2"
+    ],
+    "calibration_blocks": 3,
+    "validation_interval": 10,
+    "validation_games": {
+      "duel": 6,
+      "ffa4": 4,
+      "team2v2": 8
+    },
+    "final_blocks": 30,
+    "final_holdout_hours": 4.0,
+    "bc_games": {
+      "duel": 300,
+      "ffa4": 600,
+      "team2v2": 400
+    },
+    "native_bc_games": {
+      "duel": 0,
+      "ffa4": 0,
+      "team2v2": 0
+    },
+    "bc_batch_games": 8,
+    "bc_accuracy": {
+      "all": 0.4,
+      "recruit": 0.6,
+      "move": 0.35,
+      "attack": 0.35
+    },
+    "shaping_weight": null,
+    "rollout_games": 4,
+    "minibatch": 256,
+    "bc_records": 2048,
+    "bc_validation_records": 1024,
+    "epochs": 4,
+    "learning_rate": 0.0003,
+    "trainer_memory_gb": 6.0,
+    "human_data": "/home/tongshu/myDev/wesnothLearning/training_lite30h_20261025/source/data/datasets/human"
+  },
+  "command": [
+    "/home/tongshu/venv/bin/python",
+    "-u",
+    "-B",
+    "-m",
+    "learning",
+    "run",
+    "--run-dir",
+    "/home/tongshu/myDev/wesnothLearning/training_lite30h_20261025/source/runs/v5_lite30h_20261025",
+    "--engine",
+    "lite",
+    "--evaluation-engine",
+    "lite",
+    "--bc-games",
+    "300",
+    "600",
+    "400",
+    "--native-bc-games",
+    "0",
+    "0",
+    "0",
+    "--device",
+    "cpu",
+    "--workers",
+    "8",
+    "--trainer-threads",
+    "1",
+    "--hours",
+    "30",
+    "--phase",
+    "auto",
+    "--formats",
+    "duel",
+    "ffa4",
+    "team2v2",
+    "--seed",
+    "20261017",
+    "--validation-interval",
+    "10",
+    "--final-blocks",
+    "30",
+    "--final-holdout-hours",
+    "4",
+    "--wesnoth",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_refactor_20261025/master/.runtime/install/bin/wesnoth",
+    "--rules-dir",
+    "/home/tongshu/myDev/wesnothLearning/training_lite30h_20261025/source/data/rules/1.18.8-training",
+    "--opponents",
+    "/home/tongshu/myDev/wesnothLearning/training_lite30h_20261025/source/data/opponents",
+    "--human-data",
+    "/home/tongshu/myDev/wesnothLearning/training_lite30h_20261025/source/data/datasets/human"
+  ],
+  "source": {
+    "learning": {
+      "AUDIT_TEST_SCOPE.md": "d8526fef9880d14afbf870bc8546b08a8ad61217c0a689d9250085fb28eeac65",
+      "AUDIT_TEST_SCOPE_zh.md": "737d70a7910b690cca70d333af71cdc2896b27fa9221df4c04f48472fe00ca22",
+      "REWARD_TEST_SCOPE.md": "9f1fde0323a410a298a56ad47090691b15748fb940a431babb29017a0296d066",
+      "REWARD_TEST_SCOPE_zh.md": "30ed2935235a2adfda08f22a5dea7f3b17c69d07d130821cfb340fe3fcd98490",
+      "__init__.py": "e01c9d60a9a2fe2e5d3cb4db843246a4f39d4a0d9857b90bc80eb3569f23fe30",
+      "__main__.py": "e06cc113ea803b2f29c02c53a7cd0dce35ca1779076ffcae72d01c3215d01796",
+      "adapters.py": "420dc346bacd3eface1850c87797bddb0876bee4c3e6f3f01b19c251913e4592",
+      "audit.py": "1fcbcd2bcd466953d16cc578dd0441bca81b5492ad07f9239e7d0be3724bdef7",
+      "bc.py": "494574f12e481037d41a1067ad93a46afe4ea58afb9d3c7b6be755dd0e19de92",
+      "benchmark.py": "695cc9998c1db5102f6e9888d2e84071ec234a74948c0ac70b41cdfc172189d0",
+      "benchmark_runner.py": "5f208931e3931cf0a0b228959ef2c7f34dcdd12a3799fd9a84ec6ceee05cc595",
+      "branch.py": "ec3266079cca86dc25e9ad730f5174fa19b4ad37cef3616bca864b99e49e718b",
+      "checkpoints.py": "82f837e670050fb30c70c70696d6b109948c0f8f31e7b7b778119203f5d1a619",
+      "collector.lua": "e3b09c94810dcbf2423edbf3108557da6836f8d8bb0341c12ae4a2de0115b4de",
+      "common.py": "5e3a8c09001660596e2adb3737467953103b43db39cbe45dc90c1c48efec4981",
+      "control.py": "2d79571785ab3ebd1b4299653791b78e7a3f85c3cf9338684de855a3c858d1a9",
+      "coordinator.py": "9b35ded1848b970789f0b7720f9c1104d676dee2d8cb9aa5290f1e58fc3776cc",
+      "data.py": "7f0cfd9f14a9a91eb7dd4b9fb140c686ec7d4b1e9f119e36671b20a2448527b1",
+      "evaluate.py": "58b5284b8d2ea61ef4643885d4f216c7762f42f73489c95e8c6e99ed0e5d6173",
+      "experiment.py": "c9dde28881abfef18fd31257053ade1c5210b75575aa4263f1cce901eda393b8",
+      "export.py": "6ff093a31d688d2a19c7138385a170b33e70866f4821a135ddf19ff88e5f2081",
+      "features.py": "23fb185dbb13e449581ff110ad2556cd4836c143f5e45d6a6af3f54d1272f47e",
+      "formats.py": "7a96482458abadb517f77278c307c02d2c9c3dcff02518517c4b72c16c83fb4b",
+      "human.py": "2a32569120edc558d33820f8aec331ee5d57610c6376cc72b98ca0977b413aac",
+      "lite_host.py": "74d21b7242ce4d066bfec6bdb76b14a339d0aafc61cb1a5c9288dffb7e1bc66e",
+      "lite_policy.py": "ff196ef590ea23addb49b531db708904e0d63c8a96e19281375fe643d1c1a0d0",
+      "manifest.py": "9224744de17af321acbcffd1ab746e7954d570d3b6735965d53650fb21aab687",
+      "maps.py": "e50618efb4681c780dc0be4678379420d77f10a77161f5abdd34bccd4a0f21ea",
+      "model.py": "49bbb68f3a471006bdfa2e9d43e4c44a492be984dad99a1687a94615e3a49773",
+      "native_rpc.lua": "326baa7bf58ab04d2d8fc1593c03a82a583138220b1d18159f154b48b8aecf7e",
+      "native_transport.py": "647a9f5bac77b5e3ae56e4d115551ebb14700e75ef58260e28f381cf83499443",
+      "package.py": "bb1706e20f3f37f1366891b072dfd3803d05e146ac9d842b4635ec07704d958b",
+      "phases.py": "46c97412612d2219ef0f3b1eb2658619ccb116ca25cf7e6bb09d6f94c92b2715",
+      "ppo.py": "00628cbf063295cff50587de93bcab192c29f68f97975141f193323c674ce6ce",
+      "replay_curate.py": "e2c62317576299dc98ae91df0d2d9437d8bbaa0e904d11992ec29e30fc16975c",
+      "replay_observer.lua": "54d5131168c68bdbe84fb299b2deda93b22a319da72ad225646b5920082a75bb",
+      "report.py": "6d9e8eb724e68d478c1cad90166a1f896903cb5cb34a16be7fdd71c9a6661e7f",
+      "reward_metrics.py": "2c4ac56d1976b72a57bd8fcd33b2d08015f49ce81bd995c5b57d21e02ce8eb96",
+      "rewards.py": "edb87062a64d4f757d4f670e0b1cecf4689f794c3d74ef0037fff468fe0abbd0",
+      "rowpack.py": "ffc34c5ee636b9ae4be0eca7d67515fbe6ce639e2607f62c86242df85faad45c",
+      "rules.py": "cf78e7c93952b5248d651af725f662f6bd3e65e1f73a3ed945ee9c8bc61eb1a6",
+      "rules_catalog.py": "00881a46d8a2c97472a43e265fa81a65eca5b1ac3264d5050a9b904cc57d0d7e",
+      "sample.py": "c1b1b6ff662ea6070123769e6455c94c52f5705cf09dc72fdb65b1ff18117a07",
+      "schedule.py": "d27f1b09c83d8305b65ee4c4f9d5c7214835b272ca8868d1c7272d418a53a5ea",
+      "selection.py": "5330ce01e9739d21acdfdc8d696847824036948cc150a330772a77beb10a7d61",
+      "sequences.py": "718a5944d05419bff5a2439ec6dc952c366be04eda9a3df8f4f031e9c8ceb31e",
+      "teachers/README.md": "47ec989b95a311657647457414e963b8f3f0bf0f32dcf3c8ccebc1e215d31199",
+      "teachers/README_zh.md": "f11858b0bc6fbcaaab3533177176e826e7452eef284c37be22251f870585f59b",
+      "teachers/__init__.py": "7efd05e1e4842236874c74829044958f62b025a54bc50da1eb66ef2ca3d838fb",
+      "teachers/gpt6astra/_main.cfg": "90e561f73f905664ae1d3fc3aa344cb336de918b4ea4caf4bed82b018dab2b38",
+      "teachers/gpt6astra/ai.cfg": "6b411f3704a7358092ae617c2cae0c6764d9b5a653d570677d8b778ade54d242",
+      "teachers/gpt6astra/arena.json": "f4cca7759f2f0b44c939889b3a7fe6a07abcbdaa4fa5565c900e2985bbe3774e",
+      "teachers/gpt6astra/lua/bot.lua": "07f58b83759d8de2bdef5d9b1358bc0fcd0e1e6fd1a6103ecceccd8037c5141c",
+      "teachers/gpt6astra/lua/duel.lua": "ce2372e3dbd76c3ecbb3249c670dc8012ce4123db8a81173ce168be47d3bb919",
+      "teachers/gpt6astra/lua/eight.lua": "421b37fa55bd0cd336a537f0b233d243e14be3c780dc6d93551a77222cbafe19",
+      "teachers/gpt6astra/lua/four.lua": "a4f8f66d67170212704c89d3e3077ed9325ff7607536c85e362088b73cee55e0",
+      "teachers/gpt6astra/lua/value.lua": "569d03f8d057a8890a0a99dcbc01e10c0f66ead22f4167d35d431e25556e4bf7",
+      "train.py": "c21c2774b7d9ef5609ac7e6e1eeeefd6dc21c4ab2096ccd3b7c2c996f1d95efa",
+      "trajectory_buffer.py": "258949c82f854335b19c5ccd675e576749ac2f5b5e7fa66d1cd9ecf75234e46a",
+      "unit_vocabulary.json": "b8d7d2b8608d6e77567900464bb2c29aa769c1f044d5c268f86391f9a366c10d",
+      "updates.py": "db190b918739c1526ea289c79afb12e433fc4a503d318faaf6e04033db57addb"
+    },
+    "lua": {
+      "bot.lua": "6255096cd9a986da5c730eee2c9a0428bf04af14dcafd1a01781d550ea7d6b60",
+      "candidates.lua": "45da5d9c4aa389c8b89fd00b6730210aec7894712627369310e38f9c8bd697b5",
+      "network.lua": "5d076ec82f572f151d419c21b6e740d27feba2fb9f4c05762e4bd5b2f958aa92",
+      "observation.lua": "8d9ffa002cb89b2dce7407df7b7d8cc4cbcac18fc70016f6bb1a1732a77b5cba",
+      "relational.lua": "8c663d8d795125d1df9eb001f95f4204a0a75326908cf304e8b8243c7cc59930",
+      "rewards.lua": "c8618d69da6463fe7c67b93fa0289ae3d9bfc32df7f6ca6aaabda06d6a688f33",
+      "routing.lua": "f15321b0af0f9a7bdc0679b715ee50bfac8f7c68d82c01b2b604d222aa7566b2",
+      "spatial.lua": "7710081635052802aff1b2cfcf8300a41212e147e5bdfc7eed4f1f4910f2287f",
+      "teacher.lua": "abe5d8ce0957e1067dc5d63e6c815d30b5948f9e7ca07123079006d1d7a124e4"
+    },
+    "vendor/arena": {
+      ".gitignore": "a02bdefc98fa06f7bbf1dbd410245bca5466e3304cc57fc180787bb3e5c304a9",
+      "LICENSE": "aeee0e57f016bc95fea3c20dd6a2168493c4134ba5ae481217467613a1953e30",
+      "Makefile": "2e591562f8fb134757b39c14992a1159a269ac4caba8f0637f31563629288a58",
+      "README.md": "f5bd20d2b0dc5242eb4ac597c63a204aaee32e1439824e23474bd712cf63ca67",
+      "THIRD_PARTY.md": "a7f78de37e0cdc56f661a2c92eba2615a96e5a4c3d91abb121cfa2d45e99488e",
+      "VERIFICATION.md": "e1b5eddc62c5478317bfb1576ce269a96b1c84ecce34bc68a1514b6ac89937ae",
+      "addons.py": "0fad10b89b5d638c540ee101aa87e0f113e8323532f6e27d4e7f6fef3ee43474",
+      "arena.py": "1d5bf7242c473165fe094094ae11278a34c7d89c6435254aae4cb5443e1e08cf",
+      "bots/baseline/README.md": "97228a8a128442d7433463e64d386d3dc2a068843f0c3c12b336fad775713d35",
+      "competing_bots/README.md": "682c99cec937465b381854a5d5b2300f94b6663fc09f75270c03e73943720b7e",
+      "examples/example.json": "59ff52b082e23f8fed88614bd381da60f1a6c3a0eea72798e1bb829b491d25fb",
+      "examples/example.replay.gz": "3e7fdd09c6c772e635ada3ee3dd9fc61a256fc33394117f4bc477fb93a58bea5",
+      "gui.py": "88ed8b285613a2e03e9782cfe8f8d63b81e326a5240788f8b546d67bfe7aed51",
+      "maps/arena2.json": "654da578da1aa8499f0c1c7f7735c59cfe13737382ebd946d3e021509e998cc4",
+      "maps/arena4.json": "a9d30fee2ce0083e56b43230979d43bce0f3c2a596976ea7704d70de15805406",
+      "maps/arena8.json": "ba434135467a7ed6f39c46b26a06e44ce8991baf3875f80b33d77e0f9eba4e59",
+      "match.py": "e5cc56cefb264880fda9490d6b8362f29d2e0629e01c5d44a03d0375623fb33a",
+      "native.py": "9b2a3169a5a9b590472e5212e548371a46ad2c107cc9ee3a4813e0b4469269df",
+      "params.py": "3c1423bd63ac8ac708e65d39cc59265076abbb9325f58fa5f32a69cff972d71a",
+      "run_arena.bat": "8fec1749ae3ae5f4d51cc6e25907f88288bd90fbf3bf42fe836382f3ee7e7f96",
+      "run_tournament.bat": "ca5e183b74c03402eef48f57252cf9dae05f8b4605d0ad0ddec0173834054e16",
+      "runtime/candidate.lua": "dc05acc8450a832bc7793e191b3f40f03892bd55e17fc49a9d9b7a3aaf7c73d7",
+      "runtime/runtime.lua": "afcb489592a750e58c5dd7e57ce0dfdcf60750d9dba89c7898a07a1d23075a97",
+      "sdk/COMPATIBILITY.md": "0e1f0a25681ee370da2a9df119a6d9d4e2569ba3fb8d29cc658d46fd5a6287c9",
+      "sdk/CONTEST.md": "cef891f62dbf57a43296eeee2695d41beb4e33d05d66c323783187c33126e67f",
+      "sdk/DELIVERY.md": "5482964de3c7c03131852be25d1525e273be3ceee7acf1ef6b5dacdb53339343",
+      "sdk/PROTOCOL.md": "4e464d0d869dff88217d7471ee76ba95af392c68d015fa994e98b61c70ae56df",
+      "sdk/README.md": "ec8b3af4fc8335c6bdff80be1016df79a152906937f6b851b177f4730e8a7550",
+      "sdk/RULES.md": "35486c4519d9f2aace54ffda1c285f1f0f89dfbb6ab07c5c944bacb4531cb0f8",
+      "sdk/sample_bot/_main.cfg": "02d3d3eff183f13182cde1ce84b3db33a55330b99e72b7dc2e32f7b6bcd6dee6",
+      "sdk/sample_bot/ai.cfg": "c924702e5c7eed8a91bb14f6b1617a5abc02f74fedfaa24afbb5da1eeaca0987",
+      "sdk/sample_bot/arena.json": "d67b5995b1076bac5647e34bff621d113462e5eaf7d93059ba2bb511cd1d47d7",
+      "sdk/sample_bot/lua/bot.lua": "a52d7e8dd54e8dd259e5bb759e8d21b49b284193002bb594e2a03c1fc9f93e3e",
+      "sdk/template_bot/_main.cfg": "27a1463b4562d777c1e948ba90a808353ab25849c96b08e9c280189b2922946f",
+      "sdk/template_bot/ai.cfg": "ee176000a8bf702c4a530af12efbca345c10df878a215adadea63ca23b1c5098",
+      "sdk/template_bot/arena.json": "c8d4a0690d7a9ddf258b1a20b74192747b41e2ff8ae93d8e4c40407160825fee",
+      "sdk/template_bot/lua/bot.lua": "200939b45de6f9f2da2ba84fa81ecd3494d2bfa1b1ea9a451a6802f21493d95a",
+      "teams.py": "e76b6f9d0d6ddb711319af553b098a4d1297ef53b5f7cc218934a34bb5bc2451",
+      "tests/smoke_native.py": "abbbca722e41c35fdf9c2e2bc41f37d91aafb8803d0a9cb3505a735f1ebc20fb",
+      "tests/test_sdk.py": "dd15ad807b6639acc9fcb7419d16c26dda72634051478a72cf7debf3f062a6e2",
+      "tests/test_tournament.py": "57b1b63e1157dfa401157cc2d946be714895a7d6a4332354d63911cc17f10e11",
+      "tournament.py": "9bc78dbf46fe0ac5d80724f77d6d0b44473ea620a71babebdb00aa4535d02cd0"
+    },
+    "engine_lite": {
+      "Cargo.lock": "458313a048cc19ad76b2b220621d05afc35d2f49769ecb4b7c0cec0e93c193bc",
+      "Cargo.toml": "f8c71d3719d9b150fa7f588c69018fd2cad1bcddb4b17fce6220836117e21108",
+      "README.md": "eeb467e4a5a0e965daa420c6c900bf6363bce2a65c21b2ffe9d5856ae07d0143",
+      "README_zh.md": "073265cef9e3bb4dd378376500d7d6ab4b9e39e891e203feb3ca33c844995fd7",
+      "TEST_SCOPE.md": "eb3345e984e4c0f4014a5e97e8d05a41c838afff9993c75155b338f1b206020e",
+      "TEST_SCOPE_zh.md": "a825fca33bbdb8ed6256e6c1f0b6d2a015a331223d091f572d3f2a0f0aeef254",
+      "__init__.py": "d8d5f399267284d816a275b3eec186139d416c97074bcfc186aab4d6c8938590",
+      "audit.py": "8b7b433647c3e882500e0f055e9405e5c55049dd2f986a7b3097024308043b27",
+      "capture.py": "5fb68f86efd5d80326dc72df782746fbbeda56c54aee693703b53502c25527b9",
+      "differential.py": "aeae86d630f17f20615b638ce95f68d19bbf1463a60af6079e98b46d363cffa9",
+      "freeze.py": "031511d8a76b44119b9d257872ff0ee5b39ecf2cfa0ce3077ca2c1f305872df7",
+      "inventory.py": "8f09898d2c34b559c43607bb8a7826077f48723c14944944420bf0f9d2220eb0",
+      "lua/capture_json.lua": "61ae81212ed9dc978b57e7184233afc78d34775e99d9a353f979b82b8cf17fec",
+      "lua/differential_probe.lua": "88f083d7b74d0eabd2219bf4b80c073467f64d4aa34a7bdeaa4d9222f9396643",
+      "lua/export_rules.lua": "0fc936c5fc1666ea467ae1acb82cb8f4c2bacb05310a173145a7c38a50002253",
+      "lua/host.lua": "6ea391eef2580899c3add363ffd6d94cecbc728e21e8f6240550b58c1459c620",
+      "pyproject.toml": "f5a719ff3d682d0eb091186b3c476497c4a79e70a76032da3f3f5068ae08f858",
+      "src/combat.rs": "91c83ae431c3e7e6d6258efb6ac850fb698f3864f1c4fecfc8ee3415f15ae57a",
+      "src/engine_tests.rs": "05f93cb0219564251fe53987bac29c2ab0ea28a5d5881076ed744b6ad7b8d7e7",
+      "src/host.rs": "75b66fda6aa5dee415cd854356b061b55d66cf8d5eaca649c1fa1c89f91d5445",
+      "src/lib.rs": "20bf44617a3a6e95915aee67ec3d26cbbaaa515a3899535040da82b1bd5606f4",
+      "src/model.rs": "6f9e89dbe498f3f3ce54081e8e2c3a1d182ac7ffe03cff25ec0f8b78e1143525",
+      "src/state.rs": "f550b4d039632ee2dab466685c2442bc22462585a0e76d6f58ac8fe8f980d6d4"
+    },
+    "benchmarks": {
+      "README.md": "220aa8aad1b59be36f5dc10fac7fb8fe108e3552b6622b233e47c6841a4c3edd",
+      "README_zh.md": "02367e323cee7f4400b749423e9ec4c676c50fddb40873d66c33e192a81e63a7",
+      "contract.json": "72b066a35b72afc62f670ed336c95f85e984665a11a3382eb80f8d4b9c4ada6e"
+    }
+  },
+  "meminfo": "MemTotal:       16206980 kB\nMemFree:         1208220 kB\nMemAvailable:    9393944 kB\nBuffers:          190508 kB\nCached:          7971564 kB\nSwapCached:         8024 kB\nActive:          2135876 kB\nInactive:       12065188 kB\nActive(anon):    1635908 kB\nInactive(anon):  4415672 kB\nActive(file):     499968 kB\nInactive(file):  7649516 kB\nUnevictable:           0 kB\nMlocked:               0 kB\nSwapTotal:       4194300 kB\nSwapFree:        4020020 kB\nZswap:                 0 kB\nZswapped:              0 kB\nDirty:              5520 kB\nWriteback:             0 kB\nAnonPages:       6037288 kB\nMapped:           303996 kB\nShmem:             12584 kB\nKReclaimable:     381020 kB\nSlab:             587472 kB\nSReclaimable:     381020 kB\nSUnreclaim:       206452 kB\nKernelStack:        8080 kB\nPageTables:        35504 kB\nSecPageTables:      2492 kB\nNFS_Unstable:          0 kB\nBounce:                0 kB\nWritebackTmp:          0 kB\nCommitLimit:    12297788 kB\nCommitted_AS:    9907744 kB\nVmallocTotal:   34359738367 kB\nVmallocUsed:       39844 kB\nVmallocChunk:          0 kB\nPercpu:             9568 kB\nHardwareCorrupted:     0 kB\nAnonHugePages:         0 kB\nShmemHugePages:        0 kB\nShmemPmdMapped:        0 kB\nFileHugePages:   1122304 kB\nFilePmdMapped:         0 kB\nCmaTotal:              0 kB\nCmaFree:          104900 kB\nUnaccepted:            0 kB\nBalloon:               0 kB\nGPUActive:         16812 kB\nGPUReclaim:            0 kB\nHugePages_Total:       0\nHugePages_Free:        0\nHugePages_Rsvd:        0\nHugePages_Surp:        0\nHugepagesize:       2048 kB\nHugetlb:               0 kB\nDirectMap4k:      185956 kB\nDirectMap2M:     5941248 kB\nDirectMap1G:    10485760 kB\n"
+}
+test_new_run_config_freezes_reserve_and_rejects_invalid_budgets (tests.v5.test_final_budget.FinalBudgetTests.test_new_run_config_freezes_reserve_and_rejects_invalid_budgets) ... ok
+test_nomination_stops_at_reserve_boundary_but_holdout_keeps_total_deadline (tests.v5.test_final_budget.FinalBudgetTests.test_nomination_stops_at_reserve_boundary_but_holdout_keeps_total_deadline) ... ok
+test_complete_nomination_reuses_only_exact_checkpoint_identity (tests.v5.test_final_nomination.FinalNominationTests.test_complete_nomination_reuses_only_exact_checkpoint_identity) ... ok
+test_no_time_or_underfilled_panel_keeps_champion (tests.v5.test_final_nomination.FinalNominationTests.test_no_time_or_underfilled_panel_keeps_champion) ... ok
+test_offcycle_candidate_runs_full_panels_and_freezes_once (tests.v5.test_final_nomination.FinalNominationTests.test_offcycle_candidate_runs_full_panels_and_freezes_once) ... ok
+test_repeated_final_entry_reuses_frozen_hash_and_completed_holdout (tests.v5.test_final_nomination.FinalNominationTests.test_repeated_final_entry_reuses_frozen_hash_and_completed_holdout) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 1.760s
+
+OK
+	Command being timed: "/home/tongshu/venv/bin/python -B -m unittest -v tests.v5.test_final_budget tests.v5.test_final_nomination"
+	User time (seconds): 2.52
+	System time (seconds): 0.17
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:02.71
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 307192
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 67189
+	Voluntary context switches: 13
+	Involuntary context switches: 32
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 168392
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+{
+  "pid": 225153,
+  "session": 225153,
+  "command": [
+    "/home/tongshu/venv/bin/python",
+    "-u",
+    "-B",
+    "-m",
+    "learning",
+    "run",
+    "--run-dir",
+    "/home/tongshu/myDev/wesnothLearning/training_lite30h_20261025/source/runs/v5_lite30h_20261025",
+    "--engine",
+    "lite",
+    "--evaluation-engine",
+    "lite",
+    "--bc-games",
+    "300",
+    "600",
+    "400",
+    "--native-bc-games",
+    "0",
+    "0",
+    "0",
+    "--device",
+    "cpu",
+    "--workers",
+    "8",
+    "--trainer-threads",
+    "1",
+    "--hours",
+    "30",
+    "--phase",
+    "auto",
+    "--formats",
+    "duel",
+    "ffa4",
+    "team2v2",
+    "--seed",
+    "20261017",
+    "--validation-interval",
+    "10",
+    "--final-blocks",
+    "30",
+    "--final-holdout-hours",
+    "4",
+    "--wesnoth",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_refactor_20261025/master/.runtime/install/bin/wesnoth",
+    "--rules-dir",
+    "/home/tongshu/myDev/wesnothLearning/training_lite30h_20261025/source/data/rules/1.18.8-training",
+    "--opponents",
+    "/home/tongshu/myDev/wesnothLearning/training_lite30h_20261025/source/data/opponents",
+    "--human-data",
+    "/home/tongshu/myDev/wesnothLearning/training_lite30h_20261025/source/data/datasets/human"
+  ],
+  "run": "/home/tongshu/myDev/wesnothLearning/training_lite30h_20261025/source/runs/v5_lite30h_20261025",
+  "launched_utc": "2026-10-25T06:40:27.077053+00:00",
+  "source_revision": "822082d654cd19a6474aa36f837137c1ec7cb83c",
+  "archive_sha256": "4e32bb063a9c53fd403bf1d93a1bcb21c8bafe1b38d62239e8834e9161ac2ce4"
+}

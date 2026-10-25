@@ -6,13 +6,7 @@
 
 这里只保留剩余验收和用户明确要求的前瞻项，复用有效证据；本计划不授权重跑全套、新对局或正式训练。报告中的 SDK 包大小尝试仍为失败，原门禁未改，不属于这六项修复。
 
-## B1 — 最终 holdout 预算预留
-
-**状态：**已实现，6 项本地参考检查通过；Ubuntu 未跑，验收前阻塞本次新建 30 小时训练。
-
-**Ubuntu 最小程序：**隔离源码，复用规则与依赖，执行 `python -B -m unittest -v tests.v5.test_final_budget tests.v5.test_final_nomination`（6 项合成/记录检查，无真实对局）；复用 V1–V6 及未变引擎证据。
-
-**通过：**配置/manifest 路由保留 30/4；拒绝负数、NaN、无穷及占满最终预算；第 26 小时+1 秒提名回退，先冻结 selected，holdout 仍在第 30 小时截止。撤销预留会使边界断言失败。证据：`verification/final_review_lite30h_20261025/`；下方更广未写项目保留。
+最终预算预留 B1 的 6 项 Ubuntu 检查已通过，归档于[启动报告](../verification/final_review_lite30h_20261025/REPORT.md)，已删除整项。
 
 ## 边界与共享输入
 
