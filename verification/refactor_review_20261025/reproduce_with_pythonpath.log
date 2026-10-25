@@ -1,0 +1,7 @@
+BUG_REPRODUCED V1: final selection raises FileNotFoundError v000143.json; nomination calls=0
+BUG_REPRODUCED V2: checkpoint lacks combat or teacher profile identity; old weights are explicit initialization only: duel
+BUG_REPRODUCED V3: resumed updates=2 decisions_seen=22 committed_decisions=11; finish_train adds only committed
+BUG_REPRODUCED V4: BC cancellation updates=0 weights unchanged, but Python sampling RNG advanced
+BUG_REPRODUCED V5: different game/side/turn/decision/choice/old_logp/reward produce the same rollout identity
+BUG_REPRODUCED V6: native Astra row rejected by deterministic-lite teacher profile check
+DIAGNOSTICS_COMPLETE: six acceptance gaps reproduced; NOT an acceptance pass

@@ -1,0 +1,1 @@
+V5 CONFIRMED: both policy records pass validate_record, but different game_id/old_logp/reward produce identical rollout_identity
