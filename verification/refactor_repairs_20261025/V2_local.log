@@ -1,0 +1,43 @@
+E.....E.
+======================================================================
+ERROR: test_last_best_selected_keep_identity_and_finished_bookkeeping (tests.v5.test_checkpoint_export_identity.CheckpointExportIdentityTests.test_last_best_selected_keep_identity_and_finished_bookkeeping)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\dev\WesnothLearning\tests\v5\test_checkpoint_export_identity.py", line 54, in test_last_best_selected_keep_identity_and_finished_bookkeeping
+    export_checkpoints(paths, directory/'export', audit_records=audit)
+  File "C:\dev\WesnothLearning\learning\export.py", line 103, in export_checkpoints
+    combat_version='native-1.18.8',teacher='gpt6astra',teacher_profile='native',
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\dev\WesnothLearning\learning\export.py", line 68, in export
+    addons.validate(addon)
+  File "C:\dev\WesnothLearning\vendor\arena\addons.py", line 85, in validate
+    raise ValueError('missing lua/bot.lua or submission exceeds 16 MiB')
+ValueError: missing lua/bot.lua or submission exceeds 16 MiB
+
+======================================================================
+ERROR: test_tenth_update_and_checkpointed_pending_validation (tests.test_validation_cadence.ValidationCadenceTests.test_tenth_update_and_checkpointed_pending_validation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\dev\WesnothLearning\tests\test_validation_cadence.py", line 69, in test_tenth_update_and_checkpointed_pending_validation
+    self.assertTrue(r.finish_train())
+                    ^^^^^^^^^^^^^^^^
+  File "C:\dev\WesnothLearning\learning\experiment.py", line 372, in finish_train
+    self._write_checkpoint(self.directory/f'last_{method}.pt')
+  File "C:\dev\WesnothLearning\learning\experiment.py", line 227, in _write_checkpoint
+    execution=dict(plan_version=PLAN_VERSION),manifest_sha256=sha256(self.directory.parent/'manifest.json'),**self.identity())
+                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\dev\WesnothLearning\learning\common.py", line 35, in sha256
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+                          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Toshu\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Toshu\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\dev\\WesnothLearning\\tmp\\manifest.json'
+
+----------------------------------------------------------------------
+Ran 8 tests in 36.610s
+
+FAILED (errors=2)

@@ -2,11 +2,11 @@
 
 > 语言：[English](architecture.md) | 中文
 
-更新日期：2026-10-24。本文件取代根目录 PLAN.md，作为后续唯一维护的架构、参数与实施状态文档。已实现但未验收的事项及其最小测试方案归入 [TEST_zh.md](TEST_zh.md)（原版新增终态采集仍待验收），接手运行、维护与按指令调参见 [instructions_zh.md](instructions_zh.md)；[历史验收报告](../verification/archive/TEST_before_cleanup_20261022.md)及原始结果留在 `verification/`，实验和权重留在 `runs/`、`delivery/`，不复制到 docs。
+更新日期：2026-10-25。本文件取代根目录 PLAN.md，作为后续唯一维护的架构、参数与实施状态文档。已实现但未验收的事项及其最小测试方案归入 [TEST_zh.md](TEST_zh.md)（原版新增终态采集仍待验收），接手运行、维护与按指令调参见 [instructions_zh.md](instructions_zh.md)；[历史验收报告](../verification/archive/TEST_before_cleanup_20261022.md)及原始结果留在 `verification/`，实验和权重留在 `runs/`、`delivery/`，不复制到 docs。
 
 状态含义：**已实现**表示存在可用代码和对应入口；**部分实现**表示仍有明确缺口或证据只覆盖有限场景；**未实现/未执行**分别表示缺少实现或尚未开展实际运行。实现、最小测试通过、整体验收通过、训练强度提升是四件不同的事。
 
-**2026-10-25 独立复核：** `642a890` 有受限 Ubuntu/L1 证据，但整体验收**阻塞**。[六项已复现缺口](../verification/refactor_review_20261025/REPORT.md)：有冠军最终选择、选中 checkpoint 导出身份、恢复暴露计数、BC 取消 RNG、rollout 身份、native Astra profile 拒绝。V1/V2 阻塞最终评估/交付，V3–V5 阻塞完整恢复验收，V6 仅影响 native。本轮未改实现。P6 仍可选且未实现，教师棋力未验证。下文计划是要求，不是整体验收结论。
+**2026-10-25 修复验收：** [独立复核复现的六项缺陷](../verification/refactor_review_20261025/REPORT.md)已由 PR #32–#37 修复；源码 `831eedb`（实现 `36cc99f`）的 [12 项 Ubuntu 隔离回归通过](../verification/refactor_repairs_20261025/REPORT.md)，未启动真实对局或正式训练。仅验收这些提名、导出身份、恢复和教师记录路径。首次 Ubuntu 准备在测试前失败，另一次真实 SDK 打包仍未通过原 16 MiB 门禁。P6 可选且未实现，N1 待验收，完整棋盘教师战术、棋力和新的三赛制真实阶段链仍未运行。原报告保留。
 
 ## 1. 目标与边界
 
@@ -498,7 +498,7 @@ Bootstrap 同时保持已提交状态和未完成动作的 pending token 不变�
 
 ### 10.9 阶段、PR 职责与完成条件
 
-以下 P1–P7 实施阶段均为 **未开始**，P0 是本次纯计划交付。每个 PR 只改变一个行为，纯搬动与采样、目标或调度变化分开。主审逐个核对精确 head 和证据，再合入 master 并推送。独立任务可用不同分支，但依赖 PR 不假定别人的未合并接口已经存在。
+下表保留原阶段职责；当前实现与证据状态见 10.1 和 10.15。P1–P5b/P7 已实现并有受限证据，P6 仍未实现。每个 PR 只改变一个行为，纯搬动与采样、目标或调度变化分开。主审逐个核对精确 head 和证据，再合入 master 并推送。独立任务可用不同分支，但依赖 PR 不假定别人的未合并接口已经存在。
 
 | 阶段 | 所属改动及拟涉及文件 | 完成条件与排除内容 |
 | --- | --- | --- |
@@ -594,10 +594,23 @@ P7b 从冻结包派生 `learning/teachers/gpt6astra/`，lite Astra 席位经该�
 - R1/R2、R3 接线在 Ubuntu 通过后，下次明确授权的 lite 训练采用新 run/data 命名空间及新 profile。300/600/400、8 workers、trainer 线程、learner/奖励系数、质量/晋升/留出门不变。复用新 profile 下 C7 短阶段链路，已有同规则轨迹覆盖时不为 P7 再跑一遍。
 - 适配 Astra 与冻结未适配 Astra 必须在**同一新确定性环境**中，用匹配地图/阵营/角色/初态对照，不能用旧规则胜率证明等强。R3 区分有界战术/短测和完整面板棋力要求。原版迁移棋力以后在规则未改的 Wesnoth 实测，确定性 lite 结果不替代此门。
 
-**验收：** TEST R1（手算规则）、R2（预测/来源/阶段接线）、R3（教师适配与独立标注棋力）。既有随机战斗分布/差分证据仅对有意改变的行为失效，无关合法性/移动测试继续复用。伤害/减速/中毒差分偏差标为预期规则差异，不能声称原版一致或放宽全局差分门。原报告已有受限 Ubuntu Rust/Python 结果；R2 身份/导出及 R3 完整棋盘/棋力缺口仍未关闭，见独立复核报告。
+**验收：** TEST R1（手算规则）、R2（预测/来源/阶段接线）、R3（教师适配与独立标注棋力）。既有随机战斗分布/差分证据仅对有意改变的行为失效，无关合法性/移动测试继续复用。伤害/减速/中毒差分偏差标为预期规则差异，不能声称原版一致或放宽全局差分门。原报告已有受限 Ubuntu Rust/Python 结果；V1–V6 身份/导出/恢复专项证据现见 10.15；R3 完整棋盘/棋力缺口仍未关闭。
 
 ### 10.14 重构后的缩减全回环运行——已观察 duel fallback，验收未闭合
 
 原报告已记录 duel 的 BC→PPO→检查点恢复→最终评估，但没有冠军、没有同未来不中断对照，不能覆盖本次 V1/V2 或替代三赛制链路。保留实际成功部分，完整合同仍按下述要求验收。
 
 P1–P7 验收并合并后，用户授权在隔离的 Ubuntu 工作树上运行一次缩减局数的 lite 端到端回环：BC、至少两次 PPO 更新、在已应用 batch 边界做一次检查点停止/恢复，并进入最终评估入口。采用仍能覆盖这些状态转换的最小局数/赛制面板，启动前冻结配置与 manifest，每 30 分钟检查一次进度。该运行只证明接线与回环，不是正式训练，不宣称收敛或棋力，也不放宽任何 BC/PPO/晋级/holdout 门禁。结果写入新的按日期命名的 `verification/` 报告。
+
+### 10.15 V1–V6 修复验收——Ubuntu 有界检查通过
+
+PR #32–#37 分别只修一项已复现行为。[新报告](../verification/refactor_repairs_20261025/REPORT.md)记录源码 `831eedb` 的 12 项 Ubuntu 测试、精确源码/规则/教师身份和保留的失败。C9 及六项修复已从 TEST 归档删除；更广的未证断言仍保留。
+
+- **V1 / 最终提名：** 最多提名一个最近完整候选，在原最终截止前按现有 seed/layout 做完整 12-block Astra 和冠军验证；可复用 hash 绑定的完整提名面板。时间不足、欠面板/失败或冠军合格得分缺失时，记录原因并保留冠军。先保存面板与唯一 selected hash，再进入 holdout；重复入口复用该 hash 和已记录 holdout jobs。未来 manifest 的显式预算预留仍是提案，未延长既有时钟。
+- **V2 / 检查点：** latest/last/best 共用完整 writer，保留 feature/rule、engine/combat/teacher、manifest 与 execution 身份。best 在验证记账完成、pending validation 清空后保存；selected 保留原字节，export 检查身份一致。微型合成公共序列上的三赛制数值/元数据接线通过，包组装单独隔离；真实 SDK 包大小失败不算导出包通过。
+- **V3 / PPO 计数：** 每个退出的 cursor 保留累计 optimizer/decision/inspected/committed 量；中断保留 pending，完成后才一次性结算全局计数。两 epoch fixture 在连续和保存边界恢复下均提交 22 个决策。
+- **V4 / BC 取消：** 抽样后、累积中或 step 前取消均清梯度并恢复 batch 前 Python sampler RNG。检查点恢复后的样本 ID、参数、optimizer 和 RNG 与微型连续对照相同。
+- **V5 / 冻结输入：** content-v2 rollout 摘要绑定目标 ID、来源、训练内容和合法原始记忆前缀；逐行计算并在单次调用内复用共享前缀摘要，不重建完整历史 payload。有效输入变化在更新前拒绝，等价重读稳定。旧 pending content-v1 身份不静默迁移，冻结 run 保持其匹配源码。
+- **V6 / 教师：** Native 1.18.8 Astra 与 deterministic-lite Astra 分别校验自身 engine/RNG/combat/profile 及提供的 source 身份。旧 native 行可无 lite profile，新 native 行显式标为 `native`；沿用既有 native source 标签，不将它当成新测得的包哈希。跨规则混入拒绝，未启动原版对局。
+
+未改 Rust、共享 Lua 与教师源码树和原 `e1181ea` 验收源码一致，catalog hash 不变。原 273/17/13 项仅对未变职责复用，不能替代本轮新增检查。奖励、门限、局数配额和训练规模不变；未重编码全语料、重跑全套或启动正式训练。

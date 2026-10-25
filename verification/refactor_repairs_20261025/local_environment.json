@@ -1,0 +1,26 @@
+{
+  "source_revision": "831eedbe08962ac755be563491d65e9fb45bc695",
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "torch": "2.9.1+cpu",
+  "extension": "C:\\dev\\WesnothLearning\\.venv\\Lib\\site-packages\\_engine_lite\\__init__.py",
+  "engine": {
+    "ENGINE_VERSION": "lite-0.1",
+    "RNG_VERSION": "xoshiro256++-1",
+    "COMBAT_VERSION": null
+  },
+  "rules_sha256": "d6fceafe7d0c9c67c750551b9901dbfb2b22290992a8daa1616a460e11826dca",
+  "teacher": {
+    "teacher": "gpt6astra",
+    "teacher_profile": "expected_damage_v1",
+    "teacher_source_sha256": "a5d4b3a69d5af0378fa22119f315c1300fb6ad965c79b08071eb4a37c0addbef"
+  },
+  "test_sources_sha256": {
+    "tests/v5/test_bc_cancel_rng.py": "a4ed1bd4041f83f2ca00f84069fc61dab4c7519ab86caf3927695b0d193a3112",
+    "tests/v5/test_checkpoint_export_identity.py": "63a8beddc136d98369c19ccdd41f59e66cd517fe70f358dfae0c690f6860d1cb",
+    "tests/v5/test_final_nomination.py": "e05636ebd21b98f69fa521a774ffffaed97f751f7565bb4b3a7f4f6a34cd53ad",
+    "tests/v5/test_ppo_resume_counters.py": "eac74a77ab7e3721a0b663b7b64bb076f3dee4c1eba83bb9433fd50236f4b7e5",
+    "tests/v5/test_rollout_content_identity.py": "291a1d7f0b3916ae1023ec1f985e99196b06e083c5a799d8b8d70c99e6d70cce",
+    "tests/v5/test_teacher_engine_identity.py": "817f9aebf12cd114e3ee3717f124a4ae6a68f041a7177b0fe6bc018d7c348cfa"
+  }
+}

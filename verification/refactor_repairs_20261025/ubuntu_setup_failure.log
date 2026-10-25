@@ -1,0 +1,4 @@
+Command: ssh cpuServer "bash /tmp/wesnoth-v1-v6-36cc99f.sh 831eedbe08962ac755be563491d65e9fb45bc695 d07ed7e32329929e86c24e625ce151e829de697b135bc9e41c8d4e2a2a86f9a4"
+Exit code: 1
+Observed stdout: /tmp/wesnoth-v1-v6-36cc99f.tar: OK
+Stopped before environment/test logging, at a directory precondition; no test result. The failing guard is not yet distinguished by the original output.

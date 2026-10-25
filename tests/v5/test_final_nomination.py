@@ -1,5 +1,7 @@
 """V1: final selection uses production schedules with recorded replies only."""
 import unittest
+import json
+from types import MethodType
 from unittest.mock import Mock, patch
 
 import torch
@@ -52,6 +54,33 @@ class FinalNominationTests(unittest.TestCase):
                     self.assertEqual(frozen.read_bytes(), (directory/'last_ppo.pt').read_bytes())
                     self.assertEqual(r._select_final()[2], saved)
                     self.assertEqual(len(self.calls), 2)
+
+    def test_repeated_final_entry_reuses_frozen_hash_and_completed_holdout(self):
+        from learning.rewards import RewardConfig
+        with helpers.temporary_directory() as directory:
+            r = self.runner(directory)
+            with patch('learning.experiment.time.time', return_value=1.), patch('learning.maps.frozen_map', return_value=('Gg,Gg\nGg,Gg','0'*64)):
+                _, _, selection = r._select_final()
+                r.state.update(effective=False, error=None, history=[])
+                r.save = Mock()
+                r.teacher_evidence = lambda: []
+                r.controller = Mock()
+                r.controller.freeze.return_value = RewardConfig().to_dict()
+                def collect(jobs, log):
+                    with log.open('a', encoding='utf-8') as output:
+                        for job in jobs:
+                            result = dict(bots=job['bots'], winner=job['meta']['policy_sides'][0], faults={})
+                            output.write(json.dumps(dict(id=job['id'], status='complete', result=result))+'\n')
+                r.collector = Mock(side_effect=collect)
+                r.execute = MethodType(FormatExperiment.execute, r)
+                with patch('learning.report.write_profile_report'):
+                    first = r.final_evaluation()
+                    second = r.final_evaluation()
+                self.assertEqual(r.collector.call_count, 1)
+                self.assertEqual(len(r.collector.call_args.args[0]), 60)
+                self.assertEqual(first['selection'], selection)
+                self.assertEqual(second['checkpoint_sha256'], first['checkpoint_sha256'])
+                self.assertEqual(second['controls'], first['controls'])
 
     def test_no_time_or_underfilled_panel_keeps_champion(self):
         for no_time in (True, False):

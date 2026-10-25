@@ -1,0 +1,19 @@
+.....E
+======================================================================
+ERROR: test_rollout_identity_covers_targets_and_provenance (tests.v5.test_checkpoint_ops.CheckpointContractTests.test_rollout_identity_covers_targets_and_provenance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\dev\WesnothLearning\tests\v5\test_checkpoint_ops.py", line 64, in test_rollout_identity_covers_targets_and_provenance
+    self.assertNotEqual(rollout_identity(rows), rollout_identity(rows[1:]))
+                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\dev\WesnothLearning\learning\updates.py", line 63, in rollout_identity
+    ordered = attach_histories(ordered)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\dev\WesnothLearning\learning\sequences.py", line 68, in attach_histories
+    raise ValueError('sequence suffix requires its complete raw prefix')
+ValueError: sequence suffix requires its complete raw prefix
+
+----------------------------------------------------------------------
+Ran 6 tests in 8.313s
+
+FAILED (errors=1)
