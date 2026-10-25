@@ -10,6 +10,7 @@ from learning.branch import adopt, prepare
 from learning.checkpoints import CHECKPOINT_VERSION, checkpoint, validate_checkpoint
 from learning.data import split
 from learning.ppo import PLAN_VERSION
+from learning.sequences import attach_histories
 from learning.updates import rollout_identity
 from tests.v5 import helpers
 
@@ -59,6 +60,7 @@ class CheckpointContractTests(unittest.TestCase):
             for row in part:
                 row['split'] = split(game_id)
             rows += part
+        rows = attach_histories(rows)
         self.assertEqual(rollout_identity(rows), rollout_identity(list(reversed(rows))))
         rows[0]['version'] = 'different'
         self.assertNotEqual(rollout_identity(rows), rollout_identity(rows[1:]))
