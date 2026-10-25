@@ -41,7 +41,7 @@ def write_sums(root):
 
 @unittest.skipUnless(BASH, 'GNU bash is required for the bundle script checks')
 class BundleScriptTests(unittest.TestCase):
-    def fixture(self):
+    def fixture(self, wheels=()):
         temp = tempfile.TemporaryDirectory()
         self.addCleanup(temp.cleanup)
         root = Path(temp.name) / 'WesnothLearning'
@@ -52,6 +52,10 @@ class BundleScriptTests(unittest.TestCase):
             path = root / relative
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_bytes(f'fixture {relative}\n'.encode('utf-8'))
+        if wheels:
+            (root / 'dist').mkdir()
+            for name in wheels:
+                (root / 'dist' / name).write_bytes(b'fixture wheel bytes\n')
         (root / 'BUNDLE_MANIFEST.json').write_bytes(b'{"schema": 1}\n')
         write_sums(root)
         return root
@@ -80,6 +84,23 @@ class BundleScriptTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         self.assertIn('bundle checksums verified', result.stdout)
         self.assertIn('preflight: ok', result.stdout)
+        self.assertNotIn('prebuilt extension', result.stdout)
+        self.assertFalse((root / '.runtime').exists())
+
+    def test_preflight_reports_wesnoth_learning_lite_wheel(self):
+        name = 'wesnoth_learning_lite-0.1.0-cp312-cp312-manylinux_2_17_x86_64.whl'
+        root = self.fixture(wheels=(name,))
+        result = bash(['setup.sh', '--preflight'], root)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertIn(f'prebuilt extension dist/{name}', result.stdout)
+        self.assertFalse((root / '.runtime').exists())
+
+    def test_preflight_reports_legacy_engine_lite_wheel(self):
+        name = '_engine_lite-0.1.0-cp312-cp312-manylinux_2_17_x86_64.whl'
+        root = self.fixture(wheels=(name,))
+        result = bash(['setup.sh', '--preflight'], root)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertIn(f'prebuilt extension dist/{name}', result.stdout)
         self.assertFalse((root / '.runtime').exists())
 
     def test_preflight_rejects_tampered_file(self):

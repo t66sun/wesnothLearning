@@ -79,8 +79,21 @@ required=(
     train.sh
 )
 
+find_engine_wheel() {
+    local prefix candidate
+    for prefix in wesnoth_learning_lite- _engine_lite- engine_lite-; do
+        for candidate in "$TASK_ROOT/dist/${prefix}"*.whl; do
+            if [[ -f "$candidate" ]]; then
+                printf '%s\n' "$candidate"
+                return 0
+            fi
+        done
+    done
+    return 1
+}
+
 preflight_check() {
-    local missing=() path
+    local missing=() path wheel_path=''
     for path in "${required[@]}"; do
         [[ -f "$path" ]] || missing+=("$path")
     done
@@ -101,6 +114,9 @@ preflight_check() {
         echo 'preflight: bundle checksums verified'
     else
         echo 'preflight: development checkout (no BUNDLE_MANIFEST.json); checksum verification skipped'
+    fi
+    if wheel_path="$(find_engine_wheel)"; then
+        echo "preflight: prebuilt extension ${wheel_path#"$TASK_ROOT"/}"
     fi
     printf 'preflight: ok (%d required paths present) in %s\n' "${#required[@]}" "$TASK_ROOT"
 }
@@ -192,30 +208,24 @@ else
     printf '2.9.1\n' > "$TASK_ROOT/.runtime/stamps/torch-$device"
 fi
 
-"$PY" -m pip install 'maturin>=1.7,<2'
-
-if ! command -v cargo >/dev/null 2>&1; then
-    echo 'setup.sh: cargo is absent; installing the stable Rust toolchain via rustup'
-    command -v curl >/dev/null 2>&1 || { echo 'setup.sh: curl is required to install Rust (curl)' >&2; exit 1; }
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain stable
-    [[ -f "$HOME/.cargo/env" ]] || { echo "setup.sh: rustup finished without $HOME/.cargo/env" >&2; exit 1; }
-    # shellcheck disable=SC1091
-    source "$HOME/.cargo/env"
-fi
-command -v cargo >/dev/null 2>&1 || { echo 'setup.sh: cargo is still missing after rustup; install the Rust toolchain' >&2; exit 1; }
-export CARGO_BUILD_JOBS="$jobs"
-
-wheel_path=''
-for candidate in "$TASK_ROOT"/dist/_engine_lite-*.whl; do
-    if [[ -f "$candidate" ]]; then
-        wheel_path="$candidate"
-        break
-    fi
-done
+wheel_path="$(find_engine_wheel || true)"
 if [[ -n "$wheel_path" ]]; then
     echo "setup.sh: installing prebuilt extension $wheel_path"
     "$PY" -m pip install --force-reinstall --no-deps "$wheel_path"
 else
+    "$PY" -m pip install 'maturin>=1.7,<2'
+
+    if ! command -v cargo >/dev/null 2>&1; then
+        echo 'setup.sh: cargo is absent; installing the stable Rust toolchain via rustup'
+        command -v curl >/dev/null 2>&1 || { echo 'setup.sh: curl is required to install Rust (curl)' >&2; exit 1; }
+        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain stable
+        [[ -f "$HOME/.cargo/env" ]] || { echo "setup.sh: rustup finished without $HOME/.cargo/env" >&2; exit 1; }
+        # shellcheck disable=SC1091
+        source "$HOME/.cargo/env"
+    fi
+    command -v cargo >/dev/null 2>&1 || { echo 'setup.sh: cargo is still missing after rustup; install the Rust toolchain' >&2; exit 1; }
+    export CARGO_BUILD_JOBS="$jobs"
+
     command -v maturin >/dev/null 2>&1 || { echo 'setup.sh: maturin is missing from the venv' >&2; exit 1; }
     echo 'setup.sh: building engine_lite with maturin (release)'
     ( cd engine_lite && maturin develop --release )
