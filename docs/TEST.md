@@ -6,13 +6,7 @@ Updated 2026-10-25. The six reproduced V1–V6 defects are repaired and their 12
 
 Keep only remaining acceptance work and explicitly requested prospective cases here. Reuse existing valid evidence; no full-suite rerun, new games or formal training is authorized by this plan. The SDK package-size attempt remains failed in the report; its unchanged gate is outside these six repairs.
 
-## B1 — Final holdout budget reserve
-
-**Status:** implemented; six local reference checks pass, Ubuntu NOT RUN. Blocks this new 30-hour launch until accepted.
-
-**Minimal Ubuntu:** isolated source with existing rules/dependencies; `python -B -m unittest -v tests.v5.test_final_budget tests.v5.test_final_nomination` (six synthetic/recorded checks; zero real games). Reuse V1–V6 and unchanged engine evidence.
-
-**Pass:** config/manifest route preserves 30/4; negative, NaN, infinity and whole-final-budget reserves reject. At hour 26+1 nomination falls back, selected freezes before holdout and holdout retains hour 30. Reverting the reserve fails the boundary assertion. Evidence: `verification/final_review_lite30h_20261025/`; broader unwritten cases remain below.
+Final budget reserve B1 is accepted by six Ubuntu checks and archived in the [startup report](../verification/final_review_lite30h_20261025/REPORT.md); the completed item is removed.
 
 ## Boundaries and shared inputs
 
