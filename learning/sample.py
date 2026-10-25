@@ -88,7 +88,7 @@ def play_job(job):
         reward_config=job.get('reward_config') or asdict(RewardConfig())
         provenance=dict(engine='native',engine_id='native',engine_version='1.18.8',native_version='1.18.8',
             rules_version=schema().get('rules_sha256') or 'native-1.18.8',rng_version='native-1.18.8',
-            combat_version='native-1.18.8',
+            combat_version='native-1.18.8',teacher_profile='native',teacher_source_sha256='native-1.18.8',
             architecture_id='relational_v5',
             reward_config=reward_config,reward_version=reward_config['reward_version'],reward_formula_id=reward_config['reward_formula_id'],
             data_pool='original',teacher_impl='astra_native',game_family=job.get('game_family',job['id']),
