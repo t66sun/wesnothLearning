@@ -26,8 +26,10 @@ Options:
 
 Environment: WESNOTH_EXE (default game binary), BUILD_JOBS (default --jobs).
 
-The script is idempotent: an installed venv, pinned torch, extension and
-Wesnoth binary are reused. Then start training with ./train.sh.
+The script reuses an installed venv, pinned torch, requirements matching the
+requirements.txt digest stamp, and a valid Wesnoth 1.18.8 binary. The
+extension is reinstalled from the bundled wheel or rebuilt with
+maturin develop --release on every run. Then start training with ./train.sh.
 EOF
 }
 
