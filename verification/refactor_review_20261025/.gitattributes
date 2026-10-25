@@ -1,0 +1,2 @@
+# Keep recorded command output and its hashes byte-identical across checkouts.
+* -text whitespace=cr-at-eol

@@ -1,0 +1,24 @@
+{
+  "reviewed_head": "642a890f552d5daafe42f850c03a87ff984ea0ae",
+  "baseline": "768db294ced6c1b0b10aa46ccb08da489f85a7d8",
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "torch": "2.9.1+cpu",
+  "environment": "Windows local reference, no SSH or engine execution",
+  "source_sha256": {
+    "learning/experiment.py": "3a7ecd3efa4923d901fc0564bc4f2e180d8b560c7c0d5bd0de185f16f955137d",
+    "learning/export.py": "343422b56b91f207ee78619215ebd6fdb5ef32454ab84cdcc22519983d1f30dd",
+    "learning/ppo.py": "b2645d67ad52cd7cb6fc34b519dffde04285973fd854714b60073111a01fa85a",
+    "learning/bc.py": "d56217b5325fd118c429698eb927d35ef3601cedcfa06df919ada9f07a71fa49",
+    "learning/updates.py": "d04a8dbb30381dcf4aeb75b8d9c03c203f74542ee82ad40e33e4deec01e0f551",
+    "learning/data.py": "cfcca3ccb7c25fe5ad035151de5449938b09b1ca6d25a056faa2400296d7fa3b",
+    "learning/sample.py": "c5803116fddebb6b4ea284aaebb5cb4540a314204f41325c258c5871c20cd650"
+  },
+  "artifacts_sha256": {
+    "identity_valid_records.log": "9ea7679085c9efc6407414ab45f712e87c1a4df362556a0afec9abbbc1a4d865",
+    "REPORT.md": "8b390026e5894b76f899836543b07c6dd2b91ec80e1982057e8f8505defb76ce",
+    "reproduce.log": "e5b331a12cb5b93ca620933499e274616954bf456c724f6a63393db864b3c383",
+    "reproduce_gaps.py": "beac80e3283becf6b66a8a9d41a580cf1f22852694e1e8ad3ab66b6f30ba7c79",
+    "reproduce_with_pythonpath.log": "e9753246a56c24feaa6a45ef833ec1ab509c1934677fa578b0a52d2b6c936a73"
+  },
+  "engine_source_changes_since_original_panel": []
+}

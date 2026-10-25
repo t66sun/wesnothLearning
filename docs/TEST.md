@@ -2,9 +2,24 @@
 
 > Language: English | [中文](TEST_zh.md)
 
-Updated 2026-10-24. This user-requested replacement clears the former checklist and designs acceptance for the [refactor plan, chapter 10](architecture.md). **It authorizes no implementation, test execution, SSH, collection or training.** P1–P7 remain planned. New assertions described below are unwritten unless identified as existing evidence. N1 is implemented but unaccepted. No new runtime result is claimed.
+Updated 2026-10-25. P1–P5b/P7 are implemented with bounded Ubuntu evidence, but **independent acceptance is blocked** by [V1–V6](../verification/refactor_review_20261025/REPORT.md). This review changed no production code and started no game or formal training. P6 remains unimplemented; N1 remains unaccepted. Existing tests do not prove every assertion in the detailed cases below.
 
 For this planning request, planned cases are included explicitly. When an owning change is implemented, add its commit and real test entry point, retain its pending scope; after acceptance archive evidence and delete the item. Reopen only affected behavior.
+
+## Current blockers and minimal repair acceptance
+
+Six diagnostic reproductions confirm failures, not acceptance passes. Repair assertions are not written. Evidence, exact commands and limitations: `verification/refactor_review_20261025/`. Reuse the original Ubuntu 273/17/13 results within their recorded scope.
+
+| ID / owner | Reproduced input/procedure | Required pass / blocker |
+| --- | --- | --- |
+| V1 / C9 | Champion v100 validated, latest v143 without panel; real final selection | Complete eligible nomination or justified champion fallback; no missing-file crash/lowered gate; blocks final evaluation |
+| V2 / C6/R2 | Real finish_train writes last_ppo, selected last/best goes to export | Matching engine/rules/teacher identities survive selection/export; wrong identity still rejected; blocks delivery |
+| V3 / C4/C5 | Two PPO saved-boundary segments, 11 targets each | Global committed/optimizer/pass counters equal uninterrupted control, counted once; blocks recovery acceptance |
+| V4 / C6 | BC deadline after sampling, before step | Restore sampler RNG, clear gradients, match resumed IDs/weights to uninterrupted reference; blocks exact BC resume |
+| V5 / C4/C6/R2 | Two individually valid policy records differ in game/old_logp/reward but hash equally | Reject changed frozen target/content before step; unchanged reread stable; blocks rollout identity acceptance |
+| V6 / R2 | Native Astra row rejected by lite teacher profile requirement | Native/lite accept corresponding identities and reject mixing; native BC only |
+
+Use the same tiny fixtures locally and on Ubuntu after each affected repair. Do not reproduce these gaps with formal training or repeat the entire passed panel.
 
 ## Boundaries and shared inputs
 
@@ -39,7 +54,7 @@ R1–R3 are activated by P7 only. Unchanged C1–C9 reuse their evidence; refres
 
 ## C2 — Learner extraction, BC objective and accuracy
 
-**Status/trigger:** P1 parity harness unwritten; existing movement/small-fit results reusable. Mechanical extraction must preserve old sampling/stopping behavior.
+**Status/trigger:** P1 implemented; four scalar/import checks are reported. Full gradient/optimizer/RNG equivalence is not inferred from scalar loss alone; reuse existing small-fit evidence.
 
 **Minimal Ubuntu procedure:** identical tiny BC/PPO inputs, model/optimizer/RNG; one logical update through frozen old/new paths. BC includes unequal windows, short last micro-batch and move/attack/recruit. Independently calculate weighted loss and correct/total counts.
 
@@ -49,7 +64,7 @@ R1–R3 are activated by P7 only. Unchanged C1–C9 reuse their evidence; refres
 
 ## C3 — BC filling and bounded decoding
 
-**Status/trigger:** P2 unimplemented; budget/backfill assertions unwritten.
+**Status/trigger:** P2 implemented; nine loader checks reported after the empty-read repair. Real recorded-input peak-memory/full-prefix coverage beyond those assertions is not claimed.
 
 **Minimal Ubuntu procedure:** F1 requests more targets than initial allocation; backfill from already decoded families, keeping third outside compressed budget. Constrain retained bytes, available data and window count in separate small variants. Read the recorded long F2 2v2 once.
 
@@ -59,7 +74,7 @@ R1–R3 are activated by P7 only. Unchanged C1–C9 reuse their evidence; refres
 
 ## C4 — PPO coverage and saved-boundary recovery
 
-**Status/trigger:** P3 unimplemented; epoch-plan/cursor assertions unwritten and required in the same change.
+**Status/trigger:** P3 implemented with saved-boundary unit evidence; V3/V5 block full counter/input-identity acceptance.
 
 **Minimal Ubuntu procedure:** two epochs over unequal windows; compare uninterrupted execution with save/resume after one applied batch. Interrupt a second run inside a logical batch before stepping, using F3.
 
@@ -69,7 +84,7 @@ R1–R3 are activated by P7 only. Unchanged C1–C9 reuse their evidence; refres
 
 ## C5 — Logical-batch KL, exits and counters
 
-**Status/trigger:** P4 unimplemented; aggregate/exit assertions unwritten, separate from P3.
+**Status/trigger:** P4 implemented with logical-KL/exit unit evidence; V3 blocks complete resumed-counter acceptance.
 
 **Minimal Ubuntu procedure:** fixed logical batch, micro sizes 8/32, one high-KL chunk whose isolated decision differs from weighted aggregate. Exercise completed/KL-stop/deadline exits with zero and one applied step.
 
@@ -79,7 +94,7 @@ R1–R3 are activated by P7 only. Unchanged C1–C9 reuse their evidence; refres
 
 ## C6 — Atomic checkpoints and explicit branching
 
-**Status/trigger:** P5a planned; reuse hash checks, add operation/cursor assertions where absent.
+**Status/trigger:** P5a implemented; V2/V4/V5 leave selected-checkpoint identity, BC cancellation and frozen-input recovery incomplete. Reuse valid serialization/branch checks.
 
 **Minimal Ubuntu procedure:** F3 latest/champion; fail before atomic replacement; exercise latest resume, explicit fork from older state and legacy checkpoint without epoch plan. Corrupt identity fields individually in temporary copies.
 
@@ -89,7 +104,7 @@ R1–R3 are activated by P7 only. Unchanged C1–C9 reuse their evidence; refres
 
 ## C7 — Stage chain, controller and terminal truth
 
-**Status/trigger:** phase/controller checks accepted; new combined trace unwritten, activate after affected orchestration changes only.
+**Status/trigger:** 17 Ubuntu phase checks and a duel reduced chain are reported. The fallback trace does not establish three-format integration or champion-present selection; V1 remains open.
 
 **Minimal Ubuntu procedure:** F3 drives production orchestration: BC → two PPO updates → checkpoint/readback → pending-update resume → PPO completion → nomination/freeze → final entry. Tiny routing for three formats; faults only at changed boundaries: failed BC gate, v100 metric exception, optimizer/collector failure, pending method versus new phase. Reuse F4 and existing reward-window boundary assertions.
 
@@ -109,7 +124,7 @@ R1–R3 are activated by P7 only. Unchanged C1–C9 reuse their evidence; refres
 
 ## C9 — Final selection and untouched holdout
 
-**Status/trigger:** P5b planned; nomination assertions unwritten; reuse existing underfilled-promotion rejection.
+**Status/trigger:** P5b partially implemented; V1 exposes missing production off-cycle nomination. Decision-helper tests alone do not accept that path.
 
 **Minimal Ubuntu procedure:** recorded collector with champion, eligible latest off-cycle candidate and underfilled candidate. Let eligible candidate win, then remove a required block/exhaust nomination time. Restore checkpoint across repeated final entry.
 
@@ -119,7 +134,7 @@ R1–R3 are activated by P7 only. Unchanged C1–C9 reuse their evidence; refres
 
 ## R1 — Deterministic per-strike damage and weakened statuses
 
-**Status/trigger:** P7a implemented, awaiting acceptance (`lite-0.2`, `expected_damage_v1`); Rust table/status assertions written but not yet built or run on Ubuntu. Blocks new deterministic-rule collection/training, not use of the frozen old engine.
+**Status/trigger:** P7a implemented; 13 Rust tests and relevant interface checks passed in the recorded Ubuntu panel. Reuse bounded evidence; full new-profile readiness also requires R2/R3.
 
 **Minimal Ubuntu procedure:** one small table through the real resolver, plus three short status/order scripts. No game corpus or probabilistic confidence sampling. Use an independent integer formula oracle rather than invoking the production helper for the expected value.
 
@@ -139,7 +154,7 @@ R1–R3 are activated by P7 only. Unchanged C1–C9 reuse their evidence; refres
 
 ## R2 — Exact public forecast, identity isolation and stage chain
 
-**Status/trigger:** P7a implemented, awaiting acceptance; forecast/provenance assertions written but not yet built or run on Ubuntu. Blocks new-profile training/export wiring.
+**Status/trigger:** P7a forecast/provenance checks ran on Ubuntu; V2/V5/V6 expose uncovered identity/export/native cases. Corresponding acceptance stays blocked.
 
 **Minimal Ubuntu procedure:** reuse three R1 states (plain/slow/poison), forecast then execute in an all-visible controlled state, and one hidden-context counterexample. Hold initial state/action script fixed and vary only seed among 0/1/713; compare direct step with snapshot/restore/step. Compare legacy forecast requests `samples=1/128` if that argument is retained. Parameterize routing for three formats, then share C7's new-profile BC → two PPO updates → resume → final-entry trace; do not run a second separate chain.
 
@@ -155,7 +170,7 @@ R1–R3 are activated by P7 only. Unchanged C1–C9 reuse their evidence; refres
 
 ## R3 — Astra adaptation and separate strength evidence
 
-**Status/trigger:** P7b unimplemented; six-position tactical fixture and matched comparison harness unwritten. Blocks adapted-teacher readiness; minimal pass does not prove preserved playing strength.
+**Status/trigger:** P7b implemented; six value-level positions checked. Full legal-board teacher query/ranking and matched strength comparison remain unrun.
 
 **Minimal Ubuntu procedure:** six public positions with independently specified admissible best actions/rankings: (1) deterministic lethal versus nonlethal, (2) firststrike/retaliation survival, (3) two weapons with different original hit chances, (4) slow value including movement restriction, (5) poison tick worth 6, (6) poison immunity/near cure making a normal attack preferable. Each has two meaningful alternatives, fixed budget and deterministic tie-break. Ensure the source-dependent heuristic change has at least one counterexample failing the old teacher. Reuse three-format route checks and C1 query/commit isolation.
 
@@ -183,7 +198,7 @@ R1–R3 are activated by P7 only. Unchanged C1–C9 reuse their evidence; refres
 
 ## L1 — Post-refactor reduced full-loop run
 
-**Status/trigger:** planned, not run. Authorized by the user after P1–P7 acceptance; blocks nothing in the refactor itself. It is not formal training and cannot support a convergence or strength claim.
+**Status/trigger:** Original report records duel BC→PPO→resume→final fallback. No uninterrupted same-future comparison or scheduled mid-run tick; no champion-present/all-format coverage or full acceptance claim.
 
 **Minimal Ubuntu procedure:** on the isolated source tree, freeze one lite config with the smallest format/game panel that reaches BC, at least two applied PPO updates, one stop/resume from a committed-batch checkpoint, and the final-evaluation entry. Record the exact counts, seed, manifest and checkpoint identities before launch. Poll the run status/log every 30 minutes and retain anomalies; do not raise game counts, lower gates or edit frozen evidence during the run.
 
