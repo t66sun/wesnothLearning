@@ -273,6 +273,7 @@ This section is a status summary; accepted scope and evidence are in the [histor
 | Full-pipeline performance | Not done: end-to-end equal work, dense, concurrency and audit-inclusive costs still lack evidence |
 | Production corpus and long training | Read-memory gap fixed, historical 42 min loopback peak PSS 6.4 GiB; historical replay and batch-tensor optimizations passed 10 minimal tests, real micro-batch output/gradient comparison in all three formats and BC update/checkpoint readback. The old 18000-game pure lite / 18 h experiment is stopped; the 1300-game formal experiment failed under schema 4, and schema 5 formal training and convergence are unfinished |
 | Final native evaluation/delivery | Native strength not evaluated; final lite models installed locally on 2026-10-24 with bounded numeric/registration checks. External-engine delivery is planned only; no claim of beating Astra or strong humans |
+| Ubuntu 24.04 training bundle | Implemented and locally tested: `python -m learning bundle` builds the deterministic archive and `verify-bundle` checks it statically, with 16 builder/verifier and 11 setup/train script checks passing and git, venv, run state, evidence and delivery excluded. Extraction, `setup.sh`, the Wesnoth build and training start on Ubuntu 24.04 are NOT RUN; `PKG1` in [TEST.md](TEST.md) tracks them, and installation is the only thing a passing bundle proves. Details in [bundle.md](bundle.md) |
 
 Ordinary training wiring and short-game chains are complete; the high-memory problem exposed by formal runs is fixed and passed real loopback acceptance, with evidence in the archive reports above; the latest pure lite formal experiment failed, see section 1. Full-pipeline performance and formal strength still need real experiment evidence; peripheral campaigns and costly full semantics keep explicit limits and are not expanded into a general WML engine by default.
 
@@ -280,9 +281,12 @@ Ordinary training wiring and short-game chains are complete; the high-memory pro
 
 ```text
 README.md                  repository entry (English); Chinese mirror docs/README_zh.md
+setup.sh                   clean Ubuntu 24.04 install: apt packages, venv, pinned torch, _engine_lite, Wesnoth 1.18.8; starts no sampling or training
+train.sh                   one lite experiment on explicit user instruction; logs to runs/logs/<run>.log
 docs/architecture.md       architecture, current parameters, implemented/unimplemented status (this file)
 docs/instructions.md       agent startup/resume, training maintenance and instruction-driven tuning
 docs/TEST.md               implemented but unaccepted items and the minimal tests toward formal training
+docs/bundle.md             build/verify the extraction-ready archive, clean-machine install, training start and its acceptance limit
 docs/THIRD_PARTY.md        third-party code, reference opponent packages and official licensing
 AGENTS.md                  agent working and documentation maintenance rules (English only)
 engine_lite/               Rust, PyO3, native capture/freeze/audit, direct Lua host
@@ -294,7 +298,7 @@ vendor/arena/              vendored WesnothArena native v2 SDK
 data/                      captured inputs, not source; provisioned, never hand-edited
 data/rules/1.18.8-training/ default 587-unit rule package, distributable with the development tree
 data/rules/1.18.8/         historical rule package and frozen native maps, keeping the original experiment identity
-data/datasets/             human and teacher data, sequence indexes
+data/datasets/             dataset import inputs; currently human/import.json
 data/humanData/            raw replay dumps pulled from the game install
 data/humanData_curated/    curated 1.18.8 replays used for BC
 data/opponents/            frozen reference opponent packages
@@ -303,6 +307,7 @@ runs/<run>/<format>/       per-format training state, weights, schedules and pol
 runs/<run>/control/        batch-boundary config and append-only control events
 verification/              raw evidence with dates/rule hashes; the source development package excludes it by default
 delivery/                  explicitly exported model packages and manifests; historical experiments stay as-is
+dist/                      build output; `python -m learning bundle --output dist/<name>.tar.gz` writes the extraction-ready training archive here
 tmp/                       scratch space; nothing here is evidence
 ```
 

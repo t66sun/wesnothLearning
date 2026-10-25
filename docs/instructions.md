@@ -56,6 +56,19 @@ The 2026-10-22 per-seat candidate optimization added decision parameters to the 
 
 The current implementation as of 2026-10-23 is schema 5 / candidate v3. The Ubuntu isolated directory `/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022` has completed the minimal phase-wiring and resume acceptance and uses its own `.venv/bin/python` (shared installed dependencies, its own newly compiled extension). If the main directory has not yet synced the fixes, verify entries in that isolated directory or deploy the accepted sources first and rebuild the matching environment; the deployment record is in the repair report. Rust embeds `engine_lite/lua/host.lua` via `include_str!`, so copying Lua alone does not update an installed extension. The original 20-hour formal experiment has ended in failure and old schema 4/v2 checkpoints only work with their original matching sources; new and old corpora/checkpoints are never mixed. Restricted movement quality acceptance is archived in the [follow-up report](../verification/bc_rootcause_20261023_2318/REPORT.md); the real full BC gates still run as usual.
 
+### Clean Ubuntu 24.04 bundle
+
+The archive produced by `python -m learning bundle --output PATH` is an alternative to the server environment above for a clean Ubuntu 24.04 x86_64 machine, not a replacement for it; keep the existing server directory and its instructions untouched.
+
+```bash
+tar -xzf WesnothLearning-training.tar.gz && cd WesnothLearning
+./setup.sh --preflight          # checks the archive only: no OS gate, no download, no write
+./setup.sh --device cpu         # apt packages, venv, torch 2.9.1, _engine_lite, Wesnoth 1.18.8
+./train.sh --help               # prints options; creates nothing
+```
+
+`--device auto` (the default) selects `cu128` only when `nvidia-smi` works, so state `--device cpu` explicitly on a CPU-only machine. Setup starts no sampling or training, and the archive's presence is not authorization to start work; start a run only on explicit user instruction. The bundle proves installation only, never convergence or strength. Full details and troubleshooting are in [bundle.md](bundle.md).
+
 ## 3. Verify the actually runnable scope before starting
 
 New experiments use lite by default, with rules defaulting to `data/rules/1.18.8-training` (587 units, 438 terrains). The startup gate verifies the actual 158-unit closure of the six factions, accepts recorded approximations and rejects unsupported types and missing references; whole-package semantics/performance flags keep their original values. All three formats use the frozen real Astra teacher; accepted scope and evidence are in architecture.md section 8.

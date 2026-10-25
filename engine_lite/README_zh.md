@@ -2,9 +2,9 @@
 
 > 语言：[English](README.md) | 中文
 
-本目录提供原生数组状态、PyO3 JSON 批量 API、直接嵌入的常驻 Lua 5.4 VM。没有复制无明确再分发许可的参考模拟器代码。本次没有构建或运行引擎；本机缺少 cargo/rustc、原版 1.18.8 发行数据，原版规则及性能验收均未完成。
+本目录提供原生数组状态、PyO3 JSON 批量 API、直接嵌入的常驻 Lua 5.4 VM。没有复制无明确再分发许可的参考模拟器代码。原版规则及性能验收仍未完成。
 
-构建入口：安装 Rust 工具链后，在本目录使用 `maturin develop --release`。Python 模块 `_engine_lite.LiteEngine(rules_json,spec_json)`；所有 JSON 坐标 `pos/to` 为零起始行优先索引，Lua 转换为一基六角坐标；武器 JSON 从 0 起始，Lua 从 1 起始。
+构建入口：解压后的训练归档包由 `./setup.sh` 在 `dist/` 中没有 Linux wheel 时用 `maturin develop --release` 构建本目录（若打包了 `dist/` 中的 manylinux x86_64 wheel，则安装该 wheel，名称为 `wesnoth_learning_lite-*`，或兼容旧名 `_engine_lite-*`/`engine_lite-*`）。开发工作副本在安装 Rust 工具链后同样在本目录执行该命令；归档包说明见 [docs/bundle_zh.md](../docs/bundle_zh.md)。Python 模块 `_engine_lite.LiteEngine(rules_json,spec_json)`；所有 JSON 坐标 `pos/to` 为零起始行优先索引，Lua 转换为一基六角坐标；武器 JSON 从 0 起始，Lua 从 1 起始。
 
 `GameSpec` 必须明确给出 width/height、扁平 terrain、sides、units、seed、max_turns。side.id 连续从 1 起始、team 非空；单位包含 id/unit_type/side/pos/hp/moves/attacks_left/xp/leader/status/traits。`allow_approximate=true` 必须显式提供。未实现声明的单位、招募链、升级链和瘟疫链拒绝运行，不静默降为普通攻击；全量定义仍可保留在规则表枚举。当前新引擎所有游戏都标记 approximate。
 

@@ -273,6 +273,7 @@ PyTorch → 纯 Lua 导出、三赛制路由、检查点加载和连续序列数
 | 全流水线性能 | 未完成：端到端等价工作、dense、并发和含审计成本尚缺证据 |
 | 生产语料与长训练 | 读取内存缺口已修复，历史 42 min 回环峰值 PSS 6.4 GiB；历史重放与批张量优化已通过 10 项最小测试、三赛制真实微批输出/梯度比较及 BC 更新/检查点回读。旧 18000 局纯 lite / 18 h 实验已停止；1300 局规格的正式实验已在 schema 4 失败结束，schema 5 的正式训练和收敛未完成 |
 | 最终原版评测/交付 | 原版棋力未评估；最终 lite 模型已于 2026-10-24 本地安装，通过受限数值/注册检查。独立推理交付仅有计划；未声称胜过 Astra 或人类强者 |
+| Ubuntu 24.04 训练归档包 | 已实现并在本地测试：`python -m learning bundle` 生成确定性归档包，`verify-bundle` 做静态校验，16 项构建器/校验器与 11 项 setup/train 脚本检查通过，且排除 git、虚拟环境、运行状态、证据与交付产物。Ubuntu 24.04 上的解压、`setup.sh`、Wesnoth 构建与训练启动均 NOT RUN，由 [TEST_zh.md](TEST_zh.md) 的 `PKG1` 跟踪；归档包通过只证明安装可用。详见 [bundle_zh.md](bundle_zh.md) |
 
 普通训练接入和短局链路已完成；正式运行暴露的高内存问题已修复并通过真实回环验收，证据见上述归档报告；最新纯 lite 正式实验已失败结束，具体状态见第 1 节。全流水线性能与正式强度仍需实际实验积累证据；外围战役和高成本完整语义保留明确限制，不默认扩张为通用 WML 引擎。
 
@@ -280,9 +281,12 @@ PyTorch → 纯 Lua 导出、三赛制路由、检查点加载和连续序列数
 
 ```text
 README.md                  仓库入口（英文）；中文镜像 docs/README_zh.md
+setup.sh                   干净 Ubuntu 24.04 安装：apt 包、venv、固定 torch、_engine_lite、Wesnoth 1.18.8；不启动采样或训练
+train.sh                   仅在用户明确指令后启动一次 lite 实验；日志写入 runs/logs/<run>.log
 docs/architecture.md       架构、当前参数、已实现/未实现状态（本文件）
 docs/instructions.md       Agent 启动/恢复、维护训练与按指令调参
 docs/TEST.md               已实现但未验收的事项及通向正式训练的最小测试方案
+docs/bundle.md             构建/校验可解压即用归档包、干净机器安装、训练启动及其验收边界
 docs/THIRD_PARTY.md        第三方代码、参考对手包与官方授权
 AGENTS.md                  代理工作与文档维护规则（仅英文）
 engine_lite/               Rust、PyO3、原版捕获/冻结/审计、直接 Lua 宿主
@@ -294,7 +298,7 @@ vendor/arena/              内置的 WesnothArena native v2 SDK
 data/                      采集输入，非源码；由流程供给，不手工编辑
 data/rules/1.18.8-training/ 默认 587 单位规则包，可随开发工程分发
 data/rules/1.18.8/         历史旧规则包及原版冻结地图，保留原实验身份
-data/datasets/             人类与教师数据、序列索引
+data/datasets/             数据集导入输入；目前为 human/import.json
 data/humanData/            从游戏安装目录拉取的原始回放
 data/humanData_curated/    用于 BC 的 1.18.8 精选回放
 data/opponents/            冻结的参考对手包
@@ -303,6 +307,7 @@ runs/<run>/<format>/       独立训练状态、权重、调度与策略历史
 runs/<run>/control/        批次边界配置和追加式控制事件
 verification/              带日期/规则哈希的原始证据；源码开发包默认不包含
 delivery/                  明确导出的模型包与清单；历史实验保持原状
+dist/                      构建输出；`python -m learning bundle --output dist/<name>.tar.gz` 在此写出可解压即用的训练归档包
 tmp/                       临时空间，不作为证据
 ```
 

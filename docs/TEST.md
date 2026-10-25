@@ -183,6 +183,18 @@ R1–R3 are activated by P7 only. Unchanged C1–C9 reuse their evidence; refres
 
 **Evidence/blocker:** new dated `verification/<run>_<date>/REPORT.md` with commands, counts, identities, checkpoint/resume trace, final-evaluation entry and resource readings. No new collection/formal training from this item alone.
 
+## PKG1 — Ubuntu 24.04 training bundle
+
+**Status/trigger:** builder and static verifier implemented and locally tested on 2026-10-25: `python -m learning bundle --help` and `python -m learning verify-bundle --help` exit 0, and 16 builder/verifier plus 11 setup/train script checks pass. No archive has been built and no clean Ubuntu 24.04 machine has extracted, installed or started one; those steps are NOT RUN. Activate before the archive is handed to a machine without this checkout, and after any change to the payload list, exclusion rules, manifest, `SHA256SUMS`, `setup.sh` or `train.sh`.
+
+**Minimal Ubuntu procedure:** on this checkout build one archive with `python -m learning bundle --output tmp/bundle_<date>/WesnothLearning-training.tar.gz --created-at <fixed ISO8601>` and record its sha256; pass `--wheel dist/<manylinux x86_64>.whl` only when a bundled Linux wheel is intended, and add `--require-wheel` to `verify-bundle` in that case. Verify with `python -m learning verify-bundle <archive>` and confirm the member list, modes and exclusions against [bundle.md](bundle.md). Copy the archive to a clean Ubuntu 24.04 x86_64 machine, extract, and run `./setup.sh --preflight` (exit 0, no writes). Flip one payload byte in a copy and confirm preflight exits non-zero. Then `./setup.sh --device cpu`, which must exit 0 and print the rules/engine identity checks; run `./train.sh --help` with the tree compared before and after; and run `./train.sh` in a copy without `.runtime/environment.sh`, which must refuse. Confirm no `runs/` directory or run log exists afterwards.
+
+**Pass:** the recorded archive sha256 matches what verification reads, preflight accepts the intact copy and rejects the tampered one, and the archive contains no `.git`, venv, run state, validation evidence, delivery output, historical `1.18.8` package or raw replay dump. Setup exits 0 on the clean machine, writes `.runtime/environment.sh` and `.cache/setup.log`, and its identity checks agree with `rules.json`, `catalog-summary.json` and `_engine_lite`. `--help` creates nothing, and `train.sh` refuses without setup instead of starting work. Any observed failure is reported as a failure, never converted into a narrower pass.
+
+**Evidence:** `verification/training_bundle_ubuntu24_<date>/REPORT.md` with the archive path/sha256/manifest identity, every command and exit code, the intact and tampered preflight results, identity-check output, the tree diff around `--help`, the refusal output and the setup log. Absent that report the item is NOT RUN.
+
+**Training blocker:** this item proves installation only. It authorizes no collection, training start, convergence claim or strength claim; starting a run still requires explicit user instruction, and neither setup nor an extracted archive is that instruction.
+
 ## Execution order and report
 
 1. Identify changed owners, activated cases, reused evidence and missing fixtures. Predeclare maximum rows/windows/steps/games and numeric tolerances. Implement only needed assertions/helpers; record real test commands before running.

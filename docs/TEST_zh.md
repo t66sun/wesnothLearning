@@ -183,6 +183,18 @@ R1–R3 仅由 P7 激活。C1–C9 未变部分复用证据，刷新规则相关
 
 **证据/阻塞：** 新的按日期命名 `verification/<run>_<date>/REPORT.md`，含命令、计数、身份、检查点/恢复轨迹、最终评估入口与资源读数。本项本身不授权新增采集或正式训练。
 
+## PKG1：Ubuntu 24.04 训练归档包
+
+**状态/触发：** 构建器与静态校验器已实现，并于 2026-10-25 在本地测试：`python -m learning bundle --help` 与 `python -m learning verify-bundle --help` 退出码 0，16 项构建器/校验器检查与 11 项 setup/train 脚本检查通过。尚未构建任何归档包，也没有干净 Ubuntu 24.04 机器解压、安装或启动过，这些步骤均为 NOT RUN。在把归档包交给没有本工作副本的机器之前启用；payload 清单、排除规则、manifest、`SHA256SUMS`、`setup.sh` 或 `train.sh` 变更后也需重跑。
+
+**最小 Ubuntu 操作：** 在本工作副本上用 `python -m learning bundle --output tmp/bundle_<日期>/WesnothLearning-training.tar.gz --created-at <固定 ISO8601>` 构建一个归档包并记录 sha256；只有确实要打包 Linux wheel 时才传 `--wheel dist/<manylinux x86_64>.whl`，此时给 `verify-bundle` 加 `--require-wheel`。用 `python -m learning verify-bundle <archive>` 校验，并按 [bundle_zh.md](bundle_zh.md) 核对成员清单、权限位与排除项。把归档包复制到干净 Ubuntu 24.04 x86_64 机器解压，运行 `./setup.sh --preflight`（退出 0，不写入）。在副本中翻转一个 payload 字节，确认 preflight 退出非 0。然后 `./setup.sh --device cpu` 必须退出 0 并打印规则/引擎身份检查；`./train.sh --help` 前后对比目录树；在没有 `.runtime/environment.sh` 的副本中运行 `./train.sh` 必须拒绝。最后确认没有 `runs/` 目录或运行日志。
+
+**通过条件：** 记录的归档包 sha256 与校验时读到的一致；preflight 接受完好副本并拒绝被篡改副本；归档包内不含 `.git`、虚拟环境、运行状态、验证证据、交付产物、历史 `1.18.8` 包或原始回放转储。安装在同一干净机器上退出 0，写出 `.runtime/environment.sh` 与 `.cache/setup.log`，其身份检查与 `rules.json`、`catalog-summary.json` 及 `_engine_lite` 一致。`--help` 不创建任何内容，`train.sh` 在未安装时拒绝而非开工。观察到的失败如实记为失败，不得缩小成通过。
+
+**证据：** `verification/training_bundle_ubuntu24_<日期>/REPORT.md`，含归档包路径/sha256/manifest 身份、每条命令与退出码、完好与篡改两次 preflight 结果、身份检查输出、`--help` 前后目录树差异、拒绝输出与安装日志。缺少该报告时本项为 NOT RUN。
+
+**训练阻塞：** 本项只证明安装可用，不授权采样、启动训练、收敛结论或棋力结论；启动实验仍需用户明确指令，安装完成或解压出归档包都不构成该指令。
+
 ## 执行顺序与汇报
 
 1. 先列变更所有者、激活项、复用证据和缺失 fixture；预先声明最大 rows/windows/steps/games 与数值容差。只实现需要的断言/helper，执行前写清真实命令。

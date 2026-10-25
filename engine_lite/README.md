@@ -2,9 +2,9 @@
 
 > Language: English | [中文](README_zh.md)
 
-This directory provides native array state, a PyO3 JSON batch API and a directly embedded resident Lua 5.4 VM. No reference emulator code without a clear redistribution license was copied. This round did not build or run the engine; this machine lacks cargo/rustc and native 1.18.8 release data, so native rule and performance acceptance remain incomplete.
+This directory provides native array state, a PyO3 JSON batch API and a directly embedded resident Lua 5.4 VM. No reference emulator code without a clear redistribution license was copied. Native rule and performance acceptance remain incomplete.
 
-Build entry: after installing the Rust toolchain, use `maturin develop --release` in this directory. Python module `_engine_lite.LiteEngine(rules_json,spec_json)`; all JSON coordinates `pos/to` are zero-based row-major indices and Lua converts to one-based hex coordinates; weapon JSON is 0-based while Lua is 1-based.
+Build entry: the extracted training bundle's `./setup.sh` builds this directory with `maturin develop --release` when no Linux wheel is bundled in `dist/` (a bundled manylinux x86_64 wheel in `dist/`, named `wesnoth_learning_lite-*` or the legacy `_engine_lite-*`/`engine_lite-*`, is installed instead). A development checkout uses the same command in this directory after installing the Rust toolchain; see [docs/bundle.md](../docs/bundle.md) for the archive. Python module `_engine_lite.LiteEngine(rules_json,spec_json)`; all JSON coordinates `pos/to` are zero-based row-major indices and Lua converts to one-based hex coordinates; weapon JSON is 0-based while Lua is 1-based.
 
 `GameSpec` must explicitly provide width/height, flat terrain, sides, units, seed and max_turns. `side.id` is contiguous from 1 and team is non-empty; units carry id/unit_type/side/pos/hp/moves/attacks_left/xp/leader/status/traits. `allow_approximate=true` must be given explicitly. Units, recruit chains, upgrade chains and plague chains with unimplemented declarations are refused rather than silently degraded to ordinary attacks; full definitions may still remain in the rules-table enumeration. Games on the current new engine are marked approximate; the deterministic forecast itself reports `approximate=false`.
 
