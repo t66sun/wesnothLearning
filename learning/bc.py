@@ -1,5 +1,6 @@
 """Behaviour-cloning update loop, auxiliary objective and imitation quality."""
 import time
+import random
 
 import torch
 
@@ -28,6 +29,7 @@ def update(model, optimizer, records, bc_records=None, epochs=4, minibatch=256, 
         for step in range(start['step'] if epoch == start['epoch'] else 0, steps):
             if time.time() >= deadline:
                 return dict(updates=updates, loss=loss_sum / max(1, updates), interrupted=True)
+            batch_rng = random.getstate()
             optimizer.zero_grad()
             selected_windows = [window_index[id(r)] for r in sampler.sample(sequence_count)]
             total_value = 0.
@@ -37,6 +39,7 @@ def update(model, optimizer, records, bc_records=None, epochs=4, minibatch=256, 
                 for offset in range(0, len(window), micro):
                     if time.time() >= deadline:
                         optimizer.zero_grad()
+                        random.setstate(batch_rng)
                         return dict(updates=updates, loss=loss_sum / max(1, updates), interrupted=True)
                     rows = window[offset:offset + micro]
                     logits, values = model(*batch(rows, device))
@@ -57,6 +60,7 @@ def update(model, optimizer, records, bc_records=None, epochs=4, minibatch=256, 
             torch.nn.utils.clip_grad_norm_(model.parameters(), .5)
             if time.time() >= deadline:
                 optimizer.zero_grad()
+                random.setstate(batch_rng)
                 return dict(updates=updates, loss=loss_sum / max(1, updates), interrupted=True)
             optimizer.step()
             loss_sum += total_value
