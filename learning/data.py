@@ -18,6 +18,13 @@ def reward(result, side):
     return terminal_rewards(result)[side]
 
 
+@lru_cache(maxsize=1)
+def _lite_teacher_source():
+    # Source is frozen for the lifetime of a training process, not per row.
+    from .teachers import source_digest
+    return source_digest()
+
+
 def validate_record(r, format_name=None):
     import math
     if r['schema'] != VERSION or len(r['global']) != len(GLOBAL):
@@ -58,9 +65,25 @@ def validate_record(r, format_name=None):
     if format_name is not None and fmt != format_name: raise ValueError('cross-format sample rejected')
     if r.get('source') not in ('astra', 'human', 'policy'): raise ValueError('unknown data source')
     if r.get('faults'): raise ValueError('faulted games cannot provide training samples')
-    from .teachers import PROFILE as TEACHER_PROFILE
-    if r['source']=='astra' and r.get('teacher_profile')!=TEACHER_PROFILE:
-        raise ValueError('sample was produced by a different Astra teacher profile')
+    if r['source']=='astra':
+        from .adapters import ENGINE_VERSION, RNG_VERSION, COMBAT_VERSION
+        from .teachers import PROFILE as TEACHER_PROFILE
+        engine=r['engine_id']
+        native=engine in ('native','native-1.18.8')
+        if not native and engine not in ('lite',ENGINE_VERSION):
+            raise ValueError('unknown Astra teacher engine identity')
+        profile=r.get('teacher_profile')
+        if (native and profile not in (None,'native')) or (not native and profile!=TEACHER_PROFILE):
+            raise ValueError('sample was produced by a different Astra teacher profile')
+        expected=dict(engine='native' if native else 'lite',engine_version='1.18.8' if native else ENGINE_VERSION,
+                      rng_version='native-1.18.8' if native else RNG_VERSION,
+                      combat_version='native-1.18.8' if native else COMBAT_VERSION)
+        if any(r.get(key, value)!=value for key,value in expected.items()):
+            raise ValueError('Astra teacher engine/combat identity differs')
+        if r.get('teacher_source_sha256') is not None:
+            source='native-1.18.8' if native else _lite_teacher_source()
+            if r['teacher_source_sha256']!=source:
+                raise ValueError('Astra teacher source identity differs')
     if r['source']=='astra' and r.get('teacher')!='gpt6astra': raise ValueError('only gpt6astra is an active teacher')
     if r['source']=='human':
         if r.get('human_control') is not True or r.get('native_version')!='1.18.8': raise ValueError('human sample lacks native/control provenance')
