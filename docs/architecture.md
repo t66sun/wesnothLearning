@@ -554,7 +554,7 @@ No suite, gradient experiment, engine game or server command runs merely because
 | --- | --- | --- |
 | Whether admitted-family backfill is enough, or a chunked sequence index is needed | Actual fill/decoded cost and transient memory of the existing long 2v2 record after P2 | Further storage optimization only |
 | Whether logical-batch KL improves useful exposure at a safe step size | One fixed-batch comparison after P3, then separately authorized small training evidence | Adopting P4 behavior, not learner extraction |
-| Timing reserved for final nomination under the unchanged total budget | Existing panel durations and a predeclared schedule in the next run's manifest | Launching a run with P5b scheduling |
+| Timing reserved for final nomination under the unchanged total budget | New-run reserve implemented; predeclared 25/1/4-hour schedule, see 10.16 | Ubuntu reserve acceptance and frozen new-run manifest required before launch |
 | Which ordinary-game Lua transport works without assuming extra runtime facilities | P6a one-request/commit prototype on native Ubuntu 1.18.8 | External inference delivery only |
 | Whether eager CPU PyTorch should become a packaged/compiled backend | Same-input numeric parity, process/load cost and observed round-trip latency | Compiled backend choice only |
 | Whether the current model or reward must change | Corrected training exposure plus comparable validation and behavior evidence | A later model/reward experiment |
@@ -614,3 +614,9 @@ PRs #32–#37 each own one reproduced behavior. The [new report](../verification
 - **V6 / teachers:** native 1.18.8 Astra and deterministic-lite Astra validate against their own engine/RNG/combat/profile and supplied source identity. Legacy native rows may omit the lite profile; new native rows explicitly declare `native`. The existing native source tag is retained, not represented as a newly measured archive hash. Cross-rule identities reject; no native game was run.
 
 Unchanged Rust, shared Lua and teacher source trees match the original `e1181ea` acceptance source, and the catalog hash is unchanged. Reuse the original 273/17/13 results only for unchanged responsibilities; they do not replace these new checks. Rewards, thresholds, game quotas and training scale are unchanged. No full corpus re-encoding, full-suite rerun or formal training occurred.
+
+### 10.16 Final budget reservation and authorized 30-hour launch
+
+New-run `final_holdout_hours` defaults to zero and is frozen in config/manifest. It must be finite, nonnegative and smaller than the final 2/12 budget. Nomination alone subtracts it from the original evaluation deadline; holdout and total clocks retain that deadline. Missing legacy settings keep zero. Incomplete evidence retains the champion under V1. This implements the future-manifest reservation proposed in 10.15.
+
+The requested fresh CPU lite run predeclares 25 hours of updates, one hour of nomination and four hours of holdout; eight shared workers, one trainer thread, BC targets 300/600/400, zero native anchors and 30 final blocks. Historical three-format 420-game final evaluation took 36m53 in the [2026-10-24 report](../verification/model_strength_20261024_2120/REPORT.md); this informs the allocation without guaranteeing new-profile throughput. Quality, reward and training scale remain unchanged. Six focused Windows checks passed; Ubuntu acceptance and launch are pending, recorded separately in [the new review directory](../verification/final_review_lite30h_20261025/STATIC_REVIEW.md).
