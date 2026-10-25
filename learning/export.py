@@ -93,6 +93,19 @@ def export_checkpoints(checkpoints, destination, name='NeuralArena', evaluation=
                                                    'teacher','teacher_profile','teacher_source_sha256')}
         if not all(identity.values()):
             raise ValueError('checkpoint lacks combat or teacher profile identity; old weights are explicit initialization only: '+fmt)
+        if identity['engine']=='lite':
+            from .adapters import ENGINE_VERSION, RNG_VERSION, COMBAT_VERSION
+            from .teachers import identity as teacher_identity
+            expected=dict(engine='lite',engine_version=ENGINE_VERSION,rng_version=RNG_VERSION,
+                          combat_version=COMBAT_VERSION,**teacher_identity())
+        elif identity['engine']=='native':
+            expected=dict(engine='native',engine_version='1.18.8',rng_version='native-1.18.8',
+                          combat_version='native-1.18.8',teacher='gpt6astra',teacher_profile='native',
+                          teacher_source_sha256='native-1.18.8')
+        else:
+            raise ValueError('unsupported checkpoint engine identity: '+fmt)
+        if identity!=expected or (identities and identity!=next(iter(identities.values()))):
+            raise ValueError('checkpoint combat or teacher identity differs: '+fmt)
         identities[fmt]=identity
         if state.get('runner',{}).get('version',0)<=0 and state.get('metrics',{}).get('updates',0)<=0:
             raise ValueError('delivery requires a trained checkpoint, not initial support weights: '+fmt)
