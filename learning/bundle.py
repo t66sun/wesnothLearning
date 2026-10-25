@@ -24,6 +24,8 @@ ARCHIVE_ROOT = 'WesnothLearning'
 SCHEMA = 1
 RULES_DIR = 'data/rules/1.18.8-training'
 CATALOG = RULES_DIR + '/catalog-summary.json'
+RULES = RULES_DIR + '/rules.json'
+RULE_VERSION = '1.18.8'
 HUMAN_CURATED = 'data/humanData_curated/games.jsonl'
 MANIFEST_NAME = 'BUNDLE_MANIFEST.json'
 SUMS_NAME = 'SHA256SUMS'
@@ -131,6 +133,22 @@ def _rules_identity(root):
     missing = [name for name in ('source_hash', 'unit_count', 'terrain_count') if summary.get(name) in (None, '')]
     if missing:
         raise ValueError(CATALOG + ' is missing ' + ', '.join(missing))
+    try:
+        rules = json.loads(rules_path.read_text(encoding='utf-8'))
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise ValueError('rules.json is not valid JSON: ' + str(exc)) from None
+    if not isinstance(rules, dict):
+        raise ValueError('rules.json is not a JSON object')
+    if rules.get('source_version') != RULE_VERSION:
+        raise ValueError('rules.json source_version differs from ' + RULE_VERSION)
+    if rules.get('source_hash') != summary['source_hash']:
+        raise ValueError('rules.json source_hash differs from ' + CATALOG)
+    if not isinstance(rules.get('units'), dict) or not isinstance(rules.get('terrains'), dict):
+        raise ValueError('rules.json units and terrains must be objects')
+    if len(rules['units']) != summary['unit_count']:
+        raise ValueError('rules.json unit_count differs from ' + CATALOG)
+    if len(rules['terrains']) != summary['terrain_count']:
+        raise ValueError('rules.json terrain_count differs from ' + CATALOG)
     return dict(directory=RULES_DIR, rules_file_sha256=digest, source_hash=summary['source_hash'],
                 unit_count=summary['unit_count'], terrain_count=summary['terrain_count'])
 
@@ -325,6 +343,10 @@ def _read_manifest(manifest, files, errors):
         errors.append('manifest totals.bytes does not match its own file list')
 
 
+def _count(value):
+    return len(value) if isinstance(value, dict) else None
+
+
 def _read_rules(manifest, files, captured, errors):
     data = manifest.get('data') or {}
     rules = data.get('rules') or {}
@@ -348,6 +370,23 @@ def _read_rules(manifest, files, captured, errors):
             for name in ('rules_file_sha256', 'source_hash', 'unit_count', 'terrain_count'):
                 if catalog.get(name) != rules.get(name):
                     errors.append('catalog-summary %s differs from the manifest' % name)
+    frozen_bytes = captured.get(RULES)
+    if frozen_bytes is None:
+        errors.append('missing ' + RULES)
+    else:
+        try:
+            frozen = json.loads(frozen_bytes.decode('utf-8'))
+        except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+            errors.append('rules.json is not valid JSON: ' + str(exc))
+            frozen = None
+        if isinstance(frozen, dict):
+            if frozen.get('source_version') != RULE_VERSION:
+                errors.append('rules.json source_version is not ' + RULE_VERSION)
+            for name, value in (('source_hash', frozen.get('source_hash')),
+                                ('unit_count', _count(frozen.get('units'))),
+                                ('terrain_count', _count(frozen.get('terrains')))):
+                if value is None or value != rules.get(name):
+                    errors.append('rules.json %s differs from the manifest' % name)
     opponents = data.get('opponents')
     if not isinstance(opponents, list) or not opponents:
         errors.append('manifest lists no opponents')
@@ -465,7 +504,7 @@ def verify_bundle(archive, require_wheel=False):
                     size += len(block)
                 files[name] = dict(relative=relative, size=size, sha256=digest.hexdigest(), mode=member.mode)
                 infos[name] = member
-            for relative in (MANIFEST_NAME, SUMS_NAME, CATALOG):
+            for relative in (MANIFEST_NAME, SUMS_NAME, CATALOG, RULES):
                 name = ARCHIVE_ROOT + '/' + relative
                 if name in infos:
                     captured[relative] = tar.extractfile(infos[name]).read()

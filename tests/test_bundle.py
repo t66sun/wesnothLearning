@@ -23,7 +23,9 @@ def _write(root, files):
 
 def _fixture(root):
     """Minimal tree with every required path plus excluded local state."""
-    rules = {'source_version': '1.18.8', 'source_hash': 'a' * 64}
+    rules = {'source_version': '1.18.8', 'source_hash': 'a' * 64,
+             'units': {'spearman': {'level': 1}, 'bowman': {'level': 1}, 'grunt': {'level': 1}},
+             'terrains': {'grassland': {'movement_cost': 1}, 'hills': {'movement_cost': 2}}}
     rules_bytes = (json.dumps(rules, indent=2) + '\n').encode('utf-8')
     summary = {'summary_version': 1, 'source_version': '1.18.8', 'source_hash': rules['source_hash'],
                'rules_file_sha256': hashlib.sha256(rules_bytes).hexdigest(), 'unit_count': 3, 'terrain_count': 2}
@@ -78,6 +80,42 @@ def _retar(source, target, replace=None, drop=(), add=()):
             info.size = len(data)
             info.mode = 0o644
             dst.addfile(info, io.BytesIO(data))
+
+
+def _retar_rules(source, target, mutate):
+    """Rewrite rules.json while keeping the catalog, manifest file rows and SHA256SUMS consistent."""
+    members = _members(source)
+    root = ARCHIVE_ROOT + '/'
+    rules_name = root + RULES_DIR + '/rules.json'
+    catalog_name = root + CATALOG
+    manifest_name = root + MANIFEST_NAME
+    sums_name = root + SUMS_NAME
+    rules = json.loads(members[rules_name][1])
+    mutate(rules)
+    rules_bytes = (json.dumps(rules, indent=2) + '\n').encode('utf-8')
+    digest = hashlib.sha256(rules_bytes).hexdigest()
+    catalog = json.loads(members[catalog_name][1])
+    catalog['rules_file_sha256'] = digest
+    catalog_bytes = (json.dumps(catalog, indent=2) + '\n').encode('utf-8')
+    manifest = json.loads(members[manifest_name][1])
+    rewritten = {RULES_DIR + '/rules.json': rules_bytes, CATALOG: catalog_bytes}
+    for row in manifest['files']:
+        data = rewritten.get(row['path'])
+        if data is not None:
+            row.update(size=len(data), sha256=hashlib.sha256(data).hexdigest())
+    manifest['data']['rules']['rules_file_sha256'] = digest
+    manifest['totals']['bytes'] = sum(row['size'] for row in manifest['files'])
+    manifest_bytes = (json.dumps(manifest, indent=2) + '\n').encode('utf-8')
+    rows = {name[len(root):]: data for name, (_, data) in members.items()
+            if data is not None and name not in (manifest_name, sums_name)}
+    rows.update(rewritten)
+    rows[MANIFEST_NAME] = manifest_bytes
+    sums = ''.join('%s  %s\n' % (hashlib.sha256(data).hexdigest(), path)
+                   for path, data in sorted(rows.items()))
+    replace = {rules_name: rules_bytes, catalog_name: catalog_bytes, manifest_name: manifest_bytes,
+               sums_name: sums.encode('utf-8')}
+    _retar(source, target, replace=replace)
+    return target
 
 
 class BundleTests(unittest.TestCase):
@@ -152,6 +190,29 @@ class BundleTests(unittest.TestCase):
         self.assertIn(ARCHIVE_ROOT + '/' + HUMAN_CURATED, members)
         self.assertIn(ARCHIVE_ROOT + '/' + RULES_DIR + '/rules.json', members)
 
+    def test_build_rejects_inconsistent_rule_counts(self):
+        path = self.root / CATALOG
+        summary = json.loads(path.read_text(encoding='utf-8'))
+        summary['unit_count'] = 4
+        path.write_text(json.dumps(summary, indent=2) + '\n', encoding='utf-8')
+        with self.assertRaises(ValueError) as raised:
+            self.build()
+        self.assertIn('unit_count', str(raised.exception))
+
+    def test_build_rejects_rule_source_hash_mismatch(self):
+        rules_path = self.root / RULES_DIR / 'rules.json'
+        rules = json.loads(rules_path.read_text(encoding='utf-8'))
+        rules['source_hash'] = 'b' * 64
+        rules_bytes = (json.dumps(rules, indent=2) + '\n').encode('utf-8')
+        rules_path.write_bytes(rules_bytes)
+        summary_path = self.root / CATALOG
+        summary = json.loads(summary_path.read_text(encoding='utf-8'))
+        summary['rules_file_sha256'] = hashlib.sha256(rules_bytes).hexdigest()
+        summary_path.write_text(json.dumps(summary, indent=2) + '\n', encoding='utf-8')
+        with self.assertRaises(ValueError) as raised:
+            self.build()
+        self.assertIn('source_hash', str(raised.exception))
+
     def test_same_created_at_reproduces_bytes(self):
         first = self.build('first.tar.gz')
         second = self.build('second.tar.gz')
@@ -203,6 +264,22 @@ class BundleTests(unittest.TestCase):
         self.assertTrue(any('learning/bundle.py' in error and 'mismatch' in error for error in report['errors']),
                         report['errors'])
         self.assertTrue(any(error.startswith(SUMS_NAME) and 'learning/bundle.py' in error for error in report['errors']))
+
+    def test_verifier_rejects_rule_count_mismatch(self):
+        self.build()
+        archive = _retar_rules(self.base / 'bundle.tar.gz', self.base / 'rules.tar.gz',
+                              lambda rules: rules['units'].update({'wolf_rider': {'level': 2}}))
+        report = verify_bundle(archive)
+        self.assertFalse(report['ok'])
+        self.assertEqual(report['errors'], ['rules.json unit_count differs from the manifest'])
+
+    def test_verifier_rejects_rule_hash_mismatch(self):
+        self.build()
+        archive = _retar_rules(self.base / 'bundle.tar.gz', self.base / 'rules.tar.gz',
+                               lambda rules: rules.update(source_hash='b' * 64))
+        report = verify_bundle(archive)
+        self.assertFalse(report['ok'])
+        self.assertEqual(report['errors'], ['rules.json source_hash differs from the manifest'])
 
     def test_verifier_rejects_forbidden_path(self):
         self.build()
