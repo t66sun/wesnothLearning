@@ -22,7 +22,7 @@ from .checkpoints import validate_checkpoint, EXECUTION_VERSION
 from .ppo import PLAN_VERSION
 from .train import checkpoint, restore_rng, train, imitation_quality
 from .updates import rollout_identity
-from .selection import decide, validate_frozen_selection
+from .selection import validate_frozen_selection
 
 
 def read_log(path):
@@ -550,14 +550,62 @@ class FormatExperiment:
 
     def _checkpoint_version(self,path):
         state=torch.load(path,map_location='cpu',weights_only=False)
+        if state.get('runner',{}).get('pending_train'): return -1
         return int(state.get('runner',{}).get('version',-1))
+
+    def _nominate_final(self,candidate,champion):
+        """One full validation nomination; training and holdout are untouched."""
+        from .selection import _panel_complete
+        version=self._checkpoint_version(candidate)
+        if version<=self._checkpoint_version(champion):
+            return dict(choice='champion',reason='no newer complete candidate')
+        deadline=self.evaluation_deadline()
+        if time.time()>=deadline:
+            return dict(choice='champion',reason='no nomination time remains')
+        model,candidate_state=load_model(candidate,self.fmt)
+        if candidate_state.get('runner',{}).get('pending_train'):
+            return dict(choice='champion',reason='candidate update is incomplete')
+        champion_model,champion_state=load_model(champion,self.fmt)
+        champion_key=champion_state.get('runner',{}).get('best_key')
+        if champion_key is None:
+            return dict(choice='champion',reason='champion validation score unavailable')
+        policy=self.ensure_export(model,f'nominate-v{version:06}-'+sha256(candidate)[:16],f'NominateV{version:06}',version=f'v{version}')
+        opponent=self.ensure_export(champion_model,'nominate-champion-'+sha256(champion)[:16],'NominateChampion')
+        contexts=('baseline_partner','self_team') if self.config['engine']=='native' else ('astra_partner','self_team')
+        identity=dict(candidate_sha256=sha256(candidate),champion_sha256=sha256(champion),
+            profile=self.identity(),features=schema(),seed=self.config['seed']+1000000,contexts=list(contexts))
+        identity=json.loads(json.dumps(identity))
+        panels=[]
+        for label,control in (('astra',self.teachers[0]),('champion',opponent)):
+            path=self.directory/'validation'/f'nominate-v{version:06}-{label}.json'
+            expected=dict(identity,control=control)
+            panel=read_json(path) if path.exists() else None
+            if not (panel and panel.get('identity')==expected and _panel_complete(panel,self.fmt)):
+                if time.time()>=deadline:
+                    return dict(choice='champion',reason='nomination time exhausted')
+                # Hash-bound schedule names cannot replay another checkpoint's games.
+                suffix=hashlib.sha256(json.dumps(expected,sort_keys=True).encode()).hexdigest()[:16]
+                name=f'nominate-v{version:06}-{label}-{suffix}'
+                jobs=evaluation_jobs(self.directory,policy,control,self.fixed,12,identity['seed'],deadline,
+                    self.exe,label=name,formats=[self.fmt],team_contexts=contexts)
+                jobs,results=self.execute(jobs,name)
+                panel=dict(identity=expected,comparison=comparisons(jobs,results,min_blocks=12,team_contexts=contexts))
+                write_json(path,panel)
+            panels.append(panel)
+            if not _panel_complete(panel,self.fmt):
+                return dict(choice='champion',reason=label+' nomination panel incomplete')
+            if panel['comparison'][self.fmt]['status']!='passed':
+                return dict(choice='champion',reason=label+' nomination did not pass')
+        if panels[0]['comparison'][self.fmt]['difference']<=champion_key:
+            return dict(choice='champion',reason='candidate did not beat the retained champion score')
+        return dict(choice='candidate',reason='full Astra and champion nomination passed')
 
     def _select_final(self):
         frozen=self.directory/'selected.pt';record=self.directory/'selection.json'
         if frozen.exists() and record.exists():
             saved=validate_frozen_selection(record,sha256(frozen));return frozen,saved['selected_kind'],saved
         champion=self.directory/'best.pt'
-        candidates=[p for p in [self.directory/'last_ppo.pt',self.directory/'last_bc.pt',self.directory/'latest.pt'] if p.exists()]
+        candidates=[p for p in [self.directory/'last_ppo.pt',self.directory/'last_bc.pt',self.directory/'latest.pt'] if p.exists() and self._checkpoint_version(p)>=0]
         if not champion.exists() and not candidates:
             raise RuntimeError('no complete checkpoint to select')
         if not champion.exists():
@@ -568,9 +616,7 @@ class FormatExperiment:
             ranked=sorted(candidates,key=lambda p:self._checkpoint_version(p),reverse=True)
             candidate=ranked[0] if ranked else champion
             candidate_version=self._checkpoint_version(candidate)
-            candidate_panel=read_json(self.directory/'validation'/f'v{candidate_version:06}.json')
-            champion_panel=read_json(self.directory/'validation'/f'v{champion_version:06}.json')
-            detail=decide(candidate_panel,champion_panel,self.fmt)
+            detail=self._nominate_final(candidate,champion)
             if detail['choice']=='candidate':
                 chosen=candidate;kind='candidate';version=candidate_version
             else:

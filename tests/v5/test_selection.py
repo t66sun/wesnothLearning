@@ -45,6 +45,9 @@ class SelectionTests(unittest.TestCase):
             experiment.fmt = 'duel'
             versions = {'best.pt': 100, 'last_ppo.pt': 110}
             experiment._checkpoint_version = lambda path: versions[Path(path).name]
+            experiment._nominate_final = lambda candidate, champion: decide(
+                json.loads((directory/'validation/v000110.json').read_text()),
+                json.loads((directory/'validation/v000100.json').read_text()), 'duel')
             frozen, kind, saved = experiment._select_final()
             self.assertEqual(kind, 'candidate')
             self.assertEqual(frozen.read_bytes(), b'last_ppo.pt')
@@ -65,6 +68,9 @@ class SelectionTests(unittest.TestCase):
             experiment.fmt = 'duel'
             versions = {'best.pt': 100, 'last_ppo.pt': 110}
             experiment._checkpoint_version = lambda path: versions[Path(path).name]
+            experiment._nominate_final = lambda candidate, champion: decide(
+                json.loads((directory/'validation/v000110.json').read_text()),
+                json.loads((directory/'validation/v000100.json').read_text()), 'duel')
             frozen, kind, saved = experiment._select_final()
             self.assertEqual(kind, 'champion')
             self.assertEqual(frozen.read_bytes(), b'best')
