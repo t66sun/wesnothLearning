@@ -66,7 +66,7 @@ def default_config(device='cuda', *, engine=None):
     bc_games=dict(duel=300,ffa4=600,team2v2=400)
     return dict(hours=12.,workers=8,device=device,trainer_threads=1,seed=20261018,engine=engine,evaluation_engine=engine,reward_mode='adaptive',phase='auto',allow_approximate=engine=='lite',rules_dir=str(resolve_dir()),
         formats=list(FORMATS),calibration_blocks=3,validation_interval=10,
-        validation_games=dict(duel=6,ffa4=4,team2v2=8),final_blocks=30,
+        validation_games=dict(duel=6,ffa4=4,team2v2=8),final_blocks=30,final_holdout_hours=0.,
         bc_games=bc_games,
         native_bc_games={fmt:0 if engine=='lite' else games for fmt,games in bc_games.items()},bc_batch_games=8,
         bc_accuracy=dict(all=.4,recruit=.6,move=.35,attack=.35),shaping_weight=None,
@@ -79,6 +79,8 @@ def default_config(device='cuda', *, engine=None):
 def validate_config(config):
     if config.get('phase','auto') not in ('auto','bc'): raise ValueError('new runs start in auto or bc; use phase for PPO/evaluation')
     if config['hours']<=0: raise ValueError('hours must be positive')
+    if not 0<=config.get('final_holdout_hours',0.)<config['hours']/6:
+        raise ValueError('holdout reserve must be finite, nonnegative and smaller than the final budget')
     if not 1<=config['workers']<=16: raise ValueError('workers is the GLOBAL game process count, in [1,16]')
     if config['final_blocks']<30: raise ValueError('formal evaluation needs 30 full blocks per control')
     if not config['formats'] or len(set(config['formats']))!=len(config['formats']) or not set(config['formats'])<=set(FORMATS):
@@ -566,7 +568,7 @@ class FormatExperiment:
         version=self._checkpoint_version(candidate)
         if version<=self._checkpoint_version(champion):
             return dict(choice='champion',reason='no newer complete candidate')
-        deadline=self.evaluation_deadline()
+        deadline=self.evaluation_deadline()-self.config.get('final_holdout_hours',0.)*3600
         if time.time()>=deadline:
             return dict(choice='champion',reason='no nomination time remains')
         model,candidate_state=load_model(candidate,self.fmt)

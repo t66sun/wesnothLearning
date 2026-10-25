@@ -28,6 +28,7 @@ def parser():
     run.add_argument('--trainer-threads',type=int,default=1,help='每个训练器的 CPU 计算线程数（默认 1）')
     run.add_argument('--wesnoth');run.add_argument('--opponents',default=str(ROOT/'data/opponents'))
     run.add_argument('--seed',type=int,default=20261017);run.add_argument('--final-blocks',type=int,default=30)
+    run.add_argument('--final-holdout-hours',type=float,help='在原最终评估预算内为 holdout 预留小时数；默认 0，提名提前截止')
     run.add_argument('--validation-interval',type=int,default=10,help='每多少轮采集并更新参数后进行一次同引擎对局验证')
     run.add_argument('--bc-games',nargs=3,type=int,metavar=('DUEL','FFA4','TEAM2V2'),help='有效教师对局总目标，单挑/FF4/2v2 默认 300/600/400；lite 默认全部使用 lite')
     run.add_argument('--native-bc-games',nargs=3,type=int,metavar=('DUEL','FFA4','TEAM2V2'),help='各赛制原版教师局数下限，计入 --bc-games；lite 默认 0 0 0，native 默认 300 600 400')
@@ -121,7 +122,7 @@ def run_config(args):
     directory=bind_rules(args)
     from .experiment import default_config
     names=('hours','workers','device','trainer_threads','seed','final_blocks','formats','human_data','validation_interval',
-           'bc_batch_games','bc_records','bc_validation_records','shaping_weight','engine','evaluation_engine','reward_mode','allow_approximate','phase')
+           'bc_batch_games','bc_records','bc_validation_records','shaping_weight','engine','evaluation_engine','reward_mode','allow_approximate','phase','final_holdout_hours')
     config=default_config(args.device,engine=args.engine)|{name:getattr(args,name) for name in names if getattr(args,name) is not None}
     config['rules_dir']=str(directory)
     if args.bc_games is not None:config['bc_games']=dict(zip(FORMATS,args.bc_games))

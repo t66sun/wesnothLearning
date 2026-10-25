@@ -107,6 +107,8 @@ Post-start checks:
 
 This guide does not prescribe a default pre-flight rerun of 277 tests, the 30-block performance matrix or large-sample combat statistics.
 
+New runs may freeze `--final-holdout-hours H` inside the existing final 2/12 budget (default 0; `0 <= H < hours/6`). Only final nomination stops H hours before the original total deadline; holdout retains that deadline. For the authorized fresh 30-hour run, use H=4: 25 hours updates, 1 hour nomination, 4 hours holdout. Incomplete nomination retains the champion; no deadline extension or gate override. Resume keeps the original frozen config.
+
 ## 5. Resuming existing training
 
 **Current status, 2026-10-24:** the 16:31 continuation finished normally at **20:42:45**, exit code 0, after its 20:05:52 PPO cutoff and all 30 final blocks per format. All three lite Astra strength comparisons are **not_passed**. No training is active. Final selected checkpoints are duel/FFA4 v100 and team2v2 v80; latest trained versions are 211/143/80. Models are downloaded to `delivery/lite_final_20261024/` and installed locally as **Arena AI: NeuralArena20261024**, preserving older add-ons. Enable that modification and select its same-name computer AI in multiplayer; format routing is automatic. Numerical export and registration checks passed, not native playing-strength acceptance. See the [installation and strength review](../verification/model_strength_20261024_2120/REPORT.md). The following startup record is historical; do not restart it without a new instruction.

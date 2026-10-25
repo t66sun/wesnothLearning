@@ -554,7 +554,7 @@ P7b 从冻结包派生 `learning/teachers/gpt6astra/`，lite Astra 席位经该�
 | --- | --- | --- |
 | 已准入家族回填是否足够，是否还需要分块序列索引 | P2 后已有长 2v2 记录的实际填充、解码代价、瞬时内存 | 仅阻塞进一步存储优化 |
 | 逻辑批次 KL 是否在安全步长下提高有效暴露 | P3 后一个固定批次对照，之后另获授权的小训练证据 | 阻塞采用 P4 行为，不阻塞 learner 拆分 |
-| 总预算不变时给最终提名预留多久 | 已有面板耗时及下一 run 预先声明的调度/manifest | 阻塞采用 P5b 调度的新训练启动 |
+| 总预算不变时给最终提名预留多久 | 新 run 预留已实现，预声明 25/1/4 小时，见 10.16 | 启动前仍需 Ubuntu 预留验收及冻结新 manifest |
 | 普通游戏里哪种 Lua 通信方式无需假定额外设施 | P6a 在原版 Ubuntu 1.18.8 的一请求/提交原型 | 仅阻塞外部推理交付 |
 | CPU eager PyTorch 是否需要打包/编译后端 | 同输入数值一致性、进程/模型加载成本、真实往返时延 | 仅阻塞编译后端选择 |
 | 当前网络或奖励是否需要改 | 修正后的真实训练暴露、可比验证及行为证据 | 阻塞后续模型/奖励实验 |
@@ -614,3 +614,9 @@ PR #32–#37 分别只修一项已复现行为。[新报告](../verification/ref
 - **V6 / 教师：** Native 1.18.8 Astra 与 deterministic-lite Astra 分别校验自身 engine/RNG/combat/profile 及提供的 source 身份。旧 native 行可无 lite profile，新 native 行显式标为 `native`；沿用既有 native source 标签，不将它当成新测得的包哈希。跨规则混入拒绝，未启动原版对局。
 
 未改 Rust、共享 Lua 与教师源码树和原 `e1181ea` 验收源码一致，catalog hash 不变。原 273/17/13 项仅对未变职责复用，不能替代本轮新增检查。奖励、门限、局数配额和训练规模不变；未重编码全语料、重跑全套或启动正式训练。
+
+### 10.16 最终预算预留及获准的 30 小时新训练
+
+新 run 的 `final_holdout_hours` 默认零，冻结进 config/manifest，必须有限、非负且小于最终 2/12 预算。仅提名从原最终截止减去该预留；holdout 与总时钟仍用原截止。旧配置缺字段视为零；证据不完整继续按 V1 保留冠军。本节实现 10.15 当时提出的新 manifest 预留。
+
+本次用户要求新建 CPU lite 训练，预声明 25 小时更新、1 小时提名、4 小时 holdout；8 个共享 worker、trainer 单线程、BC 目标 300/600/400、原版锚点零、最终 30 blocks。[2026-10-24 报告](../verification/model_strength_20261024_2120/REPORT.md)中三赛制 420 局最终评估耗时 36 分 53 秒，为预算依据，不保证新 profile 吞吐。质量、奖励和训练规模不变。6 项 Windows 专项检查通过；Ubuntu 验收与启动待执行，另记于[新复核目录](../verification/final_review_lite30h_20261025/STATIC_REVIEW.md)。
