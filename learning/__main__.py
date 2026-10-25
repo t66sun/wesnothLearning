@@ -69,6 +69,12 @@ def parser():
     report.add_argument('--jobs',required=True);report.add_argument('--results',required=True);report.add_argument('--output',required=True)
     package=commands.add_parser('package',help='打包可传到 Linux 的开发工程')
     package.add_argument('--output',default='delivery/WesnothLearning.zip')
+    bundle=commands.add_parser('bundle',help='构建可解压即用的 Ubuntu 24.04 训练归档')
+    bundle.add_argument('--output',required=True,help='归档路径，须在工程目录内')
+    bundle.add_argument('--wheel',help='可选 manylinux x86_64 wheel，复制到归档 dist/')
+    bundle.add_argument('--created-at',help='ISO 8601 时间戳；固定后同一输入产生相同字节')
+    verify=commands.add_parser('verify-bundle',help='静态校验训练归档的结构、哈希与权限')
+    verify.add_argument('archive');verify.add_argument('--require-wheel',action='store_true',help='要求归档内含 manylinux x86_64 wheel')
     human=commands.add_parser('import-human',help='准备原版重放观测，或导入通过校验的 1.18.8 捕获日志')
     human.add_argument('--curated',default=str(ROOT/'data/humanData_curated'))
     human.add_argument('--output',default='data/datasets/human');human.add_argument('--wesnoth')
@@ -204,6 +210,14 @@ def main(argv=None):
         elif args.command=='package':
             from .package import package_project
             print(package_project(output_path(args.output)))
+        elif args.command=='bundle':
+            from .bundle import build_bundle
+            print(json.dumps(build_bundle(output_path(args.output),wheel=args.wheel,created_at=args.created_at),ensure_ascii=False))
+        elif args.command=='verify-bundle':
+            from .bundle import verify_bundle
+            report=verify_bundle(args.archive,require_wheel=args.require_wheel)
+            print(json.dumps(report,ensure_ascii=False))
+            if not report['ok']: raise SystemExit(2)
         elif args.command=='import-human':
             from .human import import_curated
             result=import_curated(args.curated,output_path(args.output),args.wesnoth,args.inventory_only,args.captures)
