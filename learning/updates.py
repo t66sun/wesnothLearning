@@ -42,18 +42,37 @@ def setup(model, records, minibatch):
 
 
 def rollout_identity(rows):
-    """Hash the immutable order and provenance of one planned update."""
-    digest = hashlib.sha256()
-    targets = []
-    for row in rows:
+    """Bind target identity, training content and legal raw recurrent prefixes.
+
+    Hash one row at a time; shared prefix slots are hashed once per call. Numeric
+    vector lists and arrays use the existing float64 compaction convention.
+    """
+    from .rowpack import compact_row
+    encoder = json.JSONEncoder(sort_keys=True, separators=(',', ':'), allow_nan=False,
+                               default=lambda value: value.tolist())
+    def content_hash(payload):
+        content = hashlib.sha256()
+        for piece in encoder.iterencode(compact_row(payload)):
+            content.update(piece.encode())
+        return content.hexdigest()
+
+    ordered = sorted(rows, key=lambda r: (str(r.get('format')), str(r.get('source')),
+        str(r.get('engine_id')), str(r.get('game_family')), str(r.get('game_id')),
+        str(r.get('side')), int(r['turn']), int(r.get('decision', r.get('action_index', 0)))))
+    if not all('_history' in row for row in ordered):
+        ordered = attach_histories(ordered)
+    digest = hashlib.sha256(b'rollout-content-v2\n')
+    prefixes = {}
+    for row in ordered:
         if row.get('choice', -1) < 0:
             continue
-        targets.append((row.get('game_id'), row.get('side'), row.get('turn'), row.get('decision'), row))
-    targets.sort(key=lambda item: (str(item[0]), str(item[1]), int(item[2]), str(item[3])))
-    for game_id, side, turn, decision, row in targets:
-        payload = {key: row.get(key) for key in ('version', 'engine_id', 'rules_version', 'rng_version',
-                                                  'combat_version', 'teacher_profile', 'reward_version', 'reward_formula_id',
-                                                  'game_family')}
-        digest.update(json.dumps(payload, sort_keys=True, separators=(',', ':')).encode())
+        history = []
+        for slot in row['_history']:
+            if id(slot) not in prefixes:
+                prefixes[id(slot)] = content_hash(slot)
+            history.append(prefixes[id(slot)])
+        payload = {key: value for key, value in row.items() if key not in ('_history', '_sequence_complete')}
+        payload['_history'] = history
+        digest.update(content_hash(payload).encode())
         digest.update(b'\n')
     return digest.hexdigest()
