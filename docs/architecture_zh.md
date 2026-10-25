@@ -298,7 +298,7 @@ vendor/arena/              内置的 WesnothArena native v2 SDK
 data/                      采集输入，非源码；由流程供给，不手工编辑
 data/rules/1.18.8-training/ 默认 587 单位规则包，可随开发工程分发
 data/rules/1.18.8/         历史旧规则包及原版冻结地图，保留原实验身份
-data/datasets/             人类与教师数据、序列索引
+data/datasets/             数据集导入输入；目前为 human/import.json
 data/humanData/            从游戏安装目录拉取的原始回放
 data/humanData_curated/    用于 BC 的 1.18.8 精选回放
 data/opponents/            冻结的参考对手包

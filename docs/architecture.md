@@ -298,7 +298,7 @@ vendor/arena/              vendored WesnothArena native v2 SDK
 data/                      captured inputs, not source; provisioned, never hand-edited
 data/rules/1.18.8-training/ default 587-unit rule package, distributable with the development tree
 data/rules/1.18.8/         historical rule package and frozen native maps, keeping the original experiment identity
-data/datasets/             human and teacher data, sequence indexes
+data/datasets/             dataset import inputs; currently human/import.json
 data/humanData/            raw replay dumps pulled from the game install
 data/humanData_curated/    curated 1.18.8 replays used for BC
 data/opponents/            frozen reference opponent packages
