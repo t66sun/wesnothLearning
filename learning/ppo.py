@@ -84,8 +84,8 @@ def update(model, optimizer, records, bc_records=None, epochs=4, minibatch=256, 
     updates = start.get('updates', 0)
     kl = 0.
     decisions_seen = start.get('decisions_seen', 0)
-    inspected = 0
-    committed = 0
+    inspected = start.get('inspected_decisions', decisions_seen)
+    committed = start.get('committed_decisions', decisions_seen)
     before = _digest(model)
     cursor = dict(epoch=start.get('epoch', 0), step=start.get('step', 0), plan_version=PLAN_VERSION,
                   plan_seed=plan_seed)
@@ -102,7 +102,9 @@ def update(model, optimizer, records, bc_records=None, epochs=4, minibatch=256, 
                     microbatch=micro, exit=exit, plan_version=PLAN_VERSION, plan_migrated=plan_migrated,
                     planned_windows=len(windows), planned_targets=len(targets), repeated_targets=repeated,
                     inspected_decisions=inspected, committed_decisions=committed,
-                    policy_sha256_before=before, policy_sha256_after=_digest(model), cursor=cursor)
+                    policy_sha256_before=before, policy_sha256_after=_digest(model),
+                    cursor=dict(cursor,loss_sum=loss_sum,updates=updates,decisions_seen=decisions_seen,
+                                inspected_decisions=inspected,committed_decisions=committed))
 
     plan_migrated = progress is not None and progress.get('plan_version', 1) != PLAN_VERSION
     if not windows:

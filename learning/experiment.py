@@ -338,6 +338,7 @@ class FormatExperiment:
             for group in self.optimizer.param_groups: group['lr']=1e-4
         metrics=train(self.model,self.optimizer,rows,method,epochs=self.config['epochs'],minibatch=self.config['minibatch'],
             deadline=self.update_deadline(),progress=pending['cursor'],on_step=progress,bc_records=bc,entropy=frozen['entropy'],bc_aux=frozen['bc_aux'],plan_seed=int(self.config['seed']))
+        if metrics.get('cursor') is not None: pending['cursor']=metrics['cursor']
         if metrics['interrupted']: self.save();return False
         committed=metrics.get('committed_decisions',metrics.get('decisions_seen',0))
         history=dict(batch=self.state['batch'],method=method,
