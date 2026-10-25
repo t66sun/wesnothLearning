@@ -32,7 +32,7 @@ Options:
       --device NAME          cpu, cuda, cuda:N or auto (default: cpu).
       --trainer-threads N    CPU threads per trainer (default: 1).
       --engine NAME          native or lite (default: lite).
-      --evaluation-engine N  native or lite (default: lite).
+      --evaluation-engine NAME  native or lite (default: lite).
       --bc-games D F T       Teacher-game targets duel/ffa4/team2v2
                              (default: 300 600 400).
       --formats F [F ...]    Formats to train (default: duel ffa4 team2v2).
@@ -114,7 +114,7 @@ if [[ -z "${WESNOTH_EXE:-}" || ! -x "$WESNOTH_EXE" ]]; then
     exit 1
 fi
 if [[ -e "$RUN_DIR" ]]; then
-    echo "train.sh: experiment directory already exists: $RUN_DIR; use --resume or a new name" >&2
+    echo "train.sh: experiment directory already exists: $RUN_DIR; use --run-dir with a new name, or pass '-- --resume <RUN_DIR>' to continue an existing experiment" >&2
     exit 1
 fi
 
