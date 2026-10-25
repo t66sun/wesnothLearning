@@ -219,9 +219,12 @@ class FormatExperiment:
 
     def save(self):
         if hasattr(self,'controller'): self.state['reward_controller']=self.controller.state_dict()
-        checkpoint(self.directory/'latest.pt',self.model,self.optimizer,runner=copy.deepcopy(self.state),
-            execution=dict(plan_version=PLAN_VERSION),manifest_sha256=sha256(self.directory.parent/'manifest.json'),**self.identity())
+        self._write_checkpoint(self.directory/'latest.pt')
         write_json(self.directory/'state.json',self.state)
+
+    def _write_checkpoint(self,path):
+        checkpoint(path,self.model,self.optimizer,runner=copy.deepcopy(self.state),
+            execution=dict(plan_version=PLAN_VERSION),manifest_sha256=sha256(self.directory.parent/'manifest.json'),**self.identity())
 
     def identity(self):
         """Provenance of the combat engine and teacher this run trains against."""
@@ -366,7 +369,7 @@ class FormatExperiment:
         self.state['pending_train']=None
         self.state['pending_validation']=method if self.state['version']%self.config['validation_interval']==0 else None
         self.save()
-        checkpoint(self.directory/f'last_{method}.pt',self.model,self.optimizer,execution=dict(plan_version=PLAN_VERSION),runner=copy.deepcopy(self.state))
+        self._write_checkpoint(self.directory/f'last_{method}.pt')
         return True
 
     def validate_model(self,method):
@@ -416,12 +419,13 @@ class FormatExperiment:
                 engine_id=self.config['engine'],seed=self.config['seed']+1000000,blocks=12,control=champion,
                 contexts=list(contexts),comparison=champion_comparison))
             if champion_comparison[self.fmt]['status']!='passed': key=None
+        save_method_best=False;save_best=False
         if key is not None:
             field=method+'_key'
             if self.state[field] is None or key>self.state[field]:
-                checkpoint(self.directory/f'best_{method}.pt',self.model,self.optimizer,runner=copy.deepcopy(self.state));self.state[field]=key
+                self.state[field]=key;save_method_best=True
             if self.state['best_key'] is None or key>self.state['best_key']:
-                checkpoint(self.directory/'best.pt',self.model,self.optimizer,runner=copy.deepcopy(self.state))
+                save_best=True
                 self.state['best_key']=key;self.state['best_kind']=method
                 self.state['champion']=greedy
                 self.state['best_engine']='best_lite' if self.config['engine']=='lite' else 'native_candidate'
@@ -445,6 +449,8 @@ class FormatExperiment:
             self.state['effective']=all(gate[k]['effective' if k=='imitation' else 'passed'] for k in ('imitation','coverage','corpus','opening'))
             gate['passed']=self.state['effective'];write_json(self.directory/'bc_gate.json',gate)
         self.state['snapshots'].append(greedy);self.state['pending_validation']=None;self.save()
+        if save_method_best: self._write_checkpoint(self.directory/f'best_{method}.pt')
+        if save_best: self._write_checkpoint(self.directory/'best.pt')
 
     def collect_reward_references(self,jobs,version):
         """Bounded Astra calibration on validation layouts; never added to BC data."""

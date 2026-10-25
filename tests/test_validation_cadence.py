@@ -62,7 +62,7 @@ class ValidationCadenceTests(unittest.TestCase):
     def test_tenth_update_and_checkpointed_pending_validation(self):
         with tempfile.TemporaryDirectory() as temp:
             r=self.runner(temp)
-            with patch('learning.experiment.read_shards',return_value=[]),patch('learning.experiment.train',return_value=dict(interrupted=False,updates=4,loss=1)),patch('learning.experiment.imitation_quality',return_value=dict(effective=False)),patch('learning.experiment.checkpoint'):
+            with patch('learning.experiment.read_shards',return_value=[]),patch('learning.experiment.train',return_value=dict(interrupted=False,updates=4,loss=1)),patch('learning.experiment.imitation_quality',return_value=dict(effective=False)),patch('learning.experiment.FormatExperiment._write_checkpoint'):
                 for i in range(1,11):
                     r.state['pending_train']=dict(method='bc',paths=[],cursor={})
                     with patch('learning.experiment.imitation_quality',return_value=dict(effective=False,formats={r.fmt:dict(accuracy=0.)})):
