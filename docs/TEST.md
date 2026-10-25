@@ -2,24 +2,9 @@
 
 > Language: English | [中文](TEST_zh.md)
 
-Updated 2026-10-25. P1–P5b/P7 are implemented with bounded Ubuntu evidence, but **independent acceptance is blocked** by [V1–V6](../verification/refactor_review_20261025/REPORT.md). This review changed no production code and started no game or formal training. P6 remains unimplemented; N1 remains unaccepted. Existing tests do not prove every assertion in the detailed cases below.
+Updated 2026-10-25. The six reproduced V1–V6 defects are repaired and their 12 focused Ubuntu checks passed; commands, identities, failures and limits are in the [repair acceptance report](../verification/refactor_repairs_20261025/REPORT.md). Completed repair items and C9 are archived there and removed below. Remaining cases retain their narrower unaccepted or unwritten scope; bounded results do not establish full acceptance or strength. P6 remains unimplemented and N1 unaccepted.
 
-For this planning request, planned cases are included explicitly. When an owning change is implemented, add its commit and real test entry point, retain its pending scope; after acceptance archive evidence and delete the item. Reopen only affected behavior.
-
-## Current blockers and minimal repair acceptance
-
-Six diagnostic reproductions confirm failures, not acceptance passes. Repair assertions are not written. Evidence, exact commands and limitations: `verification/refactor_review_20261025/`. Reuse the original Ubuntu 273/17/13 results within their recorded scope.
-
-| ID / owner | Reproduced input/procedure | Required pass / blocker |
-| --- | --- | --- |
-| V1 / C9 | Champion v100 validated, latest v143 without panel; real final selection | Complete eligible nomination or justified champion fallback; no missing-file crash/lowered gate; blocks final evaluation |
-| V2 / C6/R2 | Real finish_train writes last_ppo, selected last/best goes to export | Matching engine/rules/teacher identities survive selection/export; wrong identity still rejected; blocks delivery |
-| V3 / C4/C5 | Two PPO saved-boundary segments, 11 targets each | Global committed/optimizer/pass counters equal uninterrupted control, counted once; blocks recovery acceptance |
-| V4 / C6 | BC deadline after sampling, before step | Restore sampler RNG, clear gradients, match resumed IDs/weights to uninterrupted reference; blocks exact BC resume |
-| V5 / C4/C6/R2 | Two individually valid policy records differ in game/old_logp/reward but hash equally | Reject changed frozen target/content before step; unchanged reread stable; blocks rollout identity acceptance |
-| V6 / R2 | Native Astra row rejected by lite teacher profile requirement | Native/lite accept corresponding identities and reject mixing; native BC only |
-
-Use the same tiny fixtures locally and on Ubuntu after each affected repair. Do not reproduce these gaps with formal training or repeat the entire passed panel.
+Keep only remaining acceptance work and explicitly requested prospective cases here. Reuse existing valid evidence; no full-suite rerun, new games or formal training is authorized by this plan. The SDK package-size attempt remains failed in the report; its unchanged gate is outside these six repairs.
 
 ## Boundaries and shared inputs
 
@@ -74,7 +59,7 @@ R1–R3 are activated by P7 only. Unchanged C1–C9 reuse their evidence; refres
 
 ## C4 — PPO coverage and saved-boundary recovery
 
-**Status/trigger:** P3 implemented with saved-boundary unit evidence; V3/V5 block full counter/input-identity acceptance.
+**Status/trigger:** P3 implemented. V3/V5 targeted Ubuntu recovery/count/content assertions passed and are archived in the repair report. Remaining acceptance below concerns the broader replay/gradient contract beyond these tiny fixtures.
 
 **Minimal Ubuntu procedure:** two epochs over unequal windows; compare uninterrupted execution with save/resume after one applied batch. Interrupt a second run inside a logical batch before stepping, using F3.
 
@@ -84,7 +69,7 @@ R1–R3 are activated by P7 only. Unchanged C1–C9 reuse their evidence; refres
 
 ## C5 — Logical-batch KL, exits and counters
 
-**Status/trigger:** P4 implemented with logical-KL/exit unit evidence; V3 blocks complete resumed-counter acceptance.
+**Status/trigger:** P4 implemented; logical-KL/exit evidence is reused and V3 cumulative resume counters passed targeted Ubuntu acceptance. Retain only broader numeric/gradient assertions not established by those fixtures.
 
 **Minimal Ubuntu procedure:** fixed logical batch, micro sizes 8/32, one high-KL chunk whose isolated decision differs from weighted aggregate. Exercise completed/KL-stop/deadline exits with zero and one applied step.
 
@@ -94,7 +79,7 @@ R1–R3 are activated by P7 only. Unchanged C1–C9 reuse their evidence; refres
 
 ## C6 — Atomic checkpoints and explicit branching
 
-**Status/trigger:** P5a implemented; V2/V4/V5 leave selected-checkpoint identity, BC cancellation and frozen-input recovery incomplete. Reuse valid serialization/branch checks.
+**Status/trigger:** P5a implemented. V2/V4/V5 identity, BC cancellation RNG and changed-input rejection passed focused Ubuntu checks. Reuse serialization/branch evidence; the wider legacy/fork contract below is not newly claimed complete.
 
 **Minimal Ubuntu procedure:** F3 latest/champion; fail before atomic replacement; exercise latest resume, explicit fork from older state and legacy checkpoint without epoch plan. Corrupt identity fields individually in temporary copies.
 
@@ -104,7 +89,7 @@ R1–R3 are activated by P7 only. Unchanged C1–C9 reuse their evidence; refres
 
 ## C7 — Stage chain, controller and terminal truth
 
-**Status/trigger:** 17 Ubuntu phase checks and a duel reduced chain are reported. The fallback trace does not establish three-format integration or champion-present selection; V1 remains open.
+**Status/trigger:** Reuse the 17 Ubuntu phase checks and recorded duel reduced chain. V1 now has three-format recorded-schedule nomination and repeated-final-entry evidence; a new real three-format phase chain remains unrun and is not authorized here.
 
 **Minimal Ubuntu procedure:** F3 drives production orchestration: BC → two PPO updates → checkpoint/readback → pending-update resume → PPO completion → nomination/freeze → final entry. Tiny routing for three formats; faults only at changed boundaries: failed BC gate, v100 metric exception, optimizer/collector failure, pending method versus new phase. Reuse F4 and existing reward-window boundary assertions.
 
@@ -121,16 +106,6 @@ R1–R3 are activated by P7 only. Unchanged C1–C9 reuse their evidence; refres
 **Pass:** no full-trajectory object/JSON regrouping; preserve all decisions/prefixes/precision/labels and identical payload where serialization unchanged. Assert budgets/temporary cleanup, measure transient peak RSS/PSS. Worker loss raises original failure, terminates waiting trainers, leaves zero owned children; no hidden retry or signal to unrelated processes. Global worker cap/per-format isolation remain intact.
 
 **Blocker/evidence:** changed collector/coordinator; payload/count/resource/child-exit records in `C8/`. Reuse [5.40 GiB recorded pressure](../verification/bc_memory_repair_20261024_1321/REPORT.md) and [pool failure](../verification/bc_pool_exit_20261024/REPORT.md) within stated limits. If memory ownership invalidates pressure evidence, predeclare one bounded workload/host reserve before running it, not a worker-count matrix or universal OOM-safety claim.
-
-## C9 — Final selection and untouched holdout
-
-**Status/trigger:** P5b partially implemented; V1 exposes missing production off-cycle nomination. Decision-helper tests alone do not accept that path.
-
-**Minimal Ubuntu procedure:** recorded collector with champion, eligible latest off-cycle candidate and underfilled candidate. Let eligible candidate win, then remove a required block/exhaust nomination time. Restore checkpoint across repeated final entry.
-
-**Pass:** match model/source/rule/schedule before reusing validation. Keep required 12 complete blocks; incomplete candidate cannot promote. Insufficient nomination time keeps declared champion/fallback with reason. Save completed validation bookkeeping before selected checkpoint. Freeze one selected hash before untouched 30-block holdout; holdout never chooses candidates or feeds training/reference. File/hash/`selected_kind` agree, including fallback. Resume cannot relabel pending as complete or duplicate completed evaluation. Reduced panel remains inconclusive.
-
-**Blocker/evidence:** P5b/final selection; schedule, actual block counts, selection reason and freeze-before-holdout trace in `C9/`. One block never stands in for 12/30 real blocks.
 
 ## R1 — Deterministic per-strike damage and weakened statuses
 
@@ -154,7 +129,7 @@ R1–R3 are activated by P7 only. Unchanged C1–C9 reuse their evidence; refres
 
 ## R2 — Exact public forecast, identity isolation and stage chain
 
-**Status/trigger:** P7a forecast/provenance checks ran on Ubuntu; V2/V5/V6 expose uncovered identity/export/native cases. Corresponding acceptance stays blocked.
+**Status/trigger:** Reuse unchanged P7a forecast/engine/teacher evidence. V2/V5/V6 targeted identity, export wiring and native/lite record compatibility passed Ubuntu acceptance; this does not establish the full real-game stage/forecast contract below.
 
 **Minimal Ubuntu procedure:** reuse three R1 states (plain/slow/poison), forecast then execute in an all-visible controlled state, and one hidden-context counterexample. Hold initial state/action script fixed and vary only seed among 0/1/713; compare direct step with snapshot/restore/step. Compare legacy forecast requests `samples=1/128` if that argument is retained. Parameterize routing for three formats, then share C7's new-profile BC → two PPO updates → resume → final-entry trace; do not run a second separate chain.
 

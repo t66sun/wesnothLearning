@@ -1,0 +1,19 @@
+{
+  "source_revision": "831eedbe08962ac755be563491d65e9fb45bc695",
+  "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.39",
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "torch": "2.9.1+cpu",
+  "extension": "/home/tongshu/venv/lib/python3.12/site-packages/_engine_lite/__init__.py",
+  "engine": {
+    "ENGINE_VERSION": "lite-0.2",
+    "RNG_VERSION": "deterministic-expected_damage_v1",
+    "COMBAT_VERSION": "expected_damage_v1"
+  },
+  "rules_sha256": "d6fceafe7d0c9c67c750551b9901dbfb2b22290992a8daa1616a460e11826dca",
+  "teacher": {
+    "teacher": "gpt6astra",
+    "teacher_profile": "expected_damage_v1",
+    "teacher_source_sha256": "a5d4b3a69d5af0378fa22119f315c1300fb6ad965c79b08071eb4a37c0addbef"
+  },
+  "real_games": 0
+}

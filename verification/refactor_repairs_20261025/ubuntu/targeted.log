@@ -1,0 +1,40 @@
+test_complete_nomination_reuses_only_exact_checkpoint_identity (tests.v5.test_final_nomination.FinalNominationTests.test_complete_nomination_reuses_only_exact_checkpoint_identity) ... ok
+test_no_time_or_underfilled_panel_keeps_champion (tests.v5.test_final_nomination.FinalNominationTests.test_no_time_or_underfilled_panel_keeps_champion) ... ok
+test_offcycle_candidate_runs_full_panels_and_freezes_once (tests.v5.test_final_nomination.FinalNominationTests.test_offcycle_candidate_runs_full_panels_and_freezes_once) ... ok
+test_repeated_final_entry_reuses_frozen_hash_and_completed_holdout (tests.v5.test_final_nomination.FinalNominationTests.test_repeated_final_entry_reuses_frozen_hash_and_completed_holdout) ... ok
+test_last_best_selected_keep_identity_and_finished_bookkeeping (tests.v5.test_checkpoint_export_identity.CheckpointExportIdentityTests.test_last_best_selected_keep_identity_and_finished_bookkeeping) ... ok
+test_finish_train_settles_resumed_work_once_with_real_checkpoint (tests.v5.test_ppo_resume_counters.PpoResumeCounterTests.test_finish_train_settles_resumed_work_once_with_real_checkpoint) ... ok
+test_learner_totals_survive_deadline_and_repeated_boundary_resume (tests.v5.test_ppo_resume_counters.PpoResumeCounterTests.test_learner_totals_survive_deadline_and_repeated_boundary_resume) ... ok
+test_cancel_at_each_batch_boundary_restores_sampling_and_exact_future (tests.v5.test_bc_cancel_rng.BcCancelRngTests.test_cancel_at_each_batch_boundary_restores_sampling_and_exact_future) ... ok
+test_changed_valid_inputs_rejected_before_any_update (tests.v5.test_rollout_content_identity.RolloutContentIdentityTests.test_changed_valid_inputs_rejected_before_any_update) ... ok
+test_unchanged_rereads_and_container_forms_match (tests.v5.test_rollout_content_identity.RolloutContentIdentityTests.test_unchanged_rereads_and_container_forms_match) ... ok
+test_cross_engine_profiles_versions_and_sources_are_rejected (tests.v5.test_teacher_engine_identity.TeacherEngineIdentityTests.test_cross_engine_profiles_versions_and_sources_are_rejected) ... ok
+test_native_legacy_explicit_and_lite_profiles_are_accepted (tests.v5.test_teacher_engine_identity.TeacherEngineIdentityTests.test_native_legacy_explicit_and_lite_profiles_are_accepted) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 16.664s
+
+OK
+	Command being timed: "/home/tongshu/venv/bin/python -B -m unittest -v tests.v5.test_final_nomination tests.v5.test_checkpoint_export_identity tests.v5.test_ppo_resume_counters tests.v5.test_bc_cancel_rng tests.v5.test_rollout_content_identity tests.v5.test_teacher_engine_identity"
+	User time (seconds): 17.21
+	System time (seconds): 0.30
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:17.64
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 520768
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 153302
+	Voluntary context switches: 59
+	Involuntary context switches: 147
+	Swaps: 0
+	File system inputs: 632
+	File system outputs: 439880
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
