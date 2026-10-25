@@ -51,7 +51,7 @@ python -m learning verify-bundle dist/WesnothLearning-training.tar.gz --require-
 
 `SHA256SUMS` 列出除自身以外的全部成员，路径相对归档包根目录，因此解压后 `cd WesnothLearning && sha256sum --check SHA256SUMS` 可用。
 
-校验器把归档包当作归档包来检查：gzip tar 可读、只有单一 `WesnothLearning/` 根、无绝对路径/越出父目录/重复成员、无排除清单中的成员、必需路径齐全、权限精确、清单 schema 与 Ubuntu 24.04 `x86_64` 目标、清单中每个文件的大小/哈希/权限与总计、规则身份与归档内 `rules.json` 及 `catalog-summary.json` 的比对、每个对手与精选人类文件、可选 wheel，以及 `SHA256SUMS` 的完整格式与覆盖。
+校验器把归档包当作归档包来检查：gzip tar 可读、只有单一 `WesnothLearning/` 根、无绝对路径/越出父目录/重复成员、无属于排除类别的成员、必需路径齐全、权限精确、清单 schema 与 Ubuntu 24.04 `x86_64` 目标、清单中每个文件的大小/哈希/权限与总计、规则身份与归档内 `rules.json` 及 `catalog-summary.json` 的比对、每个对手与精选人类文件、可选 wheel，以及 `SHA256SUMS` 的完整格式与覆盖。
 
 ## 3. 在干净的 Ubuntu 24.04 上安装
 
@@ -90,7 +90,7 @@ cd WesnothLearning
 6. 复用报告 `1.18.8` 的 Wesnoth 可执行文件，或下载 `wesnoth-1.18.8.tar.bz2`，校验 SHA-256 `fce3bd71d4ed32c9d11c0f707d19743cec6adf5c34761fab94ab72754aaedd89`，随后用 CMake/Ninja 配置并构建到 `.runtime/build`，安装到 `.runtime/install`，关闭 server、campaign server、tests 与 NLS。
 7. 写 `.runtime/environment.sh`（`export WESNOTH_EXE=…`）与 `.runtime/installed-dependencies.txt`，然后检查 `import torch, _engine_lite`、`python -m learning --help` 与 `wesnoth --simple-version`。
 
-该运行是幂等的：已安装的 venv、按请求设备固定版本的 torch、与 `requirements.txt` 摘要戳一致的已装依赖、可用的扩展以及 Wesnoth 1.18.8 可执行文件都会被复用而非重建。安装日志通过 `tee` 写入 `.cache/setup.log`，中断的运行保留历史。它不启动采样、对局或训练。
+该运行是幂等的：已安装的 venv、按请求设备固定版本的 torch、与 `requirements.txt` 摘要戳一致的已装依赖，以及有效的 Wesnoth 1.18.8 可执行文件都会被复用而非重建。扩展是例外：每次运行 setup 都会从内嵌 wheel 重新安装，否则用 `maturin develop --release` 重新构建。安装日志通过 `tee` 写入 `.cache/setup.log`，中断的运行保留历史。它不启动采样、对局或训练。
 
 ## 4. 启动训练
 
@@ -123,11 +123,11 @@ WesnothLearning/
   data/rules/1.18.8-training/   冻结的 587 单位训练规则包
   data/humanData_curated/   用于 BC 的 1.18.8 精选人类对局
   data/opponents/           冻结的参考对手包（Astra）
-  data/datasets/            人类/教师数据与序列索引
+  data/datasets/            数据集导入输入；目前为 human/import.json
   dist/<wheel>              可选的预编译 manylinux x86_64 `_engine_lite` wheel
 ```
 
-不包含：`.git`、`.venv`、`__pycache__`、`.cache`、`.runtime`、`runs`、`verification`、`delivery`、`tmp`、`data/references`、`data/humanData`、`data/rules/1.18.8`、编译后缀、Cargo `target/`、`AGENTS.md`。清单在 `excluded` 下记录该清单，校验器拒绝任何匹配它的成员。
+不包含：`.git`、`.venv`、`__pycache__`、`.cache`、`.runtime`、`runs`、`verification`、`delivery`、`tmp`、`data/references`、`data/humanData`、`data/rules/1.18.8`、编译后缀、Cargo `target/`、`AGENTS.md`。清单在 `excluded` 下记录该列表；校验器按自身规则独立拒绝属于同类排除范围的成员，并不读取清单中的该列表。
 
 ## 6. 检查与证据状态
 
@@ -151,7 +151,7 @@ WesnothLearning/
 
 **Rust 或扩展问题** —— 没有内嵌 wheel 时，`setup.sh` 仅在 `cargo` 缺失时安装 rustup；随后 `engine_lite/` 下的 `maturin develop --release` 必须成功。`identity: engine build … does not match declared …` 表示扩展过期：重跑 setup 以按当前源码重建扩展。
 
-**wheel 未被识别** —— 文件须位于 `dist/`，名称须同时含 `manylinux` 与 `x86_64`；`setup.sh` 按 `wesnoth_learning_lite-`、`_engine_lite-`、`engine_lite-` 三个前缀查找，`--preflight` 会打印它找到的 wheel。面向免 Rust 安装的发布若未内嵌 wheel，`--require-wheel` 会使其失败。
+**wheel 未被识别** —— 这里有两套不同的规则。`learning/bundle.py` 只在文件名以 `.whl` 结尾且同时包含 `manylinux` 与 `x86_64` 时才接受 `--wheel`，`verify-bundle --require-wheel` 校验归档包中记录的 wheel，因此面向免 Rust 安装的发布若无内嵌 wheel 就会失败。另一套规则属于 `setup.sh`：它只在 `dist/` 中查找以 `wesnoth_learning_lite-`、`_engine_lite-`、`engine_lite-` 开头的文件，并不要求文件名含 `manylinux` 或 `x86_64`；`--preflight` 会打印它找到的文件。
 
 **`setup.sh: Wesnoth version mismatch, 1.18.8 is required`** —— setup 最终确定的二进制未报告 `1.18.8`。若 `--wesnoth`/`WESNOTH_EXE` 指向的不是 1.18.8，setup 会忽略它并改用固定压缩包，因此该消息意味着复用的安装或新构建本身有问题：查看 `.cache/setup.log`，并用真正的 1.18.8 二进制传 `--wesnoth /path/to/wesnoth`。
 

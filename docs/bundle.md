@@ -51,7 +51,7 @@ The builder refuses to package an inconsistent rule identity: `rules.json` must 
 
 `SHA256SUMS` lists every member except itself, with paths relative to the archive root, so `cd WesnothLearning && sha256sum --check SHA256SUMS` works after extraction.
 
-The verifier checks the archive as an archive: readable gzip tar, single `WesnothLearning/` root, no absolute or parent-escaping or duplicate members, no member from the exclusion list, all required paths present, exact modes, manifest schema and Ubuntu 24.04 `x86_64` target, every manifest size/hash/mode and the totals, the rules identity against the archived `rules.json` and `catalog-summary.json`, every opponent and the curated human file, the optional wheel, and full `SHA256SUMS` format and coverage.
+The verifier checks the archive as an archive: readable gzip tar, single `WesnothLearning/` root, no absolute or parent-escaping or duplicate members, no member of an exclusion class, all required paths present, exact modes, manifest schema and Ubuntu 24.04 `x86_64` target, every manifest size/hash/mode and the totals, the rules identity against the archived `rules.json` and `catalog-summary.json`, every opponent and the curated human file, the optional wheel, and full `SHA256SUMS` format and coverage.
 
 ## 3. Install on a clean Ubuntu 24.04 machine
 
@@ -90,7 +90,7 @@ What a full run does, in order:
 6. Reuse a Wesnoth binary that reports `1.18.8`, or download `wesnoth-1.18.8.tar.bz2`, verify SHA-256 `fce3bd71d4ed32c9d11c0f707d19743cec6adf5c34761fab94ab72754aaedd89`, then configure and build with CMake/Ninja into `.runtime/build`, installing to `.runtime/install` with server, campaign server, tests and NLS disabled.
 7. Write `.runtime/environment.sh` (`export WESNOTH_EXE=…`) and `.runtime/installed-dependencies.txt`, then check `import torch, _engine_lite`, `python -m learning --help` and `wesnoth --simple-version`.
 
-The run is idempotent: an installed venv, the pinned torch for the requested device, installed requirements matching the `requirements.txt` digest stamp, a working extension and a Wesnoth 1.18.8 binary are reused instead of rebuilt. Setup logs to `.cache/setup.log` through `tee`, so an interrupted run keeps its history. It starts no sampling, no game and no training.
+The run is idempotent: an installed venv, the pinned torch for the requested device, installed requirements matching the `requirements.txt` digest stamp, and a valid Wesnoth 1.18.8 binary are reused instead of rebuilt. The extension is the exception: every setup run reinstalls it from a bundled wheel or otherwise rebuilds it with `maturin develop --release`. Setup logs to `.cache/setup.log` through `tee`, so an interrupted run keeps its history. It starts no sampling, no game and no training.
 
 ## 4. Start training
 
@@ -123,11 +123,11 @@ WesnothLearning/
   data/rules/1.18.8-training/   frozen 587-unit training rule package
   data/humanData_curated/   curated 1.18.8 human games for BC
   data/opponents/           frozen reference opponent packages (Astra)
-  data/datasets/            human/teacher data and sequence indexes
+  data/datasets/            dataset import inputs; currently human/import.json
   dist/<wheel>              optional prebuilt manylinux x86_64 _engine_lite wheel
 ```
 
-Not present: `.git`, `.venv`, `__pycache__`, `.cache`, `.runtime`, `runs`, `verification`, `delivery`, `tmp`, `data/references`, `data/humanData`, `data/rules/1.18.8`, compiled suffixes, Cargo `target/`, `AGENTS.md`. The manifest records this list under `excluded`, and the verifier rejects any member that matches it.
+Not present: `.git`, `.venv`, `__pycache__`, `.cache`, `.runtime`, `runs`, `verification`, `delivery`, `tmp`, `data/references`, `data/humanData`, `data/rules/1.18.8`, compiled suffixes, Cargo `target/`, `AGENTS.md`. The manifest records this list under `excluded`; the verifier independently rejects members belonging to the same exclusion classes, using its own rules rather than the manifest list.
 
 ## 6. Checks and evidence status
 
@@ -151,7 +151,7 @@ The only archive-level checks that exist are the builder and the static verifier
 
 **Rust or extension problems** — without a bundled wheel, `setup.sh` installs rustup only when `cargo` is missing; after that, `maturin develop --release` in `engine_lite/` must succeed. `identity: engine build … does not match declared …` means the extension is stale: rerun setup so the extension is rebuilt against the current sources.
 
-**Wheel not picked up** — the file must live in `dist/` and its name must contain `manylinux` and `x86_64`; `setup.sh` searches the `wesnoth_learning_lite-`, `_engine_lite-` and `engine_lite-` prefixes, and `--preflight` prints the wheel it found. `--require-wheel` fails a release intended for Rust-free installs if no wheel was bundled.
+**Wheel not picked up** — two different rules apply. `learning/bundle.py` accepts a `--wheel` only when the name ends in `.whl` and contains both `manylinux` and `x86_64`, and `verify-bundle --require-wheel` checks the wheel the archive records, so a release intended for Rust-free installs fails when no wheel was bundled. Separately, `setup.sh` only searches `dist/` for names starting `wesnoth_learning_lite-`, `_engine_lite-` or `engine_lite-`; it does not require `manylinux` or `x86_64` in the name, and `--preflight` prints the file it found.
 
 **`setup.sh: Wesnoth version mismatch, 1.18.8 is required`** — the binary setup resolved to does not report `1.18.8`. A `--wesnoth`/`WESNOTH_EXE` binary that is not 1.18.8 is ignored in favour of the pinned tarball, so this message means either the reused install or the fresh build is wrong: read `.cache/setup.log` and pass a genuine 1.18.8 binary with `--wesnoth /path/to/wesnoth`.
 
