@@ -1,0 +1,114 @@
+{
+  "scope": "local existing JSON only; score repetition is not trajectory equality",
+  "input_sha256": {
+    "summary.json": "07ff69ebc0bb406e8fe985ddf38b61f83ca6a88b464fb7266f84e3438affd788",
+    "manifest.json": "aabd9fac77292a5234a5995eed71d8d9d3a12bfd92c24e115a098655f210b437"
+  },
+  "formats": {
+    "duel": {
+      "status": "not_passed",
+      "selected_version": 400,
+      "candidate_version": 470,
+      "selection_reason": "astra nomination did not pass",
+      "selected_sha256": "1f619c272dd132aaef5ddd7c549b8fc305b1b5195ad525d5596ddb95774d19cf",
+      "bc_samples": 992,
+      "bc_accuracy": 0.9919354838709677,
+      "bc_recruit": {
+        "samples": 248,
+        "correct": 240,
+        "accuracy": 0.967741935483871
+      },
+      "bc_gate_passed": true,
+      "controls": {
+        "gpt6astra": {
+          "blocks": 30,
+          "missing": 0,
+          "faults": 0,
+          "score_period": 6,
+          "distinct_scores": 3,
+          "first_period": [
+            -3,
+            0,
+            -3,
+            -1.5,
+            0.0,
+            -3
+          ],
+          "difference": -1.75,
+          "interval95": [
+            -2.25,
+            -1.25
+          ]
+        }
+      }
+    },
+    "ffa4": {
+      "status": "inconclusive",
+      "selected_version": 100,
+      "candidate_version": 213,
+      "selection_reason": "astra nomination panel incomplete",
+      "selected_sha256": "e1148429ee936c5c163f09502e9381dba0139dae6c69aa00f200c7233c5b8c25",
+      "bc_samples": 996,
+      "bc_accuracy": 0.9126506024096386,
+      "bc_recruit": {
+        "samples": 119,
+        "correct": 90,
+        "accuracy": 0.7563025210084033
+      },
+      "bc_gate_passed": true,
+      "controls": {
+        "gpt6astra": {
+          "blocks": 30,
+          "missing": 0,
+          "faults": 0,
+          "score_period": 3,
+          "distinct_scores": 3,
+          "first_period": [
+            0.0,
+            0.12499999999999994,
+            -0.08333333333333331
+          ],
+          "difference": 0.013888888888888876,
+          "interval95": [
+            -0.01666666666666667,
+            0.04444444444444442
+          ]
+        }
+      }
+    },
+    "team2v2": {
+      "status": "not_passed",
+      "selected_version": 100,
+      "candidate_version": 136,
+      "selection_reason": "astra nomination did not pass",
+      "selected_sha256": "aff0675bbda26a879b261f8702fd448e41001007abfa05acdd584ce4f9e0193b",
+      "bc_samples": 1002,
+      "bc_accuracy": 0.8662674650698603,
+      "bc_recruit": {
+        "samples": 43,
+        "correct": 40,
+        "accuracy": 0.9302325581395349
+      },
+      "bc_gate_passed": true,
+      "controls": {
+        "gpt6astra": {
+          "blocks": 30,
+          "missing": 0,
+          "faults": 0,
+          "score_period": 3,
+          "distinct_scores": 3,
+          "first_period": [
+            -0.75,
+            -1.125,
+            -3
+          ],
+          "difference": -1.625,
+          "interval95": [
+            -1.9875,
+            -1.275
+          ]
+        }
+      }
+    }
+  }
+}

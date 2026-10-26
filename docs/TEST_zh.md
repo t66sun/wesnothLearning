@@ -8,6 +8,8 @@
 
 最终预算预留 B1 的 6 项 Ubuntu 检查已通过，归档于[启动报告](../verification/final_review_lite30h_20261025/REPORT.md)，已删除整项。
 
+PPO 排查与原版 RCA 全量替换仍为未实施提案，详见 [2026-10-26 方案](ppo_diagnosis_plan_zh.md)。此处不新增验收条目或执行授权；N1 与既有数值/打包失败保留原范围和门禁。
+
 ## 边界与共享输入
 
 - Ubuntu 负责验收，Windows 仅作参考。在隔离目录、临时 run 内工作；冻结输入、manifest、历史证据与已安装模型只读。
