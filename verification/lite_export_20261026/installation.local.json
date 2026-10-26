@@ -1,0 +1,73 @@
+{
+  "installed": "C:\\Users\\Toshu\\OneDrive\\文档\\My Games\\Wesnoth1.18\\data\\add-ons\\NeuralArena20261026",
+  "original_files_verified": 19,
+  "additional_files": [
+    "LOCAL_TRIAL.json"
+  ],
+  "previous_directories": [
+    "Afterlife1v1v1",
+    "Brutal_Triad_Era",
+    "Ironwood",
+    "NeuralArena",
+    "NeuralArena20261024",
+    "NeuralArenaDuel",
+    "Reproduction_Mechanic",
+    "Werewolf_Era",
+    "astrabot",
+    "deepseek4.1fwithOMP_continued9h"
+  ],
+  "previous_model_files_verified_unchanged": 44,
+  "native_registration_exit": 0,
+  "trial": {
+    "status": "explicit_local_trial_exception",
+    "authorization": "允许本次本地试用例外安装，保留未通过标记",
+    "installed_beijing": "2026-10-26T21:59:20.196264+08:00",
+    "numeric_gate_status": "not_passed",
+    "numeric_gate_threshold": 1e-05,
+    "ffa4_python_lua_max_error": 2.210623698939429e-05,
+    "source_revision": "822082d654cd19a6474aa36f837137c1ec7cb83c",
+    "checkpoints": {
+      "duel": {
+        "version": 400,
+        "checkpoint_sha256": "1f619c272dd132aaef5ddd7c549b8fc305b1b5195ad525d5596ddb95774d19cf"
+      },
+      "ffa4": {
+        "version": 100,
+        "checkpoint_sha256": "e1148429ee936c5c163f09502e9381dba0139dae6c69aa00f200c7233c5b8c25"
+      },
+      "team2v2": {
+        "version": 100,
+        "checkpoint_sha256": "aff0675bbda26a879b261f8702fd448e41001007abfa05acdd584ce4f9e0193b"
+      }
+    },
+    "evaluation": {
+      "duel": "not_passed; deterministic-lite Astra only; native strength not evaluated",
+      "ffa4": "inconclusive; deterministic-lite Astra only; native strength not evaluated",
+      "team2v2": "not_passed; deterministic-lite Astra only; native strength not evaluated"
+    },
+    "scope": "local trial only; not accepted numerical parity or native strength",
+    "original_installation_manifest_sha256": "5bc4d9d3b1943e0ffa487c3a8665796a446e23f346faab036ceee51d3756a2ca"
+  },
+  "installed_files": {
+    "_main.cfg": "ef82a06d88f5394232c748886df8ce54fc51eaa734a29289931dcec56ee5d083",
+    "ai.cfg": "88c1ef918f14d414f165289469b0783cf0cdf29c64d607a8550959713bd2e95b",
+    "arena.json": "a36241b845f227d321b531f23265318cd118f66f90e5868897a5f6f1ecd331a8",
+    "LICENSE": "aeee0e57f016bc95fea3c20dd6a2168493c4134ba5ae481217467613a1953e30",
+    "LOCAL_TRIAL.json": "1dbc8e47aa2ef3b93625ad1ebbb179442ed47162cf517e90ffe033e38e9f487b",
+    "lua\\bot.lua": "50c9a3c3db21bf44e8b9696dcfff4387d6c66f9f67a0f9da635d6f86ee8c4765",
+    "lua\\candidates.lua": "de2db2b4cd634b029a236352d099b2be4674cddf9afc4ee860a4740082cc257f",
+    "lua\\config.lua": "d7eaf8a51c8f9423396022c53cb242d07b9008ea073a0eac6fe43d2541f28c0a",
+    "lua\\features.lua": "9634222088d3174255c210a200b733174c03343e49b80c2b1c5f4690cba285c1",
+    "lua\\network.lua": "b15b5676e3fd2058e250eac77f459ce4ded23e4accb8f10302f46f87f6dde4f8",
+    "lua\\observation.lua": "51bf13baf26b68400552b2c7d28ce7b0f7131afd6c86ee41264bd3ef2665c0cd",
+    "lua\\relational.lua": "8c663d8d795125d1df9eb001f95f4204a0a75326908cf304e8b8243c7cc59930",
+    "lua\\rewards.lua": "c8618d69da6463fe7c67b93fa0289ae3d9bfc32df7f6ca6aaabda06d6a688f33",
+    "lua\\routing.lua": "f15321b0af0f9a7bdc0679b715ee50bfac8f7c68d82c01b2b604d222aa7566b2",
+    "lua\\spatial.lua": "5322a4ec6bf05abc6084a5e847c5049c7c5091ad7ad291d5e4c6da82db7ac818",
+    "lua\\teacher.lua": "abe5d8ce0957e1067dc5d63e6c815d30b5948f9e7ca07123079006d1d7a124e4",
+    "lua\\weights_duel.lua": "b9a6b680c4dd372bfa9de0d4533e28a56f6b6a0cdae282a0dd9250f40f41c183",
+    "lua\\weights_ffa4.lua": "34ff265b1ed23dfb95820494fbac8fdc6c23e4ad43cfb771359e9fd1ebd20954",
+    "lua\\weights_team2v2.lua": "09f53867f32f14824f4bae84a0bd113c91906ea6d6f8c7dc90c9aaa2fad2ee83",
+    "README.md": "78cade1d299852c1640b071667529b99b6c5b7b352cf00f13c9f5dd9d3c528f3"
+  }
+}

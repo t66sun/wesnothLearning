@@ -124,7 +124,7 @@ set -o pipefail
 
 **历史启动，2026-10-25：**cpuServer 上获准新 run `training_lite30h_20261025/source/runs/v5_lite30h_20261025`，源码 `822082d`，PID/session 225153。北京时间 14:40:27 启动，总计 30 小时：25 小时更新、1 小时提名、4 小时 holdout；总截止 10 月 26 日 20:40:27。纯 lite 三赛制、8 个共享 worker，300/600/400 目标和门禁不变。14:52:47 独立状态读取确认脱离 SSH 后主进程存活；三赛制均有有效批次、已提交优化器更新（76/40/36）和更新检查点，无训练器错误。保留冻结源码和配置不动。命令与证据见[启动报告](../verification/final_review_lite30h_20261025/REPORT.md)。
 
-**当前结束／导出状态，2026-10-26：**新建 30 小时 run 于北京时间 16:35:34 结束，退出码全为 0。导出所选 Duel／FFA4／2v2 v400／v100／v100，保留 lite 未通过／结论不充分／未通过状态。独立 NeuralArena20261026 草稿已下载并通过注册／语法检查，但 FFA4 float32／Lua 误差 2.2106e-5 未过原 1e-5 门槛，实际安装等待明确的本地试用例外。旧版附加组件继续可用。见[导出报告](../verification/lite_export_20261026/REPORT.md)。
+**当前结束／导出状态，2026-10-26：**新建 30 小时 run 于北京时间 16:35:34 结束，退出码全为 0。导出所选 Duel／FFA4／2v2 v400／v100／v100，保留 lite 未通过／结论不充分／未通过状态。用户已明确授权本地试用例外，独立 NeuralArena20261026 已安装；19 个包文件哈希一致，44 个旧模型文件未变，实际原版注册通过。FFA4 float32／Lua 误差 2.2106e-5 仍未过原 1e-5 门槛，安装目录 LOCAL_TRIAL.json 保留失败标签。多人游戏启用 Arena AI: NeuralArena20261026 模组，并选择同名电脑 AI。旧模型继续可用。见[导出报告](../verification/lite_export_20261026/REPORT.md)及[安装记录](../verification/lite_export_20261026/INSTALLATION.md)。
 
 ## 5. 恢复已有训练
 
