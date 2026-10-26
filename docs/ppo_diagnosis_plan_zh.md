@@ -4,6 +4,8 @@
 
 日期：2026-10-26。状态：**初步静态分析完成；下面的动态排查、实现和验收均未执行**。本轮仅阅读当前源码、已下载 manifest/summary 和既有证据，不连接服务器、不运行模型推理或优化器、不采集新对局、不启动训练。静态观察及可复算数据见[报告](../verification/ppo_static_review_20261026/REPORT.md)。
 
+> **同日更新（2026-10-26）：**步骤 S0–S5 随后已针对冻结 run 执行，记录见[动态诊断](../verification/ppo_rootcause_20261026/REPORT.md)。本文保留为历史假设登记册；执行、目标结构与 PR 拆分移入 [PPO 重构计划](ppo_refactor_plan_zh.md)，由此产生的决策记入 [architecture.md](architecture_zh.md) §10.18。
+
 用户已决定后续把 Astra 全部替换为 Wesnoth **1.18.8 原版默认 RCA AI**。这是新的目标，覆盖旧架构中“唯一教师为 Astra”的后续运行约束；当前实现仍使用 Astra。替换与 PPO 根因排查分开归因，不能把同时换教师、引擎、随机机制后的结果全部算作 PPO 修复收益。请求及决策跟踪见 [#48](https://github.com/t66sun/wesnothLearning/issues/48)。
 
 ## 1. 先准确描述问题

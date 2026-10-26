@@ -4,6 +4,8 @@
 
 2026-10-26. **Initial static review complete; the investigations, implementation and acceptance below are NOT RUN.** This review reads current source, downloaded manifests/summaries and existing evidence only. No SSH, model inference, optimizer execution, collection or training. Reproducible observations are in the [static report](../verification/ppo_static_review_20261026/REPORT.md).
 
+> **Update 2026-10-26 (same day):** steps S0–S5 were subsequently executed against the frozen run and are recorded in the [dynamic diagnosis](../verification/ppo_rootcause_20261026/REPORT.md). This document remains the historical hypothesis register; execution, target structure and the PR split now live in the [PPO rebuild plan](ppo_refactor_plan.md), and the resulting decisions in [architecture.md](architecture.md) §10.18.
+
 The user has decided to replace every active Astra role with Wesnoth **1.18.8 stock default RCA AI** in future work. This supersedes the previous Astra-only teacher decision for future runs; the implementation still uses Astra. Preserve causal separation between diagnosing the old PPO run and replacing its teacher. Changing teacher, engine and randomness together cannot establish which change improved PPO. Request/decision tracking: [#48](https://github.com/t66sun/wesnothLearning/issues/48).
 
 ## 1. Define the observed problem
