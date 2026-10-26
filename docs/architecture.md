@@ -10,6 +10,8 @@ Status meanings: **implemented** means usable code and the corresponding entry p
 
 **Fresh training startup, 2026-10-25:** source `822082d`, CPU lite, three formats and unchanged eight-worker/300–600–400 scale; isolated run `training_lite30h_20261025/source/runs/v5_lite30h_20261025`, PID/session 225153. Started 14:40:27 Asia/Shanghai; exact 25/1/4-hour schedule and total deadline October 26 20:40:27 are frozen. Six Ubuntu budget checks passed before launch. At 14:52:47, all three formats have valid collection, committed optimizer updates (76/40/36) and newer checkpoints; no trainer errors. Startup is verified. This is not completed training or strength evidence. See [startup report](../verification/final_review_lite30h_20261025/REPORT.md) and 10.16.
 
+**Completed run and export preparation, 2026-10-26:** the fresh run finished at 16:35:34 Asia/Shanghai, all trainer exit codes 0, all BC gates passed and each final panel completed 30 blocks without faults. Latest versions 470/213/136; selected 400/100/100. Final lite Astra results are not_passed / inconclusive / not_passed. The new local package NeuralArena20261026 is prepared, but FFA4 float32/Lua parity fails the unchanged 1e-5 gate (2.2106e-5); real-game installation awaits an explicit local-trial exception. Duel/2v2 parity, file identities, Lua syntax and isolated native registration passed. See [export report](../verification/lite_export_20261026/REPORT.md); frozen training and old installations remain intact.
+
 ## 1. Goals and boundaries
 
 - Train three independent models: `duel`, `ffa4` and `team2v2`. Parameters, optimizers, RNG state, memory, reward controllers, data and historical policy pools are isolated per format.

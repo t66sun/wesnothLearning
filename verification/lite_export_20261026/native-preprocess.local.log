@@ -1,0 +1,14 @@
+["D:/SteamLibrary/steamapps/common/wesnoth/wesnoth.exe", "--wnoconsole", "--no-log-to-file", "--userdata-dir", "C:\\dev\\WesnothLearning\\tmp\\wesnoth_export_20261026_userdata", "--preprocess-defines=MULTIPLAYER,SKIP_CORE", "--preprocess", "C:\\dev\\WesnothLearning\\tmp\\wesnoth_export_20261026_userdata\\data\\add-ons\\NeuralArena20261026\\_main.cfg", "C:\\dev\\WesnothLearning\\tmp\\wesnoth_export_20261026_preprocess"]
+
+Battle for Wesnoth v1.18.8 x86_64
+Started on Mon Oct 26 21:23:10 2026
+
+Automatically found a possible data directory at: D:\SteamLibrary\steamapps\common\wesnoth
+'SKIP_CORE' defined.
+added 3 defines.
+skipped 'data/core'
+preprocessing specified resource: C:\dev\WesnothLearning\tmp\wesnoth_export_20261026_userdata\data\add-ons\NeuralArena20261026\_main.cfg ...
+acquired 3 total defines.
+preprocessing finished. Took 3 ticks.
+
+EXIT 0
