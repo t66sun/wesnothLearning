@@ -8,6 +8,8 @@ Keep only remaining acceptance work and explicitly requested prospective cases h
 
 Final budget reserve B1 is accepted by six Ubuntu checks and archived in the [startup report](../verification/final_review_lite30h_20261025/REPORT.md); the completed item is removed.
 
+PPO diagnosis and complete stock-RCA replacement are unimplemented proposals in the [2026-10-26 plan](ppo_diagnosis_plan.md). No acceptance item or execution authorization is added here; N1 and the existing numerical/package failures retain their scope and gates.
+
 ## Boundaries and shared inputs
 
 - Ubuntu accepts; Windows provides reference only. Work in an isolated directory/temporary run. Frozen inputs, manifests, evidence and installed models remain read-only.
