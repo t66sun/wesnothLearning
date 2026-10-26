@@ -1,0 +1,73 @@
+{
+  "lua_files": [
+    "bot.lua",
+    "candidates.lua",
+    "config.lua",
+    "features.lua",
+    "network.lua",
+    "observation.lua",
+    "relational.lua",
+    "rewards.lua",
+    "routing.lua",
+    "spatial.lua",
+    "teacher.lua",
+    "weights_duel.lua",
+    "weights_ffa4.lua",
+    "weights_team2v2.lua"
+  ],
+  "lua_syntax_pass": true,
+  "native_preprocess_exit": 0,
+  "files_verified": 19,
+  "numeric_audits": {
+    "duel": {
+      "raw_rows": 8,
+      "supervised_rows": 8,
+      "turns": [
+        1,
+        2
+      ],
+      "full_candidates": true,
+      "python_lua_max_error": 7.683312901463069e-06,
+      "source": "/home/tongshu/myDev/wesnothLearning/training_lite30h_20261025/source/runs/v5_lite30h_20261025/duel/data/teacher-00000-duel-t0.jsonl.gz",
+      "source_sha256": "fc08f545c48603a489188d8259ea8f1507393282fd8b669d145cee0dd053294e",
+      "audit_sha256": "e0d11fde3a21f6ca474e4ca36461dd430e5429c8ac5af44fdd7359b5f47b536c",
+      "status": "passed",
+      "reused": true,
+      "threshold": 1e-05
+    },
+    "ffa4": {
+      "raw_rows": 8,
+      "supervised_rows": 8,
+      "turns": [
+        1,
+        2
+      ],
+      "full_candidates": true,
+      "python_lua_max_error": 2.210623698939429e-05,
+      "source": "/home/tongshu/myDev/wesnothLearning/training_lite30h_20261025/source/runs/v5_lite30h_20261025/ffa4/data/teacher-00000-ffa4-t0.jsonl.gz",
+      "source_sha256": "9f74e0c7750192de677e89b4ed4d5db30f92916aaa2194a9eee89a1407d12d2e",
+      "audit_sha256": "99b7a5920e0ca24d9669a22b09013cf611b7da19b53ead426001c1cabad81ddf",
+      "status": "not_passed",
+      "reused": true,
+      "threshold": 1e-05
+    },
+    "team2v2": {
+      "raw_rows": 8,
+      "supervised_rows": 8,
+      "turns": [
+        1,
+        2
+      ],
+      "full_candidates": true,
+      "python_lua_max_error": 7.781499834713657e-06,
+      "source": "/home/tongshu/myDev/wesnothLearning/training_lite30h_20261025/source/runs/v5_lite30h_20261025/team2v2/data/teacher-00000-team2v2-t0.jsonl.gz",
+      "source_sha256": "defec9a86220adc659ef1510ac090075d982953e74307a33f921fcf7050cb8e2",
+      "audit_sha256": "3a18f0b678e62de178e5fe73440d1efe8d64fdaab6f6522134a6acad8d4b3514",
+      "status": "passed",
+      "reused": false,
+      "threshold": 1e-05
+    }
+  },
+  "installed_to_actual_game": false,
+  "installation_allowed": false
+}

@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/tmp/wesnoth-export-20261026.py", line 69, in <module>
+    turns.add(row['turn'])
+              ~~~^^^^^^^^
+TypeError: tuple indices must be integers or slices, not str

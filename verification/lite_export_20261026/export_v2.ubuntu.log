@@ -1,0 +1,12 @@
+{"format": "duel", "checkpoint": {"version": 400, "checkpoint_sha256": "1f619c272dd132aaef5ddd7c549b8fc305b1b5195ad525d5596ddb95774d19cf"}, "audit": {"raw_rows": 8, "supervised_rows": 8, "turns": [1, 2], "full_candidates": true, "python_lua_max_error": 7.683312901463069e-06, "source": "/home/tongshu/myDev/wesnothLearning/training_lite30h_20261025/source/runs/v5_lite30h_20261025/duel/data/teacher-00000-duel-t0.jsonl.gz", "source_sha256": "fc08f545c48603a489188d8259ea8f1507393282fd8b669d145cee0dd053294e", "audit_sha256": "e0d11fde3a21f6ca474e4ca36461dd430e5429c8ac5af44fdd7359b5f47b536c"}}
+Traceback (most recent call last):
+  File "/tmp/wesnoth-export-20261026-v2.py", line 79, in <module>
+    error = verify_numerics(model, rows)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/venv/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 120, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/training_lite30h_20261025/source/learning/export.py", line 162, in verify_numerics
+    if not math.isfinite(error) or error>1e-5: raise ValueError(f'{model.format_name}: Python/Lua error {error} exceeds 1e-5')
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: ffa4: Python/Lua error 2.210623698939429e-05 exceeds 1e-5
