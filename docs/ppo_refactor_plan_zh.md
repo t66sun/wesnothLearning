@@ -4,7 +4,7 @@
 证据：[verification/ppo_rootcause_20261026/REPORT.md](../verification/ppo_rootcause_20261026/REPORT.md)（十一次只读探针，退出码 0，冻结 run `v5_lite30h_20261025`）。
 证据范围：一个已完成的 30 小时 CPU lite run；未训练、未跑原版对局、未改语料与检查点。
 
-配合阅读：[architecture.md](architecture.md) §10.18（决策记录）与被取代的 [ppo_diagnosis_plan.md](ppo_diagnosis_plan.md)（假设 H1–H5，现已判定或收窄）。
+配合阅读：[architecture_zh.md](architecture_zh.md) §10.18（决策记录）与被取代的 [ppo_diagnosis_plan_zh.md](ppo_diagnosis_plan_zh.md)（假设 H1–H5，现已判定或收窄）。
 
 ## 1. 一页结论
 
