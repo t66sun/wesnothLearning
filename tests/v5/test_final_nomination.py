@@ -1,6 +1,7 @@
 """V1: final selection uses production schedules with recorded replies only."""
 import unittest
 import json
+import copy
 from types import MethodType
 from unittest.mock import Mock, patch
 
@@ -9,6 +10,11 @@ import torch
 from learning.experiment import FormatExperiment, default_config
 from learning.train import checkpoint
 from tests.v5 import helpers
+
+
+def board():
+    return dict(width=16,height=16,terrain=[['Gg']*16 for _ in range(16)],
+                starts=[[1,1],[16,1],[1,16],[16,16]])
 
 
 class FinalNominationTests(unittest.TestCase):
@@ -33,6 +39,11 @@ class FinalNominationTests(unittest.TestCase):
             self.calls.append((jobs, name))
             results = []
             for j in jobs:
+                # Positive nomination fixture: twelve physically distinct scenarios.
+                from learning.maps import bind_scenario
+                j['map_override']=copy.deepcopy(j['map_override'])
+                j['map_override']['terrain'][1][j['meta']['block']]='Hh'
+                bind_scenario(j)
                 result = dict(bots=j['bots'], teams=j.get('teams'), faults={})
                 side = j['meta']['policy_sides'][0]
                 if fmt == 'team2v2': result['winning_team'] = j['teams'][side-1]
@@ -47,7 +58,7 @@ class FinalNominationTests(unittest.TestCase):
         for fmt in ('duel', 'ffa4', 'team2v2'):
             with self.subTest(fmt=fmt), helpers.temporary_directory() as directory:
                 r = self.runner(directory, fmt)
-                with patch('learning.experiment.time.time', return_value=1.), patch('learning.maps.frozen_map', return_value=('Gg,Gg\nGg,Gg', '0'*64)):
+                with patch('learning.experiment.time.time', return_value=1.), patch('learning.maps.frozen_map', return_value=(board(), '0'*64)):
                     frozen, kind, saved = r._select_final()
                     self.assertEqual(kind, 'candidate')
                     self.assertEqual(len(self.calls), 2)
@@ -59,7 +70,7 @@ class FinalNominationTests(unittest.TestCase):
         from learning.rewards import RewardConfig
         with helpers.temporary_directory() as directory:
             r = self.runner(directory)
-            with patch('learning.experiment.time.time', return_value=1.), patch('learning.maps.frozen_map', return_value=('Gg,Gg\nGg,Gg','0'*64)):
+            with patch('learning.experiment.time.time', return_value=1.), patch('learning.maps.frozen_map', return_value=(board(),'0'*64)):
                 _, _, selection = r._select_final()
                 r.state.update(effective=False, error=None, history=[])
                 r.save = Mock()
@@ -87,7 +98,7 @@ class FinalNominationTests(unittest.TestCase):
             with self.subTest(no_time=no_time), helpers.temporary_directory() as directory:
                 r = self.runner(directory)
                 if not no_time: r.execute = lambda jobs, name: (jobs, [])
-                with patch('learning.experiment.time.time', return_value=101. if no_time else 1.), patch('learning.maps.frozen_map', return_value=('Gg,Gg\nGg,Gg', '0'*64)):
+                with patch('learning.experiment.time.time', return_value=101. if no_time else 1.), patch('learning.maps.frozen_map', return_value=(board(), '0'*64)):
                     frozen, kind, saved = r._select_final()
                 self.assertEqual(kind, 'champion')
                 self.assertEqual(frozen.read_bytes(), (directory/'best.pt').read_bytes())
@@ -97,7 +108,7 @@ class FinalNominationTests(unittest.TestCase):
     def test_complete_nomination_reuses_only_exact_checkpoint_identity(self):
         with helpers.temporary_directory() as directory:
             r = self.runner(directory)
-            with patch('learning.experiment.time.time', return_value=1.), patch('learning.maps.frozen_map', return_value=('Gg,Gg\nGg,Gg', '0'*64)):
+            with patch('learning.experiment.time.time', return_value=1.), patch('learning.maps.frozen_map', return_value=(board(), '0'*64)):
                 r._select_final()
                 (directory/'selection.json').unlink()
                 (directory/'selected.pt').unlink()

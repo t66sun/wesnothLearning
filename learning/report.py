@@ -116,13 +116,13 @@ def write_profile_report(directory,summary,history):
     lines=['# '+summary['format'],'Conclusion: '+summary['status'],'Blockers: '+
         ('; '.join(f"{control}: {row['status']}" for control,row in summary['controls'].items()
                    if row['status']!='passed') or 'none'),'',
-        '| Control | Complete blocks | Planned blocks | Fault games | Difference | 95% interval | Status |',
-        '|---|---:|---:|---:|---:|---|---|']
+        '| Control | Complete blocks | Planned blocks | Distinct scenarios | Required scenarios | Fault games | Difference | 95% interval | Status |',
+        '|---|---:|---:|---:|---:|---:|---:|---|---|']
     for control,row in summary['controls'].items():
         difference='pending' if row['difference'] is None else f"{row['difference']:.4f}"
-        lines.append(f"| {control} | {row['blocks']} | {row['planned_blocks']} | {row.get('fault_games',0)} | {difference} | {row['interval95']} | {row['status']} |")
+        lines.append(f"| {control} | {row['blocks']} | {row['planned_blocks']} | {row.get('distinct_scenarios','unknown')} | {row.get('min_distinct','unknown')} | {row.get('fault_games',0)} | {difference} | {row['interval95']} | {row['status']} |")
         for context,value in row['contexts'].items():
-            lines.append(f"| ↳ {context} | {value['blocks']} | | | {value['difference']:.4f} | {value['interval95']} | |")
+            lines.append(f"| ↳ {context} | {value['blocks']} | | {value.get('distinct_scenarios','unknown')} | | | {value['difference']:.4f} | {value['interval95']} | |")
     lines+=['',f"Selected: {summary['selected_kind']}, v{summary['version']}; parameters: {summary['parameters']}",
         f"BC gate complete: {summary.get('pretraining_complete',False)}; clean teacher games: {summary.get('bc_games_collected',0)}/{summary.get('bc_games_required','unknown')}",
         'Checkpoint SHA-256: '+summary['checkpoint_sha256']]
