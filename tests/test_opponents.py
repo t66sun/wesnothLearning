@@ -28,6 +28,7 @@ class OpponentTests(unittest.TestCase):
             self.assertEqual(len(teachers),1)
             self.assertEqual(manifest['rehearsal_policy'],
                              dict(bc='teacher_initialisation',ppo='exclude_evaluation_control'))
+            self.assertEqual(manifest['row_schema'],6)
             for opponent in manifest['opponents']:
                 self.assertEqual(sha256(opponent['source']),opponent['sha256'])
                 self.assertEqual(sha256(opponent['path']),opponent['sha256'])

@@ -1,0 +1,13 @@
+{
+  "rows": 421,
+  "baseline_sha256": "a891c8722652cecd71039c257185135b7c4925e0d9ec61d0520ef868e15b8474",
+  "gae_float64_bit_equal": true,
+  "returns_float64_bit_equal": true,
+  "inputs_unchanged": true,
+  "input_sha256": {
+    "/home/tongshu/myDev/wesnothLearning/training_lite30h_20261025/source/runs/v5_lite30h_20261025/duel/data/rollout-00099-duel-g0.jsonl.gz": "d7b679670102af937af14bf2a42f24253665858715278cc0654cad419a15aeb0",
+    "/home/tongshu/myDev/wesnothLearning/training_lite30h_20261025/source/runs/v5_lite30h_20261025/duel/data/rollout-00099-duel-g1.jsonl.gz": "4f70e623607db78afe57f4e537d0951dad7ac7265e1376abff0c7f93f0d1e908",
+    "/home/tongshu/myDev/wesnothLearning/training_lite30h_20261025/source/runs/v5_lite30h_20261025/duel/data/rollout-00099-duel-g2.jsonl.gz": "d90fa79e9aedd5b72afc294a306425a15be2df2b45574f343a546065327c31d0",
+    "/home/tongshu/myDev/wesnothLearning/training_lite30h_20261025/source/runs/v5_lite30h_20261025/duel/data/rollout-00099-duel-g3.jsonl.gz": "01164899c24419bb77361ee890062d531532ca7076d378f7177fceb631c11acf"
+  }
+}

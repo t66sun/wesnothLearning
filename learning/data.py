@@ -6,7 +6,7 @@ from pathlib import Path
 from functools import lru_cache
 from .features import VERSION, GLOBAL, OPPONENT, ACTION, UNIT_TYPES, ENTITY, GEOMETRY, SPATIAL_CHANNELS
 from .formats import infer_format, record_format
-from .rowpack import pack_line, row_meta
+from .rowpack import ROW_SCHEMA, pack_line, row_meta
 
 
 def split(game_id):
@@ -38,8 +38,14 @@ def _lite_teacher_source():
 
 def validate_record(r, format_name=None):
     import math
-    if r['schema'] != VERSION or len(r['global']) != len(GLOBAL):
+    if r['schema'] not in (VERSION, ROW_SCHEMA) or len(r['global']) != len(GLOBAL):
         raise ValueError('feature schema mismatch')
+    if r['schema'] == ROW_SCHEMA:
+        if not math.isfinite(r.get('terminal_reward',float('nan'))):
+            raise ValueError('row lacks finite terminal_reward')
+        step = r.get('reward_step')
+        if (step is None and r.get('source')=='policy') or (step is not None and not math.isfinite(step)):
+            raise ValueError('row lacks finite reward_step')
     if not 1 <= len(r['candidates']) <= 128 or not 0 <= r['choice'] < len(r['candidates']):
         raise ValueError('invalid candidate/label')
     vectors = [r['global']] + list(r['opponents']) + [c['features'] for c in r['candidates']]
@@ -117,6 +123,7 @@ def validate_record(r, format_name=None):
 
 
 def write_shard(path, game_id, records, result, bootstraps=None, provenance=None):
+    from .rewards import row_transition
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     written=raw_count=0;bootstraps=bootstraps or {}
@@ -127,20 +134,41 @@ def write_shard(path, game_id, records, result, bootstraps=None, provenance=None
         if survivors is None:return True
         if result.get('teams'):return any(result['teams'][s-1]==result['teams'][side-1] for s in survivors)
         return side in survivors
-    for r in records:
+    steps, pending = {}, {}
+    outcomes = {side:reward(result,side) for side in range(1,len(result['bots'])+1)} if not excluded else {}
+    def step_value(row, following=None):
+        if not row.get('reward_raw') or (following is None and row.get('truncated') and not row.get('bootstrap_raw')):
+            return None  # Unsupplied teacher/human reward evidence is explicitly unknown.
+        return row_transition(row,following)[0]
+    for index,r in enumerate(records):
         if is_truncated(r['side']) and r.get('source')=='policy' and str(r['side']) not in bootstraps:
             excluded='missing_truncation_bootstrap'
+        if not excluded:
+            side=r['side'];bootstrap=bootstraps.get(str(side),{})
+            terms=dict(provenance or {},**{key:r[key] for key in
+                ('turn','reward_raw','reward_after','reward_config') if key in r})
+            terms={key:terms[key] for key in ('turn','reward_raw','reward_after','reward_config') if key in terms}
+            terms.update(schema=ROW_SCHEMA,terminal_reward=outcomes[side],truncated=is_truncated(side),
+                         bootstrap_raw=bootstrap.get('reward_raw'),bootstrap_turn=bootstrap.get('turn'))
+            if side in pending:
+                previous,context=pending[side]
+                steps[previous]=step_value(context,terms)
+            pending[side]=(index,terms)
+    if not excluded:
+        for index,context in pending.values(): steps[index]=step_value(context)
     with gzip.open(path, 'wt', encoding='utf-8') as f:
         if excluded:return dict(written=0,excluded=excluded)
         def augmented():
             nonlocal written, raw_count
-            for r in records:
+            for index,r in enumerate(records):
                 r = dict(provenance or {}, **r)
                 family=r.get('game_family', game_id)
                 truncated=is_truncated(r['side'])
                 bootstrap=bootstraps.get(str(r['side']),{})
                 r.update(game_family=family, split_rule=r.get('split_rule', 'family-seed-v1'))
-                r = dict(r, game_id=game_id, game_family=family, split=record_split(r), reward=reward(result, r['side']), value_valid=r.get('value_valid',True) and not truncated,
+                r.pop('reward',None)
+                r = dict(r, schema=ROW_SCHEMA, game_id=game_id, game_family=family, split=record_split(r),
+                         terminal_reward=outcomes[r['side']],reward_step=steps[index],value_valid=r.get('value_valid',True) and not truncated,
                          truncated=truncated,bootstrap_value=bootstrap.get('value'),bootstrap_potential=bootstrap.get('potential'),
                          bootstrap_raw=bootstrap.get('reward_raw'),bootstrap_turn=bootstrap.get('turn'),
                          players=len(result['bots']), format=infer_format(result), faults=result['faults'],
@@ -249,7 +277,8 @@ def make_bc_sampler(records, allow_policy=False, *, exclude_teacher_impl=None, e
 
 
 def advantages(records, gamma=None, lam=None, shaping_weight=None):
-    from .rewards import transition_reward
+    import math
+    from .rewards import row_transition
     groups = {}
     for i, r in enumerate(records):
         groups.setdefault((r['game_id'], r['side']), []).append(i)
@@ -264,13 +293,10 @@ def advantages(records, gamma=None, lam=None, shaping_weight=None):
         gae, next_value = 0., last['bootstrap_value'] if last.get('truncated') else 0.
         for t, i in reversed(list(enumerate(indices))):
             r = records[i]
-            terminal = t == len(indices) - 1
-            immediate = r['reward'] if terminal and not r.get('truncated') else 0.
-            # Multiple actions in one turn should not repeatedly decay credit.
-            turns=max(0,(r.get('bootstrap_turn') or r['turn'])-r['turn']) if terminal else max(0,records[indices[t+1]]['turn']-r['turn'])
-            after=(r.get('bootstrap_raw') if r.get('truncated') else r.get('reward_after',r['reward_raw'])) if terminal else records[indices[t+1]]['reward_raw']
-            immediate=transition_reward(r['reward_raw'],after,r['reward_config'],terminal_reward=immediate,
-                terminal=terminal and not r.get('truncated'),delta_turn=turns,gamma=discount_gamma)
+            following=records[indices[t+1]] if t+1<len(indices) else None
+            immediate,turns=row_transition(r,following,gamma=discount_gamma)
+            if r.get('reward_step') is not None and not math.isclose(r['reward_step'],immediate,rel_tol=0.,abs_tol=1e-9):
+                raise ValueError('reward_step differs from transition_reward')
             discount=discount_gamma**turns
             delta = immediate + discount * next_value - r['value']
             gae = delta + discount * gae_lambda**turns * gae
