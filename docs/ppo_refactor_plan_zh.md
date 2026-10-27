@@ -1,6 +1,6 @@
 # PPO 重构计划：已证实缺陷、目标结构与原版 RCA 替换
 
-状态：**实施中**。R1–R4 已于 2026-10-27 通过有界 Ubuntu 验收；R5–R10 尚未实现。R3 按下文用户批准的语义修订实施。见 [R1 证据](../verification/ppo_refactor_r1_20261027/REPORT.md)、[R2 证据](../verification/ppo_refactor_r2_20261027/REPORT.md)、[R3 证据](../verification/ppo_refactor_r3_20261027/REPORT.md)。
+状态：**实施中**。R1–R5 已于 2026-10-27 通过有界 Ubuntu 验收；R6–R10 尚未实现。R3 按下文用户批准的语义修订实施。见 [R1 证据](../verification/ppo_refactor_r1_20261027/REPORT.md)、[R2 证据](../verification/ppo_refactor_r2_20261027/REPORT.md)、[R3 证据](../verification/ppo_refactor_r3_20261027/REPORT.md)。
 证据：[verification/ppo_rootcause_20261026/REPORT.md](../verification/ppo_rootcause_20261026/REPORT.md)（十一次只读探针，退出码 0，冻结 run `v5_lite30h_20261025`）。
 证据范围：一个已完成的 30 小时 CPU lite run；未训练、未跑原版对局、未改语料与检查点。
 
@@ -239,6 +239,8 @@ split           = 'validation' if int(sha256(scenario_family)[:8],16) % 5 == 0 e
 
 #### R5. Rehearsal 不得模仿面板 control
 
+**2026-10-27 已验收：**实现 `9fee653`，验收源码 `e7342e2`，23 项 Ubuntu 专项检查通过；关闭排除谓词后失败，恢复通过。[报告](../verification/ppo_refactor_r5_20261027/REPORT.md)。正权重下只有 control 数据会失败，未调低系数、未采集新数据。
+
 - **行为：** PPO 的辅助模仿项永远不能取自被评分所对的策略。
 - **证据：** F5（`control=self.teachers[0]`、rehearsal 与 PG 的 cos +0.1006、权重 10%）；F6（本应约束质量的门度量的是教师状态模仿）。
 - **模块：** `learning/data.py BCSampler`、`learning/ppo.py update(..., rehearsal_exclude=...)`、`learning/experiment.py finish_train`（传 control 身份）、manifest（分阶段的 `bc_aux` 策略）。
@@ -364,7 +366,7 @@ flowchart LR
 
 ### 4.3 测试覆盖表
 
-每个阶段只附带一个新测试文件，外加一条“还原修复即失败”的断言。R1–R4 已实现并验收，R5–R10 的测试文件仍未编写；只有已实现且待验收的事项才进入 `TEST.md`。
+每个阶段只附带一个新测试文件，外加一条“还原修复即失败”的断言。R1–R5 已实现并验收，R6–R10 的测试文件仍未编写；只有已实现且待验收的事项才进入 `TEST.md`。
 
 | PR | 测试 | 还原即失败的断言 | 证明什么 | 必须保持绿色的既有套件 |
 | --- | --- | --- | --- | --- |
@@ -455,7 +457,8 @@ flowchart LR
 | R2 Ubuntu 验收 | **20 + 1 项通过** | 资格、计数与四人赛制更新；见[证据](../verification/ppo_refactor_r2_20261027/REPORT.md) |
 | R3 Ubuntu 验收 | **14 项通过** | 显式停止工作、中断与检查点记账；见[证据](../verification/ppo_refactor_r3_20261027/REPORT.md) |
 | R4 Ubuntu 验收 | **30 项通过** | 场景证据、门控、选择与报告；[证据](../verification/ppo_refactor_r4_20261027/REPORT.md) |
-| R5–R10 Ubuntu 验收 | **未运行** | 尚未实现 |
+| R5 Ubuntu 验收 | **23 项通过** | 来源排除、20 次微型更新、恢复、BC RNG 与 manifest；[证据](../verification/ppo_refactor_r5_20261027/REPORT.md) |
+| R6–R10 Ubuntu 验收 | **未运行** | 尚未实现 |
 | BC/升级/champion/final 门、全套测试 | **未重跑** | 复用冻结 run 与 §10.15 |
 
 ### 6.2 阻塞分类

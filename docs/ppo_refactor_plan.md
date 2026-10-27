@@ -1,6 +1,6 @@
 # PPO rebuild plan: proven defects, target structure, stock RCA replacement
 
-Status: **implementation in progress**. R1–R4 passed bounded Ubuntu acceptance on 2026-10-27; R5–R10 remain unimplemented. R3 follows the user-approved semantics revision below. [R1 evidence](../verification/ppo_refactor_r1_20261027/REPORT.md), [R2 evidence](../verification/ppo_refactor_r2_20261027/REPORT.md), [R3 evidence](../verification/ppo_refactor_r3_20261027/REPORT.md).
+Status: **implementation in progress**. R1–R5 passed bounded Ubuntu acceptance on 2026-10-27; R6–R10 remain unimplemented. R3 follows the user-approved semantics revision below. [R1 evidence](../verification/ppo_refactor_r1_20261027/REPORT.md), [R2 evidence](../verification/ppo_refactor_r2_20261027/REPORT.md), [R3 evidence](../verification/ppo_refactor_r3_20261027/REPORT.md).
 Evidence: [verification/ppo_rootcause_20261026/REPORT.md](../verification/ppo_rootcause_20261026/REPORT.md) (eleven read-only probes, exit 0, frozen run `v5_lite30h_20261025`).
 Scope of the evidence: one completed 30-hour CPU lite run; no training, no native game, no corpus, no checkpoint touched.
 
@@ -239,6 +239,8 @@ One PR per behaviour. Every phase names its own revert-detecting assertion. Line
 
 #### R5. Rehearsal must not imitate the panel control
 
+**Accepted 2026-10-27:** implementation `9fee653`, acceptance source `e7342e2`, 23 focused Ubuntu checks; disabling exclusion fails and restoration passes. [Report](../verification/ppo_refactor_r5_20261027/REPORT.md). A control-only pool fails at positive auxiliary weight; no coefficient or corpus change.
+
 - **Behaviour:** PPO's auxiliary imitation term can never be sourced from the policy that the learner is scored against.
 - **Evidence:** F5 (`control=self.teachers[0]`, rehearsal cos +0.1006 with PG, 10 % weight); F6 (the gate that was supposed to bound quality measures teacher-state imitation).
 - **Modules:** `learning/data.py BCSampler`, `learning/ppo.py update(..., rehearsal_exclude=...)`, `learning/experiment.py finish_train` (pass the control identity), manifest (`bc_aux` policy per stage).
@@ -364,7 +366,7 @@ Reward coefficient changes, KL limit changes, network or architecture changes, p
 
 ### 4.3 Test coverage map
 
-Each phase ships exactly one new test file plus one assertion that fails when the behaviour is reverted. R1–R4 are implemented and accepted; R5–R10 test files remain unwritten. A row becomes `TEST.md` material only when implemented and awaiting acceptance.
+Each phase ships exactly one new test file plus one assertion that fails when the behaviour is reverted. R1–R5 are implemented and accepted; R6–R10 test files remain unwritten. A row becomes `TEST.md` material only when implemented and awaiting acceptance.
 
 | PR | Test | Revert-detecting assertion | Proves | Existing suites that must stay green |
 | --- | --- | --- | --- | --- |
@@ -455,7 +457,8 @@ Historical Astra data, packages, models and reports keep their identity and are 
 | R2 Ubuntu acceptance | **20 + 1 PASS** | eligibility, counters and four-player updates; [evidence](../verification/ppo_refactor_r2_20261027/REPORT.md) |
 | R3 Ubuntu acceptance | **14 PASS** | explicit stopped work, interruptions, checkpoint accounting; [evidence](../verification/ppo_refactor_r3_20261027/REPORT.md) |
 | R4 Ubuntu acceptance | **30 PASS** | scenario evidence, gates, selection and reporting; [evidence](../verification/ppo_refactor_r4_20261027/REPORT.md) |
-| R5–R10 Ubuntu acceptance | **not run** | unimplemented |
+| R5 Ubuntu acceptance | **23 PASS** | source exclusion, 20 tiny updates, resume, BC RNG and manifest; [evidence](../verification/ppo_refactor_r5_20261027/REPORT.md) |
+| R6–R10 Ubuntu acceptance | **not run** | unimplemented |
 | BC/promotion/champion/final gates, full suite | **not rerun** | reused from the frozen run and §10.15 |
 
 ### 6.2 Blocking classification

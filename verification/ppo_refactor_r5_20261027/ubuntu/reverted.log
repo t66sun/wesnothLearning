@@ -1,0 +1,14 @@
+test_control_policy_cannot_rehearse (tests.v5.test_rehearsal_source.RehearsalSourceTests.test_control_policy_cannot_rehearse) ... FAIL
+
+======================================================================
+FAIL: test_control_policy_cannot_rehearse (tests.v5.test_rehearsal_source.RehearsalSourceTests.test_control_policy_cannot_rehearse)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/acceptance_ppo_r5_20261027_e7342e2/source/tests/v5/test_rehearsal_source.py", line 88, in test_control_policy_cannot_rehearse
+    with self.assertRaisesRegex(ValueError, 'no rehearsal data distinct from the evaluation control'):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 0.016s
+
+FAILED (failures=1)
