@@ -2,7 +2,9 @@
 
 > 语言：[English](instructions.md) | 中文
 
-更新日期：2026-10-23。面向接手启动、维护和按指令调参的 agent。架构与当前参数以 [architecture_zh.md](architecture_zh.md) 为准，已实现但未验收的事项及最小方案见 [TEST_zh.md](TEST_zh.md)，历史验收证据从架构文档链接查阅。本文件提供操作步骤，不重复维护架构状态和完整超参数表。
+更新日期：2026-10-27。面向接手启动、维护和按指令调参的 agent。架构与当前参数以 [architecture_zh.md](architecture_zh.md) 为准，已实现但未验收的事项及最小方案见 [TEST_zh.md](TEST_zh.md)，历史验收证据从架构文档链接查阅。本文件提供操作步骤，不重复维护架构状态和完整超参数表。
+
+**R7 后的新 run 路线：**manifest 声明原版 1.18.8 RCA；baseline 与参考面板仅走 native，Lite 学生批次只有自博弈/历史席位。Astra 包保留为历史输入，不冻结为活动对手。R7 只证明身份与接线；R8 采集和 R9 能力仍未完成，R4 场景下限、R5 合格 rehearsal 数据也仍是前置条件。下文历史纯 Lite 启动模板不能用于新 run。本指南不授权新采集或正式训练；见 [R7 报告](../verification/ppo_refactor_r7_20261027/REPORT.md)。
 
 ## 1. 接手时先确定任务
 
