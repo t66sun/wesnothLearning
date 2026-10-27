@@ -8,7 +8,7 @@
 
 最终预算预留 B1 的 6 项 Ubuntu 检查已通过，归档于[启动报告](../verification/final_review_lite30h_20261025/REPORT.md)，已删除整项。
 
-PPO 排查与原版 RCA 全量替换仍为未实施提案，详见 [2026-10-26 方案](ppo_diagnosis_plan_zh.md)。此处不新增验收条目或执行授权；N1 与既有数值/打包失败保留原范围和门禁。
+PPO 重构 R1 已通过 27 项 Ubuntu 专项检查，还原/恢复证据归档于 [2026-10-27 报告](../verification/ppo_refactor_r1_20261027/REPORT.md)，不再保留 R1 验收条目。R2–R10 尚未实现，见[重构计划](ppo_refactor_plan_zh.md)；N1 与既有数值/打包失败保留原范围和门禁。
 
 ## 边界与共享输入
 

@@ -2,7 +2,7 @@
 
 > 语言：[English](architecture.md) | 中文
 
-更新日期：2026-10-26。本文件取代根目录 PLAN.md，作为后续唯一维护的架构、参数与实施状态文档。已实现但未验收的事项及其最小测试方案归入 [TEST_zh.md](TEST_zh.md)（原版新增终态采集仍待验收），接手运行、维护与按指令调参见 [instructions_zh.md](instructions_zh.md)；[历史验收报告](../verification/archive/TEST_before_cleanup_20261022.md)及原始结果留在 `verification/`，实验和权重留在 `runs/`、`delivery/`，不复制到 docs。
+更新日期：2026-10-27。本文件取代根目录 PLAN.md，作为后续唯一维护的架构、参数与实施状态文档。已实现但未验收的事项及其最小测试方案归入 [TEST_zh.md](TEST_zh.md)（原版新增终态采集仍待验收），接手运行、维护与按指令调参见 [instructions_zh.md](instructions_zh.md)；[历史验收报告](../verification/archive/TEST_before_cleanup_20261022.md)及原始结果留在 `verification/`，实验和权重留在 `runs/`、`delivery/`，不复制到 docs。
 
 状态含义：**已实现**表示存在可用代码和对应入口；**部分实现**表示仍有明确缺口或证据只覆盖有限场景；**未实现/未执行**分别表示缺少实现或尚未开展实际运行。实现、最小测试通过、整体验收通过、训练强度提升是四件不同的事。
 
@@ -654,4 +654,4 @@ PR #32–#37 分别只修一项已复现行为。[新报告](../verification/ref
 - **归因（D8）。** A/B 阶段修复与教师/引擎/随机机制变更相互独立；任何结果不得把替换之后测得的收益归给 PPO 修复；lite 与 native 训练域的取舍由参考路径建成后的一次匹配面板决定。
 - **判决的证据范围（D9）。** 每个判决——升级/final 面板与 BC 门一视同仁——都要报告其背后的不同场景数，低于冻结下限即判 `insufficient_design`；BC 门还要声明自己只是初始化证据，不代表 on-policy 棋力。理由：D4 只覆盖面板，而门控是另一处判决点且什么都没报。后续探针（[`k_gate_scope`](../verification/ppo_gate_scope_20261026/REPORT.md)）发现支撑 99.19% 模仿率的 duel 语料是 300 局落在 4 张棋盘上、其中一张占一半，却因 seed 进入 family 而有 300 个不同 family。该探针把 D4 为面板给出的数字，同样为门控把“未度量”变成具体数值；历史判决不重写。
 
-状态：诊断**已实现**（证据已记录）；R1–R10 **未实现**；三个原版采集 fixture **未运行**；原版 N1、全盘教师战术与棋力仍按原门禁开放。TEST 不新增推测性条目；拟议检查在计划中标注为未编写。
+状态：诊断**已实现**（证据已记录）；R1 **已于 2026-10-27 验收**（[27 项 Ubuntu 专项检查](../verification/ppo_refactor_r1_20261027/REPORT.md)）；R2–R10 **未实现**；三个原版采集 fixture **未运行**；原版 N1、全盘教师战术与棋力仍按原门禁开放。TEST 不新增推测性条目；拟议检查在计划中标注为未编写。
