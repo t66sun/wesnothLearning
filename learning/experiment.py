@@ -355,6 +355,10 @@ class FormatExperiment:
         committed=metrics.get('committed_decisions',metrics.get('decisions_seen',0))
         history=dict(batch=self.state['batch'],method=method,
             elapsed_hours=(time.time()-self.clock['started'])/3600,reads=reads,peak_rss_mb=peak_rss_mb(),**metrics)
+        if method == 'ppo':
+            counters = self.state['counters']
+            for key in ('planned_steps', 'committed_steps', 'stopped_by_kl_steps'):
+                counters[key] = counters.get(key, 0) + metrics[key]
         if metrics.get('kl_stopped') and metrics.get('updates',0)==0:
             # The whole logical batch was rejected before any parameter change.
             self.state['history'].append(history)

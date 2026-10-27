@@ -95,7 +95,20 @@ def update(model, optimizer, records, bc_records=None, epochs=4, minibatch=256, 
     repeated = len(targets) - len(set(targets))
 
     def result(exit, interrupted=False, kl_stopped=False):
+        planned_steps = steps * epochs if windows else 0
+        remaining_steps = max(0, planned_steps - updates)
+        planned_visits = len(windows) * epochs
+        committed_visits = min(planned_visits, len(windows) * cursor['epoch'] +
+                               min(len(windows), cursor['step'] * sequence_count))
+        remaining_visits = planned_visits - committed_visits
+        scope = 'deferred' if interrupted else 'batch'
         return dict(updates=updates, loss=loss_sum / max(1, updates), approx_kl=kl,
+                    scope=scope, planned_steps=planned_steps, committed_steps=updates,
+                    deferred_steps=remaining_steps if interrupted else 0,
+                    stopped_by_kl_steps=remaining_steps if kl_stopped else 0,
+                    planned_window_visits=planned_visits, committed_window_visits=committed_visits,
+                    deferred_windows=remaining_visits if interrupted else 0,
+                    stopped_by_kl_windows=remaining_visits if kl_stopped else 0,
                     eligible_decisions=len(records), excluded_decisions=0, excluded_games=0,
                     interrupted=interrupted, kl_stopped=kl_stopped, decisions_seen=decisions_seen,
                     unique_families_seen=len({r['game_family'] for r in records}),
@@ -104,7 +117,7 @@ def update(model, optimizer, records, bc_records=None, epochs=4, minibatch=256, 
                     planned_windows=len(windows), planned_targets=len(targets), repeated_targets=repeated,
                     inspected_decisions=inspected, committed_decisions=committed,
                     policy_sha256_before=before, policy_sha256_after=_digest(model),
-                    cursor=dict(cursor,loss_sum=loss_sum,updates=updates,decisions_seen=decisions_seen,
+                    cursor=dict(cursor,scope=scope,loss_sum=loss_sum,updates=updates,decisions_seen=decisions_seen,
                                 inspected_decisions=inspected,committed_decisions=committed))
 
     plan_migrated = progress is not None and progress.get('plan_version', 1) != PLAN_VERSION
