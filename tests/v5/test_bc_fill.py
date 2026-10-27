@@ -68,8 +68,11 @@ class BoundedFillTests(unittest.TestCase):
         for index, (name, turns) in enumerate((('game-0', 8), ('game-1', 2))):
             rows = helpers.sequence_rows(turns=turns, decisions_per_turn=1,
                                          game_id=name, game_family=name)
-            for row in rows:
-                row['engine_id'] = f'lite-0.{index + 1}'
+            if index == 0:
+                for row in rows:
+                    row.update(engine_id='native', engine='native', engine_version='1.18.8',
+                               rng_version='native-1.18.8', combat_version='native-1.18.8',
+                               teacher_profile='native')
             path = self.directory / 'buckets' / f'{index}.jsonl.gz'
             data.write_shard(path, name, rows, result())
             paths.append(str(path))

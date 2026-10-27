@@ -92,6 +92,7 @@ def play_job(job):
             architecture_id='relational_v5',
             reward_config=reward_config,reward_version=reward_config['reward_version'],reward_formula_id=reward_config['reward_formula_id'],
             data_pool='original',teacher_impl='astra_native',game_family=job.get('game_family',job['id']),
+            scenario_family=job.get('scenario_family'),split_rule=job.get('split_rule','family-seed-v1'),
             map=job.get('meta',{}).get('map'),map_sha256=job.get('meta',{}).get('map_sha256'),map_partition=job.get('meta',{}).get('map_partition'),
             teammate_context=job.get('meta',{}).get('context','baseline_partner' if job.get('teams') else 'solo'))
         for i,r in enumerate(records):

@@ -1,0 +1,6 @@
+test_seed_does_not_move_the_scenario_between_splits (tests.v5.test_scenario_identity.ScenarioIdentityTests.test_seed_does_not_move_the_scenario_between_splits) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.047s
+
+OK

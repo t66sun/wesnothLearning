@@ -1,6 +1,6 @@
 # PPO rebuild plan: proven defects, target structure, stock RCA replacement
 
-Status: **proposal, not executed**. This document is the deliverable of the 2026-10-26 diagnosis; it changes no runtime behaviour by itself.
+Status: **implementation in progress**. R1 passed bounded Ubuntu acceptance on 2026-10-27; R2–R10 remain unimplemented. Original diagnosis and future phase boundaries remain as specified. [R1 evidence](../verification/ppo_refactor_r1_20261027/REPORT.md).
 Evidence: [verification/ppo_rootcause_20261026/REPORT.md](../verification/ppo_rootcause_20261026/REPORT.md) (eleven read-only probes, exit 0, frozen run `v5_lite30h_20261025`).
 Scope of the evidence: one completed 30-hour CPU lite run; no training, no native game, no corpus, no checkpoint touched.
 
@@ -164,6 +164,8 @@ One PR per behaviour. Every phase names its own revert-detecting assertion. Line
 ### Phase A — data and measurement integrity
 
 #### R1. Scenario-keyed identity and split
+
+**Accepted 2026-10-27:** implementation `be0a1ca`, 27 focused Ubuntu tests, deliberate revert fails and restoration passes; [report](../verification/ppo_refactor_r1_20261027/REPORT.md). No games or training.
 
 - **Behaviour:** a training game and a validation game can no longer be the same physical scenario.
 - **Evidence:** F2 (5/6, 7/9, 4/9 scenarios on both splits); `learning/maps.py` puts `seed` into the hashed family.
@@ -354,7 +356,7 @@ Reward coefficient changes, KL limit changes, network or architecture changes, p
 
 ### 4.3 Test coverage map
 
-Each phase ships exactly one new test file plus one assertion that fails when the behaviour is reverted. Nothing in this table is written yet; a row becomes `TEST.md` material only when its phase is implemented.
+Each phase ships exactly one new test file plus one assertion that fails when the behaviour is reverted. R1 is implemented and accepted; R2–R10 test files remain unwritten. A row becomes `TEST.md` material only when implemented and awaiting acceptance.
 
 | PR | Test | Revert-detecting assertion | Proves | Existing suites that must stay green |
 | --- | --- | --- | --- | --- |
@@ -441,7 +443,8 @@ Historical Astra data, packages, models and reports keep their identity and are 
 | BC corpus scenario coverage (`k_gate_scope`) | **run**, exit 0 | duel complete (300 shards), ffa4/2v2 first 40 shards of 608/400; full ffa4/2v2 scans aborted at the 300 s per-command budget, recorded as not run to completion |
 | Stock-RCA candidate-action inventory | **run** (static, installed data) | 19 CAs, 9 Lua / 11 C++ |
 | Native stock-RCA game, capture, label matching | **not run** | FX1–FX3 are defined, bounded to 3 scenarios × ≤5 turns, and authorised only as capability fixtures |
-| Any Ubuntu test of a new behaviour | **not run** | R1–R10 are unimplemented |
+| R1 Ubuntu acceptance | **27 PASS** | scenario identity, content identity, schedule and affected reader; [evidence](../verification/ppo_refactor_r1_20261027/REPORT.md) |
+| R2–R10 Ubuntu acceptance | **not run** | unimplemented |
 | BC/promotion/champion/final gates, full suite | **not rerun** | reused from the frozen run and §10.15 |
 
 ### 6.2 Blocking classification

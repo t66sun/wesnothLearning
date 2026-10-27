@@ -16,7 +16,7 @@ import sqlite3
 import struct
 import zlib
 
-from .data import split
+from .data import record_split, split
 from .rowpack import unpack_line, plain_row
 
 
@@ -47,6 +47,9 @@ def _validate_raw(row, format_name=None):
             raise ValueError('uncovered raw record lacks current-schema context/provenance')
         if format_name is not None and row['format'] != format_name:
             raise ValueError('cross-format sample rejected')
+    row.setdefault('split_rule', 'family-seed-v1')
+    if row.get('split', record_split(row)) != record_split(row):
+        raise ValueError('family crosses partitions')
 
 
 def attach_histories(records, prefixes=None):
@@ -148,15 +151,18 @@ class IndexedSequenceStore:
                     raise ValueError('sequence requires explicit engine provenance')
                 if row.get('_sequence_complete') is False or row.get('sequence_start') is False:
                     raise ValueError('cannot store an incomplete sequence without raw prefix')
-                if row.get('split', split(row['game_family'])) != split(row['game_family']):
+                partition = record_split(row)
+                if row.get('split', partition) != partition:
                     raise ValueError('family crosses partitions')
                 key = sequence_key(row)
                 raw = _raw(row)
                 if key not in groups:
                     attach_histories([raw])  # retain the original complete-prefix check
                     groups[key] = dict(compressor=zlib.compressobj(), chunks=[], count=0,
-                                       decisions=0, turns=set(), last_turn=row['turn'])
+                                       decisions=0, turns=set(), last_turn=row['turn'], partition=partition)
                 group = groups[key]
+                if group['partition'] != partition:
+                    raise ValueError('family crosses partitions')
                 if row['turn'] < group['last_turn']:
                     raise ValueError('sequence must preserve chronological turn order')
                 group['last_turn'] = row['turn']
@@ -180,7 +186,7 @@ class IndexedSequenceStore:
                         raise ValueError('sequence identity already exists with different raw content')
                     continue
                 self.connection.execute('INSERT INTO sequences VALUES (?,?,?,?,?,?,?,?,?,?,?)',
-                    (identity, fmt, source, engine, split(family), family, game_id, side,
+                    (identity, fmt, source, engine, group['partition'], family, game_id, side,
                      group['decisions'], len(group['turns']), payload))
         return sum(group['count'] for group in groups.values())
 

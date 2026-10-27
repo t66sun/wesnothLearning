@@ -8,7 +8,7 @@ Keep only remaining acceptance work and explicitly requested prospective cases h
 
 Final budget reserve B1 is accepted by six Ubuntu checks and archived in the [startup report](../verification/final_review_lite30h_20261025/REPORT.md); the completed item is removed.
 
-PPO diagnosis and complete stock-RCA replacement are unimplemented proposals in the [2026-10-26 plan](ppo_diagnosis_plan.md). No acceptance item or execution authorization is added here; N1 and the existing numerical/package failures retain their scope and gates.
+PPO rebuild R1 is accepted by 27 focused Ubuntu checks, with revert/restore evidence in the [2026-10-27 report](../verification/ppo_refactor_r1_20261027/REPORT.md). No R1 acceptance item remains. R2–R10 are unimplemented in the [rebuild plan](ppo_refactor_plan.md); N1 and existing numerical/package failures retain their scope and gates.
 
 ## Boundaries and shared inputs
 

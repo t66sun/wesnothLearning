@@ -1,0 +1,32 @@
+test_explicit_rules_directory_is_bound_before_schedule_freeze (tests.v5.test_scenario_identity.ScenarioIdentityTests.test_explicit_rules_directory_is_bound_before_schedule_freeze) ... ok
+test_legacy_rows_remain_readable_but_cannot_mix_with_v2 (tests.v5.test_scenario_identity.ScenarioIdentityTests.test_legacy_rows_remain_readable_but_cannot_mix_with_v2) ... ok
+test_physical_changes_but_not_paths_change_the_scenario (tests.v5.test_scenario_identity.ScenarioIdentityTests.test_physical_changes_but_not_paths_change_the_scenario) ... ok
+test_scheduled_corpora_do_not_cross_partitions (tests.v5.test_scenario_identity.ScenarioIdentityTests.test_scheduled_corpora_do_not_cross_partitions) ... ok
+test_seed_does_not_move_the_scenario_between_splits (tests.v5.test_scenario_identity.ScenarioIdentityTests.test_seed_does_not_move_the_scenario_between_splits) ... ok
+test_shards_and_index_use_scenario_partition (tests.v5.test_scenario_identity.ScenarioIdentityTests.test_shards_and_index_use_scenario_partition) ... ok
+test_v2_rejects_incorrect_or_missing_scenario_partition (tests.v5.test_scenario_identity.ScenarioIdentityTests.test_v2_rejects_incorrect_or_missing_scenario_partition) ... ok
+test_changed_valid_inputs_rejected_before_any_update (tests.v5.test_rollout_content_identity.RolloutContentIdentityTests.test_changed_valid_inputs_rejected_before_any_update) ... ok
+test_unchanged_rereads_and_container_forms_match (tests.v5.test_rollout_content_identity.RolloutContentIdentityTests.test_unchanged_rereads_and_container_forms_match) ... ok
+test_block_bootstrap_and_incomplete_blocks (tests.test_schedule.ScheduleTests.test_block_bootstrap_and_incomplete_blocks) ... ok
+test_deadline_config_and_log_recovery (tests.test_schedule.ScheduleTests.test_deadline_config_and_log_recovery) ... ok
+test_frozen_schedule (tests.test_schedule.ScheduleTests.test_frozen_schedule) ... ok
+test_linux_command_omits_windows_only_option (tests.test_schedule.ScheduleTests.test_linux_command_omits_windows_only_option) ... ok
+test_official_ai_in_all_team_roles (tests.test_schedule.ScheduleTests.test_official_ai_in_all_team_roles) ... ok
+test_team_assignment_and_credit (tests.test_schedule.ScheduleTests.test_team_assignment_and_credit) ... ok
+test_two_controls_are_never_merged_and_opening_fixture_is_safe (tests.test_schedule.ScheduleTests.test_two_controls_are_never_merged_and_opening_fixture_is_safe) ... ok
+test_wml_teams_are_opt_in (tests.test_schedule.ScheduleTests.test_wml_teams_are_opt_in) ... ok
+test_backfill_uses_unused_capacity_after_fair_share (tests.v5.test_bc_fill.BoundedFillTests.test_backfill_uses_unused_capacity_after_fair_share) ... ok
+test_buckets_own_their_target_rows_instead_of_borrowing (tests.v5.test_bc_fill.BoundedFillTests.test_buckets_own_their_target_rows_instead_of_borrowing) ... ok
+test_discard_sequences_removes_index_and_shard (tests.v5.test_bc_fill.BoundedFillTests.test_discard_sequences_removes_index_and_shard) ... ok
+test_family_payload_decoded_and_prefix_charged_once (tests.v5.test_bc_fill.BoundedFillTests.test_family_payload_decoded_and_prefix_charged_once) ... ok
+test_full_read_keeps_every_row (tests.v5.test_bc_fill.BoundedFillTests.test_full_read_keeps_every_row) ... ok
+test_gz_budget_stops_before_decoding_the_next_family (tests.v5.test_bc_fill.BoundedFillTests.test_gz_budget_stops_before_decoding_the_next_family) ... ok
+test_no_indexed_families_reports_insufficient_data (tests.v5.test_bc_fill.BoundedFillTests.test_no_indexed_families_reports_insufficient_data) ... ok
+test_request_beyond_capacity_reports_insufficient_data (tests.v5.test_bc_fill.BoundedFillTests.test_request_beyond_capacity_reports_insufficient_data) ... ok
+test_retain_budget_stops_with_a_smaller_deterministic_result (tests.v5.test_bc_fill.BoundedFillTests.test_retain_budget_stops_with_a_smaller_deterministic_result) ... ok
+test_same_seed_repeats_rows_and_stats (tests.v5.test_bc_fill.BoundedFillTests.test_same_seed_repeats_rows_and_stats) ... ok
+
+----------------------------------------------------------------------
+Ran 27 tests in 8.186s
+
+OK

@@ -23,6 +23,9 @@ def prepare(model, records, bc_records=None):
         validate_record(r, model.format_name)
     for r in bc_records or []:
         validate_record(r, model.format_name)
+    rules = {r.get('split_rule', 'family-seed-v1') for rows in (records, bc_records or []) for r in rows}
+    if len(rules) > 1:
+        raise ValueError('training batch mixes split rules')
     records = [r for r in records if r['split'] == 'train']
     if not records:
         raise ValueError('no training games')
