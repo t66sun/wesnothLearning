@@ -179,7 +179,7 @@ def bc_sample(records, count, rng=None):
 
 class BCSampler:
     """Reusable pool/source/engine/family index, built once per data refresh."""
-    def __init__(self, records, allow_policy=False):
+    def __init__(self, records, allow_policy=False, *, exclude_teacher_impl=None, exclude_teacher_sha=None):
         from collections import defaultdict
         from .sequences import attach_histories
         rows = list(records)
@@ -187,8 +187,18 @@ class BCSampler:
             rows = attach_histories(rows)
         self.pools = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: defaultdict(list))))
         sources = ('astra', 'human', 'policy') if allow_policy else ('astra', 'human')
+        self.rows_excluded = 0
+        identities = set()
         for row in rows:
             if row.get('split') != 'train' or row.get('source') not in sources or row.get('choice', -1) < 0 or row.get('faults'):
+                continue
+            teacher_label = row['source'] not in ('human', 'policy')
+            impl = (row.get('teacher') or row.get('teacher_impl')) if teacher_label else None
+            sha = row.get('teacher_source_sha256') if teacher_label else row.get('policy_sha256')
+            excluded = (teacher_label and exclude_teacher_impl is not None and
+                        exclude_teacher_impl in (row.get('teacher'), row.get('teacher_impl')))
+            if excluded or (exclude_teacher_sha is not None and sha == exclude_teacher_sha):
+                self.rows_excluded += 1
                 continue
             pool = row.get('data_pool', row.get('data_role'))
             if pool is None:
@@ -199,8 +209,13 @@ class BCSampler:
             if engine is None:
                 raise ValueError('BC requires explicit native/lite engine provenance')
             self.pools[pool][row['source']][engine][row['game_family']].append(row)
+            identities.add((row['source'], impl or '', sha or ''))
         if not self.pools:
+            if exclude_teacher_impl is not None or exclude_teacher_sha is not None:
+                raise ValueError('no rehearsal data distinct from the evaluation control')
             raise ValueError('BC requires Astra or compatible human training games')
+        self.source_identities = [dict(source=source,teacher_impl=impl or None,sha256=sha or None)
+                                  for source,impl,sha in sorted(identities)]
         # Freeze all selection keys once. Minibatches only index these lists.
         self.pool_keys = tuple(sorted(self.pools))
         self.source_keys = {p: tuple(sorted(sources)) for p, sources in self.pools.items()}
@@ -228,8 +243,9 @@ class BCSampler:
         return result
 
 
-def make_bc_sampler(records, allow_policy=False):
-    return BCSampler(records, allow_policy=allow_policy)
+def make_bc_sampler(records, allow_policy=False, *, exclude_teacher_impl=None, exclude_teacher_sha=None):
+    return BCSampler(records, allow_policy=allow_policy,exclude_teacher_impl=exclude_teacher_impl,
+                     exclude_teacher_sha=exclude_teacher_sha)
 
 
 def advantages(records, gamma=None, lam=None, shaping_weight=None):

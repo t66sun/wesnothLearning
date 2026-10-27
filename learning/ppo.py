@@ -46,14 +46,14 @@ def _plan_hash(windows, order):
 
 def update(model, optimizer, records, bc_records=None, epochs=4, minibatch=256, deadline=float('inf'),
            progress=None, on_step=None, shaping_weight=None, entropy=.01, bc_aux=.1,
-           allow_policy_rehearsal=False, plan_seed=0):
+           allow_policy_rehearsal=False, plan_seed=0, rehearsal_exclude=None):
     """Run PPO updates over one frozen policy version with BC rehearsal.
 
     Windows are visited once per epoch in a plan derived from ``plan_seed`` and
     the epoch index; no window is sampled twice.  A logical optimizer batch is
     checked for KL as a whole before any parameter changes.
     """
-    records = prepare(model, records, bc_records)
+    records = prepare(model, records, bc_records if bc_aux > 0 else None)
     if len({r['version'] for r in records}) != 1:
         raise ValueError('PPO batch must use one frozen policy version')
     for key in ('reward_version', 'reward_formula_id', 'engine_id', 'rules_version', 'rng_version', 'combat_version', 'teacher_profile'):
@@ -63,7 +63,7 @@ def update(model, optimizer, records, bc_records=None, epochs=4, minibatch=256, 
         raise ValueError('PPO batch mixes reward configurations')
     if any(r['source'] != 'policy' or (not r.get('value_valid', True) and not (r.get('truncated') and r.get('bootstrap_value') is not None)) for r in records):
         raise ValueError('PPO requires on-policy complete trajectories')
-    if not bc_records:
+    if bc_aux > 0 and not bc_records:
         raise ValueError('PPO requires same-format BC rehearsal data')
     device = next(model.parameters()).device
     adv, ret = advantages(records, shaping_weight=shaping_weight)
@@ -78,7 +78,9 @@ def update(model, optimizer, records, bc_records=None, epochs=4, minibatch=256, 
     device, windows, sequence_count, micro, steps = setup(model, records, minibatch)
     model.train()
     row_index = {id(r): i for i, r in enumerate(records)}
-    rehearsal_sampler = make_bc_sampler(bc_records, allow_policy=allow_policy_rehearsal)
+    exclude = rehearsal_exclude or {}
+    rehearsal_sampler = make_bc_sampler(bc_records, allow_policy=allow_policy_rehearsal,
+        exclude_teacher_impl=exclude.get('impl'), exclude_teacher_sha=exclude.get('sha256')) if bc_aux > 0 else None
     start = progress or dict(epoch=0, step=0)
     loss_sum = start.get('loss_sum', 0.)
     updates = start.get('updates', 0)
@@ -103,6 +105,8 @@ def update(model, optimizer, records, bc_records=None, epochs=4, minibatch=256, 
         remaining_visits = planned_visits - committed_visits
         scope = 'deferred' if interrupted else 'batch'
         return dict(updates=updates, loss=loss_sum / max(1, updates), approx_kl=kl,
+                    rehearsal_sources=rehearsal_sampler.source_identities if rehearsal_sampler else [],
+                    rehearsal_rows_excluded=rehearsal_sampler.rows_excluded if rehearsal_sampler else 0,
                     scope=scope, planned_steps=planned_steps, committed_steps=updates,
                     deferred_steps=remaining_steps if interrupted else 0,
                     stopped_by_kl_steps=remaining_steps if kl_stopped else 0,
@@ -166,9 +170,10 @@ def update(model, optimizer, records, bc_records=None, epochs=4, minibatch=256, 
                     window_kl_sum += float(((ratio - 1) - (logp - old)).sum().detach())
                     window_decisions += len(rows)
                     loss = -torch.minimum(ratio * a, ratio.clamp(.8, 1.2) * a).mean() + .5 * (values - ret[selected_rows]).square().mean() - entropy * dist.entropy().mean()
-                    rehearsal = rehearsal_sampler.sample(len(rows))
-                    bc_logits, _ = model(*batch(rehearsal, device))
-                    loss = loss + bc_aux * torch.nn.functional.cross_entropy(bc_logits, torch.tensor([r['choice'] for r in rehearsal], device=device))
+                    if rehearsal_sampler is not None:
+                        rehearsal = rehearsal_sampler.sample(len(rows))
+                        bc_logits, _ = model(*batch(rehearsal, device))
+                        loss = loss + bc_aux * torch.nn.functional.cross_entropy(bc_logits, torch.tensor([r['choice'] for r in rehearsal], device=device))
                     if not torch.isfinite(loss):
                         raise ValueError('nonfinite training loss')
                     weighted = loss * len(rows) / len(window) / len(selected)

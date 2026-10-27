@@ -354,8 +354,11 @@ class FormatExperiment:
         frozen=pending.get('reward_config',self.controller.freeze())
         if method=='ppo':
             for group in self.optimizer.param_groups: group['lr']=1e-4
+        control=self.identity() if method=='ppo' else {}
+        rehearsal_exclude=dict(impl=control.get('teacher'),sha256=control.get('teacher_source_sha256')) if method=='ppo' else None
         metrics=train(self.model,self.optimizer,rows,method,epochs=self.config['epochs'],minibatch=self.config['minibatch'],
-            deadline=self.update_deadline(),progress=pending['cursor'],on_step=progress,bc_records=bc,entropy=frozen['entropy'],bc_aux=frozen['bc_aux'],plan_seed=int(self.config['seed']))
+            deadline=self.update_deadline(),progress=pending['cursor'],on_step=progress,bc_records=bc,entropy=frozen['entropy'],bc_aux=frozen['bc_aux'],plan_seed=int(self.config['seed']),
+            rehearsal_exclude=rehearsal_exclude)
         if metrics.get('cursor') is not None: pending['cursor']=metrics['cursor']
         if metrics['interrupted']: self.save();return False
         committed=metrics.get('committed_decisions',metrics.get('decisions_seen',0))

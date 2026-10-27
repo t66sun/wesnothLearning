@@ -33,7 +33,8 @@ class PpoResumeCounterTests(unittest.TestCase):
 
     def test_finish_train_settles_resumed_work_once_with_real_checkpoint(self):
         rows = _records([('b',2,0.),('c',3,0.),('d',4,0.),('e',2,0.)])
-        rehearsal = _bc()
+        from tests.v5.test_rehearsal_source import human_rows
+        rehearsal = human_rows()
         with helpers.temporary_directory() as directory:
             write_json(directory/'manifest.json', dict(test='V3'))
             def runner(name):
@@ -79,6 +80,8 @@ class PpoResumeCounterTests(unittest.TestCase):
             self.assertEqual(resumed.state['counters']['planned_steps'], 2)
             self.assertEqual(resumed.state['counters']['committed_steps'], 2)
             self.assertEqual(resumed.state['counters']['stopped_by_kl_steps'], 0)
+            self.assertEqual(resumed.state['history'][-1]['rehearsal_sources'],
+                             [dict(source='human',teacher_impl=None,sha256=None)])
             self.assertEqual(ppo._digest(resumed.model),ppo._digest(control.model))
             for _ in range(2):
                 finished=torch.load(resumed.directory/'latest.pt',weights_only=False)
