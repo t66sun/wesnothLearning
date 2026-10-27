@@ -1,0 +1,17 @@
+test_row_reward_is_not_the_terminal_value (tests.v5.test_reward_row_schema.RewardRowSchemaTests.test_row_reward_is_not_the_terminal_value) ... FAIL
+
+======================================================================
+FAIL: test_row_reward_is_not_the_terminal_value (tests.v5.test_reward_row_schema.RewardRowSchemaTests.test_row_reward_is_not_the_terminal_value)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/acceptance_ppo_r6_20261027_30cd046/source/tests/v5/test_reward_row_schema.py", line 75, in test_row_reward_is_not_the_terminal_value
+    self.assertEqual({row['schema'] for row in rows},{6})
+AssertionError: Items in the first set but not the second:
+5
+Items in the second set but not the first:
+6
+
+----------------------------------------------------------------------
+Ran 1 test in 0.199s
+
+FAILED (failures=1)

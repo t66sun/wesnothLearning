@@ -1,6 +1,6 @@
 # PPO rebuild plan: proven defects, target structure, stock RCA replacement
 
-Status: **implementation in progress**. R1–R5 passed bounded Ubuntu acceptance on 2026-10-27; R6–R10 remain unimplemented. R3 follows the user-approved semantics revision below. [R1 evidence](../verification/ppo_refactor_r1_20261027/REPORT.md), [R2 evidence](../verification/ppo_refactor_r2_20261027/REPORT.md), [R3 evidence](../verification/ppo_refactor_r3_20261027/REPORT.md).
+Status: **implementation in progress**. R1–R6 passed bounded Ubuntu acceptance on 2026-10-27; R7–R10 remain unimplemented. R3 follows the user-approved semantics revision below. [R1 evidence](../verification/ppo_refactor_r1_20261027/REPORT.md), [R2 evidence](../verification/ppo_refactor_r2_20261027/REPORT.md), [R3 evidence](../verification/ppo_refactor_r3_20261027/REPORT.md).
 Evidence: [verification/ppo_rootcause_20261026/REPORT.md](../verification/ppo_rootcause_20261026/REPORT.md) (eleven read-only probes, exit 0, frozen run `v5_lite30h_20261025`).
 Scope of the evidence: one completed 30-hour CPU lite run; no training, no native game, no corpus, no checkpoint touched.
 
@@ -257,6 +257,8 @@ One PR per behaviour. Every phase names its own revert-detecting assertion. Line
 
 #### R6. Reward row semantics
 
+**Bounded acceptance 2026-10-27:** implementation `30cd046`, 37 focused Ubuntu checks and bitwise GAE/returns parity over 421 historical rows; revert fails, restoration passes. [Report](../verification/ppo_refactor_r6_20261027/REPORT.md) lists unresolved local fixture/extension checks. Feature schema remains 5, rowpack v2. Teacher/human rows lacking raw reward evidence carry reward_step=null; policy rows cannot use unknown steps.
+
 - **Behaviour:** a row states its own step reward and the game's terminal reward under names that cannot be confused.
 - **Evidence:** F7 and §9 of the report — `r['reward']` is the terminal reward on every row, with exactly one consumer (`learning/data.py:236`); no arithmetic error today, but the field is a trap for any future consumer, and the audit could not tell step from terminal without reading `advantages`.
 - **Modules:** writers `learning/sample.py`, `learning/lite_host.py`; `learning/data.py` (`validate_record`, `advantages`, `transition_reward` caller); `learning/rowpack.py` schema constant; `learning/reward_metrics.py` readers.
@@ -366,7 +368,7 @@ Reward coefficient changes, KL limit changes, network or architecture changes, p
 
 ### 4.3 Test coverage map
 
-Each phase ships exactly one new test file plus one assertion that fails when the behaviour is reverted. R1–R5 are implemented and accepted; R6–R10 test files remain unwritten. A row becomes `TEST.md` material only when implemented and awaiting acceptance.
+Each phase ships exactly one new test file plus one assertion that fails when the behaviour is reverted. R1–R6 are implemented with bounded acceptance; R7–R10 test files remain unwritten. A row becomes `TEST.md` material only when implemented and awaiting acceptance.
 
 | PR | Test | Revert-detecting assertion | Proves | Existing suites that must stay green |
 | --- | --- | --- | --- | --- |
@@ -458,7 +460,8 @@ Historical Astra data, packages, models and reports keep their identity and are 
 | R3 Ubuntu acceptance | **14 PASS** | explicit stopped work, interruptions, checkpoint accounting; [evidence](../verification/ppo_refactor_r3_20261027/REPORT.md) |
 | R4 Ubuntu acceptance | **30 PASS** | scenario evidence, gates, selection and reporting; [evidence](../verification/ppo_refactor_r4_20261027/REPORT.md) |
 | R5 Ubuntu acceptance | **23 PASS** | source exclusion, 20 tiny updates, resume, BC RNG and manifest; [evidence](../verification/ppo_refactor_r5_20261027/REPORT.md) |
-| R6–R10 Ubuntu acceptance | **not run** | unimplemented |
+| R6 Ubuntu acceptance | **37 PASS + 421-row bit parity** | reward-row contract; unresolved local checks in [evidence](../verification/ppo_refactor_r6_20261027/REPORT.md) |
+| R7–R10 Ubuntu acceptance | **not run** | unimplemented |
 | BC/promotion/champion/final gates, full suite | **not rerun** | reused from the frozen run and §10.15 |
 
 ### 6.2 Blocking classification

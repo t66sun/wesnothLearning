@@ -1,0 +1,6 @@
+test_row_reward_is_not_the_terminal_value (tests.v5.test_reward_row_schema.RewardRowSchemaTests.test_row_reward_is_not_the_terminal_value) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.197s
+
+OK
