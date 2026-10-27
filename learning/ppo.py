@@ -96,6 +96,7 @@ def update(model, optimizer, records, bc_records=None, epochs=4, minibatch=256, 
 
     def result(exit, interrupted=False, kl_stopped=False):
         return dict(updates=updates, loss=loss_sum / max(1, updates), approx_kl=kl,
+                    eligible_decisions=len(records), excluded_decisions=0, excluded_games=0,
                     interrupted=interrupted, kl_stopped=kl_stopped, decisions_seen=decisions_seen,
                     unique_families_seen=len({r['game_family'] for r in records}),
                     effective_dataset_passes=decisions_seen / len(records), sequence_windows=len(windows),

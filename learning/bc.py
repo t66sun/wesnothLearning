@@ -17,7 +17,8 @@ def update(model, optimizer, records, bc_records=None, epochs=4, minibatch=256, 
     Each window carries equal weight regardless of its length, and each real
     decision counts once when reporting coverage.
     """
-    records = prepare(model, records, bc_records)
+    # BC receives a deliberate validation partition for the separate quality gate.
+    records = prepare(model, records, bc_records, allow_drop=True)
     device, windows, sequence_count, micro, steps = setup(model, records, minibatch)
     window_index = {id(r): w for w in windows for r in w}
     sampler = make_bc_sampler(records)

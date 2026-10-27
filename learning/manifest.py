@@ -6,6 +6,7 @@ import sys
 from .common import ROOT, write_json, sha256
 from .features import schema
 from .model import ARCHITECTURE,Policy
+from .updates import BATCH_CONTRACT
 import addons
 import native
 
@@ -56,6 +57,7 @@ def freeze(run_dir, opponents, wesnoth, config):
     rules_dir=resolve_dir(config.get('rules_dir'))
     catalog=load(rules_dir)
     manifest=dict(schema=4,config=config,features=schema(),architecture=ARCHITECTURE,
+        batch_contract=BATCH_CONTRACT,
         rules=dict(directory=str(rules_dir),rules_sha256=catalog['rules_file_sha256'],
                    source_hash=catalog['source_hash'],training_acceptance=catalog.get('training_acceptance')),
         parameters=sum(p.numel() for p in Policy('duel').parameters()),dependencies=versions,
@@ -70,6 +72,9 @@ def freeze(run_dir, opponents, wesnoth, config):
 
 
 def verify_frozen(manifest):
+    if manifest.get('batch_contract') != BATCH_CONTRACT:
+        raise ValueError('legacy batch eligibility requires the original frozen sources; '
+                         'use a new run for the scenario-v2 contract')
     if manifest.get('rules'):
         from .rules_catalog import load
         frozen=manifest['rules'];current=load(frozen['directory'])
