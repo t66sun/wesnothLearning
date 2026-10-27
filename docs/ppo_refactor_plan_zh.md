@@ -1,6 +1,6 @@
 # PPO 重构计划：已证实缺陷、目标结构与原版 RCA 替换
 
-状态：**实施中**。R1、R2 已于 2026-10-27 通过有界 Ubuntu 验收；R3–R10 尚未实现。原始诊断和后续阶段边界继续保留，见 [R1 证据](../verification/ppo_refactor_r1_20261027/REPORT.md)、[R2 证据](../verification/ppo_refactor_r2_20261027/REPORT.md)。
+状态：**实施中**。R1–R3 已于 2026-10-27 通过有界 Ubuntu 验收；R4–R10 尚未实现。R3 按下文用户批准的语义修订实施。见 [R1 证据](../verification/ppo_refactor_r1_20261027/REPORT.md)、[R2 证据](../verification/ppo_refactor_r2_20261027/REPORT.md)、[R3 证据](../verification/ppo_refactor_r3_20261027/REPORT.md)。
 证据：[verification/ppo_rootcause_20261026/REPORT.md](../verification/ppo_rootcause_20261026/REPORT.md)（十一次只读探针，退出码 0，冻结 run `v5_lite30h_20261025`）。
 证据范围：一个已完成的 30 小时 CPU lite run；未训练、未跑原版对局、未改语料与检查点。
 
@@ -33,7 +33,7 @@
 
 按顺序，且只有这三条：
 
-1. **每条采集到的决策恰好被训练一次，且训练设计独立于评判它的设计**（F1、F2、F3）。
+1. **每条采集决策不再被 split 静默丢弃，计划工作明确记为已提交、中断或 KL 停止，且训练设计独立于评判设计**（F1、F2、F3；2026-10-27 用户批准 R3 修订）。
 2. **更新的目标就是被度量的目标**——不存在朝面板对手的长期拉力，不存在被丢弃的计划工作，奖励语义不可能被误读（F4、F5、F6、F7）。
 3. **所有竞争角色都是 1.18.8 原版 RCA**，并有使其标签可审计的采集与身份；不留下任何隐式 Astra 路径（F11、F12）。
 
@@ -111,8 +111,8 @@ flowchart LR
 | `learning/maps.py` | 把*场景身份*与*运行身份*分开持有 | `scenario_identity(job)->dict`、`scenario_family(job)->str`、`run_family(job)->str`；`decorate()` 两者都写；`SPLITS` 为每个 split 给出显式场景清单 |
 | `learning/data.py` | 按场景分区；校验 `split_rule`；采样器不得使用评估 control | `split(scenario_family)` 机制不变；`validate_record` 接受 `split_rule ∈ {'family-seed-v1','scenario-v2'}`；`BCSampler(pool, *, exclude_teacher_impl=None, exclude_teacher_sha=None)` |
 | `learning/updates.py` | 拒绝静默丢弃；报告排除量 | `prepare(model, records, bc_records=None, *, allow_drop=False)`；抛 `ValueError('batch row excluded by split: N of M')` |
-| `learning/ppo.py` | 延迟未访问 window 而不是丢弃；报告 planned/committed/deferred | `result['scope']`、`result['deferred_windows']`、`result['planned_steps']`；cursor 增加 `scope` |
-| `learning/experiment.py` | 不再替换官方 baseline；显式传面板设计；延迟工作保持 pending；每个判决都报告其场景证据 | 移除 `[self.teachers[0] if bot=='baseline' …]`；`finish_train` 把延迟 window 作为独立版本重新排入，并写入 `bc_gate.json` 的 `distinct_scenarios`/`scope`；`validate_model(..., min_distinct=…)` |
+| `learning/ppo.py` | 显式记录计划、提交和 KL 停止工作；仅中断可延迟 | `planned_steps`、`committed_steps`、`stopped_by_kl_steps`、`deferred_steps` 和 window 访问计数；cursor 增加 `scope` |
+| `learning/experiment.py` | 不再替换官方 baseline；显式面板设计；KL 终止结算一次、中断保持 pending；每个判决报告场景证据 | 移除 `[self.teachers[0] if bot=='baseline' …]`；`finish_train` 结算 batch 工作量，并写入 `bc_gate.json` 的 `distinct_scenarios`/`scope`；`validate_model(..., min_distinct=…)` |
 | `learning/schedule.py` | 每个面板设计枚举一次场景；教师按能力而非身份 | `evaluation_jobs(..., scenarios=[...], repeats=int, min_distinct=int)`；`teacher_jobs` 接受任何 `query != 'none'` 的注册教师 |
 | `learning/evaluate.py` | 对*不同场景*做聚类 bootstrap；新增 `insufficient_design` | `comparisons(jobs, results, *, min_blocks, min_distinct, team_contexts)`；结果增加 `distinct_scenarios` |
 | `learning/manifest.py` | 教师身份记录，而非名字比对 | `teacher_identity(kind)->dict`；`active_teacher(manifest)`；`freeze()` 记录 kind/version/query/action_source/rules sha |
@@ -197,20 +197,24 @@ split           = 'validation' if int(sha256(scenario_family)[:8],16) % 5 == 0 e
 - **回退：** 回滚；过滤器回归，指标字段缺失（调用方用 `.get`）。
 - **完成条件：** 短链中三格式 batch 都报告 `excluded_decisions == 0`。
 
-#### R3. KL 门记账：延迟而非丢弃
+#### R3. KL 门记账：显式停止工作与可恢复中断
 
-- **行为：** 已计划但未访问的 window 保持 pending，下次在同一 KL 门下训练。
-- **证据：** F4，计划约 8 步、实际 3.86 步；387/430 duel batch 以 `kl_stop` 结束。
-- **模块：** `learning/ppo.py`（`update` 的 cursor/scope、`result`）、`learning/experiment.py`（`finish_train` 的 pending 处理、`state['version']`、计数 `planned_steps`/`committed_steps`/`deferred_windows`）。
-- **接口：** cursor `{'epoch','step','scope':'batch'|'deferred','plan_hash','plan_seed'}`；当某步 KL 超限且 `committed > 0` 时返回 `scope='deferred'` 与剩余 window 索引，`finish_train` 保持 `pending_train` 与同一 `paths`/`identity`。
-- **前置：** R2（延迟 batch 仍须满足资格）。
-- **兼容：** 无 `scope` 的 `state.json` 读作 `'batch'`，升级安全；plan hash 校验仍拒绝变更的 window 计划。
-- **必须保持的契约：** KL 阈值 0.02 不变且仍在 step 前测量；零更新 KL 停止仍放弃 batch 且不升版本；门控拒绝后绝不 apply。
-- **本地验收：** 第 0 步强制超限 → 无提交；第 1 步超限 → 第 1 步提交，第 2…N 步 window 作为 deferred 返回，并出现在下一次调用计划中。
-- **Ubuntu 验收：** `pytest tests/v5/test_kl_defer.py`；重跑 `tests/v5/test_ppo_resume_counters.py` 证明计数仍只结算一次。
-- **还原即失败的断言：** `test_unvisited_windows_are_deferred`——恢复旧返回路径后 deferred 列表为空，测试失败。
-- **回退：** 回滚；deferred 字段消失，batch 行为回今日。
-- **完成条件：** 20 个 batch 的链上 `sum(planned) == sum(committed) + sum(deferred)`，且每个 deferred window 都在后续 batch 被训练。
+**2026-10-27 已验收：**实现 `3983cd0`，14 项 Ubuntu 专项检查通过，还原实现失败、恢复后通过；见[报告](../verification/ppo_refactor_r3_20261027/REPORT.md)。未运行真实对局或正式训练。
+
+**2026-10-27 用户批准修订：**[最小复现](../verification/ppo_refactor_r3_probe_20261027/probe.py)先提交一步，下一步在 KL 0.900721 被拒绝。同一权重、冻结行连续恢复两次，KL 完全相同且没有新增更新。因此撤回“所有 KL 延迟 window 后续都会训练”的原承诺；它无法与固定的 step 前门控、冻结行为概率同时满足。
+
+- **行为：** KL 终止该采集 batch，剩余工作显式记作 `stopped_by_kl`；仅截止时间/中断保留同一 paths、identity 和 cursor 的 pending。
+- **证据：** F4 的工作量记账缺失；上述复现区分预期 KL 停止与可恢复中断。
+- **模块：** `learning/ppo.py` 的 result/cursor；`learning/experiment.py finish_train` 的 counters/history。
+- **接口：** `planned_steps`、`committed_steps`、`stopped_by_kl_steps`、`deferred_steps` 及对应 window 访问计数；仅中断为 `scope='deferred'`，否则为 `'batch'`。
+- **前置：** R2。
+- **兼容：** 旧 cursor 不要求新字段；新工作量累计字段缺失时从零开始，不编造历史计数；原 plan hash 与 rollout identity 检查保留。
+- **必须保持的契约：** KL 0.02 仍在 step 前检查，拒绝后不应用梯度；零更新 KL 不升版本；部分提交的 batch 只升一次版本；中断尝试不结算全局计数、不产生升级候选。
+- **本地验收：** 零步/部分提交 KL 停止，截止时间/检查点恢复，20 个微型 batch 满足计划 = 提交 + KL 停止 + pending 工作。
+- **Ubuntu 验收：** `tests/v5/test_kl_defer.py`、既有 PPO plan 与恢复计数测试；无 pytest 时用标准库 unittest。
+- **还原即失败的断言：** `test_kl_rejection_accounts_for_all_remaining_work` 缺少显式停止工作计数。
+- **回退：** 回滚新增记账；模型更新与 KL 拒绝保持原有算术。
+- **完成条件：** 20 个 batch 工作量守恒；中断只恢复一次，终止的 KL batch 没有 pending 重试；阈值与行为概率不变。
 
 #### R4. 评估设计：不同场景、聚类 bootstrap、显式不足
 
@@ -358,13 +362,13 @@ flowchart LR
 
 ### 4.3 测试覆盖表
 
-每个阶段只附带一个新测试文件，外加一条“还原修复即失败”的断言。R1/R2 已实现并验收，R3–R10 的测试文件仍未编写；只有已实现且待验收的事项才进入 `TEST.md`。
+每个阶段只附带一个新测试文件，外加一条“还原修复即失败”的断言。R1–R3 已实现并验收，R4–R10 的测试文件仍未编写；只有已实现且待验收的事项才进入 `TEST.md`。
 
 | PR | 测试 | 还原即失败的断言 | 证明什么 | 必须保持绿色的既有套件 |
 | --- | --- | --- | --- | --- |
 | R1 | `tests/v5/test_scenario_identity.py` | `test_seed_does_not_move_the_scenario_between_splits` | 同一棋盘换 seed 仍落在切分同一侧；`game_family` 仍含 seed | `tests/v5/test_rollout_content_identity.py` |
 | R2 | `tests/v5/test_batch_eligibility.py` | `test_validation_row_in_batch_raises` | 不合格行让 batch 明确失败，而不是被静默过滤 | `tests/v5/test_ppo_resume_counters.py` |
-| R3 | `tests/v5/test_kl_defer.py` | `test_unvisited_windows_are_deferred` | KL 拒绝后未访问 window 仍保持 pending，下次更新训练它们，且 `sum(planned) == sum(committed) + sum(deferred)` | `tests/v5/test_ppo_resume_counters.py` |
+| R3 | `tests/v5/test_kl_defer.py` | `test_kl_rejection_accounts_for_all_remaining_work` | 计划工作 = 提交 + KL 停止 + 中断工作；仅中断恢复 | `tests/v5/test_ppo_resume_counters.py` |
 | R4 | `tests/v5/test_evaluation_design.py` | `test_repeated_identical_blocks_are_insufficient`；`test_gate_reports_distinct_scenarios` | 面板与 BC 门都报告不同场景数，低于下限都返回 `insufficient_design` | `tests/test_validation_cadence.py` |
 | R5 | `tests/v5/test_rehearsal_source.py` | `test_control_policy_cannot_rehearse` | 模仿池等于评估 control 时抛错而非照常训练 | — |
 | R6 | `tests/v5/test_reward_row_schema.py` | `test_row_reward_is_not_the_terminal_value` | 行的步进奖励与终局奖励是两个字段，算术逐字节一致 | `tests/v5/test_pipeline_contract.py` |
@@ -447,12 +451,13 @@ flowchart LR
 | native 原版对局、采集、标签匹配 | **未运行** | FX1–FX3 已定义，限 3 场景 × ≤5 回合，仅作能力 fixture |
 | R1 Ubuntu 验收 | **27 项通过** | 场景身份、内容身份、日程与受影响读取；见[证据](../verification/ppo_refactor_r1_20261027/REPORT.md) |
 | R2 Ubuntu 验收 | **20 + 1 项通过** | 资格、计数与四人赛制更新；见[证据](../verification/ppo_refactor_r2_20261027/REPORT.md) |
-| R3–R10 Ubuntu 验收 | **未运行** | 尚未实现 |
+| R3 Ubuntu 验收 | **14 项通过** | 显式停止工作、中断与检查点记账；见[证据](../verification/ppo_refactor_r3_20261027/REPORT.md) |
+| R4–R10 Ubuntu 验收 | **未运行** | 尚未实现 |
 | BC/升级/champion/final 门、全套测试 | **未重跑** | 复用冻结 run 与 §10.15 |
 
 ### 6.2 阻塞分类
 
-- **阻塞新的正式 run：** R1、R2（否则每个 batch 仍丢三分之一，验证仍非留出）、R3（否则计划工作仍被丢弃）、R5（否则更新仍向面板对手倾斜）、R6（schema 必须在采集语料前冻结），以及任何以「对官方 baseline 训练」为目的的 run 所需的 R7–R8。
+- **新正式 run 的必备项：** 已验收的 R1/R2（split 与资格）及修订后 R3（显式工作记账）；尚待 R5（更新仍向面板对手倾斜）、R6（schema 必须在采集语料前冻结），以及任何以「对官方 baseline 训练」为目的的 run 所需的 R7–R8。
 - **只阻塞棋力结论：** R4、R10 与 FX1–FX3。R4 之前做出的 run 可以产出数字，但产不出可辩护的 `passed`。
 - **不阻塞任何东西：** 该 run 若不期望 DAgger，则 R9；lite/native 路线测量。
 
@@ -462,7 +467,7 @@ flowchart LR
 2. R4 已合并，`min_distinct` 冻结在 manifest。
 3. FX1–FX3 已执行并报告；`dagger_status` 已记录。
 4. 若该 run 对原版 RCA 训练，R7–R8 已合并；manifest 写明教师记录，run 声明 `split_rule='scenario-v2'`。
-5. 缩减链（BC、≥2 个 PPO batch、一次 KL 延迟、一次检查点续跑、一个升级面板）在 Ubuntu 上通过，复用 C7 模式。
+5. 缩减链（BC、≥2 个 PPO batch、一次显式记账的 KL 停止、一次检查点续跑、一个升级面板）在 Ubuntu 上通过，复用 C7 模式。
 6. 启动命令、配额、时钟切分与门控与 `docs/instructions.md` 一致；run 由用户单独授权。
 
 在第 5 步之前测到的任何东西都是接线证据，不是学习证据。
@@ -470,8 +475,8 @@ flowchart LR
 ## 7. 风险与未决问题
 
 - **R1 迁移成本。** 场景键 split 使现有语料无法用于新 run。这不可避免：当前 split 无法在不重新采集的情况下事后修复，假装不是只会保留泄漏。
-- **R3 语义。** 延迟 window 意味着一个采集 batch 可产出多个版本。计数与 `history` 必须区分 `scope`，且升级节奏不能被延迟版本抬高——计划把版本绑定到已提交 batch，因此 R3 需要一个显式断言（延迟完成不成为升级候选）。
+- **R3 语义（用户批准修订）。** 固定 KL 拒绝终止该 batch；仅中断延迟工作，部分尝试不结算计数、不升版本。该修订明确记录停止工作，不承诺每个计划 window 都会被优化。
 - **R8 标签质量未测。** 若 FX2 显示匹配率低，原版 RCA 上的 BC 必须降低覆盖率运行，并在报告中说明；非 Astra 路径不得静默回退。
 - **F5 仍未证实。** R5 移除了一个可度量但尚未与平台期建立因果的冲突；计划不承诺强度随之上行。
 - **F8/F9 仍无法判断。** 确定性与 arena 地图占比可能比以上任何一项都重要。§5.4 的匹配引擎测量是唯一便宜的判别器，需要单独授权。
-- **不做棋力主张。** 本计划不声称重建后的循环会收敛或击败原版 RCA。它只声称：A、B 阶段之后，每条采集决策恰好被训练一次，每个面板的独立性如其所述，每个竞争性产物都写明其来源教师。
+- **不做棋力主张。** 本计划不声称重建后的循环会收敛或击败原版 RCA。A、B 阶段保证 split 不静默丢行，提交/中断/KL 停止工作显式记账，面板独立性和教师身份如实陈述。

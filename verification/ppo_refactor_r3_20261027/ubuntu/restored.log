@@ -1,0 +1,6 @@
+test_kl_rejection_accounts_for_all_remaining_work (tests.v5.test_kl_defer.KlAccountingTests.test_kl_rejection_accounts_for_all_remaining_work) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.445s
+
+OK
