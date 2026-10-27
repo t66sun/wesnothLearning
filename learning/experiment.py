@@ -275,8 +275,12 @@ class FormatExperiment:
                 job['bots']=[self.teachers[0] if bot=='baseline' else bot for bot in job['bots']]
                 if job.get('meta',{}).get('context')=='baseline_partner': job['meta']['context']='astra_partner'
             if job.get('split_rule') == 'scenario-v2':
-                from .maps import bind_scenario
-                bind_scenario(job)
+                if job.get('training_scenario'):
+                    from .schedule import compose_training_scenario
+                    compose_training_scenario(job)
+                else:
+                    from .maps import bind_scenario
+                    bind_scenario(job)
         schedule=self.directory/'schedules'/(name+'.json')
         if schedule.exists(): jobs=read_json(schedule)
         else: freeze_schedule(schedule,jobs)
@@ -329,6 +333,9 @@ class FormatExperiment:
         bc=read_shards(pool,partition='train',limit=self.config['bc_records'],seed=pool_seed,format_name=self.fmt,stats=reads.setdefault('bc',{}))
         validation=read_shards(pool,partition='validation',limit=self.config['bc_validation_records'],seed=self.config['seed'],format_name=self.fmt,stats=reads.setdefault('validation',{})) if method=='bc' else []
         rows=bc+validation if method=='bc' else read_shards(pending['paths'],format_name=self.fmt)
+        if method == 'ppo':
+            from .updates import eligible_rows
+            eligible_rows(rows)
         identity=dict(train=rollout_identity(rows))
         if method=='ppo': identity['bc']=rollout_identity(bc)
         if pending.get('identity') is not None and pending['identity']!=identity:
@@ -442,6 +449,8 @@ class FormatExperiment:
                 self.config['seed']+900000,self.update_deadline(),self.exe,4,current=greedy,formats=[self.fmt])
             for j in probes:
                 j['id']='opening-'+str(version)+'-'+j['id'];j['max_turns']=5
+                j.pop('training_scenario', None)
+                j['meta'].pop('eligibility_swap', None)
                 focal=j['meta']['seat']
                 j['bots']=[greedy if i==focal else 'baseline' for i in range(1,len(j['bots'])+1)]
                 j['map_override']=opening_map(len(j['bots']))

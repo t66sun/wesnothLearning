@@ -9,9 +9,19 @@ import json
 from .data import validate_record
 from .sequences import attach_histories, training_windows
 
+BATCH_CONTRACT = 'scenario-v2/no-drop-v1'
 
-def prepare(model, records, bc_records=None):
-    """Attach histories, validate, and keep the train split.
+
+def eligible_rows(records, *, allow_drop=False):
+    """Check a composed batch before freezing its identity or applying updates."""
+    excluded = sum(r.get('split') != 'train' for r in records)
+    if excluded and not allow_drop:
+        raise ValueError(f'batch row excluded by split: {excluded} of {len(records)}')
+    return [r for r in records if r['split'] == 'train'] if excluded else records
+
+
+def prepare(model, records, bc_records=None, *, allow_drop=False):
+    """Attach histories and validate; PPO rejects rather than drops ineligible rows.
 
     Validation order matches the original combined trainer: every supplied
     record is checked before the empty-training check and method-specific
@@ -26,7 +36,7 @@ def prepare(model, records, bc_records=None):
     rules = {r.get('split_rule', 'family-seed-v1') for rows in (records, bc_records or []) for r in rows}
     if len(rules) > 1:
         raise ValueError('training batch mixes split rules')
-    records = [r for r in records if r['split'] == 'train']
+    records = eligible_rows(records, allow_drop=allow_drop)
     if not records:
         raise ValueError('no training games')
     return records
