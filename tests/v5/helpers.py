@@ -121,7 +121,7 @@ def spec(*, sides=2, seed=7, max_turns=12, width=WIDTH, height=HEIGHT, units=Non
 
 def host_modules():
     from learning.lite_host import host_modules as build
-    return build()
+    return build('gpt6astra')  # Explicit legacy teacher fixtures only.
 
 
 def engine(*, game_spec=None, rules_data=None):

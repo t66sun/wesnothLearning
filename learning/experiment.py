@@ -64,7 +64,7 @@ def default_config(device='cuda', *, engine=None):
     from .rules_catalog import resolve_dir
     if engine is None: engine='lite'
     bc_games=dict(duel=300,ffa4=600,team2v2=400)
-    return dict(hours=12.,workers=8,device=device,trainer_threads=1,seed=20261018,engine=engine,evaluation_engine=engine,reward_mode='adaptive',phase='auto',allow_approximate=engine=='lite',rules_dir=str(resolve_dir()),
+    return dict(hours=12.,workers=8,device=device,trainer_threads=1,seed=20261018,engine=engine,evaluation_engine='native',reward_mode='adaptive',phase='auto',allow_approximate=engine=='lite',rules_dir=str(resolve_dir()),
         formats=list(FORMATS),calibration_blocks=3,validation_interval=10,
         validation_games=dict(duel=6,ffa4=4,team2v2=8),final_blocks=30,final_holdout_hours=0.,
         min_distinct=dict(trend=3,promotion=12,final=12,gate=12),
@@ -167,8 +167,13 @@ class FormatExperiment:
         requested=self.config['device']
         self.device=('cuda' if torch.cuda.is_available() else 'cpu') if requested=='auto' else requested
         if self.device.startswith('cuda') and not torch.cuda.is_available(): raise ValueError('CUDA requested but unavailable')
-        self.teachers=[p['path'] for p in manifest['opponents']];self.native_fixed=self.teachers+['baseline']
-        self.fixed=self.native_fixed if self.config['engine']=='native' else self.teachers
+        from .manifest import active_teacher
+        self.teacher_record=active_teacher(manifest)
+        legacy=self.teacher_record['kind']=='gpt6astra'
+        self.teachers=[p['path'] for p in manifest['opponents']] if legacy else ['baseline']
+        self.reference_opponents=self.teachers+['baseline'] if legacy else ['baseline']
+        self.native_fixed=self.reference_opponents
+        self.fixed=self.native_fixed if self.config['engine']=='native' else self.teachers if legacy else []
         self.exe=manifest['baseline']['path']
         info=None;loaded=None
         if (resume or branch) and (self.directory/'latest.pt').exists():
@@ -236,6 +241,15 @@ class FormatExperiment:
 
     def identity(self):
         """Provenance of the combat engine and teacher this run trains against."""
+        from .manifest import active_teacher
+        record=active_teacher(self.manifest)
+        if record['kind']=='wesnoth_default_rca':
+            lite=self.config['engine']=='lite'
+            return dict(engine=self.config['engine'],engine_version=ENGINE_VERSION if lite else '1.18.8',
+                        rng_version=RNG_VERSION if lite else 'native-1.18.8',
+                        combat_version=COMBAT_VERSION if lite else 'native-1.18.8',
+                        teacher=record['kind'],teacher_profile='native',
+                        teacher_source_sha256=record['runtime_sha256'],teacher_identity=record)
         if self.config['engine']=='lite':
             from .teachers import identity as teacher_identity
             return dict(engine='lite',engine_version=ENGINE_VERSION,rng_version=RNG_VERSION,
@@ -268,18 +282,20 @@ class FormatExperiment:
     def execute(self,jobs,name):
         from .rules_catalog import resolve_dir
         for job in jobs:
+            job['teacher_identity']=dict(self.teacher_record)
             job.setdefault('engine',self.config['engine'])
             job['rules_dir']=str(resolve_dir(self.config.get('rules_dir')))
             job.setdefault('reward_config',self.controller.freeze())
             job.setdefault('meta',{})['engine_id']=job['engine']
             if job['engine']=='lite':
-                from .teachers import identity as teacher_identity, lineage as teacher_lineage
                 job['meta'].update(engine_version=ENGINE_VERSION,rng_version=RNG_VERSION,combat_version=COMBAT_VERSION)
-                job['meta'].update(**teacher_identity())
-                job['meta']['teacher_lineage']=teacher_lineage()
+                if self.teacher_record['kind']=='gpt6astra':
+                    from .teachers import identity as teacher_identity, lineage as teacher_lineage
+                    job['meta'].update(**teacher_identity())
+                    job['meta']['teacher_lineage']=teacher_lineage()
+                else:
+                    job['meta'].update(teacher=self.teacher_record['kind'],teacher_profile='none')
                 job.setdefault('allow_approximate',self.config.get('allow_approximate',False))
-                job['bots']=[self.teachers[0] if bot=='baseline' else bot for bot in job['bots']]
-                if job.get('meta',{}).get('context')=='baseline_partner': job['meta']['context']='astra_partner'
             if job.get('split_rule') == 'scenario-v2':
                 if job.get('training_scenario'):
                     from .schedule import compose_training_scenario
@@ -339,6 +355,11 @@ class FormatExperiment:
         bc=read_shards(pool,partition='train',limit=self.config['bc_records'],seed=pool_seed,format_name=self.fmt,stats=reads.setdefault('bc',{}))
         validation=read_shards(pool,partition='validation',limit=self.config['bc_validation_records'],seed=self.config['seed'],format_name=self.fmt,stats=reads.setdefault('validation',{})) if method=='bc' else []
         rows=bc+validation if method=='bc' else read_shards(pending['paths'],format_name=self.fmt)
+        for row in bc+validation+rows:
+            if row.get('source') in ('astra','stock_rca'):
+                if row.get('teacher')!=self.teacher_record['kind'] or (
+                        row.get('teacher_identity') is not None and row['teacher_identity']!=self.teacher_record):
+                    raise ValueError('training labels differ from the active teacher')
         if method == 'ppo':
             from .updates import eligible_rows
             eligible_rows(rows)
@@ -406,14 +427,18 @@ class FormatExperiment:
         version=self.state['version']
         greedy=self.ensure_export(self.model,f'v{version:06}-greedy',f'SnapV{version:06}',version=f'v{version}')
         control=self.teachers[0]
-        contexts=('baseline_partner','self_team') if self.config['engine']=='native' else ('astra_partner','self_team')
+        stock=self.teacher_record['kind']=='wesnoth_default_rca'
+        reference_engine='native' if stock else self.config['engine']
+        fixed=self.reference_opponents if stock else self.fixed
+        contexts=('baseline_partner','self_team') if reference_engine=='native' else ('astra_partner','self_team')
         promotion=version%100==0
         min_distinct=self.config['min_distinct']['promotion' if promotion else 'trend']
         blocks=12 if promotion else self.config['validation_games'][self.fmt]//(PLAYERS[self.fmt]*(len(contexts) if self.fmt=='team2v2' else 1))
-        jobs=evaluation_jobs(self.directory,greedy,control,self.fixed,blocks,
+        jobs=evaluation_jobs(self.directory,greedy,control,fixed,blocks,
             self.config['seed']+1000000+(0 if promotion else version*101),self.update_deadline(),self.exe,label=f'val{version:06}',formats=[self.fmt],team_contexts=contexts,
             faction_cycle=0 if promotion else (version//self.config['validation_interval']-1)%3,min_distinct=min_distinct)
         for job in jobs:
+            job['engine']=reference_engine
             job['learning']=dict(support=self.support,sides={str(side):dict(teacher=False,version=f'v{version}') for side in job['meta']['policy_sides']})
         jobs,results=self.execute(jobs,f'validation-{version:06}')
         comparison=comparisons(jobs,results,min_blocks=blocks,min_distinct=min_distinct,team_contexts=contexts)
@@ -442,8 +467,9 @@ class FormatExperiment:
         key=selection_key(comparison) if promotion and comparison[self.fmt]['blocks']>=blocks else None
         champion=self.state.get('champion')
         if promotion and champion:
-            champion_jobs=evaluation_jobs(self.directory,greedy,champion,self.fixed,12,self.config['seed']+1000000,
+            champion_jobs=evaluation_jobs(self.directory,greedy,champion,fixed,12,self.config['seed']+1000000,
                 self.update_deadline(),self.exe,label=f'champion{version:06}',formats=[self.fmt],team_contexts=contexts,min_distinct=min_distinct)
+            for job in champion_jobs: job['engine']=reference_engine
             champion_jobs,champion_results=self.execute(champion_jobs,f'champion-{version:06}')
             champion_comparison=comparisons(champion_jobs,champion_results,min_blocks=12,min_distinct=min_distinct,team_contexts=contexts)
             write_json(self.directory/'validation'/f'champion-v{version:06}.json',dict(tier='promotion',format=self.fmt,
@@ -463,9 +489,10 @@ class FormatExperiment:
         gate=read_json(self.directory/'bc_gate.json') if method=='bc' else None
         if method=='bc' and gate.get('distinct_scenarios',0)>=self.config['min_distinct']['gate'] and gate['imitation']['effective'] and gate['coverage']['passed'] and gate['corpus']['passed'] and time.time()<self.update_deadline():
             from .sample import opening_map
-            probes=rollout_jobs(self.directory,greedy,[greedy],self.fixed,self.support,f'v{version}',0,
+            probes=rollout_jobs(self.directory,greedy,[greedy],fixed,self.support,f'v{version}',0,
                 self.config['seed']+900000,self.update_deadline(),self.exe,4,current=greedy,formats=[self.fmt])
             for j in probes:
+                j['engine']=reference_engine
                 j['id']='opening-'+str(version)+'-'+j['id'];j['max_turns']=5
                 j.pop('training_scenario', None)
                 j['meta'].pop('eligibility_swap', None)
@@ -492,7 +519,9 @@ class FormatExperiment:
         from .rules_catalog import load, resolve_dir
         rows=[r for r in read_log(self.directory/'jobs.jsonl') if r.get('meta',{}).get('phase')=='reward_reference']
         existing=list(_diagnostics(rows));attempted={r['id'] for r in rows}
-        engine=self.config['engine']
+        stock=self.teacher_record['kind']=='wesnoth_default_rca'
+        engine='native' if stock else self.config['engine']
+        source='stock_rca' if stock else 'astra'
         rules=schema()['rules_sha256'] if engine=='native' else load(resolve_dir(self.config.get('rules_dir')))['rules_version']
         proposals=[];seen=set()
         for job in jobs:
@@ -504,8 +533,8 @@ class FormatExperiment:
                 seen.add(key)
                 known={d['game_family'] for d in existing if (d['map_sha256'],d['faction'],d['context'])==key
                        and d['engine_id']==engine and d.get('rules_version')==rules and d.get('format')==self.fmt
-                       and d.get('metrics_version')==METRICS_VERSION and d.get('source')=='astra'
-                       and d.get('teacher')=='gpt6astra' and d.get('map_partition')=='validation'}
+                       and d.get('metrics_version')==METRICS_VERSION and d.get('source')==source
+                       and d.get('teacher')==self.teacher_record['kind'] and d.get('map_partition')=='validation'}
                 identity=hashlib.sha256(json.dumps([self.fmt,engine,rules,*key,METRICS_VERSION]).encode()).hexdigest()[:16]
                 repeat=0
                 for _ in range(max(0,MIN_REFERENCE_GAMES-len(known))):
@@ -517,7 +546,8 @@ class FormatExperiment:
                     reference['id']=ident;reference['seed']=int(hashlib.sha256(ident.encode()).hexdigest()[:8],16)
                     reference['bots'][side-1]=self.teachers[0]
                     reference['output']=str(self.directory/'replays'/(ident+'.json'))
-                    reference['learning']=dict(support=self.support,sides={str(side):dict(teacher='gpt6astra',version='teacher-frozen')})
+                    reference['engine']=engine
+                    reference['learning']=dict(support=self.support,sides={str(side):dict(teacher=self.teacher_record['kind'],version='teacher-frozen')})
                     reference['meta'].update(phase='reward_reference',label=f'reward-reference-v{version:06}',seat=side)
                     family=dict(format=self.fmt,map=map_hash,seed=reference['seed'],factions=reference['factions'],teams=reference.get('teams'))
                     reference['game_family']=hashlib.sha256(json.dumps(family,sort_keys=True,separators=(',',':')).encode()).hexdigest()
@@ -611,13 +641,16 @@ class FormatExperiment:
             return dict(choice='champion',reason='champion validation score unavailable')
         policy=self.ensure_export(model,f'nominate-v{version:06}-'+sha256(candidate)[:16],f'NominateV{version:06}',version=f'v{version}')
         opponent=self.ensure_export(champion_model,'nominate-champion-'+sha256(champion)[:16],'NominateChampion')
-        contexts=('baseline_partner','self_team') if self.config['engine']=='native' else ('astra_partner','self_team')
+        stock=self.teacher_record['kind']=='wesnoth_default_rca'
+        reference_engine='native' if stock else self.config['engine']
+        fixed=self.reference_opponents if stock else self.fixed
+        contexts=('baseline_partner','self_team') if reference_engine=='native' else ('astra_partner','self_team')
         identity=dict(candidate_sha256=sha256(candidate),champion_sha256=sha256(champion),
             profile=self.identity(),features=schema(),seed=self.config['seed']+1000000,contexts=list(contexts),
-            min_distinct=self.config['min_distinct']['promotion'])
+            min_distinct=self.config['min_distinct']['promotion'],evaluation_engine=reference_engine)
         identity=json.loads(json.dumps(identity))
         panels=[]
-        for label,control in (('astra',self.teachers[0]),('champion',opponent)):
+        for label,control in ((self.teacher_record['kind'] if stock else 'astra',self.teachers[0]),('champion',opponent)):
             path=self.directory/'validation'/f'nominate-v{version:06}-{label}.json'
             expected=dict(identity,control=control)
             panel=read_json(path) if path.exists() else None
@@ -627,8 +660,9 @@ class FormatExperiment:
                 # Hash-bound schedule names cannot replay another checkpoint's games.
                 suffix=hashlib.sha256(json.dumps(expected,sort_keys=True).encode()).hexdigest()[:16]
                 name=f'nominate-v{version:06}-{label}-{suffix}'
-                jobs=evaluation_jobs(self.directory,policy,control,self.fixed,12,identity['seed'],deadline,
+                jobs=evaluation_jobs(self.directory,policy,control,fixed,12,identity['seed'],deadline,
                     self.exe,label=name,formats=[self.fmt],team_contexts=contexts,min_distinct=identity['min_distinct'])
+                for job in jobs: job['engine']=reference_engine
                 jobs,results=self.execute(jobs,name)
                 panel=dict(identity=expected,comparison=comparisons(jobs,results,min_blocks=12,min_distinct=identity['min_distinct'],team_contexts=contexts))
                 write_json(path,panel)
@@ -639,7 +673,7 @@ class FormatExperiment:
                 return dict(choice='champion',reason=label+' nomination did not pass')
         if panels[0]['comparison'][self.fmt]['difference']<=champion_key:
             return dict(choice='champion',reason='candidate did not beat the retained champion score')
-        return dict(choice='candidate',reason='full Astra and champion nomination passed')
+        return dict(choice='candidate',reason='full reference and champion nomination passed')
 
     def _select_final(self):
         frozen=self.directory/'selected.pt';record=self.directory/'selection.json'
@@ -717,14 +751,15 @@ class FormatExperiment:
                 if self.state.get('pending_train'): self.finish_train()
                 return self.final_evaluation()
             if self.state['stage']=='calibration':
-                if len(self.fixed)==1:
-                    write_json(self.directory/'controls.json',dict(controls={self.fmt:self.fixed[0]},calibration='single fixed Astra'))
+                references=self.reference_opponents if self.teacher_record['kind']=='wesnoth_default_rca' else self.fixed
+                if len(references)==1:
+                    write_json(self.directory/'controls.json',dict(controls={self.fmt:references[0]},calibration='single fixed reference'))
                     self.state['stage']='bc';self.save()
             if self.state['stage']=='calibration':
-                jobs=calibration_jobs(self.directory,self.fixed,self.config['calibration_blocks'],self.config['seed'],self.update_deadline(),self.exe,formats=[self.fmt])
+                jobs=calibration_jobs(self.directory,references,self.config['calibration_blocks'],self.config['seed'],self.update_deadline(),self.exe,formats=[self.fmt])
                 jobs,results=self.execute(jobs,'calibration')
                 if len(results)==len(jobs) and all(r['status']=='complete' for r in results):
-                    write_json(self.directory/'controls.json',choose_controls(jobs,results,self.fixed));self.state['stage']='bc';self.save()
+                    write_json(self.directory/'controls.json',choose_controls(jobs,results,references));self.state['stage']='bc';self.save()
                 elif any(r['status']=='infrastructure_error' for r in results): raise RuntimeError('calibration failed')
             if self.state['stage'] in ('bc','ppo'): self.learn()
             if self.state.get('phase','auto') in ('bc','ppo'): return self.complete_phase()

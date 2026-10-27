@@ -1,0 +1,21 @@
+test_baseline_is_never_substituted (tests.v5.test_teacher_identity.TeacherIdentityTests.test_baseline_is_never_substituted) ... FAIL
+
+======================================================================
+FAIL: test_baseline_is_never_substituted (tests.v5.test_teacher_identity.TeacherIdentityTests.test_baseline_is_never_substituted)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/acceptance_ppo_r7_20261027_e509a8d/source/tests/v5/test_teacher_identity.py", line 110, in test_baseline_is_never_substituted
+    self.assertEqual(jobs[0]['bots'],['student','baseline'])
+AssertionError: Lists differ: ['student', 'gpt6astra.zip'] != ['student', 'baseline']
+
+First differing element 1:
+'gpt6astra.zip'
+'baseline'
+
+- ['student', 'gpt6astra.zip']
++ ['student', 'baseline']
+
+----------------------------------------------------------------------
+Ran 1 test in 0.654s
+
+FAILED (failures=1)
