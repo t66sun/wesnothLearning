@@ -1,0 +1,35 @@
+test_cluster_means_do_not_weight_repetitions_as_scenarios (tests.v5.test_evaluation_design.EvaluationDesignTests.test_cluster_means_do_not_weight_repetitions_as_scenarios) ... ok
+test_distinct_positive_scenarios_can_pass_without_more_blocks (tests.v5.test_evaluation_design.EvaluationDesignTests.test_distinct_positive_scenarios_can_pass_without_more_blocks) ... ok
+test_final_report_prints_scenario_count_and_floor (tests.v5.test_evaluation_design.EvaluationDesignTests.test_final_report_prints_scenario_count_and_floor) ... ok
+test_frozen_floors_and_existing_schedule_capacity (tests.v5.test_evaluation_design.EvaluationDesignTests.test_frozen_floors_and_existing_schedule_capacity) ... ok
+test_gate_reports_distinct_scenarios (tests.v5.test_evaluation_design.EvaluationDesignTests.test_gate_reports_distinct_scenarios) ... ok
+test_repeated_identical_blocks_are_insufficient (tests.v5.test_evaluation_design.EvaluationDesignTests.test_repeated_identical_blocks_are_insufficient) ... ok
+test_unmeasured_legacy_panel_cannot_nominate (tests.v5.test_evaluation_design.EvaluationDesignTests.test_unmeasured_legacy_panel_cannot_nominate) ... ok
+test_collector_survives_dead_or_advanced_native_handle (tests.test_validation_cadence.ValidationCadenceTests.test_collector_survives_dead_or_advanced_native_handle) ... ok
+test_reduced_team_validation_does_not_weaken_formal_evaluation (tests.test_validation_cadence.ValidationCadenceTests.test_reduced_team_validation_does_not_weaken_formal_evaluation) ... ok
+test_tenth_update_and_checkpointed_pending_validation (tests.test_validation_cadence.ValidationCadenceTests.test_tenth_update_and_checkpointed_pending_validation) ... ok
+test_validation_sizes_paired_contexts_and_no_unready_opening (tests.test_validation_cadence.ValidationCadenceTests.test_validation_sizes_paired_contexts_and_no_unready_opening) ... ok
+test_block_bootstrap_and_incomplete_blocks (tests.test_schedule.ScheduleTests.test_block_bootstrap_and_incomplete_blocks) ... ok
+test_deadline_config_and_log_recovery (tests.test_schedule.ScheduleTests.test_deadline_config_and_log_recovery) ... ok
+test_frozen_schedule (tests.test_schedule.ScheduleTests.test_frozen_schedule) ... ok
+test_linux_command_omits_windows_only_option (tests.test_schedule.ScheduleTests.test_linux_command_omits_windows_only_option) ... ok
+test_official_ai_in_all_team_roles (tests.test_schedule.ScheduleTests.test_official_ai_in_all_team_roles) ... ok
+test_team_assignment_and_credit (tests.test_schedule.ScheduleTests.test_team_assignment_and_credit) ... ok
+test_two_controls_are_never_merged_and_opening_fixture_is_safe (tests.test_schedule.ScheduleTests.test_two_controls_are_never_merged_and_opening_fixture_is_safe) ... ok
+test_wml_teams_are_opt_in (tests.test_schedule.ScheduleTests.test_wml_teams_are_opt_in) ... ok
+test_candidate_must_beat_champion_on_matching_panels (tests.v5.test_selection.SelectionTests.test_candidate_must_beat_champion_on_matching_panels) ... ok
+test_final_entry_freezes_one_selection_before_holdout (tests.v5.test_selection.SelectionTests.test_final_entry_freezes_one_selection_before_holdout) ... ok
+test_frozen_selection_detects_changed_checkpoint (tests.v5.test_selection.SelectionTests.test_frozen_selection_detects_changed_checkpoint) ... ok
+test_incomplete_or_mismatched_panels_keep_champion (tests.v5.test_selection.SelectionTests.test_incomplete_or_mismatched_panels_keep_champion) ... ok
+test_underfilled_candidate_keeps_champion (tests.v5.test_selection.SelectionTests.test_underfilled_candidate_keeps_champion) ... ok
+test_complete_nomination_reuses_only_exact_checkpoint_identity (tests.v5.test_final_nomination.FinalNominationTests.test_complete_nomination_reuses_only_exact_checkpoint_identity) ... ok
+test_no_time_or_underfilled_panel_keeps_champion (tests.v5.test_final_nomination.FinalNominationTests.test_no_time_or_underfilled_panel_keeps_champion) ... ok
+test_offcycle_candidate_runs_full_panels_and_freezes_once (tests.v5.test_final_nomination.FinalNominationTests.test_offcycle_candidate_runs_full_panels_and_freezes_once) ... ok
+test_repeated_final_entry_reuses_frozen_hash_and_completed_holdout (tests.v5.test_final_nomination.FinalNominationTests.test_repeated_final_entry_reuses_frozen_hash_and_completed_holdout) ... ok
+test_new_run_config_freezes_reserve_and_rejects_invalid_budgets (tests.v5.test_final_budget.FinalBudgetTests.test_new_run_config_freezes_reserve_and_rejects_invalid_budgets) ... ok
+test_nomination_stops_at_reserve_boundary_but_holdout_keeps_total_deadline (tests.v5.test_final_budget.FinalBudgetTests.test_nomination_stops_at_reserve_boundary_but_holdout_keeps_total_deadline) ... ok
+
+----------------------------------------------------------------------
+Ran 30 tests in 2.833s
+
+OK

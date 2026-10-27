@@ -1,6 +1,6 @@
 # PPO 重构计划：已证实缺陷、目标结构与原版 RCA 替换
 
-状态：**实施中**。R1–R3 已于 2026-10-27 通过有界 Ubuntu 验收；R4–R10 尚未实现。R3 按下文用户批准的语义修订实施。见 [R1 证据](../verification/ppo_refactor_r1_20261027/REPORT.md)、[R2 证据](../verification/ppo_refactor_r2_20261027/REPORT.md)、[R3 证据](../verification/ppo_refactor_r3_20261027/REPORT.md)。
+状态：**实施中**。R1–R4 已于 2026-10-27 通过有界 Ubuntu 验收；R5–R10 尚未实现。R3 按下文用户批准的语义修订实施。见 [R1 证据](../verification/ppo_refactor_r1_20261027/REPORT.md)、[R2 证据](../verification/ppo_refactor_r2_20261027/REPORT.md)、[R3 证据](../verification/ppo_refactor_r3_20261027/REPORT.md)。
 证据：[verification/ppo_rootcause_20261026/REPORT.md](../verification/ppo_rootcause_20261026/REPORT.md)（十一次只读探针，退出码 0，冻结 run `v5_lite30h_20261025`）。
 证据范围：一个已完成的 30 小时 CPU lite run；未训练、未跑原版对局、未改语料与检查点。
 
@@ -218,6 +218,8 @@ split           = 'validation' if int(sha256(scenario_family)[:8],16) % 5 == 0 e
 
 #### R4. 评估设计：不同场景、聚类 bootstrap、显式不足
 
+**2026-10-27 已验收：**实现 `a05533f`，30 项 Ubuntu 专项检查通过；面板与 BC 门还原反例失败，恢复后通过。[报告](../verification/ppo_refactor_r4_20261027/REPORT.md)。现有 final 设计仅 6/3/3 个不同场景，低于门槛 12，继续报告不足；未新增对局或语料。
+
 - **行为：** 本系统里的每个判决——面板与 BC 门一视同仁——都以不同场景数陈述其证据，而非重复次数；场景过少的设计不得通过。BC 门还须声明自身范围：它只证明对教师轨迹的模仿，属于初始化证据。
 - **证据：** F3，duel 2 个签名×15、ffa4 1 个×30、team2v2 3 个×10；`min_blocks=30` 靠重复满足；`selection.json` 的理由。F6：`bc_gate.json` 只带 `imitation`/`coverage`/`corpus`/`opening`/`passed`，没有任何场景数；而支撑 99.19% 模仿率的 duel 语料是 300 局落在 **4 张棋盘**上，其中一张占 150 局（`k_gate_scope`，`verification/ppo_gate_scope_20261026/REPORT.md`）。
 - **模块：** `learning/schedule.py evaluation_jobs`（显式场景枚举 + 重复数）、`learning/evaluate.py`（`scenario_of`、`comparisons(..., min_distinct)`、`_cluster_bootstrap`）、`learning/experiment.py validate_model`（面板设计、状态传播）、`learning/experiment.py final_evaluation`、`learning/experiment.py finish_train`（门控段写入场景数与范围并执行下限）。
@@ -362,7 +364,7 @@ flowchart LR
 
 ### 4.3 测试覆盖表
 
-每个阶段只附带一个新测试文件，外加一条“还原修复即失败”的断言。R1–R3 已实现并验收，R4–R10 的测试文件仍未编写；只有已实现且待验收的事项才进入 `TEST.md`。
+每个阶段只附带一个新测试文件，外加一条“还原修复即失败”的断言。R1–R4 已实现并验收，R5–R10 的测试文件仍未编写；只有已实现且待验收的事项才进入 `TEST.md`。
 
 | PR | 测试 | 还原即失败的断言 | 证明什么 | 必须保持绿色的既有套件 |
 | --- | --- | --- | --- | --- |
@@ -452,7 +454,8 @@ flowchart LR
 | R1 Ubuntu 验收 | **27 项通过** | 场景身份、内容身份、日程与受影响读取；见[证据](../verification/ppo_refactor_r1_20261027/REPORT.md) |
 | R2 Ubuntu 验收 | **20 + 1 项通过** | 资格、计数与四人赛制更新；见[证据](../verification/ppo_refactor_r2_20261027/REPORT.md) |
 | R3 Ubuntu 验收 | **14 项通过** | 显式停止工作、中断与检查点记账；见[证据](../verification/ppo_refactor_r3_20261027/REPORT.md) |
-| R4–R10 Ubuntu 验收 | **未运行** | 尚未实现 |
+| R4 Ubuntu 验收 | **30 项通过** | 场景证据、门控、选择与报告；[证据](../verification/ppo_refactor_r4_20261027/REPORT.md) |
+| R5–R10 Ubuntu 验收 | **未运行** | 尚未实现 |
 | BC/升级/champion/final 门、全套测试 | **未重跑** | 复用冻结 run 与 §10.15 |
 
 ### 6.2 阻塞分类

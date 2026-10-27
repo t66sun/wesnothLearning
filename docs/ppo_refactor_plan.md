@@ -1,6 +1,6 @@
 # PPO rebuild plan: proven defects, target structure, stock RCA replacement
 
-Status: **implementation in progress**. R1–R3 passed bounded Ubuntu acceptance on 2026-10-27; R4–R10 remain unimplemented. R3 follows the user-approved semantics revision below. [R1 evidence](../verification/ppo_refactor_r1_20261027/REPORT.md), [R2 evidence](../verification/ppo_refactor_r2_20261027/REPORT.md), [R3 evidence](../verification/ppo_refactor_r3_20261027/REPORT.md).
+Status: **implementation in progress**. R1–R4 passed bounded Ubuntu acceptance on 2026-10-27; R5–R10 remain unimplemented. R3 follows the user-approved semantics revision below. [R1 evidence](../verification/ppo_refactor_r1_20261027/REPORT.md), [R2 evidence](../verification/ppo_refactor_r2_20261027/REPORT.md), [R3 evidence](../verification/ppo_refactor_r3_20261027/REPORT.md).
 Evidence: [verification/ppo_rootcause_20261026/REPORT.md](../verification/ppo_rootcause_20261026/REPORT.md) (eleven read-only probes, exit 0, frozen run `v5_lite30h_20261025`).
 Scope of the evidence: one completed 30-hour CPU lite run; no training, no native game, no corpus, no checkpoint touched.
 
@@ -218,6 +218,8 @@ One PR per behaviour. Every phase names its own revert-detecting assertion. Line
 
 #### R4. Evaluation design: distinct scenarios, cluster bootstrap, explicit insufficiency
 
+**Accepted 2026-10-27:** implementation `a05533f`, 30 focused Ubuntu checks, both panel/gate revert assertions fail and restoration passes. [Report](../verification/ppo_refactor_r4_20261027/REPORT.md). Existing final design has only 6/3/3 distinct scenarios against floor 12 and remains insufficient; no games or corpus added.
+
 - **Behaviour:** every verdict in this system — panel and BC gate alike — states its evidence as the number of distinct scenarios, not the number of repetitions, and a design with too few distinct scenarios cannot pass. The BC gate additionally declares its scope: it certifies imitation on teacher trajectories and is initialisation evidence only.
 - **Evidence:** F3, duel 2 signatures ×15, ffa4 1 ×30, team2v2 3 ×10; `min_blocks=30` satisfied by repetition; `selection.json` reasons. F6: `bc_gate.json` carries `imitation`/`coverage`/`corpus`/`opening`/`passed` and no scenario count, while the duel corpus behind 99.19 % imitation is 300 games over **4 boards**, one of them 150 games (`k_gate_scope`, `verification/ppo_gate_scope_20261026/REPORT.md`).
 - **Modules:** `learning/schedule.py evaluation_jobs` (explicit scenario enumeration + repeats), `learning/evaluate.py` (`scenario_of`, `comparisons(..., min_distinct)`, `_cluster_bootstrap`), `learning/experiment.py validate_model` (panel design, status propagation), `learning/experiment.py final_evaluation`, `learning/experiment.py finish_train` (gate block writes the scenario count and scope and enforces the floor).
@@ -362,7 +364,7 @@ Reward coefficient changes, KL limit changes, network or architecture changes, p
 
 ### 4.3 Test coverage map
 
-Each phase ships exactly one new test file plus one assertion that fails when the behaviour is reverted. R1–R3 are implemented and accepted; R4–R10 test files remain unwritten. A row becomes `TEST.md` material only when implemented and awaiting acceptance.
+Each phase ships exactly one new test file plus one assertion that fails when the behaviour is reverted. R1–R4 are implemented and accepted; R5–R10 test files remain unwritten. A row becomes `TEST.md` material only when implemented and awaiting acceptance.
 
 | PR | Test | Revert-detecting assertion | Proves | Existing suites that must stay green |
 | --- | --- | --- | --- | --- |
@@ -452,7 +454,8 @@ Historical Astra data, packages, models and reports keep their identity and are 
 | R1 Ubuntu acceptance | **27 PASS** | scenario identity, content identity, schedule and affected reader; [evidence](../verification/ppo_refactor_r1_20261027/REPORT.md) |
 | R2 Ubuntu acceptance | **20 + 1 PASS** | eligibility, counters and four-player updates; [evidence](../verification/ppo_refactor_r2_20261027/REPORT.md) |
 | R3 Ubuntu acceptance | **14 PASS** | explicit stopped work, interruptions, checkpoint accounting; [evidence](../verification/ppo_refactor_r3_20261027/REPORT.md) |
-| R4–R10 Ubuntu acceptance | **not run** | unimplemented |
+| R4 Ubuntu acceptance | **30 PASS** | scenario evidence, gates, selection and reporting; [evidence](../verification/ppo_refactor_r4_20261027/REPORT.md) |
+| R5–R10 Ubuntu acceptance | **not run** | unimplemented |
 | BC/promotion/champion/final gates, full suite | **not rerun** | reused from the frozen run and §10.15 |
 
 ### 6.2 Blocking classification
