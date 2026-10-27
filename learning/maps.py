@@ -10,6 +10,62 @@ SPLITS={
     'team2v2':dict(train=('clash','isars_cross'),validation=('loris_river',),holdout=('morituri',)),
 }
 
+SPLIT_RULE = 'scenario-v2'
+
+
+def _digest(value):
+    return hashlib.sha256(json.dumps(value, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
+
+
+def scenario_identity(job):
+    """Identify the physical starting scenario, independent of run seed or paths."""
+    from .adapters import COMBAT_VERSION, ENGINE_VERSION
+    from .features import schema
+
+    meta = job.get('meta', {})
+    board = job['map_override']
+    engine = job.get('engine', 'lite')
+    rules = meta.get('rules_sha256') or meta.get('rules_version')
+    if rules is None and job.get('rules_dir'):
+        directory = Path(job['rules_dir'])
+        path = directory / 'catalog-summary.json'
+        if not path.exists():
+            path = directory / 'catalog.json'
+        rules = json.loads(path.read_text(encoding='utf-8'))['rules_file_sha256']
+    identity = dict(format=meta.get('format'),
+                    board=dict(terrain=board['terrain'], starts=board['starts'],
+                               width=board.get('width', len(board['terrain'][0])),
+                               height=board.get('height', len(board['terrain']))),
+                    factions=job['factions'], teams=job.get('teams'),
+                    engine_id=meta.get('engine_version', ENGINE_VERSION if engine == 'lite' else 'native-1.18.8'),
+                    combat_version=meta.get('combat_version', COMBAT_VERSION if engine == 'lite' else 'native-1.18.8'),
+                    rules_version=rules or schema()['rules_sha256'],
+                    max_turns=job.get('max_turns', 30), fog=job.get('fog', True),
+                    shroud=job.get('shroud', False), share_view=job.get('share_view', True),
+                    share_maps=job.get('share_maps', True))
+    if job.get('game_spec'):
+        identity['initial_spec'] = {key: value for key, value in job['game_spec'].items()
+                                    if key not in ('seed', 'allow_approximate')}
+    return identity
+
+
+def scenario_family(job):
+    return _digest(scenario_identity(job))
+
+
+def run_family(job):
+    """Preserve the original seed-bearing family bytes for existing consumers."""
+    meta = job['meta']
+    return _digest(dict(format=meta['format'], map=meta['map_sha256'], seed=job['seed'],
+                        factions=job['factions'], teams=job.get('teams')))
+
+
+def bind_scenario(job):
+    """Refresh after engine/rules overrides, before freezing the schedule."""
+    job['scenario_family'] = scenario_family(job)
+    job['split_rule'] = SPLIT_RULE
+    return job
+
 
 def freeze_map(source,name,output=None,catalog=None):
     """Convert a genuine native .map; the distribution inventory proves its version."""
@@ -70,8 +126,7 @@ def decorate(job,format_name,index,phase):
         names=SPLITS[format_name][split];name=names[(index//2 if split=='train' else index)%len(names)]
         board,digest=frozen_map(name)
     job['map_override']=board
-    job.setdefault('meta',{}).update(map=name,map_sha256=digest,map_partition=phase)
-    family=dict(format=format_name,map=digest,seed=job['seed'],factions=job['factions'],teams=job.get('teams'))
-    job['game_family']=hashlib.sha256(json.dumps(family,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+    job.setdefault('meta',{}).update(format=format_name,map=name,map_sha256=digest,map_partition=phase)
+    job['game_family']=run_family(job)
     if phase=='train': job['max_turns']=60
-    return job
+    return bind_scenario(job)

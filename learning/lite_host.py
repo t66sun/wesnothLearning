@@ -183,7 +183,8 @@ def play_lite_job(job):
                             data_pool=job.get('data_pool', 'original'),
                             reward_config=config, reward_version=config['reward_version'],
                             map=job.get('meta',{}).get('map'),map_sha256=job.get('meta',{}).get('map_sha256'),map_partition=job.get('meta',{}).get('map_partition'),
-                            reward_formula_id=config['reward_formula_id'], game_family=job.get('game_family', job_id))
+                            reward_formula_id=config['reward_formula_id'], game_family=job.get('game_family', job_id),
+                            scenario_family=job.get('scenario_family'), split_rule=job.get('split_rule', 'family-seed-v1'))
             teacher_plan=decision.pop('teacher_action',None)
             if teacher:
                 action = teacher_candidate(teacher_plan)

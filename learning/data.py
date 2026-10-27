@@ -13,6 +13,17 @@ def split(game_id):
     return 'validation' if int(hashlib.sha256(game_id.encode()).hexdigest()[:8], 16) % 5 == 0 else 'train'
 
 
+def record_split(row):
+    """Read legacy run partitions or explicitly versioned scenario partitions."""
+    rule = row.get('split_rule', 'family-seed-v1')
+    if rule not in ('family-seed-v1', 'scenario-v2'):
+        raise ValueError('unknown data split rule: ' + str(rule))
+    key = row.get('scenario_family') if rule == 'scenario-v2' else row.get('game_family')
+    if not isinstance(key, str) or not key:
+        raise ValueError('sample lacks identity for ' + rule)
+    return split(key)
+
+
 def reward(result, side):
     from .rewards import terminal_rewards
     return terminal_rewards(result)[side]
@@ -89,7 +100,11 @@ def validate_record(r, format_name=None):
         if r.get('human_control') is not True or r.get('native_version')!='1.18.8': raise ValueError('human sample lacks native/control provenance')
         if r.get('value_valid',False) and not r.get('result_verified'): raise ValueError('unknown human outcome cannot supervise value')
     if not r.get('version') or not r.get('game_family'): raise ValueError('sample lacks policy version/game family')
-    if r.get('split') is not None and r['split']!=split(r['game_family']): raise ValueError('game family crosses data partitions')
+    expected = record_split(r)
+    if r.get('split_rule') == 'scenario-v2' and r.get('split') is None:
+        raise ValueError('scenario-v2 sample lacks explicit partition')
+    if r.get('split') is not None and r['split'] != expected:
+        raise ValueError('game family crosses data partitions')
     for candidate in r['candidates']:
         index=candidate['features'][-1]
         if int(index)!=index or not 0<=index<len(UNIT_TYPES): raise ValueError('invalid unit identity')
@@ -124,7 +139,8 @@ def write_shard(path, game_id, records, result, bootstraps=None, provenance=None
                 family=r.get('game_family', game_id)
                 truncated=is_truncated(r['side'])
                 bootstrap=bootstraps.get(str(r['side']),{})
-                r = dict(r, game_id=game_id, game_family=family, split=split(family), reward=reward(result, r['side']), value_valid=r.get('value_valid',True) and not truncated,
+                r.update(game_family=family, split_rule=r.get('split_rule', 'family-seed-v1'))
+                r = dict(r, game_id=game_id, game_family=family, split=record_split(r), reward=reward(result, r['side']), value_valid=r.get('value_valid',True) and not truncated,
                          truncated=truncated,bootstrap_value=bootstrap.get('value'),bootstrap_potential=bootstrap.get('potential'),
                          bootstrap_raw=bootstrap.get('reward_raw'),bootstrap_turn=bootstrap.get('turn'),
                          players=len(result['bots']), format=infer_format(result), faults=result['faults'],

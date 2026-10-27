@@ -274,6 +274,9 @@ class FormatExperiment:
                 job.setdefault('allow_approximate',self.config.get('allow_approximate',False))
                 job['bots']=[self.teachers[0] if bot=='baseline' else bot for bot in job['bots']]
                 if job.get('meta',{}).get('context')=='baseline_partner': job['meta']['context']='astra_partner'
+            if job.get('split_rule') == 'scenario-v2':
+                from .maps import bind_scenario
+                bind_scenario(job)
         schedule=self.directory/'schedules'/(name+'.json')
         if schedule.exists(): jobs=read_json(schedule)
         else: freeze_schedule(schedule,jobs)
