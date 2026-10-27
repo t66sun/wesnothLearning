@@ -37,12 +37,13 @@ def _memory_row(row):
 def _validate_raw(row, format_name=None):
     from .data import validate_record
     from .features import VERSION
+    from .rowpack import ROW_SCHEMA
     if row.get('choice', -1) >= 0:
         validate_record(row, format_name)
     else:
         # Uncovered teacher intents still committed and advanced online memory.
         # They are raw context, never supervised labels.
-        if row.get('schema') != VERSION or any(k not in row for k in
+        if row.get('schema') not in (VERSION,ROW_SCHEMA) or any(k not in row for k in
                 ('global', 'opponents', 'spatial', 'turn', 'game_family', 'game_id', 'source', 'format', 'side')):
             raise ValueError('uncovered raw record lacks current-schema context/provenance')
         if format_name is not None and row['format'] != format_name:

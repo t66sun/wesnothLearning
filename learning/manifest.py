@@ -7,6 +7,7 @@ from .common import ROOT, write_json, sha256
 from .features import schema
 from .model import ARCHITECTURE,Policy
 from .updates import BATCH_CONTRACT
+from .rowpack import ROW_SCHEMA
 import addons
 import native
 
@@ -58,6 +59,7 @@ def freeze(run_dir, opponents, wesnoth, config):
     catalog=load(rules_dir)
     manifest=dict(schema=4,config=config,features=schema(),architecture=ARCHITECTURE,
         batch_contract=BATCH_CONTRACT,
+        row_schema=ROW_SCHEMA,
         rules=dict(directory=str(rules_dir),rules_sha256=catalog['rules_file_sha256'],
                    source_hash=catalog['source_hash'],training_acceptance=catalog.get('training_acceptance')),
         parameters=sum(p.numel() for p in Policy('duel').parameters()),dependencies=versions,

@@ -105,15 +105,19 @@ def _reward_statistics(rows, result, side, job):
         return None
     try:
         frozen = RewardConfig(**config)
-        terminal = terminal_rewards(result)[side]
+        expected_terminal = terminal_rewards(result)[side]
+        terminal = rows[-1]['terminal_reward'] if rows[-1].get('schema')==6 else expected_terminal
+        if terminal!=expected_terminal: raise ValueError('terminal reward differs from game outcome')
         squares = 0.
         for index, row in enumerate(rows):
             final = index == len(rows) - 1
             following = row.get('reward_after', row['reward_raw']) if final else rows[index + 1]['reward_raw']
             next_turn = row['turn'] if final else rows[index + 1]['turn']
-            _, pieces = transition_reward(row['reward_raw'], following, frozen, terminal=final,
+            total, pieces = transition_reward(row['reward_raw'], following, frozen, terminal=final,
                                          terminal_reward=terminal if final else 0.,
                                          delta_turn=max(0, next_turn - row['turn']), components=True)
+            if row.get('reward_step') is not None and abs(row['reward_step']-total)>1e-9:
+                raise ValueError('reward step differs from recorded transition')
             squares += sum(value for name, value in pieces.items() if name != 'terminal') ** 2
         return dict(shaping_square_sum=squares, terminal_square_sum=terminal ** 2, transitions=len(rows))
     except (KeyError, TypeError, ValueError):

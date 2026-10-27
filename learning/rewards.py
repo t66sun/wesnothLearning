@@ -107,6 +107,20 @@ def transition_reward(now, following, config, *, terminal_reward=0., delta_turn=
     return (total, pieces) if components else total
 
 
+def row_transition(row, following=None, *, gamma=None):
+    """Compute the original own-turn reward and span from explicit row terms."""
+    terminal = following is None
+    immediate = ((row['terminal_reward'] if row.get('schema') == 6 else row['reward'])
+                 if terminal and not row.get('truncated') else 0.)
+    turns = (max(0,(row.get('bootstrap_turn') or row['turn'])-row['turn']) if terminal
+             else max(0,following['turn']-row['turn']))
+    after = ((row.get('bootstrap_raw') if row.get('truncated') else row.get('reward_after',row['reward_raw']))
+             if terminal else following['reward_raw'])
+    value = transition_reward(row['reward_raw'],after,row['reward_config'],terminal_reward=immediate,
+        terminal=terminal and not row.get('truncated'),delta_turn=turns,gamma=gamma)
+    return value, turns
+
+
 class ExplorationLedger:
     """The caller assigns scopes strictly from the scenario sharing contract."""
     def __init__(self, state=None):
