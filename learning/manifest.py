@@ -63,6 +63,7 @@ def freeze(run_dir, opponents, wesnoth, config):
         parameters=sum(p.numel() for p in Policy('duel').parameters()),dependencies=versions,
         opponents=refs,baseline=dict(name='baseline',version='1.18.8',path=exe,sha256=sha256(exe)),
         teacher=lineage(),
+        rehearsal_policy=dict(bc='teacher_initialisation',ppo='exclude_evaluation_control'),
         source={folder:tree_hashes(ROOT/folder) for folder in ('learning','lua','vendor/arena','engine_lite','rules','benchmarks')},
         baseline_in_2v2=dict(teacher_partner=True,rollout_partner_fraction=.25,
                              opponent_pool=True,control_candidate=True,

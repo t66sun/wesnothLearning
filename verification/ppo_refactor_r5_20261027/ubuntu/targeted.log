@@ -1,0 +1,28 @@
+test_control_policy_cannot_rehearse (tests.v5.test_rehearsal_source.RehearsalSourceTests.test_control_policy_cannot_rehearse) ... ok
+test_empty_pool_fails_only_when_auxiliary_loss_is_enabled (tests.v5.test_rehearsal_source.RehearsalSourceTests.test_empty_pool_fails_only_when_auxiliary_loss_is_enabled) ... ok
+test_runner_refuses_control_only_pool_before_parameter_change (tests.v5.test_rehearsal_source.RehearsalSourceTests.test_runner_refuses_control_only_pool_before_parameter_change) ... ok
+test_sha_exclusion_does_not_confuse_environment_with_label_source (tests.v5.test_rehearsal_source.RehearsalSourceTests.test_sha_exclusion_does_not_confuse_environment_with_label_source) ... ok
+test_twenty_updates_report_only_distinct_human_rehearsal (tests.v5.test_rehearsal_source.RehearsalSourceTests.test_twenty_updates_report_only_distinct_human_rehearsal) ... ok
+test_finish_train_settles_resumed_work_once_with_real_checkpoint (tests.v5.test_ppo_resume_counters.PpoResumeCounterTests.test_finish_train_settles_resumed_work_once_with_real_checkpoint) ... ok
+test_learner_totals_survive_deadline_and_repeated_boundary_resume (tests.v5.test_ppo_resume_counters.PpoResumeCounterTests.test_learner_totals_survive_deadline_and_repeated_boundary_resume) ... ok
+test_deadline_defers_without_recounting_completed_work (tests.v5.test_kl_defer.KlAccountingTests.test_deadline_defers_without_recounting_completed_work) ... ok
+test_kl_rejection_accounts_for_all_remaining_work (tests.v5.test_kl_defer.KlAccountingTests.test_kl_rejection_accounts_for_all_remaining_work) ... ok
+test_partial_kl_stop_is_settled_once_without_pending_retry (tests.v5.test_kl_defer.KlAccountingTests.test_partial_kl_stop_is_settled_once_without_pending_retry) ... ok
+test_twenty_batches_have_conserved_work_totals (tests.v5.test_kl_defer.KlAccountingTests.test_twenty_batches_have_conserved_work_totals) ... ok
+test_batch_kl_is_window_equal_not_chunk_early_stop (tests.v5.test_ppo_plan.PpoPlanTests.test_batch_kl_is_window_equal_not_chunk_early_stop) ... ok
+test_batch_kl_stop_rejects_before_stepping (tests.v5.test_ppo_plan.PpoPlanTests.test_batch_kl_stop_rejects_before_stepping) ... ok
+test_changed_plan_is_rejected (tests.v5.test_ppo_plan.PpoPlanTests.test_changed_plan_is_rejected) ... ok
+test_deadline_before_batch_changes_nothing (tests.v5.test_ppo_plan.PpoPlanTests.test_deadline_before_batch_changes_nothing) ... ok
+test_each_window_visited_once_per_epoch (tests.v5.test_ppo_plan.PpoPlanTests.test_each_window_visited_once_per_epoch) ... ok
+test_legacy_cursor_is_migrated_at_a_boundary (tests.v5.test_ppo_plan.PpoPlanTests.test_legacy_cursor_is_migrated_at_a_boundary) ... ok
+test_mid_batch_deadline_discards_gradients_and_restores_rng (tests.v5.test_ppo_plan.PpoPlanTests.test_mid_batch_deadline_discards_gradients_and_restores_rng) ... ok
+test_resume_from_saved_boundary_matches_uninterrupted (tests.v5.test_ppo_plan.PpoPlanTests.test_resume_from_saved_boundary_matches_uninterrupted) ... ok
+test_cancel_at_each_batch_boundary_restores_sampling_and_exact_future (tests.v5.test_bc_cancel_rng.BcCancelRngTests.test_cancel_at_each_batch_boundary_restores_sampling_and_exact_future) ... ok
+test_active_astra_archive_validates_without_changes (tests.test_opponents.OpponentTests.test_active_astra_archive_validates_without_changes) ... ok
+test_actual_four_archives_freeze_and_verify (tests.test_opponents.OpponentTests.test_actual_four_archives_freeze_and_verify) ... ok
+test_dots_do_not_allow_reserved_or_unsafe_names (tests.test_opponents.OpponentTests.test_dots_do_not_allow_reserved_or_unsafe_names) ... ok
+
+----------------------------------------------------------------------
+Ran 23 tests in 9.545s
+
+OK

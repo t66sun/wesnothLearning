@@ -26,6 +26,8 @@ class OpponentTests(unittest.TestCase):
             with patch('learning.manifest.native.find_wesnoth',return_value=str(runtime)),patch('learning.manifest.dependency_versions',return_value=dict(packages=dict(torch='2.9.1+cpu'))):
                 manifest,teachers=freeze(run,ROOT/'data/opponents',None,dict(device='cuda'))
             self.assertEqual(len(teachers),1)
+            self.assertEqual(manifest['rehearsal_policy'],
+                             dict(bc='teacher_initialisation',ppo='exclude_evaluation_control'))
             for opponent in manifest['opponents']:
                 self.assertEqual(sha256(opponent['source']),opponent['sha256'])
                 self.assertEqual(sha256(opponent['path']),opponent['sha256'])

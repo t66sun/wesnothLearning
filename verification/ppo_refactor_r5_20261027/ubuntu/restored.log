@@ -1,0 +1,6 @@
+test_control_policy_cannot_rehearse (tests.v5.test_rehearsal_source.RehearsalSourceTests.test_control_policy_cannot_rehearse) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.054s
+
+OK

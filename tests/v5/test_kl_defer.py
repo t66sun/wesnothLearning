@@ -16,6 +16,7 @@ class KlAccountingTests(unittest.TestCase):
         from learning.updates import setup
         from tests.test_validation_cadence import ValidationCadenceTests
         from tests.v5 import helpers
+        from tests.v5.test_rehearsal_source import human_rows
 
         families = [f'probe-{i}' for i in range(30) if split(f'probe-{i}') == 'train'][:5]
         rows = _records([(family, 1, 0.) for family in families])
@@ -36,7 +37,7 @@ class KlAccountingTests(unittest.TestCase):
             runner.state.update(phase='evaluate', pending_train=dict(method='ppo', paths=['policy'], cursor={}))
             runner.save = lambda: FormatExperiment.save(runner)
             runner.update_deadline = lambda: float('inf')
-            with patch('learning.experiment.read_shards', side_effect=lambda paths, **kw: rows if paths == ['policy'] else _bc()):
+            with patch('learning.experiment.read_shards', side_effect=lambda paths, **kw: rows if paths == ['policy'] else human_rows()):
                 self.assertTrue(runner.finish_train())
             self.assertIsNone(runner.state['pending_train'])
             self.assertEqual(runner.state['version'], 1)

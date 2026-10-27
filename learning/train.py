@@ -11,7 +11,7 @@ from .checkpoints import checkpoint, restore_rng
 
 def train(model, optimizer, records, method, epochs=4, minibatch=256, deadline=float('inf'),
           progress=None, on_step=None, bc_records=None, shaping_weight=None, entropy=.01, bc_aux=.1,
-          allow_policy_rehearsal=False, plan_seed=0):
+          allow_policy_rehearsal=False, plan_seed=0, rehearsal_exclude=None):
     if method not in ('bc', 'ppo'):
         raise ValueError('method must be bc or ppo')
     if method == 'bc':
@@ -20,4 +20,4 @@ def train(model, optimizer, records, method, epochs=4, minibatch=256, deadline=f
     return ppo.update(model, optimizer, records, bc_records=bc_records, epochs=epochs, minibatch=minibatch,
                       deadline=deadline, progress=progress, on_step=on_step, shaping_weight=shaping_weight,
                       entropy=entropy, bc_aux=bc_aux, allow_policy_rehearsal=allow_policy_rehearsal,
-                      plan_seed=plan_seed)
+                      plan_seed=plan_seed,rehearsal_exclude=rehearsal_exclude)

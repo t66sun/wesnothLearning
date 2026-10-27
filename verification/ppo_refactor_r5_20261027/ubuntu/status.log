@@ -1,0 +1,4 @@
+targeted_exit=0
+reverted_exit=1
+restored_exit=0
+source_restored=1
