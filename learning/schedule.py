@@ -57,6 +57,7 @@ def evaluation_jobs(directory, policy, control, fixed, blocks, seed, deadline, w
                     rotated=roles[rotation:]+roles[:rotation]
                     ident=f'{label}-{fmt}-b{block:04}-{context}-r{rotation}'
                     job=base_job(directory,ident,bots,block_seed,deadline,wesnoth,scenario['faction_block'],fmt)
+                    if 'baseline' in bots: job['engine']='native'
                     job['meta']=dict(format=fmt,block=block,rotation=rotation,context=context,
                         label=label,policy=policy,control=control,faction_cycle=faction_cycle,
                         design_scenario=dict(scenario),repeat=block//len(roster),min_distinct=min_distinct,
@@ -79,12 +80,22 @@ def calibration_jobs(directory, fixed, blocks, seed, deadline, wesnoth, formats=
 def teacher_jobs(directory, teachers, fixed, support, batch_index, seed, deadline, wesnoth, formats=FORMATS,count=1,index_stride=None):
     jobs=[]
     rng=random.Random(seed+batch_index)
-    if len(teachers)!=1 or Path(teachers[0]).stem!='gpt6astra': raise ValueError('only Astra may provide teacher actions')
+    from .manifest import teacher_identity
+    if len(teachers)!=1: raise ValueError('one registered teacher is required')
+    supplied=teachers[0]
+    if isinstance(supplied,dict):
+        record=supplied
+        teacher=supplied.get('path')
+    else:
+        kind='wesnoth_default_rca' if supplied=='baseline' else Path(supplied).stem
+        record=teacher_identity(kind)
+        teacher=supplied
+    if record['query']=='none': raise ValueError('teacher has no query capability; use full native event capture')
+    if not teacher: raise ValueError('queryable teacher record lacks its controller path')
     for fmt in formats:
         n=PLAYERS[fmt]
         for game in range(count):
             i=batch_index*(index_stride or count)+game
-            teacher=teachers[0]
             bots=[teacher]+[rng.choice(fixed) for _ in range(n-1)]
             if fmt=='team2v2':
                 bots[2]='baseline'  # The focal teacher must learn in a team with official RCA.
@@ -96,7 +107,8 @@ def teacher_jobs(directory, teachers, fixed, support, batch_index, seed, deadlin
             job.update(shard=str(Path(directory)/'data'/(ident+'.jsonl.gz')),
                        # Collector work is training instrumentation. Formal evaluation keeps 1/10 s.
                        timeout=10,learning=dict(support=support,sides={str(side):dict(teacher=Path(teacher).stem,version='teacher-frozen')}),
-                       meta=dict(format=fmt,teacher=teacher,seat=side,phase='teacher'))
+                       teacher_identity=dict(record),
+                       meta=dict(format=fmt,teacher=teacher,teacher_identity=dict(record),seat=side,phase='teacher'))
             decorate(job,fmt,i,'train')
             jobs.append(job)
     return jobs
@@ -140,6 +152,7 @@ def rollout_jobs(directory, policy, history, fixed, support, version, batch_inde
                     bots.append(baseline);composition.append(dict(role='teammate',path=baseline))
                     continue
                 kind=('fixed','fixed','history','current')[slot%4];slot+=1
+                if kind=='fixed' and not fixed: kind='history' if history else 'current'
                 path=rng.choice(fixed) if kind=='fixed' else rng.choice(history) if kind=='history' else current
                 bots.append(path);composition.append(dict(role=kind,path=path))
             if fmt=='team2v2':
@@ -152,6 +165,7 @@ def rollout_jobs(directory, policy, history, fixed, support, version, batch_inde
             learner_side=(n-rotation)%n+1
             ident=f'rollout-{batch_index:05}-{fmt}-g{game}'
             job=base_job(directory,ident,bots,rng.randrange(2**32),deadline,wesnoth,batch_index+game,fmt)
+            if 'baseline' in bots: job['engine']='native'
             job.update(shard=str(Path(directory)/'data'/(ident+'.jsonl.gz')),
                        learning=dict(support=support,sides={str(learner_side):dict(teacher=False,version=version,sampling_seed=job['seed']%2147483646+1)}),
                        meta=dict(format=fmt,phase='ppo',version=version,seat=learner_side,composition=composition))

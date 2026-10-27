@@ -45,6 +45,10 @@ class ValidationCadenceTests(unittest.TestCase):
 
     def runner(self,root,fmt='duel'):
         r=FormatExperiment.__new__(FormatExperiment)
+        from learning.manifest import teacher_identity
+        r.teacher_record=teacher_identity('gpt6astra')  # Explicit legacy fixture.
+        r.manifest=dict(teacher=r.teacher_record)
+        r.reference_opponents=['gpt6astra.zip','baseline']
         r.directory=Path(root);r.fmt=fmt;r.config=default_config(engine='native')
         r.clock=dict(started=0,update_deadline=3000000000.)
         r.state=dict(batch=0,version=0,history=[],pending_train=None,pending_validation=None,
