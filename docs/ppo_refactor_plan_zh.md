@@ -17,7 +17,7 @@
 | F3 | final 的 30 个 block 实为 3–6 个确定性对局重复 5–10 次；bootstrap 把重复当独立样本 | 评估 | **已证实** | `learning/maps.py SPLITS`、`learning/schedule.py factions()`、`learning/evaluate.py comparisons()`；duel 2 个签名×15，ffa4 1 个×30 |
 | F4 | KL 门从 epoch 循环直接返回，冻结 batch 中未访问的 window 永不重访 | 实现缺陷（记账） | **已证实** | `learning/ppo.py update()`、`learning/experiment.py finish_train()`；duel 每 batch 计划约 8 步、实际 3.86 步，387/430 batch 因 KL 停止 |
 | F5 | PPO 的模仿项是 10% 交叉熵，而模仿对象正是评估面板用来给学习者打分的那个策略 | 学习机制 | **支持但未证实** | `learning/ppo.py` rehearsal 项、`learning/experiment.py:381 control=self.teachers[0]`；cos(PG, rehearsal) +0.1006，梯度范数 2.46 对 10.44 |
-| F6 | BC 门是教师轨迹上的分布内模仿（duel 99.19%），看不到策略实际落败的 on-policy 状态分布 | 评估 | 度量内容**已证实**；其影响**支持但未证实** | `learning/experiment.py finish_train()` 门控段与 `g_trend` 对照 |
+| F6 | BC 门是教师轨迹上的分布内模仿（duel 99.19%），看不到策略实际落败的 on-policy 状态分布；其产物只报对局数，不报背后有多少个不同场景 | 评估 | “它度量的是这个”与“它不报场景数”**已证实**；其影响**支持但未证实** | `learning/experiment.py finish_train()` 门控段与 `g_trend` 对照；`bc_gate.json` 只有 `imitation`/`coverage`/`corpus`/`opening`/`passed`。门控证据设计归 R4 负责 |
 | F7 | 学习者唯一持久信号是每局终局 ±1；势函数塑形在 γ=1 下自行相消，探索项总计约 0.042 | 学习机制（设计即如此） | 设计**已证实**，影响**无法判断** | `learning/rewards.py`、`learning/data.py advantages()`；手算 oracle 完全一致 |
 | F8 | 采集与评估全部在确定性 lite 引擎（`expected_damage_v1`）上；开局一失即不可挽回，面板近似是开局的常函数 | 训练域 | 身份**已证实**，棋力影响**无法判断** | 该 run 每个 job：`engine lite-0.2`、`native_timings: []` |
 | F9 | 一半采集对局在 vendored arena 棋盘上，而验证/留出用真实地图 | 数据 | 排程**已证实**，影响**无法判断** | `learning/maps.py decorate()`、`learning/schedule.py base_job()` |
@@ -112,7 +112,7 @@ flowchart LR
 | `learning/data.py` | 按场景分区；校验 `split_rule`；采样器不得使用评估 control | `split(scenario_family)` 机制不变；`validate_record` 接受 `split_rule ∈ {'family-seed-v1','scenario-v2'}`；`BCSampler(pool, *, exclude_teacher_impl=None, exclude_teacher_sha=None)` |
 | `learning/updates.py` | 拒绝静默丢弃；报告排除量 | `prepare(model, records, bc_records=None, *, allow_drop=False)`；抛 `ValueError('batch row excluded by split: N of M')` |
 | `learning/ppo.py` | 延迟未访问 window 而不是丢弃；报告 planned/committed/deferred | `result['scope']`、`result['deferred_windows']`、`result['planned_steps']`；cursor 增加 `scope` |
-| `learning/experiment.py` | 不再替换官方 baseline；显式传面板设计；延迟工作保持 pending | 移除 `[self.teachers[0] if bot=='baseline' …]`；`finish_train` 把延迟 window 作为独立版本重新排入；`validate_model(..., min_distinct=…)` |
+| `learning/experiment.py` | 不再替换官方 baseline；显式传面板设计；延迟工作保持 pending；每个判决都报告其场景证据 | 移除 `[self.teachers[0] if bot=='baseline' …]`；`finish_train` 把延迟 window 作为独立版本重新排入，并写入 `bc_gate.json` 的 `distinct_scenarios`/`scope`；`validate_model(..., min_distinct=…)` |
 | `learning/schedule.py` | 每个面板设计枚举一次场景；教师按能力而非身份 | `evaluation_jobs(..., scenarios=[...], repeats=int, min_distinct=int)`；`teacher_jobs` 接受任何 `query != 'none'` 的注册教师 |
 | `learning/evaluate.py` | 对*不同场景*做聚类 bootstrap；新增 `insufficient_design` | `comparisons(jobs, results, *, min_blocks, min_distinct, team_contexts)`；结果增加 `distinct_scenarios` |
 | `learning/manifest.py` | 教师身份记录，而非名字比对 | `teacher_identity(kind)->dict`；`active_teacher(manifest)`；`freeze()` 记录 kind/version/query/action_source/rules sha |
@@ -210,18 +210,19 @@ split           = 'validation' if int(sha256(scenario_family)[:8],16) % 5 == 0 e
 
 #### R4. 评估设计：不同场景、聚类 bootstrap、显式不足
 
-- **行为：** 面板证据是不同场景的数量而非重复次数；场景过少的设计不得通过。
-- **证据：** F3，duel 2 个签名×15、ffa4 1 个×30、team2v2 3 个×10；`min_blocks=30` 靠重复满足；`selection.json` 的理由。
-- **模块：** `learning/schedule.py evaluation_jobs`（显式场景枚举 + 重复数）、`learning/evaluate.py`（`scenario_of`、`comparisons(..., min_distinct)`、`_cluster_bootstrap`）、`learning/experiment.py validate_model`（面板设计、状态传播）、`learning/experiment.py final_evaluation`。
-- **接口：** `comparisons(...)` 返回 `{'blocks','distinct_scenarios','differences','status','reason'}`，`status ∈ {passed, not_passed, inconclusive, insufficient_design}`；bootstrap 重采样不同场景并平均其 block 均值；`min_distinct` 冻结在 manifest（升级/final 为 12，trend 为 3）。
+- **行为：** 本系统里的每个判决——面板与 BC 门一视同仁——都以不同场景数陈述其证据，而非重复次数；场景过少的设计不得通过。BC 门还须声明自身范围：它只证明对教师轨迹的模仿，属于初始化证据。
+- **证据：** F3，duel 2 个签名×15、ffa4 1 个×30、team2v2 3 个×10；`min_blocks=30` 靠重复满足；`selection.json` 的理由。F6：`bc_gate.json` 只带 `imitation`/`coverage`/`corpus`/`opening`/`passed`，没有任何场景数；而支撑 99.19% 模仿率的 duel 语料是 300 局落在 **4 张棋盘**上，其中一张占 150 局（`k_gate_scope`，`verification/ppo_gate_scope_20261026/REPORT.md`）。
+- **模块：** `learning/schedule.py evaluation_jobs`（显式场景枚举 + 重复数）、`learning/evaluate.py`（`scenario_of`、`comparisons(..., min_distinct)`、`_cluster_bootstrap`）、`learning/experiment.py validate_model`（面板设计、状态传播）、`learning/experiment.py final_evaluation`、`learning/experiment.py finish_train`（门控段写入场景数与范围并执行下限）。
+- **接口：** `comparisons(...)` 返回 `{'blocks','distinct_scenarios','differences','status','reason'}`，`status ∈ {passed, not_passed, inconclusive, insufficient_design}`；bootstrap 重采样不同场景并平均其 block 均值；`min_distinct` 冻结在 manifest（升级/final 为 12，trend 为 3）。`bc_gate.json` 增加 `distinct_scenarios` 与 `scope: 'initialisation_only'`；语料场景数低于 `min_distinct_gate` 时门控段返回 `insufficient_design`。
 - **前置：** R1（job 上需要 `scenario_family`）。
 - **兼容：** `validation/v*.json` 增加 `distinct_scenarios`；读取方容忍缺失。旧面板仅在重算时才被读作 `insufficient_design`——历史报告不重写。
-- **必须保持的契约：** 留出地图不用于调参或选拔；`min_blocks` 作为重复数下限保留；通过规则（`interval[0] > 0`）不变。
-- **本地验收：** 30 个相同 block 不得得出 `passed`；12 个不同场景且差异一致为正则通过。
+- **必须保持的契约：** 留出地图不用于调参或选拔；`min_blocks` 作为重复数下限保留；通过规则（`interval[0] > 0`）不变；门控保留现有的分类分母，只增加场景数与范围标签；任何报告或选拔路径都不得把 `passed` 当作 on-policy 棋力。
+- **本地验收：** 30 个相同 block 不得得出 `passed`；12 个不同场景且差异一致为正则通过；4 张棋盘配 `min_distinct_gate = 12` 必须返回 `insufficient_design`。
 - **Ubuntu 验收：** `pytest tests/v5/test_evaluation_design.py`；重跑 `tests/test_validation_cadence.py` 校验面板规模与接线。
-- **还原即失败的断言：** `test_repeated_identical_blocks_are_insufficient`——恢复仅看 `min_blocks` 的逻辑后，面板给出 `passed`/`inconclusive` 而非 `insufficient_design`。
+- **还原即失败的断言：** `test_repeated_identical_blocks_are_insufficient`——恢复仅看 `min_blocks` 的逻辑后，面板给出 `passed`/`inconclusive` 而非 `insufficient_design`；`test_gate_reports_distinct_scenarios`——门控产物与 `insufficient_design` 分支同时消失。
 - **回退：** 回滚；面板回到重复语义。
-- **完成条件：** 短链中每个升级/final 面板都报告 `distinct_scenarios ≥ min_distinct` 或 `insufficient_design`，且 final 报告同时打印两个数。
+- **完成条件：** 短链中每个升级/final 面板都报告 `distinct_scenarios ≥ min_distinct` 或 `insufficient_design`，final 报告同时打印两个数，且 `bc_gate.json` 在其判决旁给出场景数与“仅作初始化证据”的范围。
+- **剩余限制：** 现有语料达不到门控下限（duel：4 张棋盘）。R4 只负责让它可见；扩充语料或为更低下限给出理由属于另行授权的数据决策，在它落地之前门控判决是 `insufficient_design`，而不是质量结论。
 - **本阶段阻塞棋力结论，不阻塞训练。**
 
 ### B 阶段 — 更新究竟在优化什么
@@ -351,6 +352,32 @@ flowchart LR
 
 奖励系数改动、KL 阈值改动、网络或架构改动、以扩充面板代替独立性、引擎确定性改动、语料扩充，以及任何纯风格重构。每项都需要独立提案与自己的证据；F1–F4 的修复都不需要它们。
 
+### 4.3 测试覆盖表
+
+每个阶段只附带一个新测试文件，外加一条“还原修复即失败”的断言。下表中没有任何一项已经写好；只有对应阶段实现之后，该行才会成为 `TEST.md` 的条目。
+
+| PR | 测试 | 还原即失败的断言 | 证明什么 | 必须保持绿色的既有套件 |
+| --- | --- | --- | --- | --- |
+| R1 | `tests/v5/test_scenario_identity.py` | `test_seed_does_not_move_the_scenario_between_splits` | 同一棋盘换 seed 仍落在切分同一侧；`game_family` 仍含 seed | `tests/v5/test_rollout_content_identity.py` |
+| R2 | `tests/v5/test_batch_eligibility.py` | `test_validation_row_in_batch_raises` | 不合格行让 batch 明确失败，而不是被静默过滤 | `tests/v5/test_ppo_resume_counters.py` |
+| R3 | `tests/v5/test_kl_defer.py` | `test_unvisited_windows_are_deferred` | KL 拒绝后未访问 window 仍保持 pending，下次更新训练它们，且 `sum(planned) == sum(committed) + sum(deferred)` | `tests/v5/test_ppo_resume_counters.py` |
+| R4 | `tests/v5/test_evaluation_design.py` | `test_repeated_identical_blocks_are_insufficient`；`test_gate_reports_distinct_scenarios` | 面板与 BC 门都报告不同场景数，低于下限都返回 `insufficient_design` | `tests/test_validation_cadence.py` |
+| R5 | `tests/v5/test_rehearsal_source.py` | `test_control_policy_cannot_rehearse` | 模仿池等于评估 control 时抛错而非照常训练 | — |
+| R6 | `tests/v5/test_reward_row_schema.py` | `test_row_reward_is_not_the_terminal_value` | 行的步进奖励与终局奖励是两个字段，算术逐字节一致 | `tests/v5/test_pipeline_contract.py` |
+| R7 | `tests/v5/test_teacher_identity.py` | `test_baseline_is_never_substituted` | `baseline` 以原版 RCA 身份直达 runner，任何路径都不把它换成教师包 | `tests/smoke_training_lite_8worker.py` |
+| R8 | 原版 fixture FX1–FX3（`tests/v5/test_native_capture.py`） | `test_attack_event_becomes_a_label` | 通过事件采集观察到的原版 RCA 攻击成为带标签的候选行，且输入仅含合法可见信息 | — |
+| R9 | `tests/v5/test_stock_teacher.py` | `test_stock_teacher_rejects_per_decision_query` | 原版教师路径对逐决策查询明确拒绝，而不是换条路悄悄回答 | — |
+| R10 | `tests/v5/test_bundle_identity.py` | `test_bundle_omits_unused_teacher` | 原版 RCA 包自报教师身份，且不打包未使用的 Astra 包 | — |
+
+测试类型（便于评审判断每一行的分量）：
+
+- **合成 fixture 的单元测试（R1、R2、R3、R5、R6、R9、R10）：** fixture 是能触及该契约的最小对象——一对双 seed job、一行不合格行、一个冻结 window 列表、一个模仿池、一对行、一条查询记录、一个 manifest。毫秒级、确定性。
+- **录制数据上的单元测试（R4）：** 面板 fixture 就是本 run `jobs.jsonl` 的真实 block 表（2/1/3 个签名重复到 30），所以断言针对真实失败，而非虚构场景。
+- **冻结更新路径上的集成测试（R2、R3、R6 在录得 batch 上重跑）：** 以 `rollout-00099-duel-g*.jsonl.gz` 作为参考输入；任何改动 PPO 算术的提交都必须在这里显出差异。
+- **原版 fixture（R8、FX1–FX3）：** ≤3 场景 × ≤5 回合，只验接线。通过只证明采集与合法性，绝不证明棋力；某场景无法展示某项能力就记为 `not demonstrated`，不得放宽。
+
+刻意不写测试的内容：奖励系数、KL 阈值、面板规模以及 §4.2 中的其他数字。它们属于调参；把它们钉进测试就把度量决策变成了被固定的实现细节。
+
 ## 5. 原版 RCA 迁移
 
 ### 5.1 全角色替换清单
@@ -411,6 +438,7 @@ flowchart LR
 | 跨检查点策略漂移 | **已运行** | duel v10…v470，同一 batch |
 | 面板重复度 | **已运行** | 三格式 final 面板 |
 | Split 独立性 | **已运行** | 每格式 48 局 |
+| BC 语料场景覆盖（`k_gate_scope`） | **已运行**，退出码 0 | duel 完整（300 shard）；ffa4/2v2 取 608/400 个 shard 的前 40 个；全量 ffa4/2v2 扫描在每条命令 300 s 预算处中止，记为未跑完 |
 | 原版 RCA 候选动作清单 | **已运行**（静态，所装数据） | 19 个 CA，9 Lua / 11 C++ |
 | native 原版对局、采集、标签匹配 | **未运行** | FX1–FX3 已定义，限 3 场景 × ≤5 回合，仅作能力 fixture |
 | 任何新行为的 Ubuntu 测试 | **未运行** | R1–R10 尚未实现 |
