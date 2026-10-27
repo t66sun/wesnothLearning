@@ -1,0 +1,17 @@
+test_repeated_identical_blocks_are_insufficient (tests.v5.test_evaluation_design.EvaluationDesignTests.test_repeated_identical_blocks_are_insufficient) ... FAIL
+
+======================================================================
+FAIL: test_repeated_identical_blocks_are_insufficient (tests.v5.test_evaluation_design.EvaluationDesignTests.test_repeated_identical_blocks_are_insufficient)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/acceptance_ppo_r4_20261027_a05533f/source/tests/v5/test_evaluation_design.py", line 112, in test_repeated_identical_blocks_are_insufficient
+    self.assertEqual(summary['duel']['status'], 'insufficient_design')
+AssertionError: 'passed' != 'insufficient_design'
+- passed
++ insufficient_design
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.116s
+
+FAILED (failures=1)

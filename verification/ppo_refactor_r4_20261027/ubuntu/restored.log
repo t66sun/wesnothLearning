@@ -1,0 +1,7 @@
+test_repeated_identical_blocks_are_insufficient (tests.v5.test_evaluation_design.EvaluationDesignTests.test_repeated_identical_blocks_are_insufficient) ... ok
+test_gate_reports_distinct_scenarios (tests.v5.test_evaluation_design.EvaluationDesignTests.test_gate_reports_distinct_scenarios) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.870s
+
+OK

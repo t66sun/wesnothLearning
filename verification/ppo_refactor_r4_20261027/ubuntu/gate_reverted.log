@@ -1,0 +1,15 @@
+test_gate_reports_distinct_scenarios (tests.v5.test_evaluation_design.EvaluationDesignTests.test_gate_reports_distinct_scenarios) ... ERROR
+
+======================================================================
+ERROR: test_gate_reports_distinct_scenarios (tests.v5.test_evaluation_design.EvaluationDesignTests.test_gate_reports_distinct_scenarios)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/acceptance_ppo_r4_20261027_a05533f/source/tests/v5/test_evaluation_design.py", line 82, in test_gate_reports_distinct_scenarios
+    self.assertEqual(gate['distinct_scenarios'], 4)
+                     ~~~~^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'distinct_scenarios'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.849s
+
+FAILED (errors=1)

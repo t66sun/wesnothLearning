@@ -1,0 +1,5 @@
+targeted_exit=0
+panel_reverted_exit=1
+gate_reverted_exit=1
+restored_exit=0
+source_restored=1

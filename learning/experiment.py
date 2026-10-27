@@ -67,6 +67,7 @@ def default_config(device='cuda', *, engine=None):
     return dict(hours=12.,workers=8,device=device,trainer_threads=1,seed=20261018,engine=engine,evaluation_engine=engine,reward_mode='adaptive',phase='auto',allow_approximate=engine=='lite',rules_dir=str(resolve_dir()),
         formats=list(FORMATS),calibration_blocks=3,validation_interval=10,
         validation_games=dict(duel=6,ffa4=4,team2v2=8),final_blocks=30,final_holdout_hours=0.,
+        min_distinct=dict(trend=3,promotion=12,final=12,gate=12),
         bc_games=bc_games,
         native_bc_games={fmt:0 if engine=='lite' else games for fmt,games in bc_games.items()},bc_batch_games=8,
         bc_accuracy=dict(all=.4,recruit=.6,move=.35,attack=.35),shaping_weight=None,
@@ -77,6 +78,11 @@ def default_config(device='cuda', *, engine=None):
 
 
 def validate_config(config):
+    floors=dict(trend=3,promotion=12,final=12,gate=12)
+    if set(config.get('min_distinct',{}))!=set(floors) or any(
+            not isinstance(config['min_distinct'][key],int) or config['min_distinct'][key]<floor
+            for key,floor in floors.items()):
+        raise ValueError('distinct scenario floors cannot be lower than trend=3, promotion/final/gate=12')
     if config.get('phase','auto') not in ('auto','bc'): raise ValueError('new runs start in auto or bc; use phase for PPO/evaluation')
     if config['hours']<=0: raise ValueError('hours must be positive')
     if not 0<=config.get('final_holdout_hours',0.)<config['hours']/6:
@@ -381,7 +387,11 @@ class FormatExperiment:
             evidence=self.teacher_evidence()
             coverage=coverage_gate(evidence+human_coverage(self.config['human_data'],self.fmt))
             corpus=dict(games=len(evidence),required=self.config['bc_games'][self.fmt],passed=len(evidence)>=self.config['bc_games'][self.fmt])
-            write_json(self.directory/'bc_gate.json',dict(imitation=quality,coverage=coverage,corpus=corpus,opening=dict(passed=False)))
+            from .evaluate import gate_design
+            design=gate_design(rows,self.config['min_distinct']['gate'])
+            if design['status']=='insufficient_design': self.state['effective']=False
+            write_json(self.directory/'bc_gate.json',dict(imitation=quality,coverage=coverage,corpus=corpus,
+                opening=dict(passed=False),passed=False,**dict(design,status='insufficient_design' if design['status']=='insufficient_design' else 'pending')))
         self.state['batch']+=1
         self.state['pending_train']=None
         self.state['pending_validation']=method if self.state['version']%self.config['validation_interval']==0 else None
@@ -395,17 +405,18 @@ class FormatExperiment:
         control=self.teachers[0]
         contexts=('baseline_partner','self_team') if self.config['engine']=='native' else ('astra_partner','self_team')
         promotion=version%100==0
+        min_distinct=self.config['min_distinct']['promotion' if promotion else 'trend']
         blocks=12 if promotion else self.config['validation_games'][self.fmt]//(PLAYERS[self.fmt]*(len(contexts) if self.fmt=='team2v2' else 1))
         jobs=evaluation_jobs(self.directory,greedy,control,self.fixed,blocks,
             self.config['seed']+1000000+(0 if promotion else version*101),self.update_deadline(),self.exe,label=f'val{version:06}',formats=[self.fmt],team_contexts=contexts,
-            faction_cycle=0 if promotion else (version//self.config['validation_interval']-1)%3)
+            faction_cycle=0 if promotion else (version//self.config['validation_interval']-1)%3,min_distinct=min_distinct)
         for job in jobs:
             job['learning']=dict(support=self.support,sides={str(side):dict(teacher=False,version=f'v{version}') for side in job['meta']['policy_sides']})
         jobs,results=self.execute(jobs,f'validation-{version:06}')
-        comparison=comparisons(jobs,results,min_blocks=blocks,team_contexts=contexts)
+        comparison=comparisons(jobs,results,min_blocks=blocks,min_distinct=min_distinct,team_contexts=contexts)
         write_json(self.directory/'validation'/f'v{version:06}.json',dict(tier='promotion' if promotion else 'trend',format=self.fmt,
             engine_id=self.config['engine'],seed=self.config['seed']+1000000+(0 if promotion else version*101),blocks=blocks,control=control,
-            contexts=list(contexts),comparison=comparison))
+            contexts=list(contexts),min_distinct=min_distinct,comparison=comparison))
         from .reward_metrics import build_control_metrics
         try:
             if self.controller.freeze()['mode']=='adaptive':
@@ -429,9 +440,9 @@ class FormatExperiment:
         champion=self.state.get('champion')
         if promotion and champion:
             champion_jobs=evaluation_jobs(self.directory,greedy,champion,self.fixed,12,self.config['seed']+1000000,
-                self.update_deadline(),self.exe,label=f'champion{version:06}',formats=[self.fmt],team_contexts=contexts)
+                self.update_deadline(),self.exe,label=f'champion{version:06}',formats=[self.fmt],team_contexts=contexts,min_distinct=min_distinct)
             champion_jobs,champion_results=self.execute(champion_jobs,f'champion-{version:06}')
-            champion_comparison=comparisons(champion_jobs,champion_results,min_blocks=12,team_contexts=contexts)
+            champion_comparison=comparisons(champion_jobs,champion_results,min_blocks=12,min_distinct=min_distinct,team_contexts=contexts)
             write_json(self.directory/'validation'/f'champion-v{version:06}.json',dict(tier='promotion',format=self.fmt,
                 engine_id=self.config['engine'],seed=self.config['seed']+1000000,blocks=12,control=champion,
                 contexts=list(contexts),comparison=champion_comparison))
@@ -447,7 +458,7 @@ class FormatExperiment:
                 self.state['champion']=greedy
                 self.state['best_engine']='best_lite' if self.config['engine']=='lite' else 'native_candidate'
         gate=read_json(self.directory/'bc_gate.json') if method=='bc' else None
-        if method=='bc' and gate['imitation']['effective'] and gate['coverage']['passed'] and gate['corpus']['passed'] and time.time()<self.update_deadline():
+        if method=='bc' and gate.get('distinct_scenarios',0)>=self.config['min_distinct']['gate'] and gate['imitation']['effective'] and gate['coverage']['passed'] and gate['corpus']['passed'] and time.time()<self.update_deadline():
             from .sample import opening_map
             probes=rollout_jobs(self.directory,greedy,[greedy],self.fixed,self.support,f'v{version}',0,
                 self.config['seed']+900000,self.update_deadline(),self.exe,4,current=greedy,formats=[self.fmt])
@@ -466,7 +477,8 @@ class FormatExperiment:
             _,opening=self.execute(probes,f'opening-{version:06}')
             gate['opening']=opening_gate(opening)
             self.state['effective']=all(gate[k]['effective' if k=='imitation' else 'passed'] for k in ('imitation','coverage','corpus','opening'))
-            gate['passed']=self.state['effective'];write_json(self.directory/'bc_gate.json',gate)
+            gate['passed']=self.state['effective'];gate['status']='passed' if gate['passed'] else 'not_passed'
+            write_json(self.directory/'bc_gate.json',gate)
         self.state['snapshots'].append(greedy);self.state['pending_validation']=None;self.save()
         if save_method_best: self._write_checkpoint(self.directory/f'best_{method}.pt')
         if save_best: self._write_checkpoint(self.directory/'best.pt')
@@ -598,7 +610,8 @@ class FormatExperiment:
         opponent=self.ensure_export(champion_model,'nominate-champion-'+sha256(champion)[:16],'NominateChampion')
         contexts=('baseline_partner','self_team') if self.config['engine']=='native' else ('astra_partner','self_team')
         identity=dict(candidate_sha256=sha256(candidate),champion_sha256=sha256(champion),
-            profile=self.identity(),features=schema(),seed=self.config['seed']+1000000,contexts=list(contexts))
+            profile=self.identity(),features=schema(),seed=self.config['seed']+1000000,contexts=list(contexts),
+            min_distinct=self.config['min_distinct']['promotion'])
         identity=json.loads(json.dumps(identity))
         panels=[]
         for label,control in (('astra',self.teachers[0]),('champion',opponent)):
@@ -612,9 +625,9 @@ class FormatExperiment:
                 suffix=hashlib.sha256(json.dumps(expected,sort_keys=True).encode()).hexdigest()[:16]
                 name=f'nominate-v{version:06}-{label}-{suffix}'
                 jobs=evaluation_jobs(self.directory,policy,control,self.fixed,12,identity['seed'],deadline,
-                    self.exe,label=name,formats=[self.fmt],team_contexts=contexts)
+                    self.exe,label=name,formats=[self.fmt],team_contexts=contexts,min_distinct=identity['min_distinct'])
                 jobs,results=self.execute(jobs,name)
-                panel=dict(identity=expected,comparison=comparisons(jobs,results,min_blocks=12,team_contexts=contexts))
+                panel=dict(identity=expected,comparison=comparisons(jobs,results,min_blocks=12,min_distinct=identity['min_distinct'],team_contexts=contexts))
                 write_json(path,panel)
             panels.append(panel)
             if not _panel_complete(panel,self.fmt):
@@ -668,11 +681,11 @@ class FormatExperiment:
         for i,control in enumerate(fixed):
             label=Path(control).stem
             plans[label]=evaluation_jobs(self.directory,policy,control,fixed,self.config['final_blocks'],
-                self.config['seed']+200000000+i*100003,self.evaluation_deadline(),self.exe,label='final-'+label,formats=[self.fmt],team_contexts=contexts)
+                self.config['seed']+200000000+i*100003,self.evaluation_deadline(),self.exe,label='final-'+label,formats=[self.fmt],team_contexts=contexts,min_distinct=self.config['min_distinct']['final'])
         jobs=sorted([j for plan in plans.values() for j in plan],key=lambda j:(j['meta']['block'],j['meta']['rotation'],j['meta']['context'],j['meta']['label']))
         for job in jobs: job['engine']=evaluation_engine
         _,results=self.execute(jobs,'final')
-        reports={label:comparisons(plan,results,team_contexts=contexts)[self.fmt] for label,plan in plans.items()}
+        reports={label:comparisons(plan,results,min_distinct=self.config['min_distinct']['final'],team_contexts=contexts)[self.fmt] for label,plan in plans.items()}
         last_method=(selected_state.get('runner',{}).get('history') or [{}])[-1].get('method')
         summary=dict(format=self.fmt,status=overall_status(reports),controls=reports,selected_kind=selected_kind,
             selection=selection,

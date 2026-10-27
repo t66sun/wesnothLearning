@@ -37,7 +37,7 @@ class FinalBudgetTests(unittest.TestCase):
                 seen.append(name)
                 return jobs,[dict(id=j['id'],status='complete',result=dict(bots=j['bots'],winner=j['meta']['policy_sides'][0],faults={})) for j in jobs]
             runner.execute=execute
-            with patch('learning.experiment.time.time',return_value=26*3600.+1), patch('learning.maps.frozen_map',return_value=('Gg,Gg\nGg,Gg','0'*64)), patch('learning.report.write_profile_report'):
+            with patch('learning.experiment.time.time',return_value=26*3600.+1), patch('learning.maps.frozen_map',return_value=(fixtures.board(),'0'*64)), patch('learning.report.write_profile_report'):
                 summary=runner.final_evaluation()
             self.assertEqual(summary['selected_kind'],'champion')
             self.assertIn('time',summary['selection']['reason'])

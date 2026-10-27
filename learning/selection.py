@@ -12,6 +12,7 @@ def _panel_complete(panel, fmt):
     comparison = (panel or {}).get('comparison', {}).get(fmt, {})
     blocks = int(comparison.get('blocks') or 0)
     return (panel is not None and comparison.get('status') in ('passed', 'not_passed')
+            and comparison.get('distinct_scenarios',0)>=max(12,comparison.get('min_distinct',12))
             and blocks >= 12 and not comparison.get('missing_blocks', comparison.get('missing'))
             and not comparison.get('fault_games', comparison.get('faults'))
             and comparison.get('difference') is not None)

@@ -10,7 +10,8 @@ from tests.v5.helpers import temporary_directory
 def panel(difference, blocks=12, status='passed', seed=19, control='astra', missing=0, faults=0):
     return dict(format='duel', engine_id='lite', seed=seed, blocks=blocks, control=control,
                 contexts=['astra_partner', 'self_team'],
-                comparison=dict(duel=dict(blocks=blocks, status=status, missing=missing, faults=faults, difference=difference)))
+                comparison=dict(duel=dict(blocks=blocks, distinct_scenarios=blocks, min_distinct=12,
+                    status=status, missing=missing, faults=faults, difference=difference)))
 
 
 class SelectionTests(unittest.TestCase):

@@ -1,5 +1,6 @@
 """Frozen schedules; official baseline participates in every 2v2 role."""
 from itertools import combinations
+from math import gcd
 from pathlib import Path
 import random
 from .common import write_json, read_json, sha256
@@ -20,13 +21,24 @@ def base_job(directory, ident, bots, seed, deadline, wesnoth, block=0, format_na
 
 
 def evaluation_jobs(directory, policy, control, fixed, blocks, seed, deadline, wesnoth,
-                    label='selected', formats=FORMATS, team_contexts=('baseline_partner','self_team'),faction_cycle=0):
+                    label='selected', formats=FORMATS, team_contexts=('baseline_partner','self_team'),faction_cycle=0,
+                    *, scenarios=None,repeats=None,min_distinct=12):
     """A block contains full seat rotations; 2v2 includes two teammate contexts."""
     jobs=[]
     rng=random.Random(seed)
     for fmt in formats:
         n=PLAYERS[fmt]
+        from .maps import SPLITS
+        phase='final' if label.startswith('final-') else 'validation'
+        names=SPLITS[fmt]['holdout' if phase=='final' else 'validation']
+        roster=(scenarios.get(fmt) if isinstance(scenarios,dict) else scenarios) if scenarios is not None else [
+            dict(map_index=i,faction_block=f) for f in range(len(params.FACTIONS)//gcd(n,len(params.FACTIONS)))
+            for i in range(len(names))]
+        if not roster: raise ValueError('empty evaluation scenario design')
+        if repeats is not None and blocks!=len(roster)*repeats:
+            raise ValueError('evaluation repeats must match the existing block budget')
         for block in range(blocks):
+            scenario=roster[(block+faction_cycle)%len(roster)]
             contexts=team_contexts if fmt=='team2v2' else ('solo',)
             for context in contexts:
                 if fmt=='team2v2':
@@ -44,12 +56,13 @@ def evaluation_jobs(directory, policy, control, fixed, blocks, seed, deadline, w
                     bots=seats[rotation:]+seats[:rotation]
                     rotated=roles[rotation:]+roles[:rotation]
                     ident=f'{label}-{fmt}-b{block:04}-{context}-r{rotation}'
-                    job=base_job(directory,ident,bots,block_seed,deadline,wesnoth,block+faction_cycle,fmt)
+                    job=base_job(directory,ident,bots,block_seed,deadline,wesnoth,scenario['faction_block'],fmt)
                     job['meta']=dict(format=fmt,block=block,rotation=rotation,context=context,
                         label=label,policy=policy,control=control,faction_cycle=faction_cycle,
+                        design_scenario=dict(scenario),repeat=block//len(roster),min_distinct=min_distinct,
                         policy_sides=[i for i,r in enumerate(rotated,1) if r=='policy'],
                         control_sides=[i for i,r in enumerate(rotated,1) if r=='control'])
-                    decorate(job,fmt,block,'final' if label.startswith('final-') else 'validation')
+                    decorate(job,fmt,scenario['map_index'],phase)
                     jobs.append(job)
     # Interleave formats and blocks so the deadline cannot systematically starve FFA8/2v2.
     return sorted(jobs,key=lambda j:(j['meta']['block'],j['meta']['rotation'],FORMATS.index(j['meta']['format']),j['meta']['context']))
