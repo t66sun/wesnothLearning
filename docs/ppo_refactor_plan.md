@@ -1,6 +1,6 @@
 # PPO rebuild plan: proven defects, target structure, stock RCA replacement
 
-Status: **implementation in progress**. R1 and R2 passed bounded Ubuntu acceptance on 2026-10-27; R3–R10 remain unimplemented. Original diagnosis and future phase boundaries remain as specified. [R1 evidence](../verification/ppo_refactor_r1_20261027/REPORT.md), [R2 evidence](../verification/ppo_refactor_r2_20261027/REPORT.md).
+Status: **implementation in progress**. R1–R3 passed bounded Ubuntu acceptance on 2026-10-27; R4–R10 remain unimplemented. R3 follows the user-approved semantics revision below. [R1 evidence](../verification/ppo_refactor_r1_20261027/REPORT.md), [R2 evidence](../verification/ppo_refactor_r2_20261027/REPORT.md), [R3 evidence](../verification/ppo_refactor_r3_20261027/REPORT.md).
 Evidence: [verification/ppo_rootcause_20261026/REPORT.md](../verification/ppo_rootcause_20261026/REPORT.md) (eleven read-only probes, exit 0, frozen run `v5_lite30h_20261025`).
 Scope of the evidence: one completed 30-hour CPU lite run; no training, no native game, no corpus, no checkpoint touched.
 
@@ -33,7 +33,7 @@ Undeterminable from the frozen run: whether F5, F7, F8 or F9 individually cost s
 
 Three properties, in this order, and nothing else:
 
-1. **Every collected decision is trained on, exactly once, under a design that is independent of what it is judged by** (F1, F2, F3).
+1. **Every collected decision is admitted without silent split loss, and planned work is explicitly committed, interrupted or stopped by KL, under a design independent of what it is judged by** (F1, F2, F3; R3 revision approved 2026-10-27).
 2. **The update's objective is the measured objective** — no standing pull toward the panel opponent, no abandoned planned work, and reward semantics that a reader cannot misread (F4, F5, F6, F7).
 3. **Every competitive role is the stock 1.18.8 RCA**, with the capture and identity that makes its labels auditable, and no silent Astra path left (F11, F12).
 
@@ -111,8 +111,8 @@ Responsibilities and coupling as they are today:
 | `learning/maps.py` | own *scenario identity* separately from *run identity* | `scenario_identity(job)->dict`, `scenario_family(job)->str`, `run_family(job)->str`; `decorate()` writes both; `SPLITS` gains an explicit scenario list per split |
 | `learning/data.py` | partition by scenario; validate `split_rule`; sampler cannot use the evaluation control | `split(scenario_family)` unchanged mechanically; `validate_record` accepts `split_rule ∈ {'family-seed-v1','scenario-v2'}`; `BCSampler(pool, *, exclude_teacher_impl=None, exclude_teacher_sha=None)` |
 | `learning/updates.py` | refuse to silently drop; report exclusions | `prepare(model, records, bc_records=None, *, allow_drop=False)`; raises `ValueError('batch row excluded by split: N of M')` |
-| `learning/ppo.py` | defer unvisited windows instead of discarding; report planned/committed/deferred | `result['scope']`, `result['deferred_windows']`, `result['planned_steps']`; cursor gains `scope` |
-| `learning/experiment.py` | no substitution of the official baseline; pass panel design explicitly; keep deferred work pending; every verdict reports its scenario evidence | removes `[self.teachers[0] if bot=='baseline' …]`; `finish_train` re-schedules deferred windows as their own version and writes `bc_gate.json`'s `distinct_scenarios`/`scope`; `validate_model(..., min_distinct=…)` |
+| `learning/ppo.py` | account for planned/committed/KL-stopped work; defer only interruptions | `planned_steps`, `committed_steps`, `stopped_by_kl_steps`, `deferred_steps`, window-visit counts; cursor gains `scope` |
+| `learning/experiment.py` | no substitution of the official baseline; explicit panel design; settle KL work once and keep interruptions pending; every verdict reports scenario evidence | removes `[self.teachers[0] if bot=='baseline' …]`; `finish_train` settles batch work counts and writes `bc_gate.json`'s `distinct_scenarios`/`scope`; `validate_model(..., min_distinct=…)` |
 | `learning/schedule.py` | enumerate scenarios once per panel design; teacher capability not identity | `evaluation_jobs(..., scenarios=[...], repeats=int, min_distinct=int)`; `teacher_jobs` accepts any registered teacher whose `query != 'none'` |
 | `learning/evaluate.py` | cluster bootstrap over *distinct scenarios*; `insufficient_design` status | `comparisons(jobs, results, *, min_blocks, min_distinct, team_contexts)`; result adds `distinct_scenarios` |
 | `learning/manifest.py` | teacher identity record, not a name check | `teacher_identity(kind)->dict`; `active_teacher(manifest)`; `freeze()` records kind/version/query/action_source/rules sha |
@@ -197,20 +197,24 @@ One PR per behaviour. Every phase names its own revert-detecting assertion. Line
 - **Rollback:** revert; the filter returns, and the metrics fields become absent (callers use `.get`).
 - **Done when:** duel/four-player batches report `excluded_decisions == 0` in a short chain.
 
-#### R3. KL gate accounting: defer instead of discard
+#### R3. KL gate accounting: explicit stopped work and resumable interruptions
 
-- **Behaviour:** windows planned for a batch but not visited stay pending and are trained on next, under the same KL gate.
-- **Evidence:** F4, 3.86 committed of ~8 planned steps; 387/430 duel batches end with `kl_stop`.
-- **Modules:** `learning/ppo.py` (`update` cursor/scope, `result`), `learning/experiment.py` (`finish_train` pending handling, `state['version']`, counters `planned_steps`/`committed_steps`/`deferred_windows`).
-- **Interface:** cursor `{'epoch','step','scope':'batch'|'deferred','plan_hash','plan_seed'}`; when a step's KL exceeds the limit and `committed > 0`, the function returns `scope='deferred'` with the remaining window indices and `finish_train` keeps `pending_train` with `scope='deferred'` and the same `paths`/`identity`.
-- **Depends on:** R2 (a deferred batch must still satisfy eligibility).
-- **Compatibility:** `state.json` without `scope` is read as `'batch'`, so a mid-run upgrade is safe; the plan hash check still rejects a changed window plan.
-- **Contracts kept:** KL limit 0.02 unchanged, measured pre-step; zero-update KL stop still abandons the batch without a version bump; no step is ever applied after a rejected gate.
-- **Local check:** forced KL above the limit at step 0 → nothing commits; at step 1 → step 1 commits, windows of steps 2…N are returned as deferred and reappear as the next call's plan.
-- **Ubuntu check:** `pytest tests/v5/test_kl_defer.py`; `tests/v5/test_ppo_resume_counters.py` re-run to prove counters still settle once.
-- **Fails when reverted:** `test_unvisited_windows_are_deferred` — with the old return path the deferred list is empty and the test fails.
-- **Rollback:** revert; deferred fields disappear, batches behave as today.
-- **Done when:** over a 20-batch chain, `sum(planned) == sum(committed) + sum(deferred)` and every deferred window is trained on in a later batch.
+**Accepted 2026-10-27:** implementation `3983cd0`, 14 focused Ubuntu checks, deliberate revert fails and restoration passes; [report](../verification/ppo_refactor_r3_20261027/REPORT.md). No real games or formal training.
+
+**User-approved revision, 2026-10-27:** the [minimal probe](../verification/ppo_refactor_r3_probe_20261027/probe.py) commits one step, then rejects the next at KL 0.900721. Two resumes with the same weights and frozen rows reject at the identical KL without any new step. Therefore the original promise that all KL-deferred windows later train is withdrawn; it cannot coexist with the fixed pre-step gate and frozen behavior probabilities.
+
+- **Behaviour:** KL ends the collected batch and explicitly accounts for all remaining work as `stopped_by_kl`; only deadline/interruption keeps the same paths/identity/cursor pending.
+- **Evidence:** F4's missing work accounting; the probe above distinguishes intended KL stopping from recoverable interruption.
+- **Modules:** `learning/ppo.py` result/cursor; `learning/experiment.py finish_train` counters/history.
+- **Interface:** `planned_steps`, `committed_steps`, `stopped_by_kl_steps`, `deferred_steps`; corresponding window-visit totals; `scope='deferred'` only for interruption, otherwise `'batch'`.
+- **Depends on:** R2.
+- **Compatibility:** old cursors need no new fields; old cumulative counters default to zero for the newly recorded work totals, without inventing historical counts. Existing plan-hash and rollout-identity checks remain.
+- **Contracts kept:** KL limit 0.02 remains pre-step; rejection never applies gradients; zero-update KL does not increase version; a partially committed batch increases version once. Interrupted attempts do not settle global counters or create promotion candidates.
+- **Local check:** zero-step and partial KL stops; deadline/resume/checkpoint; 20 tiny batches conserve planned = committed + KL-stopped + pending work.
+- **Ubuntu check:** `tests/v5/test_kl_defer.py`, existing PPO plan and resume-counter checks; stdlib unittest runner where pytest is unavailable.
+- **Fails when reverted:** `test_kl_rejection_accounts_for_all_remaining_work` loses explicit stopped-work counts.
+- **Rollback:** revert the added accounting; model updates and KL rejection retain their existing arithmetic.
+- **Done when:** work totals conserve over 20 batches; interruptions resume once, terminal KL batches have no pending retry, and no threshold or behavior probability changes.
 
 #### R4. Evaluation design: distinct scenarios, cluster bootstrap, explicit insufficiency
 
@@ -358,13 +362,13 @@ Reward coefficient changes, KL limit changes, network or architecture changes, p
 
 ### 4.3 Test coverage map
 
-Each phase ships exactly one new test file plus one assertion that fails when the behaviour is reverted. R1/R2 are implemented and accepted; R3–R10 test files remain unwritten. A row becomes `TEST.md` material only when implemented and awaiting acceptance.
+Each phase ships exactly one new test file plus one assertion that fails when the behaviour is reverted. R1–R3 are implemented and accepted; R4–R10 test files remain unwritten. A row becomes `TEST.md` material only when implemented and awaiting acceptance.
 
 | PR | Test | Revert-detecting assertion | Proves | Existing suites that must stay green |
 | --- | --- | --- | --- | --- |
 | R1 | `tests/v5/test_scenario_identity.py` | `test_seed_does_not_move_the_scenario_between_splits` | the same board with two seeds lands on one side of the split; `game_family` still contains the seed | `tests/v5/test_rollout_content_identity.py` |
 | R2 | `tests/v5/test_batch_eligibility.py` | `test_validation_row_in_batch_raises` | an ineligible row fails the batch loudly instead of being filtered out silently | `tests/v5/test_ppo_resume_counters.py` |
-| R3 | `tests/v5/test_kl_defer.py` | `test_unvisited_windows_are_deferred` | a KL rejection leaves the unvisited windows pending and the next update trains them, with `sum(planned) == sum(committed) + sum(deferred)` | `tests/v5/test_ppo_resume_counters.py` |
+| R3 | `tests/v5/test_kl_defer.py` | `test_kl_rejection_accounts_for_all_remaining_work` | planned work equals committed + KL-stopped + interrupted work; only interruption resumes | `tests/v5/test_ppo_resume_counters.py` |
 | R4 | `tests/v5/test_evaluation_design.py` | `test_repeated_identical_blocks_are_insufficient`; `test_gate_reports_distinct_scenarios` | a panel and a BC gate both report distinct scenarios and both return `insufficient_design` below the floor | `tests/test_validation_cadence.py` |
 | R5 | `tests/v5/test_rehearsal_source.py` | `test_control_policy_cannot_rehearse` | an imitation pool that is the evaluation control raises instead of training | — |
 | R6 | `tests/v5/test_reward_row_schema.py` | `test_row_reward_is_not_the_terminal_value` | a row's step reward and terminal reward are separate fields with byte-identical arithmetic | `tests/v5/test_pipeline_contract.py` |
@@ -447,12 +451,13 @@ Historical Astra data, packages, models and reports keep their identity and are 
 | Native stock-RCA game, capture, label matching | **not run** | FX1–FX3 are defined, bounded to 3 scenarios × ≤5 turns, and authorised only as capability fixtures |
 | R1 Ubuntu acceptance | **27 PASS** | scenario identity, content identity, schedule and affected reader; [evidence](../verification/ppo_refactor_r1_20261027/REPORT.md) |
 | R2 Ubuntu acceptance | **20 + 1 PASS** | eligibility, counters and four-player updates; [evidence](../verification/ppo_refactor_r2_20261027/REPORT.md) |
-| R3–R10 Ubuntu acceptance | **not run** | unimplemented |
+| R3 Ubuntu acceptance | **14 PASS** | explicit stopped work, interruptions, checkpoint accounting; [evidence](../verification/ppo_refactor_r3_20261027/REPORT.md) |
+| R4–R10 Ubuntu acceptance | **not run** | unimplemented |
 | BC/promotion/champion/final gates, full suite | **not rerun** | reused from the frozen run and §10.15 |
 
 ### 6.2 Blocking classification
 
-- **Blocks a new formal run:** R1, R2 (otherwise a third of every batch is still thrown away and validation is not a holdout), R3 (otherwise planned work is still discarded), R5 (otherwise the update still leans on the panel opponent), R6 (schema must be frozen before a corpus is collected), and R7–R8 for any run whose purpose is training against the official baseline.
+- **Required before a new formal run:** accepted R1/R2 (split and eligibility) and revised R3 (explicit work accounting); pending R5 (the update still leans on the panel opponent), R6 (schema must be frozen before a corpus is collected), and R7–R8 for any run whose purpose is training against the official baseline.
 - **Blocks only strength conclusions:** R4, R10, and the FX1–FX3 fixtures. A run made before R4 can produce numbers, but not a defensible "passed".
 - **Blocks nothing:** R9 if DAgger is not expected in that run; the lite/native route measurement.
 
@@ -462,7 +467,7 @@ Historical Astra data, packages, models and reports keep their identity and are 
 2. R4 merged, with `min_distinct` frozen in the manifest.
 3. FX1–FX3 executed and reported; `dagger_status` recorded.
 4. R7–R8 merged if the run trains against stock RCA; the manifest names the teacher record and the run declares `split_rule='scenario-v2'`.
-5. A reduced chain (BC, ≥2 PPO batches, one KL deferral, one checkpoint resume, one promotion panel) accepted on Ubuntu, reusing the C7 pattern.
+5. A reduced chain (BC, ≥2 PPO batches, one explicitly accounted KL stop, one checkpoint resume, one promotion panel) accepted on Ubuntu, reusing the C7 pattern.
 6. The launch command, quotas, clock split and gates unchanged from `docs/instructions.md`; the run is separately authorised by the user.
 
 Anything measured before step 5 is evidence about wiring, not about learning.
@@ -470,8 +475,8 @@ Anything measured before step 5 is evidence about wiring, not about learning.
 ## 7. Risks and open questions
 
 - **R1 migration cost.** Scenario-keyed splits invalidate the existing corpora for a new run. This is unavoidable: the current split cannot be repaired retroactively without re-collecting, and pretending otherwise would keep the leak.
-- **R3 semantics.** Deferring windows means one collected batch can produce several versions. Counters and `history` must distinguish `scope`, and the promotion cadence must not be inflated by deferred versions — the plan binds versions to committed batches, so this needs an explicit assertion in R3 (a deferred completion is not a promotion candidate).
+- **R3 semantics (revised with user approval).** A fixed KL rejection is terminal for that batch. Only interruption defers work; its partial attempts do not settle counters or increment versions. This accounts for stopped work and does not promise every planned window is optimized.
 - **R8 label quality is unmeasured.** If FX2 shows low matching, BC on stock RCA must run at reduced coverage and the report must say so; the non-Astra path must not silently default back.
 - **F5 stays unproven.** R5 removes a conflict that is measurable but not yet causally tied to the plateau; the plan does not promise that strength follows.
 - **F8/F9 stay undetermined.** Determinism and the arena-map share may matter more than any of the above. The matched-engine measurement in §5.4 is the only cheap discriminator, and it needs its own authorisation.
-- **No strength claim.** Nothing in this plan asserts that the rebuilt loop converges or beats the stock RCA. It asserts only that after Phase A and B, every collected decision is trained on once, every panel is as independent as it claims, and every competitive artefact names the teacher that produced it.
+- **No strength claim.** Nothing in this plan asserts that the rebuilt loop converges or beats stock RCA. Phase A/B ensure no silent split loss, explicit accounting for committed/interrupted/KL-stopped work, truthful panel independence and teacher identity.

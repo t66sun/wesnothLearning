@@ -1,0 +1,15 @@
+test_kl_rejection_accounts_for_all_remaining_work (tests.v5.test_kl_defer.KlAccountingTests.test_kl_rejection_accounts_for_all_remaining_work) ... ERROR
+
+======================================================================
+ERROR: test_kl_rejection_accounts_for_all_remaining_work (tests.v5.test_kl_defer.KlAccountingTests.test_kl_rejection_accounts_for_all_remaining_work)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/acceptance_ppo_r3_20261027_3983cd0/source/tests/v5/test_kl_defer.py", line 53, in test_kl_rejection_accounts_for_all_remaining_work
+    self.assertEqual(result['stopped_by_kl_steps'], 2)
+                     ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'stopped_by_kl_steps'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.440s
+
+FAILED (errors=1)

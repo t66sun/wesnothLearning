@@ -76,6 +76,9 @@ class PpoResumeCounterTests(unittest.TestCase):
                 self.assertTrue(resumed.finish_train())
             self.assertEqual(resumed.state['counters'],control.state['counters'])
             self.assertEqual(resumed.state['counters']['decisions_seen'],22)
+            self.assertEqual(resumed.state['counters']['planned_steps'], 2)
+            self.assertEqual(resumed.state['counters']['committed_steps'], 2)
+            self.assertEqual(resumed.state['counters']['stopped_by_kl_steps'], 0)
             self.assertEqual(ppo._digest(resumed.model),ppo._digest(control.model))
             for _ in range(2):
                 finished=torch.load(resumed.directory/'latest.pt',weights_only=False)
