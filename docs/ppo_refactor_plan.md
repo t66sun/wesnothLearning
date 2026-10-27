@@ -17,7 +17,7 @@ Read together with [architecture.md](architecture.md) §10.18 (decisions recorde
 | F3 | The 30-block final gate is 3–6 deterministic games repeated 5–10×; the bootstrap treats repetitions as independent samples | evaluation | **proven** | `learning/maps.py SPLITS`, `learning/schedule.py factions()`, `learning/evaluate.py comparisons()`; duel 2 signatures ×15, ffa4 1 ×30 |
 | F4 | The KL gate returns out of the epoch loop and the unvisited windows of the frozen batch are never revisited | implementation defect (accounting) | **proven** | `learning/ppo.py update()`, `learning/experiment.py finish_train()`; 3.86 of ~8 planned steps per duel batch, 387/430 batches stop by KL |
 | F5 | PPO's imitation term is 10 % cross-entropy against the *same* policy that the evaluation panel scores the learner against | learning mechanism | **supported, not proven** | `learning/ppo.py` rehearsal term, `learning/experiment.py:381 control=self.teachers[0]`; cos(PG, rehearsal) +0.1006, grad norm 2.46 vs 10.44 |
-| F6 | The BC gate is in-distribution imitation of the teacher (duel 99.19 %) and cannot see the on-policy state distribution where the policy loses every panel | evaluation | **proven** (that it measures this) / **supported** (that it matters) | `learning/experiment.py finish_train()` gate block vs `g_trend` |
+| F6 | The BC gate is in-distribution imitation of the teacher (duel 99.19 %) and cannot see the on-policy state distribution where the policy loses every panel; its artifact also reports game counts without the number of distinct scenarios behind them | evaluation | **proven** (that it measures this, and that it reports no scenario count) / **supported** (that it matters) | `learning/experiment.py finish_train()` gate block vs `g_trend`; `bc_gate.json` keys are `imitation`/`coverage`/`corpus`/`opening`/`passed` only. Gate evidence design is owned by R4 |
 | F7 | The learner's only durable signal is a terminal ±1 per game; potential shaping telescopes at γ=1 and the exploration bonus sums to ≈0.042 | learning mechanism (by design) | **proven as designed**, impact **undetermined** | `learning/rewards.py`, `learning/data.py advantages()`; hand oracle exact |
 | F8 | All collection and evaluation is on the deterministic lite engine with `expected_damage_v1`; a lost opening is unrecoverable and panels are near-constant functions of the opening | training domain | **proven** (identity) / **undetermined** (strength impact) | every job in the run: `engine lite-0.2`, `native_timings: []` |
 | F9 | Half the collection games are on vendored arena boards while validation/holdout use real maps | data | **proven** (schedule), impact **undetermined** | `learning/maps.py decorate()`, `learning/schedule.py base_job()` |
@@ -112,7 +112,7 @@ Responsibilities and coupling as they are today:
 | `learning/data.py` | partition by scenario; validate `split_rule`; sampler cannot use the evaluation control | `split(scenario_family)` unchanged mechanically; `validate_record` accepts `split_rule ∈ {'family-seed-v1','scenario-v2'}`; `BCSampler(pool, *, exclude_teacher_impl=None, exclude_teacher_sha=None)` |
 | `learning/updates.py` | refuse to silently drop; report exclusions | `prepare(model, records, bc_records=None, *, allow_drop=False)`; raises `ValueError('batch row excluded by split: N of M')` |
 | `learning/ppo.py` | defer unvisited windows instead of discarding; report planned/committed/deferred | `result['scope']`, `result['deferred_windows']`, `result['planned_steps']`; cursor gains `scope` |
-| `learning/experiment.py` | no substitution of the official baseline; pass panel design explicitly; keep deferred work pending | removes `[self.teachers[0] if bot=='baseline' …]`; `finish_train` re-schedules deferred windows as their own version; `validate_model(..., min_distinct=…)` |
+| `learning/experiment.py` | no substitution of the official baseline; pass panel design explicitly; keep deferred work pending; every verdict reports its scenario evidence | removes `[self.teachers[0] if bot=='baseline' …]`; `finish_train` re-schedules deferred windows as their own version and writes `bc_gate.json`'s `distinct_scenarios`/`scope`; `validate_model(..., min_distinct=…)` |
 | `learning/schedule.py` | enumerate scenarios once per panel design; teacher capability not identity | `evaluation_jobs(..., scenarios=[...], repeats=int, min_distinct=int)`; `teacher_jobs` accepts any registered teacher whose `query != 'none'` |
 | `learning/evaluate.py` | cluster bootstrap over *distinct scenarios*; `insufficient_design` status | `comparisons(jobs, results, *, min_blocks, min_distinct, team_contexts)`; result adds `distinct_scenarios` |
 | `learning/manifest.py` | teacher identity record, not a name check | `teacher_identity(kind)->dict`; `active_teacher(manifest)`; `freeze()` records kind/version/query/action_source/rules sha |
@@ -210,18 +210,19 @@ One PR per behaviour. Every phase names its own revert-detecting assertion. Line
 
 #### R4. Evaluation design: distinct scenarios, cluster bootstrap, explicit insufficiency
 
-- **Behaviour:** a panel's evidence is the number of distinct scenarios, not the number of repetitions; a design with too few distinct scenarios cannot pass.
-- **Evidence:** F3, duel 2 signatures ×15, ffa4 1 ×30, team2v2 3 ×10; `min_blocks=30` satisfied by repetition; `selection.json` reasons.
-- **Modules:** `learning/schedule.py evaluation_jobs` (explicit scenario enumeration + repeats), `learning/evaluate.py` (`scenario_of`, `comparisons(..., min_distinct)`, `_cluster_bootstrap`), `learning/experiment.py validate_model` (panel design, status propagation), `learning/experiment.py final_evaluation`.
-- **Interface:** `comparisons(jobs, results, *, min_blocks, min_distinct, team_contexts)` returns `{'blocks','distinct_scenarios','differences','status','reason'}` with `status ∈ {passed, not_passed, inconclusive, insufficient_design}`; bootstrap resamples distinct scenarios and averages their block means; `min_distinct` is frozen in the manifest (12 for promotion/final, 3 for trend).
+- **Behaviour:** every verdict in this system — panel and BC gate alike — states its evidence as the number of distinct scenarios, not the number of repetitions, and a design with too few distinct scenarios cannot pass. The BC gate additionally declares its scope: it certifies imitation on teacher trajectories and is initialisation evidence only.
+- **Evidence:** F3, duel 2 signatures ×15, ffa4 1 ×30, team2v2 3 ×10; `min_blocks=30` satisfied by repetition; `selection.json` reasons. F6: `bc_gate.json` carries `imitation`/`coverage`/`corpus`/`opening`/`passed` and no scenario count, while the duel corpus behind 99.19 % imitation is 300 games over **4 boards**, one of them 150 games (`k_gate_scope`, `verification/ppo_gate_scope_20261026/REPORT.md`).
+- **Modules:** `learning/schedule.py evaluation_jobs` (explicit scenario enumeration + repeats), `learning/evaluate.py` (`scenario_of`, `comparisons(..., min_distinct)`, `_cluster_bootstrap`), `learning/experiment.py validate_model` (panel design, status propagation), `learning/experiment.py final_evaluation`, `learning/experiment.py finish_train` (gate block writes the scenario count and scope and enforces the floor).
+- **Interface:** `comparisons(jobs, results, *, min_blocks, min_distinct, team_contexts)` returns `{'blocks','distinct_scenarios','differences','status','reason'}` with `status ∈ {passed, not_passed, inconclusive, insufficient_design}`; bootstrap resamples distinct scenarios and averages their block means; `min_distinct` is frozen in the manifest (12 for promotion/final, 3 for trend). `bc_gate.json` gains `distinct_scenarios` and `scope: 'initialisation_only'`, and the gate block returns `insufficient_design` when the corpus spans fewer than `min_distinct_gate` scenarios.
 - **Depends on:** R1 (needs `scenario_family` on jobs).
 - **Compatibility:** `validation/v*.json` gain `distinct_scenarios`; readers tolerate its absence. Old panels are re-read as `insufficient_design` only if recomputed — historical reports are not rewritten.
-- **Contracts kept:** holdout maps never used for tuning or selection; `min_blocks` retained as a repetition floor; the pass rule (`interval[0] > 0`) unchanged.
-- **Local check:** 30 identical blocks must not produce `passed`; 12 distinct scenarios with a consistent positive difference do.
+- **Contracts kept:** holdout maps never used for tuning or selection; `min_blocks` retained as a repetition floor; the pass rule (`interval[0] > 0`) unchanged; the gate keeps its existing per-kind denominators, it only gains a scenario count and a scope label; `passed` never becomes a proxy for on-policy strength in any report or selection path.
+- **Local check:** 30 identical blocks must not produce `passed`; 12 distinct scenarios with a consistent positive difference do; a gate computed over 4 boards with `min_distinct_gate = 12` must return `insufficient_design`.
 - **Ubuntu check:** `pytest tests/v5/test_evaluation_design.py`; `tests/test_validation_cadence.py` re-run for panel size/wiring.
-- **Fails when reverted:** `test_repeated_identical_blocks_are_insufficient` — with `min_blocks`-only logic the panel reports `passed`/`inconclusive` instead of `insufficient_design`.
+- **Fails when reverted:** `test_repeated_identical_blocks_are_insufficient` — with `min_blocks`-only logic the panel reports `passed`/`inconclusive` instead of `insufficient_design`; `test_gate_reports_distinct_scenarios` — the gate artifact and the `insufficient_design` branch disappear.
 - **Rollback:** revert; panels revert to repetition semantics.
-- **Done when:** every promotion/final panel in a short chain reports `distinct_scenarios ≥ min_distinct` or `insufficient_design`, and the final report prints both numbers.
+- **Done when:** every promotion/final panel in a short chain reports `distinct_scenarios ≥ min_distinct` or `insufficient_design`, the final report prints both numbers, and `bc_gate.json` states the scenario count behind its verdict plus its initialisation-only scope.
+- **Remaining limit:** the gate's floor is not reachable by the current corpus (duel: 4 boards). R4 makes that visible; widening the corpus or justifying a lower floor is a separate, separately authorised data decision, and until one lands the gate verdict is `insufficient_design` rather than a quality claim.
 - **This phase blocks strength conclusions, not training.**
 
 ### Phase B — what the update optimises
@@ -351,6 +352,32 @@ flowchart LR
 
 Reward coefficient changes, KL limit changes, network or architecture changes, panel-size increases as a substitute for independence, engine determinism changes, corpus expansion, and any style-only restructuring. Each would be a separate proposal with its own evidence; none is required to fix F1–F4.
 
+### 4.3 Test coverage map
+
+Each phase ships exactly one new test file plus one assertion that fails when the behaviour is reverted. Nothing in this table is written yet; a row becomes `TEST.md` material only when its phase is implemented.
+
+| PR | Test | Revert-detecting assertion | Proves | Existing suites that must stay green |
+| --- | --- | --- | --- | --- |
+| R1 | `tests/v5/test_scenario_identity.py` | `test_seed_does_not_move_the_scenario_between_splits` | the same board with two seeds lands on one side of the split; `game_family` still contains the seed | `tests/v5/test_rollout_content_identity.py` |
+| R2 | `tests/v5/test_batch_eligibility.py` | `test_validation_row_in_batch_raises` | an ineligible row fails the batch loudly instead of being filtered out silently | `tests/v5/test_ppo_resume_counters.py` |
+| R3 | `tests/v5/test_kl_defer.py` | `test_unvisited_windows_are_deferred` | a KL rejection leaves the unvisited windows pending and the next update trains them, with `sum(planned) == sum(committed) + sum(deferred)` | `tests/v5/test_ppo_resume_counters.py` |
+| R4 | `tests/v5/test_evaluation_design.py` | `test_repeated_identical_blocks_are_insufficient`; `test_gate_reports_distinct_scenarios` | a panel and a BC gate both report distinct scenarios and both return `insufficient_design` below the floor | `tests/test_validation_cadence.py` |
+| R5 | `tests/v5/test_rehearsal_source.py` | `test_control_policy_cannot_rehearse` | an imitation pool that is the evaluation control raises instead of training | — |
+| R6 | `tests/v5/test_reward_row_schema.py` | `test_row_reward_is_not_the_terminal_value` | a row's step reward and terminal reward are separate fields with byte-identical arithmetic | `tests/v5/test_pipeline_contract.py` |
+| R7 | `tests/v5/test_teacher_identity.py` | `test_baseline_is_never_substituted` | `baseline` survives to the runner as stock RCA and no code path swaps it for a teacher package | `tests/smoke_training_lite_8worker.py` |
+| R8 | native fixtures FX1–FX3 (`tests/v5/test_native_capture.py`) | `test_attack_event_becomes_a_label` | a real stock-RCA attack observed through event capture becomes a labelled candidate row with legal visible inputs only | — |
+| R9 | `tests/v5/test_stock_teacher.py` | `test_stock_teacher_rejects_per_decision_query` | the stock teacher path refuses a per-decision query rather than silently answering it another way | — |
+| R10 | `tests/v5/test_bundle_identity.py` | `test_bundle_omits_unused_teacher` | a stock-RCA bundle names its teacher and ships no unused Astra package | — |
+
+Test kinds, so a reviewer can see what each row is worth:
+
+- **Unit with synthetic fixtures (R1, R2, R3, R5, R6, R9, R10):** the fixture is the smallest object that exercises the contract — a two-seed job pair, one ineligible row, one frozen window list, one rehearsal pool, one row pair, one query record, one manifest. They run in milliseconds and are deterministic.
+- **Unit over recorded data (R4):** the panel fixture is the recorded `jobs.jsonl` block table of this run (2/1/3 signatures repeated to 30), so the assertion is about the real failure, not an invented one.
+- **Integration over the frozen update path (R2, R3, R6 re-run on a recorded batch):** the batch of `rollout-00099-duel-g*.jsonl.gz` is the reference input; a change that alters PPO's arithmetic must show up as a diff there.
+- **Native fixtures (R8, FX1–FX3):** ≤3 scenarios × ≤5 turns, wiring only. A pass proves capture and legality, never strength; a scenario that cannot demonstrate a capability is recorded as `not demonstrated` rather than weakened.
+
+What deliberately gets no test: reward coefficients, the KL limit value, panel sizes and every other number in §4.2. Those are tuning, and a test that pins them would convert a measurement decision into a pinned implementation detail.
+
 ## 5. Stock RCA migration
 
 ### 5.1 Role-by-role replacement list
@@ -411,6 +438,7 @@ Historical Astra data, packages, models and reports keep their identity and are 
 | Policy drift across checkpoints | **run** | duel v10…v470 on one batch |
 | Panel multiplicity | **run** | all three final panels |
 | Split independence | **run** | 48 games/format |
+| BC corpus scenario coverage (`k_gate_scope`) | **run**, exit 0 | duel complete (300 shards), ffa4/2v2 first 40 shards of 608/400; full ffa4/2v2 scans aborted at the 300 s per-command budget, recorded as not run to completion |
 | Stock-RCA candidate-action inventory | **run** (static, installed data) | 19 CAs, 9 Lua / 11 C++ |
 | Native stock-RCA game, capture, label matching | **not run** | FX1–FX3 are defined, bounded to 3 scenarios × ≤5 turns, and authorised only as capability fixtures |
 | Any Ubuntu test of a new behaviour | **not run** | R1–R10 are unimplemented |
