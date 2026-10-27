@@ -1,0 +1,6 @@
+Linux 7.0.0-38-generic
+3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]
+2.9.1+cpu
+/home/tongshu/venv/lib/python3.12/site-packages/_engine_lite/__init__.py
+d6fceafe7d0c9c67c750551b9901dbfb2b22290992a8daa1616a460e11826dca  data/rules/1.18.8-training/rules.json
+3a924362ce4ad833889439950b2ae3dc6eb61b15

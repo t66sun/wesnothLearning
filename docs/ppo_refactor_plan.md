@@ -1,6 +1,6 @@
 # PPO rebuild plan: proven defects, target structure, stock RCA replacement
 
-Status: **implementation in progress**. R1 passed bounded Ubuntu acceptance on 2026-10-27; R2–R10 remain unimplemented. Original diagnosis and future phase boundaries remain as specified. [R1 evidence](../verification/ppo_refactor_r1_20261027/REPORT.md).
+Status: **implementation in progress**. R1 and R2 passed bounded Ubuntu acceptance on 2026-10-27; R3–R10 remain unimplemented. Original diagnosis and future phase boundaries remain as specified. [R1 evidence](../verification/ppo_refactor_r1_20261027/REPORT.md), [R2 evidence](../verification/ppo_refactor_r2_20261027/REPORT.md).
 Evidence: [verification/ppo_rootcause_20261026/REPORT.md](../verification/ppo_rootcause_20261026/REPORT.md) (eleven read-only probes, exit 0, frozen run `v5_lite30h_20261025`).
 Scope of the evidence: one completed 30-hour CPU lite run; no training, no native game, no corpus, no checkpoint touched.
 
@@ -182,6 +182,8 @@ One PR per behaviour. Every phase names its own revert-detecting assertion. Line
 
 #### R2. Batch eligibility and no silent drops
 
+**Accepted 2026-10-27:** implementation `3a92436`, 20 focused Ubuntu tests plus one FFA4/2v2 update test; deliberate revert fails and restoration passes. [Report](../verification/ppo_refactor_r2_20261027/REPORT.md). No real games or formal training.
+
 - **Behaviour:** a frozen batch contains only trainable rows, or the run fails loudly.
 - **Evidence:** F1, 130/421 rows (30.9 %) dropped after identity commit.
 - **Modules:** `learning/schedule.py rollout_jobs` (compose from train scenarios, record deterministic swaps), `learning/updates.py prepare`, `learning/experiment.py finish_train` (metrics), `learning/ppo.py result()`.
@@ -356,7 +358,7 @@ Reward coefficient changes, KL limit changes, network or architecture changes, p
 
 ### 4.3 Test coverage map
 
-Each phase ships exactly one new test file plus one assertion that fails when the behaviour is reverted. R1 is implemented and accepted; R2–R10 test files remain unwritten. A row becomes `TEST.md` material only when implemented and awaiting acceptance.
+Each phase ships exactly one new test file plus one assertion that fails when the behaviour is reverted. R1/R2 are implemented and accepted; R3–R10 test files remain unwritten. A row becomes `TEST.md` material only when implemented and awaiting acceptance.
 
 | PR | Test | Revert-detecting assertion | Proves | Existing suites that must stay green |
 | --- | --- | --- | --- | --- |
@@ -444,7 +446,8 @@ Historical Astra data, packages, models and reports keep their identity and are 
 | Stock-RCA candidate-action inventory | **run** (static, installed data) | 19 CAs, 9 Lua / 11 C++ |
 | Native stock-RCA game, capture, label matching | **not run** | FX1–FX3 are defined, bounded to 3 scenarios × ≤5 turns, and authorised only as capability fixtures |
 | R1 Ubuntu acceptance | **27 PASS** | scenario identity, content identity, schedule and affected reader; [evidence](../verification/ppo_refactor_r1_20261027/REPORT.md) |
-| R2–R10 Ubuntu acceptance | **not run** | unimplemented |
+| R2 Ubuntu acceptance | **20 + 1 PASS** | eligibility, counters and four-player updates; [evidence](../verification/ppo_refactor_r2_20261027/REPORT.md) |
+| R3–R10 Ubuntu acceptance | **not run** | unimplemented |
 | BC/promotion/champion/final gates, full suite | **not rerun** | reused from the frozen run and §10.15 |
 
 ### 6.2 Blocking classification

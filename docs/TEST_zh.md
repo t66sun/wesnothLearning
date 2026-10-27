@@ -8,7 +8,7 @@
 
 最终预算预留 B1 的 6 项 Ubuntu 检查已通过，归档于[启动报告](../verification/final_review_lite30h_20261025/REPORT.md)，已删除整项。
 
-PPO 重构 R1 已通过 27 项 Ubuntu 专项检查，还原/恢复证据归档于 [2026-10-27 报告](../verification/ppo_refactor_r1_20261027/REPORT.md)，不再保留 R1 验收条目。R2–R10 尚未实现，见[重构计划](ppo_refactor_plan_zh.md)；N1 与既有数值/打包失败保留原范围和门禁。
+PPO 重构 R1 已通过 27 项 Ubuntu 专项检查，还原/恢复证据归档于 [R1 报告](../verification/ppo_refactor_r1_20261027/REPORT.md)。R2 已通过 20 项专项检查及 1 项 FFA4/2v2 更新检查，还原/恢复证据见 [R2 报告](../verification/ppo_refactor_r2_20261027/REPORT.md)。不再保留 R1/R2 验收条目。R3–R10 尚未实现，见[重构计划](ppo_refactor_plan_zh.md)；N1 与既有数值/打包失败保留原范围和门禁。
 
 ## 边界与共享输入
 

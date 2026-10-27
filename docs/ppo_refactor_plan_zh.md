@@ -1,6 +1,6 @@
 # PPO 重构计划：已证实缺陷、目标结构与原版 RCA 替换
 
-状态：**实施中**。R1 已于 2026-10-27 通过有界 Ubuntu 验收；R2–R10 尚未实现。原始诊断和后续阶段边界继续保留，见 [R1 证据](../verification/ppo_refactor_r1_20261027/REPORT.md)。
+状态：**实施中**。R1、R2 已于 2026-10-27 通过有界 Ubuntu 验收；R3–R10 尚未实现。原始诊断和后续阶段边界继续保留，见 [R1 证据](../verification/ppo_refactor_r1_20261027/REPORT.md)、[R2 证据](../verification/ppo_refactor_r2_20261027/REPORT.md)。
 证据：[verification/ppo_rootcause_20261026/REPORT.md](../verification/ppo_rootcause_20261026/REPORT.md)（十一次只读探针，退出码 0，冻结 run `v5_lite30h_20261025`）。
 证据范围：一个已完成的 30 小时 CPU lite run；未训练、未跑原版对局、未改语料与检查点。
 
@@ -182,6 +182,8 @@ split           = 'validation' if int(sha256(scenario_family)[:8],16) % 5 == 0 e
 
 #### R2. Batch 资格与拒绝静默丢弃
 
+**2026-10-27 已验收：**实现 `3a92436`，20 项 Ubuntu 专项检查加 1 项 FFA4/2v2 更新检查通过；还原实现失败、恢复后通过。见[报告](../verification/ppo_refactor_r2_20261027/REPORT.md)。未运行真实对局或正式训练。
+
 - **行为：** 冻结 batch 只含可训练行，否则运行响亮失败。
 - **证据：** F1，身份提交后有 130/421 行（30.9%）被丢弃。
 - **模块：** `learning/schedule.py rollout_jobs`（仅从 train 场景组合，记录确定性的替换）、`learning/updates.py prepare`、`learning/experiment.py finish_train`（指标）、`learning/ppo.py result()`。
@@ -356,7 +358,7 @@ flowchart LR
 
 ### 4.3 测试覆盖表
 
-每个阶段只附带一个新测试文件，外加一条“还原修复即失败”的断言。R1 已实现并验收，R2–R10 的测试文件仍未编写；只有已实现且待验收的事项才进入 `TEST.md`。
+每个阶段只附带一个新测试文件，外加一条“还原修复即失败”的断言。R1/R2 已实现并验收，R3–R10 的测试文件仍未编写；只有已实现且待验收的事项才进入 `TEST.md`。
 
 | PR | 测试 | 还原即失败的断言 | 证明什么 | 必须保持绿色的既有套件 |
 | --- | --- | --- | --- | --- |
@@ -444,7 +446,8 @@ flowchart LR
 | 原版 RCA 候选动作清单 | **已运行**（静态，所装数据） | 19 个 CA，9 Lua / 11 C++ |
 | native 原版对局、采集、标签匹配 | **未运行** | FX1–FX3 已定义，限 3 场景 × ≤5 回合，仅作能力 fixture |
 | R1 Ubuntu 验收 | **27 项通过** | 场景身份、内容身份、日程与受影响读取；见[证据](../verification/ppo_refactor_r1_20261027/REPORT.md) |
-| R2–R10 Ubuntu 验收 | **未运行** | 尚未实现 |
+| R2 Ubuntu 验收 | **20 + 1 项通过** | 资格、计数与四人赛制更新；见[证据](../verification/ppo_refactor_r2_20261027/REPORT.md) |
+| R3–R10 Ubuntu 验收 | **未运行** | 尚未实现 |
 | BC/升级/champion/final 门、全套测试 | **未重跑** | 复用冻结 run 与 §10.15 |
 
 ### 6.2 阻塞分类

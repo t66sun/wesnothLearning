@@ -1,0 +1,14 @@
+test_validation_row_in_batch_raises (tests.v5.test_batch_eligibility.BatchEligibilityTests.test_validation_row_in_batch_raises) ... FAIL
+
+======================================================================
+FAIL: test_validation_row_in_batch_raises (tests.v5.test_batch_eligibility.BatchEligibilityTests.test_validation_row_in_batch_raises)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/acceptance_ppo_r2_20261027_3a92436/source/tests/v5/test_batch_eligibility.py", line 19, in test_validation_row_in_batch_raises
+    with self.assertRaisesRegex(ValueError, 'batch row excluded by split: 3 of 10'):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 0.651s
+
+FAILED (failures=1)

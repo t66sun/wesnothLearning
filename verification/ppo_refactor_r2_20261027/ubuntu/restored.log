@@ -1,0 +1,6 @@
+test_validation_row_in_batch_raises (tests.v5.test_batch_eligibility.BatchEligibilityTests.test_validation_row_in_batch_raises) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.648s
+
+OK

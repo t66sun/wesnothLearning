@@ -49,6 +49,39 @@ class BatchEligibilityTests(unittest.TestCase):
         self.assertEqual(result['excluded_games'], 0)
         self.assertEqual(result['committed_decisions'], 10)
 
+    def test_four_player_updates_report_zero_excluded_rows(self):
+        import torch
+        from learning import ppo
+        from learning.data import split
+        from learning.model import batch
+        from learning.sequences import attach_histories
+        from tests.v5 import helpers
+
+        for fmt in ('ffa4', 'team2v2'):
+            with self.subTest(format=fmt):
+                rows = helpers.sequence_rows(turns=2, format_name=fmt, source='policy',
+                                             game_id='b', game_family='b')
+                rehearsal = helpers.sequence_rows(turns=1, format_name=fmt,
+                                                   game_id='bc-1', game_family='bc-1')
+                for row in rows + rehearsal:
+                    row['split'] = split(row['game_family'])
+                rows = attach_histories(rows)
+                model = helpers.model(format_name=fmt)
+                with torch.no_grad():
+                    logits, values = model(*batch(rows))
+                    dist = torch.distributions.Categorical(logits=logits)
+                    logp = dist.log_prob(torch.tensor([r['choice'] for r in rows])).tolist()
+                for row, value, prediction in zip(rows, logp, values.flatten().tolist()):
+                    row['log_probability'] = value
+                    row['value'] = prediction
+                    row['reward'] = 0.
+                optimizer = torch.optim.Adam(model.parameters(), lr=1e-4)
+                result = ppo.update(model, optimizer, rows, bc_records=rehearsal, epochs=1)
+                self.assertEqual(result['eligible_decisions'], len(rows))
+                self.assertEqual(result['committed_decisions'], len(rows))
+                self.assertEqual(result['excluded_decisions'], 0)
+                self.assertEqual(result['excluded_games'], 0)
+
     def test_legacy_manifest_cannot_resume_with_the_new_batch_contract(self):
         from learning.common import sha256
         from learning.manifest import verify_frozen
