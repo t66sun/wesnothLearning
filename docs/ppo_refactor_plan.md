@@ -478,7 +478,7 @@ Historical Astra data, packages, models and reports keep their identity and are 
 | R4 roster acceptance | **37 PASS + planned-floor probe** | final 30/15/15, promotion 12/12/12, collection 12/12/12 distinct; [evidence](../verification/ppo_refactor_r4_20261029/REPORT.md) |
 | R5 prerequisite audit | **5 PASS + guarded inventory** | older-rule replays refused, no eligible human game; [evidence](../verification/ppo_refactor_r5_20261029/REPORT.md) |
 | R5 Ubuntu acceptance | **23 PASS** | source exclusion, 20 tiny updates, resume, BC RNG and manifest; [evidence](../verification/ppo_refactor_r5_20261027/REPORT.md) |
-| R5 policy rehearsal | **6 PASS + 18 PASS (Windows)** | runner persists and rehearses its own policy shards; reverts fail; [evidence](../verification/ppo_refactor_r5_policy_20261028/REPORT.md) |
+| R5 policy rehearsal | **6 PASS + 18 PASS (Ubuntu); Windows reference kept** | runner persists and rehearses its own policy shards; both reverts fail; [evidence](../verification/ppo_refactor_r5_policy_20261028/REPORT.md) |
 | Runner native log cap | **2 PASS + revert** | accepts a game past 16 MiB, rejects past 80 MiB; [evidence](../verification/native_log_cap_80mib_20261028/REPORT.md) |
 | R6 Ubuntu acceptance | **37 PASS + 421-row bit parity** | reward-row contract; unresolved local checks in [evidence](../verification/ppo_refactor_r6_20261027/REPORT.md) |
 | R7 Ubuntu acceptance | **39 PASS + Lua syntax PASS** | teacher identity/reference role wiring; [evidence](../verification/ppo_refactor_r7_20261027/REPORT.md) |

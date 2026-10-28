@@ -478,7 +478,7 @@ flowchart LR
 | R4 场景名册验收 | **37 项通过 + 计划下限探针** | final 30/15/15、升级 12/12/12、采集 12/12/12；[证据](../verification/ppo_refactor_r4_20261029/REPORT.md) |
 | R5 前置审计 | **5 项通过 + 受限清单** | 旧版本重放被拒收，无合格真人对局；[证据](../verification/ppo_refactor_r5_20261029/REPORT.md) |
 | R5 Ubuntu 验收 | **23 项通过** | 来源排除、20 次微型更新、恢复、BC RNG 与 manifest；[证据](../verification/ppo_refactor_r5_20261027/REPORT.md) |
-| R5 策略排练 | **6 项 + 18 项通过（Windows）** | run 持久化并排练自身策略 shard；还原即失败；[证据](../verification/ppo_refactor_r5_policy_20261028/REPORT.md) |
+| R5 策略排练 | **6 项 + 18 项通过（Ubuntu）；保留 Windows 参考** | run 持久化并排练自身策略 shard；两处还原均失败；[证据](../verification/ppo_refactor_r5_policy_20261028/REPORT.md) |
 | R6 Ubuntu 验收 | **37 项通过 + 421 行逐位一致** | 奖励行合同；本地未通过项见[证据](../verification/ppo_refactor_r6_20261027/REPORT.md) |
 | R7 Ubuntu 验收 | **39 项通过 + Lua 语法通过** | 教师身份与参考角色接线；[证据](../verification/ppo_refactor_r7_20261027/REPORT.md) |
 | R8 Ubuntu 验收 | **19 项通过 + 受控原版 fixture** | [复跑报告](../verification/ppo_refactor_r8_20261028/RERUN.md) |
