@@ -305,6 +305,7 @@ data/rules/1.18.8/         historical rule package and frozen native maps, keepi
 data/datasets/             dataset import inputs; currently human/import.json
 data/humanData/            raw replay dumps pulled from the game install
 data/humanData_curated/    curated 1.18.8 replays used for BC
+data/replays/<YYYYMM>/     whole-month replay archive pulled from replays.wesnoth.org
 data/opponents/            frozen reference opponent packages
 data/references/           third-party source excerpts, untracked
 runs/<run>/<format>/       per-format training state, weights, schedules and policy history

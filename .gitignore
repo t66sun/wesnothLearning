@@ -50,5 +50,9 @@ data/humanData_curated/
 data/datasets/human/*.jsonl
 data/datasets/human/*.csv
 
+# Whole-month replay archives pulled from replays.wesnoth.org, keyed by the
+# archive's YYYYMM directory.
+data/replays/
+
 # Third-party sources (Wesnoth-AI clone, upstream 1.18.8 excerpts).
 data/references/
