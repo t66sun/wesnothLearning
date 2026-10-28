@@ -64,6 +64,8 @@ def play_job(job):
             raise ValueError('stock capture runtime differs from the frozen teacher')
         if any(job['bots'][side-1]!='baseline' for side in stock_sides):
             raise ValueError('stock capture cannot label an addon controller')
+        if any(job['learning'].get('sides',{}).get(str(side),{}).get('teacher') for side in stock_sides):
+            raise ValueError('stock capture cannot request a per-decision teacher query')
     try:
         result = match.play_game(bots=job['bots'], seed=job['seed'], factions=job['factions'],
             max_turns=job.get('max_turns',30), wesnoth=job['wesnoth'], replay_path=output,
