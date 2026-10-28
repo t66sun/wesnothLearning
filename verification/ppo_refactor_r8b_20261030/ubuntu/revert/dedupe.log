@@ -1,0 +1,13 @@
+F
+======================================================================
+FAIL: test_scoring_variants_of_one_move_are_not_ambiguous (tests.v5.test_native_capture.NativeCaptureTests.test_scoring_variants_of_one_move_are_not_ambiguous)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/acceptance_ppo_r8b_20261030/source/tests/v5/test_native_capture.py", line 188, in test_scoring_variants_of_one_move_are_not_ambiguous
+    self.assertFalse(rows[0]['label_ambiguous'])
+AssertionError: True is not false
+
+----------------------------------------------------------------------
+Ran 1 test in 0.007s
+
+FAILED (failures=1)

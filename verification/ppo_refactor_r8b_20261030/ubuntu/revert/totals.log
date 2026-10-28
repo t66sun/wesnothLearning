@@ -1,0 +1,13 @@
+F
+======================================================================
+FAIL: test_stock_totals_count_decisions_not_events (tests.v5.test_native_capture.NativeCaptureTests.test_stock_totals_count_decisions_not_events)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/acceptance_ppo_r8b_20261030/source/tests/v5/test_native_capture.py", line 224, in test_stock_totals_count_decisions_not_events
+    self.assertEqual(coverage['move']['total'], 6)
+AssertionError: 15 != 6
+
+----------------------------------------------------------------------
+Ran 1 test in 0.062s
+
+FAILED (failures=1)

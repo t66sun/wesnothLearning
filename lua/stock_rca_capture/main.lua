@@ -88,8 +88,23 @@ function M.setup(sides)
                     local target=wesnoth.units.find_on_map {x=ec.x2,y=ec.y2,
                         {'filter_vision',{side=side,visible='yes'}}}
                     frame.visible=target[1]~=nil
-                    if frame.visible then frame.target={x=ec.x2,y=ec.y2} end
-                    -- Weapon names need not be unique. Missing index remains ambiguous.
+                    if frame.visible then
+                        frame.target={x=ec.x2,y=ec.y2}
+                        -- The attack event names the weapon it used; only an index on
+                        -- this unit's attack list names one candidate. Identical
+                        -- weapons stay unnamed instead of guessing.
+                        local known,weapon=pcall(function() return wesnoth.get_variable('weapon') end)
+                        if known and type(weapon)=='table' then
+                            local found=0
+                            for wi,w in ipairs(u.attacks or {}) do
+                                if tostring(w.name)==tostring(weapon.name) and tostring(w.type)==tostring(weapon.type)
+                                    and tostring(w.number)==tostring(weapon.number) and tostring(w.damage)==tostring(weapon.damage) then
+                                    found=found==0 and wi or -1
+                                end
+                            end
+                            if found>0 then frame.weapon=found end
+                        end
+                    end
                 end
             end
             emit(frame)

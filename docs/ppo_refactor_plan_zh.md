@@ -1,6 +1,6 @@
 # PPO 重构计划：已证实缺陷、目标结构与原版 RCA 替换
 
-状态：**实施中**。R1–R7 已于 2026-10-27 通过有界 Ubuntu 验收；R8 已于 2026-10-28 以**能力证据**验收（[19 项专项检查与受控三局原版 fixture](../verification/ppo_refactor_r8_20261028/RERUN.md)）；R9 已于 2026-10-28 以**能力证据**验收（[23 项专项检查与一局真实原版教师对局](../verification/ppo_refactor_r9_20261029/REPORT.md)）；R10 已于 2026-10-28 以**能力证据**验收（[33 项专项检查与可复现的仓库 bundle](../verification/ppo_refactor_r10_20261029/REPORT.md)）。R3 按下文用户批准的语义修订实施。见 [R1 证据](../verification/ppo_refactor_r1_20261027/REPORT.md)、[R2 证据](../verification/ppo_refactor_r2_20261027/REPORT.md)、[R3 证据](../verification/ppo_refactor_r3_20261027/REPORT.md)。
+状态：**实施中**。R1–R7 已于 2026-10-27 通过有界 Ubuntu 验收；R8 已于 2026-10-28 以**能力证据**验收（[19 项专项检查与受控三局原版 fixture](../verification/ppo_refactor_r8_20261028/RERUN.md)）；R9 已于 2026-10-28 以**能力证据**验收（[23 项专项检查与一局真实原版教师对局](../verification/ppo_refactor_r9_20261029/REPORT.md)）；R10 已于 2026-10-28 以**能力证据**验收（[33 项专项检查与可复现的仓库 bundle](../verification/ppo_refactor_r10_20261029/REPORT.md)）。R8b 关闭了 R8 的标签限制：已于 2026-10-28 **验收**，33 项专项检查与两局真实原版对局通过 BC 覆盖率门禁（[证据](../verification/ppo_refactor_r8b_20261030/REPORT.md)）。R3 按下文用户批准的语义修订实施。见 [R1 证据](../verification/ppo_refactor_r1_20261027/REPORT.md)、[R2 证据](../verification/ppo_refactor_r2_20261027/REPORT.md)、[R3 证据](../verification/ppo_refactor_r3_20261027/REPORT.md)。
 证据：[verification/ppo_rootcause_20261026/REPORT.md](../verification/ppo_rootcause_20261026/REPORT.md)（十一次只读探针，退出码 0，冻结 run `v5_lite30h_20261025`）。
 证据范围：一个已完成的 30 小时 CPU lite run；未训练、未跑原版对局、未改语料与检查点。
 
@@ -297,7 +297,9 @@ split           = 'validation' if int(sha256(scenario_family)[:8],16) % 5 == 0 e
 
 #### R8. 原版 RCA 事件采集与标签流水线
 
-**已于 2026-10-28 以能力证据验收：**实现 `45e7146`；FX1 在冻结默认熵后通过（三条引擎事件流逐字节一致），FX2 对每个受观察事件记账且零未匹配（招募 11 → 2 匹配 + 9 合并；移动 8 → 1 匹配 + 2 歧义 + 5 合并；攻击 5 → 3 匹配 + 2 歧义），FX3 依 2 项能力探针与 6 项钩子探针记录 `takeover='unsupported_with_stock_rca'`。Ubuntu 运行 19 项专项检查加受控三局 fixture，两项还原证明均按预期失败。见[复跑报告](../verification/ppo_refactor_r8_20261028/RERUN.md)；此前失败尝试保留在 [REPORT.md](../verification/ppo_refactor_r8_20261028/REPORT.md)。recall 与 advance 零事件，仍记为未观察；这只是能力证据，不是语料、训练或棋力。
+**已于 2026-10-28 以能力证据验收：**实现 `45e7146`；FX1 在冻结默认熵后通过（三条引擎事件流逐字节一致），FX2 对每个受观察事件记账且零未匹配（招募 11 → 2 匹配 + 9 合并；移动 8 → 1 匹配 + 2 歧义 + 5 合并；攻击 5 → 3 匹配 + 2 歧义），FX3 依 2 项能力探针与 6 项钩子探针记录 `takeover='unsupported_with_stock_rca'`。Ubuntu 运行 19 项专项检查加受控三局 fixture，两项还原证明均按预期失败。见[复跑报告](../verification/ppo_refactor_r8_20261028/RERUN.md)；此前失败尝试保留在 [REPORT.md](../verification/ppo_refactor_r8_20261028/REPORT.md)。
+
+**标签质量已于 2026-10-28 关闭（R8b）：**攻击事件现在给出引擎所报武器序号（1.18.8 提供 `weapon` 表，仅当唯一匹配行动单位的攻击列表时才写入序号），只有评分字段不同的候选共享同一公开意图，整步移动与其提前停止变体不再读作歧义；覆盖率分母按决策而非事件计数，合并的招募批次与移动+攻击组合仍上报但不进分母。两局经 runner 自身教师 job 构造器产生的真实原版对局通过真实门禁——`全体 82/88 = 0.932`、`招募 11/11`、`移动 43/46 = 0.935`、`攻击 28/30 = 0.933`——歧义事件为零，另有 33 项专项检查；三项还原（意图去重、武器命名、合并分母）均按预期失败。六个未标注事件各有具名机制：三项撞上 128 候选上限，两次移动不在生成器选择内，一次 `advance` 行动者不可见。[R8b 报告](../verification/ppo_refactor_r8b_20261030/REPORT.md)。recall 与 advance 零事件，仍记为未观察；这只是能力证据，不是语料、训练或棋力。
 
 - **行为：** 原版 RCA 对局产出引擎实际执行动作的逐动作标签，带可见性标记与显式的未匹配计数。
 - **证据：** F12（19 个 CA 中 11 个是 C++，攻击与招募无法被 Lua 包装观测）；`core/macros/deprecated-utils.cfg:164` 显示全局附加包可按 side 过滤 `moveto,recruit,recall,attack,post advance,side turn`；`vendor/arena/match.py` 已采集 `LEARN` 帧与每回合 `SNAPSHOT`。
@@ -477,14 +479,15 @@ flowchart LR
 | R6 Ubuntu 验收 | **37 项通过 + 421 行逐位一致** | 奖励行合同；本地未通过项见[证据](../verification/ppo_refactor_r6_20261027/REPORT.md) |
 | R7 Ubuntu 验收 | **39 项通过 + Lua 语法通过** | 教师身份与参考角色接线；[证据](../verification/ppo_refactor_r7_20261027/REPORT.md) |
 | R8 Ubuntu 验收 | **19 项通过 + 受控原版 fixture** | [复跑报告](../verification/ppo_refactor_r8_20261028/RERUN.md) |
+| R8b 标签验收 | **33 项通过 + 两局原版对局通过门禁** | `全体 82/88 = 0.932`，歧义事件为零，三项还原均失败；[证据](../verification/ppo_refactor_r8b_20261030/REPORT.md) |
 | R9 Ubuntu 验收 | **23 项通过 + 一局真实原版教师对局** | 教师协议、无教师席位、7 个已标注决策；[证据](../verification/ppo_refactor_r9_20261029/REPORT.md) |
 | R10 Ubuntu 验收 | **33 项通过 + 可复现 bundle** | 教师身份、不打包未使用包、verify/preflight 无错误；[证据](../verification/ppo_refactor_r10_20261029/REPORT.md) |
 | BC/升级/champion/final 门、全套测试 | **未重跑** | 复用冻结 run 与 §10.15 |
 
 ### 6.2 阻塞分类
 
-- **新正式 run 的必备项：** R1–R7 实现证据已归档，含 R6 的限制。R8 已按能力证据验收，但只覆盖一个场景三局：原版教师采集/BC 仍需语料，recall/advance 标签仍未观察。R9 同样已按能力证据验收：不支持查询与 BC 调度接线就位，DAgger 以记录状态退役；但歧义攻击标签不可训练、BC 覆盖率门禁在原版攻击消歧决定前未证明。R4 的下限已可由计划中的面板与采集达到（2026-10-28 验收）；R5 的 rehearsal 池仍为空——策展语料没有 1.18.8 era_default 标准多人局重放，其他版本录制的重放现被拒收，因此补入重放或授权策略 opt-in 属于数据决策。
-- **阻塞棋力结论：** R6 语料/标签质量决定与 R5 的 rehearsal 前提。R4 的下限已可由计划中的面板与采集达到，但现有语料都达不到，也没有任何语料被重写。R10 身份工作已就位。其受限检查不能代替原版采集/无干扰验收。
+- **新正式 run 的必备项：** R1–R7 实现证据已归档，含 R6 的限制。R8 已按能力证据验收，但只覆盖一个场景三局：原版教师采集/BC 仍需语料，recall/advance 标签仍未观察。R9 同样已按能力证据验收：不支持查询与 BC 调度接线就位，DAgger 以记录状态退役；而 R8b 已关闭该标签限制：攻击标注出引擎所报武器、同一移动的评分变体合并、覆盖率分母按决策计数，两局真实原版对局以零歧义通过真实门禁。R4 的下限已可由计划中的面板与采集达到（2026-10-28 验收）；R5 的 rehearsal 池仍为空——策展语料没有 1.18.8 era_default 标准多人局重放，其他版本录制的重放现被拒收，因此补入重放或授权策略 opt-in 属于数据决策。
+- **阻塞棋力结论：** R6 语料决定、训练长度的原版对局会超出的 16 MiB runner 日志上限，以及 R5 的 rehearsal 前提。R4 的下限已可由计划中的面板与采集达到，但现有语料都达不到，也没有任何语料被重写。R10 身份工作已就位。其受限检查不能代替原版采集/无干扰验收。R8b 只用真实标签证明门禁算术，并不证明语料存在。
 - **可选能力：** 完整回合接管未证明，query 保持 none，R9 以 `unsupported_with_stock_rca` 记录而不是留作隐含。单独的 lite/native 路线测量尚未运行。
 
 ### 6.3 下一次正式训练的前置条件（本轮未启动、未授权）
@@ -502,7 +505,7 @@ flowchart LR
 
 - **R1 迁移成本。** 场景键 split 使现有语料无法用于新 run。这不可避免：当前 split 无法在不重新采集的情况下事后修复，假装不是只会保留泄漏。
 - **R3 语义（用户批准修订）。** 固定 KL 拒绝终止该 batch；仅中断延迟工作，部分尝试不结算计数、不升版本。该修订明确记录停止工作，不承诺每个计划 window 都会被优化。
-- **R8 标签质量仅在一个场景上度量。** FX2 对每个受观察事件均匹配（零未匹配、4 项歧义），但 recall/advance 无事件；原版 RCA 上的 BC 必须报告自身覆盖，非 Astra 路径不得静默回退。
+- **原版标签质量范围有限。** R8 在一个场景上度量（零未匹配、4 项歧义），R8b 在两局五回合对局上让真实门禁通过（零歧义，六个未标注事件均已具名）；recall/advance 仍无事件。原版 RCA 上的 BC 必须报告自身覆盖，非 Astra 路径不得静默回退。
 - **F5 仍未证实。** R5 移除了一个可度量但尚未与平台期建立因果的冲突；计划不承诺强度随之上行。
 - **F8/F9 仍无法判断。** 确定性与 arena 地图占比可能比以上任何一项都重要。§5.4 的匹配引擎测量是唯一便宜的判别器，需要单独授权。
 - **不做棋力主张。** 本计划不声称重建后的循环会收敛或击败原版 RCA。A、B 阶段保证 split 不静默丢行，提交/中断/KL 停止工作显式记账，面板独立性和教师身份如实陈述。

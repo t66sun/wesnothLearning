@@ -1,0 +1,40 @@
+test_attack_event_becomes_a_label (tests.v5.test_native_capture.NativeCaptureTests.test_attack_event_becomes_a_label) ... ok
+test_attack_handler_emits_engine_event_without_hidden_target (tests.v5.test_native_capture.NativeCaptureTests.test_attack_handler_emits_engine_event_without_hidden_target) ... ok
+test_attack_names_the_weapon_the_engine_reports (tests.v5.test_native_capture.NativeCaptureTests.test_attack_names_the_weapon_the_engine_reports) ... ok
+test_context_precedes_the_action_it_labels (tests.v5.test_native_capture.NativeCaptureTests.test_context_precedes_the_action_it_labels) ... ok
+test_guard_event_retires_an_unused_context (tests.v5.test_native_capture.NativeCaptureTests.test_guard_event_retires_an_unused_context) ... ok
+test_hidden_and_stale_actions_are_not_exact_labels (tests.v5.test_native_capture.NativeCaptureTests.test_hidden_and_stale_actions_are_not_exact_labels) ... ok
+test_move_and_attack_share_one_decision (tests.v5.test_native_capture.NativeCaptureTests.test_move_and_attack_share_one_decision) ... ok
+test_recruit_burst_is_one_engine_decision (tests.v5.test_native_capture.NativeCaptureTests.test_recruit_burst_is_one_engine_decision) ... ok
+test_recruit_probe_does_not_draw_a_random_facing (tests.v5.test_native_capture.NativeCaptureTests.test_recruit_probe_does_not_draw_a_random_facing) ... ok
+test_scoring_variants_of_one_move_are_not_ambiguous (tests.v5.test_native_capture.NativeCaptureTests.test_scoring_variants_of_one_move_are_not_ambiguous) ... ok
+test_stale_context_cannot_label_a_later_action (tests.v5.test_native_capture.NativeCaptureTests.test_stale_context_cannot_label_a_later_action) ... ok
+test_stock_totals_count_decisions_not_events (tests.v5.test_native_capture.NativeCaptureTests.test_stock_totals_count_decisions_not_events) ... ok
+test_two_weapons_leave_one_action_ambiguous (tests.v5.test_native_capture.NativeCaptureTests.test_two_weapons_leave_one_action_ambiguous) ... ok
+test_runner_collects_stock_games_without_a_teacher_seat (tests.v5.test_teacher_protocol.TeacherProtocolTests.test_runner_collects_stock_games_without_a_teacher_seat) ... ok
+test_stock_capture_refuses_a_per_decision_query (tests.v5.test_teacher_protocol.TeacherProtocolTests.test_stock_capture_refuses_a_per_decision_query) ... ok
+test_stock_teacher_games_are_full_native_games (tests.v5.test_teacher_protocol.TeacherProtocolTests.test_stock_teacher_games_are_full_native_games) ... ok
+test_stock_teacher_rejects_per_decision_query (tests.v5.test_teacher_protocol.TeacherProtocolTests.test_stock_teacher_rejects_per_decision_query) ... ok
+test_legacy_training_and_homogeneous_schema_six_training (tests.v5.test_reward_row_schema.RewardRowSchemaTests.test_legacy_training_and_homogeneous_schema_six_training) ... ok
+test_row_reward_is_not_the_terminal_value (tests.v5.test_reward_row_schema.RewardRowSchemaTests.test_row_reward_is_not_the_terminal_value) ... ok
+test_schema_five_and_six_gae_are_bit_identical_and_steps_are_audited (tests.v5.test_reward_row_schema.RewardRowSchemaTests.test_schema_five_and_six_gae_are_bit_identical_and_steps_are_audited) ... ok
+test_truncation_keeps_bootstrap_and_no_terminal_reward_application (tests.v5.test_reward_row_schema.RewardRowSchemaTests.test_truncation_keeps_bootstrap_and_no_terminal_reward_application) ... ok
+test_a_teacher_package_must_be_declared (tests.v5.test_bundle_identity.BundleIdentityTests.test_a_teacher_package_must_be_declared)
+An opponent the stock teacher cannot read never verifies as part of the archive. ... ok
+test_an_undeclared_member_fails_verification (tests.v5.test_bundle_identity.BundleIdentityTests.test_an_undeclared_member_fails_verification) ... ok
+test_bundle_omits_unused_teacher (tests.v5.test_bundle_identity.BundleIdentityTests.test_bundle_omits_unused_teacher) ... ok
+test_historical_manifest_without_identities_keeps_its_opponents (tests.v5.test_bundle_identity.BundleIdentityTests.test_historical_manifest_without_identities_keeps_its_opponents)
+Bundles built before R10 keep the manifest they were shipped with. ... ok
+test_identity_matches_the_shipped_capture_sources (tests.v5.test_bundle_identity.BundleIdentityTests.test_identity_matches_the_shipped_capture_sources) ... ok
+test_sums_cover_every_shipped_file (tests.v5.test_bundle_identity.BundleIdentityTests.test_sums_cover_every_shipped_file) ... ok
+test_baseline_is_never_substituted (tests.v5.test_teacher_identity.TeacherIdentityTests.test_baseline_is_never_substituted) ... ok
+test_lite_student_design_has_no_external_teacher_or_module (tests.v5.test_teacher_identity.TeacherIdentityTests.test_lite_student_design_has_no_external_teacher_or_module) ... ok
+test_runner_uses_only_stock_native_reference_roles (tests.v5.test_teacher_identity.TeacherIdentityTests.test_runner_uses_only_stock_native_reference_roles) ... ok
+test_stock_label_identity_is_native_and_cannot_mix_with_astra (tests.v5.test_teacher_identity.TeacherIdentityTests.test_stock_label_identity_is_native_and_cannot_mix_with_astra) ... ok
+test_stock_manifest_freezes_without_an_astra_package (tests.v5.test_teacher_identity.TeacherIdentityTests.test_stock_manifest_freezes_without_an_astra_package) ... ok
+test_stock_teacher_cannot_be_queried_or_hosted_by_lite (tests.v5.test_teacher_identity.TeacherIdentityTests.test_stock_teacher_cannot_be_queried_or_hosted_by_lite) ... ok
+
+----------------------------------------------------------------------
+Ran 33 tests in 1.626s
+
+OK

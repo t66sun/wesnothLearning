@@ -1,0 +1,4 @@
+stock-00000-duel-t0.events.jsonl.gz side 1 rows 17 why []
+stock-00000-duel-t0.events.jsonl.gz side 2 rows 13 why [{'kind': 'moveto', 'why': 'absent', 'candidates': 128, 'actual': {'kind': 'move', 'x': 8, 'y': 4, 'tx': 6, 'ty': 2}}, {'kind': 'attack', 'why': 'absent', 'candidates': 128, 'actual': {'kind': 'move_attack', 'x': 8, 'y': 8, 'tx': 7, 'ty': 6, 'ex': 8, 'ey': 5, 'weapon': 1}}]
+stock-00001-duel-t0.events.jsonl.gz side 1 rows 28 why [{'kind': 'moveto', 'why': 'absent', 'candidates': 66, 'actual': {'kind': 'move', 'x': 20, 'y': 3, 'tx': 20, 'ty': 9}}, {'kind': 'moveto', 'why': 'absent', 'candidates': 91, 'actual': {'kind': 'move', 'x': 20, 'y': 9, 'tx': 16, 'ty': 13}}]
+stock-00001-duel-t0.events.jsonl.gz side 2 rows 29 why [{'kind': 'attack', 'why': 'absent', 'candidates': 128, 'actual': {'kind': 'attack', 'x': 15, 'y': 14, 'tx': 15, 'ty': 13, 'weapon': 1}}, {'kind': 'advance', 'why': 'invisible'}]

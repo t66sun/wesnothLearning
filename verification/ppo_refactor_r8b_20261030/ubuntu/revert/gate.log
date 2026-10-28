@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/acceptance_ppo_r8b_20261030/source/verification/ppo_refactor_r8b_20261030/label_probe.py", line 90, in <module>
+    main()
+  File "/home/tongshu/myDev/wesnothLearning/acceptance_ppo_r8b_20261030/source/verification/ppo_refactor_r8b_20261030/label_probe.py", line 66, in main
+    assert count['total'] == stock[source]['matched'] + stock[source]['unmatched'] + stock[source]['ambiguous'], (
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ('recruit', {'matched': 3, 'unmatched': 0, 'ambiguous': 0, 'merged': 9, 'total': 12}, {'matched': 3, 'unmatched': 0, 'ambiguous': 0, 'merged': 9})
