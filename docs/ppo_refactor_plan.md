@@ -220,6 +220,8 @@ One PR per behaviour. Every phase names its own revert-detecting assertion. Line
 
 **Accepted 2026-10-27:** implementation `a05533f`, 30 focused Ubuntu checks, both panel/gate revert assertions fail and restoration passes. [Report](../verification/ppo_refactor_r4_20261027/REPORT.md). Existing final design has only 6/3/3 distinct scenarios against floor 12 and remains insufficient; no games or corpus added.
 
+**Roster accepted 2026-10-28:** the insufficiency was a schedule defect, not only a data gap. `starting_factions` now enumerates every distinct assignment the six frozen factions allow (duel 15 pairs, FFA4 15 groups, team2v2 15 partitions), so a final panel reaches duel 30 / FFA4 15 / team2v2 15 and a 12-block promotion panel reaches 12 in every format, with block and game counts unchanged; `calibration_jobs` keeps its original three-block rotation. `scenario_factions` cycles the same designs for teacher collection, where three rotating blocks had capped a corpus at 6/9/9 families, so a 12-game collection spans 12. 37 focused Ubuntu checks pass plus a planned-floor probe over every panel and collection shape; reverting either roster fails a recorded assertion. [Report](../verification/ppo_refactor_r4_20261029/REPORT.md).
+
 - **Behaviour:** every verdict in this system — panel and BC gate alike — states its evidence as the number of distinct scenarios, not the number of repetitions, and a design with too few distinct scenarios cannot pass. The BC gate additionally declares its scope: it certifies imitation on teacher trajectories and is initialisation evidence only.
 - **Evidence:** F3, duel 2 signatures ×15, ffa4 1 ×30, team2v2 3 ×10; `min_blocks=30` satisfied by repetition; `selection.json` reasons. F6: `bc_gate.json` carries `imitation`/`coverage`/`corpus`/`opening`/`passed` and no scenario count, while the duel corpus behind 99.19 % imitation is 300 games over **4 boards**, one of them 150 games (`k_gate_scope`, `verification/ppo_gate_scope_20261026/REPORT.md`).
 - **Modules:** `learning/schedule.py evaluation_jobs` (explicit scenario enumeration + repeats), `learning/evaluate.py` (`scenario_of`, `comparisons(..., min_distinct)`, `_cluster_bootstrap`), `learning/experiment.py validate_model` (panel design, status propagation), `learning/experiment.py final_evaluation`, `learning/experiment.py finish_train` (gate block writes the scenario count and scope and enforces the floor).
@@ -467,6 +469,7 @@ Historical Astra data, packages, models and reports keep their identity and are 
 | R2 Ubuntu acceptance | **20 + 1 PASS** | eligibility, counters and four-player updates; [evidence](../verification/ppo_refactor_r2_20261027/REPORT.md) |
 | R3 Ubuntu acceptance | **14 PASS** | explicit stopped work, interruptions, checkpoint accounting; [evidence](../verification/ppo_refactor_r3_20261027/REPORT.md) |
 | R4 Ubuntu acceptance | **30 PASS** | scenario evidence, gates, selection and reporting; [evidence](../verification/ppo_refactor_r4_20261027/REPORT.md) |
+| R4 roster acceptance | **37 PASS + planned-floor probe** | final 30/15/15, promotion 12/12/12, collection 12/12/12 distinct; [evidence](../verification/ppo_refactor_r4_20261029/REPORT.md) |
 | R5 Ubuntu acceptance | **23 PASS** | source exclusion, 20 tiny updates, resume, BC RNG and manifest; [evidence](../verification/ppo_refactor_r5_20261027/REPORT.md) |
 | R6 Ubuntu acceptance | **37 PASS + 421-row bit parity** | reward-row contract; unresolved local checks in [evidence](../verification/ppo_refactor_r6_20261027/REPORT.md) |
 | R7 Ubuntu acceptance | **39 PASS + Lua syntax PASS** | teacher identity/reference role wiring; [evidence](../verification/ppo_refactor_r7_20261027/REPORT.md) |
@@ -478,13 +481,13 @@ Historical Astra data, packages, models and reports keep their identity and are 
 ### 6.2 Blocking classification
 
 - **Required before a new formal run:** R1–R7 implementation evidence is archived, including the R6 limits. R8 is accepted as capability evidence, but it demonstrates one scenario and three games: stock teacher collection/BC still needs a corpus, and recall/advance labels stay unobserved. R9 is accepted as capability evidence too: the unsupported-query and BC scheduling wiring is in place and DAgger is retired with a recorded status, while ambiguous attack labels remain untrainable and the BC coverage gate stays unproven until a stock attack-disambiguation decision. R10 is accepted as capability evidence: bundles and BC design reports now name the teacher and the split rule and ship no unused teacher package, though no run was installed from such a bundle. R4 scenario-design and R5 qualified-rehearsal data prerequisites remain separate and unmet.
-- **Blocks strength conclusions:** R4 statistical design. R10 identity work is in place. No native capture/noninterference acceptance is inferred from their narrower checks.
+- **Blocks strength conclusions:** the R6 corpus/label-quality decision and R5's rehearsal prerequisite. R4's floors are reachable by planned panels and collection, but no existing corpus meets them and none was rewritten. R10 identity work is in place. No native capture/noninterference acceptance is inferred from their narrower checks.
 - **Optional capability:** full turn takeover remains unproven; query stays none, and R9 records that as `unsupported_with_stock_rca` instead of leaving it implied. The separate lite/native route measurement remains unrun.
 
 ### 6.3 Preconditions for the next formal training run (not started, not authorised here)
 
 1. R1–R3, R5, R6 merged and each with its revert-detecting test green on Ubuntu.
-2. R4 merged, with `min_distinct` frozen in the manifest.
+2. R4 merged, with `min_distinct` frozen in the manifest and a roster that reaches it.
 3. FX1–FX3 executed and reported; `dagger_status` recorded.
 4. R7–R8 merged if the run trains against stock RCA; the manifest names the teacher record and the run declares `split_rule='scenario-v2'`.
 5. A reduced chain (BC, ≥2 PPO batches, one explicitly accounted KL stop, one checkpoint resume, one promotion panel) accepted on Ubuntu, reusing the C7 pattern.

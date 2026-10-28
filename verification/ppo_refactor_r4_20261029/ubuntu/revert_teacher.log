@@ -1,0 +1,14 @@
+test_teacher_games_reach_the_bc_scenario_floor (tests.v5.test_evaluation_design.EvaluationDesignTests.test_teacher_games_reach_the_bc_scenario_floor) ... FAIL
+
+======================================================================
+FAIL: test_teacher_games_reach_the_bc_scenario_floor (tests.v5.test_evaluation_design.EvaluationDesignTests.test_teacher_games_reach_the_bc_scenario_floor)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/acceptance_ppo_r4_20261029b/tests/v5/test_evaluation_design.py", line 66, in test_teacher_games_reach_the_bc_scenario_floor
+    self.assertEqual(len({job['scenario_family'] for job in jobs}),12,fmt)
+AssertionError: 6 != 12 : duel
+
+----------------------------------------------------------------------
+Ran 1 test in 0.026s
+
+FAILED (failures=1)

@@ -1,0 +1,79 @@
+{
+  "bc": {
+    "duel": {
+      "distinct_scenarios": 12,
+      "games": 12,
+      "gate": "passed"
+    },
+    "ffa4": {
+      "distinct_scenarios": 12,
+      "games": 12,
+      "gate": "passed"
+    },
+    "team2v2": {
+      "distinct_scenarios": 12,
+      "games": 12,
+      "gate": "passed"
+    }
+  },
+  "failed": [
+    "final-duel",
+    "val000100-duel",
+    "final-ffa4",
+    "val000100-ffa4",
+    "final-team2v2",
+    "val000100-team2v2"
+  ],
+  "panels": {
+    "final-duel": {
+      "blocks": 30,
+      "comparison": "insufficient_design",
+      "distinct_scenarios": 6,
+      "gate": "insufficient_design",
+      "jobs": 60,
+      "reason": "6 distinct scenarios; requires 12"
+    },
+    "final-ffa4": {
+      "blocks": 30,
+      "comparison": "insufficient_design",
+      "distinct_scenarios": 3,
+      "gate": "insufficient_design",
+      "jobs": 120,
+      "reason": "3 distinct scenarios; requires 12"
+    },
+    "final-team2v2": {
+      "blocks": 30,
+      "comparison": "insufficient_design",
+      "distinct_scenarios": 3,
+      "gate": "insufficient_design",
+      "jobs": 240,
+      "reason": "3 distinct scenarios; requires 12"
+    },
+    "val000100-duel": {
+      "blocks": 12,
+      "comparison": "insufficient_design",
+      "distinct_scenarios": 3,
+      "gate": "insufficient_design",
+      "jobs": 24,
+      "reason": "3 distinct scenarios; requires 12"
+    },
+    "val000100-ffa4": {
+      "blocks": 12,
+      "comparison": "insufficient_design",
+      "distinct_scenarios": 3,
+      "gate": "insufficient_design",
+      "jobs": 48,
+      "reason": "3 distinct scenarios; requires 12"
+    },
+    "val000100-team2v2": {
+      "blocks": 12,
+      "comparison": "insufficient_design",
+      "distinct_scenarios": 3,
+      "gate": "insufficient_design",
+      "jobs": 96,
+      "reason": "3 distinct scenarios; requires 12"
+    }
+  },
+  "status": "failed"
+}
+design probe failed: final-duel, val000100-duel, final-ffa4, val000100-ffa4, final-team2v2, val000100-team2v2

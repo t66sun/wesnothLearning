@@ -81,8 +81,10 @@ class ScheduleTests(unittest.TestCase):
 
     def test_block_bootstrap_and_incomplete_blocks(self):
         from learning.sample import opening_map
+        repeated={fmt:[dict(map_index=0,faction_block=0)] for fmt in FORMATS}
         with patch('learning.maps.frozen_map',return_value=(opening_map(4),'0'*64)):
-            jobs=evaluation_jobs(ROOT/'tmp','a','b',['baseline'],30,123,1000,'wesnoth')
+            jobs=evaluation_jobs(ROOT/'tmp','a','b',['baseline'],30,123,1000,'wesnoth',
+                                 scenarios=repeated)
         results=[]
         for j in jobs:
             sides=j['meta']['policy_sides'];side=sides[0]

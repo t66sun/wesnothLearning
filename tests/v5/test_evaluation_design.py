@@ -27,13 +27,44 @@ class EvaluationDesignTests(unittest.TestCase):
         for key, floor in config['min_distinct'].items():
             with self.subTest(key=key), self.assertRaises(ValueError):
                 validate_config(dict(config,min_distinct=dict(config['min_distinct'],**{key:floor-1})))
-        for fmt, scenarios, games in [('duel',6,60),('ffa4',3,120),('team2v2',3,240)]:
+        for fmt, scenarios, games in [('duel',30,60),('ffa4',15,120),('team2v2',15,240)]:
             jobs=evaluation_jobs('.', 'policy','baseline',['baseline'],30,19,1000,'unused',
                                  label='final-test',formats=[fmt])
             self.assertEqual(len(jobs),games)
             self.assertEqual(len({job['scenario_family'] for job in jobs}),scenarios)
             self.assertTrue(all(job['meta']['map_partition']=='final' for job in jobs))
             self.assertEqual({job['meta']['min_distinct'] for job in jobs},{12})
+            self.assertGreaterEqual(scenarios,12)
+
+    def test_promotion_panel_reaches_the_distinct_floor(self):
+        from learning.schedule import evaluation_jobs
+
+        for fmt in ('duel','ffa4','team2v2'):
+            jobs=evaluation_jobs('.', 'policy','baseline',['baseline'],12,19,1000,'unused',
+                                 label='val000100',formats=[fmt],min_distinct=12)
+            self.assertEqual(len({job['scenario_family'] for job in jobs}),12,fmt)
+            from learning.formats import PLAYERS
+            self.assertEqual(len(jobs),12*PLAYERS[fmt]*(2 if fmt=='team2v2' else 1))
+
+    def test_each_panel_block_starts_from_its_own_factions(self):
+        from learning.schedule import evaluation_jobs
+
+        jobs=evaluation_jobs('.', 'policy','baseline',['baseline'],12,19,1000,'unused',
+                             label='final-test',formats=['team2v2'])
+        designs={(tuple(job['factions']),job['meta']['map']) for job in jobs}
+        self.assertEqual(len(designs),12)
+        self.assertTrue(all(len(set(factions))==4 for factions,_ in designs))
+
+    def test_teacher_games_reach_the_bc_scenario_floor(self):
+        from learning.schedule import stock_teacher_jobs
+
+        record=dict(kind='wesnoth_default_rca',version='1.18.8',query='none',
+                    runtime_sha256='a'*64)
+        for fmt in ('duel','ffa4','team2v2'):
+            jobs=stock_teacher_jobs('.',record,'support',0,19,1000,'unused',
+                                    formats=[fmt],count=12,index_stride=12)
+            self.assertEqual(len({job['scenario_family'] for job in jobs}),12,fmt)
+            self.assertEqual(len({tuple(job['factions']) for job in jobs}),12,fmt)
 
     def test_unmeasured_legacy_panel_cannot_nominate(self):
         from learning.selection import decide

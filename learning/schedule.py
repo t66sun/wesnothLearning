@@ -6,16 +6,38 @@ import random
 from .common import write_json, read_json, sha256
 from .formats import FORMATS, PLAYERS, TEAM2V2
 import params
-from .maps import decorate
+from .maps import SPLITS, decorate
 
 
 def factions(block, players):
     return [params.FACTIONS[(block*players+i)%6] for i in range(players)]
 
 
-def base_job(directory, ident, bots, seed, deadline, wesnoth, block=0, format_name=None):
+def starting_factions(players, format_name=None):
+    """Every distinct faction assignment the frozen roster can start from."""
+    pool=list(params.FACTIONS)
+    if players==2:
+        return [list(pair) for pair in combinations(pool,2)]
+    if format_name=='team2v2':
+        designs=[]
+        for team in combinations(pool,2):
+            rest=[faction for faction in pool if faction not in team]
+            designs.append([team[0],rest[0],team[1],rest[1]])
+        return designs
+    return [list(group) for group in combinations(pool,players)]
+
+
+def scenario_factions(index, players, format_name=None):
+    """Cycle the frozen faction designs so collected games cover the whole roster."""
+    designs=starting_factions(players,format_name)
+    return list(designs[index%len(designs)])
+
+
+def base_job(directory, ident, bots, seed, deadline, wesnoth, block=0, format_name=None,
+             faction_list=None):
     return dict(id=ident, bots=bots, seed=seed & 0xffffffff,
-                factions=factions(block,len(bots)), max_turns=30, deadline=deadline,
+                factions=list(faction_list) if faction_list else factions(block,len(bots)),
+                max_turns=30, deadline=deadline,
                 wesnoth=wesnoth, output=str(Path(directory)/'replays'/(ident+'.json')),
                 teams=TEAM2V2 if format_name=='team2v2' else None)
 
@@ -32,7 +54,7 @@ def evaluation_jobs(directory, policy, control, fixed, blocks, seed, deadline, w
         phase='final' if label.startswith('final-') else 'validation'
         names=SPLITS[fmt]['holdout' if phase=='final' else 'validation']
         roster=(scenarios.get(fmt) if isinstance(scenarios,dict) else scenarios) if scenarios is not None else [
-            dict(map_index=i,faction_block=f) for f in range(len(params.FACTIONS)//gcd(n,len(params.FACTIONS)))
+            dict(map_index=i,factions=list(group)) for group in starting_factions(n,fmt)
             for i in range(len(names))]
         if not roster: raise ValueError('empty evaluation scenario design')
         if repeats is not None and blocks!=len(roster)*repeats:
@@ -56,7 +78,8 @@ def evaluation_jobs(directory, policy, control, fixed, blocks, seed, deadline, w
                     bots=seats[rotation:]+seats[:rotation]
                     rotated=roles[rotation:]+roles[:rotation]
                     ident=f'{label}-{fmt}-b{block:04}-{context}-r{rotation}'
-                    job=base_job(directory,ident,bots,block_seed,deadline,wesnoth,scenario['faction_block'],fmt)
+                    job=base_job(directory,ident,bots,block_seed,deadline,wesnoth,scenario.get('faction_block',0),fmt,
+                                 faction_list=scenario.get('factions'))
                     if 'baseline' in bots: job['engine']='native'
                     job['meta']=dict(format=fmt,block=block,rotation=rotation,context=context,
                         label=label,policy=policy,control=control,faction_cycle=faction_cycle,
@@ -70,10 +93,15 @@ def evaluation_jobs(directory, policy, control, fixed, blocks, seed, deadline, w
 
 
 def calibration_jobs(directory, fixed, blocks, seed, deadline, wesnoth, formats=FORMATS):
+    """Reference games keep their original three-block faction rotation."""
+    legacy={fmt:[dict(map_index=i,faction_block=f)
+                 for f in range(len(params.FACTIONS)//gcd(PLAYERS[fmt],len(params.FACTIONS)))
+                 for i in range(len(SPLITS[fmt]['validation']))] for fmt in formats}
     jobs=[]
     for pair,(a,b) in enumerate(combinations(fixed,2)):
         jobs.extend(evaluation_jobs(directory,a,b,fixed,blocks,seed+pair*100003,
-                                     deadline,wesnoth,label=f'cal{pair:02}',formats=formats))
+                                     deadline,wesnoth,label=f'cal{pair:02}',formats=formats,
+                                     scenarios=legacy))
     return jobs
 
 
@@ -103,7 +131,8 @@ def teacher_jobs(directory, teachers, fixed, support, batch_index, seed, deadlin
             bots=bots[rotation:]+bots[:rotation]
             side=(n-rotation)%n+1
             ident=f'teacher-{i:05}-{fmt}-t0'
-            job=base_job(directory,ident,bots,rng.randrange(2**32),deadline,wesnoth,i,fmt)
+            job=base_job(directory,ident,bots,rng.randrange(2**32),deadline,wesnoth,i,fmt,
+                         faction_list=scenario_factions(i,n,fmt))
             job.update(shard=str(Path(directory)/'data'/(ident+'.jsonl.gz')),
                        # Collector work is training instrumentation. Formal evaluation keeps 1/10 s.
                        timeout=10,learning=dict(support=support,sides={str(side):dict(teacher=Path(teacher).stem,version='teacher-frozen')}),
@@ -131,7 +160,8 @@ def stock_teacher_jobs(directory, record, support, batch_index, seed, deadline, 
             bots = ['baseline'] * n
             rotation = i % n
             ident = f'stock-{i:05}-{fmt}-t0'
-            job = base_job(directory, ident, bots, rng.randrange(2**32), deadline, wesnoth, i, fmt)
+            job = base_job(directory, ident, bots, rng.randrange(2**32), deadline, wesnoth, i, fmt,
+                           faction_list=scenario_factions(i, n, fmt))
             job.update(shard=str(Path(directory) / 'data' / (ident + '.jsonl.gz')),
                        engine='native', timeout=10,
                        learning=dict(support=support, sides={}, stock_capture=stock_capture_job_sides(n)),
