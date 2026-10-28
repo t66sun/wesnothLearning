@@ -15,7 +15,7 @@ from tests.test_core import record
 
 class HumanTests(unittest.TestCase):
     def fixture(self):
-        root=parse_wml('''version="1.18.7"
+        root=parse_wml('''version="1.18.8"
 [replay_start]
 [side]
 side=1
@@ -46,7 +46,7 @@ new_seed=abcdef
 [/random_seed]
 [/command]
 [/replay]''')
-        row=dict(category='standard_multiplayer',era='era_default',format='duel',game_id='game_0001',family_id='g',curated_sha256='fixture')
+        row=dict(category='standard_multiplayer',era='era_default',format='duel',game_id='game_0001',family_id='g',curated_sha256='fixture',version='1.18.8')
         return root,row
 
     def test_prepare_keeps_original_random_inputs_and_actions(self):
@@ -66,6 +66,13 @@ new_seed=abcdef
         snapshot=copy.deepcopy(root.first('replay_start'));snapshot.tag='snapshot'
         snapshot.children[0].attrs['controller']='ai';root.children.append(snapshot)
         self.assertEqual(compatibility(row,root),'controller_provenance_changed')
+
+    def test_labels_never_come_from_a_replay_recorded_under_older_rules(self):
+        root,row=self.fixture()
+        for version in ('1.18.7','1.18.2',None):
+            stale=dict(row,version=version)
+            self.assertEqual(compatibility(stale,root),'other_version')
+        self.assertIsNone(compatibility(row,root))
 
     def test_capture_requires_complete_native_evidence_and_unknown_value_is_masked(self):
         root,row=self.fixture()

@@ -21,10 +21,24 @@ PY
   sha256sum "$root/data/humanData_curated/games.jsonl" "$root/data/datasets/human/import.json"
 } > "$root/logs/environment.log"
 cd "$root"
-PYTHONPATH=$PWD PYTHONDONTWRITEBYTECODE=1 /home/tongshu/venv/bin/python \
-  verification/ppo_refactor_r5_20261029/inventory_probe.py "$root/logs/audit" \
+export PYTHONPATH=$PWD PYTHONDONTWRITEBYTECODE=1
+python=/home/tongshu/venv/bin/python
+"$python" -m unittest tests.test_human -v > "$root/logs/targeted.log" 2>&1
+tail -3 "$root/logs/targeted.log"
+"$python" verification/ppo_refactor_r5_20261029/inventory_probe.py "$root/logs/audit" \
   > "$root/logs/audit.log" 2>&1
 tail -1 "$root/logs/audit.log"
-test -f "$root/logs/audit/probe.json"
 grep -q 'passed: no existing input can fill the R5 rehearsal pool' "$root/logs/audit.log"
-echo "audit archived at $root/logs/audit/probe.json"
+"$python" -m learning import-human --curated "$root/data/humanData_curated" \
+  --output "$root/logs/inventory" --inventory-only > "$root/logs/inventory.log" 2>&1
+"$python" - "$root/logs/inventory/import.json" <<'PY'
+import json, sys
+report = json.load(open(sys.argv[1], encoding='utf-8'))
+print('statuses', report['statuses'])
+assert report['statuses'] == {'skipped': 43}, report['statuses']
+assert report['samples'] == 0
+assert not any(g.get('status') == 'compatible_pending_native_replay' for g in report['games'])
+assert sum(g.get('reason') == 'other_version' for g in report['games']) == 2
+print('passed: no curated replay is eligible for 1.18.8 labels')
+PY
+echo "evidence at $root/logs"
