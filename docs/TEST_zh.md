@@ -8,17 +8,7 @@
 
 最终预算预留 B1 的 6 项 Ubuntu 检查已通过，归档于[启动报告](../verification/final_review_lite30h_20261025/REPORT.md)，已删除整项。
 
-PPO 重构 R1 已通过 27 项 Ubuntu 专项检查，还原/恢复证据归档于 [R1 报告](../verification/ppo_refactor_r1_20261027/REPORT.md)。R2 已通过 20 项专项检查及 1 项 FFA4/2v2 更新检查，还原/恢复证据见 [R2 报告](../verification/ppo_refactor_r2_20261027/REPORT.md)。不再保留 R1/R2 验收条目。R3 已通过 14 项 Ubuntu 专项检查，见 [R3 报告](../verification/ppo_refactor_r3_20261027/REPORT.md)，无待验收条目；R4 已通过 30 项 Ubuntu 专项检查，见 [R4 报告](../verification/ppo_refactor_r4_20261027/REPORT.md)，无待验收条目；R5 已通过 23 项 Ubuntu 专项检查，见 [R5 报告](../verification/ppo_refactor_r5_20261027/REPORT.md)，无待验收条目；R6 通过 37 项 Ubuntu 合同检查及 421 行逐位算术对照，本地旧夹具/扩展未通过项见 [R6 报告](../verification/ppo_refactor_r6_20261027/REPORT.md)；R7 已通过 39 项 Ubuntu 身份/接线检查及 Lua 语法检查，见 [R7 报告](../verification/ppo_refactor_r7_20261027/REPORT.md)，不代表原版采集能力；R8 已实现但未验收：原版无干扰门未通过、标签仅部分覆盖，见[报告](../verification/ppo_refactor_r8_20261028/REPORT.md)；R9/R10 尚未实现，见[重构计划](ppo_refactor_plan_zh.md)；N1 与既有数值/打包失败保留原范围和门禁。
-
-## R8 — 原版采集剩余验收
-
-**状态：**已在 `codex/r8-stock-event-capture` 实现，**未验收**。Ubuntu 合同检查通过（首轮 13 项及增强后 4 项，有重叠）；FX1 未通过、FX2 部分覆盖、FX3 完整接管未运行，见[证据](../verification/ppo_refactor_r8_20261028/REPORT.md)。
-
-**最小输入/步骤：**复用报告中的 arena2 开关对照/无采集复测及哈希；受影响代码变化后只运行 `tests.v5.test_native_capture`。先解决有效的无干扰比较：原版 `--rng-seed` 未冻结默认 AI RNG。用现有事件审计真实动作前上下文与攻击匹配。已用完三局授权，本条不授权新增对局；重新设计的原版对照或接管 fixture 执行前需另行授权。
-
-**通过条件：**保留 RESULT/回合/单位状态无干扰门，在可比随机输入下比较；策略上下文无隐藏/裁判字段；每类事件计数守恒，歧义不能抬高准确率；如实报告实际标签覆盖，BC 门不变；没有真实 fixture 不得声称回合接管通过。source B 修复后的原版对照与全 CA 新鲜度审计仍未编写/未运行，不能由现有合同检查代替。
-
-**训练阻塞：**原版教师采集/BC 及任何回合查询能力声明。R9/R10 是单独的未实现计划项。合同检查通过不代表采集验收、收敛或棋力。
+PPO 重构 R1 已通过 27 项 Ubuntu 专项检查，还原/恢复证据归档于 [R1 报告](../verification/ppo_refactor_r1_20261027/REPORT.md)。R2 已通过 20 项专项检查及 1 项 FFA4/2v2 更新检查，还原/恢复证据见 [R2 报告](../verification/ppo_refactor_r2_20261027/REPORT.md)。不再保留 R1/R2 验收条目。R3 已通过 14 项 Ubuntu 专项检查，见 [R3 报告](../verification/ppo_refactor_r3_20261027/REPORT.md)，无待验收条目；R4 已通过 30 项 Ubuntu 专项检查，见 [R4 报告](../verification/ppo_refactor_r4_20261027/REPORT.md)，无待验收条目；R5 已通过 23 项 Ubuntu 专项检查，见 [R5 报告](../verification/ppo_refactor_r5_20261027/REPORT.md)，无待验收条目；R6 通过 37 项 Ubuntu 合同检查及 421 行逐位算术对照，本地旧夹具/扩展未通过项见 [R6 报告](../verification/ppo_refactor_r6_20261027/REPORT.md)；R7 已通过 39 项 Ubuntu 身份/接线检查及 Lua 语法检查，见 [R7 报告](../verification/ppo_refactor_r7_20261027/REPORT.md)，不代表原版采集能力；R8 已按能力证据验收：19 项专项 Ubuntu 检查与受控三局原版 fixture 通过，见[复跑报告](../verification/ppo_refactor_r8_20261028/RERUN.md)；R9/R10 尚未实现，见[重构计划](ppo_refactor_plan_zh.md)；N1 与既有数值/打包失败保留原范围和门禁。
 
 ## 边界与共享输入
 

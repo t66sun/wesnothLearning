@@ -1,0 +1,142 @@
+{
+  "id": "capture_on",
+  "status": "complete",
+  "result": {
+    "bots": [
+      "baseline",
+      "baseline"
+    ],
+    "seed": 20261028,
+    "turns": 2,
+    "winner": 1,
+    "survivors": [
+      1
+    ],
+    "reason": "last_leader",
+    "faults": {},
+    "rank_points": {
+      "1": 1,
+      "2": 0
+    },
+    "eliminated": {
+      "2": 2
+    },
+    "seconds": 1.522,
+    "actions": 0,
+    "factions": [
+      "Loyalists",
+      "Rebels"
+    ],
+    "spawns": [
+      [
+        3,
+        7
+      ],
+      [
+        13,
+        7
+      ]
+    ],
+    "lenient": false,
+    "native_replay": "/home/tongshu/myDev/wesnothLearning/acceptance_ppo_r8b_20261028/fixture/capture_on.replay.gz",
+    "rules_version": "wesnoth-1.18.8-native-v2"
+  },
+  "meta": {},
+  "reward_diagnostics": [],
+  "training_eligible": true,
+  "training_shard": {
+    "written": 6,
+    "raw_records": 10,
+    "excluded": null
+  },
+  "stock_coverage": {
+    "recruit": {
+      "matched": 2,
+      "unmatched": 0,
+      "ambiguous": 0,
+      "merged": 9
+    },
+    "recall": {
+      "matched": 0,
+      "unmatched": 0,
+      "ambiguous": 0,
+      "merged": 0
+    },
+    "moveto": {
+      "matched": 1,
+      "unmatched": 0,
+      "ambiguous": 2,
+      "merged": 5
+    },
+    "attack": {
+      "matched": 3,
+      "unmatched": 0,
+      "ambiguous": 2,
+      "merged": 0
+    },
+    "advance": {
+      "matched": 0,
+      "unmatched": 0,
+      "ambiguous": 0,
+      "merged": 0
+    }
+  },
+  "coverage": {
+    "total": 20,
+    "matched": 6,
+    "all_actions": 24,
+    "all_matched": 6,
+    "kinds": {
+      "recruit": {
+        "matched": 2,
+        "unmatched": 0,
+        "ambiguous": 0,
+        "merged": 9,
+        "total": 11
+      },
+      "recall": {
+        "matched": 0,
+        "unmatched": 0,
+        "ambiguous": 0,
+        "merged": 0,
+        "total": 0
+      },
+      "move": {
+        "matched": 1,
+        "unmatched": 0,
+        "ambiguous": 2,
+        "merged": 5,
+        "total": 6
+      },
+      "attack": {
+        "matched": 3,
+        "unmatched": 0,
+        "ambiguous": 2,
+        "merged": 0,
+        "total": 3
+      },
+      "advance": {
+        "matched": 0,
+        "unmatched": 0,
+        "ambiguous": 0,
+        "merged": 0,
+        "total": 0
+      }
+    }
+  },
+  "behavior": [],
+  "timings": [
+    16,
+    3,
+    6,
+    10,
+    27,
+    26,
+    26,
+    20,
+    14,
+    10
+  ],
+  "native_timings": [],
+  "truncated": 3
+}

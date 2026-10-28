@@ -1,6 +1,6 @@
 # PPO rebuild plan: proven defects, target structure, stock RCA replacement
 
-Status: **implementation in progress**. R1–R7 passed bounded Ubuntu acceptance on 2026-10-27; R8 is implemented on its review branch but NOT accepted; R9/R10 remain unimplemented. [R8 handoff](../verification/ppo_refactor_r8_20261028/REPORT.md). R3 follows the user-approved semantics revision below. [R1 evidence](../verification/ppo_refactor_r1_20261027/REPORT.md), [R2 evidence](../verification/ppo_refactor_r2_20261027/REPORT.md), [R3 evidence](../verification/ppo_refactor_r3_20261027/REPORT.md).
+Status: **implementation in progress**. R1–R7 passed bounded Ubuntu acceptance on 2026-10-27; R8 is **accepted on 2026-10-28 as capability evidence** ([19 focused checks plus a controlled three-game native fixture](../verification/ppo_refactor_r8_20261028/RERUN.md)); R9/R10 remain unimplemented. R3 follows the user-approved semantics revision below. [R1 evidence](../verification/ppo_refactor_r1_20261027/REPORT.md), [R2 evidence](../verification/ppo_refactor_r2_20261027/REPORT.md), [R3 evidence](../verification/ppo_refactor_r3_20261027/REPORT.md).
 Evidence: [verification/ppo_rootcause_20261026/REPORT.md](../verification/ppo_rootcause_20261026/REPORT.md) (eleven read-only probes, exit 0, frozen run `v5_lite30h_20261025`).
 Scope of the evidence: one completed 30-hour CPU lite run; no training, no native game, no corpus, no checkpoint touched.
 
@@ -293,7 +293,7 @@ One PR per behaviour. Every phase names its own revert-detecting assertion. Line
 
 #### R8. Stock RCA event capture and label pipeline
 
-**Implemented, NOT accepted 2026-10-28:** source `4d4144f`; Ubuntu 13 original + 4 strengthened checks pass with revert/restore evidence, but FX1 SNAPSHOT equality failed, FX2 has partial recruitment/movement and no matched native attacks, and full FX3 takeover is NOT RUN/NOT PROVEN. Three native games used; no further games or training at handoff. R8 remains a review branch; [report and handoff](../verification/ppo_refactor_r8_20261028/REPORT.md).
+**Accepted 2026-10-28 as capability evidence:** implementation `45e7146`; FX1 passes with frozen default entropy (all three engine-event streams byte-identical), FX2 accounts for every watched event with zero unmatched (recruit 11 → 2 matched + 9 merged; moveto 8 → 1 matched + 2 ambiguous + 5 merged; attack 5 → 3 matched + 2 ambiguous), and FX3 records `takeover='unsupported_with_stock_rca'` from 2 capability and 6 hook probes. Ubuntu ran 19 focused checks plus the controlled three-game fixture, with both revert proofs failing as expected. [Rerun report](../verification/ppo_refactor_r8_20261028/RERUN.md); the earlier failed attempt is kept in [REPORT.md](../verification/ppo_refactor_r8_20261028/REPORT.md). Recall and advance had zero events and stay unobserved; this is capability evidence only, not corpus, training or strength.
 
 - **Behaviour:** a stock-RCA game yields per-action labels for the actions the engine actually executed, with visibility flags and an explicit unmatched count.
 - **Evidence:** F12 (11/19 CAs are C++; attacks and recruitment unobservable by a Lua wrapper); `core/macros/deprecated-utils.cfg:164` shows a global addon can filter `moveto,recruit,recall,attack,post advance,side turn` by side; `vendor/arena/match.py` already captures `LEARN` frames and per-turn `SNAPSHOT`s.
@@ -372,7 +372,7 @@ Reward coefficient changes, KL limit changes, network or architecture changes, p
 
 ### 4.3 Test coverage map
 
-Each phase ships exactly one new test file plus one assertion that fails when the behaviour is reverted. R1–R7 are implemented with bounded acceptance; R8 tests exist with partial acceptance; R9/R10 test files remain unwritten. A row becomes `TEST.md` material only when implemented and awaiting acceptance.
+Each phase ships exactly one new test file plus one assertion that fails when the behaviour is reverted. R1–R8 are implemented with bounded acceptance; R9/R10 test files remain unwritten. A row becomes `TEST.md` material only when implemented and awaiting acceptance.
 
 | PR | Test | Revert-detecting assertion | Proves | Existing suites that must stay green |
 | --- | --- | --- | --- | --- |
@@ -458,7 +458,7 @@ Historical Astra data, packages, models and reports keep their identity and are 
 | Split independence | **run** | 48 games/format |
 | BC corpus scenario coverage (`k_gate_scope`) | **run**, exit 0 | duel complete (300 shards), ffa4/2v2 first 40 shards of 608/400; full ffa4/2v2 scans aborted at the 300 s per-command budget, recorded as not run to completion |
 | Stock-RCA candidate-action inventory | **run** (static, installed data) | 19 CAs, 9 Lua / 11 C++ |
-| Native stock-RCA game, capture, label matching | **run, NOT accepted** | Three bounded games; FX1 failed, FX2 partial, full FX3 not proven; [evidence](../verification/ppo_refactor_r8_20261028/REPORT.md) |
+| Native stock-RCA game, capture, label matching | **accepted as capability** | Three controlled games; FX1 byte-identical streams, FX2 zero unmatched, FX3 unsupported takeover; [evidence](../verification/ppo_refactor_r8_20261028/RERUN.md) |
 | R1 Ubuntu acceptance | **27 PASS** | scenario identity, content identity, schedule and affected reader; [evidence](../verification/ppo_refactor_r1_20261027/REPORT.md) |
 | R2 Ubuntu acceptance | **20 + 1 PASS** | eligibility, counters and four-player updates; [evidence](../verification/ppo_refactor_r2_20261027/REPORT.md) |
 | R3 Ubuntu acceptance | **14 PASS** | explicit stopped work, interruptions, checkpoint accounting; [evidence](../verification/ppo_refactor_r3_20261027/REPORT.md) |
@@ -466,13 +466,13 @@ Historical Astra data, packages, models and reports keep their identity and are 
 | R5 Ubuntu acceptance | **23 PASS** | source exclusion, 20 tiny updates, resume, BC RNG and manifest; [evidence](../verification/ppo_refactor_r5_20261027/REPORT.md) |
 | R6 Ubuntu acceptance | **37 PASS + 421-row bit parity** | reward-row contract; unresolved local checks in [evidence](../verification/ppo_refactor_r6_20261027/REPORT.md) |
 | R7 Ubuntu acceptance | **39 PASS + Lua syntax PASS** | teacher identity/reference role wiring; [evidence](../verification/ppo_refactor_r7_20261027/REPORT.md) |
-| R8 Ubuntu contracts | **13 + 4 PASS (overlapping), native NOT accepted** | [Report](../verification/ppo_refactor_r8_20261028/REPORT.md) |
+| R8 Ubuntu acceptance | **19 PASS + controlled native fixture** | [Rerun report](../verification/ppo_refactor_r8_20261028/RERUN.md) |
 | R9/R10 Ubuntu acceptance | **not run** | Not implemented |
 | BC/promotion/champion/final gates, full suite | **not rerun** | reused from the frozen run and §10.15 |
 
 ### 6.2 Blocking classification
 
-- **Required before a new formal run:** R1–R7 implementation evidence is archived, including the R6 limits. Stock teacher collection/BC still needs R8 acceptance; its FX1 failure is a collection blocker, not merely a limit on strength claims. R9 must complete the unsupported-query/BC scheduling wiring. R4 scenario-design and R5 qualified-rehearsal data prerequisites remain separate and unmet.
+- **Required before a new formal run:** R1–R7 implementation evidence is archived, including the R6 limits. R8 is accepted as capability evidence, but it demonstrates one scenario and three games: stock teacher collection/BC still needs a corpus, and recall/advance labels stay unobserved. R9 must complete the unsupported-query/BC scheduling wiring. R4 scenario-design and R5 qualified-rehearsal data prerequisites remain separate and unmet.
 - **Blocks strength conclusions:** R4 statistical design and R10 reporting/identity work. No native capture/noninterference acceptance is inferred from their narrower checks.
 - **Optional capability:** full turn takeover remains unproven; query stays none. R9 must still explicitly retire unsupported DAgger. The separate lite/native route measurement remains unrun.
 
@@ -491,7 +491,7 @@ Anything measured before step 5 is evidence about wiring, not about learning.
 
 - **R1 migration cost.** Scenario-keyed splits invalidate the existing corpora for a new run. This is unavoidable: the current split cannot be repaired retroactively without re-collecting, and pretending otherwise would keep the leak.
 - **R3 semantics (revised with user approval).** A fixed KL rejection is terminal for that batch. Only interruption defers work; its partial attempts do not settle counters or increment versions. This accounts for stopped work and does not promise every planned window is optimized.
-- **R8 label quality is unmeasured.** If FX2 shows low matching, BC on stock RCA must run at reduced coverage and the report must say so; the non-Astra path must not silently default back.
+- **R8 label quality is measured on one scenario only.** FX2 matches every watched event (zero unmatched, 4 ambiguous), but recall/advance had no events; BC on stock RCA must report its own coverage and the non-Astra path must not silently default back.
 - **F5 stays unproven.** R5 removes a conflict that is measurable but not yet causally tied to the plateau; the plan does not promise that strength follows.
 - **F8/F9 stay undetermined.** Determinism and the arena-map share may matter more than any of the above. The matched-engine measurement in §5.4 is the only cheap discriminator, and it needs its own authorisation.
 - **No strength claim.** Nothing in this plan asserts that the rebuilt loop converges or beats stock RCA. Phase A/B ensure no silent split loss, explicit accounting for committed/interrupted/KL-stopped work, truthful panel independence and teacher identity.
