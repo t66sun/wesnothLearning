@@ -1,9 +1,11 @@
-# R5 policy rehearsal opt-in - Windows reference checks, NOT Ubuntu acceptance
+# R5 policy rehearsal opt-in - Windows reference checks and Ubuntu acceptance
 
 Date: 2026-10-28 (Asia/Shanghai). Parent plan: [docs/ppo_refactor_plan.md](../../docs/ppo_refactor_plan.md) R5.
 Branch `codex/r5-policy-rehearsal`, implementation `c19d5ad4d996690ab5919ebe1a0e877ff2d4e95c`
-(parent `91ac367bc75fbd26af643f37cae3bb2df3a36a82`). Ubuntu is the acceptance environment and
-was **not** run in this phase; nothing here is acceptance, training or collection evidence.
+(parent `91ac367bc75fbd26af643f37cae3bb2df3a36a82`). Ubuntu is the acceptance environment: the
+same targets were rerun there from archive `r5policy_a16d385.tar` (SHA-256
+`3874d3b88700976487b312a53359944e720e2fe0506907de2ed14b386a8d4777`, source `a16d385`) and pass.
+Nothing here is training, collection or strength evidence.
 
 ## What changed
 
@@ -39,12 +41,30 @@ Environment: Python 3.12.14, torch 2.9.1+cpu. Logs in [`windows/`](windows/).
 Source identities: `windows/source.txt` (commit), `windows/source.sha256`
 (`learning/experiment.py` `4d994f45...`, `tests/v5/test_rehearsal_source.py` `2b2964fa...`).
 
-## Limits
+## Ubuntu acceptance (2026-10-28)
 
-- **Ubuntu acceptance not run.** These are Windows reference checks only; the Ubuntu variants of
-  the same `unittest` targets remain the acceptance gate.
+Environment: Linux 7.0.0-38-generic, Python 3.12.3, torch 2.9.1+cpu, rules
+`d6fceafe7d0c9c67c750551b9901dbfb2b22290992a8daa1616a460e11826dca`. The archive carries a partial
+tracked `data/` tree, so `rerun_ubuntu.sh` removes it before linking the frozen
+`training_lite30h_20261025/source/data`; that script change is committed with this evidence. Logs in
+[`ubuntu/`](ubuntu/).
+
+| Check | Result | Log |
+| --- | --- | --- |
+| `tests/v5/test_rehearsal_source.py` | **6 PASS** | `ubuntu/rehearsal.log` |
+| PPO plan + validation cadence + rehearsal suites | **18 PASS** | `ubuntu/related.log` |
+| `py_compile` of both changed files | pass | script step, exit 0 |
+| Revert `allow_policy_rehearsal` | fails with `no rehearsal data distinct from the evaluation control` (exit 1) | `ubuntu/revert.log` |
+| Revert the pool admission | fails with the same error (exit 1) | `ubuntu/revert.log` |
+| Restored `learning/experiment.py` | `sha256sum -c` OK (`1647e889...`) | `ubuntu/restored.log` |
+
+Source hashes before the reverts: `learning/experiment.py` `1647e889...`,
+`tests/v5/test_rehearsal_source.py` `2e0ac6c9...`. The acceptance claim is limited to these targets;
+no corpus, BC/PPO run or native game was started.
+
+## Limits
 - **No training or games.** No corpus, BC/PPO run, native match or strength measurement was
-  started; the 16 MiB runner log cap and the missing human replay corpus are untouched.
+  started. The runner log cap is a separate change; the missing human replay corpus is untouched.
 - **Strength effect unmeasured.** Rehearsing on the run's own frozen rows removes the empty-pool
   failure; it says nothing about convergence, forgetting or strength.
 - **Current-batch inclusion.** The first PPO update rehearses on the same rows it optimizes, which

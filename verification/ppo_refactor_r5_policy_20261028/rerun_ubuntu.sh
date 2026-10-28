@@ -12,6 +12,9 @@ test ! -e "$root"
 mkdir -p "$root/source" "$root/logs"
 tar -xf "$archive" -C "$root/source"
 cd "$root/source"
+# The tracked archive already carries a partial data/ tree; it must be replaced
+# by the frozen rules and datasets the acceptance run reads.
+rm -rf data
 ln -s /home/tongshu/myDev/wesnothLearning/training_lite30h_20261025/source/data data
 export PYTHONPATH="$PWD" PYTHONDONTWRITEBYTECODE=1
 export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1
