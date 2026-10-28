@@ -1,0 +1,14 @@
+E
+======================================================================
+ERROR: test_attack_names_the_weapon_the_engine_reports (tests.v5.test_native_capture.NativeCaptureTests.test_attack_names_the_weapon_the_engine_reports)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/acceptance_ppo_r8b_20261030/source/tests/v5/test_native_capture.py", line 210, in test_attack_names_the_weapon_the_engine_reports
+    self.assertEqual(frame['weapon'], 2)
+                     ~~~~~^^^^^^^^^^
+KeyError: 'weapon'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.008s
+
+FAILED (errors=1)

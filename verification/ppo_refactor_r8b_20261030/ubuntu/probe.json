@@ -1,0 +1,238 @@
+{
+  "status": "passed",
+  "gate": {
+    "passed": true,
+    "actions": {
+      "all": {
+        "matched": 82,
+        "total": 88,
+        "ratio": 0.9318181818181818
+      },
+      "recruit": {
+        "matched": 11,
+        "total": 11,
+        "ratio": 1.0
+      },
+      "move": {
+        "matched": 43,
+        "total": 46,
+        "ratio": 0.9347826086956522
+      },
+      "attack": {
+        "matched": 28,
+        "total": 30,
+        "ratio": 0.9333333333333333
+      }
+    }
+  },
+  "totals": {
+    "recruit": {
+      "matched": 11,
+      "unmatched": 0,
+      "ambiguous": 0,
+      "merged": 17
+    },
+    "recall": {
+      "matched": 0,
+      "unmatched": 0,
+      "ambiguous": 0,
+      "merged": 0
+    },
+    "moveto": {
+      "matched": 43,
+      "unmatched": 3,
+      "ambiguous": 0,
+      "merged": 27
+    },
+    "attack": {
+      "matched": 28,
+      "unmatched": 2,
+      "ambiguous": 0,
+      "merged": 0
+    },
+    "advance": {
+      "matched": 0,
+      "unmatched": 1,
+      "ambiguous": 0,
+      "merged": 0
+    }
+  },
+  "games": [
+    {
+      "seed": 2342139474,
+      "stock_coverage": {
+        "recruit": {
+          "matched": 3,
+          "unmatched": 0,
+          "ambiguous": 0,
+          "merged": 9
+        },
+        "recall": {
+          "matched": 0,
+          "unmatched": 0,
+          "ambiguous": 0,
+          "merged": 0
+        },
+        "moveto": {
+          "matched": 9,
+          "unmatched": 1,
+          "ambiguous": 0,
+          "merged": 16
+        },
+        "attack": {
+          "matched": 16,
+          "unmatched": 1,
+          "ambiguous": 0,
+          "merged": 0
+        },
+        "advance": {
+          "matched": 0,
+          "unmatched": 0,
+          "ambiguous": 0,
+          "merged": 0
+        }
+      },
+      "coverage": {
+        "total": 30,
+        "matched": 28,
+        "all_actions": 55,
+        "all_matched": 28,
+        "kinds": {
+          "recruit": {
+            "matched": 3,
+            "unmatched": 0,
+            "ambiguous": 0,
+            "merged": 9,
+            "total": 3
+          },
+          "recall": {
+            "matched": 0,
+            "unmatched": 0,
+            "ambiguous": 0,
+            "merged": 0,
+            "total": 0
+          },
+          "move": {
+            "matched": 9,
+            "unmatched": 1,
+            "ambiguous": 0,
+            "merged": 16,
+            "total": 10
+          },
+          "attack": {
+            "matched": 16,
+            "unmatched": 1,
+            "ambiguous": 0,
+            "merged": 0,
+            "total": 17
+          },
+          "advance": {
+            "matched": 0,
+            "unmatched": 0,
+            "ambiguous": 0,
+            "merged": 0,
+            "total": 0
+          }
+        }
+      },
+      "merged": {
+        "recruit": 9,
+        "recall": 0,
+        "moveto": 16,
+        "attack": 0,
+        "advance": 0
+      },
+      "shard_sha256": "51d3700a2ec786475a0324f17c72e0c78c76a44699cc572bc8400c9962bf37ba"
+    },
+    {
+      "seed": 1313236434,
+      "stock_coverage": {
+        "recruit": {
+          "matched": 8,
+          "unmatched": 0,
+          "ambiguous": 0,
+          "merged": 8
+        },
+        "recall": {
+          "matched": 0,
+          "unmatched": 0,
+          "ambiguous": 0,
+          "merged": 0
+        },
+        "moveto": {
+          "matched": 34,
+          "unmatched": 2,
+          "ambiguous": 0,
+          "merged": 11
+        },
+        "attack": {
+          "matched": 12,
+          "unmatched": 1,
+          "ambiguous": 0,
+          "merged": 0
+        },
+        "advance": {
+          "matched": 0,
+          "unmatched": 1,
+          "ambiguous": 0,
+          "merged": 0
+        }
+      },
+      "coverage": {
+        "total": 58,
+        "matched": 54,
+        "all_actions": 77,
+        "all_matched": 54,
+        "kinds": {
+          "recruit": {
+            "matched": 8,
+            "unmatched": 0,
+            "ambiguous": 0,
+            "merged": 8,
+            "total": 8
+          },
+          "recall": {
+            "matched": 0,
+            "unmatched": 0,
+            "ambiguous": 0,
+            "merged": 0,
+            "total": 0
+          },
+          "move": {
+            "matched": 34,
+            "unmatched": 2,
+            "ambiguous": 0,
+            "merged": 11,
+            "total": 36
+          },
+          "attack": {
+            "matched": 12,
+            "unmatched": 1,
+            "ambiguous": 0,
+            "merged": 0,
+            "total": 13
+          },
+          "advance": {
+            "matched": 0,
+            "unmatched": 1,
+            "ambiguous": 0,
+            "merged": 0,
+            "total": 1
+          }
+        }
+      },
+      "merged": {
+        "recruit": 8,
+        "recall": 0,
+        "moveto": 11,
+        "attack": 0,
+        "advance": 0
+      },
+      "shard_sha256": "ca3dfba0e28e0ec2ffd2174644167baa63cde919aa5486032cf5eb4c46c6ad75"
+    }
+  ],
+  "capture_sha256": "12fbbb4d3b3af4fc0a2afdb3c5d4893b8df23f408a50bc4081932f08042b3b54",
+  "runtime_sha256": "33f64aa3f5ee40228bd44e357b3f4d784121d4392ff774d6c059c7defa3e5fcf",
+  "rules_sha256": "d6fceafe7d0c9c67c750551b9901dbfb2b22290992a8daa1616a460e11826dca",
+  "teacher_query": "none"
+}

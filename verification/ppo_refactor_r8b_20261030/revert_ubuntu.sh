@@ -18,9 +18,11 @@ fail() { echo "expected failure did not happen: $1" >&2; exit 1; }
 "$python" - <<'PY'
 from pathlib import Path
 path = Path('learning/stock_rca.py'); text = path.read_text()
-old = text[text.index('        # One action can appear'):text.index('        coverage[kind][')\nnew = ('        ambiguous = len(matches) > 1\\n'
-       '        choice = matches[0] if len(matches) == 1 else -1\\n')
-path.write_text(text.replace(old, new))
+start = text.index('        # One action can appear')
+end = text.index('        coverage[kind][', start)
+new = ('        ambiguous = len(matches) > 1\n'
+       '        choice = matches[0] if len(matches) == 1 else -1\n')
+path.write_text(text[:start] + new + text[end:])
 print('intent dedupe reverted')
 PY
 "$python" -m unittest tests.v5.test_native_capture.NativeCaptureTests.test_scoring_variants_of_one_move_are_not_ambiguous \
@@ -30,10 +32,8 @@ cp "$backup/stock_rca.py" learning/stock_rca.py
 "$python" - <<'PY'
 from pathlib import Path
 path = Path('lua/stock_rca_capture/main.lua'); text = path.read_text()
-start = text.index('                        -- The attack event names')
-end = text.index('frame.weapon=found', start)
-end = text.index('\n', end) + 1
-path.write_text(text[:start] + text[end:])
+text = text.replace('if found>0 then frame.weapon=found end', '')
+path.write_text(text)
 print('weapon naming reverted')
 PY
 "$python" -m unittest tests.v5.test_native_capture.NativeCaptureTests.test_attack_names_the_weapon_the_engine_reports \
