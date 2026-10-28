@@ -1,0 +1,1 @@
+{"schema": 5, "observer_version": "native-observer-v5.0", "source_games": 43, "statuses": {"skipped": 43}, "samples": 0, "native_replay_executed": false, "note": "Preparation never launches Wesnoth. Play prepared replays in official 1.18.8, retain full logs, then use --captures. Unknown outcomes never supervise value."}

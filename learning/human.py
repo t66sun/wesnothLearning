@@ -53,6 +53,9 @@ def compatibility(row,root):
     if row['category']!='standard_multiplayer' or row.get('era')!='era_default': return 'non_standard_rules'
     if row['format'] not in FORMATS: return 'unsupported_training_format'
     if row.get('required_addons') or root.attrs.get('active_mods') or root.attrs.get('mod_defines'): return 'custom_modifications'
+    # Labels must describe the frozen 1.18.8 rules; an older replay reproduces
+    # under different combat and recruit numbers even when it replays cleanly.
+    if row.get('version')!='1.18.8': return 'other_version'
     start=root.first('replay_start');replay=root.first('replay')
     if start is None or replay is None: return 'missing_native_initial_state'
     # Controller transitions are not reliably timestamped in all save variants.

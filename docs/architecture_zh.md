@@ -174,7 +174,7 @@ lite 决策新增 `generate_candidates`（默认 true）：采样循环只对未
 
 2026-10-23 用户要求新增分阶段入口：默认 auto 保持上述自动资格门；`run --phase bc` 只跑 BC，`phase ppo`/`phase evaluate` 请求下一个独立阶段，运行中在批次边界生效，停止后需 resume。BC/PPO 分别以 `bc_complete`/`ppo_complete` 保存，不隐式执行后续阶段。`phase ppo --force --reason` 是显式跳过 BC 资格的入口，保留真实 effective/门结果并记录原因与命令 ID；不改写检查点资格位。阶段请求可用 `--hours` 明确增加该阶段预算，保存独立 phase_deadline，不改原 clock/manifest。最终评测开始后不允许在原目录返回训练。最终选择优先已有晋升 best，其次 last_ppo、last_bc、latest，避免有 PPO 更新却退回旧 BC。实现与最小验收证据见本轮 verification 报告；当前未授权启动正式训练。
 
-人类回放还原、兼容性检查和导入入口已实现；正式可用人类语料与其预训练收益尚无完成证据，不能把候选回放数当训练样本数。每个样本保存赛制、schema/架构、引擎/规则/RNG、策略/奖励版本、来源、教师、队友上下文、对局族与截断 bootstrap。`game_family` 按约 80%/20% 分训练/验证，同族不能跨区，按对局等权再抽决策。
+人类回放还原、兼容性检查和导入入口已实现；正式可用人类语料与其预训练收益尚无完成证据，不能把候选回放数当训练样本数。其他游戏版本录制的回放在准备前即被拒收（`other_version`），否则标签会把旧版战斗与招募数值声称为 1.18.8 规则；[2026-10-29 审计](../verification/ppo_refactor_r5_20261029/REPORT.md)显示策展清单没有任何 1.18.8 era_default 标准多人局回放，因此现有输入无法导出合格的真人 rehearsal 池。每个样本保存赛制、schema/架构、引擎/规则/RNG、策略/奖励版本、来源、教师、队友上下文、对局族与截断 bootstrap。`game_family` 按约 80%/20% 分训练/验证，同族不能跨区，按对局等权再抽决策。
 
 有序序列、压缩 SQLite 索引块、完整前缀、窗口抽样与分块验证均已实现。分片行按「元数据 + 定长 float32 数值块」写入（`learning/rowpack.py`），读取逐局流式：按 gz 字节（96 MiB）与保留字节（768 MiB）双重预算只留被抽中的窗口，整局不再跨更新缓存；验证读取受 `bc_validation_records` 限制并用固定 seed。每批把分片数、gz 字节、保留字节、行数与峰值 RSS 记进 `state.history`，训练器另有 `RLIMIT_AS` 兜底，非零退出落盘 `trainer_exit.log`。指标分别记录环境局数、采集批次、优化步数、不同对局族、决策数、有效数据遍历量，避免用一个“轮数”混淆。
 

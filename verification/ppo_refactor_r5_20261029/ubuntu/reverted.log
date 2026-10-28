@@ -1,0 +1,13 @@
+F
+======================================================================
+FAIL: test_labels_never_come_from_a_replay_recorded_under_older_rules (tests.test_human.HumanTests.test_labels_never_come_from_a_replay_recorded_under_older_rules)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/acceptance_ppo_r5_20261029b/tests/test_human.py", line 74, in test_labels_never_come_from_a_replay_recorded_under_older_rules
+    self.assertEqual(compatibility(stale,root),'other_version')
+AssertionError: None != 'other_version'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (failures=1)

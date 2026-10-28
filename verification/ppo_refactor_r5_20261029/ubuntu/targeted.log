@@ -1,0 +1,10 @@
+test_ai_takeover_is_not_labeled_human (tests.test_human.HumanTests.test_ai_takeover_is_not_labeled_human) ... ok
+test_capture_requires_complete_native_evidence_and_unknown_value_is_masked (tests.test_human.HumanTests.test_capture_requires_complete_native_evidence_and_unknown_value_is_masked) ... ok
+test_game_first_sampling_and_source_ratio (tests.test_human.HumanTests.test_game_first_sampling_and_source_ratio) ... ok
+test_labels_never_come_from_a_replay_recorded_under_older_rules (tests.test_human.HumanTests.test_labels_never_come_from_a_replay_recorded_under_older_rules) ... ok
+test_prepare_keeps_original_random_inputs_and_actions (tests.test_human.HumanTests.test_prepare_keeps_original_random_inputs_and_actions) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.497s
+
+OK
