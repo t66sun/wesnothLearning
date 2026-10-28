@@ -243,7 +243,9 @@ split           = 'validation' if int(sha256(scenario_family)[:8],16) % 5 == 0 e
 
 **2026-10-27 已验收：**实现 `9fee653`，验收源码 `e7342e2`，23 项 Ubuntu 专项检查通过；关闭排除谓词后失败，恢复通过。[报告](../verification/ppo_refactor_r5_20261027/REPORT.md)。正权重下只有 control 数据会失败，未调低系数、未采集新数据。
 
-**2026-10-29 前置复核：**没有任何代码路径能造出该池。排除谓词本身是精确的；run 唯一的 `train(...)` 调用从不传库层 opt-in，因此 `policy` 行不可达；策展语料中没有 1.18.8 `era_default` 标准多人局重放，`learning/human.py` 现在拒收其他版本录制的重放（`other_version`），不再把它标成 1.18.8 标签。对冻结语料重新生成的清单为 `{'skipped': 43}`，其中两条 `other_version`。补入重放、授权 run 级策略 opt-in、或接受空 rehearsal 池属于数据决策，不是待修缺陷。见[审计](../verification/ppo_refactor_r5_20261029/REPORT.md)。
+**2026-10-29 前置复核：**没有任何代码路径能造出该池。排除谓词本身是精确的；run 唯一的 `train(...)` 调用从不传库层 opt-in，因此 `policy` 行不可达；策展语料中没有 1.18.8 `era_default` 标准多人局重放，`learning/human.py` 现在拒收其他版本录制的重放（`other_version`），不再把它标成 1.18.8 标签。对冻结语料重新生成的清单为 `{'skipped': 43}`，其中两条 `other_version`。补入重放、授权 run 级策略 opt-in、或接受空 rehearsal 池曾是数据决策，不是待修缺陷。见[审计](../verification/ppo_refactor_r5_20261029/REPORT.md)。
+
+**2026-10-28 开启策略排练：**用户已授权 run 级 opt-in。`FormatExperiment` 现在持久化 `policy_shards`（每个成功的 PPO rollout shard）并加入 PPO rehearsal 池；只有 PPO 阶段以 `allow_policy_rehearsal=True` 调用 `train(...)`。当前批次被有意包含：排除它会在第一次 PPO 更新时复现空池错误，使 opt-in 失效。因此辅助项排练的是本 run 自己的冻结策略行，通过 `rehearsal_sources` 以 `source='policy'` 与 `policy_sha256` 披露；这是自模仿，不是专家监督，BC 阶段仍只读教师标签。Windows 检查：`tests/v5/test_rehearsal_source.py` 6 项通过，PPO-plan、validation-cadence 与 rehearsal 三套件合计 18 项通过；还原 opt-in 或池加入即抛 `no rehearsal data distinct from the evaluation control`。本阶段未运行 Ubuntu 验收，因此仅为能力证据。[证据](../verification/ppo_refactor_r5_policy_20261028/REPORT.md)。
 
 - **行为：** PPO 的辅助模仿项永远不能取自被评分所对的策略。
 - **证据：** F5（`control=self.teachers[0]`、rehearsal 与 PG 的 cos +0.1006、权重 10%）；F6（本应约束质量的门度量的是教师状态模仿）。
@@ -414,7 +416,7 @@ flowchart LR
 | --- | --- | --- | --- |
 | BC 教师对局 | lite 与 native 都用 `gpt6astra` zip（`schedule.teacher_jobs`） | native 中的原版 RCA，标签经事件采集 | native + R8 |
 | DAgger 查询 | 每 4 个决策问一次 Astra `teacher(obs)`，每局 ≤32 | 无，除非 FX3 证明回合级接管 | native + R9 |
-| PPO BC rehearsal | `gpt6astra` shard | PPO 期只用人类/自博弈/合格数据；原版 RCA 只进 BC 阶段 | 数据 + R5 |
+| PPO BC rehearsal | `gpt6astra` shard | PPO 期只用人类/自博弈/合格数据；原版 RCA 只进 BC 阶段 | R5（仅自博弈；人类语料缺） |
 | 固定对手位 | `gpt6astra` zip | `baseline`（原版 RCA） | native |
 | FFA4 补位 | `gpt6astra` zip | `baseline` | native |
 | 2v2 队友与对手 | `astra_partner` / `gpt6astra` | `baseline` | native |
@@ -476,6 +478,7 @@ flowchart LR
 | R4 场景名册验收 | **37 项通过 + 计划下限探针** | final 30/15/15、升级 12/12/12、采集 12/12/12；[证据](../verification/ppo_refactor_r4_20261029/REPORT.md) |
 | R5 前置审计 | **5 项通过 + 受限清单** | 旧版本重放被拒收，无合格真人对局；[证据](../verification/ppo_refactor_r5_20261029/REPORT.md) |
 | R5 Ubuntu 验收 | **23 项通过** | 来源排除、20 次微型更新、恢复、BC RNG 与 manifest；[证据](../verification/ppo_refactor_r5_20261027/REPORT.md) |
+| R5 策略排练 | **6 项 + 18 项通过（Windows）** | run 持久化并排练自身策略 shard；还原即失败；[证据](../verification/ppo_refactor_r5_policy_20261028/REPORT.md) |
 | R6 Ubuntu 验收 | **37 项通过 + 421 行逐位一致** | 奖励行合同；本地未通过项见[证据](../verification/ppo_refactor_r6_20261027/REPORT.md) |
 | R7 Ubuntu 验收 | **39 项通过 + Lua 语法通过** | 教师身份与参考角色接线；[证据](../verification/ppo_refactor_r7_20261027/REPORT.md) |
 | R8 Ubuntu 验收 | **19 项通过 + 受控原版 fixture** | [复跑报告](../verification/ppo_refactor_r8_20261028/RERUN.md) |
@@ -486,8 +489,8 @@ flowchart LR
 
 ### 6.2 阻塞分类
 
-- **新正式 run 的必备项：** R1–R7 实现证据已归档，含 R6 的限制。R8 已按能力证据验收，但只覆盖一个场景三局：原版教师采集/BC 仍需语料，recall/advance 标签仍未观察。R9 同样已按能力证据验收：不支持查询与 BC 调度接线就位，DAgger 以记录状态退役；而 R8b 已关闭该标签限制：攻击标注出引擎所报武器、同一移动的评分变体合并、覆盖率分母按决策计数，两局真实原版对局以零歧义通过真实门禁。R4 的下限已可由计划中的面板与采集达到（2026-10-28 验收）；R5 的 rehearsal 池仍为空——策展语料没有 1.18.8 era_default 标准多人局重放，其他版本录制的重放现被拒收，因此补入重放或授权策略 opt-in 属于数据决策。
-- **阻塞棋力结论：** R6 语料决定、训练长度的原版对局会超出的 16 MiB runner 日志上限，以及 R5 的 rehearsal 前提。R4 的下限已可由计划中的面板与采集达到，但现有语料都达不到，也没有任何语料被重写。R10 身份工作已就位。其受限检查不能代替原版采集/无干扰验收。R8b 只用真实标签证明门禁算术，并不证明语料存在。
+- **新正式 run 的必备项：** R1–R7 实现证据已归档，含 R6 的限制。R8 已按能力证据验收，但只覆盖一个场景三局：原版教师采集/BC 仍需语料，recall/advance 标签仍未观察。R9 同样已按能力证据验收：不支持查询与 BC 调度接线就位，DAgger 以记录状态退役；而 R8b 已关闭该标签限制：攻击标注出引擎所报武器、同一移动的评分变体合并、覆盖率分母按决策计数，两局真实原版对局以零歧义通过真实门禁。R4 的下限已可由计划中的面板与采集达到（2026-10-28 验收）；R5 的 rehearsal 池已由 run 自身策略 shard 补上（2026-10-28 授权 opt-in），但这是自模仿而非专家监督；策展语料仍没有合格的 1.18.8 era_default 标准多人局重放。
+- **阻塞棋力结论：** R6 语料决定、训练长度的原版对局会超出的 16 MiB runner 日志上限，R5 的自排练池已存在，但其棋力效果未经度量。R4 的下限已可由计划中的面板与采集达到，但现有语料都达不到，也没有任何语料被重写。R10 身份工作已就位。其受限检查不能代替原版采集/无干扰验收。R8b 只用真实标签证明门禁算术，并不证明语料存在。
 - **可选能力：** 完整回合接管未证明，query 保持 none，R9 以 `unsupported_with_stock_rca` 记录而不是留作隐含。单独的 lite/native 路线测量尚未运行。
 
 ### 6.3 下一次正式训练的前置条件（本轮未启动、未授权）

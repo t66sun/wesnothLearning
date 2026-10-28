@@ -224,6 +224,7 @@ class FormatExperiment:
         from .control import RewardController
         self.controller=RewardController(self.directory.parent,self.fmt,state=self.state.get('reward_controller'),config=dict(mode=self.config['reward_mode']))
         self.state.setdefault('dagger_shards',[])
+        self.state.setdefault('policy_shards',[])
         self.state.setdefault('dagger_status',dagger_status(self.teacher_record))
         self.state.setdefault('counters',dict(environment_games=0,collection_batches=0,optimizer_steps=0,unique_families_seen=0,decisions_seen=0,effective_dataset_passes=0.))
         self.save()
@@ -365,6 +366,7 @@ class FormatExperiment:
     def finish_train(self):
         pending=self.state['pending_train'];method=pending['method']
         pool=self.state['teacher_shards']+self.state['dagger_shards']+list(map(str,self.human_paths()))
+        if method=='ppo': pool=pool+list(self.state.get('policy_shards',[]))
         pool_seed=self.config['seed']+self.state['version']
         reads={}
         bc=read_shards(pool,partition='train',limit=self.config['bc_records'],seed=pool_seed,format_name=self.fmt,stats=reads.setdefault('bc',{}))
@@ -394,7 +396,7 @@ class FormatExperiment:
         rehearsal_exclude=dict(impl=control.get('teacher'),sha256=control.get('teacher_source_sha256')) if method=='ppo' else None
         metrics=train(self.model,self.optimizer,rows,method,epochs=self.config['epochs'],minibatch=self.config['minibatch'],
             deadline=self.update_deadline(),progress=pending['cursor'],on_step=progress,bc_records=bc,entropy=frozen['entropy'],bc_aux=frozen['bc_aux'],plan_seed=int(self.config['seed']),
-            rehearsal_exclude=rehearsal_exclude)
+            rehearsal_exclude=rehearsal_exclude,allow_policy_rehearsal=method=='ppo')
         if metrics.get('cursor') is not None: pending['cursor']=metrics['cursor']
         if metrics['interrupted']: self.save();return False
         committed=metrics.get('committed_decisions',metrics.get('decisions_seen',0))
@@ -630,6 +632,8 @@ class FormatExperiment:
                     if self.state['dagger_status']!='active':
                         raise ValueError('a teacher without a query capability cannot produce a DAgger shard')
                     self.state['dagger_shards']=sorted(set(self.state['dagger_shards']+[str(dagger)]))
+            if method=='ppo':
+                self.state['policy_shards']=sorted(set(self.state['policy_shards']+[str(p) for p in paths]))
             if method=='bc':
                 original=[j['shard'] for j in jobs if j['id'] in successful and j.get('meta',{}).get('phase')=='teacher']
                 self.state['teacher_shards']=sorted(set(self.state['teacher_shards']+original))
