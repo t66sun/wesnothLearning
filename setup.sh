@@ -75,7 +75,8 @@ required=(
     engine_lite/pyproject.toml
     data/rules/1.18.8-training/rules.json
     data/rules/1.18.8-training/catalog-summary.json
-    data/opponents/gpt6astra.zip
+    lua/stock_rca_capture/main.lua
+    lua/stock_rca_capture/observer.lua
     data/humanData_curated/games.jsonl
     run.sh
     train.sh

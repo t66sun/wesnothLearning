@@ -19,6 +19,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from .common import ROOT
+from .stock_rca import capture_sha256_from
 
 ARCHIVE_ROOT = 'WesnothLearning'
 SCHEMA = 1
@@ -26,6 +27,9 @@ RULES_DIR = 'data/rules/1.18.8-training'
 CATALOG = RULES_DIR + '/catalog-summary.json'
 RULES = RULES_DIR + '/rules.json'
 RULE_VERSION = '1.18.8'
+TEACHER_KIND = 'wesnoth_default_rca'
+TEACHER_PACKAGES = ()
+STOCK_CAPTURE = ('lua/stock_rca_capture/main.lua', 'lua/stock_rca_capture/observer.lua')
 HUMAN_CURATED = 'data/humanData_curated/games.jsonl'
 MANIFEST_NAME = 'BUNDLE_MANIFEST.json'
 SUMS_NAME = 'SHA256SUMS'
@@ -48,9 +52,9 @@ REQUIRED_PATHS = (
     'lua/observation.lua', 'vendor/arena/runtime/runtime.lua',
     RULES_DIR + '/rules.json', RULES_DIR + '/catalog-summary.json',
     RULES_DIR + '/coverage.json', RULES_DIR + '/catalog.json',
-    'data/opponents/gpt6astra.zip', HUMAN_CURATED, 'data/datasets/human/import.json',
+    HUMAN_CURATED, 'data/datasets/human/import.json',
     'docs/bundle.md', 'docs/bundle_zh.md',
-)
+) + STOCK_CAPTURE
 SUM_LINE = re.compile(r'^([0-9a-f]{64}) [ *](.+)$')
 
 
@@ -167,6 +171,21 @@ def _wheel(wheel):
     return path
 
 
+def _teacher_identity(rules, root):
+    """The archived teacher record; a stock RCA needs no opponent package."""
+    root = Path(root)
+    digests = {path.relative_to(root).as_posix(): _hexdigest(path)
+               for path in sorted((root / 'lua/stock_rca_capture').glob('*.lua'))}
+    return dict(kind=TEACHER_KIND, version=RULE_VERSION, query='none', action_source='engine_events',
+                rules_sha256=rules['rules_file_sha256'], capture_sha256=capture_sha256_from(digests),
+                packages=list(TEACHER_PACKAGES))
+
+
+def _needed(path):
+    """Drop opponent packages no declared teacher capability consumes."""
+    return not path.startswith('data/opponents/') or path in TEACHER_PACKAGES
+
+
 def _payload(root, wheel=None):
     root = Path(root)
     entries = {}
@@ -181,7 +200,7 @@ def _payload(root, wheel=None):
             raise ValueError('missing source directory: ' + name)
         for path in sorted(directory.rglob('*')):
             relative = path.relative_to(root)
-            if not path.is_file() or _excluded(relative):
+            if not path.is_file() or _excluded(relative) or not _needed(relative.as_posix()):
                 continue
             entries[relative.as_posix()] = path
     if wheel is not None:
@@ -198,6 +217,7 @@ def _file_rows(entries):
 
 
 def _manifest(root, rows, rules, wheel, created_at):
+    teacher = _teacher_identity(rules, root)
     by_name = {row['path']: row for row in rows}
     return {
         'schema': SCHEMA,
@@ -205,6 +225,7 @@ def _manifest(root, rows, rules, wheel, created_at):
         'created_at': created_at,
         'source': _source_identity(root),
         'files': rows,
+        'identities': {'teacher': teacher},
         'data': {
             'rules': rules,
             'opponents': [dict(path=name, sha256=row['sha256']) for name, row in sorted(by_name.items())
@@ -284,6 +305,7 @@ def build_bundle(output, root=ROOT, wheel=None, created_at=None):
         if temporary.exists():
             temporary.unlink()
     return dict(archive=str(output), sha256=_hexdigest(output), files=len(rows) + 2,
+                teacher=manifest['identities']['teacher'],
                 bytes=sum(row['size'] for row in rows) + len(manifest_bytes) + len(sums_bytes),
                 created_at=stamp, source=_source_identity(root),
                 rules=dict(directory=RULES_DIR, unit_count=rules['unit_count'], terrain_count=rules['terrain_count']),
@@ -388,7 +410,11 @@ def _read_rules(manifest, files, captured, errors):
                 if value is None or value != rules.get(name):
                     errors.append('rules.json %s differs from the manifest' % name)
     opponents = data.get('opponents')
-    if not isinstance(opponents, list) or not opponents:
+    teacher = (manifest.get('identities') or {}).get('teacher')
+    packages = set(teacher.get('packages') or ()) if isinstance(teacher, dict) else None
+    if not isinstance(opponents, list):
+        errors.append('manifest opponents must be a list')
+    elif packages is None and not opponents:
         errors.append('manifest lists no opponents')
     else:
         for row in opponents:
@@ -400,6 +426,8 @@ def _read_rules(manifest, files, captured, errors):
                 errors.append('manifest opponent hash mismatch: ' + path)
             if not path.startswith('data/opponents/'):
                 errors.append('manifest opponent is outside data/opponents: ' + path)
+            elif packages is not None and path not in packages:
+                errors.append('manifest ships an opponent the teacher does not need: ' + path)
     curated = data.get('human_curated') or {}
     curated_name = ARCHIVE_ROOT + '/' + str(curated.get('path', ''))
     if curated.get('path') != HUMAN_CURATED:
@@ -408,6 +436,30 @@ def _read_rules(manifest, files, captured, errors):
         errors.append('missing ' + HUMAN_CURATED)
     elif curated.get('sha256') != files[curated_name]['sha256']:
         errors.append('manifest human_curated hash mismatch')
+
+
+def _read_identity(manifest, files, errors):
+    """New bundles name their teacher; historical manifests stay as they were."""
+    identities = manifest.get('identities')
+    if identities is None:
+        return
+    teacher = (identities or {}).get('teacher') if isinstance(identities, dict) else None
+    if not isinstance(teacher, dict):
+        errors.append('manifest identities.teacher must be an object')
+        return
+    for key, value in (('kind', TEACHER_KIND), ('version', RULE_VERSION), ('query', 'none'),
+                       ('action_source', 'engine_events')):
+        if teacher.get(key) != value:
+            errors.append('manifest teacher %s is not %s' % (key, value))
+    rules = (manifest.get('data') or {}).get('rules') or {}
+    if teacher.get('rules_sha256') != rules.get('rules_file_sha256'):
+        errors.append('manifest teacher rules differ from the frozen rules')
+    digests = {row['relative']: row['sha256'] for row in files.values()}
+    if teacher.get('capture_sha256') != capture_sha256_from(digests):
+        errors.append('shipped stock capture sources differ from the manifest teacher identity')
+    for path in teacher.get('packages') or ():
+        if path not in digests:
+            errors.append('manifest teacher package is missing: ' + str(path))
 
 
 def _read_wheel(manifest, files, require_wheel, errors):
@@ -532,6 +584,7 @@ def verify_bundle(archive, require_wheel=False):
             errors.append('manifest is not valid JSON: ' + str(exc))
     if isinstance(manifest, dict):
         _read_manifest(manifest, files, errors)
+        _read_identity(manifest, files, errors)
         _read_rules(manifest, files, captured, errors)
         _read_wheel(manifest, files, require_wheel, errors)
     _read_sums(captured, files, errors)
@@ -539,6 +592,7 @@ def verify_bundle(archive, require_wheel=False):
                   bytes=sum(row['size'] for row in files.values()), sha256=_hexdigest(archive))
     if isinstance(manifest, dict):
         report.update(schema=manifest.get('schema'), created_at=manifest.get('created_at'),
+                      teacher=(manifest.get('identities') or {}).get('teacher'),
                       source=manifest.get('source'), rules=(manifest.get('data') or {}).get('rules'),
                       wheel=(manifest.get('build') or {}).get('wheel'))
     return report

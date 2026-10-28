@@ -38,8 +38,10 @@ def gate_design(rows, min_distinct):
     families = {row['scenario_family'] for row in rows if row.get('scenario_family')}
     missing = sum(not row.get('scenario_family') for row in rows)
     enough = len(families) >= min_distinct and not missing
+    rules = sorted({row.get('split_rule', 'family-seed-v1') for row in rows})
     return dict(distinct_scenarios=len(families), min_distinct=min_distinct,
                 missing_scenario_rows=missing, scope='initialisation_only',
+                split_rule=rules[0] if len(rules) == 1 else rules,
                 status='passed' if enough else 'insufficient_design')
 
 

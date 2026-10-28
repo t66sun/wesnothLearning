@@ -6,7 +6,7 @@
 
 ## 1. 归档包是什么、不是什么
 
-归档包是由 `learning/bundle.py` 从本仓库写出的单个确定性 `tar.gz`。它包含源码树、冻结的 `1.18.8-training` 规则包、精选人类对局、参考对手和数据集，使干净的 Ubuntu 机器无需 git 远端或手工拷贝工作目录即可安装并运行训练。
+归档包是由 `learning/bundle.py` 从本仓库写出的单个确定性 `tar.gz`。它包含源码树、冻结的 `1.18.8-training` 规则包、精选人类对局和数据集，外加声明教师实际消费的对手包，使干净的 Ubuntu 机器无需 git 远端或手工拷贝工作目录即可安装并运行训练。
 
 它不是机器镜像、不是 Python 环境、不是训练结果、也不是证据。它从不包含：
 
@@ -51,7 +51,7 @@ python -m learning verify-bundle dist/WesnothLearning-training.tar.gz --require-
 
 `SHA256SUMS` 列出除自身以外的全部成员，路径相对归档包根目录，因此解压后 `cd WesnothLearning && sha256sum --check SHA256SUMS` 可用。
 
-校验器把归档包当作归档包来检查：gzip tar 可读、只有单一 `WesnothLearning/` 根、无绝对路径/越出父目录/重复成员、无属于排除类别的成员、必需路径齐全、权限精确、清单 schema 与 Ubuntu 24.04 `x86_64` 目标、清单中每个文件的大小/哈希/权限与总计、规则身份与归档内 `rules.json` 及 `catalog-summary.json` 的比对、每个对手与精选人类文件、可选 wheel，以及 `SHA256SUMS` 的完整格式与覆盖。
+校验器把归档包当作归档包来检查：gzip tar 可读、只有单一 `WesnothLearning/` 根、无绝对路径/越出父目录/重复成员、无属于排除类别的成员、必需路径齐全、权限精确、清单 schema 与 Ubuntu 24.04 `x86_64` 目标、清单中每个文件的大小/哈希/权限与总计、规则身份与归档内 `rules.json` 及 `catalog-summary.json` 的比对、`identities.teacher` 与规则及随包 `lua/stock_rca_capture` 源码的比对、每个列出的对手与精选人类文件、可选 wheel，以及 `SHA256SUMS` 的完整格式与覆盖。原版 1.18.8 RCA 不声明任何包能力，因此原版归档包不列出也不包含对手包；列出了教师未声明的包即为错误。没有 `identities` 的清单属于历史清单，保留其随包对手。
 
 ## 3. 在干净的 Ubuntu 24.04 上安装
 
@@ -114,7 +114,7 @@ WesnothLearning/
   README.md  LICENSE  requirements.txt  .gitattributes
   setup.sh  run.sh  train.sh              权限 0755
   learning/                 协调器、适配器、模型、训练、奖励、评测、归档构建器
-  lua/                      两引擎共用的合法观测/候选/记忆/奖励
+  lua/                      两引擎共用的合法观测/候选/记忆/奖励；stock_rca_capture/ 为教师事件采集
   engine_lite/              Rust/PyO3 精简引擎源码（无内嵌 wheel 时由 setup.sh 构建）
   vendor/                   内置的 WesnothArena native v2 SDK
   tests/                    行为测试套件
@@ -122,7 +122,7 @@ WesnothLearning/
   docs/                     维护文档，含本文件及其英文原文
   data/rules/1.18.8-training/   冻结的 587 单位训练规则包
   data/humanData_curated/   用于 BC 的 1.18.8 精选人类对局
-  data/opponents/           冻结的参考对手包（Astra）
+  data/opponents/           声明教师所需的对手包；原版 1.18.8 RCA 不含
   data/datasets/            数据集导入输入；目前为 human/import.json
   dist/<wheel>              可选的预编译 manylinux x86_64 `_engine_lite` wheel
 ```
