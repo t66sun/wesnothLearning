@@ -52,7 +52,7 @@ def valid_name(name):
     return name
 
 
-def validate(directory):
+def validate(directory, limit=MAX_PACKAGE_BYTES):
     if Path(directory).is_symlink():
         raise ValueError('submission directory cannot be a symbolic link')
     root = Path(directory).resolve()
@@ -81,8 +81,10 @@ def validate(directory):
             if not allowed:
                 raise ValueError(f'unsupported submission file: {relative}')
             total += p.stat().st_size
-    if total > MAX_PACKAGE_BYTES or not (root / 'lua/bot.lua').is_file():
-        raise ValueError('missing lua/bot.lua or submission exceeds 16 MiB')
+    if not (root / 'lua/bot.lua').is_file():
+        raise ValueError('missing lua/bot.lua')
+    if limit is not None and total > limit:
+        raise ValueError('submission exceeds 16 MiB' if limit == MAX_PACKAGE_BYTES else 'submission exceeds the size limit')
     return name
 
 
@@ -90,7 +92,9 @@ def validate(directory):
 def open_addon(path):
     path = Path(path).resolve()
     if path.is_dir():
-        validate(path)
+        # A runtime add-on directory is not a submission: pack() and zip input keep
+        # the submission cap, while a live policy export may exceed it.
+        validate(path, limit=None)
         yield path
         return
     if not path.is_file() or path.suffix.lower() != '.zip':
