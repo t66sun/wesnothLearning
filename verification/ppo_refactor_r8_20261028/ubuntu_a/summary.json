@@ -1,0 +1,77 @@
+{
+  "id": "baseline_repeat",
+  "status": "complete",
+  "result": {
+    "bots": [
+      "baseline",
+      "baseline"
+    ],
+    "seed": 20261028,
+    "turns": 2,
+    "winner": 1,
+    "survivors": [
+      1
+    ],
+    "reason": "last_leader",
+    "faults": {},
+    "rank_points": {
+      "1": 1,
+      "2": 0
+    },
+    "eliminated": {
+      "2": 2
+    },
+    "seconds": 1.0969,
+    "actions": 0,
+    "factions": [
+      "Loyalists",
+      "Rebels"
+    ],
+    "spawns": [
+      [
+        3,
+        7
+      ],
+      [
+        13,
+        7
+      ]
+    ],
+    "lenient": false,
+    "native_replay": "/home/tongshu/myDev/wesnothLearning/acceptance_ppo_r8_20261028_control/baseline_repeat.replay.gz",
+    "rules_version": "wesnoth-1.18.8-native-v2"
+  },
+  "meta": {},
+  "reward_diagnostics": [],
+  "training_eligible": true,
+  "training_shard": null,
+  "stock_coverage": {},
+  "coverage": {
+    "total": 0,
+    "matched": 0,
+    "all_actions": 0,
+    "all_matched": 0,
+    "kinds": {
+      "recruit": {
+        "total": 0,
+        "matched": 0
+      },
+      "move": {
+        "total": 0,
+        "matched": 0
+      },
+      "attack": {
+        "total": 0,
+        "matched": 0
+      },
+      "end_turn": {
+        "total": 0,
+        "matched": 0
+      }
+    }
+  },
+  "behavior": [],
+  "timings": [],
+  "native_timings": [],
+  "truncated": 0
+}

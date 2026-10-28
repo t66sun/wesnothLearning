@@ -1,0 +1,7 @@
+test_attack_event_becomes_a_label (tests.v5.test_native_capture.NativeCaptureTests.test_attack_event_becomes_a_label) ... ok
+test_recruit_probe_does_not_draw_a_random_facing (tests.v5.test_native_capture.NativeCaptureTests.test_recruit_probe_does_not_draw_a_random_facing) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.641s
+
+OK

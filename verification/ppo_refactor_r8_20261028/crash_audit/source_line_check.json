@@ -1,0 +1,12 @@
+[
+  {
+    "path": "tests/smoke_training_lite_8worker.py",
+    "lines": 1050,
+    "grandfathered": true
+  },
+  {
+    "path": "tests/v5/test_pipeline_contract.py",
+    "lines": 1804,
+    "grandfathered": true
+  }
+]

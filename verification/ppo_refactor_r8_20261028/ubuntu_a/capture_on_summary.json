@@ -1,0 +1,130 @@
+{
+  "id": "capture_on",
+  "status": "complete",
+  "result": {
+    "bots": [
+      "baseline",
+      "baseline"
+    ],
+    "seed": 20261028,
+    "turns": 2,
+    "winner": 1,
+    "survivors": [
+      1
+    ],
+    "reason": "last_leader",
+    "faults": {},
+    "rank_points": {
+      "1": 1,
+      "2": 0
+    },
+    "eliminated": {
+      "2": 2
+    },
+    "seconds": 1.3941,
+    "actions": 0,
+    "factions": [
+      "Loyalists",
+      "Rebels"
+    ],
+    "spawns": [
+      [
+        3,
+        7
+      ],
+      [
+        13,
+        7
+      ]
+    ],
+    "lenient": false,
+    "native_replay": "/home/tongshu/myDev/wesnothLearning/acceptance_ppo_r8_20261028_a/fixture/capture_on.replay.gz",
+    "rules_version": "wesnoth-1.18.8-native-v2"
+  },
+  "meta": {},
+  "reward_diagnostics": [],
+  "training_eligible": true,
+  "training_shard": {
+    "written": 6,
+    "raw_records": 8,
+    "excluded": null
+  },
+  "stock_coverage": {
+    "recruit": {
+      "matched": 3,
+      "unmatched": 9,
+      "ambiguous": 0
+    },
+    "recall": {
+      "matched": 0,
+      "unmatched": 0,
+      "ambiguous": 0
+    },
+    "moveto": {
+      "matched": 3,
+      "unmatched": 0,
+      "ambiguous": 2
+    },
+    "attack": {
+      "matched": 0,
+      "unmatched": 2,
+      "ambiguous": 0
+    },
+    "advance": {
+      "matched": 0,
+      "unmatched": 0,
+      "ambiguous": 0
+    }
+  },
+  "coverage": {
+    "total": 17,
+    "matched": 6,
+    "all_actions": 19,
+    "all_matched": 6,
+    "kinds": {
+      "recruit": {
+        "matched": 3,
+        "unmatched": 9,
+        "ambiguous": 0,
+        "total": 12
+      },
+      "recall": {
+        "matched": 0,
+        "unmatched": 0,
+        "ambiguous": 0,
+        "total": 0
+      },
+      "move": {
+        "matched": 3,
+        "unmatched": 0,
+        "ambiguous": 2,
+        "total": 3
+      },
+      "attack": {
+        "matched": 0,
+        "unmatched": 2,
+        "ambiguous": 0,
+        "total": 2
+      },
+      "advance": {
+        "matched": 0,
+        "unmatched": 0,
+        "ambiguous": 0,
+        "total": 0
+      }
+    }
+  },
+  "behavior": [],
+  "timings": [
+    17,
+    3,
+    3,
+    6,
+    9,
+    26,
+    26,
+    28
+  ],
+  "native_timings": [],
+  "truncated": 3
+}

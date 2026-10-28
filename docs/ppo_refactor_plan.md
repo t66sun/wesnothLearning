@@ -1,6 +1,6 @@
 # PPO rebuild plan: proven defects, target structure, stock RCA replacement
 
-Status: **implementation in progress**. R1–R7 passed bounded Ubuntu acceptance on 2026-10-27; R8–R10 remain unimplemented. R3 follows the user-approved semantics revision below. [R1 evidence](../verification/ppo_refactor_r1_20261027/REPORT.md), [R2 evidence](../verification/ppo_refactor_r2_20261027/REPORT.md), [R3 evidence](../verification/ppo_refactor_r3_20261027/REPORT.md).
+Status: **implementation in progress**. R1–R7 passed bounded Ubuntu acceptance on 2026-10-27; R8 is implemented on its review branch but NOT accepted; R9/R10 remain unimplemented. [R8 handoff](../verification/ppo_refactor_r8_20261028/REPORT.md). R3 follows the user-approved semantics revision below. [R1 evidence](../verification/ppo_refactor_r1_20261027/REPORT.md), [R2 evidence](../verification/ppo_refactor_r2_20261027/REPORT.md), [R3 evidence](../verification/ppo_refactor_r3_20261027/REPORT.md).
 Evidence: [verification/ppo_rootcause_20261026/REPORT.md](../verification/ppo_rootcause_20261026/REPORT.md) (eleven read-only probes, exit 0, frozen run `v5_lite30h_20261025`).
 Scope of the evidence: one completed 30-hour CPU lite run; no training, no native game, no corpus, no checkpoint touched.
 
@@ -293,6 +293,8 @@ One PR per behaviour. Every phase names its own revert-detecting assertion. Line
 
 #### R8. Stock RCA event capture and label pipeline
 
+**Implemented, NOT accepted 2026-10-28:** source `4d4144f`; Ubuntu 13 original + 4 strengthened checks pass with revert/restore evidence, but FX1 SNAPSHOT equality failed, FX2 has partial recruitment/movement and no matched native attacks, and full FX3 takeover is NOT RUN/NOT PROVEN. Three native games used; no further games or training at handoff. R8 remains a review branch; [report and handoff](../verification/ppo_refactor_r8_20261028/REPORT.md).
+
 - **Behaviour:** a stock-RCA game yields per-action labels for the actions the engine actually executed, with visibility flags and an explicit unmatched count.
 - **Evidence:** F12 (11/19 CAs are C++; attacks and recruitment unobservable by a Lua wrapper); `core/macros/deprecated-utils.cfg:164` shows a global addon can filter `moveto,recruit,recall,attack,post advance,side turn` by side; `vendor/arena/match.py` already captures `LEARN` frames and per-turn `SNAPSHOT`s.
 - **Modules:** new `lua/stock_rca_capture/main.lua` (event handlers → `LEARN` frames), `vendor/arena/match.py` support-addon mounting (one line: mount the capture addon in `learning['support']`), new `learning/stock_rca.py` (`frames_to_labels(frames, *, side, candidates_fn)`), `learning/sample.py` (provenance `teacher_impl='wesnoth_default_rca'`, `action_source='engine_events'`, `capture_sha256`).
@@ -370,7 +372,7 @@ Reward coefficient changes, KL limit changes, network or architecture changes, p
 
 ### 4.3 Test coverage map
 
-Each phase ships exactly one new test file plus one assertion that fails when the behaviour is reverted. R1–R7 are implemented with bounded acceptance; R8–R10 test files remain unwritten. A row becomes `TEST.md` material only when implemented and awaiting acceptance.
+Each phase ships exactly one new test file plus one assertion that fails when the behaviour is reverted. R1–R7 are implemented with bounded acceptance; R8 tests exist with partial acceptance; R9/R10 test files remain unwritten. A row becomes `TEST.md` material only when implemented and awaiting acceptance.
 
 | PR | Test | Revert-detecting assertion | Proves | Existing suites that must stay green |
 | --- | --- | --- | --- | --- |
@@ -456,7 +458,7 @@ Historical Astra data, packages, models and reports keep their identity and are 
 | Split independence | **run** | 48 games/format |
 | BC corpus scenario coverage (`k_gate_scope`) | **run**, exit 0 | duel complete (300 shards), ffa4/2v2 first 40 shards of 608/400; full ffa4/2v2 scans aborted at the 300 s per-command budget, recorded as not run to completion |
 | Stock-RCA candidate-action inventory | **run** (static, installed data) | 19 CAs, 9 Lua / 11 C++ |
-| Native stock-RCA game, capture, label matching | **not run** | FX1–FX3 are defined, bounded to 3 scenarios × ≤5 turns, and authorised only as capability fixtures |
+| Native stock-RCA game, capture, label matching | **run, NOT accepted** | Three bounded games; FX1 failed, FX2 partial, full FX3 not proven; [evidence](../verification/ppo_refactor_r8_20261028/REPORT.md) |
 | R1 Ubuntu acceptance | **27 PASS** | scenario identity, content identity, schedule and affected reader; [evidence](../verification/ppo_refactor_r1_20261027/REPORT.md) |
 | R2 Ubuntu acceptance | **20 + 1 PASS** | eligibility, counters and four-player updates; [evidence](../verification/ppo_refactor_r2_20261027/REPORT.md) |
 | R3 Ubuntu acceptance | **14 PASS** | explicit stopped work, interruptions, checkpoint accounting; [evidence](../verification/ppo_refactor_r3_20261027/REPORT.md) |
@@ -464,14 +466,15 @@ Historical Astra data, packages, models and reports keep their identity and are 
 | R5 Ubuntu acceptance | **23 PASS** | source exclusion, 20 tiny updates, resume, BC RNG and manifest; [evidence](../verification/ppo_refactor_r5_20261027/REPORT.md) |
 | R6 Ubuntu acceptance | **37 PASS + 421-row bit parity** | reward-row contract; unresolved local checks in [evidence](../verification/ppo_refactor_r6_20261027/REPORT.md) |
 | R7 Ubuntu acceptance | **39 PASS + Lua syntax PASS** | teacher identity/reference role wiring; [evidence](../verification/ppo_refactor_r7_20261027/REPORT.md) |
-| R8–R10 Ubuntu acceptance | **not run** | unimplemented |
+| R8 Ubuntu contracts | **13 + 4 PASS (overlapping), native NOT accepted** | [Report](../verification/ppo_refactor_r8_20261028/REPORT.md) |
+| R9/R10 Ubuntu acceptance | **not run** | Not implemented |
 | BC/promotion/champion/final gates, full suite | **not rerun** | reused from the frozen run and §10.15 |
 
 ### 6.2 Blocking classification
 
-- **Required before a new formal run:** accepted R1/R2 (split and eligibility) and revised R3 (explicit work accounting); pending R5 (the update still leans on the panel opponent), R6 (schema must be frozen before a corpus is collected), and R7–R8 for any run whose purpose is training against the official baseline.
-- **Blocks only strength conclusions:** R4, R10, and the FX1–FX3 fixtures. A run made before R4 can produce numbers, but not a defensible "passed".
-- **Blocks nothing:** R9 if DAgger is not expected in that run; the lite/native route measurement.
+- **Required before a new formal run:** R1–R7 implementation evidence is archived, including the R6 limits. Stock teacher collection/BC still needs R8 acceptance; its FX1 failure is a collection blocker, not merely a limit on strength claims. R9 must complete the unsupported-query/BC scheduling wiring. R4 scenario-design and R5 qualified-rehearsal data prerequisites remain separate and unmet.
+- **Blocks strength conclusions:** R4 statistical design and R10 reporting/identity work. No native capture/noninterference acceptance is inferred from their narrower checks.
+- **Optional capability:** full turn takeover remains unproven; query stays none. R9 must still explicitly retire unsupported DAgger. The separate lite/native route measurement remains unrun.
 
 ### 6.3 Preconditions for the next formal training run (not started, not authorised here)
 

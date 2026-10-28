@@ -1,0 +1,100 @@
+{
+  "wesnoth.cpp": {
+    "sha256": "0fb378f82e37401ffcd0c5d70d967f4c171a0770d86d5fcd35ecca68cf29589b",
+    "excerpts": [
+      {
+        "first": 490,
+        "last": 496,
+        "lines": [
+          "\t\tlg::precise_timestamps(true);",
+          "\t}",
+          "",
+          "\tif(cmdline_opts.rng_seed) {",
+          "\t\tsrand(*cmdline_opts.rng_seed);",
+          "\t}",
+          ""
+        ]
+      }
+    ]
+  },
+  "random.cpp": {
+    "sha256": "180b5be2972fead7f706881f52daf14e54612c55b9aacb5068aa7b69b957f7bd",
+    "excerpts": [
+      {
+        "first": 35,
+        "last": 49,
+        "lines": [
+          "\tclass rng_default : public randomness::rng",
+          "\t{",
+          "\tpublic:",
+          "\t\trng_default()",
+          "\t\t\t: gen_()",
+          "\t\t{",
+          "\t\t\t/* Note: do not replace this with std::random_device.",
+          "\t\t\t * @cbeck88 told in IRC (2016-10-16) that std::random_device",
+          "\t\t\t * is very poorly implemented in MinGW. */",
+          "\t\t\tboost::random_device entropy_source;",
+          "\t\t\tgen_.seed(entropy_source());",
+          "\t\t}",
+          "\tprotected:",
+          "\t\tvirtual uint32_t next_random_impl()",
+          "\t\t{"
+        ]
+      }
+    ]
+  },
+  "ai/default/recruitment.cpp": {
+    "sha256": "31ddc9d2ca62b183df064aa3f3e2b1cc3d16f79471b849d1783c55936758c832",
+    "excerpts": [
+      {
+        "first": 565,
+        "last": 570,
+        "lines": [
+          "\tassert(ratio_score_sum > 0.0);",
+          "",
+          "\t// Shuffle leader_data to break ties randomly.",
+          "\tstd::shuffle(leader_data.begin(), leader_data.end(), randomness::rng::default_instance());",
+          "",
+          "\t// Find which leader should recruit according to ratio_scores."
+        ]
+      },
+      {
+        "first": 1577,
+        "last": 1588,
+        "lines": [
+          "void recruitment::do_randomness(std::vector<data>* leader_data) const {",
+          "\tif (!leader_data) {",
+          "\t\treturn;",
+          "\t}",
+          "\tfor (data& data : *leader_data) {",
+          "\t\tfor (score_map::value_type& entry : data.scores) {",
+          "\t\t\tdouble& score = entry.second;",
+          "\t\t\tscore += randomness::generator->get_random_double() * get_recruitment_randomness();",
+          "\t\t}",
+          "\t}",
+          "}",
+          ""
+        ]
+      }
+    ]
+  },
+  "units/unit.cpp": {
+    "sha256": "16d24e55b7487b043e039024f08159b1caa9f95f6fbc4e2aff40b9e6c279818a",
+    "excerpts": [
+      {
+        "first": 453,
+        "last": 460,
+        "lines": [
+          "\tif(resources::game_events && resources::lua_kernel) {",
+          "\t\tresources::game_events->add_events(events_.child_range(\"event\"), *resources::lua_kernel);",
+          "\t}",
+          "",
+          "\trandom_traits_ = cfg[\"random_traits\"].to_bool(true);",
+          "\tfacing_ = map_location::parse_direction(cfg[\"facing\"]);",
+          "\tif(facing_ == map_location::NDIRECTIONS) facing_ = static_cast<map_location::DIRECTION>(randomness::rng::default_instance().get_random_int(0, map_location::NDIRECTIONS-1));",
+          ""
+        ]
+      }
+    ]
+  }
+}
