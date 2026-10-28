@@ -8,9 +8,16 @@ PUBLIC_ROW = ('schema', 'global', 'opponents', 'spatial', 'candidates', 'timing'
 
 
 def capture_sha256():
-    import hashlib
     paths = sorted((ROOT / 'lua/stock_rca_capture').glob('*.lua'))
-    return hashlib.sha256(''.join(p.name + ':' + sha256(p) + '\n' for p in paths).encode()).hexdigest()
+    return capture_sha256_from({p.relative_to(ROOT).as_posix(): sha256(p) for p in paths})
+
+
+def capture_sha256_from(digests):
+    """Identity of the shipped capture sources, from ``path -> file sha256``."""
+    import hashlib
+    rows = sorted((path.rsplit('/', 1)[-1], digest) for path, digest in digests.items()
+                  if path.startswith('lua/stock_rca_capture/') and path.endswith('.lua'))
+    return hashlib.sha256(''.join(name + ':' + digest + '\n' for name, digest in rows).encode()).hexdigest()
 
 
 def frames_to_labels(frames, *, side, candidates_fn):

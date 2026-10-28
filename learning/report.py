@@ -126,6 +126,12 @@ def write_profile_report(directory,summary,history):
     lines+=['',f"Selected: {summary['selected_kind']}, v{summary['version']}; parameters: {summary['parameters']}",
         f"BC gate complete: {summary.get('pretraining_complete',False)}; clean teacher games: {summary.get('bc_games_collected',0)}/{summary.get('bc_games_required','unknown')}",
         'Checkpoint SHA-256: '+summary['checkpoint_sha256']]
+    if summary.get('teacher'):
+        teacher=summary['teacher']
+        lines.append('Teacher: %s v%s (query: %s; DAgger: %s)' % (teacher.get('kind'),teacher.get('version'),
+                                                                 teacher.get('query'),teacher.get('dagger_status')))
+    if summary.get('split_rule'):
+        lines.append('Split rule: '+str(summary['split_rule']))
     if summary.get('evaluation_engine'):
         lines+=['','Evaluation engine: '+summary['evaluation_engine'],
                 'Evaluation scope: '+summary.get('evaluation_scope','unspecified')]

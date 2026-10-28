@@ -6,7 +6,7 @@ Updated 2026-10-25. The extraction-ready archive is the only artifact the traini
 
 ## 1. What the archive is and is not
 
-The archive is one deterministic `tar.gz` written by `learning/bundle.py` from this repository. It carries the source tree, the frozen `1.18.8-training` rule package, the curated human games, the reference opponents and the datasets, so a clean Ubuntu machine can install and run training without a git remote or a copied working tree.
+The archive is one deterministic `tar.gz` written by `learning/bundle.py` from this repository. It carries the source tree, the frozen `1.18.8-training` rule package, the curated human games and the datasets, plus only the opponent packages the declared teacher consumes, so a clean Ubuntu machine can install and run training without a git remote or a copied working tree.
 
 It is not a machine image, a Python environment, a training result or evidence. It never contains:
 
@@ -51,7 +51,7 @@ The builder refuses to package an inconsistent rule identity: `rules.json` must 
 
 `SHA256SUMS` lists every member except itself, with paths relative to the archive root, so `cd WesnothLearning && sha256sum --check SHA256SUMS` works after extraction.
 
-The verifier checks the archive as an archive: readable gzip tar, single `WesnothLearning/` root, no absolute or parent-escaping or duplicate members, no member of an exclusion class, all required paths present, exact modes, manifest schema and Ubuntu 24.04 `x86_64` target, every manifest size/hash/mode and the totals, the rules identity against the archived `rules.json` and `catalog-summary.json`, every opponent and the curated human file, the optional wheel, and full `SHA256SUMS` format and coverage.
+The verifier checks the archive as an archive: readable gzip tar, single `WesnothLearning/` root, no absolute or parent-escaping or duplicate members, no member of an exclusion class, all required paths present, exact modes, manifest schema and Ubuntu 24.04 `x86_64` target, every manifest size/hash/mode and the totals, the rules identity against the archived `rules.json` and `catalog-summary.json`, `identities.teacher` against the rules and the shipped `lua/stock_rca_capture` sources, every listed opponent and the curated human file, the optional wheel, and full `SHA256SUMS` format and coverage. The stock 1.18.8 RCA declares no package capability, so a stock bundle lists no opponent and ships none; a listed package the teacher does not declare is an error. Manifests without `identities` are historical and keep the opponents they were shipped with.
 
 ## 3. Install on a clean Ubuntu 24.04 machine
 
@@ -109,12 +109,12 @@ Starting work requires an explicit user instruction. A successful `setup.sh`, a 
 
 ```text
 WesnothLearning/
-  BUNDLE_MANIFEST.json      schema, target, source commit, per-file size/sha256/mode, data identities, wheel, totals
+  BUNDLE_MANIFEST.json      schema, target, source commit, per-file size/sha256/mode, identities.teacher, data identities, wheel, totals
   SHA256SUMS                GNU sha256sum lines for every other member
   README.md  LICENSE  requirements.txt  .gitattributes
   setup.sh  run.sh  train.sh              mode 0755
   learning/                 coordinator, adapters, model, training, rewards, evaluation, bundle builder
-  lua/                      shared legal observation/candidates/memory/rewards
+  lua/                      shared legal observation/candidates/memory/rewards; stock_rca_capture/ is the teacher event capture
   engine_lite/              Rust/PyO3 lite engine sources (built by setup.sh when no wheel is bundled)
   vendor/                   vendored WesnothArena native v2 SDK
   tests/                    behavior test suites
@@ -122,7 +122,7 @@ WesnothLearning/
   docs/                     maintained documentation, including this file and its Chinese mirror
   data/rules/1.18.8-training/   frozen 587-unit training rule package
   data/humanData_curated/   curated 1.18.8 human games for BC
-  data/opponents/           frozen reference opponent packages (Astra)
+  data/opponents/           opponent packages a declared teacher needs; absent for the stock 1.18.8 RCA
   data/datasets/            dataset import inputs; currently human/import.json
   dist/<wheel>              optional prebuilt manylinux x86_64 _engine_lite wheel
 ```

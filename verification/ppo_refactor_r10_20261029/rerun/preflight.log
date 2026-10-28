@@ -1,0 +1,2 @@
+preflight: development checkout (no BUNDLE_MANIFEST.json); checksum verification skipped
+preflight: ok (10 required paths present) in /home/tongshu/myDev/wesnothLearning/acceptance_ppo_r10b_20261029

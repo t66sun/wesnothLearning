@@ -60,7 +60,7 @@ export SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy
 
 ### 干净 Ubuntu 24.04 归档包
 
-`python -m learning bundle --output PATH` 生成的归档包是上述服务器环境在干净 Ubuntu 24.04 x86_64 机器上的替代方案，而不是替代品；现有服务器目录及其说明保持不变。
+`python -m learning bundle --output PATH` 生成的归档包在 `BUNDLE_MANIFEST.json` 的 `identities.teacher` 中写明教师，且只打包该教师声明的对手包——原版 RCA 包因此一个都不含；`python -m learning verify-bundle PATH` 会在解包前从随包源码重算规则与采集哈希。`python -m learning bundle --output PATH` 生成的归档包是上述服务器环境在干净 Ubuntu 24.04 x86_64 机器上的替代方案，而不是替代品；现有服务器目录及其说明保持不变。
 
 ```bash
 tar -xzf WesnothLearning-training.tar.gz && cd WesnothLearning
