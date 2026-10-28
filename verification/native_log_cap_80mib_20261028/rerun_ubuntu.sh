@@ -26,7 +26,7 @@ export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1
 } > "$root/logs/environment.log" 2>&1
 "$python" -m unittest tests.v5.test_native_log_cap -v > "$root/logs/cap.log" 2>&1
 cp vendor/arena/match.py "$root/match.before.py"
-"$python" - "$root/match.before.py" > "$root/logs/revert.log" 2>&1 <<'PY'
+"$python" - vendor/arena/match.py > "$root/logs/revert.log" 2>&1 <<'PY'
 import pathlib, subprocess, sys
 path = pathlib.Path(sys.argv[1])
 text = path.read_text(encoding='utf-8')

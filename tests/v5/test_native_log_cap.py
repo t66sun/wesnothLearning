@@ -6,8 +6,8 @@ import match
 
 
 class NativeLogCapTests(unittest.TestCase):
-    def test_16_mib_is_no_longer_a_failure(self):
-        self.assertFalse(match.log_exceeded(16 * 1024 * 1024))
+    def test_a_game_past_the_old_limit_no_longer_fails(self):
+        self.assertFalse(match.log_exceeded(16 * 1024 * 1024 + 1))
 
     def test_cap_is_eighty_mib(self):
         self.assertFalse(match.log_exceeded(80 * 1024 * 1024))
