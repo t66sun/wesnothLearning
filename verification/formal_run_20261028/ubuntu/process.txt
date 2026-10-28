@@ -1,0 +1,2 @@
+    PID    PPID    PGID     ELAPSED   RSS CMD
+ 275499       1  275499       02:24 253632 /home/tongshu/venv/bin/python -u -m learning run --run-dir runs/v5_stock30h_20261028 --engine lite --evaluation-engine native --bc-games 400 400 400 --native-bc-games 0 0 0 --device cpu --workers 8 --trainer-threads 1 --hours 30 --final-holdout-hours 4 --seed 20261028 --formats duel ffa4 team2v2 --human-data /home/tongshu/myDev/wesnothLearning/formal_run_20261028/empty_human --wesnoth /home/tongshu/myDev/wesnothLearning/WesnothLearning/.runtime/install/bin/wesnoth
