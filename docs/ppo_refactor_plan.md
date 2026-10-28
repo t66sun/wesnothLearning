@@ -1,6 +1,6 @@
 # PPO rebuild plan: proven defects, target structure, stock RCA replacement
 
-Status: **implementation in progress**. R1–R7 passed bounded Ubuntu acceptance on 2026-10-27; R8 is **accepted on 2026-10-28 as capability evidence** ([19 focused checks plus a controlled three-game native fixture](../verification/ppo_refactor_r8_20261028/RERUN.md)); R9/R10 remain unimplemented. R3 follows the user-approved semantics revision below. [R1 evidence](../verification/ppo_refactor_r1_20261027/REPORT.md), [R2 evidence](../verification/ppo_refactor_r2_20261027/REPORT.md), [R3 evidence](../verification/ppo_refactor_r3_20261027/REPORT.md).
+Status: **implementation in progress**. R1–R7 passed bounded Ubuntu acceptance on 2026-10-27; R8 is **accepted on 2026-10-28 as capability evidence** ([19 focused checks plus a controlled three-game native fixture](../verification/ppo_refactor_r8_20261028/RERUN.md)); R9 is **accepted on 2026-10-28 as capability evidence** ([23 focused checks and one real stock teacher game](../verification/ppo_refactor_r9_20261029/REPORT.md)); R10 remains unimplemented. R3 follows the user-approved semantics revision below. [R1 evidence](../verification/ppo_refactor_r1_20261027/REPORT.md), [R2 evidence](../verification/ppo_refactor_r2_20261027/REPORT.md), [R3 evidence](../verification/ppo_refactor_r3_20261027/REPORT.md).
 Evidence: [verification/ppo_rootcause_20261026/REPORT.md](../verification/ppo_rootcause_20261026/REPORT.md) (eleven read-only probes, exit 0, frozen run `v5_lite30h_20261025`).
 Scope of the evidence: one completed 30-hour CPU lite run; no training, no native game, no corpus, no checkpoint touched.
 
@@ -326,6 +326,8 @@ One PR per behaviour. Every phase names its own revert-detecting assertion. Line
 - **Rollback:** revert; Astra `teacher()` returns behind the explicit impl.
 - **Done when:** no code path can produce an Astra action unless the manifest names `kind='gpt6astra'`.
 
+**Accepted on 2026-10-28 as capability evidence** ([report](../verification/ppo_refactor_r9_20261029/REPORT.md)): 23 focused Ubuntu checks pass, and one real stock teacher game — both seats `baseline`, no teacher query — produced 7 exactly labelled decisions from 30 stored rows with `query=none` and `dagger_status=unsupported_with_stock_rca` recorded in state and report. Reverting the job-builder routing fails `test_runner_collects_stock_games_without_a_teacher_seat`. The acceptance report also records what this does not prove: one scenario and four turns, and 14 of 17 attack events stay ambiguous because Wesnoth 1.18.8 exposes no weapon index, so ambiguous labels remain untrainable and the BC coverage gate is unproven until a stock attack-disambiguation decision is made. That is a corpus/label-quality prerequisite for R6, not a wiring defect.
+
 #### R10. Corpus, packaging and report identity
 
 - **Behaviour:** every artefact names the teacher it came from, and an active run does not ship Astra.
@@ -372,7 +374,7 @@ Reward coefficient changes, KL limit changes, network or architecture changes, p
 
 ### 4.3 Test coverage map
 
-Each phase ships exactly one new test file plus one assertion that fails when the behaviour is reverted. R1–R8 are implemented with bounded acceptance; R9/R10 test files remain unwritten. A row becomes `TEST.md` material only when implemented and awaiting acceptance.
+Each phase ships exactly one new test file plus one assertion that fails when the behaviour is reverted. R1–R9 are implemented with bounded acceptance; R10's test file remains unwritten. A row becomes `TEST.md` material only when implemented and awaiting acceptance.
 
 | PR | Test | Revert-detecting assertion | Proves | Existing suites that must stay green |
 | --- | --- | --- | --- | --- |
@@ -384,7 +386,7 @@ Each phase ships exactly one new test file plus one assertion that fails when th
 | R6 | `tests/v5/test_reward_row_schema.py` | `test_row_reward_is_not_the_terminal_value` | a row's step reward and terminal reward are separate fields with byte-identical arithmetic | `tests/v5/test_pipeline_contract.py` |
 | R7 | `tests/v5/test_teacher_identity.py` | `test_baseline_is_never_substituted` | `baseline` survives to the runner as stock RCA and no code path swaps it for a teacher package | `tests/smoke_training_lite_8worker.py` |
 | R8 | native fixtures FX1–FX3 (`tests/v5/test_native_capture.py`) | `test_attack_event_becomes_a_label` | a real stock-RCA attack observed through event capture becomes a labelled candidate row with legal visible inputs only | — |
-| R9 | `tests/v5/test_stock_teacher.py` | `test_stock_teacher_rejects_per_decision_query` | the stock teacher path refuses a per-decision query rather than silently answering it another way | — |
+| R9 | `tests/v5/test_teacher_protocol.py` | `test_stock_teacher_rejects_per_decision_query` | the stock teacher path refuses a per-decision query rather than silently answering it another way | — |
 | R10 | `tests/v5/test_bundle_identity.py` | `test_bundle_omits_unused_teacher` | a stock-RCA bundle names its teacher and ships no unused Astra package | — |
 
 Test kinds, so a reviewer can see what each row is worth:
@@ -467,14 +469,15 @@ Historical Astra data, packages, models and reports keep their identity and are 
 | R6 Ubuntu acceptance | **37 PASS + 421-row bit parity** | reward-row contract; unresolved local checks in [evidence](../verification/ppo_refactor_r6_20261027/REPORT.md) |
 | R7 Ubuntu acceptance | **39 PASS + Lua syntax PASS** | teacher identity/reference role wiring; [evidence](../verification/ppo_refactor_r7_20261027/REPORT.md) |
 | R8 Ubuntu acceptance | **19 PASS + controlled native fixture** | [Rerun report](../verification/ppo_refactor_r8_20261028/RERUN.md) |
-| R9/R10 Ubuntu acceptance | **not run** | Not implemented |
+| R9 Ubuntu acceptance | **23 PASS + one stock teacher game** | teacher protocol, no teacher seat, 7 labelled decisions; [evidence](../verification/ppo_refactor_r9_20261029/REPORT.md) |
+| R10 Ubuntu acceptance | **not run** | Not implemented |
 | BC/promotion/champion/final gates, full suite | **not rerun** | reused from the frozen run and §10.15 |
 
 ### 6.2 Blocking classification
 
-- **Required before a new formal run:** R1–R7 implementation evidence is archived, including the R6 limits. R8 is accepted as capability evidence, but it demonstrates one scenario and three games: stock teacher collection/BC still needs a corpus, and recall/advance labels stay unobserved. R9 must complete the unsupported-query/BC scheduling wiring. R4 scenario-design and R5 qualified-rehearsal data prerequisites remain separate and unmet.
+- **Required before a new formal run:** R1–R7 implementation evidence is archived, including the R6 limits. R8 is accepted as capability evidence, but it demonstrates one scenario and three games: stock teacher collection/BC still needs a corpus, and recall/advance labels stay unobserved. R9 is accepted as capability evidence too: the unsupported-query and BC scheduling wiring is in place and DAgger is retired with a recorded status, while ambiguous attack labels remain untrainable and the BC coverage gate stays unproven until a stock attack-disambiguation decision. R4 scenario-design and R5 qualified-rehearsal data prerequisites remain separate and unmet.
 - **Blocks strength conclusions:** R4 statistical design and R10 reporting/identity work. No native capture/noninterference acceptance is inferred from their narrower checks.
-- **Optional capability:** full turn takeover remains unproven; query stays none. R9 must still explicitly retire unsupported DAgger. The separate lite/native route measurement remains unrun.
+- **Optional capability:** full turn takeover remains unproven; query stays none, and R9 records that as `unsupported_with_stock_rca` instead of leaving it implied. The separate lite/native route measurement remains unrun.
 
 ### 6.3 Preconditions for the next formal training run (not started, not authorised here)
 

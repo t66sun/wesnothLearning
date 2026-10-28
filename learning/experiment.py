@@ -17,7 +17,8 @@ from .export import export, load_model
 from .features import schema
 from .formats import FORMATS, PLAYERS
 from .model import Policy
-from .schedule import calibration_jobs, teacher_jobs, rollout_jobs, evaluation_jobs, freeze_schedule
+from .schedule import calibration_jobs, teacher_jobs, stock_teacher_jobs, rollout_jobs, evaluation_jobs, freeze_schedule
+from .teacher_protocol import dagger_status
 from .checkpoints import validate_checkpoint, EXECUTION_VERSION
 from .ppo import PLAN_VERSION
 from .train import checkpoint, restore_rng, train, imitation_quality
@@ -223,6 +224,7 @@ class FormatExperiment:
         from .control import RewardController
         self.controller=RewardController(self.directory.parent,self.fmt,state=self.state.get('reward_controller'),config=dict(mode=self.config['reward_mode']))
         self.state.setdefault('dagger_shards',[])
+        self.state.setdefault('dagger_status',dagger_status(self.teacher_record))
         self.state.setdefault('counters',dict(environment_games=0,collection_batches=0,optimizer_steps=0,unique_families_seen=0,decisions_seen=0,effective_dataset_passes=0.))
         self.save()
         self.support=self.ensure_export(self.model,'support','LearningSupport')
@@ -338,9 +340,22 @@ class FormatExperiment:
         self.save()
         summary=dict(format=self.fmt,status='stage_complete',phase=phase,version=self.state['version'],
             pretraining_complete=self.state['effective'],forced_ppo=self.state.get('forced_ppo'),
+            teacher=dict(kind=self.teacher_record['kind'],version=self.teacher_record['version'],
+                query=self.teacher_record['query'],
+                dagger_status=self.state.get('dagger_status',dagger_status(self.teacher_record)),
+                dagger_shards=len(self.state.get('dagger_shards',[]))),
             checkpoint=str(self.directory/'latest.pt'),error=self.state.get('error'),clock=self.clock)
         write_json(self.directory/'report/summary.json',summary)
         return summary
+
+    def teacher_batch(self,count,index,anchor):
+        """Frozen teacher games; only a declared query capability becomes a controller seat."""
+        if self.state['dagger_status']=='active':
+            return teacher_jobs(self.directory,self.teachers,self.native_fixed if anchor else self.fixed,
+                self.support,index,self.config['seed'],self.update_deadline(),self.exe,
+                formats=[self.fmt],count=count,index_stride=self.config['bc_batch_games'])
+        return stock_teacher_jobs(self.directory,self.teacher_record,self.support,index,self.config['seed'],
+            self.update_deadline(),self.exe,formats=[self.fmt],count=count,index_stride=self.config['bc_batch_games'])
 
     def teacher_evidence(self):
         return [r for r in read_log(self.directory/'jobs.jsonl') if r.get('meta',{}).get('phase')=='teacher'
@@ -558,6 +573,7 @@ class FormatExperiment:
         if proposals: self.execute(proposals,f'reward-reference-v{version:06}')
 
     def learn(self):
+        self.state.setdefault('dagger_status',dagger_status(self.teacher_record))
         if self.state['pending_train']:
             method=self.state['pending_train']['method']
             if not self.finish_train(): return
@@ -580,8 +596,7 @@ class FormatExperiment:
                 anchor=self.config['engine']=='lite' and native_count<self.config['native_bc_games'][self.fmt]
                 count=min(self.config['bc_batch_games'],remaining) if remaining else self.config['bc_batch_games'] if refresh else 0
                 if anchor: count=min(count,self.config['native_bc_games'][self.fmt]-native_count)
-                jobs=teacher_jobs(self.directory,self.teachers,self.native_fixed if anchor else self.fixed,self.support,index,self.config['seed'],
-                    self.update_deadline(),self.exe,formats=[self.fmt],count=count,index_stride=self.config['bc_batch_games'])
+                jobs=self.teacher_batch(count,index,anchor)
                 if anchor:
                     for job in jobs: job['engine']='native'
                 if refresh:
@@ -589,7 +604,9 @@ class FormatExperiment:
                     corrections=rollout_jobs(self.directory,student,[student],self.fixed,self.support,f'v{version}',index,
                         self.config['seed']+7100000,self.update_deadline(),self.exe,4,current=student,formats=[self.fmt])
                     for job in corrections:
-                        job['learning']['dagger_teacher']=self.teachers[0];job['meta']['phase']='dagger_refresh'
+                        if self.state['dagger_status']=='active':
+                            job['learning']['dagger_teacher']=self.teachers[0]
+                        job['meta']['phase']='dagger_refresh'
                     jobs.extend(corrections)
                     self.state['bc_plateau']=0;self.state['bc_refreshes']=self.state.get('bc_refreshes',0)+1
                     if self.state['bc_refreshes']>1:
@@ -599,7 +616,8 @@ class FormatExperiment:
                 current=self.ensure_export(self.model,f'v{version:06}-greedy',f'SnapV{version:06}',version=f'v{version}')
                 jobs=rollout_jobs(self.directory,sample,self.state['snapshots'] or [current],self.fixed,self.support,f'v{version}',
                     index,self.config['seed'],self.update_deadline(),self.exe,self.config['rollout_games'],current=current,formats=[self.fmt])
-                for job in jobs: job['learning']['dagger_teacher']=self.teachers[0]
+                if self.state['dagger_status']=='active':
+                    for job in jobs: job['learning']['dagger_teacher']=self.teachers[0]
             jobs,results=self.execute(jobs,f'{method}-batch-{index:06}')
             if any(r['status']=='infrastructure_error' for r in results): raise RuntimeError('sampling failed; inspect jobs.jsonl')
             successful={r['id'] for r in results if r['status']=='complete' and not r.get('result',{}).get('faults') and r.get('training_eligible',True)}
@@ -608,7 +626,10 @@ class FormatExperiment:
             self.state['control_metrics']=dict(partition='train',new_games=len(successful),faulted_games=0)
             for path in paths:
                 dagger=Path(path).with_name(Path(path).name.replace('.jsonl.gz','.dagger.jsonl.gz'))
-                if dagger.exists(): self.state['dagger_shards']=sorted(set(self.state['dagger_shards']+[str(dagger)]))
+                if dagger.exists():
+                    if self.state['dagger_status']!='active':
+                        raise ValueError('a teacher without a query capability cannot produce a DAgger shard')
+                    self.state['dagger_shards']=sorted(set(self.state['dagger_shards']+[str(dagger)]))
             if method=='bc':
                 original=[j['shard'] for j in jobs if j['id'] in successful and j.get('meta',{}).get('phase')=='teacher']
                 self.state['teacher_shards']=sorted(set(self.state['teacher_shards']+original))

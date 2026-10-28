@@ -1,0 +1,6 @@
+test_runner_collects_stock_games_without_a_teacher_seat (tests.v5.test_teacher_protocol.TeacherProtocolTests.test_runner_collects_stock_games_without_a_teacher_seat) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 1.146s
+
+OK
