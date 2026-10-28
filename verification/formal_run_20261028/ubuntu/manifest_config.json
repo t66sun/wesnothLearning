@@ -1,0 +1,40 @@
+{
+  "hours": 30.0,
+  "workers": 8,
+  "trainer_threads": 1,
+  "seed": 20261028,
+  "engine": "lite",
+  "evaluation_engine": "native",
+  "bc_games": {
+    "duel": 400,
+    "ffa4": 400,
+    "team2v2": 400
+  },
+  "native_bc_games": {
+    "duel": 0,
+    "ffa4": 0,
+    "team2v2": 0
+  },
+  "bc_batch_games": 8,
+  "min_distinct": {
+    "trend": 3,
+    "promotion": 12,
+    "final": 12,
+    "gate": 12
+  },
+  "final_holdout_hours": 4.0,
+  "formats": [
+    "duel",
+    "ffa4",
+    "team2v2"
+  ],
+  "human_data": "/home/tongshu/myDev/wesnothLearning/formal_run_20261028/empty_human",
+  "rules_dir": "/home/tongshu/myDev/wesnothLearning/WesnothLearning/rules/1.18.8-training",
+  "reward_mode": "adaptive",
+  "bc_accuracy": {
+    "all": 0.4,
+    "recruit": 0.6,
+    "move": 0.35,
+    "attack": 0.35
+  }
+}

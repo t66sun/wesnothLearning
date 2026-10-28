@@ -1,0 +1,17 @@
+{
+  "duel": {
+    "total": 5,
+    "complete": 5,
+    "faults": []
+  },
+  "ffa4": {
+    "total": 6,
+    "complete": 6,
+    "faults": []
+  },
+  "team2v2": {
+    "total": 3,
+    "complete": 3,
+    "faults": []
+  }
+}

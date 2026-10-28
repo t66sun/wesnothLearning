@@ -1,0 +1,157 @@
+{
+  "format": "ffa4",
+  "stage": "bc",
+  "phase": "auto",
+  "clock": {
+    "started": 1793191774.2269685,
+    "update_deadline": 1793281774.2269685,
+    "deadline": 1793299774.2269685
+  },
+  "batch": 1,
+  "version": 1,
+  "history": [
+    {
+      "batch": 0,
+      "method": "bc",
+      "elapsed_hours": 0.0877533080180486,
+      "reads": {
+        "bc": {
+          "requested": 2048,
+          "rows": 1425,
+          "families": 6,
+          "selected": 6,
+          "families_decoded": 6,
+          "families_selected": 6,
+          "families_admitted": 6,
+          "families_retained": 6,
+          "windows": 54,
+          "sources": {
+            "stock_rca": 1425
+          },
+          "engines": {
+            "native": 1425
+          },
+          "kinds": {
+            "recruit": 192,
+            "move": 496,
+            "move_attack": 610,
+            "attack": 127
+          },
+          "gz_bytes": 31620521,
+          "retained_bytes": 379720760,
+          "deficit": 623,
+          "stop_reason": "insufficient_data"
+        },
+        "validation": {
+          "requested": 1024,
+          "rows": 735,
+          "families": 2,
+          "selected": 2,
+          "families_decoded": 2,
+          "families_selected": 2,
+          "families_admitted": 2,
+          "families_retained": 2,
+          "windows": 26,
+          "sources": {
+            "stock_rca": 735
+          },
+          "engines": {
+            "native": 735
+          },
+          "kinds": {
+            "recruit": 109,
+            "move": 207,
+            "move_attack": 329,
+            "attack": 90
+          },
+          "gz_bytes": 16656791,
+          "retained_bytes": 193034040,
+          "deficit": 289,
+          "stop_reason": "insufficient_data"
+        }
+      },
+      "peak_rss_mb": 1269,
+      "updates": 56,
+      "loss": 4.098870028941227,
+      "interrupted": false,
+      "approx_kl": 0.0,
+      "kl_stopped": false,
+      "decisions_seen": 7246,
+      "unique_families_seen": 6,
+      "effective_dataset_passes": 5.084912280701754,
+      "sequence_windows": 54,
+      "microbatch": 32
+    }
+  ],
+  "snapshots": [],
+  "best_key": null,
+  "bc_key": null,
+  "ppo_key": null,
+  "best_kind": null,
+  "pending_train": null,
+  "pending_validation": null,
+  "teacher_shards": [
+    "/home/tongshu/myDev/wesnothLearning/formal_run_20261028/runs/v5_stock30h_20261028/ffa4/data/stock-00000-ffa4-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/formal_run_20261028/runs/v5_stock30h_20261028/ffa4/data/stock-00001-ffa4-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/formal_run_20261028/runs/v5_stock30h_20261028/ffa4/data/stock-00002-ffa4-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/formal_run_20261028/runs/v5_stock30h_20261028/ffa4/data/stock-00003-ffa4-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/formal_run_20261028/runs/v5_stock30h_20261028/ffa4/data/stock-00004-ffa4-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/formal_run_20261028/runs/v5_stock30h_20261028/ffa4/data/stock-00005-ffa4-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/formal_run_20261028/runs/v5_stock30h_20261028/ffa4/data/stock-00006-ffa4-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/formal_run_20261028/runs/v5_stock30h_20261028/ffa4/data/stock-00007-ffa4-t0.jsonl.gz"
+  ],
+  "effective": false,
+  "error": null,
+  "dagger_shards": [],
+  "policy_shards": [],
+  "dagger_status": "unsupported_with_stock_rca",
+  "counters": {
+    "environment_games": 8,
+    "collection_batches": 1,
+    "optimizer_steps": 56,
+    "unique_families_seen": 8,
+    "decisions_seen": 7246,
+    "effective_dataset_passes": 5.084912280701754
+  },
+  "reward_controller": {
+    "config": {
+      "economy": 0.15,
+      "control": 0.1,
+      "explore": 0.1,
+      "mode": "adaptive",
+      "entropy": 0.01,
+      "bc_aux": 0.1,
+      "gamma": 1.0,
+      "gae_lambda": 0.95,
+      "reward_version": 0,
+      "reward_formula_id": "v5-potential-1"
+    },
+    "cursor": 0,
+    "last_check": 0,
+    "games": 0,
+    "blocks": [],
+    "seen_blocks": [],
+    "windows": [],
+    "control_previous": null,
+    "last_error": null,
+    "metrics_error": null,
+    "applied_schedule": []
+  },
+  "control_metrics": {
+    "partition": "train",
+    "new_games": 8,
+    "faulted_games": 0
+  },
+  "families_seen": [
+    "259cbc3ce5b86085f6aed6ffca23843c2c48f4cdefe9e8487861af3a360a0e9d",
+    "31085016bceed5c2d3318b22452ce305c763a1e5b4440797de279debcda57d4d",
+    "6bffbbeae268e3004faee4eb0feb7e40994ebbad387ed0188baaaba71db4a138",
+    "8ba1f16e6a7aa5a367613cf1762f96e3eabdf16de3c62aefedeb51e712dd0e91",
+    "9fe85fcb712af72800ab1b01cbf30af41863a5a45f323f185444138027ef3e38",
+    "d4fcaebc4e0144d80b7116bbec178ae2044c07ce6af45eb37cd3d1f6d8fefecf",
+    "d9843452808778e7fa869d4b3db58fabf584629d0b51f501d910ad8e75ac6c56",
+    "f5f6c237800a881b1abc30ecd94deb7502879c066af3e4b88c3d251b8ccfb6a8"
+  ],
+  "bc_quality_best": 0.19047619047619047,
+  "bc_plateau": 0
+}

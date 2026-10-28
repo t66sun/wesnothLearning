@@ -1,0 +1,72 @@
+{
+  "imitation": {
+    "effective": false,
+    "formats": {
+      "team2v2": {
+        "samples": 107,
+        "cross_entropy": 3.2124446975850613,
+        "uniform_entropy": 4.535860437021796,
+        "kinds": {
+          "recruit": {
+            "samples": 9,
+            "correct": 1,
+            "accuracy": 0.1111111111111111
+          },
+          "move": {
+            "samples": 36,
+            "correct": 10,
+            "accuracy": 0.2777777777777778
+          },
+          "attack": {
+            "samples": 62,
+            "correct": 10,
+            "accuracy": 0.16129032258064516
+          }
+        },
+        "accuracy": 0.19626168224299065,
+        "uniform_accuracy": 0.013108013023013,
+        "effective": false
+      }
+    }
+  },
+  "coverage": {
+    "passed": false,
+    "actions": {
+      "all": {
+        "matched": 1662,
+        "total": 1924,
+        "ratio": 0.8638253638253638
+      },
+      "recruit": {
+        "matched": 230,
+        "total": 231,
+        "ratio": 0.9956709956709957
+      },
+      "move": {
+        "matched": 612,
+        "total": 781,
+        "ratio": 0.7836107554417413
+      },
+      "attack": {
+        "matched": 820,
+        "total": 885,
+        "ratio": 0.9265536723163842
+      }
+    }
+  },
+  "corpus": {
+    "games": 8,
+    "required": 400,
+    "passed": false
+  },
+  "opening": {
+    "passed": false
+  },
+  "passed": false,
+  "distinct_scenarios": 8,
+  "min_distinct": 12,
+  "missing_scenario_rows": 0,
+  "scope": "initialisation_only",
+  "split_rule": "scenario-v2",
+  "status": "insufficient_design"
+}

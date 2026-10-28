@@ -1,0 +1,157 @@
+{
+  "format": "team2v2",
+  "stage": "bc",
+  "phase": "auto",
+  "clock": {
+    "started": 1793191774.2269685,
+    "update_deadline": 1793281774.2269685,
+    "deadline": 1793299774.2269685
+  },
+  "batch": 1,
+  "version": 1,
+  "history": [
+    {
+      "batch": 0,
+      "method": "bc",
+      "elapsed_hours": 0.09717690805594126,
+      "reads": {
+        "bc": {
+          "requested": 2048,
+          "rows": 1555,
+          "families": 7,
+          "selected": 7,
+          "families_decoded": 7,
+          "families_selected": 7,
+          "families_admitted": 7,
+          "families_retained": 7,
+          "windows": 62,
+          "sources": {
+            "stock_rca": 1555
+          },
+          "engines": {
+            "native": 1555
+          },
+          "kinds": {
+            "recruit": 221,
+            "move": 576,
+            "move_attack": 630,
+            "attack": 128
+          },
+          "gz_bytes": 37534030,
+          "retained_bytes": 432716920,
+          "deficit": 493,
+          "stop_reason": "insufficient_data"
+        },
+        "validation": {
+          "requested": 1024,
+          "rows": 107,
+          "families": 1,
+          "selected": 1,
+          "families_decoded": 1,
+          "families_selected": 1,
+          "families_admitted": 1,
+          "families_retained": 1,
+          "windows": 4,
+          "sources": {
+            "stock_rca": 107
+          },
+          "engines": {
+            "native": 107
+          },
+          "kinds": {
+            "recruit": 9,
+            "move": 36,
+            "move_attack": 50,
+            "attack": 12
+          },
+          "gz_bytes": 2137507,
+          "retained_bytes": 30240952,
+          "deficit": 917,
+          "stop_reason": "insufficient_data"
+        }
+      },
+      "peak_rss_mb": 1116,
+      "updates": 64,
+      "loss": 3.9238320219155867,
+      "interrupted": false,
+      "approx_kl": 0.0,
+      "kl_stopped": false,
+      "decisions_seen": 8044,
+      "unique_families_seen": 7,
+      "effective_dataset_passes": 5.172990353697749,
+      "sequence_windows": 62,
+      "microbatch": 32
+    }
+  ],
+  "snapshots": [],
+  "best_key": null,
+  "bc_key": null,
+  "ppo_key": null,
+  "best_kind": null,
+  "pending_train": null,
+  "pending_validation": null,
+  "teacher_shards": [
+    "/home/tongshu/myDev/wesnothLearning/formal_run_20261028/runs/v5_stock30h_20261028/team2v2/data/stock-00000-team2v2-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/formal_run_20261028/runs/v5_stock30h_20261028/team2v2/data/stock-00001-team2v2-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/formal_run_20261028/runs/v5_stock30h_20261028/team2v2/data/stock-00002-team2v2-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/formal_run_20261028/runs/v5_stock30h_20261028/team2v2/data/stock-00003-team2v2-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/formal_run_20261028/runs/v5_stock30h_20261028/team2v2/data/stock-00004-team2v2-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/formal_run_20261028/runs/v5_stock30h_20261028/team2v2/data/stock-00005-team2v2-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/formal_run_20261028/runs/v5_stock30h_20261028/team2v2/data/stock-00006-team2v2-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/formal_run_20261028/runs/v5_stock30h_20261028/team2v2/data/stock-00007-team2v2-t0.jsonl.gz"
+  ],
+  "effective": false,
+  "error": null,
+  "dagger_shards": [],
+  "policy_shards": [],
+  "dagger_status": "unsupported_with_stock_rca",
+  "counters": {
+    "environment_games": 8,
+    "collection_batches": 1,
+    "optimizer_steps": 64,
+    "unique_families_seen": 8,
+    "decisions_seen": 8044,
+    "effective_dataset_passes": 5.172990353697749
+  },
+  "reward_controller": {
+    "config": {
+      "economy": 0.15,
+      "control": 0.1,
+      "explore": 0.1,
+      "mode": "adaptive",
+      "entropy": 0.01,
+      "bc_aux": 0.1,
+      "gamma": 1.0,
+      "gae_lambda": 0.95,
+      "reward_version": 0,
+      "reward_formula_id": "v5-potential-1"
+    },
+    "cursor": 0,
+    "last_check": 0,
+    "games": 0,
+    "blocks": [],
+    "seen_blocks": [],
+    "windows": [],
+    "control_previous": null,
+    "last_error": null,
+    "metrics_error": null,
+    "applied_schedule": []
+  },
+  "control_metrics": {
+    "partition": "train",
+    "new_games": 8,
+    "faulted_games": 0
+  },
+  "families_seen": [
+    "17fa1723f68729d0a69118485baeef58377efcdf9eb147aa61403be695dc9a43",
+    "7165d1b2918eae7b255de353ebf73ad333ab10adbe05338c8f4c14cc52b2acb7",
+    "9caf7c21ef2f01c3557fc96f1e9a6810dec1b1cb7e24c87554d5726227eab702",
+    "b12165fa38be4ab6b65baa01c0e374031bac13e29b57d502de14d5c0d1906d85",
+    "c72c5f0d9d58313098bb9560d3cd5b706d4070a8f17aaf82d310d3b89bd809ba",
+    "ddaf5bfb600646b4c16938388eda423524657fa7e8f550d89c8dd1cf4909629c",
+    "eddcb30c8dca2ed343d9803e8b8e8096b22a87f082e138ebfe04a73622e7e674",
+    "fd5e720a465c694a1b0f992203229160f55ef354687d4c4695515463667ba9dc"
+  ],
+  "bc_quality_best": 0.19626168224299065,
+  "bc_plateau": 0
+}
