@@ -13,6 +13,15 @@ class NativeLogCapTests(unittest.TestCase):
         self.assertFalse(match.log_exceeded(80 * 1024 * 1024))
         self.assertTrue(match.log_exceeded(80 * 1024 * 1024 + 1))
 
+    def test_captured_frames_do_not_count_against_the_cap(self):
+        prefix = 'ARENA2 0123456789abcdef '
+        stock = prefix + 'STOCK {"kind": "ROW", "row": {}}\n'
+        learn = prefix + 'LEARN {"id": 1}\n'
+        chatter = prefix + 'TURN {"side": 1, "turn": 2}\n'
+        self.assertEqual(match.log_weight(stock, prefix), 0)
+        self.assertEqual(match.log_weight(learn, prefix), 0)
+        self.assertEqual(match.log_weight(chatter, prefix), len(chatter))
+
 
 if __name__ == '__main__':
     unittest.main()

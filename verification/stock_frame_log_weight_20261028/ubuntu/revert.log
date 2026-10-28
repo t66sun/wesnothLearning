@@ -1,0 +1,13 @@
+..F
+======================================================================
+FAIL: test_captured_frames_do_not_count_against_the_cap (tests.v5.test_native_log_cap.NativeLogCapTests.test_captured_frames_do_not_count_against_the_cap)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/acceptance_stock_frame_4123894/tests/v5/test_native_log_cap.py", line 21, in test_captured_frames_do_not_count_against_the_cap
+    self.assertEqual(match.log_weight(stock, prefix), 0)
+AssertionError: 57 != 0
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.000s
+
+FAILED (failures=1)
