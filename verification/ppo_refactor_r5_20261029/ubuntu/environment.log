@@ -1,0 +1,6 @@
+host Linux 7.0.0-38-generic x86_64
+python 3.12.3
+torch 2.9.1+cpu
+source revision 75bf0a74b38b4e782499b598a330069055ae8ce5
+1c94bb8d6ff51c192cf49fa24b5ce13adfefd8b3f6c5d08cf352e57536c3695f  /home/tongshu/myDev/wesnothLearning/acceptance_ppo_r5_20261029b/data/humanData_curated/games.jsonl
+97344602993bd5619ece7068d45f366b91dad0826ffbee12e6168365d7917ebe  /home/tongshu/myDev/wesnothLearning/acceptance_ppo_r5_20261029b/data/datasets/human/import.json

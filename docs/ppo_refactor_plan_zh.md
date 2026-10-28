@@ -243,6 +243,8 @@ split           = 'validation' if int(sha256(scenario_family)[:8],16) % 5 == 0 e
 
 **2026-10-27 已验收：**实现 `9fee653`，验收源码 `e7342e2`，23 项 Ubuntu 专项检查通过；关闭排除谓词后失败，恢复通过。[报告](../verification/ppo_refactor_r5_20261027/REPORT.md)。正权重下只有 control 数据会失败，未调低系数、未采集新数据。
 
+**2026-10-29 前置复核：**没有任何代码路径能造出该池。排除谓词本身是精确的；run 唯一的 `train(...)` 调用从不传库层 opt-in，因此 `policy` 行不可达；策展语料中没有 1.18.8 `era_default` 标准多人局重放，`learning/human.py` 现在拒收其他版本录制的重放（`other_version`），不再把它标成 1.18.8 标签。对冻结语料重新生成的清单为 `{'skipped': 43}`，其中两条 `other_version`。补入重放、授权 run 级策略 opt-in、或接受空 rehearsal 池属于数据决策，不是待修缺陷。见[审计](../verification/ppo_refactor_r5_20261029/REPORT.md)。
+
 - **行为：** PPO 的辅助模仿项永远不能取自被评分所对的策略。
 - **证据：** F5（`control=self.teachers[0]`、rehearsal 与 PG 的 cos +0.1006、权重 10%）；F6（本应约束质量的门度量的是教师状态模仿）。
 - **模块：** `learning/data.py BCSampler`、`learning/ppo.py update(..., rehearsal_exclude=...)`、`learning/experiment.py finish_train`（传 control 身份）、manifest（分阶段的 `bc_aux` 策略）。
@@ -470,6 +472,7 @@ flowchart LR
 | R3 Ubuntu 验收 | **14 项通过** | 显式停止工作、中断与检查点记账；见[证据](../verification/ppo_refactor_r3_20261027/REPORT.md) |
 | R4 Ubuntu 验收 | **30 项通过** | 场景证据、门控、选择与报告；[证据](../verification/ppo_refactor_r4_20261027/REPORT.md) |
 | R4 场景名册验收 | **37 项通过 + 计划下限探针** | final 30/15/15、升级 12/12/12、采集 12/12/12；[证据](../verification/ppo_refactor_r4_20261029/REPORT.md) |
+| R5 前置审计 | **5 项通过 + 受限清单** | 旧版本重放被拒收，无合格真人对局；[证据](../verification/ppo_refactor_r5_20261029/REPORT.md) |
 | R5 Ubuntu 验收 | **23 项通过** | 来源排除、20 次微型更新、恢复、BC RNG 与 manifest；[证据](../verification/ppo_refactor_r5_20261027/REPORT.md) |
 | R6 Ubuntu 验收 | **37 项通过 + 421 行逐位一致** | 奖励行合同；本地未通过项见[证据](../verification/ppo_refactor_r6_20261027/REPORT.md) |
 | R7 Ubuntu 验收 | **39 项通过 + Lua 语法通过** | 教师身份与参考角色接线；[证据](../verification/ppo_refactor_r7_20261027/REPORT.md) |
@@ -480,7 +483,7 @@ flowchart LR
 
 ### 6.2 阻塞分类
 
-- **新正式 run 的必备项：** R1–R7 实现证据已归档，含 R6 的限制。R8 已按能力证据验收，但只覆盖一个场景三局：原版教师采集/BC 仍需语料，recall/advance 标签仍未观察。R9 同样已按能力证据验收：不支持查询与 BC 调度接线就位，DAgger 以记录状态退役；但歧义攻击标签不可训练、BC 覆盖率门禁在原版攻击消歧决定前未证明。R4 场景设计与 R5 合格 rehearsal 数据前提单独保留，目前未满足。
+- **新正式 run 的必备项：** R1–R7 实现证据已归档，含 R6 的限制。R8 已按能力证据验收，但只覆盖一个场景三局：原版教师采集/BC 仍需语料，recall/advance 标签仍未观察。R9 同样已按能力证据验收：不支持查询与 BC 调度接线就位，DAgger 以记录状态退役；但歧义攻击标签不可训练、BC 覆盖率门禁在原版攻击消歧决定前未证明。R4 的下限已可由计划中的面板与采集达到（2026-10-28 验收）；R5 的 rehearsal 池仍为空——策展语料没有 1.18.8 era_default 标准多人局重放，其他版本录制的重放现被拒收，因此补入重放或授权策略 opt-in 属于数据决策。
 - **阻塞棋力结论：** R6 语料/标签质量决定与 R5 的 rehearsal 前提。R4 的下限已可由计划中的面板与采集达到，但现有语料都达不到，也没有任何语料被重写。R10 身份工作已就位。其受限检查不能代替原版采集/无干扰验收。
 - **可选能力：** 完整回合接管未证明，query 保持 none，R9 以 `unsupported_with_stock_rca` 记录而不是留作隐含。单独的 lite/native 路线测量尚未运行。
 

@@ -1,0 +1,53 @@
+{
+  "compatible_games": [
+    {
+      "format": "duel",
+      "game_id": "game_0040",
+      "split": "train"
+    },
+    {
+      "format": "duel",
+      "game_id": "game_0042",
+      "split": "train"
+    }
+  ],
+  "compatible_versions": {
+    "game_0040": "1.18.2",
+    "game_0042": "1.18.7"
+  },
+  "curated_inventory_rows": 159,
+  "curated_versions": {
+    "1.18.0": 11,
+    "1.18.2": 52,
+    "1.18.4": 11,
+    "1.18.5": 11,
+    "1.18.7": 42,
+    "1.18.8": 30,
+    "None": 2
+  },
+  "dataset_shards": [],
+  "import_observer": "native-observer-v3.1",
+  "import_samples": 0,
+  "import_statuses": {
+    "compatible_pending_native_replay": 2,
+    "skipped": 41
+  },
+  "opt_in_call_sites": [
+    "train.py:20"
+  ],
+  "opt_in_definitions": [
+    "ppo.py:update:47",
+    "train.py:train:12"
+  ],
+  "runner_passes_opt_in": [
+    false
+  ],
+  "selected_games": 43,
+  "selected_native_standard_era_default": [],
+  "selected_standard_multiplayer": 5,
+  "selected_standard_versions": {
+    "1.18.2": 4,
+    "1.18.7": 1
+  }
+}
+passed: no existing input can fill the R5 rehearsal pool
