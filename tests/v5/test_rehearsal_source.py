@@ -37,6 +37,37 @@ class RehearsalSourceTests(unittest.TestCase):
             self.assertEqual(ppo._digest(runner.model),before)
             self.assertEqual(runner.state['version'],0)
 
+    def test_runner_rehearses_ppo_on_its_own_policy_shards(self):
+        import torch
+        from unittest.mock import patch
+        from tests.test_validation_cadence import ValidationCadenceTests
+        from tests.v5 import helpers
+
+        rows = _records([('b',1,0.)])
+        rehearsal = _records([('p',1,0.)])
+        for row in rehearsal:
+            row['policy_sha256'] = 'student-sha'
+            row['split'] = 'train'
+        with helpers.temporary_directory() as root:
+            directory = root/'run'
+            directory.mkdir()
+            (root/'manifest.json').write_text('{}', encoding='utf-8')
+            runner=ValidationCadenceTests().runner(directory)
+            runner.config.update(engine='lite',epochs=1)
+            runner.model=helpers.model(seed=41)
+            runner.optimizer=torch.optim.Adam(runner.model.parameters(),lr=1e-4)
+            runner.update_deadline=lambda:float('inf')
+            runner.state['policy_shards']=['policy-shard']
+            runner.state['pending_train']=dict(method='ppo',paths=['policy'],cursor={})
+            def read(paths,**kw):
+                if paths==['policy']: return rows
+                return _bc()+rehearsal if 'policy-shard' in paths else _bc()
+            with patch('learning.experiment.read_shards',side_effect=read):
+                self.assertTrue(runner.finish_train())
+            history=runner.state['history'][-1]
+            self.assertEqual(history['rehearsal_sources'],[dict(source='policy',teacher_impl=None,sha256='student-sha')])
+            self.assertEqual(history['rehearsal_rows_excluded'],2)
+
     def test_sha_exclusion_does_not_confuse_environment_with_label_source(self):
         from learning.data import BCSampler
 
