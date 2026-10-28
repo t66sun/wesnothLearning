@@ -27,6 +27,14 @@ def rank_points(players, survivors, eliminated, faults):
                       for other in range(1,players+1) if other!=side) for side in range(1,players+1)}
 
 
+NATIVE_LOG_LIMIT = 80 * 1024 * 1024
+
+
+def log_exceeded(size):
+    """A 60-turn 2v2 native game can emit more than the old 16 MiB cap."""
+    return size > NATIVE_LOG_LIMIT
+
+
 def play_game(bots, seed=1, factions=None, timeout=P.ACTION_TIMEOUT, first_timeout=P.FIRST_TIMEOUT,
               max_turns=P.MAX_TURNS, lenient=False, replay_path=None, fog=True, wesnoth=None,
               visible=False, human_side=0, learning=None, experiment_deadline=None, map_override=None, teams=None,
@@ -168,7 +176,7 @@ def play_game(bots, seed=1, factions=None, timeout=P.ACTION_TIMEOUT, first_timeo
                     if 'error scripting/lua:' in line or 'error config:' in line:
                         scripting_error = True
                     log_bytes += 0 if is_learning else len(line)
-                    if log_bytes>16*1024*1024: raise RuntimeError('native log exceeds 16 MiB')
+                    if log_exceeded(log_bytes): raise RuntimeError(f'native log exceeds {NATIVE_LOG_LIMIT // (1024 * 1024)} MiB')
                     if not line.startswith(prefix): continue
                     kind, text = line[len(prefix):].split(' ',1)
                     event = json.loads(text)
