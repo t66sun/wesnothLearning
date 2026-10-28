@@ -1,0 +1,21 @@
+test_runner_collects_stock_games_without_a_teacher_seat (tests.v5.test_teacher_protocol.TeacherProtocolTests.test_runner_collects_stock_games_without_a_teacher_seat) ... ERROR
+
+======================================================================
+ERROR: test_runner_collects_stock_games_without_a_teacher_seat (tests.v5.test_teacher_protocol.TeacherProtocolTests.test_runner_collects_stock_games_without_a_teacher_seat)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/acceptance_ppo_r9b_20261029/source/tests/v5/test_teacher_protocol.py", line 80, in test_runner_collects_stock_games_without_a_teacher_seat
+    jobs = runner.teacher_batch(1, 0, False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/acceptance_ppo_r9b_20261029/source/learning/experiment.py", line 353, in teacher_batch
+    return teacher_jobs(self.directory,self.teachers,self.native_fixed if anchor else self.fixed,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/acceptance_ppo_r9b_20261029/source/learning/schedule.py", line 93, in teacher_jobs
+    if record['query']=='none': raise ValueError('teacher has no query capability; use full native event capture')
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: teacher has no query capability; use full native event capture
+
+----------------------------------------------------------------------
+Ran 1 test in 1.139s
+
+FAILED (errors=1)

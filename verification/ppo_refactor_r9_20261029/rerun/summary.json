@@ -1,0 +1,180 @@
+{
+  "id": "stock-00000-duel-t0",
+  "status": "complete",
+  "result": {
+    "bots": [
+      "baseline",
+      "baseline"
+    ],
+    "seed": 2292032331,
+    "turns": 4,
+    "winner": 1,
+    "survivors": [
+      1
+    ],
+    "reason": "last_leader",
+    "faults": {},
+    "rank_points": {
+      "1": 1,
+      "2": 0
+    },
+    "eliminated": {
+      "2": 4
+    },
+    "seconds": 2.4382,
+    "actions": 0,
+    "factions": [
+      "Drakes",
+      "Knalgan Alliance"
+    ],
+    "spawns": [
+      [
+        3,
+        7
+      ],
+      [
+        13,
+        7
+      ]
+    ],
+    "lenient": false,
+    "native_replay": "/home/tongshu/myDev/wesnothLearning/acceptance_ppo_r9b_20261029/probe/run/replays/stock-00000-duel-t0.replay.gz",
+    "rules_version": "wesnoth-1.18.8-native-v2"
+  },
+  "meta": {
+    "format": "duel",
+    "teacher": "baseline",
+    "teacher_identity": {
+      "kind": "wesnoth_default_rca",
+      "version": "1.18.8",
+      "rules_sha256": "d6fceafe7d0c9c67c750551b9901dbfb2b22290992a8daa1616a460e11826dca",
+      "capture_sha256": "26d2894a09ccc66e5d7274d684644815d659d56b0110b0f0d22a83eb0e539557",
+      "query": "none",
+      "action_source": "engine_events",
+      "runtime_sha256": "33f64aa3f5ee40228bd44e357b3f4d784121d4392ff774d6c059c7defa3e5fcf"
+    },
+    "seat": null,
+    "rotation": 0,
+    "phase": "teacher",
+    "map": "arena2",
+    "map_sha256": "654da578da1aa8499f0c1c7f7735c59cfe13737382ebd946d3e021509e998cc4",
+    "map_partition": "train"
+  },
+  "reward_diagnostics": [],
+  "training_eligible": true,
+  "training_shard": {
+    "written": 7,
+    "raw_records": 30,
+    "excluded": null
+  },
+  "stock_coverage": {
+    "recruit": {
+      "matched": 3,
+      "unmatched": 0,
+      "ambiguous": 0,
+      "merged": 9
+    },
+    "recall": {
+      "matched": 0,
+      "unmatched": 0,
+      "ambiguous": 0,
+      "merged": 0
+    },
+    "moveto": {
+      "matched": 2,
+      "unmatched": 1,
+      "ambiguous": 7,
+      "merged": 16
+    },
+    "attack": {
+      "matched": 2,
+      "unmatched": 1,
+      "ambiguous": 14,
+      "merged": 0
+    },
+    "advance": {
+      "matched": 0,
+      "unmatched": 0,
+      "ambiguous": 0,
+      "merged": 0
+    }
+  },
+  "coverage": {
+    "total": 34,
+    "matched": 7,
+    "all_actions": 55,
+    "all_matched": 7,
+    "kinds": {
+      "recruit": {
+        "matched": 3,
+        "unmatched": 0,
+        "ambiguous": 0,
+        "merged": 9,
+        "total": 12
+      },
+      "recall": {
+        "matched": 0,
+        "unmatched": 0,
+        "ambiguous": 0,
+        "merged": 0,
+        "total": 0
+      },
+      "move": {
+        "matched": 2,
+        "unmatched": 1,
+        "ambiguous": 7,
+        "merged": 16,
+        "total": 19
+      },
+      "attack": {
+        "matched": 2,
+        "unmatched": 1,
+        "ambiguous": 14,
+        "merged": 0,
+        "total": 3
+      },
+      "advance": {
+        "matched": 0,
+        "unmatched": 0,
+        "ambiguous": 0,
+        "merged": 0,
+        "total": 0
+      }
+    }
+  },
+  "behavior": [],
+  "timings": [
+    15,
+    2,
+    12,
+    1,
+    16,
+    16,
+    19,
+    18,
+    14,
+    14,
+    14,
+    28,
+    28,
+    21,
+    18,
+    14,
+    8,
+    8,
+    23,
+    25,
+    20,
+    20,
+    16,
+    11,
+    22,
+    20,
+    15,
+    11,
+    19,
+    15
+  ],
+  "native_timings": [],
+  "truncated": 14
+}
