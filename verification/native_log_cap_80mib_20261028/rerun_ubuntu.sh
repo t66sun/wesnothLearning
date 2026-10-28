@@ -21,7 +21,7 @@ export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1
 {
     uname -sr
     "$python" -c 'import sys; print(sys.version)'
-    "$python" -c 'import match; print("NATIVE_LOG_LIMIT", match.NATIVE_LOG_LIMIT)'
+    "$python" -c 'from learning.common import VENDOR; import match; print("NATIVE_LOG_LIMIT", match.NATIVE_LOG_LIMIT)'
     sha256sum vendor/arena/match.py tests/v5/test_native_log_cap.py | tee "$root/logs/source.sha256"
 } > "$root/logs/environment.log" 2>&1
 "$python" -m unittest tests.v5.test_native_log_cap -v > "$root/logs/cap.log" 2>&1
