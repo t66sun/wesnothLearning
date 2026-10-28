@@ -93,7 +93,7 @@ def play_job(job):
             rows,counts=frames_to_labels(stock_frames,side=side,candidates_fn=lambda row: row['candidates'])
             records.extend(rows)
             for kind,count in counts.items():
-                aggregate=stock_coverage.setdefault(kind,dict(matched=0,unmatched=0,ambiguous=0))
+                aggregate=stock_coverage.setdefault(kind,dict(matched=0,unmatched=0,ambiguous=0,merged=0))
                 for key,value in count.items(): aggregate[key]+=value
         records.sort(key=lambda row: row.get('capture_context',float('inf')))
     matched=sum(r['choice']>=0 for r in records)
@@ -107,7 +107,7 @@ def play_job(job):
         coverage={}
         for kind,count in stock_coverage.items():
             coverage['move' if kind=='moveto' else kind]=dict(count,
-                total=count['matched']+count['unmatched'])
+                total=count['matched']+count['unmatched']+count['merged'])
         total=sum(count['total'] for count in coverage.values())
         all_actions=total+sum(count['ambiguous'] for count in stock_coverage.values())
     written=None

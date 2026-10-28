@@ -1,10 +1,5 @@
--- A zero-score observer runs before stock CAs, never executes an action.
+-- The observer scores zero: it can never act, only publish the pre-action DTO.
 local capture=wesnoth.require '~add-ons/LearningSupport/lua/stock_rca_capture/main.lua'
-local O=wesnoth.require '~add-ons/LearningSupport/lua/observation.lua'
-local C=wesnoth.require '~add-ons/LearningSupport/lua/candidates.lua'
-local S=wesnoth.require '~add-ons/LearningSupport/lua/spatial.lua'
-local schema=wesnoth.require '~add-ons/LearningSupport/lua/features.lua'
-local routing=wesnoth.require '~add-ons/LearningSupport/lua/routing.lua'
 local M={}
 function M:evaluation(cfg,data)
     if not data.probed then
@@ -13,14 +8,21 @@ function M:evaluation(cfg,data)
         table.sort(functions)
         capture.capabilities(functions,type(ai.teacher_turn)=='function' or type(ai.play_turn)=='function')
         data.probed=true
+        -- Takeover needs a supported per-turn or per-decision query hook; record
+        -- the actual runtime answer instead of assuming one.
+        for _,name in ipairs {'teacher_turn','play_turn','take_turn'} do
+            local present=type(ai[name])=='function'
+            local detail=''
+            if present then
+                local ok,res=pcall(ai[name],{})
+                present=ok
+                detail=ok and 'callable with an empty observation' or tostring(res)
+            end
+            capture.hook(name,present,detail)
+        end
     end
     data.memory=data.memory or {}
-    local obs=O.capture(data.memory)
-    local candidates,timing=C.generate(obs,200)
-    capture.context({schema=schema.version,global=obs.global,opponents=obs.opponents,
-        spatial=obs.spatial,candidates=candidates,timing=timing,side=obs.side,
-        turn=wesnoth.current.turn,format=routing.select(data.memory),version='stock-events-v1',
-        memory_write=S.memory_observation(obs)},data.memory)
+    capture.context(capture.row(data.memory),data.memory)
     return 0
 end
 function M:execution() error('zero-score stock observer must never execute') end
