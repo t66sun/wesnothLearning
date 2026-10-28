@@ -1,16 +1,15 @@
 #!/usr/bin/env bash
-# Usage: rerun_ubuntu.sh <source.tar> <expected-sha256> <root>
+# Usage: rerun_ubuntu.sh <source.tar> <expected-sha256> <root> <inputs.tar>
 set -euo pipefail
 archive=$1
 expected=$2
 root=$3
-data=/home/tongshu/myDev/wesnothLearning/training_lite30h_20261025/source/data
+inputs=$4
 test "$(sha256sum "$archive" | cut -d' ' -f1)" = "$expected"
 test ! -e "$root"
 mkdir -p "$root/logs"
 tar -xf "$archive" -C "$root"
-rm -rf "$root/data"
-ln -s "$data" "$root/data"
+tar -xf "$inputs" -C "$root"
 {
   echo "host $(uname -sri)"
   /home/tongshu/venv/bin/python - <<'PY'
