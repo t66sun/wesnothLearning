@@ -1,0 +1,11 @@
+test_control_policy_cannot_rehearse (tests.v5.test_rehearsal_source.RehearsalSourceTests.test_control_policy_cannot_rehearse) ... ok
+test_empty_pool_fails_only_when_auxiliary_loss_is_enabled (tests.v5.test_rehearsal_source.RehearsalSourceTests.test_empty_pool_fails_only_when_auxiliary_loss_is_enabled) ... ok
+test_runner_refuses_control_only_pool_before_parameter_change (tests.v5.test_rehearsal_source.RehearsalSourceTests.test_runner_refuses_control_only_pool_before_parameter_change) ... ok
+test_runner_rehearses_ppo_on_its_own_policy_shards (tests.v5.test_rehearsal_source.RehearsalSourceTests.test_runner_rehearses_ppo_on_its_own_policy_shards) ... ok
+test_sha_exclusion_does_not_confuse_environment_with_label_source (tests.v5.test_rehearsal_source.RehearsalSourceTests.test_sha_exclusion_does_not_confuse_environment_with_label_source) ... ok
+test_twenty_updates_report_only_distinct_human_rehearsal (tests.v5.test_rehearsal_source.RehearsalSourceTests.test_twenty_updates_report_only_distinct_human_rehearsal) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 4.708s
+
+OK
