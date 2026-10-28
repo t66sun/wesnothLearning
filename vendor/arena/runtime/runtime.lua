@@ -150,6 +150,9 @@ function M.done() return finished end
 function M.setup(options)
     if configured then return end
     configured, config = true, options
+    if config.stock_capture then
+        wesnoth.require('~add-ons/LearningSupport/lua/stock_rca_capture/main.lua').setup(config.stock_capture)
+    end
     wesnoth.game_events.add {name='start', first_time_only=false, action=function()
         M.emit('START', {players=#wesnoth.sides, version=wesnoth.game_config.version})
         M.emit('SNAPSHOT', M.snapshot())

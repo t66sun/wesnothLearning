@@ -52,6 +52,18 @@ def play_job(job):
     if job.get('engine','native')=='lite':
         from .lite_host import play_lite_job
         return play_lite_job(job)
+    stock_sides=job.get('learning',{}).get('stock_capture',[])
+    if stock_sides:
+        from .manifest import active_teacher
+        from .stock_rca import capture_sha256, frames_to_labels
+        from .common import sha256
+        teacher=active_teacher(dict(teacher=job.get('teacher_identity')))
+        if teacher['kind']!='wesnoth_default_rca' or teacher['capture_sha256']!=capture_sha256():
+            raise ValueError('stock capture differs from the frozen teacher')
+        if teacher.get('runtime_sha256')!=sha256(job['wesnoth']):
+            raise ValueError('stock capture runtime differs from the frozen teacher')
+        if any(job['bots'][side-1]!='baseline' for side in stock_sides):
+            raise ValueError('stock capture cannot label an addon controller')
     try:
         result = match.play_game(bots=job['bots'], seed=job['seed'], factions=job['factions'],
             max_turns=job.get('max_turns',30), wesnoth=job['wesnoth'], replay_path=output,
@@ -63,23 +75,41 @@ def play_job(job):
     except RuntimeError as exc:
         status='budget_interrupted' if 'experiment_budget_interrupted' in str(exc) else 'infrastructure_error'
         return dict(id=job['id'], status=status, error=str(exc))
-    records=[];native_timings=[];bootstraps={};metric_snapshots=[]
+    records=[];native_timings=[];bootstraps={};metric_snapshots=[];stock_frames=[]
     event_path=output.with_suffix('.events.jsonl.gz') if job.get('learning') else output.with_suffix('.events.jsonl')
     event_stream=gzip.open(event_path,'rt',encoding='utf-8') if job.get('learning') else event_path.open(encoding='utf-8')
     with event_stream as stream:
         for line in stream:
             event=json.loads(line)
             if event['event']=='LEARN': records.append(event['data'])
+            elif event['event']=='STOCK': stock_frames.append(event['data'])
             elif event['event']=='METRIC': metric_snapshots.append(event['data'])
             elif event['event']=='BOOTSTRAP':bootstraps[str(event['data']['side'])]=event['data']
             elif event['event']=='RETURN' and 'elapsed_ms' in event['data']:
                 native_timings.append(event['data'])
+    stock_coverage={}
+    if stock_sides:
+        for side in stock_sides:
+            rows,counts=frames_to_labels(stock_frames,side=side,candidates_fn=lambda row: row['candidates'])
+            records.extend(rows)
+            for kind,count in counts.items():
+                aggregate=stock_coverage.setdefault(kind,dict(matched=0,unmatched=0,ambiguous=0))
+                for key,value in count.items(): aggregate[key]+=value
+        records.sort(key=lambda row: row.get('capture_context',float('inf')))
     matched=sum(r['choice']>=0 for r in records)
     coverage={}
     for kind in ('recruit','move','attack','end_turn'):
         rows=[r for r in records if (r.get('actual',{}).get('kind')==kind or kind=='attack' and r.get('actual',{}).get('kind')=='move_attack') and r.get('representable',True)]
         coverage[kind]=dict(total=len(rows),matched=sum(r['choice']>=0 for r in rows))
     eligible=[r for r in records if r.get('representable',True)]
+    total=len(eligible);all_actions=len(records)
+    if stock_sides:
+        coverage={}
+        for kind,count in stock_coverage.items():
+            coverage['move' if kind=='moveto' else kind]=dict(count,
+                total=count['matched']+count['unmatched'])
+        total=sum(count['total'] for count in coverage.values())
+        all_actions=total+sum(count['ambiguous'] for count in stock_coverage.values())
     written=None
     if job.get('shard'):
         from dataclasses import asdict
@@ -95,6 +125,11 @@ def play_job(job):
             scenario_family=job.get('scenario_family'),split_rule=job.get('split_rule','family-seed-v1'),
             map=job.get('meta',{}).get('map'),map_sha256=job.get('meta',{}).get('map_sha256'),map_partition=job.get('meta',{}).get('map_partition'),
             teammate_context=job.get('meta',{}).get('context','baseline_partner' if job.get('teams') else 'solo'))
+        if stock_sides:
+            provenance.update(teacher_impl=teacher['kind'],teacher_identity=teacher,
+                              teacher_source_sha256=teacher['runtime_sha256'],
+                              capture_sha256=teacher['capture_sha256'],action_source='engine_events',
+                              rules_sha256=teacher['rules_sha256'])
         for i,r in enumerate(records):
             r['decision']=i
             r.setdefault('candidate_version',f"schema{r.get('schema')}-"+r['timing'].get('budget','fixed-20000-v1'))
@@ -113,8 +148,9 @@ def play_job(job):
     from .reward_metrics import summarize_game
     return dict(id=job['id'],status='complete',result=result,meta=job.get('meta',{}),reward_diagnostics=summarize_game(records,result,job,snapshots=metric_snapshots),
         training_eligible=not result.get('faults') and (written is None or bool(written['written'])),training_shard=written,
-        coverage=dict(total=len(eligible),matched=sum(r['choice']>=0 for r in eligible),
-                      all_actions=len(records),all_matched=matched,kinds=coverage),
+        stock_coverage=stock_coverage,
+        coverage=dict(total=total,matched=sum(r['choice']>=0 for r in eligible),
+                      all_actions=all_actions,all_matched=matched,kinds=coverage),
         behavior=[r['diagnostics'] for r in records if r.get('diagnostics')],
         timings=timings,native_timings=native_timings,truncated=sum(r['timing']['truncated'] for r in records))
 
