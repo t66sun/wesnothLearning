@@ -1,0 +1,9 @@
+{
+  "same_seed": 20261028,
+  "baseline_snapshots_equal": false,
+  "snapshots_before": 4,
+  "snapshots_after": 4,
+  "conclusion": "measurement only; does not waive FX1 noninterference gate",
+  "total_authorised_games_used": 3,
+  "max_turns": 5
+}

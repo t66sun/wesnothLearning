@@ -77,6 +77,9 @@ def play_game(bots, seed=1, factions=None, timeout=P.ACTION_TIMEOUT, first_timeo
         if learning:
             config['learning'] = learning['sides']
             shutil.copytree(learning['support'], addondir/'LearningSupport')
+            if learning.get('stock_capture'):
+                config['stock_capture']=learning['stock_capture']
+                shutil.copytree(native.ROOT.parents[1]/'lua/stock_rca_capture',addondir/'LearningSupport/lua/stock_rca_capture')
             shutil.copyfile(native.ROOT.parents[1]/'learning/collector.lua', runtime/'collector.lua')
             teacher=learning.get('dagger_teacher')
             if teacher:

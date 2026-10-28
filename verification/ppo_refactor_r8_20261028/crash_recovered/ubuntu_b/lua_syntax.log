@@ -1,0 +1,4 @@
+lua/candidates.lua syntax PASS
+lua/stock_rca_capture/main.lua syntax PASS
+lua/stock_rca_capture/observer.lua syntax PASS
+vendor/arena/runtime/runtime.lua syntax PASS

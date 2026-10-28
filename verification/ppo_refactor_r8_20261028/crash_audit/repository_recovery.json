@@ -1,0 +1,8 @@
+{
+  "restored_branch": "codex/r8-stock-event-capture",
+  "restored_commit": "4d4144f5ff2e9587639dfea22bd9a3c3bd1c2d65",
+  "ref_before": "41 NUL bytes",
+  "working_and_index_match_before_doc_edits": true,
+  "git_fsck_full_exit": 0,
+  "implementation_unchanged_after_recovery": true
+}

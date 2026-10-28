@@ -1,0 +1,9 @@
+test_attack_event_becomes_a_label (tests.v5.test_native_capture.NativeCaptureTests.test_attack_event_becomes_a_label) ... ok
+test_attack_handler_emits_engine_event_without_hidden_target (tests.v5.test_native_capture.NativeCaptureTests.test_attack_handler_emits_engine_event_without_hidden_target) ... ok
+test_hidden_stale_and_ambiguous_actions_are_not_exact_labels (tests.v5.test_native_capture.NativeCaptureTests.test_hidden_stale_and_ambiguous_actions_are_not_exact_labels) ... ok
+test_recruit_probe_does_not_draw_a_random_facing (tests.v5.test_native_capture.NativeCaptureTests.test_recruit_probe_does_not_draw_a_random_facing) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.646s
+
+OK

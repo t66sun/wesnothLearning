@@ -36,6 +36,8 @@ def teacher_identity(kind):
     """Registered label capabilities; a native engine is not a query capability."""
     common=dict(kind=kind,version='1.18.8',rules_sha256=schema()['rules_sha256'],capture_sha256=None)
     if kind=='wesnoth_default_rca':
+        from .stock_rca import capture_sha256
+        common['capture_sha256']=capture_sha256()
         return dict(common,query='none',action_source='engine_events')
     if kind=='gpt6astra':
         from .teachers import source_digest

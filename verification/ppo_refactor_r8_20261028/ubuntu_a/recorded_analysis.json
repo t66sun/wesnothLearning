@@ -1,0 +1,101 @@
+{
+  "recorded_source": "f97b142f4060b4ca494d5b14d539d0f228e73798",
+  "coverage": {
+    "recruit": {
+      "matched": 3,
+      "unmatched": 9,
+      "ambiguous": 0
+    },
+    "recall": {
+      "matched": 0,
+      "unmatched": 0,
+      "ambiguous": 0
+    },
+    "moveto": {
+      "matched": 3,
+      "unmatched": 0,
+      "ambiguous": 2
+    },
+    "attack": {
+      "matched": 0,
+      "unmatched": 2,
+      "ambiguous": 0
+    },
+    "advance": {
+      "matched": 0,
+      "unmatched": 0,
+      "ambiguous": 0
+    }
+  },
+  "rows": 8,
+  "exact": 6,
+  "no_controller_LEARN": true,
+  "capabilities": [
+    {
+      "functions": [
+        "check_attack",
+        "check_move",
+        "check_recall",
+        "check_recruit",
+        "check_stopunit",
+        "get_attacks",
+        "get_dst_src",
+        "get_enemy_dst_src",
+        "get_enemy_src_dst",
+        "get_src_dst",
+        "get_targets",
+        "recalculate_enemy_move_maps",
+        "recalculate_move_maps",
+        "suitable_keep"
+      ],
+      "reason": "runtime Lua AI surface only; no takeover performed",
+      "side": 1,
+      "teacher_turn": false,
+      "type": "CAPABILITIES"
+    },
+    {
+      "functions": [
+        "check_attack",
+        "check_move",
+        "check_recall",
+        "check_recruit",
+        "check_stopunit",
+        "get_aggression",
+        "get_attacks",
+        "get_avoid",
+        "get_caution",
+        "get_grouping",
+        "get_leader_aggression",
+        "get_leader_goal",
+        "get_leader_ignores_keep",
+        "get_leader_value",
+        "get_new_dst_src",
+        "get_new_enemy_dst_src",
+        "get_new_enemy_src_dst",
+        "get_new_src_dst",
+        "get_passive_leader",
+        "get_passive_leader_shares_keep",
+        "get_recruitment_pattern",
+        "get_scout_village_targeting",
+        "get_simple_targeting",
+        "get_support_villages",
+        "get_targets",
+        "get_village_value",
+        "get_villages_per_scout",
+        "is_dst_src_valid",
+        "is_enemy_dst_src_valid",
+        "is_enemy_src_dst_valid",
+        "is_src_dst_valid",
+        "recalculate_enemy_move_maps",
+        "recalculate_move_maps",
+        "suitable_keep"
+      ],
+      "reason": "runtime Lua AI surface only; no takeover performed",
+      "side": 2,
+      "teacher_turn": false,
+      "type": "CAPABILITIES"
+    }
+  ],
+  "raw_sha256": "aad6d8422fc96e31697fed1e1d0a9f2427c9e546cd2b04f9695d24fe41c4cf5b",
+  "limit": "FX1 failed; full turn takeover NOT RUN; no training acceptance"
+}

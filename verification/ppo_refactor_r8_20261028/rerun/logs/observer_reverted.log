@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/acceptance_ppo_r8b_20261028/source/verification/ppo_refactor_r8_20261028/native_probe.py", line 140, in <module>
+    main()
+  File "/home/tongshu/myDev/wesnothLearning/acceptance_ppo_r8b_20261028/source/verification/ppo_refactor_r8_20261028/native_probe.py", line 105, in main
+    assert seen['unmatched'] == 0, (kind, seen)
+           ^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ('recruit', {'matched': 0, 'unmatched': 11, 'ambiguous': 0, 'merged': 0})

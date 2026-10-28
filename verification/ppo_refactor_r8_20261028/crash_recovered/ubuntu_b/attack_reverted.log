@@ -1,0 +1,17 @@
+test_attack_event_becomes_a_label (tests.v5.test_native_capture.NativeCaptureTests.test_attack_event_becomes_a_label) ... ERROR
+
+======================================================================
+ERROR: test_attack_event_becomes_a_label (tests.v5.test_native_capture.NativeCaptureTests.test_attack_event_becomes_a_label)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/acceptance_ppo_r8_20261028_b/source/tests/v5/test_native_capture.py", line 64, in test_attack_event_becomes_a_label
+    rows, coverage = frames_to_labels(attack_frames(), side=1, candidates_fn=lambda row: row['candidates'])
+                                      ^^^^^^^^^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/acceptance_ppo_r8_20261028_b/source/tests/v5/test_native_capture.py", line 23, in attack_frames
+    lua.globals().handlers['attack']()
+TypeError: 'NoneType' object is not callable
+
+----------------------------------------------------------------------
+Ran 1 test in 0.008s
+
+FAILED (errors=1)

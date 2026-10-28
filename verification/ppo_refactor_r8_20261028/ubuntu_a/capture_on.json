@@ -1,0 +1,811 @@
+{
+  "schema": 2,
+  "rules_version": "wesnoth-1.18.8-native-v2",
+  "result": {
+    "bots": [
+      "baseline",
+      "baseline"
+    ],
+    "seed": 20261028,
+    "turns": 2,
+    "winner": 1,
+    "survivors": [
+      1
+    ],
+    "reason": "last_leader",
+    "faults": {},
+    "rank_points": {
+      "1": 1,
+      "2": 0
+    },
+    "eliminated": {
+      "2": 2
+    },
+    "seconds": 1.3941,
+    "actions": 0,
+    "factions": [
+      "Loyalists",
+      "Rebels"
+    ],
+    "spawns": [
+      [
+        3,
+        7
+      ],
+      [
+        13,
+        7
+      ]
+    ],
+    "lenient": false,
+    "native_replay": "/home/tongshu/myDev/wesnothLearning/acceptance_ppo_r8_20261028_a/fixture/capture_on.replay.gz",
+    "rules_version": "wesnoth-1.18.8-native-v2"
+  },
+  "map": {
+    "id": "arena2",
+    "terrain": [
+      [
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg^Fet",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg"
+      ],
+      [
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg^Fet",
+        "Gg",
+        "Hh",
+        "Gg",
+        "Hh",
+        "Gg",
+        "Gg^Fet",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg"
+      ],
+      [
+        "Gg",
+        "Gg^Fet",
+        "Gg",
+        "Hh",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Hh",
+        "Gg",
+        "Gg^Fet",
+        "Gg"
+      ],
+      [
+        "Hh",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg^Vh",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Hh"
+      ],
+      [
+        "Gg",
+        "Gg",
+        "Gg^Vh",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg^Fet",
+        "Gg",
+        "Gg^Fet",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg^Vh",
+        "Gg",
+        "Gg"
+      ],
+      [
+        "Gg",
+        "Ch",
+        "Ch",
+        "Ch",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Hh",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Ch",
+        "Ch",
+        "Ch",
+        "Gg"
+      ],
+      [
+        "Gg^Fet",
+        "Ch",
+        "Kh",
+        "Ch",
+        "Gg^Vh",
+        "Gg",
+        "Gg",
+        "Gg^Vh",
+        "Gg",
+        "Gg",
+        "Gg^Vh",
+        "Ch",
+        "Kh",
+        "Ch",
+        "Gg^Fet"
+      ],
+      [
+        "Gg",
+        "Gg",
+        "Ch",
+        "Gg^Fet",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Hh",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg^Fet",
+        "Ch",
+        "Gg",
+        "Gg"
+      ],
+      [
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg^Fet",
+        "Gg",
+        "Gg^Fet",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg"
+      ],
+      [
+        "Hh",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg^Vh",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Hh"
+      ],
+      [
+        "Gg",
+        "Gg^Fet",
+        "Gg",
+        "Hh",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Hh",
+        "Gg",
+        "Gg^Fet",
+        "Gg"
+      ],
+      [
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg^Fet",
+        "Gg",
+        "Hh",
+        "Gg",
+        "Hh",
+        "Gg",
+        "Gg^Fet",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg"
+      ],
+      [
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg^Fet",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg"
+      ]
+    ],
+    "starts": [
+      [
+        3,
+        7
+      ],
+      [
+        13,
+        7
+      ]
+    ]
+  },
+  "frames": [
+    {
+      "gold": [
+        100,
+        100
+      ],
+      "side": 1,
+      "turn": 1,
+      "units": [
+        {
+          "hp": 47,
+          "id": "Elvish Captain-2",
+          "max_hp": 47,
+          "moves": 5,
+          "side": 2,
+          "type": "Elvish Captain",
+          "x": 13,
+          "xp": 0,
+          "y": 7
+        },
+        {
+          "hp": 40,
+          "id": "Lieutenant-1",
+          "max_hp": 40,
+          "moves": 6,
+          "side": 1,
+          "type": "Lieutenant",
+          "x": 3,
+          "xp": 0,
+          "y": 7
+        }
+      ],
+      "villages": [
+        [
+          3,
+          5,
+          0
+        ],
+        [
+          5,
+          7,
+          0
+        ],
+        [
+          8,
+          4,
+          0
+        ],
+        [
+          8,
+          7,
+          0
+        ],
+        [
+          8,
+          10,
+          0
+        ],
+        [
+          11,
+          7,
+          0
+        ],
+        [
+          13,
+          5,
+          0
+        ]
+      ]
+    },
+    {
+      "gold": [
+        2,
+        100
+      ],
+      "side": 1,
+      "turn": 1,
+      "units": [
+        {
+          "hp": 31,
+          "id": "Bowman-6",
+          "max_hp": 31,
+          "moves": 0,
+          "side": 1,
+          "type": "Bowman",
+          "x": 3,
+          "xp": 0,
+          "y": 8
+        },
+        {
+          "hp": 38,
+          "id": "Bowman-8",
+          "max_hp": 38,
+          "moves": 0,
+          "side": 1,
+          "type": "Bowman",
+          "x": 4,
+          "xp": 0,
+          "y": 7
+        },
+        {
+          "hp": 39,
+          "id": "Cavalryman-7",
+          "max_hp": 39,
+          "moves": 0,
+          "side": 1,
+          "type": "Cavalryman",
+          "x": 4,
+          "xp": 0,
+          "y": 6
+        },
+        {
+          "hp": 47,
+          "id": "Elvish Captain-2",
+          "max_hp": 47,
+          "moves": 5,
+          "side": 2,
+          "type": "Elvish Captain",
+          "x": 13,
+          "xp": 0,
+          "y": 7
+        },
+        {
+          "hp": 44,
+          "id": "Heavy Infantryman-4",
+          "max_hp": 44,
+          "moves": 0,
+          "side": 1,
+          "type": "Heavy Infantryman",
+          "x": 2,
+          "xp": 0,
+          "y": 7
+        },
+        {
+          "hp": 40,
+          "id": "Lieutenant-1",
+          "max_hp": 40,
+          "moves": 0,
+          "side": 1,
+          "type": "Lieutenant",
+          "x": 3,
+          "xp": 0,
+          "y": 5
+        },
+        {
+          "hp": 25,
+          "id": "Mage-5",
+          "max_hp": 25,
+          "moves": 0,
+          "side": 1,
+          "type": "Mage",
+          "x": 3,
+          "xp": 0,
+          "y": 6
+        },
+        {
+          "hp": 35,
+          "id": "Spearman-3",
+          "max_hp": 35,
+          "moves": 0,
+          "side": 1,
+          "type": "Spearman",
+          "x": 2,
+          "xp": 0,
+          "y": 6
+        }
+      ],
+      "villages": [
+        [
+          3,
+          5,
+          1
+        ],
+        [
+          5,
+          7,
+          0
+        ],
+        [
+          8,
+          4,
+          0
+        ],
+        [
+          8,
+          7,
+          0
+        ],
+        [
+          8,
+          10,
+          0
+        ],
+        [
+          11,
+          7,
+          0
+        ],
+        [
+          13,
+          5,
+          0
+        ]
+      ]
+    },
+    {
+      "gold": [
+        2,
+        1
+      ],
+      "side": 2,
+      "turn": 1,
+      "units": [
+        {
+          "hp": 31,
+          "id": "Bowman-6",
+          "max_hp": 31,
+          "moves": 0,
+          "side": 1,
+          "type": "Bowman",
+          "x": 3,
+          "xp": 0,
+          "y": 8
+        },
+        {
+          "hp": 38,
+          "id": "Bowman-8",
+          "max_hp": 38,
+          "moves": 0,
+          "side": 1,
+          "type": "Bowman",
+          "x": 4,
+          "xp": 0,
+          "y": 7
+        },
+        {
+          "hp": 39,
+          "id": "Cavalryman-7",
+          "max_hp": 39,
+          "moves": 0,
+          "side": 1,
+          "type": "Cavalryman",
+          "x": 4,
+          "xp": 0,
+          "y": 6
+        },
+        {
+          "hp": 30,
+          "id": "Elvish Archer-11",
+          "max_hp": 30,
+          "moves": 0,
+          "side": 2,
+          "type": "Elvish Archer",
+          "x": 13,
+          "xp": 0,
+          "y": 6
+        },
+        {
+          "hp": 34,
+          "id": "Elvish Archer-13",
+          "max_hp": 34,
+          "moves": 0,
+          "side": 2,
+          "type": "Elvish Archer",
+          "x": 14,
+          "xp": 0,
+          "y": 6
+        },
+        {
+          "hp": 47,
+          "id": "Elvish Captain-2",
+          "max_hp": 47,
+          "moves": 0,
+          "side": 2,
+          "type": "Elvish Captain",
+          "x": 8,
+          "xp": 0,
+          "y": 4
+        },
+        {
+          "hp": 34,
+          "id": "Elvish Fighter-12",
+          "max_hp": 34,
+          "moves": 0,
+          "side": 2,
+          "type": "Elvish Fighter",
+          "x": 13,
+          "xp": 0,
+          "y": 8
+        },
+        {
+          "hp": 32,
+          "id": "Elvish Scout-10",
+          "max_hp": 32,
+          "moves": 0,
+          "side": 2,
+          "type": "Elvish Scout",
+          "x": 12,
+          "xp": 0,
+          "y": 7
+        },
+        {
+          "hp": 37,
+          "id": "Elvish Scout-14",
+          "max_hp": 37,
+          "moves": 0,
+          "side": 2,
+          "type": "Elvish Scout",
+          "x": 14,
+          "xp": 0,
+          "y": 7
+        },
+        {
+          "hp": 44,
+          "id": "Heavy Infantryman-4",
+          "max_hp": 44,
+          "moves": 0,
+          "side": 1,
+          "type": "Heavy Infantryman",
+          "x": 2,
+          "xp": 0,
+          "y": 7
+        },
+        {
+          "hp": 40,
+          "id": "Lieutenant-1",
+          "max_hp": 40,
+          "moves": 0,
+          "side": 1,
+          "type": "Lieutenant",
+          "x": 3,
+          "xp": 0,
+          "y": 5
+        },
+        {
+          "hp": 25,
+          "id": "Mage-5",
+          "max_hp": 25,
+          "moves": 0,
+          "side": 1,
+          "type": "Mage",
+          "x": 3,
+          "xp": 0,
+          "y": 6
+        },
+        {
+          "hp": 34,
+          "id": "Merman Hunter-9",
+          "max_hp": 34,
+          "moves": 0,
+          "side": 2,
+          "type": "Merman Hunter",
+          "x": 12,
+          "xp": 0,
+          "y": 6
+        },
+        {
+          "hp": 35,
+          "id": "Spearman-3",
+          "max_hp": 35,
+          "moves": 0,
+          "side": 1,
+          "type": "Spearman",
+          "x": 2,
+          "xp": 0,
+          "y": 6
+        }
+      ],
+      "villages": [
+        [
+          3,
+          5,
+          1
+        ],
+        [
+          5,
+          7,
+          0
+        ],
+        [
+          8,
+          4,
+          2
+        ],
+        [
+          8,
+          7,
+          0
+        ],
+        [
+          8,
+          10,
+          0
+        ],
+        [
+          11,
+          7,
+          0
+        ],
+        [
+          13,
+          5,
+          0
+        ]
+      ]
+    },
+    {
+      "gold": [
+        1,
+        1
+      ],
+      "side": 1,
+      "turn": 2,
+      "units": [
+        {
+          "hp": 31,
+          "id": "Bowman-6",
+          "max_hp": 31,
+          "moves": 6,
+          "side": 1,
+          "type": "Bowman",
+          "x": 3,
+          "xp": 0,
+          "y": 8
+        },
+        {
+          "hp": 38,
+          "id": "Bowman-8",
+          "max_hp": 38,
+          "moves": 5,
+          "side": 1,
+          "type": "Bowman",
+          "x": 4,
+          "xp": 0,
+          "y": 7
+        },
+        {
+          "hp": 39,
+          "id": "Cavalryman-7",
+          "max_hp": 39,
+          "moves": 8,
+          "side": 1,
+          "type": "Cavalryman",
+          "x": 4,
+          "xp": 0,
+          "y": 6
+        },
+        {
+          "hp": 44,
+          "id": "Heavy Infantryman-4",
+          "max_hp": 44,
+          "moves": 4,
+          "side": 1,
+          "type": "Heavy Infantryman",
+          "x": 2,
+          "xp": 0,
+          "y": 7
+        },
+        {
+          "hp": 40,
+          "id": "Lieutenant-1",
+          "max_hp": 40,
+          "moves": 4,
+          "side": 1,
+          "type": "Lieutenant",
+          "x": 3,
+          "xp": 0,
+          "y": 7
+        },
+        {
+          "hp": 20,
+          "id": "Mage-5",
+          "max_hp": 25,
+          "moves": 0,
+          "side": 1,
+          "type": "Mage",
+          "x": 8,
+          "xp": 0,
+          "y": 5
+        },
+        {
+          "hp": 28,
+          "id": "Spearman-3",
+          "max_hp": 35,
+          "moves": 0,
+          "side": 1,
+          "type": "Spearman",
+          "x": 7,
+          "xp": 2,
+          "y": 5
+        }
+      ],
+      "villages": [
+        [
+          3,
+          5,
+          1
+        ],
+        [
+          5,
+          7,
+          0
+        ],
+        [
+          8,
+          4,
+          2
+        ],
+        [
+          8,
+          7,
+          0
+        ],
+        [
+          8,
+          10,
+          0
+        ],
+        [
+          11,
+          7,
+          0
+        ],
+        [
+          13,
+          5,
+          0
+        ]
+      ]
+    }
+  ]
+}

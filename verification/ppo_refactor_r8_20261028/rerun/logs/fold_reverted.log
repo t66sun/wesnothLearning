@@ -1,0 +1,22 @@
+EF
+======================================================================
+ERROR: test_recruit_burst_is_one_engine_decision (tests.v5.test_native_capture.NativeCaptureTests.test_recruit_burst_is_one_engine_decision)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/acceptance_ppo_r8b_20261028/source/tests/v5/test_native_capture.py", line 130, in test_recruit_burst_is_one_engine_decision
+    self.assertEqual(len(rows[0]['extra_actions']), 2)
+                         ~~~~~~~^^^^^^^^^^^^^^^^^
+KeyError: 'extra_actions'
+
+======================================================================
+FAIL: test_move_and_attack_share_one_decision (tests.v5.test_native_capture.NativeCaptureTests.test_move_and_attack_share_one_decision)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/acceptance_ppo_r8b_20261028/source/tests/v5/test_native_capture.py", line 147, in test_move_and_attack_share_one_decision
+    self.assertEqual(rows[0]['choice'], 1)
+AssertionError: 0 != 1
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.007s
+
+FAILED (failures=1, errors=1)

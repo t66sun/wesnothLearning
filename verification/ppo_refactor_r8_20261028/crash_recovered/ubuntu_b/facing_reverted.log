@@ -1,0 +1,24 @@
+test_recruit_probe_does_not_draw_a_random_facing (tests.v5.test_native_capture.NativeCaptureTests.test_recruit_probe_does_not_draw_a_random_facing) ... ERROR
+
+======================================================================
+ERROR: test_recruit_probe_does_not_draw_a_random_facing (tests.v5.test_native_capture.NativeCaptureTests.test_recruit_probe_does_not_draw_a_random_facing)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/acceptance_ppo_r8_20261028_b/source/tests/v5/test_native_capture.py", line 57, in test_recruit_probe_does_not_draw_a_random_facing
+    result=helpers.decision(engine)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/acceptance_ppo_r8_20261028_b/source/tests/v5/helpers.py", line 153, in decision
+    return load(instance.decision(side, budget_ms, teacher))
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: runtime error: observation.lua:121: probe drew random facing
+stack traceback:
+	[C]: in ?
+	[C]: in function 'assert'
+	observation.lua:121: in field 'create'
+	candidates.lua:236: in field 'generate'
+	[string "lite_host"]:225: in function 'lite_decision'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.631s
+
+FAILED (errors=1)

@@ -1,0 +1,47 @@
+[
+  {
+    "path": "verification\\ppo_refactor_r8_20261028\\ubuntu_b\\attack_reverted.log",
+    "bytes": 1089,
+    "problem": "all bytes zero"
+  },
+  {
+    "path": "verification\\ppo_refactor_r8_20261028\\ubuntu_b\\facing_reverted.log",
+    "bytes": 1359,
+    "problem": "all bytes zero"
+  },
+  {
+    "path": "verification\\ppo_refactor_r8_20261028\\ubuntu_b\\lua_syntax.log",
+    "bytes": 166,
+    "problem": "all bytes zero"
+  },
+  {
+    "path": "verification\\ppo_refactor_r8_20261028\\ubuntu_b\\restored.log",
+    "bytes": 378,
+    "problem": "all bytes zero"
+  },
+  {
+    "path": "verification\\ppo_refactor_r8_20261028\\ubuntu_b\\source_after.sha256",
+    "bytes": 381,
+    "problem": "all bytes zero"
+  },
+  {
+    "path": "verification\\ppo_refactor_r8_20261028\\ubuntu_b\\source_before.sha256",
+    "bytes": 381,
+    "problem": "all bytes zero"
+  },
+  {
+    "path": "verification\\ppo_refactor_r8_20261028\\ubuntu_b\\source_revision.log",
+    "bytes": 41,
+    "problem": "all bytes zero"
+  },
+  {
+    "path": "verification\\ppo_refactor_r8_20261028\\ubuntu_b\\status.log",
+    "bytes": 114,
+    "problem": "all bytes zero"
+  },
+  {
+    "path": "verification\\ppo_refactor_r8_20261028\\ubuntu_b\\targeted.log",
+    "bytes": 736,
+    "problem": "all bytes zero"
+  }
+]

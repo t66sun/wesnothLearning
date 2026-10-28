@@ -1,0 +1,11 @@
+Linux 7.0.0-38-generic
+3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]
+2.9.1+cpu
+Battle for Wesnoth v1.18.8 x86_64
+Started on Wed Oct 28 16:27:29 2026
+
+1.18.8
+33f64aa3f5ee40228bd44e357b3f4d784121d4392ff774d6c059c7defa3e5fcf  /home/tongshu/myDev/wesnothLearning/WesnothLearning/.runtime/install/bin/wesnoth
+d6fceafe7d0c9c67c750551b9901dbfb2b22290992a8daa1616a460e11826dca  data/rules/1.18.8-training/rules.json
+c5b31dd29138ee747f20033e66642255bc6eae79e72c85baf9e5b4899ffccd09  /home/tongshu/myDev/wesnothLearning/acceptance_ppo_r8b_20261028/deterministic_entropy.so
+45e7146a376f8f1088c3303b94e28746f31092ef

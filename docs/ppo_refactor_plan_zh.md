@@ -1,6 +1,6 @@
 # PPO 重构计划：已证实缺陷、目标结构与原版 RCA 替换
 
-状态：**实施中**。R1–R7 已于 2026-10-27 通过有界 Ubuntu 验收；R8–R10 尚未实现。R3 按下文用户批准的语义修订实施。见 [R1 证据](../verification/ppo_refactor_r1_20261027/REPORT.md)、[R2 证据](../verification/ppo_refactor_r2_20261027/REPORT.md)、[R3 证据](../verification/ppo_refactor_r3_20261027/REPORT.md)。
+状态：**实施中**。R1–R7 已于 2026-10-27 通过有界 Ubuntu 验收；R8 已于 2026-10-28 以**能力证据**验收（[19 项专项检查与受控三局原版 fixture](../verification/ppo_refactor_r8_20261028/RERUN.md)）；R9/R10 尚未实现。R3 按下文用户批准的语义修订实施。见 [R1 证据](../verification/ppo_refactor_r1_20261027/REPORT.md)、[R2 证据](../verification/ppo_refactor_r2_20261027/REPORT.md)、[R3 证据](../verification/ppo_refactor_r3_20261027/REPORT.md)。
 证据：[verification/ppo_rootcause_20261026/REPORT.md](../verification/ppo_rootcause_20261026/REPORT.md)（十一次只读探针，退出码 0，冻结 run `v5_lite30h_20261025`）。
 证据范围：一个已完成的 30 小时 CPU lite run；未训练、未跑原版对局、未改语料与检查点。
 
@@ -293,6 +293,8 @@ split           = 'validation' if int(sha256(scenario_family)[:8],16) % 5 == 0 e
 
 #### R8. 原版 RCA 事件采集与标签流水线
 
+**已于 2026-10-28 以能力证据验收：**实现 `45e7146`；FX1 在冻结默认熵后通过（三条引擎事件流逐字节一致），FX2 对每个受观察事件记账且零未匹配（招募 11 → 2 匹配 + 9 合并；移动 8 → 1 匹配 + 2 歧义 + 5 合并；攻击 5 → 3 匹配 + 2 歧义），FX3 依 2 项能力探针与 6 项钩子探针记录 `takeover='unsupported_with_stock_rca'`。Ubuntu 运行 19 项专项检查加受控三局 fixture，两项还原证明均按预期失败。见[复跑报告](../verification/ppo_refactor_r8_20261028/RERUN.md)；此前失败尝试保留在 [REPORT.md](../verification/ppo_refactor_r8_20261028/REPORT.md)。recall 与 advance 零事件，仍记为未观察；这只是能力证据，不是语料、训练或棋力。
+
 - **行为：** 原版 RCA 对局产出引擎实际执行动作的逐动作标签，带可见性标记与显式的未匹配计数。
 - **证据：** F12（19 个 CA 中 11 个是 C++，攻击与招募无法被 Lua 包装观测）；`core/macros/deprecated-utils.cfg:164` 显示全局附加包可按 side 过滤 `moveto,recruit,recall,attack,post advance,side turn`；`vendor/arena/match.py` 已采集 `LEARN` 帧与每回合 `SNAPSHOT`。
 - **模块：** 新增 `lua/stock_rca_capture/main.lua`（事件处理器 → `LEARN` 帧）、`vendor/arena/match.py` 挂载 support 附加包（一行：把采集包加入 `learning['support']`）、新增 `learning/stock_rca.py`（`frames_to_labels(frames, *, side, candidates_fn)`）、`learning/sample.py`（provenance `teacher_impl='wesnoth_default_rca'`、`action_source='engine_events'`、`capture_sha256`）。
@@ -370,7 +372,7 @@ flowchart LR
 
 ### 4.3 测试覆盖表
 
-每个阶段只附带一个新测试文件，外加一条“还原修复即失败”的断言。R1–R7 已实现并有界验收，R8–R10 的测试文件仍未编写；只有已实现且待验收的事项才进入 `TEST.md`。
+每个阶段只附带一个新测试文件，外加一条“还原修复即失败”的断言。R1–R8 已实现并有界验收；R9/R10 的测试文件仍未编写；只有已实现且待验收的事项才进入 `TEST.md`。
 
 | PR | 测试 | 还原即失败的断言 | 证明什么 | 必须保持绿色的既有套件 |
 | --- | --- | --- | --- | --- |
@@ -456,7 +458,7 @@ flowchart LR
 | Split 独立性 | **已运行** | 每格式 48 局 |
 | BC 语料场景覆盖（`k_gate_scope`） | **已运行**，退出码 0 | duel 完整（300 shard）；ffa4/2v2 取 608/400 个 shard 的前 40 个；全量 ffa4/2v2 扫描在每条命令 300 s 预算处中止，记为未跑完 |
 | 原版 RCA 候选动作清单 | **已运行**（静态，所装数据） | 19 个 CA，9 Lua / 11 C++ |
-| native 原版对局、采集、标签匹配 | **未运行** | FX1–FX3 已定义，限 3 场景 × ≤5 回合，仅作能力 fixture |
+| native 原版对局、采集、标签匹配 | **已按能力证据验收** | 三局受控；FX1 事件流逐字节一致、FX2 零未匹配、FX3 接管不支持；[证据](../verification/ppo_refactor_r8_20261028/RERUN.md) |
 | R1 Ubuntu 验收 | **27 项通过** | 场景身份、内容身份、日程与受影响读取；见[证据](../verification/ppo_refactor_r1_20261027/REPORT.md) |
 | R2 Ubuntu 验收 | **20 + 1 项通过** | 资格、计数与四人赛制更新；见[证据](../verification/ppo_refactor_r2_20261027/REPORT.md) |
 | R3 Ubuntu 验收 | **14 项通过** | 显式停止工作、中断与检查点记账；见[证据](../verification/ppo_refactor_r3_20261027/REPORT.md) |
@@ -464,14 +466,15 @@ flowchart LR
 | R5 Ubuntu 验收 | **23 项通过** | 来源排除、20 次微型更新、恢复、BC RNG 与 manifest；[证据](../verification/ppo_refactor_r5_20261027/REPORT.md) |
 | R6 Ubuntu 验收 | **37 项通过 + 421 行逐位一致** | 奖励行合同；本地未通过项见[证据](../verification/ppo_refactor_r6_20261027/REPORT.md) |
 | R7 Ubuntu 验收 | **39 项通过 + Lua 语法通过** | 教师身份与参考角色接线；[证据](../verification/ppo_refactor_r7_20261027/REPORT.md) |
-| R8–R10 Ubuntu 验收 | **未运行** | 尚未实现 |
+| R8 Ubuntu 验收 | **19 项通过 + 受控原版 fixture** | [复跑报告](../verification/ppo_refactor_r8_20261028/RERUN.md) |
+| R9/R10 Ubuntu 验收 | **未运行** | 尚未实现 |
 | BC/升级/champion/final 门、全套测试 | **未重跑** | 复用冻结 run 与 §10.15 |
 
 ### 6.2 阻塞分类
 
-- **新正式 run 的必备项：** 已验收的 R1/R2（split 与资格）及修订后 R3（显式工作记账）；尚待 R5（更新仍向面板对手倾斜）、R6（schema 必须在采集语料前冻结），以及任何以「对官方 baseline 训练」为目的的 run 所需的 R7–R8。
-- **只阻塞棋力结论：** R4、R10 与 FX1–FX3。R4 之前做出的 run 可以产出数字，但产不出可辩护的 `passed`。
-- **不阻塞任何东西：** 该 run 若不期望 DAgger，则 R9；lite/native 路线测量。
+- **新正式 run 的必备项：** R1–R7 实现证据已归档，含 R6 的限制。R8 已按能力证据验收，但只覆盖一个场景三局：原版教师采集/BC 仍需语料，recall/advance 标签仍未观察。R9 仍需补齐不支持查询/BC 调度接线。R4 场景设计与 R5 合格 rehearsal 数据前提单独保留，目前未满足。
+- **阻塞棋力结论：** R4 统计设计与 R10 报告/身份工作；其受限检查不能代替原版采集/无干扰验收。
+- **可选能力：** 完整回合接管未证明，query 保持 none；R9 仍必须显式退役不支持的 DAgger。单独的 lite/native 路线测量尚未运行。
 
 ### 6.3 下一次正式训练的前置条件（本轮未启动、未授权）
 
@@ -488,7 +491,7 @@ flowchart LR
 
 - **R1 迁移成本。** 场景键 split 使现有语料无法用于新 run。这不可避免：当前 split 无法在不重新采集的情况下事后修复，假装不是只会保留泄漏。
 - **R3 语义（用户批准修订）。** 固定 KL 拒绝终止该 batch；仅中断延迟工作，部分尝试不结算计数、不升版本。该修订明确记录停止工作，不承诺每个计划 window 都会被优化。
-- **R8 标签质量未测。** 若 FX2 显示匹配率低，原版 RCA 上的 BC 必须降低覆盖率运行，并在报告中说明；非 Astra 路径不得静默回退。
+- **R8 标签质量仅在一个场景上度量。** FX2 对每个受观察事件均匹配（零未匹配、4 项歧义），但 recall/advance 无事件；原版 RCA 上的 BC 必须报告自身覆盖，非 Astra 路径不得静默回退。
 - **F5 仍未证实。** R5 移除了一个可度量但尚未与平台期建立因果的冲突；计划不承诺强度随之上行。
 - **F8/F9 仍无法判断。** 确定性与 arena 地图占比可能比以上任何一项都重要。§5.4 的匹配引擎测量是唯一便宜的判别器，需要单独授权。
 - **不做棋力主张。** 本计划不声称重建后的循环会收敛或击败原版 RCA。A、B 阶段保证 split 不静默丢行，提交/中断/KL 停止工作显式记账，面板独立性和教师身份如实陈述。

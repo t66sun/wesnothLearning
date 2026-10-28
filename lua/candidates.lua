@@ -234,7 +234,7 @@ function M.generate(obs,budget_ms)
                 if not obs.occupied[p[1]..','..p[2]] and ai.check_recruit(name,p).ok then
                     -- Explicit detached identity prevents probes consuming native unit IDs.
                     local u=wesnoth.units.create {type=name,side=obs.side,x=p[1],y=p[2],random_traits=false,
-                        random_gender=false,generate_name=false,id='learning_probe',underlying_id=2147483647}
+                        random_gender=false,generate_name=false,facing='ne',id='learning_probe',underlying_id=2147483647}
                     add({kind='recruit',type=name,x=p[1],y=p[2]},u)
                     recruit_locations=recruit_locations+1
                     if recruit_locations>=8 then break end

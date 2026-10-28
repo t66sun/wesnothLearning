@@ -1,0 +1,14 @@
+[
+  {
+    "path": "tmp\\refactor_r8_20261028\\source.tar",
+    "expected_sha256": "d5dcd4ac2cc347c86560e57ee914dd86a95778aad1cde96b7c27c07ec8de37fd",
+    "actual_sha256": "d5dcd4ac2cc347c86560e57ee914dd86a95778aad1cde96b7c27c07ec8de37fd",
+    "match": true
+  },
+  {
+    "path": "tmp\\refactor_r8_20261028_b\\source.tar",
+    "expected_sha256": "592a77d109c1373999e869ac0b9fc39b12677a94ca1d07560995c49cda87a1dd",
+    "actual_sha256": "592a77d109c1373999e869ac0b9fc39b12677a94ca1d07560995c49cda87a1dd",
+    "match": true
+  }
+]

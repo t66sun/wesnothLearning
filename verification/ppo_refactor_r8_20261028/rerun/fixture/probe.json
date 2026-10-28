@@ -1,0 +1,189 @@
+{
+  "fx1": "passed",
+  "fx2": {
+    "recruit": {
+      "matched": 2,
+      "unmatched": 0,
+      "ambiguous": 0,
+      "merged": 9
+    },
+    "recall": {
+      "matched": 0,
+      "unmatched": 0,
+      "ambiguous": 0,
+      "merged": 0
+    },
+    "moveto": {
+      "matched": 1,
+      "unmatched": 0,
+      "ambiguous": 2,
+      "merged": 5
+    },
+    "attack": {
+      "matched": 3,
+      "unmatched": 0,
+      "ambiguous": 2,
+      "merged": 0
+    },
+    "advance": {
+      "matched": 0,
+      "unmatched": 0,
+      "ambiguous": 0,
+      "merged": 0
+    }
+  },
+  "engine_actions": {
+    "recruit": 11,
+    "moveto": 8,
+    "attack": 5,
+    "recall": 0,
+    "advance": 0
+  },
+  "contexts": {
+    "observed": 16,
+    "invalidated": 2,
+    "labels": 10,
+    "merged": {
+      "recruit": 9,
+      "moveto": 5
+    },
+    "exact": 6
+  },
+  "fx3": {
+    "surface_probes": [
+      {
+        "functions": [
+          "check_attack",
+          "check_move",
+          "check_recall",
+          "check_recruit",
+          "check_stopunit",
+          "get_attacks",
+          "get_dst_src",
+          "get_enemy_dst_src",
+          "get_enemy_src_dst",
+          "get_src_dst",
+          "get_targets",
+          "recalculate_enemy_move_maps",
+          "recalculate_move_maps",
+          "suitable_keep"
+        ],
+        "reason": "runtime Lua AI surface only; no takeover performed",
+        "side": 1,
+        "teacher_turn": false,
+        "type": "CAPABILITIES"
+      },
+      {
+        "functions": [
+          "check_attack",
+          "check_move",
+          "check_recall",
+          "check_recruit",
+          "check_stopunit",
+          "get_aggression",
+          "get_attacks",
+          "get_avoid",
+          "get_caution",
+          "get_grouping",
+          "get_leader_aggression",
+          "get_leader_goal",
+          "get_leader_ignores_keep",
+          "get_leader_value",
+          "get_new_dst_src",
+          "get_new_enemy_dst_src",
+          "get_new_enemy_src_dst",
+          "get_new_src_dst",
+          "get_passive_leader",
+          "get_passive_leader_shares_keep",
+          "get_recruitment_pattern",
+          "get_scout_village_targeting",
+          "get_simple_targeting",
+          "get_support_villages",
+          "get_targets",
+          "get_village_value",
+          "get_villages_per_scout",
+          "is_dst_src_valid",
+          "is_enemy_dst_src_valid",
+          "is_enemy_src_dst_valid",
+          "is_src_dst_valid",
+          "recalculate_enemy_move_maps",
+          "recalculate_move_maps",
+          "suitable_keep"
+        ],
+        "reason": "runtime Lua AI surface only; no takeover performed",
+        "side": 2,
+        "teacher_turn": false,
+        "type": "CAPABILITIES"
+      }
+    ],
+    "hooks": [
+      {
+        "callable": false,
+        "detail": "",
+        "name": "teacher_turn",
+        "side": 1,
+        "type": "HOOK"
+      },
+      {
+        "callable": false,
+        "detail": "",
+        "name": "play_turn",
+        "side": 1,
+        "type": "HOOK"
+      },
+      {
+        "callable": false,
+        "detail": "",
+        "name": "take_turn",
+        "side": 1,
+        "type": "HOOK"
+      },
+      {
+        "callable": false,
+        "detail": "",
+        "name": "teacher_turn",
+        "side": 2,
+        "type": "HOOK"
+      },
+      {
+        "callable": false,
+        "detail": "",
+        "name": "play_turn",
+        "side": 2,
+        "type": "HOOK"
+      },
+      {
+        "callable": false,
+        "detail": "",
+        "name": "take_turn",
+        "side": 2,
+        "type": "HOOK"
+      }
+    ],
+    "turn_query_present": false,
+    "takeover": "unsupported_with_stock_rca",
+    "reason": "1.18.8 exposes no per-turn query hook; a native per-decision Lua CA cannot reach an out-of-process policy, so R9 keeps query=none and DAgger retired"
+  },
+  "stream": {
+    "shim": {
+      "path": "/home/tongshu/myDev/wesnothLearning/acceptance_ppo_r8b_20261028/deterministic_entropy.so",
+      "sha256": "c5b31dd29138ee747f20033e66642255bc6eae79e72c85baf9e5b4899ffccd09"
+    },
+    "off": "7f5a38852981e9f6db257510e0c43e6d853a579647949d986578a17b8eaa4bb5",
+    "off_repeat": "7f5a38852981e9f6db257510e0c43e6d853a579647949d986578a17b8eaa4bb5",
+    "on": "7f5a38852981e9f6db257510e0c43e6d853a579647949d986578a17b8eaa4bb5"
+  },
+  "identity": {
+    "kind": "wesnoth_default_rca",
+    "version": "1.18.8",
+    "rules_sha256": "d6fceafe7d0c9c67c750551b9901dbfb2b22290992a8daa1616a460e11826dca",
+    "capture_sha256": "26d2894a09ccc66e5d7274d684644815d659d56b0110b0f0d22a83eb0e539557",
+    "query": "none",
+    "action_source": "engine_events",
+    "runtime_sha256": "33f64aa3f5ee40228bd44e357b3f4d784121d4392ff774d6c059c7defa3e5fcf"
+  },
+  "games": 3,
+  "scenarios": 1,
+  "max_turns": 5,
+  "limits": "Capability only; no strength, full coverage or training acceptance"
+}
