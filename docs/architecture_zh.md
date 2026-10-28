@@ -305,6 +305,7 @@ data/rules/1.18.8/         历史旧规则包及原版冻结地图，保留原�
 data/datasets/             数据集导入输入；目前为 human/import.json
 data/humanData/            从游戏安装目录拉取的原始回放
 data/humanData_curated/    用于 BC 的 1.18.8 精选回放
+data/replays/<YYYYMM>/     从 replays.wesnoth.org 拉取的整月回放归档
 data/opponents/            冻结的参考对手包
 data/references/           第三方源码摘录，不入库
 runs/<run>/<format>/       独立训练状态、权重、调度与策略历史
