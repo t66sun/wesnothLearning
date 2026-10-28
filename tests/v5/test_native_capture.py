@@ -2,20 +2,23 @@
 import unittest
 
 
-def lua_run(actions=('attack',), target_visible=True):
+def lua_run(actions=('attack',), target_visible=True, weapon=None, attacks=()):
     """Run engine events through the real capture module on stubbed host modules."""
     from pathlib import Path
     from lupa import LuaRuntime, lua_type
 
     lua = LuaRuntime(unpack_returned_tuples=True)
     lua.globals().target_visible = target_visible
+    lua.globals().attacks = lua.table_from([lua.table_from(dict(a)) for a in attacks])
+    lua.globals().weapon = lua.table_from(dict(weapon)) if weapon is not None else None
     lua.execute('''
         handlers={}; frames={}
         wesnoth={current={side=1,turn=2,event_context={x1=2,y1=3,x2=3,y2=3}},
           sides={{controller='ai'}},wml_actions={modify_ai=function() end},
           game_events={add=function(e) handlers[e.name]=e.action end},
           units={find_on_map=function(f)
-            if f.x==2 or target_visible then return {{type='Spearman'}} else return {} end end},
+            if f.x==2 or target_visible then return {{type='Spearman',attacks=attacks}} else return {} end end},
+          get_variable=function(name) if name=='weapon' then return weapon end end,
           require=function(name)
             if name:match('observation%.lua$') then return {capture=function(memory,side)
                 return {side=side,global={},opponents={},spatial={},villages={}} end} end
@@ -159,7 +162,7 @@ return M''')
         self.assertEqual(coverage['recruit']['matched'], 1)
         self.assertEqual(coverage['recruit']['unmatched'], 1)
 
-    def test_hidden_stale_and_ambiguous_actions_are_not_exact_labels(self):
+    def test_hidden_and_stale_actions_are_not_exact_labels(self):
         from learning.stock_rca import frames_to_labels
 
         candidates = [dict(kind='move', x=2, y=3, tx=3, ty=3, full=full) for full in (True, False)]
@@ -168,11 +171,59 @@ return M''')
         frames = [dict(context(1, candidates), row=dict(secret='referee', candidates=candidates)),
                   move, context(2, candidates), dict(move, context=2, visible=False)]
         rows, coverage = frames_to_labels(frames, side=1, candidates_fn=lambda row: row['candidates'])
-        self.assertEqual(coverage['moveto'], dict(matched=0, unmatched=1, ambiguous=1, merged=0))
+        self.assertEqual(coverage['moveto'], dict(matched=1, unmatched=1, ambiguous=0, merged=0))
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0]['capture_context'], 1)
+        self.assertNotIn('secret', rows[0])
+
+    def test_scoring_variants_of_one_move_are_not_ambiguous(self):
+        from learning.stock_rca import frames_to_labels
+
+        candidates = [dict(kind='move', x=2, y=3, tx=3, ty=3, used=5, full=full) for full in (True, False)]
+        frames = [context(1, candidates),
+                  dict(type='ACTION', seq=1, context=1, side=1, turn=2, kind='moveto',
+                       unit=dict(x=2, y=3), to=dict(x=3, y=3), visible=True)]
+        rows, coverage = frames_to_labels(frames, side=1, candidates_fn=lambda row: row['candidates'])
+        self.assertEqual(len(rows), 1)
+        self.assertFalse(rows[0]['label_ambiguous'])
+        self.assertEqual(rows[0]['choice'], 0)
+        self.assertEqual(coverage['moveto'], dict(matched=1, unmatched=0, ambiguous=0, merged=0))
+
+    def test_two_weapons_leave_one_action_ambiguous(self):
+        from learning.stock_rca import frames_to_labels
+
+        candidates = [dict(kind='attack', x=2, y=3, tx=3, ty=3, weapon=weapon) for weapon in (1, 2)]
+        frame = action_frames(lua_run(('attack',)))[0]
+        rows, coverage = frames_to_labels([context(1, candidates), frame], side=1,
+                                          candidates_fn=lambda row: row['candidates'])
         self.assertEqual(len(rows), 1)
         self.assertTrue(rows[0]['label_ambiguous'])
         self.assertEqual(rows[0]['choice'], -1)
-        self.assertNotIn('secret', rows[0])
+        self.assertEqual(coverage['attack'], dict(matched=0, unmatched=0, ambiguous=1, merged=0))
+
+    def test_attack_names_the_weapon_the_engine_reports(self):
+        from learning.stock_rca import frames_to_labels
+
+        attacks = [dict(name='axe', type='blade', number=3, damage=7),
+                   dict(name='bow', type='pierce', number=2, damage=6)]
+        frame = action_frames(lua_run(('attack',), weapon=attacks[1], attacks=attacks))[0]
+        self.assertEqual(frame['weapon'], 2)
+        candidates = [dict(kind='attack', x=2, y=3, tx=3, ty=3, weapon=weapon) for weapon in (1, 2)]
+        rows, coverage = frames_to_labels([context(1, candidates), frame], side=1,
+                                          candidates_fn=lambda row: row['candidates'])
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0]['choice'], 1)
+        self.assertFalse(rows[0]['label_ambiguous'])
+        self.assertEqual(coverage['attack'], dict(matched=1, unmatched=0, ambiguous=0, merged=0))
+
+    def test_stock_totals_count_decisions_not_events(self):
+        from learning.sample import stock_totals
+
+        coverage = stock_totals({'moveto': dict(matched=2, unmatched=1, ambiguous=3, merged=9),
+                                 'attack': dict(matched=4, unmatched=0, ambiguous=0, merged=0)})
+        self.assertEqual(coverage['move']['total'], 6)
+        self.assertEqual(coverage['attack']['total'], 4)
+        self.assertEqual(sum(count['total'] for count in coverage.values()), 10)
 
     def test_attack_handler_emits_engine_event_without_hidden_target(self):
         frame = action_frames(lua_run(('attack',), target_visible=False))[0]

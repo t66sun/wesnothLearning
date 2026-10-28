@@ -20,6 +20,16 @@ def capture_sha256_from(digests):
     return hashlib.sha256(''.join(name + ':' + digest + '\n' for name, digest in rows).encode()).hexdigest()
 
 
+INTENT = dict(recruit=('kind', 'type', 'x', 'y'), move=('kind', 'x', 'y', 'tx', 'ty'),
+              attack=('kind', 'x', 'y', 'tx', 'ty', 'weapon'),
+              move_attack=('kind', 'x', 'y', 'tx', 'ty', 'ex', 'ey', 'weapon'))
+
+
+def intent(candidate):
+    """Public fields that name the action, ignoring candidate scoring fields."""
+    fields = INTENT.get(candidate.get('kind'), ('kind',))
+    return tuple(candidate.get(field) for field in fields)
+
 def frames_to_labels(frames, *, side, candidates_fn):
     """One observer context labels the events of one engine decision.
 
@@ -50,8 +60,12 @@ def frames_to_labels(frames, *, side, candidates_fn):
         candidates = candidates_fn(deepcopy(row))
         matches = [i for i, c in enumerate(candidates)
                    if all(value is not None and c.get(key) == value for key, value in actual.items())]
-        ambiguous = len(matches) > 1
-        choice = matches[0] if len(matches) == 1 else -1
+        # One action can appear as several scoring variants (a full move and a
+        # stop-short move name the same destination). They are one intent, so the
+        # label stays unique; only intents that differ are ambiguous.
+        intents = {intent(candidates[i]) for i in matches}
+        ambiguous = len(intents) > 1
+        choice = matches[0] if matches and not ambiguous else -1
         coverage[kind]['ambiguous' if ambiguous else 'matched' if choice >= 0 else 'unmatched'] += 1
         if choice >= 0:
             # The label is the matched candidate itself, so validation can compare
@@ -77,10 +91,12 @@ def frames_to_labels(frames, *, side, candidates_fn):
             unit, dest, target = move.get('unit', {}), move.get('to', {}), strike.get('target', {})
             if strike.get('unit') == dest and target:
                 coverage['moveto']['merged'] += 1
-                record('attack', context,
-                       dict(kind='move_attack', x=unit.get('x'), y=unit.get('y'),
-                            tx=dest.get('x'), ty=dest.get('y'),
-                            ex=target.get('x'), ey=target.get('y')),
+                actual = dict(kind='move_attack', x=unit.get('x'), y=unit.get('y'),
+                              tx=dest.get('x'), ty=dest.get('y'),
+                              ex=target.get('x'), ey=target.get('y'))
+                if strike.get('weapon') is not None:
+                    actual['weapon'] = strike['weapon']
+                record('attack', context, actual,
                        move.get('visible') is True and strike.get('visible') is True)
                 return
         if len(actions) > 1 and set(kinds) == {'recruit'}:

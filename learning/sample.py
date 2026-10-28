@@ -106,12 +106,9 @@ def play_job(job):
     eligible=[r for r in records if r.get('representable',True)]
     total=len(eligible);all_actions=len(records)
     if stock_sides:
-        coverage={}
-        for kind,count in stock_coverage.items():
-            coverage['move' if kind=='moveto' else kind]=dict(count,
-                total=count['matched']+count['unmatched']+count['merged'])
+        coverage=stock_totals(stock_coverage)
         total=sum(count['total'] for count in coverage.values())
-        all_actions=total+sum(count['ambiguous'] for count in stock_coverage.values())
+        all_actions=total+sum(count['merged'] for count in stock_coverage.values())
     written=None
     if job.get('shard'):
         from dataclasses import asdict
@@ -155,6 +152,21 @@ def play_job(job):
                       all_actions=all_actions,all_matched=matched,kinds=coverage),
         behavior=[r['diagnostics'] for r in records if r.get('diagnostics')],
         timings=timings,native_timings=native_timings,truncated=sum(r['timing']['truncated'] for r in records))
+
+
+def stock_totals(stock_coverage):
+    """Per-kind label coverage; merged events are reported but never counted.
+
+    A merged event has no label of its own: the decision's label names the composed
+    action (move_attack) or the first recruit of a batch, so counting it in that
+    kind's denominator would demand a label the engine never emitted. An ambiguous
+    event stays in the denominator: it is an event the capture failed to name.
+    """
+    coverage={}
+    for kind,count in stock_coverage.items():
+        coverage['move' if kind=='moveto' else kind]=dict(count,
+            total=count['matched']+count['unmatched']+count['ambiguous'])
+    return coverage
 
 
 def collect(jobs, workers, log_path):
