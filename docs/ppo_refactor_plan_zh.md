@@ -332,7 +332,7 @@ split           = 'validation' if int(sha256(scenario_family)[:8],16) % 5 == 0 e
 - **回退：** 回滚；Astra `teacher()` 于显式 impl 后回归。
 - **完成条件：** 除非 manifest 声明 `kind='gpt6astra'`，任何代码路径都无法产出 Astra 动作。
 
-**2026-10-28 以能力证据验收**（[报告](../verification/ppo_refactor_r9_20261029/REPORT.md)）：23 项 Ubuntu 专项检查通过；一局真实原版教师对局（两端均 `baseline`、无教师查询）从 30 行记录中产出 7 个精确标注决策，`query=none` 与 `dagger_status=unsupported_with_stock_rca` 写入状态与报告。还原 job 构建器的路由后 `test_runner_collects_stock_games_without_a_teacher_seat` 失败。报告同时写明本证据未证明的部分：只覆盖一个场景四回合；17 个攻击事件中 14 个因 1.18.8 不暴露武器序号而歧义，歧义标签不可训练，BC 覆盖率门禁在做出“原版攻击消歧”决定前仍未证明。这是 R6 的语料/标签质量前提，不是接线缺陷。
+**2026-10-28 以能力证据验收**（[报告](../verification/ppo_refactor_r9_20261029/REPORT.md)）：23 项 Ubuntu 专项检查通过；一局真实原版教师对局（两端均 `baseline`、无教师查询）从 30 行记录中产出 7 个精确标注决策，`query=none` 与 `dagger_status=unsupported_with_stock_rca` 写入状态与报告。还原 job 构建器的路由后 `test_runner_collects_stock_games_without_a_teacher_seat` 失败。报告同时写明本证据未证明的部分：只覆盖一个场景四回合；17 个攻击事件中 14 个在当时未捕获武器序号而歧义。R8b 随后正是关闭这一点：攻击事件现给出引擎所报武器，两局真实对局以零歧义事件通过覆盖率门禁；R6 剩下的前提是语料、候选预算与训练长度日志上限，而非标签质量决定。
 
 #### R10. 语料、打包与报告身份
 
