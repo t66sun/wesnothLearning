@@ -1,6 +1,6 @@
 # PPO 重构计划：已证实缺陷、目标结构与原版 RCA 替换
 
-状态：**实施中**。R1–R7 已于 2026-10-27 通过有界 Ubuntu 验收；R8 已于 2026-10-28 以**能力证据**验收（[19 项专项检查与受控三局原版 fixture](../verification/ppo_refactor_r8_20261028/RERUN.md)）；R9 已于 2026-10-28 以**能力证据**验收（[23 项专项检查与一局真实原版教师对局](../verification/ppo_refactor_r9_20261029/REPORT.md)）；R10 尚未实现。R3 按下文用户批准的语义修订实施。见 [R1 证据](../verification/ppo_refactor_r1_20261027/REPORT.md)、[R2 证据](../verification/ppo_refactor_r2_20261027/REPORT.md)、[R3 证据](../verification/ppo_refactor_r3_20261027/REPORT.md)。
+状态：**实施中**。R1–R7 已于 2026-10-27 通过有界 Ubuntu 验收；R8 已于 2026-10-28 以**能力证据**验收（[19 项专项检查与受控三局原版 fixture](../verification/ppo_refactor_r8_20261028/RERUN.md)）；R9 已于 2026-10-28 以**能力证据**验收（[23 项专项检查与一局真实原版教师对局](../verification/ppo_refactor_r9_20261029/REPORT.md)）；R10 已于 2026-10-28 以**能力证据**验收（[33 项专项检查与可复现的仓库 bundle](../verification/ppo_refactor_r10_20261029/REPORT.md)）。R3 按下文用户批准的语义修订实施。见 [R1 证据](../verification/ppo_refactor_r1_20261027/REPORT.md)、[R2 证据](../verification/ppo_refactor_r2_20261027/REPORT.md)、[R3 证据](../verification/ppo_refactor_r3_20261027/REPORT.md)。
 证据：[verification/ppo_rootcause_20261026/REPORT.md](../verification/ppo_rootcause_20261026/REPORT.md)（十一次只读探针，退出码 0，冻结 run `v5_lite30h_20261025`）。
 证据范围：一个已完成的 30 小时 CPU lite run；未训练、未跑原版对局、未改语料与检查点。
 
@@ -343,6 +343,8 @@ split           = 'validation' if int(sha256(scenario_family)[:8],16) % 5 == 0 e
 - **回退：** 回滚。
 - **完成条件：** 打包的原版 RCA run 仅凭 manifest 即可自述身份。
 
+**验收（2026-10-28）。** 已实现：`learning/bundle.py` 写入 `identities.teacher`（kind、version、query、动作来源、规则与采集哈希、声明的包），并丢弃教师未声明的全部对手包，因此原版 bundle 一个都不打包；校验器从随包采集源码重算两个哈希，并拒绝教师不需要的对手成员；没有 `identities` 的 manifest 保持历史含义。`learning/evaluate.py:gate_design` 记录 `split_rule`，`learning/report.py` 打印教师行与切分规则。Ubuntu 验收：33 项专项检查（`tests/v5/test_bundle_identity.py`、`tests/test_bundle.py`、`tests/test_bundle_scripts.py`），随后对解包源码执行真实 `python -m learning bundle`——重复构建字节一致、`verify-bundle` 无错误、preflight 通过、321 个文件、教师为 `wesnoth_default_rca` 且 `query: none`、`packages: []`、采集哈希 `26d2894a…` 与随包 LF 源码一致、无 `data/opponents/` 成员。还原（打包所有包、去掉 `identities`）会使 `test_bundle_omits_unused_teacher` 失败。证据见 [R10 报告](../verification/ppo_refactor_r10_20261029/REPORT.md)。记录一处决策冲突：本阶段的接口行提到池级 `corpus_id`，但未实现——身份已由教师记录、`rules_sha256` 与分片清单承载，且没有消费者读取独立语料 id。限制：bundle 仅静态校验，未安装也未从其中启动任何 run；目前只有原版教师这一种形态，可查询教师各自声明自己的包，其报告路径未被测试。
+
 ### 4.1 顺序、依赖与规模
 
 ```mermaid
@@ -374,7 +376,7 @@ flowchart LR
 
 ### 4.3 测试覆盖表
 
-每个阶段只附带一个新测试文件，外加一条“还原修复即失败”的断言。R1–R9 已实现并有界验收；R10 的测试文件仍未编写；只有已实现且待验收的事项才进入 `TEST.md`。
+每个阶段只附带一个新测试文件，外加一条“还原修复即失败”的断言。R1–R10 已实现并有界验收；只有已实现且待验收的事项才进入 `TEST.md`。
 
 | PR | 测试 | 还原即失败的断言 | 证明什么 | 必须保持绿色的既有套件 |
 | --- | --- | --- | --- | --- |
@@ -470,13 +472,13 @@ flowchart LR
 | R7 Ubuntu 验收 | **39 项通过 + Lua 语法通过** | 教师身份与参考角色接线；[证据](../verification/ppo_refactor_r7_20261027/REPORT.md) |
 | R8 Ubuntu 验收 | **19 项通过 + 受控原版 fixture** | [复跑报告](../verification/ppo_refactor_r8_20261028/RERUN.md) |
 | R9 Ubuntu 验收 | **23 项通过 + 一局真实原版教师对局** | 教师协议、无教师席位、7 个已标注决策；[证据](../verification/ppo_refactor_r9_20261029/REPORT.md) |
-| R10 Ubuntu 验收 | **未运行** | 尚未实现 |
+| R10 Ubuntu 验收 | **33 项通过 + 可复现 bundle** | 教师身份、不打包未使用包、verify/preflight 无错误；[证据](../verification/ppo_refactor_r10_20261029/REPORT.md) |
 | BC/升级/champion/final 门、全套测试 | **未重跑** | 复用冻结 run 与 §10.15 |
 
 ### 6.2 阻塞分类
 
 - **新正式 run 的必备项：** R1–R7 实现证据已归档，含 R6 的限制。R8 已按能力证据验收，但只覆盖一个场景三局：原版教师采集/BC 仍需语料，recall/advance 标签仍未观察。R9 同样已按能力证据验收：不支持查询与 BC 调度接线就位，DAgger 以记录状态退役；但歧义攻击标签不可训练、BC 覆盖率门禁在原版攻击消歧决定前未证明。R4 场景设计与 R5 合格 rehearsal 数据前提单独保留，目前未满足。
-- **阻塞棋力结论：** R4 统计设计与 R10 报告/身份工作；其受限检查不能代替原版采集/无干扰验收。
+- **阻塞棋力结论：** R4 统计设计；R10 身份工作已就位。其受限检查不能代替原版采集/无干扰验收。
 - **可选能力：** 完整回合接管未证明，query 保持 none，R9 以 `unsupported_with_stock_rca` 记录而不是留作隐含。单独的 lite/native 路线测量尚未运行。
 
 ### 6.3 下一次正式训练的前置条件（本轮未启动、未授权）

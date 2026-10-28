@@ -1,0 +1,40 @@
+test_a_teacher_package_must_be_declared (tests.v5.test_bundle_identity.BundleIdentityTests.test_a_teacher_package_must_be_declared)
+An opponent the stock teacher cannot read never verifies as part of the archive. ... ok
+test_an_undeclared_member_fails_verification (tests.v5.test_bundle_identity.BundleIdentityTests.test_an_undeclared_member_fails_verification) ... ok
+test_bundle_omits_unused_teacher (tests.v5.test_bundle_identity.BundleIdentityTests.test_bundle_omits_unused_teacher) ... ok
+test_historical_manifest_without_identities_keeps_its_opponents (tests.v5.test_bundle_identity.BundleIdentityTests.test_historical_manifest_without_identities_keeps_its_opponents)
+Bundles built before R10 keep the manifest they were shipped with. ... ok
+test_identity_matches_the_shipped_capture_sources (tests.v5.test_bundle_identity.BundleIdentityTests.test_identity_matches_the_shipped_capture_sources) ... ok
+test_sums_cover_every_shipped_file (tests.v5.test_bundle_identity.BundleIdentityTests.test_sums_cover_every_shipped_file) ... ok
+test_build_produces_installable_archive (tests.test_bundle.BundleTests.test_build_produces_installable_archive) ... ok
+test_build_rejects_inconsistent_rule_counts (tests.test_bundle.BundleTests.test_build_rejects_inconsistent_rule_counts) ... ok
+test_build_rejects_rule_source_hash_mismatch (tests.test_bundle.BundleTests.test_build_rejects_rule_source_hash_mismatch) ... ok
+test_cli_help_exposes_both_commands (tests.test_bundle.BundleTests.test_cli_help_exposes_both_commands) ... ok
+test_local_state_and_reference_data_are_excluded (tests.test_bundle.BundleTests.test_local_state_and_reference_data_are_excluded) ... ok
+test_modes_are_fixed_for_extraction (tests.test_bundle.BundleTests.test_modes_are_fixed_for_extraction) ... ok
+test_require_wheel_rejects_archive_without_wheel (tests.test_bundle.BundleTests.test_require_wheel_rejects_archive_without_wheel) ... ok
+test_same_created_at_reproduces_bytes (tests.test_bundle.BundleTests.test_same_created_at_reproduces_bytes) ... ok
+test_verifier_rejects_forbidden_path (tests.test_bundle.BundleTests.test_verifier_rejects_forbidden_path) ... ok
+test_verifier_rejects_missing_required_path (tests.test_bundle.BundleTests.test_verifier_rejects_missing_required_path) ... ok
+test_verifier_rejects_rule_count_mismatch (tests.test_bundle.BundleTests.test_verifier_rejects_rule_count_mismatch) ... ok
+test_verifier_rejects_rule_hash_mismatch (tests.test_bundle.BundleTests.test_verifier_rejects_rule_hash_mismatch) ... ok
+test_verifier_rejects_tampered_file (tests.test_bundle.BundleTests.test_verifier_rejects_tampered_file) ... ok
+test_verifier_rejects_unsafe_or_duplicate_members (tests.test_bundle.BundleTests.test_verifier_rejects_unsafe_or_duplicate_members) ... ok
+test_verifier_reports_absent_archive (tests.test_bundle.BundleTests.test_verifier_reports_absent_archive) ... ok
+test_wheel_is_copied_only_when_manylinux_x86_64 (tests.test_bundle.BundleTests.test_wheel_is_copied_only_when_manylinux_x86_64) ... ok
+test_preflight_accepts_matching_bundle (tests.test_bundle_scripts.BundleScriptTests.test_preflight_accepts_matching_bundle) ... ok
+test_preflight_rejects_missing_required_path (tests.test_bundle_scripts.BundleScriptTests.test_preflight_rejects_missing_required_path) ... ok
+test_preflight_rejects_tampered_file (tests.test_bundle_scripts.BundleScriptTests.test_preflight_rejects_tampered_file) ... ok
+test_preflight_reports_legacy_engine_lite_wheel (tests.test_bundle_scripts.BundleScriptTests.test_preflight_reports_legacy_engine_lite_wheel) ... ok
+test_preflight_reports_wesnoth_learning_lite_wheel (tests.test_bundle_scripts.BundleScriptTests.test_preflight_reports_wesnoth_learning_lite_wheel) ... ok
+test_preflight_requires_sums_for_extracted_bundle (tests.test_bundle_scripts.BundleScriptTests.test_preflight_requires_sums_for_extracted_bundle) ... ok
+test_scripts_parse (tests.test_bundle_scripts.BundleScriptTests.test_scripts_parse) ... ok
+test_setup_help_changes_nothing (tests.test_bundle_scripts.BundleScriptTests.test_setup_help_changes_nothing) ... ok
+test_train_forwards_arguments_and_logs (tests.test_bundle_scripts.BundleScriptTests.test_train_forwards_arguments_and_logs) ... ok
+test_train_help_prints_defaults_and_starts_nothing (tests.test_bundle_scripts.BundleScriptTests.test_train_help_prints_defaults_and_starts_nothing) ... ok
+test_train_refuses_without_setup (tests.test_bundle_scripts.BundleScriptTests.test_train_refuses_without_setup) ... ok
+
+----------------------------------------------------------------------
+Ran 33 tests in 0.210s
+
+OK

@@ -1,0 +1,8 @@
+root=/home/tongshu/myDev/wesnothLearning/acceptance_ppo_r10b_20261029
+archive=/tmp/wesnoth-r10.tar sha256=f9ee6e988e39106e80e20da8ec98779d5f609c18489db8a0a2a5abd94fa4402a
+source_revision=5aafd40
+python=Python 3.12.3
+kernel=Linux 7.0.0-38-generic
+torch=2.9.1+cpu
+lite=not installed in the base interpreter
+lupa=2.6

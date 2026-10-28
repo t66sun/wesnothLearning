@@ -1,0 +1,20 @@
+E
+======================================================================
+ERROR: test_bundle_omits_unused_teacher (tests.v5.test_bundle_identity.BundleIdentityTests.test_bundle_omits_unused_teacher)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/acceptance_ppo_r10b_20261029/tests/v5/test_bundle_identity.py", line 78, in test_bundle_omits_unused_teacher
+    output, result = self.build()
+                     ^^^^^^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/acceptance_ppo_r10b_20261029/tests/v5/test_bundle_identity.py", line 74, in build
+    result = bundle.build_bundle(output, root=self.directory / 'tree', created_at=STAMP)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/acceptance_ppo_r10b_20261029/learning/bundle.py", line 308, in build_bundle
+    teacher=manifest['identities']['teacher'],
+            ~~~~~~~~^^^^^^^^^^^^^^
+KeyError: 'identities'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.006s
+
+FAILED (errors=1)

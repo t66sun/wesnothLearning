@@ -60,7 +60,7 @@ The current implementation as of 2026-10-23 is schema 5 / candidate v3. The Ubun
 
 ### Clean Ubuntu 24.04 bundle
 
-The archive produced by `python -m learning bundle --output PATH` is an alternative to the server environment above for a clean Ubuntu 24.04 x86_64 machine, not a replacement for it; keep the existing server directory and its instructions untouched.
+The archive produced by `python -m learning bundle --output PATH` names its teacher in `BUNDLE_MANIFEST.json` (`identities.teacher`) and ships only the opponent packages that teacher declares — a stock-RCA bundle therefore carries none; `python -m learning verify-bundle PATH` recomputes the rules and capture hashes from the shipped sources before extraction. The archive produced by `python -m learning bundle --output PATH` is an alternative to the server environment above for a clean Ubuntu 24.04 x86_64 machine, not a replacement for it; keep the existing server directory and its instructions untouched.
 
 ```bash
 tar -xzf WesnothLearning-training.tar.gz && cd WesnothLearning
