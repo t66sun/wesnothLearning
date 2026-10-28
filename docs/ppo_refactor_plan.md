@@ -503,7 +503,7 @@ Historical Astra data, packages, models and reports keep their identity and are 
 5. A reduced chain (BC, ≥2 PPO batches, one explicitly accounted KL stop, one checkpoint resume, one promotion panel) accepted on Ubuntu, reusing the C7 pattern.
 6. The launch command, quotas, clock split and gates unchanged from `docs/instructions.md`; the run is separately authorised by the user.
 
-Step 5's separate reduced chain (L1) was not run; the user authorized the full 30-hour run instead, and its first BC/PPO batches are startup evidence, not L1 acceptance. Anything measured before step 5 is evidence about wiring, not about learning.
+Step 5's separate reduced chain (L1) was not run; the user authorized the full 30-hour run instead, and its first BC/PPO batches are startup evidence, not L1 acceptance. Anything measured before step 5 is evidence about wiring, not about learning. The 2026-10-28 authorized run was stopped on user instruction after two starts (22:21 and 22:32) and produced no training result; the authorization was not reused.
 
 ## 7. Risks and open questions
 
