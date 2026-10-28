@@ -19,13 +19,14 @@ export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1
     uname -sr
     "$python" -c 'import sys,torch; print(sys.version); print(torch.__version__)'
     sha256sum data/rules/1.18.8-training/rules.json
-    sha256sum learning/experiment.py tests/v5/test_rehearsal_source.py
+    sha256sum learning/experiment.py tests/v5/test_rehearsal_source.py | tee "$root/logs/source_before.sha256"
 } > "$root/logs/environment.log" 2>&1
+sha256sum learning/experiment.py > "$root/logs/experiment_before.sha256"
 "$python" -m unittest tests.v5.test_rehearsal_source -v > "$root/logs/rehearsal.log" 2>&1
 "$python" -m unittest tests.v5.test_ppo_plan tests.test_validation_cadence tests.v5.test_rehearsal_source \
     > "$root/logs/related.log" 2>&1
 "$python" -m py_compile learning/experiment.py tests/v5/test_rehearsal_source.py
 "$python" verification/ppo_refactor_r5_policy_20261028/revert_windows.py > "$root/logs/revert.log" 2>&1
-git status --porcelain -- learning/experiment.py > "$root/logs/restored.log"
+sha256sum -c "$root/logs/experiment_before.sha256" > "$root/logs/restored.log" 2>&1
 printf 'targeted_exit=0\n' > "$root/logs/status.log"
 printf 'root=%s\n' "$root"
