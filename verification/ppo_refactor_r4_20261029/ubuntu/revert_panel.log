@@ -1,0 +1,14 @@
+test_frozen_floors_and_existing_schedule_capacity (tests.v5.test_evaluation_design.EvaluationDesignTests.test_frozen_floors_and_existing_schedule_capacity) ... FAIL
+
+======================================================================
+FAIL: test_frozen_floors_and_existing_schedule_capacity (tests.v5.test_evaluation_design.EvaluationDesignTests.test_frozen_floors_and_existing_schedule_capacity)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/acceptance_ppo_r4_20261029b/tests/v5/test_evaluation_design.py", line 34, in test_frozen_floors_and_existing_schedule_capacity
+    self.assertEqual(len({job['scenario_family'] for job in jobs}),scenarios)
+AssertionError: 6 != 30
+
+----------------------------------------------------------------------
+Ran 1 test in 0.686s
+
+FAILED (failures=1)

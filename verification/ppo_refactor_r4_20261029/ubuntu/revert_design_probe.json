@@ -1,0 +1,78 @@
+{
+  "panels": {
+    "final-duel": {
+      "jobs": 60,
+      "blocks": 30,
+      "distinct_scenarios": 6,
+      "gate": "insufficient_design",
+      "comparison": "insufficient_design",
+      "reason": "6 distinct scenarios; requires 12"
+    },
+    "val000100-duel": {
+      "jobs": 24,
+      "blocks": 12,
+      "distinct_scenarios": 3,
+      "gate": "insufficient_design",
+      "comparison": "insufficient_design",
+      "reason": "3 distinct scenarios; requires 12"
+    },
+    "final-ffa4": {
+      "jobs": 120,
+      "blocks": 30,
+      "distinct_scenarios": 3,
+      "gate": "insufficient_design",
+      "comparison": "insufficient_design",
+      "reason": "3 distinct scenarios; requires 12"
+    },
+    "val000100-ffa4": {
+      "jobs": 48,
+      "blocks": 12,
+      "distinct_scenarios": 3,
+      "gate": "insufficient_design",
+      "comparison": "insufficient_design",
+      "reason": "3 distinct scenarios; requires 12"
+    },
+    "final-team2v2": {
+      "jobs": 240,
+      "blocks": 30,
+      "distinct_scenarios": 3,
+      "gate": "insufficient_design",
+      "comparison": "insufficient_design",
+      "reason": "3 distinct scenarios; requires 12"
+    },
+    "val000100-team2v2": {
+      "jobs": 96,
+      "blocks": 12,
+      "distinct_scenarios": 3,
+      "gate": "insufficient_design",
+      "comparison": "insufficient_design",
+      "reason": "3 distinct scenarios; requires 12"
+    }
+  },
+  "bc": {
+    "duel": {
+      "games": 12,
+      "distinct_scenarios": 12,
+      "gate": "passed"
+    },
+    "ffa4": {
+      "games": 12,
+      "distinct_scenarios": 12,
+      "gate": "passed"
+    },
+    "team2v2": {
+      "games": 12,
+      "distinct_scenarios": 12,
+      "gate": "passed"
+    }
+  },
+  "status": "failed",
+  "failed": [
+    "final-duel",
+    "val000100-duel",
+    "final-ffa4",
+    "val000100-ffa4",
+    "final-team2v2",
+    "val000100-team2v2"
+  ]
+}

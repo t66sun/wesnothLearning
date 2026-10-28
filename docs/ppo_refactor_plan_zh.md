@@ -220,6 +220,8 @@ split           = 'validation' if int(sha256(scenario_family)[:8],16) % 5 == 0 e
 
 **2026-10-27 已验收：**实现 `a05533f`，30 项 Ubuntu 专项检查通过；面板与 BC 门还原反例失败，恢复后通过。[报告](../verification/ppo_refactor_r4_20261027/REPORT.md)。现有 final 设计仅 6/3/3 个不同场景，低于门槛 12，继续报告不足；未新增对局或语料。
 
+**场景名册 2026-10-28 已验收：**这一不足属于调度缺陷，而不只是数据缺口。`starting_factions` 现在枚举六个冻结阵营允许的全部不同初始分配（duel 15 对、FFA4 15 组、team2v2 15 种分队），因此 final 面板达到 duel 30 / FFA4 15 / team2v2 15，12 block 的升级面板在三种格式都达到 12，block 与对局数不变；`calibration_jobs` 保留原有三 block 轮换。`scenario_factions` 让教师采集循环同一名册——原先三个轮换 block 把语料上限压在 6/9/9 个场景，现在 12 局采集即覆盖 12 个。37 项 Ubuntu 专项检查通过，另有覆盖全部面板与采集形态的计划下限探针；恢复任一旧名册都会让已记录的断言失败。[报告](../verification/ppo_refactor_r4_20261029/REPORT.md)。
+
 - **行为：** 本系统里的每个判决——面板与 BC 门一视同仁——都以不同场景数陈述其证据，而非重复次数；场景过少的设计不得通过。BC 门还须声明自身范围：它只证明对教师轨迹的模仿，属于初始化证据。
 - **证据：** F3，duel 2 个签名×15、ffa4 1 个×30、team2v2 3 个×10；`min_blocks=30` 靠重复满足；`selection.json` 的理由。F6：`bc_gate.json` 只带 `imitation`/`coverage`/`corpus`/`opening`/`passed`，没有任何场景数；而支撑 99.19% 模仿率的 duel 语料是 300 局落在 **4 张棋盘**上，其中一张占 150 局（`k_gate_scope`，`verification/ppo_gate_scope_20261026/REPORT.md`）。
 - **模块：** `learning/schedule.py evaluation_jobs`（显式场景枚举 + 重复数）、`learning/evaluate.py`（`scenario_of`、`comparisons(..., min_distinct)`、`_cluster_bootstrap`）、`learning/experiment.py validate_model`（面板设计、状态传播）、`learning/experiment.py final_evaluation`、`learning/experiment.py finish_train`（门控段写入场景数与范围并执行下限）。
@@ -467,6 +469,7 @@ flowchart LR
 | R2 Ubuntu 验收 | **20 + 1 项通过** | 资格、计数与四人赛制更新；见[证据](../verification/ppo_refactor_r2_20261027/REPORT.md) |
 | R3 Ubuntu 验收 | **14 项通过** | 显式停止工作、中断与检查点记账；见[证据](../verification/ppo_refactor_r3_20261027/REPORT.md) |
 | R4 Ubuntu 验收 | **30 项通过** | 场景证据、门控、选择与报告；[证据](../verification/ppo_refactor_r4_20261027/REPORT.md) |
+| R4 场景名册验收 | **37 项通过 + 计划下限探针** | final 30/15/15、升级 12/12/12、采集 12/12/12；[证据](../verification/ppo_refactor_r4_20261029/REPORT.md) |
 | R5 Ubuntu 验收 | **23 项通过** | 来源排除、20 次微型更新、恢复、BC RNG 与 manifest；[证据](../verification/ppo_refactor_r5_20261027/REPORT.md) |
 | R6 Ubuntu 验收 | **37 项通过 + 421 行逐位一致** | 奖励行合同；本地未通过项见[证据](../verification/ppo_refactor_r6_20261027/REPORT.md) |
 | R7 Ubuntu 验收 | **39 项通过 + Lua 语法通过** | 教师身份与参考角色接线；[证据](../verification/ppo_refactor_r7_20261027/REPORT.md) |
@@ -478,13 +481,13 @@ flowchart LR
 ### 6.2 阻塞分类
 
 - **新正式 run 的必备项：** R1–R7 实现证据已归档，含 R6 的限制。R8 已按能力证据验收，但只覆盖一个场景三局：原版教师采集/BC 仍需语料，recall/advance 标签仍未观察。R9 同样已按能力证据验收：不支持查询与 BC 调度接线就位，DAgger 以记录状态退役；但歧义攻击标签不可训练、BC 覆盖率门禁在原版攻击消歧决定前未证明。R4 场景设计与 R5 合格 rehearsal 数据前提单独保留，目前未满足。
-- **阻塞棋力结论：** R4 统计设计；R10 身份工作已就位。其受限检查不能代替原版采集/无干扰验收。
+- **阻塞棋力结论：** R6 语料/标签质量决定与 R5 的 rehearsal 前提。R4 的下限已可由计划中的面板与采集达到，但现有语料都达不到，也没有任何语料被重写。R10 身份工作已就位。其受限检查不能代替原版采集/无干扰验收。
 - **可选能力：** 完整回合接管未证明，query 保持 none，R9 以 `unsupported_with_stock_rca` 记录而不是留作隐含。单独的 lite/native 路线测量尚未运行。
 
 ### 6.3 下一次正式训练的前置条件（本轮未启动、未授权）
 
 1. R1–R3、R5、R6 已合并，各自的还原即失败测试在 Ubuntu 上通过。
-2. R4 已合并，`min_distinct` 冻结在 manifest。
+2. R4 已合并，`min_distinct` 冻结在 manifest，且名册能达到该下限。
 3. FX1–FX3 已执行并报告；`dagger_status` 已记录。
 4. 若该 run 对原版 RCA 训练，R7–R8 已合并；manifest 写明教师记录，run 声明 `split_rule='scenario-v2'`。
 5. 缩减链（BC、≥2 个 PPO batch、一次显式记账的 KL 停止、一次检查点续跑、一个升级面板）在 Ubuntu 上通过，复用 C7 模式。

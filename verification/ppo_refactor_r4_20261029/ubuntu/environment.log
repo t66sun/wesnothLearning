@@ -1,0 +1,6 @@
+host Linux server 7.0.0-38-generic #38~24.04.4-Ubuntu SMP PREEMPT_DYNAMIC Mon Sep 14 16:37:11 UTC 2 x86_64 x86_64 x86_64 GNU/Linux
+python Python 3.12.3
+torch 2.9.1+cpu
+source revision dfdf1e4e4088fdc27cddd0a3cfec2ea267a44ab7
+0f05944da5936e7b22a2e7da84bbae45c8da15b4848743c68cb7164378f0ba61  learning/schedule.py
+a47b60a944781f7e9f104ce42e954d6c2c52dbb39980315d3b68474a9d4a37d5  tests/v5/test_evaluation_design.py

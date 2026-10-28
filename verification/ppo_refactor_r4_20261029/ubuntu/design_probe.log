@@ -1,0 +1,71 @@
+{
+  "bc": {
+    "duel": {
+      "distinct_scenarios": 12,
+      "games": 12,
+      "gate": "passed"
+    },
+    "ffa4": {
+      "distinct_scenarios": 12,
+      "games": 12,
+      "gate": "passed"
+    },
+    "team2v2": {
+      "distinct_scenarios": 12,
+      "games": 12,
+      "gate": "passed"
+    }
+  },
+  "failed": [],
+  "panels": {
+    "final-duel": {
+      "blocks": 30,
+      "comparison": "passed",
+      "distinct_scenarios": 30,
+      "gate": "passed",
+      "jobs": 60,
+      "reason": "passed"
+    },
+    "final-ffa4": {
+      "blocks": 30,
+      "comparison": "passed",
+      "distinct_scenarios": 15,
+      "gate": "passed",
+      "jobs": 120,
+      "reason": "passed"
+    },
+    "final-team2v2": {
+      "blocks": 30,
+      "comparison": "passed",
+      "distinct_scenarios": 15,
+      "gate": "passed",
+      "jobs": 240,
+      "reason": "passed"
+    },
+    "val000100-duel": {
+      "blocks": 12,
+      "comparison": "passed",
+      "distinct_scenarios": 12,
+      "gate": "passed",
+      "jobs": 24,
+      "reason": "passed"
+    },
+    "val000100-ffa4": {
+      "blocks": 12,
+      "comparison": "passed",
+      "distinct_scenarios": 12,
+      "gate": "passed",
+      "jobs": 48,
+      "reason": "passed"
+    },
+    "val000100-team2v2": {
+      "blocks": 12,
+      "comparison": "passed",
+      "distinct_scenarios": 12,
+      "gate": "passed",
+      "jobs": 96,
+      "reason": "passed"
+    }
+  },
+  "status": "passed"
+}

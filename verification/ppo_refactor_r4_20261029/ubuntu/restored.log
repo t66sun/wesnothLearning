@@ -1,0 +1,15 @@
+test_cluster_means_do_not_weight_repetitions_as_scenarios (tests.v5.test_evaluation_design.EvaluationDesignTests.test_cluster_means_do_not_weight_repetitions_as_scenarios) ... ok
+test_distinct_positive_scenarios_can_pass_without_more_blocks (tests.v5.test_evaluation_design.EvaluationDesignTests.test_distinct_positive_scenarios_can_pass_without_more_blocks) ... ok
+test_each_panel_block_starts_from_its_own_factions (tests.v5.test_evaluation_design.EvaluationDesignTests.test_each_panel_block_starts_from_its_own_factions) ... ok
+test_final_report_prints_scenario_count_and_floor (tests.v5.test_evaluation_design.EvaluationDesignTests.test_final_report_prints_scenario_count_and_floor) ... ok
+test_frozen_floors_and_existing_schedule_capacity (tests.v5.test_evaluation_design.EvaluationDesignTests.test_frozen_floors_and_existing_schedule_capacity) ... ok
+test_gate_reports_distinct_scenarios (tests.v5.test_evaluation_design.EvaluationDesignTests.test_gate_reports_distinct_scenarios) ... ok
+test_promotion_panel_reaches_the_distinct_floor (tests.v5.test_evaluation_design.EvaluationDesignTests.test_promotion_panel_reaches_the_distinct_floor) ... ok
+test_repeated_identical_blocks_are_insufficient (tests.v5.test_evaluation_design.EvaluationDesignTests.test_repeated_identical_blocks_are_insufficient) ... ok
+test_teacher_games_reach_the_bc_scenario_floor (tests.v5.test_evaluation_design.EvaluationDesignTests.test_teacher_games_reach_the_bc_scenario_floor) ... ok
+test_unmeasured_legacy_panel_cannot_nominate (tests.v5.test_evaluation_design.EvaluationDesignTests.test_unmeasured_legacy_panel_cannot_nominate) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 1.149s
+
+OK
