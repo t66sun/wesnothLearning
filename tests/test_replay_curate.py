@@ -141,5 +141,50 @@ class ReplayCurateTests(unittest.TestCase):
             self.assertIn('server_archive_layout; no_replay_start_block',latest['notes'])
             self.assertEqual(latest['version'],'1.18.3')
 
+    def test_only_midgame_hands_over_a_side_count_as_provenance_change(self):
+        # The server announces "X takes control of side N." for a lobby slot
+        # being filled before play and for a seat taken over mid-game. Only the
+        # second replaces the human who produced the recorded decisions.
+        def archive(announcements,seed='63d5121f'):
+            scenario=('[scenario]\nid="multiplayer_The_Freelands"\nturns="30"\n'
+                'map_data=" 1 Gg, 2 Gg, Gg, Gg, Gg, Gg"\n'
+                '[side]\nside=1\nteam_name="one"\ncontroller="human"\ncurrent_player="alice"\n'
+                'faction="rebels"\ngold=100\n[/side]\n'
+                '[side]\nside=2\nteam_name="two"\ncontroller="human"\ncurrent_player="bob"\n'
+                'faction="northerners"\ngold=100\n[/side]\n[/scenario]\n')
+            history='[replay]\n'
+            for kind in announcements:
+                if kind=='decision':
+                    history+='[command]\nfrom_side="1"\n[move]\nx=1\n[/move]\n[/command]\n'
+                else:
+                    history+=('[command]\nfrom_side="1"\n[speak]\nmessage="'+kind+
+                              ' takes control of side 1."\n[/speak]\n[/command]\n')
+            history+='[/replay]\n'
+            return ('version="1.18.3"\ncampaign_type="multiplayer"\nera_id="era_default"\n'
+                +scenario+'[carryover_sides_start]\nrandom_seed="'+seed+'"\nrandom_calls=0\n'
+                '[/carryover_sides_start]\n[multiplayer]\nmp_scenario="multiplayer_The_Freelands"\n'
+                'mp_era="era_default"\n[/multiplayer]\n'+history)
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory);source=root/'raw';source.mkdir()
+            # A hand-over only matters when that side keeps acting afterwards.
+            cases={'lobby_fill.bz2':['alice','decision'],
+                   'rejoin_same_player.bz2':['alice','decision','alice'],
+                   'postgame_rejoin.bz2':['alice','decision','carol'],
+                   'takeover.bz2':['alice','decision','carol','decision'],
+                   'takeover_other_seed.bz2':['alice','decision','carol','decision']}
+            for name,announcements in cases.items():
+                seed='63d5121f' if name!='takeover_other_seed.bz2' else 'aa11'
+                (source/name).write_bytes(bz2.compress(archive(announcements,seed).encode()))
+            rows=[inspect_file(path,source) for path in sorted(source.iterdir())]
+            by={row['source']:row for row in rows}
+            self.assertEqual(by['lobby_fill.bz2']['controller_changes'],{})
+            self.assertEqual(by['rejoin_same_player.bz2']['controller_changes'],{})
+            self.assertEqual(by['postgame_rejoin.bz2']['controller_changes'],{})
+            self.assertEqual(by['takeover.bz2']['controller_changes'],{'1':['carol']})
+            self.assertIn('controller_changed_midgame; human_side_provenance_mixed',
+                          by['takeover.bz2']['notes'])
+            self.assertNotIn('controller_changed_midgame; human_side_provenance_mixed',
+                             by['lobby_fill.bz2']['notes'])
+
 
 if __name__=='__main__':unittest.main()
