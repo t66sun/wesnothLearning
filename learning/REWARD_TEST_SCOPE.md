@@ -2,7 +2,7 @@
 
 > Language: English | [中文](REWARD_TEST_SCOPE_zh.md)
 
-The per-item list from the original implementation phase is kept below; current status and pass records are maintained in [docs/TEST.md](../docs/TEST.md).
+The per-item list from the original implementation phase is kept below. Pass records live in the dated `verification/` reports; [docs/TEST.md](../docs/TEST.md) holds only acceptance work that is still open.
 
 ## Wiring contract
 

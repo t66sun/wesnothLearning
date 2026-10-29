@@ -2,7 +2,7 @@
 
 > 语言：[English](REWARD_TEST_SCOPE.md) | 中文
 
-以下保留最初实现阶段的分项清单；当前状态与通过记录统一维护在 [docs/TEST_zh.md](../docs/TEST_zh.md)。
+以下保留最初实现阶段的分项清单。通过记录见带日期的 `verification/` 报告；[docs/TEST_zh.md](../docs/TEST_zh.md) 只保留仍未完成的验收工作。
 
 ## 接入契约
 

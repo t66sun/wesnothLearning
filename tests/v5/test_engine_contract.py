@@ -1,7 +1,7 @@
 """Contract tests for the Rust lite engine (``_engine_lite``).
 
-These tests exercise TEST.md sections 4.1-4.3 and 5 against the production
-Lua host modules loaded by ``tests/v5/helpers.engine``.  They are LiteEngine
+These tests exercise the engine contract against the production Lua host
+modules loaded by ``tests/v5/helpers.engine``.  They are LiteEngine
 evidence only: no native Wesnoth binary, map or ruleset is involved here.
 """
 
@@ -118,7 +118,7 @@ def _destinations(engine, unit_id, side=1):
 
 
 def _odd_q_neighbors(cell):
-    """TEST.md 4.2: 1-based odd-q relation ``{(x,y±1),(x±1,y),(x±1,y+dy)}``."""
+    """Engine contract: 1-based odd-q relation ``{(x,y±1),(x±1,y),(x±1,y+dy)}``."""
     x, y = cell
     dy = -1 if x % 2 else 1
     candidates = (

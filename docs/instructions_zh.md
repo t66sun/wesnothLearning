@@ -54,7 +54,7 @@ export SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy
 
 原版应为 1.18.8，项目冻结入口要求 PyTorch 2.9.1。CPU 服务器默认全局 8 个游戏 worker、每训练器 1 线程，三个训练器共享这 8 个 worker。Windows 只作参考，不安排 Windows 全量验收。
 
-2026-10-22 的按座位候选优化新增了 Rust 扩展的决策参数；使用新源码前需在对应虚拟环境重新编译 `_engine_lite`，不能只复制 Python/Lua 文件。该修改及 300/600/400、8 workers 默认值已于 2026-10-22 在 Ubuntu 通过 T1–T4 受限验收（含 8 worker 真实链路、峰值 PSS 4.02 GiB），结论与证据见 architecture.md 第 8 节和 `verification/pretrain_acceptance_20261022/`；启动正式训练仍需用户后续明确指令。
+2026-10-22 的按座位候选优化新增了 Rust 扩展的决策参数；使用新源码前需在对应虚拟环境重新编译 `_engine_lite`，不能只复制 Python/Lua 文件。该修改及 300/600/400、8 workers 默认值已于 2026-10-22 在 Ubuntu 通过 T1–T4 受限验收（含 8 worker 真实链路、峰值 PSS 4.02 GiB），证据见 `verification/pretrain_acceptance_20261022/`，当前默认值见 architecture.md §12；启动正式训练仍需用户后续明确指令。
 
 2026-10-23 当前实现为 schema 5 / 候选 v3。Ubuntu 隔离目录 `/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022` 已完成阶段接入与恢复的最小验收，使用其 `.venv/bin/python`（共享已安装依赖，拥有自己的新编译扩展）。若主目录尚未同步修复，使用该隔离目录核验入口或先部署已验收源码并重编对应环境；部署记录见修复报告。Rust 用 `include_str!` 嵌入 `engine_lite/lua/host.lua`，只复制 Lua 不会更新已安装扩展。原 20 小时正式实验已失败结束，旧 schema 4/v2 检查点只能使用原匹配源码；新旧语料/检查点不混用。受限移动质量验收已归档至 [后续报告](../verification/bc_rootcause_20261023_2318/REPORT.md)；正式 BC 全部门仍照常执行。
 
@@ -73,7 +73,7 @@ tar -xzf WesnothLearning-training.tar.gz && cd WesnothLearning
 
 ## 3. 启动前核对实际可运行范围
 
-新实验默认 lite，规则默认 `data/rules/1.18.8-training`（587 单位、438 地形）。启动门禁核验实际六阵营的 158 单位闭包，接受已记录近似，拒绝未支持类型及缺失引用；整包语义/性能标志仍保留原值。三赛制使用冻结的真实 Astra 教师，已有验收范围与证据见 architecture.md 第 8 节。
+新实验默认 lite，规则默认 `data/rules/1.18.8-training`（587 单位、438 地形）。启动门禁核验实际六阵营的 158 单位闭包，接受已记录近似，拒绝未支持类型及缺失引用；整包语义/性能标志仍保留原值。新 manifest 声明单一教师（stock RCA）并要求原版参考评估；既有 Astra 运行保留其冻结的教师身份。能力与限制见 architecture.md §4–§5。
 
 通常使用默认目录即可。采集输入已于 2026-10-24 迁入 `data/`；早于该迁移的检出仍把 `rules/`、`datasets/`、`humanData*`、`opponents/`、`references/` 放在根目录，须先移入 `data/`，否则默认路径无法解析。需要用户指定其他冻结包时，传入：
 
@@ -90,7 +90,7 @@ rules_dir="$project/data/rules/1.18.8-training"
 
 ## 4. 新建并启动训练
 
-先确定用户指定的赛制、设备、时长、worker 和实验名。当前默认采集规格见 architecture.md 第 5.1 节；数量是有效教师局目标，采满还要满足 BC 质量/覆盖/开局门槛。核对实际生成配置与用户授权一致。
+先确定用户指定的赛制、设备、时长、worker 和实验名。当前默认采集规格见 architecture.md §12；数量是有效教师局目标，采满还要满足 BC 质量/覆盖/开局门槛。核对实际生成配置与用户授权一致。
 
 以下是**获准新建 18 小时 CPU 三赛制纯 lite 实验**时的模板；用户指定其他时长或赛制时替换对应项：
 
@@ -136,7 +136,7 @@ set -o pipefail
 
 **2026-10-24 16:31 历史启动记录：**使用 `/home/tongshu/myDev/wesnothLearning/validation_window_fix_20261024_1630` 下的 `runs/v5_lite_windowfix_20261024_1630`。脱离 SSH 的脚本 PID/PGID 为 202233，初始协调器为 202234；进度读取 `launch.json`、`continuation.log`、各赛制状态和 scheduler 事件。上一轮 `validation_memory_repair_20261024_1321/runs/v5_lite_resume_20261024_1420` 已于 16:21:48 停止，它与 `validation_training_repair_20261023_194022/runs/v5_lite18h_20261024_003512` 都是必需的只读语料、策略和检查点来源，不能删除、移动或恢复。Duel/FF4 从保留的最佳完整 v100 检查点恢复；2v2 没有晋级最佳模型，采用最近合法 v60。三者继续 PPO，滑动窗口修复已部署。**10 月 24 日 20:05:52** 停止 PPO 更新，随后脚本请求最终验收，总截止为 **10 月 25 日 00:00（北京时间）**。不要另开脚本、恢复父实验或覆盖阶段指令；失败时先查证据，不能重跑迁移。选择依据、模型/优化器/RNG 核对及真实进度见 [部署交接](../verification/window_deploy_20261024_1620/REPORT.md)。
 
-`runs/v5_20261021_203930` 因两个训练器 OOM 已于 2026-10-21 21:48 停止，其数据与检查点保留；读取链路修复并验收后，2026-10-22 00:08 的 `runs/v5_20261022_000850` 又于 01:03:45 按用户要求停止。最近纯 lite / 6000×3 / 18 h 实验 `runs/v5_lite6000_replay_20261022_012336` 已按用户要求于 2026-10-22 06:53:44 停止，未进入 PPO；原计划 19:23:37 截止不表示仍在运行。停止状态见 architecture.md 第 1 节，历史问题见其中的归档报告，未获新指令不恢复或新建训练。旧实验源码哈希已变，直接恢复会触发 `verify_frozen`，只在用户明确要求时按受控迁移处理并保留原 manifest 与预算。
+`runs/v5_20261021_203930` 因两个训练器 OOM 已于 2026-10-21 21:48 停止，其数据与检查点保留；读取链路修复并验收后，2026-10-22 00:08 的 `runs/v5_20261022_000850` 又于 01:03:45 按用户要求停止。最近纯 lite / 6000×3 / 18 h 实验 `runs/v5_lite6000_replay_20261022_012336` 已按用户要求于 2026-10-22 06:53:44 停止，未进入 PPO；原计划 19:23:37 截止不表示仍在运行。停止状态与历史问题见带日期的 `verification/` 报告，未获新指令不恢复或新建训练。旧实验源码哈希已变，直接恢复会触发 `verify_frozen`，只在用户明确要求时按受控迁移处理并保留原 manifest 与预算。
 
 先查看原实验的 manifest、clock、最近检查点和错误记录；确认没有同目录的活跃主进程，再在匹配源码、环境和规则下执行：
 
