@@ -53,7 +53,7 @@ REQUIRED_PATHS = (
     RULES_DIR + '/rules.json', RULES_DIR + '/catalog-summary.json',
     RULES_DIR + '/coverage.json', RULES_DIR + '/catalog.json',
     HUMAN_CURATED, 'data/datasets/human/import.json',
-    'docs/bundle.md', 'docs/bundle_zh.md',
+    'docs/instructions.md', 'docs/instructions_zh.md',
 ) + STOCK_CAPTURE
 SUM_LINE = re.compile(r'^([0-9a-f]{64}) [ *](.+)$')
 

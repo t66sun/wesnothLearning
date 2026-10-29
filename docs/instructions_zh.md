@@ -58,18 +58,35 @@ export SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy
 
 2026-10-23 当前实现为 schema 5 / 候选 v3。Ubuntu 隔离目录 `/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022` 已完成阶段接入与恢复的最小验收，使用其 `.venv/bin/python`（共享已安装依赖，拥有自己的新编译扩展）。若主目录尚未同步修复，使用该隔离目录核验入口或先部署已验收源码并重编对应环境；部署记录见修复报告。Rust 用 `include_str!` 嵌入 `engine_lite/lua/host.lua`，只复制 Lua 不会更新已安装扩展。原 20 小时正式实验已失败结束，旧 schema 4/v2 检查点只能使用原匹配源码；新旧语料/检查点不混用。受限移动质量验收已归档至 [后续报告](../verification/bc_rootcause_20261023_2318/REPORT.md)；正式 BC 全部门仍照常执行。
 
-### 干净 Ubuntu 24.04 归档包
+### 干净 Ubuntu 24.04 训练归档包
 
-`python -m learning bundle --output PATH` 生成的归档包在 `BUNDLE_MANIFEST.json` 的 `identities.teacher` 中写明教师，且只打包该教师声明的对手包——原版 RCA 包因此一个都不含；`python -m learning verify-bundle PATH` 会在解包前从随包源码重算规则与采集哈希。`python -m learning bundle --output PATH` 生成的归档包是上述服务器环境在干净 Ubuntu 24.04 x86_64 机器上的替代方案，而不是替代品；现有服务器目录及其说明保持不变。
+`python -m learning bundle --output PATH` 生成、`python -m learning verify-bundle PATH` 校验的归档包，是干净 Ubuntu 24.04 `x86_64` 机器接收本项目的方式。它是上文服务器环境的替代方案而非替代品，现有服务器目录及其说明保持不变。
+
+归档包含源码树、冻结的 `1.18.8-training` 规则、精选人类对局、数据集输入，以及 `BUNDLE_MANIFEST.json` 的 `identities.teacher` 所声明的对手包——原版 RCA 包因此一个都不含。它排除 `.git`、虚拟环境、缓存、`.runtime/`、`runs/`、`verification/`、`delivery/`、`tmp/`、`data/rules/1.18.8`、`data/humanData`、`data/references`、编译产物后缀、Cargo `target/` 与 `AGENTS.md`，因此不记录任何运行、棋力结果或交付决定。`docs/instructions.md` 及其镜像为必需成员：缺少它们时构建器拒绝产出归档。
+
+```bash
+python -m learning bundle --output dist/WesnothLearning-training.tar.gz \
+    --created-at 2026-10-25T00:00:00Z \
+    --wheel dist/wesnoth_learning_lite-0.2.0-cp312-cp312-manylinux_2_34_x86_64.whl
+python -m learning verify-bundle dist/WesnothLearning-training.tar.gz --require-wheel
+```
+
+`--output` 必须位于项目根目录内且尚不存在；构建器先写临时文件再改名，失败不会留下半个归档。`--created-at` 归一化为 UTC `YYYY-MM-DDTHH:MM:SSZ`，固定后重复构建字节一致。`--wheel` 只接受以 `.whl` 结尾且名称同时含 `manylinux` 与 `x86_64` 的文件；`verify-bundle --require-wheel` 会判定无 wheel 的归档不合格，离线免 Rust 安装需要它。两个命令都输出 JSON（`archive`、`sha256`、`files`、`bytes`、`created_at`、`source`、`rules`、`wheel`；随后 `ok`、`errors`，不合格时退出 2），归档 `sha256` 记入发布说明。`rules.json` 与 `catalog-summary.json` 在 `rules_file_sha256`、`source_hash`、`unit_count`、`terrain_count` 上不一致时，构建器拒绝打包。
+
+归档是根为 `WesnothLearning/` 的单个排序 PAX gzip，`mtime` 与 gzip 头时间均为 0，`uid`/`gid` 为 0，`uname`/`gname` 为空，模式 `0644`（`*.sh` 与目录为 `0755`），根下含 `BUNDLE_MANIFEST.json`（schema 1）与 `SHA256SUMS`，解压后 `cd WesnothLearning && sha256sum --check SHA256SUMS` 可用。校验器重算每个成员的大小、哈希、模式与总计，检查 Ubuntu 24.04 `x86_64` 目标、无绝对路径/越界父路径/重复成员、排除类别、对归档内 JSON 的规则身份、对随包 `lua/stock_rca_capture` 源码的 `identities.teacher`、每个列出的对手、精选人类文件与可选 wheel。
 
 ```bash
 tar -xzf WesnothLearning-training.tar.gz && cd WesnothLearning
-./setup.sh --preflight          # 只检查归档包：不做系统门禁、不下载、不写入
+./setup.sh --preflight          # 只校验校验和：不做系统门禁、不下载、不写入
 ./setup.sh --device cpu         # apt 包、venv、torch 2.9.1、_engine_lite、Wesnoth 1.18.8
 ./train.sh --help               # 打印选项；不创建任何内容
 ```
 
-`--device auto`（默认）仅在 `nvidia-smi` 可用时选择 `cu128`，因此纯 CPU 机器应显式写 `--device cpu`。安装不启动采样或训练，归档包的存在也不等于授权开工；只在用户明确指令后启动实验。归档包只证明安装可用，从不证明收敛或棋力。完整说明与故障排查见 [bundle_zh.md](bundle_zh.md)。
+目标为具备 `sudo` 或 root 及网络访问的 Ubuntu 24.04 `x86_64`；22.04 可运行但会提示 24.04 才是目标，其他发行版在改动系统前即退出 2。`--device auto`（默认）仅在 `nvidia-smi` 可用时选择 `cu128`，纯 CPU 机器应显式写 `--device cpu`；`--wesnoth PATH` 复用报告 1.18.8 的二进制，`--skip-system-deps` 要求系统包已装好，`--jobs N` 决定 Cargo 与 Wesnoth 构建并行度，`WESNOTH_EXE`/`BUILD_JOBS` 提供同样的值。安装会以 `pip --force-reinstall --no-deps` 安装 `dist/` 中的 wheel，此时绝不安装 Rust；否则仅在 `cargo` 缺失时安装 rustup，并在 `engine_lite/` 运行 `maturin develop --release`。随后校验 `rules.json` 与 `catalog-summary.json`、`source_version` 1.18.8，以及扩展的 `ENGINE_VERSION`/`RNG_VERSION`/`COMBAT_VERSION` 与 `learning.adapters` 是否一致，复用或构建固定版本 Wesnoth（SHA-256 `fce3bd71d4ed32c9d11c0f707d19743cec6adf5c34761fab94ab72754aaedd89`），写入 `.runtime/environment.sh`，并通过 `tee` 记录到 `.cache/setup.log`。venv、torch、requirements 与 Wesnoth 可幂等复用；扩展每次运行都会重装或重建。安装不启动采样、对局或训练，归档包的存在也不等于授权开工。
+
+故障：`preflight: SHA256SUMS verification failed` 表示解压副本与归档不一致——重新解压到干净目录，不要手工修补哈希；缺少 `SHA256SUMS` 表示解压不完整。系统门禁或 sudo 拒绝，用 Ubuntu 24.04 `x86_64` 加 root/`sudo` 解决，或自行装好系统包后加 `--skip-system-deps`。`identity: engine build … does not match declared …` 表示扩展过期：重跑安装。wheel 未被选中通常有两种原因：`setup.sh` 只在 `dist/` 中查找以 `wesnoth_learning_lite-`、`_engine_lite-`、`engine_lite-` 开头的文件（`--preflight` 会打印找到的文件），而构建器还要求文件名同时含 `manylinux` 与 `x86_64`。缺少 `.runtime/environment.sh`、`.venv/bin/python`、可导入的 `_engine_lite`、可执行的 `WESNOTH_EXE` 或运行目录已存在时，`train.sh` 拒绝启动。用户授权后按第 4 节启动运行。
+
+状态：构建器、校验器、`bash -n` 与 setup/train 脚本检查在参考工作站通过（17 项构建器/校验器测试与 11 项脚本测试），且从本树构建的一个归档通过校验（`ok: true`）。尚未执行 Ubuntu 24.04 上的解压、preflight、安装、Rust 或 Wesnoth 构建、`train.sh` 启动；这些仍属 [TEST.md](TEST.md) 的 `PKG1`，构建或安装成功从不证明收敛、棋力或可用模型。
 
 ## 3. 启动前核对实际可运行范围
 

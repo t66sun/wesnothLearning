@@ -211,7 +211,6 @@ flowchart LR
 | `docs/architecture.md` | 本文件：结构、契约、参数 |
 | `docs/instructions.md` | 操作步骤与按指令调参 |
 | `docs/TEST.md` | 仅剩的验收事项 |
-| `docs/bundle.md` | 训练归档契约 |
 | `docs/THIRD_PARTY.md` | 许可 |
 | `engine_lite/README.md`、`learning/*_TEST_SCOPE.md` | 模块范围 |
 | `verification/<date>/REPORT.md` | 带日期的命令、身份与结果 |
