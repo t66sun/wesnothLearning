@@ -153,3 +153,35 @@ class TrainingReadinessTests(unittest.TestCase):
             self.assertEqual(rules_catalog.resolve_dir(ROOT / 'explicit'), (ROOT / 'explicit').resolve())
         with mock.patch.dict(os.environ, {}, clear=True):
             self.assertEqual(rules_catalog.resolve_dir(), (ROOT / 'data/rules/1.18.8-training').resolve())
+
+
+class ProvenanceCacheTests(unittest.TestCase):
+    def setUp(self):
+        self.temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temporary.cleanup)
+        self.root = Path(self.temporary.name)
+        source = rules_catalog.resolve_dir()
+        shutil.copyfile(source / 'rules.json', self.root / 'rules.json')
+        shutil.copyfile(source / rules_catalog.SUMMARY, self.root / rules_catalog.SUMMARY)
+        self.metadata = rules_catalog.load(self.root, require_accepted=False)
+
+    def test_one_parse_per_rules_file_version(self):
+        rules, digest = rules_catalog.provenance(self.metadata, self.root)
+        again, digest_again = rules_catalog.provenance(self.metadata, self.root)
+        self.assertIs(again, rules)
+        self.assertEqual(digest_again, digest)
+
+    def test_a_changed_rules_file_is_checked_again(self):
+        rules_catalog.provenance(self.metadata, self.root)
+        with (self.root / 'rules.json').open('ab') as stream:
+            stream.write(b'\n')
+        with self.assertRaisesRegex(ValueError, 'frozen catalog hash'):
+            rules_catalog.provenance(self.metadata, self.root)
+
+    def test_experience_modifier_scales_a_copy(self):
+        from learning.adapters import scaled_rules
+        shared = dict(units=dict(a=dict(experience=10)))
+        self.assertIs(scaled_rules(shared, 100), shared)
+        scaled = scaled_rules(shared, 70)
+        self.assertEqual(scaled['units']['a']['experience'], 7)
+        self.assertEqual(shared['units']['a']['experience'], 10)

@@ -10,6 +10,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+from functools import lru_cache
 from pathlib import Path
 
 
@@ -23,18 +24,30 @@ def resolve_dir(value=None):
                 ROOT / 'data/rules/1.18.8-training').resolve()
 
 
+@lru_cache(maxsize=4)
+def _rules_file(path, modified_ns, size):
+    """Parse and hash one rules.json version. Callers treat the result as read-only."""
+    raw = Path(path).read_bytes()
+    return json.loads(raw), hashlib.sha256(raw).hexdigest()
+
+
 def provenance(metadata, rules_dir):
-    """Read rules.json once and check its bytes and source identity against metadata."""
+    """Check rules.json identity against metadata and return its parsed rules.
+
+    The file is read once per version for the life of the process: LiteHost and
+    freeze both need the parsed rules, and the trainer already accepted the same
+    rules at startup. Every call still compares the cached digest and source
+    identity, so a changed file is re-read and rejected exactly as before.
+    """
     rules_path = Path(rules_dir) / 'rules.json'
     if not rules_path.is_file():
         raise RuntimeError('missing native 1.18.8 frozen rules; capture and freeze the real rule inventory first')
-    raw = rules_path.read_bytes()
-    digest = hashlib.sha256(raw).hexdigest()
+    stat = rules_path.stat()
+    rules, digest = _rules_file(str(rules_path), stat.st_mtime_ns, stat.st_size)
     if metadata.get('rules_file_sha256') != digest:
         raise ValueError('rules.json differs from the frozen catalog hash')
     if not metadata.get('source_hash'):
         raise ValueError('catalog is missing immutable rule identity')
-    rules = json.loads(raw)
     if metadata['source_hash'] != rules.get('source_hash'):
         raise ValueError('catalog/rules source provenance mismatch')
     return rules, digest
