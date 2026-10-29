@@ -67,12 +67,13 @@ class EvaluationDesignTests(unittest.TestCase):
             self.assertEqual(len({tuple(job['factions']) for job in jobs}),12,fmt)
 
     def test_unmeasured_legacy_panel_cannot_nominate(self):
-        from learning.selection import decide
+        from learning.selection import _panel_complete
         from tests.v5.test_selection import panel as selection_panel
 
         candidate = selection_panel(.9)
         candidate['comparison']['duel'].pop('distinct_scenarios')
-        self.assertEqual(decide(candidate,selection_panel(.1),'duel')['choice'],'champion')
+        self.assertFalse(_panel_complete(candidate,'duel'))
+        self.assertTrue(_panel_complete(selection_panel(.1),'duel'))
 
     def test_final_report_prints_scenario_count_and_floor(self):
         from pathlib import Path

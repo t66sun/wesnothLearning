@@ -134,22 +134,6 @@ def selection_key(comparison):
     return result['difference']
 
 
-def ablations(variants):
-    result={}
-    for label,new,old in [('network','bc','rule'),('reinforcement_learning','ppo','bc')]:
-        if new not in variants or old not in variants:
-            result[label]=dict(available=False);continue
-        formats={}
-        for fmt in FORMATS:
-            a=variants[new][fmt]['block_differences'];b=variants[old][fmt]['block_differences']
-            common=sorted(set(a)&set(b))
-            differences=[a[k]-b[k] for k in common]
-            formats[fmt]=dict(blocks=len(common),difference=mean(differences) if differences else None,
-                              interval95=bootstrap(differences))
-        result[label]=dict(available=True,comparison=new+' minus '+old,formats=formats)
-    return result
-
-
 def choose_controls(jobs, results, fixed):
     lookup={r['id']:r for r in results}
     tables={fmt:{p:[] for p in fixed} for fmt in FORMATS if any(j['meta']['format']==fmt for j in jobs)}
