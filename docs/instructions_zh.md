@@ -148,7 +148,7 @@ set -o pipefail
 - `manifest.json` 的 `config` 与指令相符，规则/架构/词表及引擎绑定正确。
 - `clock.json` 的开始时间和截止时间符合本次预算；默认前 10/12 时长允许更新，最后 2/12 冻结评测。
 - 每个启用赛制有 `hardware.json`、`state.json`、`latest.pt`，至少一个有效采集批次继续推进 `jobs.jsonl` 和训练计数。
-- 没有 `trainer_error.log`、`errors.log` 或持续 `infrastructure_error`；阶段和教师身份符合预期。启动失败就报告失败，不以后台 PID 存在替代进度。
+- 没有 `trainer_error.log` 或持续 `infrastructure_error`；阶段和教师身份符合预期。启动失败就报告失败，不以后台 PID 存在替代进度。
 
 本指南不提供默认重跑 277 项测试、30 块性能矩阵或大样本战斗统计的前置流程。
 
@@ -223,7 +223,7 @@ test -f "$run_dir/manifest.json" || exit 1
 | `<format>/validation/*.json` | 区分 trend/promotion、native/lite 和队友上下文；一次小面板胜利不等于最终棋力 |
 | `<format>/latest.pt`、`last_bc.pt`、`last_ppo.pt` | 检查点是否更新、是否匹配状态与当前阶段；best/selected 是选模结果，不能当 latest 恢复状态的替身 |
 | `control/*.json`、`control/events.jsonl` | 当前配置、pending 命令、已应用序号、reward_version、last_error、metrics_error（非空时 adaptive 冻结） |
-| 主日志、`scheduler.jsonl`、`trainer_error.log`、`errors.log` | 是否仍有任务完成、哪个赛制/阶段故障、实际异常栈 |
+| 主日志、`scheduler.jsonl`、`trainer_error.log` | 是否仍有任务完成、哪个赛制/阶段故障、实际异常栈 |
 
 BC 局数不增长不一定挂住：配额已满而质量未过时会继续学习已有数据，平台期才追加采样。采集阶段短时不更新权重也可能正常。结合最新任务完成时间、待处理批次、optimizer_steps 和检查点时间判断；CPU 利用率高本身不能证明更快或异常，先看有效局/小时、CPU 核秒/局、内存与超时。
 

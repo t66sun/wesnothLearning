@@ -143,7 +143,7 @@ def play_lite_job(job):
         host = LiteHost(job['game_spec'], job.get('rules_dir'),
                         require_accepted=job.get('require_accepted', True), teacher_path=teacher_path)
         teacher_profile=teacher_identity()['teacher_profile'] if legacy else 'none'
-        timings, behavior, bootstraps, metric_snapshots = [], [], {}, []
+        behavior, bootstraps, metric_snapshots = [], {}, []
         config = job.get('reward_config') or RewardConfig().to_dict()
         config = RewardConfig(**config).to_dict()
         rank_points, defeated = {}, set()
@@ -220,7 +220,7 @@ def play_lite_job(job):
             decision['committed']=outcome['committed']
             if outcome.get('memory_write'): decision['memory_write']=dict(outcome['memory_write'],turn=decision['turn'])
             if policies and not teacher: policies.commit(current,decision,outcome)
-            behavior.append(outcome['diagnostics']);timings.append(decision['timing']['ms'])
+            behavior.append(outcome['diagnostics'])
             if current in learner_sides:
                 decision = compact_row(decision)
                 records.append(decision)
@@ -272,7 +272,7 @@ def play_lite_job(job):
         return dict(id=job_id, status='complete', engine='lite', result=result, coverage=coverage,
                     reward_diagnostics=summarize_game(records.metric_rows(),result,job,snapshots=metric_snapshots),
                     training_eligible=written is None or bool(written['written']), training_shard=written,
-                    behavior=behavior, timings=timings, native_timings=[], meta=job.get('meta', {}),
+                    behavior=behavior, meta=job.get('meta', {}),
                     truncated=records.truncated)
     except (RuntimeError, ValueError, ImportError, OSError, KeyError) as exc:
         return dict(id=job_id, status='infrastructure_error', engine='lite', error=str(exc))

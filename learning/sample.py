@@ -77,7 +77,7 @@ def play_job(job):
     except RuntimeError as exc:
         status='budget_interrupted' if 'experiment_budget_interrupted' in str(exc) else 'infrastructure_error'
         return dict(id=job['id'], status=status, error=str(exc))
-    records=[];native_timings=[];bootstraps={};metric_snapshots=[];stock_frames=[]
+    records=[];bootstraps={};metric_snapshots=[];stock_frames=[]
     event_path=output.with_suffix('.events.jsonl.gz') if job.get('learning') else output.with_suffix('.events.jsonl')
     event_stream=gzip.open(event_path,'rt',encoding='utf-8') if job.get('learning') else event_path.open(encoding='utf-8')
     with event_stream as stream:
@@ -87,8 +87,6 @@ def play_job(job):
             elif event['event']=='STOCK': stock_frames.append(event['data'])
             elif event['event']=='METRIC': metric_snapshots.append(event['data'])
             elif event['event']=='BOOTSTRAP':bootstraps[str(event['data']['side'])]=event['data']
-            elif event['event']=='RETURN' and 'elapsed_ms' in event['data']:
-                native_timings.append(event['data'])
     stock_coverage={}
     if stock_sides:
         for side in stock_sides:
@@ -143,7 +141,6 @@ def play_job(job):
                 dagger.append(context)
             dagger_path=Path(job['shard']).with_name(Path(job['shard']).name.replace('.jsonl.gz','.dagger.jsonl.gz'))
             write_shard(dagger_path,job['id'],dagger,result,bootstraps,dict(provenance,data_pool='dagger'))
-    timings=[r['timing']['ms']+r['timing'].get('inference_ms',0) for r in records]
     from .reward_metrics import summarize_game
     return dict(id=job['id'],status='complete',result=result,meta=job.get('meta',{}),reward_diagnostics=summarize_game(records,result,job,snapshots=metric_snapshots),
         training_eligible=not result.get('faults') and (written is None or bool(written['written'])),training_shard=written,
@@ -151,7 +148,7 @@ def play_job(job):
         coverage=dict(total=total,matched=sum(r['choice']>=0 for r in eligible),
                       all_actions=all_actions,all_matched=matched,kinds=coverage),
         behavior=[r['diagnostics'] for r in records if r.get('diagnostics')],
-        timings=timings,native_timings=native_timings,truncated=sum(r['timing']['truncated'] for r in records))
+        truncated=sum(r['timing']['truncated'] for r in records))
 
 
 def stock_totals(stock_coverage):
