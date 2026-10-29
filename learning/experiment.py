@@ -134,6 +134,19 @@ def coverage_gate(results):
     return dict(passed=all(v['total']>0 and v['ratio']>=(.9 if k=='all' else .8) for k,v in metrics.items()),actions=metrics)
 
 
+def bc_effective(gate):
+    """BC evidence that gates PPO: corpus, coverage, imitation and design.
+
+    The opening probe is recorded in the same file as evidence, but it never
+    blocks: it is a four-game behaviour spot check, not a quality measure.
+    """
+    return bool((gate.get('imitation') or {}).get('effective')
+                and (gate.get('coverage') or {}).get('passed')
+                and (gate.get('corpus') or {}).get('passed')
+                and gate.get('distinct_scenarios', 0) >= gate.get('min_distinct', 1)
+                and not gate.get('missing_scenario_rows'))
+
+
 def opening_gate(results):
     checks=[]
     for r in results:
@@ -427,9 +440,13 @@ class FormatExperiment:
             corpus=dict(games=len(evidence),required=self.config['bc_games'][self.fmt],passed=len(evidence)>=self.config['bc_games'][self.fmt])
             from .evaluate import gate_design
             design=gate_design(rows,self.config['min_distinct']['gate'])
-            if design['status']=='insufficient_design': self.state['effective']=False
-            write_json(self.directory/'bc_gate.json',dict(imitation=quality,coverage=coverage,corpus=corpus,
-                opening=dict(passed=False),passed=False,**dict(design,status='insufficient_design' if design['status']=='insufficient_design' else 'pending')))
+            gate=dict(imitation=quality,coverage=coverage,corpus=corpus,
+                opening=dict(passed=False,blocking=False),**design)
+            gate['passed']=bc_effective(gate)
+            gate['status']='passed' if gate['passed'] else (
+                'insufficient_design' if design['status']=='insufficient_design' else 'not_passed')
+            self.state['effective']=gate['passed']
+            write_json(self.directory/'bc_gate.json',gate)
         self.state['batch']+=1
         self.state['pending_train']=None
         self.state['pending_validation']=method if self.state['version']%self.config['validation_interval']==0 else None
@@ -501,7 +518,12 @@ class FormatExperiment:
                 self.state['champion']=greedy
                 self.state['best_engine']='best_lite' if self.config['engine']=='lite' else 'native_candidate'
         gate=read_json(self.directory/'bc_gate.json') if method=='bc' else None
-        if method=='bc' and gate.get('distinct_scenarios',0)>=self.config['min_distinct']['gate'] and gate['imitation']['effective'] and gate['coverage']['passed'] and gate['corpus']['passed'] and time.time()<self.update_deadline():
+        if method=='bc':
+            # The file on disk is the evidence another reader sees; recompute from
+            # it every validation so a later weaker BC batch cannot leave a stale
+            # `effective` behind.
+            self.state['effective']=bc_effective(gate)
+        if method=='bc' and self.state['effective'] and time.time()<self.update_deadline():
             from .sample import opening_map
             probes=rollout_jobs(self.directory,greedy,[greedy],fixed,self.support,f'v{version}',0,
                 self.config['seed']+900000,self.update_deadline(),self.exe,4,current=greedy,formats=[self.fmt])
@@ -521,8 +543,7 @@ class FormatExperiment:
                 j['game_family']=hashlib.sha256(json.dumps(family,sort_keys=True,separators=(',',':')).encode()).hexdigest()
                 j['output']=str(self.directory/'replays'/(j['id']+'.json'));j.pop('shard',None)
             _,opening=self.execute(probes,f'opening-{version:06}')
-            gate['opening']=opening_gate(opening)
-            self.state['effective']=all(gate[k]['effective' if k=='imitation' else 'passed'] for k in ('imitation','coverage','corpus','opening'))
+            gate['opening']=dict(opening_gate(opening),blocking=False)
             gate['passed']=self.state['effective'];gate['status']='passed' if gate['passed'] else 'not_passed'
             write_json(self.directory/'bc_gate.json',gate)
         self.state['snapshots'].append(greedy);self.state['pending_validation']=None;self.save()
