@@ -105,6 +105,17 @@ rules_dir="$project/data/rules/1.18.8-training"
 
 核对通过标准：规则哈希与 `features.schema()` 一致，六阵营闭包无缺失/未支持声明，地图和 Astra 存在，选择的赛制确有教师链；已有验证有效时复用证据，只有接入代码变动才做一次受影响的最小核验。严格统计精度、外围战役和包体限制的处理边界见架构文档，不能因此重新扩张成全量测试任务。
 
+### 归档回放供给
+
+托管回放按月供给到 `data/replays/<YYYYMM>/<DD>/`，一天一个目录；连续月份重复 `--month`，除非用户指定其他目录否则用默认输出：
+
+```bash
+python -m learning.replay_fetch --month 2026-07 --month 2026-08 --month 2026-09
+python -m learning.replay_fetch --month 2026-07 --out data/replays/202607 --verify
+```
+
+月份列表读不到、某天列表失败或某次传输始终不成功都按失败上报，命令以非零码退出；没有证据的内容不算已供给。重跑成本低且不打折扣：磁盘上已有的文件只有在能完整解压出 bz2 流时才保留，被中断的传输会被重新下载而不是被信任。`--verify` 重新读取归档列表、逐日比对文件名单并解压每个本地文件。该工具只供给采集输入：不解析回放内容，也不授权采集或训练。
+
 ### 引擎基准
 
 成对的 native/lite 工作负载由 `benchmarks/contract.json` 固定；`learning.benchmark.build_manifest` 冻结产物哈希，`learning.benchmark_runner` 在 Linux 上依据 `/proc/*/smaps_rollup` 实测：

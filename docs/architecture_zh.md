@@ -167,6 +167,7 @@ flowchart LR
 | `benchmark engines` | 实测 native/lite 负载对比（从不推断未测资源） |
 | `rules` / `freeze-map` | 冻结原版规则采集；补充冻结地图身份 |
 | `import-human` / `replay_curate` | 经验证的人类录像导入；本地存档与大厅归档两种格式的录像清单整理，并逐方记录中途换人 |
+| `replay_fetch` | 把托管归档的整月回放供给到 `data/replays/<YYYYMM>/`，可续传、可校验 |
 | `control show` / `control set` | 查看或排队奖励控制变更 |
 
 差分工具：`python -m engine_lite.differential` 在有限真实对局上审计 lite 与原版；`engine_lite.audit`/`inventory`/`capture`/`freeze` 处理规则证据而不启动训练。
