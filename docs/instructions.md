@@ -105,6 +105,17 @@ The default rule identity is `d6fceafe7d0c9c67c750551b9901dbfb2b22290992a8daa161
 
 Pass criteria: the rule hash matches `features.schema()`, the six-faction closure has no missing/unsupported declarations, the maps and Astra exist, and the chosen format really has a teacher chain; reuse evidence when existing validation is valid and run one affected minimal check only if the wiring code changed. Handling of strict statistical precision, peripheral campaigns and package limits is bounded by the architecture document and must not re-expand into a full test task.
 
+### Archive replay provisioning
+
+Hosted replays are provisioned month by month into `data/replays/<YYYYMM>/<DD>/`, one directory per archive day; repeat `--month` for consecutive months and keep the default output unless the user names another directory:
+
+```bash
+python -m learning.replay_fetch --month 2026-07 --month 2026-08 --month 2026-09
+python -m learning.replay_fetch --month 2026-07 --out data/replays/202607 --verify
+```
+
+An unreadable month listing, a failed day listing or a transfer that never succeeds is reported as a failure and the command exits non-zero; nothing counts as provisioned without evidence. Re-runs are cheap and honest: a file already on disk is kept only after it decompresses as a complete bz2 stream, so interrupted transfers are re-fetched instead of trusted. `--verify` re-reads the archive listings, compares the listed names day by day and decompresses every local file. The tool provisions captured inputs only: it parses no replay content and authorizes no collection or training.
+
 ### Engine benchmark
 
 The paired native/lite workload is fixed by `benchmarks/contract.json`; `learning.benchmark.build_manifest` freezes the artifact hashes and `learning.benchmark_runner` measures on Linux from `/proc/*/smaps_rollup`:
