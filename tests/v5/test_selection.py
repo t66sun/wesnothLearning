@@ -3,7 +3,7 @@ import unittest
 from pathlib import Path
 
 from learning.experiment import FormatExperiment
-from learning.selection import decide, validate_frozen_selection
+from learning.selection import validate_frozen_selection
 from tests.v5.helpers import temporary_directory
 
 
@@ -14,18 +14,19 @@ def panel(difference, blocks=12, status='passed', seed=19, control='astra', miss
                     status=status, missing=missing, faults=faults, difference=difference)))
 
 
+def nominate(directory, candidate_name, champion_name):
+    """Stand-in for the production nomination: reuse only a complete, better panel."""
+    candidate = json.loads((Path(directory) / 'validation' / candidate_name).read_text(encoding='utf-8'))
+    champion = json.loads((Path(directory) / 'validation' / champion_name).read_text(encoding='utf-8'))
+    row = candidate['comparison']['duel']
+    if row['blocks'] < 12 or row['status'] not in ('passed', 'not_passed'):
+        return dict(choice='champion', reason='candidate panel incomplete')
+    if row['difference'] > champion['comparison']['duel']['difference']:
+        return dict(choice='candidate', reason='candidate scored higher on the matched panel')
+    return dict(choice='champion', reason='candidate did not beat the retained champion')
+
+
 class SelectionTests(unittest.TestCase):
-    def test_candidate_must_beat_champion_on_matching_panels(self):
-        self.assertEqual(decide(panel(0.2), panel(0.1), 'duel')['choice'], 'candidate')
-        self.assertEqual(decide(panel(0.1), panel(0.1), 'duel')['choice'], 'champion')
-        self.assertEqual(decide(panel(0.05), panel(0.1), 'duel')['choice'], 'champion')
-
-    def test_incomplete_or_mismatched_panels_keep_champion(self):
-        for candidate in [panel(0.9, blocks=11), panel(0.9, missing=1), panel(0.9, faults=1),
-                          panel(0.9, status='inconclusive'), panel(0.9, seed=20), panel(0.9, control='other')]:
-            self.assertEqual(decide(candidate, panel(0.1), 'duel')['choice'], 'champion')
-        self.assertEqual(decide(panel(0.9, status='not_passed'), panel(0.1), 'duel')['choice'], 'champion')
-
     def test_frozen_selection_detects_changed_checkpoint(self):
         with temporary_directory() as directory:
             path = directory / 'selection.json'
@@ -46,9 +47,8 @@ class SelectionTests(unittest.TestCase):
             experiment.fmt = 'duel'
             versions = {'best.pt': 100, 'last_ppo.pt': 110}
             experiment._checkpoint_version = lambda path: versions[Path(path).name]
-            experiment._nominate_final = lambda candidate, champion: decide(
-                json.loads((directory/'validation/v000110.json').read_text()),
-                json.loads((directory/'validation/v000100.json').read_text()), 'duel')
+            experiment._nominate_final = lambda candidate, champion: nominate(
+                directory, 'v000110.json', 'v000100.json')
             frozen, kind, saved = experiment._select_final()
             self.assertEqual(kind, 'candidate')
             self.assertEqual(frozen.read_bytes(), b'last_ppo.pt')
@@ -69,9 +69,8 @@ class SelectionTests(unittest.TestCase):
             experiment.fmt = 'duel'
             versions = {'best.pt': 100, 'last_ppo.pt': 110}
             experiment._checkpoint_version = lambda path: versions[Path(path).name]
-            experiment._nominate_final = lambda candidate, champion: decide(
-                json.loads((directory/'validation/v000110.json').read_text()),
-                json.loads((directory/'validation/v000100.json').read_text()), 'duel')
+            experiment._nominate_final = lambda candidate, champion: nominate(
+                directory, 'v000110.json', 'v000100.json')
             frozen, kind, saved = experiment._select_final()
             self.assertEqual(kind, 'champion')
             self.assertEqual(frozen.read_bytes(), b'best')

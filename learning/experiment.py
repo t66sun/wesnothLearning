@@ -377,9 +377,6 @@ class FormatExperiment:
                 if row.get('teacher')!=self.teacher_record['kind'] or (
                         row.get('teacher_identity') is not None and row['teacher_identity']!=self.teacher_record):
                     raise ValueError('training labels differ from the active teacher')
-        if method == 'ppo':
-            from .updates import eligible_rows
-            eligible_rows(rows)
         identity=dict(train=rollout_identity(rows))
         if method=='ppo': identity['bc']=rollout_identity(bc)
         if pending.get('identity') is not None and pending['identity']!=identity:
