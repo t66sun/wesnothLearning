@@ -26,7 +26,7 @@ Not claimed: lite/native rule equivalence, native performance acceptance, or pla
 | `lua/` | Add-on Lua shared by the native deployment and the lite host: observation, candidates, spatial/relational network, routing, rewards, teacher, stock-RCA capture |
 | `vendor/arena/` | Vendored WesnothArena native SDK (runtime, match runner, bots, faction/leader/recruit profile) |
 | `data/rules/` | Frozen rules: `1.18.8-training` (default, 587 units / 438 terrains) and historical `1.18.8` |
-| `data/` | Captured inputs: `humanData/`, `humanData_curated/`, `datasets/`, `opponents/gpt6astra.zip` (legacy teacher) |
+| `data/` | Captured inputs: `humanData/`, `humanData_curated/`, `replays/` (packed lobby replay pull), `replays_curated/` (standard-era human games curated from it), `datasets/`, `opponents/gpt6astra.zip` (legacy teacher) |
 | `tests/` | `tests/v5/` contract suites, legacy unit suites, manual smoke scripts, shared fixtures in `tests/v5/helpers.py` |
 | `benchmarks/` | Frozen engine workload contract (`contract.json`) and its runner |
 | `runs/<run>/` | Per-run manifests, per-format state, schedules and checkpoints (not tracked) |
@@ -166,7 +166,7 @@ Comparison status precedence: `infrastructure_error` → `inconclusive` (missing
 | `audit bc` / `audit fit` | full-set BC representation diagnostics; explicitly invoked tiny-fit probe |
 | `benchmark engines` | measured native/lite workload comparison (never infers unmeasured resources) |
 | `rules` / `freeze-map` | freeze native rule captures; add a frozen map identity |
-| `import-human` / `replay_curate` | verified human replay import and replay inventory curation |
+| `import-human` / `replay_curate` | verified human replay import; replay curation over local saves and lobby archives |
 | `control show` / `control set` | inspect or queue reward-control changes |
 
 Differential tooling: `python -m engine_lite.differential` audits lite versus native on bounded real battles; `engine_lite.audit`/`inventory`/`capture`/`freeze` handle rule evidence without launching training.

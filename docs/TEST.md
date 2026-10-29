@@ -61,6 +61,16 @@ Every item states what is open, the smallest Ubuntu procedure that would close i
 
 **Blocker:** proves installation only; it authorizes no collection, training start, convergence or strength claim.
 
+## C1 — Lobby-archive replay curation
+
+**Status:** implemented; `learning/replay_curate.py` reads the hosted archive layout (`[scenario]` plus `[carryover_sides_start]`, history split over two `[replay]` blocks) beside the local-save layout. Reference evidence is Windows only, so Ubuntu is NOT RUN. It blocks no training path: the curated corpus stays staging until a version-aware BC or an archive-capture path exists.
+
+**Procedure:** run `python -m unittest tests.test_replay_curate -v`, then curate one archive sample and regenerate the corpus from `data/replays/202412.tar` into a temporary output and compare `inventory.jsonl` against `data/replays_curated/inventory.jsonl` member by member.
+
+**Pass:** the archive test fails when the `initial = start if start is not None else scenario` branch is reverted; every curated `.gz` payload rehashes to its recorded `payload_sha256`; selection, family and format counts reproduce exactly (434 games, 434 families, 147,899 decision intents); no original is modified.
+
+**Evidence:** `verification/replay_archive_20261029/REPORT.md` and `funnel.json` (reference), extended by a dated `verification/` report once Ubuntu runs it.
+
 ## Execution and report
 
 1. Identify the changed owner, the activated item and reused evidence. Predeclare maximum rows/windows/steps/games and numeric tolerances; implement only needed assertions or helpers; record real commands before running.

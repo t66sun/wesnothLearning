@@ -1,0 +1,51 @@
+{
+  "date": "2026-10-29",
+  "environment": "Windows reference (no Wesnoth install); Ubuntu acceptance NOT RUN",
+  "input": {
+    "path": "data/replays/202412 (loose tree, since packed and removed)",
+    "files": 16871,
+    "unique_basenames": 16862,
+    "bytes": 1225379840,
+    "provenance": "replays.wesnoth.org whole-month pull, December 2024"
+  },
+  "parsed": 16681,
+  "parse_error": 190,
+  "version_census": {"1.18.3": 10545, "1.18.0": 4632, "1.18.2": 1368, "1.18.1": 74,
+                     "1.18.3+dev": 30, "1.17.26": 18, "1.18.2+dev": 14, "1.18.8": 0},
+  "frozen_board_files": 1103,
+  "frozen_board_census": {"isars_cross": 360, "hamlets": 168, "caves_of_the_basilisk": 138,
+                          "weldyn_channel": 99, "sablestone_delta": 95, "the_freelands": 91,
+                          "clash": 65, "morituri": 39, "ruined_passage": 28, "loris_river": 20},
+  "frozen_board_match": {"exact_multiset": 628, "one_ring_stripped": 475},
+  "replay_start_blocks": {"files_with_replay_start": 3286, "of_frozen_board_files": 0},
+  "funnel_first_failing_gate": {"map_not_frozen": 15578, "version_not_1.18.8": 591,
+                                "required_addons_or_mods": 239, "era_not_default": 227,
+                                "parse_error": 190, "addon_scenario": 46,
+                                "eligible": 0},
+  "shape_passers": {"total": 591, "versions": {"1.18.3": 390, "1.18.0": 113, "1.18.2": 60, "1.18.1": 28},
+                    "all_human": 478, "all_human_at_least_20_decisions": 434},
+  "corpus": {
+    "path": "data/replays_curated",
+    "games": 434,
+    "families": 434,
+    "decision_intents": 147899,
+    "semantic_commands": 372953,
+    "formats": {"duel": 311, "team2v2": 123},
+    "versions": {"1.18.3": 274, "1.18.0": 91, "1.18.2": 42, "1.18.1": 27},
+    "layout": {"archive": 434},
+    "bytes_with_inventory": 8013220,
+    "games_jsonl_sha256": "777c1633dc8fdb9a0f7f4a270b66360ba98126af3ff038449d125f198a81a59d",
+    "listing_sha256": "9ccf6a751447e82f2b46a1e93503e00d23af48fea4ee543aa7b4603b886f9ab4",
+    "listing_definition": "sha256 over lines '<source>\\t<source_sha256>\\t<payload_sha256>\\t<game_id>\\n' sorted by source",
+    "payload_verify": "434/434 curated .gz payloads rehash to the recorded payload_sha256; 0 mismatches"
+  },
+  "archive": {
+    "path": "data/replays/202412.tar",
+    "bytes": 1225379840,
+    "sha256": "5db48380b62ac57badbf4f8f40dc304d95578539dc90f4ffac477216436a22ad",
+    "members": 16871,
+    "member_name_rule": "202412/<day>/<file>",
+    "member_verify": "16871/16871 members rehashed byte-identical to the loose originals; 0 missing, 0 mismatched",
+    "loose_tree_removed": true
+  }
+}
