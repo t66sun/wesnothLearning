@@ -255,7 +255,7 @@ def main(argv=None):
         elif args.command=='freeze-map':
             from .maps import freeze_map
             print(freeze_map(args.source,args.name,output_path(args.output),args.catalog))
-    except (ValueError,FileExistsError,OSError) as exc:
+    except (ValueError,OSError) as exc:
         p.exit(2,str(exc)+'\n')
 
 
