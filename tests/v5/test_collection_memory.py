@@ -130,6 +130,9 @@ class CollectionMemoryTests(unittest.TestCase):
         self.assertTrue(captured)
         self.assertEqual(outcome['coverage'], baseline['coverage'])
         self.assertEqual(outcome['reward_diagnostics'], baseline['reward_diagnostics'])
+        # The job record is the run's per-game log line: it carries aggregates,
+        # never one entry per decision.
+        self.assertFalse({'timings', 'native_timings'} & set(outcome), sorted(outcome))
         def stable_lines(path):
             with gzip.open(path, 'rt') as stream:
                 rows = [json.loads(line) for line in stream]

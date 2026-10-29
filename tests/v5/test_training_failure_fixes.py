@@ -126,7 +126,12 @@ class FailureBoundaryTests(unittest.TestCase):
             runner.final_evaluation.assert_not_called()
             self.assertEqual(runner.state['stage'], 'failed')
             self.assertEqual(runner.state['failed_stage'], 'bc')
-            self.assertIn('optimizer failed', (Path(temp)/'errors.log').read_text())
+            self.assertIn('optimizer failed', runner.state['error'])
+            summary = json.loads((Path(temp)/'report/summary.json').read_text())
+            self.assertEqual(summary['status'], 'trainer_failed')
+            # The trainer process owns the single traceback; a second copy in
+            # errors.log only duplicated it.
+            self.assertFalse((Path(temp)/'errors.log').exists())
 
     def test_v100_metric_error_keeps_opening_and_records_error(self):
         for fmt in ('duel', 'ffa4', 'team2v2'):

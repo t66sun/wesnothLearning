@@ -791,7 +791,8 @@ class FormatExperiment:
             return self.final_evaluation()
         except KeyboardInterrupt: self.save();raise
         except Exception as exc:
-            (self.directory/'errors.log').write_text(traceback.format_exc(),encoding='utf-8')
+            # The trainer process writes the one traceback (trainer_error.log); a
+            # second copy here would duplicate the same stack under errors.log.
             self.state.update(failed_stage=self.state['stage'],stage='failed',status='trainer_failed',error=repr(exc))
             self.save()
             write_json(self.directory/'report/summary.json',dict(format=self.fmt,status='trainer_failed',

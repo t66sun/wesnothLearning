@@ -148,7 +148,7 @@ Post-start checks:
 - `manifest.json` `config` matches the instruction, with correct rule/architecture/vocabulary and engine binding.
 - `clock.json` start and deadline match this budget; by default updates are allowed for the first 10/12 of the duration and the last 2/12 are frozen evaluation.
 - Every enabled format has `hardware.json`, `state.json`, `latest.pt`, and at least one valid collection batch keeps advancing `jobs.jsonl` and training counters.
-- No `trainer_error.log`, `errors.log` or persistent `infrastructure_error`; phase and teacher identity are as expected. Report a failed start as a failure instead of substituting a background PID for progress.
+- No `trainer_error.log` or persistent `infrastructure_error`; phase and teacher identity are as expected. Report a failed start as a failure instead of substituting a background PID for progress.
 
 This guide does not prescribe a default pre-flight rerun of 277 tests, the 30-block performance matrix or large-sample combat statistics.
 
@@ -223,7 +223,7 @@ test -f "$run_dir/manifest.json" || exit 1
 | `<format>/validation/*.json` | Distinguish trend/promotion, native/lite and teammate context; a small-panel win is not final strength |
 | `<format>/latest.pt`, `last_bc.pt`, `last_ppo.pt` | Whether the checkpoint updated and matches state and current phase; best/selected are selection results, not a substitute for latest when restoring |
 | `control/*.json`, `control/events.jsonl` | Current config, pending commands, applied sequence, reward_version, last_error, metrics_error (adaptive is frozen when non-empty) |
-| Main log, `scheduler.jsonl`, `trainer_error.log`, `errors.log` | Whether tasks still complete, which format/phase failed, the actual stack trace |
+| Main log, `scheduler.jsonl`, `trainer_error.log` | Whether tasks still complete, which format/phase failed, the actual stack trace |
 
 A non-growing BC game count is not necessarily stuck: when the quota is full but quality has not passed, learning continues on existing data and sampling is added only past the plateau. Short collection phases may legitimately not update weights. Judge from the latest task completion time, pending batches, optimizer_steps and checkpoint time; high CPU utilisation alone proves neither speed nor a fault, so look at valid games/hour, CPU core-seconds/game, memory and timeouts first.
 
