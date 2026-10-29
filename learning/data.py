@@ -24,6 +24,19 @@ def record_split(row):
     return split(key)
 
 
+EVIDENCE_PHASES = ('validation', 'reward_reference')
+
+
+def keeps_behavior(meta):
+    """Only the opening probe reads per-decision diagnostics (experiment.opening_gate)."""
+    return bool(meta.get('opening'))
+
+
+def keeps_reward_diagnostics(meta):
+    """Only rows the reward controller reads keep the per-horizon summary."""
+    return meta.get('phase') in EVIDENCE_PHASES
+
+
 def reward(result, side):
     from .rewards import terminal_rewards
     return terminal_rewards(result)[side]

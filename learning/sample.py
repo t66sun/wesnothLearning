@@ -6,7 +6,7 @@ import gzip
 import os
 import time
 from .common import ROOT, write_json
-from .data import write_shard
+from .data import keeps_behavior, keeps_reward_diagnostics, write_shard
 import match
 _priority_set=False
 
@@ -141,13 +141,18 @@ def play_job(job):
                 dagger.append(context)
             dagger_path=Path(job['shard']).with_name(Path(job['shard']).name.replace('.jsonl.gz','.dagger.jsonl.gz'))
             write_shard(dagger_path,job['id'],dagger,result,bootstraps,dict(provenance,data_pool='dagger'))
-    from .reward_metrics import summarize_game
-    return dict(id=job['id'],status='complete',result=result,meta=job.get('meta',{}),reward_diagnostics=summarize_game(records,result,job,snapshots=metric_snapshots),
+    meta=job.get('meta',{})
+    evidence={}
+    if keeps_reward_diagnostics(meta):
+        from .reward_metrics import summarize_game
+        evidence['reward_diagnostics']=summarize_game(records,result,job,snapshots=metric_snapshots)
+    if keeps_behavior(meta):
+        evidence['behavior']=[r['diagnostics'] for r in records if r.get('diagnostics')]
+    return dict(id=job['id'],status='complete',result=result,meta=meta,**evidence,
         training_eligible=not result.get('faults') and (written is None or bool(written['written'])),training_shard=written,
         stock_coverage=stock_coverage,
         coverage=dict(total=total,matched=sum(r['choice']>=0 for r in eligible),
                       all_actions=all_actions,all_matched=matched,kinds=coverage),
-        behavior=[r['diagnostics'] for r in records if r.get('diagnostics')],
         truncated=sum(r['timing']['truncated'] for r in records))
 
 

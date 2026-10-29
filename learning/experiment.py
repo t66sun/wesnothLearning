@@ -517,7 +517,9 @@ class FormatExperiment:
                 j['bots']=[greedy if i==focal else 'baseline' for i in range(1,len(j['bots'])+1)]
                 j['map_override']=opening_map(len(j['bots']))
                 map_hash=hashlib.sha256(json.dumps(j['map_override'],sort_keys=True,separators=(',',':')).encode()).hexdigest()
-                j['meta'].update(map='opening_probe',map_sha256=map_hash)
+                # The opening gate is the only reader of per-decision diagnostics,
+                # so this is the only batch that keeps them on its job records.
+                j['meta'].update(map='opening_probe',map_sha256=map_hash,opening=True)
                 family=dict(format=self.fmt,map=map_hash,seed=j['seed'],factions=j['factions'],teams=j.get('teams'))
                 j['game_family']=hashlib.sha256(json.dumps(family,sort_keys=True,separators=(',',':')).encode()).hexdigest()
                 j['output']=str(self.directory/'replays'/(j['id']+'.json'));j.pop('shard',None)

@@ -89,6 +89,8 @@ Rows are the training contract: schema 6, encoded by `rowpack` v2 (JSON metadata
 
 Actor inputs never contain referee truth: reward scalars, teacher actions, unseen units, unexplored terrain and RNG state are stripped before the policy sees a decision.
 
+A job record is the run's per-game log line, so it holds per-decision evidence only where a consumer reads it: `behavior` on opening probes (the BC opening gate) and `reward_diagnostics` on validation and reward-reference rows (the reward controller). Every other game keeps its aggregates — coverage, eligibility, truncation, shard identity.
+
 Teacher capabilities are declared, not assumed:
 
 - `wesnoth_default_rca` — the stock AI. Only native engine events are observable; there is no per-decision query, so DAgger is unsupported.

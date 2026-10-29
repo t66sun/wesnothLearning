@@ -109,12 +109,14 @@ def play_lite_job(job):
     unsupported in lite. No hidden true state enters Astra or policy callbacks.
     """
     from .features import schema
-    from .data import write_shard
+    from .data import keeps_behavior, keeps_reward_diagnostics, write_shard
     from .rewards import RewardConfig
     from .teachers import identity as teacher_identity
     from .lite_policy import FrozenPolicies,game_spec,is_astra
     from .reward_metrics import summarize_game
     job_id = job['id']
+    meta = job.get('meta', {})
+    record_decisions = keeps_behavior(meta)
     records, dagger = TrajectoryBuffer(), TrajectoryBuffer()
     try:
         if time.time() >= job.get('deadline', float('inf')):
@@ -220,7 +222,7 @@ def play_lite_job(job):
             decision['committed']=outcome['committed']
             if outcome.get('memory_write'): decision['memory_write']=dict(outcome['memory_write'],turn=decision['turn'])
             if policies and not teacher: policies.commit(current,decision,outcome)
-            behavior.append(outcome['diagnostics'])
+            if record_decisions: behavior.append(outcome['diagnostics'])
             if current in learner_sides:
                 decision = compact_row(decision)
                 records.append(decision)
@@ -269,11 +271,14 @@ def play_lite_job(job):
         if dagger and job.get('shard'):
             path=Path(job['shard']);write_shard(path.with_name(path.name.replace('.jsonl.gz','.dagger.jsonl.gz')),job_id,dagger,result,bootstraps)
         coverage = records.coverage
-        return dict(id=job_id, status='complete', engine='lite', result=result, coverage=coverage,
-                    reward_diagnostics=summarize_game(records.metric_rows(),result,job,snapshots=metric_snapshots),
+        evidence = {}
+        if keeps_reward_diagnostics(meta):
+            evidence['reward_diagnostics'] = summarize_game(records.metric_rows(), result, job, snapshots=metric_snapshots)
+        if keeps_behavior(meta):
+            evidence['behavior'] = behavior
+        return dict(id=job_id, status='complete', engine='lite', result=result, coverage=coverage, **evidence,
                     training_eligible=written is None or bool(written['written']), training_shard=written,
-                    behavior=behavior, meta=job.get('meta', {}),
-                    truncated=records.truncated)
+                    meta=meta, truncated=records.truncated)
     except (RuntimeError, ValueError, ImportError, OSError, KeyError) as exc:
         return dict(id=job_id, status='infrastructure_error', engine='lite', error=str(exc))
     finally:
