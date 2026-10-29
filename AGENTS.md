@@ -25,7 +25,7 @@ This repository trains a Wesnoth 1.18.8 agent: a Rust rule core (`engine_lite/`)
 ```text
 README.md            repository entry (English); Chinese mirror docs/README_zh.md
 AGENTS.md            these working rules (English only)
-docs/                maintained bilingual docs: architecture, instructions, TEST, THIRD_PARTY
+docs/                resident docs only, each with a _zh mirror: architecture, instructions, TEST, THIRD_PARTY; task docs are *_temp.md
 engine_lite/         Rust extension, native capture/freeze/audit, direct Lua host
 learning/            coordinator, adapters, model, sequences, training, rewards, evaluation, export
 lua/                 native deployment plus the observation/candidates/memory/reward shared by both engines
@@ -49,7 +49,9 @@ tmp/                 scratch space; nothing here is evidence
 
 ## Documentation
 
-Maintained docs live in `docs/`; the repository root keeps only `README.md`, whose Chinese mirror is `docs/README_zh.md`. Module docs under `benchmarks/`, `engine_lite/` and `learning/` stay beside their code. Mirrors use the `_zh` suffix.
+Resident docs are exactly four, each with a `_zh` mirror: `docs/architecture.md` (structure, contracts and live parameters), `docs/instructions.md` (operations), `docs/TEST.md` (open acceptance only), `docs/THIRD_PARTY.md` (licensing). They describe only the current version: rewrite the affected section in place and delete the superseded text; never append dated notes, history or decision logs after it.
+
+Every other document is temporary unless the user says otherwise: English only, no `_zh` mirror, filename ending `_temp.md`, deleted once the task it serves ends. `README.md` and its mirror `docs/README_zh.md` are the repository entry, not task documents.
 
 Not maintained docs: `vendor/`, `data/references/`, `verification/`, `data/rules/`, `data/humanData*`, `delivery/`, `runs/`, `tmp/`.
 
