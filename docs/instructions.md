@@ -120,7 +120,7 @@ Drop the limits and pass `--blocks 30` for full samples; each output directory i
 
 ## 4. Create and start training
 
-First establish the user-specified formats, device, duration, workers and experiment name. Default collection specification is in architecture.md §12; the numbers are valid-teacher-game targets, and filling them also requires passing the BC quality/coverage/opening gates. Verify the generated config matches the authorization.
+First establish the user-specified formats, device, duration, workers and experiment name. Default collection specification is in architecture.md §12; the numbers are valid-teacher-game targets, and filling them also requires passing the BC quality/coverage/design gates. Verify the generated config matches the authorization.
 
 Below is the template for an **authorized new 18-hour CPU three-format pure lite experiment**; replace items when the user specifies another duration or formats:
 
@@ -219,7 +219,7 @@ test -f "$run_dir/manifest.json" || exit 1
 | `manifest.json`, `clock.json` | Actual config, source/opponent/vocabulary identity, update and final deadlines |
 | `<format>/state.json` | stage, batch, version, effective, counters, pending_train/pending_validation, error; read only needed fields since history may be large |
 | `<format>/jobs.jsonl` | Recent task status, faults, training_eligible, teacher coverage, engine and phase; count valid games rather than file lines |
-| `<format>/bc_gate.json` | Whether corpus size, imitation quality, candidate coverage and opening behavior each pass |
+| `<format>/bc_gate.json` | Whether corpus size, imitation quality, candidate coverage and scenario design each pass; the opening probe is recorded with `blocking: false` |
 | `<format>/validation/*.json` | Distinguish trend/promotion, native/lite and teammate context; a small-panel win is not final strength |
 | `<format>/latest.pt`, `last_bc.pt`, `last_ppo.pt` | Whether the checkpoint updated and matches state and current phase; best/selected are selection results, not a substitute for latest when restoring |
 | `control/*.json`, `control/events.jsonl` | Current config, pending commands, applied sequence, reward_version, last_error, metrics_error (adaptive is frozen when non-empty) |

@@ -120,7 +120,7 @@ python -m learning.benchmark_runner --executable "$WESNOTH_EXE" \
 
 ## 4. 新建并启动训练
 
-先确定用户指定的赛制、设备、时长、worker 和实验名。当前默认采集规格见 architecture.md §12；数量是有效教师局目标，采满还要满足 BC 质量/覆盖/开局门槛。核对实际生成配置与用户授权一致。
+先确定用户指定的赛制、设备、时长、worker 和实验名。当前默认采集规格见 architecture.md §12；数量是有效教师局目标，采满还要满足 BC 质量/覆盖/场景设计门槛。核对实际生成配置与用户授权一致。
 
 以下是**获准新建 18 小时 CPU 三赛制纯 lite 实验**时的模板；用户指定其他时长或赛制时替换对应项：
 
@@ -219,7 +219,7 @@ test -f "$run_dir/manifest.json" || exit 1
 | `manifest.json`、`clock.json` | 实际配置、源码/对手/词表身份、更新和最终截止时间 |
 | `<format>/state.json` | stage、batch、version、effective、counters、pending_train/pending_validation、error；只取需要的字段，history 可能很大 |
 | `<format>/jobs.jsonl` | 最近任务的 status、faults、training_eligible、教师覆盖、引擎和阶段；统计有效局而非单看文件行数 |
-| `<format>/bc_gate.json` | 语料数量、模仿质量、候选覆盖、开局行为分别是否通过 |
+| `<format>/bc_gate.json` | 语料数量、模仿质量、候选覆盖、场景设计分别是否通过；开局探针记录为 `blocking: false` |
 | `<format>/validation/*.json` | 区分 trend/promotion、native/lite 和队友上下文；一次小面板胜利不等于最终棋力 |
 | `<format>/latest.pt`、`last_bc.pt`、`last_ppo.pt` | 检查点是否更新、是否匹配状态与当前阶段；best/selected 是选模结果，不能当 latest 恢复状态的替身 |
 | `control/*.json`、`control/events.jsonl` | 当前配置、pending 命令、已应用序号、reward_version、last_error、metrics_error（非空时 adaptive 冻结） |

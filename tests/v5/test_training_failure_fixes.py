@@ -141,7 +141,8 @@ class FailureBoundaryTests(unittest.TestCase):
                 runner.controller.freeze = lambda: dict(mode='adaptive')
                 runner.collect_reward_references = Mock()
                 write_json(Path(temp)/'bc_gate.json', dict(imitation=dict(effective=True),
-                    coverage=dict(passed=True), corpus=dict(passed=True)))
+                    coverage=dict(passed=True), corpus=dict(passed=True),
+                    distinct_scenarios=12, min_distinct=12, missing_scenario_rows=0))
                 calls = []
                 def execute(jobs, name):
                     calls.append(name)
@@ -161,6 +162,33 @@ class FailureBoundaryTests(unittest.TestCase):
                 self.assertEqual(metrics['status'], 'error')
                 self.assertEqual(metrics['validation_blocks'], [])
                 self.assertIn('astra_coverage5', metrics['error'])
+
+
+    def test_opening_probe_is_recorded_but_never_blocks_ppo(self):
+        from unittest.mock import patch as patch_object
+        with tempfile.TemporaryDirectory() as temp:
+            runner=cadence.ValidationCadenceTests().runner(temp)
+            runner.state.update(version=100,pending_validation='bc')
+            runner.controller.freeze=lambda: dict(mode='adaptive')
+            runner.collect_reward_references=Mock()
+            write_json(Path(temp)/'bc_gate.json',dict(imitation=dict(effective=True),
+                coverage=dict(passed=True),corpus=dict(passed=True),
+                distinct_scenarios=12,min_distinct=12,missing_scenario_rows=0))
+            def execute(jobs,name):
+                if name.startswith('opening-'):
+                    return jobs,[dict(status='complete',meta=j['meta'],behavior=[
+                        dict(side=j['meta']['seat'],left_castle=False,village_captured=False,
+                             end_turn=True,usable_moves=9,remaining_moves=1)]) for j in jobs]
+                return jobs,[]
+            runner.execute=execute
+            with patch_object('learning.reward_metrics.build_control_metrics',
+                              return_value=dict(partition='validation',validation_blocks=[],excluded_evidence=[])):
+                runner.validate_model('bc')
+            gate=read_json(Path(temp)/'bc_gate.json')
+            self.assertTrue(runner.state['effective'])
+            self.assertTrue(gate['passed'])
+            self.assertFalse(gate['opening']['passed'])
+            self.assertFalse(gate['opening']['blocking'])
 
 
 class PhaseEntryTests(unittest.TestCase):
