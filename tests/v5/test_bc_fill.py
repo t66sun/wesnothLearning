@@ -11,6 +11,7 @@ from pathlib import Path
 from unittest import mock
 
 from learning import data, sequences
+from learning.rowpack import pack_line
 from learning.sequences import IndexedSequenceStore, discard_sequences, read_shards
 from tests.v5 import helpers
 
@@ -185,6 +186,24 @@ class BoundedFillTests(unittest.TestCase):
             self.assertEqual(discard_sequences(shard,'retry-1'),1)
             self.assertFalse(shard.exists())
             with IndexedSequenceStore(root/'sequences') as store: self.assertEqual(store.index(),[])
+
+    def test_discard_sequences_never_deletes_another_jobs_index(self):
+        retried=helpers.sequence_rows(turns=1,decisions_per_turn=1,game_id='retry-1',game_family='family-3')
+        retried[0]['split']=data.split('family-3')
+        committed=helpers.sequence_rows(turns=1,decisions_per_turn=1,game_id='kept-2',game_family='family-4')
+        committed[0]['split']=data.split('family-4')
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp)
+            with IndexedSequenceStore(root/'sequences') as store:
+                store.write(retried)
+                store.write(committed)
+            # A stale shard left at the retried job's path names a committed game.
+            shard=root/'retry.jsonl.gz'
+            with gzip.open(shard,'wt',encoding='utf-8') as stream:
+                for row in committed: stream.write(pack_line(row)+'\n')
+            self.assertEqual(discard_sequences(shard,'retry-1'),1)
+            with IndexedSequenceStore(root/'sequences') as store:
+                self.assertEqual([row['game_id'] for row in store.index()],['kept-2'])
 
 
 if __name__ == '__main__':

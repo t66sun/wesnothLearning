@@ -644,6 +644,14 @@ class RewardMetricsTests(unittest.TestCase):
         self.assertEqual(statistics['terminal_square_sum'], 1.0)
         self.assertGreaterEqual(statistics['shaping_square_sum'], 0.0)
 
+    def test_summarize_game_rejects_a_step_that_disagrees_with_its_transition(self):
+        rows = [observation_row(turn) for turn in range(1, 4)]
+        rows[1]['reward_step'] = 7.0
+        job = dict(id='bad-step', reward_config=helpers.config(),
+                   meta=dict(format='duel'), factions=['Fighter', 'Skeleton'])
+        with self.assertRaisesRegex(ValueError, 'reward step differs from recorded transition'):
+            summarize_game(rows, result(), job)
+
     def test_summarize_game_reports_missing_horizons_and_provenance(self):
         rows = [observation_row(turn) for turn in (1, 2, 3)]
         job = dict(id='short', meta=dict(format='duel'), factions=['Fighter', 'Skeleton'])

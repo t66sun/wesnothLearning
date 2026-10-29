@@ -3,9 +3,11 @@ import random
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 import torch
 from lupa import LuaRuntime
 from learning.common import ROOT
+from learning import features
 from learning.model import Policy, batch
 from learning.features import GLOBAL,OPPONENT,ACTION,VERSION,schema,ENTITY,GEOMETRY,SPATIAL_CHANNELS,UNIT_TYPES
 from learning.rewards import RewardConfig
@@ -173,6 +175,14 @@ class CoreTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             p=Path(tmp)/'old.pt';torch.save(dict(features=schema()|dict(version=2)),p)
             with self.assertRaises(ValueError): load_model(p,'duel')
+
+    def test_schema_rejects_a_corrupt_rules_catalog_instead_of_dropping_the_hash(self):
+        with tempfile.TemporaryDirectory() as temp:
+            rules = Path(temp)/'rules.json'
+            rules.write_text('{not json', encoding='utf-8')
+            with mock.patch.object(features, 'RULES_PATH', rules):
+                with self.assertRaises(ValueError):
+                    features._rules_sha256()
 
     def test_minibatch_resume_matches_uninterrupted_training(self):
         import copy
