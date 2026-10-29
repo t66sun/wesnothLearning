@@ -3,6 +3,7 @@ import json
 import shutil
 import torch
 from .common import ROOT, write_json, sha256
+from .checkpoints import validate_checkpoint
 from .features import schema
 from .model import Policy,ARCHITECTURE
 from .formats import FORMATS
@@ -75,10 +76,7 @@ def export(models, destination, name='NeuralArena', mode='greedy', version='untr
 
 
 def load_model(checkpoint, format_name, device='cpu'):
-    state = torch.load(checkpoint, map_location=device, weights_only=False)
-    if state.get('features')!=schema(): raise ValueError('checkpoint feature schema does not match this engine')
-    if state.get('architecture')!=ARCHITECTURE: raise ValueError('checkpoint network architecture does not match this engine')
-    if state.get('format')!=format_name: raise ValueError('checkpoint belongs to a different format')
+    state = validate_checkpoint(torch.load(checkpoint, map_location=device, weights_only=False), format_name)
     model = Policy(format_name).to(device)
     model.load_state_dict(state['model'])
     return model, state

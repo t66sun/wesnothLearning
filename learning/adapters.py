@@ -1,7 +1,6 @@
 """Native and lite boundaries; snapshots remain internal to training/differentials."""
 from __future__ import annotations
 
-import hashlib
 import json
 from pathlib import Path
 from typing import Protocol, Any
@@ -66,15 +65,11 @@ class LiteAdapter:
     combat_version = COMBAT_VERSION
 
     def __init__(self, game_spec, rules_dir=None, *, require_accepted=True):
-        from .rules_catalog import load as load_catalog, resolve_dir
+        from .rules_catalog import load as load_catalog, provenance, resolve_dir
         rules_dir = resolve_dir(rules_dir)
         catalog = load_catalog(rules_dir, require_accepted=require_accepted)
+        rules, digest = provenance(catalog, rules_dir)
         self.catalog = catalog
-        raw_rules = (rules_dir / 'rules.json').read_bytes()
-        digest = hashlib.sha256(raw_rules).hexdigest()
-        rules = json.loads(raw_rules)
-        if rules['source_hash'] != catalog['source_hash']:
-            raise ValueError('catalog/rules source provenance mismatch')
         if rules['source_version'] != '1.18.8':
             raise ValueError('lite requires native 1.18.8 data')
         modifier=game_spec.get('experience_modifier',100)

@@ -23,25 +23,27 @@ def resolve_dir(value=None):
                 ROOT / 'data/rules/1.18.8-training').resolve()
 
 
-def _validate(metadata, rules_dir):
+def provenance(metadata, rules_dir):
+    """Read rules.json once and check its bytes and source identity against metadata."""
     rules_path = Path(rules_dir) / 'rules.json'
-    if not rules_path.exists():
+    if not rules_path.is_file():
         raise RuntimeError('missing native 1.18.8 frozen rules; capture and freeze the real rule inventory first')
-    digest = hashlib.sha256(rules_path.read_bytes()).hexdigest()
+    raw = rules_path.read_bytes()
+    digest = hashlib.sha256(raw).hexdigest()
     if metadata.get('rules_file_sha256') != digest:
         raise ValueError('rules.json differs from the frozen catalog hash')
     if not metadata.get('source_hash'):
         raise ValueError('catalog is missing immutable rule identity')
-    return metadata
+    rules = json.loads(raw)
+    if metadata['source_hash'] != rules.get('source_hash'):
+        raise ValueError('catalog/rules source provenance mismatch')
+    return rules, digest
 
 
-def _training_acceptance(metadata, rules_dir):
+def _training_acceptance(metadata, rules_dir, rules):
     """Check the shared six-faction profile against compiled rules, not flags."""
     from engine_lite.audit import training_closure
 
-    rules = json.loads((rules_dir / 'rules.json').read_bytes())
-    if metadata.get('source_hash') != rules.get('source_hash'):
-        raise ValueError('catalog/rules source provenance mismatch')
     if rules.get('source_version') != '1.18.8':
         raise ValueError('lite requires native 1.18.8 data')
     coverage_path = rules_dir / 'coverage.json'
@@ -78,19 +80,19 @@ def load(rules_dir=None, *, require_accepted=True, acceptance_scope='training'):
         summary = json.loads(summary_path.read_text(encoding='utf-8'))
         if summary.get('summary_version') != 1:
             raise ValueError('unsupported catalog summary version')
-        metadata = _validate(summary, rules_dir)
+        rules, _ = provenance(summary, rules_dir)
         if require_accepted:
-            metadata['training_acceptance'] = _training_acceptance(metadata, rules_dir)
-        return metadata
+            summary['training_acceptance'] = _training_acceptance(summary, rules_dir, rules)
+        return summary
     catalog_path = rules_dir / 'catalog.json'
     if not catalog_path.exists():
         raise RuntimeError('missing native 1.18.8 frozen rules; capture and freeze the real rule inventory first')
     catalog = json.loads(catalog_path.read_text(encoding='utf-8'))
-    metadata = _validate(catalog, rules_dir)
+    rules, _ = provenance(catalog, rules_dir)
     fully_accepted = (catalog.get('complete') and catalog.get('native_accepted')
                       and catalog.get('performance_accepted'))
     if require_accepted and not fully_accepted:
         if acceptance_scope == 'full':
             raise RuntimeError('lite P1/P2 acceptance is pending')
-        metadata['training_acceptance'] = _training_acceptance(metadata, rules_dir)
-    return metadata
+        catalog['training_acceptance'] = _training_acceptance(catalog, rules_dir, rules)
+    return catalog
