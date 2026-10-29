@@ -192,6 +192,14 @@ class BundleTests(unittest.TestCase):
         self.assertIn(ARCHIVE_ROOT + '/' + HUMAN_CURATED, members)
         self.assertIn(ARCHIVE_ROOT + '/' + RULES_DIR + '/rules.json', members)
 
+    def test_archive_carries_the_operating_guide_instead_of_the_retired_bundle_page(self):
+        self.build()
+        members = _members(self.base / 'bundle.tar.gz')
+        self.assertIn(ARCHIVE_ROOT + '/docs/instructions.md', members)
+        self.assertIn(ARCHIVE_ROOT + '/docs/instructions_zh.md', members)
+        self.assertNotIn(ARCHIVE_ROOT + '/docs/bundle.md', members)
+        self.assertNotIn(ARCHIVE_ROOT + '/docs/bundle_zh.md', members)
+
     def test_build_rejects_inconsistent_rule_counts(self):
         path = self.root / CATALOG
         summary = json.loads(path.read_text(encoding='utf-8'))

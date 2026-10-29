@@ -53,7 +53,7 @@
 
 **状态：** 构建器与静态校验器已实现并在本地测试；尚未构建归档，也没有干净的 Ubuntu 24.04 机器解压、安装或启动过。NOT RUN。
 
-**流程：** 用 `python -m learning bundle --output tmp/bundle_<date>/WesnothLearning-training.tar.gz --created-at <固定 ISO8601>` 构建一个归档并记录其 sha256；只有在需要随包 Linux wheel 时才传 `--wheel dist/<manylinux x86_64>.whl`，并用 `verify-bundle --require-wheel` 对应校验。按 [bundle.md](bundle.md) 核对成员清单、权限与排除项。复制到干净的 Ubuntu 24.04 x86_64 机器解压，运行 `./setup.sh --preflight`（退出 0，无写入），在一份副本中翻转一个载荷字节并确认 preflight 失败，然后运行 `./setup.sh --device cpu`、`./train.sh --help`（前后对比源码树），以及在没有 `.runtime/environment.sh` 的副本中运行 `./train.sh`，必须拒绝。事后确认不存在 `runs/` 目录或运行日志。
+**流程：** 用 `python -m learning bundle --output tmp/bundle_<date>/WesnothLearning-training.tar.gz --created-at <固定 ISO8601>` 构建一个归档并记录其 sha256；只有在需要随包 Linux wheel 时才传 `--wheel dist/<manylinux x86_64>.whl`，并用 `verify-bundle --require-wheel` 对应校验。按 [instructions.md](instructions_zh.md) 核对成员清单、权限与排除项。复制到干净的 Ubuntu 24.04 x86_64 机器解压，运行 `./setup.sh --preflight`（退出 0，无写入），在一份副本中翻转一个载荷字节并确认 preflight 失败，然后运行 `./setup.sh --device cpu`、`./train.sh --help`（前后对比源码树），以及在没有 `.runtime/environment.sh` 的副本中运行 `./train.sh`，必须拒绝。事后确认不存在 `runs/` 目录或运行日志。
 
 **通过：** 记录的 sha256 与校验读取一致；preflight 接受完好副本并拒绝被篡改副本；归档不含 `.git`、venv、运行状态、验证证据、交付产物、历史 `1.18.8` 规则或原始录像转储；setup 退出 0 并写入 `.runtime/environment.sh` 与 `.cache/setup.log`，其身份检查与 `rules.json`、`catalog-summary.json`、`_engine_lite` 一致；`--help` 不创建任何文件；未 setup 时 `train.sh` 拒绝启动。观察到的失败如实报告，不得缩窄成通过。
 

@@ -9,7 +9,6 @@ Three independent models for Wesnoth 1.18.8: single combat `duel`, four-player f
 - [Architecture and parameters](docs/architecture.md): the current implementation, its contracts and limits.
 - [Pending acceptance list](docs/TEST.md): only acceptance work that is still open, with the smallest Ubuntu procedure for each.
 - [Agent training operations guide](docs/instructions.md): taking over the environment, start/resume, maintenance, diagnosis and instruction-driven tuning.
-- [Ubuntu 24.04 training bundle](docs/bundle.md): build and verify the extraction-ready archive, install it on a clean machine and start training.
 - [Provenance and licensing](docs/THIRD_PARTY.md): third-party code, reference competitor packages and official component licenses.
 
 BC teacher-game targets are **300** duel, **600** FF4 and **400** 2v2 at the default of **8 global workers**. A new manifest declares the stock 1.18.8 RCA teacher, which is native-only, so a lite run collects no stock teacher games (`native_bc_games` defaults to 0) and its seats are self-play/history. No formal training is currently running.
@@ -20,7 +19,7 @@ The current implementation is schema 5 / candidate v3, adding the public tactica
 
 Raw validation evidence lives in `verification/`, experiments and delivery artifacts live in `runs/` and `delivery/`, and every captured input — rule packages, human and teacher datasets, replay dumps, reference opponents — lives under `data/`; the source development package excludes raw validation results by default. The V4 weights, old experiments and the installed AI keep their historical state, and the new architecture is incompatible with schema 3 weights and optimizers.
 
-For a clean Ubuntu 24.04 machine there is one extraction-ready archive: `python -m learning bundle --output PATH` writes it and `python -m learning verify-bundle ARCHIVE` checks it statically, and it carries no `.git`, virtual environment, run state, validation evidence, delivery output or raw replay dump. In an extracted copy `./setup.sh` installs the system packages, pinned torch 2.9.1, `_engine_lite` and Wesnoth 1.18.8 while starting no sampling or training, and `./train.sh` starts one experiment only on explicit user instruction. Building and verifying the archive prove installation only, never convergence or strength; the Ubuntu 24.04 runtime has not been executed yet and is tracked as `PKG1` in docs/TEST.md. Details are in [docs/bundle.md](docs/bundle.md).
+For a clean Ubuntu 24.04 machine there is one extraction-ready archive: `python -m learning bundle --output PATH` writes it and `python -m learning verify-bundle ARCHIVE` checks it statically, and it carries no `.git`, virtual environment, run state, validation evidence, delivery output or raw replay dump. In an extracted copy `./setup.sh` installs the system packages, pinned torch 2.9.1, `_engine_lite` and Wesnoth 1.18.8 while starting no sampling or training, and `./train.sh` starts one experiment only on explicit user instruction. Building and verifying the archive prove installation only, never convergence or strength; the Ubuntu 24.04 runtime has not been executed yet and is tracked as `PKG1` in docs/TEST.md. Details are in [docs/instructions.md](docs/instructions.md#clean-ubuntu-2404-training-bundle).
 
 ## Development entry points
 

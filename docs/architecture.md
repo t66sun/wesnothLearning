@@ -209,9 +209,8 @@ Differential tooling: `python -m engine_lite.differential` audits lite versus na
 | --- | --- |
 | `README.md` / `docs/README_zh.md` | repository entry |
 | `docs/architecture.md` | this file: structure, contracts, parameters |
-| `docs/instructions.md` | operating steps and instruction-driven tuning |
+| `docs/instructions.md` | operating steps, Ubuntu bundle and instruction-driven tuning |
 | `docs/TEST.md` | remaining acceptance items only |
-| `docs/bundle.md` | training archive contract |
 | `docs/THIRD_PARTY.md` | licensing |
 | `engine_lite/README.md`, `learning/*_TEST_SCOPE.md` | module scope |
 | `verification/<date>/REPORT.md` | dated commands, identities and results |
