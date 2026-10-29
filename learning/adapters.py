@@ -59,6 +59,14 @@ class NativeAdapter:
         self.transport.restore(snapshot)
 
 
+def scaled_rules(rules, modifier):
+    """Scale unit experience for one game; provenance() caches rules for the process."""
+    if modifier == 100:
+        return rules
+    return dict(rules, units={name: dict(unit, experience=max(1, (unit['experience'] * modifier + 50) // 100))
+                              for name, unit in rules['units'].items()})
+
+
 class LiteAdapter:
     engine_id = ENGINE_VERSION
     rng_version = RNG_VERSION
@@ -74,7 +82,7 @@ class LiteAdapter:
             raise ValueError('lite requires native 1.18.8 data')
         modifier=game_spec.get('experience_modifier',100)
         if not isinstance(modifier,int) or modifier<1: raise ValueError('invalid experience modifier')
-        for unit in rules['units'].values(): unit['experience']=max(1,(unit['experience']*modifier+50)//100)
+        rules=scaled_rules(rules,modifier)
         try:
             import _engine_lite
             from _engine_lite import LiteEngine
