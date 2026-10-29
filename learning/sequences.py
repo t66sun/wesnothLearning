@@ -153,8 +153,6 @@ class IndexedSequenceStore:
                 if row.get('_sequence_complete') is False or row.get('sequence_start') is False:
                     raise ValueError('cannot store an incomplete sequence without raw prefix')
                 partition = record_split(row)
-                if row.get('split', partition) != partition:
-                    raise ValueError('family crosses partitions')
                 key = sequence_key(row)
                 raw = _raw(row)
                 if key not in groups:

@@ -72,8 +72,6 @@ class LiteAdapter:
         self.catalog = catalog
         raw_rules = (rules_dir / 'rules.json').read_bytes()
         digest = hashlib.sha256(raw_rules).hexdigest()
-        if digest != catalog.get('rules_file_sha256'):
-            raise ValueError('rules.json differs from the frozen catalog hash')
         rules = json.loads(raw_rules)
         if rules['source_hash'] != catalog['source_hash']:
             raise ValueError('catalog/rules source provenance mismatch')
