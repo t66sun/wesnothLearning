@@ -603,35 +603,24 @@ def read_raw_shards(paths,format_name=None):
     return result
 
 
-def discard_sequences(path, game_id=None):
-    """Remove an uncommitted shard and the sequence rows it indexed.
+def discard_sequences(path, game_id):
+    """Remove an uncommitted shard and the index rows of the job that wrote it.
 
     A retried job rewrites the same game. Deleting only the packed shard leaves
     the SQLite index holding the failed attempt, which write() correctly rejects
-    as a conflicting identity. A shard cut off mid-write cannot be decoded, so
-    the owning job id identifies the rows instead.
+    as a conflicting identity. The shard may be cut off mid-write, so the owning
+    job id - never the decoded rows - decides what to delete.
     """
     path=Path(path)
     if not path.exists():
         return 0
-    identities=set()
-    try:
-        for row in _iter_rows(path):
-            identities.add((row.get('format'),row.get('source'),row.get('engine_id',row.get('engine')),
-                            row.get('game_family'),row.get('game_id'),row.get('side')))
-    except (EOFError,OSError,ValueError):
-        if game_id is None:
-            raise
-    database=path.parent/'sequences'/'sequences.sqlite3'
-    if database.exists():
+    deleted=0
+    if (path.parent/'sequences'/'sequences.sqlite3').exists():
         with IndexedSequenceStore(path.parent/'sequences') as store, store.connection:
-            if game_id is not None:
-                store.connection.execute('DELETE FROM sequences WHERE game_id IS ?',(game_id,))
-            for identity in identities:
-                store.connection.execute('DELETE FROM sequences WHERE format IS ? AND source IS ? AND engine IS ? '
-                                         'AND family IS ? AND game_id IS ? AND side IS ?',identity)
+            deleted=store.connection.execute('DELETE FROM sequences WHERE game_id IS ?',
+                                             (game_id,)).rowcount
     path.unlink()
-    return len(identities) or (1 if game_id is not None else 0)
+    return deleted
 
 def _iter_rows(path):
     """Yield packed shard rows one line at a time; never cache whole games."""

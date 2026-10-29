@@ -101,14 +101,11 @@ def _rules_sha256():
     if not RULES_PATH.exists():
         return None
     summary = RULES_PATH.parent / 'catalog-summary.json'
-    try:
-        if summary.exists():
-            metadata = json.loads(summary.read_text(encoding='utf-8'))
-        else:
-            metadata = json.loads(RULES_PATH.read_text(encoding='utf-8'))
-        return metadata.get('rules_file_sha256')
-    except (OSError, ValueError):
-        return None
+    if summary.exists():
+        metadata = json.loads(summary.read_text(encoding='utf-8'))
+    else:
+        metadata = json.loads(RULES_PATH.read_text(encoding='utf-8'))
+    return metadata.get('rules_file_sha256')
 
 
 def schema():
