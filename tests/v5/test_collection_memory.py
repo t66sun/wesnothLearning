@@ -97,6 +97,7 @@ class CollectionMemoryTests(unittest.TestCase):
         fixture.setUp()
         self.addCleanup(fixture.doCleanups)
         baseline_job = fixture.job(shard=str(fixture.directory / 'baseline/game.jsonl.gz'))
+        baseline_job['meta']['phase'] = 'validation'
         class LegacyRows(list):
             def metric_rows(self):return iter(self)
             def close(self):pass
@@ -113,6 +114,7 @@ class CollectionMemoryTests(unittest.TestCase):
             baseline = lite_host.play_lite_job(baseline_job)
         self.assertEqual(baseline['status'], 'complete', baseline)
         job = fixture.job()
+        job['meta']['phase'] = 'validation'
         original_write = data.write_shard
         captured = []
 

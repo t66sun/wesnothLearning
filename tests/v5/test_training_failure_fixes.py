@@ -304,6 +304,7 @@ class TerminalHorizonTests(unittest.TestCase):
             index=next((i for i,c in enumerate(row['candidates']) if c['kind']=='attack'),0)
             return dict(choice=index,log_probability=0.,value=0.)
         job=fixture.job(bots=['p','p'],game_spec=spec,policy=choose,bootstrap_policy=lambda row:0.)
+        job['meta']['phase']='validation'
         with pipeline.catalog_patch(fixture.rules_dir):
             outcome=pipeline.play_lite_job(job)
         self.assertEqual(outcome['status'],'complete',outcome)

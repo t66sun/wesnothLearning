@@ -1,7 +1,8 @@
 """Measured, map-matched evidence for the reward controller.
 
 This module does not launch games or infer missing teacher measurements. The
-sampler attaches summarize_game(...) as `reward_diagnostics` to its job result.
+sampler attaches summarize_game(...) as `reward_diagnostics`, and only to the
+validation and reward-reference rows this controller reads.
 """
 from collections import defaultdict
 import math
