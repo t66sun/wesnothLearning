@@ -67,7 +67,7 @@ Every item states what is open, the smallest Ubuntu procedure that would close i
 
 **Procedure:** run `python -m unittest tests.test_replay_curate -v`, then curate one archive sample and regenerate the corpus from `data/replays/202412.tar` into a temporary output and compare `inventory.jsonl` against `data/replays_curated/inventory.jsonl` member by member.
 
-**Pass:** the archive test fails when the `initial = start if start is not None else scenario` branch is reverted; every curated `.gz` payload rehashes to its recorded `payload_sha256`; selection, family and format counts reproduce exactly (434 games, 434 families, 147,899 decision intents); no original is modified.
+**Pass:** the archive test fails when the `initial = start if start is not None else scenario` branch is reverted, and the provenance test fails when a post-game "takes control of side" message or an unchanged player is counted as a hand-over; every curated `.gz` payload rehashes to its recorded `payload_sha256`; selection, family and format counts reproduce exactly (434 games, 434 families, 147,899 decision intents); no original is modified.
 
 **Evidence:** `verification/replay_archive_20261029/REPORT.md` and `funnel.json` (reference), extended by a dated `verification/` report once Ubuntu runs it.
 

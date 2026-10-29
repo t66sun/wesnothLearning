@@ -166,7 +166,7 @@ Comparison status precedence: `infrastructure_error` → `inconclusive` (missing
 | `audit bc` / `audit fit` | full-set BC representation diagnostics; explicitly invoked tiny-fit probe |
 | `benchmark engines` | measured native/lite workload comparison (never infers unmeasured resources) |
 | `rules` / `freeze-map` | freeze native rule captures; add a frozen map identity |
-| `import-human` / `replay_curate` | verified human replay import; replay curation over local saves and lobby archives |
+| `import-human` / `replay_curate` | verified human replay import; replay curation over local saves and lobby archives, recording mid-game controller hand-overs per side |
 | `control show` / `control set` | inspect or queue reward-control changes |
 
 Differential tooling: `python -m engine_lite.differential` audits lite versus native on bounded real battles; `engine_lite.audit`/`inventory`/`capture`/`freeze` handle rule evidence without launching training.

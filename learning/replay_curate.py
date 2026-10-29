@@ -184,6 +184,42 @@ def archive_identity(root, scenario, carry):
         sides=sides)
 
 
+TAKEOVER = re.compile(r'^(.+) takes control of side (\d+)\.$')
+
+
+def controller_changes(commands, initial_players):
+    """Sides whose human changed hands once the game was under way.
+
+    The server announces "X takes control of side N." both when a lobby slot
+    is filled before play, when a player takes a seat mid-game, and when the
+    lobby reopens after the game. Only an announcement bracketed by decisions
+    on that side, naming someone other than its initial player, replaces the
+    human who produced them.
+    """
+    first_decision, last_decision = {}, {}
+    for index, command in enumerate(commands):
+        if any(node.tag in DECISIONS for node in command.children):
+            side = str(command.attrs.get('from_side',''))
+            first_decision.setdefault(side, index)
+            last_decision[side] = index
+    named = {str(player['side']): player['player'] for player in initial_players}
+    changed = {}
+    for index, command in enumerate(commands):
+        for node in command.children:
+            match = TAKEOVER.match(node.attrs.get('message','')) if node.tag == 'speak' else None
+            if match is None:
+                continue
+            name, side = match.group(1), match.group(2)
+            # Only a hand-over bracketed by decisions on that side mixes two
+            # humans in one history; lobby chatter and post-game rejoins do not.
+            if not first_decision.get(side, len(commands)) <= index < last_decision.get(side, -1):
+                continue
+            if name == named.get(side, ''):
+                continue
+            changed.setdefault(side, []).append(name)
+    return changed
+
+
 def command_sequence(blocks):
     # Every command from every [replay] block, in document order: a hosted
     # archive puts the upload log in one block and the history in another.
@@ -251,6 +287,9 @@ def inspect_file(path, source):
     row['players'] = len(playable)
     row['human_sides'] = sum(s['controller'] in {'human','network'} for s in playable)
     row['ai_sides'] = sum(s['controller'] == 'ai' for s in playable)
+    row['controller_changes'] = controller_changes(commands, row['initial_players'])
+    if row['controller_changes']:
+        row['notes'].append('controller_changed_midgame; human_side_provenance_mixed')
     row['factions'] = [s['faction'] or '' for s in playable]
     teams = Counter(s['team'] for s in playable)
     if len(playable) == 2 and len(teams) == 2:
@@ -420,6 +459,7 @@ def curate(source, output, origin=''):
         '- 同历史只留一份；严格前缀视为更早存档；聊天/标签/单位改名不构成新对局。',
         '- 若最后动作的 checkup 尚为空且其余历史吻合，视为动作中途保存；其他随机结果差异保留为分支。',
         '- 实际历史分歧全部保留并标记，不按最高回合或同名地图直接合并。',
+        '- 中途换人（判决前后同一方的操作者不同）记入 controller_changes，语料保留但需按此字段过滤。',
         '- 全部回放使用 ASCII 目录与统一 game_0001.gz 编号；原名对应见 inventory.csv。',
         '- standard_multiplayer 只是默认时代候选；仍需检查重建、规则、玩家控制和结果，尚非训练标签。',
         '- campaigns 与 other_multiplayer 单独归档；战役/自定义时代不直接混入当前标准时代训练。',

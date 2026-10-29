@@ -1,0 +1,60 @@
+{
+  "date": "2026-10-30",
+  "question": "are the 434 curated lobby-archive games usable as BC data?",
+  "verified": {
+    "payload_integrity": "434/434 curated .gz rehash to recorded payload_sha256",
+    "layout": {
+      "archive": 434
+    },
+    "category": {
+      "standard_multiplayer": 434
+    },
+    "format": {
+      "duel": 311,
+      "team2v2": 123
+    },
+    "ai_sides_present": 0,
+    "initial_turn": {
+      "1": 434
+    },
+    "initial_seed_hex8": 434,
+    "actions_total": 147899,
+    "actions_min": 23,
+    "actions_max": 1326,
+    "games_with_move_recruit_end_turn": 434,
+    "games_with_attack": 412,
+    "checkup_tag_census": {
+      "checkup_games": 432,
+      "mp_checkup_games": 2,
+      "checkup_total": 148948,
+      "mp_checkup_total": 1596
+    },
+    "duplicate_families": 0
+  },
+  "defects_found": {
+    "games_with_midgame_controller_change": 116,
+    "sides_handed_over": 190,
+    "games_one_player_on_both_sides": 8,
+    "overlap": 1,
+    "games_clean_of_both": 311,
+    "clean_decisions": 97091,
+    "clean_by_version": {
+      "1.18.0": 60,
+      "1.18.3": 210,
+      "1.18.1": 24,
+      "1.18.2": 17
+    },
+    "clean_by_format": {
+      "duel": 268,
+      "team2v2": 43
+    },
+    "clean_games_with_end_marker": 140
+  },
+  "not_verified": [
+    "replay legality under native 1.18.8 (no install on the reference box)",
+    "roll reproduction and out-of-sync behaviour",
+    "observation/candidate formation from these histories",
+    "BC import: learning/human.compatibility rejects version != 1.18.8 and requires [replay_start]"
+  ],
+  "conclusion": "file-level integrity holds; BC usability is unproven and the corpus needs the provenance filter before any BC path consumes it"
+}
