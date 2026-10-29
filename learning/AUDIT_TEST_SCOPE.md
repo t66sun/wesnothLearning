@@ -3,7 +3,7 @@
 > Language: English | [中文](AUDIT_TEST_SCOPE_zh.md)
 
 This round implemented code only: no tests were written or run, and no training, game, benchmark or 64-decision fit was executed.
-The following is a historical per-item list; current status and validation scope are maintained in [docs/TEST.md](../docs/TEST.md).
+The following is a historical per-item list. Current acceptance status lives in the dated `verification/` reports; [docs/TEST.md](../docs/TEST.md) holds only acceptance work that is still open.
 
 ## Audit
 

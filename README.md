@@ -6,17 +6,17 @@ Three independent models for Wesnoth 1.18.8: single combat `duel`, four-player f
 
 ## Documentation
 
-- [Architecture, parameters and implemented/unimplemented items](docs/architecture.md): the single maintained architecture document, replacing the old PLAN.
-- [Pending acceptance list](docs/TEST.md): minimal Ubuntu acceptance plans for implemented changes on the way to formal training.
+- [Architecture and parameters](docs/architecture.md): the current implementation, its contracts and limits.
+- [Pending acceptance list](docs/TEST.md): only acceptance work that is still open, with the smallest Ubuntu procedure for each.
 - [Agent training operations guide](docs/instructions.md): taking over the environment, start/resume, maintenance, diagnosis and instruction-driven tuning.
 - [Ubuntu 24.04 training bundle](docs/bundle.md): build and verify the extraction-ready archive, install it on a clean machine and start training.
 - [Provenance and licensing](docs/THIRD_PARTY.md): third-party code, reference competitor packages and official component licenses.
 
-The current pretraining collection target is **300** valid Astra teacher games for duel, **600** for FF4 and **400** for 2v2, **1300** in total, all on lite with 0 native anchors, at the default of **8 global workers**. These defaults passed restricted acceptance on Ubuntu; the earlier formal experiments have ended in failure and no new formal training is currently running.
+BC teacher-game targets are **300** duel, **600** FF4 and **400** 2v2 at the default of **8 global workers**. A new manifest declares the stock 1.18.8 RCA teacher, which is native-only, so a lite run collects no stock teacher games (`native_bc_games` defaults to 0) and its seats are self-play/history. No formal training is currently running.
 
-The Rust rule core, spatial/relational/memory model, BC/PPO/DAgger, online reward control and pure Lua export are all implemented. New experiments use lite by default with the 587 units and 438 terrains of `data/rules/1.18.8-training`, gated at startup by the 158-unit six-faction training closure, with the real Astra teacher wired into all three formats. Boundaries for full campaign behavior, full-pipeline performance and formal training strength are in the architecture document.
+The Rust rule core, spatial/relational/memory model, BC/PPO, online reward control and pure Lua export are all implemented. New experiments use lite by default with the 587 units and 438 terrains of `data/rules/1.18.8-training`, gated at startup by the 158-unit six-faction training closure, with the declared teacher identity frozen in each manifest. Boundaries for full campaign behavior, full-pipeline performance and formal training strength are in the architecture document.
 
-The current implementation is schema 5 / candidate v3, adding the public tactical inputs needed for four-player BC; Ubuntu has passed the restricted BC → PPO → final evaluation chain and the remaining quality evidence is in docs/TEST.md. `run --phase bc`, `phase ppo` and `phase evaluate` run the phases separately, and an explicit `--force --reason` can skip BC eligibility while keeping the real gate results. Old formal experiments froze schema 4/v2, so old and new data and checkpoints do not migrate automatically.
+The current implementation is schema 5 / candidate v3, adding the public tactical inputs needed for four-player BC; Ubuntu has passed a restricted BC → PPO → final evaluation chain; the remaining acceptance work is in docs/TEST.md. `run --phase bc`, `phase ppo` and `phase evaluate` run the phases separately, and an explicit `--force --reason` can skip BC eligibility while keeping the real gate results. Old formal experiments froze schema 4/v2, so old and new data and checkpoints do not migrate automatically.
 
 Raw validation evidence lives in `verification/`, experiments and delivery artifacts live in `runs/` and `delivery/`, and every captured input — rule packages, human and teacher datasets, replay dumps, reference opponents — lives under `data/`; the source development package excludes raw validation results by default. The V4 weights, old experiments and the installed AI keep their historical state, and the new architecture is incompatible with schema 3 weights and optimizers.
 

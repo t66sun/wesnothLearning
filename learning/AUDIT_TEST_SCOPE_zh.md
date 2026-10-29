@@ -3,7 +3,7 @@
 > 语言：[English](AUDIT_TEST_SCOPE.md) | 中文
 
 本次只实现代码，不编写/运行测试，不运行训练、对局、基准或 64 决策拟合。
-以下为历史分项清单；当前状态与验证范围统一维护在 [docs/TEST_zh.md](../docs/TEST_zh.md)。
+以下为历史分项清单。当前验收状态见带日期的 `verification/` 报告；[docs/TEST_zh.md](../docs/TEST_zh.md) 只保留仍未完成的验收工作。
 
 ## 审计
 

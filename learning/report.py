@@ -1,4 +1,4 @@
-"""Stage report (TEST.md section 10) and per-format profile reports."""
+"""Stage report and per-format profile reports."""
 import csv
 from pathlib import Path
 from .common import write_json
@@ -24,7 +24,7 @@ def build_report(*,stage='P1',status=None,revision=None,source_sha256=None,comma
                  format_name=None,context=None,counts=None,checks=None,metrics=None,
                  known_differences=None,implementation_gaps=None,artifacts=None,
                  next_required_action=None,stage_exit=None):
-    """Build the machine-readable report required by TEST.md section 10.
+    """Build the machine-readable acceptance report.
 
     Missing measurements stay null. They are never replaced by zero or by a
     historical best result; the corresponding metric name is listed in
