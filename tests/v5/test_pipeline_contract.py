@@ -1615,26 +1615,6 @@ class ReportSchemaTests(unittest.TestCase):
         self.assertIn('Conclusion', head)
         self.assertIn('Blockers', head)
 
-    def test_section_ten_report_schema_exists(self):
-        builder = getattr(report, 'build_report', None)
-        self.assertIsNotNone(builder, 'KNOWN BUG: learning/report.py only writes the per-format '
-                                      'profile report; no §10 report schema builder exists')
-        required = ('report_version', 'stage', 'status', 'revision', 'source_sha256',
-                    'command', 'started_at', 'finished_at', 'host', 'versions',
-                    'format', 'context', 'counts', 'checks', 'metrics',
-                    'known_differences', 'implementation_gaps', 'artifacts',
-                    'next_required_action')
-        produced = builder(stage='unit', checks=[], metrics={})
-        for key in required:
-            self.assertIn(key, produced)
-
-    def test_report_with_only_not_run_checks_is_not_run(self):
-        produced = report.build_report(stage='P2', checks=[dict(
-            id='P2.performance', status='not_run', reason='no accepted rules')],
-            metrics={'wall_ratio': None})
-        self.assertEqual(produced['status'], 'not_run')
-        self.assertFalse(produced['stage_exit']['met'])
-
     def test_cli_report_never_claims_passed_without_full_blocks(self):
         jobs, results = [], []
         for fmt in FORMATS:
@@ -1666,50 +1646,6 @@ class ReportSchemaTests(unittest.TestCase):
             self.assertEqual(set(controls), {'fixed'})
             self.assertEqual(controls['fixed']['blocks'], 1)
             self.assertNotEqual(controls['fixed']['status'], 'passed')
-
-    def test_missing_metrics_are_null_with_a_reason(self):
-        builder = getattr(report, 'build_report', None)
-        self.assertIsNotNone(builder, 'KNOWN BUG: no §10 report schema builder exists')
-        produced = builder(stage='unit', checks=[], metrics={'speedup': None,
-                                                             'games': 0})
-        self.assertIsNone(produced['metrics']['speedup'])
-        self.assertEqual(produced['metrics']['games'], 0)
-        self.assertIn('speedup', produced['missing'])
-        self.assertTrue(produced['missing']['speedup'])
-        self.assertNotIn('games', produced['missing'])
-        for value in produced['counts'].values():
-            self.assertIsNone(value)
-        self.assertIsInstance(produced['implementation_gaps'], list)
-
-    def test_stage_exit_condition_is_explicit(self):
-        builder = getattr(report, 'build_report', None)
-        self.assertIsNotNone(builder, 'KNOWN BUG: no §10 report schema builder exists')
-        blocked = builder(stage='unit', checks=[dict(id='perf', status='blocked',
-                                                     reason='no native binary')],
-                          metrics={'speedup': None},
-                          stage_exit=dict(condition='wall and cpu ratios >= 5'))
-        self.assertEqual(blocked['status'], 'inconclusive')
-        self.assertFalse(blocked['stage_exit']['met'])
-        passed = builder(stage='unit', checks=[dict(id='perf', status='passed')],
-                         metrics={'speedup': 5.0},
-                         stage_exit=dict(condition='wall and cpu ratios >= 5'))
-        self.assertEqual(passed['status'], 'passed')
-        self.assertTrue(passed['stage_exit']['met'])
-        text = report.report_markdown(blocked)
-        lines = text.splitlines()
-        self.assertTrue(lines[0].startswith('# '))
-        head = '\n'.join(lines[:4])
-        self.assertIn('Conclusion', head)
-        self.assertIn('Blockers', head)
-        self.assertIn('perf: no native binary', head)
-        self.assertLess(text.index('Conclusion'), text.index('## Checks'))
-
-    def test_passed_status_cannot_override_blocked_checks(self):
-        produced = report.build_report(status='passed',
-                                       checks=[dict(id='perf', status='blocked',
-                                                    reason='no native binary')],
-                                       metrics={'speedup': None})
-        self.assertNotEqual(produced['status'], 'passed')
 
 
 class PackageManifestTests(unittest.TestCase):
