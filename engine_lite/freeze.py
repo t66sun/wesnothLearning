@@ -10,6 +10,8 @@ import hashlib
 import json
 from pathlib import Path
 
+from learning.rules_catalog import provenance
+
 SPECIALS = {'poison', 'slow', 'drains', 'magical', 'marksman', 'charge',
             'firststrike', 'berserk', 'swarm', 'plague', 'petrifies', 'backstab',
             'stun', 'absorb', 'deflect', 'shock', 'swift'}
@@ -55,13 +57,7 @@ def write_catalog_summary(rules_dir):
     """
     rules_dir = Path(rules_dir)
     catalog = json.loads((rules_dir / 'catalog.json').read_text(encoding='utf-8'))
-    rules_bytes = (rules_dir / 'rules.json').read_bytes()
-    digest = hashlib.sha256(rules_bytes).hexdigest()
-    if digest != catalog.get('rules_file_sha256'):
-        raise ValueError('rules.json differs from the frozen catalog hash')
-    rules = json.loads(rules_bytes)
-    if rules.get('source_hash') != catalog.get('source_hash'):
-        raise ValueError('catalog/rules source provenance mismatch')
+    _, digest = provenance(catalog, rules_dir)
     summary = {
         'summary_version': 1,
         'source_version': catalog['source_version'],
