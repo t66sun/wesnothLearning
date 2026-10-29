@@ -105,6 +105,19 @@ rules_dir="$project/data/rules/1.18.8-training"
 
 核对通过标准：规则哈希与 `features.schema()` 一致，六阵营闭包无缺失/未支持声明，地图和 Astra 存在，选择的赛制确有教师链；已有验证有效时复用证据，只有接入代码变动才做一次受影响的最小核验。严格统计精度、外围战役和包体限制的处理边界见架构文档，不能因此重新扩张成全量测试任务。
 
+### 引擎基准
+
+成对的 native/lite 工作负载由 `benchmarks/contract.json` 固定；`learning.benchmark.build_manifest` 冻结产物哈希，`learning.benchmark_runner` 在 Linux 上依据 `/proc/*/smaps_rollup` 实测：
+
+```bash
+python -m learning.benchmark_runner --executable "$WESNOTH_EXE" \
+  --output verification/perf-smoke --formats duel --caches cold \
+  --modes equal_work --densities regular --blocks 1 --seats 1 \
+  --script-turns 1 --max-decisions 4
+```
+
+去掉各项限制并传 `--blocks 30` 得到完整样本；每个输出目录只能写一次，故障永远不会变成成功的 0。`observed.json` 在任意块数下都展示实测比值，`acceptance.json` 则要求 30 个完整块、主机/配额/工作量一致，且 wall 与 CPU 都至少达到 native 的 5 倍；PSS 的 5 倍目标是单独项，绝不以 RSS 代替。等量工作结果只覆盖固定脚本而非战斗，学生推理性能需要单独的小循环测量。
+
 ## 4. 新建并启动训练
 
 先确定用户指定的赛制、设备、时长、worker 和实验名。当前默认采集规格见 architecture.md §12；数量是有效教师局目标，采满还要满足 BC 质量/覆盖/开局门槛。核对实际生成配置与用户授权一致。

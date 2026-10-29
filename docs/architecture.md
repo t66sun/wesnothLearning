@@ -32,7 +32,7 @@ Not claimed: lite/native rule equivalence, native performance acceptance, or pla
 | `runs/<run>/` | Per-run manifests, per-format state, schedules and checkpoints (not tracked) |
 | `verification/` | Dated acceptance and diagnosis reports; frozen evidence, never edited retroactively |
 | `delivery/` | Explicitly exported model packages |
-| `docs/` | These maintained documents, each with a `_zh` mirror |
+| `docs/` | The four resident documents (architecture, instructions, TEST, THIRD_PARTY), each with a `_zh` mirror |
 
 ## 3. Processes and data flow
 
@@ -64,6 +64,7 @@ flowchart LR
 
 - `rules_catalog.load()` verifies the file hash, the source hash and the version; training scope accepts recorded approximations. Startup additionally requires the six-faction training closure (leaders, recruits and every reachable advance/plague) to exist in the inventory, else the run refuses to start.
 - `LiteAdapter` checks the extension build tuple (`ENGINE_VERSION='lite-0.2'`, `RNG_VERSION='deterministic-expected_damage_v1'`, `COMBAT_VERSION='expected_damage_v1'`) against the declared identity before use.
+- `_engine_lite.LiteEngine(rules_json, spec_json)` exposes `reset`, `observe`/`observe_batch`, `legal_actions`/`legal_batch`, `step`/`step_batch` (restores the pre-batch state when an action is illegal), `snapshot`/`restore`, `forecast`, `configure_host`, `decision` and `execute_candidate`. JSON `pos`/`to` are zero-based row-major indices; the Lua bridge converts them to one-based hex coordinates and fixes the observing side, so no policy can switch views. `GameSpec` states width/height, flat terrain, sides, units, seed and `max_turns`; `side.id` is contiguous from 1 and `allow_approximate` must be explicit. Snapshots are referee truth and never reach a policy.
 - Deterministic combat: each strike resolves to `ceil(damage × chance × 1.10)`; slow multiplies damage by `ceil(3/4)` before hit chance; poison ticks 6 HP at the unit's own turn; no combat RNG and no hit injection. `forecast()` is a point mass and accepts `samples` only for compatibility.
 - Implemented lite mechanics: terrain-cost movement, visible-enemy ZOC, friendly passage, connected-castle recruiting/economy, village capture, fog/shroud/history terrain, ally sharing, side rotation, leader elimination and team endgame, per-strike death/counterattack/XP advancement, slow, poison, drain, firststrike, marksman, magical, charge, berserk, basic plague, healing/rest, concealment/nightstalk/teleport, deterministic strikes.
 - Approximate lite paths: adjacent leadership, illumination, backstab, steadfast, counterattack plague, one-step teleport cost. Known gaps: composite modifier rounding, full weapon-declaration filtering, variant instances, random traits, AMLA choices, exact status-clear timing, vision costs/jamming, ranged pathfinding ZOC, campaign events. Unknown abilities/scripts block recruitment chains rather than degrade silently.
@@ -91,7 +92,7 @@ Actor inputs never contain referee truth: reward scalars, teacher actions, unsee
 Teacher capabilities are declared, not assumed:
 
 - `wesnoth_default_rca` — the stock AI. Only native engine events are observable; there is no per-decision query, so DAgger is unsupported.
-- `gpt6astra` — legacy per-decision Lua teacher (`learning/teachers/`, derived source; the frozen `data/opponents/gpt6astra.zip` is lineage only).
+- `gpt6astra` — legacy per-decision Lua teacher (`learning/teachers/`, derived source; the frozen `data/opponents/gpt6astra.zip` is lineage only). The derived source adapts only where lite rules changed: attack scoring from `expected_damage_v1`, slow worth 25% damage plus its movement restriction, poison 6 points per tick. `teacher_profile` with `teacher_source_sha256` travels in rows, checkpoints, job metadata and exports, so one run never mixes profiles.
 
 New manifests freeze the stock RCA teacher and require native reference evaluation. `LiteHost` refuses a stock teacher job and refuses Astra seats unless the manifest declares `gpt6astra`.
 
@@ -121,7 +122,7 @@ Reward formula `v5-potential-1` (`learning/rewards.py`):
 - economy potential: gold + army cost·HP fraction + 20·villages, averaged per team and normalized by `200 + Σ|potential|`;
 - per-row transition: potential difference with `γ^Δturn`, explicit truncation bootstrap, and an exploration ledger for first visits of visible hexes within reach.
 
-`RewardController` (`learning/control.py`) stores an append-only event chain (sequence number, previous checksum, checksum) per format. It advances on complete validation windows of 12 blocks over matched map/faction strata with Astra references, and changes one coefficient at a time within ±10% while staying inside `economy 0.05–0.20`, `control 0.02–0.15`, `explore 0–0.15`. Adaptive proposals tick only after two comparable windows; holdout/final/test partitions never tune rewards; pending commands apply at batch boundaries.
+`RewardController` (`learning/control.py`) stores an append-only event chain (sequence number, previous checksum, checksum) per format. It advances on complete validation windows of 12 blocks over matched map/faction strata with Astra references, and changes one coefficient at a time within ±10% while staying inside `economy 0.05–0.20`, `control 0.02–0.15`, `explore 0–0.15`. Adaptive proposals tick only after two comparable windows; holdout/final/test partitions never tune rewards; pending commands apply at batch boundaries. Evidence is built by `learning/reward_metrics.py` from matched validation windows: policy games are compared against Astra references on the same map/faction/teammate context with at least four independent game families per stratum, and incomplete records land in `excluded_evidence` rather than completing a block.
 
 ## 8. Training pipeline
 
@@ -168,6 +169,8 @@ Comparison status precedence: `infrastructure_error` → `inconclusive` (missing
 
 Differential tooling: `python -m engine_lite.differential` audits lite versus native on bounded real battles; `engine_lite.audit`/`inventory`/`capture`/`freeze` handle rule evidence without launching training.
 
+The benchmark workload is fixed by `benchmarks/contract.json`: paired native/lite manifests, cold and resident-hot cache, equal-work and end-to-end modes, and 30 complete seat-rotation blocks per group. Acceptance needs an identical host, CPU quota and `work_signature`, process-tree CPU including the coordinator, PSS (never RSS) and both wall and CPU at least 5× native; missing artifacts, faults or unequal work stay `inconclusive`.
+
 ## 12. Default parameters
 
 | Parameter | Default |
@@ -212,7 +215,6 @@ Differential tooling: `python -m engine_lite.differential` audits lite versus na
 | `docs/instructions.md` | operating steps, Ubuntu bundle and instruction-driven tuning |
 | `docs/TEST.md` | remaining acceptance items only |
 | `docs/THIRD_PARTY.md` | licensing |
-| `engine_lite/README.md`, `learning/*_TEST_SCOPE.md` | module scope |
 | `verification/<date>/REPORT.md` | dated commands, identities and results |
 
 Maintenance rules live in the root `AGENTS.md`; evidence is never retro-fitted, and an accepted item leaves `TEST.md` as a whole.

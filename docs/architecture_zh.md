@@ -32,7 +32,7 @@
 | `runs/<run>/` | 每次运行的 manifest、各赛制状态、调度与检查点（不入库） |
 | `verification/` | 带日期的验收与诊断报告；冻结证据，不得追溯修改 |
 | `delivery/` | 显式导出的模型包 |
-| `docs/` | 本组维护文档，每份都有 `_zh` 镜像 |
+| `docs/` | 四份常驻文档（architecture、instructions、TEST、THIRD_PARTY），每份都有 `_zh` 镜像 |
 
 ## 3. 进程与数据流
 
@@ -64,6 +64,7 @@ flowchart LR
 
 - `rules_catalog.load()` 校验文件哈希、source hash 与版本；训练范围接受已记录的近似。启动还要求存在六阵营训练闭包（领袖、招募以及所有可达的升级/瘟疫链），否则拒绝启动。
 - `LiteAdapter` 在使用前校验扩展构建三元组（`ENGINE_VERSION='lite-0.2'`、`RNG_VERSION='deterministic-expected_damage_v1'`、`COMBAT_VERSION='expected_damage_v1'`）与声明身份一致。
+- `_engine_lite.LiteEngine(rules_json, spec_json)` 提供 `reset`、`observe`/`observe_batch`、`legal_actions`/`legal_batch`、`step`/`step_batch`（非法动作时恢复批次前状态）、`snapshot`/`restore`、`forecast`、`configure_host`、`decision` 和 `execute_candidate`。JSON 的 `pos`/`to` 是从 0 开始的行主序下标，Lua 桥接层转换为从 1 开始的六角坐标并锁定观察方，策略无法切换视角。`GameSpec` 明确给出宽高、平地地形、阵营、单位、种子和 `max_turns`；`side.id` 从 1 连续编号，`allow_approximate` 必须显式给出。快照是裁判真值，绝不下发给策略。
 - 确定性战斗：每次攻击结算为 `ceil(damage × chance × 1.10)`；slow 在命中率之前把伤害乘 `ceil(3/4)`；poison 在该单位自己的回合扣 6 HP；无战斗 RNG、无命中注入。`forecast()` 是点质量，只为兼容接收 `samples`。
 - lite 已实现机制：按地形代价移动、可见敌军 ZOC、友军通行、连通的城堡招募/经济、村庄占领、fog/shroud/历史地形、盟友共享、行动顺序轮转、领袖击杀与队伍终局、逐次攻击的死亡/反击/经验升级、slow、poison、drain、firststrike、marksman、magical、charge、berserk、基础 plague、治疗/休息、concealment/nightstalk/teleport、确定性攻击结算。
 - lite 近似路径：相邻领导力、illumination、backstab、steadfast、反击触发 plague、单步 teleport 代价。已知缺口：复合修正取整、完整的武器声明过滤、变体实例、随机特质、AMLA 选择、状态清除精确时机、视距代价/jamming、远程寻路 ZOC、战役事件。未知能力/脚本会阻断招募链，而不是静默降级。
@@ -91,7 +92,7 @@ flowchart LR
 教师能力是声明的，不是假设的：
 
 - `wesnoth_default_rca` —— 原版 AI。只能观察原版引擎事件；没有按决策查询，因此不支持 DAgger。
-- `gpt6astra` —— 旧版按决策查询的 Lua 教师（`learning/teachers/`，派生源码；冻结的 `data/opponents/gpt6astra.zip` 仅作血脉）。
+- `gpt6astra` —— 旧版按决策查询的 Lua 教师（`learning/teachers/`，派生源码；冻结的 `data/opponents/gpt6astra.zip` 仅作血脉）。派生源码只在 lite 规则变化处适配：攻击评分使用 `expected_damage_v1`，slow 价值 25% 伤害加移动限制，poison 每回合 6 点。`teacher_profile` 与 `teacher_source_sha256` 随行式记录、检查点、作业元数据和导出传递，单次运行不会混用不同 profile。
 
 新 manifest 冻结 stock RCA 教师并要求原版参考评估。`LiteHost` 拒绝 stock 教师作业，并只在 manifest 声明 `gpt6astra` 时接受 Astra 座位。
 
@@ -121,7 +122,7 @@ flowchart LR
 - 经济势函数：金币 + 军队造价·HP 比例 + 20·村庄，按队伍平均，并用 `200 + Σ|potential|` 归一化；
 - 逐行转移：势函数差乘 `γ^Δturn`，显式截断 bootstrap，以及对可见可达地形首次访问的探索账本。
 
-`RewardController`（`learning/control.py`）为每个赛制维护只追加的事件链（序号、前序校验和、校验和）。它在匹配地图/阵营分层、带 Astra 参考的完整 12 block 验证窗口上推进，每次只改一个系数且幅度 ≤±10%，并保持在 `economy 0.05–0.20`、`control 0.02–0.15`、`explore 0–0.15` 之内。自适应提议需两个可比窗口；holdout/final/test 分区永不调奖励；待处理命令在批边界生效。
+`RewardController`（`learning/control.py`）为每个赛制维护只追加的事件链（序号、前序校验和、校验和）。它在匹配地图/阵营分层、带 Astra 参考的完整 12 block 验证窗口上推进，每次只改一个系数且幅度 ≤±10%，并保持在 `economy 0.05–0.20`、`control 0.02–0.15`、`explore 0–0.15` 之内。自适应提议需两个可比窗口；holdout/final/test 分区永不调奖励；待处理命令在批边界生效。证据由 `learning/reward_metrics.py` 从匹配的验证窗口构建：策略对局与 Astra 参考按相同地图/阵营/队友上下文比较，每个分层至少四个独立对局族，缺失记录进入 `excluded_evidence` 而不是凑成完整块。
 
 ## 8. 训练管线
 
@@ -168,6 +169,8 @@ flowchart LR
 
 差分工具：`python -m engine_lite.differential` 在有限真实对局上审计 lite 与原版；`engine_lite.audit`/`inventory`/`capture`/`freeze` 处理规则证据而不启动训练。
 
+基准工作负载由 `benchmarks/contract.json` 固定：成对的 native/lite manifest、冷启动与常驻热态、等量工作与端到端两种模式，每组 30 个完整轮转块。验收要求主机、CPU 配额和 `work_signature` 完全一致，CPU 统计包含协调进程的整棵进程树，内存用 PSS（绝不以 RSS 代替），且 wall 与 CPU 都至少达到 native 的 5 倍；缺产物、故障或工作量不等一律保持 `inconclusive`。
+
 ## 12. 默认参数
 
 | 参数 | 默认值 |
@@ -212,7 +215,6 @@ flowchart LR
 | `docs/instructions.md` | 操作步骤与按指令调参 |
 | `docs/TEST.md` | 仅剩的验收事项 |
 | `docs/THIRD_PARTY.md` | 许可 |
-| `engine_lite/README.md`、`learning/*_TEST_SCOPE.md` | 模块范围 |
 | `verification/<date>/REPORT.md` | 带日期的命令、身份与结果 |
 
 维护规则见根目录 `AGENTS.md`；证据不得追溯修改，已验收事项整项离开 `TEST.md`。

@@ -105,6 +105,19 @@ The default rule identity is `d6fceafe7d0c9c67c750551b9901dbfb2b22290992a8daa161
 
 Pass criteria: the rule hash matches `features.schema()`, the six-faction closure has no missing/unsupported declarations, the maps and Astra exist, and the chosen format really has a teacher chain; reuse evidence when existing validation is valid and run one affected minimal check only if the wiring code changed. Handling of strict statistical precision, peripheral campaigns and package limits is bounded by the architecture document and must not re-expand into a full test task.
 
+### Engine benchmark
+
+The paired native/lite workload is fixed by `benchmarks/contract.json`; `learning.benchmark.build_manifest` freezes the artifact hashes and `learning.benchmark_runner` measures on Linux from `/proc/*/smaps_rollup`:
+
+```bash
+python -m learning.benchmark_runner --executable "$WESNOTH_EXE" \
+  --output verification/perf-smoke --formats duel --caches cold \
+  --modes equal_work --densities regular --blocks 1 --seats 1 \
+  --script-turns 1 --max-decisions 4
+```
+
+Drop the limits and pass `--blocks 30` for full samples; each output directory is written once and a fault is never a successful zero. `observed.json` shows measured ratios at any block count, while `acceptance.json` needs 30 complete blocks with identical host/quota/work and both wall and CPU at least 5× native; PSS has a separate 5× target and RSS is never substituted. Equal-work results cover only the fixed script, not combat, and student inference needs its own small-loop measurement.
+
 ## 4. Create and start training
 
 First establish the user-specified formats, device, duration, workers and experiment name. Default collection specification is in architecture.md §12; the numbers are valid-teacher-game targets, and filling them also requires passing the BC quality/coverage/opening gates. Verify the generated config matches the authorization.

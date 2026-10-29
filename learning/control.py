@@ -353,7 +353,7 @@ class RewardController:
 
         `new_games` is an incremental count. validation_blocks have globally
         unique IDs, complete rotation flags and per-map/faction `strata` rows.
-        See REWARD_TEST_SCOPE.md for the evidence contract and future checks.
+        See docs/architecture.md §7 for the evidence contract.
         """
         if type(batch) is not int or batch < 0:
             raise ValueError('invalid batch')
