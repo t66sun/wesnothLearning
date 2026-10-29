@@ -1,3 +1,4 @@
+import bz2
 import gzip
 import json
 from pathlib import Path
@@ -96,6 +97,49 @@ class ReplayCurateTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             p=Path(directory)/'metadata.vdf';p.write_text('"steam"\n{\n}')
             self.assertEqual(inspect_file(p,p.parent)['status'],'not_replay')
+
+    def test_hosted_archive_layout_is_curated_from_scenario_and_split_replay_blocks(self):
+        # A replay dropped from the lobby has no [replay_start]: the starting
+        # state is [scenario] plus [carryover_sides_start], and the history is
+        # split over one [replay] holding only the upload log and one holding
+        # the commands. Both blocks must be read, or the game looks empty.
+        def archive(commands,seed='63d5121f',version='1.18.3'):
+            uploaded='[replay]\n[upload_log]\n[/upload_log]\n[/replay]\n'
+            scenario=('[scenario]\nid="multiplayer_The_Freelands"\nturns="30"\n'
+                'map_data=" 1 Gg, 2 Gg, Gg, Gg, Gg, Gg"\n'
+                '[side]\nside=1\nteam_name="one"\ncontroller="human"\ncurrent_player="a"\n'
+                'faction="rebels"\ngold=100\n[/side]\n'
+                '[side]\nside=2\nteam_name="two"\ncontroller="human"\ncurrent_player="b"\n'
+                'faction="northerners"\ngold=100\n[/side]\n[/scenario]\n')
+            carry='[carryover_sides_start]\nrandom_seed="'+seed+'"\nrandom_calls=0\n[/carryover_sides_start]\n'
+            history='[replay]\n'+''.join('[command]\nfrom_side="1"\n[move]\nx='+str(c)+'\n[/move]\n[/command]\n'
+                for c in commands)+'[/replay]\n'
+            return ('version="'+version+'"\ncampaign_type="multiplayer"\nera_id="era_default"\n'
+                +uploaded+scenario+carry+'[multiplayer]\nmp_scenario="multiplayer_The_Freelands"\n'
+                'mp_era="era_default"\n[/multiplayer]\n'+history)
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory);source=root/'raw';source.mkdir()
+            for name,commands,seed in [('early.bz2',[1],'63d5121f'),('late.bz2',[1,2],'63d5121f'),
+                                       ('other_seed.bz2',[1,2],'aa11')]:
+                (source/name).write_bytes(bz2.compress(archive(commands,seed).encode()))
+            before={p.name:p.read_bytes() for p in source.iterdir()}
+            summary=curate(source,root/'curated')
+            self.assertEqual(summary['selected_replays'],2)
+            self.assertEqual(summary['selected_families'],2)
+            self.assertEqual(summary['source_statuses']['earlier_save'],1)
+            self.assertEqual(before,{p.name:p.read_bytes() for p in source.iterdir()})
+            games=[json.loads(line) for line in (root/'curated/games.jsonl').read_text().splitlines()]
+            latest=max(games,key=lambda g:g['actions'])
+            self.assertEqual(latest['layout'],'archive')
+            self.assertEqual(latest['actions'],2)
+            self.assertEqual(latest['semantic_commands'],2)
+            self.assertEqual(latest['scenario_id'],'multiplayer_The_Freelands')
+            self.assertEqual(latest['initial_seed'],'63d5121f')
+            self.assertEqual(latest['category'],'standard_multiplayer')
+            self.assertEqual(latest['format'],'duel')
+            self.assertEqual(latest['human_sides'],2)
+            self.assertIn('server_archive_layout; no_replay_start_block',latest['notes'])
+            self.assertEqual(latest['version'],'1.18.3')
 
 
 if __name__=='__main__':unittest.main()

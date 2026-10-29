@@ -1,7 +1,10 @@
 """Inventory and curate saved Wesnoth replays without running the game.
 
-Serialized WML is parsed as data; embedded Lua is never executed. Originals
-are read only. Replay branches are retained, not collapsed by map or filename.
+Both containers are read: a locally saved game, whose starting state lives in
+[replay_start], and a hosted archive dropped from the multiplayer lobby, whose
+starting state lives in [scenario] plus [carryover_sides_start]. Serialized WML
+is parsed as data; embedded Lua is never executed. Originals are read only.
+Replay branches are retained, not collapsed by map or filename.
 """
 from __future__ import annotations
 
@@ -160,9 +163,32 @@ def replay_identity(root, start):
         sides=sides)
 
 
-def command_sequence(replay):
+def archive_identity(root, scenario, carry):
+    # Server archives dropped from the multiplayer lobby carry the starting
+    # state as [scenario] plus the carried RNG state; there is no
+    # [replay_start] and no per-unit roster, because the game rebuilds the
+    # sides from the scenario. Identity therefore rests on the board, the
+    # rules, the side setup and the initial RNG position.
+    mp = root.first('multiplayer') or Node('multiplayer')
+    sides = [dict(attrs={k:side.attrs.get(k, '') for k in
+        ['side','team_name','controller','current_player','player_id','faction',
+         'recruit','gold','income','village_gold','village_support']}, units=[])
+        for side in scenario.all('side')]
+    return dict(campaign=root.attrs.get('campaign', ''), era=root.attrs.get('era_id', ''),
+        scenario=scenario.attrs.get('id', mp.attrs.get('mp_scenario', '')),
+        random_seed=(carry.attrs.get('random_seed', '') if carry is not None else ''),
+        map_hash=digest(scenario.attrs.get('map_data', '')),
+        rules={'random_calls': carry.attrs.get('random_calls', '') if carry is not None else '',
+               **{k:scenario.attrs.get(k, '') for k in
+                  ['turns','experience_modifier','random_start_time']}},
+        sides=sides)
+
+
+def command_sequence(blocks):
+    # Every command from every [replay] block, in document order: a hosted
+    # archive puts the upload log in one block and the history in another.
     result, intents, partial_last = [], [], False
-    for command in replay.all('command'):
+    for command in [c for block in blocks for c in block.all('command')]:
         children = [n for n in command.children if n.tag not in COSMETIC]
         if not children:
             continue
@@ -178,9 +204,9 @@ def command_sequence(replay):
 
 def inspect_file(path, source):
     packed, raw, compression = unpack(path)
-    row = dict(source=str(path.relative_to(source)), source_sha256=digest(packed),
+    row = dict(source=path.relative_to(source).as_posix(), source_sha256=digest(packed),
                payload_sha256=digest(raw), bytes=len(packed), compression=compression,
-               status='', selected='', family_id='', game_id='', curated_path='', notes=[])
+               layout='', status='', selected='', family_id='', game_id='', curated_path='', notes=[])
     # Steam metadata is not a saved game. Do not classify it as malformed WML.
     if path.suffix.lower() == '.vdf':
         row['status'] = 'not_replay'
@@ -189,18 +215,24 @@ def inspect_file(path, source):
     row.update(version=root.attrs.get('version', ''), campaign_type=root.attrs.get('campaign_type', ''),
                campaign=root.attrs.get('campaign', ''), era=root.attrs.get('era_id', ''),
                label=root.attrs.get('label', ''))
-    start, replay, snapshot = root.first('replay_start'), root.first('replay'), root.first('snapshot')
+    start, snapshot = root.first('replay_start'), root.first('snapshot')
+    scenario, carry = root.first('scenario'), root.first('carryover_sides_start')
+    replays = root.all('replay')
     row['snapshot_turn'] = integer(snapshot.attrs.get('turn_at')) if snapshot else None
-    if start is None or replay is None:
+    if not replays or (start is None and scenario is None):
         row['status'] = 'no_replay_history'
         return row
-    identity = replay_identity(root, start)
+    row['layout'] = 'save' if start is not None else 'archive'
+    if start is None:
+        row['notes'].append('server_archive_layout; no_replay_start_block')
+    initial = start if start is not None else scenario
+    identity = replay_identity(root, start) if start is not None else archive_identity(root, scenario, carry)
     row['family_id'] = digest(identity)
     row['initial_seed'] = identity['random_seed']
     row['scenario_id'] = identity['scenario']
-    row['_commands'], row['_intents'], row['_partial_last'] = command_sequence(replay)
+    row['_commands'], row['_intents'], row['_partial_last'] = command_sequence(replays)
     row['history_sha256'] = digest(row['_commands'])
-    commands = replay.all('command')
+    commands = [c for block in replays for c in block.all('command')]
     tags = Counter(n.tag for c in commands for n in c.children)
     row['commands'] = len(commands)
     row['semantic_commands'] = len(row['_commands'])
@@ -210,11 +242,11 @@ def inspect_file(path, source):
     row['replay_only_file'] = snapshot is None
     row['end_marker'] = any(tags[t] for t in ['surrender','endlevel','game_end'])
     row['observed_end_turns'] = tags['end_turn']
-    row['initial_turn'] = integer(start.attrs.get('turn_at'), 1)
+    row['initial_turn'] = integer(initial.attrs.get('turn_at'), 1)
     row['initial_players'] = [dict(side=s.attrs.get('side'), controller=s.attrs.get('controller'),
         player=s.attrs.get('current_player', s.attrs.get('player_id', '')),
         faction=s.attrs.get('faction'), team=s.attrs.get('team_name'),
-        allow_player=s.attrs.get('allow_player', 'yes')) for s in start.all('side')]
+        allow_player=s.attrs.get('allow_player', 'yes')) for s in initial.all('side')]
     playable = [s for s in row['initial_players'] if s['allow_player'] not in {'no','false','0'}]
     row['players'] = len(playable)
     row['human_sides'] = sum(s['controller'] in {'human','network'} for s in playable)
@@ -311,7 +343,7 @@ def public(row):
     return {k:v for k,v in row.items() if not k.startswith('_')}
 
 
-def curate(source, output):
+def curate(source, output, origin=''):
     source, output = Path(source).resolve(), Path(output).resolve()
     if not source.is_dir():
         raise ValueError('source directory does not exist')
@@ -367,12 +399,13 @@ def curate(source, output):
         selected_families=len({r['family_id'] for r in survivors}),
         branched_families=len({r['family_id'] for r in survivors if 'divergent_history_branches_retained' in r['notes']}),
         originals_unchanged=True, normalization='gzip container only; decompressed payload unchanged',
+        origin=origin,
         outcome_labels='not inferred from filenames or assumed from latest turn',
         train_validation_split='not assigned; all histories in one family must share a split')
     (output/'summary.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2),encoding='utf-8')
     for name, data in [('inventory.jsonl',rows),('games.jsonl',survivors)]:
         (output/name).write_text(''.join(json.dumps(public(r),ensure_ascii=False)+'\n' for r in data),encoding='utf-8')
-    columns=['game_id','source','status','selected','curated_path','byte_duplicate_of','payload_duplicate_of','version','campaign_type','campaign',
+    columns=['game_id','source','status','selected','curated_path','byte_duplicate_of','payload_duplicate_of','layout','version','campaign_type','campaign',
              'scenario_id','era','category','format','players','human_sides','ai_sides','actions',
              'commands','snapshot_turn','replay_only_file','end_marker','family_id','notes']
     with (output/'inventory.csv').open('w',encoding='utf-8-sig',newline='') as stream:
@@ -380,7 +413,8 @@ def curate(source, output):
         for row in rows:
             entry=public(row);entry['notes']='; '.join(entry.get('notes',[]));writer.writerow(entry)
     lines=['# 人类回放整理结果','',f'原始文件：{len(rows)}；选定回放：{len(survivors)}。',
-        '所有原始文件已逐一复核 SHA256，未修改、移动或删除。输出仅重封装为确定性 gzip，解压内容逐字节相同。',
+        '所有原始文件已逐一复核 SHA256，内容未修改。输出仅重封装为确定性 gzip，解压内容逐字节相同。',
+        '', '## 来源','', f'- {origin}；inventory 的 source 即归档内成员路径。' if origin else '- 本地存档目录；inventory 的 source 即原文件名。',
         '', '## 筛选规则','',
         '- 依据初始地图、随机种子、规则、时代、阵营和单位建立同局族，再比较实际 command 历史；忽略保存时会随机变化的初始单位朝向。',
         '- 同历史只留一份；严格前缀视为更早存档；聊天/标签/单位改名不构成新对局。',
@@ -406,5 +440,6 @@ if __name__ == '__main__':
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--source',type=Path,required=True)
     parser.add_argument('--output',type=Path,required=True)
+    parser.add_argument('--origin',default='',help='where the source files came from, recorded in the summary and README')
     args=parser.parse_args()
-    print(json.dumps(curate(args.source,args.output),ensure_ascii=True,indent=2))
+    print(json.dumps(curate(args.source,args.output,args.origin),ensure_ascii=True,indent=2))

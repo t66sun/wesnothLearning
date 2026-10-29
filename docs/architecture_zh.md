@@ -26,7 +26,7 @@
 | `lua/` | 原版部署与 lite 宿主共用的插件 Lua：observation、candidates、spatial/relational 网络、routing、rewards、teacher、stock-RCA 采集 |
 | `vendor/arena/` | vendored WesnothArena 原版 SDK（runtime、对局运行器、bot、阵营/领袖/招募档案） |
 | `data/rules/` | 冻结规则：`1.18.8-training`（默认，587 单位 / 438 地形）与历史 `1.18.8` |
-| `data/` | 采集输入：`humanData/`、`humanData_curated/`、`datasets/`、`opponents/gpt6astra.zip`（旧版教师） |
+| `data/` | 采集输入：`humanData/`、`humanData_curated/`、`replays/`（整月大厅录像归档）、`replays_curated/`（从中整理的标准时代人类对局）、`datasets/`、`opponents/gpt6astra.zip`（旧版教师） |
 | `tests/` | `tests/v5/` 契约套件、旧版单元套件、手工烟测脚本，共享夹具在 `tests/v5/helpers.py` |
 | `benchmarks/` | 冻结的引擎负载契约（`contract.json`）及其运行器 |
 | `runs/<run>/` | 每次运行的 manifest、各赛制状态、调度与检查点（不入库） |
@@ -166,7 +166,7 @@ flowchart LR
 | `audit bc` / `audit fit` | 全量 BC 表示诊断；显式调用的小规模拟合探针 |
 | `benchmark engines` | 实测 native/lite 负载对比（从不推断未测资源） |
 | `rules` / `freeze-map` | 冻结原版规则采集；补充冻结地图身份 |
-| `import-human` / `replay_curate` | 经验证的人类录像导入与录像清单整理 |
+| `import-human` / `replay_curate` | 经验证的人类录像导入；本地存档与大厅归档两种格式的录像清单整理 |
 | `control show` / `control set` | 查看或排队奖励控制变更 |
 
 差分工具：`python -m engine_lite.differential` 在有限真实对局上审计 lite 与原版；`engine_lite.audit`/`inventory`/`capture`/`freeze` 处理规则证据而不启动训练。
