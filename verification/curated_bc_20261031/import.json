@@ -1,0 +1,93 @@
+{
+  "schema": 5,
+  "observer_version": "native-observer-v5.0",
+  "source_games": 3,
+  "statuses": {
+    "imported": 3
+  },
+  "samples": 84,
+  "games": [
+    {
+      "game_id": "game_0024",
+      "format": "duel",
+      "game_family": "1f4e18f9cb73c0a1c0a904af6122353a41becc39c6d314c344c1e9cb68e0ac36",
+      "split": "validation",
+      "samples": 24,
+      "status": "imported",
+      "coverage": {
+        "move": {
+          "total": 18,
+          "matched": 4,
+          "ratio": 0.2222222222222222
+        },
+        "end_turn": {
+          "total": 8,
+          "matched": 8,
+          "ratio": 1.0
+        },
+        "recruit": {
+          "total": 7,
+          "matched": 7,
+          "ratio": 1.0
+        },
+        "attack": {
+          "total": 5,
+          "matched": 5,
+          "ratio": 1.0
+        }
+      }
+    },
+    {
+      "game_id": "game_0361",
+      "format": "duel",
+      "game_family": "e5fabe5c5099f21563f936d1e6041600c5085d045d7ea59c0b42709810fae553",
+      "split": "train",
+      "samples": 21,
+      "status": "imported",
+      "coverage": {
+        "recruit": {
+          "total": 12,
+          "matched": 12,
+          "ratio": 1.0
+        },
+        "move": {
+          "total": 19,
+          "matched": 5,
+          "ratio": 0.2631578947368421
+        },
+        "end_turn": {
+          "total": 4,
+          "matched": 4,
+          "ratio": 1.0
+        }
+      }
+    },
+    {
+      "game_id": "game_0648",
+      "format": "team2v2",
+      "game_family": "ca814f65d3bf52416ec25d363cb2e5573b80005ab619773af66c8c7eca05d25a",
+      "split": "train",
+      "samples": 39,
+      "status": "imported",
+      "coverage": {
+        "recruit": {
+          "total": 17,
+          "matched": 17,
+          "ratio": 1.0
+        },
+        "move": {
+          "total": 26,
+          "matched": 15,
+          "ratio": 0.5769230769230769
+        },
+        "end_turn": {
+          "total": 7,
+          "matched": 7,
+          "ratio": 1.0
+        }
+      }
+    }
+  ],
+  "native_replay_executed": "capture logs supplied",
+  "note": "Preparation never launches Wesnoth. Play prepared replays in official 1.18.8, retain full logs, then use --captures. Unknown outcomes never supervise value."
+}

@@ -1,0 +1,337 @@
+{
+  "options": {
+    "game_id": "game_0361",
+    "game_family": "e5fabe5c5099f21563f936d1e6041600c5085d045d7ea59c0b42709810fae553",
+    "format": "duel",
+    "actions": [
+      {
+        "kind": "recruit",
+        "type": "Elvish Archer",
+        "x": 12,
+        "y": 6,
+        "index": 0,
+        "side": 1
+      },
+      {
+        "kind": "recruit",
+        "type": "Elvish Fighter",
+        "x": 13,
+        "y": 6,
+        "index": 1,
+        "side": 1
+      },
+      {
+        "kind": "recruit",
+        "type": "Elvish Scout",
+        "x": 14,
+        "y": 5,
+        "index": 2,
+        "side": 1
+      },
+      {
+        "kind": "recruit",
+        "type": "Elvish Fighter",
+        "x": 15,
+        "y": 5,
+        "index": 3,
+        "side": 1
+      },
+      {
+        "kind": "recruit",
+        "type": "Elvish Archer",
+        "x": 17,
+        "y": 5,
+        "index": 4,
+        "side": 1
+      },
+      {
+        "kind": "recruit",
+        "type": "Elvish Shaman",
+        "x": 16,
+        "y": 4,
+        "index": 5,
+        "side": 1
+      },
+      {
+        "kind": "move",
+        "x": 14,
+        "y": 4,
+        "tx": 11,
+        "ty": 5,
+        "full": false,
+        "index": 6,
+        "side": 1
+      },
+      {
+        "kind": "end_turn",
+        "index": 7,
+        "side": 1
+      },
+      {
+        "kind": "recruit",
+        "type": "Merman Hunter",
+        "x": 11,
+        "y": 25,
+        "index": 8,
+        "side": 2
+      },
+      {
+        "kind": "recruit",
+        "type": "Elvish Archer",
+        "x": 13,
+        "y": 25,
+        "index": 9,
+        "side": 2
+      },
+      {
+        "kind": "recruit",
+        "type": "Merman Hunter",
+        "x": 14,
+        "y": 24,
+        "index": 10,
+        "side": 2
+      },
+      {
+        "kind": "recruit",
+        "type": "Merman Hunter",
+        "x": 12,
+        "y": 25,
+        "index": 11,
+        "side": 2
+      },
+      {
+        "kind": "recruit",
+        "type": "Elvish Archer",
+        "x": 15,
+        "y": 24,
+        "index": 12,
+        "side": 2
+      },
+      {
+        "kind": "recruit",
+        "type": "Elvish Archer",
+        "x": 16,
+        "y": 23,
+        "index": 13,
+        "side": 2
+      },
+      {
+        "kind": "move",
+        "x": 14,
+        "y": 25,
+        "tx": 17,
+        "ty": 25,
+        "full": false,
+        "index": 14,
+        "side": 2
+      },
+      {
+        "kind": "end_turn",
+        "index": 15,
+        "side": 2
+      },
+      {
+        "kind": "move",
+        "x": 14,
+        "y": 5,
+        "tx": 5,
+        "ty": 6,
+        "full": false,
+        "index": 16,
+        "side": 1
+      },
+      {
+        "kind": "move",
+        "x": 11,
+        "y": 5,
+        "tx": 6,
+        "ty": 2,
+        "full": false,
+        "index": 17,
+        "side": 1
+      },
+      {
+        "kind": "move",
+        "x": 12,
+        "y": 6,
+        "tx": 7,
+        "ty": 10,
+        "full": false,
+        "index": 18,
+        "side": 1
+      },
+      {
+        "kind": "move",
+        "x": 13,
+        "y": 6,
+        "tx": 12,
+        "ty": 10,
+        "full": false,
+        "index": 19,
+        "side": 1
+      },
+      {
+        "kind": "move",
+        "x": 17,
+        "y": 5,
+        "tx": 21,
+        "ty": 10,
+        "full": false,
+        "index": 20,
+        "side": 1
+      },
+      {
+        "kind": "move",
+        "x": 16,
+        "y": 4,
+        "tx": 21,
+        "ty": 5,
+        "full": false,
+        "index": 21,
+        "side": 1
+      },
+      {
+        "kind": "move",
+        "x": 15,
+        "y": 5,
+        "tx": 16,
+        "ty": 9,
+        "full": false,
+        "index": 22,
+        "side": 1
+      },
+      {
+        "kind": "end_turn",
+        "index": 23,
+        "side": 1
+      },
+      {
+        "kind": "move",
+        "x": 15,
+        "y": 24,
+        "tx": 16,
+        "ty": 19,
+        "full": false,
+        "index": 24,
+        "side": 2
+      },
+      {
+        "kind": "move",
+        "x": 16,
+        "y": 23,
+        "tx": 21,
+        "ty": 19,
+        "full": false,
+        "index": 25,
+        "side": 2
+      },
+      {
+        "kind": "move",
+        "x": 14,
+        "y": 24,
+        "tx": 14,
+        "ty": 18,
+        "full": false,
+        "index": 26,
+        "side": 2
+      },
+      {
+        "kind": "move",
+        "x": 13,
+        "y": 25,
+        "tx": 13,
+        "ty": 19,
+        "full": false,
+        "index": 27,
+        "side": 2
+      },
+      {
+        "kind": "move",
+        "x": 11,
+        "y": 25,
+        "tx": 8,
+        "ty": 24,
+        "full": false,
+        "index": 28,
+        "side": 2
+      },
+      {
+        "kind": "move",
+        "x": 12,
+        "y": 25,
+        "tx": 7,
+        "ty": 25,
+        "full": false,
+        "index": 29,
+        "side": 2
+      },
+      {
+        "kind": "end_turn",
+        "index": 30,
+        "side": 2
+      },
+      {
+        "kind": "move",
+        "x": 12,
+        "y": 10,
+        "tx": 7,
+        "ty": 11,
+        "full": false,
+        "index": 31,
+        "side": 1
+      },
+      {
+        "kind": "move",
+        "x": 7,
+        "y": 10,
+        "tx": 8,
+        "ty": 13,
+        "full": false,
+        "index": 32,
+        "side": 1
+      },
+      {
+        "kind": "move",
+        "x": 8,
+        "y": 13,
+        "tx": 7,
+        "ty": 15,
+        "full": false,
+        "index": 33,
+        "side": 1
+      },
+      {
+        "kind": "move",
+        "x": 21,
+        "y": 10,
+        "tx": 22,
+        "ty": 14,
+        "full": false,
+        "index": 34,
+        "side": 1
+      }
+    ],
+    "source_sha256": "0df1b7787be842db869703e8ddf5e1aa82d8d890e99bb723d26f465b8977a852",
+    "observer_version": "native-observer-v5.0",
+    "expected_actions": 35
+  },
+  "replay_sha256": "439ab55577fd4aaa56d833552fc1bef273a79bf6b455d666b2ae3381ef74d6e3",
+  "command": [
+    "/home/tongshu/myDev/wesnothLearning/WesnothLearning/.runtime/install/bin/wesnoth",
+    "--debug",
+    "--debug-lua",
+    "--noaddons",
+    "--with-replay",
+    "--load",
+    "/home/tongshu/curated_bc_20261031/src/data/datasets/human/capture/game_0361/game_0361.cfg",
+    "--userdata-dir",
+    "/home/tongshu/curated_bc_20261031/src/data/datasets/human/capture/game_0361/userdata",
+    "--userconfig-dir",
+    "/home/tongshu/curated_bc_20261031/src/data/datasets/human/capture/game_0361/config",
+    "--usercache-dir",
+    "/home/tongshu/curated_bc_20261031/src/data/datasets/human/capture/game_0361/cache",
+    "--nosound",
+    "--exit-at-end",
+    "--log-info=replay"
+  ]
+}

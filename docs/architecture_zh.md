@@ -207,7 +207,7 @@ flowchart LR
 - stock RCA 教师无法回答按决策查询，因此该教师下 DAgger 不支持；Astra 仅作旧版教师来源。
 - 官方 baseline 仅限原版；lite 运行无法对它评估。
 - 原版终局采集（N1）已实现但未验收。
-- 整理后的录像语料（`data/replays_curated/`，1,076 局标准时代对局，其中 197 局为 1.18.8）仍只是暂存：全部对局都在 `learning/human.py:compatibility` 处被拦下——大厅归档没有 `[replay_start]`，其余为更早的引擎版本——因此尚无 BC 行取自该语料。
+- 整理后的录像语料（`data/replays_curated/`，1,076 局标准时代对局）仍只是暂存：只有记录于 1.18.8 的 197 局能进入 BC。大厅归档以其 `[scenario]` 块作为起始块，因为 1.18.8 自行展开场景并合并已记录的 RNG；缺少 `[carryover_sides_start].random_seed` 的大厅归档按 `missing_initial_rng` 跳过。录像标记只能放在动作之前以及末尾各一次，因为在同步上下文内遇到的 `[custom_command]` 会被回放机拒绝。已准备三局、由官方 1.18.8 实际播放并导入 84 条 BC 行（`verification/curated_bc_20261031/REPORT.md`）；不声明更大范围的语料播放。
 - 任何运行都没有收敛或棋力结论。
 
 ## 14. 文档地图

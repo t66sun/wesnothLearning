@@ -4,7 +4,9 @@ Temporary working note; delete this file when the list is empty or the task it s
 Each blocker states the measured evidence and the smallest action that would clear it. The
 host-memory blocker is absent on purpose: it was cleared on 2026-10-31
 (`verification/server_release_20261031/REPORT.md` — 32 orphaned pool workers released, 14 GB
-available).
+available). The BC start-block blocker is absent for the same reason: it was cleared on 2026-10-31
+(`verification/curated_bc_20261031/REPORT.md` — three lobby-archive replays played by official
+1.18.8 and imported as 84 BC rows).
 
 ## 1. The Windows reference host cannot start native work
 
@@ -14,20 +16,7 @@ cannot start there.
 **Solution:** run on the Ubuntu acceptance host. `~/myDev/wesnothLearning/WesnothLearning/.runtime/
 build/wesnoth` reports `Battle for Wesnoth v1.18.8 x86_64`, so no rebuild is needed.
 
-## 2. No curated replay can enter BC: the start block is missing
-
-**Evidence:** `learning/human.py:59-60` rejects every curated game at
-`missing_native_initial_state`, and `learning/human.py:73` (`prepare_capture`) needs
-`[replay_start]` to inject the `learning_observe` event. The lobby archive carries `[scenario]`
-(with `map_data`, sides, `mp_scenario`, `mp_era`) plus `[carryover_sides_start]` (with
-`random_seed`, `random_calls=0`) instead.
-
-**Solution:** write a converter that synthesises a save-layout `[replay_start]` from
-`[scenario]` and the initial RNG in `[carryover_sides_start]`, then feed it to `prepare_capture`.
-Prove it on one game: native 1.18.8 replays it and `import_capture` finds exactly one `complete`
-marker with per-action sample order.
-
-## 3. Only 197 of the 1,076 curated games match the frozen rules version
+## 2. Only 197 of the 1,076 curated games match the frozen rules version
 
 **Evidence:** `learning/human.py:58` returns `other_version` for anything but 1.18.8. Corpus
 versions: 1.18.8 197 · 1.18.3 290 · 1.18.7 218 · 1.18.0 210 · 1.18.5 66 · 1.18.2 46 · 1.18.1 27 ·
@@ -36,7 +25,7 @@ versions: 1.18.8 197 · 1.18.3 290 · 1.18.7 218 · 1.18.0 210 · 1.18.5 66 · 1
 **Solution:** enable the 197 matching games first; keep the rest as staging until a version policy
 exists. Freezing rule snapshots per old version costs more than it returns.
 
-## 4. `mp_checkup` is not recognised by the curator
+## 3. `mp_checkup` is not recognised by the curator
 
 **Evidence:** the checkup handling in `learning/replay_curate.py` matches the `checkup` tag only.
 Two games use `mp_checkup` (1,344 commands in `06/2p__Weldyn_Channel_Turn_18_(1927).bz2`, 252 in
@@ -46,7 +35,7 @@ prefix detection.
 **Solution:** accept both tags in the same branch, and add an assertion that fails when the
 `mp_checkup` case is dropped again.
 
-## 5. The Ubuntu host has no `git`, no GitHub and no PyPI
+## 4. The Ubuntu host has no `git`, no GitHub and no PyPI
 
 **Evidence:** `git` is not installed; `github.com` and `pypi.org` time out; `sudo -n` requires a
 password, so neither can be fixed at the system level. Reachable: the Tsinghua PyPI mirror and
@@ -56,7 +45,7 @@ password, so neither can be fixed at the system level. Reachable: the Tsinghua P
 replacement already works) and install packages with
 `PIP_INDEX_URL=https://pypi.tuna.tsinghua.edu.cn/simple`.
 
-## 6. The checkout on that host is stale, and no convergence or strength evidence exists
+## 5. The checkout on that host is stale, and no convergence or strength evidence exists
 
 **Evidence:** `unittest tests.test_replay_curate` in `~/myDev/wesnothLearning/WesnothLearning` runs
 8 tests instead of the current 11, so it predates the archive, provenance and LF work.
