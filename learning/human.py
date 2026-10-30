@@ -104,8 +104,6 @@ def prepare_capture(row,root,directory,wesnoth=None):
             actions.append(dict(a,index=len(actions),side=current))
             commands.append(Node('command',{'from_side':str(current)},[Node('custom_command',{'name':'learning_observe'},[Node('data',{'index':str(len(actions)-1)})])]))
         commands.append(c)
-        if a and current in humans:
-            commands.append(Node('command',{'from_side':str(current)},[Node('custom_command',{'name':'learning_result'},[])]))
     if not actions: raise ValueError('no reconstructable human action intents')
     commands.append(Node('command',{'from_side':str(current)},[Node('custom_command',{'name':'learning_complete'},[])]))
     replay.children=commands

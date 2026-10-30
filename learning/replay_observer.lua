@@ -26,7 +26,6 @@ function M.setup(options)
             emit {event='sample',record=pending};pending=nil
         end
     end
-    wesnoth.custom_synced_commands.learning_result=flush
     wesnoth.custom_synced_commands.learning_observe=function(cfg)
         flush()
         local index=tonumber(cfg.index);local actual=assert(options.actions[index+1])

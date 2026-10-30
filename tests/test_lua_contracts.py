@@ -197,7 +197,6 @@ class LuaContractTests(unittest.TestCase):
             actions=[dict(kind='end_turn',side=1,index=0)]))))
         lua.execute('''
             wesnoth.custom_synced_commands.learning_observe({index=0})
-            wesnoth.custom_synced_commands.learning_result()
             wesnoth.custom_synced_commands.learning_complete()
         ''')
         events=[json.loads(line.split('LEARNING_HUMAN ',1)[1]) for line in lua.eval('collected').values()]

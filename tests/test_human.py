@@ -97,6 +97,13 @@ dependent=yes
 new_seed=abcdef
 [/random_seed]
 [/command]
+[command]
+from_side=1
+[move]
+x="1,1,1"
+y="2,3,4"
+[/move]
+[/command]
 [/replay]
 [carryover_sides_start]
 random_seed=abcdef
@@ -110,16 +117,16 @@ next_scenario=mpscenario
         root,row=self.server_archive();original=canonical(root)
         self.assertIsNone(compatibility(row,root))
         with tempfile.TemporaryDirectory() as temp:
-            self.assertEqual(prepare_capture(row,root,temp),1)
+            self.assertEqual(prepare_capture(row,root,temp),2)
             prepared=parse_wml(Path(temp,'game_0002.cfg').read_text())
             self.assertIsNone(prepared.first('replay_start'))
             self.assertIn('replay_observer.lua',prepared.first('scenario').first('event').first('lua').attrs['code'])
             empty,replay=prepared.all('replay')
             self.assertEqual(canonical(empty),canonical(self.server_archive()[0].first('replay')))
             names=[c.first('custom_command').attrs['name'] if c.first('custom_command') else None for c in replay.children]
-            self.assertEqual(names,[None,'learning_observe',None,'learning_result',None,'learning_complete'])
+            self.assertEqual(names,[None,'learning_observe',None,None,'learning_observe',None,'learning_complete'])
             retained=[c for c in replay.children if c.first('custom_command') is None]
-            self.assertEqual([canonical(c) for c in retained],[canonical(c) for c in self.fixture()[0].first('replay').children])
+            self.assertEqual([canonical(c) for c in retained],[canonical(c) for c in root.all('replay')[-1].children])
             self.assertEqual(canonical(root),original)
 
     def test_server_archive_without_recorded_initial_rng_is_skipped(self):
