@@ -121,8 +121,7 @@ def play_game(bots, seed=1, factions=None, timeout=P.ACTION_TIMEOUT, first_timeo
             else:
                 key = str(Path(bot).resolve())
                 if key not in copied:
-                    addon = stack.enter_context(addons.open_addon(bot))
-                    name = addons.validate(addon)
+                    addon, name = stack.enter_context(addons.contestant(bot))
                     if name.casefold() in {v.casefold() for v in copied.values()}:
                         raise ValueError('different submissions have the same add-on ID')
                     shutil.copytree(addon,addondir/name)
