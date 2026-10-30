@@ -2,7 +2,7 @@
 
 > Language: English | [中文](architecture_zh.md)
 
-Updated 2026-10-29. This file describes only the current implementation. Dated evidence, failed runs and superseded decisions stay in `verification/`; remaining acceptance work is in [TEST.md](TEST.md); operating steps are in [instructions.md](instructions.md).
+Updated 2026-10-31. This file describes only the current implementation. Dated evidence, failed runs and superseded decisions stay in `verification/`; remaining acceptance work is in [TEST.md](TEST.md); operating steps are in [instructions.md](instructions.md).
 
 ## 1. Scope and boundaries
 
@@ -207,6 +207,7 @@ The benchmark workload is fixed by `benchmarks/contract.json`: paired native/lit
 - The stock RCA teacher cannot answer per-decision queries, so DAgger stays unsupported for that teacher; Astra remains a legacy teacher source only.
 - The official baseline is native-only; lite runs cannot evaluate against it.
 - Native terminal capture (N1) is implemented but unaccepted.
+- The curated replay corpus (`data/replays_curated/`, 1,076 standard-era games, 197 of them 1.18.8) is staging only: every game stops at `learning/human.py:compatibility` — the lobby archive carries no `[replay_start]` and the rest are older engine versions — so no BC row comes from it yet.
 - No convergence or playing-strength claim exists for any run.
 
 ## 14. Documentation map

@@ -187,4 +187,12 @@ class ReplayCurateTests(unittest.TestCase):
                              by['lobby_fill.bz2']['notes'])
 
 
+    def test_generated_text_outputs_use_lf_on_every_platform(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory);source=root/'raw';source.mkdir()
+            (source/'only.gz').write_bytes(gzip.compress(save([1,2]).encode()))
+            curate(source,root/'curated')
+            for name in ('inventory.jsonl','games.jsonl','summary.json','README.md','inventory.csv'):
+                self.assertNotIn(b'\r',(root/'curated'/name).read_bytes(),name)
+
 if __name__=='__main__':unittest.main()
