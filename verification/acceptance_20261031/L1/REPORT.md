@@ -22,7 +22,7 @@ Activated: the whole item. Not activated: any other format than duel, any corpus
 | Run `b` | Twin, uninterrupted BC only; `latest.pt` at stop |
 | Run `c` | Branch of `a` resuming the inherited checkpoint, final evaluation only |
 
-Full flag set and per-run checkpoint digests: `identities.json`.
+Full flag set and per-run checkpoint digests: `identities.json`. The four runners are stored beside this report — `l1_drive.py` (`<repo-root> <work-dir> <wesnoth>`), `l1_reeval.py` (`<repo-root> <parent-run> <child-run> <wesnoth>`), `l1_collect.py` (`<repo-root> <runs-root> <out-dir>`) and `native_repeat.py` (`<repo-root> <out-dir> <wesnoth>`).
 
 ## Commands
 
