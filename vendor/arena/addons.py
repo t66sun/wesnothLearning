@@ -89,6 +89,17 @@ def validate(directory, limit=MAX_PACKAGE_BYTES):
 
 
 @contextmanager
+def contestant(path):
+    """One bot slot: a zip keeps the submission cap, a runtime directory does not.
+
+    ``open_addon`` already bounds a zip input; re-validating the unpacked tree with the
+    submission cap would reject an exported policy whose Lua weights exceed 16 MiB.
+    """
+    with open_addon(path) as addon:
+        yield addon, validate(addon, limit=None)
+
+
+@contextmanager
 def open_addon(path):
     path = Path(path).resolve()
     if path.is_dir():

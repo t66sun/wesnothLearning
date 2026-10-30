@@ -152,7 +152,7 @@ Comparison status precedence: `infrastructure_error` → `inconclusive` (missing
 
 ## 10. Delivery
 
-- `ensure_export()` writes internal add-ons under `<format>/policies/<folder>/` with `features.lua`, `weights_<format>.lua`, `config.lua` and `export.json`; these are not SDK submissions and are not size-capped on resume.
+- `ensure_export()` writes internal add-ons under `<format>/policies/<folder>/` with `features.lua`, `weights_<format>.lua`, `config.lua` and `export.json`; these are not SDK submissions and are not size-capped on resume or when a match loads them as a bot.
 - `python -m learning export` writes a deployable add-on (all three formats, `arena.json` schema 2, vendored runtime, numeric parity record) and `python -m learning package` zips it as `delivery/NeuralArena.zip`. Export requires matching engine/teacher identity, trained weights and current-schema audit parity.
 - `python -m learning bundle` builds the extraction-ready Ubuntu 24.04 training archive (`BUNDLE_MANIFEST.json`, `SHA256SUMS`, fixed member modes, run state and evidence excluded); `verify-bundle` re-checks it statically.
 

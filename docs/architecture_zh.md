@@ -152,7 +152,7 @@ flowchart LR
 
 ## 10. 交付
 
-- `ensure_export()` 在 `<format>/policies/<folder>/` 下写内部插件，含 `features.lua`、`weights_<format>.lua`、`config.lua` 与 `export.json`；它们不是 SDK 提交，恢复时也不受大小上限约束。
+- `ensure_export()` 在 `<format>/policies/<folder>/` 下写内部插件，含 `features.lua`、`weights_<format>.lua`、`config.lua` 与 `export.json`；它们不是 SDK 提交，恢复时或在对局中作为机器人加载时都不受大小上限约束。
 - `python -m learning export` 写出可部署插件（三种赛制、`arena.json` schema 2、vendored runtime、数值一致性记录），`python -m learning package` 把它打包为 `delivery/NeuralArena.zip`。导出要求引擎/教师身份匹配、权重已训练、审计与当前 schema 一致。
 - `python -m learning bundle` 构建可直接解压的 Ubuntu 24.04 训练归档（`BUNDLE_MANIFEST.json`、`SHA256SUMS`、固定成员权限，排除运行状态与证据）；`verify-bundle` 对其做静态复检。
 
