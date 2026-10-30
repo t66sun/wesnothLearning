@@ -1,4 +1,5 @@
 import copy
+import json
 import random
 import unittest
 from pathlib import Path
@@ -7,8 +8,10 @@ from unittest import mock
 import torch
 
 from learning.branch import adopt, prepare
-from learning.checkpoints import CHECKPOINT_VERSION, checkpoint, validate_checkpoint
+from learning.checkpoints import (CHECKPOINT_VERSION, checkpoint, inherited_checkpoint, resume_pins,
+                                     validate_checkpoint)
 from learning.data import split
+from learning.experiment import validate_resume
 from learning.ppo import PLAN_VERSION
 from learning.sequences import attach_histories
 from learning.updates import rollout_identity
@@ -51,6 +54,39 @@ class CheckpointContractTests(unittest.TestCase):
             state['checkpoint_version'] = 99
             with self.assertRaisesRegex(ValueError, 'newer execution'):
                 validate_checkpoint(state)
+
+    def test_resume_accepts_the_parent_pin_of_a_branch(self):
+        with helpers.temporary_directory() as directory:
+            run = directory / 'run'
+            fmt_dir = run / 'duel'
+            fmt_dir.mkdir(parents=True)
+            (run / 'manifest.json').write_text('{"child": 1}')
+            model = helpers.model(seed=5)
+            optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
+            checkpoint(fmt_dir / 'latest.pt', model, optimizer, manifest_sha256='parent')
+            state = torch.load(fmt_dir / 'latest.pt', weights_only=False)
+            with self.assertRaisesRegex(ValueError, 'manifest changed'):
+                validate_resume(state, 'duel', fmt_dir)
+            (run / 'branch.json').write_text(json.dumps({'parent_manifest_sha256': 'parent'}))
+            self.assertIn('parent', resume_pins(fmt_dir))
+            validate_resume(state, 'duel', fmt_dir)
+            (run / 'branch.json').write_text(json.dumps({'parent_manifest_sha256': 'other'}))
+            with self.assertRaisesRegex(ValueError, 'manifest changed'):
+                validate_resume(state, 'duel', fmt_dir)
+
+    def test_inherited_branch_checkpoint_is_recognised_by_its_parent_pin(self):
+        with helpers.temporary_directory() as directory:
+            run = directory / 'run'
+            fmt_dir = run / 'duel'
+            fmt_dir.mkdir(parents=True)
+            (run / 'manifest.json').write_text('{"child": 1}')
+            inherited_state = dict(manifest_sha256='parent', runner=dict(clock={'parent': 1}))
+            own_state = dict(manifest_sha256='child', runner=dict(clock={'child': 2}))
+            self.assertIsNone(inherited_checkpoint(fmt_dir, inherited_state))
+            (run / 'branch.json').write_text(json.dumps({'parent_manifest_sha256': 'parent',
+                                                         'parent_clock': {'parent': 1}}))
+            self.assertEqual(inherited_checkpoint(fmt_dir, inherited_state)['parent_manifest_sha256'], 'parent')
+            self.assertIsNone(inherited_checkpoint(fmt_dir, own_state))
 
     def test_rollout_identity_covers_targets_and_provenance(self):
         rows = []

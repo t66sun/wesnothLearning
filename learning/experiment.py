@@ -19,11 +19,16 @@ from .formats import FORMATS, PLAYERS
 from .model import Policy
 from .schedule import calibration_jobs, teacher_jobs, stock_teacher_jobs, rollout_jobs, evaluation_jobs, freeze_schedule
 from .teacher_protocol import dagger_status
-from .checkpoints import validate_checkpoint, EXECUTION_VERSION
+from .checkpoints import inherited_checkpoint, validate_checkpoint, resume_pins, EXECUTION_VERSION
 from .ppo import PLAN_VERSION
 from .train import checkpoint, restore_rng, train, imitation_quality
 from .updates import rollout_identity
 from .selection import validate_frozen_selection
+
+
+def validate_resume(state,fmt,directory):
+    """Validate a checkpoint against the run that owns it, parent lineage included."""
+    return validate_checkpoint(state,fmt,resume_pins(directory))
 
 
 def read_log(path):
@@ -192,8 +197,10 @@ class FormatExperiment:
         info=None;loaded=None
         if (resume or branch) and (self.directory/'latest.pt').exists():
             self.model,loaded=load_model(self.directory/'latest.pt',fmt,self.device)
-            if branch:
-                info=read_json(self.directory.parent/'branch.json')
+            lineage=inherited_checkpoint(self.directory,loaded)
+            if branch or lineage:
+                if lineage is None: raise ValueError('branch run has no branch.json')
+                info=lineage
                 record=info['checkpoints'][fmt]
                 if sha256(self.directory/'latest.pt')!=record['sha256']:
                     raise ValueError('branch checkpoint changed after it was copied')
@@ -201,13 +208,13 @@ class FormatExperiment:
                 if loaded.get('manifest_sha256')!=info['parent_manifest_sha256']:
                     raise ValueError('branch checkpoint belongs to a different parent manifest')
             else:
-                validate_checkpoint(loaded,fmt,sha256(self.directory.parent/'manifest.json'))
+                validate_resume(loaded,fmt,self.directory)
         if loaded is not None:
             self.optimizer=torch.optim.Adam(self.model.parameters(),lr=self.config['learning_rate'])
-            if not (branch and info['reset_optimizer']):
+            if not (info and info['reset_optimizer']):
                 self.optimizer.load_state_dict(loaded['optimizer'])
             restore_rng(loaded,self.device)
-            if branch:
+            if info:
                 from .branch import adopt
                 self.state=adopt(loaded['runner'],info,clock,
                     self.config.get('phase','auto'))
@@ -220,7 +227,7 @@ class FormatExperiment:
             inherited={key:loaded.get(key) for key in expected}
             if any(inherited[key]!=value for key,value in expected.items()):
                 # Old weights may still seed a fresh plan, but never continue a run.
-                if not (branch and info.get('reset_optimizer')):
+                if not (info and info.get('reset_optimizer')):
                     raise ValueError(f'checkpoint combat profile {inherited!r} does not match {expected!r}; '
                                      'old weights are explicit initialization only')
                 self.state['initialized_from']=inherited
