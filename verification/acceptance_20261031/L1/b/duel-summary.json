@@ -1,0 +1,22 @@
+{
+  "format": "duel",
+  "status": "stage_complete",
+  "phase": "bc",
+  "version": 4,
+  "pretraining_complete": false,
+  "forced_ppo": null,
+  "teacher": {
+    "kind": "wesnoth_default_rca",
+    "version": "1.18.8",
+    "query": "none",
+    "dagger_status": "unsupported_with_stock_rca",
+    "dagger_shards": 0
+  },
+  "checkpoint": "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/latest.pt",
+  "error": null,
+  "clock": {
+    "started": 1793381493.4615092,
+    "update_deadline": 1793382243.4615092,
+    "deadline": 1793382393.4615092
+  }
+}

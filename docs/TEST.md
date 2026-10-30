@@ -13,31 +13,25 @@ Every item states what is open, the smallest Ubuntu procedure that would close i
 - Reuse accepted evidence instead of duplicating it. No full faction/rules/worker/seed matrix, new corpus, long convergence run or repeated pressure test merely because code moved.
 - Derived fixtures are prepared once with parent hashes and without editing historical evidence. A small chain proves wiring, not quality, promotion, convergence or strength.
 
-## N1 — Native terminal capture
-
-**Status:** implemented, NOT RUN; a fixed scenario helper is unwritten. Blocks only the new native terminal path, not lite. The 2026-10-30 sweep could not start it: the reference host has no native 1.18.8 install (`.runtime/` absent).
-
-**Procedure and pass:** one fixed native 1.18.8 early-elimination/endgame scenario capped at five turns plus the existing truncation counterexample. Actual initial, eliminated and terminal events preserve surviving sides and real own HP; bootstrap absorption only for a real terminal. Failure or truncation cannot invent a terminal. Missing events mean missing evidence, not zero-valued success. Diagnostic rows enter neither actor/BC/PPO shards nor memory writes. Record raw events, command and identities in `N1/`; no native rules or performance matrix.
-
 ## L1 — Reduced full-loop run
 
-**Status:** NOT RUN. The historical reduced chain covered duel BC → PPO → resume → final; uninterrupted same-future comparison, scheduled mid-run ticks and all-format coverage remain unproven. Nothing started on 2026-10-30: no runtime and no run authorization.
+**Status:** FAIL on the Ubuntu host 2026-10-31. Panel, PPO updates and stop/resume passed; the final-evaluation entry ran but scored no game, and the same-future clause is unverifiable. Measured: 40/40 duel teacher games completed, 5 BC batches (388 updates) without reaching the imitation gate (accuracy 0.217), PPO forced with a recorded reason, 9 batches with 4–8 applied updates, SIGKILL at `applied=4` resumed at batch 9 to `ppo_complete` without recomputing batches 5–8. All 60 final games faulted with `watchdog_timeout` at `turns 1`: one exported-policy decision costs ≈1.9 s while `vendor/arena/params.py:6` freezes `ACTION_TIMEOUT = 1.0`. A twin run with the same 40 teacher ids, seeds and map produced 0 identical payloads, and one stock game played twice from the same seed ended at turn 5 and turn 3 — native play is not reproducible from its recorded identity. PRs #107 and #109 fixed the two defects the run exposed.
 
 **Procedure:** on an isolated source tree, freeze one lite configuration with the smallest panel that reaches BC, at least two applied PPO updates, one stop/resume from a committed-batch checkpoint and the final-evaluation entry. Record counts, seed, manifest and checkpoint identities before launch. Poll status/log every 30 minutes and retain anomalies; do not raise game counts, lower gates or edit frozen evidence during the run.
 
 **Pass:** the run reaches final evaluation; both PPO updates commit; resuming from the saved boundary reproduces the uninterrupted future exactly where identities match; the selected checkpoint and its export are recorded; every stop reason is reported rather than hidden. Reduced-panel limits stay inconclusive for strength, and a failure remains a failure.
 
-**Evidence:** new dated `verification/<run>_<date>/REPORT.md` with commands, counts, identities, checkpoint/resume trace, final-evaluation entry and resource readings.
+**Evidence:** `verification/acceptance_20261031/L1/REPORT.md` with the runs' states, identities, stop/resume boundary, the native-budget trace and the same-seed repeat probe.
 
 ## R3 — Adapted teacher strength evidence
 
-**Status:** the adaptation itself is implemented and six value-level positions were checked; full legal-board teacher query/ranking and a matched strength comparison are NOT RUN, and the 2026-10-30 sweep had no runtime to start one. Tactical evidence and strength evidence stay separate.
+**Status:** the adaptation itself is implemented, six value-level positions were checked, and a bounded smoke ran on the Ubuntu host 2026-10-31: 14 games, all `complete`, `truncated=0`, adapted versus frozen Astra differed by −1.5 rank points in duel, +0.2083 in ffa4 and −1.125 in team2v2, one block and one distinct scenario per format, therefore inconclusive for strength. Full legal-board teacher query/ranking and the complete 12-block comparison are NOT RUN. Tactical evidence and strength evidence stay separate.
 
 **Procedure:** compare frozen unadapted versus adapted Astra under the same rules, with paired initial maps, factions and roles, using one complete existing rotation block per format as a bounded smoke (predeclare games and turn cap). Reuse matching new-rule games where roles and schedules align. Truncated or underfilled results stay inconclusive. Claiming maintained or improved strength requires the unchanged complete 12-block validation/champion contract on a frozen hold-out validation schedule, never tuned on.
 
 **Pass:** the smoke detects obvious tactical or runtime deterioration without claiming statistical non-regression; a full-strength claim requires the complete matching panel with the hold-out reserve untouched. Otherwise the status stays unverified and hypotheses are revised instead of adding seeds until a win.
 
-**Evidence:** `verification/acceptance_<date>/R3/` with the comparison schedule, identities, result and an explicit tactical/smoke/full-panel label.
+**Evidence:** `verification/acceptance_20261031/R3/` holds the smoke schedule, identities and results labelled `r3-smoke`; the full panel needs its own dated directory.
 
 ## Execution and report
 

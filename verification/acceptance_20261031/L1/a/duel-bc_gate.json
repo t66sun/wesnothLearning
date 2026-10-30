@@ -1,0 +1,73 @@
+{
+  "imitation": {
+    "effective": false,
+    "formats": {
+      "duel": {
+        "samples": 345,
+        "cross_entropy": 3.2609998398932856,
+        "uniform_entropy": 4.5325692981734775,
+        "kinds": {
+          "recruit": {
+            "samples": 37,
+            "correct": 5,
+            "accuracy": 0.13513513513513514
+          },
+          "move": {
+            "samples": 132,
+            "correct": 31,
+            "accuracy": 0.23484848484848486
+          },
+          "attack": {
+            "samples": 176,
+            "correct": 39,
+            "accuracy": 0.2215909090909091
+          }
+        },
+        "accuracy": 0.21739130434782608,
+        "uniform_accuracy": 0.013278562128263015,
+        "effective": false
+      }
+    }
+  },
+  "coverage": {
+    "passed": true,
+    "actions": {
+      "all": {
+        "matched": 4551,
+        "total": 4985,
+        "ratio": 0.912938816449348
+      },
+      "recruit": {
+        "matched": 613,
+        "total": 613,
+        "ratio": 1.0
+      },
+      "move": {
+        "matched": 1786,
+        "total": 2031,
+        "ratio": 0.879369768586903
+      },
+      "attack": {
+        "matched": 2152,
+        "total": 2270,
+        "ratio": 0.9480176211453745
+      }
+    }
+  },
+  "corpus": {
+    "games": 40,
+    "required": 40,
+    "passed": true
+  },
+  "opening": {
+    "passed": false,
+    "blocking": false
+  },
+  "distinct_scenarios": 26,
+  "min_distinct": 12,
+  "missing_scenario_rows": 0,
+  "scope": "initialisation_only",
+  "split_rule": "scenario-v2",
+  "status": "not_passed",
+  "passed": false
+}

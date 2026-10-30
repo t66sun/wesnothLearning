@@ -1,0 +1,504 @@
+{
+  "format": "duel",
+  "stage": "bc_complete",
+  "phase": "bc",
+  "clock": {
+    "started": 1793381493.4615092,
+    "update_deadline": 1793382243.4615092,
+    "deadline": 1793382393.4615092
+  },
+  "batch": 4,
+  "version": 4,
+  "history": [
+    {
+      "batch": 0,
+      "method": "bc",
+      "elapsed_hours": 0.06563571512699128,
+      "reads": {
+        "bc": {
+          "requested": 2048,
+          "rows": 2048,
+          "families": 17,
+          "selected": 17,
+          "families_decoded": 17,
+          "families_selected": 17,
+          "families_admitted": 17,
+          "families_retained": 17,
+          "windows": 61,
+          "sources": {
+            "stock_rca": 2048
+          },
+          "engines": {
+            "native": 2048
+          },
+          "kinds": {
+            "recruit": 284,
+            "move": 806,
+            "attack": 183,
+            "move_attack": 775
+          },
+          "gz_bytes": 51997656,
+          "retained_bytes": 589924468,
+          "deficit": 0,
+          "stop_reason": "window_limit"
+        },
+        "validation": {
+          "requested": 1024,
+          "rows": 119,
+          "families": 3,
+          "selected": 3,
+          "families_decoded": 3,
+          "families_selected": 3,
+          "families_admitted": 3,
+          "families_retained": 3,
+          "windows": 6,
+          "sources": {
+            "stock_rca": 119
+          },
+          "engines": {
+            "native": 119
+          },
+          "kinds": {
+            "recruit": 12,
+            "move": 24,
+            "move_attack": 70,
+            "attack": 13
+          },
+          "gz_bytes": 1950464,
+          "retained_bytes": 29190216,
+          "deficit": 905,
+          "stop_reason": "insufficient_data"
+        }
+      },
+      "peak_rss_mb": 1351,
+      "updates": 60,
+      "loss": 4.0889937413856385,
+      "interrupted": false,
+      "approx_kl": 0.0,
+      "kl_stopped": false,
+      "decisions_seen": 7532,
+      "unique_families_seen": 17,
+      "effective_dataset_passes": 3.677734375,
+      "sequence_windows": 60,
+      "microbatch": 32
+    },
+    {
+      "batch": 1,
+      "method": "bc",
+      "elapsed_hours": 0.13734864294528962,
+      "reads": {
+        "bc": {
+          "requested": 2048,
+          "rows": 2048,
+          "families": 26,
+          "selected": 35,
+          "families_decoded": 26,
+          "families_selected": 35,
+          "families_admitted": 26,
+          "families_retained": 26,
+          "windows": 74,
+          "sources": {
+            "stock_rca": 2048
+          },
+          "engines": {
+            "native": 2048
+          },
+          "kinds": {
+            "recruit": 275,
+            "move": 767,
+            "move_attack": 830,
+            "attack": 176
+          },
+          "gz_bytes": 65331899,
+          "retained_bytes": 584539848,
+          "deficit": 0,
+          "stop_reason": "window_limit"
+        },
+        "validation": {
+          "requested": 1024,
+          "rows": 284,
+          "families": 5,
+          "selected": 5,
+          "families_decoded": 5,
+          "families_selected": 5,
+          "families_admitted": 5,
+          "families_retained": 5,
+          "windows": 12,
+          "sources": {
+            "stock_rca": 284
+          },
+          "engines": {
+            "native": 284
+          },
+          "kinds": {
+            "recruit": 35,
+            "move": 99,
+            "move_attack": 129,
+            "attack": 21
+          },
+          "gz_bytes": 5952287,
+          "retained_bytes": 76145976,
+          "deficit": 740,
+          "stop_reason": "insufficient_data"
+        }
+      },
+      "peak_rss_mb": 1526,
+      "updates": 76,
+      "loss": 2.970034345273713,
+      "interrupted": false,
+      "approx_kl": 0.0,
+      "kl_stopped": false,
+      "decisions_seen": 9063,
+      "unique_families_seen": 26,
+      "effective_dataset_passes": 4.42529296875,
+      "sequence_windows": 73,
+      "microbatch": 32
+    },
+    {
+      "batch": 2,
+      "method": "bc",
+      "elapsed_hours": 0.17830104039775,
+      "reads": {
+        "bc": {
+          "requested": 2048,
+          "rows": 2048,
+          "families": 22,
+          "selected": 35,
+          "families_decoded": 22,
+          "families_selected": 35,
+          "families_admitted": 22,
+          "families_retained": 22,
+          "windows": 69,
+          "sources": {
+            "stock_rca": 2048
+          },
+          "engines": {
+            "native": 2048
+          },
+          "kinds": {
+            "recruit": 278,
+            "move_attack": 776,
+            "move": 808,
+            "attack": 186
+          },
+          "gz_bytes": 65471364,
+          "retained_bytes": 594780352,
+          "deficit": 0,
+          "stop_reason": "window_limit"
+        },
+        "validation": {
+          "requested": 1024,
+          "rows": 284,
+          "families": 5,
+          "selected": 5,
+          "families_decoded": 5,
+          "families_selected": 5,
+          "families_admitted": 5,
+          "families_retained": 5,
+          "windows": 12,
+          "sources": {
+            "stock_rca": 284
+          },
+          "engines": {
+            "native": 284
+          },
+          "kinds": {
+            "recruit": 35,
+            "move": 99,
+            "move_attack": 129,
+            "attack": 21
+          },
+          "gz_bytes": 5952287,
+          "retained_bytes": 76145976,
+          "deficit": 740,
+          "stop_reason": "insufficient_data"
+        }
+      },
+      "peak_rss_mb": 1535,
+      "updates": 68,
+      "loss": 2.652188318548724,
+      "interrupted": false,
+      "approx_kl": 0.0,
+      "kl_stopped": false,
+      "decisions_seen": 7701,
+      "unique_families_seen": 22,
+      "effective_dataset_passes": 3.76025390625,
+      "sequence_windows": 68,
+      "microbatch": 32
+    },
+    {
+      "batch": 3,
+      "method": "bc",
+      "elapsed_hours": 0.2198506295018726,
+      "reads": {
+        "bc": {
+          "requested": 2048,
+          "rows": 2048,
+          "families": 28,
+          "selected": 35,
+          "families_decoded": 28,
+          "families_selected": 35,
+          "families_admitted": 28,
+          "families_retained": 28,
+          "windows": 76,
+          "sources": {
+            "stock_rca": 2048
+          },
+          "engines": {
+            "native": 2048
+          },
+          "kinds": {
+            "recruit": 268,
+            "move": 829,
+            "move_attack": 797,
+            "attack": 154
+          },
+          "gz_bytes": 64381592,
+          "retained_bytes": 586385368,
+          "deficit": 0,
+          "stop_reason": "window_limit"
+        },
+        "validation": {
+          "requested": 1024,
+          "rows": 284,
+          "families": 5,
+          "selected": 5,
+          "families_decoded": 5,
+          "families_selected": 5,
+          "families_admitted": 5,
+          "families_retained": 5,
+          "windows": 12,
+          "sources": {
+            "stock_rca": 284
+          },
+          "engines": {
+            "native": 284
+          },
+          "kinds": {
+            "recruit": 35,
+            "move": 99,
+            "move_attack": 129,
+            "attack": 21
+          },
+          "gz_bytes": 5952287,
+          "retained_bytes": 76145976,
+          "deficit": 740,
+          "stop_reason": "insufficient_data"
+        }
+      },
+      "peak_rss_mb": 1540,
+      "updates": 76,
+      "loss": 2.408808586824881,
+      "interrupted": false,
+      "approx_kl": 0.0,
+      "kl_stopped": false,
+      "decisions_seen": 8948,
+      "unique_families_seen": 28,
+      "effective_dataset_passes": 4.369140625,
+      "sequence_windows": 75,
+      "microbatch": 32
+    }
+  ],
+  "snapshots": [],
+  "best_key": null,
+  "bc_key": null,
+  "ppo_key": null,
+  "best_kind": null,
+  "pending_train": {
+    "paths": [
+      "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00000-duel-t0.jsonl.gz",
+      "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00001-duel-t0.jsonl.gz",
+      "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00002-duel-t0.jsonl.gz",
+      "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00003-duel-t0.jsonl.gz",
+      "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00004-duel-t0.jsonl.gz",
+      "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00005-duel-t0.jsonl.gz",
+      "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00006-duel-t0.jsonl.gz",
+      "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00007-duel-t0.jsonl.gz",
+      "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00008-duel-t0.jsonl.gz",
+      "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00009-duel-t0.jsonl.gz",
+      "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00010-duel-t0.jsonl.gz",
+      "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00011-duel-t0.jsonl.gz",
+      "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00012-duel-t0.jsonl.gz",
+      "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00013-duel-t0.jsonl.gz",
+      "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00014-duel-t0.jsonl.gz",
+      "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00015-duel-t0.jsonl.gz",
+      "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00016-duel-t0.jsonl.gz",
+      "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00017-duel-t0.jsonl.gz",
+      "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00018-duel-t0.jsonl.gz",
+      "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00019-duel-t0.jsonl.gz",
+      "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00020-duel-t0.jsonl.gz",
+      "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00021-duel-t0.jsonl.gz",
+      "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00022-duel-t0.jsonl.gz",
+      "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00023-duel-t0.jsonl.gz",
+      "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00024-duel-t0.jsonl.gz",
+      "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00025-duel-t0.jsonl.gz",
+      "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00026-duel-t0.jsonl.gz",
+      "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00027-duel-t0.jsonl.gz",
+      "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00028-duel-t0.jsonl.gz",
+      "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00029-duel-t0.jsonl.gz",
+      "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00030-duel-t0.jsonl.gz",
+      "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00031-duel-t0.jsonl.gz",
+      "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00032-duel-t0.jsonl.gz",
+      "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00033-duel-t0.jsonl.gz",
+      "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00034-duel-t0.jsonl.gz",
+      "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00035-duel-t0.jsonl.gz",
+      "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00036-duel-t0.jsonl.gz",
+      "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00037-duel-t0.jsonl.gz",
+      "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00038-duel-t0.jsonl.gz",
+      "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00039-duel-t0.jsonl.gz"
+    ],
+    "method": "bc",
+    "cursor": {
+      "epoch": 0,
+      "step": 13,
+      "loss_sum": 29.456893429160118,
+      "updates": 13,
+      "decisions_seen": 1428
+    },
+    "reward_config": {
+      "economy": 0.15,
+      "control": 0.1,
+      "explore": 0.1,
+      "mode": "adaptive",
+      "entropy": 0.01,
+      "bc_aux": 0.1,
+      "gamma": 1.0,
+      "gae_lambda": 0.95,
+      "reward_version": 0,
+      "reward_formula_id": "v5-potential-1"
+    },
+    "identity": {
+      "train": "309e9187b1e61617c0a40ad78635ab369572dcf9ff6fb4f6a07093190173975a"
+    }
+  },
+  "pending_validation": null,
+  "teacher_shards": [
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00000-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00001-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00002-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00003-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00004-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00005-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00006-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00007-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00008-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00009-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00010-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00011-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00012-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00013-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00014-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00015-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00016-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00017-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00018-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00019-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00020-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00021-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00022-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00023-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00024-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00025-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00026-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00027-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00028-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00029-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00030-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00031-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00032-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00033-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00034-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00035-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00036-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00037-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00038-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/b/duel/data/stock-00039-duel-t0.jsonl.gz"
+  ],
+  "effective": false,
+  "error": null,
+  "dagger_shards": [],
+  "policy_shards": [],
+  "dagger_status": "unsupported_with_stock_rca",
+  "counters": {
+    "environment_games": 40,
+    "collection_batches": 5,
+    "optimizer_steps": 280,
+    "unique_families_seen": 40,
+    "decisions_seen": 33244,
+    "effective_dataset_passes": 16.232421875
+  },
+  "reward_controller": {
+    "config": {
+      "economy": 0.15,
+      "control": 0.1,
+      "explore": 0.1,
+      "mode": "adaptive",
+      "entropy": 0.01,
+      "bc_aux": 0.1,
+      "gamma": 1.0,
+      "gae_lambda": 0.95,
+      "reward_version": 0,
+      "reward_formula_id": "v5-potential-1"
+    },
+    "cursor": 0,
+    "last_check": 0,
+    "games": 40,
+    "blocks": [],
+    "seen_blocks": [],
+    "windows": [],
+    "control_previous": null,
+    "last_error": null,
+    "metrics_error": null,
+    "applied_schedule": []
+  },
+  "families_seen": [
+    "0a62f3f69c19bd41e4e95db3f442bc177a0bb26c006928df0d14cccce916db72",
+    "0b99e17bf38494734eed433dcec7b9d760ab82bc9ae597057271a95c3b9e9976",
+    "10eab05fd963abc8db2bdb2399d797118a45a3ff4dbc6b4c29a11edddca35e16",
+    "115b5723778ec37c0e4b8437c040bc7139b3f9ac873f4793cc65df277108b4ba",
+    "18f190a7b3998a2afe65430dd58d52d3d66cd612a524471544ea2e65c070b75c",
+    "1e1fbeb1fcf468750f0b747cf3b68127962b9a950269088fb892ea57682ceeaf",
+    "1ec66f75aa04f202fc54eb32d9bec94196c6b563fe76e66602bc0ca3adf36cd9",
+    "1f557a119d1a5f975141d8205376565082c53bf806112c593ee217a324cfb567",
+    "1fefb58a2f80ad8430703e39b88bfacc4a03163a44076e8f5760d3561268cae8",
+    "3474292bb4cfafb1d0e47c614c8f1fe6f9b25dfafd726c97675f0e0681ae879a",
+    "390102a9c11edcca5ba8b737b627a7103aa259c268cc5482449c693e7373e63f",
+    "42bd823c306119c6ecadecbeae7337aa31f1225d1b2657e9162517d6e9288092",
+    "4c4f448a1360ca19aba5b3445dfe26eaff751f42fccbfd52fb5140964b8e5b83",
+    "5386f1db95f58d0aadb21f095dcf9b0411aa5952dc59adb85fd60f9ab290823c",
+    "57ba72dbeaed0b02537c8a7598ae3457bccfb1e1361890f25dc93d3737994807",
+    "5c10bd14e56832c91a9185d7a0db06f695c7e9ef644e2e5896d18395d9f42eea",
+    "68b2c2c9a6e400d7bfce011b43957b4e7486693d71d9a16b0f6cd4b6241d3016",
+    "78ef86f3a9c04669bfbce5d53d64a0c0f52bf222b6a1943fc3f4d7acdfae5d9a",
+    "85824621e17c3c6978d37f6549c0f08070a9284381c3f44c03fcf2da3b4f1761",
+    "90a16ca657843295c60ebf7c7bd951302524a05d6ff8da172f36fa653b059e02",
+    "922c46e2005738ac0b5d2bb625605c11f961feecbf0c62045dd478ff5693c6da",
+    "969e3b96b57b0d3ead464f1b4960757a22feb324a7061c616ca8f26c9eb842ba",
+    "98763bc8f64e68ec7850b46ca9b352714ed83b2ebd16866c7b173a4541cad080",
+    "9b91830d505fa2babf5f6c802f5fc8a678418f22dc0d87cb3211e13a5d0df0c5",
+    "9e9984d792cd6002f5cb73bce711f7b5e2927e289ee1f8fa65fcd683907a6985",
+    "a5c5452ea947578fafc4f1d0775af975a788d3a863291a173f66c04fd88ada04",
+    "a8ea8636791edb4ce20e0cfa651d9b7542f9e0f1b4e89ab6018a358850e56818",
+    "bd1c5647c75904b305ade0287665e96733c273f8467de6a662a38d735fa63233",
+    "bd8ae48c84d28f46fd49cef128b995e6aacac39adc5c74c83faeed887db29291",
+    "c2d85331271e7411203db7817c491eeb73c674e37317ed50fceb0ea171bb3514",
+    "c7092c2202b3c6a32c0e838446542c9aff5ad0bb186db2bcdc95a976112aa75f",
+    "dfcc246e182e1a327aa571f3944471369e0ab8ae378d941661288c7abcf2fbec",
+    "dfe97927045977275c322058d08c8df0c22d52e9d0bb96385bc2c59bbbe560c2",
+    "e00dababc7a6b6cae5fd6d20ea4e53acf42095fa0b888ab4feedeac45e2e2efd",
+    "e1f1b854c300a9fc53a26c9c308d4af411509da5c778857b187908b939e00b49",
+    "e2169afb1b0b08d9e159ce519ea593986bc8031da978a682f3be695081317e52",
+    "eebf645315bbf234a467a2462f1cb2c3094e9a8598c796edb722e81c64a3f62f",
+    "ef015a0ff88bab7049ffce60f4a6dbacf63d1dec1798fb689b7693a6579e2db0",
+    "f0e5fd58c2b0b4e229980e0739639c45561a4329e55da84a74b8fb9d05598803",
+    "f4b2828523ef7df255fb3b4d6685856c1541f59593aec5319c61553f092e8d18"
+  ],
+  "bc_quality_best": 0.2605633802816901,
+  "bc_plateau": 1,
+  "control_metrics": {
+    "partition": "train",
+    "new_games": 0,
+    "faulted_games": 0
+  },
+  "status": "stage_complete"
+}
