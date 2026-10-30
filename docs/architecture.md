@@ -206,7 +206,7 @@ The benchmark workload is fixed by `benchmarks/contract.json`: paired native/lit
 - Lite combat is deterministic; native combat is stochastic. Cross-engine numeric equality is not claimed.
 - The stock RCA teacher cannot answer per-decision queries, so DAgger stays unsupported for that teacher; Astra remains a legacy teacher source only.
 - The official baseline is native-only; lite runs cannot evaluate against it.
-- External inference (D1) is unimplemented; native terminal capture (N1) is implemented but unaccepted.
+- Native terminal capture (N1) is implemented but unaccepted.
 - No convergence or playing-strength claim exists for any run.
 
 ## 14. Documentation map
