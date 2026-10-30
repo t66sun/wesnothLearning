@@ -65,11 +65,11 @@
 
 **Status:** 已实现；`learning/replay_curate.py` 在本地存档布局之外同时读取大厅归档布局（`[scenario]` 加 `[carryover_sides_start]`，历史拆在两个 `[replay]` 块中）。参考证据仅来自 Windows，Ubuntu 上 **NOT RUN**。它不阻断任何训练路径：在出现按规则版本区分的 BC 或归档采集路径之前，整理出的语料仍是暂存集。
 
-**Procedure:** 运行 `python -m unittest tests.test_replay_curate -v`，再整理一个归档样本，并从 `data/replays/202412.tar` 重新整理语料到临时输出目录，逐成员对比 `inventory.jsonl` 与 `data/replays_curated/inventory.jsonl`。
+**Procedure:** 运行 `python -m unittest tests.test_replay_curate -v`，再整理一个归档样本，并从四个月度归档（`202412`、`202607`、`202608`、`202609`）重新整理语料到临时输出目录，逐成员对比 `inventory.jsonl` 与 `data/replays_curated/inventory.jsonl`。
 
-**Pass:** 回退 `initial = start if start is not None else scenario` 分支时归档测试必须失败；把赛后的"接管某方"消息或同一玩家的重连计为换人时，换人测试必须失败；每个整理出的 `.gz` 解压内容重算后与其记录的 `payload_sha256` 一致；选定数、同局族数与格式统计完全复现（434 局、434 族、147,899 个决策意图）；原始文件未被修改。
+**Pass:** 回退 `initial = start if start is not None else scenario` 分支时归档测试必须失败；把赛后的"接管某方"消息或同一玩家的重连计为换人时，换人测试必须失败；每个整理出的 `.gz` 解压内容重算后与其记录的 `payload_sha256` 一致；选定数、同局族数与格式统计完全复现（1,076 局、1,076 族、359,526 个决策意图）；原始文件未被修改。
 
-**Evidence:** `verification/replay_archive_20261029/REPORT.md` 与 `funnel.json`（参考证据）；Ubuntu 跑通后追加一份带日期的 `verification/` 报告。
+**Evidence:** `verification/replay_archive_20261029/`、`verification/replay_corpus_audit_20261030/` 与 `verification/replay_archive_2026q3_20261030/`（参考证据）；Ubuntu 跑通后追加一份带日期的 `verification/` 报告。
 
 ## 执行与报告
 
