@@ -1,0 +1,20 @@
+{
+  "engine": "native",
+  "wesnoth_version": "1.18.8",
+  "executable_sha256": "33f64aa3f5ee40228bd44e357b3f4d784121d4392ff774d6c059c7defa3e5fcf",
+  "rules_version": "wesnoth-1.18.8-native-v2",
+  "rules_dir": "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/data/rules/1.18.8",
+  "rules_sha256": "c769a4d62cd95ed96028cd8931e7030883547b12ec5972f194ef9272741a9021",
+  "catalog_sha256": "a1f366ea93e00a5f4fa7a2a2ea9f2267b7bebaf1040c7828e81adcb19f9cac5a",
+  "frozen_package_sha256": "2a216c96081990621dc15772e9de1bf40e4f5f451223fe52e5b20625464dc933",
+  "frozen_staged_sha256": "71d69a4be7e42df18c6b4d6d5e02a67a89d806d30cf5c46d2e4e3cbd95037b51",
+  "adapted_source_sha256": "a5d4b3a69d5af0378fa22119f315c1300fb6ad965c79b08071eb4a37c0addbef",
+  "adapted_parent_sha256": "2a216c96081990621dc15772e9de1bf40e4f5f451223fe52e5b20625464dc933",
+  "adapted_profile": "expected_damage_v1",
+  "adapted_staged_sha256": "5e80582edc577e1b34180b180d157092a319221145f6bbc37106ef7f7684ef52",
+  "adaptation_identity": {
+    "teacher": "gpt6astra",
+    "teacher_profile": "expected_damage_v1",
+    "teacher_source_sha256": "a5d4b3a69d5af0378fa22119f315c1300fb6ad965c79b08071eb4a37c0addbef"
+  }
+}

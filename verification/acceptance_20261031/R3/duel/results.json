@@ -1,0 +1,201 @@
+[
+  {
+    "id": "r3-smoke-duel-b0000-solo-r0",
+    "status": "complete",
+    "result": {
+      "bots": [
+        "astra_adapted",
+        "astra_frozen"
+      ],
+      "seed": 1204705257,
+      "turns": 30,
+      "winner": 0,
+      "survivors": [
+        1,
+        2
+      ],
+      "reason": "turn_limit",
+      "faults": {},
+      "rank_points": {
+        "1": 0.5,
+        "2": 0.5
+      },
+      "eliminated": {},
+      "seconds": 5.4757,
+      "actions": 501,
+      "factions": [
+        "Drakes",
+        "Knalgan Alliance"
+      ],
+      "spawns": [
+        [
+          14,
+          4
+        ],
+        [
+          14,
+          25
+        ]
+      ],
+      "lenient": false,
+      "native_replay": "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/r3-20261031/replays/r3-smoke-duel-b0000-solo-r0.replay.gz",
+      "rules_version": "wesnoth-1.18.8-native-v2"
+    },
+    "meta": {
+      "format": "duel",
+      "block": 0,
+      "rotation": 0,
+      "context": "solo",
+      "label": "r3-smoke",
+      "policy": "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/r3-20261031/astra_adapted.zip",
+      "control": "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/r3-20261031/astra_frozen.zip",
+      "faction_cycle": 0,
+      "design_scenario": {
+        "map_index": 0,
+        "factions": [
+          "Drakes",
+          "Knalgan Alliance"
+        ]
+      },
+      "repeat": 0,
+      "min_distinct": 1,
+      "policy_sides": [
+        1
+      ],
+      "control_sides": [
+        2
+      ],
+      "map": "hamlets",
+      "map_sha256": "7326c073cbc8422b279d57039da7f4fd4b73f91b8a1052e7426cbfbc30514b7e",
+      "map_partition": "validation"
+    },
+    "training_eligible": true,
+    "training_shard": null,
+    "stock_coverage": {},
+    "coverage": {
+      "total": 0,
+      "matched": 0,
+      "all_actions": 0,
+      "all_matched": 0,
+      "kinds": {
+        "recruit": {
+          "total": 0,
+          "matched": 0
+        },
+        "move": {
+          "total": 0,
+          "matched": 0
+        },
+        "attack": {
+          "total": 0,
+          "matched": 0
+        },
+        "end_turn": {
+          "total": 0,
+          "matched": 0
+        }
+      }
+    },
+    "truncated": 0
+  },
+  {
+    "id": "r3-smoke-duel-b0000-solo-r1",
+    "status": "complete",
+    "result": {
+      "bots": [
+        "astra_frozen",
+        "astra_adapted"
+      ],
+      "seed": 1204705257,
+      "turns": 17,
+      "winner": 1,
+      "survivors": [
+        1
+      ],
+      "reason": "last_leader",
+      "faults": {},
+      "rank_points": {
+        "1": 1,
+        "2": 0
+      },
+      "eliminated": {
+        "2": 17
+      },
+      "seconds": 3.5367,
+      "actions": 262,
+      "factions": [
+        "Drakes",
+        "Knalgan Alliance"
+      ],
+      "spawns": [
+        [
+          14,
+          4
+        ],
+        [
+          14,
+          25
+        ]
+      ],
+      "lenient": false,
+      "native_replay": "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/r3-20261031/replays/r3-smoke-duel-b0000-solo-r1.replay.gz",
+      "rules_version": "wesnoth-1.18.8-native-v2"
+    },
+    "meta": {
+      "format": "duel",
+      "block": 0,
+      "rotation": 1,
+      "context": "solo",
+      "label": "r3-smoke",
+      "policy": "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/r3-20261031/astra_adapted.zip",
+      "control": "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/r3-20261031/astra_frozen.zip",
+      "faction_cycle": 0,
+      "design_scenario": {
+        "map_index": 0,
+        "factions": [
+          "Drakes",
+          "Knalgan Alliance"
+        ]
+      },
+      "repeat": 0,
+      "min_distinct": 1,
+      "policy_sides": [
+        2
+      ],
+      "control_sides": [
+        1
+      ],
+      "map": "hamlets",
+      "map_sha256": "7326c073cbc8422b279d57039da7f4fd4b73f91b8a1052e7426cbfbc30514b7e",
+      "map_partition": "validation"
+    },
+    "training_eligible": true,
+    "training_shard": null,
+    "stock_coverage": {},
+    "coverage": {
+      "total": 0,
+      "matched": 0,
+      "all_actions": 0,
+      "all_matched": 0,
+      "kinds": {
+        "recruit": {
+          "total": 0,
+          "matched": 0
+        },
+        "move": {
+          "total": 0,
+          "matched": 0
+        },
+        "attack": {
+          "total": 0,
+          "matched": 0
+        },
+        "end_turn": {
+          "total": 0,
+          "matched": 0
+        }
+      }
+    },
+    "truncated": 0
+  }
+]

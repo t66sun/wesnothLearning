@@ -1,0 +1,122 @@
+{
+  "duel": {
+    "rc": 0,
+    "comparison": {
+      "duel": {
+        "status": "not_passed",
+        "blocks": 1,
+        "planned_blocks": 1,
+        "missing_blocks": 0,
+        "fault_games": 0,
+        "distinct_scenarios": 1,
+        "min_distinct": 1,
+        "reason": "not_passed",
+        "block_differences": {
+          "0": -1.5
+        },
+        "difference": -1.5,
+        "interval95": [
+          -1.5,
+          -1.5
+        ],
+        "policy_score": 0.5,
+        "control_score": 2,
+        "contexts": {
+          "solo": {
+            "difference": -1.5,
+            "interval95": [
+              -1.5,
+              -1.5
+            ],
+            "blocks": 1,
+            "distinct_scenarios": 1
+          }
+        }
+      }
+    },
+    "games": 2
+  },
+  "ffa4": {
+    "rc": 0,
+    "comparison": {
+      "ffa4": {
+        "status": "passed",
+        "blocks": 1,
+        "planned_blocks": 1,
+        "missing_blocks": 0,
+        "fault_games": 0,
+        "distinct_scenarios": 1,
+        "min_distinct": 1,
+        "reason": "passed",
+        "block_differences": {
+          "0": 0.20833333333333337
+        },
+        "difference": 0.20833333333333337,
+        "interval95": [
+          0.20833333333333337,
+          0.20833333333333337
+        ],
+        "policy_score": 0.7083333333333334,
+        "control_score": 0.5,
+        "contexts": {
+          "solo": {
+            "difference": 0.20833333333333334,
+            "interval95": [
+              0.20833333333333334,
+              0.20833333333333334
+            ],
+            "blocks": 1,
+            "distinct_scenarios": 1
+          }
+        }
+      }
+    },
+    "games": 4
+  },
+  "team2v2": {
+    "rc": 0,
+    "comparison": {
+      "team2v2": {
+        "status": "not_passed",
+        "blocks": 1,
+        "planned_blocks": 1,
+        "missing_blocks": 0,
+        "fault_games": 0,
+        "distinct_scenarios": 1,
+        "min_distinct": 1,
+        "reason": "not_passed",
+        "block_differences": {
+          "0": -1.125
+        },
+        "difference": -1.125,
+        "interval95": [
+          -1.125,
+          -1.125
+        ],
+        "policy_score": 0.875,
+        "control_score": 2,
+        "contexts": {
+          "baseline_partner": {
+            "difference": -1.5,
+            "interval95": [
+              -1.5,
+              -1.5
+            ],
+            "blocks": 1,
+            "distinct_scenarios": 1
+          },
+          "self_team": {
+            "difference": -0.75,
+            "interval95": [
+              -0.75,
+              -0.75
+            ],
+            "blocks": 1,
+            "distinct_scenarios": 1
+          }
+        }
+      }
+    },
+    "games": 8
+  }
+}

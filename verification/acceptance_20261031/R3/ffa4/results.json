@@ -1,0 +1,474 @@
+[
+  {
+    "id": "r3-smoke-ffa4-b0000-solo-r0",
+    "status": "complete",
+    "result": {
+      "bots": [
+        "astra_adapted",
+        "astra_frozen",
+        "baseline",
+        "baseline"
+      ],
+      "seed": 3354143890,
+      "turns": 27,
+      "winner": 4,
+      "survivors": [
+        4
+      ],
+      "reason": "last_leader",
+      "faults": {},
+      "rank_points": {
+        "1": 1,
+        "2": 2,
+        "3": 0,
+        "4": 3
+      },
+      "eliminated": {
+        "3": 3,
+        "1": 10,
+        "2": 27
+      },
+      "seconds": 8.5555,
+      "actions": 292,
+      "factions": [
+        "Drakes",
+        "Knalgan Alliance",
+        "Loyalists",
+        "Northerners"
+      ],
+      "spawns": [
+        [
+          1,
+          8
+        ],
+        [
+          25,
+          19
+        ],
+        [
+          21,
+          25
+        ],
+        [
+          5,
+          2
+        ]
+      ],
+      "lenient": false,
+      "native_replay": "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/r3-20261031/replays/r3-smoke-ffa4-b0000-solo-r0.replay.gz",
+      "rules_version": "wesnoth-1.18.8-native-v2"
+    },
+    "meta": {
+      "format": "ffa4",
+      "block": 0,
+      "rotation": 0,
+      "context": "solo",
+      "label": "r3-smoke",
+      "policy": "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/r3-20261031/astra_adapted.zip",
+      "control": "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/r3-20261031/astra_frozen.zip",
+      "faction_cycle": 0,
+      "design_scenario": {
+        "map_index": 0,
+        "factions": [
+          "Drakes",
+          "Knalgan Alliance",
+          "Loyalists",
+          "Northerners"
+        ]
+      },
+      "repeat": 0,
+      "min_distinct": 1,
+      "policy_sides": [
+        1
+      ],
+      "control_sides": [
+        2
+      ],
+      "map": "loris_river",
+      "map_sha256": "802e2ac8a47429517a18d941be8cca22d404bd913772f1c0977be0d79348b8a8",
+      "map_partition": "validation"
+    },
+    "training_eligible": true,
+    "training_shard": null,
+    "stock_coverage": {},
+    "coverage": {
+      "total": 0,
+      "matched": 0,
+      "all_actions": 0,
+      "all_matched": 0,
+      "kinds": {
+        "recruit": {
+          "total": 0,
+          "matched": 0
+        },
+        "move": {
+          "total": 0,
+          "matched": 0
+        },
+        "attack": {
+          "total": 0,
+          "matched": 0
+        },
+        "end_turn": {
+          "total": 0,
+          "matched": 0
+        }
+      }
+    },
+    "truncated": 0
+  },
+  {
+    "id": "r3-smoke-ffa4-b0000-solo-r1",
+    "status": "complete",
+    "result": {
+      "bots": [
+        "astra_frozen",
+        "baseline",
+        "baseline",
+        "astra_adapted"
+      ],
+      "seed": 3354143890,
+      "turns": 19,
+      "winner": 2,
+      "survivors": [
+        2
+      ],
+      "reason": "last_leader",
+      "faults": {},
+      "rank_points": {
+        "1": 1,
+        "2": 3,
+        "3": 0,
+        "4": 2
+      },
+      "eliminated": {
+        "3": 2,
+        "1": 11,
+        "4": 19
+      },
+      "seconds": 6.8375,
+      "actions": 228,
+      "factions": [
+        "Drakes",
+        "Knalgan Alliance",
+        "Loyalists",
+        "Northerners"
+      ],
+      "spawns": [
+        [
+          1,
+          8
+        ],
+        [
+          25,
+          19
+        ],
+        [
+          21,
+          25
+        ],
+        [
+          5,
+          2
+        ]
+      ],
+      "lenient": false,
+      "native_replay": "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/r3-20261031/replays/r3-smoke-ffa4-b0000-solo-r1.replay.gz",
+      "rules_version": "wesnoth-1.18.8-native-v2"
+    },
+    "meta": {
+      "format": "ffa4",
+      "block": 0,
+      "rotation": 1,
+      "context": "solo",
+      "label": "r3-smoke",
+      "policy": "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/r3-20261031/astra_adapted.zip",
+      "control": "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/r3-20261031/astra_frozen.zip",
+      "faction_cycle": 0,
+      "design_scenario": {
+        "map_index": 0,
+        "factions": [
+          "Drakes",
+          "Knalgan Alliance",
+          "Loyalists",
+          "Northerners"
+        ]
+      },
+      "repeat": 0,
+      "min_distinct": 1,
+      "policy_sides": [
+        4
+      ],
+      "control_sides": [
+        1
+      ],
+      "map": "loris_river",
+      "map_sha256": "802e2ac8a47429517a18d941be8cca22d404bd913772f1c0977be0d79348b8a8",
+      "map_partition": "validation"
+    },
+    "training_eligible": true,
+    "training_shard": null,
+    "stock_coverage": {},
+    "coverage": {
+      "total": 0,
+      "matched": 0,
+      "all_actions": 0,
+      "all_matched": 0,
+      "kinds": {
+        "recruit": {
+          "total": 0,
+          "matched": 0
+        },
+        "move": {
+          "total": 0,
+          "matched": 0
+        },
+        "attack": {
+          "total": 0,
+          "matched": 0
+        },
+        "end_turn": {
+          "total": 0,
+          "matched": 0
+        }
+      }
+    },
+    "truncated": 0
+  },
+  {
+    "id": "r3-smoke-ffa4-b0000-solo-r2",
+    "status": "complete",
+    "result": {
+      "bots": [
+        "baseline",
+        "baseline",
+        "astra_adapted",
+        "astra_frozen"
+      ],
+      "seed": 3354143890,
+      "turns": 30,
+      "winner": 0,
+      "survivors": [
+        3,
+        4
+      ],
+      "reason": "turn_limit",
+      "faults": {},
+      "rank_points": {
+        "1": 1,
+        "2": 0,
+        "3": 2.5,
+        "4": 2.5
+      },
+      "eliminated": {
+        "2": 3,
+        "1": 5
+      },
+      "seconds": 19.7696,
+      "actions": 781,
+      "factions": [
+        "Drakes",
+        "Knalgan Alliance",
+        "Loyalists",
+        "Northerners"
+      ],
+      "spawns": [
+        [
+          1,
+          8
+        ],
+        [
+          25,
+          19
+        ],
+        [
+          21,
+          25
+        ],
+        [
+          5,
+          2
+        ]
+      ],
+      "lenient": false,
+      "native_replay": "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/r3-20261031/replays/r3-smoke-ffa4-b0000-solo-r2.replay.gz",
+      "rules_version": "wesnoth-1.18.8-native-v2"
+    },
+    "meta": {
+      "format": "ffa4",
+      "block": 0,
+      "rotation": 2,
+      "context": "solo",
+      "label": "r3-smoke",
+      "policy": "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/r3-20261031/astra_adapted.zip",
+      "control": "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/r3-20261031/astra_frozen.zip",
+      "faction_cycle": 0,
+      "design_scenario": {
+        "map_index": 0,
+        "factions": [
+          "Drakes",
+          "Knalgan Alliance",
+          "Loyalists",
+          "Northerners"
+        ]
+      },
+      "repeat": 0,
+      "min_distinct": 1,
+      "policy_sides": [
+        3
+      ],
+      "control_sides": [
+        4
+      ],
+      "map": "loris_river",
+      "map_sha256": "802e2ac8a47429517a18d941be8cca22d404bd913772f1c0977be0d79348b8a8",
+      "map_partition": "validation"
+    },
+    "training_eligible": true,
+    "training_shard": null,
+    "stock_coverage": {},
+    "coverage": {
+      "total": 0,
+      "matched": 0,
+      "all_actions": 0,
+      "all_matched": 0,
+      "kinds": {
+        "recruit": {
+          "total": 0,
+          "matched": 0
+        },
+        "move": {
+          "total": 0,
+          "matched": 0
+        },
+        "attack": {
+          "total": 0,
+          "matched": 0
+        },
+        "end_turn": {
+          "total": 0,
+          "matched": 0
+        }
+      }
+    },
+    "truncated": 0
+  },
+  {
+    "id": "r3-smoke-ffa4-b0000-solo-r3",
+    "status": "complete",
+    "result": {
+      "bots": [
+        "baseline",
+        "astra_adapted",
+        "astra_frozen",
+        "baseline"
+      ],
+      "seed": 3354143890,
+      "turns": 29,
+      "winner": 2,
+      "survivors": [
+        2
+      ],
+      "reason": "last_leader",
+      "faults": {},
+      "rank_points": {
+        "1": 0.5,
+        "2": 3,
+        "3": 0.5,
+        "4": 2
+      },
+      "eliminated": {
+        "3": 7,
+        "1": 7,
+        "4": 29
+      },
+      "seconds": 11.0027,
+      "actions": 455,
+      "factions": [
+        "Drakes",
+        "Knalgan Alliance",
+        "Loyalists",
+        "Northerners"
+      ],
+      "spawns": [
+        [
+          1,
+          8
+        ],
+        [
+          25,
+          19
+        ],
+        [
+          21,
+          25
+        ],
+        [
+          5,
+          2
+        ]
+      ],
+      "lenient": false,
+      "native_replay": "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/r3-20261031/replays/r3-smoke-ffa4-b0000-solo-r3.replay.gz",
+      "rules_version": "wesnoth-1.18.8-native-v2"
+    },
+    "meta": {
+      "format": "ffa4",
+      "block": 0,
+      "rotation": 3,
+      "context": "solo",
+      "label": "r3-smoke",
+      "policy": "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/r3-20261031/astra_adapted.zip",
+      "control": "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/r3-20261031/astra_frozen.zip",
+      "faction_cycle": 0,
+      "design_scenario": {
+        "map_index": 0,
+        "factions": [
+          "Drakes",
+          "Knalgan Alliance",
+          "Loyalists",
+          "Northerners"
+        ]
+      },
+      "repeat": 0,
+      "min_distinct": 1,
+      "policy_sides": [
+        2
+      ],
+      "control_sides": [
+        3
+      ],
+      "map": "loris_river",
+      "map_sha256": "802e2ac8a47429517a18d941be8cca22d404bd913772f1c0977be0d79348b8a8",
+      "map_partition": "validation"
+    },
+    "training_eligible": true,
+    "training_shard": null,
+    "stock_coverage": {},
+    "coverage": {
+      "total": 0,
+      "matched": 0,
+      "all_actions": 0,
+      "all_matched": 0,
+      "kinds": {
+        "recruit": {
+          "total": 0,
+          "matched": 0
+        },
+        "move": {
+          "total": 0,
+          "matched": 0
+        },
+        "attack": {
+          "total": 0,
+          "matched": 0
+        },
+        "end_turn": {
+          "total": 0,
+          "matched": 0
+        }
+      }
+    },
+    "truncated": 0
+  }
+]
