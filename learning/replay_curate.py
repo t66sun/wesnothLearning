@@ -441,18 +441,18 @@ def curate(source, output, origin=''):
         origin=origin,
         outcome_labels='not inferred from filenames or assumed from latest turn',
         train_validation_split='not assigned; all histories in one family must share a split')
-    (output/'summary.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2),encoding='utf-8')
+    (output/'summary.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2),encoding='utf-8',newline='\n')
     for name, data in [('inventory.jsonl',rows),('games.jsonl',survivors)]:
-        (output/name).write_text(''.join(json.dumps(public(r),ensure_ascii=False)+'\n' for r in data),encoding='utf-8')
+        (output/name).write_text(''.join(json.dumps(public(r),ensure_ascii=False)+'\n' for r in data),encoding='utf-8',newline='\n')
     columns=['game_id','source','status','selected','curated_path','byte_duplicate_of','payload_duplicate_of','layout','version','campaign_type','campaign',
              'scenario_id','era','category','format','players','human_sides','ai_sides','actions',
              'commands','snapshot_turn','replay_only_file','end_marker','family_id','notes']
     with (output/'inventory.csv').open('w',encoding='utf-8-sig',newline='') as stream:
-        writer=csv.DictWriter(stream,fieldnames=columns,extrasaction='ignore');writer.writeheader()
+        writer=csv.DictWriter(stream,fieldnames=columns,extrasaction='ignore',lineterminator='\n');writer.writeheader()
         for row in rows:
             entry=public(row);entry['notes']='; '.join(entry.get('notes',[]));writer.writerow(entry)
     lines=['# 人类回放整理结果','',f'原始文件：{len(rows)}；选定回放：{len(survivors)}。',
-        '所有原始文件已逐一复核 SHA256，内容未修改。输出仅重封装为确定性 gzip，解压内容逐字节相同。',
+        '所有原始文件已逐一复核 SHA256，内容未修改。输出仅重封装为 gzip（mtime 固定）；容器字节随 zlib 版本而异，解压内容逐字节相同。',
         '', '## 来源','', f'- {origin}；inventory 的 source 即归档内成员路径。' if origin else '- 本地存档目录；inventory 的 source 即原文件名。',
         '', '## 筛选规则','',
         '- 依据初始地图、随机种子、规则、时代、阵营和单位建立同局族，再比较实际 command 历史；忽略保存时会随机变化的初始单位朝向。',
@@ -472,7 +472,7 @@ def curate(source, output, origin=''):
     lines += [f'- {key}: {value}' for key,value in sorted(summary['source_statuses'].items())]
     lines += ['', '## 编号对照','', '|编号|类别|版本|动作数|原文件|','|---|---|---|---:|---|']
     lines += [f"|{r['game_id']}|{r['category']}|{r['version']}|{r['actions']}|{r['source']}|" for r in survivors]
-    (output/'README.md').write_text('\n'.join(lines)+'\n',encoding='utf-8')
+    (output/'README.md').write_text('\n'.join(lines)+'\n',encoding='utf-8',newline='\n')
     return summary
 
 

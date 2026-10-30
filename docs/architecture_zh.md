@@ -2,7 +2,7 @@
 
 > 语言：[English](architecture.md) | 中文
 
-更新日期：2026-10-29。本文件只描述当前实现。带日期的证据、失败运行与已被取代的决策留在 `verification/`；剩余验收工作见 [TEST_zh.md](TEST_zh.md)；运行与按指令调参见 [instructions_zh.md](instructions_zh.md)。
+更新日期：2026-10-31。本文件只描述当前实现。带日期的证据、失败运行与已被取代的决策留在 `verification/`；剩余验收工作见 [TEST_zh.md](TEST_zh.md)；运行与按指令调参见 [instructions_zh.md](instructions_zh.md)。
 
 ## 1. 范围与边界
 
@@ -207,6 +207,7 @@ flowchart LR
 - stock RCA 教师无法回答按决策查询，因此该教师下 DAgger 不支持；Astra 仅作旧版教师来源。
 - 官方 baseline 仅限原版；lite 运行无法对它评估。
 - 原版终局采集（N1）已实现但未验收。
+- 整理后的录像语料（`data/replays_curated/`，1,076 局标准时代对局，其中 197 局为 1.18.8）仍只是暂存：全部对局都在 `learning/human.py:compatibility` 处被拦下——大厅归档没有 `[replay_start]`，其余为更早的引擎版本——因此尚无 BC 行取自该语料。
 - 任何运行都没有收敛或棋力结论。
 
 ## 14. 文档地图

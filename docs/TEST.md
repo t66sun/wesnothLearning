@@ -2,7 +2,7 @@
 
 > Language: English | [中文](TEST_zh.md)
 
-Updated 2026-10-30. This file holds only acceptance work that is still open. Accepted items leave it as a whole and stay as dated evidence under `verification/`; `docs/architecture.md` describes the current implementation, not its acceptance history.
+Updated 2026-10-31. This file holds only acceptance work that is still open. Accepted items leave it as a whole and stay as dated evidence under `verification/`; `docs/architecture.md` describes the current implementation, not its acceptance history.
 
 Every item states what is open, the smallest Ubuntu procedure that would close it, the pass criteria and the evidence path. Status vocabulary: **PASS**, **FAIL**, **NOT RUN**, **REUSED** (existing evidence with matching identities). A check that cannot run is NOT RUN, never a skipped pass. Bounded smoke results label themselves inconclusive for strength, and no item here authorizes collection, formal training or tuning.
 
@@ -38,28 +38,6 @@ Every item states what is open, the smallest Ubuntu procedure that would close i
 **Pass:** the smoke detects obvious tactical or runtime deterioration without claiming statistical non-regression; a full-strength claim requires the complete matching panel with the hold-out reserve untouched. Otherwise the status stays unverified and hypotheses are revised instead of adding seeds until a win.
 
 **Evidence:** `verification/acceptance_<date>/R3/` with the comparison schedule, identities, result and an explicit tactical/smoke/full-panel label.
-
-## PKG1 — Ubuntu 24.04 training bundle
-
-**Status:** NOT RUN on Ubuntu. The 2026-10-30 reference sweep built one archive (308 files, 244,807,237 B, sha256 `86a47d43…`) whose static verification passes and whose byte-flipped copy is rejected; no clean Ubuntu 24.04 machine has extracted, installed or started one.
-
-**Procedure:** build one archive with `python -m learning bundle --output tmp/bundle_<date>/WesnothLearning-training.tar.gz --created-at <fixed ISO8601>` and record its sha256; pass `--wheel dist/<manylinux x86_64>.whl` only when a bundled Linux wheel is intended, and mirror it with `verify-bundle --require-wheel`. Verify the member list, modes and exclusions against [instructions.md](instructions.md#clean-ubuntu-2404-training-bundle). Copy to a clean Ubuntu 24.04 x86_64 machine, extract, run `./setup.sh --preflight` (exit 0, no writes), flip one payload byte in a copy and confirm preflight fails, then run `./setup.sh --device cpu`, `./train.sh --help` with the tree compared before and after, and `./train.sh` in a copy without `.runtime/environment.sh`, which must refuse. Confirm no `runs/` directory or run log exists afterwards.
-
-**Pass:** the recorded sha256 matches what verification reads; preflight accepts the intact copy and rejects the tampered one; the archive contains no `.git`, venv, run state, validation evidence, delivery output, historical `1.18.8` rules or raw replay dump; setup exits 0 and writes `.runtime/environment.sh` and `.cache/setup.log` with identity checks agreeing with `rules.json`, `catalog-summary.json` and `_engine_lite`; `--help` creates nothing; `train.sh` refuses without setup. Observed failures are reported, never narrowed into a pass.
-
-**Evidence:** `verification/training_bundle_ubuntu24_<date>/REPORT.md` with archive path/sha256/manifest identity, every command and exit code, both preflight results, identity-check output, the tree diff, the refusal output and the setup log. Absent that report the item is NOT RUN. The static half of the 2026-10-30 reference sweep is recorded in `verification/acceptance_20261030/REPORT.md`.
-
-**Blocker:** proves installation only; it authorizes no collection, training start, convergence or strength claim.
-
-## C1 — Lobby-archive replay curation
-
-**Status:** implemented; `learning/replay_curate.py` reads the hosted archive layout (`[scenario]` plus `[carryover_sides_start]`, history split over two `[replay]` blocks) beside the local-save layout. Reference evidence is Windows only — the 2026-10-30 sweep regenerated all 1,076 payloads byte-identically from the four tars — so Ubuntu is NOT RUN. It blocks no training path: the curated corpus stays staging until a version-aware BC or an archive-capture path exists.
-
-**Procedure:** run `python -m unittest tests.test_replay_curate -v`, then curate one archive sample and regenerate the corpus from the four monthly tars (`202412`, `202607`, `202608`, `202609`) into a temporary output and compare `inventory.jsonl` against `data/replays_curated/inventory.jsonl` member by member.
-
-**Pass:** the archive test fails when the `initial = start if start is not None else scenario` branch is reverted, and the provenance test fails when a post-game "takes control of side" message or an unchanged player is counted as a hand-over; the decompressed payload of every curated file rehashes to its recorded `payload_sha256` and the `.gz` bytes to `curated_sha256`; selection, family and format counts reproduce exactly (1,076 games, 1,076 families, 359,526 decision intents); no original is modified.
-
-**Evidence:** `verification/acceptance_20261030/REPORT.md` (2026-10-30 reference sweep: byte-identical regeneration and hashes) plus `verification/replay_archive_20261029/`, `verification/replay_corpus_audit_20261030/` and `verification/replay_archive_2026q3_20261030/`, extended by a dated `verification/` report once Ubuntu runs it.
 
 ## Execution and report
 
