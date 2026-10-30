@@ -61,6 +61,79 @@ new_seed=abcdef
             self.assertEqual(canonical(root),original)
             self.assertEqual(intent(original_commands[1]),dict(kind='move',x=1,y=2,tx=3,ty=2,full=False))
 
+    def server_archive(self):
+        root=parse_wml('''version="1.18.8"
+[scenario]
+id=mpscenario
+[side]
+side=1
+controller=human
+[/side]
+[side]
+side=2
+controller=human
+[/side]
+[/scenario]
+[replay]
+[upload_log]
+[/upload_log]
+[/replay]
+[replay]
+[command]
+[init_side]
+side_number=1
+[/init_side]
+[/command]
+[command]
+from_side=1
+[move]
+x="1,2,3"
+y="2,2,2"
+[/move]
+[/command]
+[command]
+dependent=yes
+[random_seed]
+new_seed=abcdef
+[/random_seed]
+[/command]
+[command]
+from_side=1
+[move]
+x="1,1,1"
+y="2,3,4"
+[/move]
+[/command]
+[/replay]
+[carryover_sides_start]
+random_seed=abcdef
+random_calls=0
+next_scenario=mpscenario
+[/carryover_sides_start]''')
+        row=dict(category='standard_multiplayer',era='era_default',format='duel',game_id='game_0002',family_id='g',curated_sha256='fixture',version='1.18.8')
+        return root,row
+
+    def test_server_archive_starts_from_its_scenario_block(self):
+        root,row=self.server_archive();original=canonical(root)
+        self.assertIsNone(compatibility(row,root))
+        with tempfile.TemporaryDirectory() as temp:
+            self.assertEqual(prepare_capture(row,root,temp),2)
+            prepared=parse_wml(Path(temp,'game_0002.cfg').read_text())
+            self.assertIsNone(prepared.first('replay_start'))
+            self.assertIn('replay_observer.lua',prepared.first('scenario').first('event').first('lua').attrs['code'])
+            empty,replay=prepared.all('replay')
+            self.assertEqual(canonical(empty),canonical(self.server_archive()[0].first('replay')))
+            names=[c.first('custom_command').attrs['name'] if c.first('custom_command') else None for c in replay.children]
+            self.assertEqual(names,[None,'learning_observe',None,None,'learning_observe',None,'learning_complete'])
+            retained=[c for c in replay.children if c.first('custom_command') is None]
+            self.assertEqual([canonical(c) for c in retained],[canonical(c) for c in root.all('replay')[-1].children])
+            self.assertEqual(canonical(root),original)
+
+    def test_server_archive_without_recorded_initial_rng_is_skipped(self):
+        root,row=self.server_archive()
+        root.children=[n for n in root.children if n.tag!='carryover_sides_start']
+        self.assertEqual(compatibility(row,root),'missing_initial_rng')
+
     def test_ai_takeover_is_not_labeled_human(self):
         root,row=self.fixture()
         snapshot=copy.deepcopy(root.first('replay_start'));snapshot.tag='snapshot'
