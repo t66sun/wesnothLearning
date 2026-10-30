@@ -35,7 +35,8 @@ function M.setup(options)
         assert(side==actual.side,'native side/action alignment mismatch')
         assert(wesnoth.sides[side].controller=='human','AI takeover: refusing human label')
         memories[side]=memories[side] or {}
-        local previous_ai=ai
+        -- The game kernel has no global 'ai': debug_ai returns the AI state whose 'ai' field holds the functions table.
+        local previous_ai=rawget(_G,'ai')
         ai=assert(wesnoth.sides.debug_ai(side).ai,'debug AI query context unavailable')
         local obs=O.capture(memories[side]);local candidates,timing=C.generate(obs,config.candidate_budget_ms)
         ai=previous_ai

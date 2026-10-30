@@ -1,3 +1,4 @@
+import json
 import unittest
 from lupa import LuaRuntime
 from learning.common import ROOT
@@ -177,6 +178,32 @@ class LuaContractTests(unittest.TestCase):
         runtime.disqualify(1,'test fault')
         self.assertTrue(runtime.done())
         self.assertFalse(lua.globals().fixture.leaders[3])
+
+    def test_replay_observer_queries_the_side_ai_instead_of_a_global(self):
+        lua,modules=initialize()
+        modules['config.lua']=lua.eval('{candidate_budget_ms=50}')
+        lua.execute('''
+            local real_ai=ai
+            collected={}
+            std_print=function(line) collected[#collected+1]=line end
+            wesnoth.custom_synced_commands={}
+            wesnoth.sides[1].controller='human'
+            wesnoth.sides.debug_ai=function(side) assert(side==1,'wrong side queried');return {ai=real_ai} end
+            ai=nil
+            setmetatable(_G,{__index=function(_,name) error("variable '"..name.."' must be assigned before being used") end})
+        ''')
+        observer=lua.execute((ROOT/'learning/replay_observer.lua').read_text())
+        observer.setup(lua.eval(native.lua(dict(format='duel',expected_actions=1,source_sha256='x',observer_version=1,
+            actions=[dict(kind='end_turn',side=1,index=0)]))))
+        lua.execute('''
+            wesnoth.custom_synced_commands.learning_observe({index=0})
+            wesnoth.custom_synced_commands.learning_result()
+            wesnoth.custom_synced_commands.learning_complete()
+        ''')
+        events=[json.loads(line.split('LEARNING_HUMAN ',1)[1]) for line in lua.eval('collected').values()]
+        self.assertEqual([e['event'] for e in events],['sample','complete'])
+        self.assertEqual((events[0]['record']['action_index'],events[0]['record']['choice']),(0,0))
+        self.assertTrue(lua.eval('rawget(_G,"ai")==nil'),'the observer must not leak its AI table into the global scope')
 
     @staticmethod
     def to_python(value):
