@@ -1,4 +1,6 @@
 """Checkpoint serialization and RNG restoration."""
+import hashlib
+import json
 import random
 from pathlib import Path
 
@@ -38,6 +40,34 @@ def restore_rng(state, device='cpu'):
         torch.cuda.set_rng_state_all([r.cpu() for r in state['cuda_rng']])
 
 
+def branch_lineage(directory):
+    """The branch record beside one format directory, when this run was branched."""
+    path = Path(directory).parent / 'branch.json'
+    return json.loads(path.read_text()) if path.is_file() else None
+
+
+def inherited_checkpoint(directory, state):
+    """The branch record when ``state`` is still the checkpoint the branch inherited.
+
+    A branch copies its parent's ``latest.pt``, which pins the parent manifest and carries
+    the parent clock until the child saves a checkpoint of its own.
+    """
+    lineage = branch_lineage(directory)
+    if lineage and state.get('manifest_sha256') == lineage.get('parent_manifest_sha256'):
+        return lineage
+    return None
+
+
+def resume_pins(directory):
+    """Manifest digests a checkpoint may pin when resuming one format directory."""
+    run = Path(directory).parent
+    pins = {hashlib.sha256((run / 'manifest.json').read_bytes()).hexdigest()}
+    lineage = branch_lineage(directory)
+    if lineage and lineage.get('parent_manifest_sha256'):
+        pins.add(lineage['parent_manifest_sha256'])
+    return pins
+
+
 def validate_checkpoint(state, format_name=None, manifest_sha256=None):
     """Reject a checkpoint that this execution cannot resume exactly."""
     version = state.get('checkpoint_version', 1)
@@ -52,6 +82,8 @@ def validate_checkpoint(state, format_name=None, manifest_sha256=None):
     execution = state.get('execution') or {}
     if execution.get('version', 1) > EXECUTION_VERSION:
         raise ValueError('checkpoint execution format is not supported')
-    if manifest_sha256 is not None and state.get('manifest_sha256') != manifest_sha256:
-        raise ValueError('manifest changed')
+    if manifest_sha256 is not None:
+        accepted = manifest_sha256 if isinstance(manifest_sha256, (set, frozenset, list, tuple)) else (manifest_sha256,)
+        if state.get('manifest_sha256') not in accepted:
+            raise ValueError('manifest changed')
     return state
