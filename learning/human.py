@@ -49,6 +49,21 @@ def intent(command):
     return None
 
 
+def start_block(root):
+    """The block that seeds the replay.
+
+    A save replay carries [replay_start]; a server archive carries [scenario] and lets
+    Wesnoth merge [carryover_sides_start] into it (saved_game::get_replay_starting_point).
+    """
+    return root.first('replay_start') or root.first('scenario')
+
+
+def replay_block(root):
+    """The [replay] that holds commands; server archives also write an empty [upload_log] one."""
+    blocks=[n for n in root.all('replay') if n.first('command')]
+    return blocks[-1] if blocks else None
+
+
 def compatibility(row,root):
     if row['category']!='standard_multiplayer' or row.get('era')!='era_default': return 'non_standard_rules'
     if row['format'] not in FORMATS: return 'unsupported_training_format'
@@ -56,8 +71,13 @@ def compatibility(row,root):
     # Labels must describe the frozen 1.18.8 rules; an older replay reproduces
     # under different combat and recruit numbers even when it replays cleanly.
     if row.get('version')!='1.18.8': return 'other_version'
-    start=root.first('replay_start');replay=root.first('replay')
+    start=start_block(root);replay=replay_block(root)
     if start is None or replay is None: return 'missing_native_initial_state'
+    # A server archive has no state snapshot: [scenario] is the start block and the
+    # recorded initial RNG is the only source for dependent random_seed commands.
+    if root.first('replay_start') is None:
+        rng=root.first('carryover_sides_start')
+        if rng is None or not rng.attrs.get('random_seed'): return 'missing_initial_rng'
     # Controller transitions are not reliably timestamped in all save variants.
     # Skip the whole file rather than labeling a possible AI takeover as human.
     initial={s.attrs.get('side'):s.attrs.get('controller') for s in start.all('side')}
@@ -70,7 +90,7 @@ def compatibility(row,root):
 
 def prepare_capture(row,root,directory,wesnoth=None):
     directory=Path(directory);directory.mkdir(parents=True,exist_ok=True)
-    root=copy.deepcopy(root);start=root.first('replay_start');replay=root.first('replay')
+    root=copy.deepcopy(root);start=start_block(root);replay=replay_block(root)
     root.children=[n for n in root.children if n.tag!='snapshot']
     humans={int(s.attrs['side']) for s in start.all('side') if s.attrs.get('controller')=='human'}
     actions=[];commands=[];current=0
