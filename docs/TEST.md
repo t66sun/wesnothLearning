@@ -2,7 +2,7 @@
 
 > Language: English | [中文](TEST_zh.md)
 
-Updated 2026-10-29. This file holds only acceptance work that is still open. Accepted items leave it as a whole and stay as dated evidence under `verification/`; `docs/architecture.md` describes the current implementation, not its acceptance history.
+Updated 2026-10-30. This file holds only acceptance work that is still open. Accepted items leave it as a whole and stay as dated evidence under `verification/`; `docs/architecture.md` describes the current implementation, not its acceptance history.
 
 Every item states what is open, the smallest Ubuntu procedure that would close it, the pass criteria and the evidence path. Status vocabulary: **PASS**, **FAIL**, **NOT RUN**, **REUSED** (existing evidence with matching identities). A check that cannot run is NOT RUN, never a skipped pass. Bounded smoke results label themselves inconclusive for strength, and no item here authorizes collection, formal training or tuning.
 
@@ -13,25 +13,15 @@ Every item states what is open, the smallest Ubuntu procedure that would close i
 - Reuse accepted evidence instead of duplicating it. No full faction/rules/worker/seed matrix, new corpus, long convergence run or repeated pressure test merely because code moved.
 - Derived fixtures are prepared once with parent hashes and without editing historical evidence. A small chain proves wiring, not quality, promotion, convergence or strength.
 
-## D1 — Optional external inference
-
-**Status:** NOT RUN. P6 is unimplemented and the transport prototype is unwritten; this blocks external delivery only.
-
-**Procedure:** prove one request/response/confirmed commit in ordinary stock Wesnoth 1.18.8 as an add-on first, assuming neither LuaSocket nor judge RPC. Then use recorded sequences: three formats, two own turns, 128 candidates, interleaved sides, reset. Inject stale identity/index, duplicate commit, a bootstrap with a pending action and a process exit. A separately authorized runtime check executes one short native legal-action/clean-exit scenario.
-
-**Pass:** logits and values agree with the reference within 1e-5; the deterministic choice matches and near ties are investigated. Game/side/model/rule/feature/request/candidate identity and the zero-to-one-based index conversion are checked exactly once. No hidden wire fields. Commit happens once, bootstrap preserves the pending action, reset isolates games. A failed or stale response cannot execute or silently substitute a local policy. One persistent process and model load per game closes cleanly. Save/reconnect reconstructs version-bound legal memory or is explicitly unsupported. Package size and cold/warm/round-trip times are recorded, with no invented speed or SDK claim.
-
-**Evidence:** `verification/acceptance_<date>/D1/` with protocol, numeric and runtime artifacts.
-
 ## N1 — Native terminal capture
 
-**Status:** implemented, NOT RUN; a fixed scenario helper is unwritten. Blocks only the new native terminal path, not lite.
+**Status:** implemented, NOT RUN; a fixed scenario helper is unwritten. Blocks only the new native terminal path, not lite. The 2026-10-30 sweep could not start it: the reference host has no native 1.18.8 install (`.runtime/` absent).
 
 **Procedure and pass:** one fixed native 1.18.8 early-elimination/endgame scenario capped at five turns plus the existing truncation counterexample. Actual initial, eliminated and terminal events preserve surviving sides and real own HP; bootstrap absorption only for a real terminal. Failure or truncation cannot invent a terminal. Missing events mean missing evidence, not zero-valued success. Diagnostic rows enter neither actor/BC/PPO shards nor memory writes. Record raw events, command and identities in `N1/`; no native rules or performance matrix.
 
 ## L1 — Reduced full-loop run
 
-**Status:** NOT RUN. The historical reduced chain covered duel BC → PPO → resume → final; uninterrupted same-future comparison, scheduled mid-run ticks and all-format coverage remain unproven.
+**Status:** NOT RUN. The historical reduced chain covered duel BC → PPO → resume → final; uninterrupted same-future comparison, scheduled mid-run ticks and all-format coverage remain unproven. Nothing started on 2026-10-30: no runtime and no run authorization.
 
 **Procedure:** on an isolated source tree, freeze one lite configuration with the smallest panel that reaches BC, at least two applied PPO updates, one stop/resume from a committed-batch checkpoint and the final-evaluation entry. Record counts, seed, manifest and checkpoint identities before launch. Poll status/log every 30 minutes and retain anomalies; do not raise game counts, lower gates or edit frozen evidence during the run.
 
@@ -41,7 +31,7 @@ Every item states what is open, the smallest Ubuntu procedure that would close i
 
 ## R3 — Adapted teacher strength evidence
 
-**Status:** the adaptation itself is implemented and six value-level positions were checked; full legal-board teacher query/ranking and a matched strength comparison are NOT RUN. Tactical evidence and strength evidence stay separate.
+**Status:** the adaptation itself is implemented and six value-level positions were checked; full legal-board teacher query/ranking and a matched strength comparison are NOT RUN, and the 2026-10-30 sweep had no runtime to start one. Tactical evidence and strength evidence stay separate.
 
 **Procedure:** compare frozen unadapted versus adapted Astra under the same rules, with paired initial maps, factions and roles, using one complete existing rotation block per format as a bounded smoke (predeclare games and turn cap). Reuse matching new-rule games where roles and schedules align. Truncated or underfilled results stay inconclusive. Claiming maintained or improved strength requires the unchanged complete 12-block validation/champion contract on a frozen hold-out validation schedule, never tuned on.
 
@@ -51,25 +41,25 @@ Every item states what is open, the smallest Ubuntu procedure that would close i
 
 ## PKG1 — Ubuntu 24.04 training bundle
 
-**Status:** builder and static verifier implemented and locally tested; no archive has been built and no clean Ubuntu 24.04 machine has extracted, installed or started one. NOT RUN.
+**Status:** NOT RUN on Ubuntu. The 2026-10-30 reference sweep built one archive (308 files, 244,807,237 B, sha256 `86a47d43…`) whose static verification passes and whose byte-flipped copy is rejected; no clean Ubuntu 24.04 machine has extracted, installed or started one.
 
 **Procedure:** build one archive with `python -m learning bundle --output tmp/bundle_<date>/WesnothLearning-training.tar.gz --created-at <fixed ISO8601>` and record its sha256; pass `--wheel dist/<manylinux x86_64>.whl` only when a bundled Linux wheel is intended, and mirror it with `verify-bundle --require-wheel`. Verify the member list, modes and exclusions against [instructions.md](instructions.md#clean-ubuntu-2404-training-bundle). Copy to a clean Ubuntu 24.04 x86_64 machine, extract, run `./setup.sh --preflight` (exit 0, no writes), flip one payload byte in a copy and confirm preflight fails, then run `./setup.sh --device cpu`, `./train.sh --help` with the tree compared before and after, and `./train.sh` in a copy without `.runtime/environment.sh`, which must refuse. Confirm no `runs/` directory or run log exists afterwards.
 
 **Pass:** the recorded sha256 matches what verification reads; preflight accepts the intact copy and rejects the tampered one; the archive contains no `.git`, venv, run state, validation evidence, delivery output, historical `1.18.8` rules or raw replay dump; setup exits 0 and writes `.runtime/environment.sh` and `.cache/setup.log` with identity checks agreeing with `rules.json`, `catalog-summary.json` and `_engine_lite`; `--help` creates nothing; `train.sh` refuses without setup. Observed failures are reported, never narrowed into a pass.
 
-**Evidence:** `verification/training_bundle_ubuntu24_<date>/REPORT.md` with archive path/sha256/manifest identity, every command and exit code, both preflight results, identity-check output, the tree diff, the refusal output and the setup log. Absent that report the item is NOT RUN.
+**Evidence:** `verification/training_bundle_ubuntu24_<date>/REPORT.md` with archive path/sha256/manifest identity, every command and exit code, both preflight results, identity-check output, the tree diff, the refusal output and the setup log. Absent that report the item is NOT RUN. The static half of the 2026-10-30 reference sweep is recorded in `verification/acceptance_20261030/REPORT.md`.
 
 **Blocker:** proves installation only; it authorizes no collection, training start, convergence or strength claim.
 
 ## C1 — Lobby-archive replay curation
 
-**Status:** implemented; `learning/replay_curate.py` reads the hosted archive layout (`[scenario]` plus `[carryover_sides_start]`, history split over two `[replay]` blocks) beside the local-save layout. Reference evidence is Windows only, so Ubuntu is NOT RUN. It blocks no training path: the curated corpus stays staging until a version-aware BC or an archive-capture path exists.
+**Status:** implemented; `learning/replay_curate.py` reads the hosted archive layout (`[scenario]` plus `[carryover_sides_start]`, history split over two `[replay]` blocks) beside the local-save layout. Reference evidence is Windows only — the 2026-10-30 sweep regenerated all 1,076 payloads byte-identically from the four tars — so Ubuntu is NOT RUN. It blocks no training path: the curated corpus stays staging until a version-aware BC or an archive-capture path exists.
 
 **Procedure:** run `python -m unittest tests.test_replay_curate -v`, then curate one archive sample and regenerate the corpus from the four monthly tars (`202412`, `202607`, `202608`, `202609`) into a temporary output and compare `inventory.jsonl` against `data/replays_curated/inventory.jsonl` member by member.
 
-**Pass:** the archive test fails when the `initial = start if start is not None else scenario` branch is reverted, and the provenance test fails when a post-game "takes control of side" message or an unchanged player is counted as a hand-over; every curated `.gz` payload rehashes to its recorded `payload_sha256`; selection, family and format counts reproduce exactly (1,076 games, 1,076 families, 359,526 decision intents); no original is modified.
+**Pass:** the archive test fails when the `initial = start if start is not None else scenario` branch is reverted, and the provenance test fails when a post-game "takes control of side" message or an unchanged player is counted as a hand-over; the decompressed payload of every curated file rehashes to its recorded `payload_sha256` and the `.gz` bytes to `curated_sha256`; selection, family and format counts reproduce exactly (1,076 games, 1,076 families, 359,526 decision intents); no original is modified.
 
-**Evidence:** `verification/replay_archive_20261029/`, `verification/replay_corpus_audit_20261030/` and `verification/replay_archive_2026q3_20261030/` (reference), extended by a dated `verification/` report once Ubuntu runs it.
+**Evidence:** `verification/acceptance_20261030/REPORT.md` (2026-10-30 reference sweep: byte-identical regeneration and hashes) plus `verification/replay_archive_20261029/`, `verification/replay_corpus_audit_20261030/` and `verification/replay_archive_2026q3_20261030/`, extended by a dated `verification/` report once Ubuntu runs it.
 
 ## Execution and report
 
