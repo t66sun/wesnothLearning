@@ -1,0 +1,13 @@
+{
+  "candidate": "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/a/duel/last_ppo.pt",
+  "candidate_version": 14,
+  "champion": null,
+  "champion_version": null,
+  "selected": "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/a/duel/last_ppo.pt",
+  "selected_kind": "fallback",
+  "selected_version": 14,
+  "reason": "no retained champion",
+  "selected_sha256": "8d44a306f10c66f25b193e3bad63f6ed763644b80f60573464b762fc9532fd11",
+  "frozen_before_holdout": true,
+  "format": "duel"
+}

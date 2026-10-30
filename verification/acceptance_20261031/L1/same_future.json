@@ -1,0 +1,107 @@
+{
+ "applied_a": 9,
+ "applied_b": 0,
+ "batches_a": {
+  "0": {
+   "after": null,
+   "method": "bc",
+   "updates": 64
+  },
+  "1": {
+   "after": null,
+   "method": "bc",
+   "updates": 84
+  },
+  "2": {
+   "after": null,
+   "method": "bc",
+   "updates": 80
+  },
+  "3": {
+   "after": null,
+   "method": "bc",
+   "updates": 80
+  },
+  "4": {
+   "after": null,
+   "method": "bc",
+   "updates": 80
+  },
+  "5": {
+   "after": "4af6d8a4fd51a04d44e6fe3234d252e8a204908028f1d55ae8d9c1226f700d0e",
+   "method": "ppo",
+   "updates": 8
+  },
+  "6": {
+   "after": "a21e5b9c0a8c8650b0cbc2e4d2c0143b6a78f84da9173f036c0d8692e3aa832a",
+   "method": "ppo",
+   "updates": 8
+  },
+  "7": {
+   "after": "bfc49cff0fa9d16ce9ca930349d6df38569641a63999bf245fc494957f8d3c4a",
+   "method": "ppo",
+   "updates": 5
+  },
+  "8": {
+   "after": "c1770e92c1e56a4fd9136cb2c1226c206872cc8e5424d9db227b18a2271a8ead",
+   "method": "ppo",
+   "updates": 7
+  },
+  "9": {
+   "after": "7c42053904faf2ed25af2a012def4081037e2792c1d86a3946906ca0974a103a",
+   "method": "ppo",
+   "updates": 5
+  },
+  "10": {
+   "after": "d2fc2aaaef624006b54caeb8f0224355db65f08bb7c3818db309edac5529def7",
+   "method": "ppo",
+   "updates": 4
+  },
+  "11": {
+   "after": "e261d9ab5fe7a4d48cae7cb9ad57bd174de3804558ecf0425b99da9fad9d9ac6",
+   "method": "ppo",
+   "updates": 7
+  },
+  "12": {
+   "after": "774ee169c9088ee2ad9ff83c78f916121b6bbd1ab22c2480ad9faf9486d0627e",
+   "method": "ppo",
+   "updates": 8
+  },
+  "13": {
+   "after": "5cde577b3229e8991ef74603f797499cee11dc548d33991475015827bdd5405e",
+   "method": "ppo",
+   "updates": 5
+  }
+ },
+ "batches_b": {
+  "0": {
+   "after": null,
+   "method": "bc",
+   "updates": 60
+  },
+  "1": {
+   "after": null,
+   "method": "bc",
+   "updates": 76
+  },
+  "2": {
+   "after": null,
+   "method": "bc",
+   "updates": 68
+  },
+  "3": {
+   "after": null,
+   "method": "bc",
+   "updates": 76
+  }
+ },
+ "compared": [
+  9,
+  10,
+  11,
+  12,
+  13
+ ],
+ "identical": false,
+ "stop_batch": 9
+}

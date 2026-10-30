@@ -1,0 +1,93 @@
+{
+  "format": "duel",
+  "status": "inconclusive",
+  "controls": {
+    "baseline": {
+      "status": "inconclusive",
+      "blocks": 0,
+      "planned_blocks": 30,
+      "missing_blocks": 30,
+      "fault_games": 60,
+      "distinct_scenarios": 0,
+      "min_distinct": 12,
+      "reason": "inconclusive",
+      "block_differences": {},
+      "difference": null,
+      "interval95": null,
+      "policy_score": null,
+      "control_score": null,
+      "contexts": {}
+    }
+  },
+  "selected_kind": "fallback",
+  "selection": {
+    "candidate": "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/a/duel/last_ppo.pt",
+    "candidate_version": 14,
+    "champion": null,
+    "champion_version": null,
+    "selected": "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/a/duel/last_ppo.pt",
+    "selected_kind": "fallback",
+    "selected_version": 14,
+    "reason": "no retained champion",
+    "selected_sha256": "8d44a306f10c66f25b193e3bad63f6ed763644b80f60573464b762fc9532fd11",
+    "frozen_before_holdout": true,
+    "format": "duel"
+  },
+  "pretraining_complete": false,
+  "bc_games_collected": 0,
+  "bc_games_required": 40,
+  "version": 14,
+  "evaluation_engine": "native",
+  "evaluation_scope": "native Wesnoth 1.18.8 comparison",
+  "checkpoint": "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/c/duel/selected.pt",
+  "checkpoint_sha256": "8d44a306f10c66f25b193e3bad63f6ed763644b80f60573464b762fc9532fd11",
+  "parameters": 776178,
+  "feature_version": 5,
+  "error": null,
+  "clock": {
+    "started": 1793384561.8685863,
+    "update_deadline": 1793386061.8685863,
+    "deadline": 1793386361.8685863
+  },
+  "forced_ppo": {
+    "reason": "L1 reduced panel: duel BC gate not reached in 40 games",
+    "command_id": "2899a23ac1214967be402b3eff4b8549",
+    "version": 4
+  },
+  "phase_history": [
+    {
+      "deadline": 1793381381.2797887,
+      "force": true,
+      "id": "2899a23ac1214967be402b3eff4b8549",
+      "phase": "ppo",
+      "reason": "L1 reduced panel: duel BC gate not reached in 40 games",
+      "requested_at": 1793380481.2797887,
+      "previous_phase": "bc",
+      "pretraining_complete": false,
+      "applied_at": 1793380483.3434238
+    },
+    {
+      "deadline": 1793382852.327807,
+      "force": false,
+      "id": "af01e8f893f04838989f0999a2ef8e02",
+      "phase": "evaluate",
+      "reason": "",
+      "requested_at": 1793381412.327807,
+      "previous_phase": "ppo",
+      "pretraining_complete": false,
+      "applied_at": 1793381414.6612241
+    },
+    {
+      "deadline": 1793386364.6537766,
+      "force": false,
+      "id": "a63ba451b19647dc813151e1d530c64f",
+      "phase": "evaluate",
+      "reason": "",
+      "requested_at": 1793384564.6537766,
+      "previous_phase": "bc",
+      "pretraining_complete": false,
+      "applied_at": 1793384566.555833
+    }
+  ],
+  "bc_gate": null
+}

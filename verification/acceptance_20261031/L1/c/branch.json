@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "created": 1793384561.8818974,
+  "seed": 20261017,
+  "reset_optimizer": false,
+  "clock": {
+    "started": 1793379570.490608,
+    "update_deadline": 1793380320.490608,
+    "deadline": 1793380470.490608
+  },
+  "checkpoints": {
+    "duel": {
+      "sha256": "220ce7d35dc9622286a80da46eeb8fcdb4ae9ab43b2c7c7e9a8b1853ea23ee5c",
+      "version": 14,
+      "checkpoint_version": 2
+    }
+  },
+  "parent": "/home/tongshu/myDev/wesnothLearning/acceptance_20261031/src/runs/l1-20261031/a",
+  "parent_manifest_sha256": "9aefc558a11b7b5dec65ae1f6ec23d1b4c7a328e70fa53088232d3870a55d5e0",
+  "parent_clock": {
+    "started": 1793379570.490608,
+    "update_deadline": 1793380320.490608,
+    "deadline": 1793380470.490608
+  }
+}

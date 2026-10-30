@@ -54,6 +54,32 @@ replacement already works) and install packages with
 **Solution:** sync the checkout by the route in blocker 5, then run the reduced full loop from
 `docs/TEST.md` (L1) and archive the result under a new dated `verification/` directory.
 
+## 6. A native game cannot be reproduced from its seed
+
+**Evidence:** one stock game (two `baseline` bots, `map_override` absent, `max_turns` 30) played twice
+from seed `20261017` ended `last_leader` at turn 5 and turn 3 with different decisive event streams
+(`verification/acceptance_20261031/L1/native_repeat/repeat.json`). The twin L1 run reproduced the
+same 40 teacher job ids, seeds and map yet shared 0 of 40 payloads
+(`verification/acceptance_20261031/L1/same_future.json`). `learning/schedule.py:152` derives those
+seeds as `random.Random(seed + batch_index)`, so the identity is recorded but insufficient.
+
+**Solution:** make native play deterministic for a recorded identity before any acceptance clause
+compares one run against another — pin the AI's own RNG consumption (Wesnoth seeds the Lua `math.random`
+separately) and re-run the two-game probe as the assertion. Until then, compare independent runs only
+through recorded counts.
+
+## 7. A lite policy exported to Lua is slower than the native action budget
+
+**Evidence:** all 60 final-evaluation games of the L1 run faulted with
+`watchdog_timeout: candidate evaluation/execution` at `turns 1`. The first decision used a 10 s budget
+and reported `elapsed_ms 1946`; every later decision is judged against
+`vendor/arena/params.py:6 ACTION_TIMEOUT = 1.0` and faults. `learning/export.py:62` declares
+`candidate_budget_ms=200` for candidate generation only, which does not bound model inference.
+
+**Solution:** reduce the exported forward pass (fewer candidates scored, cached or quantized weights)
+until a decision fits the frozen 1 s budget, and assert it with one native game against the exported
+policy. Raising `ACTION_TIMEOUT` is not available: it is the frozen competition profile.
+
 ## Not blockers
 
 - PKG1 (training-bundle acceptance) was dropped by the operator, so it needs nothing.
