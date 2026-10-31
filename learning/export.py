@@ -10,6 +10,9 @@ from .formats import FORMATS
 import addons
 import native
 
+SCORE_LIMIT = 24   # candidates scored by an exported policy; keeps one decision inside the frozen
+                   # native ACTION_TIMEOUT of 1.0 s (vendor/arena/params.py:8)
+
 
 def lua_parameters(model):
     layers = dict(architecture_id='relational_v5',unit_embedding=model.unit_embedding.weight.detach().cpu().tolist())
@@ -31,8 +34,14 @@ def compact_lua(value):
     return native.lua(value)
 
 
+def write_config(addon, mode, version, formats, score_limit=None):
+    settings = dict(mode=mode, version=version, formats=list(formats), candidate_budget_ms=200)
+    if score_limit: settings['score_limit'] = score_limit
+    (addon / 'lua' / 'config.lua').write_text('return ' + native.lua(settings) + '\n', encoding='utf-8')
+
+
 def export(models, destination, name='NeuralArena', mode='greedy', version='untrained', package=True, evaluation=None,
-           identity=None):
+           identity=None, score_limit=None):
     """A single-format support export is permitted; a delivery requires all three."""
     if isinstance(models, Policy): models={models.format_name:models}
     if not models or any(k not in FORMATS or v.format_name!=k for k,v in models.items()): raise ValueError('model format mismatch')
@@ -59,7 +68,7 @@ def export(models, destination, name='NeuralArena', mode='greedy', version='untr
             parameters=sum(p.numel() for p in model.parameters()),sha256=sha256(path),
             evaluation=(evaluation or {}).get(fmt,'not_evaluated'),**(identity or {}))
     (addon / 'lua' / 'features.lua').write_text('return ' + native.lua(schema()) + '\n', encoding='utf-8')
-    (addon / 'lua' / 'config.lua').write_text('return ' + native.lua(dict(mode=mode, version=version,formats=list(models),candidate_budget_ms=200)) + '\n', encoding='utf-8')
+    write_config(addon, mode, version, models, score_limit)
     (addon / 'README.md').write_text('三个独立网络原生 AI。权重与评测状态见交付清单。\n', encoding='utf-8')
     shutil.copyfile(ROOT / 'vendor/arena/LICENSE', addon / 'LICENSE')
     if package:
@@ -111,7 +120,7 @@ def export_checkpoints(checkpoints, destination, name='NeuralArena', evaluation=
             raise ValueError('delivery export requires actual current-schema sequence parity data for '+fmt)
         errors[fmt]=verify_numerics(models[fmt],audit_records[fmt])
         versions[fmt]=dict(checkpoint_sha256=sha256(path),version=state.get('runner',{}).get('version',state.get('version','unknown')))
-    addon=export(models,destination,name=name,version=versions,evaluation=evaluation)
+    addon=export(models,destination,name=name,version=versions,evaluation=evaluation,score_limit=SCORE_LIMIT)
     manifest=json.loads((Path(destination)/'export.json').read_text(encoding='utf-8'))
     for fmt,error in errors.items():
         manifest['models'][fmt].update(identities[fmt], python_lua_max_error=error)

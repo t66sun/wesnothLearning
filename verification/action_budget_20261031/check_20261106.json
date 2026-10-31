@@ -1,0 +1,14 @@
+{
+  "actions": 8,
+  "budget_ms": 1000,
+  "decisions": 8,
+  "faults": {},
+  "max_elapsed_ms": 483,
+  "median_elapsed_ms": 69.0,
+  "reason": "last_leader",
+  "score_limit": 24,
+  "seconds": 2.3861,
+  "seed": 20261106,
+  "turns": 3,
+  "winner": 2
+}

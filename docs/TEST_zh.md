@@ -15,13 +15,13 @@
 
 ## L1 —— 缩减全链路运行
 
-**状态：** 2026-10-31 在 Ubuntu 主机上 FAIL，在恢复后的 Astra 路线上重测（`master` `5ac67d9`）。面板、PPO 更新、停止/恢复、选中检查点/导出记录与同未来条款通过；final 评估仍未产出任何可比对局。实测：40/40 场 duel Astra 教师对局完成（4,139 条合格行），5 个 BC 批次（268 次更新）未达到模仿门（准确率 0.401，交叉熵 2.300，均匀分布 4.388），按记录理由强制进入 PPO，7 个批次每次 6–8 次已应用更新；SIGINT 被忽略，`applied=3`（version 8，第 8 批待训练）时 SIGKILL，恢复后到 `ppo_complete`（version 12），未重算第 0–7 批。未中断的孪生运行应用了同样的 7 个批次，第 8–11 批完全一致，同未来条款因此可证实并通过。120 场 final 全部以 `turns 1` 的 `watchdog_timeout` 失败：导出策略单次决策约 1.9 s，而 `vendor/arena/params.py:8` 固定 `ACTION_TIMEOUT = 1.0`；选中项回退为 `last_ppo.pt` v12，其导出已记录。
+**状态：** 2026-10-31 在 Ubuntu 主机上 FAIL，在恢复后的 Astra 路线上重测（`master` `5ac67d9`）。面板、PPO 更新、停止/恢复、选中检查点/导出记录与同未来条款通过；final 评估仍未产出任何可比对局。实测：40/40 场 duel Astra 教师对局完成（4,139 条合格行），5 个 BC 批次（268 次更新）未达到模仿门（准确率 0.401，交叉熵 2.300，均匀分布 4.388），按记录理由强制进入 PPO，7 个批次每次 6–8 次已应用更新；SIGINT 被忽略，`applied=3`（version 8，第 8 批待训练）时 SIGKILL，恢复后到 `ppo_complete`（version 12），未重算第 0–7 批。未中断的孪生运行应用了同样的 7 个批次，第 8–11 批完全一致，同未来条款因此可证实并通过。120 场 final 全部以 `turns 1` 的 `watchdog_timeout` 失败：导出策略单次决策约 1.9 s，而 `vendor/arena/params.py:8` 固定 `ACTION_TIMEOUT = 1.0`；选中项回退为 `last_ppo.pt` v12，其导出已记录。该原因已修复——导出插件带 `score_limit=24`，打分器把与候选无关的输入提到循环外，8 场针对导出策略的 duel 对局全部正常结束、单次决策最多 234 ms（`verification/action_budget_20261031/REPORT.md`）——因此本项剩余步骤是重跑评估，状态为 NOT RUN，需明确指令。
 
 **流程：** 在隔离源码树上冻结一份 lite 配置，使用能到达 BC 的最小面板、至少两次实际提交的 PPO 更新、一次从已提交批检查点恢复，以及 final 评估入口。启动前记录计数、种子、manifest 与检查点身份。每 30 分钟查看状态/日志并保留异常；运行期间不得提高对局数、降低门禁或修改冻结证据。
 
 **通过：** 运行到达 final 评估；两次 PPO 更新均提交；从保存边界恢复在身份一致处精确复现未中断的未来；选中的检查点与其导出被记录；每个停止原因都被报告而非隐藏。缩减面板的限制保持对棋力不充分，失败仍是失败。
 
-**证据：** `verification/acceptance_20261031_astra/REPORT.md`，含身份、停止/恢复边界、第 8–11 批的同未来比对、选中项与导出记录以及原版预算故障；`verification/acceptance_20261031/L1/REPORT.md` 仍作为恢复前那次运行的记录。
+**证据：** `verification/acceptance_20261031_astra/REPORT.md`，含身份、停止/恢复边界、第 8–11 批的同未来比对、选中项与导出记录、原版预算故障及其修复（`verification/action_budget_20261031/REPORT.md`）；`verification/acceptance_20261031/L1/REPORT.md` 仍作为恢复前那次运行的记录。
 
 ## R3 —— 适配后教师棋力证据
 

@@ -151,7 +151,7 @@ flowchart LR
 
 ## 10. 交付
 
-- `ensure_export()` 在 `<format>/policies/<folder>/` 下写内部插件，含 `features.lua`、`weights_<format>.lua`、`config.lua` 与 `export.json`；它们不是 SDK 提交，恢复时或在对局中作为机器人加载时都不受大小上限约束。
+- `ensure_export()` 在 `<format>/policies/<folder>/` 下写内部插件，含 `features.lua`、`weights_<format>.lua`、`config.lua` 与 `export.json`；它们不是 SDK 提交，恢复时或在对局中作为机器人加载时都不受大小上限约束。`config.lua` 始终带 `candidate_budget_ms=200`；供原版 final 评估或交付运行的插件还带 `score_limit=24`：`lua/bot.lua:19-22` 只对生成器排序后的队首打分，而 rollout 快照、support 与提名插件对每个候选打分。
 - `python -m learning export` 写出可部署插件（三种赛制、`arena.json` schema 2、vendored runtime、数值一致性记录），`python -m learning package` 把它打包为 `delivery/NeuralArena.zip`。导出要求引擎/教师身份匹配、权重已训练、审计与当前 schema 一致。
 - `python -m learning bundle` 构建可直接解压的 Ubuntu 24.04 训练归档（`BUNDLE_MANIFEST.json`、`SHA256SUMS`、固定成员权限，排除运行状态与证据）；`verify-bundle` 对其做静态复检。
 
@@ -193,6 +193,7 @@ flowchart LR
 | PPO clip / value / entropy / BC 辅助 / 梯度裁剪 | 0.2 / 0.5 / 0.01 / 0.10 / 0.5 |
 | KL 上限 / 计划版本 | 0.02 / 2 |
 | 奖励模式 / 取值范围 | adaptive / economy 0.05–0.20、control 0.02–0.15、explore 0–0.15 |
+| 导出策略的候选打分数 | 24（仅原版评估与交付插件） |
 | 回合上限 | 30（训练、校准、面板） |
 | shard 预算 | 压缩 96 MiB，保留估计 768 MiB |
 | final holdout 小时 | 0 |
@@ -207,7 +208,7 @@ flowchart LR
 - 官方 baseline 仅限原版；lite 运行无法对它评估。
 - 整理后的录像语料（`data/replays_curated/`，1,076 局标准时代对局）仍只是暂存：只有记录于 1.18.8 的 197 局能进入 BC。大厅归档以其 `[scenario]` 块作为起始块，因为 1.18.8 自行展开场景并合并已记录的 RNG；缺少 `[carryover_sides_start].random_seed` 的大厅归档按 `missing_initial_rng` 跳过。录像标记只能放在动作之前以及末尾各一次，因为在同步上下文内遇到的 `[custom_command]` 会被回放机拒绝。已准备三局、由官方 1.18.8 实际播放并导入 84 条 BC 行（`verification/curated_bc_20261031/REPORT.md`）；不声明更大范围的语料播放。
 - 原版对局可由其种子复现：`match.play_game` 把种子写入场景，`runtime.lua` 据此调用 `math.randomseed(seed)`，并预载 `setup.sh` 构建的 `.runtime/entropy.so` 与 `ARENA_ENTROPY_SEED`，使 Wesnoth 的默认与逐动作 C++ RNG 从按种子生成的流取值，而不再读取操作系统熵。种子 20261017 的同一场 stock 对局运行两次产生完全相同的决定性事件流（`verification/native_seed_20261031/REPORT.md`）。不同种子的对局仍然不同；跨种子的原版比较只使用记录到的计数，不声称 lite 与原版相等。
-- 导出后的 lite 策略在 Lua 中单次决策约需 1.9 s，超过固定为 `ACTION_TIMEOUT = 1.0` 的原版上限（`vendor/arena/params.py:8`），因此 lite 策略的原版 final 评估尚未计分即以 `watchdog_timeout` 失败。
+- 导出策略借助 `score_limit` 满足固定为 `ACTION_TIMEOUT = 1.0` 的原版上限（`vendor/arena/params.py:8`）：`lua/relational.lua:88-115` 把与候选无关的打分输入提到循环外，实测 36 次决策中，原版评估或交付插件的一次决策最多 234 ms，而每局第一次决策（按 `first_timeout` 计）为 482–484 ms，此前为 1946 ms（`verification/action_budget_20261031/REPORT.md`）。只测过 `duel` 格式与短对局，训练期插件仍按要求对每个候选打分。
 - 任何运行都没有收敛或棋力结论。
 
 ## 14. 文档地图
