@@ -1,0 +1,340 @@
+{
+ "host": {
+  "executable": "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/.runtime/install/bin/wesnoth",
+  "executable_sha256": "33f64aa3f5ee40228bd44e357b3f4d784121d4392ff774d6c059c7defa3e5fcf",
+  "flags": {
+   "allow_approximate": true,
+   "bc_accuracy": {
+    "all": 0.4,
+    "attack": 0.35,
+    "move": 0.35,
+    "recruit": 0.6
+   },
+   "bc_batch_games": 20,
+   "bc_games": {
+    "duel": 40,
+    "ffa4": 1,
+    "team2v2": 1
+   },
+   "bc_records": 2048,
+   "bc_validation_records": 1024,
+   "calibration_blocks": 3,
+   "device": "cpu",
+   "engine": "lite",
+   "epochs": 4,
+   "evaluation_engine": "native",
+   "final_blocks": 30,
+   "final_holdout_hours": 0.0,
+   "formats": [
+    "duel"
+   ],
+   "hours": 0.25,
+   "human_data": "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/data/datasets/human",
+   "learning_rate": 0.0003,
+   "min_distinct": {
+    "final": 12,
+    "gate": 12,
+    "promotion": 12,
+    "trend": 3
+   },
+   "minibatch": 256,
+   "native_bc_games": {
+    "duel": 0,
+    "ffa4": 0,
+    "team2v2": 0
+   },
+   "phase": "bc",
+   "reward_mode": "adaptive",
+   "rollout_games": 4,
+   "rules_dir": "/home/tongshu/myDev/wesnothLearning/WesnothLearning/rules/1.18.8-training",
+   "seed": 20261017,
+   "shaping_weight": null,
+   "trainer_memory_gb": 6.0,
+   "trainer_threads": 1,
+   "validation_games": {
+    "duel": 6,
+    "ffa4": 4,
+    "team2v2": 8
+   },
+   "validation_interval": 100000,
+   "workers": 8
+  },
+  "rules": {
+   "complete": false,
+   "coverage": {
+    "approximate": 407,
+    "exact": 0,
+    "unsupported_script": 85
+   },
+   "rules_file_sha256": "c769a4d62cd95ed96028cd8931e7030883547b12ec5972f194ef9272741a9021"
+  }
+ },
+ "runs": {
+  "a": {
+   "applied_ppo": 7,
+   "batches": [
+    [
+     0,
+     "bc",
+     44,
+     null
+    ],
+    [
+     1,
+     "bc",
+     56,
+     null
+    ],
+    [
+     2,
+     "bc",
+     56,
+     null
+    ],
+    [
+     3,
+     "bc",
+     56,
+     null
+    ],
+    [
+     4,
+     "bc",
+     56,
+     null
+    ],
+    [
+     5,
+     "ppo",
+     8,
+     "c68fb6b8263501df629e9821d7d880d653ecd333a627d72a9646adff636f67fb"
+    ],
+    [
+     6,
+     "ppo",
+     6,
+     "2d3f784a78b8bbe94269fbfee5f0374f666cc3d1ae3123c8e949c2780897b0af"
+    ],
+    [
+     7,
+     "ppo",
+     8,
+     "1732ab52c8e512123d9b64c94ec52d1138d6aab5d1c3ce057166297477470c82"
+    ],
+    [
+     8,
+     "ppo",
+     6,
+     "3719f973c5a24039e2c0fa36757a833de6b9eca04b49b8a065d2344329eab7e0"
+    ],
+    [
+     9,
+     "ppo",
+     8,
+     "828429ceaf8399fb748fb3eebb1ac6839fb33de9e4e7f3ae29486c5d7ce56fb7"
+    ],
+    [
+     10,
+     "ppo",
+     8,
+     "8375b4791bdd6c5fdf30f3ce24536329bfedf0a1abce56091a8d053b792aa662"
+    ],
+    [
+     11,
+     "ppo",
+     8,
+     "c39fa058fb3f4dd763c4fa7d5a9b2426cfdc6729ad1b280dadda70941b7d026d"
+    ]
+   ],
+   "checkpoints": {
+    "duel/last_ppo.pt": "603e3c83d6658b96d65da62bdf5cb277e979fbb19b080d4269ee4ac6e65fff08",
+    "duel/latest.pt": "453874a88769c184de7c17c2f9d3296081a4691c8047f75f46590d5ae9e669de",
+    "duel/selected.pt": "603e3c83d6658b96d65da62bdf5cb277e979fbb19b080d4269ee4ac6e65fff08"
+   },
+   "copied": [
+    "a/manifest.json",
+    "a/clock.json",
+    "a/duel-state.json",
+    "a/duel-bc_gate.json",
+    "a/duel-selection.json",
+    "a/duel-summary.json",
+    "a/duel-jobs.jsonl",
+    "timeline.log",
+    "same_future.json"
+   ],
+   "effective": false,
+   "error": null,
+   "forced_ppo": {
+    "command_id": "c5b7d746486e42c88101b6ebcd98fe75",
+    "reason": "L1 reduced panel: duel BC gate not reached in 40 games",
+    "version": 4
+   },
+   "jobs": {
+    "by_phase": {
+     "?": 120,
+     "ppo": 28,
+     "teacher": 40
+    },
+    "by_status": {
+     "complete": 188
+    },
+    "total": 188
+   },
+   "kl_stops": [],
+   "phase": "evaluate",
+   "phase_history": [
+    {
+     "applied_at": 1793422028.1353846,
+     "deadline": 1793422926.0727637,
+     "force": true,
+     "id": "c5b7d746486e42c88101b6ebcd98fe75",
+     "phase": "ppo",
+     "pretraining_complete": false,
+     "previous_phase": "bc",
+     "reason": "L1 reduced panel: duel BC gate not reached in 40 games",
+     "requested_at": 1793422026.0727637
+    },
+    {
+     "applied_at": 1793422939.086641,
+     "deadline": 1793424377.0272229,
+     "force": false,
+     "id": "92506ee4be4946ae9f39ac09a663a63c",
+     "phase": "evaluate",
+     "pretraining_complete": false,
+     "previous_phase": "ppo",
+     "reason": "",
+     "requested_at": 1793422937.0272229
+    }
+   ],
+   "stage": "finished",
+   "status": "inconclusive",
+   "version": 12
+  },
+  "b": {
+   "applied_ppo": 7,
+   "batches": [
+    [
+     0,
+     "bc",
+     44,
+     null
+    ],
+    [
+     1,
+     "bc",
+     56,
+     null
+    ],
+    [
+     2,
+     "bc",
+     56,
+     null
+    ],
+    [
+     3,
+     "bc",
+     56,
+     null
+    ],
+    [
+     4,
+     "bc",
+     56,
+     null
+    ],
+    [
+     5,
+     "ppo",
+     8,
+     "c68fb6b8263501df629e9821d7d880d653ecd333a627d72a9646adff636f67fb"
+    ],
+    [
+     6,
+     "ppo",
+     6,
+     "2d3f784a78b8bbe94269fbfee5f0374f666cc3d1ae3123c8e949c2780897b0af"
+    ],
+    [
+     7,
+     "ppo",
+     8,
+     "1732ab52c8e512123d9b64c94ec52d1138d6aab5d1c3ce057166297477470c82"
+    ],
+    [
+     8,
+     "ppo",
+     6,
+     "3719f973c5a24039e2c0fa36757a833de6b9eca04b49b8a065d2344329eab7e0"
+    ],
+    [
+     9,
+     "ppo",
+     8,
+     "828429ceaf8399fb748fb3eebb1ac6839fb33de9e4e7f3ae29486c5d7ce56fb7"
+    ],
+    [
+     10,
+     "ppo",
+     8,
+     "8375b4791bdd6c5fdf30f3ce24536329bfedf0a1abce56091a8d053b792aa662"
+    ],
+    [
+     11,
+     "ppo",
+     8,
+     "c39fa058fb3f4dd763c4fa7d5a9b2426cfdc6729ad1b280dadda70941b7d026d"
+    ]
+   ],
+   "checkpoints": {
+    "duel/last_ppo.pt": "ce5b29f5b42734812231c633535d61d2caa94cce4fab9071c14f36cc79944fc6",
+    "duel/latest.pt": "d02da9f3fca4343a66cb407c3d7ebcd4513d31660b8aa8c58fdd618a26310970"
+   },
+   "copied": [
+    "b/manifest.json",
+    "b/clock.json",
+    "b/duel-state.json",
+    "b/duel-bc_gate.json",
+    "b/duel-summary.json",
+    "b/duel-jobs.jsonl",
+    "timeline.log",
+    "same_future.json"
+   ],
+   "effective": false,
+   "error": null,
+   "forced_ppo": {
+    "command_id": "9d60718b1f224eeab61768e8f0f989b0",
+    "reason": "L1 reduced panel: duel BC gate not reached in 40 games",
+    "version": 4
+   },
+   "jobs": {
+    "by_phase": {
+     "ppo": 32,
+     "teacher": 40
+    },
+    "by_status": {
+     "complete": 72
+    },
+    "total": 72
+   },
+   "kl_stops": [],
+   "phase": "ppo",
+   "phase_history": [
+    {
+     "applied_at": 1793424010.8939836,
+     "deadline": 1793424908.8323855,
+     "force": true,
+     "id": "9d60718b1f224eeab61768e8f0f989b0",
+     "phase": "ppo",
+     "pretraining_complete": false,
+     "previous_phase": "bc",
+     "reason": "L1 reduced panel: duel BC gate not reached in 40 games",
+     "requested_at": 1793424008.8323855
+    }
+   ],
+   "stage": "ppo_complete",
+   "status": "stage_complete",
+   "version": 12
+  }
+ }
+}

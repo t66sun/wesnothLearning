@@ -1,0 +1,136 @@
+{
+ "applied_a": 7,
+ "applied_b": 7,
+ "batches_a": {
+  "0": {
+   "after": null,
+   "method": "bc",
+   "updates": 44
+  },
+  "1": {
+   "after": null,
+   "method": "bc",
+   "updates": 56
+  },
+  "2": {
+   "after": null,
+   "method": "bc",
+   "updates": 56
+  },
+  "3": {
+   "after": null,
+   "method": "bc",
+   "updates": 56
+  },
+  "4": {
+   "after": null,
+   "method": "bc",
+   "updates": 56
+  },
+  "5": {
+   "after": "c68fb6b8263501df629e9821d7d880d653ecd333a627d72a9646adff636f67fb",
+   "method": "ppo",
+   "updates": 8
+  },
+  "6": {
+   "after": "2d3f784a78b8bbe94269fbfee5f0374f666cc3d1ae3123c8e949c2780897b0af",
+   "method": "ppo",
+   "updates": 6
+  },
+  "7": {
+   "after": "1732ab52c8e512123d9b64c94ec52d1138d6aab5d1c3ce057166297477470c82",
+   "method": "ppo",
+   "updates": 8
+  },
+  "8": {
+   "after": "3719f973c5a24039e2c0fa36757a833de6b9eca04b49b8a065d2344329eab7e0",
+   "method": "ppo",
+   "updates": 6
+  },
+  "9": {
+   "after": "828429ceaf8399fb748fb3eebb1ac6839fb33de9e4e7f3ae29486c5d7ce56fb7",
+   "method": "ppo",
+   "updates": 8
+  },
+  "10": {
+   "after": "8375b4791bdd6c5fdf30f3ce24536329bfedf0a1abce56091a8d053b792aa662",
+   "method": "ppo",
+   "updates": 8
+  },
+  "11": {
+   "after": "c39fa058fb3f4dd763c4fa7d5a9b2426cfdc6729ad1b280dadda70941b7d026d",
+   "method": "ppo",
+   "updates": 8
+  }
+ },
+ "batches_b": {
+  "0": {
+   "after": null,
+   "method": "bc",
+   "updates": 44
+  },
+  "1": {
+   "after": null,
+   "method": "bc",
+   "updates": 56
+  },
+  "2": {
+   "after": null,
+   "method": "bc",
+   "updates": 56
+  },
+  "3": {
+   "after": null,
+   "method": "bc",
+   "updates": 56
+  },
+  "4": {
+   "after": null,
+   "method": "bc",
+   "updates": 56
+  },
+  "5": {
+   "after": "c68fb6b8263501df629e9821d7d880d653ecd333a627d72a9646adff636f67fb",
+   "method": "ppo",
+   "updates": 8
+  },
+  "6": {
+   "after": "2d3f784a78b8bbe94269fbfee5f0374f666cc3d1ae3123c8e949c2780897b0af",
+   "method": "ppo",
+   "updates": 6
+  },
+  "7": {
+   "after": "1732ab52c8e512123d9b64c94ec52d1138d6aab5d1c3ce057166297477470c82",
+   "method": "ppo",
+   "updates": 8
+  },
+  "8": {
+   "after": "3719f973c5a24039e2c0fa36757a833de6b9eca04b49b8a065d2344329eab7e0",
+   "method": "ppo",
+   "updates": 6
+  },
+  "9": {
+   "after": "828429ceaf8399fb748fb3eebb1ac6839fb33de9e4e7f3ae29486c5d7ce56fb7",
+   "method": "ppo",
+   "updates": 8
+  },
+  "10": {
+   "after": "8375b4791bdd6c5fdf30f3ce24536329bfedf0a1abce56091a8d053b792aa662",
+   "method": "ppo",
+   "updates": 8
+  },
+  "11": {
+   "after": "c39fa058fb3f4dd763c4fa7d5a9b2426cfdc6729ad1b280dadda70941b7d026d",
+   "method": "ppo",
+   "updates": 8
+  }
+ },
+ "compared": [
+  8,
+  9,
+  10,
+  11
+ ],
+ "identical": true,
+ "stop_batch": 8
+}

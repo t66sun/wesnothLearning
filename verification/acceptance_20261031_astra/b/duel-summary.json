@@ -1,0 +1,19 @@
+{
+  "format": "duel",
+  "status": "stage_complete",
+  "phase": "ppo",
+  "version": 12,
+  "pretraining_complete": false,
+  "forced_ppo": {
+    "reason": "L1 reduced panel: duel BC gate not reached in 40 games",
+    "command_id": "9d60718b1f224eeab61768e8f0f989b0",
+    "version": 4
+  },
+  "checkpoint": "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/latest.pt",
+  "error": null,
+  "clock": {
+    "started": 1793423097.9922552,
+    "update_deadline": 1793423847.9922552,
+    "deadline": 1793423997.9922552
+  }
+}

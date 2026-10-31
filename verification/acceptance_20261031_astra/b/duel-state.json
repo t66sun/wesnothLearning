@@ -1,0 +1,1298 @@
+{
+  "format": "duel",
+  "stage": "ppo_complete",
+  "phase": "ppo",
+  "clock": {
+    "started": 1793423097.9922552,
+    "update_deadline": 1793423847.9922552,
+    "deadline": 1793423997.9922552
+  },
+  "batch": 12,
+  "version": 12,
+  "history": [
+    {
+      "batch": 0,
+      "method": "bc",
+      "elapsed_hours": 0.054554278519418506,
+      "reads": {
+        "bc": {
+          "requested": 2048,
+          "rows": 1920,
+          "families": 17,
+          "selected": 17,
+          "families_decoded": 17,
+          "families_selected": 17,
+          "families_admitted": 17,
+          "families_retained": 17,
+          "windows": 41,
+          "sources": {
+            "astra": 1920
+          },
+          "engines": {
+            "lite": 1920
+          },
+          "kinds": {
+            "recruit": 294,
+            "end_turn": 256,
+            "move": 879,
+            "move_attack": 398,
+            "attack": 93
+          },
+          "gz_bytes": 36172286,
+          "retained_bytes": 478610740,
+          "deficit": 128,
+          "stop_reason": "insufficient_data"
+        },
+        "validation": {
+          "requested": 1024,
+          "rows": 169,
+          "families": 3,
+          "selected": 3,
+          "families_decoded": 3,
+          "families_selected": 3,
+          "families_admitted": 3,
+          "families_retained": 3,
+          "windows": 5,
+          "sources": {
+            "astra": 169
+          },
+          "engines": {
+            "lite": 169
+          },
+          "kinds": {
+            "recruit": 29,
+            "move": 54,
+            "end_turn": 25,
+            "move_attack": 48,
+            "attack": 13
+          },
+          "gz_bytes": 2338205,
+          "retained_bytes": 34870636,
+          "deficit": 855,
+          "stop_reason": "insufficient_data"
+        }
+      },
+      "peak_rss_mb": 1200,
+      "updates": 44,
+      "loss": 3.8539887144566323,
+      "interrupted": false,
+      "approx_kl": 0.0,
+      "kl_stopped": false,
+      "decisions_seen": 10008,
+      "unique_families_seen": 17,
+      "effective_dataset_passes": 5.2125,
+      "sequence_windows": 41,
+      "microbatch": 32
+    },
+    {
+      "batch": 1,
+      "method": "bc",
+      "elapsed_hours": 0.11480175409052107,
+      "reads": {
+        "bc": {
+          "requested": 2048,
+          "rows": 2048,
+          "families": 30,
+          "selected": 32,
+          "families_decoded": 30,
+          "families_selected": 32,
+          "families_admitted": 30,
+          "families_retained": 30,
+          "windows": 57,
+          "sources": {
+            "astra": 2048
+          },
+          "engines": {
+            "lite": 2048
+          },
+          "kinds": {
+            "recruit": 351,
+            "end_turn": 282,
+            "move": 781,
+            "move_attack": 539,
+            "attack": 95
+          },
+          "gz_bytes": 58456574,
+          "retained_bytes": 505571680,
+          "deficit": 0,
+          "stop_reason": "window_limit"
+        },
+        "validation": {
+          "requested": 1024,
+          "rows": 713,
+          "families": 8,
+          "selected": 8,
+          "families_decoded": 8,
+          "families_selected": 8,
+          "families_admitted": 8,
+          "families_retained": 8,
+          "windows": 15,
+          "sources": {
+            "astra": 713
+          },
+          "engines": {
+            "lite": 713
+          },
+          "kinds": {
+            "recruit": 113,
+            "move": 314,
+            "end_turn": 80,
+            "move_attack": 166,
+            "attack": 40
+          },
+          "gz_bytes": 12607822,
+          "retained_bytes": 170940492,
+          "deficit": 311,
+          "stop_reason": "insufficient_data"
+        }
+      },
+      "peak_rss_mb": 1488,
+      "updates": 56,
+      "loss": 2.4243954796028055,
+      "interrupted": false,
+      "approx_kl": 0.0,
+      "kl_stopped": false,
+      "decisions_seen": 11780,
+      "unique_families_seen": 30,
+      "effective_dataset_passes": 5.751953125,
+      "sequence_windows": 54,
+      "microbatch": 32
+    },
+    {
+      "batch": 2,
+      "method": "bc",
+      "elapsed_hours": 0.16037393616305456,
+      "reads": {
+        "bc": {
+          "requested": 2048,
+          "rows": 2048,
+          "families": 30,
+          "selected": 32,
+          "families_decoded": 30,
+          "families_selected": 32,
+          "families_admitted": 30,
+          "families_retained": 30,
+          "windows": 57,
+          "sources": {
+            "astra": 2048
+          },
+          "engines": {
+            "lite": 2048
+          },
+          "kinds": {
+            "recruit": 353,
+            "move": 824,
+            "end_turn": 274,
+            "attack": 94,
+            "move_attack": 503
+          },
+          "gz_bytes": 59741666,
+          "retained_bytes": 502402996,
+          "deficit": 0,
+          "stop_reason": "window_limit"
+        },
+        "validation": {
+          "requested": 1024,
+          "rows": 713,
+          "families": 8,
+          "selected": 8,
+          "families_decoded": 8,
+          "families_selected": 8,
+          "families_admitted": 8,
+          "families_retained": 8,
+          "windows": 15,
+          "sources": {
+            "astra": 713
+          },
+          "engines": {
+            "lite": 713
+          },
+          "kinds": {
+            "recruit": 113,
+            "move": 314,
+            "end_turn": 80,
+            "move_attack": 166,
+            "attack": 40
+          },
+          "gz_bytes": 12607822,
+          "retained_bytes": 170940492,
+          "deficit": 311,
+          "stop_reason": "insufficient_data"
+        }
+      },
+      "peak_rss_mb": 1521,
+      "updates": 56,
+      "loss": 1.831156332680361,
+      "interrupted": false,
+      "approx_kl": 0.0,
+      "kl_stopped": false,
+      "decisions_seen": 11738,
+      "unique_families_seen": 30,
+      "effective_dataset_passes": 5.7314453125,
+      "sequence_windows": 54,
+      "microbatch": 32
+    },
+    {
+      "batch": 3,
+      "method": "bc",
+      "elapsed_hours": 0.20766826834943558,
+      "reads": {
+        "bc": {
+          "requested": 2048,
+          "rows": 2048,
+          "families": 30,
+          "selected": 32,
+          "families_decoded": 30,
+          "families_selected": 32,
+          "families_admitted": 30,
+          "families_retained": 30,
+          "windows": 54,
+          "sources": {
+            "astra": 2048
+          },
+          "engines": {
+            "lite": 2048
+          },
+          "kinds": {
+            "recruit": 345,
+            "move": 839,
+            "end_turn": 263,
+            "move_attack": 505,
+            "attack": 96
+          },
+          "gz_bytes": 59832094,
+          "retained_bytes": 504019620,
+          "deficit": 0,
+          "stop_reason": "window_limit"
+        },
+        "validation": {
+          "requested": 1024,
+          "rows": 713,
+          "families": 8,
+          "selected": 8,
+          "families_decoded": 8,
+          "families_selected": 8,
+          "families_admitted": 8,
+          "families_retained": 8,
+          "windows": 15,
+          "sources": {
+            "astra": 713
+          },
+          "engines": {
+            "lite": 713
+          },
+          "kinds": {
+            "recruit": 113,
+            "move": 314,
+            "end_turn": 80,
+            "move_attack": 166,
+            "attack": 40
+          },
+          "gz_bytes": 12607822,
+          "retained_bytes": 170940492,
+          "deficit": 311,
+          "stop_reason": "insufficient_data"
+        }
+      },
+      "peak_rss_mb": 1521,
+      "updates": 56,
+      "loss": 1.705791540595653,
+      "interrupted": false,
+      "approx_kl": 0.0,
+      "kl_stopped": false,
+      "decisions_seen": 12461,
+      "unique_families_seen": 30,
+      "effective_dataset_passes": 6.08447265625,
+      "sequence_windows": 53,
+      "microbatch": 32
+    },
+    {
+      "batch": 4,
+      "method": "bc",
+      "elapsed_hours": 0.278774593340026,
+      "reads": {
+        "bc": {
+          "requested": 2048,
+          "rows": 2048,
+          "families": 31,
+          "selected": 32,
+          "families_decoded": 31,
+          "families_selected": 32,
+          "families_admitted": 31,
+          "families_retained": 31,
+          "windows": 58,
+          "sources": {
+            "astra": 2048
+          },
+          "engines": {
+            "lite": 2048
+          },
+          "kinds": {
+            "recruit": 354,
+            "move": 812,
+            "end_turn": 288,
+            "attack": 97,
+            "move_attack": 497
+          },
+          "gz_bytes": 58964543,
+          "retained_bytes": 502085844,
+          "deficit": 0,
+          "stop_reason": "window_limit"
+        },
+        "validation": {
+          "requested": 1024,
+          "rows": 713,
+          "families": 8,
+          "selected": 8,
+          "families_decoded": 8,
+          "families_selected": 8,
+          "families_admitted": 8,
+          "families_retained": 8,
+          "windows": 15,
+          "sources": {
+            "astra": 713
+          },
+          "engines": {
+            "lite": 713
+          },
+          "kinds": {
+            "recruit": 113,
+            "move": 314,
+            "end_turn": 80,
+            "move_attack": 166,
+            "attack": 40
+          },
+          "gz_bytes": 12607822,
+          "retained_bytes": 170940492,
+          "deficit": 311,
+          "stop_reason": "insufficient_data"
+        }
+      },
+      "peak_rss_mb": 1490,
+      "updates": 56,
+      "loss": 1.6239462532435678,
+      "interrupted": false,
+      "approx_kl": 0.0,
+      "kl_stopped": false,
+      "decisions_seen": 12139,
+      "unique_families_seen": 31,
+      "effective_dataset_passes": 5.92724609375,
+      "sequence_windows": 56,
+      "microbatch": 32
+    },
+    {
+      "batch": 5,
+      "method": "ppo",
+      "elapsed_hours": 0.30677423192395104,
+      "reads": {
+        "bc": {
+          "requested": 2048,
+          "rows": 1403,
+          "families": 35,
+          "selected": 40,
+          "families_decoded": 35,
+          "families_selected": 40,
+          "families_admitted": 35,
+          "families_retained": 35,
+          "windows": 53,
+          "sources": {
+            "astra": 1024,
+            "policy": 379
+          },
+          "engines": {
+            "lite": 1403
+          },
+          "kinds": {
+            "recruit": 262,
+            "move": 510,
+            "end_turn": 203,
+            "move_attack": 363,
+            "attack": 65
+          },
+          "gz_bytes": 65019408,
+          "retained_bytes": 345579276,
+          "deficit": 645,
+          "stop_reason": "retain_budget"
+        }
+      },
+      "peak_rss_mb": 1675,
+      "updates": 8,
+      "loss": 0.4169566436903551,
+      "approx_kl": 0.011242470686407602,
+      "rehearsal_sources": [
+        {
+          "source": "policy",
+          "teacher_impl": null,
+          "sha256": null
+        }
+      ],
+      "rehearsal_rows_excluded": 1024,
+      "scope": "batch",
+      "planned_steps": 8,
+      "committed_steps": 8,
+      "deferred_steps": 0,
+      "stopped_by_kl_steps": 0,
+      "planned_window_visits": 32,
+      "committed_window_visits": 32,
+      "deferred_windows": 0,
+      "stopped_by_kl_windows": 0,
+      "eligible_decisions": 379,
+      "excluded_decisions": 0,
+      "excluded_games": 0,
+      "interrupted": false,
+      "kl_stopped": false,
+      "decisions_seen": 1516,
+      "unique_families_seen": 4,
+      "effective_dataset_passes": 4.0,
+      "sequence_windows": 8,
+      "microbatch": 32,
+      "exit": "completed",
+      "plan_version": 2,
+      "plan_migrated": true,
+      "planned_windows": 8,
+      "planned_targets": 379,
+      "repeated_targets": 0,
+      "inspected_decisions": 1516,
+      "committed_decisions": 1516,
+      "policy_sha256_before": "43ef61ccd6cd36afa25a85fd112beaa34966c641b8abdb4a34c93cbc5290e33c",
+      "policy_sha256_after": "c68fb6b8263501df629e9821d7d880d653ecd333a627d72a9646adff636f67fb",
+      "cursor": {
+        "epoch": 4,
+        "step": 0,
+        "plan_version": 2,
+        "plan_seed": 20261017,
+        "scope": "batch",
+        "loss_sum": 3.335653149522841,
+        "updates": 8,
+        "decisions_seen": 1516,
+        "inspected_decisions": 1516,
+        "committed_decisions": 1516
+      }
+    },
+    {
+      "batch": 6,
+      "method": "ppo",
+      "elapsed_hours": 0.3412951147556305,
+      "reads": {
+        "bc": {
+          "requested": 2048,
+          "rows": 1915,
+          "families": 36,
+          "selected": 48,
+          "families_decoded": 36,
+          "families_selected": 48,
+          "families_admitted": 36,
+          "families_retained": 36,
+          "windows": 61,
+          "sources": {
+            "astra": 1024,
+            "policy": 891
+          },
+          "engines": {
+            "lite": 1915
+          },
+          "kinds": {
+            "recruit": 319,
+            "move": 734,
+            "end_turn": 272,
+            "move_attack": 489,
+            "attack": 101
+          },
+          "gz_bytes": 67736357,
+          "retained_bytes": 464847984,
+          "deficit": 133,
+          "stop_reason": "retain_budget"
+        }
+      },
+      "peak_rss_mb": 1768,
+      "updates": 6,
+      "loss": 0.5007043138296771,
+      "approx_kl": 0.030164665698331938,
+      "rehearsal_sources": [
+        {
+          "source": "policy",
+          "teacher_impl": null,
+          "sha256": null
+        }
+      ],
+      "rehearsal_rows_excluded": 1024,
+      "scope": "batch",
+      "planned_steps": 12,
+      "committed_steps": 6,
+      "deferred_steps": 0,
+      "stopped_by_kl_steps": 6,
+      "planned_window_visits": 40,
+      "committed_window_visits": 20,
+      "deferred_windows": 0,
+      "stopped_by_kl_windows": 20,
+      "eligible_decisions": 512,
+      "excluded_decisions": 0,
+      "excluded_games": 0,
+      "interrupted": false,
+      "kl_stopped": true,
+      "decisions_seen": 1024,
+      "unique_families_seen": 4,
+      "effective_dataset_passes": 2.0,
+      "sequence_windows": 10,
+      "microbatch": 32,
+      "exit": "kl_stop",
+      "plan_version": 2,
+      "plan_migrated": true,
+      "planned_windows": 10,
+      "planned_targets": 512,
+      "repeated_targets": 0,
+      "inspected_decisions": 1187,
+      "committed_decisions": 1024,
+      "policy_sha256_before": "c68fb6b8263501df629e9821d7d880d653ecd333a627d72a9646adff636f67fb",
+      "policy_sha256_after": "2d3f784a78b8bbe94269fbfee5f0374f666cc3d1ae3123c8e949c2780897b0af",
+      "cursor": {
+        "epoch": 2,
+        "step": 0,
+        "plan_version": 2,
+        "plan_seed": 20261017,
+        "plan_hash": "4ed53c07c00e23504052b18228e78e2f6f6e3dea8e924bbb2e5acd72391c193b",
+        "scope": "batch",
+        "loss_sum": 3.004225882978062,
+        "updates": 6,
+        "decisions_seen": 1024,
+        "inspected_decisions": 1187,
+        "committed_decisions": 1024
+      }
+    },
+    {
+      "batch": 7,
+      "method": "ppo",
+      "elapsed_hours": 0.37139493227005005,
+      "reads": {
+        "bc": {
+          "requested": 2048,
+          "rows": 2048,
+          "families": 42,
+          "selected": 56,
+          "families_decoded": 42,
+          "families_selected": 56,
+          "families_admitted": 42,
+          "families_retained": 42,
+          "windows": 59,
+          "sources": {
+            "astra": 1024,
+            "policy": 1024
+          },
+          "engines": {
+            "lite": 2048
+          },
+          "kinds": {
+            "recruit": 329,
+            "move": 745,
+            "move_attack": 577,
+            "attack": 116,
+            "end_turn": 281
+          },
+          "gz_bytes": 64928007,
+          "retained_bytes": 486797200,
+          "deficit": 0,
+          "stop_reason": "window_limit"
+        }
+      },
+      "peak_rss_mb": 1787,
+      "updates": 8,
+      "loss": 0.3874874587636441,
+      "approx_kl": 0.01163428541152708,
+      "rehearsal_sources": [
+        {
+          "source": "policy",
+          "teacher_impl": null,
+          "sha256": null
+        }
+      ],
+      "rehearsal_rows_excluded": 1024,
+      "scope": "batch",
+      "planned_steps": 8,
+      "committed_steps": 8,
+      "deferred_steps": 0,
+      "stopped_by_kl_steps": 0,
+      "planned_window_visits": 20,
+      "committed_window_visits": 20,
+      "deferred_windows": 0,
+      "stopped_by_kl_windows": 0,
+      "eligible_decisions": 250,
+      "excluded_decisions": 0,
+      "excluded_games": 0,
+      "interrupted": false,
+      "kl_stopped": false,
+      "decisions_seen": 1000,
+      "unique_families_seen": 4,
+      "effective_dataset_passes": 4.0,
+      "sequence_windows": 5,
+      "microbatch": 32,
+      "exit": "completed",
+      "plan_version": 2,
+      "plan_migrated": true,
+      "planned_windows": 5,
+      "planned_targets": 250,
+      "repeated_targets": 0,
+      "inspected_decisions": 1000,
+      "committed_decisions": 1000,
+      "policy_sha256_before": "2d3f784a78b8bbe94269fbfee5f0374f666cc3d1ae3123c8e949c2780897b0af",
+      "policy_sha256_after": "1732ab52c8e512123d9b64c94ec52d1138d6aab5d1c3ce057166297477470c82",
+      "cursor": {
+        "epoch": 4,
+        "step": 0,
+        "plan_version": 2,
+        "plan_seed": 20261017,
+        "scope": "batch",
+        "loss_sum": 3.099899670109153,
+        "updates": 8,
+        "decisions_seen": 1000,
+        "inspected_decisions": 1000,
+        "committed_decisions": 1000
+      }
+    },
+    {
+      "batch": 8,
+      "method": "ppo",
+      "elapsed_hours": 0.39825135780705345,
+      "reads": {
+        "bc": {
+          "requested": 2048,
+          "rows": 2048,
+          "families": 45,
+          "selected": 64,
+          "families_decoded": 45,
+          "families_selected": 64,
+          "families_admitted": 45,
+          "families_retained": 45,
+          "windows": 69,
+          "sources": {
+            "astra": 1024,
+            "policy": 1024
+          },
+          "engines": {
+            "lite": 2048
+          },
+          "kinds": {
+            "recruit": 332,
+            "move": 727,
+            "end_turn": 268,
+            "attack": 136,
+            "move_attack": 585
+          },
+          "gz_bytes": 76758831,
+          "retained_bytes": 477325496,
+          "deficit": 0,
+          "stop_reason": "window_limit"
+        }
+      },
+      "peak_rss_mb": 1828,
+      "updates": 6,
+      "loss": -0.03200315678259358,
+      "approx_kl": 0.02044590828290209,
+      "rehearsal_sources": [
+        {
+          "source": "policy",
+          "teacher_impl": null,
+          "sha256": null
+        }
+      ],
+      "rehearsal_rows_excluded": 1024,
+      "scope": "batch",
+      "planned_steps": 8,
+      "committed_steps": 6,
+      "deferred_steps": 0,
+      "stopped_by_kl_steps": 2,
+      "planned_window_visits": 24,
+      "committed_window_visits": 18,
+      "deferred_windows": 0,
+      "stopped_by_kl_windows": 6,
+      "eligible_decisions": 300,
+      "excluded_decisions": 0,
+      "excluded_games": 0,
+      "interrupted": false,
+      "kl_stopped": true,
+      "decisions_seen": 900,
+      "unique_families_seen": 4,
+      "effective_dataset_passes": 3.0,
+      "sequence_windows": 6,
+      "microbatch": 32,
+      "exit": "kl_stop",
+      "plan_version": 2,
+      "plan_migrated": true,
+      "planned_windows": 6,
+      "planned_targets": 300,
+      "repeated_targets": 0,
+      "inspected_decisions": 1081,
+      "committed_decisions": 900,
+      "policy_sha256_before": "1732ab52c8e512123d9b64c94ec52d1138d6aab5d1c3ce057166297477470c82",
+      "policy_sha256_after": "3719f973c5a24039e2c0fa36757a833de6b9eca04b49b8a065d2344329eab7e0",
+      "cursor": {
+        "epoch": 3,
+        "step": 0,
+        "plan_version": 2,
+        "plan_seed": 20261017,
+        "plan_hash": "23fde4492d47ae0a8a06ad628f5c57230a7b1970771fcca3ac9723e04394e5b8",
+        "scope": "batch",
+        "loss_sum": -0.19201894069556147,
+        "updates": 6,
+        "decisions_seen": 900,
+        "inspected_decisions": 1081,
+        "committed_decisions": 900
+      }
+    },
+    {
+      "batch": 9,
+      "method": "ppo",
+      "elapsed_hours": 0.435287856525845,
+      "reads": {
+        "bc": {
+          "requested": 2048,
+          "rows": 2048,
+          "families": 45,
+          "selected": 72,
+          "families_decoded": 45,
+          "families_selected": 72,
+          "families_admitted": 45,
+          "families_retained": 45,
+          "windows": 66,
+          "sources": {
+            "astra": 1024,
+            "policy": 1024
+          },
+          "engines": {
+            "lite": 2048
+          },
+          "kinds": {
+            "recruit": 334,
+            "end_turn": 261,
+            "move": 786,
+            "move_attack": 564,
+            "attack": 103
+          },
+          "gz_bytes": 76130868,
+          "retained_bytes": 483236872,
+          "deficit": 0,
+          "stop_reason": "window_limit"
+        }
+      },
+      "peak_rss_mb": 1836,
+      "updates": 8,
+      "loss": 0.5834576341512729,
+      "approx_kl": 0.009477418579544834,
+      "rehearsal_sources": [
+        {
+          "source": "policy",
+          "teacher_impl": null,
+          "sha256": null
+        }
+      ],
+      "rehearsal_rows_excluded": 1024,
+      "scope": "batch",
+      "planned_steps": 8,
+      "committed_steps": 8,
+      "deferred_steps": 0,
+      "stopped_by_kl_steps": 0,
+      "planned_window_visits": 32,
+      "committed_window_visits": 32,
+      "deferred_windows": 0,
+      "stopped_by_kl_windows": 0,
+      "eligible_decisions": 454,
+      "excluded_decisions": 0,
+      "excluded_games": 0,
+      "interrupted": false,
+      "kl_stopped": false,
+      "decisions_seen": 1816,
+      "unique_families_seen": 4,
+      "effective_dataset_passes": 4.0,
+      "sequence_windows": 8,
+      "microbatch": 32,
+      "exit": "completed",
+      "plan_version": 2,
+      "plan_migrated": true,
+      "planned_windows": 8,
+      "planned_targets": 454,
+      "repeated_targets": 0,
+      "inspected_decisions": 1816,
+      "committed_decisions": 1816,
+      "policy_sha256_before": "3719f973c5a24039e2c0fa36757a833de6b9eca04b49b8a065d2344329eab7e0",
+      "policy_sha256_after": "828429ceaf8399fb748fb3eebb1ac6839fb33de9e4e7f3ae29486c5d7ce56fb7",
+      "cursor": {
+        "epoch": 4,
+        "step": 0,
+        "plan_version": 2,
+        "plan_seed": 20261017,
+        "scope": "batch",
+        "loss_sum": 4.6676610732101835,
+        "updates": 8,
+        "decisions_seen": 1816,
+        "inspected_decisions": 1816,
+        "committed_decisions": 1816
+      }
+    },
+    {
+      "batch": 10,
+      "method": "ppo",
+      "elapsed_hours": 0.4668661026822196,
+      "reads": {
+        "bc": {
+          "requested": 2048,
+          "rows": 2048,
+          "families": 47,
+          "selected": 80,
+          "families_decoded": 47,
+          "families_selected": 80,
+          "families_admitted": 47,
+          "families_retained": 47,
+          "windows": 67,
+          "sources": {
+            "astra": 1024,
+            "policy": 1024
+          },
+          "engines": {
+            "lite": 2048
+          },
+          "kinds": {
+            "recruit": 348,
+            "move": 670,
+            "move_attack": 629,
+            "end_turn": 269,
+            "attack": 132
+          },
+          "gz_bytes": 72960262,
+          "retained_bytes": 478699208,
+          "deficit": 0,
+          "stop_reason": "window_limit"
+        }
+      },
+      "peak_rss_mb": 1849,
+      "updates": 8,
+      "loss": 0.38050520268734545,
+      "approx_kl": 0.004772284223387638,
+      "rehearsal_sources": [
+        {
+          "source": "policy",
+          "teacher_impl": null,
+          "sha256": null
+        }
+      ],
+      "rehearsal_rows_excluded": 1024,
+      "scope": "batch",
+      "planned_steps": 8,
+      "committed_steps": 8,
+      "deferred_steps": 0,
+      "stopped_by_kl_steps": 0,
+      "planned_window_visits": 24,
+      "committed_window_visits": 24,
+      "deferred_windows": 0,
+      "stopped_by_kl_windows": 0,
+      "eligible_decisions": 297,
+      "excluded_decisions": 0,
+      "excluded_games": 0,
+      "interrupted": false,
+      "kl_stopped": false,
+      "decisions_seen": 1188,
+      "unique_families_seen": 4,
+      "effective_dataset_passes": 4.0,
+      "sequence_windows": 6,
+      "microbatch": 32,
+      "exit": "completed",
+      "plan_version": 2,
+      "plan_migrated": true,
+      "planned_windows": 6,
+      "planned_targets": 297,
+      "repeated_targets": 0,
+      "inspected_decisions": 1188,
+      "committed_decisions": 1188,
+      "policy_sha256_before": "828429ceaf8399fb748fb3eebb1ac6839fb33de9e4e7f3ae29486c5d7ce56fb7",
+      "policy_sha256_after": "8375b4791bdd6c5fdf30f3ce24536329bfedf0a1abce56091a8d053b792aa662",
+      "cursor": {
+        "epoch": 4,
+        "step": 0,
+        "plan_version": 2,
+        "plan_seed": 20261017,
+        "scope": "batch",
+        "loss_sum": 3.0440416214987636,
+        "updates": 8,
+        "decisions_seen": 1188,
+        "inspected_decisions": 1188,
+        "committed_decisions": 1188
+      }
+    },
+    {
+      "batch": 11,
+      "method": "ppo",
+      "elapsed_hours": 0.4940503364139133,
+      "reads": {
+        "bc": {
+          "requested": 2048,
+          "rows": 2048,
+          "families": 40,
+          "selected": 88,
+          "families_decoded": 40,
+          "families_selected": 88,
+          "families_admitted": 40,
+          "families_retained": 40,
+          "windows": 59,
+          "sources": {
+            "astra": 1024,
+            "policy": 1024
+          },
+          "engines": {
+            "lite": 2048
+          },
+          "kinds": {
+            "recruit": 336,
+            "move_attack": 579,
+            "move": 732,
+            "end_turn": 264,
+            "attack": 137
+          },
+          "gz_bytes": 65031597,
+          "retained_bytes": 481859252,
+          "deficit": 0,
+          "stop_reason": "window_limit"
+        }
+      },
+      "peak_rss_mb": 1849,
+      "updates": 8,
+      "loss": 0.21055131126195192,
+      "approx_kl": 0.00787193061171936,
+      "rehearsal_sources": [
+        {
+          "source": "policy",
+          "teacher_impl": null,
+          "sha256": null
+        }
+      ],
+      "rehearsal_rows_excluded": 1024,
+      "scope": "batch",
+      "planned_steps": 8,
+      "committed_steps": 8,
+      "deferred_steps": 0,
+      "stopped_by_kl_steps": 0,
+      "planned_window_visits": 24,
+      "committed_window_visits": 24,
+      "deferred_windows": 0,
+      "stopped_by_kl_windows": 0,
+      "eligible_decisions": 298,
+      "excluded_decisions": 0,
+      "excluded_games": 0,
+      "interrupted": false,
+      "kl_stopped": false,
+      "decisions_seen": 1192,
+      "unique_families_seen": 4,
+      "effective_dataset_passes": 4.0,
+      "sequence_windows": 6,
+      "microbatch": 32,
+      "exit": "completed",
+      "plan_version": 2,
+      "plan_migrated": true,
+      "planned_windows": 6,
+      "planned_targets": 298,
+      "repeated_targets": 0,
+      "inspected_decisions": 1192,
+      "committed_decisions": 1192,
+      "policy_sha256_before": "8375b4791bdd6c5fdf30f3ce24536329bfedf0a1abce56091a8d053b792aa662",
+      "policy_sha256_after": "c39fa058fb3f4dd763c4fa7d5a9b2426cfdc6729ad1b280dadda70941b7d026d",
+      "cursor": {
+        "epoch": 4,
+        "step": 0,
+        "plan_version": 2,
+        "plan_seed": 20261017,
+        "scope": "batch",
+        "loss_sum": 1.6844104900956154,
+        "updates": 8,
+        "decisions_seen": 1192,
+        "inspected_decisions": 1192,
+        "committed_decisions": 1192
+      }
+    }
+  ],
+  "snapshots": [],
+  "best_key": null,
+  "bc_key": null,
+  "ppo_key": null,
+  "best_kind": null,
+  "pending_train": {
+    "paths": [
+      "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00012-duel-g0.jsonl.gz",
+      "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00012-duel-g1.jsonl.gz",
+      "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00012-duel-g2.jsonl.gz",
+      "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00012-duel-g3.jsonl.gz"
+    ],
+    "method": "ppo",
+    "cursor": {
+      "epoch": 0,
+      "step": 0,
+      "plan_version": 2,
+      "plan_seed": 20261017,
+      "plan_hash": "8fedb3d88c9f549f2bf8fb96708e6db9147c0dacec7019bdda6eb0fbd816740d",
+      "scope": "deferred",
+      "loss_sum": 0.0,
+      "updates": 0,
+      "decisions_seen": 0,
+      "inspected_decisions": 0,
+      "committed_decisions": 0
+    },
+    "reward_config": {
+      "economy": 0.15,
+      "control": 0.1,
+      "explore": 0.1,
+      "mode": "adaptive",
+      "entropy": 0.01,
+      "bc_aux": 0.1,
+      "gamma": 1.0,
+      "gae_lambda": 0.95,
+      "reward_version": 0,
+      "reward_formula_id": "v5-potential-1"
+    },
+    "identity": {
+      "train": "de2074256306a7bf803270ad75bc054c6262686c6f19378f834663d0a79cafec",
+      "bc": "389865e451c7899c95a05e6d49e104690784962280b91bd54964e63a1cd7411a"
+    }
+  },
+  "pending_validation": null,
+  "teacher_shards": [
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/teacher-00000-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/teacher-00001-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/teacher-00002-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/teacher-00003-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/teacher-00004-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/teacher-00005-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/teacher-00006-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/teacher-00007-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/teacher-00008-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/teacher-00009-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/teacher-00010-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/teacher-00011-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/teacher-00012-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/teacher-00013-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/teacher-00014-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/teacher-00015-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/teacher-00016-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/teacher-00017-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/teacher-00018-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/teacher-00019-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/teacher-00020-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/teacher-00021-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/teacher-00022-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/teacher-00023-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/teacher-00024-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/teacher-00025-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/teacher-00026-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/teacher-00027-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/teacher-00028-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/teacher-00029-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/teacher-00030-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/teacher-00031-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/teacher-00032-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/teacher-00033-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/teacher-00034-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/teacher-00035-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/teacher-00036-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/teacher-00037-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/teacher-00038-duel-t0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/teacher-00039-duel-t0.jsonl.gz"
+  ],
+  "effective": false,
+  "error": null,
+  "dagger_shards": [
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00005-duel-g0.dagger.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00005-duel-g1.dagger.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00005-duel-g2.dagger.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00005-duel-g3.dagger.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00006-duel-g0.dagger.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00006-duel-g1.dagger.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00006-duel-g2.dagger.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00006-duel-g3.dagger.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00007-duel-g0.dagger.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00007-duel-g1.dagger.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00007-duel-g2.dagger.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00007-duel-g3.dagger.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00008-duel-g0.dagger.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00008-duel-g1.dagger.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00008-duel-g2.dagger.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00008-duel-g3.dagger.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00009-duel-g0.dagger.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00009-duel-g1.dagger.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00009-duel-g2.dagger.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00009-duel-g3.dagger.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00010-duel-g0.dagger.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00010-duel-g1.dagger.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00010-duel-g2.dagger.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00010-duel-g3.dagger.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00011-duel-g0.dagger.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00011-duel-g1.dagger.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00011-duel-g2.dagger.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00011-duel-g3.dagger.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00012-duel-g0.dagger.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00012-duel-g1.dagger.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00012-duel-g2.dagger.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00012-duel-g3.dagger.jsonl.gz"
+  ],
+  "policy_shards": [
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00005-duel-g0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00005-duel-g1.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00005-duel-g2.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00005-duel-g3.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00006-duel-g0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00006-duel-g1.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00006-duel-g2.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00006-duel-g3.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00007-duel-g0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00007-duel-g1.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00007-duel-g2.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00007-duel-g3.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00008-duel-g0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00008-duel-g1.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00008-duel-g2.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00008-duel-g3.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00009-duel-g0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00009-duel-g1.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00009-duel-g2.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00009-duel-g3.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00010-duel-g0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00010-duel-g1.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00010-duel-g2.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00010-duel-g3.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00011-duel-g0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00011-duel-g1.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00011-duel-g2.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00011-duel-g3.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00012-duel-g0.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00012-duel-g1.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00012-duel-g2.jsonl.gz",
+    "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00012-duel-g3.jsonl.gz"
+  ],
+  "counters": {
+    "environment_games": 72,
+    "collection_batches": 13,
+    "optimizer_steps": 320,
+    "unique_families_seen": 68,
+    "decisions_seen": 66762,
+    "effective_dataset_passes": 53.7076171875,
+    "planned_steps": 60,
+    "committed_steps": 52,
+    "stopped_by_kl_steps": 8
+  },
+  "reward_controller": {
+    "config": {
+      "economy": 0.15,
+      "control": 0.1,
+      "explore": 0.1,
+      "mode": "adaptive",
+      "entropy": 0.01,
+      "bc_aux": 0.1,
+      "gamma": 1.0,
+      "gae_lambda": 0.95,
+      "reward_version": 0,
+      "reward_formula_id": "v5-potential-1"
+    },
+    "cursor": 0,
+    "last_check": 0,
+    "games": 68,
+    "blocks": [],
+    "seen_blocks": [],
+    "windows": [],
+    "control_previous": null,
+    "last_error": null,
+    "metrics_error": null,
+    "applied_schedule": []
+  },
+  "families_seen": [
+    "0635d91ef18dd5e008271943383e95e128da09341def8efc4facd5cfac891f78",
+    "0a3c0f48e323608680dc3f97286bcb023fb3e76c98cf82820fb2cbddaa7af611",
+    "0e025628a64621e9b86fa47a8529e8f2bbc47ea38633e7cc5f95ded8a7811706",
+    "103f1595a0d2c427f2cbfa6f5cec454df0beb8ed5adeb5ed95c6153880f4c19f",
+    "1722f7e4165c32f234a7f5c94426fae618681cbcad235c2c87e70459660b9c78",
+    "1886a904a25b2146bdfda4ef288daf12d75b9d04aadcecc4ac488e542e20f0e8",
+    "1e91c60cf2a751f010807031e66d6f6532217c6ad7034e1439b21005f87e0572",
+    "241c60f0ebb95ed54f769a27c73ba5730e093373efc8ff1465ef24d9f0c00b33",
+    "260027acb9acd8887fdb4403a9f426d7e5ff7b33c77a7cc385a04b80568c65d2",
+    "2748707286d2b44c5dc877c87bbd22779f9bdee84aab94038cbde53b1e18df68",
+    "287a0d06e48ed2cbaef7309de4802b2e1a9f30a486e8cdbe5c8de17e47d71bbe",
+    "2898c89f65423ddef19d36c1ece8e27fc8685984b15778999d8e12203943c261",
+    "2e10eac071e9bf6a7e1cf4cba146023ed43fb4f4e3120c45fa20da85d11b8d05",
+    "2e3c69e5c2448aa163656ed74be4df0d1a1e8ebc6172569bbea52ec5810a8c67",
+    "31f1cc2664cb21970253929756bf19601de7646744f1775c82f1ceef4e86a41b",
+    "333990e59239467e4bc97af452b8377bf93203add5b59d05aa286d0d561d65fb",
+    "350b4ec7234488d490c3505c3132af9726aa2ebb6821ac08b5c066833ba88c96",
+    "35797052a9507a99edacfada1b30597104c55155a04b4938db3330b333398818",
+    "3886159396982c3bf0b67a394ad5209fc8764f6451632a420068f01e65946d5d",
+    "3b24925e6135d3690093112ace435cbabb35e12243889d64bc033e9fb4264cc0",
+    "44bad0297b168be356c758c43352438c76a23880660643531b8d058f4dec48d3",
+    "465e8fc5c7049044c70dbe03cddb7cc90fda4b58c3934ff951e8199528f4d2b7",
+    "4ab3ea9f5dd04c2c70cc1ba6701b0e6bb932953ddb804c134d95c143e7c86130",
+    "4d16c8b944e8caffeccd41c4a2d18f8bac8337a5460d33c70cbe93362d02959e",
+    "4d4db978f0e0d3b802bd06992072c3872a3cc165936b070ee0f5b0d6e6d2c0d7",
+    "4d89aefa5d47ddd8efe5f06435b08a908eecbb19e0157483fa5941f88e6627de",
+    "4f9caa3345a9a832adedbc68f37cd904c4498e12a8b201f23e66c40e45888b4f",
+    "50d49c366b85c7252937f14f0907231f55d4f75efa7d5374cd240cda5eb1e82a",
+    "5bda7adedacfceb47d01a21525c8404d343f6fd01ff3f61e27bba0c8d8922e15",
+    "5fbb6c8091ce2e1dabf9b35bda00414e5a6d28dab3a6c2be7619378edf5628e0",
+    "62a197d21bf0bb02b93b4a54446a50d25b580e2229b9411b3bb1c06e48a36d65",
+    "636964deb23f2e8b7e6fcb03f3218baafddb4a0778613857f26efb55259da8bf",
+    "67a2f49a3baeab650ac59c8db62f97adc0487da975fe02724957c90092f49456",
+    "67bd80e9d45865e8b12bb55b416b79c2a0dd997a1ef20058dbd09259a70c2801",
+    "7123be0d8893321829b2eb1fc1bb4631e828f22dbf75651cacf3b89b02b2e513",
+    "73d8baf03b02951e4fdea1383827c11f5c8ea522b0ca423be973658d883d95af",
+    "7e1e52255b295e86529e7bd9fae402754816c52904533588494518a641125731",
+    "8058cec3cf963dc7291dc26b4492bd3439f5a34a741ca00f323cea85fa1fdb88",
+    "8482c089d888b8f7e05ca5f240473ef1a0fb703fb52ca1b82f03b979ebc1a958",
+    "87ddf4808282436403252564f10fe83588aefaa70ad05605a3c790c82d64c59d",
+    "8c49fa638dc9d58dda03a97325da7cf70d6f6167603ef2caf9faa2e6efa8d8a9",
+    "8e101c56ac096d73b62af8b6c266664b4b4bd91d984bc2c14c7a7082e3f1b56e",
+    "90ab5bbf670b7dde15e3bdfd1ea3f487e02cfe9181a8e97e53d13bcfa8ad2334",
+    "945ce5ebcdb78ba2a04eabd9159840f3181acb51759daaa301f417148ede81e5",
+    "98f7f976a442dca6bb48098930eab940304b26a813d827f422134de5fa3398a1",
+    "9f047311c6e0820c44500efc5320557316b52ebf2527afd4f7d62bcb8385286a",
+    "a43b80fcc7ebc8d7a37f8da9c5846122e8b96f334493a21d24f00217cb7ecb26",
+    "b022a20d0c4ae10bdd15a01057b625faa264142b4c96f0a134508d5f60de1189",
+    "b397b937b8aa3d394e3291ffda6b6088fe9210b9dfa0db2ba1f5989a61a0847c",
+    "b5950c9f9ceb99fff01c458ff59e0cf43870df5f5beea055e3616675ee47dffe",
+    "b72f0a8c15fb4f500ead3cf7279d166a5a741c6358744d16dced9fe6e286a480",
+    "b9628da4b84c2f9dfb2d07ed8a8c47369fcccd95ed3560aab7021e76123cf783",
+    "bc92c77ec508e92382e9c452b30407035a837a2bfb37ff69e5c15aecd247574b",
+    "be5561751328671f0746d077a7eea8956c24597aaf94f5bd2d004be9af481f62",
+    "c42faa9aa5b725441c473e5b0f37f7e4aa6173738fa26a21c6d50619bd4c6ac3",
+    "c5e3d168d5c6fe4463688f6b5b9a91e5a6d1eb1b0f678365870e25f2068ceeaf",
+    "c639f4b62b69214a7833d3be39ee21297b4bd4493b7ac39cbe46b2ab5d40658e",
+    "c6fa05f34569cfcc74c1e5d35c49d7ab56ca3c5dd51225493487c11e7112954b",
+    "cb02e1186c57054b0d51cb0069841d245dd956f8fc73109040183d5ecbe3b4b4",
+    "cca4325e9da39c3efce896d5d9c50f3d817d42cb2fcb3c90e6adbd7e07011c4c",
+    "d3e714995f69866ebde265fdcf4ddfaa0f8c1b9216207fa99436148d944068db",
+    "e3573f786bbac96a7e6b04bed8f03310b808f8054fb6273d48ca507d7d58942f",
+    "e65f3b73571637a5ac7cbf378f378ef3daa3f7369c6479c9d8cb8431820febb5",
+    "ea9aee07b5b58cccb3511550ccf35b3b8ea40fc33bbed3fefd8c855e860ef08f",
+    "f0ce5a2ce0d29c847726cdfc0864d26602f5f89cc51d5380fc44511ef059d103",
+    "f438784b7503a0c4558ddf96dcd3968c66e38f11c5ed8aadfa14df40d4fc63f6",
+    "f6ef505c1ab5295cf60a6a3b7cf6cfb31901c77f2b1cb7c22b49515814fb81f7",
+    "f906314f6b6fd2bda0157bb7eedd07307290a5a1d20627b29615ac11f763281d"
+  ],
+  "bc_quality_best": 0.4011713030746706,
+  "bc_plateau": 0,
+  "phase_history": [
+    {
+      "deadline": 1793424908.8323855,
+      "force": true,
+      "id": "9d60718b1f224eeab61768e8f0f989b0",
+      "phase": "ppo",
+      "reason": "L1 reduced panel: duel BC gate not reached in 40 games",
+      "requested_at": 1793424008.8323855,
+      "previous_phase": "bc",
+      "pretraining_complete": false,
+      "applied_at": 1793424010.8939836
+    }
+  ],
+  "phase_deadline": 1793424908.8323855,
+  "phase_command_id": "9d60718b1f224eeab61768e8f0f989b0",
+  "forced_ppo": {
+    "reason": "L1 reduced panel: duel BC gate not reached in 40 games",
+    "command_id": "9d60718b1f224eeab61768e8f0f989b0",
+    "version": 4
+  },
+  "control_metrics": {
+    "partition": "train",
+    "new_games": 4,
+    "faulted_games": 0
+  },
+  "status": "stage_complete"
+}
