@@ -6,14 +6,6 @@ Updated 2026-10-31. This file holds only acceptance work that is still open. Acc
 
 Every item states what is open, the smallest Ubuntu procedure that would close it, the pass criteria and the evidence path. Status vocabulary: **PASS**, **FAIL**, **NOT RUN**, **REUSED** (existing evidence with matching identities). A check that cannot run is NOT RUN, never a skipped pass. Bounded smoke results label themselves inconclusive for strength, and no item here authorizes collection, formal training or tuning.
 
-## C1 — Native decision budget for shared candidates
-
-**Status: NOT RUN.** Ubuntu minimal checks cover 12/12/12 refill and the common candidate set; full native decision timing with 37 candidates is unaccepted.
-
-**Minimal procedure:** on Ubuntu, use frozen source/rules and representative dense midgame positions in all three formats. Measure observation, generation and scoring together, including a full 37-candidate pool; record source/weight identities.
-
-**Pass:** non-first decisions meet the unchanged native one-second budget without faults or illegal actions, with the same candidate contract in sampling and deployment. Write evidence to a new dated verification directory. This blocks native performance acceptance; it does not authorize collection or training.
-
 ## Boundaries and shared inputs
 
 - Ubuntu accepts; Windows provides reference only. Work in an isolated directory or temporary run. Frozen inputs, manifests, evidence and installed models remain read-only.
