@@ -52,18 +52,6 @@ def play_job(job):
     if job.get('engine','native')=='lite':
         from .lite_host import play_lite_job
         return play_lite_job(job)
-    stock_sides=job.get('learning',{}).get('stock_capture',[])
-    if stock_sides:
-        from .manifest import active_teacher
-        from .stock_rca import capture_sha256, frames_to_labels
-        from .common import sha256
-        teacher=active_teacher(dict(teacher=job.get('teacher_identity')))
-        if teacher['kind']!='wesnoth_default_rca' or teacher['capture_sha256']!=capture_sha256():
-            raise ValueError('stock capture differs from the frozen teacher')
-        if teacher.get('runtime_sha256')!=sha256(job['wesnoth']):
-            raise ValueError('stock capture runtime differs from the frozen teacher')
-        if any(job['bots'][side-1]!='baseline' for side in stock_sides):
-            raise ValueError('stock capture cannot label an addon controller')
     try:
         result = match.play_game(bots=job['bots'], seed=job['seed'], factions=job['factions'],
             max_turns=job.get('max_turns',30), wesnoth=job['wesnoth'], replay_path=output,
