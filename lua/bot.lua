@@ -15,10 +15,12 @@ function M:evaluation(cfg,data)
     local started=wesnoth.ms_since_init()
     local obs=O.capture(data.memory)
     local raw=W.capture(obs,data.memory,data.training~=nil)
-    local candidates,timing=C.generate(obs,config.candidate_budget_ms)
+    local candidates,timing=C.generate(obs)
     if data.training and data.training.dagger_entry then T.observe(data,obs) end
     data.neural_memory=data.neural_memory or {}
+    local scored=wesnoth.ms_since_init()
     local scores,value,pending=N.forward(data.weights,obs.global,obs.opponents,candidates,obs.spatial,data.neural_memory,wesnoth.current.turn)
+    timing.score_ms=wesnoth.ms_since_init()-scored
     data.pending_memory=pending
     if config.mode=='rule' then for i,a in ipairs(candidates) do scores[i]=a.rule end end
     local function random()
@@ -36,6 +38,7 @@ function M:evaluation(cfg,data)
     data.learning_record.reward_raw=raw
     data.learning_record.committed=false
     data.plan_obs=obs
+    timing.generate_ms=timing.ms
     data.learning_record.timing.inference_ms=wesnoth.ms_since_init()-started-timing.ms
     local actual={}
     for _,key in ipairs {'kind','x','y','tx','ty','ex','ey','type','weapon','full'} do actual[key]=data.plan[key] end
