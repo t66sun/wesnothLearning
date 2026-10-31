@@ -1,8 +1,0 @@
-test_a_game_past_the_old_limit_no_longer_fails (tests.v5.test_native_log_cap.NativeLogCapTests.test_a_game_past_the_old_limit_no_longer_fails) ... ok
-test_cap_is_eighty_mib (tests.v5.test_native_log_cap.NativeLogCapTests.test_cap_is_eighty_mib) ... ok
-test_captured_frames_do_not_count_against_the_cap (tests.v5.test_native_log_cap.NativeLogCapTests.test_captured_frames_do_not_count_against_the_cap) ... ok
-
-----------------------------------------------------------------------
-Ran 3 tests in 0.000s
-
-OK
