@@ -3,7 +3,7 @@
 Static review date: 2026-10-31 (Asia/Shanghai).
 Source: `f563cade05eabeb6a45f48ce0dc476654cf71ae4`, initially clean `master` working tree.
 
-Scope: the training/coordinator, BC/PPO, recurrent policy, shared Lua candidate generation, lite policy execution, combat and deployment paths. This is a targeted static review, not an exhaustive proof of correctness. No tests, games, collection, training or remote acceptance were run. Existing reports are cited as historical evidence, not fresh acceptance. The original review wrote only this report. The subsequently authorized implementation of items 1-4 and 8 is recorded below; the other items remain proposals.
+Scope: the training/coordinator, BC/PPO, recurrent policy, shared Lua candidate generation, lite policy execution, combat and deployment paths. This is a targeted static review, not an exhaustive proof of correctness. No tests, games, collection, training or remote acceptance were run. Existing reports are cited as historical evidence, not fresh acceptance. The original review wrote only this report. The subsequently authorized implementation of items 1-4 and 6-8 is recorded below; the other items remain proposals.
 
 P1 means a direct threat to usable policy behavior or acceptance; P2 means a concrete scaling cost or an unresolved quality prerequisite. Implementation facts, conditional consequences and missing evidence are distinguished below. Temporary documentation is English-only under the repository rules.
 
@@ -35,21 +35,15 @@ Evidence: `verification/candidate_work_budget_20261031/REPORT.md` measures gener
 
 **Repair direction:** prioritize native comparisons on common training-unit tactical situations (kill/death thresholds, slow/poison and alternative retaliation weapons). Either close the material semantic gaps or explicitly train/adapt and select on native evidence. Keep lite-only strength claims separate, and do not discard approximation guards to get through startup.
 
-## 6. P2 — BC samples windows in proportion to their number of decisions
+## 6. Completed — BC samples windows without decision-count bias
 
-**Evidence:** `learning/bc.py:23-35` samples rows with `BCSampler`, then maps each sampled row back to its entire window. `learning/data.py:266-283` chooses a source/engine/family and then a row uniformly within that pool. `learning/bc.py:38-58` averages each selected window equally, but does not correct the probability by which it was selected.
+Each eight-turn window contributes one representative to the existing source/engine/family quota sampler, and the selected whole window is trained. Sampling is explicitly with replacement. The committed-step cursor records visits and visited window indices; final metrics distinguish unique and repeated window visits. Unequal-length sampling and update checks pass on Ubuntu. This intentionally changes BC sampling, not PPO rehearsal quotas.
 
-**Impact:** within a fixed source/engine/family pool, a 200-decision window is selected ten times as often as a 20-decision window. The per-selection mean does not remove this length bias. Sampling with replacement also permits the same window several times in a logical batch while others remain unseen. The docstring that each real decision counts once and the equal-window explanation therefore overstate the actual coverage; decision totals/effective passes count repeated visits rather than unique coverage. This can spend disproportionate BC cost on long, action-heavy positions and distort the intended learning balance.
+## 7. Completed — Reuse detached prefixes and advance frozen memory incrementally
 
-**Repair direction:** build the quota-aware sampler over windows, or weight inverse to window selection probability. State whether replacement is intended and report unique versus repeated visits separately. Add a sampler-distribution/coverage assertion with unequal-length windows; preserve the existing source and family quotas.
+BC/PPO share detached historical scene encodings and prefix GRU states only within one logical optimizer step; the active replay suffix retains gradients and every new step starts a fresh cache. Frozen lite policies process only newly committed turn rows, maintaining separate per-side/job hidden state and 32 memory slots. Output/gradient comparisons, slot-overflow parity, bootstrap/side isolation and PPO resume checks pass. A 35-turn fixture drops encoded rows from 630 to 69; full-training wall-clock speedup is unmeasured.
 
-## 7. P2 — Historical scene encoding repeats across training microbatches and frozen-policy turns
-
-**Evidence:** `learning/model.py:69-101` traverses and encodes every supplied history row, including the no-gradient prefix. Its caches are explicitly local to one `context()` call. `learning/bc.py:40-46` and `learning/ppo.py:152-175` invoke the model repeatedly for microbatches (PPO also invokes rehearsal). `learning/lite_policy.py:64-70` caches one memory context per history-length/turn key but reconstructs that context from the complete history whenever the key changes.
-
-**Impact:** the eight-turn replay setting bounds differentiable recurrence, not total prefix encoding work. Shared histories save work within a call, but repeated calls redo entity attention and board encoding for those same old turns. Frozen-policy whole-game prefix work grows quadratically with turn count if history grows one row per turn. Training pays repeated prefix costs even before any optimizer update changes the weights. The current 30-turn cap limits magnitude; no percentage slowdown is claimed.
-
-**Repair direction:** for frozen rollout weights, advance GRU/slot state incrementally as Lua already does. For training, reuse only safe detached prefix computations within an unchanged-weight boundary, retaining gradients for the active replay suffix and invalidating at optimizer steps. Compare memory/context outputs before adopting the optimization; never reuse old-policy hidden state across weight updates.
+Evidence for items 6-7: `verification/window_memory_20261101/REPORT.md`. Two pre-existing fixed-loss test failures remain documented, with identical baseline results. No formal training or collection was launched.
 
 ## 8. Completed — Coordinator appends job results without rereading the log
 

@@ -35,6 +35,7 @@ def update(model, optimizer, records, bc_records=None, epochs=4, minibatch=256, 
                 return dict(updates=updates, loss=loss_sum / max(1, updates), interrupted=True)
             batch_rng = random.getstate()
             optimizer.zero_grad()
+            history_cache = {}
             selected_windows = [window_index[id(r)] for r in sampler.sample(sequence_count)]
             total_value = 0.
             step_decisions = 0
@@ -46,7 +47,7 @@ def update(model, optimizer, records, bc_records=None, epochs=4, minibatch=256, 
                         random.setstate(batch_rng)
                         return dict(updates=updates, loss=loss_sum / max(1, updates), interrupted=True)
                     rows = window[offset:offset + micro]
-                    logits, values = model(*batch(rows, device))
+                    logits, values = model(*batch(rows, device, history_cache=history_cache))
                     dist = torch.distributions.Categorical(logits=logits)
                     chosen = torch.tensor([r['choice'] for r in rows], device=device)
                     logp = dist.log_prob(chosen)

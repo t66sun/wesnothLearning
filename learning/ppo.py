@@ -140,6 +140,7 @@ def update(model, optimizer, records, bc_records=None, epochs=4, minibatch=256, 
                 return result('deadline', interrupted=True)
             batch_rng = random.getstate()
             optimizer.zero_grad()
+            history_cache = {}
             selected = [windows[index] for index in order[step * sequence_count:(step + 1) * sequence_count]]
             total_value = 0.
             inspected_batch = 0
@@ -159,7 +160,7 @@ def update(model, optimizer, records, bc_records=None, epochs=4, minibatch=256, 
                     rows = window[offset:offset + micro]
                     inspected_batch += len(rows)
                     inspected += len(rows)
-                    logits, values = model(*batch(rows, device))
+                    logits, values = model(*batch(rows, device, history_cache=history_cache))
                     dist = torch.distributions.Categorical(logits=logits)
                     chosen = torch.tensor([r['choice'] for r in rows], device=device)
                     logp = dist.log_prob(chosen)
@@ -172,7 +173,7 @@ def update(model, optimizer, records, bc_records=None, epochs=4, minibatch=256, 
                     loss = -torch.minimum(ratio * a, ratio.clamp(.8, 1.2) * a).mean() + .5 * (values - ret[selected_rows]).square().mean() - entropy * dist.entropy().mean()
                     if rehearsal_sampler is not None:
                         rehearsal = rehearsal_sampler.sample(len(rows))
-                        bc_logits, _ = model(*batch(rehearsal, device))
+                        bc_logits, _ = model(*batch(rehearsal, device, history_cache=history_cache))
                         loss = loss + bc_aux * torch.nn.functional.cross_entropy(bc_logits, torch.tensor([r['choice'] for r in rehearsal], device=device))
                     if not torch.isfinite(loss):
                         raise ValueError('nonfinite training loss')

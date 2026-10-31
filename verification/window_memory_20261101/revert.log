@@ -1,0 +1,48 @@
+test_bc_indexes_windows_not_decisions (tests.v5.test_window_memory_cost.WindowMemoryTests.test_bc_indexes_windows_not_decisions) ... FAIL
+test_detached_cache_preserves_gradients_and_reduces_encoding (tests.v5.test_window_memory_cost.WindowMemoryTests.test_detached_cache_preserves_gradients_and_reduces_encoding) ... ERROR
+test_long_rollout_encodes_each_history_row_once (tests.v5.test_window_memory_cost.IncrementalMemoryTests.test_long_rollout_encodes_each_history_row_once) ... FAIL
+
+======================================================================
+ERROR: test_detached_cache_preserves_gradients_and_reduces_encoding (tests.v5.test_window_memory_cost.WindowMemoryTests.test_detached_cache_preserves_gradients_and_reduces_encoding)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/window_memory_20261101_base/tests/v5/test_window_memory_cost.py", line 43, in test_detached_cache_preserves_gradients_and_reduces_encoding
+    actual=model(*batch([record],history_cache=cache))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: batch() got an unexpected keyword argument 'history_cache'
+
+======================================================================
+FAIL: test_bc_indexes_windows_not_decisions (tests.v5.test_window_memory_cost.WindowMemoryTests.test_bc_indexes_windows_not_decisions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/window_memory_20261101_base/tests/v5/test_window_memory_cost.py", line 29, in test_bc_indexes_windows_not_decisions
+    result=bc.update(model,optimizer,rows,epochs=1,minibatch=16)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/acceptance/window_memory_20261101_base/learning/bc.py", line 24, in update
+    sampler = make_bc_sampler(records)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/mock.py", line 1134, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/mock.py", line 1138, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/mock.py", line 1199, in _execute_mock_call
+    result = effect(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/acceptance/window_memory_20261101_base/tests/v5/test_window_memory_cost.py", line 22, in check
+    self.assertEqual(len(representatives),2)
+AssertionError: 18 != 2
+
+======================================================================
+FAIL: test_long_rollout_encodes_each_history_row_once (tests.v5.test_window_memory_cost.IncrementalMemoryTests.test_long_rollout_encodes_each_history_row_once)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/window_memory_20261101_base/tests/v5/test_window_memory_cost.py", line 66, in test_long_rollout_encodes_each_history_row_once
+    self.assertEqual(count,35+34)
+AssertionError: 630 != 69
+
+----------------------------------------------------------------------
+Ran 3 tests in 1.558s
+
+FAILED (failures=2, errors=1)

@@ -66,9 +66,12 @@ class Policy(nn.Module):
         scores=(self.memory_key(values)*self.memory_query(h)[:,None]).sum(-1)/8
         return (scores.softmax(-1)[...,None]*self.memory_value(values)).sum(1)
 
-    def context(self,scene,histories,current_turns):
+    def context(self,scene,histories,current_turns,cache=None):
         # Raw history rows are shared by attach_histories within each sequence.
-        # All caches live in this call: every optimizer update uses current weights.
+        # Callers may share detached work only within one unchanged-weight step.
+        cache = {} if cache is None else cache
+        saved = cache.setdefault("scenes", {})
+        saved_prefix = cache.setdefault("prefixes", {})
         rows={}; active=set(); nodes=[None]; edges={}; paths=[]
         for history in histories:
             parent=0; path=[]
@@ -82,7 +85,8 @@ class Policy(nn.Module):
             paths.append(path)
         encoded={}; summaries={}
         for differentiable in (False,True):
-            selected=[key for key in rows if (key in active)==differentiable]
+            selected=[key for key in rows if (key in active)==differentiable
+                      and (differentiable or key not in saved)]
             with torch.set_grad_enabled(torch.is_grad_enabled() and differentiable):
                 for start in range(0,len(selected),32):
                     keys=selected[start:start+32]
@@ -91,14 +95,24 @@ class Policy(nn.Module):
                     summary=torch.tanh(self.summary(s))
                     for j,key in enumerate(keys):
                         encoded[key]=s[j:j+1];summaries[key]=summary[j:j+1]
+                        saved[key]=(rows[key],encoded[key].detach(),summaries[key].detach())
+        for key in rows:
+            if key not in encoded:
+                _,encoded[key],summaries[key]=saved[key]
         zero=scene.new_zeros(1,128); prefix={0:zero}; replay={}
         needed=set()
         for path in paths:
             cut=max(0,len(path)-ARCHITECTURE['replay_turns'])
             needed.update(path[:cut] if torch.is_grad_enabled() else path)
+        identities={0:()}
         with torch.no_grad():
             for node,(parent,key) in enumerate(nodes[1:],1):
-                if node in needed: prefix[node]=self.gru(encoded[key],prefix[parent])
+                identities[node]=identities[parent]+(key,)
+                if node in needed:
+                    identity=identities[node]
+                    if identity not in saved_prefix:
+                        saved_prefix[identity]=self.gru(encoded[key],prefix[parent])
+                    prefix[node]=saved_prefix[identity]
         output=[]
         for i,(history,path) in enumerate(zip(histories,paths)):
             cut=max(0,len(path)-ARCHITECTURE['replay_turns'])
@@ -122,7 +136,8 @@ class Policy(nn.Module):
     def forward(self,global_features,opponents,actions,opponent_mask,action_mask,payload):
         scene,entities=self.encode_scene(global_features,opponents,opponent_mask,payload)
         context=(torch.cat([scene,payload['memory_context']],-1) if 'memory_context' in payload
-                 else self.context(scene,payload['histories'],payload['turns']))
+                 else (self.context(scene,payload['histories'],payload['turns'],payload['history_cache'])
+                       if 'history_cache' in payload else self.context(scene,payload['histories'],payload['turns'])))
         def gather(name):
             direct=torch.relu(self.entity(torch.cat([payload[name],self.unit_embedding(payload[name+'_types'])],-1)))
             indices=payload[name+'_indices']
@@ -135,7 +150,7 @@ class Policy(nn.Module):
         return logits,self.value(context).squeeze(-1)
 
 
-def batch(records,device='cpu',include_history=True):
+def batch(records,device='cpu',include_history=True,history_cache=None):
     b=len(records); n=max(1,max(len(r['opponents']) for r in records)); a=max(1,max(len(r['candidates']) for r in records))
     zeros=lambda shape: np.zeros(shape,dtype=np.float32)
     stack=lambda values: np.stack(values).astype(np.float32,copy=False)
@@ -167,4 +182,5 @@ def batch(records,device='cpu',include_history=True):
     tensor=lambda value: torch.as_tensor(value,device=device)
     p={key:tensor(value) for key,value in p.items()}
     p.update(histories=[r.get('_history',[]) if include_history else [] for r in records],turns=[r['turn'] for r in records])
+    if history_cache is not None: p['history_cache']=history_cache
     return tensor(g),tensor(opponents),tensor(actions),tensor(om),tensor(am),p

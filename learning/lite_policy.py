@@ -36,7 +36,7 @@ def is_astra(bot): return bot in ('astra','gpt6astra') or Path(str(bot)).stem=='
 
 class FrozenPolicies:
     def __init__(self,job):
-        self.job=job;self.histories={};self.models={};self.rng={};self.modes={};self.memory_contexts={}
+        self.job=job;self.histories={};self.models={};self.rng={};self.modes={};self.memory_contexts={};self.memory_states={}
         from .formats import infer_format
         self.format=job.get('format') or job.get('meta',{}).get('format') or infer_format(dict(bots=job['bots'],teams=job.get('teams')))
         from .export import load_model
@@ -65,8 +65,16 @@ class FrozenPolicies:
         with torch.no_grad():
             cached=self.memory_contexts.get(side)
             if cached is None or cached[0]!=key:
-                zero=next(model.parameters()).new_zeros(1,model.scene_width)
-                memory=model.context(zero,[history],[row['turn']])[:,model.scene_width:]
+                count,h,slots,turns=self.memory_states.get(side,
+                    (0,next(model.parameters()).new_zeros(1,128),[],[]))
+                for write in history[count:]:
+                    inputs=batch([write],'cpu',include_history=False)
+                    scene,_=model.encode_scene(inputs[0],inputs[1],inputs[3],inputs[5])
+                    h=model.gru(scene,h)
+                    slots=(slots+[torch.tanh(model.summary(scene))])[-32:]
+                    turns=(turns+[write['turn']])[-32:]
+                self.memory_states[side]=(len(history),h,slots,turns)
+                memory=torch.cat([h,model.memory_read(h,slots,[row['turn']-t for t in turns])],-1)
                 cached=(key,memory);self.memory_contexts[side]=cached
             tensors=batch([row],'cpu',include_history=False)
             tensors[5]['memory_context']=cached[1]
