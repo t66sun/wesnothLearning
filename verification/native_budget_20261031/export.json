@@ -1,0 +1,1540 @@
+{
+  "models": {
+    "duel": {
+      "version": "untrained",
+      "parameters": 771714,
+      "sha256": "2f4fe9cc34fe4797089eb2fdb96ecab9f118f4f14fdc7088d29e5ba140e80fcd",
+      "evaluation": "not_evaluated"
+    },
+    "ffa4": {
+      "version": "untrained",
+      "parameters": 771714,
+      "sha256": "7c525903fb779db8d7f7b465231536d55cca347c146c4851b0df18448fb67fb0",
+      "evaluation": "not_evaluated"
+    },
+    "team2v2": {
+      "version": "untrained",
+      "parameters": 771714,
+      "sha256": "088891b8e7d4c1996723b16f5dd2be2e387b4b72895d5b09da52a07361b09b0b",
+      "evaluation": "not_evaluated"
+    }
+  },
+  "features": {
+    "version": 5,
+    "normalization": "value / scale, clipped to [-4, 4]; unit_type_index is an unscaled integer",
+    "global_features": [
+      [
+        "initial_opponents",
+        8
+      ],
+      [
+        "size_duel",
+        1
+      ],
+      [
+        "size_medium",
+        1
+      ],
+      [
+        "size_large",
+        1
+      ],
+      [
+        "known_alive",
+        8
+      ],
+      [
+        "alive_unknown",
+        1
+      ],
+      [
+        "gold",
+        200
+      ],
+      [
+        "income",
+        20
+      ],
+      [
+        "own_units",
+        40
+      ],
+      [
+        "own_hp",
+        1500
+      ],
+      [
+        "leader_hp_fraction",
+        1
+      ],
+      [
+        "leader_visible_threat",
+        10
+      ],
+      [
+        "lawful_bonus",
+        25
+      ],
+      [
+        "turn",
+        30
+      ],
+      [
+        "visible_enemies",
+        40
+      ],
+      [
+        "known_owned_villages",
+        20
+      ],
+      [
+        "teammates",
+        8
+      ],
+      [
+        "visible_allied_units",
+        40
+      ],
+      [
+        "visible_allied_hp",
+        1500
+      ],
+      [
+        "nearest_allied_leader",
+        50
+      ],
+      [
+        "own_level0",
+        40
+      ],
+      [
+        "own_level1",
+        40
+      ],
+      [
+        "own_level2plus",
+        40
+      ],
+      [
+        "own_fast",
+        40
+      ],
+      [
+        "own_injured",
+        40
+      ],
+      [
+        "own_damage_blade",
+        40
+      ],
+      [
+        "own_damage_pierce",
+        40
+      ],
+      [
+        "own_damage_impact",
+        40
+      ],
+      [
+        "own_damage_fire",
+        40
+      ],
+      [
+        "own_damage_cold",
+        40
+      ],
+      [
+        "own_damage_arcane",
+        40
+      ],
+      [
+        "enemy_level0",
+        40
+      ],
+      [
+        "enemy_level1",
+        40
+      ],
+      [
+        "enemy_level2plus",
+        40
+      ],
+      [
+        "enemy_fast",
+        40
+      ],
+      [
+        "enemy_injured",
+        40
+      ],
+      [
+        "enemy_damage_blade",
+        40
+      ],
+      [
+        "enemy_damage_pierce",
+        40
+      ],
+      [
+        "enemy_damage_impact",
+        40
+      ],
+      [
+        "enemy_damage_fire",
+        40
+      ],
+      [
+        "enemy_damage_cold",
+        40
+      ],
+      [
+        "enemy_damage_arcane",
+        40
+      ],
+      [
+        "remaining_unit_moves",
+        200
+      ],
+      [
+        "previous_end_turns",
+        30
+      ],
+      [
+        "repeated_moves",
+        100
+      ]
+    ],
+    "opponent_features": [
+      [
+        "visible_units",
+        40
+      ],
+      [
+        "visible_hp",
+        1500
+      ],
+      [
+        "visible_cost",
+        600
+      ],
+      [
+        "visible_leaders",
+        2
+      ],
+      [
+        "nearest_to_own_leader",
+        50
+      ],
+      [
+        "known_villages",
+        20
+      ],
+      [
+        "ever_seen",
+        1
+      ],
+      [
+        "alive_unknown",
+        1
+      ],
+      [
+        "level0",
+        40
+      ],
+      [
+        "level1",
+        40
+      ],
+      [
+        "level2plus",
+        40
+      ],
+      [
+        "fast",
+        40
+      ],
+      [
+        "injured",
+        40
+      ],
+      [
+        "damage_blade",
+        40
+      ],
+      [
+        "damage_pierce",
+        40
+      ],
+      [
+        "damage_impact",
+        40
+      ],
+      [
+        "damage_fire",
+        40
+      ],
+      [
+        "damage_cold",
+        40
+      ],
+      [
+        "damage_arcane",
+        40
+      ]
+    ],
+    "action_features": [
+      [
+        "end_turn",
+        1
+      ],
+      [
+        "recruit",
+        1
+      ],
+      [
+        "move",
+        1
+      ],
+      [
+        "attack",
+        1
+      ],
+      [
+        "move_attack",
+        1
+      ],
+      [
+        "unit_hp_fraction",
+        1
+      ],
+      [
+        "unit_cost",
+        50
+      ],
+      [
+        "movement_used",
+        10
+      ],
+      [
+        "enemy_approach",
+        20
+      ],
+      [
+        "village_gain",
+        1
+      ],
+      [
+        "healing",
+        8
+      ],
+      [
+        "defense",
+        100
+      ],
+      [
+        "friendly_support",
+        10
+      ],
+      [
+        "visible_threat",
+        10
+      ],
+      [
+        "expected_enemy_damage",
+        50
+      ],
+      [
+        "expected_self_damage",
+        50
+      ],
+      [
+        "kill_probability",
+        1
+      ],
+      [
+        "death_probability",
+        1
+      ],
+      [
+        "target_leader",
+        1
+      ],
+      [
+        "own_leader",
+        1
+      ],
+      [
+        "gold_cost",
+        50
+      ],
+      [
+        "village_approach",
+        20
+      ],
+      [
+        "remaining_moves",
+        10
+      ],
+      [
+        "combat_predicted",
+        1
+      ],
+      [
+        "max_hp",
+        100
+      ],
+      [
+        "max_moves",
+        10
+      ],
+      [
+        "unit_level",
+        4
+      ],
+      [
+        "alignment_lawful",
+        1
+      ],
+      [
+        "alignment_neutral",
+        1
+      ],
+      [
+        "alignment_chaotic",
+        1
+      ],
+      [
+        "alignment_liminal",
+        1
+      ],
+      [
+        "resistance_blade",
+        100
+      ],
+      [
+        "resistance_pierce",
+        100
+      ],
+      [
+        "resistance_impact",
+        100
+      ],
+      [
+        "resistance_fire",
+        100
+      ],
+      [
+        "resistance_cold",
+        100
+      ],
+      [
+        "resistance_arcane",
+        100
+      ],
+      [
+        "move_cost_flat",
+        10
+      ],
+      [
+        "terrain_defense_flat",
+        100
+      ],
+      [
+        "move_cost_forest",
+        10
+      ],
+      [
+        "terrain_defense_forest",
+        100
+      ],
+      [
+        "move_cost_hills",
+        10
+      ],
+      [
+        "terrain_defense_hills",
+        100
+      ],
+      [
+        "move_cost_mountain",
+        10
+      ],
+      [
+        "terrain_defense_mountain",
+        100
+      ],
+      [
+        "move_cost_water",
+        10
+      ],
+      [
+        "terrain_defense_water",
+        100
+      ],
+      [
+        "move_cost_swamp",
+        10
+      ],
+      [
+        "terrain_defense_swamp",
+        100
+      ],
+      [
+        "weapon1_damage",
+        50
+      ],
+      [
+        "weapon1_strikes",
+        10
+      ],
+      [
+        "weapon1_melee",
+        1
+      ],
+      [
+        "weapon1_ranged",
+        1
+      ],
+      [
+        "weapon1_blade",
+        1
+      ],
+      [
+        "weapon1_pierce",
+        1
+      ],
+      [
+        "weapon1_impact",
+        1
+      ],
+      [
+        "weapon1_fire",
+        1
+      ],
+      [
+        "weapon1_cold",
+        1
+      ],
+      [
+        "weapon1_arcane",
+        1
+      ],
+      [
+        "weapon1_poison",
+        1
+      ],
+      [
+        "weapon1_slow",
+        1
+      ],
+      [
+        "weapon1_drains",
+        1
+      ],
+      [
+        "weapon1_magical",
+        1
+      ],
+      [
+        "weapon1_marksman",
+        1
+      ],
+      [
+        "weapon1_charge",
+        1
+      ],
+      [
+        "weapon1_firststrike",
+        1
+      ],
+      [
+        "weapon1_berserk",
+        1
+      ],
+      [
+        "weapon2_damage",
+        50
+      ],
+      [
+        "weapon2_strikes",
+        10
+      ],
+      [
+        "weapon2_melee",
+        1
+      ],
+      [
+        "weapon2_ranged",
+        1
+      ],
+      [
+        "weapon2_blade",
+        1
+      ],
+      [
+        "weapon2_pierce",
+        1
+      ],
+      [
+        "weapon2_impact",
+        1
+      ],
+      [
+        "weapon2_fire",
+        1
+      ],
+      [
+        "weapon2_cold",
+        1
+      ],
+      [
+        "weapon2_arcane",
+        1
+      ],
+      [
+        "weapon2_poison",
+        1
+      ],
+      [
+        "weapon2_slow",
+        1
+      ],
+      [
+        "weapon2_drains",
+        1
+      ],
+      [
+        "weapon2_magical",
+        1
+      ],
+      [
+        "weapon2_marksman",
+        1
+      ],
+      [
+        "weapon2_charge",
+        1
+      ],
+      [
+        "weapon2_firststrike",
+        1
+      ],
+      [
+        "weapon2_berserk",
+        1
+      ],
+      [
+        "weapon3_damage",
+        50
+      ],
+      [
+        "weapon3_strikes",
+        10
+      ],
+      [
+        "weapon3_melee",
+        1
+      ],
+      [
+        "weapon3_ranged",
+        1
+      ],
+      [
+        "weapon3_blade",
+        1
+      ],
+      [
+        "weapon3_pierce",
+        1
+      ],
+      [
+        "weapon3_impact",
+        1
+      ],
+      [
+        "weapon3_fire",
+        1
+      ],
+      [
+        "weapon3_cold",
+        1
+      ],
+      [
+        "weapon3_arcane",
+        1
+      ],
+      [
+        "weapon3_poison",
+        1
+      ],
+      [
+        "weapon3_slow",
+        1
+      ],
+      [
+        "weapon3_drains",
+        1
+      ],
+      [
+        "weapon3_magical",
+        1
+      ],
+      [
+        "weapon3_marksman",
+        1
+      ],
+      [
+        "weapon3_charge",
+        1
+      ],
+      [
+        "weapon3_firststrike",
+        1
+      ],
+      [
+        "weapon3_berserk",
+        1
+      ],
+      [
+        "village_own",
+        1
+      ],
+      [
+        "village_ally",
+        1
+      ],
+      [
+        "village_neutral",
+        1
+      ],
+      [
+        "village_enemy",
+        1
+      ],
+      [
+        "village_unknown",
+        1
+      ],
+      [
+        "goal_progress",
+        50
+      ],
+      [
+        "repeated_move",
+        1
+      ],
+      [
+        "move_tactical",
+        50
+      ],
+      [
+        "move_gain",
+        25
+      ],
+      [
+        "move_risk",
+        50
+      ],
+      [
+        "move_risk_delta",
+        50
+      ],
+      [
+        "move_home_distance",
+        50
+      ],
+      [
+        "move_own_support",
+        10
+      ],
+      [
+        "move_primary",
+        1
+      ],
+      [
+        "unit_type_index",
+        1
+      ]
+    ],
+    "unit_types": [
+      "<unknown>",
+      "Ancient Lich",
+      "Ancient Wose",
+      "Arch Mage",
+      "Armageddon Drake",
+      "Assassin",
+      "Bandit",
+      "Banebow",
+      "Bay Horse",
+      "Black Horse",
+      "Blood Bat",
+      "Boat",
+      "Bone Knight",
+      "Bone Shooter",
+      "Bowman",
+      "Caribe",
+      "Cavalier",
+      "Cavalryman",
+      "Cave Bear",
+      "Chocobone",
+      "Cuttle Fish",
+      "Dark Adept",
+      "Dark Horse",
+      "Dark Omen",
+      "Dark Sorcerer",
+      "Death Knight",
+      "Death Squire",
+      "Deathblade",
+      "Direwolf",
+      "Direwolf Rider",
+      "Dragonfly",
+      "Dragonfly Naiad",
+      "Dragoon",
+      "Drake Arbiter",
+      "Drake Blademaster",
+      "Drake Burner",
+      "Drake Clasher",
+      "Drake Enforcer",
+      "Drake Fighter",
+      "Drake Flameheart",
+      "Drake Flare",
+      "Drake Glider",
+      "Drake Thrasher",
+      "Drake Warden",
+      "Drake Warrior",
+      "Draug",
+      "Dread Bat",
+      "Duelist",
+      "Dune Alchemist",
+      "Dune Apothecary",
+      "Dune Blademaster",
+      "Dune Burner",
+      "Dune Captain",
+      "Dune Cataphract",
+      "Dune Explorer",
+      "Dune Falconer",
+      "Dune Firetrooper",
+      "Dune Harrier",
+      "Dune Herbalist",
+      "Dune Horse Archer",
+      "Dune Luminary",
+      "Dune Marauder",
+      "Dune Paragon",
+      "Dune Raider",
+      "Dune Rider",
+      "Dune Rover",
+      "Dune Scorcher",
+      "Dune Skirmisher",
+      "Dune Sky Hunter",
+      "Dune Soldier",
+      "Dune Spearguard",
+      "Dune Spearmaster",
+      "Dune Strider",
+      "Dune Sunderer",
+      "Dune Swordsman",
+      "Dune Warmaster",
+      "Dune Wayfarer",
+      "Dune Windbolt",
+      "Dwarvish Arcanister",
+      "Dwarvish Berserker",
+      "Dwarvish Dragonguard",
+      "Dwarvish Explorer",
+      "Dwarvish Fighter",
+      "Dwarvish Guardsman",
+      "Dwarvish Lord",
+      "Dwarvish Miner",
+      "Dwarvish Pathfinder",
+      "Dwarvish Runemaster",
+      "Dwarvish Runesmith",
+      "Dwarvish Scout",
+      "Dwarvish Sentinel",
+      "Dwarvish Stalwart",
+      "Dwarvish Steelclad",
+      "Dwarvish Thunderer",
+      "Dwarvish Thunderguard",
+      "Dwarvish Ulfserker",
+      "Elder Falcon",
+      "Elder Mage",
+      "Elder Wose",
+      "Elvish Archer",
+      "Elvish Avenger",
+      "Elvish Captain",
+      "Elvish Champion",
+      "Elvish Druid",
+      "Elvish Enchantress",
+      "Elvish Fighter",
+      "Elvish Hero",
+      "Elvish High Lord",
+      "Elvish Lady",
+      "Elvish Lord",
+      "Elvish Marksman",
+      "Elvish Marshal",
+      "Elvish Outrider",
+      "Elvish Ranger",
+      "Elvish Rider",
+      "Elvish Scout",
+      "Elvish Shaman",
+      "Elvish Sharpshooter",
+      "Elvish Shyde",
+      "Elvish Sorceress",
+      "Elvish Sylph",
+      "Falcon",
+      "Fencer",
+      "Fire Ant",
+      "Fire Ant Egg",
+      "Fire Ant Queen",
+      "Fire Dragon",
+      "Fire Drake",
+      "Fire Guardian",
+      "Fire Wraith",
+      "Firebane Ant",
+      "Firebomb Ant",
+      "Fog Clearer",
+      "Footpad",
+      "Frost Stoat",
+      "Fugitive",
+      "Galleon",
+      "General",
+      "Ghast",
+      "Ghost",
+      "Ghoul",
+      "Giant Ant",
+      "Giant Ant Egg",
+      "Giant Ant Queen",
+      "Giant Mudcrawler",
+      "Giant Rat",
+      "Giant Scorpion",
+      "Giant Scorpling",
+      "Giant Spider",
+      "Goblin Impaler",
+      "Goblin Knight",
+      "Goblin Pillager",
+      "Goblin Rouser",
+      "Goblin Spearman",
+      "Grand Dragonfly",
+      "Grand Knight",
+      "Grand Marshal",
+      "Great Horse",
+      "Great Icemonax",
+      "Great Mage",
+      "Great Seahorse",
+      "Great Troll",
+      "Great Wolf",
+      "Gryphon",
+      "Gryphon Master",
+      "Gryphon Rider",
+      "Halberdier",
+      "Heavy Infantryman",
+      "Highwayman",
+      "Horned Scarab",
+      "Horseman",
+      "Hunter Caribe",
+      "Huntsman",
+      "Hurricane Drake",
+      "Icemonax",
+      "Inferno Drake",
+      "Iron Mauler",
+      "Javelineer",
+      "Jinn",
+      "Knight",
+      "Kraken",
+      "Lancer",
+      "Lich",
+      "Lieutenant",
+      "Longbowman",
+      "Mage",
+      "Mage of Light",
+      "Master Bowman",
+      "Master at Arms",
+      "Mermaid Diviner",
+      "Mermaid Enchantress",
+      "Mermaid Initiate",
+      "Mermaid Priestess",
+      "Mermaid Siren",
+      "Merman Brawler",
+      "Merman Citizen",
+      "Merman Entangler",
+      "Merman Fighter",
+      "Merman Hoplite",
+      "Merman Hunter",
+      "Merman Javelineer",
+      "Merman Netcaster",
+      "Merman Spearman",
+      "Merman Triton",
+      "Merman Warrior",
+      "Mudcrawler",
+      "Naga Dirkfang",
+      "Naga Fighter",
+      "Naga Guard",
+      "Naga High Guard",
+      "Naga Myrmidon",
+      "Naga Ophidian",
+      "Naga Ringcaster",
+      "Naga Shield Guard",
+      "Naga Sicarius",
+      "Naga Warrior",
+      "Naga Zephyr",
+      "Necromancer",
+      "Necrophage",
+      "Nibbler",
+      "Nightgaunt",
+      "Ogre",
+      "Orcish Archer",
+      "Orcish Assassin",
+      "Orcish Crossbowman",
+      "Orcish Grunt",
+      "Orcish Leader",
+      "Orcish Nightblade",
+      "Orcish Ruler",
+      "Orcish Slayer",
+      "Orcish Slurbow",
+      "Orcish Sovereign",
+      "Orcish Warlord",
+      "Orcish Warrior",
+      "Outlaw",
+      "Paladin",
+      "Peasant",
+      "Piglet",
+      "Pikeman",
+      "Pirate Galleon",
+      "Poacher",
+      "Ranger",
+      "Raven",
+      "Red Mage",
+      "Revenant",
+      "Roc",
+      "Rock Scorpion",
+      "Rogue",
+      "Royal Guard",
+      "Royal Warrior",
+      "Ruffian",
+      "Sand Scamperer",
+      "Sand Scuttler",
+      "Saurian Ambusher",
+      "Saurian Augur",
+      "Saurian Flanker",
+      "Saurian Javelineer",
+      "Saurian Oracle",
+      "Saurian Prophet",
+      "Saurian Seer",
+      "Saurian Skirmisher",
+      "Saurian Soothsayer",
+      "Saurian Spearthrower",
+      "Sea Serpent",
+      "Sergeant",
+      "Shadow",
+      "Shadow Jumping Spider",
+      "Shock Trooper",
+      "Silver Mage",
+      "Skeletal Dragon",
+      "Skeleton",
+      "Skeleton Archer",
+      "Skeleton Rider",
+      "Sky Drake",
+      "Soldier Ant",
+      "Soulless",
+      "Spearman",
+      "Spectre",
+      "Swamp Lizard",
+      "Swordsman",
+      "Tentacle of the Deep",
+      "Thief",
+      "Thug",
+      "Transport Galleon",
+      "Trapper",
+      "Troll",
+      "Troll Hero",
+      "Troll Rocklobber",
+      "Troll Shaman",
+      "Troll Warrior",
+      "Troll Whelp",
+      "Vampire Bat",
+      "Walking Corpse",
+      "War Harbinger",
+      "Water Serpent",
+      "White Horse",
+      "White Mage",
+      "Wild Wyvern",
+      "Wolf",
+      "Wolf Rider",
+      "Woodland Boar",
+      "Woodsman",
+      "Wose",
+      "Wose Sapling",
+      "Wose Shaman",
+      "Wraith",
+      "Wyvern Rider",
+      "Yeti",
+      "Young Ogre"
+    ],
+    "damage_types": [
+      "blade",
+      "pierce",
+      "impact",
+      "fire",
+      "cold",
+      "arcane"
+    ],
+    "terrains": {
+      "flat": "Gg",
+      "forest": "Gg^Fet",
+      "hills": "Hh",
+      "mountain": "Mm",
+      "water": "Ww",
+      "swamp": "Ss"
+    },
+    "weapon_specials": [
+      "poison",
+      "slow",
+      "drains",
+      "magical",
+      "marksman",
+      "charge",
+      "firststrike",
+      "berserk"
+    ],
+    "entity_features": [
+      [
+        "x",
+        1
+      ],
+      [
+        "y",
+        1
+      ],
+      [
+        "hp",
+        100
+      ],
+      [
+        "max_hp",
+        100
+      ],
+      [
+        "moves",
+        10
+      ],
+      [
+        "max_moves",
+        10
+      ],
+      [
+        "attacks_left",
+        2
+      ],
+      [
+        "experience",
+        100
+      ],
+      [
+        "max_experience",
+        100
+      ],
+      [
+        "level",
+        4
+      ],
+      [
+        "leader",
+        1
+      ],
+      [
+        "own",
+        1
+      ],
+      [
+        "ally",
+        1
+      ],
+      [
+        "enemy",
+        1
+      ],
+      [
+        "poisoned",
+        1
+      ],
+      [
+        "slowed",
+        1
+      ],
+      [
+        "petrified",
+        1
+      ],
+      [
+        "age",
+        30
+      ],
+      [
+        "alignment_lawful",
+        1
+      ],
+      [
+        "alignment_neutral",
+        1
+      ],
+      [
+        "alignment_chaotic",
+        1
+      ],
+      [
+        "alignment_liminal",
+        1
+      ],
+      [
+        "resistance_blade",
+        100
+      ],
+      [
+        "resistance_pierce",
+        100
+      ],
+      [
+        "resistance_impact",
+        100
+      ],
+      [
+        "resistance_fire",
+        100
+      ],
+      [
+        "resistance_cold",
+        100
+      ],
+      [
+        "resistance_arcane",
+        100
+      ],
+      [
+        "move_cost_flat",
+        10
+      ],
+      [
+        "terrain_defense_flat",
+        100
+      ],
+      [
+        "move_cost_forest",
+        10
+      ],
+      [
+        "terrain_defense_forest",
+        100
+      ],
+      [
+        "move_cost_hills",
+        10
+      ],
+      [
+        "terrain_defense_hills",
+        100
+      ],
+      [
+        "move_cost_mountain",
+        10
+      ],
+      [
+        "terrain_defense_mountain",
+        100
+      ],
+      [
+        "move_cost_water",
+        10
+      ],
+      [
+        "terrain_defense_water",
+        100
+      ],
+      [
+        "move_cost_swamp",
+        10
+      ],
+      [
+        "terrain_defense_swamp",
+        100
+      ],
+      [
+        "weapon1_damage",
+        50
+      ],
+      [
+        "weapon1_strikes",
+        10
+      ],
+      [
+        "weapon1_melee",
+        1
+      ],
+      [
+        "weapon1_ranged",
+        1
+      ],
+      [
+        "weapon1_blade",
+        1
+      ],
+      [
+        "weapon1_pierce",
+        1
+      ],
+      [
+        "weapon1_impact",
+        1
+      ],
+      [
+        "weapon1_fire",
+        1
+      ],
+      [
+        "weapon1_cold",
+        1
+      ],
+      [
+        "weapon1_arcane",
+        1
+      ],
+      [
+        "weapon1_poison",
+        1
+      ],
+      [
+        "weapon1_slow",
+        1
+      ],
+      [
+        "weapon1_drains",
+        1
+      ],
+      [
+        "weapon1_magical",
+        1
+      ],
+      [
+        "weapon1_marksman",
+        1
+      ],
+      [
+        "weapon1_charge",
+        1
+      ],
+      [
+        "weapon1_firststrike",
+        1
+      ],
+      [
+        "weapon1_berserk",
+        1
+      ],
+      [
+        "weapon2_damage",
+        50
+      ],
+      [
+        "weapon2_strikes",
+        10
+      ],
+      [
+        "weapon2_melee",
+        1
+      ],
+      [
+        "weapon2_ranged",
+        1
+      ],
+      [
+        "weapon2_blade",
+        1
+      ],
+      [
+        "weapon2_pierce",
+        1
+      ],
+      [
+        "weapon2_impact",
+        1
+      ],
+      [
+        "weapon2_fire",
+        1
+      ],
+      [
+        "weapon2_cold",
+        1
+      ],
+      [
+        "weapon2_arcane",
+        1
+      ],
+      [
+        "weapon2_poison",
+        1
+      ],
+      [
+        "weapon2_slow",
+        1
+      ],
+      [
+        "weapon2_drains",
+        1
+      ],
+      [
+        "weapon2_magical",
+        1
+      ],
+      [
+        "weapon2_marksman",
+        1
+      ],
+      [
+        "weapon2_charge",
+        1
+      ],
+      [
+        "weapon2_firststrike",
+        1
+      ],
+      [
+        "weapon2_berserk",
+        1
+      ],
+      [
+        "weapon3_damage",
+        50
+      ],
+      [
+        "weapon3_strikes",
+        10
+      ],
+      [
+        "weapon3_melee",
+        1
+      ],
+      [
+        "weapon3_ranged",
+        1
+      ],
+      [
+        "weapon3_blade",
+        1
+      ],
+      [
+        "weapon3_pierce",
+        1
+      ],
+      [
+        "weapon3_impact",
+        1
+      ],
+      [
+        "weapon3_fire",
+        1
+      ],
+      [
+        "weapon3_cold",
+        1
+      ],
+      [
+        "weapon3_arcane",
+        1
+      ],
+      [
+        "weapon3_poison",
+        1
+      ],
+      [
+        "weapon3_slow",
+        1
+      ],
+      [
+        "weapon3_drains",
+        1
+      ],
+      [
+        "weapon3_magical",
+        1
+      ],
+      [
+        "weapon3_marksman",
+        1
+      ],
+      [
+        "weapon3_charge",
+        1
+      ],
+      [
+        "weapon3_firststrike",
+        1
+      ],
+      [
+        "weapon3_berserk",
+        1
+      ],
+      [
+        "next_round",
+        1
+      ]
+    ],
+    "geometry": [
+      "actor_x",
+      "actor_y",
+      "target_x",
+      "target_y",
+      "dest_x",
+      "dest_y",
+      "dx",
+      "dy",
+      "target_dx",
+      "target_dy",
+      "move_distance",
+      "target_distance",
+      "has_actor",
+      "has_target",
+      "weapon",
+      "full"
+    ],
+    "spatial_channels": [
+      "known",
+      "visible",
+      "own_hp",
+      "ally_hp",
+      "enemy_hp",
+      "village",
+      "castle",
+      "water",
+      "terrain_identity"
+    ],
+    "terrain_types": [
+      "<unknown>"
+    ],
+    "architecture_id": "relational_v5",
+    "coordinates": "1-based odd-q offset; normalized x/width,y/height; cube hex distance",
+    "rules_sha256": null,
+    "unknown_alive": "known_alive=0, alive_unknown=1; no hidden-unit inference",
+    "missing_village_owner": "unknown until tile observed; last observed owner retained"
+  },
+  "architecture": {
+    "id": "relational_v5",
+    "unit_embedding": 16,
+    "entity_hidden": 64,
+    "entity_layers": 2,
+    "heads": 4,
+    "ffn": 128,
+    "spatial_size": 16,
+    "spatial_channels": 9,
+    "conv_channels": 16,
+    "local_hexes": 19,
+    "local_hidden": 32,
+    "gru": 128,
+    "memory_slots": 32,
+    "memory_hidden": 64,
+    "scorer_hidden": [
+      512,
+      256,
+      128
+    ],
+    "value_hidden": 128,
+    "replay_turns": 8
+  },
+  "identity": null
+}

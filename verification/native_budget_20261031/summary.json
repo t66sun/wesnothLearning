@@ -1,0 +1,79 @@
+[
+  {
+    "id": "smoke-2",
+    "status": "complete",
+    "result": {
+      "bots": [
+        "NeuralArena",
+        "baseline"
+      ],
+      "seed": 502,
+      "turns": 4,
+      "winner": 2,
+      "survivors": [
+        2
+      ],
+      "reason": "last_leader",
+      "faults": {},
+      "rank_points": {
+        "1": 0,
+        "2": 1
+      },
+      "eliminated": {
+        "1": 4
+      },
+      "seconds": 3.6819,
+      "actions": 10,
+      "factions": [
+        "Drakes",
+        "Knalgan Alliance"
+      ],
+      "spawns": [
+        [
+          3,
+          7
+        ],
+        [
+          13,
+          7
+        ]
+      ],
+      "lenient": false,
+      "native_replay": "/home/tongshu/acceptance/native_candidate_cap_87205b5/runs/native_budget_87205b5/game2.replay.gz",
+      "rules_version": "wesnoth-1.18.8-native-v2"
+    },
+    "meta": {},
+    "training_eligible": true,
+    "training_shard": {
+      "written": 10,
+      "raw_records": 10,
+      "excluded": null
+    },
+    "stock_coverage": {},
+    "coverage": {
+      "total": 10,
+      "matched": 10,
+      "all_actions": 10,
+      "all_matched": 10,
+      "kinds": {
+        "recruit": {
+          "total": 0,
+          "matched": 0
+        },
+        "move": {
+          "total": 4,
+          "matched": 4
+        },
+        "attack": {
+          "total": 2,
+          "matched": 2
+        },
+        "end_turn": {
+          "total": 4,
+          "matched": 4
+        }
+      }
+    },
+    "truncated": 4
+  }
+]
