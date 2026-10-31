@@ -140,7 +140,7 @@ class LuaContractTests(unittest.TestCase):
         actions,timing=modules['candidates.lua'].generate(obs,450)
         kinds={a['kind'] for _,a in actions.items()}
         self.assertEqual(kinds,{'end_turn','recruit','move','attack','move_attack'})
-        self.assertLessEqual(len(actions),128)
+        self.assertLessEqual(len(actions),37)
         for _,action in actions.items():
             if action['kind']!='move_attack': modules['candidates.lua'].execute(action)
         move_attack=next(a for _,a in actions.items() if a['kind']=='move_attack')
@@ -157,9 +157,9 @@ class LuaContractTests(unittest.TestCase):
         obs=modules['observation.lua'].capture(lua.table())
         actions,timing=modules['candidates.lua'].generate(obs,0)
         self.assertEqual(actions[1]['kind'],'end_turn')
-        self.assertEqual(timing['budget'],'fixed-20000-v3')
+        self.assertEqual(timing['budget'],'fixed-20000-v4')
 
-    def test_deployed_config_scores_only_the_candidate_prefix(self):
+    def test_deployed_bot_scores_the_shared_pool_without_prefix_truncation(self):
         def run(settings):
             lua,modules=initialize()
             modules['config.lua']=lua.eval(native.lua(dict(mode='greedy',version='fixture',candidate_budget_ms=200,**settings)))
@@ -183,10 +183,10 @@ class LuaContractTests(unittest.TestCase):
         full,data=run({})
         self.assertGreater(len(full),2,'the fixture must expose more candidates than the cap')
         capped,data=run(dict(score_limit=2))
-        self.assertEqual(capped,full[:2])
-        self.assertEqual(len(data['learning_record']['candidates']),2)
-        self.assertEqual(data['learning_record']['choice'],1)
-        self.assertEqual(data['plan']['kind'],capped[1].split('@')[0])
+        self.assertEqual(capped,full)
+        self.assertEqual(len(data['learning_record']['candidates']),len(full))
+        self.assertEqual(data['learning_record']['choice'],len(full)-1)
+        self.assertEqual(data['plan']['kind'],capped[-1].split('@')[0])
 
     def test_team_continues_after_one_leader_dies_and_ends_after_enemy_team(self):
         lua,modules=initialize()

@@ -99,7 +99,7 @@ class CandidateProvenanceTests(unittest.TestCase):
         value.update(overrides)
         return value
 
-    def test_unrecorded_teacher_uses_fallback_and_collected_rows_are_v3(self):
+    def test_unrecorded_teacher_uses_fallback_and_collected_rows_are_v4(self):
         job = self.job()
         calls = []
         with mock.patch.object(LiteHost, 'decision', _spy(calls)):
@@ -110,7 +110,7 @@ class CandidateProvenanceTests(unittest.TestCase):
         self.assertTrue(rows)
         self.assertEqual({row['side'] for row in rows}, {1})
         self.assertEqual({row['candidate_version'] for row in rows},
-                         {'schema5-fixed-20000-v3'})
+                         {'schema5-fixed-20000-v4'})
         diagnostic = [call for call in calls if not call['teacher'] and not call['generate_candidates']]
         collected = [call for call in calls if call['side'] == 1 and call['generate_candidates']]
         unrecorded = [call for call in calls if call['teacher']]
@@ -128,8 +128,8 @@ class CandidateProvenanceTests(unittest.TestCase):
         for call in collected:
             self.assertFalse(call['teacher'], call)
             self.assertTrue(call['generate_candidates'], call)
-            self.assertEqual(call['timing']['budget'], 'fixed-20000-v3', call)
-            self.assertEqual(_version(call['timing']), 'schema5-fixed-20000-v3')
+            self.assertEqual(call['timing']['budget'], 'fixed-20000-v4', call)
+            self.assertEqual(_version(call['timing']), 'schema5-fixed-20000-v4')
 
     def test_human_capture_without_timing_keeps_v1_and_validates(self):
         path, row = _capture(self.directory, 'capture-v1.log')

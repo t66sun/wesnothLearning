@@ -767,22 +767,22 @@ class AuditExportTests(unittest.TestCase):
         loaded, _ = load_model(path, 'duel')
         return loaded
 
-    def test_verify_numerics_requires_128_and_two_turns(self):
+    def test_verify_numerics_requires_full_budget_and_two_turns(self):
         with helpers.temporary_directory() as directory:
             model = self._checkpoint_model(directory)
             rows = _rows(turns=2, decisions_per_turn=1)
-            with self.assertRaisesRegex(ValueError, '128'):
+            with self.assertRaisesRegex(ValueError, '37'):
                 verify_numerics(model, attach_histories(rows))
             helpers.pad_candidates(rows[0], 128)
             short = rows[:1]
             with self.assertRaisesRegex(ValueError, 'continuous turn memory'):
                 verify_numerics(model, attach_histories(short))
 
-    def test_verify_numerics_128_candidates_two_turns(self):
+    def test_verify_numerics_37_candidates_two_turns(self):
         with helpers.temporary_directory() as directory:
             model = self._checkpoint_model(directory)
             rows = _rows(turns=2, decisions_per_turn=1)
-            helpers.pad_candidates(rows[0], 128)
+            helpers.pad_candidates(rows[0], 37)
             error = verify_numerics(model, attach_histories(rows))
             self.assertLessEqual(error, 1e-5)
 

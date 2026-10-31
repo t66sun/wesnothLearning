@@ -39,7 +39,7 @@ def host_modules(teacher_path=None):
     from .features import schema
     from .teachers import lua_modules
     modules = {name: (ROOT / 'lua' / name).read_text(encoding='utf-8')
-               for name in ('observation.lua', 'candidates.lua', 'spatial.lua', 'routing.lua', 'rewards.lua')}
+               for name in ('observation.lua', 'candidate_selection.lua', 'candidates.lua', 'spatial.lua', 'routing.lua', 'rewards.lua')}
     modules['features.lua'] = 'return ' + _lua(schema())
     # The frozen archive remains lineage only; the host runs the maintained
     # derived source adapted to expected_damage_v1.
