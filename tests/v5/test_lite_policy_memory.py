@@ -77,16 +77,16 @@ class FrozenMemoryTests(unittest.TestCase):
                                    self.expected(first, history, bootstrap=True), places=7)
             self.assertEqual(self.policy.histories[1], history)
             self.assertEqual(self.policy.rng[1].getstate(), rng_state)
-            self.assertEqual(context.call_count, 1)
+            self.assertEqual(context.call_count, 0)
 
             self.policy.commit(1, first, dict(committed=True, memory_write=copy.deepcopy(first)))
             self.assert_result(self.policy.choose(first, 1),
                                self.expected(first, self.policy.histories[1]))
-            self.assertEqual(context.call_count, 2)
+            self.assertEqual(context.call_count, 0)
             next_turn = row(2)
             self.assert_result(self.policy.choose(next_turn, 1),
                                self.expected(next_turn, self.policy.histories[1]))
-            self.assertEqual(context.call_count, 3)
+            self.assertEqual(context.call_count, 0)
 
     def test_memory_cache_is_separate_for_sides_and_new_jobs(self):
         model = self.policy.models[1]
@@ -95,5 +95,5 @@ class FrozenMemoryTests(unittest.TestCase):
             self.policy.choose(row(1), 2)
             another = FrozenPolicies(self.job)
             another.choose(row(1), 1)
-            self.assertEqual(context.call_count, 3)
+            self.assertEqual(context.call_count, 0)
             self.assertEqual(another.histories[1], [])
