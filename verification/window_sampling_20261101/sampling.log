@@ -1,0 +1,6 @@
+test_bc_indexes_windows_not_decisions (tests.v5.test_bc_window_sampling.WindowSamplingTests.test_bc_indexes_windows_not_decisions) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.604s
+
+OK

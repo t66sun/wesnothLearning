@@ -25,4 +25,3 @@ class WindowSamplingTests(unittest.TestCase):
             result=bc.update(model,optimizer,rows,epochs=1,minibatch=16)
         self.assertEqual(result['window_visits'],4)
         self.assertEqual(result['repeated_window_visits'],4-result['unique_windows_seen'])
-
