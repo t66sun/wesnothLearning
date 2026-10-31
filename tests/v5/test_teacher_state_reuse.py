@@ -37,7 +37,7 @@ class TeacherStateReuseTests(unittest.TestCase):
         adapter.reset(changed)
         actual=adapter.decision(1,teacher=True)
         fresh=helpers.engine(game_spec=changed)
-        expected=json.loads(fresh.decision(1,500,True))
+        expected=json.loads(fresh.decision(1,True))
         self.assertEqual(actual['global'],expected['global'])
         self.assertEqual(actual['teacher_action'],expected['teacher_action'])
         self.assertEqual(json.loads(adapter.core.snapshot())['game'],json.loads(fresh.snapshot())['game'])

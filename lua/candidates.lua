@@ -18,7 +18,7 @@ local WORK={
     threats=8,            -- threat entries retained per hex
     goals=12,             -- tactical goals retained per unit
     positions=40,         -- reach positions scored per moving unit
-    rated=16,             -- destinations tactically rated eagerly per unit
+    rated=40,             -- destinations tactically rated eagerly per unit
     reaches=28,           -- find_reach calls per decision
     paths=8,              -- find_path calls per decision
     recruit_probes=24,    -- ai.check_recruit calls
@@ -344,16 +344,24 @@ function M.generate(obs)
         if u.moves>0 then
             if not allow('reach',WORK.reaches,COST.reach) then break end
             local reach=wesnoth.paths.find_reach(u,{viewing_side=obs.side,ignore_visibility=false})
-            local destinations={}
-            for i=1,math.min(#reach,WORK.positions) do
-                local p=reach[i]
+            -- Cheap proximity ranks every reachable hex before the scored cap, so a
+            -- bounded decision keeps the tiles near enemies and villages rather than
+            -- whatever prefix the native reach table happens to return.
+            local scored={}
+            for _,p in ipairs(reach) do
                 if not charge(1) then break end
                 if (p[1]~=u.x or p[2]~=u.y) and not obs.occupied[p[1]..','..p[2]] then
                     local score=-minimum(p[1],p[2],enemies)*.2-minimum(p[1],p[2],villages)
                     for _,e in ipairs(enemies) do if distance(p[1],p[2],e)==1 then score=score+10 end end
-                    destinations[#destinations+1]={p=p,score=score}
+                    scored[#scored+1]={p=p,score=score}
                 end
             end
+            table.sort(scored,function(a,b)
+                if a.score~=b.score then return a.score>b.score end
+                return a.p[1]<b.p[1] or a.p[1]==b.p[1] and a.p[2]<b.p[2]
+            end)
+            local destinations={}
+            for i=1,math.min(#scored,WORK.positions) do destinations[i]=scored[i] end
             -- Keep independent goal categories. Long-distance targets are reduced to
             -- a reachable point along their visibility-aware path this turn.
             local picked={};local selected={}

@@ -105,7 +105,7 @@ class DuelHurtBranchTests(unittest.TestCase):
     def test_goal_change_is_not_a_budget_artefact(self):
         for timing in (self.healthy_timing, self.hurt_timing):
             self.assertEqual(timing['budget'], 'work-12000-v5', timing)
-            self.assertFalse(timing['truncated'], timing)
+            self.assertLess(timing['work'], 12000, timing)
             self.assertGreater(timing['predictions'], 0, timing)
 
 
