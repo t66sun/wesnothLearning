@@ -131,35 +131,6 @@ def teacher_jobs(directory, teachers, fixed, support, batch_index, seed, deadlin
     return jobs
 
 
-def stock_teacher_jobs(directory, record, support, batch_index, seed, deadline, wesnoth,
-                       formats=FORMATS, count=1, index_stride=None):
-    """A stock teacher labels full native games; no teacher is added to any seat."""
-    from .teacher_protocol import stock_capture_job_sides
-    if record['query'] != 'none':
-        raise ValueError('stock teacher jobs require a teacher without a per-decision query')
-    if not record.get('runtime_sha256'):
-        raise ValueError('stock teacher record lacks the runtime it was frozen against')
-    rng = random.Random(seed + batch_index)
-    jobs = []
-    for fmt in formats:
-        n = PLAYERS[fmt]
-        for game in range(count):
-            i = batch_index * (index_stride or count) + game
-            bots = ['baseline'] * n
-            rotation = i % n
-            ident = f'stock-{i:05}-{fmt}-t0'
-            job = base_job(directory, ident, bots, rng.randrange(2**32), deadline, wesnoth, i, fmt,
-                           faction_list=scenario_factions(i, n, fmt))
-            job.update(shard=str(Path(directory) / 'data' / (ident + '.jsonl.gz')),
-                       engine='native', timeout=10,
-                       learning=dict(support=support, sides={}, stock_capture=stock_capture_job_sides(n)),
-                       teacher_identity=dict(record),
-                       meta=dict(format=fmt, teacher='baseline', teacher_identity=dict(record),
-                                 seat=None, rotation=rotation, phase='teacher'))
-            decorate(job, fmt, i, 'train')
-            jobs.append(job)
-    return jobs
-
 
 def compose_training_scenario(job):
     """Select an eligible existing training scenario without changing game roles/RNG."""
