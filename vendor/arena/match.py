@@ -35,11 +35,6 @@ def log_exceeded(size):
     return size > NATIVE_LOG_LIMIT
 
 
-def log_weight(line, prefix):
-    """Captured LEARN/STOCK frames are learning data, not native chatter."""
-    return 0 if line.startswith((prefix + 'LEARN ', prefix + 'STOCK ')) else len(line)
-
-
 def play_game(bots, seed=1, factions=None, timeout=P.ACTION_TIMEOUT, first_timeout=P.FIRST_TIMEOUT,
               max_turns=P.MAX_TURNS, lenient=False, replay_path=None, fog=True, wesnoth=None,
               visible=False, human_side=0, learning=None, experiment_deadline=None, map_override=None, teams=None,
@@ -90,9 +85,6 @@ def play_game(bots, seed=1, factions=None, timeout=P.ACTION_TIMEOUT, first_timeo
         if learning:
             config['learning'] = learning['sides']
             shutil.copytree(learning['support'], addondir/'LearningSupport')
-            if learning.get('stock_capture'):
-                config['stock_capture']=learning['stock_capture']
-                shutil.copytree(native.ROOT.parents[1]/'lua/stock_rca_capture',addondir/'LearningSupport/lua/stock_rca_capture')
             shutil.copyfile(native.ROOT.parents[1]/'learning/collector.lua', runtime/'collector.lua')
             teacher=learning.get('dagger_teacher')
             if teacher:
@@ -176,11 +168,10 @@ def play_game(bots, seed=1, factions=None, timeout=P.ACTION_TIMEOUT, first_timeo
                     except queue.Empty: continue
                     if line is None: break
                     is_learning = line.startswith(prefix+'LEARN ')
-                    is_capture = line.startswith(prefix+'STOCK ')
-                    if not is_learning and not is_capture: log.write(line)
+                    if not is_learning: log.write(line)
                     if 'error scripting/lua:' in line or 'error config:' in line:
                         scripting_error = True
-                    log_bytes += log_weight(line,prefix)
+                    log_bytes += 0 if is_learning else len(line)
                     if log_exceeded(log_bytes): raise RuntimeError(f'native log exceeds {NATIVE_LOG_LIMIT // (1024 * 1024)} MiB')
                     if not line.startswith(prefix): continue
                     kind, text = line[len(prefix):].split(' ',1)

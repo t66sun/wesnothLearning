@@ -80,7 +80,6 @@ def evaluation_jobs(directory, policy, control, fixed, blocks, seed, deadline, w
                     ident=f'{label}-{fmt}-b{block:04}-{context}-r{rotation}'
                     job=base_job(directory,ident,bots,block_seed,deadline,wesnoth,scenario.get('faction_block',0),fmt,
                                  faction_list=scenario.get('factions'))
-                    if 'baseline' in bots: job['engine']='native'
                     job['meta']=dict(format=fmt,block=block,rotation=rotation,context=context,
                         label=label,policy=policy,control=control,faction_cycle=faction_cycle,
                         design_scenario=dict(scenario),repeat=block//len(roster),min_distinct=min_distinct,
@@ -108,22 +107,12 @@ def calibration_jobs(directory, fixed, blocks, seed, deadline, wesnoth, formats=
 def teacher_jobs(directory, teachers, fixed, support, batch_index, seed, deadline, wesnoth, formats=FORMATS,count=1,index_stride=None):
     jobs=[]
     rng=random.Random(seed+batch_index)
-    from .manifest import teacher_identity
-    if len(teachers)!=1: raise ValueError('one registered teacher is required')
-    supplied=teachers[0]
-    if isinstance(supplied,dict):
-        record=supplied
-        teacher=supplied.get('path')
-    else:
-        kind='wesnoth_default_rca' if supplied=='baseline' else Path(supplied).stem
-        record=teacher_identity(kind)
-        teacher=supplied
-    if record['query']=='none': raise ValueError('teacher has no query capability; use full native event capture')
-    if not teacher: raise ValueError('queryable teacher record lacks its controller path')
+    if len(teachers)!=1 or Path(teachers[0]).stem!='gpt6astra': raise ValueError('only Astra may provide teacher actions')
     for fmt in formats:
         n=PLAYERS[fmt]
         for game in range(count):
             i=batch_index*(index_stride or count)+game
+            teacher=teachers[0]
             bots=[teacher]+[rng.choice(fixed) for _ in range(n-1)]
             if fmt=='team2v2':
                 bots[2]='baseline'  # The focal teacher must learn in a team with official RCA.
@@ -136,41 +125,11 @@ def teacher_jobs(directory, teachers, fixed, support, batch_index, seed, deadlin
             job.update(shard=str(Path(directory)/'data'/(ident+'.jsonl.gz')),
                        # Collector work is training instrumentation. Formal evaluation keeps 1/10 s.
                        timeout=10,learning=dict(support=support,sides={str(side):dict(teacher=Path(teacher).stem,version='teacher-frozen')}),
-                       teacher_identity=dict(record),
-                       meta=dict(format=fmt,teacher=teacher,teacher_identity=dict(record),seat=side,phase='teacher'))
+                       meta=dict(format=fmt,teacher=teacher,seat=side,phase='teacher'))
             decorate(job,fmt,i,'train')
             jobs.append(job)
     return jobs
 
-
-def stock_teacher_jobs(directory, record, support, batch_index, seed, deadline, wesnoth,
-                       formats=FORMATS, count=1, index_stride=None):
-    """A stock teacher labels full native games; no teacher is added to any seat."""
-    from .teacher_protocol import stock_capture_job_sides
-    if record['query'] != 'none':
-        raise ValueError('stock teacher jobs require a teacher without a per-decision query')
-    if not record.get('runtime_sha256'):
-        raise ValueError('stock teacher record lacks the runtime it was frozen against')
-    rng = random.Random(seed + batch_index)
-    jobs = []
-    for fmt in formats:
-        n = PLAYERS[fmt]
-        for game in range(count):
-            i = batch_index * (index_stride or count) + game
-            bots = ['baseline'] * n
-            rotation = i % n
-            ident = f'stock-{i:05}-{fmt}-t0'
-            job = base_job(directory, ident, bots, rng.randrange(2**32), deadline, wesnoth, i, fmt,
-                           faction_list=scenario_factions(i, n, fmt))
-            job.update(shard=str(Path(directory) / 'data' / (ident + '.jsonl.gz')),
-                       engine='native', timeout=10,
-                       learning=dict(support=support, sides={}, stock_capture=stock_capture_job_sides(n)),
-                       teacher_identity=dict(record),
-                       meta=dict(format=fmt, teacher='baseline', teacher_identity=dict(record),
-                                 seat=None, rotation=rotation, phase='teacher'))
-            decorate(job, fmt, i, 'train')
-            jobs.append(job)
-    return jobs
 
 
 def compose_training_scenario(job):
@@ -211,7 +170,6 @@ def rollout_jobs(directory, policy, history, fixed, support, version, batch_inde
                     bots.append(baseline);composition.append(dict(role='teammate',path=baseline))
                     continue
                 kind=('fixed','fixed','history','current')[slot%4];slot+=1
-                if kind=='fixed' and not fixed: kind='history' if history else 'current'
                 path=rng.choice(fixed) if kind=='fixed' else rng.choice(history) if kind=='history' else current
                 bots.append(path);composition.append(dict(role=kind,path=path))
             if fmt=='team2v2':
@@ -224,7 +182,6 @@ def rollout_jobs(directory, policy, history, fixed, support, version, batch_inde
             learner_side=(n-rotation)%n+1
             ident=f'rollout-{batch_index:05}-{fmt}-g{game}'
             job=base_job(directory,ident,bots,rng.randrange(2**32),deadline,wesnoth,batch_index+game,fmt)
-            if 'baseline' in bots: job['engine']='native'
             job.update(shard=str(Path(directory)/'data'/(ident+'.jsonl.gz')),
                        learning=dict(support=support,sides={str(learner_side):dict(teacher=False,version=version,sampling_seed=job['seed']%2147483646+1)}),
                        meta=dict(format=fmt,phase='ppo',version=version,seat=learner_side,composition=composition))

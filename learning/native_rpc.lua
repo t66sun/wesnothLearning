@@ -94,7 +94,6 @@ local function teacher(obs,requested)
         if x then ledger.owners[tonumber(x)*1000+tonumber(y)]=owner end
     end
     if not requested then return nil end
-    if requested~='gpt6astra' then return nil,'stock teacher has no per-decision query capability',0 end
     local strategy=#wesnoth.sides==2 and 'duel' or #wesnoth.sides==4 and 'four' or nil
     assert(strategy,'Astra native host supports two/four player games')
     local astra=wesnoth.require('~add-ons/gpt6astra/lua/'..strategy..'.lua')

@@ -23,10 +23,10 @@
 | --- | --- |
 | `learning/` | Python 协调层：训练器进程、适配器、数据管线、模型、奖励、评估、导出、打包与维护工具 |
 | `engine_lite/` | Rust/PyO3 确定性引擎、内嵌 Lua 5.4 宿主、规则采集/审计工具（`audit`、`capture`、`freeze`、`inventory`、`differential`） |
-| `lua/` | 原版部署与 lite 宿主共用的插件 Lua：observation、candidates、spatial/relational 网络、routing、rewards、teacher、stock-RCA 采集 |
+| `lua/` | 原版部署与 lite 宿主共用的插件 Lua：observation、candidates、spatial/relational 网络、routing、rewards、teacher |
 | `vendor/arena/` | vendored WesnothArena 原版 SDK（runtime、对局运行器、bot、阵营/领袖/招募档案） |
 | `data/rules/` | 冻结规则：`1.18.8-training`（默认，587 单位 / 438 地形）与历史 `1.18.8` |
-| `data/` | 采集输入：`humanData/`、`humanData_curated/`、`replays/`（整月大厅录像归档，每月一个 tar）、`replays_curated/`（从中整理的标准时代人类对局）、`datasets/`、`opponents/gpt6astra.zip`（旧版教师） |
+| `data/` | 采集输入：`humanData/`、`humanData_curated/`、`replays/`（整月大厅录像归档，每月一个 tar）、`replays_curated/`（从中整理的标准时代人类对局）、`datasets/`、`opponents/gpt6astra.zip`（冻结的教师包） |
 | `tests/` | `tests/v5/` 契约套件、旧版单元套件、手工烟测脚本，共享夹具在 `tests/v5/helpers.py` |
 | `benchmarks/` | 冻结的引擎负载契约（`contract.json`）及其运行器 |
 | `runs/<run>/` | 每次运行的 manifest、各赛制状态、调度与检查点（不入库） |
@@ -68,7 +68,7 @@ flowchart LR
 - 确定性战斗：每次攻击结算为 `ceil(damage × chance × 1.10)`；slow 在命中率之前把伤害乘 `ceil(3/4)`；poison 在该单位自己的回合扣 6 HP；无战斗 RNG、无命中注入。`forecast()` 是点质量，只为兼容接收 `samples`。
 - lite 已实现机制：按地形代价移动、可见敌军 ZOC、友军通行、连通的城堡招募/经济、村庄占领、fog/shroud/历史地形、盟友共享、行动顺序轮转、领袖击杀与队伍终局、逐次攻击的死亡/反击/经验升级、slow、poison、drain、firststrike、marksman、magical、charge、berserk、基础 plague、治疗/休息、concealment/nightstalk/teleport、确定性攻击结算。
 - lite 近似路径：相邻领导力、illumination、backstab、steadfast、反击触发 plague、单步 teleport 代价。已知缺口：复合修正取整、完整的武器声明过滤、变体实例、随机特质、AMLA 选择、状态清除精确时机、视距代价/jamming、远程寻路 ZOC、战役事件。未知能力/脚本会阻断招募链，而不是静默降级。
-- `lua/` 是唯一的合法性/观察实现：原版 Wesnoth 以插件方式加载它，`LiteHost` 把同一批模块加载进内嵌 Lua VM。`lua/stock_rca_capture/` 把原版引擎事件转换为公开的动作前帧。
+- `lua/` 是唯一的合法性/观察实现：原版 Wesnoth 以插件方式加载它，`LiteHost` 把同一批模块加载进内嵌 Lua VM。
 
 ## 5. 观察、候选与行
 
@@ -85,7 +85,7 @@ flowchart LR
 
 数值除以声明缩放并裁剪到 ±4；`unit_type_index` 不缩放。候选顺序被严格保留；策略对 `lua/candidates.lua` 在预算 id `fixed-20000-v3` 下生成的、上限 128 个的固定集合打分。
 
-行是训练契约：schema 6，由 `rowpack` v2 编码（JSON 元数据加每行一个 base64 float32 块），装在 gzip JSONL shard 中。每行携带引擎/规则/RNG/战斗/候选/奖励版本、奖励公式、场景族、split 规则、对局族、教师身份与来源（`astra`、`stock_rca`、`human`、`policy`）。`data.validate_record` 拒绝任何出处、宽度、有限性、意图字段或奖励配置与冻结运行不一致的行。
+行是训练契约：schema 6，由 `rowpack` v2 编码（JSON 元数据加每行一个 base64 float32 块），装在 gzip JSONL shard 中。每行携带引擎/规则/RNG/战斗/候选/奖励版本、奖励公式、场景族、split 规则、对局族、教师身份与来源（`astra`、`human`、`policy`）。`data.validate_record` 拒绝任何出处、宽度、有限性、意图字段或奖励配置与冻结运行不一致的行。
 
 行动者输入永不含裁判真相：奖励标量、教师动作、未观察单位、未探索地形与 RNG 状态在策略看到决策之前被剥离。
 
@@ -93,10 +93,9 @@ flowchart LR
 
 教师能力是声明的，不是假设的：
 
-- `wesnoth_default_rca` —— 原版 AI。只能观察原版引擎事件；没有按决策查询，因此不支持 DAgger。
-- `gpt6astra` —— 旧版按决策查询的 Lua 教师（`learning/teachers/`，派生源码；冻结的 `data/opponents/gpt6astra.zip` 仅作血脉）。派生源码只在 lite 规则变化处适配：攻击评分使用 `expected_damage_v1`，slow 价值 25% 伤害加移动限制，poison 每回合 6 点。`teacher_profile` 与 `teacher_source_sha256` 随行式记录、检查点、作业元数据和导出传递，单次运行不会混用不同 profile。
+- `gpt6astra` —— 冻结的按决策查询 Lua 教师（`learning/teachers/`，派生源码；`data/opponents/gpt6astra.zip` 是其血脉，也是每个 manifest 随包冻结的教师）。派生源码只在 lite 规则变化处适配：攻击评分使用 `expected_damage_v1`，slow 价值 25% 伤害加移动限制，poison 每回合 6 点。`teacher_profile` 与 `teacher_source_sha256` 随行式记录、检查点、作业元数据和导出传递，单次运行不会混用不同 profile。
 
-新 manifest 冻结 stock RCA 教师并要求原版参考评估。`LiteHost` 拒绝 stock 教师作业，并只在 manifest 声明 `gpt6astra` 时接受 Astra 座位。
+新 manifest 冻结该包并把其血脉记为教师身份，因此教师与 DAgger 行携带同一身份。`LiteHost` 拒绝官方 baseline 座位，只接受 manifest 声明的 `gpt6astra` 来源。
 
 ## 6. 策略网络
 
@@ -178,7 +177,7 @@ flowchart LR
 
 | 参数 | 默认值 |
 | --- | --- |
-| 赛制 / 引擎 / 评估引擎 | 三种 / `lite` / `native` |
+| 赛制 / 引擎 / 评估引擎 | 三种 / `lite` / 跟随采样引擎 |
 | 小时 / worker / 设备 / 训练器线程 | 12 / 8 / `cpu`（训练器）/ 1 |
 | 种子 | 配置内 20261018；`run` 默认传入 20261017 |
 | BC 教师对局目标 | duel 300、ffa4 600、team2v2 400 |
@@ -204,7 +203,7 @@ flowchart LR
 
 - lite 规则是近似的（587 单位中 470 个），且明确未经原版语义验收；整包性能未验收。
 - lite 战斗是确定性的，原版战斗是随机的；不声明跨引擎数值相等。
-- stock RCA 教师无法回答按决策查询，因此该教师下 DAgger 不支持；Astra 仅作旧版教师来源。
+- DAgger 只属于 Astra：冻结教师能回答按决策查询，每条纠正行都携带该身份。
 - 官方 baseline 仅限原版；lite 运行无法对它评估。
 - 整理后的录像语料（`data/replays_curated/`，1,076 局标准时代对局）仍只是暂存：只有记录于 1.18.8 的 197 局能进入 BC。大厅归档以其 `[scenario]` 块作为起始块，因为 1.18.8 自行展开场景并合并已记录的 RNG；缺少 `[carryover_sides_start].random_seed` 的大厅归档按 `missing_initial_rng` 跳过。录像标记只能放在动作之前以及末尾各一次，因为在同步上下文内遇到的 `[custom_command]` 会被回放机拒绝。已准备三局、由官方 1.18.8 实际播放并导入 84 条 BC 行（`verification/curated_bc_20261031/REPORT.md`）；不声明更大范围的语料播放。
 - 原版对局无法由其种子复现：同一局同一种子连播两次分别在第 5 与第 3 回合结束（`verification/acceptance_20261031/L1/REPORT.md`），因此独立运行之间只能比较记录到的计数，不能假定共享同一未来。

@@ -11,7 +11,7 @@ Three independent models for Wesnoth 1.18.8: single combat `duel`, four-player f
 - [Agent training operations guide](docs/instructions.md): taking over the environment, start/resume, maintenance, diagnosis and instruction-driven tuning.
 - [Provenance and licensing](docs/THIRD_PARTY.md): third-party code, reference competitor packages and official component licenses.
 
-BC teacher-game targets are **300** duel, **600** FF4 and **400** 2v2 at the default of **8 global workers**. A new manifest declares the stock 1.18.8 RCA teacher, which is native-only, so a lite run collects no stock teacher games (`native_bc_games` defaults to 0) and its seats are self-play/history. No formal training is currently running.
+BC teacher-game targets are **300** duel, **600** FF4 and **400** 2v2 at the default of **8 global workers**. A new manifest freezes the sole custom teacher, the `gpt6astra` package, so teacher games, DAgger corrections and exports share one identity; a lite run collects those teacher games (`native_bc_games` defaults to 0). No formal training is currently running.
 
 The Rust rule core, spatial/relational/memory model, BC/PPO, online reward control and pure Lua export are all implemented. New experiments use lite by default with the 587 units and 438 terrains of `data/rules/1.18.8-training`, gated at startup by the 158-unit six-faction training closure, with the declared teacher identity frozen in each manifest. Boundaries for full campaign behavior, full-pipeline performance and formal training strength are in the architecture document.
 
