@@ -96,4 +96,3 @@ Removed bot prefix truncation and export-only score limits. Lite, native collect
 Resolve the common deployed candidate contract first (1-2), then its full decision budget across native paths (3-4). Close the final-evaluation acceptance gap (9) with that contract frozen. In parallel planning, address the measurable training-cost causes (6-8). Treat native rule transfer and teacher/BC quality (5,10) as prerequisites for a native-strength claim, not as issues that a successful smoke can clear. Finish with the bounded complete-loop test (11), recording any stage that cannot complete within its one-hour budget.
 
 This report proposes repair directions only. It does not authorize implementation, collection or training, and it does not replace the resident acceptance plan.
-
