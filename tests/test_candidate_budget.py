@@ -83,7 +83,7 @@ class CandidateBudgetTests(unittest.TestCase):
     def test_remember_survives_a_unit_killed_by_its_own_attack(self):
         lua, modules = initialize()
         # A unit that dies in its own attack leaves a dead handle in the observation,
-        # so remember must read the acting unit live at its destination instead.
+        # so remember reads the acting unit live at the destination it reached.
         lua.execute("""
             obs={memory={},occupied={}}
             local dead=fixture.own[1]:clone()
@@ -94,6 +94,20 @@ class CandidateBudgetTests(unittest.TestCase):
             lua.eval('obs'), lua.eval('{kind="move_attack",x=1,y=1,tx=2,ty=1,ex=3,ey=1,weapon=1}'))
         last_move = {key: dict(value.items()) for key, value in lua.eval('obs.memory').last_move.items()}
         self.assertEqual(last_move, {'soldier': {'x': 1, 'y': 1}})
+
+    def test_remember_skips_a_unit_that_left_the_map(self):
+        lua, modules = initialize()
+        # A unit missing from the map everywhere it could be read is not remembered,
+        # and the stale handle held by the observation is never dereferenced.
+        lua.execute("""
+            obs={memory={},occupied={}}
+            local dead=fixture.own[1]:clone()
+            setmetatable(dead,{__index=function() error('unknown unit') end})
+            obs.occupied['8,6']=dead
+        """)
+        modules['candidates.lua'].remember(
+            lua.eval('obs'), lua.eval('{kind="move_attack",x=8,y=6,tx=7,ty=6,ex=6,ey=6,weapon=1}'))
+        self.assertIsNone(lua.eval('obs.memory.last_move'))
 
 
 if __name__ == '__main__':
