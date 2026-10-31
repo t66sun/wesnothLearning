@@ -14,18 +14,21 @@ def update(model, optimizer, records, bc_records=None, epochs=4, minibatch=256, 
            progress=None, on_step=None):
     """Run supervised updates over all training windows.
 
-    Each window carries equal weight regardless of its length, and each real
-    decision counts once when reporting coverage.
+    Windows are sampled with replacement under source/engine/family quotas.
+    Length does not affect selection probability; visit counts include repeats.
     """
     # BC receives a deliberate validation partition for the separate quality gate.
     records = prepare(model, records, bc_records, allow_drop=True)
     device, windows, sequence_count, micro, steps = setup(model, records, minibatch)
     window_index = {id(r): w for w in windows for r in w}
-    sampler = make_bc_sampler(records)
+    sampler = make_bc_sampler([w[0] for w in windows])
     start = progress or dict(epoch=0, step=0)
     loss_sum = start.get('loss_sum', 0.)
     updates = start.get('updates', 0)
     decisions_seen = start.get('decisions_seen', 0)
+    visited = set(start.get('visited_windows', []))
+    window_ids = {id(w): i for i, w in enumerate(windows)}
+    visits = start.get('window_visits', 0)
     for epoch in range(start['epoch'], epochs):
         for step in range(start['step'] if epoch == start['epoch'] else 0, steps):
             if time.time() >= deadline:
@@ -64,16 +67,20 @@ def update(model, optimizer, records, bc_records=None, epochs=4, minibatch=256, 
                 random.setstate(batch_rng)
                 return dict(updates=updates, loss=loss_sum / max(1, updates), interrupted=True)
             optimizer.step()
+            visits += len(selected_windows)
+            visited.update(window_ids[id(w)] for w in selected_windows)
             loss_sum += total_value
             updates += 1
             decisions_seen += step_decisions
             if on_step:
                 cursor = dict(epoch=epoch + 1, step=0) if step + 1 == steps else dict(epoch=epoch, step=step + 1)
-                on_step(dict(cursor, loss_sum=loss_sum, updates=updates, decisions_seen=decisions_seen))
+                on_step(dict(cursor, loss_sum=loss_sum, updates=updates, decisions_seen=decisions_seen,
+                             visited_windows=sorted(visited), window_visits=visits))
     return dict(updates=updates, loss=loss_sum / max(1, updates), interrupted=False, approx_kl=0., kl_stopped=False,
                 decisions_seen=decisions_seen, unique_families_seen=len({r['game_family'] for r in records}),
                 effective_dataset_passes=decisions_seen / len(records), sequence_windows=len(windows),
-                microbatch=micro)
+                microbatch=micro, window_visits=visits, unique_windows_seen=len(visited),
+                repeated_window_visits=visits-len(visited))
 
 
 def auxiliary_loss(logits, rows):
