@@ -15,7 +15,7 @@ class ValidationCadenceTests(unittest.TestCase):
         from learning.common import ROOT
         for advanced in (False,True):
             lua,modules=initialize()
-            modules['config.lua']=lua.eval('{candidate_budget_ms=200}')
+            modules['config.lua']=lua.eval('{}')
             modules['runtime.lua']=lua.eval('{emit=function(kind,row) records[#records+1]=row end}')
             lua.globals().advanced=advanced
             lua.execute('''

@@ -94,12 +94,12 @@ impl LiteEngine {
         self.modules=decode(modules_json)?;
         self.install_host()
     }
-    #[pyo3(signature=(side,budget_ms=500,teacher=false,generate_candidates=true))]
-    fn decision(&mut self,side:usize,budget_ms:u32,teacher:bool,generate_candidates:bool)->PyResult<String>{
+    #[pyo3(signature=(side,teacher=false,generate_candidates=true))]
+    fn decision(&mut self,side:usize,teacher:bool,generate_candidates:bool)->PyResult<String>{
         self.game.lock().map_err(error)?.side_check(side).map_err(error)?;
         host::set_side(&self.lua,side);
         let f:Function=self.lua.globals().get("lite_decision").map_err(error)?;
-        let result:mlua::Value=f.call((side,budget_ms,teacher,generate_candidates)).map_err(error)?;
+        let result:mlua::Value=f.call((side,teacher,generate_candidates)).map_err(error)?;
         let value:Value=self.lua.from_value(result).map_err(error)?;encode(&value)
     }
     fn execute_candidate(&mut self,action_json:&str)->PyResult<String>{

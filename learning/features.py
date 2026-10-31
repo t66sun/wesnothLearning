@@ -110,7 +110,7 @@ def _rules_sha256():
 
 def schema():
     return dict(version=VERSION,
-                candidate_selection=dict(version='fixed-20000-v4', combat=12, recruit=12, move=12, actionable=36, end_turn=1),
+                candidate_selection=dict(version='work-12000-v5', combat=12, recruit=12, move=12, actionable=36, end_turn=1),
                 normalization='value / scale, clipped to [-4, 4]; unit_type_index is an unscaled integer',
                 global_features=GLOBAL, opponent_features=OPPONENT, action_features=ACTION,
                 unit_types=UNIT_TYPES, damage_types=DAMAGE_TYPES, terrains=TERRAINS, weapon_specials=SPECIALS,

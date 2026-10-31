@@ -14,16 +14,16 @@ class TeacherStateReuseTests(unittest.TestCase):
                 for side,team in zip(spec['sides'],teams):
                     side['team']=team;side['gold']=0
                 engine=helpers.engine(game_spec=spec)
-                before=json.loads(engine.decision(1,500,True))
+                before=json.loads(engine.decision(1, True))
                 snapshot=engine.snapshot()
                 engine.restore(snapshot)
-                after=json.loads(engine.decision(1,500,True))
+                after=json.loads(engine.decision(1, True))
                 self.assertEqual(after['teacher_action'],before['teacher_action'])
                 self.assertEqual(after['global'],before['global'])
                 self.assertEqual(json.loads(engine.snapshot())['game'],json.loads(snapshot)['game'])
                 # The restored tables must also remain serializable and reusable.
                 engine.restore(engine.snapshot())
-                again=json.loads(engine.decision(1,500,True))
+                again=json.loads(engine.decision(1, True))
                 self.assertEqual(again['teacher_action'],before['teacher_action'])
 
     def test_adapter_reset_reuses_configured_host_once(self):

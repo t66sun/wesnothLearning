@@ -138,8 +138,8 @@ class LiteAdapter:
         self.modules=modules
         self.core.configure_host(json.dumps(modules))
 
-    def decision(self, side, *, budget_ms=500, teacher=False, generate_candidates=True):
-        return json.loads(self.core.decision(side, budget_ms, teacher, generate_candidates))
+    def decision(self, side, *, teacher=False, generate_candidates=True):
+        return json.loads(self.core.decision(side, teacher, generate_candidates))
 
     def execute_candidate(self, action):
         return json.loads(self.core.execute_candidate(json.dumps(action)))

@@ -116,7 +116,7 @@ def prepare_capture(row,root,directory,wesnoth=None):
     for source in (ROOT/'lua').glob('*.lua'):
         (support/source.name).write_text(source.read_text(encoding='utf-8').replace('@ADDON@','LearningSupport'),encoding='utf-8')
     (support/'features.lua').write_text('return '+native.lua(schema()),encoding='utf-8')
-    (support/'config.lua').write_text('return {candidate_budget_ms=200}',encoding='utf-8')
+    (support/'config.lua').write_text('return {}',encoding='utf-8')
     (support/'replay_observer.lua').write_bytes((ROOT/'learning/replay_observer.lua').read_bytes())
     write_json(directory/'capture.json',dict(options=options,replay_sha256=sha256(path),
         command=[wesnoth or os.environ.get('WESNOTH_EXE','wesnoth'),'--debug','--debug-lua','--noaddons','--with-replay','--load',str(path.resolve()),

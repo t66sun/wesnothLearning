@@ -2,7 +2,6 @@
 local O=wesnoth.require '~add-ons/LearningSupport/lua/observation.lua'
 local C=wesnoth.require '~add-ons/LearningSupport/lua/candidates.lua'
 local schema=wesnoth.require '~add-ons/LearningSupport/lua/features.lua'
-local config=wesnoth.require '~add-ons/LearningSupport/lua/config.lua'
 local M={}
 local S=wesnoth.require '~add-ons/LearningSupport/lua/spatial.lua'
 local function json(v)
@@ -37,7 +36,7 @@ function M.setup(options)
         -- The game kernel has no global 'ai': debug_ai returns the AI state whose 'ai' field holds the functions table.
         local previous_ai=rawget(_G,'ai')
         ai=assert(wesnoth.sides.debug_ai(side).ai,'debug AI query context unavailable')
-        local obs=O.capture(memories[side]);local candidates,timing=C.generate(obs,config.candidate_budget_ms)
+        local obs=O.capture(memories[side]);local candidates,timing=C.generate(obs)
         ai=previous_ai
         local choice=-1
         for i,c in ipairs(candidates) do

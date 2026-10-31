@@ -164,7 +164,7 @@ class NativeTransport:
             for source in (ROOT / 'lua').glob('*.lua'):
                 (addon / 'lua' / source.name).write_text(source.read_text(encoding='utf-8').replace('@ADDON@', 'LearningNativeRPC'), encoding='utf-8')
             (addon / 'lua/features.lua').write_text('return ' + native.lua(schema()) + '\n', encoding='utf-8')
-            (addon / 'lua/config.lua').write_text('return {candidate_budget_ms=200}\n', encoding='utf-8')
+            (addon / 'lua/config.lua').write_text('return {}\n', encoding='utf-8')
             (addon / 'session.lua').write_text('return ' + native.lua(dict(token=self.token, spec=self.spec, last_id=0, memories={})) + '\n', encoding='utf-8')
             self.command_path = addon / 'command.lua'
             self.command_path.write_text('return {id=0,kind="idle"}\n', encoding='utf-8')
@@ -300,10 +300,8 @@ location="~add-ons/LearningNativeRPC/native_rpc.lua"
     def legal_actions(self, side):
         return self._request('legal_actions', side=int(side))['actions']
 
-    def decision(self, side, *, teacher=False, budget_ms=500):
-        if not isinstance(budget_ms, int) or not 1 <= budget_ms <= 60000:
-            raise ValueError('candidate budget_ms must be an integer in [1,60000]')
-        return self._request('decision', side=int(side), teacher=bool(teacher), budget_ms=budget_ms)
+    def decision(self, side, *, teacher=False):
+        return self._request('decision', side=int(side), teacher=bool(teacher))
 
     def step(self, action):
         return self._request('step', action=action)

@@ -149,8 +149,8 @@ def step(instance, action):
     return load(instance.step(json.dumps(action)))
 
 
-def decision(instance, side=1, *, teacher=False, budget_ms=500):
-    return load(instance.decision(side, budget_ms, teacher))
+def decision(instance, side=1, *, teacher=False):
+    return load(instance.decision(side, teacher))
 
 
 def snapshot(instance):

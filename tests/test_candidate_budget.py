@@ -58,7 +58,7 @@ class CandidateBudgetTests(unittest.TestCase):
             end
         """)
         rows, _ = modules['candidates.lua'].generate(
-            modules['observation.lua'].capture(lua.table()), 200)
+            modules['observation.lua'].capture(lua.table()))
         kinds = Counter(row['kind'] for row in rows.values())
         self.assertEqual(len(rows), 37)
         self.assertEqual(kinds['end_turn'], 1)
@@ -68,10 +68,17 @@ class CandidateBudgetTests(unittest.TestCase):
     def test_generator_returns_shared_bounded_pool(self):
         lua, modules = initialize()
         obs = modules['observation.lua'].capture(lua.table())
-        rows, timing = modules['candidates.lua'].generate(obs, 200)
+        rows, timing = modules['candidates.lua'].generate(obs)
         self.assertEqual(rows[1]['kind'], 'end_turn')
         self.assertLessEqual(len(rows), 37)
-        self.assertEqual(timing['budget'], 'fixed-20000-v4')
+        self.assertEqual(timing['budget'], 'work-12000-v5')
+        self.assertLessEqual(timing['work'], 12000)
+        self.assertLessEqual(timing['reaches'], 28)
+        self.assertLessEqual(timing['paths'], 8)
+        self.assertLessEqual(timing['recruit_probes'], 24)
+        self.assertLessEqual(timing['attack_probes'], 32)
+        self.assertLessEqual(timing['move_probes'], 32)
+        self.assertLessEqual(timing['predictions'], 16)
 
 
 if __name__ == '__main__':

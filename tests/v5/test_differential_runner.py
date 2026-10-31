@@ -25,12 +25,12 @@ def run(native_strikes, lite_strikes):
 
 
 class DifferentialRunnerTests(unittest.TestCase):
-    def test_native_decision_forwards_teacher_and_budget(self):
+    def test_native_decision_forwards_teacher(self):
         from learning.native_transport import NativeTransport
         transport = NativeTransport.__new__(NativeTransport)
         transport._request = lambda kind, **payload: dict(kind=kind, **payload)
-        self.assertEqual(transport.decision(2, teacher=True, budget_ms=20000),
-                         dict(kind='decision', side=2, teacher=True, budget_ms=20000))
+        self.assertEqual(transport.decision(2, teacher=True),
+                         dict(kind='decision', side=2, teacher=True))
 
     def test_strike_order_mismatch_is_a_failure(self):
         result = run([strike('a', 'b'), strike('b', 'a')], [strike('b', 'a')])
