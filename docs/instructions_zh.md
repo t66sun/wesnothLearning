@@ -52,7 +52,7 @@ export SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy
 "$python" -c 'import sys, torch, _engine_lite; print(sys.executable); print("torch", torch.__version__); print("CUDA", torch.cuda.is_available()); print("lite", _engine_lite.__file__)'
 ```
 
-原版应为 1.18.8，项目冻结入口要求 PyTorch 2.9.1。CPU 服务器默认全局 8 个游戏 worker、每训练器 1 线程，三个训练器共享这 8 个 worker。Windows 只作参考，不安排 Windows 全量验收。
+原版应为 1.18.8，项目冻结入口要求 PyTorch 2.9.1。CPU 服务器默认全局 8 个游戏 worker、每训练器 1 线程，三个训练器共享这 8 个 worker。Windows 只作参考，不安排 Windows 全量验收。CPU 服务器没有 `git` 也没有 `gh`，且 `sudo -n` 需要密码，因此改动以 `git archive` 压缩包送达并解压到新的按日期命名的目录，验收在该解压副本上进行，而不在长期保留的检出目录上。
 
 2026-10-22 的按座位候选优化新增了 Rust 扩展的决策参数；使用新源码前需在对应虚拟环境重新编译 `_engine_lite`，不能只复制 Python/Lua 文件。该修改及 300/600/400、8 workers 默认值已于 2026-10-22 在 Ubuntu 通过 T1–T4 受限验收（含 8 worker 真实链路、峰值 PSS 4.02 GiB），证据见 `verification/pretrain_acceptance_20261022/`，当前默认值见 architecture.md §12；启动正式训练仍需用户后续明确指令。
 
@@ -86,7 +86,7 @@ tar -xzf WesnothLearning-training.tar.gz && cd WesnothLearning
 
 故障：`preflight: SHA256SUMS verification failed` 表示解压副本与归档不一致——重新解压到干净目录，不要手工修补哈希；缺少 `SHA256SUMS` 表示解压不完整。系统门禁或 sudo 拒绝，用 Ubuntu 24.04 `x86_64` 加 root/`sudo` 解决，或自行装好系统包后加 `--skip-system-deps`。`identity: engine build … does not match declared …` 表示扩展过期：重跑安装。wheel 未被选中通常有两种原因：`setup.sh` 只在 `dist/` 中查找以 `wesnoth_learning_lite-`、`_engine_lite-`、`engine_lite-` 开头的文件（`--preflight` 会打印找到的文件），而构建器还要求文件名同时含 `manylinux` 与 `x86_64`。缺少 `.runtime/environment.sh`、`.venv/bin/python`、可导入的 `_engine_lite`、可执行的 `WESNOTH_EXE` 或运行目录已存在时，`train.sh` 拒绝启动。用户授权后按第 4 节启动运行。
 
-状态：构建器、校验器、`bash -n` 与 setup/train 脚本检查在参考工作站通过（17 项构建器/校验器测试与 11 项脚本测试），且从本树构建的一个归档通过校验（`ok: true`）。尚未执行 Ubuntu 24.04 上的解压、preflight、安装、Rust 或 Wesnoth 构建、`train.sh` 启动；这些仍属 [TEST.md](TEST.md) 的 `PKG1`，构建或安装成功从不证明收敛、棋力或可用模型。
+状态：构建器、校验器、`bash -n` 与 setup/train 脚本检查在参考工作站通过（17 项构建器/校验器测试与 11 项脚本测试），且从本树构建的一个归档通过校验（`ok: true`）。尚未执行 Ubuntu 24.04 上的解压、preflight、安装、Rust 或 Wesnoth 构建、`train.sh` 启动；操作者已于 2026-10-31 放弃该项验收（`PKG1`），因此不存在也不再计划归档包验收（[REPORT](../verification/acceptance_20261030/REPORT.md)），构建或安装成功从不证明收敛、棋力或可用模型。
 
 ## 3. 启动前核对实际可运行范围
 
