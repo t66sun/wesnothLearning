@@ -45,6 +45,26 @@ class CandidateBudgetTests(unittest.TestCase):
         self.assertEqual(counts['attack']+counts['move_attack'], 12)
         self.assertGreater(counts['move_attack'], 0)
 
+    def test_crowded_generator_keeps_combat_and_recruits(self):
+        lua, modules = initialize()
+        lua.execute("""
+            local base=fixture.own[2]
+            for i=3,30 do
+                local u=base:clone();u.id='unit'..i;u.x=i;u.y=5
+                fixture.own[#fixture.own+1]=u;fixture.visible[#fixture.visible+1]=u
+            end
+            wesnoth.paths.find_reach=function(u,cfg)
+                return {{u.x,u.y,u.moves},{u.x,u.y+1,2}}
+            end
+        """)
+        rows, _ = modules['candidates.lua'].generate(
+            modules['observation.lua'].capture(lua.table()), 200)
+        kinds = Counter(row['kind'] for row in rows.values())
+        self.assertEqual(len(rows), 37)
+        self.assertEqual(kinds['end_turn'], 1)
+        self.assertGreater(kinds['attack']+kinds['move_attack'], 0)
+        self.assertGreater(kinds['recruit'], 0)
+
     def test_generator_returns_shared_bounded_pool(self):
         lua, modules = initialize()
         obs = modules['observation.lua'].capture(lua.table())

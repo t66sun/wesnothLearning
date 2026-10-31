@@ -771,6 +771,9 @@ class AuditExportTests(unittest.TestCase):
         with helpers.temporary_directory() as directory:
             model = self._checkpoint_model(directory)
             rows = _rows(turns=2, decisions_per_turn=1)
+            for row in rows:
+                row['candidates'] = row['candidates'][:36]
+                row['choice'] = min(row['choice'], 35)
             with self.assertRaisesRegex(ValueError, '37'):
                 verify_numerics(model, attach_histories(rows))
             helpers.pad_candidates(rows[0], 128)
