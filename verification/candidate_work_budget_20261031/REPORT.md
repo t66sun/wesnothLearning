@@ -1,6 +1,6 @@
 # Bounded candidate work budget and separate generation timing
 
-Ubuntu (cpuServer), 2026-10-31. Source `42e960a45d5e5280edf71b1e24d5f9f9151d8769`
+Ubuntu (cpuServer), 2026-10-31. Source `818ef00914a18745c95b6f78fc931bd785a8621a`
 (`codex/candidate-work-budget`), shipped by `git archive` to
 `/home/tongshu/acceptance/candidate_work_budget_20261031_v1`. Candidate contract
 `schema5-work-12000-v5`: `lua/candidates.lua` charges a deterministic work budget
@@ -17,7 +17,7 @@ formats.
 
 | Item | Value |
 | --- | --- |
-| Source commit | `42e960a45d5e5280edf71b1e24d5f9f9151d8769` |
+| Source commit | `818ef00914a18745c95b6f78fc931bd785a8621a` |
 | Rules | native Wesnoth 1.18.8, unchanged |
 | Wesnoth binary | `/home/tongshu/myDev/wesnothLearning/WesnothLearning/.runtime/install/bin/wesnoth` |
 | Wesnoth SHA-256 | `33f64aa3f5ee40228bd44e357b3f4d784121d4392ff774d6c059c7defa3e5fcf` |
@@ -37,7 +37,7 @@ cd /home/tongshu/acceptance/candidate_work_budget_20261031_v1
 ./.venv/bin/python verification/candidate_work_budget_20261031/check.py . \
     verification/candidate_work_budget_20261031/out \
     /home/tongshu/myDev/wesnothLearning/WesnothLearning/.runtime/install/bin/wesnoth \
-    42e960a45d5e5280edf71b1e24d5f9f9151d8769
+    818ef00914a18745c95b6f78fc931bd785a8621a
 ```
 
 `check.py` exports one policy add-on carrying all three formats plus one support
@@ -57,21 +57,21 @@ Decisions counted are collected `LEARN` rows with `turn>=5`; decision time is th
 
 | Format | Games | Decisions | generate_ms p50/p95/max | score_ms p50/p95/max | decision max | max candidates | max work | faults | timeouts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| duel | 2 (turns 10, 9) | 40 | 5 / 6 / 6 | 194 / 230 / 233 | 49 ms | 37 | 1221 | 0 | 0 |
-| ffa4 | 2 (turns 9, 16) | 176 | 7 / 17 / 24 | 226 / 238 / 249 | 228 ms | 37 | 3793 | 0 | 0 |
-| team2v2 | 2 (turns 20, 20) | 160 | 3 / 4 / 10 | 159 / 194 / 202 | 215 ms | 29 | 427 | 0 | 0 |
+| duel | 2 (turns 9, 9) | 34 | 4 / 6 / 6 | 193 / 229 / 230 | 46 ms | 37 | 1152 | 0 | 0 |
+| ffa4 | 2 (turns 11, 19) | 198 | 6 / 13 / 21 | 220 / 246 / 256 | 232 ms | 37 | 3862 | 0 | 0 |
+| team2v2 | 2 (turns 20, 20) | 160 | 3 / 4 / 11 | 158 / 191 / 200 | 212 ms | 29 | 427 | 0 | 0 |
 
 Execution (`C.execute`) is slower than evaluation and independent of the candidate
-budget: 546 ms max in duel, 514 ms in ffa4, 517 ms in team2v2.
+budget: 547 ms max in duel, 517 ms in ffa4, 518 ms in team2v2.
 
 ## Verdict
 
 | Threshold | duel | ffa4 | team2v2 |
 | --- | --- | --- | --- |
-| at least 10 midgame decisions | pass (40) | pass (176) | pass (160) |
+| at least 10 midgame decisions | pass (34) | pass (198) | pass (160) |
 | `generate_ms` p95 <= 250 ms and max <= 500 ms | pass | pass | pass |
 | `score_ms` p95 <= 400 ms | pass | pass | pass |
-| decision max < 800 ms | pass (49) | pass (228) | pass (215) |
+| decision max < 800 ms | pass (46) | pass (232) | pass (212) |
 | zero faults and zero watchdog timeouts | pass | pass | pass |
 | at most 37 candidates and at most 12000 work per decision | pass | pass | pass |
 
@@ -79,12 +79,12 @@ Accepted: the shared candidate set, generated under the deterministic work budge
 completes inside the unchanged one-second native action budget on this map in all
 three formats, with generation and scoring bounded separately.
 
-Affected checks on the same host and source: 88 tests in 11 candidate, lua-contract
-and learning-core modules pass. The full suite runs 536 tests with 43 failures whose
-set is identical to the `ab0490a` baseline on the same host (provisioned
+Affected checks on the same host and source: 89 tests in 13 candidate, lua-contract
+and learning-core modules pass. The full suite runs 537 tests with 44 failing names
+whose set equals the `ab0490a` baseline on the same host minus the five
+candidate-contract tests this change fixes (provisioned
 `data/rules`/`data/rules/1.18.8/maps` inputs are absent and several unrelated
-modules fail there); no failure is introduced by this change, and the six
-candidate-contract tests that failed at `ab0490a` pass here.
+modules fail there); no other failure appears or disappears.
 
 ## Limits
 

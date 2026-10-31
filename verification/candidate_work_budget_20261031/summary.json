@@ -14,62 +14,17 @@
   },
   "formats": {
     "duel": {
-      "decisions": 40,
+      "decisions": 34,
       "elapsed_ms": {
-        "decisions": 35,
-        "max": 49,
+        "decisions": 32,
+        "max": 46,
         "p95": 45
       },
       "execution_ms": {
-        "decisions": 39,
-        "max": 546
+        "decisions": 36,
+        "max": 547
       },
       "format": "duel",
-      "games": [
-        {
-          "faults": {},
-          "max_turns": 20,
-          "reason": "last_leader",
-          "seed": 20261101,
-          "turns": 10,
-          "winner": 2
-        },
-        {
-          "faults": {},
-          "max_turns": 20,
-          "reason": "last_leader",
-          "seed": 20261102,
-          "turns": 9,
-          "winner": 2
-        }
-      ],
-      "generate_ms": {
-        "max": 6,
-        "p50": 5,
-        "p95": 6
-      },
-      "max_candidates": 37,
-      "max_work": 1221,
-      "over_budget": 0,
-      "score_ms": {
-        "max": 233,
-        "p50": 194,
-        "p95": 230
-      },
-      "truncated": 40
-    },
-    "ffa4": {
-      "decisions": 176,
-      "elapsed_ms": {
-        "decisions": 97,
-        "max": 228,
-        "p95": 66
-      },
-      "execution_ms": {
-        "decisions": 188,
-        "max": 514
-      },
-      "format": "ffa4",
       "games": [
         {
           "faults": {},
@@ -84,35 +39,80 @@
           "max_turns": 20,
           "reason": "last_leader",
           "seed": 20261102,
-          "turns": 16,
+          "turns": 9,
           "winner": 2
         }
       ],
       "generate_ms": {
-        "max": 24,
-        "p50": 7,
-        "p95": 17
+        "max": 6,
+        "p50": 4,
+        "p95": 6
       },
       "max_candidates": 37,
-      "max_work": 3793,
+      "max_work": 1152,
       "over_budget": 0,
       "score_ms": {
-        "max": 249,
-        "p50": 226,
-        "p95": 238
+        "max": 230,
+        "p50": 193,
+        "p95": 229
       },
-      "truncated": 153
+      "truncated": 34
+    },
+    "ffa4": {
+      "decisions": 198,
+      "elapsed_ms": {
+        "decisions": 113,
+        "max": 232,
+        "p95": 69
+      },
+      "execution_ms": {
+        "decisions": 192,
+        "max": 517
+      },
+      "format": "ffa4",
+      "games": [
+        {
+          "faults": {},
+          "max_turns": 20,
+          "reason": "last_leader",
+          "seed": 20261101,
+          "turns": 11,
+          "winner": 2
+        },
+        {
+          "faults": {},
+          "max_turns": 20,
+          "reason": "last_leader",
+          "seed": 20261102,
+          "turns": 19,
+          "winner": 2
+        }
+      ],
+      "generate_ms": {
+        "max": 21,
+        "p50": 6,
+        "p95": 13
+      },
+      "max_candidates": 37,
+      "max_work": 3862,
+      "over_budget": 0,
+      "score_ms": {
+        "max": 256,
+        "p50": 220,
+        "p95": 246
+      },
+      "truncated": 160
     },
     "team2v2": {
       "decisions": 160,
       "elapsed_ms": {
         "decisions": 160,
-        "max": 215,
+        "max": 212,
         "p95": 207
       },
       "execution_ms": {
         "decisions": 42,
-        "max": 517
+        "max": 518
       },
       "format": "team2v2",
       "games": [
@@ -134,7 +134,7 @@
         }
       ],
       "generate_ms": {
-        "max": 10,
+        "max": 11,
         "p50": 3,
         "p95": 4
       },
@@ -142,9 +142,9 @@
       "max_work": 427,
       "over_budget": 0,
       "score_ms": {
-        "max": 202,
-        "p50": 159,
-        "p95": 194
+        "max": 200,
+        "p50": 158,
+        "p95": 191
       },
       "truncated": 160
     }
@@ -155,7 +155,7 @@
     20261101,
     20261102
   ],
-  "source": "42e960a45d5e5280edf71b1e24d5f9f9151d8769",
+  "source": "818ef00914a18745c95b6f78fc931bd785a8621a",
   "wesnoth": "/home/tongshu/myDev/wesnothLearning/WesnothLearning/.runtime/install/bin/wesnoth",
   "wesnoth_sha256": "33f64aa3f5ee40228bd44e357b3f4d784121d4392ff774d6c059c7defa3e5fcf"
 }
