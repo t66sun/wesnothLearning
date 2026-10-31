@@ -1,0 +1,169 @@
+{
+  "format": "duel",
+  "status": "inconclusive",
+  "controls": {
+    "gpt6astra": {
+      "status": "inconclusive",
+      "blocks": 0,
+      "planned_blocks": 30,
+      "missing_blocks": 30,
+      "fault_games": 60,
+      "distinct_scenarios": 0,
+      "min_distinct": 12,
+      "reason": "inconclusive",
+      "block_differences": {},
+      "difference": null,
+      "interval95": null,
+      "policy_score": null,
+      "control_score": null,
+      "contexts": {}
+    },
+    "baseline": {
+      "status": "inconclusive",
+      "blocks": 0,
+      "planned_blocks": 30,
+      "missing_blocks": 30,
+      "fault_games": 60,
+      "distinct_scenarios": 0,
+      "min_distinct": 12,
+      "reason": "inconclusive",
+      "block_differences": {},
+      "difference": null,
+      "interval95": null,
+      "policy_score": null,
+      "control_score": null,
+      "contexts": {}
+    }
+  },
+  "selected_kind": "fallback",
+  "selection": {
+    "candidate": "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/a/duel/last_ppo.pt",
+    "candidate_version": 12,
+    "champion": null,
+    "champion_version": null,
+    "selected": "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/a/duel/last_ppo.pt",
+    "selected_kind": "fallback",
+    "selected_version": 12,
+    "reason": "no retained champion",
+    "selected_sha256": "603e3c83d6658b96d65da62bdf5cb277e979fbb19b080d4269ee4ac6e65fff08",
+    "frozen_before_holdout": true,
+    "format": "duel"
+  },
+  "pretraining_complete": false,
+  "bc_games_collected": 40,
+  "bc_games_required": 40,
+  "version": 12,
+  "evaluation_engine": "native",
+  "evaluation_scope": "native Wesnoth 1.18.8 comparison",
+  "checkpoint": "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/a/duel/selected.pt",
+  "checkpoint_sha256": "603e3c83d6658b96d65da62bdf5cb277e979fbb19b080d4269ee4ac6e65fff08",
+  "parameters": 776178,
+  "feature_version": 5,
+  "error": null,
+  "clock": {
+    "started": 1793421115.2388318,
+    "update_deadline": 1793421865.2388318,
+    "deadline": 1793422015.2388318
+  },
+  "forced_ppo": {
+    "reason": "L1 reduced panel: duel BC gate not reached in 40 games",
+    "command_id": "c5b7d746486e42c88101b6ebcd98fe75",
+    "version": 4
+  },
+  "phase_history": [
+    {
+      "deadline": 1793422926.0727637,
+      "force": true,
+      "id": "c5b7d746486e42c88101b6ebcd98fe75",
+      "phase": "ppo",
+      "reason": "L1 reduced panel: duel BC gate not reached in 40 games",
+      "requested_at": 1793422026.0727637,
+      "previous_phase": "bc",
+      "pretraining_complete": false,
+      "applied_at": 1793422028.1353846
+    },
+    {
+      "deadline": 1793424377.0272229,
+      "force": false,
+      "id": "92506ee4be4946ae9f39ac09a663a63c",
+      "phase": "evaluate",
+      "reason": "",
+      "requested_at": 1793422937.0272229,
+      "previous_phase": "ppo",
+      "pretraining_complete": false,
+      "applied_at": 1793422939.086641
+    }
+  ],
+  "bc_gate": {
+    "imitation": {
+      "effective": false,
+      "formats": {
+        "duel": {
+          "samples": 683,
+          "cross_entropy": 2.3003310822114065,
+          "uniform_entropy": 4.38786087645366,
+          "kinds": {
+            "recruit": {
+              "samples": 113,
+              "correct": 56,
+              "accuracy": 0.49557522123893805
+            },
+            "move": {
+              "samples": 314,
+              "correct": 145,
+              "accuracy": 0.46178343949044587
+            },
+            "attack": {
+              "samples": 206,
+              "correct": 46,
+              "accuracy": 0.22330097087378642
+            }
+          },
+          "accuracy": 0.4011713030746706,
+          "uniform_accuracy": 0.016527838216202632,
+          "effective": false
+        }
+      }
+    },
+    "coverage": {
+      "passed": true,
+      "actions": {
+        "all": {
+          "matched": 4139,
+          "total": 4186,
+          "ratio": 0.9887720974677496
+        },
+        "recruit": {
+          "matched": 645,
+          "total": 648,
+          "ratio": 0.9953703703703703
+        },
+        "move": {
+          "matched": 1791,
+          "total": 1794,
+          "ratio": 0.9983277591973244
+        },
+        "attack": {
+          "matched": 1186,
+          "total": 1227,
+          "ratio": 0.9665851670741646
+        }
+      }
+    },
+    "corpus": {
+      "games": 40,
+      "required": 40,
+      "passed": true
+    },
+    "opening": {
+      "passed": false,
+      "blocking": false
+    },
+    "distinct_scenarios": 30,
+    "min_distinct": 12,
+    "missing_scenario_rows": 0,
+    "scope": "initialisation_only",
+    "status": "not_passed",
+    "passed": false
+  }
+}

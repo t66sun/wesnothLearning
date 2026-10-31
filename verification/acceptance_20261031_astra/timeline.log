@@ -1,0 +1,39 @@
+12:31:54 A: BC phase
+12:31:54 a-bc: pid 326618 run --run-dir /home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/a --phase bc --hours 0.25 --engine lite --evaluation-engine native --device cpu --workers 8 --trainer-threads 1 --formats duel --bc-games 40 1 1 --native-bc-games 0 0 0 --bc-batch-games 20 --bc-records 2048 --bc-validation-records 1024 --validation-interval 100000 --final-blocks 30 --seed 20261017 --wesnoth /home/tongshu/myDev/wesnothLearning/WesnothLearning/.runtime/install/bin/wesnoth
+12:47:04 a-bc: exited 0
+12:47:04 a-bc: stopped rc=0
+12:47:04 a-bc: stage=bc_complete effective=False
+12:47:05 a-bc: phase ppo rc=2  duel: BC gates not passed; use --force --reason to enter PPO explicitly
+12:47:06 a-bc: phase ppo forced rc=0 {"duel": {"id": "c5b7d746486e42c88101b6ebcd98fe75", "phase": "ppo", "force": true, "reason": "L1 reduced panel: duel BC gate not reached in 40 games", "requested_at": 1793422026.0727637, "deadline": 1793422926.0727637}} 
+12:47:06 A: PPO until two applied updates
+12:47:06 a-ppo-stop: pid 326792 run --run-dir /home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/a --resume /home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/a
+12:52:26 a-ppo-stop: condition met after 320s
+12:52:26 a-ppo-stop: SIGINT
+12:55:26 a-ppo-stop: SIGINT ignored, SIGKILL
+12:55:26 a-ppo-stop: stopped rc=-9
+12:55:26 a-ppo-stop: applied=3 pending={'paths': ['/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/a/duel/data/rollout-00008-duel-g0.jsonl.gz', '/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/a/duel/data/rollout-00008-duel-g1.jsonl.gz', '/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/a/duel/data/rollout-00008-duel-g2.jsonl.gz', '/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/a/duel/data/rollout-00008-duel-g3.jsonl.gz'], 'method': 'ppo', 'cursor': {'epoch': 0, 'step': 0}, 'reward_config': {'economy': 0.15, 'control': 0.1, 'explore': 0.1, 'mode': 'adaptive', 'entropy': 0.01, 'bc_aux': 0.1, 'gamma': 1.0, 'gae_lambda': 0.95, 'reward_version': 0, 'reward_formula_id': 'v5-potential-1'}, 'identity': {'train': '2f42e9a986833866f9c3899f6ed4a90b8659a3331cef5c1b89e6dde2d27a1f53', 'bc': 'c378c8b357956fd8b6902c888bd30ff05161583c5b2adbae70221c7522fbabeb'}} stage=ppo version=8 kl_stops=None
+12:55:26 A: resumed after batch 8
+12:55:26 A: PPO to completion
+12:55:26 a-ppo-finish: pid 326857 run --run-dir /home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/a --resume /home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/a
+13:02:16 a-ppo-finish: exited 0
+13:02:16 a-ppo-finish: stopped rc=0
+13:02:16 a-ppo-finish: applied=6 pending={'paths': ['/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/a/duel/data/rollout-00011-duel-g0.jsonl.gz', '/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/a/duel/data/rollout-00011-duel-g1.jsonl.gz', '/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/a/duel/data/rollout-00011-duel-g2.jsonl.gz', '/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/a/duel/data/rollout-00011-duel-g3.jsonl.gz'], 'method': 'ppo', 'cursor': {'epoch': 0, 'step': 0, 'plan_version': 2, 'plan_seed': 20261017, 'plan_hash': 'b6553d07ef1ed37514a41fb7a9c094aa90f840be08b1a327b2043fedf878d1c8', 'scope': 'deferred', 'loss_sum': 0.0, 'updates': 0, 'decisions_seen': 0, 'inspected_decisions': 0, 'committed_decisions': 0}, 'reward_config': {'economy': 0.15, 'control': 0.1, 'explore': 0.1, 'mode': 'adaptive', 'entropy': 0.01, 'bc_aux': 0.1, 'gamma': 1.0, 'gae_lambda': 0.95, 'reward_version': 0, 'reward_formula_id': 'v5-potential-1'}, 'identity': {'train': '9cc358764fd9c11e73c43f863cc16d387291559f7964874aa75deeea1d5b3b0f', 'bc': '015846400ca6ce8944164e41d20f97c2ee898065c3991943db471748e4b462d0'}} stage=ppo_complete version=11 kl_stops=None
+13:02:16 A: final evaluation
+13:02:17 a-eval: phase evaluate rc=0 {"duel": {"id": "92506ee4be4946ae9f39ac09a663a63c", "phase": "evaluate", "force": false, "reason": "", "requested_at": 1793422937.0272229, "deadline": 1793424377.0272229}} 
+13:02:17 a-eval: pid 326910 run --run-dir /home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/a --resume /home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/a
+13:04:57 a-eval: exited 0
+13:04:57 a-eval: stopped rc=0
+13:04:57 a-eval: status=inconclusive stage=finished
+13:04:57 B: twin, uninterrupted
+13:04:57 b-bc: pid 327555 run --run-dir /home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b --phase bc --hours 0.25 --engine lite --evaluation-engine native --device cpu --workers 8 --trainer-threads 1 --formats duel --bc-games 40 1 1 --native-bc-games 0 0 0 --bc-batch-games 20 --bc-records 2048 --bc-validation-records 1024 --validation-interval 100000 --final-blocks 30 --seed 20261017 --wesnoth /home/tongshu/myDev/wesnothLearning/WesnothLearning/.runtime/install/bin/wesnoth
+13:20:07 b-bc: exited 0
+13:20:07 b-bc: stopped rc=0
+13:20:07 b-bc: stage=bc_complete effective=False
+13:20:08 b-bc: phase ppo rc=2  duel: BC gates not passed; use --force --reason to enter PPO explicitly
+13:20:09 b-bc: phase ppo forced rc=0 {"duel": {"id": "9d60718b1f224eeab61768e8f0f989b0", "phase": "ppo", "force": true, "reason": "L1 reduced panel: duel BC gate not reached in 40 games", "requested_at": 1793424008.8323855, "deadline": 1793424908.8323855}} 
+13:20:09 b-ppo-finish: pid 327679 run --run-dir /home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b --resume /home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b
+13:36:09 b-ppo-finish: exited 0
+13:36:09 b-ppo-finish: stopped rc=0
+13:36:09 b-ppo-finish: applied=7 pending={'paths': ['/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00012-duel-g0.jsonl.gz', '/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00012-duel-g1.jsonl.gz', '/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00012-duel-g2.jsonl.gz', '/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/b/duel/data/rollout-00012-duel-g3.jsonl.gz'], 'method': 'ppo', 'cursor': {'epoch': 0, 'step': 0, 'plan_version': 2, 'plan_seed': 20261017, 'plan_hash': '8fedb3d88c9f549f2bf8fb96708e6db9147c0dacec7019bdda6eb0fbd816740d', 'scope': 'deferred', 'loss_sum': 0.0, 'updates': 0, 'decisions_seen': 0, 'inspected_decisions': 0, 'committed_decisions': 0}, 'reward_config': {'economy': 0.15, 'control': 0.1, 'explore': 0.1, 'mode': 'adaptive', 'entropy': 0.01, 'bc_aux': 0.1, 'gamma': 1.0, 'gae_lambda': 0.95, 'reward_version': 0, 'reward_formula_id': 'v5-potential-1'}, 'identity': {'train': 'de2074256306a7bf803270ad75bc054c6262686c6f19378f834663d0a79cafec', 'bc': '389865e451c7899c95a05e6d49e104690784962280b91bd54964e63a1cd7411a'}} stage=ppo_complete version=12 kl_stops=None
+13:36:09 compare: batches=[8, 9, 10, 11] identical=True
+13:36:09 done

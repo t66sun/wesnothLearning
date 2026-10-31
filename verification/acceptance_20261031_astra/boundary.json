@@ -1,0 +1,47 @@
+{
+ "batch": 8,
+ "counters": {
+  "collection_batches": 9,
+  "committed_steps": 22,
+  "decisions_seen": 61666,
+  "effective_dataset_passes": 38.7076171875,
+  "environment_games": 56,
+  "optimizer_steps": 290,
+  "planned_steps": 28,
+  "stopped_by_kl_steps": 6,
+  "unique_families_seen": 52
+ },
+ "effective": false,
+ "kl_stops": null,
+ "pending_train": {
+  "cursor": {
+   "epoch": 0,
+   "step": 0
+  },
+  "identity": {
+   "bc": "c378c8b357956fd8b6902c888bd30ff05161583c5b2adbae70221c7522fbabeb",
+   "train": "2f42e9a986833866f9c3899f6ed4a90b8659a3331cef5c1b89e6dde2d27a1f53"
+  },
+  "method": "ppo",
+  "paths": [
+   "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/a/duel/data/rollout-00008-duel-g0.jsonl.gz",
+   "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/a/duel/data/rollout-00008-duel-g1.jsonl.gz",
+   "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/a/duel/data/rollout-00008-duel-g2.jsonl.gz",
+   "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/a/duel/data/rollout-00008-duel-g3.jsonl.gz"
+  ],
+  "reward_config": {
+   "bc_aux": 0.1,
+   "control": 0.1,
+   "economy": 0.15,
+   "entropy": 0.01,
+   "explore": 0.1,
+   "gae_lambda": 0.95,
+   "gamma": 1.0,
+   "mode": "adaptive",
+   "reward_formula_id": "v5-potential-1",
+   "reward_version": 0
+  }
+ },
+ "stage": "ppo",
+ "version": 8
+}
