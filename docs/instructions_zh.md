@@ -4,7 +4,7 @@
 
 更新日期：2026-10-27。面向接手启动、维护和按指令调参的 agent。架构与当前参数以 [architecture_zh.md](architecture_zh.md) 为准，已实现但未验收的事项及最小方案见 [TEST_zh.md](TEST_zh.md)，历史验收证据从架构文档链接查阅。本文件提供操作步骤，不重复维护架构状态和完整超参数表。
 
-**R7 后的新 run 路线：**manifest 声明原版 1.18.8 RCA；baseline 与参考面板仅走 native，Lite 学生批次只有自博弈/历史席位。Astra 包保留为历史输入，不冻结为活动对手。R7 只证明身份与接线；R8 已按能力证据验收（一个场景、三局、无语料），R9 也已按能力证据验收（一局原版教师对局，DAgger 按不支持退役），无查询能力的教师不会以控制器席位进入对局；R8b 随后关闭了 R8 记录的标签限制：攻击标注出引擎所报武器、仅评分不同的变体合并为同一意图、覆盖率分母按决策计数，因此两局真实原版对局以零歧义事件通过 BC 覆盖率门禁（33 项专项检查、三项还原）——语料、候选预算与训练长度日志上限仍待处理。R4 场景设计下限自 2026-10-28 起已可由计划中的名册达到；R5 的 rehearsal 池仍为空：策展语料没有 1.18.8 era_default 标准多人局重放，其他版本录制的重放被拒收，因此正 `bc_aux` 的 PPO run 会显式失败，直到补入重放或授权策略 opt-in；两者仍是前置条件。下文历史纯 Lite 启动模板不能用于新 run。本指南不授权新采集或正式训练；见 [R7 报告](../verification/ppo_refactor_r7_20261027/REPORT.md)。
+**当前路线：**每个 manifest 冻结唯一的自定义教师包 `gpt6astra` 及其血脉，因此教师对局、DAgger 纠正与导出一致携带同一身份。lite 是默认引擎，也是默认评估引擎；新 run 采集 lite Astra 教师对局（`native_bc_games` 为 0），最终对照同样为 lite Astra，官方 baseline 席位仍仅走 native。能力与限制见 architecture.md §4–§5。
 
 ## 1. 接手时先确定任务
 
@@ -62,7 +62,7 @@ export SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy
 
 `python -m learning bundle --output PATH` 生成、`python -m learning verify-bundle PATH` 校验的归档包，是干净 Ubuntu 24.04 `x86_64` 机器接收本项目的方式。它是上文服务器环境的替代方案而非替代品，现有服务器目录及其说明保持不变。
 
-归档包含源码树、冻结的 `1.18.8-training` 规则、精选人类对局、数据集输入，以及 `BUNDLE_MANIFEST.json` 的 `identities.teacher` 所声明的对手包——原版 RCA 包因此一个都不含。它排除 `.git`、虚拟环境、缓存、`.runtime/`、`runs/`、`verification/`、`delivery/`、`tmp/`、`data/rules/1.18.8`、`data/humanData`、`data/references`、编译产物后缀、Cargo `target/` 与 `AGENTS.md`，因此不记录任何运行、棋力结果或交付决定。`docs/instructions.md` 及其镜像为必需成员：缺少它们时构建器拒绝产出归档。
+归档包含源码树、冻结的 `1.18.8-training` 规则、精选人类对局、数据集输入，以及 `data/opponents/` 下的对手包（即冻结的 `gpt6astra.zip`，由 `BUNDLE_MANIFEST.json` 的 `data.opponents` 列出，校验器要求至少一个）。它排除 `.git`、虚拟环境、缓存、`.runtime/`、`runs/`、`verification/`、`delivery/`、`tmp/`、`data/rules/1.18.8`、`data/humanData`、`data/references`、编译产物后缀、Cargo `target/` 与 `AGENTS.md`，因此不记录任何运行、棋力结果或交付决定。`docs/instructions.md` 及其镜像为必需成员：缺少它们时构建器拒绝产出归档。
 
 ```bash
 python -m learning bundle --output dist/WesnothLearning-training.tar.gz \
@@ -73,7 +73,7 @@ python -m learning verify-bundle dist/WesnothLearning-training.tar.gz --require-
 
 `--output` 必须位于项目根目录内且尚不存在；构建器先写临时文件再改名，失败不会留下半个归档。`--created-at` 归一化为 UTC `YYYY-MM-DDTHH:MM:SSZ`，固定后重复构建字节一致。`--wheel` 只接受以 `.whl` 结尾且名称同时含 `manylinux` 与 `x86_64` 的文件；`verify-bundle --require-wheel` 会判定无 wheel 的归档不合格，离线免 Rust 安装需要它。两个命令都输出 JSON（`archive`、`sha256`、`files`、`bytes`、`created_at`、`source`、`rules`、`wheel`；随后 `ok`、`errors`，不合格时退出 2），归档 `sha256` 记入发布说明。`rules.json` 与 `catalog-summary.json` 在 `rules_file_sha256`、`source_hash`、`unit_count`、`terrain_count` 上不一致时，构建器拒绝打包。
 
-归档是根为 `WesnothLearning/` 的单个排序 PAX gzip，`mtime` 与 gzip 头时间均为 0，`uid`/`gid` 为 0，`uname`/`gname` 为空，模式 `0644`（`*.sh` 与目录为 `0755`），根下含 `BUNDLE_MANIFEST.json`（schema 1）与 `SHA256SUMS`，解压后 `cd WesnothLearning && sha256sum --check SHA256SUMS` 可用。校验器重算每个成员的大小、哈希、模式与总计，检查 Ubuntu 24.04 `x86_64` 目标、无绝对路径/越界父路径/重复成员、排除类别、对归档内 JSON 的规则身份、对随包 `lua/stock_rca_capture` 源码的 `identities.teacher`、每个列出的对手、精选人类文件与可选 wheel。
+归档是根为 `WesnothLearning/` 的单个排序 PAX gzip，`mtime` 与 gzip 头时间均为 0，`uid`/`gid` 为 0，`uname`/`gname` 为空，模式 `0644`（`*.sh` 与目录为 `0755`），根下含 `BUNDLE_MANIFEST.json`（schema 1）与 `SHA256SUMS`，解压后 `cd WesnothLearning && sha256sum --check SHA256SUMS` 可用。校验器重算每个成员的大小、哈希、模式与总计，检查 Ubuntu 24.04 `x86_64` 目标、无绝对路径/越界父路径/重复成员、排除类别、对归档内 JSON 的规则身份、`data.opponents` 列表（至少一个包、均位于 `data/opponents/` 下且逐个核验哈希）、精选人类文件与可选 wheel。
 
 ```bash
 tar -xzf WesnothLearning-training.tar.gz && cd WesnothLearning
@@ -90,7 +90,7 @@ tar -xzf WesnothLearning-training.tar.gz && cd WesnothLearning
 
 ## 3. 启动前核对实际可运行范围
 
-新实验默认 lite，规则默认 `data/rules/1.18.8-training`（587 单位、438 地形）。启动门禁核验实际六阵营的 158 单位闭包，接受已记录近似，拒绝未支持类型及缺失引用；整包语义/性能标志仍保留原值。新 manifest 声明单一教师（stock RCA）并要求原版参考评估；既有 Astra 运行保留其冻结的教师身份。能力与限制见 architecture.md §4–§5。
+新实验默认 lite，规则默认 `data/rules/1.18.8-training`（587 单位、438 地形）。启动门禁核验实际六阵营的 158 单位闭包，接受已记录近似，拒绝未支持类型及缺失引用；整包语义/性能标志仍保留原值。新 manifest 冻结唯一的自定义教师包（`gpt6astra`）及其血脉；评估引擎跟随采样引擎，除非用 `--evaluation-engine` 覆盖。能力与限制见 architecture.md §4–§5。
 
 通常使用默认目录即可。采集输入已于 2026-10-24 迁入 `data/`；早于该迁移的检出仍把 `rules/`、`datasets/`、`humanData*`、`opponents/`、`references/` 放在根目录，须先移入 `data/`，否则默认路径无法解析。需要用户指定其他冻结包时，传入：
 
@@ -165,7 +165,6 @@ set -o pipefail
 
 新 run 可用 `--final-holdout-hours H` 在既有最终 2/12 预算内冻结 holdout 预留（默认 0；`0 <= H < hours/6`）。仅最终提名提前 H 小时截止，holdout 仍用原总截止。本次获准的新建 30 小时训练取 H=4：25 小时更新、1 小时提名、4 小时 holdout；提名不完整保留冠军，不延长时钟或绕门。恢复沿用原冻结配置。
 
-**2026-10-28 授权的原版 RCA run：** 在 cpuServer 的 `/home/tongshu/myDev/wesnothLearning/formal_run_20261028` 启动新 run `runs/v5_stock30h_20261028`，源码 `a495d10`（归档 `formal_src_a495d10.tar.gz`，SHA-256 `c04c8b3ae757b28a4a29c6728b8878a4cf2dc52a7c689296b979828d0493b813`）。协调器为分离进程 PID 275499；服务器没有 tmux，因此用 `setsid nohup ./launch.sh` 保持会话。启动于 2026-10-28 20:49:34（Asia/Shanghai）：总计 30 小时，更新截止 2026-10-29 21:49:34，最终截止 2026-10-30 02:49:34，H=4。配置：纯 lite 学生、原生评估（`--evaluation-engine native`；原版 RCA 参考只支持原生）、原版 1.18.8 RCA 教师、duel/ffa4/team2v2 各目标 400 局原版教师对局、训练对局 60 回合、`--native-bc-games 0 0 0`、8 个共享 worker、1 个训练线程、seed 20261028、空人类池 `empty_human`（不接受重放），门禁与 `bc_aux` 不变。20:51 读取时 manifest 与上述值一致，三种格式均有首批完成对局（duel 5、ffa4 6、team2v2 3），且没有 trainer/error/infrastructure 日志。20:45 的首次启动因一局 ffa4 触及 80 MiB 原生日志上限而停止并删除目录；PR #80 将捕获的 `STOCK` 帧排除出该上限，修复后才有本次启动。启动证据：[报告](../verification/formal_run_20261028/REPORT.md)。该次尝试于 22:21 因学生策略导出超过提交包上限而停止（PR #83）；以源码 `1dc3914` 于 22:24:32 重启，并于 22:32:36 按用户指示停止。两者均未产生训练结果（[重启记录](../verification/formal_run_20261028_r2/REPORT.md)）。
 
 **历史启动，2026-10-25：**cpuServer 上获准新 run `training_lite30h_20261025/source/runs/v5_lite30h_20261025`，源码 `822082d`，PID/session 225153。北京时间 14:40:27 启动，总计 30 小时：25 小时更新、1 小时提名、4 小时 holdout；总截止 10 月 26 日 20:40:27。纯 lite 三赛制、8 个共享 worker，300/600/400 目标和门禁不变。14:52:47 独立状态读取确认脱离 SSH 后主进程存活；三赛制均有有效批次、已提交优化器更新（76/40/36）和更新检查点，无训练器错误。保留冻结源码和配置不动。命令与证据见[启动报告](../verification/final_review_lite30h_20261025/REPORT.md)。
 

@@ -23,10 +23,10 @@ Not claimed: lite/native rule equivalence, native performance acceptance, or pla
 | --- | --- |
 | `learning/` | Python coordinator: trainer processes, adapters, data pipeline, model, rewards, evaluation, export, bundle and maintenance tools |
 | `engine_lite/` | Rust/PyO3 deterministic engine, embedded Lua 5.4 host, rule capture/audit tools (`audit`, `capture`, `freeze`, `inventory`, `differential`) |
-| `lua/` | Add-on Lua shared by the native deployment and the lite host: observation, candidates, spatial/relational network, routing, rewards, teacher, stock-RCA capture |
+| `lua/` | Add-on Lua shared by the native deployment and the lite host: observation, candidates, spatial/relational network, routing, rewards, teacher |
 | `vendor/arena/` | Vendored WesnothArena native SDK (runtime, match runner, bots, faction/leader/recruit profile) |
 | `data/rules/` | Frozen rules: `1.18.8-training` (default, 587 units / 438 terrains) and historical `1.18.8` |
-| `data/` | Captured inputs: `humanData/`, `humanData_curated/`, `replays/` (packed lobby replay pull, one tar per month), `replays_curated/` (standard-era human games curated from it), `datasets/`, `opponents/gpt6astra.zip` (legacy teacher) |
+| `data/` | Captured inputs: `humanData/`, `humanData_curated/`, `replays/` (packed lobby replay pull, one tar per month), `replays_curated/` (standard-era human games curated from it), `datasets/`, `opponents/gpt6astra.zip` (the frozen teacher package) |
 | `tests/` | `tests/v5/` contract suites, legacy unit suites, manual smoke scripts, shared fixtures in `tests/v5/helpers.py` |
 | `benchmarks/` | Frozen engine workload contract (`contract.json`) and its runner |
 | `runs/<run>/` | Per-run manifests, per-format state, schedules and checkpoints (not tracked) |
@@ -68,7 +68,7 @@ flowchart LR
 - Deterministic combat: each strike resolves to `ceil(damage × chance × 1.10)`; slow multiplies damage by `ceil(3/4)` before hit chance; poison ticks 6 HP at the unit's own turn; no combat RNG and no hit injection. `forecast()` is a point mass and accepts `samples` only for compatibility.
 - Implemented lite mechanics: terrain-cost movement, visible-enemy ZOC, friendly passage, connected-castle recruiting/economy, village capture, fog/shroud/history terrain, ally sharing, side rotation, leader elimination and team endgame, per-strike death/counterattack/XP advancement, slow, poison, drain, firststrike, marksman, magical, charge, berserk, basic plague, healing/rest, concealment/nightstalk/teleport, deterministic strikes.
 - Approximate lite paths: adjacent leadership, illumination, backstab, steadfast, counterattack plague, one-step teleport cost. Known gaps: composite modifier rounding, full weapon-declaration filtering, variant instances, random traits, AMLA choices, exact status-clear timing, vision costs/jamming, ranged pathfinding ZOC, campaign events. Unknown abilities/scripts block recruitment chains rather than degrade silently.
-- `lua/` is the single legality/observation implementation: native Wesnoth loads it as an add-on, and `LiteHost` loads the same modules into the embedded Lua VM. `lua/stock_rca_capture/` turns native engine events into public pre-action frames.
+- `lua/` is the single legality/observation implementation: native Wesnoth loads it as an add-on, and `LiteHost` loads the same modules into the embedded Lua VM.
 
 ## 5. Observation, candidates and rows
 
@@ -85,7 +85,7 @@ flowchart LR
 
 Values are divided by their declared scale and clipped to ±4; `unit_type_index` is unscaled. Candidate order is preserved exactly; the policy scores a fixed set capped at 128 entries produced by `lua/candidates.lua` under budget id `fixed-20000-v3`.
 
-Rows are the training contract: schema 6, encoded by `rowpack` v2 (JSON metadata plus one base64 float32 block per row) inside gzip JSONL shards. Each row carries engine/rules/RNG/combat/candidate/reward versions, reward formula, scenario family, split rule, game family, teacher identity and source (`astra`, `stock_rca`, `human`, `policy`). `data.validate_record` rejects any row whose provenance, widths, finiteness, intent fields or reward configuration disagree with the frozen run.
+Rows are the training contract: schema 6, encoded by `rowpack` v2 (JSON metadata plus one base64 float32 block per row) inside gzip JSONL shards. Each row carries engine/rules/RNG/combat/candidate/reward versions, reward formula, scenario family, split rule, game family, teacher identity and source (`astra`, `human`, `policy`). `data.validate_record` rejects any row whose provenance, widths, finiteness, intent fields or reward configuration disagree with the frozen run.
 
 Actor inputs never contain referee truth: reward scalars, teacher actions, unseen units, unexplored terrain and RNG state are stripped before the policy sees a decision.
 
@@ -93,10 +93,9 @@ A job record is the run's per-game log line, so it holds per-decision evidence o
 
 Teacher capabilities are declared, not assumed:
 
-- `wesnoth_default_rca` — the stock AI. Only native engine events are observable; there is no per-decision query, so DAgger is unsupported.
-- `gpt6astra` — legacy per-decision Lua teacher (`learning/teachers/`, derived source; the frozen `data/opponents/gpt6astra.zip` is lineage only). The derived source adapts only where lite rules changed: attack scoring from `expected_damage_v1`, slow worth 25% damage plus its movement restriction, poison 6 points per tick. `teacher_profile` with `teacher_source_sha256` travels in rows, checkpoints, job metadata and exports, so one run never mixes profiles.
+- `gpt6astra` — the frozen per-decision Lua teacher (`learning/teachers/`, derived source; `data/opponents/gpt6astra.zip` is its lineage and the package every manifest ships). The derived source adapts only where lite rules changed: attack scoring from `expected_damage_v1`, slow worth 25% damage plus its movement restriction, poison 6 points per tick. `teacher_profile` with `teacher_source_sha256` travels in rows, checkpoints, job metadata and exports, so one run never mixes profiles.
 
-New manifests freeze the stock RCA teacher and require native reference evaluation. `LiteHost` refuses a stock teacher job and refuses Astra seats unless the manifest declares `gpt6astra`.
+A fresh manifest freezes that package and names its lineage as the teacher, so teacher and DAgger shards carry one identity. `LiteHost` refuses official-baseline seats and accepts only the declared `gpt6astra` source.
 
 ## 6. Policy network
 
@@ -178,7 +177,7 @@ The benchmark workload is fixed by `benchmarks/contract.json`: paired native/lit
 
 | Parameter | Default |
 | --- | --- |
-| formats / engine / evaluation engine | all three / `lite` / `native` |
+| formats / engine / evaluation engine | all three / `lite` / follows the sampling engine |
 | hours / workers / device / trainer threads | 12 / 8 / `cpu` (trainer) / 1 |
 | seed | 20261018 in the configuration; `run` passes 20261017 by default |
 | BC teacher-game targets | duel 300, ffa4 600, team2v2 400 |
@@ -204,10 +203,10 @@ The benchmark workload is fixed by `benchmarks/contract.json`: paired native/lit
 
 - Lite rules are approximate (470 of 587 units) and explicitly not native-accepted; whole-package performance is unaccepted.
 - Lite combat is deterministic; native combat is stochastic. Cross-engine numeric equality is not claimed.
-- The stock RCA teacher cannot answer per-decision queries, so DAgger stays unsupported for that teacher; Astra remains a legacy teacher source only.
+- DAgger is Astra-only: the frozen teacher answers per-decision queries, and every correction row carries that identity.
 - The official baseline is native-only; lite runs cannot evaluate against it.
 - The curated replay corpus (`data/replays_curated/`, 1,076 standard-era games) is staging; only the 197 games recorded under 1.18.8 reach BC. A lobby archive starts from its `[scenario]` block, because 1.18.8 expands the scenario and merges the recorded RNG itself; a lobby archive without `[carryover_sides_start].random_seed` is skipped as `missing_initial_rng`. Replay markers may only run before an action and once at the end, since the replay machine rejects a `[custom_command]` reached inside a synced context. Three games were prepared, played by official 1.18.8 and imported as 84 BC rows (`verification/curated_bc_20261031/REPORT.md`); wider corpus play is not claimed.
-- Native play is not reproducible from its seed: the same stock game played twice from one seed ended at turn 5 and turn 3 (`verification/acceptance_20261031/L1/REPORT.md`), so compare independent runs only through recorded counts, never by assuming a shared future.
+- Native play is not reproducible from its seed: the same native game played twice from one seed ended at turn 5 and turn 3 (`verification/acceptance_20261031/L1/REPORT.md`), so compare independent runs only through recorded counts, never by assuming a shared future.
 - An exported lite policy needs about 1.9 s per decision in Lua, above the frozen native `ACTION_TIMEOUT = 1.0` (`vendor/arena/params.py:6`), so a native final evaluation of a lite policy faults with `watchdog_timeout` before it can score a game.
 - No convergence or playing-strength claim exists for any run.
 
