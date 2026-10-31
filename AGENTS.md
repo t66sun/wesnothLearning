@@ -18,7 +18,7 @@ This repository trains a Wesnoth 1.18.8 agent: a Rust rule core (`engine_lite/`)
 
 7. **Frozen inputs and recorded evidence are read-only.** `data/`, dated `verification/` reports, run manifests and their hashes are never hand-edited, re-sorted or retro-fitted; new evidence goes to a new dated directory. Generated output (`engine_lite/target/`, `*.egg-info`, `__pycache__`, `tmp/`) is never edited.
 
-8. **Server work happens only on explicit instruction.** Make local changes first; collection and training start only when asked.
+8. **Tests run on the server by default; collection and training wait for instruction.** Make local changes first, then run the affected checks on the Ubuntu acceptance host (`ssh cpuServer`) without asking for authorisation, and run tests on this machine only when the user explicitly asks for a local run. Collection and training start only when asked. The host has no git, so reach it the standard way: ship each change as a `git archive` tarball of the branch, extract it into a fresh dated directory there, and identify the shipped source by its commit hash.
 
 ## Layout
 
