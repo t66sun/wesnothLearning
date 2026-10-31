@@ -8,11 +8,13 @@ import time
 import unittest
 from unittest.mock import patch
 import torch
-from learning.common import ROOT, write_json, read_json
+from learning.common import ROOT, TAIL_CHUNK, repair_tail, write_json, read_json
 from learning.formats import FORMATS
 from learning.experiment import FormatExperiment, default_config, run_lock, coverage_gate, opening_gate, human_coverage
 from learning.coordinator import FairScheduler, broker, Experiment
+from learning import coordinator
 from learning.export import load_model
+from learning.sample import collect
 from learning.train import train, checkpoint
 from tests.test_core import record
 
@@ -75,6 +77,48 @@ class ExperimentTests(unittest.TestCase):
             self.assertEqual([scheduler.pop()[0] for _ in range(6)],list(FORMATS)*2)
             requests.close()
             for q in replies.values(): q.close()
+
+    def test_tail_repair_drops_only_the_unterminated_line(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp)
+            complete=root/'complete.jsonl';complete.write_bytes(b'{"id":1}\n{"id":2}\n')
+            repair_tail(complete);self.assertEqual(complete.read_bytes(),b'{"id":1}\n{"id":2}\n')
+            partial=root/'partial.jsonl';partial.write_bytes(b'{"id":1}\n{"id":2}\n{"id":3"')
+            repair_tail(partial);self.assertEqual(partial.read_bytes(),b'{"id":1}\n{"id":2}\n')
+            longtail=root/'longtail.jsonl';longtail.write_bytes(b'{"id":1}\n'+b'x'*(TAIL_CHUNK+4096))
+            repair_tail(longtail);self.assertEqual(longtail.read_bytes(),b'{"id":1}\n')
+            absent=root/'absent.jsonl';repair_tail(absent);self.assertFalse(absent.exists())
+
+    def test_scheduler_repairs_each_log_once(self):
+        with tempfile.TemporaryDirectory() as temp:
+            ctx=get_context('spawn');requests=ctx.Queue();replies={f:ctx.Queue() for f in FORMATS};processes={}
+            for f in FORMATS:
+                (Path(temp)/(f+'.jsonl')).write_text('{"id":"partial"')
+                processes[f]=ctx.Process(target=fake_trainer,args=(f,temp,requests,replies[f],f=='ffa4'));processes[f].start()
+            original=coordinator.repair_tail;repaired=[]
+            def counting(path):
+                repaired.append(str(path));original(path)
+            try:
+                with patch.object(coordinator,'repair_tail',counting):
+                    broker(processes,requests,replies,4,temp,play=fake_game)
+            finally:
+                for p in processes.values(): p.join(30)
+            self.assertEqual(sorted(repaired),sorted(str(Path(temp)/(f+'.jsonl')) for f in FORMATS))
+            for f in FORMATS:
+                lines=(Path(temp)/(f+'.jsonl')).read_text().splitlines()
+                self.assertTrue(lines)
+                self.assertFalse(any('partial' in line for line in lines))
+                for line in lines: json.loads(line)
+            requests.close()
+            for q in replies.values(): q.close()
+
+    def test_collect_repairs_the_batch_log_tail(self):
+        with tempfile.TemporaryDirectory() as temp:
+            log=Path(temp,'batch.jsonl');log.write_bytes(b'{"id":1}\n{"id":2"')
+            with patch('learning.sample.repair_tail',wraps=repair_tail) as repaired:
+                self.assertEqual(collect([],4,str(log)),[])
+            self.assertEqual([str(c.args[0]) for c in repaired.call_args_list],[str(log)])
+            self.assertEqual(log.read_bytes(),b'{"id":1}\n')
 
     def test_execute_retries_infrastructure_errors_and_discards_their_shards(self):
         with tempfile.TemporaryDirectory() as temp:
