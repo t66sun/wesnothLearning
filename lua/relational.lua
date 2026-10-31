@@ -85,15 +85,32 @@ function M.forward(w,g,opponents,candidates,spatial,memory,turn)
         for i,p in ipairs(softmax(keys)) do for j,v in ipairs(values[i]) do read[j]=read[j]+p*v end end
     end
     append(context,read)
+    -- The context prefix is the same for every candidate, so accumulate its contribution to the
+    -- first scorer layer once and add each candidate tail in the same column order as a full row.
+    local first=w.scorer[1]
+    local base={}
+    for i,columns in ipairs(first.weight) do
+        local v=first.bias[i]
+        for j=1,#context do v=v+columns[j]*context[j] end
+        base[i]=v
+    end
+    local split=#context
     for i,a in ipairs(candidates) do
-        local row={};append(row,context)
+        local row={}
         for j=1,#a.features-1 do row[#row+1]=a.features[j] end
         append(row,w.unit_embedding[a.features[#a.features]+1])
         for _,name in ipairs {'actor','target'} do
             local e=a[name];append(row,e and (lookup[e.id] and entities[lookup[e.id]] or project(w,e)) or zeros(64))
         end
         append(row,linear(a['local'],w['local'],true));append(row,a.geometry)
-        scores[i]=mlp(row,w.scorer)[1]
+        local x={}
+        for k,columns in ipairs(first.weight) do
+            local v=base[k]
+            for j=1,#row do v=v+columns[split+j]*row[j] end
+            x[k]=math.max(0,v)
+        end
+        for k=2,#w.scorer do x=linear(x,w.scorer[k],k<#w.scorer) end
+        scores[i]=x[1]
     end
     -- Reading is pure. Only a successful execution commits this proposed turn write.
     local pending

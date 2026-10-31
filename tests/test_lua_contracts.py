@@ -159,6 +159,35 @@ class LuaContractTests(unittest.TestCase):
         self.assertEqual(actions[1]['kind'],'end_turn')
         self.assertEqual(timing['budget'],'fixed-20000-v3')
 
+    def test_deployed_config_scores_only_the_candidate_prefix(self):
+        def run(settings):
+            lua,modules=initialize()
+            modules['config.lua']=lua.eval(native.lua(dict(mode='greedy',version='fixture',candidate_budget_ms=200,**settings)))
+            modules['weights_team2v2.lua']=lua.table()
+            lua.execute('seen={};'
+                'wesnoth.paths.find_reach=function(u,cfg) return {{1,1,4},{2,1,3},{3,1,2},{4,1,1},{5,1,1}} end')
+            modules['network.lua']=lua.eval('''{
+                forward=function(w,g,opponents,candidates,spatial,memory,turn)
+                    local row={}
+                    for i,a in ipairs(candidates) do row[i]=(a.kind or '')..'@'..tostring(a.x)..','..tostring(a.y) end
+                    seen[#seen+1]=row
+                    local scores={}
+                    for i=1,#candidates do scores[i]=i end
+                    return scores,0
+                end,
+                choose=function(scores,sample,random) return #scores,0 end,
+                commit=function() end}''')
+            bot=lua.execute((ROOT/'lua/bot.lua').read_text());data=lua.table()
+            bot.evaluation(bot,lua.table(),data)
+            return list(lua.globals().seen[1].values()),data
+        full,data=run({})
+        self.assertGreater(len(full),2,'the fixture must expose more candidates than the cap')
+        capped,data=run(dict(score_limit=2))
+        self.assertEqual(capped,full[:2])
+        self.assertEqual(len(data['learning_record']['candidates']),2)
+        self.assertEqual(data['learning_record']['choice'],1)
+        self.assertEqual(data['plan']['kind'],capped[1].split('@')[0])
+
     def test_team_continues_after_one_leader_dies_and_ends_after_enemy_team(self):
         lua,modules=initialize()
         lua.execute('fixture.judge=true')

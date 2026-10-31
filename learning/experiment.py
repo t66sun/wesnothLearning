@@ -13,7 +13,7 @@ from .adapters import COMBAT_VERSION, ENGINE_VERSION, RNG_VERSION
 from .common import ROOT, read_json, write_json, sha256
 from .data import read_shards
 from .evaluate import comparisons, choose_controls, selection_key, overall_status
-from .export import export, load_model
+from .export import export, load_model, write_config, SCORE_LIMIT
 from .features import schema
 from .formats import FORMATS, PLAYERS
 from .model import Policy
@@ -265,7 +265,7 @@ class FormatExperiment:
                     combat_version='native-1.18.8',teacher='gpt6astra',teacher_profile='native',
                     teacher_source_sha256='native-1.18.8',teacher_parent_sha256=None)
 
-    def ensure_export(self,model,folder,name,mode='greedy',version=None):
+    def ensure_export(self,model,folder,name,mode='greedy',version=None,score_limit=None):
         destination=self.directory/'policies'/folder;addon=destination/name
         if addon.exists():
             # Internal exports are not SDK submissions (export(package=False)).
@@ -277,7 +277,8 @@ class FormatExperiment:
                 raise ValueError('internal policy export schema or entry differs')
             if sha256(addon/'lua'/f'weights_{model.format_name}.lua')!=weights.get('sha256'):
                 raise ValueError('internal policy export weights differ')
-        else: export(model,destination,name=name,mode=mode,version=version or folder,package=False,identity=self.identity())
+            write_config(addon, mode, version or folder, [model.format_name], score_limit)
+        else: export(model,destination,name=name,mode=mode,version=version or folder,package=False,identity=self.identity(),score_limit=score_limit)
         tensor_path=destination/'model.pt'
         if not tensor_path.exists():
             from .model import ARCHITECTURE
@@ -710,7 +711,7 @@ class FormatExperiment:
         frozen,selected_kind,selection=self._select_final()
         selected,selected_state=load_model(frozen,self.fmt)
         selected_version=selected_state['runner']['version']
-        policy=self.ensure_export(selected,'final-selected','FinalSelected',version=self.fmt+'-v'+str(selected_version))
+        policy=self.ensure_export(selected,'final-selected','FinalSelected',version=self.fmt+'-v'+str(selected_version),score_limit=SCORE_LIMIT)
         plans={}
         evaluation_engine=self.config.get('evaluation_engine',self.config['engine'])
         fixed=self.native_fixed if evaluation_engine=='native' else self.teachers
