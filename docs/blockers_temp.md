@@ -13,17 +13,7 @@ earlier (`verification/server_release_20261031/REPORT.md` — 32 orphaned pool w
 14 GB available), as was the BC start-block blocker (`verification/curated_bc_20261031/REPORT.md`
 — three lobby-archive replays played by official 1.18.8 and imported as 84 BC rows).
 
-## 1. `mp_checkup` is not recognised by the curator
-
-**Evidence:** the checkup handling in `learning/replay_curate.py` matches the `checkup` tag only
-(`:235-237`). Two games use `mp_checkup` (1,344 commands in
-`06/2p__Weldyn_Channel_Turn_18_(1927).bz2`, 252 in `28/2p__Hamlets_Turn_5_(11853).bz2`), so
-their per-action sync is invisible to duplicate and prefix detection.
-
-**Solution:** accept both tags in the same branch, and add an assertion that fails when the
-`mp_checkup` case is dropped again.
-
-## 2. A native game cannot be reproduced from its seed
+## 1. A native game cannot be reproduced from its seed
 
 **Evidence:** one stock game (two `baseline` bots, `map_override` absent, `max_turns` 30) played
 twice from seed `20261017` ended `last_leader` at turn 5 and turn 3 with different decisive event
@@ -38,7 +28,7 @@ this: it now passes by comparing PPO batches on the Astra route
 (`verification/acceptance_20261031_astra/REPORT.md`). Until native play is deterministic, compare
 native runs only through recorded counts.
 
-## 3. A lite policy exported to Lua is slower than the native action budget
+## 2. A lite policy exported to Lua is slower than the native action budget
 
 **Evidence:** all 120 final-evaluation games of the 2026-10-31 Astra re-entry faulted with
 `watchdog_timeout: candidate evaluation/execution` at `turns 1` (`a/duel-summary.json`,
@@ -59,7 +49,7 @@ profile.
   a version policy exists; freezing rule snapshots per old version costs more than it returns.
 - Ubuntu host tooling: no `git`, no GitHub, no PyPI; `sudo -n` needs a password. Work is shipped as
   source tarballs over `scp` and packages come from `https://pypi.tuna.tsinghua.edu.cn/simple`.
-- The home checkout on that host is stale (`tests.test_replay_curate` runs 8 tests instead of 11).
+- The home checkout on that host is stale (`tests.test_replay_curate` runs 8 tests instead of 12).
   Acceptance runs from freshly extracted archives, so do not run gates from that tree.
 - Windows is the reference environment only: it has no `.runtime/` and no Wesnoth, so native work
   runs on the Ubuntu host.

@@ -14,7 +14,8 @@ def save(commands, seed='abc', snapshot=True):
         '[side]\nside=1\nteam_name="one"\ncontroller="human"\ncurrent_player="a"\n[/side]\n'
         '[side]\nside=2\nteam_name="two"\ncontroller="human"\ncurrent_player="b"\n[/side]\n'
         '[/replay_start]\n[replay]\n'+''.join(
-            '[command]\n[move]\nx='+str(c)+'\n[/move]\n[/command]\n' for c in commands)
+            c if isinstance(c,str) else '[command]\n[move]\nx='+str(c)+'\n[/move]\n[/command]\n'
+            for c in commands)
         +'[/replay]\n'+('[snapshot]\nturn_at=99\n[/snapshot]\n' if snapshot else ''))
 
 
@@ -80,6 +81,30 @@ class ReplayCurateTests(unittest.TestCase):
             summary=curate(source,root/'curated')
             self.assertEqual(summary['selected_replays'],2)
             self.assertEqual(summary['branched_families'],1)
+
+    def test_incomplete_last_mp_checkup_is_a_prefix_but_different_rolls_are_not(self):
+        def move(x): return '[command]\n[move]\nx='+str(x)+'\n[/move]\n[/command]\n'
+        def sync(result):
+            return ('[command]\ndependent=yes\nfrom_side=1\n[mp_checkup]\n'+result
+                    +'[/mp_checkup]\n[/command]\n')
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory);source=root/'raw';source.mkdir()
+            texts={
+                'partial.gz':save([move(1),sync('')]),
+                'complete.gz':save([move(1),sync('checksum=a\nnext_unit_id=3\nrandom_calls=4\n'),
+                                    move(2),sync('checksum=b\nnext_unit_id=3\nrandom_calls=9\n')]),
+                'other_roll.gz':save([move(1),sync('checksum=z\nnext_unit_id=3\nrandom_calls=4\n'),
+                                      move(3),sync('checksum=c\nnext_unit_id=3\nrandom_calls=9\n')])}
+            for name,text in texts.items():(source/name).write_bytes(gzip.compress(text.encode()))
+            summary=curate(source,root/'curated')
+            self.assertTrue(inspect_file(source/'partial.gz',source)['_partial_last'])
+            self.assertEqual(summary['selected_replays'],2)
+            self.assertEqual(summary['source_statuses'].get('earlier_save',0),1)
+            self.assertEqual(summary['branched_families'],1)
+            partial=next(json.loads(line) for line in
+                         (root/'curated'/'inventory.jsonl').read_text(encoding='utf-8').splitlines()
+                         if json.loads(line)['source']=='partial.gz')
+            self.assertIn('last_command_checkup_incomplete',partial['notes'])
 
     def test_tag_looking_text_inside_multiline_strings_is_not_a_tag(self):
         node=parse_wml('[side]\ndescription="line\n[command]\nquoted ""text""\n"\n[/side]')

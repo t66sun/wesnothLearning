@@ -42,6 +42,7 @@ STRING = re.compile(r'(?:_\s*)?"((?:[^"]|"")*)"', re.S)
 # commands, including controller changes, choices and random seeds.
 COSMETIC = {'speak', 'label', 'clear_labels', 'countdown_update', 'rename'}
 DECISIONS = {'move', 'attack', 'recruit', 'recall', 'end_turn'}
+CHECKUPS = {'checkup', 'mp_checkup'}  # single-player inline and multiplayer dependent sync records
 
 
 def quote_state(value, quoted=False):
@@ -232,8 +233,8 @@ def command_sequence(blocks):
         stable = Node('command', {k:v for k,v in command.attrs.items() if k not in {'sent','undo'}}, children)
         result.append(digest(canonical(stable)))
         intents.append(digest(canonical(Node('command',stable.attrs,
-            [n for n in children if n.tag != 'checkup']))))
-        checkups = [n for n in children if n.tag == 'checkup']
+            [n for n in children if n.tag not in CHECKUPS]))))
+        checkups = [n for n in children if n.tag in CHECKUPS]
         partial_last = bool(checkups) and all(not n.attrs and not n.children for n in checkups)
     return result, intents, partial_last
 
@@ -346,8 +347,9 @@ def choose_survivors(rows):
                 if leaf['_commands'][:len(seq)] == seq:
                     return True
                 # An autosave can end inside an attack, before the recorded
-                # checkup results. Only the last, explicitly empty checkup is
-                # a wildcard; earlier RNG/results must still match exactly.
+                # checkup/mp_checkup results. Only the last, explicitly empty
+                # checkup is a wildcard; earlier RNG/results must still match
+                # exactly.
                 return (row['_partial_last'] and bool(seq) and len(leaf['_commands']) >= len(seq)
                     and seq[:-1] == leaf['_commands'][:len(seq)-1]
                     and row['_intents'][-1] == leaf['_intents'][len(seq)-1])
