@@ -1,0 +1,14 @@
+test_incomplete_last_mp_checkup_is_a_prefix_but_different_rolls_are_not (tests.test_replay_curate.ReplayCurateTests.test_incomplete_last_mp_checkup_is_a_prefix_but_different_rolls_are_not) ... FAIL
+
+======================================================================
+FAIL: test_incomplete_last_mp_checkup_is_a_prefix_but_different_rolls_are_not (tests.test_replay_curate.ReplayCurateTests.test_incomplete_last_mp_checkup_is_a_prefix_but_different_rolls_are_not)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\dev\WesnothLearning\tmp\curator_red\tests\test_replay_curate.py", line 100, in test_incomplete_last_mp_checkup_is_a_prefix_but_different_rolls_are_not
+    self.assertTrue(inspect_file(source/'partial.gz',source)['_partial_last'])
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 1 test in 0.027s
+
+FAILED (failures=1)
