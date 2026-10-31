@@ -52,23 +52,7 @@ def play_job(job):
     if job.get('engine','native')=='lite':
         from .lite_host import play_lite_job
         return play_lite_job(job)
-<<<<<<< HEAD
-    stock_sides=job.get('learning',{}).get('stock_capture',[])
-    if stock_sides:
-        from .manifest import active_teacher
-        from .stock_rca import capture_sha256, frames_to_labels
-        from .common import sha256
-        teacher=active_teacher(dict(teacher=job.get('teacher_identity')))
-        if teacher['kind']!='wesnoth_default_rca' or teacher['capture_sha256']!=capture_sha256():
-            raise ValueError('stock capture differs from the frozen teacher')
-        if teacher.get('runtime_sha256')!=sha256(job['wesnoth']):
-            raise ValueError('stock capture runtime differs from the frozen teacher')
-        if any(job['bots'][side-1]!='baseline' for side in stock_sides):
-            raise ValueError('stock capture cannot label an addon controller')
-        if any(job['learning'].get('sides',{}).get(str(side),{}).get('teacher') for side in stock_sides):
-            raise ValueError('stock capture cannot request a per-decision teacher query')
-=======
->>>>>>> parent of f97b142 (Capture stock RCA engine events with fresh public label contexts)
+
     try:
         result = match.play_game(bots=job['bots'], seed=job['seed'], factions=job['factions'],
             max_turns=job.get('max_turns',30), wesnoth=job['wesnoth'], replay_path=output,
@@ -89,15 +73,6 @@ def play_job(job):
             if event['event']=='LEARN': records.append(event['data'])
             elif event['event']=='METRIC': metric_snapshots.append(event['data'])
             elif event['event']=='BOOTSTRAP':bootstraps[str(event['data']['side'])]=event['data']
-    stock_coverage={}
-    if stock_sides:
-        for side in stock_sides:
-            rows,counts=frames_to_labels(stock_frames,side=side,candidates_fn=lambda row: row['candidates'])
-            records.extend(rows)
-            for kind,count in counts.items():
-                aggregate=stock_coverage.setdefault(kind,dict(matched=0,unmatched=0,ambiguous=0,merged=0))
-                for key,value in count.items(): aggregate[key]+=value
-        records.sort(key=lambda row: row.get('capture_context',float('inf')))
     matched=sum(r['choice']>=0 for r in records)
     coverage={}
     for kind in ('recruit','move','attack','end_turn'):
