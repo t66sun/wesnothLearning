@@ -61,7 +61,7 @@ Full flags and per-run checkpoint digests: `identities.json`. Run directories ar
 
 ## Why the final evaluation still produced no scored game
 
-The same native action-budget defect measured on 2026-10-31 remains: every exported-policy decision costs ≈1.9 s while `vendor/arena/params.py:6` freezes `ACTION_TIMEOUT = 1.0`. First games end at `turns 1` after 2 actions and ≈4.9 s with `faults {"1": "watchdog timeout: candidate evaluation/execution"}`, `winner 2`, no `native_replay`. This is independent of the teacher route: teacher and PPO sampling ran on `lite`, and the fault appears only when the exported policy is driven through the native engine.
+The same native action-budget defect measured on 2026-10-31 remains: every exported-policy decision costs ≈1.9 s while `vendor/arena/params.py:8` freezes `ACTION_TIMEOUT = 1.0`. First games end at `turns 1` after 2 actions and ≈4.9 s with `faults {"1": "watchdog timeout: candidate evaluation/execution"}`, `winner 2`, no `native_replay`. This is independent of the teacher route: teacher and PPO sampling ran on `lite`, and the fault appears only when the exported policy is driven through the native engine.
 
 ## Reuse
 

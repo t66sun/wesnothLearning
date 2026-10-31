@@ -207,7 +207,7 @@ flowchart LR
 - 官方 baseline 仅限原版；lite 运行无法对它评估。
 - 整理后的录像语料（`data/replays_curated/`，1,076 局标准时代对局）仍只是暂存：只有记录于 1.18.8 的 197 局能进入 BC。大厅归档以其 `[scenario]` 块作为起始块，因为 1.18.8 自行展开场景并合并已记录的 RNG；缺少 `[carryover_sides_start].random_seed` 的大厅归档按 `missing_initial_rng` 跳过。录像标记只能放在动作之前以及末尾各一次，因为在同步上下文内遇到的 `[custom_command]` 会被回放机拒绝。已准备三局、由官方 1.18.8 实际播放并导入 84 条 BC 行（`verification/curated_bc_20261031/REPORT.md`）；不声明更大范围的语料播放。
 - 原版对局无法由其种子复现：同一局同一种子连播两次分别在第 5 与第 3 回合结束（`verification/acceptance_20261031/L1/REPORT.md`），因此独立运行之间只能比较记录到的计数，不能假定共享同一未来。
-- 导出后的 lite 策略在 Lua 中单次决策约需 1.9 s，超过固定为 `ACTION_TIMEOUT = 1.0` 的原版上限（`vendor/arena/params.py:6`），因此 lite 策略的原版 final 评估尚未计分即以 `watchdog_timeout` 失败。
+- 导出后的 lite 策略在 Lua 中单次决策约需 1.9 s，超过固定为 `ACTION_TIMEOUT = 1.0` 的原版上限（`vendor/arena/params.py:8`），因此 lite 策略的原版 final 评估尚未计分即以 `watchdog_timeout` 失败。
 - 任何运行都没有收敛或棋力结论。
 
 ## 14. 文档地图

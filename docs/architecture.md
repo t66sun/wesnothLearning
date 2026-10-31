@@ -207,7 +207,7 @@ The benchmark workload is fixed by `benchmarks/contract.json`: paired native/lit
 - The official baseline is native-only; lite runs cannot evaluate against it.
 - The curated replay corpus (`data/replays_curated/`, 1,076 standard-era games) is staging; only the 197 games recorded under 1.18.8 reach BC. A lobby archive starts from its `[scenario]` block, because 1.18.8 expands the scenario and merges the recorded RNG itself; a lobby archive without `[carryover_sides_start].random_seed` is skipped as `missing_initial_rng`. Replay markers may only run before an action and once at the end, since the replay machine rejects a `[custom_command]` reached inside a synced context. Three games were prepared, played by official 1.18.8 and imported as 84 BC rows (`verification/curated_bc_20261031/REPORT.md`); wider corpus play is not claimed.
 - Native play is not reproducible from its seed: the same native game played twice from one seed ended at turn 5 and turn 3 (`verification/acceptance_20261031/L1/REPORT.md`), so compare independent runs only through recorded counts, never by assuming a shared future.
-- An exported lite policy needs about 1.9 s per decision in Lua, above the frozen native `ACTION_TIMEOUT = 1.0` (`vendor/arena/params.py:6`), so a native final evaluation of a lite policy faults with `watchdog_timeout` before it can score a game.
+- An exported lite policy needs about 1.9 s per decision in Lua, above the frozen native `ACTION_TIMEOUT = 1.0` (`vendor/arena/params.py:8`), so a native final evaluation of a lite policy faults with `watchdog_timeout` before it can score a game.
 - No convergence or playing-strength claim exists for any run.
 
 ## 14. Documentation map
