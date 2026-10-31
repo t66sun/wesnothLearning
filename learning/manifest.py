@@ -35,6 +35,7 @@ def dependency_versions():
 
 
 
+
 def freeze(run_dir, opponents, wesnoth, config):
     run_dir=Path(run_dir)
     frozen=run_dir/'frozen/opponents';frozen.mkdir(parents=True)
