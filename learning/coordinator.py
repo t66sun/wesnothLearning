@@ -6,9 +6,8 @@ from pathlib import Path
 from queue import Empty
 import json
 import time
-from pathlib import Path
 import traceback
-from .common import ROOT, read_json, sha256, write_json
+from .common import ROOT, read_json, repair_tail, sha256, write_json
 from .formats import FORMATS
 from .branch import prepare as prepare_branch
 from .manifest import output_path, freeze, verify_frozen
@@ -66,16 +65,16 @@ def broker(processes,requests,replies,workers,directory,play=play_job):
     """At most workers submitted games across all trainers, round robin by format."""
     if not 1<=workers<=16: raise ValueError('workers must be in [1,16]')
     scheduler=FairScheduler(processes);batches={};inflight={};peak=0
-    events=Path(directory)/'scheduler.jsonl'
+    events=Path(directory)/'scheduler.jsonl';repaired=set()
     def emit(row):
         with events.open('a',encoding='utf-8') as f: f.write(json.dumps(dict(time=time.time(),**row))+'\n')
     def complete(fmt,job,result):
         batch=batches[fmt];batch['results'].append(result)
-        log=Path(batch['log']);log.parent.mkdir(parents=True,exist_ok=True)
-        if log.exists():
-            with log.open('r+b') as f:
-                raw=f.read()
-                if raw and not raw.endswith(b'\n'): f.truncate(raw.rfind(b'\n')+1)
+        log=Path(batch['log'])
+        if log not in repaired:
+            repaired.add(log)
+            log.parent.mkdir(parents=True,exist_ok=True)
+            repair_tail(log)
         with log.open('a',encoding='utf-8') as f: f.write(json.dumps(result,ensure_ascii=False)+'\n')
         batch['remaining']-=1
         if batch['remaining']==0:

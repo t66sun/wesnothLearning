@@ -5,7 +5,7 @@ import json
 import gzip
 import os
 import time
-from .common import ROOT, write_json
+from .common import ROOT, repair_tail, write_json
 from .data import keeps_behavior, keeps_reward_diagnostics, write_shard
 import match
 _priority_set=False
@@ -126,13 +126,10 @@ def collect(jobs, workers, log_path):
     if not 1 <= workers <= 16:
         raise ValueError('workers must be in [1,16]')
     results=[]
-    Path(log_path).parent.mkdir(parents=True,exist_ok=True)
-    if Path(log_path).exists():
-        # A crash may leave one uncommitted JSON line. Preserve every complete record.
-        with Path(log_path).open('r+b') as stream:
-            content=stream.read()
-            if content and not content.endswith(b'\n'):
-                stream.truncate(content.rfind(b'\n')+1)
+    log_path=Path(log_path)
+    log_path.parent.mkdir(parents=True,exist_ok=True)
+    # A crash may leave one uncommitted JSON line. Preserve every complete record.
+    repair_tail(log_path)
     batch_started=time.time()
     with ProcessPoolExecutor(max_workers=workers,mp_context=get_context('spawn')) as executor, Path(log_path).open('a',encoding='utf-8') as log:
         pending={executor.submit(play_job,j): j for j in jobs}
