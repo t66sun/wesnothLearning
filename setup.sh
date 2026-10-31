@@ -302,6 +302,9 @@ echo 'setup.sh: final checks'
 "$PY" -m learning --help >/dev/null
 "$game_exe" --simple-version
 
+echo 'setup.sh: building deterministic entropy shim'
+cc -O2 -fPIC -shared -o "$TASK_ROOT/.runtime/entropy.so" "$TASK_ROOT/vendor/arena/entropy.c" -ldl
+
 printf '\nEnvironment ready (%s), Wesnoth %s at %s.\n' "$device" "$version" "$game_exe"
 printf 'No sampling or training started. Next:\n'
 printf '  ./train.sh                 # 18h CPU, 8 workers, duel/ffa4/team2v2\n'

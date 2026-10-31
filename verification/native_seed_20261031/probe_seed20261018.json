@@ -1,0 +1,17 @@
+{
+  "event_counts": [
+    14,
+    14
+  ],
+  "events_equal": true,
+  "first": {
+    "reason": "last_leader",
+    "seed": 20261018,
+    "turns": 6
+  },
+  "second": {
+    "reason": "last_leader",
+    "seed": 20261018,
+    "turns": 6
+  }
+}

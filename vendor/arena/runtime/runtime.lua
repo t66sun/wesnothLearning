@@ -150,6 +150,7 @@ function M.done() return finished end
 function M.setup(options)
     if configured then return end
     configured, config = true, options
+    if config.seed then math.randomseed(config.seed) end
     wesnoth.game_events.add {name='start', first_time_only=false, action=function()
         M.emit('START', {players=#wesnoth.sides, version=wesnoth.game_config.version})
         M.emit('SNAPSHOT', M.snapshot())

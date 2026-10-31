@@ -28,11 +28,22 @@ def rank_points(players, survivors, eliminated, faults):
 
 
 NATIVE_LOG_LIMIT = 80 * 1024 * 1024
+ENTROPY_SHIM = Path(__file__).resolve().parents[2] / '.runtime' / 'entropy.so'
 
 
 def log_exceeded(size):
     """A 60-turn 2v2 native game can emit more than the old 16 MiB cap."""
     return size > NATIVE_LOG_LIMIT
+
+
+def _child_env(seed):
+    env = os.environ.copy()
+    if os.name == 'nt' or not ENTROPY_SHIM.is_file():
+        return env
+    preload = env.get('LD_PRELOAD')
+    env['LD_PRELOAD'] = str(ENTROPY_SHIM) + (':' + preload if preload else '')
+    env['ARENA_ENTROPY_SEED'] = format(seed, 'x')
+    return env
 
 
 def play_game(bots, seed=1, factions=None, timeout=P.ACTION_TIMEOUT, first_timeout=P.FIRST_TIMEOUT,
@@ -76,7 +87,7 @@ def play_game(bots, seed=1, factions=None, timeout=P.ACTION_TIMEOUT, first_timeo
         runtime = addondir/'arena_runtime'
         shutil.copytree(native.ROOT/'runtime', runtime)
         (user/'preferences').write_text('save_replays=yes\ndelete_saves=no\nauto_save_max=0\n',encoding='utf-8')
-        config = dict(token=token, max_turns=max_turns, timeout=timeout, first_timeout=first_timeout,
+        config = dict(token=token, seed=seed, max_turns=max_turns, timeout=timeout, first_timeout=first_timeout,
                       lenient=lenient, fog=fog,shroud=shroud,share_view=share_view,share_maps=share_maps,max_actions=P.MAX_ACTIONS)
         if teams: config['teams'] = teams
         if map_override:
@@ -126,7 +137,7 @@ def play_game(bots, seed=1, factions=None, timeout=P.ACTION_TIMEOUT, first_timeo
             command += ['--side',f'{s}:{factions[s-1]}','--parm',f'{s}:type:{P.LEADERS[P.FACTIONS.index(factions[s-1])]}']
         messages = queue.Queue(maxsize=4096)
         overflow = threading.Event()
-        proc = subprocess.Popen(command,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,
+        proc = subprocess.Popen(command,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,env=_child_env(seed),
                                 creationflags=(native.creationflags()|(subprocess.BELOW_NORMAL_PRIORITY_CLASS if os.name=='nt' and experiment_deadline is not None else 0)) if not visible else 0,
                                 start_new_session=os.name!='nt')
         def reader():

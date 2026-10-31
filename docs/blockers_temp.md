@@ -13,21 +13,6 @@ earlier (`verification/server_release_20261031/REPORT.md` — 32 orphaned pool w
 14 GB available), as was the BC start-block blocker (`verification/curated_bc_20261031/REPORT.md`
 — three lobby-archive replays played by official 1.18.8 and imported as 84 BC rows).
 
-## 1. A native game cannot be reproduced from its seed
-
-**Evidence:** one stock game (two `baseline` bots, `map_override` absent, `max_turns` 30) played
-twice from seed `20261017` ended `last_leader` at turn 5 and turn 3 with different decisive event
-streams (`verification/acceptance_20261031/L1/native_repeat/repeat.json`). The twin L1 run
-reproduced the same 40 teacher job ids, seeds and map yet shared 0 of 40 payloads
-(`verification/acceptance_20261031/L1/same_future.json`). `learning/schedule.py:109` derives those
-seeds as `random.Random(seed + batch_index)`, so the identity is recorded but insufficient.
-
-**Solution:** pin the AI's own RNG consumption (Wesnoth seeds the Lua `math.random` separately) and
-re-run the two-game probe as the assertion. The lite/PPO same-future clause no longer depends on
-this: it now passes by comparing PPO batches on the Astra route
-(`verification/acceptance_20261031_astra/REPORT.md`). Until native play is deterministic, compare
-native runs only through recorded counts.
-
 ## 2. A lite policy exported to Lua is slower than the native action budget
 
 **Evidence:** all 120 final-evaluation games of the 2026-10-31 Astra re-entry faulted with
