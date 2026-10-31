@@ -1,6 +1,7 @@
 local O=wesnoth.require '~add-ons/@ADDON@/lua/observation.lua'
 local schema=wesnoth.require '~add-ons/@ADDON@/lua/features.lua'
 local M={}
+local Selection=wesnoth.require '~add-ons/@ADDON@/lua/candidate_selection.lua'
 local S=wesnoth.require '~add-ons/@ADDON@/lua/spatial.lua'
 local unit_index={}
 for i,name in ipairs(schema.unit_types) do unit_index[name]=i-1 end
@@ -212,7 +213,7 @@ function M.generate(obs,budget_ms)
     local work=0
     local function expired() work=work+1;if work>20000 then cut=true;return true end;return false end
     local actions={{kind='end_turn',features=O.normalize({end_turn=1},schema.action_features),rule=-1}}
-    if not obs.leader then S.actions(obs,actions);return actions,{truncated=false,ms=wesnoth.ms_since_init()-started,predictions=0,work=work,budget='fixed-20000-v3'} end
+    if not obs.leader then S.actions(obs,actions);return actions,{truncated=false,ms=wesnoth.ms_since_init()-started,predictions=0,work=work,budget='fixed-20000-v4'} end
     local pool={};local serial=0
     local function add(a,u,e)
         -- Features are comparatively expensive; only materialize retained slots.
@@ -369,32 +370,7 @@ function M.generate(obs,budget_ms)
             end
         end
     end
-    table.sort(pool,function(a,b)
-        if a._home~=b._home then return a._home end
-        return a.rule>b.rule or a.rule==b.rule and a._serial<b._serial
-    end)
-    -- Reserve each unit's best legal full move before the shared 128-slot cap.
-    -- Ratings use the public observation; no teacher plan enters this list.
-    -- Fill remaining slots round-robin by unit/kind, full before stop variants.
-    local groups,keys={},{}
-    for _,a in ipairs(pool) do
-        if a._primary_move then
-            if #actions<128 then actions[#actions+1]=a end
-        else
-            local key=a.kind=='recruit' and 'recruit:'..a.type or a._unit.id..':'..(a.kind=='move' and 'move' or 'combat')
-            if not groups[key] then groups[key]={};keys[#keys+1]=key end
-            groups[key][#groups[key]+1]=a
-        end
-    end
-    local index=1;local added=true
-    while added and #actions<128 do
-        added=false
-        for _,key in ipairs(keys) do
-            local a=groups[key][index]
-            if a and #actions<128 then actions[#actions+1]=a;added=true end
-        end
-        index=index+1
-    end
+    for _,a in ipairs(Selection.select(pool)) do actions[#actions+1]=a end
     if #pool>#actions-1 then cut=true end
     S.actions(obs,actions)
     local predictions=0
@@ -414,7 +390,7 @@ function M.generate(obs,budget_ms)
         a._unit=nil;a._enemy=nil;a._serial=nil;a._home=nil;a._primary_move=nil;a.priority=nil
         a._tactical=nil;a._gain=nil;a._risk=nil;a._risk_delta=nil;a._home_distance=nil;a._support=nil
     end
-    return actions,{truncated=cut,ms=wesnoth.ms_since_init()-started,predictions=predictions,work=work,budget='fixed-20000-v3'}
+    return actions,{truncated=cut,ms=wesnoth.ms_since_init()-started,predictions=predictions,work=work,budget='fixed-20000-v4'}
 end
 function M.diagnostics(obs,a,candidates)
     local moves=0;for _,u in ipairs(obs.own) do moves=moves+u.moves end

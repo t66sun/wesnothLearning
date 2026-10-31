@@ -83,7 +83,7 @@ flowchart LR
 | geometry | 16 scalars (actor/target/candidate x/y and normalized deltas, hex distance, full attack range) |
 | spatial | 10 channels on a 16×16 board plus the 19-neighbour local patch |
 
-Values are divided by their declared scale and clipped to ±4; `unit_type_index` is unscaled. Candidate order is preserved exactly; the policy scores a fixed set capped at 128 entries produced by `lua/candidates.lua` under budget id `fixed-20000-v3`.
+The shared Lua generator uses `fixed-20000-v4`: up to 12 combat (attack/move_attack), 12 recruit and 12 move candidates, with actor/recruit-type diversity. Unused slots are filled deterministically from remaining unique candidates up to 36 actionable entries, or all available entries when fewer exist. End-turn has a separate slot (37 total maximum). Training, lite evaluation and native deployment score this same set without a second truncation. The candidate contract is part of the schema: existing checks reject old checkpoint/export schemas; frozen files are not migrated or rewritten.
 
 Rows are the training contract: schema 6, encoded by `rowpack` v2 (JSON metadata plus one base64 float32 block per row) inside gzip JSONL shards. Each row carries engine/rules/RNG/combat/candidate/reward versions, reward formula, scenario family, split rule, game family, teacher identity and source (`astra`, `human`, `policy`). `data.validate_record` rejects any row whose provenance, widths, finiteness, intent fields or reward configuration disagree with the frozen run.
 
@@ -151,7 +151,7 @@ Comparison status precedence: `infrastructure_error` → `inconclusive` (missing
 
 ## 10. Delivery
 
-- `ensure_export()` writes internal add-ons under `<format>/policies/<folder>/` with `features.lua`, `weights_<format>.lua`, `config.lua` and `export.json`; these are not SDK submissions and are not size-capped on resume or when a match loads them as a bot. `config.lua` always carries `candidate_budget_ms=200`, and an add-on that native final evaluation or delivery runs also carries `score_limit=24`: `lua/bot.lua:19-22` scores only the generator's ranked head, while rollout snapshots, support and nomination add-ons score every candidate.
+- `ensure_export()` writes internal add-ons with features, weights, config and export metadata; these are not subject to the SDK submission size limit. Config retains `candidate_budget_ms=200` and has no independent `score_limit`; every phase scores the complete shared-generator result.
 - `python -m learning export` writes a deployable add-on (all three formats, `arena.json` schema 2, vendored runtime, numeric parity record) and `python -m learning package` zips it as `delivery/NeuralArena.zip`. Export requires matching engine/teacher identity, trained weights and current-schema audit parity.
 - `python -m learning bundle` builds the extraction-ready Ubuntu 24.04 training archive (`BUNDLE_MANIFEST.json`, `SHA256SUMS`, fixed member modes, run state and evidence excluded); `verify-bundle` re-checks it statically.
 
@@ -193,7 +193,7 @@ The benchmark workload is fixed by `benchmarks/contract.json`: paired native/lit
 | PPO clip / value / entropy / BC aux / grad clip | 0.2 / 0.5 / 0.01 / 0.10 / 0.5 |
 | KL limit / plan version | 0.02 / 2 |
 | reward mode / ranges | adaptive / economy 0.05–0.20, control 0.02–0.15, explore 0–0.15 |
-| exported score limit | 24 candidates (native evaluation and delivery add-ons only) |
+| shared candidate limit | 36 actions + 1 end-turn (all phases) |
 | turn cap | 30 (training, calibration, panels) |
 | shard budgets | 96 MiB compressed, 768 MiB retained estimate |
 | final holdout hours | 0 |
@@ -208,7 +208,7 @@ The benchmark workload is fixed by `benchmarks/contract.json`: paired native/lit
 - The official baseline is native-only; lite runs cannot evaluate against it.
 - The curated replay corpus (`data/replays_curated/`, 1,076 standard-era games) is staging; only the 197 games recorded under 1.18.8 reach BC. A lobby archive starts from its `[scenario]` block, because 1.18.8 expands the scenario and merges the recorded RNG itself; a lobby archive without `[carryover_sides_start].random_seed` is skipped as `missing_initial_rng`. Replay markers may only run before an action and once at the end, since the replay machine rejects a `[custom_command]` reached inside a synced context. Three games were prepared, played by official 1.18.8 and imported as 84 BC rows (`verification/curated_bc_20261031/REPORT.md`); wider corpus play is not claimed.
 - Native play is reproducible from its seed: `match.play_game` writes the seed into the scenario, so `runtime.lua` calls `math.randomseed(seed)`, and preloads `.runtime/entropy.so` (built by `setup.sh`) with `ARENA_ENTROPY_SEED`, so Wesnoth's default and per-action C++ RNGs draw from a seeded stream instead of OS entropy. A stock duel played twice from seed 20261017 produced identical decisive event streams (`verification/native_seed_20261031/REPORT.md`). Games from different seeds still differ; cross-seed native comparison uses recorded counts only, and lite/native equality is not claimed.
-- An exported policy fits the frozen native `ACTION_TIMEOUT = 1.0` (`vendor/arena/params.py:8`) with `score_limit`: `lua/relational.lua:88-115` hoists the candidate-independent scorer input, and a decision that native evaluation or delivery runs scored 24 candidates in at most 234 ms over 36 measured decisions, while the first decision of a game (charged against `first_timeout`) took 482-484 ms against the earlier 1946 ms (`verification/action_budget_20261031/REPORT.md`). Only the `duel` format and short games were measured, and training-time add-ons deliberately keep scoring every candidate.
+- Ubuntu unit, candidate provenance and numerical-parity evidence for the shared 37-candidate contract is in `verification/candidate_budget_20261031_exact37/REPORT.md`. Historical short-duel timings with 24 candidates do not accept the new native one-second budget; that performance acceptance remains open. No strength improvement is claimed.
 - No convergence or playing-strength claim exists for any run.
 
 ## 14. Documentation map

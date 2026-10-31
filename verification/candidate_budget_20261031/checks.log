@@ -1,0 +1,72 @@
+test_crowded_generator_keeps_combat_and_recruits (tests.test_candidate_budget.CandidateBudgetTests.test_crowded_generator_keeps_combat_and_recruits) ... ok
+test_crowded_pool_reserves_all_three_classes (tests.test_candidate_budget.CandidateBudgetTests.test_crowded_pool_reserves_all_three_classes) ... ok
+test_generator_returns_shared_bounded_pool (tests.test_candidate_budget.CandidateBudgetTests.test_generator_returns_shared_bounded_pool) ... ok
+test_move_attack_shares_combat_quota (tests.test_candidate_budget.CandidateBudgetTests.test_move_attack_shares_combat_quota) ... ok
+test_refill_sparse_and_duplicate_pools (tests.test_candidate_budget.CandidateBudgetTests.test_refill_sparse_and_duplicate_pools) ... ok
+test_all_action_kinds_and_visible_team_support (tests.test_lua_contracts.LuaContractTests.test_all_action_kinds_and_visible_team_support) ... ok
+test_ambush_reobserves_and_illegal_move_still_fails (tests.test_lua_contracts.LuaContractTests.test_ambush_reobserves_and_illegal_move_still_fails) ... ok
+test_deployed_bot_scores_the_shared_pool_without_prefix_truncation (tests.test_lua_contracts.LuaContractTests.test_deployed_bot_scores_the_shared_pool_without_prefix_truncation) ... ok
+test_far_village_hop_and_unit_identity_survive_selection (tests.test_lua_contracts.LuaContractTests.test_far_village_hop_and_unit_identity_survive_selection) ... ok
+test_hidden_units_and_village_ownership_do_not_change_features (tests.test_lua_contracts.LuaContractTests.test_hidden_units_and_village_ownership_do_not_change_features) ... ok
+test_no_leader_and_budget_truncation_keep_end_turn (tests.test_lua_contracts.LuaContractTests.test_no_leader_and_budget_truncation_keep_end_turn) ... ok
+test_opening_route_cached_after_elimination_and_lazy_weights (tests.test_lua_contracts.LuaContractTests.test_opening_route_cached_after_elimination_and_lazy_weights) ... ok
+test_replay_observer_queries_the_side_ai_instead_of_a_global (tests.test_lua_contracts.LuaContractTests.test_replay_observer_queries_the_side_ai_instead_of_a_global) ... ok
+test_teacher_path_steps_are_one_intent_and_noops_are_not_labels (tests.test_lua_contracts.LuaContractTests.test_teacher_path_steps_are_one_intent_and_noops_are_not_labels) ... ok
+test_team_continues_after_one_leader_dies_and_ends_after_enemy_team (tests.test_lua_contracts.LuaContractTests.test_team_continues_after_one_leader_dies_and_ends_after_enemy_team) ... ok
+test_team_fault_forfeits_the_team (tests.test_lua_contracts.LuaContractTests.test_team_fault_forfeits_the_team) ... ok
+test_time_limit_observation_reads_current_schedule (tests.test_lua_contracts.LuaContractTests.test_time_limit_observation_reads_current_schedule) ... ok
+test_human_capture_with_v3_budget_imports_as_v3 (tests.v5.test_candidate_provenance.CandidateProvenanceTests.test_human_capture_with_v3_budget_imports_as_v3) ... ok
+test_human_capture_without_timing_keeps_v1_and_validates (tests.v5.test_candidate_provenance.CandidateProvenanceTests.test_human_capture_without_timing_keeps_v1_and_validates) ... ok
+test_unrecorded_teacher_uses_fallback_and_collected_rows_are_v4 (tests.v5.test_candidate_provenance.CandidateProvenanceTests.test_unrecorded_teacher_uses_fallback_and_collected_rows_are_v4) ... ok
+test_audit_coverage_strata_alias_conflict_and_thresholds (tests.v5.test_learning_core.AuditExportTests.test_audit_coverage_strata_alias_conflict_and_thresholds) ... ok
+test_imitation_quality_enforces_kind_precision_thresholds (tests.v5.test_learning_core.AuditExportTests.test_imitation_quality_enforces_kind_precision_thresholds) ... ok
+test_imitation_quality_gate (tests.v5.test_learning_core.AuditExportTests.test_imitation_quality_gate) ... ok
+test_schema_three_is_rejected_without_migration (tests.v5.test_learning_core.AuditExportTests.test_schema_three_is_rejected_without_migration) ... ok
+test_verify_numerics_37_candidates_two_turns (tests.v5.test_learning_core.AuditExportTests.test_verify_numerics_37_candidates_two_turns) ... ok
+test_verify_numerics_memory_overflow_and_128_entities (tests.v5.test_learning_core.AuditExportTests.test_verify_numerics_memory_overflow_and_128_entities) ... ok
+test_verify_numerics_requires_full_budget_and_two_turns (tests.v5.test_learning_core.AuditExportTests.test_verify_numerics_requires_full_budget_and_two_turns) ... ok
+test_batch_shapes_and_provenance (tests.v5.test_learning_core.BatchTests.test_batch_shapes_and_provenance) ... ok
+test_single_and_batched_forward_agree_and_padding_is_masked (tests.v5.test_learning_core.BatchTests.test_single_and_batched_forward_agree_and_padding_is_masked) ... ok
+test_architecture_constants (tests.v5.test_learning_core.PolicyArchitectureTests.test_architecture_constants) ... ok
+test_attended_and_direct_actor_paths_are_identical (tests.v5.test_learning_core.PolicyArchitectureTests.test_attended_and_direct_actor_paths_are_identical) ... ok
+test_entity_mask_removes_padded_entities (tests.v5.test_learning_core.PolicyArchitectureTests.test_entity_mask_removes_padded_entities) ... ok
+test_forward_logits_mask_and_value (tests.v5.test_learning_core.PolicyArchitectureTests.test_forward_logits_mask_and_value) ... ok
+test_forward_value_has_batch_channel (tests.v5.test_learning_core.PolicyArchitectureTests.test_forward_value_has_batch_channel)
+Training indexes `values[valid]` with a 1-D reward mask, so the ... ok
+test_local_and_geometry_width_enforced (tests.v5.test_learning_core.PolicyArchitectureTests.test_local_and_geometry_width_enforced) ... ok
+test_single_and_128_candidates_forward (tests.v5.test_learning_core.PolicyArchitectureTests.test_single_and_128_candidates_forward) ... ok
+test_unit_embedding_indexes_entity_types (tests.v5.test_learning_core.PolicyArchitectureTests.test_unit_embedding_indexes_entity_types) ... ok
+test_control_map_known_cells_cache_and_bounds (tests.v5.test_learning_core.RewardTests.test_control_map_known_cells_cache_and_bounds) ... ok
+test_control_map_neighbors_parity_and_lua_contract (tests.v5.test_learning_core.RewardTests.test_control_map_neighbors_parity_and_lua_contract) ... ok
+test_economy_potential_formula_team_average_and_normalization (tests.v5.test_learning_core.RewardTests.test_economy_potential_formula_team_average_and_normalization) ... ok
+test_gae_hand_computed_and_truncated_tail (tests.v5.test_learning_core.RewardTests.test_gae_hand_computed_and_truncated_tail) ... ok
+test_terminal_rewards_duel_draw_team_and_ffa (tests.v5.test_learning_core.RewardTests.test_terminal_rewards_duel_draw_team_and_ffa) ... ok
+test_transition_reward_discount_terminal_and_exploration (tests.v5.test_learning_core.RewardTests.test_transition_reward_discount_terminal_and_exploration) ... ok
+test_attach_history_order_suffix_and_commit_rules (tests.v5.test_learning_core.SequenceTests.test_attach_history_order_suffix_and_commit_rules) ... ok
+test_committed_false_does_not_advance_memory (tests.v5.test_learning_core.SequenceTests.test_committed_false_does_not_advance_memory) ... ok
+test_indexed_store_write_sample_read_idempotence_and_lru (tests.v5.test_learning_core.SequenceTests.test_indexed_store_write_sample_read_idempotence_and_lru) ... ok
+test_shards_attach_prefix_before_limit_and_raw_reader (tests.v5.test_learning_core.SequenceTests.test_shards_attach_prefix_before_limit_and_raw_reader) ... ok
+test_training_windows_eight_turns_chronological_and_supervised (tests.v5.test_learning_core.SequenceTests.test_training_windows_eight_turns_chronological_and_supervised) ... ok
+test_bc_train_finite_loss_and_counter (tests.v5.test_learning_core.TrainingTests.test_bc_train_finite_loss_and_counter) ... ok
+test_checkpoint_restores_model_optimizer_and_rng_and_models_are_independent (tests.v5.test_learning_core.TrainingTests.test_checkpoint_restores_model_optimizer_and_rng_and_models_are_independent) ... ok
+test_ppo_kl_stop_is_a_no_update (tests.v5.test_learning_core.TrainingTests.test_ppo_kl_stop_is_a_no_update) ... ok
+test_ppo_policy_rehearsal_requires_explicit_opt_in (tests.v5.test_learning_core.TrainingTests.test_ppo_policy_rehearsal_requires_explicit_opt_in) ... ok
+test_ppo_rejects_mixed_rewards_engine_and_rng (tests.v5.test_learning_core.TrainingTests.test_ppo_rejects_mixed_rewards_engine_and_rng) ... ok
+test_ppo_replay_ratio_grad_state_and_clipping (tests.v5.test_learning_core.TrainingTests.test_ppo_replay_ratio_grad_state_and_clipping) ... ok
+test_last_best_selected_keep_identity_and_finished_bookkeeping (tests.v5.test_checkpoint_export_identity.CheckpointExportIdentityTests.test_last_best_selected_keep_identity_and_finished_bookkeeping) ... ERROR
+
+======================================================================
+ERROR: test_last_best_selected_keep_identity_and_finished_bookkeeping (tests.v5.test_checkpoint_export_identity.CheckpointExportIdentityTests.test_last_best_selected_keep_identity_and_finished_bookkeeping)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/candidate_budget_20261031_v2/tests/v5/test_checkpoint_export_identity.py", line 33, in test_last_best_selected_keep_identity_and_finished_bookkeeping
+    r.finish_train()
+  File "/home/tongshu/acceptance/candidate_budget_20261031_v2/learning/experiment.py", line 393, in finish_train
+    counters[key] = counters.get(key, 0) + metrics[key]
+                                           ~~~~~~~^^^^^
+KeyError: 'planned_steps'
+
+----------------------------------------------------------------------
+Ran 55 tests in 12.594s
+
+FAILED (errors=1)

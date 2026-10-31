@@ -16,10 +16,6 @@ function M:evaluation(cfg,data)
     local obs=O.capture(data.memory)
     local raw=W.capture(obs,data.memory,data.training~=nil)
     local candidates,timing=C.generate(obs,config.candidate_budget_ms)
-    -- The frozen native action budget covers the whole decision; the generator already ranks its
-    -- list with the handcrafted rule and reserves each unit's primary move, so score its head.
-    local limit=config.score_limit
-    if limit and #candidates>limit then for i=#candidates,limit+1,-1 do candidates[i]=nil end end
     if data.training and data.training.dagger_entry then T.observe(data,obs) end
     data.neural_memory=data.neural_memory or {}
     local scores,value,pending=N.forward(data.weights,obs.global,obs.opponents,candidates,obs.spatial,data.neural_memory,wesnoth.current.turn)

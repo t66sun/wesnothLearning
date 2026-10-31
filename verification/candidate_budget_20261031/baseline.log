@@ -1,0 +1,17 @@
+test_last_best_selected_keep_identity_and_finished_bookkeeping (tests.v5.test_checkpoint_export_identity.CheckpointExportIdentityTests.test_last_best_selected_keep_identity_and_finished_bookkeeping) ... ERROR
+
+======================================================================
+ERROR: test_last_best_selected_keep_identity_and_finished_bookkeeping (tests.v5.test_checkpoint_export_identity.CheckpointExportIdentityTests.test_last_best_selected_keep_identity_and_finished_bookkeeping)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/candidate_budget_20261031_baseline/tests/v5/test_checkpoint_export_identity.py", line 33, in test_last_best_selected_keep_identity_and_finished_bookkeeping
+    r.finish_train()
+  File "/home/tongshu/acceptance/candidate_budget_20261031_baseline/learning/experiment.py", line 393, in finish_train
+    counters[key] = counters.get(key, 0) + metrics[key]
+                                           ~~~~~~~^^^^^
+KeyError: 'planned_steps'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.385s
+
+FAILED (errors=1)
