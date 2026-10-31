@@ -80,6 +80,21 @@ class CandidateBudgetTests(unittest.TestCase):
         self.assertLessEqual(timing['move_probes'], 32)
         self.assertLessEqual(timing['predictions'], 16)
 
+    def test_remember_survives_a_unit_killed_by_its_own_attack(self):
+        lua, modules = initialize()
+        # A unit that dies in its own attack leaves a dead handle in the observation,
+        # so remember must read the acting unit live at its destination instead.
+        lua.execute("""
+            obs={memory={},occupied={}}
+            local dead=fixture.own[1]:clone()
+            setmetatable(dead,{__index=function() error('unknown unit') end})
+            obs.occupied['1,1']=dead
+        """)
+        modules['candidates.lua'].remember(
+            lua.eval('obs'), lua.eval('{kind="move_attack",x=1,y=1,tx=2,ty=1,ex=3,ey=1,weapon=1}'))
+        last_move = {key: dict(value.items()) for key, value in lua.eval('obs.memory').last_move.items()}
+        self.assertEqual(last_move, {'soldier': {'x': 1, 'y': 1}})
+
 
 if __name__ == '__main__':
     unittest.main()

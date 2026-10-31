@@ -533,7 +533,9 @@ end
 function M.remember(obs,a)
     if a.kind=='end_turn' then obs.memory.end_turns=(obs.memory.end_turns or 0)+1 end
     if a.kind=='move' or a.kind=='move_attack' then
-        local u=obs.occupied[a.x..','..a.y]
+        -- The captured handle is stale when the action killed the acting unit, so
+        -- the unit is read live at the destination it reached.
+        local u=wesnoth.units.get(a.tx,a.ty)
         if u then
             obs.memory.last_move=obs.memory.last_move or {}
             obs.memory.last_move[u.id]={x=a.x,y=a.y}
