@@ -104,7 +104,6 @@ def _retar_rules(source, target, mutate):
         if data is not None:
             row.update(size=len(data), sha256=hashlib.sha256(data).hexdigest())
     manifest['data']['rules']['rules_file_sha256'] = digest
-    manifest['identities']['teacher']['rules_sha256'] = digest
     manifest['totals']['bytes'] = sum(row['size'] for row in manifest['files'])
     manifest_bytes = (json.dumps(manifest, indent=2) + '\n').encode('utf-8')
     rows = {name[len(root):]: data for name, (_, data) in members.items()
@@ -153,8 +152,7 @@ class BundleTests(unittest.TestCase):
         self.assertEqual(rules['terrain_count'], 2)
         archived_rules = members[ARCHIVE_ROOT + '/' + RULES_DIR + '/rules.json'][1]
         self.assertEqual(rules['rules_file_sha256'], hashlib.sha256(archived_rules).hexdigest())
-        self.assertEqual([row['path'] for row in manifest['data']['opponents']], [])
-        self.assertEqual(manifest['identities']['teacher']['kind'], 'wesnoth_default_rca')
+        self.assertEqual([row['path'] for row in manifest['data']['opponents']], ['data/opponents/gpt6astra.zip'])
         self.assertEqual(manifest['data']['human_curated']['path'], HUMAN_CURATED)
         self.assertEqual(manifest['totals']['files'], len(manifest['files']))
         self.assertEqual(manifest['totals']['bytes'], sum(row['size'] for row in manifest['files']))
