@@ -56,13 +56,11 @@ class EvaluationDesignTests(unittest.TestCase):
         self.assertTrue(all(len(set(factions))==4 for factions,_ in designs))
 
     def test_teacher_games_reach_the_bc_scenario_floor(self):
-        from learning.schedule import stock_teacher_jobs
+        from learning.schedule import teacher_jobs
 
-        record=dict(kind='wesnoth_default_rca',version='1.18.8',query='none',
-                    runtime_sha256='a'*64)
         for fmt in ('duel','ffa4','team2v2'):
-            jobs=stock_teacher_jobs('.',record,'support',0,19,1000,'unused',
-                                    formats=[fmt],count=12,index_stride=12)
+            jobs=teacher_jobs('.',['gpt6astra'],['baseline'],'support',0,19,1000,'unused',
+                              formats=[fmt],count=12,index_stride=12)
             self.assertEqual(len({job['scenario_family'] for job in jobs}),12,fmt)
             self.assertEqual(len({tuple(job['factions']) for job in jobs}),12,fmt)
 

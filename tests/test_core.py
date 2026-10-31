@@ -16,6 +16,8 @@ from learning.formats import FORMATS,PLAYERS
 from learning.export import lua_parameters, compact_lua, export, export_checkpoints, load_model
 from learning.data import advantages, reward, split, write_shard, read_shards
 from learning.train import train, checkpoint, restore_rng
+from learning.adapters import ENGINE_VERSION, RNG_VERSION, COMBAT_VERSION
+from learning.teachers import PROFILE
 import addons
 import native
 
@@ -30,8 +32,8 @@ def record(players=2, game='g', index=0):
         candidates=[dict(kind='end_turn',features=[rng.uniform(-1,1) for _ in ACTION[:-1]]+[0],
                          geometry=[0.0]*len(GEOMETRY),local=[0.0]*(19*len(SPATIAL_CHANNELS)))
                     for _ in range(8)],
-        spatial=_spatial(),architecture_id='relational_v5',engine_id='lite-0.2',
-        rules_version='fixture',rng_version='fixture',combat_version='fixture',teacher_profile='expected_damage_v1',candidate_version='candidates-v1',
+        spatial=_spatial(),architecture_id='relational_v5',engine_id=ENGINE_VERSION,
+        rules_version='fixture',rng_version=RNG_VERSION,combat_version=COMBAT_VERSION,teacher_profile=PROFILE,candidate_version='candidates-v1',
         reward_version=0,reward_formula_id=RewardConfig().reward_formula_id,
         reward_config=RewardConfig().to_dict(),
         reward_raw=dict(economy=0.,control=0.,explored=0.),
