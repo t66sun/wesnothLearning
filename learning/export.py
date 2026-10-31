@@ -31,7 +31,7 @@ def compact_lua(value):
 
 
 def write_config(addon, mode, version, formats):
-    settings = dict(mode=mode, version=version, formats=list(formats), candidate_budget_ms=200)
+    settings = dict(mode=mode, version=version, formats=list(formats))
     (addon / 'lua' / 'config.lua').write_text('return ' + native.lua(settings) + '\n', encoding='utf-8')
 
 

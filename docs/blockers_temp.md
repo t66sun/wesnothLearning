@@ -3,7 +3,7 @@
 Static review date: 2026-10-31 (Asia/Shanghai).
 Source: `f563cade05eabeb6a45f48ce0dc476654cf71ae4`, initially clean `master` working tree.
 
-Scope: the training/coordinator, BC/PPO, recurrent policy, shared Lua candidate generation, lite policy execution, combat and deployment paths. This is a targeted static review, not an exhaustive proof of correctness. No tests, games, collection, training or remote acceptance were run. Existing reports are cited as historical evidence, not fresh acceptance. The original review wrote only this report. The subsequently authorized implementation of items 1-2 is recorded below; the other items remain proposals.
+Scope: the training/coordinator, BC/PPO, recurrent policy, shared Lua candidate generation, lite policy execution, combat and deployment paths. This is a targeted static review, not an exhaustive proof of correctness. No tests, games, collection, training or remote acceptance were run. Existing reports are cited as historical evidence, not fresh acceptance. The original review wrote only this report. The subsequently authorized implementation of items 1-4 is recorded below; the other items remain proposals.
 
 P1 means a direct threat to usable policy behavior or acceptance; P2 means a concrete scaling cost or an unresolved quality prerequisite. Implementation facts, conditional consequences and missing evidence are distinguished below. Temporary documentation is English-only under the repository rules.
 
@@ -15,21 +15,17 @@ Implemented in `lua/candidate_selection.lua`, called by the shared generator: co
 
 Removed bot prefix truncation and export-only score limits. Lite, native collection and deployed bots consume the shared Lua selection. Candidate schema/version records the change; old export/checkpoint schemas are rejected by existing checks rather than silently resumed. The numerical audit accepts a full current budget (37) and still exercises larger stress fixtures. Evidence for both items: `verification/candidate_budget_20261031_exact37/REPORT.md`.
 
-## 3. P1 — Native rollout and nomination paths retain the expensive uncapped scorer
+## 3. Completed — One bounded scorer on every native policy seat
 
-**Evidence:** `learning/experiment.py:268-281` defaults `score_limit` to `None`, while final evaluation explicitly passes the limit at line 714. `lua/bot.lua:21-25` otherwise scores every generated action. `learning/sample.py:56-60` still uses a default native action timeout of one second. `verification/action_budget_20261031/REPORT.md` explicitly says snapshot, support and nomination add-ons remain uncapped; its accepted measurements cover capped duel games only.
+Removed the remaining score limit and the per-caller candidate budget: `lua/candidates.lua` now decides generation work itself, no caller passes `budget_ms`, and every native policy seat — rollout, nomination, collection, deployment, lite host and benchmark — scores the complete shared set (37 candidates) under the unchanged one-second native timeout. Generation is charged, so the pool no longer grows without bound on larger visible armies, and generation is timed separately from scoring (`generate_ms`, `score_ms`) so a dense midgame decision can be judged stage by stage.
 
-**Impact:** selecting native collection/evaluation paths can reintroduce the same class of decision-budget failure that the final/delivery cap addressed. The historical approximately 1.9-second failure predates the scorer hoist, so it is not proof that the current uncapped scorer always times out. Nevertheless, up to 128 scores versus 24 under the same one-second budget remains a substantial, unaccepted runtime risk, especially with larger visible armies.
+Evidence: `verification/candidate_work_budget_20261031/REPORT.md` plays two seeded games per format (duel, ffa4, team2v2) on a fixed dense synthetic map with a frozen 1 s budget and records decision, generation and scoring percentiles. Remaining limits: those games use a randomly initialized exported policy on a compact map, so this is a latency and contract acceptance, not a strength, convergence or final-evaluation result; item 9 stays open, and native rule transfer (item 5) is untouched.
 
-**Repair direction:** use the deployment-matched bounded scorer for native policy seats, or optimize and accept the uncapped path independently. Preserve the fixed timeout and require representative multi-player/midgame decision evidence before relying on this route for expensive training or nomination.
+## 4. Completed — Deterministic charged work budget bounds the nested generation work
 
-## 4. P1 — The candidate budget does not bound the dominant nested work
+The candidate generator no longer accepts a millisecond argument or counts `expired()` calls. `lua/candidates.lua` charges a fixed work budget (`work-12000-v5`): entity scans, threat-map reach expansion and retained threats, tactical goals, scored reach positions, eagerly rated destinations, paths, native probes and combat forecasts each cost work, and each stage carries its own cap (28 `find_reach`, 8 `find_path`, 24 `ai.check_recruit`, 32 `ai.check_attack`, 32 `ai.check_move`, 16 forecasts). Cuts are decided by work and caps only, never by elapsed time, so the candidate set stays deterministic for a given observation. End turn, recruits and adjacent attacks are generated before the threat map and movement, and features for the retained set are always materialized from the bounded entity lists. Tests assert the caps, a cut dense generation, and identical actions across repeated runs and an advanced clock.
 
-**Evidence:** `lua/candidates.lua:209-214` accepts `budget_ms` but expiry is only a counter of calls to `expired()` with a 20,000 threshold. Threat-map reach/adjacency expansion at lines 47-63 counts once per enemy, not each expanded position. Tactical ratings at lines 65-162 and their call at line 291 iterate destinations, threats, goals and supporters without charging that counter. Spatial/action features and combat predictions run for the retained generator set at lines 399-412, before the bot's 24-candidate truncation.
-
-**Impact:** the limit is neither a wall-clock bound nor a proportional bound on the expensive operations. More units/reachable hexes can sharply increase decision cost while the reported budget remains unexhausted. Capping neural scores alone leaves full candidate-generation cost intact. The existing short duel timing evidence does not resolve this larger-board risk.
-
-**Repair direction:** keep determinism by budgeting actual expensive work units and imposing explicit per-stage bounds. Shortlist before expensive feature materialization where semantics permit; retain mandatory legal action classes. Measure generation separately from scoring on bounded dense positions rather than using elapsed time to make training action sets nondeterministic.
+Evidence: `verification/candidate_work_budget_20261031/REPORT.md` measures generation and scoring separately on the dense map; `tests/v5/test_candidate_pool_budget.py` holds the bounded-work contract. Remaining limits: `WORK.total` is the only calibrated value, so larger boards than the measured map are bounded but unmeasured.
 
 ## 5. P1 — Lite tactical values remain structurally different from native play
 
@@ -93,6 +89,6 @@ Removed bot prefix truncation and export-only score limits. Lite, native collect
 
 ## Suggested order
 
-Resolve the common deployed candidate contract first (1-2), then its full decision budget across native paths (3-4). Close the final-evaluation acceptance gap (9) with that contract frozen. In parallel planning, address the measurable training-cost causes (6-8). Treat native rule transfer and teacher/BC quality (5,10) as prerequisites for a native-strength claim, not as issues that a successful smoke can clear. Finish with the bounded complete-loop test (11), recording any stage that cannot complete within its one-hour budget.
+The common deployed candidate contract and its bounded decision budget across native paths are settled (1-4). Close the final-evaluation acceptance gap (9) with that contract frozen. In parallel planning, address the measurable training-cost causes (6-8). Treat native rule transfer and teacher/BC quality (5,10) as prerequisites for a native-strength claim, not as issues that a successful smoke can clear. Finish with the bounded complete-loop test (11), recording any stage that cannot complete within its one-hour budget.
 
 This report proposes repair directions only. It does not authorize implementation, collection or training, and it does not replace the resident acceptance plan.

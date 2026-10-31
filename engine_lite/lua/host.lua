@@ -209,7 +209,7 @@ function ai.move_full(u,p) u=assert(to_unit(u));return perform{kind='move',unit=
 function ai.recruit(name,p) return perform{kind='recruit',unit_type=name,to=assert(position(p))} end
 function ai.attack(u,e,weapon) u,e=assert(to_unit(u)),assert(to_unit(e));return perform{kind='attack',unit=u.id,target=e.id,weapon=weapon-1} end
 
-function lite_decision(side,budget_ms,teacher,generate_candidates)
+function lite_decision(side,teacher,generate_candidates)
     refresh(bridge('view',{side=side}))
     local O=require_module('observation.lua');local C=require_module('candidates.lua')
     memories[side]=memories[side] or {};local obs=O.capture(memories[side],side)
@@ -222,7 +222,7 @@ function lite_decision(side,budget_ms,teacher,generate_candidates)
         require_module('spatial.lua').actions(obs,candidates)
         timing={truncated=false,ms=0,predictions=0,work=0}
     else
-        candidates,timing=C.generate(obs,budget_ms)
+        candidates,timing=C.generate(obs)
     end
     last_candidates=candidates
     local labels=rpc('reward_labels')

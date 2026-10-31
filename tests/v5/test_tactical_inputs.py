@@ -13,7 +13,7 @@ class TacticalInputTests(unittest.TestCase):
     def capture(self):
         lua, modules = initialize()
         obs = modules['observation.lua'].capture(lua.table(), 1)
-        actions, timing = modules['candidates.lua'].generate(obs, 200)
+        actions, timing = modules['candidates.lua'].generate(obs)
         return lua, modules, obs, actions, timing
 
     def test_public_move_score_reaches_student(self):
@@ -28,8 +28,8 @@ class TacticalInputTests(unittest.TestCase):
         primary = [a for a in moves if a['features'][index['move_primary']] == 1]
         self.assertEqual(len(primary), len({a['actor']['id'] for a in moves}))
         self.assertTrue(all(a['full'] for a in primary))
-        self.assertEqual(timing['budget'], 'fixed-20000-v3')
-        self.assertLessEqual(len(actions), 128)
+        self.assertEqual(timing['budget'], 'work-12000-v5')
+        self.assertLessEqual(len(actions), 37)
         self.assertLessEqual(timing['predictions'], 16)
         for _, a in actions.items():
             self.assertTrue(all(math.isfinite(v) for _, v in a['features'].items()))
@@ -46,7 +46,7 @@ class TacticalInputTests(unittest.TestCase):
             end
         ''')
         obs = modules['observation.lua'].capture(lua.table(), 1)
-        actions, _ = modules['candidates.lua'].generate(obs, 200)
+        actions, _ = modules['candidates.lua'].generate(obs)
         index = {n: i+1 for i, (n, _) in enumerate(ACTION)}
         gains = {(a['tx'], a['ty']): a['features'][index['move_gain']]*25
                  for _, a in actions.items() if a['kind'] == 'move' and a['actor']['id'] == 'soldier'}
@@ -71,8 +71,8 @@ class TacticalInputTests(unittest.TestCase):
         from tests.v5 import helpers
         engine = helpers.engine(game_spec=helpers.spec(sides=4, fog=False))
         before = json.loads(engine.snapshot())['game']
-        student = json.loads(engine.decision(1, 500, False, True))
-        teacher = json.loads(engine.decision(1, 500, True, True))
+        student = json.loads(engine.decision(1, False, True))
+        teacher = json.loads(engine.decision(1, True, True))
         self.assertEqual(student['candidates'], teacher['candidates'])
         self.assertEqual(before, json.loads(engine.snapshot())['game'])
 

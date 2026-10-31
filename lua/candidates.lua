@@ -7,6 +7,26 @@ local unit_index={}
 for i,name in ipairs(schema.unit_types) do unit_index[name]=i-1 end
 local feature_index={}
 for i,field in ipairs(schema.action_features) do feature_index[field[1]]=i end
+-- One deterministic, work-proportional search contract shared by every caller.
+-- Generation is cut by charged work and per-stage call caps, never by a clock,
+-- so the same state always yields the same candidate set.
+local WORK={
+    version='work-12000-v5',
+    total=12000,          -- charged search work per decision
+    entities=16,          -- enemies/villages/friends scanned by scoring
+    threat_enemies=12,    -- enemies expanded into the threat map
+    threats=8,            -- threat entries retained per hex
+    goals=12,             -- tactical goals retained per unit
+    positions=40,         -- reach positions scored per moving unit
+    rated=40,             -- destinations tactically rated eagerly per unit
+    reaches=28,           -- find_reach calls per decision
+    paths=8,              -- find_path calls per decision
+    recruit_probes=24,    -- ai.check_recruit calls
+    attack_probes=32,     -- ai.check_attack calls
+    move_probes=32,       -- ai.check_move calls
+    predictions=16,       -- combat forecasts
+}
+local COST={reach=40,path=20,probe=2,predict=30}
 local function owner_kind(obs,p)
     local owner=obs.memory.villages[p[1]..','..p[2]]
     if owner==nil then return 'unknown' end
@@ -45,32 +65,38 @@ local function minimum(x,y,units)
 end
 -- Build a public-information threat map once. Candidate shortlisting must see
 -- terrain/safety/support at every reachable hex, not just a few goal endpoints.
-local function threat_map(obs,expired)
+local function threat_map(obs,enemies,allow,charge)
     local threats={}
     if type(wesnoth.current.map.iter_adjacent)~='function' then return threats end
-    for _,e in ipairs(obs.enemies) do
-        if expired() then break end
+    local expanded=0
+    for _,e in ipairs(enemies) do
+        if expanded>=WORK.threat_enemies then break end
+        if not allow('reach',WORK.reaches,COST.reach) then return threats end
         local clone=e:clone();clone.moves=e.max_moves
         local seen={}
         for _,p in ipairs(wesnoth.paths.find_reach(clone,{viewing_side=obs.side,ignore_visibility=false})) do
+            if not charge(1) then return threats end
             for x,y in wesnoth.current.map:iter_adjacent(p[1],p[2]) do
                 local k=x..','..y
                 if not seen[k] then
-                    seen[k]=true;threats[k]=threats[k] or {};threats[k][#threats[k]+1]=e
+                    seen[k]=true
+                    local list=threats[k] or {};threats[k]=list
+                    if #list<WORK.threats then list[#list+1]=e end
                 end
             end
         end
+        expanded=expanded+1
     end
     return threats
 end
-local function tactical_ratings(obs,u,destinations,threats)
+local function tactical_ratings(obs,u,destinations,enemies,villages,supporters,threats,charge)
     local hurt=u.hitpoints<u.max_hitpoints*.65 or u.status.poisoned
     local multiplayer=#wesnoth.sides>2
     local home=obs.memory.home
     local goals,vmap={},{}
     local function goal(x,y,bonus) goals[#goals+1]={x,y,bonus=bonus} end
     if u.canrecruit and home then goal(home[1],home[2],14) end
-    for _,v in ipairs(obs.villages) do
+    for _,v in ipairs(villages) do
         local k=v[1]..','..v[2];vmap[k]=true
         local owner=obs.memory.villages[k]
         if u.canrecruit then
@@ -86,9 +112,9 @@ local function tactical_ratings(obs,u,destinations,threats)
         end
     end
     if not u.canrecruit then
-        if not hurt then for _,e in ipairs(obs.enemies) do goal(e.x,e.y,e.canrecruit and 12 or 8) end end
+        if not hurt then for _,e in ipairs(enemies) do goal(e.x,e.y,e.canrecruit and 12 or 8) end end
         if hurt and multiplayer then
-            for _,f in ipairs(obs.own) do
+            for _,f in ipairs(supporters) do
                 for _,tag in ipairs(f.__cfg or {}) do
                     if tag[1]=='abilities' then for _,ability in ipairs(tag[2]) do
                         if ability[1]=='heals' and f.id~=u.id then goal(f.x,f.y,18) end
@@ -97,6 +123,15 @@ local function tactical_ratings(obs,u,destinations,threats)
             end
         end
         if #goals==0 then for _,p in pairs(obs.tiles) do if p.terrain:match('^K') then goal(p.x,p.y,8) end end end
+    end
+    if #goals>WORK.goals then
+        table.sort(goals,function(a,b)
+            if a.bonus~=b.bonus then return a.bonus>b.bonus end
+            return a[1]<b[1] or a[1]==b[1] and a[2]<b[2]
+        end)
+        local kept={}
+        for i=1,WORK.goals do kept[i]=goals[i] end
+        goals=kept
     end
     local radius=6+math.max(0,#obs.own-7)*.75
     local function rating(x,y)
@@ -132,7 +167,7 @@ local function tactical_ratings(obs,u,destinations,threats)
         local utility=-100
         for _,g in ipairs(goals) do utility=math.max(utility,g.bonus-distance(x,y,g)*2.5) end
         local support=0
-        for _,f in ipairs(obs.own) do if f.id~=u.id and distance(x,y,f)<=2 then support=support+1 end end
+        for _,f in ipairs(supporters) do if f.id~=u.id and distance(x,y,f)<=2 then support=support+1 end end
         utility=utility+defense*.035-math.max(0,risk-u.hitpoints*.7)*(u.canrecruit and 5 or .7)
         if #hits>0 and not u.canrecruit then utility=utility+math.min(support,4)*(multiplayer and 3 or 1.5) end
         if multiplayer and not u.canrecruit and home then utility=utility-math.max(0,distance(x,y,home)-radius)*1.2 end
@@ -140,7 +175,7 @@ local function tactical_ratings(obs,u,destinations,threats)
             if obs.memory.villages[x..','..y]~=obs.side then utility=utility+7 end
             utility=utility+math.min(8,u.max_hitpoints-u.hitpoints)*(hurt and 1.1 or .5)+(u.status.poisoned and 9 or 0)
             if multiplayer and not u.canrecruit and u.hitpoints>u.max_hitpoints*.8 then
-                for _,f in ipairs(obs.own) do
+                for _,f in ipairs(supporters) do
                     if f.id~=u.id and f.hitpoints<f.max_hitpoints*.65 and distance(x,y,f)<=3 then
                         utility=utility-(f.canrecruit and 18 or 9);break
                     end
@@ -155,13 +190,33 @@ local function tactical_ratings(obs,u,destinations,threats)
     end
     -- The actor's improvement, not just the absolute destination score, determines
     -- which unit should move first. Reuse the same public threat map at its origin.
-    local current,_,_,current_risk=rating(u.x,u.y)
-    for _,d in ipairs(destinations) do
-        d.tactical,d.safe,d.advance,d.risk,d.support,d.home_distance=rating(d.p[1],d.p[2])
+    -- Every rating is charged, so truncation is deterministic and proportional.
+    local current,current_risk
+    local function charge_rating(x,y) return charge(1+#(threats[x..','..y] or {})+#goals+#supporters) end
+    local function rate(d)
+        if d.tactical~=nil then return true end
+        if current==nil then
+            if not charge_rating(u.x,u.y) then return false end
+            local tactical,_,_,risk=rating(u.x,u.y)
+            current,current_risk=tactical,risk
+        end
+        local x,y=d.p[1],d.p[2]
+        if not charge_rating(x,y) then return false end
+        local tactical,safe,advance,risk,support,home_distance=rating(x,y)
+        d.tactical,d.safe,d.advance,d.risk,d.support,d.home_distance=tactical,safe,advance,risk,support,home_distance
         d.gain=d.tactical-current;d.risk_delta=d.risk-current_risk
+        return true
     end
+    table.sort(destinations,function(a,b)
+        if a.score~=b.score then return a.score>b.score end
+        return a.p[1]<b.p[1] or a.p[1]==b.p[1] and a.p[2]<b.p[2]
+    end)
+    for i=1,math.min(WORK.rated,#destinations) do
+        if not rate(destinations[i]) then break end
+    end
+    return rate
 end
-local function features(obs,a,u,target)
+local function features(obs,a,u,target,enemies,villages,friends)
     local f={[a.kind]=1}
     if not u then return O.normalize(f,schema.action_features),-1 end
     obs.unit_features=obs.unit_features or {}
@@ -176,13 +231,13 @@ local function features(obs,a,u,target)
     f.gold_cost=a.kind=='recruit' and f.unit_cost or 0
     f.movement_used=a.used or 0
     f.remaining_moves=a.full and 0 or math.max(0,u.moves-f.movement_used)
-    f.enemy_approach=minimum(u.x,u.y,obs.enemies)-minimum(x,y,obs.enemies)
+    f.enemy_approach=minimum(u.x,u.y,enemies)-minimum(x,y,enemies)
     f.defense=obs.tiles[x..','..y] and u:defense_on(obs.tiles[x..','..y].terrain) or 0
     f.visible_threat=0; f.friendly_support=0
-    for _,e in ipairs(obs.enemies) do if distance(x,y,e)<=e.max_moves+1 then f.visible_threat=f.visible_threat+1 end end
-    for _,v in ipairs(obs.friends) do if v.id~=u.id and distance(x,y,v)<=2 then f.friendly_support=f.friendly_support+1 end end
+    for _,e in ipairs(enemies) do if distance(x,y,e)<=e.max_moves+1 then f.visible_threat=f.visible_threat+1 end end
+    for _,v in ipairs(friends) do if v.id~=u.id and distance(x,y,v)<=2 then f.friendly_support=f.friendly_support+1 end end
     local targets={}
-    for _,p in ipairs(obs.villages) do
+    for _,p in ipairs(villages) do
         local ownership=owner_kind(obs,p)
         if ownership~='own' and ownership~='ally' then targets[#targets+1]=p end
         if p[1]==x and p[2]==y then
@@ -207,13 +262,36 @@ local function features(obs,a,u,target)
     if target then score=score+2 end
     return O.normalize(f,schema.action_features),score
 end
-function M.generate(obs,budget_ms)
+function M.generate(obs)
     local started=wesnoth.ms_since_init()
-    local cut=false
-    local work=0
-    local function expired() work=work+1;if work>20000 then cut=true;return true end;return false end
+    local work,cut=0,false
+    local calls={reach=0,path=0,recruit_probe=0,attack_probe=0,move_probe=0,predict=0}
+    local function charge(units)
+        if work+units>WORK.total then cut=true;return false end
+        work=work+units;return true
+    end
+    local function allow(kind,limit,cost)
+        if calls[kind]>=limit or not charge(cost) then cut=true;return false end
+        calls[kind]=calls[kind]+1;return true
+    end
+    local function head(list,limit)
+        if #list<=limit then return list end
+        local out={}
+        for i=1,limit do out[i]=list[i] end
+        return out
+    end
+    local predictions=0
+    local function report()
+        return {truncated=cut,ms=wesnoth.ms_since_init()-started,predictions=predictions,work=work,budget=WORK.version,
+            reaches=calls.reach,paths=calls.path,recruit_probes=calls.recruit_probe,
+            attack_probes=calls.attack_probe,move_probes=calls.move_probe}
+    end
     local actions={{kind='end_turn',features=O.normalize({end_turn=1},schema.action_features),rule=-1}}
-    if not obs.leader then S.actions(obs,actions);return actions,{truncated=false,ms=wesnoth.ms_since_init()-started,predictions=0,work=work,budget='fixed-20000-v4'} end
+    if not obs.leader then S.actions(obs,actions);return actions,report() end
+    local enemies=head(obs.enemies,WORK.entities)
+    local villages=head(obs.villages,WORK.entities)
+    local friends=head(obs.friends,WORK.entities)
+    local supporters=head(obs.own,WORK.entities)
     local pool={};local serial=0
     local function add(a,u,e)
         -- Features are comparatively expensive; only materialize retained slots.
@@ -222,17 +300,15 @@ function M.generate(obs,budget_ms)
         a._home=u.canrecruit and obs.memory.home and a.tx==obs.memory.home[1] and a.ty==obs.memory.home[2] or false
         pool[#pool+1]=a
     end
-    local threats=threat_map(obs,expired)
     local castles={}
     for _,p in pairs(obs.tiles) do if p.terrain:match('^[CK]') then castles[#castles+1]={p.x,p.y} end end
     table.sort(castles,function(a,b) return a[1]<b[1] or a[1]==b[1] and a[2]<b[2] end)
     for _,name in ipairs(wesnoth.sides[obs.side].recruit) do
-        if expired() then break end
         if wesnoth.unit_types[name].cost<=wesnoth.sides[obs.side].gold then
             local recruit_locations=0
             for _,p in ipairs(castles) do
-                if expired() then break end
-                if not obs.occupied[p[1]..','..p[2]] and ai.check_recruit(name,p).ok then
+                if not obs.occupied[p[1]..','..p[2]] and allow('recruit_probe',WORK.recruit_probes,COST.probe)
+                    and ai.check_recruit(name,p).ok then
                     -- Explicit detached identity prevents probes consuming native unit IDs.
                     local u=wesnoth.units.create {type=name,side=obs.side,x=p[1],y=p[2],random_traits=false,
                         random_gender=false,generate_name=false,facing='ne',id='learning_probe',underlying_id=2147483647}
@@ -244,36 +320,57 @@ function M.generate(obs,budget_ms)
         end
     end
     for _,u in ipairs(obs.own) do
-        if expired() then break end
         if u.attacks_left>0 then
-            for _,e in ipairs(obs.enemies) do
+            local denied=false
+            for _,e in ipairs(enemies) do
                 if distance(u.x,u.y,e)==1 then
                     for wi=1,#u.attacks do
+                        if not allow('attack_probe',WORK.attack_probes,COST.probe) then denied=true;break end
                         if ai.check_attack(u,e,wi).ok then
                             add({kind='attack',x=u.x,y=u.y,tx=e.x,ty=e.y,weapon=wi},u,e)
                         end
                     end
                 end
+                if denied then break end
             end
+            if denied then break end
         end
+    end
+    -- The threat map is the most expensive stage, so every mandatory class above
+    -- is already generated when its budget runs out.
+    local threats=threat_map(obs,enemies,allow,charge)
+    local plans={}
+    for _,u in ipairs(obs.own) do
         if u.moves>0 then
+            if not allow('reach',WORK.reaches,COST.reach) then break end
             local reach=wesnoth.paths.find_reach(u,{viewing_side=obs.side,ignore_visibility=false})
-            local destinations={}
+            -- Cheap proximity ranks every reachable hex before the scored cap, so a
+            -- bounded decision keeps the tiles near enemies and villages rather than
+            -- whatever prefix the native reach table happens to return.
+            local scored={}
             for _,p in ipairs(reach) do
-                if expired() then break end
+                if not charge(1) then break end
                 if (p[1]~=u.x or p[2]~=u.y) and not obs.occupied[p[1]..','..p[2]] then
-                    local score=-minimum(p[1],p[2],obs.enemies)*.2-minimum(p[1],p[2],obs.villages)
-                    for _,e in ipairs(obs.enemies) do if distance(p[1],p[2],e)==1 then score=score+10 end end
-                    destinations[#destinations+1]={p=p,score=score}
+                    local score=-minimum(p[1],p[2],enemies)*.2-minimum(p[1],p[2],villages)
+                    for _,e in ipairs(enemies) do if distance(p[1],p[2],e)==1 then score=score+10 end end
+                    scored[#scored+1]={p=p,score=score}
                 end
             end
+            table.sort(scored,function(a,b)
+                if a.score~=b.score then return a.score>b.score end
+                return a.p[1]<b.p[1] or a.p[1]==b.p[1] and a.p[2]<b.p[2]
+            end)
+            local destinations={}
+            for i=1,math.min(#scored,WORK.positions) do destinations[i]=scored[i] end
             -- Keep independent goal categories. Long-distance targets are reduced to
             -- a reachable point along their visibility-aware path this turn.
             local picked={};local selected={}
             local reachable={}
             for _,d in ipairs(destinations) do reachable[d.p[1]..','..d.p[2]]=d end
+            local rate=tactical_ratings(obs,u,destinations,enemies,villages,supporters,threats,charge)
             local function pick(d,category,goal)
                 if not d then return end
+                if d.tactical==nil and not rate(d) then return end
                 local key=d.p[1]..','..d.p[2]
                 if not picked[key] then
                     d.category=category;d.goal=goal;selected[#selected+1]=d;picked[key]=true
@@ -289,28 +386,32 @@ function M.generate(obs,budget_ms)
                 end
                 pick(winner,category,goal)
             end
-            tactical_ratings(obs,u,destinations,threats)
             -- Several independent risk profiles, plus adjacent alternatives.
             -- No teacher plan/action is read here, in training or deployment.
             for _,profile in ipairs {'tactical','safe','advance'} do
                 table.sort(destinations,function(a,b)
-                    return a[profile]>b[profile] or a[profile]==b[profile] and (a.p[1]<b.p[1] or a.p[1]==b.p[1] and a.p[2]<b.p[2])
+                    local av=a[profile] or -1e9;local bv=b[profile] or -1e9
+                    return av>bv or av==bv and (a.p[1]<b.p[1] or a.p[1]==b.p[1] and a.p[2]<b.p[2])
                 end)
                 for i=1,math.min(4,#destinations) do pick(destinations[i],'position') end
             end
             local goals={}
-            for _,v in ipairs(obs.villages) do
+            for _,v in ipairs(villages) do
                 pick(reachable[v[1]..','..v[2]],'village',v)
                 local k=owner_kind(obs,v)
                 if k~='own' and k~='ally' then goals[#goals+1]=v end
             end
             table.sort(goals,function(a,b) local da=distance(u.x,u.y,a);local db=distance(u.x,u.y,b);return da<db or da==db and (a[1]<b[1] or a[1]==b[1] and a[2]<b[2]) end)
             for gi=1,math.min(3,#goals) do
-                if expired() then break end
                 local goal=goals[gi];local path
-                if wesnoth.paths.find_path then path=wesnoth.paths.find_path(u,goal[1],goal[2],{viewing_side=obs.side,ignore_visibility=false}) end
+                if wesnoth.paths.find_path and allow('path',WORK.paths,COST.path) then
+                    path=wesnoth.paths.find_path(u,goal[1],goal[2],{viewing_side=obs.side,ignore_visibility=false})
+                end
                 local positions={}
-                for pi,p in ipairs(path or {}) do positions[p[1]..','..p[2]]=pi end
+                for pi,p in ipairs(path or {}) do
+                    if not charge(1) then break end
+                    positions[p[1]..','..p[2]]=pi
+                end
                 -- Intermediate points expose where a safe path can be stopped by
                 -- new vision; these are generated without a teacher answer.
                 for _,p in ipairs(path or {}) do pick(reachable[p[1]..','..p[2]],'advance',goal) end
@@ -320,43 +421,54 @@ function M.generate(obs,budget_ms)
             end
             if u.canrecruit and obs.memory.home then
                 local home=obs.memory.home
-                if wesnoth.paths.find_path then
+                if wesnoth.paths.find_path and allow('path',WORK.paths,COST.path) then
                     local path=wesnoth.paths.find_path(u,home[1],home[2],{viewing_side=obs.side,ignore_visibility=false})
                     for _,p in ipairs(path or {}) do pick(reachable[p[1]..','..p[2]],'return',home) end
                 end
             end
             for _,d in ipairs(destinations) do
-                for _,enemy in ipairs(obs.enemies) do
+                for _,enemy in ipairs(enemies) do
                     if distance(d.p[1],d.p[2],enemy)==1 then pick(d,'attack');break end
                 end
             end
-            best('attack',function(p) return -minimum(p[1],p[2],obs.enemies) end)
-            best('retreat',function(p) return minimum(p[1],p[2],obs.enemies)+(p[3] or 0)*.01 end)
+            best('attack',function(p) return -minimum(p[1],p[2],enemies) end)
+            best('retreat',function(p) return minimum(p[1],p[2],enemies)+(p[3] or 0)*.01 end)
             best('heal',function(p)
-                local on=false;for _,v in ipairs(obs.villages) do if v[1]==p[1] and v[2]==p[2] then on=true end end
-                return (on and 100 or 0)-minimum(p[1],p[2],obs.villages)
+                local on=false;for _,v in ipairs(villages) do if v[1]==p[1] and v[2]==p[2] then on=true end end
+                return (on and 100 or 0)-minimum(p[1],p[2],villages)
             end)
             best('explore',function(p)
                 return not O.visible(obs.side,p[1],p[2]) and 100-distance(u.x,u.y,p) or distance(u.x,u.y,p)
             end)
-            local primary_move=true
-            for _,d in ipairs(selected) do
-                if expired() then break end
-                local p=d.p
+            if #selected>0 then plans[#plans+1]={u=u,selected=selected,primary=true} end
+        end
+    end
+    -- Probe round by round across units: every mobile actor gets its best
+    -- destination checked before any actor spends a second probe, so the probe
+    -- cap cannot shrink move coverage to the first few actors.
+    local depth=0
+    for _,plan in ipairs(plans) do depth=math.max(depth,#plan.selected) end
+    local denied=false
+    for round=1,depth do
+        for _,plan in ipairs(plans) do
+            local d=plan.selected[round]
+            if d then
+                if not allow('move_probe',WORK.move_probes,COST.probe) then denied=true;break end
+                local u=plan.u;local p=d.p
                 if ai.check_move(u,p[1],p[2]).ok then
                     for _,full in ipairs {true,false} do
                         if full or (p[3] or 0)>0 then
                         add({kind='move',category=d.category,x=u.x,y=u.y,tx=p[1],ty=p[2],used=full and u.moves or u.moves-p[3],full=full,
-                            _primary_move=full and primary_move,
+                            _primary_move=full and plan.primary,
                             _tactical=d.tactical,_gain=d.gain,_risk=d.risk,
                             _risk_delta=d.risk_delta,_home_distance=d.home_distance,_support=d.support,
                             priority=(d.category=='position' and 6 or 1)+(full and 0 or -20),
                             goal_x=d.goal and d.goal[1],goal_y=d.goal and d.goal[2]},u)
-                        if full then primary_move=false end
+                        if full then plan.primary=false end
                         end
                     end
                     if u.attacks_left>0 then
-                        for _,e in ipairs(obs.enemies) do
+                        for _,e in ipairs(enemies) do
                             if distance(p[1],p[2],e)==1 then
                                 for wi=1,#u.attacks do
                                     add({kind='move_attack',x=u.x,y=u.y,tx=p[1],ty=p[2],ex=e.x,ey=e.y,
@@ -369,14 +481,16 @@ function M.generate(obs,budget_ms)
                 end
             end
         end
+        if denied then break end
     end
     for _,a in ipairs(Selection.select(pool)) do actions[#actions+1]=a end
     if #pool>#actions-1 then cut=true end
     S.actions(obs,actions)
-    local predictions=0
+    -- Features for the retained set are mandatory and bounded by the entity caps;
+    -- only combat forecasts are charged as optional search work.
     for _,a in ipairs(actions) do
-        if a._unit then a.features,a.rule=features(obs,a,a._unit,a._enemy) end
-        if a._enemy and predictions<16 and not expired() then
+        if a._unit then a.features,a.rule=features(obs,a,a._unit,a._enemy,enemies,villages,friends) end
+        if a._enemy and allow('predict',WORK.predictions,COST.predict) then
             local clone=a._unit:clone()
             if a.kind=='move_attack' then clone.x=a.tx;clone.y=a.ty end
             local ours,theirs=wesnoth.simulate_combat(clone,a.weapon,a._enemy)
@@ -390,7 +504,7 @@ function M.generate(obs,budget_ms)
         a._unit=nil;a._enemy=nil;a._serial=nil;a._home=nil;a._primary_move=nil;a.priority=nil
         a._tactical=nil;a._gain=nil;a._risk=nil;a._risk_delta=nil;a._home_distance=nil;a._support=nil
     end
-    return actions,{truncated=cut,ms=wesnoth.ms_since_init()-started,predictions=predictions,work=work,budget='fixed-20000-v4'}
+    return actions,report()
 end
 function M.diagnostics(obs,a,candidates)
     local moves=0;for _,u in ipairs(obs.own) do moves=moves+u.moves end
@@ -419,7 +533,10 @@ end
 function M.remember(obs,a)
     if a.kind=='end_turn' then obs.memory.end_turns=(obs.memory.end_turns or 0)+1 end
     if a.kind=='move' or a.kind=='move_attack' then
-        local u=obs.occupied[a.x..','..a.y]
+        -- The observation's handle is stale when the action killed the acting unit
+        -- (return strikes), so the unit is read live: at the destination it reached,
+        -- or at its origin when the action did not take effect.
+        local u=wesnoth.units.get(a.tx,a.ty) or wesnoth.units.get(a.x,a.y)
         if u then
             obs.memory.last_move=obs.memory.last_move or {}
             obs.memory.last_move[u.id]={x=a.x,y=a.y}

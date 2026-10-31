@@ -43,8 +43,8 @@ def _counting_modules():
     index = source.rindex('return M')
     wrapper = (
         'local _generate=M.generate\n'
-        'function M.generate(obs,budget_ms)\n'
-        '    local candidates,timing=_generate(obs,budget_ms)\n'
+        'function M.generate(obs)\n'
+        '    local candidates,timing=_generate(obs)\n'
         '    timing.__generate_calls=(timing.__generate_calls or 0)+1\n'
         '    return candidates,timing\n'
         'end\n')
@@ -78,13 +78,13 @@ class CandidateGatingTests(unittest.TestCase):
     def test_lite_decision_fast_path_skips_full_generation(self):
         engine = _engine(_spec())
         before = _load(engine.snapshot())['game']
-        full = _load(engine.decision(1, 500, True, True))
+        full = _load(engine.decision(1, True, True))
         middle = _load(engine.snapshot())['game']
-        fast = _load(engine.decision(1, 500, True, False))
+        fast = _load(engine.decision(1, True, False))
         after = _load(engine.snapshot())['game']
         self.assertEqual(before, middle)
         self.assertEqual(middle, after)
-        self.assertEqual(full['timing']['budget'], 'fixed-20000-v3')
+        self.assertEqual(full['timing']['budget'], 'work-12000-v5')
         self.assertGreater(len(full['candidates']), 1)
         self.assertNotIn('budget', fast['timing'])
         self.assertEqual(fast['timing'],
@@ -101,7 +101,7 @@ class CandidateGatingTests(unittest.TestCase):
                 break
             side = view['current_side']
             learner = side in LEARNERS
-            decision = _load(engine.decision(side, 500, True, learner))
+            decision = _load(engine.decision(side, True, learner))
             seen.append((side, learner, decision['timing'].get('__generate_calls')))
             outcome = _load(engine.execute_candidate(json.dumps(_teacher_action(decision))))
             self.assertTrue(outcome['committed'], outcome)
@@ -135,8 +135,8 @@ class CandidateGatingTests(unittest.TestCase):
                         learner_steps += 1
                     else:
                         uncollected_steps += 1
-                    full = _load(full_engine.decision(side, 500, True, True))
-                    gated = _load(gated_engine.decision(side, 500, True, learner))
+                    full = _load(full_engine.decision(side, True, True))
+                    gated = _load(gated_engine.decision(side, True, learner))
                     timings.append((label, side, learner, full['timing']['ms'], gated['timing'].get('ms')))
                     self.assertEqual(full['teacher_action'], gated['teacher_action'])
                     self.assertEqual(full['reward_raw'], gated['reward_raw'])

@@ -5,7 +5,6 @@ local O=wesnoth.require '~add-ons/LearningSupport/lua/observation.lua'
 local C=wesnoth.require '~add-ons/LearningSupport/lua/candidates.lua'
 local judge=wesnoth.require '~add-ons/arena_runtime/runtime.lua'
 local schema=wesnoth.require '~add-ons/LearningSupport/lua/features.lua'
-local config=wesnoth.require '~add-ons/LearningSupport/lua/config.lua'
 local R=wesnoth.require '~add-ons/LearningSupport/lua/routing.lua'
 local M={}
 local W=wesnoth.require '~add-ons/LearningSupport/lua/rewards.lua'
@@ -13,7 +12,7 @@ local S=wesnoth.require '~add-ons/LearningSupport/lua/spatial.lua'
 local function record(data,training)
     data.collector_memory=data.collector_memory or {}
     local obs=O.capture(data.collector_memory)
-    local candidates,timing=C.generate(obs,config.candidate_budget_ms)
+    local candidates,timing=C.generate(obs)
     -- Post-action diagnostics need pre-action moves and identity, not native
     -- handles that combat can invalidate when a unit dies or advances.
     local own,occupied={},{}

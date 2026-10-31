@@ -128,7 +128,7 @@ def worker(config):
             adapter.observe(1)
             adapter.legal_actions(1)
             if work['mode'] == 'end_to_end':
-                adapter.decision(1, teacher=True, budget_ms=20000)
+                adapter.decision(1, teacher=True)
             _emit('BEGIN', {})
         cpu_started = _cpu()
         operations = defaultdict(float)
@@ -160,7 +160,7 @@ def worker(config):
                 call('legal_actions', adapter.legal_actions, current)
                 action = dict(kind='end_turn')
             else:
-                row = call('decision', adapter.decision, current, teacher=True, budget_ms=20000)
+                row = call('decision', adapter.decision, current, teacher=True)
                 action = teacher_candidate(row['teacher_action'])
             if work['mode'] == 'equal_work':
                 # A fixed script needs no candidate Lua. Use the core step path

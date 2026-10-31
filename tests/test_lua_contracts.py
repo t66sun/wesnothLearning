@@ -40,7 +40,7 @@ class LuaContractTests(unittest.TestCase):
 
     def test_teacher_path_steps_are_one_intent_and_noops_are_not_labels(self):
         lua,modules=initialize();lua.execute('records={}')
-        modules['config.lua']=lua.eval('{candidate_budget_ms=200}')
+        modules['config.lua']=lua.eval('{}')
         modules['runtime.lua']=lua.eval('{emit=function(kind,row) records[#records+1]=row end}')
         lua.execute('''
             ai.move=function(u,p)
@@ -78,7 +78,7 @@ class LuaContractTests(unittest.TestCase):
         lua.execute('fixture.teams={1,1,1,2}')
         with self.assertRaises(Exception): R.select(lua.table())
         lua,modules=initialize();loaded=[]
-        modules['config.lua']=lua.eval('{mode="greedy",version="fixture",candidate_budget_ms=200}')
+        modules['config.lua']=lua.eval('{mode="greedy",version="fixture"}')
         modules['weights_team2v2.lua']=lua.table()
         modules['network.lua']=lua.eval('{forward=function() return {0},0 end, choose=function() return 1,0 end, commit=function() end}')
         def require(path):
@@ -149,20 +149,17 @@ class LuaContractTests(unittest.TestCase):
         modules['candidates.lua'].execute(move_attack)
         self.assertIn('attack',[v for _,v in lua.globals().fixture.calls.items()])
 
-    def test_no_leader_and_budget_truncation_keep_end_turn(self):
+    def test_no_leader_keeps_end_turn(self):
         lua,modules=initialize();obs=modules['observation.lua'].capture(lua.table())
         obs['leader']=None
-        actions,timing=modules['candidates.lua'].generate(obs,450)
+        actions,timing=modules['candidates.lua'].generate(obs)
         self.assertEqual(len(actions),1);self.assertEqual(actions[1]['kind'],'end_turn')
-        obs=modules['observation.lua'].capture(lua.table())
-        actions,timing=modules['candidates.lua'].generate(obs,0)
-        self.assertEqual(actions[1]['kind'],'end_turn')
-        self.assertEqual(timing['budget'],'fixed-20000-v4')
+        self.assertEqual(timing['budget'],'work-12000-v5')
 
-    def test_deployed_bot_scores_the_shared_pool_without_prefix_truncation(self):
-        def run(settings):
+    def test_deployed_bot_scores_every_shared_candidate(self):
+        def run():
             lua,modules=initialize()
-            modules['config.lua']=lua.eval(native.lua(dict(mode='greedy',version='fixture',candidate_budget_ms=200,**settings)))
+            modules['config.lua']=lua.eval(native.lua(dict(mode='greedy',version='fixture')))
             modules['weights_team2v2.lua']=lua.table()
             lua.execute('seen={};'
                 'wesnoth.paths.find_reach=function(u,cfg) return {{1,1,4},{2,1,3},{3,1,2},{4,1,1},{5,1,1}} end')
@@ -180,13 +177,13 @@ class LuaContractTests(unittest.TestCase):
             bot=lua.execute((ROOT/'lua/bot.lua').read_text());data=lua.table()
             bot.evaluation(bot,lua.table(),data)
             return list(lua.globals().seen[1].values()),data
-        full,data=run({})
-        self.assertGreater(len(full),2,'the fixture must expose more candidates than the cap')
-        capped,data=run(dict(score_limit=2))
-        self.assertEqual(capped,full)
-        self.assertEqual(len(data['learning_record']['candidates']),len(full))
-        self.assertEqual(data['learning_record']['choice'],len(full)-1)
-        self.assertEqual(data['plan']['kind'],capped[-1].split('@')[0])
+        seen,data=run()
+        candidates=list(data['learning_record']['candidates'].values())
+        self.assertGreater(len(candidates),2,'the fixture must expose several candidates')
+        self.assertEqual(len(seen),len(candidates))
+        self.assertEqual([row.split('@')[0] for row in seen],[c['kind'] for c in candidates])
+        self.assertEqual(data['learning_record']['choice'],len(candidates)-1)
+        self.assertEqual(data['plan']['kind'],seen[-1].split('@')[0])
 
     def test_team_continues_after_one_leader_dies_and_ends_after_enemy_team(self):
         lua,modules=initialize()
@@ -210,7 +207,7 @@ class LuaContractTests(unittest.TestCase):
 
     def test_replay_observer_queries_the_side_ai_instead_of_a_global(self):
         lua,modules=initialize()
-        modules['config.lua']=lua.eval('{candidate_budget_ms=50}')
+        modules['config.lua']=lua.eval('{}')
         lua.execute('''
             local real_ai=ai
             collected={}

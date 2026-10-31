@@ -59,9 +59,8 @@ class LiteHost:
     def reset(self, game_spec):
         self.adapter.reset(game_spec)
 
-    def decision(self, side, *, teacher=False, budget_ms=500, generate_candidates=True):
-        return self.adapter.decision(side, teacher=teacher, budget_ms=budget_ms,
-                                     generate_candidates=generate_candidates)
+    def decision(self, side, *, teacher=False, generate_candidates=True):
+        return self.adapter.decision(side, teacher=teacher, generate_candidates=generate_candidates)
 
     def execute(self, action):
         return self.adapter.execute_candidate(action)

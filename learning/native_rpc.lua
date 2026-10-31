@@ -80,9 +80,9 @@ local function observe(side)
     result.villages=villages;result.last_seen=memory.rpc_last_seen;result.winner=NULL
     return result
 end
-local function candidates(side,budget_ms)
+local function candidates(side)
     assert(side==wesnoth.current.side,'legal actions require the active side')
-    local obs=capture(side);local actions,timing=C.generate(obs,budget_ms or 500);return obs,actions,timing
+    local obs=capture(side);local actions,timing=C.generate(obs);return obs,actions,timing
 end
 local function teacher(obs,requested)
     session.teacher_memories=session.teacher_memories or {}
@@ -190,7 +190,7 @@ function M:evaluation(cfg,data)
         if command.kind=='observe' then emit('OBS',observe(command.side))
         elseif command.kind=='legal_actions' then emit('ACTIONS',legal(command.side))
         elseif command.kind=='decision' then
-            local obs,actions,timing=candidates(command.side,command.budget_ms)
+            local obs,actions,timing=candidates(command.side)
             -- Freeze student candidates first. Astra's evaluation receives only a
             -- disposable copy of the independent public-history ledger.
             local teacher_action,teacher_skipped,teacher_ms=teacher(obs,command.teacher)

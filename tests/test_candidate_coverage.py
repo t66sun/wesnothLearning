@@ -45,10 +45,10 @@ class CandidateCoverageTests(unittest.TestCase):
                 local r={};for x=1,16 do r[#r+1]={x,2,2} end;return r
             end
         ''')
-        actions, _ = modules['candidates.lua'].generate(modules['observation.lua'].capture(lua.table()), 200)
+        actions, _ = modules['candidates.lua'].generate(modules['observation.lua'].capture(lua.table()))
         origins={a['x'] for _,a in actions.items() if a['kind']=='move'}
         self.assertEqual(origins,set(range(1,13)))
-        self.assertLessEqual(len(actions),128)
+        self.assertLessEqual(len(actions),37)
 
 
 if __name__=='__main__':unittest.main()
