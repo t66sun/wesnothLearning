@@ -68,18 +68,6 @@ compares one run against another — pin the AI's own RNG consumption (Wesnoth s
 separately) and re-run the two-game probe as the assertion. Until then, compare independent runs only
 through recorded counts.
 
-## 7. A lite policy exported to Lua is slower than the native action budget
-
-**Evidence:** all 60 final-evaluation games of the L1 run faulted with
-`watchdog_timeout: candidate evaluation/execution` at `turns 1`. The first decision used a 10 s budget
-and reported `elapsed_ms 1946`; every later decision is judged against
-`vendor/arena/params.py:6 ACTION_TIMEOUT = 1.0` and faults. `learning/export.py:62` declares
-`candidate_budget_ms=200` for candidate generation only, which does not bound model inference.
-
-**Solution:** reduce the exported forward pass (fewer candidates scored, cached or quantized weights)
-until a decision fits the frozen 1 s budget, and assert it with one native game against the exported
-policy. Raising `ACTION_TIMEOUT` is not available: it is the frozen competition profile.
-
 ## Not blockers
 
 - PKG1 (training-bundle acceptance) was dropped by the operator, so it needs nothing.

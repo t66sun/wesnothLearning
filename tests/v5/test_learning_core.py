@@ -18,7 +18,7 @@ from tests.v5 import helpers
 from learning import rewards
 from learning.audit import INTENT_FIELDS, audit_bc
 from learning.data import make_bc_sampler, split, validate_record
-from learning.export import load_model, verify_numerics
+from learning.export import export, load_model, verify_numerics
 from learning.features import (ACTION, ENTITY, GEOMETRY, GLOBAL, OPPONENT,
                                SPATIAL_CHANNELS, UNIT_TYPES)
 from learning.model import ARCHITECTURE, batch
@@ -687,6 +687,13 @@ class AuditExportTests(unittest.TestCase):
         row['actual'] = dict(kind=kind, **{field: candidate[field] for field in fields})
         row['choice'] = choice
         return row
+
+    def test_export_caps_candidate_scoring(self):
+        from lupa import LuaRuntime
+        with helpers.temporary_directory() as directory:
+            addon = export(helpers.model(), directory, package=False)
+            config = LuaRuntime().execute((addon / 'lua/config.lua').read_text(encoding='utf-8'))
+            self.assertEqual(config['candidate_cap'], 32)
 
     def test_audit_coverage_strata_alias_conflict_and_thresholds(self):
         bases = [helpers.synthetic_decision_row(seed=seed) for seed in (10, 11, 12)]

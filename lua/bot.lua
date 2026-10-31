@@ -15,7 +15,7 @@ function M:evaluation(cfg,data)
     local started=wesnoth.ms_since_init()
     local obs=O.capture(data.memory)
     local raw=W.capture(obs,data.memory,data.training~=nil)
-    local candidates,timing=C.generate(obs,config.candidate_budget_ms)
+    local candidates,timing=C.generate(obs,config.candidate_budget_ms,config.candidate_cap)
     if data.training and data.training.dagger_entry then T.observe(data,obs) end
     data.neural_memory=data.neural_memory or {}
     local scores,value,pending=N.forward(data.weights,obs.global,obs.opponents,candidates,obs.spatial,data.neural_memory,wesnoth.current.turn)

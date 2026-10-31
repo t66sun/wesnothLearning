@@ -206,7 +206,8 @@ local function features(obs,a,u,target)
     if target then score=score+2 end
     return O.normalize(f,schema.action_features),score
 end
-function M.generate(obs,budget_ms)
+function M.generate(obs,budget_ms,cap)
+    cap=cap or 128
     local started=wesnoth.ms_since_init()
     local cut=false
     local work=0
@@ -373,13 +374,13 @@ function M.generate(obs,budget_ms)
         if a._home~=b._home then return a._home end
         return a.rule>b.rule or a.rule==b.rule and a._serial<b._serial
     end)
-    -- Reserve each unit's best legal full move before the shared 128-slot cap.
+    -- Reserve each unit's best legal full move before the shared cap (default 128).
     -- Ratings use the public observation; no teacher plan enters this list.
     -- Fill remaining slots round-robin by unit/kind, full before stop variants.
     local groups,keys={},{}
     for _,a in ipairs(pool) do
         if a._primary_move then
-            if #actions<128 then actions[#actions+1]=a end
+            if #actions<cap then actions[#actions+1]=a end
         else
             local key=a.kind=='recruit' and 'recruit:'..a.type or a._unit.id..':'..(a.kind=='move' and 'move' or 'combat')
             if not groups[key] then groups[key]={};keys[#keys+1]=key end
@@ -387,11 +388,11 @@ function M.generate(obs,budget_ms)
         end
     end
     local index=1;local added=true
-    while added and #actions<128 do
+    while added and #actions<cap do
         added=false
         for _,key in ipairs(keys) do
             local a=groups[key][index]
-            if a and #actions<128 then actions[#actions+1]=a;added=true end
+            if a and #actions<cap then actions[#actions+1]=a;added=true end
         end
         index=index+1
     end

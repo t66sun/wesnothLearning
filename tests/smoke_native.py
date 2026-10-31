@@ -21,7 +21,7 @@ def main():
     p.add_argument('--teacher');args=p.parse_args()
     out=output_path(args.output);out.mkdir(parents=True,exist_ok=False)
     torch.manual_seed(7);models={fmt:Policy(fmt) for fmt in FORMATS}
-    addon=export(models,out/'bot',mode='rule')
+    addon=export(models,out/'bot',mode='rule',package=False)
     support=export(models,out/'support',name='LearningSupport',package=False)
     jobs=[]
     cases=[(n,False) for n in args.players]+([(4,True)] if args.team2v2 else [])

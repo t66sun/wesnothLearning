@@ -55,6 +55,22 @@ class CandidatePoolBudgetTests(unittest.TestCase):
         self.assertEqual(self.timing['budget'], 'fixed-20000-v3')
         self.assertEqual({action['kind'] for action in self.actions} - KINDS, set())
 
+    def test_cap_argument_keeps_every_unit_full_move_within_32(self):
+        actions, timing = self.modules['candidates.lua'].generate(self.obs, 300, 32)
+        actions = _rows(actions)
+        self.assertEqual(len(actions), 32, len(actions))
+        self.assertTrue(timing['truncated'])
+        full_moves = {}
+        for action in actions:
+            if action['kind'] == 'move' and action['full']:
+                full_moves.setdefault((action['x'], action['y']), []).append(action)
+        mobile = [(unit['x'], unit['y'], unit['moves']) for unit in self.own if unit['moves'] > 0]
+        self.assertEqual(len(mobile), 8, mobile)
+        for x, y, moves in mobile:
+            self.assertIn((x, y), full_moves, (x, y, sorted(full_moves)))
+            for action in full_moves[(x, y)]:
+                self.assertEqual(action['used'], moves, action['used'])
+
     def test_every_unit_with_moves_keeps_one_full_move_from_its_hex(self):
         full_moves = {}
         for action in self.actions:

@@ -32,7 +32,7 @@ def compact_lua(value):
 
 
 def export(models, destination, name='NeuralArena', mode='greedy', version='untrained', package=True, evaluation=None,
-           identity=None):
+           identity=None, candidate_cap=32):
     """A single-format support export is permitted; a delivery requires all three."""
     if isinstance(models, Policy): models={models.format_name:models}
     if not models or any(k not in FORMATS or v.format_name!=k for k,v in models.items()): raise ValueError('model format mismatch')
@@ -59,7 +59,7 @@ def export(models, destination, name='NeuralArena', mode='greedy', version='untr
             parameters=sum(p.numel() for p in model.parameters()),sha256=sha256(path),
             evaluation=(evaluation or {}).get(fmt,'not_evaluated'),**(identity or {}))
     (addon / 'lua' / 'features.lua').write_text('return ' + native.lua(schema()) + '\n', encoding='utf-8')
-    (addon / 'lua' / 'config.lua').write_text('return ' + native.lua(dict(mode=mode, version=version,formats=list(models),candidate_budget_ms=200)) + '\n', encoding='utf-8')
+    (addon / 'lua' / 'config.lua').write_text('return ' + native.lua(dict(mode=mode, version=version,formats=list(models),candidate_budget_ms=200,candidate_cap=candidate_cap)) + '\n', encoding='utf-8')
     (addon / 'README.md').write_text('三个独立网络原生 AI。权重与评测状态见交付清单。\n', encoding='utf-8')
     shutil.copyfile(ROOT / 'vendor/arena/LICENSE', addon / 'LICENSE')
     if package:
