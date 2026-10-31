@@ -1,6 +1,6 @@
 # Exported policy inside the frozen native action budget
 
-Ubuntu acceptance, 2026-10-31. Clears blocker 2 of `docs/blockers_temp.md`: a lite policy
+Ubuntu acceptance, 2026-10-31. Clears the native action-budget blocker of `docs/blockers_temp.md`: a lite policy
 exported to Lua was slower than the frozen native action budget, so every final-evaluation game
 of the Astra re-entry faulted with `watchdog_timeout` before the second decision
 (`verification/acceptance_20261031/L1/REPORT.md:63-73`: `CALL{phase:evaluation,budget:10,first:true}`
