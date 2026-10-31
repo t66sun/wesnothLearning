@@ -208,7 +208,7 @@ flowchart LR
 - 官方 baseline 仅限原版；lite 运行无法对它评估。
 - 整理后的录像语料（`data/replays_curated/`，1,076 局标准时代对局）仍只是暂存：只有记录于 1.18.8 的 197 局能进入 BC。大厅归档以其 `[scenario]` 块作为起始块，因为 1.18.8 自行展开场景并合并已记录的 RNG；缺少 `[carryover_sides_start].random_seed` 的大厅归档按 `missing_initial_rng` 跳过。录像标记只能放在动作之前以及末尾各一次，因为在同步上下文内遇到的 `[custom_command]` 会被回放机拒绝。已准备三局、由官方 1.18.8 实际播放并导入 84 条 BC 行（`verification/curated_bc_20261031/REPORT.md`）；不声明更大范围的语料播放。
 - 原版对局可由其种子复现：`match.play_game` 把种子写入场景，`runtime.lua` 据此调用 `math.randomseed(seed)`，并预载 `setup.sh` 构建的 `.runtime/entropy.so` 与 `ARENA_ENTROPY_SEED`，使 Wesnoth 的默认与逐动作 C++ RNG 从按种子生成的流取值，而不再读取操作系统熵。种子 20261017 的同一场 stock 对局运行两次产生完全相同的决定性事件流（`verification/native_seed_20261031/REPORT.md`）。不同种子的对局仍然不同；跨种子的原版比较只使用记录到的计数，不声称 lite 与原版相等。
-- 共享 37 候选规则的 Ubuntu 单元、候选来源和数值一致性验证见 `verification/candidate_budget_20261031/REPORT.md`。原有 24 候选短 duel 耗时证据不能证明新规则的原生一秒预算；该性能验收仍待执行，不声明棋力提升。
+- 共享 37 候选规则的 Ubuntu 单元、候选来源和数值一致性验证见 `verification/candidate_budget_20261031_exact37/REPORT.md`。原有 24 候选短 duel 耗时证据不能证明新规则的原生一秒预算；该性能验收仍待执行，不声明棋力提升。
 - 任何运行都没有收敛或棋力结论。
 
 ## 14. 文档地图

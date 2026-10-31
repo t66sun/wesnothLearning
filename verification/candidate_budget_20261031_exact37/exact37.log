@@ -1,0 +1,6 @@
+test_verify_numerics_37_candidates_two_turns (tests.v5.test_learning_core.AuditExportTests.test_verify_numerics_37_candidates_two_turns) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 1.564s
+
+OK

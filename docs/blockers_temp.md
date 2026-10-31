@@ -13,7 +13,7 @@ Implemented in `lua/candidate_selection.lua`, called by the shared generator: co
 
 ## 2. Completed — One candidate set in training and deployment
 
-Removed bot prefix truncation and export-only score limits. Lite, native collection and deployed bots consume the shared Lua selection. Candidate schema/version records the change; old export/checkpoint schemas are rejected by existing checks rather than silently resumed. The numerical audit accepts a full current budget (37) and still exercises larger stress fixtures. Evidence for both items: `verification/candidate_budget_20261031/REPORT.md`.
+Removed bot prefix truncation and export-only score limits. Lite, native collection and deployed bots consume the shared Lua selection. Candidate schema/version records the change; old export/checkpoint schemas are rejected by existing checks rather than silently resumed. The numerical audit accepts a full current budget (37) and still exercises larger stress fixtures. Evidence for both items: `verification/candidate_budget_20261031_exact37/REPORT.md`.
 
 ## 3. P1 — Native rollout and nomination paths retain the expensive uncapped scorer
 
