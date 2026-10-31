@@ -22,10 +22,6 @@ class FinalNominationTests(unittest.TestCase):
         r = FormatExperiment.__new__(FormatExperiment)
         r.directory, r.fmt = directory, fmt
         r.config = default_config(engine='lite')
-        r.config['evaluation_engine']='lite'  # Explicit legacy reference fixture.
-        from learning.manifest import teacher_identity
-        r.teacher_record=teacher_identity('gpt6astra')
-        r.reference_opponents=['astra','baseline']
         r.clock = dict(deadline=100., update_deadline=0.)
         r.state = dict(version=143, phase='evaluate')
         r.teachers, r.fixed, r.support, r.exe = ['astra'], ['astra'], 'support', 'unused'

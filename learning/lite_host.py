@@ -43,10 +43,7 @@ def host_modules(teacher_path=None):
     modules['features.lua'] = 'return ' + _lua(schema())
     # The frozen archive remains lineage only; the host runs the maintained
     # derived source adapted to expected_damage_v1.
-    if teacher_path is not None:
-        from .lite_policy import is_astra
-        if not is_astra(teacher_path): raise ValueError('unknown explicit legacy Lite teacher')
-        modules.update(lua_modules())
+    modules.update(lua_modules())
     return modules
 
 
@@ -121,14 +118,6 @@ def play_lite_job(job):
     try:
         if time.time() >= job.get('deadline', float('inf')):
             return dict(id=job_id, status='budget_interrupted', engine='lite')
-        record=job.get('teacher_identity',{})
-        learning=job.get('learning',{})
-        requested=any(side.get('teacher') for side in learning.get('sides',{}).values()) or learning.get('dagger_teacher')
-        if record.get('kind')=='wesnoth_default_rca' and requested:
-            raise ValueError('stock RCA teacher is native-only')
-        legacy=any(is_astra(bot) for bot in job.get('bots',[])) or is_astra(learning.get('dagger_teacher') or '')
-        if legacy and record.get('kind')!='gpt6astra':
-            raise ValueError('Astra jobs require an explicit legacy teacher identity')
         if 'game_spec' not in job:
             from .rules_catalog import resolve_dir
             rules_dir=resolve_dir(job.get('rules_dir'))
@@ -144,7 +133,7 @@ def play_lite_job(job):
                              and Path(p).suffix == '.zip'), None)
         host = LiteHost(job['game_spec'], job.get('rules_dir'),
                         require_accepted=job.get('require_accepted', True), teacher_path=teacher_path)
-        teacher_profile=teacher_identity()['teacher_profile'] if legacy else 'none'
+        teacher_profile=teacher_identity()['teacher_profile']
         behavior, bootstraps, metric_snapshots = [], {}, []
         config = job.get('reward_config') or RewardConfig().to_dict()
         config = RewardConfig(**config).to_dict()

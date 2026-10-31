@@ -93,21 +93,7 @@ def validate_record(r, format_name=None):
         if not 0<=raw['explored']<=1: raise ValueError('invalid cumulative exploration')
     fmt=record_format(r)
     if format_name is not None and fmt != format_name: raise ValueError('cross-format sample rejected')
-    if r.get('source') not in ('astra', 'stock_rca', 'human', 'policy'): raise ValueError('unknown data source')
-    if r['source']=='stock_rca':
-        from .manifest import active_teacher
-        record=active_teacher(dict(teacher=r.get('teacher_identity')))
-        if record['kind']!='wesnoth_default_rca' or r.get('teacher')!=record['kind']:
-            raise ValueError('stock label has a different teacher identity')
-        if r['engine_id'] not in ('native','native-1.18.8'):
-            raise ValueError('stock teacher is native-only')
-        if any(r.get(key)!=value for key,value in dict(teacher_profile='native',
-                rng_version='native-1.18.8',combat_version='native-1.18.8').items()):
-            raise ValueError('stock teacher engine/combat identity differs')
-        if record.get('rules_sha256')!=r.get('rules_sha256',r['rules_version']):
-            raise ValueError('stock teacher rules identity differs')
-        if not record.get('capture_sha256') or r.get('teacher_source_sha256')!=record.get('runtime_sha256'):
-            raise ValueError('stock teacher lacks capture/runtime provenance')
+    if r.get('source') not in ('astra', 'human', 'policy'): raise ValueError('unknown data source')
     if r.get('faults'): raise ValueError('faulted games cannot provide training samples')
     if r['source']=='astra':
         from .adapters import ENGINE_VERSION, RNG_VERSION, COMBAT_VERSION
@@ -241,7 +227,7 @@ class BCSampler:
         if not all('_history' in r for r in rows):
             rows = attach_histories(rows)
         self.pools = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: defaultdict(list))))
-        sources = ('astra', 'stock_rca', 'human', 'policy') if allow_policy else ('astra', 'stock_rca', 'human')
+        sources = ('astra', 'human', 'policy') if allow_policy else ('astra', 'human')
         self.rows_excluded = 0
         identities = set()
         for row in rows:
@@ -286,8 +272,7 @@ class BCSampler:
         for _ in range(count):
             pool = rng.choice(self.pool_keys)  # 50/50 original/DAgger when both exist
             sources = self.source_keys[pool]
-            teacher = next((source for source in sources if source in ('astra','stock_rca')),None)
-            source = ('human' if rng.random() < .25 else teacher) if teacher and set(sources)=={teacher,'human'} else rng.choice(sources)
+            source = ('human' if rng.random() < .25 else 'astra') if set(sources) == {'astra', 'human'} else rng.choice(sources)
             engines = self.engine_keys[(pool, source)]
             # Original native anchors get 50% when both engines exist (>=25%).
             # Versioned native engines remain isolated as separate sampling keys.

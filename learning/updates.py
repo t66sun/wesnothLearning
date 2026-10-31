@@ -38,10 +38,6 @@ def prepare(model, records, bc_records=None, *, allow_drop=False):
         raise ValueError('training batch mixes row schemas')
     if len(rules) > 1:
         raise ValueError('training batch mixes split rules')
-    teachers={json.dumps(row.get('teacher_identity') or dict(kind=row.get('teacher')),
-                         sort_keys=True) for rows in (records,bc_records or []) for row in rows
-              if row.get('source') in ('astra','stock_rca')}
-    if len(teachers)>1: raise ValueError('training batch mixes teacher identities')
     records = eligible_rows(records, allow_drop=allow_drop)
     if not records:
         raise ValueError('no training games')
