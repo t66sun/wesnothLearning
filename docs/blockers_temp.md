@@ -4,20 +4,10 @@ Temporary working note; delete this file when the list is empty. Each blocker st
 evidence and the smallest action that would clear it; cleared facts live in `docs/architecture.md`,
 `docs/TEST.md` and `verification/`.
 
-## 1. An exported lite policy cannot decide inside the native action budget
-
-**Evidence:** all 120 final-evaluation games of the 2026-10-31 Astra re-entry faulted with
-`watchdog_timeout: candidate evaluation/execution` at turn 1
-(`verification/acceptance_20261031_astra/a/duel-jobs.jsonl`, `a/duel-summary.json`). The only
-decision that ran under the 10 s first budget reported `elapsed_ms 1946`
-(`verification/acceptance_20261031/L1/REPORT.md`); every later decision is judged against
-`ACTION_TIMEOUT = 1.0` (`vendor/arena/params.py:8`).
-`candidate_budget_ms=200` (`learning/export.py:62`) bounds candidate generation only, so it does
-not bound model inference.
-
-**Clearing it:** shrink the exported forward pass — fewer candidates scored, cached or quantised
-weights — until one decision fits the frozen 1 s budget, and assert it with one native game against
-the exported policy. Raising `ACTION_TIMEOUT` is unavailable: it is the competition profile.
+No blocker is open. The action-budget item was cleared on 2026-10-31: a delivered add-on carries
+`score_limit=24` and the scorer hoists its candidate-independent input, so the 36 decisions after
+the first of each of eight duel games ran at most 234 ms inside the frozen 1 s budget and none of
+them faulted (`verification/action_budget_20261031/REPORT.md`).
 
 ## Not blockers
 
