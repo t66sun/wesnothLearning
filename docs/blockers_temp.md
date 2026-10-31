@@ -3,7 +3,7 @@
 Static review date: 2026-10-31 (Asia/Shanghai).
 Source: `f563cade05eabeb6a45f48ce0dc476654cf71ae4`, initially clean `master` working tree.
 
-Scope: the training/coordinator, BC/PPO, recurrent policy, shared Lua candidate generation, lite policy execution, combat and deployment paths. This is a targeted static review, not an exhaustive proof of correctness. No tests, games, collection, training or remote acceptance were run. Existing reports are cited as historical evidence, not fresh acceptance. The original review wrote only this report. The subsequently authorized implementation of items 1-4 is recorded below; the other items remain proposals.
+Scope: the training/coordinator, BC/PPO, recurrent policy, shared Lua candidate generation, lite policy execution, combat and deployment paths. This is a targeted static review, not an exhaustive proof of correctness. No tests, games, collection, training or remote acceptance were run. Existing reports are cited as historical evidence, not fresh acceptance. The original review wrote only this report. The subsequently authorized implementation of items 1-4 and 8 is recorded below; the other items remain proposals.
 
 P1 means a direct threat to usable policy behavior or acceptance; P2 means a concrete scaling cost or an unresolved quality prerequisite. Implementation facts, conditional consequences and missing evidence are distinguished below. Temporary documentation is English-only under the repository rules.
 
@@ -51,13 +51,9 @@ Evidence: `verification/candidate_work_budget_20261031/REPORT.md` measures gener
 
 **Repair direction:** for frozen rollout weights, advance GRU/slot state incrementally as Lua already does. For training, reuse only safe detached prefix computations within an unchanged-weight boundary, retaining gradients for the active replay suffix and invalidating at optimizer steps. Compare memory/context outputs before adopting the optimization; never reuse old-policy hidden state across weight updates.
 
-## 8. P2 — Coordinator rereads the entire growing job log after every game
+## 8. Completed — Coordinator appends job results without rereading the log
 
-**Evidence:** `learning/coordinator.py:72-79` opens `jobs.jsonl` and calls `f.read()` on each completed job to inspect whether its last line is complete, then appends one result. This runs on the shared broker path, not in an independent logger.
-
-**Impact:** for N similarly sized job records, cumulative bytes read grow as O(N squared), and transient allocation grows with the entire log. Long runs progressively spend more coordinator time and memory checking an append-only file, delaying dispatch/replies across formats. Moving per-decision diagnostics out of ordinary jobs reduces record size but does not remove this scaling behavior.
-
-**Repair direction:** repair an incomplete tail once when opening/resuming each log; later check only a bounded tail if required. Keep normal writes append-only and preserve complete historical records. A read-volume assertion over many appended records can verify linear rather than quadratic work without running games.
+`learning/common.py` gains `repair_tail`: it reads one byte for a terminated log and otherwise scans backwards in 1 MiB chunks, so a repair costs the interrupted tail plus one chunk. `learning/coordinator.py` repairs each log once per broker call and appends every later result; `learning/sample.py` uses the same helper in `collect`. `tests/test_experiment.py` asserts exactly one repair per log across 15 appended results, byte-level tail cases including a multi-chunk tail, and the `collect` call site; point mutations of both call sites and of the chunk loop fail those assertions. Evidence: `verification/log_tail_repair_20261101/REPORT.md`. Limits recorded there: no games or training, no read-volume assertion in the repository, concurrent writers and long-run dispatch latency unmeasured.
 
 ## 9. P1 — End-to-end final evaluation acceptance is still open
 
