@@ -785,7 +785,11 @@ class AuditExportTests(unittest.TestCase):
         with helpers.temporary_directory() as directory:
             model = self._checkpoint_model(directory)
             rows = _rows(turns=2, decisions_per_turn=1)
-            helpers.pad_candidates(rows[0], 37)
+            for row in rows:
+                row['candidates'] = row['candidates'][:37]
+                helpers.pad_candidates(row, 37)
+                row['choice'] = min(row['choice'], 36)
+                self.assertEqual(len(row['candidates']), 37)
             error = verify_numerics(model, attach_histories(rows))
             self.assertLessEqual(error, 1e-5)
 
