@@ -1,0 +1,25 @@
+test_bc_update_matches_recorded_baseline (tests.v5.test_learner_extraction.LearnerExtractionTests.test_bc_update_matches_recorded_baseline) ... FAIL
+test_legacy_helpers_remain_importable (tests.v5.test_learner_extraction.LearnerExtractionTests.test_legacy_helpers_remain_importable) ... ok
+test_ppo_update_visits_each_window_once (tests.v5.test_learner_extraction.LearnerExtractionTests.test_ppo_update_visits_each_window_once) ... FAIL
+test_train_dispatches_to_extracted_modules (tests.v5.test_learner_extraction.LearnerExtractionTests.test_train_dispatches_to_extracted_modules) ... ok
+
+======================================================================
+FAIL: test_bc_update_matches_recorded_baseline (tests.v5.test_learner_extraction.LearnerExtractionTests.test_bc_update_matches_recorded_baseline)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/window_memory_20261101_base/tests/v5/test_learner_extraction.py", line 54, in test_bc_update_matches_recorded_baseline
+    self.assertAlmostEqual(result['loss'], 4.353553771972656, places=4)
+AssertionError: 3.878143310546875 != 4.353553771972656 within 4 places (0.47541046142578125 difference)
+
+======================================================================
+FAIL: test_ppo_update_visits_each_window_once (tests.v5.test_learner_extraction.LearnerExtractionTests.test_ppo_update_visits_each_window_once)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/window_memory_20261101_base/tests/v5/test_learner_extraction.py", line 67, in test_ppo_update_visits_each_window_once
+    self.assertAlmostEqual(result['loss'], 0.9339113235473633, places=4)
+AssertionError: 0.8904262781143188 != 0.9339113235473633 within 4 places (0.043485045433044434 difference)
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.575s
+
+FAILED (failures=2)

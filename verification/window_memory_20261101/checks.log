@@ -1,0 +1,39 @@
+test_memory_cache_is_separate_for_sides_and_new_jobs (tests.v5.test_lite_policy_memory.FrozenMemoryTests.test_memory_cache_is_separate_for_sides_and_new_jobs) ... ok
+test_real_policy_parity_and_one_replay_until_history_or_turn_changes (tests.v5.test_lite_policy_memory.FrozenMemoryTests.test_real_policy_parity_and_one_replay_until_history_or_turn_changes) ... ok
+test_long_rollout_encodes_each_history_row_once (tests.v5.test_window_memory_cost.IncrementalMemoryTests.test_long_rollout_encodes_each_history_row_once) ... ok
+test_memory_cache_is_separate_for_sides_and_new_jobs (tests.v5.test_window_memory_cost.IncrementalMemoryTests.test_memory_cache_is_separate_for_sides_and_new_jobs) ... ok
+test_real_policy_parity_and_one_replay_until_history_or_turn_changes (tests.v5.test_window_memory_cost.IncrementalMemoryTests.test_real_policy_parity_and_one_replay_until_history_or_turn_changes) ... ok
+test_bc_indexes_windows_not_decisions (tests.v5.test_window_memory_cost.WindowMemoryTests.test_bc_indexes_windows_not_decisions) ... ok
+test_detached_cache_preserves_gradients_and_reduces_encoding (tests.v5.test_window_memory_cost.WindowMemoryTests.test_detached_cache_preserves_gradients_and_reduces_encoding) ... ok
+test_bulk_batch_matches_numpy_and_list_records_and_optional_memory_context (tests.v5.test_replay_optimization.ReplayOptimizationTests.test_bulk_batch_matches_numpy_and_list_records_and_optional_memory_context) ... ok
+test_shared_replay_matches_reference_outputs_gradients_and_recomputes (tests.v5.test_replay_optimization.ReplayOptimizationTests.test_shared_replay_matches_reference_outputs_gradients_and_recomputes) ... ok
+test_memory_cache_is_separate_for_sides_and_new_jobs (tests.v5.test_lite_policy_memory.FrozenMemoryTests.test_memory_cache_is_separate_for_sides_and_new_jobs) ... ok
+test_real_policy_parity_and_one_replay_until_history_or_turn_changes (tests.v5.test_lite_policy_memory.FrozenMemoryTests.test_real_policy_parity_and_one_replay_until_history_or_turn_changes) ... ok
+test_bc_update_matches_recorded_baseline (tests.v5.test_learner_extraction.LearnerExtractionTests.test_bc_update_matches_recorded_baseline) ... FAIL
+test_legacy_helpers_remain_importable (tests.v5.test_learner_extraction.LearnerExtractionTests.test_legacy_helpers_remain_importable) ... ok
+test_ppo_update_visits_each_window_once (tests.v5.test_learner_extraction.LearnerExtractionTests.test_ppo_update_visits_each_window_once) ... FAIL
+test_train_dispatches_to_extracted_modules (tests.v5.test_learner_extraction.LearnerExtractionTests.test_train_dispatches_to_extracted_modules) ... ok
+test_finish_train_settles_resumed_work_once_with_real_checkpoint (tests.v5.test_ppo_resume_counters.PpoResumeCounterTests.test_finish_train_settles_resumed_work_once_with_real_checkpoint) ... ok
+test_learner_totals_survive_deadline_and_repeated_boundary_resume (tests.v5.test_ppo_resume_counters.PpoResumeCounterTests.test_learner_totals_survive_deadline_and_repeated_boundary_resume) ... ok
+
+======================================================================
+FAIL: test_bc_update_matches_recorded_baseline (tests.v5.test_learner_extraction.LearnerExtractionTests.test_bc_update_matches_recorded_baseline)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/window_memory_20261101_v1/tests/v5/test_learner_extraction.py", line 54, in test_bc_update_matches_recorded_baseline
+    self.assertAlmostEqual(result['loss'], 4.353553771972656, places=4)
+AssertionError: 3.878143310546875 != 4.353553771972656 within 4 places (0.47541046142578125 difference)
+
+======================================================================
+FAIL: test_ppo_update_visits_each_window_once (tests.v5.test_learner_extraction.LearnerExtractionTests.test_ppo_update_visits_each_window_once)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/window_memory_20261101_v1/tests/v5/test_learner_extraction.py", line 67, in test_ppo_update_visits_each_window_once
+    self.assertAlmostEqual(result['loss'], 0.9339113235473633, places=4)
+AssertionError: 0.8904262781143188 != 0.9339113235473633 within 4 places (0.043485045433044434 difference)
+
+----------------------------------------------------------------------
+Ran 17 tests in 5.444s
+
+FAILED (failures=2)
+encoder rows per forward: 158 -> 57; outputs/gradients equivalent across two optimizer updates

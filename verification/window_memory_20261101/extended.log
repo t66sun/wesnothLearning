@@ -1,0 +1,52 @@
+test_audit_coverage_strata_alias_conflict_and_thresholds (tests.v5.test_learning_core.AuditExportTests.test_audit_coverage_strata_alias_conflict_and_thresholds) ... ok
+test_imitation_quality_enforces_kind_precision_thresholds (tests.v5.test_learning_core.AuditExportTests.test_imitation_quality_enforces_kind_precision_thresholds) ... ok
+test_imitation_quality_gate (tests.v5.test_learning_core.AuditExportTests.test_imitation_quality_gate) ... ok
+test_schema_three_is_rejected_without_migration (tests.v5.test_learning_core.AuditExportTests.test_schema_three_is_rejected_without_migration) ... ok
+test_verify_numerics_37_candidates_two_turns (tests.v5.test_learning_core.AuditExportTests.test_verify_numerics_37_candidates_two_turns) ... ok
+test_verify_numerics_memory_overflow_and_128_entities (tests.v5.test_learning_core.AuditExportTests.test_verify_numerics_memory_overflow_and_128_entities) ... ok
+test_verify_numerics_requires_full_budget_and_two_turns (tests.v5.test_learning_core.AuditExportTests.test_verify_numerics_requires_full_budget_and_two_turns) ... ok
+test_batch_shapes_and_provenance (tests.v5.test_learning_core.BatchTests.test_batch_shapes_and_provenance) ... ok
+test_single_and_batched_forward_agree_and_padding_is_masked (tests.v5.test_learning_core.BatchTests.test_single_and_batched_forward_agree_and_padding_is_masked) ... ok
+test_architecture_constants (tests.v5.test_learning_core.PolicyArchitectureTests.test_architecture_constants) ... ok
+test_attended_and_direct_actor_paths_are_identical (tests.v5.test_learning_core.PolicyArchitectureTests.test_attended_and_direct_actor_paths_are_identical) ... ok
+test_entity_mask_removes_padded_entities (tests.v5.test_learning_core.PolicyArchitectureTests.test_entity_mask_removes_padded_entities) ... ok
+test_forward_logits_mask_and_value (tests.v5.test_learning_core.PolicyArchitectureTests.test_forward_logits_mask_and_value) ... ok
+test_forward_value_has_batch_channel (tests.v5.test_learning_core.PolicyArchitectureTests.test_forward_value_has_batch_channel)
+Training indexes `values[valid]` with a 1-D reward mask, so the ... ok
+test_local_and_geometry_width_enforced (tests.v5.test_learning_core.PolicyArchitectureTests.test_local_and_geometry_width_enforced) ... ok
+test_single_and_128_candidates_forward (tests.v5.test_learning_core.PolicyArchitectureTests.test_single_and_128_candidates_forward) ... ok
+test_unit_embedding_indexes_entity_types (tests.v5.test_learning_core.PolicyArchitectureTests.test_unit_embedding_indexes_entity_types) ... ok
+test_control_map_known_cells_cache_and_bounds (tests.v5.test_learning_core.RewardTests.test_control_map_known_cells_cache_and_bounds) ... ok
+test_control_map_neighbors_parity_and_lua_contract (tests.v5.test_learning_core.RewardTests.test_control_map_neighbors_parity_and_lua_contract) ... ok
+test_economy_potential_formula_team_average_and_normalization (tests.v5.test_learning_core.RewardTests.test_economy_potential_formula_team_average_and_normalization) ... ok
+test_gae_hand_computed_and_truncated_tail (tests.v5.test_learning_core.RewardTests.test_gae_hand_computed_and_truncated_tail) ... ok
+test_terminal_rewards_duel_draw_team_and_ffa (tests.v5.test_learning_core.RewardTests.test_terminal_rewards_duel_draw_team_and_ffa) ... ok
+test_transition_reward_discount_terminal_and_exploration (tests.v5.test_learning_core.RewardTests.test_transition_reward_discount_terminal_and_exploration) ... ok
+test_attach_history_order_suffix_and_commit_rules (tests.v5.test_learning_core.SequenceTests.test_attach_history_order_suffix_and_commit_rules) ... ok
+test_committed_false_does_not_advance_memory (tests.v5.test_learning_core.SequenceTests.test_committed_false_does_not_advance_memory) ... ok
+test_indexed_store_write_sample_read_idempotence_and_lru (tests.v5.test_learning_core.SequenceTests.test_indexed_store_write_sample_read_idempotence_and_lru) ... ok
+test_shards_attach_prefix_before_limit_and_raw_reader (tests.v5.test_learning_core.SequenceTests.test_shards_attach_prefix_before_limit_and_raw_reader) ... ok
+test_training_windows_eight_turns_chronological_and_supervised (tests.v5.test_learning_core.SequenceTests.test_training_windows_eight_turns_chronological_and_supervised) ... ok
+test_bc_train_finite_loss_and_counter (tests.v5.test_learning_core.TrainingTests.test_bc_train_finite_loss_and_counter) ... ok
+test_checkpoint_restores_model_optimizer_and_rng_and_models_are_independent (tests.v5.test_learning_core.TrainingTests.test_checkpoint_restores_model_optimizer_and_rng_and_models_are_independent) ... ok
+test_ppo_kl_stop_is_a_no_update (tests.v5.test_learning_core.TrainingTests.test_ppo_kl_stop_is_a_no_update) ... ok
+test_ppo_policy_rehearsal_requires_explicit_opt_in (tests.v5.test_learning_core.TrainingTests.test_ppo_policy_rehearsal_requires_explicit_opt_in) ... ok
+test_ppo_rejects_mixed_rewards_engine_and_rng (tests.v5.test_learning_core.TrainingTests.test_ppo_rejects_mixed_rewards_engine_and_rng) ... ok
+test_ppo_replay_ratio_grad_state_and_clipping (tests.v5.test_learning_core.TrainingTests.test_ppo_replay_ratio_grad_state_and_clipping) ... ok
+test_batch_kl_is_window_equal_not_chunk_early_stop (tests.v5.test_ppo_plan.PpoPlanTests.test_batch_kl_is_window_equal_not_chunk_early_stop) ... ok
+test_batch_kl_stop_rejects_before_stepping (tests.v5.test_ppo_plan.PpoPlanTests.test_batch_kl_stop_rejects_before_stepping) ... ok
+test_changed_plan_is_rejected (tests.v5.test_ppo_plan.PpoPlanTests.test_changed_plan_is_rejected) ... ok
+test_deadline_before_batch_changes_nothing (tests.v5.test_ppo_plan.PpoPlanTests.test_deadline_before_batch_changes_nothing) ... ok
+test_each_window_visited_once_per_epoch (tests.v5.test_ppo_plan.PpoPlanTests.test_each_window_visited_once_per_epoch) ... ok
+test_legacy_cursor_is_migrated_at_a_boundary (tests.v5.test_ppo_plan.PpoPlanTests.test_legacy_cursor_is_migrated_at_a_boundary) ... ok
+test_mid_batch_deadline_discards_gradients_and_restores_rng (tests.v5.test_ppo_plan.PpoPlanTests.test_mid_batch_deadline_discards_gradients_and_restores_rng) ... ok
+test_resume_from_saved_boundary_matches_uninterrupted (tests.v5.test_ppo_plan.PpoPlanTests.test_resume_from_saved_boundary_matches_uninterrupted) ... ok
+test_deadline_defers_without_recounting_completed_work (tests.v5.test_kl_defer.KlAccountingTests.test_deadline_defers_without_recounting_completed_work) ... ok
+test_kl_rejection_accounts_for_all_remaining_work (tests.v5.test_kl_defer.KlAccountingTests.test_kl_rejection_accounts_for_all_remaining_work) ... ok
+test_partial_kl_stop_is_settled_once_without_pending_retry (tests.v5.test_kl_defer.KlAccountingTests.test_partial_kl_stop_is_settled_once_without_pending_retry) ... ok
+test_twenty_batches_have_conserved_work_totals (tests.v5.test_kl_defer.KlAccountingTests.test_twenty_batches_have_conserved_work_totals) ... ok
+
+----------------------------------------------------------------------
+Ran 46 tests in 15.848s
+
+OK
