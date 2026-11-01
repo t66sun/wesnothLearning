@@ -1,0 +1,2632 @@
+{
+  "duel": {
+    "version": 10,
+    "checkpoint_sha256": "f017774febb87342cb2067ea87c75b80422bcc4b77a865fcaa84b2fee95453e8",
+    "exposure": {
+      "rows": 2048,
+      "windows": 55,
+      "families": 38,
+      "row_counts": {
+        "recruit": 345,
+        "end_turn": 312,
+        "attack": 556,
+        "move": 835
+      },
+      "row_share": {
+        "recruit": 0.16845703125,
+        "end_turn": 0.15234375,
+        "attack": 0.271484375,
+        "move": 0.40771484375
+      },
+      "expected_loss_share": {
+        "recruit": 0.1886290890305732,
+        "end_turn": 0.1651702377405257,
+        "attack": 0.27635393126421554,
+        "move": 0.3698467419646885
+      }
+    },
+    "train": {
+      "samples": 1962,
+      "kinds": {
+        "recruit": {
+          "samples": 345,
+          "correct": 238,
+          "same_kind": 345,
+          "within_kind_correct": 238,
+          "top3": 325,
+          "same_type": 249,
+          "same_slot": 332
+        },
+        "end_turn": {
+          "samples": 226,
+          "correct": 211,
+          "same_kind": 211,
+          "within_kind_correct": 226,
+          "top3": 223
+        },
+        "attack": {
+          "samples": 556,
+          "correct": 374,
+          "same_kind": 532,
+          "within_kind_correct": 382,
+          "top3": 494,
+          "same_actor": 448,
+          "same_target": 484,
+          "same_landing": 417,
+          "same_weapon": 487
+        },
+        "move": {
+          "samples": 835,
+          "correct": 545,
+          "same_kind": 780,
+          "within_kind_correct": 579,
+          "top3": 745
+        }
+      },
+      "recruit_types": {
+        "Elvish Fighter": {
+          "samples": 34,
+          "correct": 22,
+          "same_type": 23
+        },
+        "Elvish Archer": {
+          "samples": 20,
+          "correct": 14,
+          "same_type": 15
+        },
+        "Elvish Shaman": {
+          "samples": 12,
+          "correct": 12,
+          "same_type": 12
+        },
+        "Mage": {
+          "samples": 8,
+          "correct": 4,
+          "same_type": 4
+        },
+        "Dark Adept": {
+          "samples": 26,
+          "correct": 7,
+          "same_type": 7
+        },
+        "Skeleton": {
+          "samples": 20,
+          "correct": 20,
+          "same_type": 20
+        },
+        "Skeleton Archer": {
+          "samples": 4,
+          "correct": 2,
+          "same_type": 2
+        },
+        "Walking Corpse": {
+          "samples": 12,
+          "correct": 11,
+          "same_type": 12
+        },
+        "Ghoul": {
+          "samples": 2,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Spearman": {
+          "samples": 27,
+          "correct": 25,
+          "same_type": 27
+        },
+        "Bowman": {
+          "samples": 14,
+          "correct": 8,
+          "same_type": 8
+        },
+        "Cavalryman": {
+          "samples": 12,
+          "correct": 8,
+          "same_type": 8
+        },
+        "Drake Fighter": {
+          "samples": 23,
+          "correct": 18,
+          "same_type": 20
+        },
+        "Drake Clasher": {
+          "samples": 11,
+          "correct": 9,
+          "same_type": 9
+        },
+        "Saurian Augur": {
+          "samples": 20,
+          "correct": 18,
+          "same_type": 18
+        },
+        "Drake Burner": {
+          "samples": 9,
+          "correct": 9,
+          "same_type": 9
+        },
+        "Saurian Skirmisher": {
+          "samples": 7,
+          "correct": 6,
+          "same_type": 6
+        },
+        "Orcish Assassin": {
+          "samples": 4,
+          "correct": 2,
+          "same_type": 2
+        },
+        "Goblin Spearman": {
+          "samples": 3,
+          "correct": 3,
+          "same_type": 3
+        },
+        "Orcish Grunt": {
+          "samples": 13,
+          "correct": 12,
+          "same_type": 12
+        },
+        "Horseman": {
+          "samples": 2,
+          "correct": 2,
+          "same_type": 2
+        },
+        "Troll Whelp": {
+          "samples": 4,
+          "correct": 1,
+          "same_type": 1
+        },
+        "Orcish Archer": {
+          "samples": 4,
+          "correct": 1,
+          "same_type": 1
+        },
+        "Heavy Infantryman": {
+          "samples": 2,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Dwarvish Fighter": {
+          "samples": 22,
+          "correct": 11,
+          "same_type": 11
+        },
+        "Footpad": {
+          "samples": 11,
+          "correct": 8,
+          "same_type": 10
+        },
+        "Poacher": {
+          "samples": 8,
+          "correct": 3,
+          "same_type": 5
+        },
+        "Dwarvish Thunderer": {
+          "samples": 8,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Ghost": {
+          "samples": 1,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Vampire Bat": {
+          "samples": 1,
+          "correct": 1,
+          "same_type": 1
+        },
+        "Thief": {
+          "samples": 1,
+          "correct": 1,
+          "same_type": 1
+        }
+      },
+      "kind_confusion": {
+        "recruit": {
+          "recruit": 345
+        },
+        "end_turn": {
+          "end_turn": 211,
+          "attack": 10,
+          "move": 5
+        },
+        "attack": {
+          "attack": 532,
+          "move": 24
+        },
+        "move": {
+          "move": 780,
+          "attack": 42,
+          "end_turn": 13
+        }
+      },
+      "error_examples": [
+        {
+          "game_id": "teacher-00007-duel-t0",
+          "turn": 9,
+          "label": {
+            "kind": "move_attack",
+            "x": 21,
+            "y": 20,
+            "tx": 25,
+            "ty": 23,
+            "ex": 26,
+            "ey": 22,
+            "weapon": 1
+          },
+          "predicted": {
+            "kind": "move_attack",
+            "x": 21,
+            "y": 20,
+            "tx": 26,
+            "ty": 21,
+            "ex": 26,
+            "ey": 22,
+            "weapon": 1
+          },
+          "margin": 0.11131095886230469
+        },
+        {
+          "game_id": "teacher-00007-duel-t0",
+          "turn": 9,
+          "label": {
+            "kind": "move_attack",
+            "x": 18,
+            "y": 12,
+            "tx": 17,
+            "ty": 10,
+            "ex": 18,
+            "ey": 9,
+            "weapon": 1
+          },
+          "predicted": {
+            "kind": "move_attack",
+            "x": 18,
+            "y": 12,
+            "tx": 18,
+            "ty": 10,
+            "ex": 18,
+            "ey": 9,
+            "weapon": 1
+          },
+          "margin": 2.288858413696289
+        },
+        {
+          "game_id": "teacher-00007-duel-t0",
+          "turn": 10,
+          "label": {
+            "kind": "recruit",
+            "type": "Elvish Archer",
+            "x": 19,
+            "y": 20
+          },
+          "predicted": {
+            "kind": "recruit",
+            "type": "Elvish Shaman",
+            "x": 19,
+            "y": 20
+          },
+          "margin": 0.2765045166015625
+        },
+        {
+          "game_id": "teacher-00007-duel-t0",
+          "turn": 10,
+          "label": {
+            "kind": "attack",
+            "x": 18,
+            "y": 17,
+            "tx": 18,
+            "ty": 16,
+            "weapon": 1
+          },
+          "predicted": {
+            "kind": "attack",
+            "x": 11,
+            "y": 15,
+            "tx": 11,
+            "ty": 14,
+            "weapon": 2
+          },
+          "margin": 4.987430453300476
+        },
+        {
+          "game_id": "teacher-00007-duel-t0",
+          "turn": 10,
+          "label": {
+            "kind": "move_attack",
+            "x": 11,
+            "y": 15,
+            "tx": 10,
+            "ty": 13,
+            "ex": 11,
+            "ey": 13,
+            "weapon": 2
+          },
+          "predicted": {
+            "kind": "attack",
+            "x": 11,
+            "y": 15,
+            "tx": 11,
+            "ty": 14,
+            "weapon": 2
+          },
+          "margin": 4.396301627159119
+        },
+        {
+          "game_id": "teacher-00007-duel-t0",
+          "turn": 10,
+          "label": {
+            "kind": "move_attack",
+            "x": 18,
+            "y": 20,
+            "tx": 17,
+            "ty": 17,
+            "ex": 18,
+            "ey": 16,
+            "weapon": 2
+          },
+          "predicted": {
+            "kind": "move_attack",
+            "x": 18,
+            "y": 20,
+            "tx": 17,
+            "ty": 17,
+            "ex": 18,
+            "ey": 16,
+            "weapon": 1
+          },
+          "margin": 0.33622026443481445
+        },
+        {
+          "game_id": "teacher-00007-duel-t0",
+          "turn": 11,
+          "label": {
+            "kind": "recruit",
+            "type": "Elvish Fighter",
+            "x": 18,
+            "y": 20
+          },
+          "predicted": {
+            "kind": "recruit",
+            "type": "Elvish Archer",
+            "x": 21,
+            "y": 20
+          },
+          "margin": 1.1491279602050781
+        },
+        {
+          "game_id": "teacher-00007-duel-t0",
+          "turn": 11,
+          "label": {
+            "kind": "move_attack",
+            "x": 20,
+            "y": 19,
+            "tx": 15,
+            "ty": 16,
+            "ex": 16,
+            "ey": 15,
+            "weapon": 2
+          },
+          "predicted": {
+            "kind": "move_attack",
+            "x": 19,
+            "y": 20,
+            "tx": 15,
+            "ty": 16,
+            "ex": 16,
+            "ey": 15,
+            "weapon": 2
+          },
+          "margin": 1.1301336288452148
+        },
+        {
+          "game_id": "teacher-00007-duel-t0",
+          "turn": 11,
+          "label": {
+            "kind": "move_attack",
+            "x": 16,
+            "y": 17,
+            "tx": 15,
+            "ty": 16,
+            "ex": 16,
+            "ey": 15,
+            "weapon": 2
+          },
+          "predicted": {
+            "kind": "move_attack",
+            "x": 19,
+            "y": 20,
+            "tx": 15,
+            "ty": 16,
+            "ex": 16,
+            "ey": 15,
+            "weapon": 2
+          },
+          "margin": 0.6529483795166016
+        },
+        {
+          "game_id": "teacher-00007-duel-t0",
+          "turn": 11,
+          "label": {
+            "kind": "move_attack",
+            "x": 20,
+            "y": 20,
+            "tx": 19,
+            "ty": 16,
+            "ex": 20,
+            "ey": 15,
+            "weapon": 1
+          },
+          "predicted": {
+            "kind": "move_attack",
+            "x": 18,
+            "y": 17,
+            "tx": 20,
+            "ty": 16,
+            "ex": 20,
+            "ey": 15,
+            "weapon": 1
+          },
+          "margin": 1.1997718811035156
+        },
+        {
+          "game_id": "teacher-00007-duel-t0",
+          "turn": 12,
+          "label": {
+            "kind": "recruit",
+            "type": "Mage",
+            "x": 21,
+            "y": 20
+          },
+          "predicted": {
+            "kind": "recruit",
+            "type": "Elvish Archer",
+            "x": 21,
+            "y": 20
+          },
+          "margin": 0.40205955505371094
+        },
+        {
+          "game_id": "teacher-00007-duel-t0",
+          "turn": 12,
+          "label": {
+            "kind": "move_attack",
+            "x": 24,
+            "y": 7,
+            "tx": 23,
+            "ty": 9,
+            "ex": 23,
+            "ey": 8,
+            "weapon": 1
+          },
+          "predicted": {
+            "kind": "move_attack",
+            "x": 18,
+            "y": 20,
+            "tx": 14,
+            "ty": 18,
+            "ex": 14,
+            "ey": 17,
+            "weapon": 1
+          },
+          "margin": 0.04628467559814453
+        }
+      ]
+    },
+    "heldout": {
+      "samples": 710,
+      "kinds": {
+        "recruit": {
+          "samples": 127,
+          "correct": 65,
+          "same_kind": 127,
+          "within_kind_correct": 65,
+          "top3": 115,
+          "same_type": 79,
+          "same_slot": 108
+        },
+        "move": {
+          "samples": 329,
+          "correct": 157,
+          "same_kind": 227,
+          "within_kind_correct": 215,
+          "top3": 244
+        },
+        "attack": {
+          "samples": 200,
+          "correct": 69,
+          "same_kind": 174,
+          "within_kind_correct": 80,
+          "top3": 130,
+          "same_actor": 106,
+          "same_target": 128,
+          "same_landing": 84,
+          "same_weapon": 142
+        },
+        "end_turn": {
+          "samples": 54,
+          "correct": 30,
+          "same_kind": 30,
+          "within_kind_correct": 54,
+          "top3": 50
+        }
+      },
+      "recruit_types": {
+        "Orcish Grunt": {
+          "samples": 34,
+          "correct": 23,
+          "same_type": 27
+        },
+        "Troll Whelp": {
+          "samples": 9,
+          "correct": 1,
+          "same_type": 1
+        },
+        "Orcish Assassin": {
+          "samples": 7,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Goblin Spearman": {
+          "samples": 11,
+          "correct": 5,
+          "same_type": 11
+        },
+        "Dwarvish Fighter": {
+          "samples": 11,
+          "correct": 8,
+          "same_type": 8
+        },
+        "Footpad": {
+          "samples": 7,
+          "correct": 5,
+          "same_type": 7
+        },
+        "Poacher": {
+          "samples": 6,
+          "correct": 3,
+          "same_type": 3
+        },
+        "Dwarvish Thunderer": {
+          "samples": 5,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Elvish Fighter": {
+          "samples": 8,
+          "correct": 4,
+          "same_type": 4
+        },
+        "Elvish Archer": {
+          "samples": 4,
+          "correct": 2,
+          "same_type": 2
+        },
+        "Elvish Shaman": {
+          "samples": 4,
+          "correct": 2,
+          "same_type": 4
+        },
+        "Orcish Archer": {
+          "samples": 3,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Thief": {
+          "samples": 2,
+          "correct": 2,
+          "same_type": 2
+        },
+        "Dark Adept": {
+          "samples": 5,
+          "correct": 1,
+          "same_type": 1
+        },
+        "Skeleton": {
+          "samples": 5,
+          "correct": 5,
+          "same_type": 5
+        },
+        "Walking Corpse": {
+          "samples": 2,
+          "correct": 2,
+          "same_type": 2
+        },
+        "Ghoul": {
+          "samples": 1,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Ghost": {
+          "samples": 1,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Vampire Bat": {
+          "samples": 1,
+          "correct": 1,
+          "same_type": 1
+        },
+        "Skeleton Archer": {
+          "samples": 1,
+          "correct": 1,
+          "same_type": 1
+        }
+      },
+      "kind_confusion": {
+        "recruit": {
+          "recruit": 127
+        },
+        "move": {
+          "move": 227,
+          "attack": 89,
+          "end_turn": 13
+        },
+        "attack": {
+          "move": 26,
+          "attack": 174
+        },
+        "end_turn": {
+          "attack": 22,
+          "end_turn": 30,
+          "move": 2
+        }
+      },
+      "error_examples": [
+        {
+          "game_id": "teacher-00042-duel-t0",
+          "turn": 1,
+          "label": {
+            "kind": "recruit",
+            "type": "Orcish Grunt",
+            "x": 3,
+            "y": 6
+          },
+          "predicted": {
+            "kind": "recruit",
+            "type": "Orcish Grunt",
+            "x": 4,
+            "y": 6
+          },
+          "margin": 0.4117145538330078
+        },
+        {
+          "game_id": "teacher-00042-duel-t0",
+          "turn": 1,
+          "label": {
+            "kind": "recruit",
+            "type": "Troll Whelp",
+            "x": 4,
+            "y": 6
+          },
+          "predicted": {
+            "kind": "recruit",
+            "type": "Orcish Grunt",
+            "x": 4,
+            "y": 6
+          },
+          "margin": 3.1821937561035156
+        },
+        {
+          "game_id": "teacher-00042-duel-t0",
+          "turn": 1,
+          "label": {
+            "kind": "recruit",
+            "type": "Orcish Grunt",
+            "x": 2,
+            "y": 7
+          },
+          "predicted": {
+            "kind": "recruit",
+            "type": "Troll Whelp",
+            "x": 2,
+            "y": 7
+          },
+          "margin": 0.3016529083251953
+        },
+        {
+          "game_id": "teacher-00042-duel-t0",
+          "turn": 1,
+          "label": {
+            "kind": "recruit",
+            "type": "Orcish Assassin",
+            "x": 4,
+            "y": 7
+          },
+          "predicted": {
+            "kind": "recruit",
+            "type": "Orcish Grunt",
+            "x": 4,
+            "y": 7
+          },
+          "margin": 1.1818103790283203
+        },
+        {
+          "game_id": "teacher-00042-duel-t0",
+          "turn": 2,
+          "label": {
+            "kind": "recruit",
+            "type": "Orcish Grunt",
+            "x": 2,
+            "y": 6
+          },
+          "predicted": {
+            "kind": "recruit",
+            "type": "Troll Whelp",
+            "x": 2,
+            "y": 6
+          },
+          "margin": 0.3430366516113281
+        },
+        {
+          "game_id": "teacher-00042-duel-t0",
+          "turn": 3,
+          "label": {
+            "kind": "recruit",
+            "type": "Goblin Spearman",
+            "x": 4,
+            "y": 7
+          },
+          "predicted": {
+            "kind": "recruit",
+            "type": "Goblin Spearman",
+            "x": 4,
+            "y": 6
+          },
+          "margin": 3.3227787017822266
+        },
+        {
+          "game_id": "teacher-00042-duel-t0",
+          "turn": 3,
+          "label": {
+            "kind": "move_attack",
+            "x": 7,
+            "y": 8,
+            "tx": 8,
+            "ty": 10,
+            "ex": 9,
+            "ey": 11,
+            "weapon": 1
+          },
+          "predicted": {
+            "kind": "move",
+            "x": 2,
+            "y": 6,
+            "tx": 7,
+            "ty": 6,
+            "full": true
+          },
+          "margin": 1.6771068572998047
+        },
+        {
+          "game_id": "teacher-00042-duel-t0",
+          "turn": 3,
+          "label": {
+            "kind": "attack",
+            "x": 8,
+            "y": 4,
+            "tx": 9,
+            "ty": 5,
+            "weapon": 1
+          },
+          "predicted": {
+            "kind": "move_attack",
+            "x": 3,
+            "y": 6,
+            "tx": 8,
+            "ty": 8,
+            "ex": 8,
+            "ey": 9,
+            "weapon": 1
+          },
+          "margin": 2.7919201850891113
+        },
+        {
+          "game_id": "teacher-00042-duel-t0",
+          "turn": 3,
+          "label": {
+            "kind": "move_attack",
+            "x": 8,
+            "y": 6,
+            "tx": 11,
+            "ty": 8,
+            "ex": 11,
+            "ey": 7,
+            "weapon": 1
+          },
+          "predicted": {
+            "kind": "move_attack",
+            "x": 3,
+            "y": 6,
+            "tx": 8,
+            "ty": 8,
+            "ex": 8,
+            "ey": 9,
+            "weapon": 1
+          },
+          "margin": 7.547688722610474
+        },
+        {
+          "game_id": "teacher-00042-duel-t0",
+          "turn": 4,
+          "label": {
+            "kind": "move_attack",
+            "x": 3,
+            "y": 5,
+            "tx": 4,
+            "ty": 7,
+            "ex": 5,
+            "ey": 7,
+            "weapon": 1
+          },
+          "predicted": {
+            "kind": "move_attack",
+            "x": 3,
+            "y": 8,
+            "tx": 4,
+            "ty": 7,
+            "ex": 5,
+            "ey": 7,
+            "weapon": 1
+          },
+          "margin": 2.6899807453155518
+        },
+        {
+          "game_id": "teacher-00042-duel-t0",
+          "turn": 4,
+          "label": {
+            "kind": "move_attack",
+            "x": 3,
+            "y": 7,
+            "tx": 5,
+            "ty": 8,
+            "ex": 5,
+            "ey": 7,
+            "weapon": 1
+          },
+          "predicted": {
+            "kind": "move_attack",
+            "x": 8,
+            "y": 4,
+            "tx": 5,
+            "ty": 6,
+            "ex": 5,
+            "ey": 7,
+            "weapon": 1
+          },
+          "margin": 0.36415815353393555
+        },
+        {
+          "game_id": "teacher-00042-duel-t0",
+          "turn": 4,
+          "label": {
+            "kind": "move_attack",
+            "x": 11,
+            "y": 8,
+            "tx": 12,
+            "ty": 8,
+            "ex": 12,
+            "ey": 7,
+            "weapon": 1
+          },
+          "predicted": {
+            "kind": "move_attack",
+            "x": 3,
+            "y": 8,
+            "tx": 3,
+            "ty": 7,
+            "ex": 4,
+            "ey": 6,
+            "weapon": 1
+          },
+          "margin": 0.8544442653656006
+        }
+      ]
+    },
+    "seconds": 12.734631950967014
+  },
+  "ffa4": {
+    "version": 5,
+    "checkpoint_sha256": "b8fc89d31d439d95fc3277bd2dba0591c75050edd8f1a498f9a814d6292d9619",
+    "exposure": {
+      "rows": 2048,
+      "windows": 55,
+      "families": 22,
+      "row_counts": {
+        "recruit": 207,
+        "end_turn": 347,
+        "move": 911,
+        "attack": 583
+      },
+      "row_share": {
+        "recruit": 0.10107421875,
+        "end_turn": 0.16943359375,
+        "move": 0.44482421875,
+        "attack": 0.28466796875
+      },
+      "expected_loss_share": {
+        "recruit": 0.09073736394346904,
+        "end_turn": 0.1830863302883422,
+        "move": 0.4544051138316798,
+        "attack": 0.2717711919365098
+      }
+    },
+    "train": {
+      "samples": 1972,
+      "kinds": {
+        "recruit": {
+          "samples": 207,
+          "correct": 75,
+          "same_kind": 204,
+          "within_kind_correct": 76,
+          "top3": 149,
+          "same_type": 126,
+          "same_slot": 126
+        },
+        "end_turn": {
+          "samples": 271,
+          "correct": 242,
+          "same_kind": 242,
+          "within_kind_correct": 271,
+          "top3": 267
+        },
+        "move": {
+          "samples": 911,
+          "correct": 568,
+          "same_kind": 770,
+          "within_kind_correct": 664,
+          "top3": 796
+        },
+        "attack": {
+          "samples": 583,
+          "correct": 212,
+          "same_kind": 397,
+          "within_kind_correct": 308,
+          "top3": 388,
+          "same_actor": 298,
+          "same_target": 339,
+          "same_landing": 270,
+          "same_weapon": 335
+        }
+      },
+      "recruit_types": {
+        "Orcish Grunt": {
+          "samples": 32,
+          "correct": 23,
+          "same_type": 32
+        },
+        "Troll Whelp": {
+          "samples": 7,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Orcish Assassin": {
+          "samples": 5,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Goblin Spearman": {
+          "samples": 23,
+          "correct": 4,
+          "same_type": 20
+        },
+        "Drake Fighter": {
+          "samples": 7,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Drake Clasher": {
+          "samples": 4,
+          "correct": 3,
+          "same_type": 3
+        },
+        "Saurian Augur": {
+          "samples": 8,
+          "correct": 5,
+          "same_type": 5
+        },
+        "Drake Burner": {
+          "samples": 3,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Saurian Skirmisher": {
+          "samples": 4,
+          "correct": 0,
+          "same_type": 1
+        },
+        "Poacher": {
+          "samples": 8,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Dwarvish Fighter": {
+          "samples": 14,
+          "correct": 10,
+          "same_type": 14
+        },
+        "Footpad": {
+          "samples": 16,
+          "correct": 3,
+          "same_type": 8
+        },
+        "Dwarvish Thunderer": {
+          "samples": 3,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Dark Adept": {
+          "samples": 8,
+          "correct": 5,
+          "same_type": 8
+        },
+        "Skeleton": {
+          "samples": 4,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Skeleton Archer": {
+          "samples": 3,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Walking Corpse": {
+          "samples": 5,
+          "correct": 3,
+          "same_type": 5
+        },
+        "Vampire Bat": {
+          "samples": 1,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Thief": {
+          "samples": 3,
+          "correct": 2,
+          "same_type": 3
+        },
+        "Cavalryman": {
+          "samples": 2,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Mage": {
+          "samples": 2,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Spearman": {
+          "samples": 10,
+          "correct": 8,
+          "same_type": 10
+        },
+        "Orcish Archer": {
+          "samples": 1,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Bowman": {
+          "samples": 1,
+          "correct": 1,
+          "same_type": 1
+        },
+        "Horseman": {
+          "samples": 1,
+          "correct": 1,
+          "same_type": 1
+        },
+        "Elvish Fighter": {
+          "samples": 15,
+          "correct": 7,
+          "same_type": 14
+        },
+        "Elvish Archer": {
+          "samples": 12,
+          "correct": 0,
+          "same_type": 1
+        },
+        "Elvish Shaman": {
+          "samples": 5,
+          "correct": 0,
+          "same_type": 0
+        }
+      },
+      "kind_confusion": {
+        "recruit": {
+          "recruit": 204,
+          "attack": 3
+        },
+        "end_turn": {
+          "end_turn": 242,
+          "move": 18,
+          "attack": 8,
+          "recruit": 3
+        },
+        "move": {
+          "move": 770,
+          "attack": 64,
+          "end_turn": 77
+        },
+        "attack": {
+          "attack": 397,
+          "move": 179,
+          "recruit": 3,
+          "end_turn": 4
+        }
+      },
+      "error_examples": [
+        {
+          "game_id": "teacher-00039-ffa4-t0",
+          "turn": 1,
+          "label": {
+            "kind": "recruit",
+            "type": "Orcish Grunt",
+            "x": 12,
+            "y": 4
+          },
+          "predicted": {
+            "kind": "recruit",
+            "type": "Orcish Grunt",
+            "x": 13,
+            "y": 6
+          },
+          "margin": 0.3940715789794922
+        },
+        {
+          "game_id": "teacher-00039-ffa4-t0",
+          "turn": 1,
+          "label": {
+            "kind": "recruit",
+            "type": "Orcish Grunt",
+            "x": 14,
+            "y": 4
+          },
+          "predicted": {
+            "kind": "recruit",
+            "type": "Orcish Grunt",
+            "x": 13,
+            "y": 6
+          },
+          "margin": 0.04398059844970703
+        },
+        {
+          "game_id": "teacher-00039-ffa4-t0",
+          "turn": 1,
+          "label": {
+            "kind": "recruit",
+            "type": "Troll Whelp",
+            "x": 13,
+            "y": 5
+          },
+          "predicted": {
+            "kind": "recruit",
+            "type": "Orcish Grunt",
+            "x": 13,
+            "y": 6
+          },
+          "margin": 2.224630355834961
+        },
+        {
+          "game_id": "teacher-00039-ffa4-t0",
+          "turn": 2,
+          "label": {
+            "kind": "recruit",
+            "type": "Orcish Assassin",
+            "x": 13,
+            "y": 6
+          },
+          "predicted": {
+            "kind": "recruit",
+            "type": "Orcish Grunt",
+            "x": 13,
+            "y": 6
+          },
+          "margin": 1.2253303527832031
+        },
+        {
+          "game_id": "teacher-00039-ffa4-t0",
+          "turn": 4,
+          "label": {
+            "kind": "attack",
+            "x": 10,
+            "y": 8,
+            "tx": 10,
+            "ty": 9,
+            "weapon": 1
+          },
+          "predicted": {
+            "kind": "move_attack",
+            "x": 14,
+            "y": 11,
+            "tx": 11,
+            "ty": 9,
+            "ex": 10,
+            "ey": 9,
+            "weapon": 1
+          },
+          "margin": 0.898411750793457
+        },
+        {
+          "game_id": "teacher-00039-ffa4-t0",
+          "turn": 4,
+          "label": {
+            "kind": "move_attack",
+            "x": 14,
+            "y": 11,
+            "tx": 10,
+            "ty": 10,
+            "ex": 10,
+            "ey": 9,
+            "weapon": 1
+          },
+          "predicted": {
+            "kind": "move_attack",
+            "x": 14,
+            "y": 11,
+            "tx": 11,
+            "ty": 9,
+            "ex": 10,
+            "ey": 9,
+            "weapon": 1
+          },
+          "margin": 0.8467626571655273
+        },
+        {
+          "game_id": "teacher-00039-ffa4-t0",
+          "turn": 4,
+          "label": {
+            "kind": "move_attack",
+            "x": 16,
+            "y": 8,
+            "tx": 11,
+            "ty": 9,
+            "ex": 10,
+            "ey": 9,
+            "weapon": 1
+          },
+          "predicted": {
+            "kind": "move_attack",
+            "x": 9,
+            "y": 6,
+            "tx": 11,
+            "ty": 9,
+            "ex": 10,
+            "ey": 9,
+            "weapon": 1
+          },
+          "margin": 0.7394523620605469
+        },
+        {
+          "game_id": "teacher-00039-ffa4-t0",
+          "turn": 4,
+          "label": {
+            "kind": "move_attack",
+            "x": 11,
+            "y": 8,
+            "tx": 14,
+            "ty": 11,
+            "ex": 15,
+            "ey": 11,
+            "weapon": 1
+          },
+          "predicted": {
+            "kind": "move",
+            "x": 9,
+            "y": 6,
+            "tx": 10,
+            "ty": 9,
+            "full": true
+          },
+          "margin": 1.0855646133422852
+        },
+        {
+          "game_id": "teacher-00039-ffa4-t0",
+          "turn": 5,
+          "label": {
+            "kind": "recruit",
+            "type": "Goblin Spearman",
+            "x": 13,
+            "y": 5
+          },
+          "predicted": {
+            "kind": "recruit",
+            "type": "Goblin Spearman",
+            "x": 14,
+            "y": 4
+          },
+          "margin": 0.014425277709960938
+        },
+        {
+          "game_id": "teacher-00039-ffa4-t0",
+          "turn": 5,
+          "label": {
+            "kind": "move_attack",
+            "x": 11,
+            "y": 9,
+            "tx": 13,
+            "ty": 12,
+            "ex": 14,
+            "ey": 12,
+            "weapon": 2
+          },
+          "predicted": {
+            "kind": "move_attack",
+            "x": 9,
+            "y": 12,
+            "tx": 7,
+            "ty": 12,
+            "ex": 6,
+            "ey": 11,
+            "weapon": 1
+          },
+          "margin": 3.6225357055664062
+        },
+        {
+          "game_id": "teacher-00039-ffa4-t0",
+          "turn": 5,
+          "label": {
+            "kind": "move_attack",
+            "x": 10,
+            "y": 8,
+            "tx": 13,
+            "ty": 12,
+            "ex": 14,
+            "ey": 12,
+            "weapon": 1
+          },
+          "predicted": {
+            "kind": "move_attack",
+            "x": 9,
+            "y": 12,
+            "tx": 7,
+            "ty": 12,
+            "ex": 6,
+            "ey": 11,
+            "weapon": 1
+          },
+          "margin": 5.504886627197266
+        },
+        {
+          "game_id": "teacher-00039-ffa4-t0",
+          "turn": 5,
+          "label": {
+            "kind": "move_attack",
+            "x": 12,
+            "y": 9,
+            "tx": 14,
+            "ty": 10,
+            "ex": 14,
+            "ey": 11,
+            "weapon": 2
+          },
+          "predicted": {
+            "kind": "move_attack",
+            "x": 9,
+            "y": 12,
+            "tx": 7,
+            "ty": 12,
+            "ex": 6,
+            "ey": 11,
+            "weapon": 1
+          },
+          "margin": 1.3084259033203125
+        }
+      ]
+    },
+    "heldout": {
+      "samples": 1002,
+      "kinds": {
+        "attack": {
+          "samples": 452,
+          "correct": 127,
+          "same_kind": 270,
+          "within_kind_correct": 181,
+          "top3": 232,
+          "same_actor": 194,
+          "same_target": 228,
+          "same_landing": 157,
+          "same_weapon": 222
+        },
+        "recruit": {
+          "samples": 78,
+          "correct": 32,
+          "same_kind": 77,
+          "within_kind_correct": 33,
+          "top3": 65,
+          "same_type": 47,
+          "same_slot": 59
+        },
+        "move": {
+          "samples": 346,
+          "correct": 186,
+          "same_kind": 251,
+          "within_kind_correct": 245,
+          "top3": 281
+        },
+        "end_turn": {
+          "samples": 126,
+          "correct": 109,
+          "same_kind": 109,
+          "within_kind_correct": 126,
+          "top3": 126
+        }
+      },
+      "recruit_types": {
+        "Walking Corpse": {
+          "samples": 10,
+          "correct": 5,
+          "same_type": 9
+        },
+        "Dark Adept": {
+          "samples": 3,
+          "correct": 3,
+          "same_type": 3
+        },
+        "Skeleton Archer": {
+          "samples": 3,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Ghoul": {
+          "samples": 1,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Ghost": {
+          "samples": 1,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Vampire Bat": {
+          "samples": 1,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Spearman": {
+          "samples": 29,
+          "correct": 19,
+          "same_type": 28
+        },
+        "Bowman": {
+          "samples": 7,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Cavalryman": {
+          "samples": 7,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Mage": {
+          "samples": 5,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Elvish Shaman": {
+          "samples": 1,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Elvish Fighter": {
+          "samples": 7,
+          "correct": 5,
+          "same_type": 7
+        },
+        "Elvish Archer": {
+          "samples": 3,
+          "correct": 0,
+          "same_type": 0
+        }
+      },
+      "kind_confusion": {
+        "attack": {
+          "move": 181,
+          "attack": 270,
+          "end_turn": 1
+        },
+        "recruit": {
+          "recruit": 77,
+          "attack": 1
+        },
+        "move": {
+          "move": 251,
+          "attack": 43,
+          "end_turn": 52
+        },
+        "end_turn": {
+          "end_turn": 109,
+          "attack": 10,
+          "move": 7
+        }
+      },
+      "error_examples": [
+        {
+          "game_id": "teacher-00005-ffa4-t0",
+          "turn": 9,
+          "label": {
+            "kind": "attack",
+            "x": 21,
+            "y": 12,
+            "tx": 22,
+            "ty": 12,
+            "weapon": 1
+          },
+          "predicted": {
+            "kind": "move",
+            "x": 21,
+            "y": 12,
+            "tx": 20,
+            "ty": 8,
+            "full": true
+          },
+          "margin": 0.6924285888671875
+        },
+        {
+          "game_id": "teacher-00005-ffa4-t0",
+          "turn": 9,
+          "label": {
+            "kind": "recruit",
+            "type": "Walking Corpse",
+            "x": 24,
+            "y": 11
+          },
+          "predicted": {
+            "kind": "recruit",
+            "type": "Walking Corpse",
+            "x": 24,
+            "y": 10
+          },
+          "margin": 0.23778152465820312
+        },
+        {
+          "game_id": "teacher-00005-ffa4-t0",
+          "turn": 10,
+          "label": {
+            "kind": "move_attack",
+            "x": 25,
+            "y": 11,
+            "tx": 22,
+            "ty": 15,
+            "ex": 21,
+            "ey": 16,
+            "weapon": 1
+          },
+          "predicted": {
+            "kind": "move",
+            "x": 21,
+            "y": 12,
+            "tx": 17,
+            "ty": 9,
+            "full": true
+          },
+          "margin": 1.0615382194519043
+        },
+        {
+          "game_id": "teacher-00005-ffa4-t0",
+          "turn": 10,
+          "label": {
+            "kind": "move_attack",
+            "x": 23,
+            "y": 11,
+            "tx": 22,
+            "ty": 13,
+            "ex": 21,
+            "ey": 13,
+            "weapon": 1
+          },
+          "predicted": {
+            "kind": "move_attack",
+            "x": 24,
+            "y": 11,
+            "tx": 22,
+            "ty": 13,
+            "ex": 21,
+            "ey": 13,
+            "weapon": 1
+          },
+          "margin": 0.06490516662597656
+        },
+        {
+          "game_id": "teacher-00005-ffa4-t0",
+          "turn": 11,
+          "label": {
+            "kind": "recruit",
+            "type": "Walking Corpse",
+            "x": 24,
+            "y": 11
+          },
+          "predicted": {
+            "kind": "recruit",
+            "type": "Walking Corpse",
+            "x": 25,
+            "y": 10
+          },
+          "margin": 0.001850128173828125
+        },
+        {
+          "game_id": "teacher-00005-ffa4-t0",
+          "turn": 12,
+          "label": {
+            "kind": "move_attack",
+            "x": 22,
+            "y": 15,
+            "tx": 22,
+            "ty": 16,
+            "ex": 21,
+            "ey": 16,
+            "weapon": 2
+          },
+          "predicted": {
+            "kind": "attack",
+            "x": 22,
+            "y": 15,
+            "tx": 21,
+            "ty": 16,
+            "weapon": 2
+          },
+          "margin": 0.03689002990722656
+        },
+        {
+          "game_id": "teacher-00005-ffa4-t0",
+          "turn": 13,
+          "label": {
+            "kind": "move_attack",
+            "x": 22,
+            "y": 16,
+            "tx": 23,
+            "ty": 17,
+            "ex": 24,
+            "ey": 17,
+            "weapon": 2
+          },
+          "predicted": {
+            "kind": "move_attack",
+            "x": 21,
+            "y": 15,
+            "tx": 23,
+            "ty": 17,
+            "ex": 24,
+            "ey": 17,
+            "weapon": 1
+          },
+          "margin": 0.7342805862426758
+        },
+        {
+          "game_id": "teacher-00005-ffa4-t0",
+          "turn": 13,
+          "label": {
+            "kind": "move_attack",
+            "x": 21,
+            "y": 15,
+            "tx": 23,
+            "ty": 16,
+            "ex": 24,
+            "ey": 16,
+            "weapon": 1
+          },
+          "predicted": {
+            "kind": "move_attack",
+            "x": 21,
+            "y": 15,
+            "tx": 24,
+            "ty": 14,
+            "ex": 24,
+            "ey": 15,
+            "weapon": 1
+          },
+          "margin": 0.22791099548339844
+        },
+        {
+          "game_id": "teacher-00005-ffa4-t0",
+          "turn": 17,
+          "label": {
+            "kind": "attack",
+            "x": 17,
+            "y": 9,
+            "tx": 17,
+            "ty": 10,
+            "weapon": 1
+          },
+          "predicted": {
+            "kind": "move_attack",
+            "x": 21,
+            "y": 9,
+            "tx": 18,
+            "ty": 9,
+            "ex": 17,
+            "ey": 10,
+            "weapon": 1
+          },
+          "margin": 0.3003854751586914
+        },
+        {
+          "game_id": "teacher-00005-ffa4-t0",
+          "turn": 17,
+          "label": {
+            "kind": "move_attack",
+            "x": 21,
+            "y": 12,
+            "tx": 18,
+            "ty": 11,
+            "ex": 17,
+            "ey": 11,
+            "weapon": 1
+          },
+          "predicted": {
+            "kind": "move_attack",
+            "x": 21,
+            "y": 12,
+            "tx": 18,
+            "ty": 10,
+            "ex": 17,
+            "ey": 11,
+            "weapon": 1
+          },
+          "margin": 0.034859657287597656
+        },
+        {
+          "game_id": "teacher-00005-ffa4-t0",
+          "turn": 18,
+          "label": {
+            "kind": "recruit",
+            "type": "Walking Corpse",
+            "x": 26,
+            "y": 7
+          },
+          "predicted": {
+            "kind": "recruit",
+            "type": "Walking Corpse",
+            "x": 26,
+            "y": 8
+          },
+          "margin": 0.09441184997558594
+        },
+        {
+          "game_id": "teacher-00005-ffa4-t0",
+          "turn": 18,
+          "label": {
+            "kind": "move_attack",
+            "x": 21,
+            "y": 16,
+            "tx": 16,
+            "ty": 17,
+            "ex": 15,
+            "ey": 17,
+            "weapon": 1
+          },
+          "predicted": {
+            "kind": "move_attack",
+            "x": 15,
+            "y": 18,
+            "tx": 16,
+            "ty": 16,
+            "ex": 15,
+            "ey": 17,
+            "weapon": 1
+          },
+          "margin": 0.9592084884643555
+        }
+      ]
+    },
+    "seconds": 19.573723611189052
+  },
+  "team2v2": {
+    "version": 3,
+    "checkpoint_sha256": "f0ed0824a7de01ff44b5df934838880b854807e167dba0869dab580593b1d216",
+    "exposure": {
+      "rows": 2048,
+      "windows": 41,
+      "families": 9,
+      "row_counts": {
+        "recruit": 113,
+        "end_turn": 286,
+        "move": 1314,
+        "attack": 335
+      },
+      "row_share": {
+        "recruit": 0.05517578125,
+        "end_turn": 0.1396484375,
+        "move": 0.6416015625,
+        "attack": 0.16357421875
+      },
+      "expected_loss_share": {
+        "recruit": 0.05227522404843231,
+        "end_turn": 0.14540558170613122,
+        "move": 0.6449120195989179,
+        "attack": 0.15740717464652385
+      }
+    },
+    "train": {
+      "samples": 2022,
+      "kinds": {
+        "recruit": {
+          "samples": 113,
+          "correct": 28,
+          "same_kind": 101,
+          "within_kind_correct": 33,
+          "top3": 67,
+          "same_type": 47,
+          "same_slot": 65
+        },
+        "end_turn": {
+          "samples": 260,
+          "correct": 187,
+          "same_kind": 187,
+          "within_kind_correct": 260,
+          "top3": 248
+        },
+        "move": {
+          "samples": 1314,
+          "correct": 816,
+          "same_kind": 1247,
+          "within_kind_correct": 864,
+          "top3": 1114
+        },
+        "attack": {
+          "samples": 335,
+          "correct": 70,
+          "same_kind": 143,
+          "within_kind_correct": 141,
+          "top3": 141,
+          "same_actor": 94,
+          "same_target": 122,
+          "same_landing": 90,
+          "same_weapon": 122
+        }
+      },
+      "recruit_types": {
+        "Spearman": {
+          "samples": 13,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Bowman": {
+          "samples": 8,
+          "correct": 4,
+          "same_type": 4
+        },
+        "Cavalryman": {
+          "samples": 2,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Mage": {
+          "samples": 1,
+          "correct": 1,
+          "same_type": 1
+        },
+        "Drake Fighter": {
+          "samples": 16,
+          "correct": 8,
+          "same_type": 12
+        },
+        "Drake Clasher": {
+          "samples": 6,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Saurian Augur": {
+          "samples": 12,
+          "correct": 3,
+          "same_type": 3
+        },
+        "Drake Burner": {
+          "samples": 6,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Saurian Skirmisher": {
+          "samples": 7,
+          "correct": 1,
+          "same_type": 1
+        },
+        "Elvish Fighter": {
+          "samples": 3,
+          "correct": 0,
+          "same_type": 2
+        },
+        "Elvish Shaman": {
+          "samples": 2,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Elvish Archer": {
+          "samples": 1,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Orcish Grunt": {
+          "samples": 12,
+          "correct": 6,
+          "same_type": 12
+        },
+        "Troll Whelp": {
+          "samples": 3,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Orcish Assassin": {
+          "samples": 3,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Goblin Spearman": {
+          "samples": 9,
+          "correct": 3,
+          "same_type": 8
+        },
+        "Dwarvish Fighter": {
+          "samples": 3,
+          "correct": 1,
+          "same_type": 3
+        },
+        "Footpad": {
+          "samples": 3,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Poacher": {
+          "samples": 1,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Dwarvish Thunderer": {
+          "samples": 1,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Thief": {
+          "samples": 1,
+          "correct": 1,
+          "same_type": 1
+        }
+      },
+      "kind_confusion": {
+        "recruit": {
+          "recruit": 101,
+          "move": 9,
+          "attack": 3
+        },
+        "end_turn": {
+          "end_turn": 187,
+          "move": 64,
+          "attack": 9
+        },
+        "move": {
+          "move": 1247,
+          "attack": 54,
+          "end_turn": 13
+        },
+        "attack": {
+          "move": 192,
+          "attack": 143
+        }
+      },
+      "error_examples": [
+        {
+          "game_id": "teacher-00015-team2v2-t0",
+          "turn": 1,
+          "label": {
+            "kind": "recruit",
+            "type": "Spearman",
+            "x": 12,
+            "y": 4
+          },
+          "predicted": {
+            "kind": "recruit",
+            "type": "Horseman",
+            "x": 13,
+            "y": 6
+          },
+          "margin": 0.8658332824707031
+        },
+        {
+          "game_id": "teacher-00015-team2v2-t0",
+          "turn": 1,
+          "label": {
+            "kind": "recruit",
+            "type": "Spearman",
+            "x": 14,
+            "y": 4
+          },
+          "predicted": {
+            "kind": "recruit",
+            "type": "Horseman",
+            "x": 13,
+            "y": 6
+          },
+          "margin": 0.8464326858520508
+        },
+        {
+          "game_id": "teacher-00015-team2v2-t0",
+          "turn": 1,
+          "label": {
+            "kind": "recruit",
+            "type": "Spearman",
+            "x": 13,
+            "y": 5
+          },
+          "predicted": {
+            "kind": "recruit",
+            "type": "Horseman",
+            "x": 13,
+            "y": 6
+          },
+          "margin": 0.5840725898742676
+        },
+        {
+          "game_id": "teacher-00015-team2v2-t0",
+          "turn": 1,
+          "label": {
+            "kind": "recruit",
+            "type": "Spearman",
+            "x": 13,
+            "y": 6
+          },
+          "predicted": {
+            "kind": "recruit",
+            "type": "Horseman",
+            "x": 13,
+            "y": 6
+          },
+          "margin": 0.4808368682861328
+        },
+        {
+          "game_id": "teacher-00015-team2v2-t0",
+          "turn": 2,
+          "label": {
+            "kind": "recruit",
+            "type": "Bowman",
+            "x": 13,
+            "y": 6
+          },
+          "predicted": {
+            "kind": "recruit",
+            "type": "Horseman",
+            "x": 13,
+            "y": 6
+          },
+          "margin": 0.3246159553527832
+        },
+        {
+          "game_id": "teacher-00015-team2v2-t0",
+          "turn": 2,
+          "label": {
+            "kind": "recruit",
+            "type": "Cavalryman",
+            "x": 13,
+            "y": 5
+          },
+          "predicted": {
+            "kind": "recruit",
+            "type": "Horseman",
+            "x": 13,
+            "y": 5
+          },
+          "margin": 0.40435791015625
+        },
+        {
+          "game_id": "teacher-00015-team2v2-t0",
+          "turn": 3,
+          "label": {
+            "kind": "recruit",
+            "type": "Spearman",
+            "x": 12,
+            "y": 4
+          },
+          "predicted": {
+            "kind": "recruit",
+            "type": "Bowman",
+            "x": 14,
+            "y": 4
+          },
+          "margin": 0.1659550666809082
+        },
+        {
+          "game_id": "teacher-00015-team2v2-t0",
+          "turn": 4,
+          "label": {
+            "kind": "move_attack",
+            "x": 14,
+            "y": 11,
+            "tx": 14,
+            "ty": 13,
+            "ex": 13,
+            "ey": 14,
+            "weapon": 1
+          },
+          "predicted": {
+            "kind": "move",
+            "x": 14,
+            "y": 11,
+            "tx": 16,
+            "ty": 8,
+            "full": true
+          },
+          "margin": 4.397034764289856
+        },
+        {
+          "game_id": "teacher-00015-team2v2-t0",
+          "turn": 6,
+          "label": {
+            "kind": "move_attack",
+            "x": 7,
+            "y": 12,
+            "tx": 14,
+            "ty": 9,
+            "ex": 15,
+            "ey": 10,
+            "weapon": 1
+          },
+          "predicted": {
+            "kind": "move",
+            "x": 16,
+            "y": 9,
+            "tx": 15,
+            "ty": 7,
+            "full": true
+          },
+          "margin": 2.7502267360687256
+        },
+        {
+          "game_id": "teacher-00015-team2v2-t0",
+          "turn": 6,
+          "label": {
+            "kind": "move_attack",
+            "x": 10,
+            "y": 8,
+            "tx": 14,
+            "ty": 10,
+            "ex": 15,
+            "ey": 10,
+            "weapon": 1
+          },
+          "predicted": {
+            "kind": "move",
+            "x": 16,
+            "y": 9,
+            "tx": 16,
+            "ty": 7,
+            "full": true
+          },
+          "margin": 5.48546290397644
+        },
+        {
+          "game_id": "teacher-00015-team2v2-t0",
+          "turn": 7,
+          "label": {
+            "kind": "move_attack",
+            "x": 10,
+            "y": 9,
+            "tx": 14,
+            "ty": 8,
+            "ex": 15,
+            "ey": 9,
+            "weapon": 1
+          },
+          "predicted": {
+            "kind": "move",
+            "x": 14,
+            "y": 9,
+            "tx": 12,
+            "ty": 9,
+            "full": true
+          },
+          "margin": 6.051138512790203
+        },
+        {
+          "game_id": "teacher-00015-team2v2-t0",
+          "turn": 7,
+          "label": {
+            "kind": "move_attack",
+            "x": 14,
+            "y": 10,
+            "tx": 15,
+            "ty": 10,
+            "ex": 15,
+            "ey": 9,
+            "weapon": 1
+          },
+          "predicted": {
+            "kind": "move",
+            "x": 14,
+            "y": 9,
+            "tx": 10,
+            "ty": 7,
+            "full": true
+          },
+          "margin": 2.5533416271209717
+        }
+      ]
+    },
+    "heldout": {
+      "samples": 1011,
+      "kinds": {
+        "recruit": {
+          "samples": 59,
+          "correct": 9,
+          "same_kind": 50,
+          "within_kind_correct": 12,
+          "top3": 35,
+          "same_type": 27,
+          "same_slot": 25
+        },
+        "move": {
+          "samples": 684,
+          "correct": 357,
+          "same_kind": 618,
+          "within_kind_correct": 395,
+          "top3": 525
+        },
+        "end_turn": {
+          "samples": 119,
+          "correct": 77,
+          "same_kind": 77,
+          "within_kind_correct": 119,
+          "top3": 105
+        },
+        "attack": {
+          "samples": 149,
+          "correct": 28,
+          "same_kind": 54,
+          "within_kind_correct": 63,
+          "top3": 57,
+          "same_actor": 43,
+          "same_target": 42,
+          "same_landing": 32,
+          "same_weapon": 43
+        }
+      },
+      "recruit_types": {
+        "Walking Corpse": {
+          "samples": 14,
+          "correct": 0,
+          "same_type": 10
+        },
+        "Skeleton Archer": {
+          "samples": 2,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Dark Adept": {
+          "samples": 1,
+          "correct": 1,
+          "same_type": 1
+        },
+        "Skeleton": {
+          "samples": 1,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Vampire Bat": {
+          "samples": 1,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Dwarvish Fighter": {
+          "samples": 8,
+          "correct": 2,
+          "same_type": 8
+        },
+        "Footpad": {
+          "samples": 8,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Poacher": {
+          "samples": 4,
+          "correct": 1,
+          "same_type": 1
+        },
+        "Dwarvish Thunderer": {
+          "samples": 3,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Thief": {
+          "samples": 2,
+          "correct": 1,
+          "same_type": 2
+        },
+        "Saurian Augur": {
+          "samples": 4,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Drake Fighter": {
+          "samples": 6,
+          "correct": 3,
+          "same_type": 4
+        },
+        "Drake Burner": {
+          "samples": 2,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Drake Clasher": {
+          "samples": 1,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Saurian Skirmisher": {
+          "samples": 2,
+          "correct": 1,
+          "same_type": 1
+        }
+      },
+      "kind_confusion": {
+        "recruit": {
+          "recruit": 50,
+          "move": 8,
+          "attack": 1
+        },
+        "move": {
+          "move": 618,
+          "attack": 61,
+          "end_turn": 4,
+          "recruit": 1
+        },
+        "end_turn": {
+          "move": 34,
+          "end_turn": 77,
+          "attack": 7,
+          "recruit": 1
+        },
+        "attack": {
+          "move": 95,
+          "attack": 54
+        }
+      },
+      "error_examples": [
+        {
+          "game_id": "teacher-00014-team2v2-t0",
+          "turn": 9,
+          "label": {
+            "kind": "recruit",
+            "type": "Walking Corpse",
+            "x": 16,
+            "y": 3
+          },
+          "predicted": {
+            "kind": "recruit",
+            "type": "Walking Corpse",
+            "x": 18,
+            "y": 3
+          },
+          "margin": 0.35276317596435547
+        },
+        {
+          "game_id": "teacher-00014-team2v2-t0",
+          "turn": 12,
+          "label": {
+            "kind": "recruit",
+            "type": "Walking Corpse",
+            "x": 17,
+            "y": 4
+          },
+          "predicted": {
+            "kind": "recruit",
+            "type": "Walking Corpse",
+            "x": 18,
+            "y": 3
+          },
+          "margin": 0.11175298690795898
+        },
+        {
+          "game_id": "teacher-00014-team2v2-t0",
+          "turn": 12,
+          "label": {
+            "kind": "move_attack",
+            "x": 11,
+            "y": 7,
+            "tx": 10,
+            "ty": 7,
+            "ex": 11,
+            "ey": 8,
+            "weapon": 1
+          },
+          "predicted": {
+            "kind": "move",
+            "x": 13,
+            "y": 7,
+            "tx": 16,
+            "ty": 4,
+            "full": true
+          },
+          "margin": 2.6354451179504395
+        },
+        {
+          "game_id": "teacher-00014-team2v2-t0",
+          "turn": 12,
+          "label": {
+            "kind": "move_attack",
+            "x": 10,
+            "y": 6,
+            "tx": 11,
+            "ty": 7,
+            "ex": 11,
+            "ey": 8,
+            "weapon": 1
+          },
+          "predicted": {
+            "kind": "move_attack",
+            "x": 12,
+            "y": 7,
+            "tx": 11,
+            "ty": 7,
+            "ex": 11,
+            "ey": 8,
+            "weapon": 1
+          },
+          "margin": 0.47846555709838867
+        },
+        {
+          "game_id": "teacher-00014-team2v2-t0",
+          "turn": 13,
+          "label": {
+            "kind": "recruit",
+            "type": "Walking Corpse",
+            "x": 16,
+            "y": 3
+          },
+          "predicted": {
+            "kind": "recruit",
+            "type": "Walking Corpse",
+            "x": 18,
+            "y": 3
+          },
+          "margin": 0.3214144706726074
+        },
+        {
+          "game_id": "teacher-00014-team2v2-t0",
+          "turn": 14,
+          "label": {
+            "kind": "recruit",
+            "type": "Walking Corpse",
+            "x": 17,
+            "y": 4
+          },
+          "predicted": {
+            "kind": "recruit",
+            "type": "Walking Corpse",
+            "x": 18,
+            "y": 3
+          },
+          "margin": 0.14101791381835938
+        },
+        {
+          "game_id": "teacher-00014-team2v2-t0",
+          "turn": 14,
+          "label": {
+            "kind": "attack",
+            "x": 7,
+            "y": 10,
+            "tx": 7,
+            "ty": 11,
+            "weapon": 1
+          },
+          "predicted": {
+            "kind": "move",
+            "x": 13,
+            "y": 6,
+            "tx": 11,
+            "ty": 8,
+            "full": true
+          },
+          "margin": 3.3804210424423218
+        },
+        {
+          "game_id": "teacher-00014-team2v2-t0",
+          "turn": 14,
+          "label": {
+            "kind": "move_attack",
+            "x": 12,
+            "y": 9,
+            "tx": 8,
+            "ty": 10,
+            "ex": 7,
+            "ey": 11,
+            "weapon": 2
+          },
+          "predicted": {
+            "kind": "move",
+            "x": 13,
+            "y": 7,
+            "tx": 12,
+            "ty": 10,
+            "full": true
+          },
+          "margin": 1.1272788047790527
+        },
+        {
+          "game_id": "teacher-00014-team2v2-t0",
+          "turn": 15,
+          "label": {
+            "kind": "recruit",
+            "type": "Walking Corpse",
+            "x": 16,
+            "y": 3
+          },
+          "predicted": {
+            "kind": "move",
+            "x": 12,
+            "y": 10,
+            "tx": 10,
+            "ty": 7,
+            "full": true
+          },
+          "margin": 0.6657476425170898
+        },
+        {
+          "game_id": "teacher-00014-team2v2-t0",
+          "turn": 16,
+          "label": {
+            "kind": "move_attack",
+            "x": 12,
+            "y": 8,
+            "tx": 12,
+            "ty": 13,
+            "ex": 12,
+            "ey": 14,
+            "weapon": 2
+          },
+          "predicted": {
+            "kind": "move",
+            "x": 12,
+            "y": 7,
+            "tx": 10,
+            "ty": 10,
+            "full": true
+          },
+          "margin": 6.240100741386414
+        },
+        {
+          "game_id": "teacher-00014-team2v2-t0",
+          "turn": 16,
+          "label": {
+            "kind": "move_attack",
+            "x": 12,
+            "y": 10,
+            "tx": 14,
+            "ty": 12,
+            "ex": 15,
+            "ey": 13,
+            "weapon": 2
+          },
+          "predicted": {
+            "kind": "move",
+            "x": 10,
+            "y": 9,
+            "tx": 10,
+            "ty": 10,
+            "full": true
+          },
+          "margin": 6.7510679960250854
+        },
+        {
+          "game_id": "teacher-00014-team2v2-t0",
+          "turn": 16,
+          "label": {
+            "kind": "move_attack",
+            "x": 13,
+            "y": 11,
+            "tx": 14,
+            "ty": 12,
+            "ex": 15,
+            "ey": 13,
+            "weapon": 2
+          },
+          "predicted": {
+            "kind": "move",
+            "x": 10,
+            "y": 9,
+            "tx": 11,
+            "ty": 8,
+            "full": true
+          },
+          "margin": 6.534768462181091
+        }
+      ]
+    },
+    "seconds": 18.369575686054304
+  }
+}
