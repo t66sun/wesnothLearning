@@ -68,7 +68,7 @@ class Policy(nn.Module):
 
     def context(self,scene,histories,current_turns,cache=None):
         # Raw history rows are shared by attach_histories within each sequence.
-        # Callers may share detached work only within one unchanged-weight step.
+        # Share only while weights are unchanged: one optimizer step or evaluation.
         cache = {} if cache is None else cache
         saved = cache.setdefault("scenes", {})
         saved_prefix = cache.setdefault("prefixes", {})
@@ -77,7 +77,8 @@ class Policy(nn.Module):
             parent=0; path=[]
             for j,row in enumerate(history):
                 identity=id(row); rows[identity]=row
-                if j>=len(history)-ARCHITECTURE['replay_turns']: active.add(identity)
+                if torch.is_grad_enabled() and j>=len(history)-ARCHITECTURE['replay_turns']:
+                    active.add(identity)
                 edge=(parent,identity)
                 if edge not in edges:
                     edges[edge]=len(nodes);nodes.append(edge)

@@ -128,6 +128,8 @@ Architecture id `relational_v5`, one independent model per format (roughly 0.77 
 
 `context()` retains eight own-turn rows of differentiable replay. BC/PPO reuse detached historical scenes and GRU prefixes within one logical optimizer step; active suffixes retain gradients and the next step starts a fresh cache. Frozen lite inference advances only newly committed rows, with per-side hidden state and 32 slots. Output/gradient and counted-work evidence: `verification/window_memory_20261101/REPORT.md`; full-training speedup is unmeasured. Python/Lua export parity remains <=1e-5. Relational Lua linear/scorer layers omit exact zero inputs using ascending column indices, preserving nonzero accumulation order. Frozen-input inference is 55%-62% faster on the measured Ubuntu cases; three trained models match the previous Lua outputs exactly. See `verification/native_inference_20261102/REPORT.md`.
 
+BC imitation validation shares a local history cache across its 64-row inference chunks; all historical scenes may be reused under no-gradient inference while weights are unchanged. Each validation call starts fresh, and gradient-enabled replay retains its eight-turn suffix. A 130-decision/36-turn fixture reduces encoded scenes from 238 to 166 with matching gate metrics; 15 affected Ubuntu cases have passing evidence (`verification/bc_validation_cache_20261102/REPORT.md`). Production wall-clock and RSS changes are unmeasured.
+
 ## 7. Rewards and online control
 
 Reward formula `v5-potential-1` (`learning/rewards.py`):

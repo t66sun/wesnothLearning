@@ -1,0 +1,10 @@
+test_gate_encodes_shared_history_once_and_matches_uncached_metrics (tests.v5.test_bc_validation_cache.BCValidationCacheTests.test_gate_encodes_shared_history_once_and_matches_uncached_metrics) ... ok
+test_new_gate_recomputes_history_for_changed_weights (tests.v5.test_bc_validation_cache.BCValidationCacheTests.test_new_gate_recomputes_history_for_changed_weights) ... ok
+test_bulk_batch_matches_numpy_and_list_records_and_optional_memory_context (tests.v5.test_replay_optimization.ReplayOptimizationTests.test_bulk_batch_matches_numpy_and_list_records_and_optional_memory_context) ... ok
+test_shared_replay_matches_reference_outputs_gradients_and_recomputes (tests.v5.test_replay_optimization.ReplayOptimizationTests.test_shared_replay_matches_reference_outputs_gradients_and_recomputes) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 2.381s
+
+OK
+encoder rows per forward: 158 -> 57; outputs/gradients equivalent across two optimizer updates

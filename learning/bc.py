@@ -129,9 +129,10 @@ def imitation_quality(model, records, minimum=32, thresholds=None):
         kinds = {k: dict(samples=0, correct=0, same_kind=0, same_actor=0, same_destination=0,
                          candidate_total=0, ranks={b: 0 for b in RANK_BUCKETS})
                  for k in ('recruit', 'move', 'attack')}
+        history_cache = {}  # No updates occur inside this gate; discard on return.
         for offset in range(0, len(rows), 64):
             chunk = rows[offset:offset + 64]
-            logits, _ = model(*batch(chunk, device))
+            logits, _ = model(*batch(chunk, device, history_cache=history_cache))
             target = torch.tensor([r['choice'] for r in chunk], device=device)
             loss += float(torch.nn.functional.cross_entropy(logits, target, reduction='sum'))
             correct += float((logits.argmax(1) == target).sum())

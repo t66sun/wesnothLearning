@@ -128,6 +128,8 @@ flowchart LR
 
 `context()` 保留最近 8 个己方回合的可微重放。BC/PPO 在单个逻辑优化步内复用无梯度历史场景和 GRU 前缀，活跃后缀保持梯度；下一步重建缓存。冻结 lite 推理仅处理新提交的回合行，按边保存隐藏状态和 32 个槽位。数值/梯度与成本验证见 `verification/window_memory_20261101/REPORT.md`；不据此声明完整训练加速比例。Python/Lua 导出误差仍要求 ≤1e-5。 关系网络 Lua 线性层和评分层按递增列索引跳过精确零值，保持非零项累加顺序。Ubuntu 固定输入重放耗时降低 55%-62%，三个已训练模型的新旧 Lua 输出完全一致，见 `verification/native_inference_20261102/REPORT.md`。
 
+BC 模仿验证在 64 行推理块之间共享本次调用的历史缓存；无梯度且权重不变时，全部历史场景均可复用。每次验证重新建立缓存，有梯度重放仍保留八回合后缀。130 个决策/36 回合夹具的场景编码量从 238 降至 166，门禁指标一致；15 项受影响 Ubuntu 检查已有通过证据（`verification/bc_validation_cache_20261102/REPORT.md`）。生产耗时与 RSS 变化尚未测量。
+
 ## 7. 奖励与在线控制
 
 奖励公式 `v5-potential-1`（`learning/rewards.py`）：
