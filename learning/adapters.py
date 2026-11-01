@@ -10,8 +10,8 @@ ROOT = Path(__file__).resolve().parents[1]
 # Identity of the Rust engine build this adapter speaks to. The build itself is
 # cross-checked in LiteAdapter so a stale extension can never write new rows.
 ENGINE_VERSION = 'lite-0.2'
-RNG_VERSION = 'deterministic-expected_damage_v1'
-COMBAT_VERSION = 'expected_damage_v1'
+RNG_VERSION = 'deterministic-expected_damage_v2'
+COMBAT_VERSION = 'expected_damage_v2'
 
 
 class GameAdapter(Protocol):

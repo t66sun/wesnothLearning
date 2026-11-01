@@ -1,10 +1,10 @@
--- Shared tactical values for the deterministic expected_damage_v1 rules.
+-- Shared tactical values for the deterministic expected_damage_v2 rules.
 -- The frozen upstream package computed slow as a 50% damage cut and poison as
 -- eight points per tick.  This derived teacher keeps the upstream decision
 -- structure but ranks attacks with the rules the lite engine actually applies.
 local V={}
 
-V.COMBAT_PROFILE='expected_damage_v1'
+V.COMBAT_PROFILE='expected_damage_v2'
 V.DAMAGE_UPLIFT=1.10
 V.SLOW_DAMAGE=0.75
 V.POISON_TICK=6

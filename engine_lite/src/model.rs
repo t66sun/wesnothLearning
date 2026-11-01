@@ -5,9 +5,9 @@ use std::collections::{BTreeMap, BTreeSet};
 pub const ENGINE_VERSION: &str = "lite-0.2";
 /// Lite combat resolves every strike deterministically, so the engine declares a
 /// stable marker instead of a random stream identity.
-pub const RNG_VERSION: &str = "deterministic-expected_damage_v1";
+pub const RNG_VERSION: &str = "deterministic-expected_damage_v2";
 /// Combat/status rule profile recorded in observations, snapshots, jobs and data.
-pub const COMBAT_VERSION: &str = "expected_damage_v1";
+pub const COMBAT_VERSION: &str = "expected_damage_v2";
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Weapon {

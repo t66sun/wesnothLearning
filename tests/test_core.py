@@ -42,8 +42,8 @@ def record(players=2, game='g', index=0):
 
 
 IDENTITY=dict(engine='lite',engine_version='lite-0.2',
-              rng_version='deterministic-expected_damage_v1',combat_version='expected_damage_v1',
-              teacher='gpt6astra',teacher_profile='expected_damage_v1',teacher_source_sha256='fixture')
+              rng_version='deterministic-expected_damage_v2',combat_version='expected_damage_v2',
+              teacher='gpt6astra',teacher_profile='expected_damage_v2',teacher_source_sha256='fixture')
 
 
 class CoreTests(unittest.TestCase):
