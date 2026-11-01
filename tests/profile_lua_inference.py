@@ -15,6 +15,24 @@ from learning.formats import FORMATS
 from learning.model import Policy
 
 
+def dense_decision(events, fmt):
+    selected = None
+    for path in sorted(events.glob(fmt + '-*.events.jsonl.gz')):
+        with gzip.open(path, 'rt') as stream:
+            for line in stream:
+                event = json.loads(line)
+                row = event['data']
+                if event['event'] != 'LEARN' or row.get('turn', 0) < 5:
+                    continue
+                if len(row.get('candidates', [])) != 37:
+                    continue
+                if selected is None or len(row['spatial']['entities']) > len(selected['spatial']['entities']):
+                    selected, origin = row, path
+    if selected is None:
+        raise ValueError('No full-budget native decision for ' + fmt)
+    return selected, origin
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--events', type=Path, required=True)
@@ -24,20 +42,7 @@ def main():
     torch.manual_seed(0)
     for fmt in FORMATS:
         model = Policy(fmt)
-        selected = None
-        for path in sorted(args.events.glob(fmt + '-*.events.jsonl.gz')):
-            with gzip.open(path, 'rt') as stream:
-                for line in stream:
-                    event = json.loads(line)
-                    row = event['data']
-                    if event['event'] != 'LEARN' or row.get('turn', 0) < 5:
-                        continue
-                    if len(row.get('candidates', [])) != 37:
-                        continue
-                    if selected is None or len(row['spatial']['entities']) > len(selected['spatial']['entities']):
-                        selected, origin = row, path
-        if selected is None:
-            raise ValueError('No full-budget native decision for ' + fmt)
+        selected, origin = dense_decision(args.events, fmt)
         lua = LuaRuntime(unpack_returned_tuples=True)
         network = lua.execute(args.lua.read_text(encoding='utf-8'))
         weights = lua.eval(compact_lua(lua_parameters(model)))
