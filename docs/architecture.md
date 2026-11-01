@@ -189,6 +189,8 @@ The benchmark workload is fixed by `benchmarks/contract.json`: paired native/lit
 
 Training jobs bind the positive `training_max_turns` config before scenario eligibility, hashing and freezing. The bounded runner passes its declared 30; default and legacy configurations keep 60. Frozen schedules and resumed manifests remain authoritative; evaluation and opening probes keep independent limits. All 50 affected Ubuntu checks pass (`verification/training_turn_limit_20261102/REPORT.md`); this proves wiring, not ordinary BC or full-loop readiness.
 
+The manual bounded runner counts each PPO phase's four-batch cap from that format's own entry batch. Both initial PPO and resume must finish as `ppo_complete`, with a higher committed batch and PPO update count, no pending training and no trainer error. Boundary records retain entry update counts and resulting states. Ten deterministic Ubuntu checks accept this accounting (`verification/bounded_progress_20261102/REPORT.md`); real post-BC execution remains open.
+
 ## 12. Default parameters
 
 | Parameter | Default |

@@ -1,0 +1,20 @@
+test_each_format_gets_its_own_ppo_batch_allowance (tests.v5.test_bounded_loop_progress.BoundedLoopProgressTests.test_each_format_gets_its_own_ppo_batch_allowance) ... FAIL final evaluation execution or time limit
+ok
+test_resume_must_commit_new_updates (tests.v5.test_bounded_loop_progress.BoundedLoopProgressTests.test_resume_must_commit_new_updates) ... FAIL ppo_resume did not commit new PPO updates at a completed boundary
+ok
+test_resume_must_finish_at_a_committed_boundary (tests.v5.test_bounded_loop_progress.BoundedLoopProgressTests.test_resume_must_finish_at_a_committed_boundary) ... FAIL ppo_resume did not commit new PPO updates at a completed boundary
+FAIL ppo_resume did not commit new PPO updates at a completed boundary
+ok
+test_stage_enforces_each_formats_limit (tests.v5.test_bounded_loop_progress.BoundedLoopProgressTests.test_stage_enforces_each_formats_limit) ... ok
+test_default_cli_and_invalid_limits (tests.v5.test_training_turn_limit.TrainingTurnLimitTests.test_default_cli_and_invalid_limits) ... ok
+test_default_evaluation_and_existing_frozen_schedule (tests.v5.test_training_turn_limit.TrainingTurnLimitTests.test_default_evaluation_and_existing_frozen_schedule) ... ok
+test_manual_loop_passes_the_declared_turn_limit (tests.v5.test_training_turn_limit.TrainingTurnLimitTests.test_manual_loop_passes_the_declared_turn_limit) ... FAIL BC execution or bounded batch/time limit
+ok
+test_opening_probe_keeps_its_five_turn_limit (tests.v5.test_training_turn_limit.TrainingTurnLimitTests.test_opening_probe_keeps_its_five_turn_limit) ... ok
+test_resume_restores_frozen_limit (tests.v5.test_training_turn_limit.TrainingTurnLimitTests.test_resume_restores_frozen_limit) ... ok
+test_teacher_ppo_and_refresh_use_actual_limit_and_partition (tests.v5.test_training_turn_limit.TrainingTurnLimitTests.test_teacher_ppo_and_refresh_use_actual_limit_and_partition) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.108s
+
+OK
