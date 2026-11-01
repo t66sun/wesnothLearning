@@ -15,7 +15,7 @@ def main():
     args = parser.parse_args()
     data = json.loads(args.snapshot.read_text())
     intent = data['intent']
-    for variant in ('baseline', 'work', 'probes', 'positions', 'rated', 'combat_order', 'all_search'):
+    for variant in ('baseline', 'work', 'probes', 'positions', 'rated', 'combat_order', 'safe_shortlist', 'all_search'):
         modules = host_modules()
         source = traced(modules['candidates.lua'])
         key = dict(work='total=12000', probes='move_probes=48', positions='positions=64', rated='rated=40').get(variant)
@@ -26,6 +26,28 @@ def main():
         if variant == 'combat_order':
             source = source.replace('if not d then return end', "if not d then return end\n                if category=='attack' then d.combat=true end")
             source = source.replace("d.category=='attack'", 'd.combat').replace("d.category~='attack'", 'not d.combat')
+        if variant == 'safe_shortlist':
+            source = source.replace('scored[#scored+1]={p=p,score=score}',
+                "scored[#scored+1]={p=p,score=score,threats=#(threats[p[1]..','..p[2]] or {})}")
+            source = source.replace('for i=1,math.min(#scored,WORK.positions) do destinations[i]=scored[i] end', '''local safe={}
+            for _,d in ipairs(scored) do safe[#safe+1]=d end
+            table.sort(safe,function(a,b)
+                if a.threats~=b.threats then return a.threats<b.threats end
+                if a.score~=b.score then return a.score>b.score end
+                return a.p[1]<b.p[1] or a.p[1]==b.p[1] and a.p[2]<b.p[2]
+            end)
+            local chosen={}
+            for i=1,#scored do
+                for _,d in ipairs {scored[i],safe[i]} do
+                    if not chosen[d] and #destinations<WORK.positions then
+                        destinations[#destinations+1]=d;chosen[d]=true
+                    end
+                end
+                if #destinations>=WORK.positions then break end
+            end''')
+            start = source.index('    table.sort(destinations,function(a,b)')
+            end = source.index('    for i=1,math.min(WORK.rated',start)
+            source = source[:start]+source[end:]
         source = source.replace('local reachable={}',
             'trace.actors[#trace.actors].destinations=destinations;trace.actors[#trace.actors].selected=selected;trace.actors[#trace.actors].reach=reach\n            local reachable={}')
         modules['candidates.lua'] = source
