@@ -126,7 +126,9 @@ local function tactical_ratings(obs,u,destinations,enemies,villages,supporters,t
     end
     if #goals>WORK.goals then
         table.sort(goals,function(a,b)
-            if a.bonus~=b.bonus then return a.bonus>b.bonus end
+            local av=a.bonus-distance(u.x,u.y,a)*2.5
+            local bv=b.bonus-distance(u.x,u.y,b)*2.5
+            if av~=bv then return av>bv end
             return a[1]<b[1] or a[1]==b[1] and a[2]<b[2]
         end)
         local kept={}
@@ -342,7 +344,7 @@ function M.generate(obs)
     -- The threat map is the most expensive stage, so every mandatory class above
     -- is already generated when its budget runs out.
     local threats=threat_map(obs,enemies,allow,charge)
-    local plans={}
+    local plans={};local unit_villages={}
     local mobile={}
     for _,u in ipairs(obs.own) do if u.moves>0 then mobile[#mobile+1]=u end end
     -- Planning must leave work to emit legal moves and forecast the retained
@@ -361,6 +363,18 @@ function M.generate(obs)
             calls[kind]=calls[kind]+1;return true
         end
         if unit_allow('reach',WORK.reaches,COST.reach) then
+            -- A map-coordinate prefix hides the right side of larger maps.
+            -- Choose this actor's nearby known villages within the same cap.
+            local villages={}
+            for _,v in ipairs(obs.villages) do
+                if not unit_charge(1) then break end
+                villages[#villages+1]=v
+            end
+            table.sort(villages,function(a,b)
+                local da,db=distance(u.x,u.y,a),distance(u.x,u.y,b)
+                return da<db or da==db and (a[1]<b[1] or a[1]==b[1] and a[2]<b[2])
+            end)
+            villages=head(villages,WORK.entities);unit_villages[u.id]=villages
             local reach=wesnoth.paths.find_reach(u,{viewing_side=obs.side,ignore_visibility=false})
             -- Cheap proximity ranks every reachable hex before the scored cap, so a
             -- bounded decision keeps the tiles near enemies and villages rather than
@@ -536,7 +550,7 @@ function M.generate(obs)
     -- Features for the retained set are mandatory and bounded by the entity caps;
     -- only combat forecasts are charged as optional search work.
     for _,a in ipairs(actions) do
-        if a._unit then a.features,a.rule=features(obs,a,a._unit,a._enemy,enemies,villages,friends) end
+        if a._unit then a.features,a.rule=features(obs,a,a._unit,a._enemy,enemies,unit_villages[a._unit.id] or villages,friends) end
         if a._enemy and allow('predict',WORK.predictions,COST.predict) then
             local clone=a._unit:clone()
             if a.kind=='move_attack' then clone.x=a.tx;clone.y=a.ty end
