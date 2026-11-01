@@ -35,6 +35,7 @@ def parser():
     run.add_argument('--bc-batch-games',type=int,help='每个赛制每轮采集的教师局数（默认 8，共享全局进程池）')
     run.add_argument('--bc-records',type=int,help='轮换教师训练样本池容量（CPU 默认 2048，CUDA 默认 8192）')
     run.add_argument('--bc-validation-records',type=int,help='固定验证样本池容量（CPU 默认 1024，CUDA 默认 4096）')
+    run.add_argument('--training-max-turns',type=int,help='教师/PPO 训练局回合上限（默认 60；评估仍为 30）')
     run.add_argument('--shaping-weight',type=float,help='训练潜势差分权重（默认 0.05；设 0 可关闭）')
     phase=commands.add_parser('phase',help='在批次边界切换 BC/PPO/最终评测；停止的实验需随后 resume')
     phase.add_argument('phase',choices=['show','auto','bc','ppo','evaluate'])
@@ -128,7 +129,7 @@ def run_config(args):
     directory=bind_rules(args)
     from .experiment import default_config
     names=('hours','workers','device','trainer_threads','seed','final_blocks','formats','human_data','validation_interval',
-           'bc_batch_games','bc_records','bc_validation_records','shaping_weight','engine','evaluation_engine','reward_mode','allow_approximate','phase','final_holdout_hours')
+           'bc_batch_games','bc_records','bc_validation_records','training_max_turns','shaping_weight','engine','evaluation_engine','reward_mode','allow_approximate','phase','final_holdout_hours')
     config=default_config(args.device,engine=args.engine)|{name:getattr(args,name) for name in names if getattr(args,name) is not None}
     config['rules_dir']=str(directory)
     if args.bc_games is not None:config['bc_games']=dict(zip(FORMATS,args.bc_games))

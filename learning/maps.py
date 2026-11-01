@@ -116,7 +116,7 @@ def frozen_map(name):
     return board,hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def decorate(job,format_name,index,phase):
+def decorate(job,format_name,index,phase,*,max_turns=60):
     if phase=='train' and index%2==0:
         from .common import VENDOR
         path=VENDOR/'maps'/f'arena{len(job["bots"])}.json'
@@ -128,5 +128,5 @@ def decorate(job,format_name,index,phase):
     job['map_override']=board
     job.setdefault('meta',{}).update(format=format_name,map=name,map_sha256=digest,map_partition=phase)
     job['game_family']=run_family(job)
-    if phase=='train': job['max_turns']=60
+    if phase=='train': job['max_turns']=max_turns
     return bind_scenario(job)

@@ -143,7 +143,7 @@ def teacher_jobs(directory, teachers, fixed, support, batch_index, seed, deadlin
 
 
 
-def compose_training_scenario(job):
+def compose_training_scenario(job,*,max_turns=60):
     """Select an eligible existing training scenario without changing game roles/RNG."""
     from .data import split
     from .maps import SPLITS
@@ -155,7 +155,7 @@ def compose_training_scenario(job):
         index = request['index'] + offset
         block = request['faction_block'] + offset
         job['factions'] = factions(block, len(job['bots']))
-        decorate(job, fmt, index, 'train')
+        decorate(job, fmt, index, 'train', max_turns=max_turns)
         if split(job['scenario_family']) == 'train':
             job['meta']['eligibility_swap'] = dict(requested_index=request['index'],
                 requested_faction_block=request['faction_block'], selected_index=index,
