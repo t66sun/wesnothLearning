@@ -40,6 +40,18 @@ class CombatDestinationPriorityTests(unittest.TestCase):
         self.assertLessEqual(len(row['candidates']),37)
         self.assertLessEqual(row['timing']['work'],12000)
 
+    def test_reachable_safe_retreat_survives_the_proximity_shortlist(self):
+        path = Path(__file__).resolve().parents[2]/'data/datasets/diagnostic/bc_retreat_20261101.json.gz'
+        with gzip.open(path,'rt') as stream:
+            data = json.load(stream)
+        host = LiteHost(data['spec'])
+        self.addCleanup(host.adapter.close)
+        host.restore(data['snapshot'])
+        row = host.decision(data['side'],teacher=False)
+        self.assertGreaterEqual(matching(row['candidates'],data['intent']),0)
+        self.assertLessEqual(len(row['candidates']),37)
+        self.assertLessEqual(row['timing']['work'],12000)
+
 
 if __name__ == '__main__':
     unittest.main()
