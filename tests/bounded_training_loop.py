@@ -76,6 +76,7 @@ def main():
                    '--formats', *FORMATS, '--workers', 8, '--trainer-threads', 1,
                    '--seed', 20261101, '--bc-games', 24,24,24, '--native-bc-games', 0,0,0,
                    '--bc-records', 2048, '--bc-validation-records', 1024,
+                   '--training-max-turns', plan['turn_limit'],
                    '--wesnoth', os.environ['WESNOTH_EXE'])
     if not stage('bc', args, 1200, batch_limit=5):
         return finish('FAIL', 'BC execution or bounded batch/time limit')

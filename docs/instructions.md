@@ -164,6 +164,8 @@ The experiment directory must be created by the program; do not `mkdir "$run_dir
 
 Long tasks belong in an existing persistent terminal; with tmux, run `tmux new -s wesnoth-v5` first, set up the environment and start command inside, detach with Ctrl-b, d, and reattach with `tmux attach -t wesnoth-v5`. Record the session, main PID, full command, log and experiment directory, and confirm that dropping SSH does not end training. Do not let a short-lived SSH tool request hold the whole long experiment.
 
+For an explicitly bounded new run, `--training-max-turns 30` caps teacher, PPO and DAgger training games at 30 turns (ordinary default 60). The value is frozen in the manifest and scenario identities. Evaluation stays at 30 and opening probes at 5; BC gates and panel sizes are unchanged. Resume retains the original configuration and frozen schedules, so this flag cannot retune an existing run.
+
 Post-start checks:
 
 - `manifest.json` `config` matches the instruction, with correct rule/architecture/vocabulary and engine binding.

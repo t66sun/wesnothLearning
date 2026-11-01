@@ -164,6 +164,8 @@ set -o pipefail
 
 长任务放到已有持久终端；有 tmux 时可先 `tmux new -s wesnoth-v5`，在其中执行环境和启动命令，使用 Ctrl-b、d 脱离，之后 `tmux attach -t wesnoth-v5` 接回。记录所用会话、主 PID、完整命令、日志和实验目录，确认断开 SSH 不会结束训练。不要依靠一个短时 SSH 工具请求持有整个长实验。
 
+明确要求缩短的新 run 可传 `--training-max-turns 30`，把教师、PPO 和 DAgger 训练局限制为 30 回合（普通默认 60）。该值进入冻结 manifest 和场景身份。评估仍为 30、开局诊断为 5，BC 门禁和面板规模不变。恢复沿用原配置及已冻结赛程，不能用此参数调整已有 run。
+
 启动后的完成检查：
 
 - `manifest.json` 的 `config` 与指令相符，规则/架构/词表及引擎绑定正确。

@@ -1,0 +1,44 @@
+test_lite_final_evaluation_has_only_astra_controls (tests.v5.test_lite_default.LiteDefaultTests.test_lite_final_evaluation_has_only_astra_controls) ... ERROR
+test_resume_keeps_frozen_targets_workers_and_deadline (tests.v5.test_lite_default.LiteDefaultTests.test_resume_keeps_frozen_targets_workers_and_deadline) ... ERROR
+
+======================================================================
+ERROR: test_lite_final_evaluation_has_only_astra_controls (tests.v5.test_lite_default.LiteDefaultTests.test_lite_final_evaluation_has_only_astra_controls)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/training_turn_red_20261102/tests/v5/test_lite_default.py", line 206, in test_lite_final_evaluation_has_only_astra_controls
+    summary = runner.final_evaluation()
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/acceptance/training_turn_red_20261102/learning/experiment.py", line 723, in final_evaluation
+    frozen,selected_kind,selection=self._select_final()
+                                   ^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/acceptance/training_turn_red_20261102/learning/experiment.py", line 696, in _select_final
+    candidates=[p for p in [self.directory/'last_ppo.pt',self.directory/'last_bc.pt',self.directory/'latest.pt'] if p.exists() and self._checkpoint_version(p)>=0]
+                                                                                                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/acceptance/training_turn_red_20261102/learning/experiment.py", line 639, in _checkpoint_version
+    state=torch.load(path,map_location='cpu',weights_only=False)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/venv/lib/python3.12/site-packages/torch/serialization.py", line 1554, in load
+    return _legacy_load(
+           ^^^^^^^^^^^^^
+  File "/home/tongshu/venv/lib/python3.12/site-packages/torch/serialization.py", line 1802, in _legacy_load
+    magic_number = pickle_module.load(f, **pickle_load_args)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_pickle.UnpicklingError: invalid load key, 'f'.
+
+======================================================================
+ERROR: test_resume_keeps_frozen_targets_workers_and_deadline (tests.v5.test_lite_default.LiteDefaultTests.test_resume_keeps_frozen_targets_workers_and_deadline)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/training_turn_red_20261102/tests/v5/test_lite_default.py", line 99, in test_resume_keeps_frozen_targets_workers_and_deadline
+    experiment = Experiment(run, config=requested, resume=True)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/acceptance/training_turn_red_20261102/learning/coordinator.py", line 126, in __init__
+    verify_frozen(self.manifest)
+  File "/home/tongshu/acceptance/training_turn_red_20261102/learning/manifest.py", line 81, in verify_frozen
+    raise ValueError('legacy batch eligibility requires the original frozen sources; '
+ValueError: legacy batch eligibility requires the original frozen sources; use a new run for the scenario-v2 contract
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.664s
+
+FAILED (errors=2)

@@ -187,6 +187,8 @@ flowchart LR
 
 基准工作负载由 `benchmarks/contract.json` 固定：成对的 native/lite manifest、冷启动与常驻热态、等量工作与端到端两种模式，每组 30 个完整轮转块。验收要求主机、CPU 配额和 `work_signature` 完全一致，CPU 统计包含协调进程的整棵进程树，内存用 PSS（绝不以 RSS 代替），且 wall 与 CPU 都至少达到 native 的 5 倍；缺产物、故障或工作量不等一律保持 `inconclusive`。
 
+训练任务在场景准入、哈希与冻结之前绑定正整数配置 `training_max_turns`。有界 runner 传入其声明的 30；默认及旧配置保持 60。已冻结赛程与恢复时的 manifest 仍有优先权；评估和开局诊断保留独立上限。Ubuntu 50 项相关检查通过（`verification/training_turn_limit_20261102/REPORT.md`）；仅证明配置贯通，不证明普通 BC 或完整回环就绪。
+
 ## 12. 默认参数
 
 | 参数 | 默认值 |
@@ -208,7 +210,7 @@ flowchart LR
 | KL 上限 / 计划版本 | 0.02 / 2 |
 | 奖励模式 / 取值范围 | adaptive / economy 0.05–0.20、control 0.02–0.15、explore 0–0.15 |
 | 共享候选上限 | 36 个动作 + 1 个结束回合（所有阶段） |
-| 回合上限 | 30（训练、校准、面板） |
+| 回合上限 | 训练 60（`training_max_turns`）；校准/面板 30；开局诊断 5 |
 | shard 预算 | 压缩 96 MiB，保留估计 768 MiB |
 | final holdout 小时 | 0 |
 

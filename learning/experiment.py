@@ -76,7 +76,7 @@ def default_config(device='cuda', *, engine=None):
         bc_games=bc_games,
         native_bc_games={fmt:0 if engine=='lite' else games for fmt,games in bc_games.items()},bc_batch_games=8,
         bc_accuracy=dict(all=.4,recruit=.6,move=.35,attack=.35),shaping_weight=None,
-        rollout_games=4,minibatch=256,bc_records=2048 if device=='cpu' else 8192,
+        rollout_games=4,training_max_turns=60,minibatch=256,bc_records=2048 if device=='cpu' else 8192,
         bc_validation_records=1024 if device=='cpu' else 4096,epochs=4,learning_rate=3e-4,
         trainer_memory_gb=6.,
         human_data=str(ROOT/'data/datasets/human'))
@@ -97,6 +97,7 @@ def validate_config(config):
     if not config['formats'] or len(set(config['formats']))!=len(config['formats']) or not set(config['formats'])<=set(FORMATS):
         raise ValueError('choose unique formats from duel ffa4 team2v2')
     if config['rollout_games']<4 or config['rollout_games']%4: raise ValueError('rollout games must be a multiple of four')
+    if config.get('training_max_turns',60)<1: raise ValueError('training_max_turns must be positive')
     for name in ('trainer_threads','calibration_blocks','validation_interval','minibatch','epochs','bc_records','bc_validation_records','bc_batch_games'):
         if config[name]<1: raise ValueError(name+' must be positive')
     if float(config.get('trainer_memory_gb',0))<0: raise ValueError('trainer memory guard must not be negative')
@@ -294,6 +295,8 @@ class FormatExperiment:
     def execute(self,jobs,name):
         from .rules_catalog import resolve_dir
         for job in jobs:
+            if job.get('meta',{}).get('map_partition')=='train' and not job['meta'].get('opening'):
+                job['max_turns']=self.config.get('training_max_turns',60)
             job.setdefault('engine',self.config['engine'])
             job['rules_dir']=str(resolve_dir(self.config.get('rules_dir')))
             job.setdefault('reward_config',self.controller.freeze())
@@ -309,7 +312,7 @@ class FormatExperiment:
             if job.get('split_rule') == 'scenario-v2':
                 if job.get('training_scenario'):
                     from .schedule import compose_training_scenario
-                    compose_training_scenario(job)
+                    compose_training_scenario(job,max_turns=job['max_turns'])
                 else:
                     from .maps import bind_scenario
                     bind_scenario(job)
