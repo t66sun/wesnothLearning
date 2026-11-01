@@ -350,7 +350,7 @@ def _candidate_plan(indexed, limit, rng):
             for key in keys:
                 families = orders[key]
                 if position < len(families):
-                    plan.append((key, families[position], indexed[key][families[position]]))
+                    plan.append((key, families[position], indexed[key][families[position]], position < first))
     return plan
 
 
@@ -477,12 +477,16 @@ def _read_bounded(indexed, partition, format_name, turns, limit, seed, gz_budget
                     values[index] = share
         return values
 
-    for key, family, files in plan:
-        # A bucket stops at its own target; the other buckets keep their turn,
-        # so one bucket cannot consume the request before the rest contribute.
+    for key, family, files, initial in plan:
+        # Consider the planned initial family pool before a full bucket stops.
+        # Otherwise a long first game can consume the whole bucket's row quota.
         if not pending:
             break
         if key not in pending:
+            continue
+        capacities = [admitted[index]['capacity'] for index in groups.get(key, [])]
+        if not initial and _fair_total(capacities, targets[key]) >= targets[key]:
+            pending.discard(key)
             continue
         cost = sum(stat.st_size for _, stat in files)
         # Compressed admission is decided from metadata; a family that does not
@@ -515,8 +519,6 @@ def _read_bounded(indexed, partition, format_name, turns, limit, seed, gz_budget
         capacity = sum(len(window) for window in kept)
         groups.setdefault(key, []).append(len(admitted))
         admitted.append(dict(windows=kept, prefix=prefix, capacity=capacity))
-        if _fair_total([admitted[index]['capacity'] for index in groups[key]], targets[key]) >= targets[key]:
-            pending.discard(key)
     selected = []
     retained = 0
     retained_families = 0
