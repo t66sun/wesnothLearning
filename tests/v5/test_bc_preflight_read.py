@@ -4,12 +4,12 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from tests.test_validation_cadence import ValidationCadenceTests
+from tests import test_validation_cadence as cadence
 
 
 class BcPreflightReadTests(unittest.TestCase):
     def runner(self, directory):
-        runner = ValidationCadenceTests().runner(directory)
+        runner = cadence.ValidationCadenceTests().runner(directory)
         runner.config['seed'] = 47
         runner.state.update(phase='bc', stage='bc', teacher_shards=['teacher'],
             dagger_shards=['dagger'])
