@@ -1,0 +1,194 @@
+{
+  "source": "b5bb94a6f2ddd112009be4d8697b9c1941816046",
+  "rules_sha256": "d6fceafe7d0c9c67c750551b9901dbfb2b22290992a8daa1616a460e11826dca",
+  "executable_sha256": "33f64aa3f5ee40228bd44e357b3f4d784121d4392ff774d6c059c7defa3e5fcf",
+  "transport_sha256": "23a43b4f400aaca2c18cd81bac5bd359866515e1f2f760fdc2e11fa4d05143cc",
+  "seconds": 7.667837342014536,
+  "cases": [
+    {
+      "name": "kill_threshold",
+      "metrics": {
+        "attacker": {
+          "native_mean_hp": 22.200000000000003,
+          "lite_hp": 21,
+          "native_death": 0,
+          "lite_death": 0,
+          "native_poison": 0,
+          "lite_poison": 0,
+          "native_slow": 0,
+          "lite_slow": 0
+        },
+        "defender": {
+          "native_mean_hp": 3.1232,
+          "lite_hp": 0,
+          "native_death": 0.47519999999999996,
+          "lite_death": 1.0,
+          "native_poison": 0,
+          "lite_poison": 0,
+          "native_slow": 0,
+          "lite_slow": 0
+        }
+      },
+      "native_counter": {
+        "damage": 9,
+        "name": "sword",
+        "number": 1,
+        "strikes": 2
+      }
+    },
+    {
+      "name": "death_threshold",
+      "metrics": {
+        "attacker": {
+          "native_mean_hp": 1.28,
+          "lite_hp": 0,
+          "native_death": 0.84,
+          "lite_death": 1.0,
+          "native_poison": 0,
+          "lite_poison": 0,
+          "native_slow": 0,
+          "lite_slow": 0
+        },
+        "defender": {
+          "native_mean_hp": 32.839999999999996,
+          "lite_hp": 30,
+          "native_death": 0,
+          "lite_death": 0,
+          "native_poison": 0,
+          "lite_poison": 0,
+          "native_slow": 0,
+          "lite_slow": 0
+        }
+      },
+      "native_counter": {
+        "damage": 9,
+        "name": "sword",
+        "number": 1,
+        "strikes": 2
+      }
+    },
+    {
+      "name": "poison",
+      "metrics": {
+        "attacker": {
+          "native_mean_hp": 21.2,
+          "lite_hp": 20,
+          "native_death": 0,
+          "lite_death": 0,
+          "native_poison": 0,
+          "lite_poison": 0,
+          "native_slow": 0,
+          "lite_slow": 0
+        },
+        "defender": {
+          "native_mean_hp": 27.6,
+          "lite_hp": 27,
+          "native_death": 0,
+          "lite_death": 0,
+          "native_poison": 0.9359999999999999,
+          "lite_poison": 1,
+          "native_slow": 0,
+          "lite_slow": 0
+        }
+      },
+      "native_counter": {
+        "damage": 4,
+        "name": "bow",
+        "number": 2,
+        "strikes": 3
+      }
+    },
+    {
+      "name": "slow",
+      "metrics": {
+        "attacker": {
+          "native_mean_hp": 26,
+          "lite_hp": 26,
+          "native_death": 0,
+          "lite_death": 0,
+          "native_poison": 0,
+          "lite_poison": 0,
+          "native_slow": 0,
+          "lite_slow": 0
+        },
+        "defender": {
+          "native_mean_hp": 33.199999999999996,
+          "lite_hp": 32,
+          "native_death": 0,
+          "lite_death": 0,
+          "native_poison": 0,
+          "lite_poison": 0,
+          "native_slow": 0.84,
+          "lite_slow": 1
+        }
+      },
+      "native_counter": {
+        "damage": 0,
+        "number": 0,
+        "strikes": 0
+      }
+    },
+    {
+      "name": "resistance_retaliation",
+      "metrics": {
+        "attacker": {
+          "native_mean_hp": 22,
+          "lite_hp": 25,
+          "native_death": 0,
+          "lite_death": 0,
+          "native_poison": 0,
+          "lite_poison": 0,
+          "native_slow": 0,
+          "lite_slow": 0
+        },
+        "defender": {
+          "native_mean_hp": 25.4,
+          "lite_hp": 23,
+          "native_death": 0,
+          "lite_death": 0,
+          "native_poison": 0,
+          "lite_poison": 0,
+          "native_slow": 0,
+          "lite_slow": 0
+        }
+      },
+      "native_counter": {
+        "damage": 10,
+        "name": "hammer",
+        "number": 2,
+        "strikes": 2
+      }
+    },
+    {
+      "name": "ranged_without_retaliation",
+      "metrics": {
+        "attacker": {
+          "native_mean_hp": 24,
+          "lite_hp": 24,
+          "native_death": 0,
+          "lite_death": 0,
+          "native_poison": 0,
+          "lite_poison": 0,
+          "native_slow": 0,
+          "lite_slow": 0
+        },
+        "defender": {
+          "native_mean_hp": 23.3,
+          "lite_hp": 20,
+          "native_death": 0,
+          "lite_death": 0,
+          "native_poison": 0,
+          "lite_poison": 0,
+          "native_slow": 0,
+          "lite_slow": 0
+        }
+      },
+      "native_counter": {
+        "damage": 0,
+        "number": 0,
+        "strikes": 0
+      }
+    }
+  ],
+  "scope": "Six fixed public battles; native probabilities are not lite acceptance targets. No training or strength claim."
+}

@@ -33,7 +33,9 @@ Evidence: `verification/candidate_work_budget_20261031/REPORT.md` measures gener
 
 **Impact:** kill thresholds, risk-taking, status reliability and retaliation choices learned in lite need not transfer to native Wesnoth. This is an intentional surrogate-rule design, not a newly discovered accidental change; it is still a major risk when the objective is native playing strength. Deterministic damage equality within lite does not establish equality of expected tactical utility under native combat.
 
-**Repair direction:** prioritize native comparisons on common training-unit tactical situations (kill/death thresholds, slow/poison and alternative retaliation weapons). Either close the material semantic gaps or explicitly train/adapt and select on native evidence. Keep lite-only strength claims separate, and do not discard approximation guards to get through startup.
+**Measured:** six legal native/lite positions now quantify the gap (`verification/native_tactics_20261102/REPORT.md`). A lite certain kill is only 47.52% in native; poison/slow probabilities are 93.6%/84% versus lite certainty. Against a Skeleton, native selects the Dwarvish Fighter's hammer while lite takes its axe. Initial public unit fields match; native probabilities come from the original simulator, not a single battle's random outcome.
+
+**Repair direction:** separately version and test retaliation selection using the actual opposing unit and modified combat consequences. Kill/death/status certainty is a structural surrogate choice and still requires an explicit redesign or native training/selection evidence. Keep lite-only strength claims separate, and do not discard approximation guards to get through startup.
 
 ## 6. Completed — BC samples windows without decision-count bias
 
