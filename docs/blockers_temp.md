@@ -85,9 +85,13 @@ Evidence for items 6-7: `verification/window_memory_20261101/REPORT.md`. Two pre
 
 **Repair direction:** measure recruit generalization under the repaired reader before adopting more collection or feature tuning. Retain the original gates and complete teacher ranking/strength evidence separately. Do not expand candidate counts to compensate for missing generation paths or treat forced PPO as readiness.
 
+**Latest recruit diagnosis:** the frozen v1 checkpoint's 59 validation recruits include 33 inferior-type predictions, six wrong action kinds, five inferior placements and four tied placements; no label has an indistinguishable candidate input. A fixed-family/2048-row exposure arm increases recruit labels from 98 to 230, but after 598 updates validation exact/type counts are only 28/59 and 33/59 (control: 24/59 and 32/59 after 600). Overall accuracy is unchanged and the gate still fails; no production sampler change is adopted. Evidence: `verification/recruit_ranking_20261102/REPORT.md`.
+
 ## 11. P1 — Add an approximately one-hour complete training-loop test
 
 **Status:** executed on Ubuntu 2026-11-01; **FAIL at BC**, full-loop acceptance remains open. `tests/bounded_training_loop.py` froze all three formats and stage ceilings before launch. After 558.33 s, duel reached the five-committed-batch cap; BC batches were 5/1/1. Recorded complete games were 24/16/13 with zero recorded faults. The item-10 raw-record audit finds 1/6/6 actual turn-truncated games; the earlier prose counted candidate-generation cuts instead (historical evidence remains unchanged). Duel met its 24-game target but failed candidate coverage and imitation (overall accuracy 31.33%; recruit coverage 37.94%). The other formats had only eight games in their last gate. PPO, stop/resume, final evaluation and export were NOT RUN; no forced gate or retry. Evidence: `verification/bounded_loop_20261101/REPORT.md`.
+
+**Confirmed profile mismatch:** the runner declares a 30-turn limit, but the frozen BC schedules for all three formats actually use 60. Training scenario decoration overrides the base limit. Wire the explicit manual limit through teacher/PPO jobs and frozen scenario identity before the next loop; keep normal defaults and gates. Read-only schedule/plan hashes: `verification/recruit_ranking_20261102/turn_limit_audit.json`.
 
 **Purpose:** exercise the complete operational chain on Ubuntu: initialization/calibration, BC and its ordinary gate, PPO rollouts and at least two committed updates, checkpoint stop/resume, validation/selection, final evaluation, and audited export. Use a manually bounded smoke profile to expose integration failures and actual training cost; one hour cannot establish convergence or playing strength.
 

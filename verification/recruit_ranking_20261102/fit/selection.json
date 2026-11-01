@@ -1,0 +1,105 @@
+{
+  "seed": 20261103,
+  "families": [
+    {
+      "family": "00cddca6f8e0f7293facf8313bf747ac7e2da110688e05e324017ce520b9aa21",
+      "rows": 171,
+      "before_recruits": 5,
+      "after_recruits": 37,
+      "available_recruits": 37
+    },
+    {
+      "family": "16f2b86fd6bee7d7d4fafb78b566c618dac9988169689df2fbb117031a35b329",
+      "rows": 167,
+      "before_recruits": 23,
+      "after_recruits": 33,
+      "available_recruits": 33
+    },
+    {
+      "family": "228734ec68f6372ba77759c5b9c9213c3dab9d1c58db2fef04f2c2c5ab347af2",
+      "rows": 171,
+      "before_recruits": 3,
+      "after_recruits": 14,
+      "available_recruits": 14
+    },
+    {
+      "family": "32796ca81d9cf4afd3c7a1f99f345fe1eea51c7869fdd606c9b74da335185f5d",
+      "rows": 171,
+      "before_recruits": 1,
+      "after_recruits": 7,
+      "available_recruits": 7
+    },
+    {
+      "family": "3fcb32b520397c58beec84e1a5a1e2028b36ab10047b794a370cb902daaab14b",
+      "rows": 171,
+      "before_recruits": 9,
+      "after_recruits": 28,
+      "available_recruits": 28
+    },
+    {
+      "family": "4ae77b472d9162d169f777c1b9438b1158bca1ae8d22a115be0cef8d99e3fdf2",
+      "rows": 171,
+      "before_recruits": 13,
+      "after_recruits": 19,
+      "available_recruits": 19
+    },
+    {
+      "family": "4fdf759956b739a64123e429ebdb2338b6ab5716dd241e534ade506db0ffd925",
+      "rows": 171,
+      "before_recruits": 9,
+      "after_recruits": 28,
+      "available_recruits": 28
+    },
+    {
+      "family": "8c5ed5c5395652c96efc2deea96463bde22bada96847269b8ae3887aee375a42",
+      "rows": 171,
+      "before_recruits": 2,
+      "after_recruits": 13,
+      "available_recruits": 13
+    },
+    {
+      "family": "a3837afd868e23310001990b12006ac7bd6645ab167b8010d49bc535ff60127e",
+      "rows": 171,
+      "before_recruits": 10,
+      "after_recruits": 14,
+      "available_recruits": 14
+    },
+    {
+      "family": "bf1507b63b46e3c281049c092f48822d8810286351af9d80b6ffecc9f8d4336b",
+      "rows": 171,
+      "before_recruits": 10,
+      "after_recruits": 14,
+      "available_recruits": 14
+    },
+    {
+      "family": "d355c4abd80a167c0c9dd83cade483d685159935b76bff0b43b861ee6016bbf2",
+      "rows": 171,
+      "before_recruits": 4,
+      "after_recruits": 13,
+      "available_recruits": 13
+    },
+    {
+      "family": "f8d1a044c47671f6665f8fd1dffe6c861ec40b148baecc1d93056d6d82b094c7",
+      "rows": 171,
+      "before_recruits": 9,
+      "after_recruits": 10,
+      "available_recruits": 10
+    }
+  ],
+  "compressed_bytes": 67943528,
+  "retained_estimate": 342745272,
+  "before": {
+    "recruit": 98,
+    "move": 1382,
+    "end_turn": 229,
+    "move_attack": 319,
+    "attack": 20
+  },
+  "after": {
+    "recruit": 230,
+    "move_attack": 291,
+    "move": 1291,
+    "end_turn": 217,
+    "attack": 19
+  }
+}

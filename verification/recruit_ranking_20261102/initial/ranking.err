@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/recruit_ranking_20261102/tests/diagnose_recruit_ranking.py", line 122, in <module>
+    main()
+  File "/home/tongshu/acceptance/recruit_ranking_20261102/tests/diagnose_recruit_ranking.py", line 112, in main
+    assert truth == prior[partition]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+real 12.79
+user 12.44
+sys 0.34

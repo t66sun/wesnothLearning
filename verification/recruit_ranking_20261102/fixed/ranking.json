@@ -1,0 +1,3814 @@
+{
+  "runtime_source": "d1c56453a55b251cbf4f6cb0aac6fe92238db0c8",
+  "runtime_path": "/home/tongshu/acceptance/recruit_label_full_20261102/learning",
+  "checkpoint_sha256": "ffb554ca152ac93e3602bd45c98841238ef7ee59640b5bf7fb4ba64ba8148a97",
+  "labels_sha256": "c90a3272b692f7351f9e6b45e980349729270dfd79613bc9d5a81b7024ed95cf",
+  "runtime_hashes": {
+    "model.py": "c8a222ec43c489e2af099ef1755178f2338f27f834e6176769254c5f57fcd9c9",
+    "sequences.py": "01ea3190b761adc0491b964efa1ddbe54958b3bb33d5373cf11547e03be16d11",
+    "features.py": "56a126957562ea5d686811060d15d518373b9b544887b650a54515d6ec6732cb"
+  },
+  "train": {
+    "counts": {
+      "equivalent_preference": 4,
+      "input_collision_rows": 0,
+      "samples": 98,
+      "train_context_seen": 98,
+      "train_seen_exact": 24,
+      "full_train_context_seen": 98,
+      "full_train_seen_exact": 24,
+      "worse_type": 49,
+      "exact": 24,
+      "wrong_kind": 8,
+      "worse_slot": 12,
+      "unresolved_enemy_context": 1
+    },
+    "rows": [
+      {
+        "game_id": "teacher-00012-team2v2-t0",
+        "turn": 1,
+        "decision": 1,
+        "reason": "equivalent_preference",
+        "label_type": "Orcish Grunt",
+        "predicted_type": "Orcish Grunt",
+        "label_slot": [
+          2,
+          2
+        ],
+        "predicted_slot": [
+          3,
+          4
+        ],
+        "margin": 0.5112571716308594,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 4,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00012-team2v2-t0",
+        "turn": 1,
+        "decision": 2,
+        "reason": "worse_type",
+        "label_type": "Orcish Grunt",
+        "predicted_type": "Troll Whelp",
+        "label_slot": [
+          3,
+          2
+        ],
+        "predicted_slot": [
+          3,
+          4
+        ],
+        "margin": 0.2983241081237793,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 4,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00012-team2v2-t0",
+        "turn": 1,
+        "decision": 3,
+        "reason": "exact",
+        "label_type": "Troll Whelp",
+        "predicted_type": "Troll Whelp",
+        "label_slot": [
+          4,
+          2
+        ],
+        "predicted_slot": [
+          4,
+          2
+        ],
+        "margin": 0.0,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 4,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00012-team2v2-t0",
+        "turn": 1,
+        "decision": 4,
+        "reason": "worse_type",
+        "label_type": "Orcish Grunt",
+        "predicted_type": "Troll Whelp",
+        "label_slot": [
+          2,
+          3
+        ],
+        "predicted_slot": [
+          3,
+          4
+        ],
+        "margin": 0.5311923027038574,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 3,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00012-team2v2-t0",
+        "turn": 1,
+        "decision": 5,
+        "reason": "worse_type",
+        "label_type": "Orcish Assassin",
+        "predicted_type": "Troll Whelp",
+        "label_slot": [
+          4,
+          3
+        ],
+        "predicted_slot": [
+          3,
+          4
+        ],
+        "margin": 0.5592231750488281,
+        "input_collisions": [],
+        "type_ties": 2,
+        "slot_ties": 2,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00012-team2v2-t0",
+        "turn": 1,
+        "decision": 6,
+        "reason": "worse_type",
+        "label_type": "Orcish Grunt",
+        "predicted_type": "Troll Whelp",
+        "label_slot": [
+          3,
+          4
+        ],
+        "predicted_slot": [
+          3,
+          4
+        ],
+        "margin": 0.041591644287109375,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00012-team2v2-t0",
+        "turn": 2,
+        "decision": 34,
+        "reason": "worse_type",
+        "label_type": "Orcish Grunt",
+        "predicted_type": "Troll Whelp",
+        "label_slot": [
+          2,
+          2
+        ],
+        "predicted_slot": [
+          2,
+          2
+        ],
+        "margin": 0.07355165481567383,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00012-team2v2-t0",
+        "turn": 2,
+        "decision": 36,
+        "reason": "exact",
+        "label_type": "Goblin Spearman",
+        "predicted_type": "Goblin Spearman",
+        "label_slot": [
+          4,
+          3
+        ],
+        "predicted_slot": [
+          4,
+          3
+        ],
+        "margin": 0.0,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00012-team2v2-t0",
+        "turn": 25,
+        "decision": 669,
+        "reason": "worse_type",
+        "label_type": "Orcish Grunt",
+        "predicted_type": "Goblin Spearman",
+        "label_slot": [
+          3,
+          4
+        ],
+        "predicted_slot": [
+          3,
+          4
+        ],
+        "margin": 0.07635021209716797,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 2,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00012-team2v2-t0",
+        "turn": 33,
+        "decision": 868,
+        "reason": "exact",
+        "label_type": "Goblin Spearman",
+        "predicted_type": "Goblin Spearman",
+        "label_slot": [
+          3,
+          4
+        ],
+        "predicted_slot": [
+          3,
+          4
+        ],
+        "margin": 0.0,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00012-team2v2-t0",
+        "turn": 34,
+        "decision": 891,
+        "reason": "worse_type",
+        "label_type": "Orcish Grunt",
+        "predicted_type": "Goblin Spearman",
+        "label_slot": [
+          4,
+          3
+        ],
+        "predicted_slot": [
+          4,
+          2
+        ],
+        "margin": 0.18581390380859375,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00012-team2v2-t0",
+        "turn": 38,
+        "decision": 994,
+        "reason": "wrong_kind",
+        "label_type": "Troll Whelp",
+        "predicted_type": null,
+        "label_slot": [
+          3,
+          4
+        ],
+        "predicted_slot": [
+          5,
+          12
+        ],
+        "margin": 0.7348451614379883,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 2,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00012-team2v2-t0",
+        "turn": 40,
+        "decision": 1045,
+        "reason": "worse_type",
+        "label_type": "Orcish Assassin",
+        "predicted_type": "Goblin Spearman",
+        "label_slot": [
+          2,
+          2
+        ],
+        "predicted_slot": [
+          2,
+          2
+        ],
+        "margin": 0.5443840026855469,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00002-team2v2-t0",
+        "turn": 1,
+        "decision": 16,
+        "reason": "worse_type",
+        "label_type": "Spearman",
+        "predicted_type": "Mage",
+        "label_slot": [
+          16,
+          2
+        ],
+        "predicted_slot": [
+          17,
+          4
+        ],
+        "margin": 0.47172021865844727,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 4,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00002-team2v2-t0",
+        "turn": 1,
+        "decision": 17,
+        "reason": "worse_type",
+        "label_type": "Spearman",
+        "predicted_type": "Mage",
+        "label_slot": [
+          17,
+          2
+        ],
+        "predicted_slot": [
+          17,
+          4
+        ],
+        "margin": 0.5194711685180664,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 4,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00002-team2v2-t0",
+        "turn": 1,
+        "decision": 18,
+        "reason": "worse_type",
+        "label_type": "Spearman",
+        "predicted_type": "Mage",
+        "label_slot": [
+          18,
+          2
+        ],
+        "predicted_slot": [
+          17,
+          4
+        ],
+        "margin": 0.24747562408447266,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 4,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00002-team2v2-t0",
+        "turn": 1,
+        "decision": 19,
+        "reason": "worse_type",
+        "label_type": "Spearman",
+        "predicted_type": "Mage",
+        "label_slot": [
+          16,
+          3
+        ],
+        "predicted_slot": [
+          17,
+          4
+        ],
+        "margin": 0.3421058654785156,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 3,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00002-team2v2-t0",
+        "turn": 1,
+        "decision": 20,
+        "reason": "worse_type",
+        "label_type": "Bowman",
+        "predicted_type": "Mage",
+        "label_slot": [
+          18,
+          3
+        ],
+        "predicted_slot": [
+          17,
+          4
+        ],
+        "margin": 0.7580642700195312,
+        "input_collisions": [],
+        "type_ties": 2,
+        "slot_ties": 2,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00002-team2v2-t0",
+        "turn": 1,
+        "decision": 21,
+        "reason": "worse_type",
+        "label_type": "Cavalryman",
+        "predicted_type": "Mage",
+        "label_slot": [
+          17,
+          4
+        ],
+        "predicted_slot": [
+          17,
+          4
+        ],
+        "margin": 0.7351436614990234,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00002-team2v2-t0",
+        "turn": 2,
+        "decision": 53,
+        "reason": "exact",
+        "label_type": "Spearman",
+        "predicted_type": "Spearman",
+        "label_slot": [
+          17,
+          4
+        ],
+        "predicted_slot": [
+          17,
+          4
+        ],
+        "margin": 0.0,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00002-team2v2-t0",
+        "turn": 11,
+        "decision": 274,
+        "reason": "wrong_kind",
+        "label_type": "Spearman",
+        "predicted_type": null,
+        "label_slot": [
+          17,
+          4
+        ],
+        "predicted_slot": [
+          12,
+          12
+        ],
+        "margin": 0.23987579345703125,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 2,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00002-team2v2-t0",
+        "turn": 16,
+        "decision": 394,
+        "reason": "exact",
+        "label_type": "Spearman",
+        "predicted_type": "Spearman",
+        "label_slot": [
+          17,
+          4
+        ],
+        "predicted_slot": [
+          17,
+          4
+        ],
+        "margin": 0.0,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00015-team2v2-t0",
+        "turn": 26,
+        "decision": 823,
+        "reason": "worse_type",
+        "label_type": "Saurian Augur",
+        "predicted_type": "Drake Clasher",
+        "label_slot": [
+          13,
+          6
+        ],
+        "predicted_slot": [
+          13,
+          5
+        ],
+        "margin": 0.14664936065673828,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00015-team2v2-t0",
+        "turn": 29,
+        "decision": 943,
+        "reason": "worse_type",
+        "label_type": "Drake Fighter",
+        "predicted_type": "Drake Clasher",
+        "label_slot": [
+          13,
+          6
+        ],
+        "predicted_slot": [
+          13,
+          5
+        ],
+        "margin": 1.1595745086669922,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00015-team2v2-t0",
+        "turn": 31,
+        "decision": 1015,
+        "reason": "wrong_kind",
+        "label_type": "Saurian Augur",
+        "predicted_type": null,
+        "label_slot": [
+          13,
+          6
+        ],
+        "predicted_slot": [
+          15,
+          9
+        ],
+        "margin": 0.6147041320800781,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00015-team2v2-t0",
+        "turn": 33,
+        "decision": 1094,
+        "reason": "worse_slot",
+        "label_type": "Saurian Augur",
+        "predicted_type": "Saurian Augur",
+        "label_slot": [
+          13,
+          6
+        ],
+        "predicted_slot": [
+          13,
+          5
+        ],
+        "margin": 0.08257198333740234,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00015-team2v2-t0",
+        "turn": 36,
+        "decision": 1224,
+        "reason": "worse_slot",
+        "label_type": "Drake Clasher",
+        "predicted_type": "Drake Clasher",
+        "label_slot": [
+          13,
+          6
+        ],
+        "predicted_slot": [
+          13,
+          5
+        ],
+        "margin": 0.082977294921875,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00015-team2v2-t0",
+        "turn": 38,
+        "decision": 1302,
+        "reason": "wrong_kind",
+        "label_type": "Drake Fighter",
+        "predicted_type": null,
+        "label_slot": [
+          13,
+          6
+        ],
+        "predicted_slot": [
+          12,
+          13
+        ],
+        "margin": 1.1421632766723633,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00015-team2v2-t0",
+        "turn": 41,
+        "decision": 1408,
+        "reason": "wrong_kind",
+        "label_type": "Saurian Skirmisher",
+        "predicted_type": null,
+        "label_slot": [
+          13,
+          6
+        ],
+        "predicted_slot": [
+          15,
+          9
+        ],
+        "margin": 2.289308547973633,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00015-team2v2-t0",
+        "turn": 44,
+        "decision": 1544,
+        "reason": "exact",
+        "label_type": "Saurian Augur",
+        "predicted_type": "Saurian Augur",
+        "label_slot": [
+          13,
+          6
+        ],
+        "predicted_slot": [
+          13,
+          6
+        ],
+        "margin": 0.0,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00015-team2v2-t0",
+        "turn": 47,
+        "decision": 1676,
+        "reason": "worse_slot",
+        "label_type": "Saurian Skirmisher",
+        "predicted_type": "Saurian Skirmisher",
+        "label_slot": [
+          13,
+          6
+        ],
+        "predicted_slot": [
+          13,
+          5
+        ],
+        "margin": 0.09288215637207031,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00010-team2v2-t0",
+        "turn": 9,
+        "decision": 230,
+        "reason": "exact",
+        "label_type": "Elvish Fighter",
+        "predicted_type": "Elvish Fighter",
+        "label_slot": [
+          17,
+          4
+        ],
+        "predicted_slot": [
+          17,
+          4
+        ],
+        "margin": 0.0,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00010-team2v2-t0",
+        "turn": 33,
+        "decision": 796,
+        "reason": "exact",
+        "label_type": "Elvish Shaman",
+        "predicted_type": "Elvish Shaman",
+        "label_slot": [
+          17,
+          4
+        ],
+        "predicted_slot": [
+          17,
+          4
+        ],
+        "margin": 0.0,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 2,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00010-team2v2-t0",
+        "turn": 37,
+        "decision": 902,
+        "reason": "worse_type",
+        "label_type": "Elvish Fighter",
+        "predicted_type": "Elvish Shaman",
+        "label_slot": [
+          17,
+          4
+        ],
+        "predicted_slot": [
+          17,
+          4
+        ],
+        "margin": 0.6831541061401367,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 2,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00010-team2v2-t0",
+        "turn": 48,
+        "decision": 1166,
+        "reason": "wrong_kind",
+        "label_type": "Elvish Fighter",
+        "predicted_type": null,
+        "label_slot": [
+          17,
+          4
+        ],
+        "predicted_slot": [
+          12,
+          12
+        ],
+        "margin": 1.2598543167114258,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 2,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00008-team2v2-t0",
+        "turn": 1,
+        "decision": 1,
+        "reason": "worse_type",
+        "label_type": "Spearman",
+        "predicted_type": "Mage",
+        "label_slot": [
+          2,
+          2
+        ],
+        "predicted_slot": [
+          3,
+          4
+        ],
+        "margin": 0.7210268974304199,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 4,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00008-team2v2-t0",
+        "turn": 1,
+        "decision": 2,
+        "reason": "worse_type",
+        "label_type": "Spearman",
+        "predicted_type": "Mage",
+        "label_slot": [
+          3,
+          2
+        ],
+        "predicted_slot": [
+          3,
+          4
+        ],
+        "margin": 0.5215053558349609,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 4,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00008-team2v2-t0",
+        "turn": 1,
+        "decision": 3,
+        "reason": "worse_type",
+        "label_type": "Spearman",
+        "predicted_type": "Mage",
+        "label_slot": [
+          4,
+          2
+        ],
+        "predicted_slot": [
+          3,
+          4
+        ],
+        "margin": 0.2565441131591797,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 4,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00008-team2v2-t0",
+        "turn": 1,
+        "decision": 4,
+        "reason": "worse_type",
+        "label_type": "Spearman",
+        "predicted_type": "Mage",
+        "label_slot": [
+          2,
+          3
+        ],
+        "predicted_slot": [
+          3,
+          4
+        ],
+        "margin": 0.714655876159668,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 3,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00008-team2v2-t0",
+        "turn": 1,
+        "decision": 5,
+        "reason": "worse_type",
+        "label_type": "Bowman",
+        "predicted_type": "Mage",
+        "label_slot": [
+          4,
+          3
+        ],
+        "predicted_slot": [
+          3,
+          4
+        ],
+        "margin": 0.7521696090698242,
+        "input_collisions": [],
+        "type_ties": 2,
+        "slot_ties": 2,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00008-team2v2-t0",
+        "turn": 1,
+        "decision": 6,
+        "reason": "worse_type",
+        "label_type": "Cavalryman",
+        "predicted_type": "Mage",
+        "label_slot": [
+          3,
+          4
+        ],
+        "predicted_slot": [
+          3,
+          4
+        ],
+        "margin": 0.7863759994506836,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00008-team2v2-t0",
+        "turn": 3,
+        "decision": 65,
+        "reason": "exact",
+        "label_type": "Spearman",
+        "predicted_type": "Spearman",
+        "label_slot": [
+          3,
+          4
+        ],
+        "predicted_slot": [
+          3,
+          4
+        ],
+        "margin": 0.0,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 2,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00008-team2v2-t0",
+        "turn": 27,
+        "decision": 739,
+        "reason": "worse_type",
+        "label_type": "Bowman",
+        "predicted_type": "Spearman",
+        "label_slot": [
+          3,
+          4
+        ],
+        "predicted_slot": [
+          3,
+          4
+        ],
+        "margin": 0.25484371185302734,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 2,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00008-team2v2-t0",
+        "turn": 43,
+        "decision": 1180,
+        "reason": "exact",
+        "label_type": "Spearman",
+        "predicted_type": "Spearman",
+        "label_slot": [
+          3,
+          4
+        ],
+        "predicted_slot": [
+          3,
+          4
+        ],
+        "margin": 0.0,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 2,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00008-team2v2-t0",
+        "turn": 59,
+        "decision": 1639,
+        "reason": "exact",
+        "label_type": "Mage",
+        "predicted_type": "Mage",
+        "label_slot": [
+          4,
+          3
+        ],
+        "predicted_slot": [
+          4,
+          3
+        ],
+        "margin": 0.0,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00007-team2v2-t0",
+        "turn": 18,
+        "decision": 545,
+        "reason": "worse_type",
+        "label_type": "Elvish Fighter",
+        "predicted_type": "Elvish Shaman",
+        "label_slot": [
+          13,
+          6
+        ],
+        "predicted_slot": [
+          13,
+          5
+        ],
+        "margin": 0.7684993743896484,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00007-team2v2-t0",
+        "turn": 20,
+        "decision": 618,
+        "reason": "worse_type",
+        "label_type": "Elvish Fighter",
+        "predicted_type": "Elvish Shaman",
+        "label_slot": [
+          13,
+          6
+        ],
+        "predicted_slot": [
+          13,
+          5
+        ],
+        "margin": 0.7681999206542969,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00007-team2v2-t0",
+        "turn": 22,
+        "decision": 684,
+        "reason": "worse_slot",
+        "label_type": "Elvish Archer",
+        "predicted_type": "Elvish Archer",
+        "label_slot": [
+          13,
+          6
+        ],
+        "predicted_slot": [
+          13,
+          5
+        ],
+        "margin": 0.0809488296508789,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00007-team2v2-t0",
+        "turn": 24,
+        "decision": 764,
+        "reason": "exact",
+        "label_type": "Elvish Shaman",
+        "predicted_type": "Elvish Shaman",
+        "label_slot": [
+          13,
+          6
+        ],
+        "predicted_slot": [
+          13,
+          6
+        ],
+        "margin": 0.0,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00007-team2v2-t0",
+        "turn": 26,
+        "decision": 840,
+        "reason": "worse_type",
+        "label_type": "Mage",
+        "predicted_type": "Elvish Shaman",
+        "label_slot": [
+          13,
+          6
+        ],
+        "predicted_slot": [
+          13,
+          6
+        ],
+        "margin": 0.04515552520751953,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00007-team2v2-t0",
+        "turn": 27,
+        "decision": 876,
+        "reason": "worse_type",
+        "label_type": "Elvish Archer",
+        "predicted_type": "Elvish Shaman",
+        "label_slot": [
+          13,
+          5
+        ],
+        "predicted_slot": [
+          13,
+          5
+        ],
+        "margin": 0.022243499755859375,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 2,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00007-team2v2-t0",
+        "turn": 28,
+        "decision": 912,
+        "reason": "wrong_kind",
+        "label_type": "Elvish Fighter",
+        "predicted_type": null,
+        "label_slot": [
+          13,
+          6
+        ],
+        "predicted_slot": [
+          22,
+          12
+        ],
+        "margin": 0.8844127655029297,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00007-team2v2-t0",
+        "turn": 29,
+        "decision": 948,
+        "reason": "worse_type",
+        "label_type": "Elvish Fighter",
+        "predicted_type": "Elvish Shaman",
+        "label_slot": [
+          13,
+          5
+        ],
+        "predicted_slot": [
+          13,
+          5
+        ],
+        "margin": 0.6608333587646484,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 2,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00007-team2v2-t0",
+        "turn": 31,
+        "decision": 1029,
+        "reason": "wrong_kind",
+        "label_type": "Mage",
+        "predicted_type": null,
+        "label_slot": [
+          13,
+          6
+        ],
+        "predicted_slot": [
+          18,
+          13
+        ],
+        "margin": 0.6129007339477539,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00009-team2v2-t0",
+        "turn": 33,
+        "decision": 1501,
+        "reason": "worse_slot",
+        "label_type": "Goblin Spearman",
+        "predicted_type": "Goblin Spearman",
+        "label_slot": [
+          24,
+          11
+        ],
+        "predicted_slot": [
+          25,
+          10
+        ],
+        "margin": 0.07169437408447266,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00009-team2v2-t0",
+        "turn": 41,
+        "decision": 1956,
+        "reason": "worse_slot",
+        "label_type": "Goblin Spearman",
+        "predicted_type": "Goblin Spearman",
+        "label_slot": [
+          24,
+          11
+        ],
+        "predicted_slot": [
+          25,
+          10
+        ],
+        "margin": 0.02011394500732422,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 2,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00009-team2v2-t0",
+        "turn": 43,
+        "decision": 2071,
+        "reason": "worse_type",
+        "label_type": "Orcish Grunt",
+        "predicted_type": "Troll Whelp",
+        "label_slot": [
+          24,
+          11
+        ],
+        "predicted_slot": [
+          24,
+          10
+        ],
+        "margin": 0.15851211547851562,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00009-team2v2-t0",
+        "turn": 44,
+        "decision": 2124,
+        "reason": "worse_type",
+        "label_type": "Troll Whelp",
+        "predicted_type": "Goblin Spearman",
+        "label_slot": [
+          24,
+          10
+        ],
+        "predicted_slot": [
+          25,
+          10
+        ],
+        "margin": 0.010850906372070312,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00009-team2v2-t0",
+        "turn": 45,
+        "decision": 2182,
+        "reason": "unresolved_enemy_context",
+        "label_type": "Goblin Spearman",
+        "predicted_type": "Goblin Spearman",
+        "label_slot": [
+          26,
+          7
+        ],
+        "predicted_slot": [
+          25,
+          10
+        ],
+        "margin": 0.1955127716064453,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 3,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00021-team2v2-t0",
+        "turn": 30,
+        "decision": 1296,
+        "reason": "worse_type",
+        "label_type": "Drake Fighter",
+        "predicted_type": "Saurian Augur",
+        "label_slot": [
+          24,
+          11
+        ],
+        "predicted_slot": [
+          24,
+          10
+        ],
+        "margin": 0.9170370101928711,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 2,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00021-team2v2-t0",
+        "turn": 33,
+        "decision": 1439,
+        "reason": "equivalent_preference",
+        "label_type": "Saurian Skirmisher",
+        "predicted_type": "Saurian Skirmisher",
+        "label_slot": [
+          26,
+          7
+        ],
+        "predicted_slot": [
+          25,
+          10
+        ],
+        "margin": 0.10410785675048828,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 5,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00021-team2v2-t0",
+        "turn": 36,
+        "decision": 1582,
+        "reason": "worse_slot",
+        "label_type": "Saurian Skirmisher",
+        "predicted_type": "Saurian Skirmisher",
+        "label_slot": [
+          24,
+          11
+        ],
+        "predicted_slot": [
+          25,
+          10
+        ],
+        "margin": 0.0717611312866211,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 2,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00001-team2v2-t0",
+        "turn": 58,
+        "decision": 2721,
+        "reason": "worse_slot",
+        "label_type": "Thief",
+        "predicted_type": "Thief",
+        "label_slot": [
+          24,
+          11
+        ],
+        "predicted_slot": [
+          25,
+          10
+        ],
+        "margin": 0.0764780044555664,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 2,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00016-team2v2-t0",
+        "turn": 1,
+        "decision": 1,
+        "reason": "worse_type",
+        "label_type": "Elvish Fighter",
+        "predicted_type": "Elvish Shaman",
+        "label_slot": [
+          2,
+          2
+        ],
+        "predicted_slot": [
+          3,
+          4
+        ],
+        "margin": 1.0594110488891602,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 5,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00016-team2v2-t0",
+        "turn": 1,
+        "decision": 2,
+        "reason": "worse_type",
+        "label_type": "Elvish Archer",
+        "predicted_type": "Elvish Shaman",
+        "label_slot": [
+          3,
+          2
+        ],
+        "predicted_slot": [
+          3,
+          4
+        ],
+        "margin": 0.3414487838745117,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 5,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00016-team2v2-t0",
+        "turn": 1,
+        "decision": 3,
+        "reason": "worse_type",
+        "label_type": "Elvish Fighter",
+        "predicted_type": "Elvish Shaman",
+        "label_slot": [
+          4,
+          2
+        ],
+        "predicted_slot": [
+          3,
+          4
+        ],
+        "margin": 0.6161913871765137,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 4,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00016-team2v2-t0",
+        "turn": 1,
+        "decision": 4,
+        "reason": "worse_type",
+        "label_type": "Elvish Fighter",
+        "predicted_type": "Elvish Shaman",
+        "label_slot": [
+          2,
+          3
+        ],
+        "predicted_slot": [
+          3,
+          4
+        ],
+        "margin": 1.0996766090393066,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 3,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00016-team2v2-t0",
+        "turn": 1,
+        "decision": 5,
+        "reason": "worse_type",
+        "label_type": "Elvish Archer",
+        "predicted_type": "Elvish Shaman",
+        "label_slot": [
+          4,
+          3
+        ],
+        "predicted_slot": [
+          3,
+          4
+        ],
+        "margin": 0.20849227905273438,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 2,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00016-team2v2-t0",
+        "turn": 1,
+        "decision": 6,
+        "reason": "exact",
+        "label_type": "Elvish Shaman",
+        "predicted_type": "Elvish Shaman",
+        "label_slot": [
+          3,
+          4
+        ],
+        "predicted_slot": [
+          3,
+          4
+        ],
+        "margin": 0.0,
+        "input_collisions": [],
+        "type_ties": 3,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00016-team2v2-t0",
+        "turn": 5,
+        "decision": 123,
+        "reason": "exact",
+        "label_type": "Elvish Shaman",
+        "predicted_type": "Elvish Shaman",
+        "label_slot": [
+          4,
+          3
+        ],
+        "predicted_slot": [
+          4,
+          3
+        ],
+        "margin": 0.0,
+        "input_collisions": [],
+        "type_ties": 2,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00016-team2v2-t0",
+        "turn": 27,
+        "decision": 757,
+        "reason": "worse_type",
+        "label_type": "Elvish Fighter",
+        "predicted_type": "Elvish Shaman",
+        "label_slot": [
+          3,
+          4
+        ],
+        "predicted_slot": [
+          3,
+          4
+        ],
+        "margin": 0.7228512763977051,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00016-team2v2-t0",
+        "turn": 31,
+        "decision": 880,
+        "reason": "exact",
+        "label_type": "Elvish Fighter",
+        "predicted_type": "Elvish Fighter",
+        "label_slot": [
+          3,
+          4
+        ],
+        "predicted_slot": [
+          3,
+          4
+        ],
+        "margin": 0.0,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 2,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00016-team2v2-t0",
+        "turn": 37,
+        "decision": 1028,
+        "reason": "worse_slot",
+        "label_type": "Elvish Fighter",
+        "predicted_type": "Elvish Fighter",
+        "label_slot": [
+          4,
+          3
+        ],
+        "predicted_slot": [
+          4,
+          2
+        ],
+        "margin": 0.16854047775268555,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 2,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00013-team2v2-t0",
+        "turn": 24,
+        "decision": 1015,
+        "reason": "worse_slot",
+        "label_type": "Elvish Fighter",
+        "predicted_type": "Elvish Fighter",
+        "label_slot": [
+          24,
+          11
+        ],
+        "predicted_slot": [
+          25,
+          10
+        ],
+        "margin": 0.08070755004882812,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00013-team2v2-t0",
+        "turn": 42,
+        "decision": 1991,
+        "reason": "equivalent_preference",
+        "label_type": "Elvish Shaman",
+        "predicted_type": "Elvish Shaman",
+        "label_slot": [
+          24,
+          11
+        ],
+        "predicted_slot": [
+          24,
+          10
+        ],
+        "margin": 0.007328033447265625,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 2,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00011-team2v2-t0",
+        "turn": 1,
+        "decision": 6,
+        "reason": "worse_type",
+        "label_type": "Dark Adept",
+        "predicted_type": "Skeleton",
+        "label_slot": [
+          12,
+          4
+        ],
+        "predicted_slot": [
+          13,
+          5
+        ],
+        "margin": 1.382885456085205,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 4,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00011-team2v2-t0",
+        "turn": 1,
+        "decision": 7,
+        "reason": "equivalent_preference",
+        "label_type": "Skeleton",
+        "predicted_type": "Skeleton",
+        "label_slot": [
+          14,
+          4
+        ],
+        "predicted_slot": [
+          13,
+          5
+        ],
+        "margin": 0.4209260940551758,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 3,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00011-team2v2-t0",
+        "turn": 1,
+        "decision": 8,
+        "reason": "worse_type",
+        "label_type": "Dark Adept",
+        "predicted_type": "Skeleton",
+        "label_slot": [
+          13,
+          5
+        ],
+        "predicted_slot": [
+          13,
+          5
+        ],
+        "margin": 1.1644840240478516,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 2,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00011-team2v2-t0",
+        "turn": 1,
+        "decision": 9,
+        "reason": "exact",
+        "label_type": "Skeleton",
+        "predicted_type": "Skeleton",
+        "label_slot": [
+          13,
+          6
+        ],
+        "predicted_slot": [
+          13,
+          6
+        ],
+        "margin": 0.0,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00011-team2v2-t0",
+        "turn": 2,
+        "decision": 29,
+        "reason": "worse_type",
+        "label_type": "Skeleton Archer",
+        "predicted_type": "Skeleton",
+        "label_slot": [
+          13,
+          6
+        ],
+        "predicted_slot": [
+          13,
+          6
+        ],
+        "margin": 1.3822288513183594,
+        "input_collisions": [],
+        "type_ties": 2,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00011-team2v2-t0",
+        "turn": 2,
+        "decision": 31,
+        "reason": "worse_type",
+        "label_type": "Dark Adept",
+        "predicted_type": "Skeleton",
+        "label_slot": [
+          13,
+          5
+        ],
+        "predicted_slot": [
+          13,
+          5
+        ],
+        "margin": 1.2313108444213867,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00011-team2v2-t0",
+        "turn": 2,
+        "decision": 33,
+        "reason": "exact",
+        "label_type": "Walking Corpse",
+        "predicted_type": "Walking Corpse",
+        "label_slot": [
+          12,
+          4
+        ],
+        "predicted_slot": [
+          12,
+          4
+        ],
+        "margin": 0.0,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00011-team2v2-t0",
+        "turn": 4,
+        "decision": 83,
+        "reason": "worse_type",
+        "label_type": "Vampire Bat",
+        "predicted_type": "Walking Corpse",
+        "label_slot": [
+          13,
+          6
+        ],
+        "predicted_slot": [
+          13,
+          5
+        ],
+        "margin": 0.3382587432861328,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00011-team2v2-t0",
+        "turn": 5,
+        "decision": 108,
+        "reason": "exact",
+        "label_type": "Walking Corpse",
+        "predicted_type": "Walking Corpse",
+        "label_slot": [
+          13,
+          5
+        ],
+        "predicted_slot": [
+          13,
+          5
+        ],
+        "margin": 0.0,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 2,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00011-team2v2-t0",
+        "turn": 6,
+        "decision": 141,
+        "reason": "worse_slot",
+        "label_type": "Skeleton",
+        "predicted_type": "Skeleton",
+        "label_slot": [
+          14,
+          4
+        ],
+        "predicted_slot": [
+          13,
+          6
+        ],
+        "margin": 0.3648796081542969,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00011-team2v2-t0",
+        "turn": 7,
+        "decision": 170,
+        "reason": "exact",
+        "label_type": "Skeleton Archer",
+        "predicted_type": "Skeleton Archer",
+        "label_slot": [
+          13,
+          6
+        ],
+        "predicted_slot": [
+          13,
+          6
+        ],
+        "margin": 0.0,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00011-team2v2-t0",
+        "turn": 8,
+        "decision": 201,
+        "reason": "worse_type",
+        "label_type": "Skeleton Archer",
+        "predicted_type": "Walking Corpse",
+        "label_slot": [
+          13,
+          5
+        ],
+        "predicted_slot": [
+          13,
+          5
+        ],
+        "margin": 0.022622108459472656,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00011-team2v2-t0",
+        "turn": 17,
+        "decision": 471,
+        "reason": "exact",
+        "label_type": "Skeleton",
+        "predicted_type": "Skeleton",
+        "label_slot": [
+          13,
+          6
+        ],
+        "predicted_slot": [
+          13,
+          6
+        ],
+        "margin": 0.0,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00011-team2v2-t0",
+        "turn": 18,
+        "decision": 502,
+        "reason": "worse_type",
+        "label_type": "Ghost",
+        "predicted_type": "Skeleton",
+        "label_slot": [
+          13,
+          5
+        ],
+        "predicted_slot": [
+          13,
+          5
+        ],
+        "margin": 1.1098136901855469,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00011-team2v2-t0",
+        "turn": 19,
+        "decision": 528,
+        "reason": "exact",
+        "label_type": "Walking Corpse",
+        "predicted_type": "Walking Corpse",
+        "label_slot": [
+          13,
+          6
+        ],
+        "predicted_slot": [
+          13,
+          6
+        ],
+        "margin": 0.0,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00011-team2v2-t0",
+        "turn": 20,
+        "decision": 566,
+        "reason": "worse_type",
+        "label_type": "Dark Adept",
+        "predicted_type": "Skeleton",
+        "label_slot": [
+          13,
+          5
+        ],
+        "predicted_slot": [
+          13,
+          5
+        ],
+        "margin": 1.3308296203613281,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00011-team2v2-t0",
+        "turn": 21,
+        "decision": 600,
+        "reason": "exact",
+        "label_type": "Skeleton",
+        "predicted_type": "Skeleton",
+        "label_slot": [
+          13,
+          6
+        ],
+        "predicted_slot": [
+          13,
+          6
+        ],
+        "margin": 0.0,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00011-team2v2-t0",
+        "turn": 21,
+        "decision": 601,
+        "reason": "worse_slot",
+        "label_type": "Walking Corpse",
+        "predicted_type": "Walking Corpse",
+        "label_slot": [
+          12,
+          4
+        ],
+        "predicted_slot": [
+          14,
+          4
+        ],
+        "margin": 0.10711479187011719,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00011-team2v2-t0",
+        "turn": 25,
+        "decision": 735,
+        "reason": "worse_type",
+        "label_type": "Skeleton Archer",
+        "predicted_type": "Skeleton",
+        "label_slot": [
+          13,
+          6
+        ],
+        "predicted_slot": [
+          13,
+          6
+        ],
+        "margin": 1.5060968399047852,
+        "input_collisions": [],
+        "type_ties": 2,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00011-team2v2-t0",
+        "turn": 25,
+        "decision": 736,
+        "reason": "worse_type",
+        "label_type": "Skeleton Archer",
+        "predicted_type": "Walking Corpse",
+        "label_slot": [
+          13,
+          5
+        ],
+        "predicted_slot": [
+          13,
+          5
+        ],
+        "margin": 0.03362083435058594,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00011-team2v2-t0",
+        "turn": 26,
+        "decision": 767,
+        "reason": "worse_type",
+        "label_type": "Dark Adept",
+        "predicted_type": "Skeleton",
+        "label_slot": [
+          14,
+          4
+        ],
+        "predicted_slot": [
+          14,
+          4
+        ],
+        "margin": 1.393514633178711,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00011-team2v2-t0",
+        "turn": 27,
+        "decision": 801,
+        "reason": "exact",
+        "label_type": "Skeleton",
+        "predicted_type": "Skeleton",
+        "label_slot": [
+          13,
+          6
+        ],
+        "predicted_slot": [
+          13,
+          6
+        ],
+        "margin": 0.0,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00011-team2v2-t0",
+        "turn": 27,
+        "decision": 802,
+        "reason": "exact",
+        "label_type": "Walking Corpse",
+        "predicted_type": "Walking Corpse",
+        "label_slot": [
+          13,
+          5
+        ],
+        "predicted_slot": [
+          13,
+          5
+        ],
+        "margin": 0.0,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      }
+    ]
+  },
+  "validation": {
+    "counts": {
+      "worse_type": 33,
+      "input_collision_rows": 0,
+      "samples": 59,
+      "train_context_seen": 7,
+      "train_seen_exact": 1,
+      "full_train_context_seen": 25,
+      "full_train_seen_exact": 1,
+      "wrong_kind": 6,
+      "exact": 11,
+      "equivalent_preference": 4,
+      "worse_slot": 5
+    },
+    "rows": [
+      {
+        "game_id": "teacher-00003-team2v2-t0",
+        "turn": 17,
+        "decision": 550,
+        "reason": "worse_type",
+        "label_type": "Orcish Assassin",
+        "predicted_type": "Troll Whelp",
+        "label_slot": [
+          13,
+          6
+        ],
+        "predicted_slot": [
+          13,
+          6
+        ],
+        "margin": 0.47896385192871094,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": false,
+          "full_train": false
+        }
+      },
+      {
+        "game_id": "teacher-00003-team2v2-t0",
+        "turn": 19,
+        "decision": 623,
+        "reason": "wrong_kind",
+        "label_type": "Orcish Assassin",
+        "predicted_type": null,
+        "label_slot": [
+          13,
+          6
+        ],
+        "predicted_slot": [
+          12,
+          14
+        ],
+        "margin": 2.7396936416625977,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": false,
+          "full_train": false
+        }
+      },
+      {
+        "game_id": "teacher-00003-team2v2-t0",
+        "turn": 21,
+        "decision": 703,
+        "reason": "worse_type",
+        "label_type": "Orcish Assassin",
+        "predicted_type": "Troll Whelp",
+        "label_slot": [
+          13,
+          5
+        ],
+        "predicted_slot": [
+          13,
+          5
+        ],
+        "margin": 0.4893970489501953,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": false,
+          "full_train": false
+        }
+      },
+      {
+        "game_id": "teacher-00003-team2v2-t0",
+        "turn": 23,
+        "decision": 778,
+        "reason": "worse_type",
+        "label_type": "Orcish Archer",
+        "predicted_type": "Goblin Spearman",
+        "label_slot": [
+          13,
+          6
+        ],
+        "predicted_slot": [
+          13,
+          5
+        ],
+        "margin": 1.1445136070251465,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": false,
+          "full_train": false
+        }
+      },
+      {
+        "game_id": "teacher-00003-team2v2-t0",
+        "turn": 26,
+        "decision": 871,
+        "reason": "worse_type",
+        "label_type": "Orcish Archer",
+        "predicted_type": "Troll Whelp",
+        "label_slot": [
+          13,
+          5
+        ],
+        "predicted_slot": [
+          13,
+          5
+        ],
+        "margin": 1.1828088760375977,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": false,
+          "full_train": false
+        }
+      },
+      {
+        "game_id": "teacher-00003-team2v2-t0",
+        "turn": 34,
+        "decision": 1158,
+        "reason": "exact",
+        "label_type": "Troll Whelp",
+        "predicted_type": "Troll Whelp",
+        "label_slot": [
+          14,
+          4
+        ],
+        "predicted_slot": [
+          14,
+          4
+        ],
+        "margin": 0.0,
+        "input_collisions": [],
+        "type_ties": 2,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": false,
+          "full_train": false
+        }
+      },
+      {
+        "game_id": "teacher-00003-team2v2-t0",
+        "turn": 35,
+        "decision": 1195,
+        "reason": "worse_type",
+        "label_type": "Orcish Assassin",
+        "predicted_type": "Troll Whelp",
+        "label_slot": [
+          13,
+          6
+        ],
+        "predicted_slot": [
+          13,
+          6
+        ],
+        "margin": 0.4820833206176758,
+        "input_collisions": [],
+        "type_ties": 2,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": false,
+          "full_train": false
+        }
+      },
+      {
+        "game_id": "teacher-00014-team2v2-t0",
+        "turn": 1,
+        "decision": 16,
+        "reason": "worse_type",
+        "label_type": "Dark Adept",
+        "predicted_type": "Skeleton",
+        "label_slot": [
+          16,
+          2
+        ],
+        "predicted_slot": [
+          17,
+          4
+        ],
+        "margin": 1.1603612899780273,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 5,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00014-team2v2-t0",
+        "turn": 1,
+        "decision": 17,
+        "reason": "equivalent_preference",
+        "label_type": "Skeleton",
+        "predicted_type": "Skeleton",
+        "label_slot": [
+          17,
+          2
+        ],
+        "predicted_slot": [
+          17,
+          4
+        ],
+        "margin": 0.2488269805908203,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 4,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00014-team2v2-t0",
+        "turn": 1,
+        "decision": 18,
+        "reason": "worse_type",
+        "label_type": "Dark Adept",
+        "predicted_type": "Skeleton",
+        "label_slot": [
+          18,
+          2
+        ],
+        "predicted_slot": [
+          17,
+          4
+        ],
+        "margin": 1.1340298652648926,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 4,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00014-team2v2-t0",
+        "turn": 1,
+        "decision": 19,
+        "reason": "equivalent_preference",
+        "label_type": "Skeleton",
+        "predicted_type": "Skeleton",
+        "label_slot": [
+          16,
+          3
+        ],
+        "predicted_slot": [
+          17,
+          4
+        ],
+        "margin": 0.10830497741699219,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 3,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00014-team2v2-t0",
+        "turn": 1,
+        "decision": 20,
+        "reason": "worse_type",
+        "label_type": "Skeleton Archer",
+        "predicted_type": "Skeleton",
+        "label_slot": [
+          18,
+          3
+        ],
+        "predicted_slot": [
+          17,
+          4
+        ],
+        "margin": 1.4467082023620605,
+        "input_collisions": [],
+        "type_ties": 2,
+        "slot_ties": 2,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00014-team2v2-t0",
+        "turn": 1,
+        "decision": 21,
+        "reason": "worse_type",
+        "label_type": "Dark Adept",
+        "predicted_type": "Skeleton",
+        "label_slot": [
+          17,
+          4
+        ],
+        "predicted_slot": [
+          17,
+          4
+        ],
+        "margin": 1.1213245391845703,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00014-team2v2-t0",
+        "turn": 2,
+        "decision": 49,
+        "reason": "exact",
+        "label_type": "Walking Corpse",
+        "predicted_type": "Walking Corpse",
+        "label_slot": [
+          16,
+          2
+        ],
+        "predicted_slot": [
+          16,
+          2
+        ],
+        "margin": 0.0,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": true,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00014-team2v2-t0",
+        "turn": 6,
+        "decision": 149,
+        "reason": "exact",
+        "label_type": "Walking Corpse",
+        "predicted_type": "Walking Corpse",
+        "label_slot": [
+          17,
+          4
+        ],
+        "predicted_slot": [
+          17,
+          4
+        ],
+        "margin": 0.0,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 2,
+        "context_seen": {
+          "train": false,
+          "full_train": false
+        }
+      },
+      {
+        "game_id": "teacher-00014-team2v2-t0",
+        "turn": 7,
+        "decision": 170,
+        "reason": "worse_slot",
+        "label_type": "Walking Corpse",
+        "predicted_type": "Walking Corpse",
+        "label_slot": [
+          16,
+          3
+        ],
+        "predicted_slot": [
+          18,
+          2
+        ],
+        "margin": 0.11093330383300781,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": false,
+          "full_train": false
+        }
+      },
+      {
+        "game_id": "teacher-00014-team2v2-t0",
+        "turn": 8,
+        "decision": 190,
+        "reason": "exact",
+        "label_type": "Walking Corpse",
+        "predicted_type": "Walking Corpse",
+        "label_slot": [
+          17,
+          4
+        ],
+        "predicted_slot": [
+          17,
+          4
+        ],
+        "margin": 0.0,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": false,
+          "full_train": false
+        }
+      },
+      {
+        "game_id": "teacher-00014-team2v2-t0",
+        "turn": 33,
+        "decision": 859,
+        "reason": "worse_slot",
+        "label_type": "Walking Corpse",
+        "predicted_type": "Walking Corpse",
+        "label_slot": [
+          16,
+          3
+        ],
+        "predicted_slot": [
+          18,
+          2
+        ],
+        "margin": 0.07631778717041016,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": false,
+          "full_train": false
+        }
+      },
+      {
+        "game_id": "teacher-00014-team2v2-t0",
+        "turn": 34,
+        "decision": 889,
+        "reason": "equivalent_preference",
+        "label_type": "Walking Corpse",
+        "predicted_type": "Walking Corpse",
+        "label_slot": [
+          16,
+          2
+        ],
+        "predicted_slot": [
+          17,
+          4
+        ],
+        "margin": 0.4080953598022461,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 2,
+        "context_seen": {
+          "train": false,
+          "full_train": false
+        }
+      },
+      {
+        "game_id": "teacher-00014-team2v2-t0",
+        "turn": 35,
+        "decision": 921,
+        "reason": "exact",
+        "label_type": "Skeleton Archer",
+        "predicted_type": "Skeleton Archer",
+        "label_slot": [
+          17,
+          4
+        ],
+        "predicted_slot": [
+          17,
+          4
+        ],
+        "margin": 0.0,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": false,
+          "full_train": false
+        }
+      },
+      {
+        "game_id": "teacher-00014-team2v2-t0",
+        "turn": 36,
+        "decision": 948,
+        "reason": "worse_type",
+        "label_type": "Skeleton Archer",
+        "predicted_type": "Walking Corpse",
+        "label_slot": [
+          18,
+          3
+        ],
+        "predicted_slot": [
+          16,
+          3
+        ],
+        "margin": 0.09371089935302734,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 2,
+        "context_seen": {
+          "train": false,
+          "full_train": false
+        }
+      },
+      {
+        "game_id": "teacher-00014-team2v2-t0",
+        "turn": 37,
+        "decision": 979,
+        "reason": "wrong_kind",
+        "label_type": "Walking Corpse",
+        "predicted_type": null,
+        "label_slot": [
+          17,
+          4
+        ],
+        "predicted_slot": [
+          4,
+          13
+        ],
+        "margin": 0.6736965179443359,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 2,
+        "context_seen": {
+          "train": false,
+          "full_train": false
+        }
+      },
+      {
+        "game_id": "teacher-00014-team2v2-t0",
+        "turn": 38,
+        "decision": 1013,
+        "reason": "worse_type",
+        "label_type": "Skeleton Archer",
+        "predicted_type": "Walking Corpse",
+        "label_slot": [
+          16,
+          3
+        ],
+        "predicted_slot": [
+          16,
+          3
+        ],
+        "margin": 0.08346271514892578,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": false,
+          "full_train": false
+        }
+      },
+      {
+        "game_id": "teacher-00019-team2v2-t0",
+        "turn": 1,
+        "decision": 6,
+        "reason": "worse_type",
+        "label_type": "Dwarvish Fighter",
+        "predicted_type": "Dwarvish Guardsman",
+        "label_slot": [
+          12,
+          4
+        ],
+        "predicted_slot": [
+          13,
+          5
+        ],
+        "margin": 0.9571342468261719,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 4,
+        "context_seen": {
+          "train": false,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00019-team2v2-t0",
+        "turn": 1,
+        "decision": 7,
+        "reason": "worse_type",
+        "label_type": "Footpad",
+        "predicted_type": "Dwarvish Guardsman",
+        "label_slot": [
+          14,
+          4
+        ],
+        "predicted_slot": [
+          13,
+          5
+        ],
+        "margin": 0.579986572265625,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 3,
+        "context_seen": {
+          "train": false,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00019-team2v2-t0",
+        "turn": 1,
+        "decision": 8,
+        "reason": "worse_type",
+        "label_type": "Dwarvish Fighter",
+        "predicted_type": "Dwarvish Guardsman",
+        "label_slot": [
+          13,
+          5
+        ],
+        "predicted_slot": [
+          13,
+          5
+        ],
+        "margin": 0.5206136703491211,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 2,
+        "context_seen": {
+          "train": false,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00019-team2v2-t0",
+        "turn": 1,
+        "decision": 9,
+        "reason": "worse_type",
+        "label_type": "Poacher",
+        "predicted_type": "Dwarvish Guardsman",
+        "label_slot": [
+          13,
+          6
+        ],
+        "predicted_slot": [
+          13,
+          6
+        ],
+        "margin": 0.20429420471191406,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": false,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00019-team2v2-t0",
+        "turn": 2,
+        "decision": 28,
+        "reason": "worse_type",
+        "label_type": "Dwarvish Thunderer",
+        "predicted_type": "Dwarvish Guardsman",
+        "label_slot": [
+          13,
+          6
+        ],
+        "predicted_slot": [
+          13,
+          6
+        ],
+        "margin": 0.35169506072998047,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": false,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00019-team2v2-t0",
+        "turn": 2,
+        "decision": 30,
+        "reason": "worse_type",
+        "label_type": "Dwarvish Fighter",
+        "predicted_type": "Dwarvish Guardsman",
+        "label_slot": [
+          13,
+          5
+        ],
+        "predicted_slot": [
+          13,
+          5
+        ],
+        "margin": 0.574223518371582,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": false,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00019-team2v2-t0",
+        "turn": 4,
+        "decision": 81,
+        "reason": "worse_type",
+        "label_type": "Footpad",
+        "predicted_type": "Dwarvish Guardsman",
+        "label_slot": [
+          13,
+          6
+        ],
+        "predicted_slot": [
+          13,
+          6
+        ],
+        "margin": 0.19252872467041016,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": false,
+          "full_train": false
+        }
+      },
+      {
+        "game_id": "teacher-00019-team2v2-t0",
+        "turn": 6,
+        "decision": 144,
+        "reason": "wrong_kind",
+        "label_type": "Dwarvish Thunderer",
+        "predicted_type": null,
+        "label_slot": [
+          13,
+          6
+        ],
+        "predicted_slot": [
+          15,
+          9
+        ],
+        "margin": 0.8641796112060547,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": false,
+          "full_train": false
+        }
+      },
+      {
+        "game_id": "teacher-00019-team2v2-t0",
+        "turn": 9,
+        "decision": 245,
+        "reason": "worse_type",
+        "label_type": "Dwarvish Fighter",
+        "predicted_type": "Poacher",
+        "label_slot": [
+          13,
+          6
+        ],
+        "predicted_slot": [
+          13,
+          6
+        ],
+        "margin": 0.43033790588378906,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": false,
+          "full_train": false
+        }
+      },
+      {
+        "game_id": "teacher-00019-team2v2-t0",
+        "turn": 12,
+        "decision": 365,
+        "reason": "wrong_kind",
+        "label_type": "Thief",
+        "predicted_type": null,
+        "label_slot": [
+          13,
+          6
+        ],
+        "predicted_slot": [
+          16,
+          7
+        ],
+        "margin": 0.263397216796875,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": false,
+          "full_train": false
+        }
+      },
+      {
+        "game_id": "teacher-00019-team2v2-t0",
+        "turn": 16,
+        "decision": 515,
+        "reason": "worse_slot",
+        "label_type": "Footpad",
+        "predicted_type": "Footpad",
+        "label_slot": [
+          13,
+          6
+        ],
+        "predicted_slot": [
+          13,
+          5
+        ],
+        "margin": 0.08618927001953125,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": false,
+          "full_train": false
+        }
+      },
+      {
+        "game_id": "teacher-00019-team2v2-t0",
+        "turn": 20,
+        "decision": 670,
+        "reason": "worse_type",
+        "label_type": "Footpad",
+        "predicted_type": "Dwarvish Guardsman",
+        "label_slot": [
+          13,
+          6
+        ],
+        "predicted_slot": [
+          13,
+          5
+        ],
+        "margin": 0.4346170425415039,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": false,
+          "full_train": false
+        }
+      },
+      {
+        "game_id": "teacher-00019-team2v2-t0",
+        "turn": 21,
+        "decision": 711,
+        "reason": "exact",
+        "label_type": "Footpad",
+        "predicted_type": "Footpad",
+        "label_slot": [
+          13,
+          6
+        ],
+        "predicted_slot": [
+          13,
+          6
+        ],
+        "margin": 0.0,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": false,
+          "full_train": false
+        }
+      },
+      {
+        "game_id": "teacher-00018-team2v2-t0",
+        "turn": 30,
+        "decision": 762,
+        "reason": "wrong_kind",
+        "label_type": "Saurian Augur",
+        "predicted_type": null,
+        "label_slot": [
+          17,
+          4
+        ],
+        "predicted_slot": [
+          13,
+          9
+        ],
+        "margin": 0.785761833190918,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 2,
+        "context_seen": {
+          "train": false,
+          "full_train": false
+        }
+      },
+      {
+        "game_id": "teacher-00022-team2v2-t0",
+        "turn": 1,
+        "decision": 17,
+        "reason": "worse_type",
+        "label_type": "Dwarvish Fighter",
+        "predicted_type": "Dwarvish Guardsman",
+        "label_slot": [
+          16,
+          2
+        ],
+        "predicted_slot": [
+          17,
+          4
+        ],
+        "margin": 0.7407479286193848,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 4,
+        "context_seen": {
+          "train": false,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00022-team2v2-t0",
+        "turn": 1,
+        "decision": 18,
+        "reason": "worse_type",
+        "label_type": "Footpad",
+        "predicted_type": "Dwarvish Guardsman",
+        "label_slot": [
+          17,
+          2
+        ],
+        "predicted_slot": [
+          17,
+          4
+        ],
+        "margin": 0.3985261917114258,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 4,
+        "context_seen": {
+          "train": false,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00022-team2v2-t0",
+        "turn": 1,
+        "decision": 19,
+        "reason": "worse_type",
+        "label_type": "Dwarvish Fighter",
+        "predicted_type": "Dwarvish Guardsman",
+        "label_slot": [
+          18,
+          2
+        ],
+        "predicted_slot": [
+          17,
+          4
+        ],
+        "margin": 0.5585293769836426,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 4,
+        "context_seen": {
+          "train": false,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00022-team2v2-t0",
+        "turn": 1,
+        "decision": 20,
+        "reason": "worse_type",
+        "label_type": "Poacher",
+        "predicted_type": "Dwarvish Guardsman",
+        "label_slot": [
+          16,
+          3
+        ],
+        "predicted_slot": [
+          17,
+          4
+        ],
+        "margin": 0.31241321563720703,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 3,
+        "context_seen": {
+          "train": false,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00022-team2v2-t0",
+        "turn": 1,
+        "decision": 21,
+        "reason": "worse_type",
+        "label_type": "Dwarvish Thunderer",
+        "predicted_type": "Dwarvish Guardsman",
+        "label_slot": [
+          18,
+          3
+        ],
+        "predicted_slot": [
+          17,
+          4
+        ],
+        "margin": 0.47989845275878906,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 2,
+        "context_seen": {
+          "train": false,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00022-team2v2-t0",
+        "turn": 1,
+        "decision": 22,
+        "reason": "worse_type",
+        "label_type": "Dwarvish Fighter",
+        "predicted_type": "Dwarvish Guardsman",
+        "label_slot": [
+          17,
+          4
+        ],
+        "predicted_slot": [
+          17,
+          4
+        ],
+        "margin": 0.5292520523071289,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": false,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00022-team2v2-t0",
+        "turn": 13,
+        "decision": 353,
+        "reason": "worse_slot",
+        "label_type": "Thief",
+        "predicted_type": "Thief",
+        "label_slot": [
+          16,
+          3
+        ],
+        "predicted_slot": [
+          18,
+          2
+        ],
+        "margin": 0.061432838439941406,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": false,
+          "full_train": false
+        }
+      },
+      {
+        "game_id": "teacher-00000-team2v2-t0",
+        "turn": 1,
+        "decision": 1,
+        "reason": "worse_type",
+        "label_type": "Drake Fighter",
+        "predicted_type": "Drake Clasher",
+        "label_slot": [
+          2,
+          2
+        ],
+        "predicted_slot": [
+          3,
+          4
+        ],
+        "margin": 1.4939250946044922,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 5,
+        "context_seen": {
+          "train": false,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00000-team2v2-t0",
+        "turn": 1,
+        "decision": 2,
+        "reason": "equivalent_preference",
+        "label_type": "Drake Clasher",
+        "predicted_type": "Drake Clasher",
+        "label_slot": [
+          3,
+          2
+        ],
+        "predicted_slot": [
+          3,
+          4
+        ],
+        "margin": 0.2637162208557129,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 5,
+        "context_seen": {
+          "train": false,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00000-team2v2-t0",
+        "turn": 1,
+        "decision": 3,
+        "reason": "worse_type",
+        "label_type": "Saurian Augur",
+        "predicted_type": "Drake Clasher",
+        "label_slot": [
+          4,
+          2
+        ],
+        "predicted_slot": [
+          3,
+          4
+        ],
+        "margin": 0.14154338836669922,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 4,
+        "context_seen": {
+          "train": false,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00000-team2v2-t0",
+        "turn": 1,
+        "decision": 4,
+        "reason": "worse_type",
+        "label_type": "Drake Burner",
+        "predicted_type": "Drake Clasher",
+        "label_slot": [
+          2,
+          3
+        ],
+        "predicted_slot": [
+          3,
+          4
+        ],
+        "margin": 1.2763781547546387,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 3,
+        "context_seen": {
+          "train": false,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00000-team2v2-t0",
+        "turn": 1,
+        "decision": 5,
+        "reason": "worse_type",
+        "label_type": "Drake Fighter",
+        "predicted_type": "Drake Clasher",
+        "label_slot": [
+          4,
+          3
+        ],
+        "predicted_slot": [
+          3,
+          4
+        ],
+        "margin": 1.1865196228027344,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 2,
+        "context_seen": {
+          "train": false,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00000-team2v2-t0",
+        "turn": 5,
+        "decision": 116,
+        "reason": "worse_type",
+        "label_type": "Saurian Skirmisher",
+        "predicted_type": "Saurian Augur",
+        "label_slot": [
+          3,
+          4
+        ],
+        "predicted_slot": [
+          3,
+          4
+        ],
+        "margin": 0.7261085510253906,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 2,
+        "context_seen": {
+          "train": false,
+          "full_train": true
+        }
+      },
+      {
+        "game_id": "teacher-00000-team2v2-t0",
+        "turn": 15,
+        "decision": 380,
+        "reason": "exact",
+        "label_type": "Saurian Skirmisher",
+        "predicted_type": "Saurian Skirmisher",
+        "label_slot": [
+          3,
+          4
+        ],
+        "predicted_slot": [
+          3,
+          4
+        ],
+        "margin": 0.0,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 2,
+        "context_seen": {
+          "train": false,
+          "full_train": false
+        }
+      },
+      {
+        "game_id": "teacher-00020-team2v2-t0",
+        "turn": 9,
+        "decision": 213,
+        "reason": "exact",
+        "label_type": "Walking Corpse",
+        "predicted_type": "Walking Corpse",
+        "label_slot": [
+          3,
+          4
+        ],
+        "predicted_slot": [
+          3,
+          4
+        ],
+        "margin": 0.0,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 2,
+        "context_seen": {
+          "train": false,
+          "full_train": false
+        }
+      },
+      {
+        "game_id": "teacher-00020-team2v2-t0",
+        "turn": 11,
+        "decision": 274,
+        "reason": "exact",
+        "label_type": "Skeleton",
+        "predicted_type": "Skeleton",
+        "label_slot": [
+          3,
+          4
+        ],
+        "predicted_slot": [
+          3,
+          4
+        ],
+        "margin": 0.0,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 2,
+        "context_seen": {
+          "train": false,
+          "full_train": false
+        }
+      },
+      {
+        "game_id": "teacher-00020-team2v2-t0",
+        "turn": 12,
+        "decision": 297,
+        "reason": "worse_slot",
+        "label_type": "Walking Corpse",
+        "predicted_type": "Walking Corpse",
+        "label_slot": [
+          4,
+          3
+        ],
+        "predicted_slot": [
+          4,
+          2
+        ],
+        "margin": 0.046665191650390625,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": false,
+          "full_train": false
+        }
+      },
+      {
+        "game_id": "teacher-00020-team2v2-t0",
+        "turn": 13,
+        "decision": 321,
+        "reason": "worse_type",
+        "label_type": "Skeleton Archer",
+        "predicted_type": "Walking Corpse",
+        "label_slot": [
+          3,
+          4
+        ],
+        "predicted_slot": [
+          3,
+          4
+        ],
+        "margin": 0.028380393981933594,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": false,
+          "full_train": false
+        }
+      },
+      {
+        "game_id": "teacher-00020-team2v2-t0",
+        "turn": 15,
+        "decision": 367,
+        "reason": "wrong_kind",
+        "label_type": "Vampire Bat",
+        "predicted_type": null,
+        "label_slot": [
+          3,
+          4
+        ],
+        "predicted_slot": [
+          3,
+          12
+        ],
+        "margin": 0.9720516204833984,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 2,
+        "context_seen": {
+          "train": false,
+          "full_train": false
+        }
+      },
+      {
+        "game_id": "teacher-00020-team2v2-t0",
+        "turn": 27,
+        "decision": 642,
+        "reason": "exact",
+        "label_type": "Skeleton",
+        "predicted_type": "Skeleton",
+        "label_slot": [
+          3,
+          4
+        ],
+        "predicted_slot": [
+          3,
+          4
+        ],
+        "margin": 0.0,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 1,
+        "context_seen": {
+          "train": false,
+          "full_train": false
+        }
+      },
+      {
+        "game_id": "teacher-00020-team2v2-t0",
+        "turn": 28,
+        "decision": 669,
+        "reason": "worse_type",
+        "label_type": "Skeleton Archer",
+        "predicted_type": "Walking Corpse",
+        "label_slot": [
+          4,
+          3
+        ],
+        "predicted_slot": [
+          4,
+          3
+        ],
+        "margin": 0.08222150802612305,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 2,
+        "context_seen": {
+          "train": false,
+          "full_train": false
+        }
+      },
+      {
+        "game_id": "teacher-00020-team2v2-t0",
+        "turn": 31,
+        "decision": 753,
+        "reason": "exact",
+        "label_type": "Walking Corpse",
+        "predicted_type": "Walking Corpse",
+        "label_slot": [
+          3,
+          4
+        ],
+        "predicted_slot": [
+          3,
+          4
+        ],
+        "margin": 0.0,
+        "input_collisions": [],
+        "type_ties": 1,
+        "slot_ties": 2,
+        "context_seen": {
+          "train": false,
+          "full_train": false
+        }
+      }
+    ]
+  }
+}
