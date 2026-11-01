@@ -1,0 +1,9 @@
+{
+  "source_commit": "822bb975b90a756a8459ae2b9926201d5aea69b5",
+  "rules_sha256": "d6fceafe7d0c9c67c750551b9901dbfb2b22290992a8daa1616a460e11826dca",
+  "captured_units": 587,
+  "training_unit_count": 158,
+  "affected_training_unit_ids": [],
+  "captures": 20,
+  "nondefault_declarations": 26
+}
