@@ -73,7 +73,9 @@ Evidence for items 6-7: `verification/window_memory_20261101/REPORT.md`. Two pre
 
 **Further repair:** the team roster overrepresented early-listed factions: zero Undead training games in the first 32 jobs, and 20 versus 80 Knalgan at 400. Team teacher schedules now cover every faction at every focal seat once per 24 planned games; the 400-game training counts become 46–58 per faction. The first Undead training game moves from 35 to 12. All new schedule regressions pass; the separate stale phase-runner fixture is corrected with five passing phase-entry checks (`verification/phase_runner_fixture_20261102/REPORT.md`), reusing 42 unaffected passes. See `verification/team_teacher_factions_20261102/REPORT.md`. Existing frozen schedules are unchanged; post-repair ordinary fitting remains open.
 
-**Repair direction:** measure ordinary BC after the reader and team-exposure repairs; retain the existing gates. Complete teacher ranking/strength evidence separately before a teacher-quality claim. Do not expand candidate counts to compensate for missing generation paths or treat forced PPO as readiness.
+**Post-repair ordinary check:** fresh team-only BC exits naturally after about 21m08s, with 30 complete / 2 budget-interrupted games, zero faults and 120 committed updates. The last model covers 24/48 required games: coverage passes at 92.59%, imitation still fails (recruit 18.64%, attack 13.89%). All six factions reach the exact training batch, whose recruit/attack accuracy is only 24.49%/25.37%. This confirms remaining training-set fitting and collection-cost limits; no all-format readiness or strength pass. Evidence: `verification/team_bc_readiness_20261102/REPORT.md`.
+
+**Repair direction:** measure a bounded learning curve on the frozen committed batch before another collection or representation variant; retain the original objective and gates. Complete teacher ranking/strength evidence separately before a teacher-quality claim. Do not expand candidate counts to compensate for missing generation paths or treat forced PPO as readiness.
 
 ## 11. P1 — Add an approximately one-hour complete training-loop test
 
