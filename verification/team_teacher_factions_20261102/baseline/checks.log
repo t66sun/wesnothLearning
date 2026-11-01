@@ -1,0 +1,44 @@
+test_batching_preserves_design_and_all_ally_pairs (tests.v5.test_teacher_factions.TeacherFactionTests.test_batching_preserves_design_and_all_ally_pairs) ... ok
+test_each_team_seat_teaches_every_faction_in_24_games (tests.v5.test_teacher_factions.TeacherFactionTests.test_each_team_seat_teaches_every_faction_in_24_games) ... 
+  test_each_team_seat_teaches_every_faction_in_24_games (tests.v5.test_teacher_factions.TeacherFactionTests.test_each_team_seat_teaches_every_faction_in_24_games) (block=0) ... FAIL
+  test_each_team_seat_teaches_every_faction_in_24_games (tests.v5.test_teacher_factions.TeacherFactionTests.test_each_team_seat_teaches_every_faction_in_24_games) (block=1) ... FAIL
+  test_each_team_seat_teaches_every_faction_in_24_games (tests.v5.test_teacher_factions.TeacherFactionTests.test_each_team_seat_teaches_every_faction_in_24_games) (block=4) ... FAIL
+test_short_team_corpus_has_training_examples_of_every_faction (tests.v5.test_teacher_factions.TeacherFactionTests.test_short_team_corpus_has_training_examples_of_every_faction) ... FAIL
+
+======================================================================
+FAIL: test_each_team_seat_teaches_every_faction_in_24_games (tests.v5.test_teacher_factions.TeacherFactionTests.test_each_team_seat_teaches_every_faction_in_24_games) (block=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/team_teacher_red_20261102/tests/v5/test_teacher_factions.py", line 23, in test_each_team_seat_teaches_every_faction_in_24_games
+    self.assertEqual(counts, Counter({(s, f): 1
+AssertionError: Count[14 chars]s'): 3, (2, 'Drakes'): 3, (3, 'Rebels'): 3, (4[206 chars]: 1}) != Count[14 chars]s'): 1, (1, 'Knalgan Alliance'): 1, (1, 'Loyal[443 chars]: 1})
+
+======================================================================
+FAIL: test_each_team_seat_teaches_every_faction_in_24_games (tests.v5.test_teacher_factions.TeacherFactionTests.test_each_team_seat_teaches_every_faction_in_24_games) (block=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/team_teacher_red_20261102/tests/v5/test_teacher_factions.py", line 23, in test_each_team_seat_teaches_every_faction_in_24_games
+    self.assertEqual(counts, Counter({(s, f): 1
+AssertionError: Counter({(2, 'Drakes'): 4, (4, 'Knalgan Alliance'):[264 chars]: 1}) != Counter({(1, 'Drakes'): 1, (1, 'Knalgan Alliance'):[457 chars]: 1})
+
+======================================================================
+FAIL: test_each_team_seat_teaches_every_faction_in_24_games (tests.v5.test_teacher_factions.TeacherFactionTests.test_each_team_seat_teaches_every_faction_in_24_games) (block=4)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/team_teacher_red_20261102/tests/v5/test_teacher_factions.py", line 23, in test_each_team_seat_teaches_every_faction_in_24_games
+    self.assertEqual(counts, Counter({(s, f): 1
+AssertionError: Counter({(2, 'Drakes'): 5, (4, 'Loyalists'): 3, (1,[236 chars]: 1}) != Counter({(1, 'Drakes'): 1, (1, 'Knalgan Alliance'):[457 chars]: 1})
+
+======================================================================
+FAIL: test_short_team_corpus_has_training_examples_of_every_faction (tests.v5.test_teacher_factions.TeacherFactionTests.test_short_team_corpus_has_training_examples_of_every_faction)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/team_teacher_red_20261102/tests/v5/test_teacher_factions.py", line 28, in test_short_team_corpus_has_training_examples_of_every_faction
+    self.assertEqual({j['factions'][j['meta']['seat']-1] for j in training},
+AssertionError: Items in the second set but not the first:
+'Undead'
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.064s
+
+FAILED (failures=4)

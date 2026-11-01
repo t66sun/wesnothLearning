@@ -1,0 +1,18 @@
+test_auto_uses_next_sampling_method_after_bc_gate (tests.v5.test_training_failure_fixes.PhaseEntryTests.test_auto_uses_next_sampling_method_after_bc_gate) ... 
+  test_auto_uses_next_sampling_method_after_bc_gate (tests.v5.test_training_failure_fixes.PhaseEntryTests.test_auto_uses_next_sampling_method_after_bc_gate) (qualified=True) ... ERROR
+
+======================================================================
+ERROR: test_auto_uses_next_sampling_method_after_bc_gate (tests.v5.test_training_failure_fixes.PhaseEntryTests.test_auto_uses_next_sampling_method_after_bc_gate) (qualified=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/team_teacher_red_20261102/tests/v5/test_training_failure_fixes.py", line 213, in test_auto_uses_next_sampling_method_after_bc_gate
+    runner.learn()
+  File "/home/tongshu/acceptance/team_teacher_red_20261102/learning/experiment.py", line 620, in learn
+    self.state['policy_shards']=sorted(set(self.state['policy_shards']+[str(p) for p in paths]))
+                                           ~~~~~~~~~~^^^^^^^^^^^^^^^^^
+KeyError: 'policy_shards'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.005s
+
+FAILED (errors=1)
