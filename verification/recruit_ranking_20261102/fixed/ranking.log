@@ -1,0 +1,2 @@
+{"partition": "train", "equivalent_preference": 4, "input_collision_rows": 0, "samples": 98, "train_context_seen": 98, "train_seen_exact": 24, "full_train_context_seen": 98, "full_train_seen_exact": 24, "worse_type": 49, "exact": 24, "wrong_kind": 8, "worse_slot": 12, "unresolved_enemy_context": 1}
+{"partition": "validation", "worse_type": 33, "input_collision_rows": 0, "samples": 59, "train_context_seen": 7, "train_seen_exact": 1, "full_train_context_seen": 25, "full_train_seen_exact": 1, "wrong_kind": 6, "exact": 11, "equivalent_preference": 4, "worse_slot": 5}
