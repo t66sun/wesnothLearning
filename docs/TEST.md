@@ -33,6 +33,8 @@ The frozen-batch original-loss curve now completes 600 additional updates in 671
 
 The redundant BC preflight read is now removed, with 29 passing affected Ubuntu checks and a failing-before/passing-after read-count regression. Resume reconstructs and validates the batch; no full-run speedup is claimed (`verification/bc_preflight_read_20261102/REPORT.md`).
 
+The recruit-label audit reproduces all selected type/placement preferences (98 train, 59 validation); the full corpus has 348 recruits but the batch retains 98. Matching validation type-count/boost contexts increase from 7/59 selected to 25/59 full-corpus. Target-row retention, rather than prefix overcount, dominates the measured reader charge; early fair allocation is the next repair. This is read-only diagnosis, not a fitting pass (`verification/recruit_labels_20261102/REPORT.md`).
+
 **Procedure:** investigate recruit type/placement generalization before further collection or feature tuning. Preserve every gate. A future complete-loop run must freeze source, formats, seed, workers, row/game/time limits and unchanged panel requirements. Reuse valid candidate/regression evidence. The bounded runner's post-BC branches remain unverified.
 
 **Pass:** all declared formats pass ordinary BC, commit at least two PPO updates, resume without repeating committed work, complete the required final panel and pass audited export. Record model/input identities, complete/faulted/truncated counts and stage durations. No forced PPO or automatic budget extension. Native strength remains outside this smoke.
