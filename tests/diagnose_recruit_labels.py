@@ -10,7 +10,8 @@ from lupa import LuaRuntime
 import torch
 
 from learning.features import ENTITY, GLOBAL, UNIT_TYPES
-from learning.sequences import read_shards
+from learning.data import _shard_identity, validate_record
+from learning.sequences import read_shards, _iter_rows
 from tests.diagnose_bc_recruit_context import distance
 
 
@@ -30,7 +31,9 @@ def audit(rows, weights):
             and not e['features'][fields['age']] and not e['features'][fields['petrified']]]
         undead = sum(round(float(e['features'][fields['resistance_blade']])*100) >= 30 for e in enemies)
         drakes = sum(round(float(e['features'][fields['resistance_fire']])*100) >= 40 for e in enemies)
-        recruits = [c for c in row['candidates'] if c['kind'] == 'recruit']
+        leaders = [e for e in own if e['features'][fields['leader']]]
+        recruits = [c for c in row['candidates'] if c['kind'] == 'recruit'
+            and min(distance(c['x'], c['y'], e['x'], e['y']) for e in leaders) <= 3]
         scores = {}
         for candidate in recruits:
             name = candidate['type']
@@ -50,6 +53,7 @@ def audit(rows, weights):
         top_slots = sorted(pos for pos, score in slots.items() if score == min(slots.values()))
         result.append(dict(game_id=row['game_id'], family=row['game_family'], turn=row['turn'],
             label_type=label['type'], label_slot=[label['x'], label['y']],
+            decision=row.get('decision', row.get('action_index')),
             own_counts=dict(counts), undead=undead, drakes=drakes, type_scores=scores,
             top_types=top_types, top_slots=top_slots,
             type_optimal=label['type'] in top_types,
@@ -61,6 +65,32 @@ def audit(rows, weights):
             ('type_optimal', 'slot_optimal', 'own_context_complete', 'enemy_count_matches')},
         unique_type=sum(len(r['top_types']) == 1 for r in result),
         unique_slot=sum(len(r['top_slots']) == 1 for r in result), rows=result)
+
+
+def full_training(paths, counts):
+    for name in paths:
+        path = Path(name)
+        stat = path.stat()
+        identity = _shard_identity(str(path), stat.st_size, stat.st_mtime_ns)
+        if identity is None or identity[2] != 'train':
+            continue
+        counts['families'] += 1
+        for row in _iter_rows(path):
+            counts['raw_rows'] += 1
+            if counts['raw_rows'] > 50000:
+                raise ValueError('diagnostic raw-row cap exceeded')
+            if row.get('faults') or row.get('choice', -1) < 0:
+                continue
+            kind = row['candidates'][row['choice']]['kind']
+            counts[kind] += 1
+            if kind == 'recruit':
+                validate_record(row, 'team2v2')
+                yield row
+
+
+def context_key(row):
+    return (tuple(sorted(row['own_counts'].items())), row['undead'] > 1,
+            row['drakes'] > 1, tuple(sorted(row['type_scores'])))
 
 
 def main():
@@ -81,9 +111,17 @@ def main():
         ('validation', config['bc_validation_records'], config['seed'])):
         rows = read_shards(state['teacher_shards'], partition=partition, format_name='team2v2', limit=limit, seed=seed)
         result[partition] = audit(rows, weights)
+    counts = Counter()
+    result['full_train'] = audit(full_training(state['teacher_shards'], counts), weights)
+    result['full_train_counts'] = dict(counts)
+    result['validation_contexts_seen'] = {}
+    for pool in ('train', 'full_train'):
+        keys = {context_key(row) for row in result[pool]['rows']}
+        result['validation_contexts_seen'][pool] = sum(context_key(row) in keys for row in result['validation']['rows'])
     args.output.write_text(json.dumps(result, indent=2)+'\n')
     print(json.dumps({part:{k:v for k,v in result[part].items() if k != 'rows'}
-                      for part in ('train', 'validation')}), flush=True)
+                      for part in ('train', 'validation', 'full_train')}), flush=True)
+    print(json.dumps(dict(full_train_counts=dict(counts), validation_contexts_seen=result['validation_contexts_seen'])))
 
 
 if __name__ == '__main__':
