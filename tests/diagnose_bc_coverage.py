@@ -7,7 +7,7 @@ from pathlib import Path
 import time
 from unittest.mock import patch
 
-from learning.coverage import FIELDS, matching, reason
+from learning.coverage import matching, reason
 from learning.lite_host import LiteHost, teacher_candidate, host_modules
 from learning.lite_policy import game_spec
 from learning.rules_catalog import resolve_dir

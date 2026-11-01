@@ -12,11 +12,15 @@ from learning.lite_host import LiteHost, host_modules
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('snapshot', type=Path)
+    parser.add_argument('--source-tree',type=Path,required=True,
+                        help='frozen work-12000-v7 source tree for these ablations')
     args = parser.parse_args()
     data = json.loads(args.snapshot.read_text())
     intent = data['intent']
     for variant in ('baseline', 'work', 'probes', 'positions', 'rated', 'combat_order', 'safe_shortlist', 'all_search'):
         modules = host_modules()
+        for name in ('candidates.lua','candidate_selection.lua'):
+            modules[name] = (args.source_tree/'lua'/name).read_text()
         source = traced(modules['candidates.lua'])
         key = dict(work='total=12000', probes='move_probes=48', positions='positions=64', rated='rated=40').get(variant)
         if key: source = source.replace(key, key.split('=')[0]+'=1000000')
@@ -59,8 +63,9 @@ def main():
         pool = trace.pop('pool', [])
         actor = next((a for a in trace['actors'] if (a['x'],a['y']) == (intent.get('x'),intent.get('y'))), {})
         target = (intent.get('tx'),intent.get('ty'))
-        result = dict(variant=variant, intent=intent, matched=matching(row['candidates'],intent)>=0,
-                      generated=matching(pool,intent)>=0, reason=reason(row['candidates'],intent), timing=row['timing'])
+        matched = matching(row['candidates'],intent)>=0
+        result = dict(variant=variant, source_tree=str(args.source_tree), intent=intent, matched=matched,
+                      generated=matching(pool,intent)>=0, reason=None if matched else reason(row['candidates'],intent), timing=row['timing'])
         for key in ('reach','destinations','selected'):
             items = actor.get(key, [])
             result[key+'_count'] = len(items)
