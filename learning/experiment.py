@@ -295,7 +295,7 @@ class FormatExperiment:
     def execute(self,jobs,name):
         from .rules_catalog import resolve_dir
         for job in jobs:
-            if job.get('meta',{}).get('map_partition')=='train':
+            if job.get('meta',{}).get('map_partition')=='train' and not job['meta'].get('opening'):
                 job['max_turns']=self.config.get('training_max_turns',60)
             job.setdefault('engine',self.config['engine'])
             job['rules_dir']=str(resolve_dir(self.config.get('rules_dir')))

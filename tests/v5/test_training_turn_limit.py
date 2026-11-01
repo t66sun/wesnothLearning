@@ -104,6 +104,18 @@ class TrainingTurnLimitTests(unittest.TestCase):
             resumed = Experiment(directory, config=requested, resume=True)
             self.assertEqual(resumed.config['training_max_turns'], 23)
 
+    def test_opening_probe_keeps_its_five_turn_limit(self):
+        with tempfile.TemporaryDirectory() as tmp, \
+             mock.patch('learning.maps.frozen_map', return_value=(opening_map(2), '0'*64)):
+            experiment = runner(tmp, default_config('cpu') | dict(training_max_turns=11))
+            probe = jobs(tmp, 'duel')[-1]
+            probe.pop('training_scenario')
+            probe['max_turns'] = 5
+            probe['meta']['opening'] = True
+            scheduled, _ = experiment.execute([probe], 'opening')
+            self.assertEqual(scheduled[0]['max_turns'], 5)
+            self.assertEqual(scheduled[0]['scenario_family'], scenario_family(scheduled[0]))
+
     def test_manual_loop_passes_the_declared_turn_limit(self):
         from tests import bounded_training_loop as loop
         with tempfile.TemporaryDirectory() as tmp, \
