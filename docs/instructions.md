@@ -54,6 +54,14 @@ A quick self-check verifies only the environment and identity, without launching
 
 Native should be 1.18.8 and the project frozen entry requires PyTorch 2.9.1. The CPU server defaults to 8 global game workers with 1 thread per trainer, and the three trainers share those 8 workers. Windows is reference only; no full Windows acceptance is planned. The CPU server has no `git` and no `gh`, and `sudo -n` needs a password, so changes reach it as `git archive` tarballs extracted into a fresh dated directory, and acceptance runs from that extraction rather than from a long-lived checkout.
 
+Fresh source archives lack compiled runtime files. Before paired native comparisons, build the existing entropy shim in the extracted tree and record its hash. Without it, `match._child_env` omits preloading and `--rng-seed` alone cannot pin native action RNG.
+
+```sh
+mkdir -p .runtime
+cc -O2 -fPIC -shared -o .runtime/entropy.so vendor/arena/entropy.c -ldl
+sha256sum .runtime/entropy.so
+```
+
 The 2026-10-22 per-seat candidate optimization added decision parameters to the Rust extension; before using the new sources, rebuild `_engine_lite` in the matching virtual environment instead of only copying Python/Lua files. That change and the 300/600/400, 8-worker defaults passed restricted Ubuntu acceptance T1–T4 on 2026-10-22 (including the real 8-worker chain and peak PSS 4.02 GiB); evidence is in `verification/pretrain_acceptance_20261022/` and the current defaults are in architecture.md §12. Starting formal training still needs a later explicit user instruction.
 
 The current implementation as of 2026-10-23 is schema 5 / candidate v3. The Ubuntu isolated directory `/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022` has completed the minimal phase-wiring and resume acceptance and uses its own `.venv/bin/python` (shared installed dependencies, its own newly compiled extension). If the main directory has not yet synced the fixes, verify entries in that isolated directory or deploy the accepted sources first and rebuild the matching environment; the deployment record is in the repair report. Rust embeds `engine_lite/lua/host.lua` via `include_str!`, so copying Lua alone does not update an installed extension. The original 20-hour formal experiment has ended in failure and old schema 4/v2 checkpoints only work with their original matching sources; new and old corpora/checkpoints are never mixed. Restricted movement quality acceptance is archived in the [follow-up report](../verification/bc_rootcause_20261023_2318/REPORT.md); the real full BC gates still run as usual.

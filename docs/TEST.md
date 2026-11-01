@@ -35,13 +35,9 @@ Every item states what is open, the smallest Ubuntu procedure that would close i
 
 ## C1 — Current candidate contract native timing
 
-**Status:** FAIL for `work-12000-v8` on Ubuntu. Generation p95 is 55/84/26 ms in duel/ffa4/team2v2, but scoring p95 is 459/488/456 ms against 400 ms; team2v2's measured decision maximum is 1,056 ms against 800 ms. The unchanged v7 control also fails (scoring 445/478/467 ms; team2v2 maximum 1,028 ms). Native games report no faults. These runs overlapped other work on the host, so they do not isolate a candidate-version regression or establish unloaded latency. Earlier timing acceptance cannot close this item.
+**Status:** the sparse Lua implementation passes all six-game timing thresholds, 35 affected tests and exact old/new output checks for three trained models. However, the isolated trees lacked the existing entropy shim. Strict paired seeded acceptance remains RUNNING; preserve the completed unseeded diagnostics in `verification/native_inference_20261102/`.
 
-**Procedure:** on explicit execution instruction, use the existing `verification/candidate_work_budget_20261031/check.py` in an isolated Ubuntu source directory, with fixed source/rules, seeds 20261101/20261102, exported seed-0 policy, dense map and unchanged one-second native timeout. Record host load and run versions sequentially without concurrent training. Reuse the accepted candidate unit/provenance checks. The benchmark's pre-existing 20-to-30-turn fallback for fewer than ten midgame decisions must remain visible in the report.
-
-**Pass:** all existing benchmark stage/decision thresholds pass, zero faulted games, at most 37 candidates and 12,000 charged work. Do not rerun selectively until a pass or relax thresholds. Failure blocks native latency acceptance, not the measured lite coverage result.
-
-**Evidence:** `verification/bc_root_20261101/REPORT.md`, `native_v8/summary.json` and `native_v7/summary.json`; raw game events are retained with both summaries. This is not a strength panel.
+**Procedure/pass:** compile `.runtime/entropy.so` in fresh source archives and record its hash; run the unchanged `verification/candidate_work_budget_20261031/check.py` sequentially. Require all original stage/decision thresholds, zero faults, 37 candidates and 12,000 work, keeping seeds 20261101/20261102, the one-second timeout and existing 20/30-turn fallback. Compare decisive events as well as timing. Archive seeded panels separately; do not selectively rerun or lower gates.
 
 ## R3 — Adapted teacher strength evidence
 
