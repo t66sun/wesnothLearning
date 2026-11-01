@@ -52,6 +52,18 @@ class CombatDestinationPriorityTests(unittest.TestCase):
         self.assertLessEqual(len(row['candidates']),37)
         self.assertLessEqual(row['timing']['work'],12000)
 
+    def test_right_side_actor_sees_nearby_villages_beyond_the_map_prefix(self):
+        path = Path(__file__).resolve().parents[2]/'data/datasets/diagnostic/bc_right_side_20261101.json.gz'
+        with gzip.open(path,'rt') as stream:
+            data = json.load(stream)
+        host = LiteHost(data['spec'])
+        self.addCleanup(host.adapter.close)
+        host.restore(data['snapshot'])
+        row = host.decision(data['side'],teacher=False)
+        self.assertGreaterEqual(matching(row['candidates'],data['intent']),0)
+        self.assertLessEqual(len(row['candidates']),37)
+        self.assertLessEqual(row['timing']['work'],12000)
+
 
 if __name__ == '__main__':
     unittest.main()
