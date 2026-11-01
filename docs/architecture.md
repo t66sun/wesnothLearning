@@ -103,6 +103,8 @@ Teacher capabilities are declared, not assumed:
 
 A fresh manifest freezes that package and names its lineage as the teacher, so teacher and DAgger shards carry one identity. `LiteHost` refuses official-baseline seats and accepts only the declared `gpt6astra` source.
 
+Team teacher collection cyclically relabels its faction design so every faction appears at every focal seat once per 24 planned games. This corrects the previous team-roster exposure bias without consulting partitions or labels; physical scenario hashing still assigns train/validation. Distinct factions, all allied pairs, bot roles and non-team/evaluation designs are preserved. Schedule evidence: `verification/team_teacher_factions_20261102/REPORT.md`; post-change BC readiness remains open.
+
 ## 6. Policy network
 
 Architecture id `relational_v5`, one independent model per format (roughly 0.77 M parameters; the exact count is frozen in each manifest).
