@@ -109,7 +109,7 @@ def main():
         rows = read_shards(saved['runner']['teacher_shards'], partition=partition,
                            format_name='team2v2', limit=limit, seed=seed)
         truth = audit(rows, prior['weights'])
-        assert truth == prior[partition]
+        assert json.loads(json.dumps(truth)) == prior[partition]
         result[partition] = diagnose(model, rows, truth, seen)
         print(json.dumps(dict(partition=partition, **result[partition]['counts'])), flush=True)
     assert result['train']['counts']['exact'] == 24
