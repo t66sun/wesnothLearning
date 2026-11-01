@@ -1,0 +1,14 @@
+test_dense_native_forward_instruction_budget (tests.v5.test_lua_inference_work.LuaInferenceWorkTests.test_dense_native_forward_instruction_budget) ... FAIL
+
+======================================================================
+FAIL: test_dense_native_forward_instruction_budget (tests.v5.test_lua_inference_work.LuaInferenceWorkTests.test_dense_native_forward_instruction_budget)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/native_inference_red_20261102/tests/v5/test_lua_inference_work.py", line 28, in test_dense_native_forward_instruction_budget
+    self.assertLess(lua.globals().ticks * 10000, 70_000_000)
+AssertionError: 90920000 not less than 70000000
+
+----------------------------------------------------------------------
+Ran 1 test in 2.596s
+
+FAILED (failures=1)
