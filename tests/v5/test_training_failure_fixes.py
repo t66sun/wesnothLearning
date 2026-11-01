@@ -197,7 +197,7 @@ class PhaseEntryTests(unittest.TestCase):
         for qualified in (False,True):
             with self.subTest(qualified=qualified), tempfile.TemporaryDirectory() as temp:
                 runner=cadence.ValidationCadenceTests().runner(temp)
-                runner.state.update(stage='bc',phase='auto',pending_validation='bc')
+                runner.state.update(stage='bc',phase='auto',pending_validation='bc',policy_shards=[])
                 runner.state['counters'].update(environment_games=0,collection_batches=0)
                 def validated(method):
                     self.assertEqual(method,'bc')
