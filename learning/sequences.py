@@ -355,18 +355,11 @@ def _candidate_plan(indexed, limit, rng):
 
 
 def _water_fill(capacities, requested):
-    """Equal share per family, then hand leftover capacity to whoever has room."""
+    """Max-min shares with stable remainder order; adding families only shrinks shares."""
     allocation = [0] * len(capacities)
     remaining = requested
     if not capacities or remaining <= 0:
         return allocation
-    share = -(-requested // len(capacities))
-    for index in range(len(capacities)):
-        take = min(capacities[index], share, remaining)
-        allocation[index] = take
-        remaining -= take
-        if remaining <= 0:
-            return allocation
     while remaining > 0:
         active = [index for index, capacity in enumerate(capacities) if allocation[index] < capacity]
         if not active:
@@ -379,6 +372,25 @@ def _water_fill(capacities, requested):
             if remaining <= 0:
                 break
     return allocation
+
+
+def _trim_family(entry, share):
+    """Release targets beyond this family's share and return their byte charge."""
+    kept = []
+    remaining = share
+    released = 0
+    for window in entry['windows']:
+        take = min(remaining, len(window))
+        if take:
+            kept.append(window if take == len(window) else window[:take])
+        released += sum(_row_bytes(row) for row in window[take:])
+        remaining -= take
+    entry['windows'][:] = kept
+    entry['capacity'] = share
+    if not share:
+        released += entry['prefix']
+        entry['prefix'] = 0
+    return released
 
 
 def _fair_total(capacities, target):
@@ -448,7 +460,7 @@ def _read_all(indexed, partition, format_name, turns, seed, stats):
 
 
 def _read_bounded(indexed, partition, format_name, turns, limit, seed, gz_budget, retain_budget, stats):
-    """Fair first allocation then backfill from families already decoded."""
+    """Fair allocation during admission releases unused targets before the next decode."""
     rng = random.Random(seed)
     plan = _candidate_plan(indexed, limit, rng)
     admitted = []
@@ -502,6 +514,8 @@ def _read_bounded(indexed, partition, format_name, turns, limit, seed, gz_budget
         decoded += 1
         gz_used += cost
         rng.shuffle(windows)
+        if not windows:
+            continue
         kept = []
         size = 0
         for window in windows:
@@ -513,12 +527,16 @@ def _read_bounded(indexed, partition, format_name, turns, limit, seed, gz_budget
                 break
             kept.append(window)
             size += row_cost
+        # Drop the decoder's original containers before trimming retained targets.
+        del windows, window
         if not kept:
             continue
         charged += prefix + size
         capacity = sum(len(window) for window in kept)
         groups.setdefault(key, []).append(len(admitted))
         admitted.append(dict(windows=kept, prefix=prefix, capacity=capacity))
+        for entry, share in zip(admitted, allocation()):
+            charged -= _trim_family(entry, share)
     selected = []
     retained = 0
     retained_families = 0
