@@ -19,7 +19,7 @@ class RetaliationTests(unittest.TestCase):
                  specials=['plague'], plague_type='Ghost')]
         spec = H.spec(fog=False)
         spec['units'][0]['hp'] = 8
-        spec['units'][2].update(unit_type='Skeleton', hp=36)
+        spec['units'][2].update(unit_type='Skeleton', hp=36, moves=4)
         engine = H.engine(game_spec=spec, rules_data=rules)
         before = H.snapshot(engine)
         forecast = json.loads(engine.forecast(1, 'p1', 'e1', 0, 1))
