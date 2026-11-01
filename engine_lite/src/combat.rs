@@ -306,4 +306,71 @@ mod tests {
         // Retaliation now uses S=ceil(3*10/4)=8 at 100%: 8*1.10 -> 9.
         assert_eq!(log[1].damage, 9);
     }
+
+    #[test]
+    fn retaliation_uses_the_opponents_resistance() {
+        let mut hammer = weapon(10, 2, &[]);
+        hammer.damage_type = "impact".into();
+        let mut rules = rules(60, vec![weapon(1, 1, &[])], vec![weapon(7, 3, &[]), hammer]);
+        rules.units.get_mut("A").unwrap().resistance =
+            BTreeMap::from([("blade".into(), 40), ("impact".into(), 120)]);
+        let mut a = unit("a", "A", 40);
+        let mut d = unit("d", "D", 40);
+        let log = resolve(&rules, &mut a, &mut d, 0, PLAIN, PLAIN, 1, &Modifiers::default());
+        let blows: Vec<i32> = log.iter().filter(|s| s.attacker == "d").map(|s| s.damage).collect();
+        assert_eq!(blows, vec![8, 8]);
+        assert_eq!(a.hp, 24);
+    }
+
+    #[test]
+    fn retaliation_uses_terrain_and_magical_chance() {
+        let rules = rules(10, vec![weapon(1, 1, &[])],
+                          vec![weapon(10, 3, &[]), weapon(6, 3, &["magical"])]);
+        let mut a = unit("a", "A", 40);
+        let mut d = unit("d", "D", 40);
+        let log = resolve(&rules, &mut a, &mut d, 0, PLAIN, PLAIN, 1, &Modifiers::default());
+        assert!(log.iter().filter(|s| s.attacker == "d").all(|s| s.chance == 70));
+        assert_eq!(a.hp, 25);
+    }
+
+    #[test]
+    fn retaliation_uses_resolved_instance_damage() {
+        let rules = rules(100, vec![weapon(1, 1, &[])],
+                          vec![weapon(7, 3, &[]), weapon(8, 2, &[])]);
+        let mut a = unit("a", "A", 40);
+        let mut d = unit("d", "D", 40);
+        d.resolved_weapon_damage = vec![1, 10];
+        resolve(&rules, &mut a, &mut d, 0, PLAIN, PLAIN, 1, &Modifiers::default());
+        assert_eq!(a.hp, 18);
+    }
+
+    #[test]
+    fn retaliation_prefers_surviving_with_firststrike() {
+        let rules = rules(100, vec![weapon(40, 1, &[])],
+                          vec![weapon(20, 1, &[]), weapon(8, 1, &["firststrike"])]);
+        let mut a = unit("a", "A", 8);
+        let mut d = unit("d", "D", 20);
+        let log = resolve(&rules, &mut a, &mut d, 0, PLAIN, PLAIN, 1, &Modifiers::default());
+        assert_eq!((a.hp, d.hp), (0, 20));
+        assert_eq!(log[0].attacker, "d");
+    }
+
+    #[test]
+    fn retaliation_compares_absorb_and_surviving_poison() {
+        let mut absorb = weapon(6, 2, &[]);
+        absorb.opponent_damage_percent = Some(50);
+        let rules_absorb = rules(100, vec![weapon(10, 3, &[])],
+                                 vec![weapon(10, 2, &[]), absorb]);
+        let mut a = unit("a", "A", 40);
+        let mut d = unit("d", "D", 40);
+        resolve(&rules_absorb, &mut a, &mut d, 0, PLAIN, PLAIN, 1, &Modifiers::default());
+        assert_eq!((a.hp, d.hp), (26, 22));
+        let rules_poison = rules(100, vec![weapon(1, 1, &[])],
+                                 vec![weapon(5, 2, &[]), weapon(4, 2, &["poison"])]);
+        let mut a = unit("a", "A", 40);
+        let mut d = unit("d", "D", 40);
+        resolve(&rules_poison, &mut a, &mut d, 0, PLAIN, PLAIN, 1, &Modifiers::default());
+        assert_eq!(a.hp, 30);
+        assert!(a.status.contains("poisoned"));
+    }
 }
