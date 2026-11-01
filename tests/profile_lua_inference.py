@@ -10,7 +10,7 @@ import time
 import torch
 from lupa.lua54 import LuaRuntime
 
-from learning.export import compact_lua, lua_parameters
+from learning.export import compact_lua, load_model, lua_parameters
 from learning.formats import FORMATS
 from learning.model import Policy
 
@@ -37,11 +37,14 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--events', type=Path, required=True)
     parser.add_argument('--lua', type=Path, default=Path('lua/relational.lua'))
+    parser.add_argument('--checkpoint-dir', type=Path)
+    parser.add_argument('--reference', type=Path)
     args = parser.parse_args()
     torch.set_num_threads(1)
     torch.manual_seed(0)
     for fmt in FORMATS:
-        model = Policy(fmt)
+        model = (load_model(args.checkpoint_dir / fmt / 'last_bc.pt', fmt)[0]
+                 if args.checkpoint_dir else Policy(fmt))
         selected, origin = dense_decision(args.events, fmt)
         lua = LuaRuntime(unpack_returned_tuples=True)
         network = lua.execute(args.lua.read_text(encoding='utf-8'))
@@ -49,7 +52,19 @@ def main():
         inputs = [lua.table_from(selected[key], recursive=True)
                   for key in ('global', 'opponents', 'candidates', 'spatial')]
         forward = lambda: network.forward(weights, *inputs, lua.table(), selected['turn'])
-        forward()
+        output = forward()
+        comparison = {}
+        if args.reference:
+            reference = lua.execute(args.reference.read_text(encoding='utf-8'))
+            expected = reference.forward(weights, *inputs, lua.table(), selected['turn'])
+            def values(result):
+                scores, value, pending = result
+                return [*scores.values(), value, *pending.hidden.values(), *pending.value.values()]
+            error = max(abs(a - b) for a, b in zip(values(output), values(expected)))
+            if error != 0:
+                raise AssertionError('Lua forward changed: ' + str(error))
+            comparison = dict(reference=str(args.reference), max_error=error,
+                reference_sha256=hashlib.sha256(args.reference.read_bytes()).hexdigest())
         timings = []
         for _ in range(5):
             start = time.perf_counter()
@@ -69,6 +84,8 @@ def main():
             lua_sha256=hashlib.sha256(args.lua.read_bytes()).hexdigest(),
             event_file=str(origin), event_sha256=hashlib.sha256(origin.read_bytes()).hexdigest(),
             turn=selected['turn'], side=selected['side'], entities=len(selected['spatial']['entities']),
+            checkpoint_sha256=(hashlib.sha256((args.checkpoint_dir / fmt / 'last_bc.pt').read_bytes()).hexdigest()
+                               if args.checkpoint_dir else None), comparison=comparison,
             candidates=37, milliseconds=timings, median_ms=statistics.median(timings),
             instruction_samples=dict(lua.globals().samples)), sort_keys=True), flush=True)
 
