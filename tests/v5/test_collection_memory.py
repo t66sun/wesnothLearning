@@ -13,7 +13,7 @@ import numpy as np
 
 from tests.v5 import helpers
 from tests.v5 import test_pipeline_contract as fixtures
-from learning import data, lite_host, rowpack, sequences
+from learning import coverage, data, lite_host, rowpack, sequences
 
 
 class CollectionMemoryTests(unittest.TestCase):
@@ -109,7 +109,14 @@ class CollectionMemoryTests(unittest.TestCase):
                                    matched=sum(r['actual']['kind'] == kind and r['choice'] >= 0 for r in self))
                          for kind in ('recruit','move','attack','move_attack','end_turn')}
                 for name in ('total','matched'):kinds['attack'][name] += kinds['move_attack'][name]
-                return dict(total=len(self),matched=sum(r['choice'] >= 0 for r in self),kinds=kinds)
+                reasons = {}
+                for r in self:
+                    if r['choice'] < 0:
+                        names = ('move_attack', 'attack') if r['actual']['kind'] == 'move_attack' else (r['actual']['kind'],)
+                        for name in names:
+                            key = f"{name}:{coverage.reason(r['candidates'], r['actual'])}"
+                            reasons[key] = reasons.get(key, 0) + 1
+                return dict(total=len(self),matched=sum(r['choice'] >= 0 for r in self),kinds=kinds,reasons=reasons)
         with fixtures.catalog_patch(fixture.rules_dir), mock.patch.object(lite_host, 'compact_row', side_effect=lambda r:r), mock.patch.object(lite_host, 'TrajectoryBuffer', LegacyRows):
             baseline = lite_host.play_lite_job(baseline_job)
         self.assertEqual(baseline['status'], 'complete', baseline)

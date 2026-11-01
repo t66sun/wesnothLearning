@@ -4,6 +4,7 @@ import struct
 import tempfile
 import zlib
 
+from .coverage import reason
 from .rowpack import compact_row
 
 
@@ -26,7 +27,7 @@ class TrajectoryBuffer:
     def __init__(self):
         self.file = tempfile.TemporaryFile(mode='w+b')
         self.count = self.truncated = 0
-        self.coverage = dict(total=0, matched=0, kinds={kind: dict(total=0, matched=0)
+        self.coverage = dict(total=0, matched=0, reasons={}, kinds={kind: dict(total=0, matched=0)
                             for kind in ('recruit', 'move', 'attack', 'move_attack', 'end_turn')})
 
     def append(self, row):
@@ -45,6 +46,11 @@ class TrajectoryBuffer:
         for name in names:
             self.coverage['kinds'][name]['total'] += 1
             self.coverage['kinds'][name]['matched'] += matched
+            if not matched:
+                # Same kind fold as above, so the reasons sum to total - matched.
+                key = f"{name}:{reason(row['candidates'], row['actual'])}"
+                reasons = self.coverage['reasons']
+                reasons[key] = reasons.get(key, 0) + 1
 
     def __len__(self):
         return self.count

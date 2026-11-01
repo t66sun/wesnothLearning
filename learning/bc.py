@@ -4,6 +4,7 @@ import random
 
 import torch
 
+from .coverage import actor, destination
 from .data import make_bc_sampler
 from .formats import record_format
 from .model import batch
@@ -104,6 +105,17 @@ def auxiliary_loss(logits, rows):
     return torch.stack(losses).mean()
 
 
+RANK_BUCKETS = ('1', '2-3', '4-8', '9-16', '17+')
+
+
+def rank_bucket(rank):
+    """Bucket a 1-based label rank so the fit report stays readable."""
+    for limit, name in ((1, '1'), (3, '2-3'), (8, '4-8'), (16, '9-16')):
+        if rank <= limit:
+            return name
+    return '17+'
+
+
 @torch.no_grad()
 def imitation_quality(model, records, minimum=32, thresholds=None):
     import math
@@ -114,7 +126,9 @@ def imitation_quality(model, records, minimum=32, thresholds=None):
     for fmt in [model.format_name]:
         rows = [r for r in records if r['split'] == 'validation' and record_format(r) == fmt and len(r['candidates']) > 1]
         loss = uniform = correct = chance = 0.
-        kinds = {k: dict(samples=0, correct=0) for k in ('recruit', 'move', 'attack')}
+        kinds = {k: dict(samples=0, correct=0, same_kind=0, same_actor=0, same_destination=0,
+                         candidate_total=0, ranks={b: 0 for b in RANK_BUCKETS})
+                 for k in ('recruit', 'move', 'attack')}
         for offset in range(0, len(rows), 64):
             chunk = rows[offset:offset + 64]
             logits, _ = model(*batch(chunk, device))
@@ -123,17 +137,28 @@ def imitation_quality(model, records, minimum=32, thresholds=None):
             correct += float((logits.argmax(1) == target).sum())
             predicted = logits.argmax(1).tolist()
             for i, r in enumerate(chunk):
-                kind = r.get('actual', r['candidates'][r['choice']]).get('kind')
+                label = r.get('actual', r['candidates'][r['choice']])
+                kind = label.get('kind')
                 if kind == 'move_attack':
                     kind = 'attack'
                 if kind in kinds:
-                    kinds[kind]['samples'] += 1
-                    kinds[kind]['correct'] += int(predicted[i] == r['choice'])
+                    entry = kinds[kind]
+                    entry['samples'] += 1
+                    entry['correct'] += int(predicted[i] == r['choice'])
+                    entry['candidate_total'] += len(r['candidates'])
+                    best = r['candidates'][predicted[i]] if 0 <= predicted[i] < len(r['candidates']) else None
+                    if best is not None:
+                        entry['same_kind'] += int(('attack' if best.get('kind') == 'move_attack' else best.get('kind')) == kind)
+                        entry['same_actor'] += int(actor(best) == actor(label))
+                        entry['same_destination'] += int(destination(best) == destination(label))
+                    rank = 1 + int((logits[i, :len(r['candidates'])] > logits[i, r['choice']]).sum())
+                    entry['ranks'][rank_bucket(rank)] += 1
             uniform += sum(math.log(len(r['candidates'])) for r in chunk)
             chance += sum(1 / len(r['candidates']) for r in chunk)
         count = len(rows)
         for k, v in kinds.items():
             v['accuracy'] = v['correct'] / max(1, v['samples'])
+            v['mean_candidates'] = v.pop('candidate_total') / max(1, v['samples'])
         effective = count >= minimum and loss < .85 * uniform and correct / max(1, count) >= thresholds['all']
         effective = effective and all(v['samples'] >= minimum and v['accuracy'] >= thresholds[k] for k, v in kinds.items())
         metrics[fmt] = dict(samples=count, cross_entropy=loss / max(1, count), uniform_entropy=uniform / max(1, count),

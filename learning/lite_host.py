@@ -11,6 +11,7 @@ import time
 from pathlib import Path
 
 from .adapters import COMBAT_VERSION, ENGINE_VERSION, LiteAdapter, RNG_VERSION, ROOT
+from .coverage import matching
 from .rowpack import compact_row
 from .trajectory_buffer import TrajectoryBuffer
 
@@ -85,17 +86,6 @@ def teacher_candidate(plan):
     if kind in ('recruit', 'end_turn'):
         return {k: v for k, v in plan.items() if k in ('kind', 'type', 'x', 'y')}
     raise ValueError(f'unsupported Astra intent {kind}')
-
-
-def _matching(candidates, action):
-    fields = {'end_turn': (), 'move': ('x', 'y', 'tx', 'ty', 'full'),
-              'attack': ('x', 'y', 'tx', 'ty', 'weapon'),
-              'move_attack': ('x', 'y', 'tx', 'ty', 'ex', 'ey', 'weapon'),
-              'recruit': ('type', 'x', 'y')}
-    for i, candidate in enumerate(candidates):
-        if candidate['kind'] == action['kind'] and all(candidate.get(k) == action.get(k) for k in fields[action['kind']]):
-            return i
-    return -1
 
 
 def play_lite_job(job):
@@ -189,7 +179,7 @@ def play_lite_job(job):
             teacher_plan=decision.pop('teacher_action',None)
             if teacher:
                 action = teacher_candidate(teacher_plan)
-                choice = _matching(decision['candidates'], action)
+                choice = matching(decision['candidates'], action)
                 decision.update(choice=choice, log_probability=0., value=0., teacher='gpt6astra',
                                 actual=action, intent=action, representable=True)
             else:
@@ -218,7 +208,7 @@ def play_lite_job(job):
                     label=dict(decision,source='astra',teacher='gpt6astra',teacher_impl='astra_lite',choice=-1,value_valid=False,data_pool='dagger')
                     if query:
                         query_count[current]=query_count.get(current,0)+1;query_total+=1
-                        wanted=teacher_candidate(teacher_plan);label.update(actual=wanted,intent=wanted,choice=_matching(decision['candidates'],wanted),query_only=True)
+                        wanted=teacher_candidate(teacher_plan);label.update(actual=wanted,intent=wanted,choice=matching(decision['candidates'],wanted),query_only=True)
                     dagger.append(label)
             view = outcome['view'];current = view['current_side']
             newly = {s['id'] for s in view['sides'] if s['eliminated']} - defeated
