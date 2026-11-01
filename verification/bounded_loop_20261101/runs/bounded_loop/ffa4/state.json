@@ -1,0 +1,208 @@
+{
+  "format": "ffa4",
+  "stage": "bc",
+  "phase": "bc",
+  "clock": {
+    "started": 1793505441.8902433,
+    "update_deadline": 1793506401.8902433,
+    "deadline": 1793506593.8902433
+  },
+  "batch": 1,
+  "version": 1,
+  "history": [
+    {
+      "batch": 0,
+      "method": "bc",
+      "elapsed_hours": 0.08126365118556553,
+      "reads": {
+        "bc": {
+          "requested": 2048,
+          "rows": 964,
+          "families": 5,
+          "selected": 5,
+          "families_decoded": 5,
+          "families_selected": 5,
+          "families_admitted": 5,
+          "families_retained": 5,
+          "windows": 28,
+          "sources": {
+            "astra": 964
+          },
+          "engines": {
+            "lite": 964
+          },
+          "kinds": {
+            "recruit": 63,
+            "end_turn": 206,
+            "move": 555,
+            "move_attack": 88,
+            "attack": 52
+          },
+          "gz_bytes": 15211775,
+          "retained_bytes": 113608772,
+          "deficit": 1084,
+          "stop_reason": "insufficient_data"
+        },
+        "validation": {
+          "requested": 1024,
+          "rows": 435,
+          "families": 3,
+          "selected": 3,
+          "families_decoded": 3,
+          "families_selected": 3,
+          "families_admitted": 3,
+          "families_retained": 3,
+          "windows": 14,
+          "sources": {
+            "astra": 435
+          },
+          "engines": {
+            "lite": 435
+          },
+          "kinds": {
+            "recruit": 37,
+            "end_turn": 110,
+            "move_attack": 59,
+            "attack": 41,
+            "move": 188
+          },
+          "gz_bytes": 7456447,
+          "retained_bytes": 51044460,
+          "deficit": 589,
+          "stop_reason": "insufficient_data"
+        }
+      },
+      "peak_rss_mb": 705,
+      "updates": 28,
+      "loss": 3.1924360651256785,
+      "interrupted": false,
+      "approx_kl": 0.0,
+      "kl_stopped": false,
+      "decisions_seen": 3783,
+      "unique_families_seen": 5,
+      "effective_dataset_passes": 3.9242738589211617,
+      "sequence_windows": 28,
+      "microbatch": 32,
+      "window_visits": 112,
+      "unique_windows_seen": 27,
+      "repeated_window_visits": 85
+    }
+  ],
+  "snapshots": [],
+  "best_key": null,
+  "bc_key": null,
+  "ppo_key": null,
+  "best_kind": null,
+  "pending_train": {
+    "paths": [
+      "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00000-ffa4-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00001-ffa4-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00002-ffa4-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00003-ffa4-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00004-ffa4-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00005-ffa4-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00006-ffa4-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00007-ffa4-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00008-ffa4-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00009-ffa4-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00010-ffa4-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00011-ffa4-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00012-ffa4-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00013-ffa4-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00014-ffa4-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00015-ffa4-t0.jsonl.gz"
+    ],
+    "method": "bc",
+    "cursor": {
+      "epoch": 0,
+      "step": 0
+    },
+    "reward_config": {
+      "economy": 0.15,
+      "control": 0.1,
+      "explore": 0.1,
+      "mode": "adaptive",
+      "entropy": 0.01,
+      "bc_aux": 0.1,
+      "gamma": 1.0,
+      "gae_lambda": 0.95,
+      "reward_version": 0,
+      "reward_formula_id": "v5-potential-1"
+    },
+    "identity": {
+      "train": "8d0f19f1172a7bddea5167366396318a9d2ef5a5c8eb4026036ff051af1e1c21"
+    }
+  },
+  "pending_validation": null,
+  "teacher_shards": [
+    "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00000-ffa4-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00001-ffa4-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00002-ffa4-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00003-ffa4-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00004-ffa4-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00005-ffa4-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00006-ffa4-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00007-ffa4-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00008-ffa4-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00009-ffa4-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00010-ffa4-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00011-ffa4-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00012-ffa4-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00013-ffa4-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00014-ffa4-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00015-ffa4-t0.jsonl.gz"
+  ],
+  "effective": false,
+  "error": null,
+  "dagger_shards": [],
+  "policy_shards": [],
+  "counters": {
+    "environment_games": 16,
+    "collection_batches": 2,
+    "optimizer_steps": 28,
+    "unique_families_seen": 8,
+    "decisions_seen": 3783,
+    "effective_dataset_passes": 3.9242738589211617
+  },
+  "reward_controller": {
+    "config": {
+      "economy": 0.15,
+      "control": 0.1,
+      "explore": 0.1,
+      "mode": "adaptive",
+      "entropy": 0.01,
+      "bc_aux": 0.1,
+      "gamma": 1.0,
+      "gae_lambda": 0.95,
+      "reward_version": 0,
+      "reward_formula_id": "v5-potential-1"
+    },
+    "cursor": 0,
+    "last_check": 0,
+    "games": 8,
+    "blocks": [],
+    "seen_blocks": [],
+    "windows": [],
+    "control_previous": null,
+    "last_error": null,
+    "metrics_error": null,
+    "applied_schedule": []
+  },
+  "families_seen": [
+    "1cb88bc333cc6faad6433b6ee15ffa5e0cc9f2ba812d78e7e75e8329e7f0bf2b",
+    "682b870b149c57419cae371759cca8904419afd5edd863dd060a8bfdb14d6679",
+    "7879eb62cd58a45eed8439ea0cfe1007a68435da889f5971615685d3351fc7d4",
+    "7f5b30745ebf40f38be86beab7a1742ad33cca9e3edc1b305fc99c583b5f0fd9",
+    "b0e042a7bba579a1a3e76fd174c2715a30aa12129a949d4735cfce26dee3cbbf",
+    "c941ec6220eee0d6b4c2d6dd677afcefaa32ebe5f699f5efa22e26267b077d52",
+    "cbf08e73afe2735e78a55c0ade5ad4a22e7845164ae1b99034a6d77bb53da5b4",
+    "f1fda7ebfc81fe5f3c3c5f8d1dda42946c973d8ff0989116094e30a4ae846219"
+  ],
+  "bc_quality_best": 0.23167848699763594,
+  "bc_plateau": 0,
+  "control_metrics": {
+    "partition": "train",
+    "new_games": 8,
+    "faulted_games": 0
+  }
+}

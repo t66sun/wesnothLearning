@@ -2,7 +2,7 @@
 
 > Language: English | [中文](TEST_zh.md)
 
-Updated 2026-10-31. This file holds only acceptance work that is still open. Accepted items leave it as a whole and stay as dated evidence under `verification/`; `docs/architecture.md` describes the current implementation, not its acceptance history.
+Updated 2026-11-01. This file holds only acceptance work that is still open. Accepted items leave it as a whole and stay as dated evidence under `verification/`; `docs/architecture.md` describes the current implementation, not its acceptance history.
 
 Every item states what is open, the smallest Ubuntu procedure that would close it, the pass criteria and the evidence path. Status vocabulary: **PASS**, **FAIL**, **NOT RUN**, **REUSED** (existing evidence with matching identities). A check that cannot run is NOT RUN, never a skipped pass. Bounded smoke results label themselves inconclusive for strength, and no item here authorizes collection, formal training or tuning.
 
@@ -22,6 +22,16 @@ Every item states what is open, the smallest Ubuntu procedure that would close i
 **Pass:** the run reaches final evaluation; both PPO updates commit; resuming from the saved boundary reproduces the uninterrupted future exactly where identities match; the selected checkpoint and its export are recorded; every stop reason is reported rather than hidden. Reduced-panel limits stay inconclusive for strength, and a failure remains a failure.
 
 **Evidence:** `verification/acceptance_20261031_astra/REPORT.md` with identities, the stop/resume boundary, the same-future comparison of batches 8–11, the selection and export record, the native-budget faults and their clearing (`verification/action_budget_20261031/REPORT.md`); `verification/acceptance_20261031/L1/REPORT.md` remains the record of the earlier pre-restoration run.
+
+## L2 — Ordinary gated all-format bounded loop
+
+**Status:** FAIL at BC on Ubuntu 2026-11-01. Source `5f86804` ran `tests/bounded_training_loop.py` for 558.33 s until duel reached the predeclared five-batch cap. Committed BC batches: 5/1/1; recorded complete games: 24/16/13, all turn-truncated, zero recorded faults. Duel reached its corpus/scenario targets but failed coverage and imitation (31.33% overall accuracy). Other formats last gated eight games each. PPO, resume, selection, final evaluation and audited export are NOT RUN. This is a training blocker; the full loop is not accepted.
+
+**Procedure:** diagnose coverage and held-out per-kind imitation using existing rows first. After repair and explicit execution instruction, ship a committed archive into a fresh Ubuntu directory; freeze three formats, seed, workers, row/game/batch/time caps and unchanged panel/gate thresholds. The existing runner records the limits and stops at the first incomplete stage. Later runner branches have not yet been exercised.
+
+**Pass:** all declared formats pass ordinary BC, commit at least two PPO updates, resume without repeating committed work, complete the required final panel and pass audited export; record model/input identities, complete/faulted/truncated counts and each stage duration. No forced PPO or automatic budget extension. Native strength remains outside this smoke.
+
+**Evidence:** `verification/bounded_loop_20261101/REPORT.md`, with raw plan, states, gates, jobs and checkpoint hashes. No fresh same-future or post-BC evidence was obtained; L1's historical result does not accept this run.
 
 ## R3 — Adapted teacher strength evidence
 
