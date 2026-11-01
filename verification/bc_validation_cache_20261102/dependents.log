@@ -1,0 +1,64 @@
+test_memory_cache_is_separate_for_sides_and_new_jobs (tests.v5.test_lite_policy_memory.FrozenMemoryTests.test_memory_cache_is_separate_for_sides_and_new_jobs) ... ok
+test_real_policy_parity_and_one_replay_until_history_or_turn_changes (tests.v5.test_lite_policy_memory.FrozenMemoryTests.test_real_policy_parity_and_one_replay_until_history_or_turn_changes) ... ok
+test_long_rollout_encodes_each_history_row_once (tests.v5.test_window_memory_cost.IncrementalMemoryTests.test_long_rollout_encodes_each_history_row_once) ... ok
+test_memory_cache_is_separate_for_sides_and_new_jobs (tests.v5.test_window_memory_cost.IncrementalMemoryTests.test_memory_cache_is_separate_for_sides_and_new_jobs) ... ok
+test_real_policy_parity_and_one_replay_until_history_or_turn_changes (tests.v5.test_window_memory_cost.IncrementalMemoryTests.test_real_policy_parity_and_one_replay_until_history_or_turn_changes) ... ok
+test_bc_indexes_windows_not_decisions (tests.v5.test_window_memory_cost.WindowMemoryTests.test_bc_indexes_windows_not_decisions) ... ok
+test_detached_cache_preserves_gradients_and_reduces_encoding (tests.v5.test_window_memory_cost.WindowMemoryTests.test_detached_cache_preserves_gradients_and_reduces_encoding) ... ok
+test_imitation_quality_gate (tests.v5.test_learning_core.AuditExportTests.test_imitation_quality_gate) ... ERROR
+test_imitation_quality_enforces_kind_precision_thresholds (tests.v5.test_learning_core.AuditExportTests.test_imitation_quality_enforces_kind_precision_thresholds) ... ERROR
+test_verify_numerics_37_candidates_two_turns (tests.v5.test_learning_core.AuditExportTests.test_verify_numerics_37_candidates_two_turns) ... ok
+test_verify_numerics_memory_overflow_and_128_entities (tests.v5.test_learning_core.AuditExportTests.test_verify_numerics_memory_overflow_and_128_entities) ... ok
+
+======================================================================
+ERROR: test_imitation_quality_gate (tests.v5.test_learning_core.AuditExportTests.test_imitation_quality_gate)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/bc_validation_green_20261102/tests/v5/test_learning_core.py", line 737, in test_imitation_quality_gate
+    accepted = imitation_quality(good, _quality_set())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/venv/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 120, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/bc_validation_green_20261102/learning/bc.py", line 135, in imitation_quality
+    logits, _ = model(*batch(chunk, device, history_cache=history_cache))
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/mock.py", line 1134, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/mock.py", line 1138, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/mock.py", line 1199, in _execute_mock_call
+    result = effect(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: AuditExportTests.test_imitation_quality_gate.<locals>.<lambda>() got an unexpected keyword argument 'history_cache'
+
+======================================================================
+ERROR: test_imitation_quality_enforces_kind_precision_thresholds (tests.v5.test_learning_core.AuditExportTests.test_imitation_quality_enforces_kind_precision_thresholds)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/bc_validation_green_20261102/tests/v5/test_learning_core.py", line 756, in test_imitation_quality_enforces_kind_precision_thresholds
+    report = imitation_quality(_FixedModel([[1., 0.]]), rows)['formats']['duel']
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/venv/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 120, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/bc_validation_green_20261102/learning/bc.py", line 135, in imitation_quality
+    logits, _ = model(*batch(chunk, device, history_cache=history_cache))
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/mock.py", line 1134, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/mock.py", line 1138, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/mock.py", line 1199, in _execute_mock_call
+    result = effect(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: AuditExportTests.test_imitation_quality_enforces_kind_precision_thresholds.<locals>.<lambda>() got an unexpected keyword argument 'history_cache'
+
+----------------------------------------------------------------------
+Ran 11 tests in 8.245s
+
+FAILED (errors=2)

@@ -1,0 +1,7 @@
+test_imitation_quality_gate (tests.v5.test_learning_core.AuditExportTests.test_imitation_quality_gate) ... ok
+test_imitation_quality_enforces_kind_precision_thresholds (tests.v5.test_learning_core.AuditExportTests.test_imitation_quality_enforces_kind_precision_thresholds) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.007s
+
+OK
