@@ -1,0 +1,8 @@
+test_resume_restores_frozen_limit (tests.v5.test_training_turn_limit.TrainingTurnLimitTests.test_resume_restores_frozen_limit) ... ok
+test_lite_final_evaluation_has_only_astra_controls (tests.v5.test_lite_default.LiteDefaultTests.test_lite_final_evaluation_has_only_astra_controls) ... ok
+test_resume_keeps_frozen_targets_workers_and_deadline (tests.v5.test_lite_default.LiteDefaultTests.test_resume_keeps_frozen_targets_workers_and_deadline) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.073s
+
+OK

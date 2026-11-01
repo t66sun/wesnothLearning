@@ -1,0 +1,130 @@
+test_default_cli_and_invalid_limits (tests.v5.test_training_turn_limit.TrainingTurnLimitTests.test_default_cli_and_invalid_limits) ... ERROR
+test_default_evaluation_and_existing_frozen_schedule (tests.v5.test_training_turn_limit.TrainingTurnLimitTests.test_default_evaluation_and_existing_frozen_schedule) ... FAIL
+test_manual_loop_passes_the_declared_turn_limit (tests.v5.test_training_turn_limit.TrainingTurnLimitTests.test_manual_loop_passes_the_declared_turn_limit) ... FAIL BC execution or bounded batch/time limit
+FAIL
+test_resume_restores_frozen_limit (tests.v5.test_training_turn_limit.TrainingTurnLimitTests.test_resume_restores_frozen_limit) ... usage: python -m unittest [-h]
+                          {run,phase,collect,train,evaluate,export,report,package,bundle,verify-bundle,import-human,control,audit,benchmark,rules,freeze-map}
+                          ...
+python -m unittest: error: unrecognized arguments: --training-max-turns 11
+ERROR
+test_teacher_ppo_and_refresh_use_actual_limit_and_partition (tests.v5.test_training_turn_limit.TrainingTurnLimitTests.test_teacher_ppo_and_refresh_use_actual_limit_and_partition) ... 
+  test_teacher_ppo_and_refresh_use_actual_limit_and_partition (tests.v5.test_training_turn_limit.TrainingTurnLimitTests.test_teacher_ppo_and_refresh_use_actual_limit_and_partition) (engine='lite', format='duel') ... FAIL
+  test_teacher_ppo_and_refresh_use_actual_limit_and_partition (tests.v5.test_training_turn_limit.TrainingTurnLimitTests.test_teacher_ppo_and_refresh_use_actual_limit_and_partition) (engine='lite', format='ffa4') ... FAIL
+  test_teacher_ppo_and_refresh_use_actual_limit_and_partition (tests.v5.test_training_turn_limit.TrainingTurnLimitTests.test_teacher_ppo_and_refresh_use_actual_limit_and_partition) (engine='lite', format='team2v2') ... FAIL
+  test_teacher_ppo_and_refresh_use_actual_limit_and_partition (tests.v5.test_training_turn_limit.TrainingTurnLimitTests.test_teacher_ppo_and_refresh_use_actual_limit_and_partition) (engine='native', format='duel') ... FAIL
+  test_teacher_ppo_and_refresh_use_actual_limit_and_partition (tests.v5.test_training_turn_limit.TrainingTurnLimitTests.test_teacher_ppo_and_refresh_use_actual_limit_and_partition) (engine='native', format='ffa4') ... FAIL
+  test_teacher_ppo_and_refresh_use_actual_limit_and_partition (tests.v5.test_training_turn_limit.TrainingTurnLimitTests.test_teacher_ppo_and_refresh_use_actual_limit_and_partition) (engine='native', format='team2v2') ... FAIL
+
+======================================================================
+ERROR: test_default_cli_and_invalid_limits (tests.v5.test_training_turn_limit.TrainingTurnLimitTests.test_default_cli_and_invalid_limits)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/training_turn_red_20261102/tests/v5/test_training_turn_limit.py", line 42, in test_default_cli_and_invalid_limits
+    self.assertEqual(config['training_max_turns'], 60)
+                     ~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'training_max_turns'
+
+======================================================================
+ERROR: test_resume_restores_frozen_limit (tests.v5.test_training_turn_limit.TrainingTurnLimitTests.test_resume_restores_frozen_limit)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/training_turn_red_20261102/tests/v5/test_training_turn_limit.py", line 102, in test_resume_restores_frozen_limit
+    requested = run_config(parser().parse_args(['run', '--resume', tmp, '--training-max-turns', '11']))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/argparse.py", line 1911, in parse_args
+    self.error(msg % ' '.join(argv))
+  File "/usr/lib/python3.12/argparse.py", line 2677, in error
+    self.exit(2, _('%(prog)s: error: %(message)s\n') % args)
+  File "/usr/lib/python3.12/argparse.py", line 2664, in exit
+    _sys.exit(status)
+SystemExit: 2
+
+======================================================================
+FAIL: test_default_evaluation_and_existing_frozen_schedule (tests.v5.test_training_turn_limit.TrainingTurnLimitTests.test_default_evaluation_and_existing_frozen_schedule)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/training_turn_red_20261102/tests/v5/test_training_turn_limit.py", line 81, in test_default_evaluation_and_existing_frozen_schedule
+    self.assertEqual({job['max_turns'] for job in scheduled}, {11})
+AssertionError: Items in the first set but not the second:
+60
+Items in the second set but not the first:
+11
+
+======================================================================
+FAIL: test_manual_loop_passes_the_declared_turn_limit (tests.v5.test_training_turn_limit.TrainingTurnLimitTests.test_manual_loop_passes_the_declared_turn_limit)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/training_turn_red_20261102/tests/v5/test_training_turn_limit.py", line 117, in test_manual_loop_passes_the_declared_turn_limit
+    self.assertEqual(config.get('training_max_turns', 60), plan['turn_limit'])
+AssertionError: 60 != 30
+
+======================================================================
+FAIL: test_teacher_ppo_and_refresh_use_actual_limit_and_partition (tests.v5.test_training_turn_limit.TrainingTurnLimitTests.test_teacher_ppo_and_refresh_use_actual_limit_and_partition) (engine='lite', format='duel')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/training_turn_red_20261102/tests/v5/test_training_turn_limit.py", line 61, in test_teacher_ppo_and_refresh_use_actual_limit_and_partition
+    self.assertEqual({job['max_turns'] for job in scheduled}, {11})
+AssertionError: Items in the first set but not the second:
+60
+Items in the second set but not the first:
+11
+
+======================================================================
+FAIL: test_teacher_ppo_and_refresh_use_actual_limit_and_partition (tests.v5.test_training_turn_limit.TrainingTurnLimitTests.test_teacher_ppo_and_refresh_use_actual_limit_and_partition) (engine='lite', format='ffa4')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/training_turn_red_20261102/tests/v5/test_training_turn_limit.py", line 61, in test_teacher_ppo_and_refresh_use_actual_limit_and_partition
+    self.assertEqual({job['max_turns'] for job in scheduled}, {11})
+AssertionError: Items in the first set but not the second:
+60
+Items in the second set but not the first:
+11
+
+======================================================================
+FAIL: test_teacher_ppo_and_refresh_use_actual_limit_and_partition (tests.v5.test_training_turn_limit.TrainingTurnLimitTests.test_teacher_ppo_and_refresh_use_actual_limit_and_partition) (engine='lite', format='team2v2')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/training_turn_red_20261102/tests/v5/test_training_turn_limit.py", line 61, in test_teacher_ppo_and_refresh_use_actual_limit_and_partition
+    self.assertEqual({job['max_turns'] for job in scheduled}, {11})
+AssertionError: Items in the first set but not the second:
+60
+Items in the second set but not the first:
+11
+
+======================================================================
+FAIL: test_teacher_ppo_and_refresh_use_actual_limit_and_partition (tests.v5.test_training_turn_limit.TrainingTurnLimitTests.test_teacher_ppo_and_refresh_use_actual_limit_and_partition) (engine='native', format='duel')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/training_turn_red_20261102/tests/v5/test_training_turn_limit.py", line 61, in test_teacher_ppo_and_refresh_use_actual_limit_and_partition
+    self.assertEqual({job['max_turns'] for job in scheduled}, {11})
+AssertionError: Items in the first set but not the second:
+60
+Items in the second set but not the first:
+11
+
+======================================================================
+FAIL: test_teacher_ppo_and_refresh_use_actual_limit_and_partition (tests.v5.test_training_turn_limit.TrainingTurnLimitTests.test_teacher_ppo_and_refresh_use_actual_limit_and_partition) (engine='native', format='ffa4')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/training_turn_red_20261102/tests/v5/test_training_turn_limit.py", line 61, in test_teacher_ppo_and_refresh_use_actual_limit_and_partition
+    self.assertEqual({job['max_turns'] for job in scheduled}, {11})
+AssertionError: Items in the first set but not the second:
+60
+Items in the second set but not the first:
+11
+
+======================================================================
+FAIL: test_teacher_ppo_and_refresh_use_actual_limit_and_partition (tests.v5.test_training_turn_limit.TrainingTurnLimitTests.test_teacher_ppo_and_refresh_use_actual_limit_and_partition) (engine='native', format='team2v2')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/training_turn_red_20261102/tests/v5/test_training_turn_limit.py", line 61, in test_teacher_ppo_and_refresh_use_actual_limit_and_partition
+    self.assertEqual({job['max_turns'] for job in scheduled}, {11})
+AssertionError: Items in the first set but not the second:
+60
+Items in the second set but not the first:
+11
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.085s
+
+FAILED (failures=8, errors=2)

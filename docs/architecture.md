@@ -187,6 +187,8 @@ Differential tooling: `python -m engine_lite.differential` audits lite versus na
 
 The benchmark workload is fixed by `benchmarks/contract.json`: paired native/lite manifests, cold and resident-hot cache, equal-work and end-to-end modes, and 30 complete seat-rotation blocks per group. Acceptance needs an identical host, CPU quota and `work_signature`, process-tree CPU including the coordinator, PSS (never RSS) and both wall and CPU at least 5× native; missing artifacts, faults or unequal work stay `inconclusive`.
 
+Training jobs bind the positive `training_max_turns` config before scenario eligibility, hashing and freezing. The bounded runner passes its declared 30; default and legacy configurations keep 60. Frozen schedules and resumed manifests remain authoritative; evaluation and opening probes keep independent limits. All 50 affected Ubuntu checks pass (`verification/training_turn_limit_20261102/REPORT.md`); this proves wiring, not ordinary BC or full-loop readiness.
+
 ## 12. Default parameters
 
 | Parameter | Default |
@@ -208,7 +210,7 @@ The benchmark workload is fixed by `benchmarks/contract.json`: paired native/lit
 | KL limit / plan version | 0.02 / 2 |
 | reward mode / ranges | adaptive / economy 0.05–0.20, control 0.02–0.15, explore 0–0.15 |
 | shared candidate limit | 36 actions + 1 end-turn (all phases) |
-| turn cap | 30 (training, calibration, panels) |
+| turn cap | training 60 (`training_max_turns`); calibration/panels 30; opening probe 5 |
 | shard budgets | 96 MiB compressed, 768 MiB retained estimate |
 | final holdout hours | 0 |
 
