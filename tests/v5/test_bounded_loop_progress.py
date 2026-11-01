@@ -64,6 +64,24 @@ class BoundedLoopProgressTests(unittest.TestCase):
                 self.assertNotIn('evaluate', dict(calls))
                 self.assertIn('ppo_resume', result['reason'])
 
+    def test_stage_enforces_each_formats_limit(self):
+        for batches, stopped in (([5, 2, 1], False), ([8, 6, 4], True)):
+            with self.subTest(batches=batches), tempfile.TemporaryDirectory() as tmp, \
+                 mock.patch.object(loop, 'OUT', Path(tmp)), \
+                 mock.patch.object(loop, 'states', return_value={
+                     fmt: dict(batch=batch) for fmt, batch in zip(loop.FORMATS, batches)}), \
+                 mock.patch.object(loop.subprocess, 'Popen') as popen, \
+                 mock.patch.object(loop.os, 'killpg') as kill, \
+                 mock.patch.object(loop.time, 'sleep'):
+                popen.return_value.poll.side_effect = [None, 0]
+                popen.return_value.wait.return_value = -15 if stopped else 0
+                result = loop.stage('ppo', ['unused'], 100,
+                                    batch_limit=dict(duel=9, ffa4=6, team2v2=5))
+                self.assertEqual(result, not stopped)
+                self.assertEqual(kill.call_count, int(stopped))
+                report = json.loads((Path(tmp)/'ppo.json').read_text())
+                self.assertEqual(report['stop_reason'], 'committed_batch_limit' if stopped else None)
+
 
 if __name__ == '__main__':
     unittest.main()

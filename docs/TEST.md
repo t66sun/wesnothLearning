@@ -13,6 +13,16 @@ Every item states what is open, the smallest Ubuntu procedure that would close i
 - Reuse accepted evidence instead of duplicating it. No full faction/rules/worker/seed matrix, new corpus, long convergence run or repeated pressure test merely because code moved.
 - Derived fixtures are prepared once with parent hashes and without editing historical evidence. A small chain proves wiring, not quality, promotion, convergence or strength.
 
+## B1 — Bounded runner PPO progress accounting
+
+**Status:** implemented, awaiting Ubuntu acceptance. The manual runner gives each format four additional batches relative to its own entry batch and requires new committed PPO updates after both start and resume, with no pending training or trainer error.
+
+**Procedure:** ship a committed source archive; run `python -m unittest tests.v5.test_bounded_loop_progress tests.v5.test_training_turn_limit -v`. Use simulated stages only; no collection or training.
+
+**Pass:** unequal BC batch counts do not cause premature PPO stopping; each format's cap still stops the stage; stalled, pending or failed resume cannot advance to evaluation. The regression fails on the original runner.
+
+**Evidence:** new `verification/bounded_progress_20261102/REPORT.md`. This proves runner wiring only; L1/L2 remain training blockers and no same-future result is implied.
+
 ## L1 — Reduced full-loop run
 
 **Status:** FAIL on the Ubuntu host 2026-10-31, re-entered on the restored Astra route (`master` `5ac67d9`). Panel, PPO updates, stop/resume, the selection/export record and the same-future clause passed; final evaluation still scored no game. Measured: 40/40 duel Astra teacher games completed (4,139 eligible rows), 5 BC batches (268 updates) below the imitation gate (accuracy 0.401, cross-entropy 2.300 vs uniform 4.388), PPO forced with a recorded reason, 7 batches with 6–8 applied updates; SIGINT ignored, SIGKILL at `applied=3` (version 8, batch 8 pending) resumed and finished `ppo_complete` at version 12 without recomputing batches 0–7. The uninterrupted twin applied the same 7 batches and batches 8–11 matched exactly, so the same-future clause is verifiable and passes. All 120 final games faulted with `watchdog_timeout` at `turns 1`: one exported-policy decision cost ≈1.9 s while `vendor/arena/params.py:8` freezes `ACTION_TIMEOUT = 1.0`; the selection fell back to `last_ppo.pt` v12 and its export was recorded. That cause is fixed — the exported add-on carries `score_limit=24` and the scorer hoists its candidate-independent input, so eight duel games against an exported policy finished without a fault at most 234 ms per decision (`verification/action_budget_20261031/REPORT.md`) — so the item's remaining step is the evaluation re-run, which is NOT RUN and needs an explicit instruction.

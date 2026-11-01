@@ -13,6 +13,16 @@
 - 复用已验收证据，不要重复。不因代码搬动就重跑完整阵营/规则/worker/种子矩阵、新语料、长收敛实验或压力测试。
 - 派生夹具只准备一次，带父哈希，且不修改历史证据。小链条只证明接线，不证明质量、晋升、收敛或棋力。
 
+## B1 — 有界 runner 的 PPO 进展计数
+
+**状态：** 已实现，待 Ubuntu 验收。手动 runner 按每种赛制进入阶段时的批次号增加四批上限；首次 PPO 和恢复后均要求新增已提交更新，且没有待完成训练或训练器错误。
+
+**步骤：** 发送已提交源码归档，运行 `python -m unittest tests.v5.test_bounded_loop_progress tests.v5.test_training_turn_limit -v`。仅模拟阶段，不采集、不训练。
+
+**通过：** BC 批次号不齐不会导致 PPO 提前停止；每赛制上限仍生效；恢复无进展、待提交或失败时不能进入评估。回归检查须在原 runner 上失败。
+
+**证据：** 新建 `verification/bounded_progress_20261102/REPORT.md`。仅证明 runner 贯通，L1/L2 仍阻塞训练验收，不代表同未来复现通过。
+
 ## L1 —— 缩减全链路运行
 
 **状态：** 2026-10-31 在 Ubuntu 主机上 FAIL，在恢复后的 Astra 路线上重测（`master` `5ac67d9`）。面板、PPO 更新、停止/恢复、选中检查点/导出记录与同未来条款通过；final 评估仍未产出任何可比对局。实测：40/40 场 duel Astra 教师对局完成（4,139 条合格行），5 个 BC 批次（268 次更新）未达到模仿门（准确率 0.401，交叉熵 2.300，均匀分布 4.388），按记录理由强制进入 PPO，7 个批次每次 6–8 次已应用更新；SIGINT 被忽略，`applied=3`（version 8，第 8 批待训练）时 SIGKILL，恢复后到 `ppo_complete`（version 12），未重算第 0–7 批。未中断的孪生运行应用了同样的 7 个批次，第 8–11 批完全一致，同未来条款因此可证实并通过。120 场 final 全部以 `turns 1` 的 `watchdog_timeout` 失败：导出策略单次决策约 1.9 s，而 `vendor/arena/params.py:8` 固定 `ACTION_TIMEOUT = 1.0`；选中项回退为 `last_ppo.pt` v12，其导出已记录。该原因已修复——导出插件带 `score_limit=24`，打分器把与候选无关的输入提到循环外，8 场针对导出策略的 duel 对局全部正常结束、单次决策最多 234 ms（`verification/action_budget_20261031/REPORT.md`）——因此本项剩余步骤是重跑评估，状态为 NOT RUN，需明确指令。

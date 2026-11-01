@@ -39,7 +39,8 @@ def stage(name, args, seconds, batch_limit=None):
             snapshot = states()
             if time.time() - start >= seconds:
                 reason = 'stage_wall_limit'
-            if batch_limit is not None and any(s.get('batch', 0) >= batch_limit for s in snapshot.values()):
+            limits = batch_limit if isinstance(batch_limit, dict) else {fmt: batch_limit for fmt in FORMATS}
+            if batch_limit is not None and any(snapshot[fmt].get('batch', 0) >= limit for fmt, limit in limits.items()):
                 reason = 'committed_batch_limit'
             if reason:
                 os.killpg(process.pid, signal.SIGTERM)
@@ -57,8 +58,13 @@ def stage(name, args, seconds, batch_limit=None):
 
 
 def phase(name, hours):
-    subprocess.run(command('phase', name, '--run-dir', RUN, '--hours', hours),
-                   cwd=ROOT, check=True, stdout=(OUT / ('request-'+name+'.log')).open('a'))
+    with (OUT / ('request-'+name+'.log')).open('a') as log:
+        subprocess.run(command('phase', name, '--run-dir', RUN, '--hours', hours),
+                       cwd=ROOT, check=True, stdout=log)
+
+
+def ppo_updates(state):
+    return sum(entry.get('updates', 0) for entry in state.get('history', []) if entry.get('method') == 'ppo')
 
 
 def main():
@@ -84,12 +90,21 @@ def main():
         return finish('FAIL', 'ordinary BC gate not passed')
     # Two separately budgeted ordinary phases exercise stop/resume from committed state.
     for name in ('ppo_first', 'ppo_resume'):
-        initial = {fmt: s.get('batch',0) for fmt,s in states().items()}
+        before = states()
+        initial = {fmt: s.get('batch',0) for fmt,s in before.items()}
+        updates_before = {fmt: ppo_updates(s) for fmt,s in before.items()}
         phase('ppo', .12)
-        if not stage(name, command('run','--resume',RUN),450,batch_limit=min(initial.values())+4):
+        limits = {fmt: batch + plan['ppo_batch_limit'] for fmt, batch in initial.items()}
+        if not stage(name, command('run','--resume',RUN),450,batch_limit=limits):
             return finish('FAIL', name+' execution or time limit')
-        (OUT / (name+'-boundary.json')).write_text(json.dumps(dict(before=initial,after=states()),indent=2))
-    if not all(s.get('history') and sum(h.get('updates',0) for h in s['history'] if h.get('method')=='ppo')>=2 for s in states().values()):
+        after = states()
+        (OUT / (name+'-boundary.json')).write_text(json.dumps(
+            dict(before=initial,updates_before=updates_before,after=after),indent=2))
+        if not all(s.get('stage') == 'ppo_complete' and not s.get('pending_train') and not s.get('error')
+                   and s.get('batch', 0) > initial[fmt] and ppo_updates(s) > updates_before[fmt]
+                   for fmt, s in after.items()):
+            return finish('FAIL', name+' did not commit new PPO updates at a completed boundary')
+    if not all(ppo_updates(s)>=2 for s in states().values()):
         return finish('FAIL', 'fewer than two committed PPO updates')
     phase('evaluate', .24)
     if not stage('evaluate', command('run','--resume',RUN),900):
