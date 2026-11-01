@@ -207,10 +207,7 @@ local function tactical_ratings(obs,u,destinations,enemies,villages,supporters,t
         d.gain=d.tactical-current;d.risk_delta=d.risk-current_risk
         return true
     end
-    table.sort(destinations,function(a,b)
-        if a.score~=b.score then return a.score>b.score end
-        return a.p[1]<b.p[1] or a.p[1]==b.p[1] and a.p[2]<b.p[2]
-    end)
+    -- Preserve the interleaved proximity/safety order through eager rating.
     for i=1,math.min(WORK.rated,#destinations) do
         if not rate(destinations[i]) then break end
     end
@@ -374,7 +371,7 @@ function M.generate(obs)
                 if (p[1]~=u.x or p[2]~=u.y) and not obs.occupied[p[1]..','..p[2]] then
                     local score=-minimum(p[1],p[2],enemies)*.2-minimum(p[1],p[2],villages)
                     for _,e in ipairs(enemies) do if distance(p[1],p[2],e)==1 then score=score+10 end end
-                    scored[#scored+1]={p=p,score=score}
+                    scored[#scored+1]={p=p,score=score,threats=#(threats[p[1]..','..p[2]] or {})}
                 end
             end
             table.sort(scored,function(a,b)
@@ -382,7 +379,24 @@ function M.generate(obs)
                 return a.p[1]<b.p[1] or a.p[1]==b.p[1] and a.p[2]<b.p[2]
             end)
             local destinations={}
-            for i=1,math.min(#scored,WORK.positions) do destinations[i]=scored[i] end
+            -- Proximity alone discards safe retreats before their risk can be
+            -- rated. Give the same bounded shortlist both progress and safety.
+            local safe={}
+            for _,d in ipairs(scored) do safe[#safe+1]=d end
+            table.sort(safe,function(a,b)
+                if a.threats~=b.threats then return a.threats<b.threats end
+                if a.score~=b.score then return a.score>b.score end
+                return a.p[1]<b.p[1] or a.p[1]==b.p[1] and a.p[2]<b.p[2]
+            end)
+            local chosen={}
+            for i=1,#scored do
+                for _,d in ipairs {scored[i],safe[i]} do
+                    if not chosen[d] and #destinations<WORK.positions then
+                        destinations[#destinations+1]=d;chosen[d]=true
+                    end
+                end
+                if #destinations>=WORK.positions then break end
+            end
             -- Keep independent goal categories. Long-distance targets are reduced to
             -- a reachable point along their visibility-aware path this turn.
             local picked={};local selected={}
