@@ -1,0 +1,17 @@
+test_seed_does_not_move_the_scenario_between_splits (tests.v5.test_scenario_identity.ScenarioIdentityTests.test_seed_does_not_move_the_scenario_between_splits) ... FAIL
+
+======================================================================
+FAIL: test_seed_does_not_move_the_scenario_between_splits (tests.v5.test_scenario_identity.ScenarioIdentityTests.test_seed_does_not_move_the_scenario_between_splits)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/bc_admission_red_single_20261102/tests/v5/test_scenario_identity.py", line 25, in test_seed_does_not_move_the_scenario_between_splits
+    self.assertEqual(jobs[0]['game_family'],
+AssertionError: '95ef082e251ed7d45add147f907dcec4643aee736b1571ac687a75b593209371' != 'ab8a9b778bc432db2c569078daa05b56736fd7f410c878c21384053dc9103dbe'
+- 95ef082e251ed7d45add147f907dcec4643aee736b1571ac687a75b593209371
++ ab8a9b778bc432db2c569078daa05b56736fd7f410c878c21384053dc9103dbe
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.099s
+
+FAILED (failures=1)

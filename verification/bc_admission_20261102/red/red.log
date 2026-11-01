@@ -1,0 +1,25 @@
+test_long_family_cannot_short_circuit_the_initial_family_pool (tests.v5.test_bc_fill.BoundedFillTests.test_long_family_cannot_short_circuit_the_initial_family_pool) ... FAIL
+
+======================================================================
+FAIL: test_long_family_cannot_short_circuit_the_initial_family_pool (tests.v5.test_bc_fill.BoundedFillTests.test_long_family_cannot_short_circuit_the_initial_family_pool)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/bc_admission_red_single_20261102/tests/v5/test_bc_fill.py", line 96, in test_long_family_cannot_short_circuit_the_initial_family_pool
+    self.assertEqual(sorted(self.counts(rows).values()), [32, 32])
+AssertionError: Lists differ: [64] != [32, 32]
+
+First differing element 0:
+64
+32
+
+Second list contains 1 additional elements.
+First extra element 1:
+32
+
+- [64]
++ [32, 32]
+
+----------------------------------------------------------------------
+Ran 1 test in 3.033s
+
+FAILED (failures=1)

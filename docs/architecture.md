@@ -91,6 +91,8 @@ Training, lite evaluation and native deployment score this same set without anot
 
 Rows are the training contract: schema 6, encoded by `rowpack` v2 (JSON metadata plus one base64 float32 block per row) inside gzip JSONL shards. Each row carries engine/rules/RNG/combat/candidate/reward versions, reward formula, scenario family, split rule, game family, teacher identity and source (`astra`, `human`, `policy`). `data.validate_record` rejects any row whose provenance, widths, finiteness, intent fields or reward configuration disagree with the frozen run.
 
+Bounded shard reads consider the planned initial family pool in each provenance bucket before stopping on a filled row quota; a long first game cannot exclude the rest of that pool. Additional families only backfill a shortage. The existing compressed/retained-byte limits still bound admission, and complete raw prefixes remain attached. Frozen-batch replay expands FFA/team exposure from 22/9 to 30/14 families at the same 2048-row limit; this does not prove imitation quality. Evidence: `verification/bc_admission_20261102/REPORT.md`.
+
 Actor inputs never contain referee truth: reward scalars, teacher actions, unseen units, unexplored terrain and RNG state are stripped before the policy sees a decision.
 
 A job record is the run's per-game log line, so it holds per-decision evidence only where a consumer reads it: `behavior` on opening probes (the BC opening gate) and `reward_diagnostics` on validation and reward-reference rows (the reward controller). Every other game keeps its aggregates — coverage, eligibility, truncation, shard identity.
