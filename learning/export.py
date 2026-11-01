@@ -7,6 +7,7 @@ from .checkpoints import validate_checkpoint
 from .features import schema
 from .model import Policy,ARCHITECTURE
 from .formats import FORMATS
+from .weight_export import weight_source
 import addons
 import native
 
@@ -58,7 +59,7 @@ def export(models, destination, name='NeuralArena', mode='greedy', version='untr
     weight_manifest={}
     for fmt,model in models.items():
         path=addon/'lua'/f'weights_{fmt}.lua'
-        path.write_text('return '+compact_lua(lua_parameters(model))+'\n',encoding='utf-8')
+        path.write_text(weight_source(lua_parameters(model)),encoding='utf-8')
         weight_manifest[fmt]=dict(version=version.get(fmt) if isinstance(version,dict) else version,
             parameters=sum(p.numel() for p in model.parameters()),sha256=sha256(path),
             evaluation=(evaluation or {}).get(fmt,'not_evaluated'),**(identity or {}))
@@ -140,7 +141,7 @@ def verify_numerics(model, records):
         return lua.execute((ROOT/'lua'/filename).read_text(encoding='utf-8'))
     lua.globals().wesnoth=lua.table_from({'require':require})
     network=lua.execute((ROOT/'lua/network.lua').read_text(encoding='utf-8'))
-    weights=lua.eval(compact_lua(lua_parameters(model)))
+    weights=lua.execute(weight_source(lua_parameters(model)))
     relational=require('relational.lua')
     training=model.training;model.eval()
     memories={};error=0.;turns=set()

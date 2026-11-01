@@ -1,0 +1,6 @@
+Sun Nov  1 10:02:11 PM UTC 2026
+Linux server 7.0.0-38-generic #38~24.04.4-Ubuntu SMP PREEMPT_DYNAMIC Mon Sep 14 16:37:11 UTC 2 x86_64 x86_64 x86_64 GNU/Linux
+Python 3.12.3
+5ab488ae741ea9345b8513aef15fd02ff1225c4e600fd598a283724234fc876d  ../compact_weights_red_20261102.tar
+485d125ac289297ac57c2d61b0046750e09b764ec1d3b9e06eb1786e7e3e2738  ../compact_weights_fixed_20261102.tar
+ccb7c763cbce620e5d07736e6ae73df2c3891bdd9f281ab79ee10d63e2675365  /home/tongshu/acceptance/retaliation_fixed_20261102/.extension/_engine_lite.so

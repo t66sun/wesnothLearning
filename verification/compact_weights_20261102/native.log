@@ -1,0 +1,8 @@
+{"decisions": 21, "elapsed_ms": {"decisions": 17, "max": 78, "p95": 70}, "execution_ms": {"decisions": 151, "max": 664}, "format": "duel", "games": [{"faults": {}, "max_turns": 20, "reason": "last_leader", "seed": 20261101, "turns": 4, "winner": 2}, {"faults": {}, "max_turns": 20, "reason": "last_leader", "seed": 20261102, "turns": 6, "winner": 2}], "generate_ms": {"max": 26, "p50": 14, "p95": 21}, "max_candidates": 37, "max_work": 5811, "over_budget": 0, "score_ms": {"max": 114, "p50": 112, "p95": 113}, "truncated": 16}
+{"decisions": 968, "elapsed_ms": {"decisions": 160, "max": 188, "p95": 161}, "execution_ms": {"decisions": 993, "max": 647}, "format": "ffa4", "games": [{"faults": {}, "max_turns": 20, "reason": "turn_limit", "seed": 20261101, "turns": 20, "winner": 0}, {"faults": {}, "max_turns": 20, "reason": "turn_limit", "seed": 20261102, "turns": 20, "winner": 0}], "generate_ms": {"max": 67, "p50": 23, "p95": 53}, "max_candidates": 37, "max_work": 11715, "over_budget": 0, "score_ms": {"max": 145, "p50": 115, "p95": 136}, "truncated": 748}
+{"decisions": 227, "elapsed_ms": {"decisions": 104, "max": 617, "p95": 141}, "execution_ms": {"decisions": 225, "max": 214}, "format": "team2v2", "games": [{"faults": {}, "max_turns": 20, "reason": "last_team", "seed": 20261101, "turns": 16, "winner": 0}, {"faults": {}, "max_turns": 20, "reason": "last_team", "seed": 20261102, "turns": 11, "winner": 0}], "generate_ms": {"max": 30, "p50": 7, "p95": 19}, "max_candidates": 37, "max_work": 7967, "over_budget": 0, "score_ms": {"max": 130, "p50": 102, "p95": 117}, "truncated": 154}
+{"duel": [], "ffa4": [], "team2v2": []}
+real 259.63
+user 269.96
+sys 1.26
+EXIT=0
