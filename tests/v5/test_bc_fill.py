@@ -87,9 +87,10 @@ class BoundedFillTests(unittest.TestCase):
         self.assertEqual(stats['families_decoded'], 2)
 
     def test_long_family_cannot_short_circuit_the_initial_family_pool(self):
-        paths = [self.shard(f'long-{i}', 8, decisions_per_turn=8) for i in range(3)]
+        names = [f'long-{i}' for i in range(10) if data.split(f'long-{i}') == 'train'][:3]
+        paths = [self.shard(name, 8, decisions_per_turn=8) for name in names]
         stats = {}
-        rows = read_shards(paths, limit=64, seed=7, stats=stats)
+        rows = read_shards(paths, partition='train', limit=64, seed=7, stats=stats)
         # The declared first pool has two families (64 / 32). Either family
         # alone can fill the request, but both must receive their fair share.
         self.assertEqual(sorted(self.counts(rows).values()), [32, 32])
