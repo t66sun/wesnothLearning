@@ -29,7 +29,9 @@ class CheckpointExportIdentityTests(unittest.TestCase):
                 r.state['version'] = 99
                 r.state['pending_train'] = dict(method='ppo', paths=['rollout'], cursor={})
                 r.save = lambda: FormatExperiment.save(r)
-                with patch('learning.experiment.read_shards', return_value=[]), patch('learning.experiment.train', return_value=dict(interrupted=False, updates=1, committed_decisions=4)):
+                with patch('learning.experiment.read_shards', return_value=[]), patch('learning.experiment.train', return_value=dict(
+                        interrupted=False, updates=1, committed_decisions=4,
+                        planned_steps=1, committed_steps=1, stopped_by_kl_steps=0)):
                     r.finish_train()
                 def execute(jobs, name):
                     return jobs, [dict(id=j['id'],status='complete',result=dict(bots=j['bots'],teams=j.get('teams'),
