@@ -88,7 +88,8 @@ class LiteDefaultTests(unittest.TestCase):
                 workers=4, hours=18., bc_games=dict.fromkeys(FORMATS, 6000),
                 native_bc_games=dict.fromkeys(FORMATS, 0),
                 rules_dir=str((ROOT / 'data/rules/1.18.8-training').resolve()))
-            write_json(run / 'manifest.json', dict(config=frozen, opponents=[],
+            from learning.updates import BATCH_CONTRACT
+            write_json(run / 'manifest.json', dict(config=frozen, opponents=[], batch_contract=BATCH_CONTRACT,
                 baseline=dict(path=str(baseline), sha256=sha256(baseline)), source={}))
             clock = dict(started=1000., update_deadline=2000., deadline=3000.)
             write_json(run / 'clock.json', clock)
@@ -193,7 +194,7 @@ class LiteDefaultTests(unittest.TestCase):
             runner.save = lambda: None
             runner.ensure_export = lambda *args, **kwargs: 'policy'
             runner.teacher_evidence = lambda: []
-            (runner.directory/'latest.pt').write_bytes(b'fixture')
+            torch.save(dict(runner=dict(version=1)), runner.directory/'latest.pt')
             scheduled = []
 
             def execute(jobs, name):

@@ -15,6 +15,7 @@ from learning.formats import FORMATS, PLAYERS
 from learning.maps import scenario_family
 from learning.sample import opening_map
 from learning.schedule import teacher_jobs, rollout_jobs, evaluation_jobs
+from learning.updates import BATCH_CONTRACT
 
 
 def runner(directory, config):
@@ -96,7 +97,7 @@ class TrainingTurnLimitTests(unittest.TestCase):
             baseline = directory/'baseline.engine'
             baseline.write_bytes(b'fixture')
             config = default_config('cpu') | dict(training_max_turns=23)
-            write_json(directory/'manifest.json', dict(config=config, opponents=[], source={},
+            write_json(directory/'manifest.json', dict(config=config, opponents=[], source={}, batch_contract=BATCH_CONTRACT,
                 baseline=dict(path=str(baseline), sha256=sha256(baseline))))
             write_json(directory/'clock.json', dict(started=1000., update_deadline=2000., deadline=3000.))
             requested = run_config(parser().parse_args(['run', '--resume', tmp, '--training-max-turns', '11']))
