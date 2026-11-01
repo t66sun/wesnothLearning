@@ -1,0 +1,24 @@
+test_actual_training_read_is_reused_and_resume_reads_fresh (tests.v5.test_bc_preflight_read.BcPreflightReadTests.test_actual_training_read_is_reused_and_resume_reads_fresh) ... FAIL
+test_empty_actual_batch_skips_without_pending_update (tests.v5.test_bc_preflight_read.BcPreflightReadTests.test_empty_actual_batch_skips_without_pending_update) ... ERROR
+
+======================================================================
+ERROR: test_empty_actual_batch_skips_without_pending_update (tests.v5.test_bc_preflight_read.BcPreflightReadTests.test_empty_actual_batch_skips_without_pending_update)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/bc_preflight_red_20261102/tests/v5/test_bc_preflight_read.py", line 65, in test_empty_actual_batch_skips_without_pending_update
+    self.assertEqual(read.call_args.kwargs['seed'], 47)
+                     ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+KeyError: 'seed'
+
+======================================================================
+FAIL: test_actual_training_read_is_reused_and_resume_reads_fresh (tests.v5.test_bc_preflight_read.BcPreflightReadTests.test_actual_training_read_is_reused_and_resume_reads_fresh)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/bc_preflight_red_20261102/tests/v5/test_bc_preflight_read.py", line 41, in test_actual_training_read_is_reused_and_resume_reads_fresh
+    self.assertEqual(len(reads), 2, 'one train read plus one validation read')
+AssertionError: 3 != 2 : one train read plus one validation read
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.015s
+
+FAILED (failures=1, errors=1)

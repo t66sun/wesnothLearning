@@ -31,7 +31,9 @@ A fresh team-only ordinary BC experiment on source `cb4f03e`, seed 20261101, eig
 
 The frozen-batch original-loss curve now completes 600 additional updates in 671.2 s: train recruit/attack 71.43%/77.58%, validation 40.68%/37.04%. Recruitment still fails 60%; validation movement and CE deteriorate despite better training fit. This identifies initial underoptimization and remaining generalization loss, not ordinary readiness. A discarded full preflight read separately costs 11.90 s before the actual 11.57 s training read. Evidence: `verification/bc_learning_curve_20261102/REPORT.md`.
 
-**Procedure:** remove the measured duplicate BC preflight work without changing sampling, empty-batch handling or resume, and investigate recruit type/placement generalization before further collection or feature tuning. Preserve every gate. A future complete-loop run must freeze source, formats, seed, workers, row/game/time limits and unchanged panel requirements. Reuse valid candidate/regression evidence. The bounded runner's post-BC branches remain unverified.
+The redundant BC preflight read is now removed, with 29 passing affected Ubuntu checks and a failing-before/passing-after read-count regression. Resume reconstructs and validates the batch; no full-run speedup is claimed (`verification/bc_preflight_read_20261102/REPORT.md`).
+
+**Procedure:** investigate recruit type/placement generalization before further collection or feature tuning. Preserve every gate. A future complete-loop run must freeze source, formats, seed, workers, row/game/time limits and unchanged panel requirements. Reuse valid candidate/regression evidence. The bounded runner's post-BC branches remain unverified.
 
 **Pass:** all declared formats pass ordinary BC, commit at least two PPO updates, resume without repeating committed work, complete the required final panel and pass audited export. Record model/input identities, complete/faulted/truncated counts and stage durations. No forced PPO or automatic budget extension. Native strength remains outside this smoke.
 

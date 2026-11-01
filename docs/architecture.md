@@ -93,6 +93,8 @@ Rows are the training contract: schema 6, encoded by `rowpack` v2 (JSON metadata
 
 Bounded shard reads consider the planned initial family pool in each provenance bucket before stopping on a filled row quota; a long first game cannot exclude the rest of that pool. Additional families only backfill a shortage. The existing compressed/retained-byte limits still bound admission, and complete raw prefixes remain attached. Frozen-batch replay expands FFA/team exposure from 22/9 to 30/14 families at the same 2048-row limit; this does not prove imitation quality. Evidence: `verification/bc_admission_20261102/REPORT.md`.
 
+Fresh BC checks non-emptiness using the actual version-seeded teacher/DAgger/human training batch and reuses that read for its update. The prepared rows are released after the update attempt; they are not checkpointed or kept across collection. Resume reconstructs the batch and verifies its existing content identity. This removes a discarded full read measured at 11.90 s on the frozen team pool; 29 affected Ubuntu checks pass (`verification/bc_preflight_read_20261102/REPORT.md`). End-to-end speedup is unmeasured.
+
 Actor inputs never contain referee truth: reward scalars, teacher actions, unseen units, unexplored terrain and RNG state are stripped before the policy sees a decision.
 
 A job record is the run's per-game log line, so it holds per-decision evidence only where a consumer reads it: `behavior` on opening probes (the BC opening gate) and `reward_diagnostics` on validation and reward-reference rows (the reward controller). Every other game keeps its aggregates — coverage, eligibility, truncation, shard identity.
