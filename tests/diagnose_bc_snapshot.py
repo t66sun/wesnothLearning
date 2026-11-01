@@ -15,11 +15,17 @@ def main():
     args = parser.parse_args()
     data = json.loads(args.snapshot.read_text())
     intent = data['intent']
-    for variant in ('baseline', 'work', 'probes', 'positions', 'rated'):
+    for variant in ('baseline', 'work', 'probes', 'positions', 'rated', 'combat_order', 'all_search'):
         modules = host_modules()
         source = traced(modules['candidates.lua'])
         key = dict(work='total=12000', probes='move_probes=48', positions='positions=64', rated='rated=40').get(variant)
         if key: source = source.replace(key, key.split('=')[0]+'=1000000')
+        if variant == 'all_search':
+            for key in ('total=12000', 'move_probes=48', 'positions=64', 'rated=40'):
+                source = source.replace(key, key.split('=')[0]+'=1000000')
+        if variant == 'combat_order':
+            source = source.replace('if not d then return end', "if not d then return end\n                if category=='attack' then d.combat=true end")
+            source = source.replace("d.category=='attack'", 'd.combat').replace("d.category~='attack'", 'not d.combat')
         source = source.replace('local reachable={}',
             'trace.actors[#trace.actors].destinations=destinations;trace.actors[#trace.actors].selected=selected;trace.actors[#trace.actors].reach=reach\n            local reachable={}')
         modules['candidates.lua'] = source
