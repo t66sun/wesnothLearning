@@ -1,0 +1,37 @@
+{
+  "format": "ffa4",
+  "variant": "baseline",
+  "games": 8,
+  "counts": {
+    "recruit:total": 255,
+    "recruit:matched": 234,
+    "recruit:generated": 249,
+    "move:total": 1074,
+    "move:matched": 719,
+    "move:generated": 733,
+    "end_turn:total": 316,
+    "end_turn:matched": 316,
+    "end_turn:generated": 316,
+    "move_attack:total": 684,
+    "move_attack:matched": 391,
+    "move_attack:generated": 412,
+    "attack:total": 94,
+    "attack:matched": 94,
+    "attack:generated": 94
+  },
+  "stages": {
+    "recruit:matched": 234,
+    "move:matched": 719,
+    "end_turn:matched": 316,
+    "move_attack:selection": 21,
+    "move_attack:matched": 391,
+    "move:generation": 341,
+    "move_attack:generation": 272,
+    "attack:matched": 94,
+    "recruit:selection": 15,
+    "recruit:generation": 6,
+    "move:selection": 14
+  },
+  "trajectory_sha256": "6b7de11930ba5acdbeee76d81d0cd66918fe21b8baecaec4fa0bd4cd16a89dd0",
+  "seconds": 289.01092626992613
+}

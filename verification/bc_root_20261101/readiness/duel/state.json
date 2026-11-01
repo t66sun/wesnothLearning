@@ -1,0 +1,1008 @@
+{
+  "format": "duel",
+  "stage": "bc_complete",
+  "phase": "bc",
+  "clock": {
+    "started": 1793544005.1019723,
+    "update_deadline": 1793545505.1019723,
+    "deadline": 1793545805.1019723
+  },
+  "batch": 10,
+  "version": 10,
+  "history": [
+    {
+      "batch": 0,
+      "method": "bc",
+      "elapsed_hours": 0.07317600833045111,
+      "reads": {
+        "bc": {
+          "requested": 2048,
+          "rows": 648,
+          "families": 7,
+          "selected": 7,
+          "families_decoded": 7,
+          "families_selected": 7,
+          "families_admitted": 7,
+          "families_retained": 7,
+          "windows": 14,
+          "sources": {
+            "astra": 648
+          },
+          "engines": {
+            "lite": 648
+          },
+          "kinds": {
+            "recruit": 87,
+            "end_turn": 83,
+            "move": 272,
+            "attack": 31,
+            "move_attack": 175
+          },
+          "gz_bytes": 6969577,
+          "retained_bytes": 74757012,
+          "deficit": 1400,
+          "stop_reason": "insufficient_data"
+        },
+        "validation": {
+          "requested": 1024,
+          "rows": 66,
+          "families": 1,
+          "selected": 1,
+          "families_decoded": 1,
+          "families_selected": 1,
+          "families_admitted": 1,
+          "families_retained": 1,
+          "windows": 2,
+          "sources": {
+            "astra": 66
+          },
+          "engines": {
+            "lite": 66
+          },
+          "kinds": {
+            "recruit": 12,
+            "move": 17,
+            "end_turn": 10,
+            "move_attack": 21,
+            "attack": 6
+          },
+          "gz_bytes": 560279,
+          "retained_bytes": 7129984,
+          "deficit": 958,
+          "stop_reason": "insufficient_data"
+        }
+      },
+      "peak_rss_mb": 562,
+      "updates": 16,
+      "loss": 3.47357396222651,
+      "interrupted": false,
+      "approx_kl": 0.0,
+      "kl_stopped": false,
+      "decisions_seen": 2855,
+      "unique_families_seen": 7,
+      "effective_dataset_passes": 4.405864197530864,
+      "sequence_windows": 14,
+      "microbatch": 32,
+      "window_visits": 64,
+      "unique_windows_seen": 14,
+      "repeated_window_visits": 50
+    },
+    {
+      "batch": 1,
+      "method": "bc",
+      "elapsed_hours": 0.10335010806719462,
+      "reads": {
+        "bc": {
+          "requested": 2048,
+          "rows": 1288,
+          "families": 13,
+          "selected": 13,
+          "families_decoded": 13,
+          "families_selected": 13,
+          "families_admitted": 13,
+          "families_retained": 13,
+          "windows": 27,
+          "sources": {
+            "astra": 1288
+          },
+          "engines": {
+            "lite": 1288
+          },
+          "kinds": {
+            "recruit": 188,
+            "move": 566,
+            "end_turn": 157,
+            "attack": 71,
+            "move_attack": 306
+          },
+          "gz_bytes": 13750508,
+          "retained_bytes": 148034672,
+          "deficit": 760,
+          "stop_reason": "insufficient_data"
+        },
+        "validation": {
+          "requested": 1024,
+          "rows": 158,
+          "families": 3,
+          "selected": 3,
+          "families_decoded": 3,
+          "families_selected": 3,
+          "families_admitted": 3,
+          "families_retained": 3,
+          "windows": 5,
+          "sources": {
+            "astra": 158
+          },
+          "engines": {
+            "lite": 158
+          },
+          "kinds": {
+            "recruit": 29,
+            "move": 54,
+            "end_turn": 25,
+            "move_attack": 38,
+            "attack": 12
+          },
+          "gz_bytes": 1232270,
+          "retained_bytes": 16448052,
+          "deficit": 866,
+          "stop_reason": "insufficient_data"
+        }
+      },
+      "peak_rss_mb": 691,
+      "updates": 28,
+      "loss": 2.939707217139325,
+      "interrupted": false,
+      "approx_kl": 0.0,
+      "kl_stopped": false,
+      "decisions_seen": 5188,
+      "unique_families_seen": 13,
+      "effective_dataset_passes": 4.027950310559007,
+      "sequence_windows": 27,
+      "microbatch": 32,
+      "window_visits": 112,
+      "unique_windows_seen": 27,
+      "repeated_window_visits": 85
+    },
+    {
+      "batch": 2,
+      "method": "bc",
+      "elapsed_hours": 0.1409274607896805,
+      "reads": {
+        "bc": {
+          "requested": 2048,
+          "rows": 1921,
+          "families": 19,
+          "selected": 19,
+          "families_decoded": 19,
+          "families_selected": 19,
+          "families_admitted": 19,
+          "families_retained": 19,
+          "windows": 45,
+          "sources": {
+            "astra": 1921
+          },
+          "engines": {
+            "lite": 1921
+          },
+          "kinds": {
+            "recruit": 273,
+            "end_turn": 275,
+            "move": 897,
+            "move_attack": 385,
+            "attack": 91
+          },
+          "gz_bytes": 20473655,
+          "retained_bytes": 220766184,
+          "deficit": 127,
+          "stop_reason": "insufficient_data"
+        },
+        "validation": {
+          "requested": 1024,
+          "rows": 450,
+          "families": 5,
+          "selected": 5,
+          "families_decoded": 5,
+          "families_selected": 5,
+          "families_admitted": 5,
+          "families_retained": 5,
+          "windows": 10,
+          "sources": {
+            "astra": 450
+          },
+          "engines": {
+            "lite": 450
+          },
+          "kinds": {
+            "recruit": 72,
+            "move": 195,
+            "end_turn": 55,
+            "move_attack": 103,
+            "attack": 25
+          },
+          "gz_bytes": 4537608,
+          "retained_bytes": 51309420,
+          "deficit": 574,
+          "stop_reason": "insufficient_data"
+        }
+      },
+      "peak_rss_mb": 840,
+      "updates": 48,
+      "loss": 2.070883902721107,
+      "interrupted": false,
+      "approx_kl": 0.0,
+      "kl_stopped": false,
+      "decisions_seen": 8289,
+      "unique_families_seen": 19,
+      "effective_dataset_passes": 4.314940135346174,
+      "sequence_windows": 45,
+      "microbatch": 32,
+      "window_visits": 192,
+      "unique_windows_seen": 45,
+      "repeated_window_visits": 147
+    },
+    {
+      "batch": 3,
+      "method": "bc",
+      "elapsed_hours": 0.1832214891910553,
+      "reads": {
+        "bc": {
+          "requested": 2048,
+          "rows": 2048,
+          "families": 25,
+          "selected": 25,
+          "families_decoded": 25,
+          "families_selected": 25,
+          "families_admitted": 25,
+          "families_retained": 25,
+          "windows": 51,
+          "sources": {
+            "astra": 2048
+          },
+          "engines": {
+            "lite": 2048
+          },
+          "kinds": {
+            "recruit": 303,
+            "move": 886,
+            "end_turn": 294,
+            "move_attack": 473,
+            "attack": 92
+          },
+          "gz_bytes": 26276416,
+          "retained_bytes": 238663124,
+          "deficit": 0,
+          "stop_reason": "window_limit"
+        },
+        "validation": {
+          "requested": 1024,
+          "rows": 593,
+          "families": 7,
+          "selected": 7,
+          "families_decoded": 7,
+          "families_selected": 7,
+          "families_admitted": 7,
+          "families_retained": 7,
+          "windows": 13,
+          "sources": {
+            "astra": 593
+          },
+          "engines": {
+            "lite": 593
+          },
+          "kinds": {
+            "recruit": 98,
+            "move": 275,
+            "end_turn": 70,
+            "move_attack": 119,
+            "attack": 31
+          },
+          "gz_bytes": 6007249,
+          "retained_bytes": 67201732,
+          "deficit": 431,
+          "stop_reason": "insufficient_data"
+        }
+      },
+      "peak_rss_mb": 887,
+      "updates": 52,
+      "loss": 1.712237756203719,
+      "interrupted": false,
+      "approx_kl": 0.0,
+      "kl_stopped": false,
+      "decisions_seen": 8662,
+      "unique_families_seen": 25,
+      "effective_dataset_passes": 4.2294921875,
+      "sequence_windows": 50,
+      "microbatch": 32,
+      "window_visits": 208,
+      "unique_windows_seen": 44,
+      "repeated_window_visits": 164
+    },
+    {
+      "batch": 4,
+      "method": "bc",
+      "elapsed_hours": 0.2355351722240448,
+      "reads": {
+        "bc": {
+          "requested": 2048,
+          "rows": 2048,
+          "families": 32,
+          "selected": 32,
+          "families_decoded": 32,
+          "families_selected": 32,
+          "families_admitted": 32,
+          "families_retained": 32,
+          "windows": 60,
+          "sources": {
+            "astra": 2048
+          },
+          "engines": {
+            "lite": 2048
+          },
+          "kinds": {
+            "recruit": 316,
+            "move_attack": 478,
+            "attack": 92,
+            "move": 870,
+            "end_turn": 292
+          },
+          "gz_bytes": 33196537,
+          "retained_bytes": 243699180,
+          "deficit": 0,
+          "stop_reason": "window_limit"
+        },
+        "validation": {
+          "requested": 1024,
+          "rows": 659,
+          "families": 8,
+          "selected": 8,
+          "families_decoded": 8,
+          "families_selected": 8,
+          "families_admitted": 8,
+          "families_retained": 8,
+          "windows": 15,
+          "sources": {
+            "astra": 659
+          },
+          "engines": {
+            "lite": 659
+          },
+          "kinds": {
+            "recruit": 110,
+            "move": 292,
+            "end_turn": 80,
+            "move_attack": 140,
+            "attack": 37
+          },
+          "gz_bytes": 6567539,
+          "retained_bytes": 74331716,
+          "deficit": 365,
+          "stop_reason": "insufficient_data"
+        }
+      },
+      "peak_rss_mb": 953,
+      "updates": 60,
+      "loss": 1.526468666510967,
+      "interrupted": false,
+      "approx_kl": 0.0,
+      "kl_stopped": false,
+      "decisions_seen": 9359,
+      "unique_families_seen": 32,
+      "effective_dataset_passes": 4.56982421875,
+      "sequence_windows": 58,
+      "microbatch": 32,
+      "window_visits": 240,
+      "unique_windows_seen": 56,
+      "repeated_window_visits": 184
+    },
+    {
+      "batch": 5,
+      "method": "bc",
+      "elapsed_hours": 0.27612681342495815,
+      "reads": {
+        "bc": {
+          "requested": 2048,
+          "rows": 2048,
+          "families": 38,
+          "selected": 38,
+          "families_decoded": 38,
+          "families_selected": 38,
+          "families_admitted": 38,
+          "families_retained": 38,
+          "windows": 66,
+          "sources": {
+            "astra": 2048
+          },
+          "engines": {
+            "lite": 2048
+          },
+          "kinds": {
+            "recruit": 333,
+            "move": 847,
+            "end_turn": 312,
+            "move_attack": 458,
+            "attack": 98
+          },
+          "gz_bytes": 39255622,
+          "retained_bytes": 249752076,
+          "deficit": 0,
+          "stop_reason": "window_limit"
+        },
+        "validation": {
+          "requested": 1024,
+          "rows": 751,
+          "families": 10,
+          "selected": 10,
+          "families_decoded": 10,
+          "families_selected": 10,
+          "families_admitted": 10,
+          "families_retained": 10,
+          "windows": 18,
+          "sources": {
+            "astra": 751
+          },
+          "engines": {
+            "lite": 751
+          },
+          "kinds": {
+            "recruit": 127,
+            "move": 329,
+            "end_turn": 95,
+            "move_attack": 157,
+            "attack": 43
+          },
+          "gz_bytes": 7239437,
+          "retained_bytes": 83649784,
+          "deficit": 273,
+          "stop_reason": "insufficient_data"
+        }
+      },
+      "peak_rss_mb": 1029,
+      "updates": 60,
+      "loss": 1.4426494938098282,
+      "interrupted": false,
+      "approx_kl": 0.0,
+      "kl_stopped": false,
+      "decisions_seen": 9119,
+      "unique_families_seen": 38,
+      "effective_dataset_passes": 4.45263671875,
+      "sequence_windows": 58,
+      "microbatch": 32,
+      "window_visits": 240,
+      "unique_windows_seen": 56,
+      "repeated_window_visits": 184
+    },
+    {
+      "batch": 6,
+      "method": "bc",
+      "elapsed_hours": 0.3031382099787394,
+      "reads": {
+        "bc": {
+          "requested": 2048,
+          "rows": 2048,
+          "families": 38,
+          "selected": 38,
+          "families_decoded": 38,
+          "families_selected": 38,
+          "families_admitted": 38,
+          "families_retained": 38,
+          "windows": 61,
+          "sources": {
+            "astra": 2048
+          },
+          "engines": {
+            "lite": 2048
+          },
+          "kinds": {
+            "recruit": 319,
+            "end_turn": 317,
+            "move": 858,
+            "move_attack": 467,
+            "attack": 87
+          },
+          "gz_bytes": 39255622,
+          "retained_bytes": 250331256,
+          "deficit": 0,
+          "stop_reason": "window_limit"
+        },
+        "validation": {
+          "requested": 1024,
+          "rows": 751,
+          "families": 10,
+          "selected": 10,
+          "families_decoded": 10,
+          "families_selected": 10,
+          "families_admitted": 10,
+          "families_retained": 10,
+          "windows": 18,
+          "sources": {
+            "astra": 751
+          },
+          "engines": {
+            "lite": 751
+          },
+          "kinds": {
+            "recruit": 127,
+            "move": 329,
+            "end_turn": 95,
+            "move_attack": 157,
+            "attack": 43
+          },
+          "gz_bytes": 7239437,
+          "retained_bytes": 83649784,
+          "deficit": 273,
+          "stop_reason": "insufficient_data"
+        }
+      },
+      "peak_rss_mb": 1048,
+      "updates": 60,
+      "loss": 1.2315991816474707,
+      "interrupted": false,
+      "approx_kl": 0.0,
+      "kl_stopped": false,
+      "decisions_seen": 9826,
+      "unique_families_seen": 38,
+      "effective_dataset_passes": 4.7978515625,
+      "sequence_windows": 58,
+      "microbatch": 32,
+      "window_visits": 240,
+      "unique_windows_seen": 56,
+      "repeated_window_visits": 184
+    },
+    {
+      "batch": 7,
+      "method": "bc",
+      "elapsed_hours": 0.3468426483869553,
+      "reads": {
+        "bc": {
+          "requested": 2048,
+          "rows": 2048,
+          "families": 38,
+          "selected": 38,
+          "families_decoded": 38,
+          "families_selected": 38,
+          "families_admitted": 38,
+          "families_retained": 38,
+          "windows": 67,
+          "sources": {
+            "astra": 2048
+          },
+          "engines": {
+            "lite": 2048
+          },
+          "kinds": {
+            "recruit": 335,
+            "move": 814,
+            "end_turn": 319,
+            "move_attack": 494,
+            "attack": 86
+          },
+          "gz_bytes": 39255622,
+          "retained_bytes": 250099556,
+          "deficit": 0,
+          "stop_reason": "window_limit"
+        },
+        "validation": {
+          "requested": 1024,
+          "rows": 751,
+          "families": 10,
+          "selected": 10,
+          "families_decoded": 10,
+          "families_selected": 10,
+          "families_admitted": 10,
+          "families_retained": 10,
+          "windows": 18,
+          "sources": {
+            "astra": 751
+          },
+          "engines": {
+            "lite": 751
+          },
+          "kinds": {
+            "recruit": 127,
+            "move": 329,
+            "end_turn": 95,
+            "move_attack": 157,
+            "attack": 43
+          },
+          "gz_bytes": 7239437,
+          "retained_bytes": 83649784,
+          "deficit": 273,
+          "stop_reason": "insufficient_data"
+        }
+      },
+      "peak_rss_mb": 1048,
+      "updates": 60,
+      "loss": 1.1783140659852507,
+      "interrupted": false,
+      "approx_kl": 0.0,
+      "kl_stopped": false,
+      "decisions_seen": 9726,
+      "unique_families_seen": 38,
+      "effective_dataset_passes": 4.7490234375,
+      "sequence_windows": 59,
+      "microbatch": 32,
+      "window_visits": 240,
+      "unique_windows_seen": 56,
+      "repeated_window_visits": 184
+    },
+    {
+      "batch": 8,
+      "method": "bc",
+      "elapsed_hours": 0.3831370069583257,
+      "reads": {
+        "bc": {
+          "requested": 2048,
+          "rows": 2048,
+          "families": 38,
+          "selected": 38,
+          "families_decoded": 38,
+          "families_selected": 38,
+          "families_admitted": 38,
+          "families_retained": 38,
+          "windows": 67,
+          "sources": {
+            "astra": 2048
+          },
+          "engines": {
+            "lite": 2048
+          },
+          "kinds": {
+            "recruit": 320,
+            "end_turn": 345,
+            "move": 816,
+            "move_attack": 480,
+            "attack": 87
+          },
+          "gz_bytes": 39255622,
+          "retained_bytes": 250271056,
+          "deficit": 0,
+          "stop_reason": "window_limit"
+        },
+        "validation": {
+          "requested": 1024,
+          "rows": 751,
+          "families": 10,
+          "selected": 10,
+          "families_decoded": 10,
+          "families_selected": 10,
+          "families_admitted": 10,
+          "families_retained": 10,
+          "windows": 18,
+          "sources": {
+            "astra": 751
+          },
+          "engines": {
+            "lite": 751
+          },
+          "kinds": {
+            "recruit": 127,
+            "move": 329,
+            "end_turn": 95,
+            "move_attack": 157,
+            "attack": 43
+          },
+          "gz_bytes": 7239437,
+          "retained_bytes": 83649784,
+          "deficit": 273,
+          "stop_reason": "insufficient_data"
+        }
+      },
+      "peak_rss_mb": 1048,
+      "updates": 60,
+      "loss": 0.9627925703923513,
+      "interrupted": false,
+      "approx_kl": 0.0,
+      "kl_stopped": false,
+      "decisions_seen": 10427,
+      "unique_families_seen": 38,
+      "effective_dataset_passes": 5.09130859375,
+      "sequence_windows": 59,
+      "microbatch": 32,
+      "window_visits": 240,
+      "unique_windows_seen": 52,
+      "repeated_window_visits": 188
+    },
+    {
+      "batch": 9,
+      "method": "bc",
+      "elapsed_hours": 0.4088358990351359,
+      "reads": {
+        "bc": {
+          "requested": 2048,
+          "rows": 2048,
+          "families": 38,
+          "selected": 38,
+          "families_decoded": 38,
+          "families_selected": 38,
+          "families_admitted": 38,
+          "families_retained": 38,
+          "windows": 66,
+          "sources": {
+            "astra": 2048
+          },
+          "engines": {
+            "lite": 2048
+          },
+          "kinds": {
+            "recruit": 345,
+            "end_turn": 312,
+            "move_attack": 466,
+            "move": 835,
+            "attack": 90
+          },
+          "gz_bytes": 39255622,
+          "retained_bytes": 250067816,
+          "deficit": 0,
+          "stop_reason": "window_limit"
+        },
+        "validation": {
+          "requested": 1024,
+          "rows": 751,
+          "families": 10,
+          "selected": 10,
+          "families_decoded": 10,
+          "families_selected": 10,
+          "families_admitted": 10,
+          "families_retained": 10,
+          "windows": 18,
+          "sources": {
+            "astra": 751
+          },
+          "engines": {
+            "lite": 751
+          },
+          "kinds": {
+            "recruit": 127,
+            "move": 329,
+            "end_turn": 95,
+            "move_attack": 157,
+            "attack": 43
+          },
+          "gz_bytes": 7239437,
+          "retained_bytes": 83649784,
+          "deficit": 273,
+          "stop_reason": "insufficient_data"
+        }
+      },
+      "peak_rss_mb": 1048,
+      "updates": 56,
+      "loss": 0.8652560069336833,
+      "interrupted": false,
+      "approx_kl": 0.0,
+      "kl_stopped": false,
+      "decisions_seen": 9990,
+      "unique_families_seen": 38,
+      "effective_dataset_passes": 4.8779296875,
+      "sequence_windows": 55,
+      "microbatch": 32,
+      "window_visits": 224,
+      "unique_windows_seen": 51,
+      "repeated_window_visits": 173
+    }
+  ],
+  "snapshots": [
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/policies/v000010-greedy/SnapV000010"
+  ],
+  "best_key": null,
+  "bc_key": null,
+  "ppo_key": null,
+  "best_kind": null,
+  "pending_train": {
+    "paths": [
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00000-duel-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00001-duel-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00002-duel-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00003-duel-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00004-duel-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00005-duel-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00006-duel-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00007-duel-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00008-duel-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00009-duel-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00010-duel-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00011-duel-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00012-duel-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00013-duel-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00014-duel-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00015-duel-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00016-duel-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00017-duel-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00018-duel-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00019-duel-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00020-duel-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00021-duel-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00022-duel-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00023-duel-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00024-duel-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00025-duel-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00026-duel-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00027-duel-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00028-duel-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00029-duel-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00030-duel-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00031-duel-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00032-duel-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00033-duel-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00034-duel-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00035-duel-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00036-duel-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00037-duel-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00038-duel-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00039-duel-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00040-duel-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00041-duel-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00042-duel-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00043-duel-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00044-duel-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00045-duel-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00046-duel-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00047-duel-t0.jsonl.gz"
+    ],
+    "method": "bc",
+    "cursor": {
+      "epoch": 0,
+      "step": 0
+    },
+    "reward_config": {
+      "economy": 0.15,
+      "control": 0.1,
+      "explore": 0.1,
+      "mode": "adaptive",
+      "entropy": 0.01,
+      "bc_aux": 0.1,
+      "gamma": 1.0,
+      "gae_lambda": 0.95,
+      "reward_version": 0,
+      "reward_formula_id": "v5-potential-1"
+    },
+    "identity": {
+      "train": "7d43f14276a498bd4b15f1b1d34193abfe308612c8b2cb984433e1950197b667"
+    }
+  },
+  "pending_validation": null,
+  "teacher_shards": [
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00000-duel-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00001-duel-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00002-duel-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00003-duel-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00004-duel-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00005-duel-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00006-duel-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00007-duel-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00008-duel-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00009-duel-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00010-duel-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00011-duel-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00012-duel-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00013-duel-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00014-duel-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00015-duel-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00016-duel-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00017-duel-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00018-duel-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00019-duel-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00020-duel-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00021-duel-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00022-duel-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00023-duel-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00024-duel-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00025-duel-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00026-duel-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00027-duel-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00028-duel-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00029-duel-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00030-duel-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00031-duel-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00032-duel-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00033-duel-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00034-duel-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00035-duel-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00036-duel-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00037-duel-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00038-duel-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00039-duel-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00040-duel-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00041-duel-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00042-duel-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00043-duel-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00044-duel-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00045-duel-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00046-duel-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00047-duel-t0.jsonl.gz"
+  ],
+  "effective": false,
+  "error": null,
+  "dagger_shards": [],
+  "policy_shards": [],
+  "counters": {
+    "environment_games": 48,
+    "collection_batches": 11,
+    "optimizer_steps": 500,
+    "unique_families_seen": 48,
+    "decisions_seen": 83441,
+    "effective_dataset_passes": 45.516821049686044
+  },
+  "reward_controller": {
+    "config": {
+      "economy": 0.15,
+      "control": 0.1,
+      "explore": 0.1,
+      "mode": "adaptive",
+      "entropy": 0.01,
+      "bc_aux": 0.1,
+      "gamma": 1.0,
+      "gae_lambda": 0.95,
+      "reward_version": 0,
+      "reward_formula_id": "v5-potential-1"
+    },
+    "cursor": 0,
+    "last_check": 0,
+    "games": 48,
+    "blocks": [],
+    "seen_blocks": [],
+    "windows": [],
+    "control_previous": null,
+    "last_error": null,
+    "metrics_error": null,
+    "applied_schedule": []
+  },
+  "families_seen": [
+    "054818f0883d6329d73a401c07cea11e06eb82bb166fcc374f40e9b597d0e6eb",
+    "0f494e1bd051eed8443210873f875cd1306c024035a71be10ecab080e34f83e5",
+    "0f59026d6f225109aecc6280f9940c95477a0c82b4f1180207780cf087614171",
+    "1208032e6fe093a689efbdc84edbc60dbdfe1c54a9a424e7dceb860975807c2c",
+    "15b3f9fc441115d9358c3024645bce6a28bf231d9e05671c1ece700a326425e9",
+    "17f51e2778a2611a63e418b545b55f5603813a2a0622a5c0d80aa4fe2fe3cbe5",
+    "19ca8b907dde851d66ca6bf8b5366bf7c883f3743d71e92e6973ff761d1b39e2",
+    "1a2152184486817ab1159819e56963634f461d04cf778423e6b6f31861c50d20",
+    "1cf4e211d61831ff64d552cf225a62f1ee900a199d2ddc7be7c0e3d94c89bf69",
+    "1d072ee66305ddcc9976c75b3358ab88dfec766ea289ffaa7f31bd3163da7846",
+    "238cb751757a98506b84c1656de2c7de16e53833a042dfb8c84cbcc100696015",
+    "2693f1ad083d04958e50f2737772217448d87b9b246c4e2038bc67a6385e556b",
+    "26ca1490205972fdacae55a5c9b085c2d2aa782cfa1afeaf762f85bdc242e75a",
+    "41c700d69c123be34195911ef8f7b229d2023a410f86cd616d23a7f3265699b5",
+    "43e281b394484820a0ab4019d5a2be21cd70f9b75ffd60bad870cc4dac1d579d",
+    "493eb41481241f1cf8253afbdc2f36acb82384768177644a0cb0cdf3c4a23eed",
+    "4c805c57749914abe53432b1abe1c07b29dbca8d49ad7385e3447d5f80d6e42d",
+    "4d5e568344f5a0f8eccfd2d02c77ee1e4f9d6b69dd7004d414c5cd1c67f884e8",
+    "54f8de53ec4d99b9811d495a90a4d180a18dc185026f57437ce6afe8ec60e7c8",
+    "583b8ab0a5d30a0b7e0f0a145e929b4303a5a0136805eb419545b837e1b907f2",
+    "677dcaf15b9e75b2c0c774448db38d9ec1c7452757e63e7b509fa688c3aa10c9",
+    "7c4677fa98759d589b65cbd609d41d809abcdd84a607214a815d610a84a13ce9",
+    "83b86aa893139a7d832170e068bf0a25525635628c8cea435ed0b72676633b61",
+    "8511831f81ed2ea466801c7ebef8398002c165b411f883003fb728a5a75939f4",
+    "8727aabc112979b8a02aba983c62d9a7ad57bce3ecd8060220a677e54a89f162",
+    "916a9be3f9c9077136845424c62444f0cb53226f66fa28ccb860bf5259f51308",
+    "976dacde6fbe8fb9d2e6ba8fbc8e769eed01c89f884484775519abd732099288",
+    "97a01efdaa80b3c6bab4899e9aba15f56d50a4075e38f7e95e83d9e607ee1cee",
+    "99792692d7b4789a4f291a0ed78d455f2bf35a28819b7335ba51f919fbac3ed0",
+    "9b277501d2bb245b22e4bca8d0ec6d84d729413a71d05140bd4fcf883396fc23",
+    "9c35ef4c084167f61fe34ccc19f7304abbcb9ebf05e0733f13084ed0ae2c4958",
+    "a3786972d9fe4a7ecf0dd406e35850d20c627ccce06df0e71b918d525dcc197e",
+    "a672eee3915a9195dc7d8df98223eaf3e9e4f41ff59b566d27c96c48d68d3cb4",
+    "aceff176f134c0593fe0e8c5e648c3298def620aa30c3c3bb4fde997cca2fb90",
+    "b0b2be8240e2d62c84ade5cc194709c66cd045f4db8d5bbbeb3a8ac521370bfb",
+    "b37e6babda595058868205ed162bfa727b276e204ecdc05d0969ddb76f2caf28",
+    "b4338bae2af1a438365bba83692150cc20c9e1233ff6266ec8aaa76045857f01",
+    "be06ca6ed056f3aa54ddda75ba52152f092e95c20bac490e53a0a6e0ef0e5877",
+    "ced4b2d52e7a1036ceaac4c71017daffe5ebed9d1c567da8d5c6012965031a05",
+    "d03eaffaf236ec1e24e080a43417d81070e6db3ae39c0695e9e366ae2117e834",
+    "d369c640fbd477cda0fd8ac45ae5c042bc4018c4c49b7529f62cb0d32a47b2b8",
+    "dafa243f18d34c35863261fe0aad347f33c6a35c04ea02b93d2fcf7260717a95",
+    "dbf6ed9b8dd1896ed3baf4275097342ab5a746f3ee627cbb2254325ba0e8290e",
+    "dda54d382efeecd5ab2ea31115e6ff62f35f63fefd5fabe6b324167dff102311",
+    "e36fbad8f944e1a5ee4086052451b02955dddd6bca7079c88e4dd64d8cf5d637",
+    "e6de1df4e4b7d95d22300bf4c03d6865be7e51dbde6081689bc8836716f68a63",
+    "f7872f8f577588a66dbea12157453421fbb8290d2f8ad1f518b6d4f08ca4f901",
+    "fa6dfe62229b3244ee26945fdb6cf31957b55535ac44319889cf274843053b22"
+  ],
+  "bc_quality_best": 0.45492957746478874,
+  "bc_plateau": 3,
+  "control_metrics": {
+    "partition": "train",
+    "new_games": 0,
+    "faulted_games": 0
+  },
+  "status": "stage_complete"
+}

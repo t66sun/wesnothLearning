@@ -1,0 +1,407 @@
+{
+  "format": "team2v2",
+  "stage": "bc_complete",
+  "phase": "bc",
+  "clock": {
+    "started": 1793544005.1019723,
+    "update_deadline": 1793545505.1019723,
+    "deadline": 1793545805.1019723
+  },
+  "batch": 3,
+  "version": 3,
+  "history": [
+    {
+      "batch": 0,
+      "method": "bc",
+      "elapsed_hours": 0.1541616466310289,
+      "reads": {
+        "bc": {
+          "requested": 2048,
+          "rows": 2048,
+          "families": 7,
+          "selected": 7,
+          "families_decoded": 7,
+          "families_selected": 7,
+          "families_admitted": 7,
+          "families_retained": 7,
+          "windows": 39,
+          "sources": {
+            "astra": 2048
+          },
+          "engines": {
+            "lite": 2048
+          },
+          "kinds": {
+            "recruit": 103,
+            "move": 1383,
+            "end_turn": 284,
+            "move_attack": 248,
+            "attack": 30
+          },
+          "gz_bytes": 33861795,
+          "retained_bytes": 291332008,
+          "deficit": 0,
+          "stop_reason": "window_limit"
+        },
+        "validation": {
+          "requested": 1024,
+          "rows": 186,
+          "families": 1,
+          "selected": 1,
+          "families_decoded": 1,
+          "families_selected": 1,
+          "families_admitted": 1,
+          "families_retained": 1,
+          "windows": 6,
+          "sources": {
+            "astra": 186
+          },
+          "engines": {
+            "lite": 186
+          },
+          "kinds": {
+            "recruit": 7,
+            "move": 107,
+            "end_turn": 44,
+            "move_attack": 26,
+            "attack": 2
+          },
+          "gz_bytes": 1966177,
+          "retained_bytes": 23391416,
+          "deficit": 838,
+          "stop_reason": "insufficient_data"
+        }
+      },
+      "peak_rss_mb": 962,
+      "updates": 40,
+      "loss": 3.203699758672883,
+      "interrupted": false,
+      "approx_kl": 0.0,
+      "kl_stopped": false,
+      "decisions_seen": 8936,
+      "unique_families_seen": 7,
+      "effective_dataset_passes": 4.36328125,
+      "sequence_windows": 38,
+      "microbatch": 32,
+      "window_visits": 160,
+      "unique_windows_seen": 35,
+      "repeated_window_visits": 125
+    },
+    {
+      "batch": 1,
+      "method": "bc",
+      "elapsed_hours": 0.3001277240117391,
+      "reads": {
+        "bc": {
+          "requested": 2048,
+          "rows": 2048,
+          "families": 12,
+          "selected": 13,
+          "families_decoded": 12,
+          "families_selected": 13,
+          "families_admitted": 12,
+          "families_retained": 12,
+          "windows": 46,
+          "sources": {
+            "astra": 2048
+          },
+          "engines": {
+            "lite": 2048
+          },
+          "kinds": {
+            "recruit": 107,
+            "move": 1361,
+            "end_turn": 289,
+            "move_attack": 264,
+            "attack": 27
+          },
+          "gz_bytes": 57480726,
+          "retained_bytes": 320773040,
+          "deficit": 0,
+          "stop_reason": "window_limit"
+        },
+        "validation": {
+          "requested": 1024,
+          "rows": 1024,
+          "families": 3,
+          "selected": 3,
+          "families_decoded": 3,
+          "families_selected": 3,
+          "families_admitted": 3,
+          "families_retained": 3,
+          "windows": 17,
+          "sources": {
+            "astra": 1024
+          },
+          "engines": {
+            "lite": 1024
+          },
+          "kinds": {
+            "recruit": 59,
+            "end_turn": 121,
+            "move": 725,
+            "move_attack": 106,
+            "attack": 13
+          },
+          "gz_bytes": 16312455,
+          "retained_bytes": 149821688,
+          "deficit": 0,
+          "stop_reason": "window_limit"
+        }
+      },
+      "peak_rss_mb": 1328,
+      "updates": 44,
+      "loss": 2.255891307574612,
+      "interrupted": false,
+      "approx_kl": 0.0,
+      "kl_stopped": false,
+      "decisions_seen": 9493,
+      "unique_families_seen": 12,
+      "effective_dataset_passes": 4.63525390625,
+      "sequence_windows": 43,
+      "microbatch": 32,
+      "window_visits": 176,
+      "unique_windows_seen": 41,
+      "repeated_window_visits": 135
+    },
+    {
+      "batch": 2,
+      "method": "bc",
+      "elapsed_hours": 0.4143132352166706,
+      "reads": {
+        "bc": {
+          "requested": 2048,
+          "rows": 2048,
+          "families": 9,
+          "selected": 19,
+          "families_decoded": 9,
+          "families_selected": 19,
+          "families_admitted": 9,
+          "families_retained": 9,
+          "windows": 43,
+          "sources": {
+            "astra": 2048
+          },
+          "engines": {
+            "lite": 2048
+          },
+          "kinds": {
+            "recruit": 113,
+            "end_turn": 286,
+            "move": 1314,
+            "move_attack": 306,
+            "attack": 29
+          },
+          "gz_bytes": 42620988,
+          "retained_bytes": 300790364,
+          "deficit": 0,
+          "stop_reason": "window_limit"
+        },
+        "validation": {
+          "requested": 1024,
+          "rows": 1024,
+          "families": 5,
+          "selected": 5,
+          "families_decoded": 5,
+          "families_selected": 5,
+          "families_admitted": 5,
+          "families_retained": 5,
+          "windows": 19,
+          "sources": {
+            "astra": 1024
+          },
+          "engines": {
+            "lite": 1024
+          },
+          "kinds": {
+            "recruit": 59,
+            "move": 684,
+            "end_turn": 132,
+            "move_attack": 138,
+            "attack": 11
+          },
+          "gz_bytes": 25350481,
+          "retained_bytes": 156643628,
+          "deficit": 0,
+          "stop_reason": "window_limit"
+        }
+      },
+      "peak_rss_mb": 1328,
+      "updates": 44,
+      "loss": 1.8660030731296666,
+      "interrupted": false,
+      "approx_kl": 0.0,
+      "kl_stopped": false,
+      "decisions_seen": 9620,
+      "unique_families_seen": 9,
+      "effective_dataset_passes": 4.697265625,
+      "sequence_windows": 41,
+      "microbatch": 32,
+      "window_visits": 176,
+      "unique_windows_seen": 39,
+      "repeated_window_visits": 137
+    }
+  ],
+  "snapshots": [],
+  "best_key": null,
+  "bc_key": null,
+  "ppo_key": null,
+  "best_kind": null,
+  "pending_train": {
+    "paths": [
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00000-team2v2-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00001-team2v2-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00002-team2v2-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00003-team2v2-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00004-team2v2-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00005-team2v2-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00006-team2v2-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00007-team2v2-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00008-team2v2-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00009-team2v2-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00010-team2v2-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00011-team2v2-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00012-team2v2-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00013-team2v2-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00014-team2v2-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00015-team2v2-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00016-team2v2-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00017-team2v2-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00018-team2v2-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00019-team2v2-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00020-team2v2-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00021-team2v2-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00022-team2v2-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00023-team2v2-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00024-team2v2-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00025-team2v2-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00026-team2v2-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00027-team2v2-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00028-team2v2-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00029-team2v2-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00030-team2v2-t0.jsonl.gz",
+      "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00031-team2v2-t0.jsonl.gz"
+    ],
+    "method": "bc",
+    "cursor": {
+      "epoch": 0,
+      "step": 0
+    },
+    "reward_config": {
+      "economy": 0.15,
+      "control": 0.1,
+      "explore": 0.1,
+      "mode": "adaptive",
+      "entropy": 0.01,
+      "bc_aux": 0.1,
+      "gamma": 1.0,
+      "gae_lambda": 0.95,
+      "reward_version": 0,
+      "reward_formula_id": "v5-potential-1"
+    },
+    "identity": {
+      "train": "b71ba312d324d3782528d9af28ffe674d1b472e5833b3fe7ec602ff8c6d69d02"
+    }
+  },
+  "pending_validation": null,
+  "teacher_shards": [
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00000-team2v2-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00001-team2v2-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00002-team2v2-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00003-team2v2-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00004-team2v2-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00005-team2v2-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00006-team2v2-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00007-team2v2-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00008-team2v2-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00009-team2v2-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00010-team2v2-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00011-team2v2-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00012-team2v2-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00013-team2v2-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00014-team2v2-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00015-team2v2-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00016-team2v2-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00017-team2v2-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00018-team2v2-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00019-team2v2-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00020-team2v2-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00021-team2v2-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00022-team2v2-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00023-team2v2-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00024-team2v2-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00025-team2v2-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00026-team2v2-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00027-team2v2-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00028-team2v2-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00029-team2v2-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00030-team2v2-t0.jsonl.gz",
+    "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00031-team2v2-t0.jsonl.gz"
+  ],
+  "effective": false,
+  "error": null,
+  "dagger_shards": [],
+  "policy_shards": [],
+  "counters": {
+    "environment_games": 32,
+    "collection_batches": 4,
+    "optimizer_steps": 128,
+    "unique_families_seen": 20,
+    "decisions_seen": 28049,
+    "effective_dataset_passes": 13.69580078125
+  },
+  "reward_controller": {
+    "config": {
+      "economy": 0.15,
+      "control": 0.1,
+      "explore": 0.1,
+      "mode": "adaptive",
+      "entropy": 0.01,
+      "bc_aux": 0.1,
+      "gamma": 1.0,
+      "gae_lambda": 0.95,
+      "reward_version": 0,
+      "reward_formula_id": "v5-potential-1"
+    },
+    "cursor": 0,
+    "last_check": 0,
+    "games": 24,
+    "blocks": [],
+    "seen_blocks": [],
+    "windows": [],
+    "control_previous": null,
+    "last_error": null,
+    "metrics_error": null,
+    "applied_schedule": []
+  },
+  "families_seen": [
+    "00ba546e00809bb3c5ecf8476921d903acaea6287b965d3a5864e5f96c040cd6",
+    "00d9d1746f8d81af4d125e92dae416e680c2da8c201940770599ca3efccf0691",
+    "03a1f996e993951c21dee1e0c2515568dace7c7ce8c85f165c7e1f55aa52087b",
+    "097d667b6dc037c4fafe90ae21bebda7c934433bc190ca6021f8212a70975090",
+    "28441571d0d5dfa9b5ddd7a83a3b543bfc5da8f6d61e66cf12d232978ece801f",
+    "2d2f1fa199033fbb8e35e3771a1b19bd46d7053d7d6d022e1698f40b770010cb",
+    "35c5bdf83f3d57e5f891c5fbae8509101fd1f90ebb07db4be7bb0f9e1ddd746d",
+    "4ae77b472d9162d169f777c1b9438b1158bca1ae8d22a115be0cef8d99e3fdf2",
+    "576f4ec03b244ce37e9548c35552ab40e6ef97fc9cfde0057cf39a3be4b2747e",
+    "823c993bbcbb22ef31be74630ac14e791f09c8ca8846aebb7bd4b1d1a611be4b",
+    "866e0aee3a655e95538899d2912fa0a486f5130e9a6aa30fea6712f9876cbaf6",
+    "a1551d322f65ad138c89d35f922289b4fafb84d82bc82da6f3dbd08fd84296aa",
+    "a9bf96660690df186f5dd501ea300b904d7e0d78b24c5c3599cf17d2591ab0b0",
+    "c34dc7ef1d68c57d1531409e7850e6d49c87b3a06da29ab797fe1ecbc889668e",
+    "cb8836295a88d167e2e9b7d3cf67ffd08e133a32cad7e889460d685aa75dd526",
+    "ccb43170f44c378d614e09a7f983e0897edf1c32728cac77e96e656359ff632f",
+    "d2b43eef083665ecc05acac94568764c1760c5fab81728da0fe15a7360a5ef52",
+    "e05edee0fef99cc4cc18fcff93f8b691381dd182e2f81fcad9e3a71368fec5c8",
+    "f4862bcc5f6237e228a3c47f9e1f7e82209b3482a3af5f7fc1c10344a9a4699f",
+    "f73dd51f7af2255c3d6e649439a3804bd0120536ded4e138db9577e923d16b6a"
+  ],
+  "bc_quality_best": 0.4658753709198813,
+  "bc_plateau": 0,
+  "control_metrics": {
+    "partition": "train",
+    "new_games": 8,
+    "faulted_games": 0
+  },
+  "status": "stage_complete"
+}

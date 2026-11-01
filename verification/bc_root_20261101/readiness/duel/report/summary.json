@@ -1,0 +1,15 @@
+{
+  "format": "duel",
+  "status": "stage_complete",
+  "phase": "bc",
+  "version": 10,
+  "pretraining_complete": false,
+  "forced_ppo": null,
+  "checkpoint": "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/latest.pt",
+  "error": null,
+  "clock": {
+    "started": 1793544005.1019723,
+    "update_deadline": 1793545505.1019723,
+    "deadline": 1793545805.1019723
+  }
+}

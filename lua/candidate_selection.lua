@@ -1,11 +1,7 @@
 local M={}
--- Per-class reserves of the 36 actionable slots.  Combat takes the largest one:
--- the teacher's attack intents are the class a 37-slot pool loses most often, and
--- every retained combat candidate costs one forecast rather than a position, so
--- the reserve can be wide without starving movement.  Move keeps only two first-
--- pass slots because the ranked refill already gives every mobile unit its best
--- full move, and recruiting keeps six so that the type diversity the round-robin
--- probe buys survives selection.
+-- Preserve generated primary moves, then fill per-class reserves within the
+-- 36 actionable slots. Combat gets the largest remaining share; recruiting
+-- keeps type diversity across the six reserved entries.
 local LIMIT={combat=28,recruit=6,move=2}
 local function class(a)
     return (a.kind=='attack' or a.kind=='move_attack') and 'combat' or a.kind
@@ -40,14 +36,21 @@ function M.select(pool)
     local function take(a)
         selected[#selected+1]=a;used[identity(a)]=true
     end
-    for _,kind in ipairs {'combat','recruit','move'} do
+    -- Primary full moves are already budgeted/probed once per actor. Preserve
+    -- them when more combat landings become available instead of losing actors
+    -- in the final refill. The remaining slots still prefer combat.
+    for _,a in ipairs(unique) do
+        if a._primary_move and #selected<36 then take(a) end
+    end
+    for _,kind in ipairs {'recruit','combat','move'} do
         local bucket=classes[kind];local limit=LIMIT[kind];local count=0
+        for _,a in ipairs(selected) do if class(a)==kind then count=count+1 end end
         -- One ranked action per actor/recruit type per pass preserves diversity.
-        while count<limit do
+        while count<limit and #selected<36 do
             local groups={};local added=false
             for _,a in ipairs(bucket) do
                 local key=group(a)
-                if not used[identity(a)] and not groups[key] and count<limit then
+                if not used[identity(a)] and not groups[key] and count<limit and #selected<36 then
                     take(a);groups[key]=true;count=count+1;added=true
                 end
             end

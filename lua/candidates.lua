@@ -11,7 +11,7 @@ for i,field in ipairs(schema.action_features) do feature_index[field[1]]=i end
 -- Generation is cut by charged work and per-stage call caps, never by a clock,
 -- so the same state always yields the same candidate set.
 local WORK={
-    version='work-12000-v7',
+    version='work-12000-v8',
     total=12000,          -- charged search work per decision
     entities=16,          -- enemies/villages/friends scanned by scoring
     threat_enemies=12,    -- enemies expanded into the threat map
@@ -126,7 +126,9 @@ local function tactical_ratings(obs,u,destinations,enemies,villages,supporters,t
     end
     if #goals>WORK.goals then
         table.sort(goals,function(a,b)
-            if a.bonus~=b.bonus then return a.bonus>b.bonus end
+            local av=a.bonus-distance(u.x,u.y,a)*2.5
+            local bv=b.bonus-distance(u.x,u.y,b)*2.5
+            if av~=bv then return av>bv end
             return a[1]<b[1] or a[1]==b[1] and a[2]<b[2]
         end)
         local kept={}
@@ -207,10 +209,7 @@ local function tactical_ratings(obs,u,destinations,enemies,villages,supporters,t
         d.gain=d.tactical-current;d.risk_delta=d.risk-current_risk
         return true
     end
-    table.sort(destinations,function(a,b)
-        if a.score~=b.score then return a.score>b.score end
-        return a.p[1]<b.p[1] or a.p[1]==b.p[1] and a.p[2]<b.p[2]
-    end)
+    -- Preserve the interleaved proximity/safety order through eager rating.
     for i=1,math.min(WORK.rated,#destinations) do
         if not rate(destinations[i]) then break end
     end
@@ -345,21 +344,48 @@ function M.generate(obs)
     -- The threat map is the most expensive stage, so every mandatory class above
     -- is already generated when its budget runs out.
     local threats=threat_map(obs,enemies,allow,charge)
-    local plans={}
-    for _,u in ipairs(obs.own) do
-        if u.moves>0 then
-            if not allow('reach',WORK.reaches,COST.reach) then break end
+    local plans={};local unit_villages={}
+    local mobile={}
+    for _,u in ipairs(obs.own) do if u.moves>0 then mobile[#mobile+1]=u end end
+    -- Planning must leave work to emit legal moves and forecast the retained
+    -- combat set. Share its remainder across actors instead of spending it all
+    -- on the first few IDs before the probe loop even starts.
+    local planning_limit=WORK.total-WORK.move_probes*COST.probe-WORK.predictions*COST.predict
+    for index,u in ipairs(mobile) do
+        local started=work
+        local share=math.max(0,math.floor((planning_limit-work)/(#mobile-index+1)))
+        local function unit_charge(units)
+            if work-started+units>share then cut=true;return false end
+            return charge(units)
+        end
+        local function unit_allow(kind,limit,cost)
+            if calls[kind]>=limit or not unit_charge(cost) then cut=true;return false end
+            calls[kind]=calls[kind]+1;return true
+        end
+        if unit_allow('reach',WORK.reaches,COST.reach) then
+            -- A map-coordinate prefix hides the right side of larger maps.
+            -- Choose this actor's nearby known villages within the same cap.
+            local villages={}
+            for _,v in ipairs(obs.villages) do
+                if not unit_charge(1) then break end
+                villages[#villages+1]=v
+            end
+            table.sort(villages,function(a,b)
+                local da,db=distance(u.x,u.y,a),distance(u.x,u.y,b)
+                return da<db or da==db and (a[1]<b[1] or a[1]==b[1] and a[2]<b[2])
+            end)
+            villages=head(villages,WORK.entities);unit_villages[u.id]=villages
             local reach=wesnoth.paths.find_reach(u,{viewing_side=obs.side,ignore_visibility=false})
             -- Cheap proximity ranks every reachable hex before the scored cap, so a
             -- bounded decision keeps the tiles near enemies and villages rather than
             -- whatever prefix the native reach table happens to return.
             local scored={}
             for _,p in ipairs(reach) do
-                if not charge(1) then break end
+                if not unit_charge(1) then break end
                 if (p[1]~=u.x or p[2]~=u.y) and not obs.occupied[p[1]..','..p[2]] then
                     local score=-minimum(p[1],p[2],enemies)*.2-minimum(p[1],p[2],villages)
                     for _,e in ipairs(enemies) do if distance(p[1],p[2],e)==1 then score=score+10 end end
-                    scored[#scored+1]={p=p,score=score}
+                    scored[#scored+1]={p=p,score=score,threats=#(threats[p[1]..','..p[2]] or {})}
                 end
             end
             table.sort(scored,function(a,b)
@@ -367,15 +393,35 @@ function M.generate(obs)
                 return a.p[1]<b.p[1] or a.p[1]==b.p[1] and a.p[2]<b.p[2]
             end)
             local destinations={}
-            for i=1,math.min(#scored,WORK.positions) do destinations[i]=scored[i] end
+            -- Proximity alone discards safe retreats before their risk can be
+            -- rated. Give the same bounded shortlist both progress and safety.
+            local safe={}
+            for _,d in ipairs(scored) do safe[#safe+1]=d end
+            table.sort(safe,function(a,b)
+                if a.threats~=b.threats then return a.threats<b.threats end
+                if a.score~=b.score then return a.score>b.score end
+                return a.p[1]<b.p[1] or a.p[1]==b.p[1] and a.p[2]<b.p[2]
+            end)
+            local chosen={}
+            for i=1,#scored do
+                for _,d in ipairs {scored[i],safe[i]} do
+                    if not chosen[d] and #destinations<WORK.positions then
+                        destinations[#destinations+1]=d;chosen[d]=true
+                    end
+                end
+                if #destinations>=WORK.positions then break end
+            end
             -- Keep independent goal categories. Long-distance targets are reduced to
             -- a reachable point along their visibility-aware path this turn.
             local picked={};local selected={}
             local reachable={}
             for _,d in ipairs(destinations) do reachable[d.p[1]..','..d.p[2]]=d end
-            local rate=tactical_ratings(obs,u,destinations,enemies,villages,supporters,threats,charge)
+            local rate=tactical_ratings(obs,u,destinations,enemies,villages,supporters,threats,unit_charge)
             local function pick(d,category,goal)
                 if not d then return end
+                -- A village/position pick can also be an attack landing. Keep
+                -- probe priority independent of whichever category found it first.
+                if category=='attack' then d.combat=true end
                 if d.tactical==nil and not rate(d) then return end
                 local key=d.p[1]..','..d.p[2]
                 if not picked[key] then
@@ -410,12 +456,12 @@ function M.generate(obs)
             table.sort(goals,function(a,b) local da=distance(u.x,u.y,a);local db=distance(u.x,u.y,b);return da<db or da==db and (a[1]<b[1] or a[1]==b[1] and a[2]<b[2]) end)
             for gi=1,math.min(3,#goals) do
                 local goal=goals[gi];local path
-                if wesnoth.paths.find_path and allow('path',WORK.paths,COST.path) then
+                if wesnoth.paths.find_path and unit_allow('path',WORK.paths,COST.path) then
                     path=wesnoth.paths.find_path(u,goal[1],goal[2],{viewing_side=obs.side,ignore_visibility=false})
                 end
                 local positions={}
                 for pi,p in ipairs(path or {}) do
-                    if not charge(1) then break end
+                    if not unit_charge(1) then break end
                     positions[p[1]..','..p[2]]=pi
                 end
                 -- Intermediate points expose where a safe path can be stopped by
@@ -427,7 +473,7 @@ function M.generate(obs)
             end
             if u.canrecruit and obs.memory.home then
                 local home=obs.memory.home
-                if wesnoth.paths.find_path and allow('path',WORK.paths,COST.path) then
+                if wesnoth.paths.find_path and unit_allow('path',WORK.paths,COST.path) then
                     local path=wesnoth.paths.find_path(u,home[1],home[2],{viewing_side=obs.side,ignore_visibility=false})
                     for _,p in ipairs(path or {}) do pick(reachable[p[1]..','..p[2]],'return',home) end
                 end
@@ -450,9 +496,10 @@ function M.generate(obs)
                 -- Combat-adjacent destinations are probed first, so a bounded probe
                 -- budget cannot be spent on position picks before any attack-adjacent
                 -- destination is checked. Categories themselves are unchanged.
-                local ordered={}
-                for _,d in ipairs(selected) do if d.category=='attack' then ordered[#ordered+1]=d end end
-                for _,d in ipairs(selected) do if d.category~='attack' then ordered[#ordered+1]=d end end
+                -- Keep the actor's best move first, then probe its combat landings.
+                local ordered={selected[1]}
+                for _,d in ipairs(selected) do if d~=selected[1] and d.combat then ordered[#ordered+1]=d end end
+                for _,d in ipairs(selected) do if d~=selected[1] and not d.combat then ordered[#ordered+1]=d end end
                 plans[#plans+1]={u=u,selected=ordered,primary=true}
             end
         end
@@ -503,7 +550,7 @@ function M.generate(obs)
     -- Features for the retained set are mandatory and bounded by the entity caps;
     -- only combat forecasts are charged as optional search work.
     for _,a in ipairs(actions) do
-        if a._unit then a.features,a.rule=features(obs,a,a._unit,a._enemy,enemies,villages,friends) end
+        if a._unit then a.features,a.rule=features(obs,a,a._unit,a._enemy,enemies,unit_villages[a._unit.id] or villages,friends) end
         if a._enemy and allow('predict',WORK.predictions,COST.predict) then
             local clone=a._unit:clone()
             if a.kind=='move_attack' then clone.x=a.tx;clone.y=a.ty end

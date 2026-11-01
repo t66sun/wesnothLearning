@@ -1,0 +1,15 @@
+test_planning_cannot_starve_later_actors_or_combat_features (tests.v5.test_combat_destination_priority.CombatDestinationPriorityTests.test_planning_cannot_starve_later_actors_or_combat_features) ... FAIL
+test_position_or_village_pick_keeps_its_combat_probe_priority (tests.v5.test_combat_destination_priority.CombatDestinationPriorityTests.test_position_or_village_pick_keeps_its_combat_probe_priority) ... ok
+
+======================================================================
+FAIL: test_planning_cannot_starve_later_actors_or_combat_features (tests.v5.test_combat_destination_priority.CombatDestinationPriorityTests.test_planning_cannot_starve_later_actors_or_combat_features)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/bc_root_20261101_budget_red/tests/v5/test_combat_destination_priority.py", line 36, in test_planning_cannot_starve_later_actors_or_combat_features
+    self.assertTrue(any((c['x'],c['y'])==actor for c in moves))
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 2 tests in 1.477s
+
+FAILED (failures=1)
