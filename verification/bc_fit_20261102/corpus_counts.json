@@ -1,0 +1,770 @@
+{
+  "duel": {
+    "committed_games": 48,
+    "factions": {
+      "train": {
+        "Drakes": 9,
+        "Loyalists": 8,
+        "Rebels": 6,
+        "Knalgan Alliance": 5,
+        "Undead": 6,
+        "Northerners": 4
+      },
+      "validation": {
+        "Knalgan Alliance": 3,
+        "Northerners": 4,
+        "Rebels": 2,
+        "Undead": 1
+      }
+    },
+    "games": [
+      {
+        "id": "teacher-00000-duel-t0",
+        "scenario_family": "be484180b7514f430e4c3d54bc50c86b341b7bebc25deef9491b814630cd609b",
+        "split": "train",
+        "faction": "Drakes"
+      },
+      {
+        "id": "teacher-00001-duel-t0",
+        "scenario_family": "b947d0225dcd0e12fc622181aec2426fe16922db9f1174d1cc9f4e63037fa65a",
+        "split": "train",
+        "faction": "Loyalists"
+      },
+      {
+        "id": "teacher-00002-duel-t0",
+        "scenario_family": "796ea25631138e8116126a102793912b80400fdbb436da2a88648f8fe4b3eb96",
+        "split": "train",
+        "faction": "Drakes"
+      },
+      {
+        "id": "teacher-00004-duel-t0",
+        "scenario_family": "864b9cc55ce0108e2af22e0b4edae225816f74b164974ef5baf182777904d7d3",
+        "split": "train",
+        "faction": "Drakes"
+      },
+      {
+        "id": "teacher-00003-duel-t0",
+        "scenario_family": "10e6ef94b27c84d4b92d82c63144cec4916aa30bd0a080e5c33c87109a3f8526",
+        "split": "train",
+        "faction": "Rebels"
+      },
+      {
+        "id": "teacher-00005-duel-t0",
+        "scenario_family": "7c951e1e1aa274d2af0d30b58889553565a9729173d4fda8ac4b86b97fbf5152",
+        "split": "train",
+        "faction": "Loyalists"
+      },
+      {
+        "id": "teacher-00006-duel-t0",
+        "scenario_family": "49df92b28a7d1c003d96b666d9305e589471e6ad19ed52772f60335870cc4c6a",
+        "split": "validation",
+        "faction": "Knalgan Alliance"
+      },
+      {
+        "id": "teacher-00007-duel-t0",
+        "scenario_family": "8843849d966dfb9bedb94b4472c039d134c351dc6dc8ae14a19719e8995a384b",
+        "split": "train",
+        "faction": "Rebels"
+      },
+      {
+        "id": "teacher-00010-duel-t0",
+        "scenario_family": "22e15b4ac04f070e3e168389d50b56f790d4e98fa66319bcf54fb7a2636437ff",
+        "split": "train",
+        "faction": "Loyalists"
+      },
+      {
+        "id": "teacher-00012-duel-t0",
+        "scenario_family": "731b8c6096471255698df8e33839ecc3c6fc5594782bc5439d3887ccfb41ba42",
+        "split": "validation",
+        "faction": "Northerners"
+      },
+      {
+        "id": "teacher-00008-duel-t0",
+        "scenario_family": "f14266e81734317779e60906dc8589bb8bd9788014dbaa354180fcf627664451",
+        "split": "train",
+        "faction": "Knalgan Alliance"
+      },
+      {
+        "id": "teacher-00014-duel-t0",
+        "scenario_family": "4a6f9fdfed180640134cd2db2d9f21dbbd114a8e20fba89083a091a56441ee78",
+        "split": "validation",
+        "faction": "Rebels"
+      },
+      {
+        "id": "teacher-00011-duel-t0",
+        "scenario_family": "02124d2aaaa84577fbf45d3bcd24538fde6d086dd1cc6d386fdaccef74e6fca8",
+        "split": "train",
+        "faction": "Undead"
+      },
+      {
+        "id": "teacher-00015-duel-t0",
+        "scenario_family": "c1877dd53d98a8625803b2ce739d93d0faee6af1dc6c2c648786480ded32f2f9",
+        "split": "train",
+        "faction": "Knalgan Alliance"
+      },
+      {
+        "id": "teacher-00009-duel-t0",
+        "scenario_family": "7f969ec5860eed5fe7ad9e76f933951d91446ca7fb85af82674a26d3a3a45e07",
+        "split": "train",
+        "faction": "Northerners"
+      },
+      {
+        "id": "teacher-00013-duel-t0",
+        "scenario_family": "cfe1c51d7f3ac682828e71e9f3d81f6cf5136ffbbe234c35987a3a7758818281",
+        "split": "train",
+        "faction": "Undead"
+      },
+      {
+        "id": "teacher-00016-duel-t0",
+        "scenario_family": "8cf542d174966e82e070703cf10f909f6c07802180dc82293cc371162e7183b2",
+        "split": "train",
+        "faction": "Drakes"
+      },
+      {
+        "id": "teacher-00017-duel-t0",
+        "scenario_family": "f817c8261a62b25d3cb33c04ced030e886f49044e6f911b772f1ab0db8a404e3",
+        "split": "train",
+        "faction": "Northerners"
+      },
+      {
+        "id": "teacher-00018-duel-t0",
+        "scenario_family": "0dcde0fa43f1d060fd0b7ae5146faf6cf42657270aa24a8a3d48c7a247153970",
+        "split": "train",
+        "faction": "Drakes"
+      },
+      {
+        "id": "teacher-00020-duel-t0",
+        "scenario_family": "624a91ee2fae490fd26682c3ec7de1187802d9f85d4df4cfcf7f3a621a987a14",
+        "split": "validation",
+        "faction": "Knalgan Alliance"
+      },
+      {
+        "id": "teacher-00022-duel-t0",
+        "scenario_family": "c4ef0f8abb1b1e4166f8c395ce31cb8b6a433de87025429d9472230b4522d5af",
+        "split": "train",
+        "faction": "Knalgan Alliance"
+      },
+      {
+        "id": "teacher-00023-duel-t0",
+        "scenario_family": "3414332fd029f362f65da036fba16b5b0db2d8d2666e0d21e47db86fc46d880a",
+        "split": "train",
+        "faction": "Undead"
+      },
+      {
+        "id": "teacher-00019-duel-t0",
+        "scenario_family": "bba06c08e33e886c44bcc8cca30eb3ff0ca0063076551a8ec22480e515d3c31e",
+        "split": "train",
+        "faction": "Undead"
+      },
+      {
+        "id": "teacher-00021-duel-t0",
+        "scenario_family": "71d61b4017799716310a30d6e4bcbd33e33ae5f8ae986b5520e2d9ec7cedf0f1",
+        "split": "validation",
+        "faction": "Northerners"
+      },
+      {
+        "id": "teacher-00024-duel-t0",
+        "scenario_family": "9f6572ab60d0133903bb72a9455fcc56f0e61f7a94e933b17ac6b9c9dbf1ca8e",
+        "split": "train",
+        "faction": "Loyalists"
+      },
+      {
+        "id": "teacher-00030-duel-t0",
+        "scenario_family": "be484180b7514f430e4c3d54bc50c86b341b7bebc25deef9491b814630cd609b",
+        "split": "train",
+        "faction": "Drakes"
+      },
+      {
+        "id": "teacher-00028-duel-t0",
+        "scenario_family": "194361372b5f0c70b5738497eba9e2481d4ccc0db616d12c44d9a7833cef5d63",
+        "split": "validation",
+        "faction": "Northerners"
+      },
+      {
+        "id": "teacher-00026-duel-t0",
+        "scenario_family": "7e9aac24af8e05e7f61b4446ceb856f242ae963c31a5c171164d5976cb2617e0",
+        "split": "train",
+        "faction": "Loyalists"
+      },
+      {
+        "id": "teacher-00029-duel-t0",
+        "scenario_family": "985bc6ceed8878305d26c370211f039af843cc9428dd133358e348236ae11c61",
+        "split": "validation",
+        "faction": "Undead"
+      },
+      {
+        "id": "teacher-00025-duel-t0",
+        "scenario_family": "31449fc274fdbfde7b72aeae257d630996d7e3a0cc0e4e41f7530be53c99d2fa",
+        "split": "train",
+        "faction": "Rebels"
+      },
+      {
+        "id": "teacher-00027-duel-t0",
+        "scenario_family": "542bbd5a69ffd5a9ddd4fad9d1de64b49e7447b834eb61caa285c8461f6f94b7",
+        "split": "train",
+        "faction": "Rebels"
+      },
+      {
+        "id": "teacher-00031-duel-t0",
+        "scenario_family": "b947d0225dcd0e12fc622181aec2426fe16922db9f1174d1cc9f4e63037fa65a",
+        "split": "train",
+        "faction": "Loyalists"
+      },
+      {
+        "id": "teacher-00032-duel-t0",
+        "scenario_family": "796ea25631138e8116126a102793912b80400fdbb436da2a88648f8fe4b3eb96",
+        "split": "train",
+        "faction": "Drakes"
+      },
+      {
+        "id": "teacher-00033-duel-t0",
+        "scenario_family": "10e6ef94b27c84d4b92d82c63144cec4916aa30bd0a080e5c33c87109a3f8526",
+        "split": "train",
+        "faction": "Rebels"
+      },
+      {
+        "id": "teacher-00034-duel-t0",
+        "scenario_family": "864b9cc55ce0108e2af22e0b4edae225816f74b164974ef5baf182777904d7d3",
+        "split": "train",
+        "faction": "Drakes"
+      },
+      {
+        "id": "teacher-00035-duel-t0",
+        "scenario_family": "7c951e1e1aa274d2af0d30b58889553565a9729173d4fda8ac4b86b97fbf5152",
+        "split": "train",
+        "faction": "Loyalists"
+      },
+      {
+        "id": "teacher-00036-duel-t0",
+        "scenario_family": "49df92b28a7d1c003d96b666d9305e589471e6ad19ed52772f60335870cc4c6a",
+        "split": "validation",
+        "faction": "Knalgan Alliance"
+      },
+      {
+        "id": "teacher-00038-duel-t0",
+        "scenario_family": "f14266e81734317779e60906dc8589bb8bd9788014dbaa354180fcf627664451",
+        "split": "train",
+        "faction": "Knalgan Alliance"
+      },
+      {
+        "id": "teacher-00037-duel-t0",
+        "scenario_family": "8843849d966dfb9bedb94b4472c039d134c351dc6dc8ae14a19719e8995a384b",
+        "split": "train",
+        "faction": "Rebels"
+      },
+      {
+        "id": "teacher-00039-duel-t0",
+        "scenario_family": "7f969ec5860eed5fe7ad9e76f933951d91446ca7fb85af82674a26d3a3a45e07",
+        "split": "train",
+        "faction": "Northerners"
+      },
+      {
+        "id": "teacher-00044-duel-t0",
+        "scenario_family": "4a6f9fdfed180640134cd2db2d9f21dbbd114a8e20fba89083a091a56441ee78",
+        "split": "validation",
+        "faction": "Rebels"
+      },
+      {
+        "id": "teacher-00040-duel-t0",
+        "scenario_family": "22e15b4ac04f070e3e168389d50b56f790d4e98fa66319bcf54fb7a2636437ff",
+        "split": "train",
+        "faction": "Loyalists"
+      },
+      {
+        "id": "teacher-00042-duel-t0",
+        "scenario_family": "731b8c6096471255698df8e33839ecc3c6fc5594782bc5439d3887ccfb41ba42",
+        "split": "validation",
+        "faction": "Northerners"
+      },
+      {
+        "id": "teacher-00046-duel-t0",
+        "scenario_family": "8cf542d174966e82e070703cf10f909f6c07802180dc82293cc371162e7183b2",
+        "split": "train",
+        "faction": "Drakes"
+      },
+      {
+        "id": "teacher-00041-duel-t0",
+        "scenario_family": "02124d2aaaa84577fbf45d3bcd24538fde6d086dd1cc6d386fdaccef74e6fca8",
+        "split": "train",
+        "faction": "Undead"
+      },
+      {
+        "id": "teacher-00045-duel-t0",
+        "scenario_family": "c1877dd53d98a8625803b2ce739d93d0faee6af1dc6c2c648786480ded32f2f9",
+        "split": "train",
+        "faction": "Knalgan Alliance"
+      },
+      {
+        "id": "teacher-00047-duel-t0",
+        "scenario_family": "f817c8261a62b25d3cb33c04ced030e886f49044e6f911b772f1ab0db8a404e3",
+        "split": "train",
+        "faction": "Northerners"
+      },
+      {
+        "id": "teacher-00043-duel-t0",
+        "scenario_family": "cfe1c51d7f3ac682828e71e9f3d81f6cf5136ffbbe234c35987a3a7758818281",
+        "split": "train",
+        "faction": "Undead"
+      }
+    ],
+    "input_sha256": {
+      "verification/bc_root_20261101/readiness/duel/schedules/bc-batch-000000.json": "1acf544d657ee5077f7e6567cbde73a1df58cc4f21d579b992fe4bab98611f30",
+      "verification/bc_root_20261101/readiness/duel/schedules/bc-batch-000001.json": "b81fdc0088de826ebe2dce023220b7d1d7cb9460df65086167b76b16c20a6bcb",
+      "verification/bc_root_20261101/readiness/duel/schedules/bc-batch-000002.json": "22fd7b4f133aef421300f75c5a7cb3aa79260c17a5987213c396fbe448bc435a",
+      "verification/bc_root_20261101/readiness/duel/schedules/bc-batch-000003.json": "7489d4c6705b9694c2413b0814128a4152b70093ff18f0d1caac3a32c1d09571",
+      "verification/bc_root_20261101/readiness/duel/schedules/bc-batch-000004.json": "aaf6f2a178b1a61b058523044fb2f39b6be59211a12c9794630042cdd117df97",
+      "verification/bc_root_20261101/readiness/duel/schedules/bc-batch-000005.json": "69f2681eed32b4e2e6ebbc2085602a583450b446a821d91bb061139f3ed97959",
+      "verification/bc_root_20261101/readiness/duel/schedules/bc-batch-000006.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "verification/bc_root_20261101/readiness/duel/schedules/bc-batch-000007.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "verification/bc_root_20261101/readiness/duel/schedules/bc-batch-000008.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "verification/bc_root_20261101/readiness/duel/schedules/bc-batch-000009.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "verification/bc_root_20261101/readiness/duel/schedules/bc-batch-000010.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "verification/bc_root_20261101/readiness/duel/schedules/reward-reference-v000010.json": "abaa5380158e9881be31504f7496bdd91e70dd3d019adc6e9ef7cb02d113d710",
+      "verification/bc_root_20261101/readiness/duel/schedules/validation-000010.json": "86c33ab21c18c213cd0849078896dd6771e73fedaafb6ede3934d1e44c43bb85",
+      "verification/bc_root_20261101/readiness/duel/jobs.jsonl": "a8c1536e2a8f154a05695aba1f860e50f889cedc106c9fc0a750aed049ae6c78",
+      "verification/bc_root_20261101/readiness/duel/bc_gate.json": "a3856725db7ae0b1b8d7e369c3e75c9ee644537c855004e62b843110668d7cb1"
+    }
+  },
+  "ffa4": {
+    "committed_games": 40,
+    "factions": {
+      "train": {
+        "Drakes": 7,
+        "Northerners": 7,
+        "Loyalists": 3,
+        "Rebels": 5,
+        "Knalgan Alliance": 7,
+        "Undead": 4
+      },
+      "validation": {
+        "Drakes": 1,
+        "Undead": 2,
+        "Loyalists": 3,
+        "Rebels": 1
+      }
+    },
+    "games": [
+      {
+        "id": "teacher-00004-ffa4-t0",
+        "scenario_family": "05afa2d05e1411a422f1f4f44b70b49d9360e18541df1f4f08454da312e55c16",
+        "split": "train",
+        "faction": "Drakes"
+      },
+      {
+        "id": "teacher-00000-ffa4-t0",
+        "scenario_family": "22ae9cbf2dd72c7e0e8eaba14d7f541e0452e807315b63b95efe633f970b7ae8",
+        "split": "validation",
+        "faction": "Drakes"
+      },
+      {
+        "id": "teacher-00006-ffa4-t0",
+        "scenario_family": "60ea5429b6a2cf839ba003878d0eae1744670dcb73a208f0c8734b0bb262b2a4",
+        "split": "train",
+        "faction": "Northerners"
+      },
+      {
+        "id": "teacher-00002-ffa4-t0",
+        "scenario_family": "4b9cc77c675e4d2011ad7fb73377a16b6319a6b46b6864cabc117d347bde3e2c",
+        "split": "train",
+        "faction": "Loyalists"
+      },
+      {
+        "id": "teacher-00005-ffa4-t0",
+        "scenario_family": "563b9a3950fac8fb794a5194431dea444a83e6487adad504136ba055d73596a1",
+        "split": "validation",
+        "faction": "Undead"
+      },
+      {
+        "id": "teacher-00001-ffa4-t0",
+        "scenario_family": "93424e5da4038077e5d27fc79941ebdc81e4efab6fb3bd0c153125ca9a5bc4e9",
+        "split": "train",
+        "faction": "Rebels"
+      },
+      {
+        "id": "teacher-00007-ffa4-t0",
+        "scenario_family": "09da91d74331a8243e834a7191f396c067780ed757140b1d4d2f3091b660eddb",
+        "split": "validation",
+        "faction": "Loyalists"
+      },
+      {
+        "id": "teacher-00003-ffa4-t0",
+        "scenario_family": "44379d095becd612991cbace1f9a86f4b3683431f7d407ced7c14caf32600764",
+        "split": "train",
+        "faction": "Knalgan Alliance"
+      },
+      {
+        "id": "teacher-00012-ffa4-t0",
+        "scenario_family": "3fd3f14da8da53beb707f355ce6bea14648dc505764a99477e1fa571947d2cb0",
+        "split": "train",
+        "faction": "Knalgan Alliance"
+      },
+      {
+        "id": "teacher-00008-ffa4-t0",
+        "scenario_family": "e15e147c6cfd17037575671629cc06e6c6abd7b721fac1313bde185b960d3598",
+        "split": "train",
+        "faction": "Drakes"
+      },
+      {
+        "id": "teacher-00010-ffa4-t0",
+        "scenario_family": "80609ac3ac7076e4dc029c6699654ec9bccc74f4391fe3be0e9851f389d36008",
+        "split": "train",
+        "faction": "Northerners"
+      },
+      {
+        "id": "teacher-00014-ffa4-t0",
+        "scenario_family": "c7ac67861c394ebe04cf879d869b7dec68e486ffb3c1385327923b054acc9864",
+        "split": "train",
+        "faction": "Rebels"
+      },
+      {
+        "id": "teacher-00013-ffa4-t0",
+        "scenario_family": "c283ef4101b7555b0bdd9473eb315ed05437a2bb93dbe3c346461e4971c82f37",
+        "split": "train",
+        "faction": "Undead"
+      },
+      {
+        "id": "teacher-00011-ffa4-t0",
+        "scenario_family": "340b03e690531174ecf30339dd1d1d286b6180aec3991a02fa8bc93754a721f5",
+        "split": "validation",
+        "faction": "Loyalists"
+      },
+      {
+        "id": "teacher-00009-ffa4-t0",
+        "scenario_family": "c9bb0f24bed1b6c8d168b9b0ebc44aa20f5aba49120a488d4cb8471e1a617ec7",
+        "split": "train",
+        "faction": "Undead"
+      },
+      {
+        "id": "teacher-00015-ffa4-t0",
+        "scenario_family": "a1706af30f00873f32b5f9528c9acb88181aaca8304ec354b90a7a25151a8686",
+        "split": "train",
+        "faction": "Knalgan Alliance"
+      },
+      {
+        "id": "teacher-00020-ffa4-t0",
+        "scenario_family": "b28eb323c5c94cf49521af0c84d1d5b17da80fc2eb7e5da94433e4b7e9ace38c",
+        "split": "train",
+        "faction": "Drakes"
+      },
+      {
+        "id": "teacher-00016-ffa4-t0",
+        "scenario_family": "ae88672bebea222499b85bf0b6a74bd354e9b0e634c910117e20ad1aae0ab2e1",
+        "split": "train",
+        "faction": "Drakes"
+      },
+      {
+        "id": "teacher-00022-ffa4-t0",
+        "scenario_family": "0bc631180c193adec4436480813a56c41a3ec9d909ab6ac7bdee8ec9ca455279",
+        "split": "train",
+        "faction": "Northerners"
+      },
+      {
+        "id": "teacher-00021-ffa4-t0",
+        "scenario_family": "d90bdbe2e98148c4b0ad7e0a6e1972a93c8354b76fa2adffcea3d1e5c8336b79",
+        "split": "train",
+        "faction": "Rebels"
+      },
+      {
+        "id": "teacher-00023-ffa4-t0",
+        "scenario_family": "bac9d1f536652c7440336b6dade4209d6b6f48d6b2298f3896957eba409d1685",
+        "split": "train",
+        "faction": "Loyalists"
+      },
+      {
+        "id": "teacher-00018-ffa4-t0",
+        "scenario_family": "cbc06c3ff196bc5fc2b6c220fd1c371de95266b5f01dcbcc1f8fe2602158a7da",
+        "split": "train",
+        "faction": "Northerners"
+      },
+      {
+        "id": "teacher-00019-ffa4-t0",
+        "scenario_family": "33d657bbfa846e2e7805c8bb6401272221770407be6184e8eae0f3a43a614464",
+        "split": "train",
+        "faction": "Knalgan Alliance"
+      },
+      {
+        "id": "teacher-00017-ffa4-t0",
+        "scenario_family": "026d46ed8331490ee050c7d8ddfc6182d60202fc90672d37608bb4a449664025",
+        "split": "train",
+        "faction": "Undead"
+      },
+      {
+        "id": "teacher-00024-ffa4-t0",
+        "scenario_family": "d6d3177d55cbb07eb1c1ac513c04bb4275a6f06ea6e085d4a4cf3087551a081f",
+        "split": "train",
+        "faction": "Drakes"
+      },
+      {
+        "id": "teacher-00026-ffa4-t0",
+        "scenario_family": "7fe26cdf20c6d4b0480ecf9b4b868a8a30647889474600aecf6db012e019f5ed",
+        "split": "train",
+        "faction": "Northerners"
+      },
+      {
+        "id": "teacher-00028-ffa4-t0",
+        "scenario_family": "26657523aade0fe071e50e83332f52e354b5cba980f9c60636e1970aacdba340",
+        "split": "train",
+        "faction": "Knalgan Alliance"
+      },
+      {
+        "id": "teacher-00027-ffa4-t0",
+        "scenario_family": "8dfdec4b6504d6478066682ebfd6e8d627c79eaacb850421f9a21baa2eda81bb",
+        "split": "train",
+        "faction": "Loyalists"
+      },
+      {
+        "id": "teacher-00031-ffa4-t0",
+        "scenario_family": "a9b620445700aff386e0f7868cc8cb2b120459015fc8f918f05a2e11f61fe2d9",
+        "split": "train",
+        "faction": "Knalgan Alliance"
+      },
+      {
+        "id": "teacher-00030-ffa4-t0",
+        "scenario_family": "22ae9cbf2dd72c7e0e8eaba14d7f541e0452e807315b63b95efe633f970b7ae8",
+        "split": "validation",
+        "faction": "Loyalists"
+      },
+      {
+        "id": "teacher-00025-ffa4-t0",
+        "scenario_family": "add8b91415db08f4b03d66afe5c63a3bca6f9a308c04ceb99b0ae8fdb347b518",
+        "split": "validation",
+        "faction": "Rebels"
+      },
+      {
+        "id": "teacher-00029-ffa4-t0",
+        "scenario_family": "c4278acfff2e78b98092333b10331a59db51dbc010d618c0f4a07d6a2f1a8180",
+        "split": "train",
+        "faction": "Undead"
+      },
+      {
+        "id": "teacher-00032-ffa4-t0",
+        "scenario_family": "4b9cc77c675e4d2011ad7fb73377a16b6319a6b46b6864cabc117d347bde3e2c",
+        "split": "train",
+        "faction": "Drakes"
+      },
+      {
+        "id": "teacher-00034-ffa4-t0",
+        "scenario_family": "05afa2d05e1411a422f1f4f44b70b49d9360e18541df1f4f08454da312e55c16",
+        "split": "train",
+        "faction": "Northerners"
+      },
+      {
+        "id": "teacher-00033-ffa4-t0",
+        "scenario_family": "025561044dfe5db8a832420f6ecf67b2f7da2efe4b08995527a43178b4e7be48",
+        "split": "train",
+        "faction": "Rebels"
+      },
+      {
+        "id": "teacher-00036-ffa4-t0",
+        "scenario_family": "60ea5429b6a2cf839ba003878d0eae1744670dcb73a208f0c8734b0bb262b2a4",
+        "split": "train",
+        "faction": "Drakes"
+      },
+      {
+        "id": "teacher-00038-ffa4-t0",
+        "scenario_family": "e15e147c6cfd17037575671629cc06e6c6abd7b721fac1313bde185b960d3598",
+        "split": "train",
+        "faction": "Rebels"
+      },
+      {
+        "id": "teacher-00035-ffa4-t0",
+        "scenario_family": "970053a8389c716c61a7106342d99fc16b0f51afa34620bc3e3c4cf57c58d5d7",
+        "split": "train",
+        "faction": "Knalgan Alliance"
+      },
+      {
+        "id": "teacher-00039-ffa4-t0",
+        "scenario_family": "88bf728ba6d4fcc989f9ae63fe681da8a661ad82dbed09d23e8599e31000bd44",
+        "split": "train",
+        "faction": "Northerners"
+      },
+      {
+        "id": "teacher-00037-ffa4-t0",
+        "scenario_family": "93514b128e7da419809f7884c1832953e49718691ec128ec1c12c8a1d0afab9e",
+        "split": "validation",
+        "faction": "Undead"
+      }
+    ],
+    "input_sha256": {
+      "verification/bc_root_20261101/readiness/ffa4/schedules/bc-batch-000000.json": "982c22f61a10603b8c4c940931a18a2bc78db218b11e5269ee8b11bdb2606d88",
+      "verification/bc_root_20261101/readiness/ffa4/schedules/bc-batch-000001.json": "5b65fda116c24de392f9977bdd8c4428b7c38e2d33b63e06fae69cc7152e56ad",
+      "verification/bc_root_20261101/readiness/ffa4/schedules/bc-batch-000002.json": "26ff352f6638e3153da20f3c6e203bda941fc77c24855d45dc92c6025744e30e",
+      "verification/bc_root_20261101/readiness/ffa4/schedules/bc-batch-000003.json": "60546eed0818c2c5ed0a7e6af3d02eeb6f72b38cd7b4e2ba6aa3ea8ef96d6b3f",
+      "verification/bc_root_20261101/readiness/ffa4/schedules/bc-batch-000004.json": "a3b4448e4960c210ba4d9cabb20ae3007d9da21522a73d9e916f0ca70395a4cd",
+      "verification/bc_root_20261101/readiness/ffa4/schedules/bc-batch-000005.json": "4102a16510e4ebcb4f3663460f40e6d79ce3fe08ab431aa9f613ef9e0cfc4db4",
+      "verification/bc_root_20261101/readiness/ffa4/jobs.jsonl": "bc0ff0e6f1fc4321876322fc38d5a62b359ba1b4aaa88f34a9c5881a6fb1adc3",
+      "verification/bc_root_20261101/readiness/ffa4/bc_gate.json": "d8c4c3d206cf382ac05ac8661cde01003316a3e0f6a5301b64f607382fb4ee37"
+    }
+  },
+  "team2v2": {
+    "committed_games": 24,
+    "factions": {
+      "train": {
+        "Knalgan Alliance": 4,
+        "Drakes": 4,
+        "Northerners": 5,
+        "Rebels": 3,
+        "Loyalists": 3
+      },
+      "validation": {
+        "Drakes": 2,
+        "Undead": 1,
+        "Knalgan Alliance": 2
+      }
+    },
+    "games": [
+      {
+        "id": "teacher-00000-team2v2-t0",
+        "scenario_family": "87c4107e24023c2c6d6d23534a6b76c7ce947560addb15408a7e72bb8ffd4701",
+        "split": "validation",
+        "faction": "Drakes"
+      },
+      {
+        "id": "teacher-00003-team2v2-t0",
+        "scenario_family": "9b7eb56efad5687f4df8ff7a37656fb0a7d7e3b942c1747e3ac87cd8d212d5a1",
+        "split": "train",
+        "faction": "Knalgan Alliance"
+      },
+      {
+        "id": "teacher-00004-team2v2-t0",
+        "scenario_family": "ecb38746558b6e006cf1037d5392a1e5b73e1c37802b492e17d6413dc52ad616",
+        "split": "train",
+        "faction": "Drakes"
+      },
+      {
+        "id": "teacher-00002-team2v2-t0",
+        "scenario_family": "d87343dc591dc3b4110dd9de1ba045b4ce36e8b74887372b028a93b5393640af",
+        "split": "train",
+        "faction": "Northerners"
+      },
+      {
+        "id": "teacher-00006-team2v2-t0",
+        "scenario_family": "f61db701b017c51ddc093499ca2b869f76545c3d664bf230d5cb40de0f6b4b0e",
+        "split": "train",
+        "faction": "Northerners"
+      },
+      {
+        "id": "teacher-00007-team2v2-t0",
+        "scenario_family": "bbdaa2c524f08646f30590695d5cc04c161260858b1eb6de6a5bb71279c06574",
+        "split": "train",
+        "faction": "Drakes"
+      },
+      {
+        "id": "teacher-00001-team2v2-t0",
+        "scenario_family": "ac9bc3aa10d2ec56220987e24db7cd8dd58eae862d293a3f1a6fbca073005b5d",
+        "split": "train",
+        "faction": "Northerners"
+      },
+      {
+        "id": "teacher-00005-team2v2-t0",
+        "scenario_family": "7224965fe6bc180aede1d495943d4b2e7e77fc2be519d8e718bbffdc725fd428",
+        "split": "train",
+        "faction": "Northerners"
+      },
+      {
+        "id": "teacher-00008-team2v2-t0",
+        "scenario_family": "d71fb6ead3437af7fbb3869df68d8f62a3b35267fd8ac41eed7b2ed0616842b7",
+        "split": "train",
+        "faction": "Knalgan Alliance"
+      },
+      {
+        "id": "teacher-00010-team2v2-t0",
+        "scenario_family": "fe2ed41abcbbc9f2585bd26d4eff464bab11569a01093374eb8d2ddbb6ea9c3f",
+        "split": "train",
+        "faction": "Rebels"
+      },
+      {
+        "id": "teacher-00012-team2v2-t0",
+        "scenario_family": "651d091c0f9a075793bc4a6f12617b9ff9d655d61ff6526e6b47e314e9ebbfe6",
+        "split": "train",
+        "faction": "Northerners"
+      },
+      {
+        "id": "teacher-00014-team2v2-t0",
+        "scenario_family": "2d24a409d20f15babe15f7d1154776d6a11919ce67766c9471693d9e0d2e97ac",
+        "split": "validation",
+        "faction": "Undead"
+      },
+      {
+        "id": "teacher-00011-team2v2-t0",
+        "scenario_family": "d86fcfa087d387b7107a3c3bbdb21c676051035c6f8bac6c50159c2fa3b125c9",
+        "split": "train",
+        "faction": "Drakes"
+      },
+      {
+        "id": "teacher-00015-team2v2-t0",
+        "scenario_family": "df13e4e770d72c47b57b3d745827da5279d752ad07d1def8193fa32fb0dc9fdc",
+        "split": "train",
+        "faction": "Loyalists"
+      },
+      {
+        "id": "teacher-00009-team2v2-t0",
+        "scenario_family": "32eff9fdcb139d1b0dbc41e910131206f7700f10bfc0430cfedc82b47aa9a49b",
+        "split": "train",
+        "faction": "Knalgan Alliance"
+      },
+      {
+        "id": "teacher-00013-team2v2-t0",
+        "scenario_family": "7fc68891c973da1b52ead6460d08feb14d1b41c1c6a9aea22d5d6d9b383dd04e",
+        "split": "validation",
+        "faction": "Knalgan Alliance"
+      },
+      {
+        "id": "teacher-00019-team2v2-t0",
+        "scenario_family": "228ebac53b78dd2b516182421e4f44ff14acbeb1bf55652878b17de9934ded92",
+        "split": "validation",
+        "faction": "Knalgan Alliance"
+      },
+      {
+        "id": "teacher-00020-team2v2-t0",
+        "scenario_family": "7056413be583c14713000130db6d51356e8b8da54847bbc337b67c0aad651f14",
+        "split": "train",
+        "faction": "Knalgan Alliance"
+      },
+      {
+        "id": "teacher-00022-team2v2-t0",
+        "scenario_family": "db3d82ec4b5111563416c5080053c9b6318d73ae78366bd9f8c4eca46205a145",
+        "split": "train",
+        "faction": "Rebels"
+      },
+      {
+        "id": "teacher-00018-team2v2-t0",
+        "scenario_family": "2919f11e916cbb4ce81ff966e5a09c17cc5ec36daec9af4005816f970f983965",
+        "split": "train",
+        "faction": "Rebels"
+      },
+      {
+        "id": "teacher-00016-team2v2-t0",
+        "scenario_family": "7f368d71a268d6f2ad8296ab1681a5d51d173032ec44381343a71b02ee352538",
+        "split": "train",
+        "faction": "Drakes"
+      },
+      {
+        "id": "teacher-00023-team2v2-t0",
+        "scenario_family": "87630eb7be772c598bf7a2f988e09d965492dd9188d2e252390ac7f970e44463",
+        "split": "validation",
+        "faction": "Drakes"
+      },
+      {
+        "id": "teacher-00017-team2v2-t0",
+        "scenario_family": "b03565935b923433b0506ac156d2dc7f29c4bd755754742f7be8e970a1fb128f",
+        "split": "train",
+        "faction": "Loyalists"
+      },
+      {
+        "id": "teacher-00021-team2v2-t0",
+        "scenario_family": "b1ffa4ffd1aadcfb7878f6d462ca07b2443ed870c37b3c01466d2861df079724",
+        "split": "train",
+        "faction": "Loyalists"
+      }
+    ],
+    "input_sha256": {
+      "verification/bc_root_20261101/readiness/team2v2/schedules/bc-batch-000000.json": "f7e4f2db683bd80e680926d6e42fc748d906d94f2b1f4f591cca4aa151238916",
+      "verification/bc_root_20261101/readiness/team2v2/schedules/bc-batch-000001.json": "ffaa6559c0377d332d3d762ce7b55e12b716f29b2dc1878030046247946e9d18",
+      "verification/bc_root_20261101/readiness/team2v2/schedules/bc-batch-000002.json": "d894f8252c4a17dda8781d10510fc2538ed96ea70d7cbf2432607dafe9ac2774",
+      "verification/bc_root_20261101/readiness/team2v2/schedules/bc-batch-000003.json": "e8936f62209bde8730460810f5065aa197bb42c1e02f43c5988ba0aaee85312b",
+      "verification/bc_root_20261101/readiness/team2v2/jobs.jsonl": "f78bccef6177c3fb682305506dbdcd9e8c969a5c4730ad773be3b4e08040f429",
+      "verification/bc_root_20261101/readiness/team2v2/bc_gate.json": "ad78068115fbbac12ce51904731616b5207d8d54190ee7c2f59bed01aa7afcf2"
+    }
+  }
+}
