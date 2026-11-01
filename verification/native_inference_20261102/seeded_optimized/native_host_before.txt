@@ -1,0 +1,14 @@
+Sun Nov  1 07:07:01 PM UTC 2026
+ 03:07:01 up 14 days,  5:32,  6 users,  load average: 1.09, 0.96, 0.72
+    PID    PPID %CPU COMMAND         COMMAND
+ 376739       1  0.2 python          /home/tongshu/venv/bin/python -c from multiprocessing.spawn import spawn_main; spawn_main(tracker_fd=8, pipe_handle=21) --multiprocessing-fork
+ 376741       1  0.2 python          /home/tongshu/venv/bin/python -c from multiprocessing.spawn import spawn_main; spawn_main(tracker_fd=8, pipe_handle=25) --multiprocessing-fork
+ 376738       1  0.1 python          /home/tongshu/venv/bin/python -c from multiprocessing.spawn import spawn_main; spawn_main(tracker_fd=8, pipe_handle=19) --multiprocessing-fork
+ 308070       1  0.1 wesnoth         /home/tongshu/myDev/wesnothLearning/WesnothLearning/.runtime/install/bin/wesnoth --debug --debug-lua --noaddons --with-replay --load /home/tongshu/curated_bc_20261031/src/data/datasets/human/capture/game_0361/game_0361.cfg --userdata-dir /home/tongshu/curated_bc_20261031/src/data/datasets/human/capture/game_0361/userdata --userconfig-dir /home/tongshu/curated_bc_20261031/src/data/datasets/human/capture/game_0361/config --usercache-dir /home/tongshu/curated_bc_20261031/src/data/datasets/human/capture/game_0361/cache --nosound --exit-at-end --log-info=replay
+ 376737       1  0.1 python          /home/tongshu/venv/bin/python -c from multiprocessing.spawn import spawn_main; spawn_main(tracker_fd=8, pipe_handle=17) --multiprocessing-fork
+ 376740       1  0.1 python          /home/tongshu/venv/bin/python -c from multiprocessing.spawn import spawn_main; spawn_main(tracker_fd=8, pipe_handle=23) --multiprocessing-fork
+ 376733       1  0.1 python          /home/tongshu/venv/bin/python -c from multiprocessing.spawn import spawn_main; spawn_main(tracker_fd=8, pipe_handle=13) --multiprocessing-fork
+ 376742       1  0.1 python          /home/tongshu/venv/bin/python -c from multiprocessing.spawn import spawn_main; spawn_main(tracker_fd=8, pipe_handle=27) --multiprocessing-fork
+  90759       1  0.0 snapd           /snap/snapd/current/usr/lib/snapd/snapd
+ 376736       1  0.0 python          /home/tongshu/venv/bin/python -c from multiprocessing.spawn import spawn_main; spawn_main(tracker_fd=8, pipe_handle=15) --multiprocessing-fork
+ 388020       2  0.0 kworker/4:0-mm_ [kworker/4:0-mm_percpu_wq]

@@ -212,7 +212,7 @@ flowchart LR
 - 官方 baseline 仅限原版；lite 运行无法对它评估。
 - 整理后的录像语料（`data/replays_curated/`，1,076 局标准时代对局）仍只是暂存：只有记录于 1.18.8 的 197 局能进入 BC。大厅归档以其 `[scenario]` 块作为起始块，因为 1.18.8 自行展开场景并合并已记录的 RNG；缺少 `[carryover_sides_start].random_seed` 的大厅归档按 `missing_initial_rng` 跳过。录像标记只能放在动作之前以及末尾各一次，因为在同步上下文内遇到的 `[custom_command]` 会被回放机拒绝。已准备三局、由官方 1.18.8 实际播放并导入 84 条 BC 行（`verification/curated_bc_20261031/REPORT.md`）；不声明更大范围的语料播放。
 - 原版对局可由其种子复现：`match.play_game` 把种子写入场景，`runtime.lua` 据此调用 `math.randomseed(seed)`，并预载 `setup.sh` 构建的 `.runtime/entropy.so` 与 `ARENA_ENTROPY_SEED`，使 Wesnoth 的默认与逐动作 C++ RNG 从按种子生成的流取值，而不再读取操作系统熵。种子 20261017 的同一场 stock 对局运行两次产生完全相同的决定性事件流（`verification/native_seed_20261031/REPORT.md`）。不同种子的对局仍然不同；跨种子的原版比较只使用记录到的计数，不声称 lite 与原版相等。
-- 共享候选的来源与数值一致性证据见 `verification/candidate_budget_20261031_exact37/REPORT.md`；`work-12000-v8` 的 45 项受影响 Ubuntu 检查通过，见 `verification/bc_root_20261101/REPORT.md`。未预加载随机流库的原版耗时诊断通过，见 `verification/native_inference_20261102/REPORT.md`：三个赛制共六局、零故障，评分 p95 为 126/134/109 ms，仍保持 37 候选和 12,000 工作量限制。未优化基线在空闲主机单独运行也通过。此紧凑地图随机策略检查不代表选定模型的最终评估或原版棋力验收。 补齐已有随机流库后的严格同种子面板仍在运行，TEST.md C1 暂不关闭。
+- 共享候选的来源与数值一致性证据见 `verification/candidate_budget_20261031_exact37/REPORT.md`；`work-12000-v8` 的 45 项受影响 Ubuntu 检查通过，见 `verification/bc_root_20261101/REPORT.md`。当前同种子原版耗时通过，见 `verification/native_inference_20261102/REPORT_seeded.md`：六组成对对局、零故障，评分 p95 为 122/133/114 ms，保持 37 候选与 12,000 工作量。仅排除耗时、规范化各方独立审计批次的顺序后，完整事件内容一致。未优化基线在空闲主机也通过；整组成对面板耗时降低 44.9%。此紧凑地图随机策略检查不代表选定模型的最终评估或原版棋力验收。
 - 普通 BC 就绪仍未完成：固定对局诊断及有界候选修复见 `verification/bc_root_20261101/REPORT.md`。旧运行仅提交 5/1/1 批，验证样本数量与拟合均不足，小集记忆成功不代表泛化。新普通 BC 运行自然结束于 31 分 03 秒、提交 10/5/3 批，三赛制覆盖率过门但模仿均未过门。完整教师排序/棋力证据仍见 TEST.md R3，普通门禁训练仍见 L2。
 - 任何运行都没有收敛或棋力结论。
 

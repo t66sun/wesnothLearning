@@ -1,0 +1,129 @@
+{
+  "passed": false,
+  "games": [
+    {
+      "game": "duel-20261101-20.events.jsonl.gz",
+      "event_counts": [
+        326,
+        326
+      ],
+      "first_difference": null,
+      "normalized_sha256": [
+        "3ddc7eb359ef05720e65bbfef75c252547d434d3c61ec42de8327aef6b56d332",
+        "3ddc7eb359ef05720e65bbfef75c252547d434d3c61ec42de8327aef6b56d332"
+      ],
+      "raw_sha256": [
+        "1407f408594e460b8c0bbb7dee294df315f03594d888b853780f330a08ee5059",
+        "1820682df0c1a88a11343d9042f9fe99d15b73c909bfb5aff0ebc914f018ec4b"
+      ]
+    },
+    {
+      "game": "duel-20261102-20.events.jsonl.gz",
+      "event_counts": [
+        404,
+        404
+      ],
+      "first_difference": null,
+      "normalized_sha256": [
+        "5a1980aaebfe2c5cd57f12221d5e90f91791cfe02642a794344651e6bd3d3a97",
+        "5a1980aaebfe2c5cd57f12221d5e90f91791cfe02642a794344651e6bd3d3a97"
+      ],
+      "raw_sha256": [
+        "3af0f9d4a70f009d312e268f25ec1cc2541a476544a01a139f35898aaf723d29",
+        "b7b88355e8b60d2de2ec65df0359ee03cc0e963c752123e5045cc4b691068f0e"
+      ]
+    },
+    {
+      "game": "ffa4-20261101-20.events.jsonl.gz",
+      "event_counts": [
+        2462,
+        2462
+      ],
+      "first_difference": {
+        "index": 3,
+        "events": [
+          "METRIC",
+          "METRIC"
+        ]
+      },
+      "normalized_sha256": [
+        "8bc9e2020d22dc7c3a81e32179bbe07c5330e3af0ea17cec9e137cec8e5756b0",
+        "5bbcda743344286bfee39c027527b0737a42fbed065709c5555e4a8da161ce4c"
+      ],
+      "raw_sha256": [
+        "d34892fbf5788659f88d8040e2d2361e0211ca70d6b95f6f1cad00ea4ab71c92",
+        "1b2f4675f1f65cf377385ebe36bd27c680ec43711cc53b591b2daeccb4eb50f1"
+      ]
+    },
+    {
+      "game": "ffa4-20261102-20.events.jsonl.gz",
+      "event_counts": [
+        2498,
+        2498
+      ],
+      "first_difference": {
+        "index": 3,
+        "events": [
+          "METRIC",
+          "METRIC"
+        ]
+      },
+      "normalized_sha256": [
+        "abc2705de5f8400b69ffded7857c566f7b9c688e34afe08131443ccf146fcfca",
+        "7d90c07ef869fb7b4bfdc51b2747a32156b6b200a6b3783092bb7b351ac06826"
+      ],
+      "raw_sha256": [
+        "b1db59f0ae5268003220c755fa607cca13b62795127847ac7d23365a339305e5",
+        "8de7a3a908cdedb522c4d5068c7da4af61e44a15dbe050c598471e9550740966"
+      ]
+    },
+    {
+      "game": "team2v2-20261101-20.events.jsonl.gz",
+      "event_counts": [
+        963,
+        963
+      ],
+      "first_difference": {
+        "index": 2,
+        "events": [
+          "METRIC",
+          "METRIC"
+        ]
+      },
+      "normalized_sha256": [
+        "57b84b415c800ccbf3f1f6e5cd298e7cc340a8194f02ea5f2970bcf1db92074f",
+        "c8361f2b59b0061ae7b71baea69a34d20c6e8e8e19010636dedf6eddf2f7ffaa"
+      ],
+      "raw_sha256": [
+        "958ce4353d26d5962a2603afa3b4067412be8a5f38265cee59a67690652a84e7",
+        "b1a2652dd50293d4f9309c6d9f7049377494c8c1dfa05480c1d736103c056c54"
+      ]
+    },
+    {
+      "game": "team2v2-20261102-20.events.jsonl.gz",
+      "event_counts": [
+        595,
+        595
+      ],
+      "first_difference": {
+        "index": 2,
+        "events": [
+          "METRIC",
+          "METRIC"
+        ]
+      },
+      "normalized_sha256": [
+        "e7fdc7b5ec40d2fcb69906b229952107746460bd0d3196d0702c0a4473bef0ac",
+        "f4ddf85b95ac7514253eefb2941f1453cdad1c97fd8c8facd198f41e58f8dd34"
+      ],
+      "raw_sha256": [
+        "cdb49f949bd83cec934835c463fe5b745453b9e02512566dd9a45154ef42db0c",
+        "7b02871137b9e2cdaed9f5be75c3ee1229c283875be7bc2f357650c7bb776e6a"
+      ]
+    }
+  ],
+  "excluded_fields": [
+    "RETURN.data.elapsed_ms",
+    "LEARN.data.timing.{ms,generate_ms,score_ms,inference_ms}"
+  ]
+}

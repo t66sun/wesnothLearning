@@ -33,12 +33,6 @@ Every item states what is open, the smallest Ubuntu procedure that would close i
 
 **Evidence:** `verification/bc_root_20261101/REPORT.md` separates generated-pool loss, retained-pool loss, offline historical fit and fresh ordinary readiness. The fixed 40-game subset was used in diagnosis and repair, so it is not an unseen hold-out. Earlier failures stay in `verification/bounded_loop_20261101/REPORT.md` and `verification/teacher_coverage_20261101/REPORT.md` / `REPORT_v7.md`. No new post-BC or same-future acceptance is claimed.
 
-## C1 — Current candidate contract native timing
-
-**Status:** the sparse Lua implementation passes all six-game timing thresholds, 35 affected tests and exact old/new output checks for three trained models. However, the isolated trees lacked the existing entropy shim. Strict paired seeded acceptance remains RUNNING; preserve the completed unseeded diagnostics in `verification/native_inference_20261102/`.
-
-**Procedure/pass:** compile `.runtime/entropy.so` in fresh source archives and record its hash; run the unchanged `verification/candidate_work_budget_20261031/check.py` sequentially. Require all original stage/decision thresholds, zero faults, 37 candidates and 12,000 work, keeping seeds 20261101/20261102, the one-second timeout and existing 20/30-turn fallback. Compare decisive events as well as timing. Archive seeded panels separately; do not selectively rerun or lower gates.
-
 ## R3 — Adapted teacher strength evidence
 
 **Status:** the adaptation itself is implemented, six value-level positions were checked, and a bounded smoke ran on the Ubuntu host 2026-10-31: 14 games, all `complete`, `truncated=0`, adapted versus frozen Astra differed by −1.5 rank points in duel, +0.2083 in ffa4 and −1.125 in team2v2, one block and one distinct scenario per format, therefore inconclusive for strength. Full legal-board teacher query/ranking and the complete 12-block comparison are NOT RUN. Tactical evidence and strength evidence stay separate.
