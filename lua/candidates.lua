@@ -453,9 +453,10 @@ function M.generate(obs)
                 -- Combat-adjacent destinations are probed first, so a bounded probe
                 -- budget cannot be spent on position picks before any attack-adjacent
                 -- destination is checked. Categories themselves are unchanged.
-                local ordered={}
-                for _,d in ipairs(selected) do if d.combat then ordered[#ordered+1]=d end end
-                for _,d in ipairs(selected) do if not d.combat then ordered[#ordered+1]=d end end
+                -- Keep the actor's best move first, then probe its combat landings.
+                local ordered={selected[1]}
+                for _,d in ipairs(selected) do if d~=selected[1] and d.combat then ordered[#ordered+1]=d end end
+                for _,d in ipairs(selected) do if d~=selected[1] and not d.combat then ordered[#ordered+1]=d end end
                 plans[#plans+1]={u=u,selected=ordered,primary=true}
             end
         end
