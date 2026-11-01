@@ -22,8 +22,9 @@ class ScenarioIdentityTests(unittest.TestCase):
         self.assertEqual(len({split(job['game_family']) for job in jobs}), 2)
         self.assertEqual(len({job['scenario_family'] for job in jobs}), 1)
         self.assertEqual({job['split_rule'] for job in jobs}, {'scenario-v2'})
+        # The committed arena2 map uses LF, as required by .gitattributes.
         self.assertEqual(jobs[0]['game_family'],
-                         'ab8a9b778bc432db2c569078daa05b56736fd7f410c878c21384053dc9103dbe')
+                         '95ef082e251ed7d45add147f907dcec4643aee736b1571ac687a75b593209371')
 
     def test_physical_changes_but_not_paths_change_the_scenario(self):
         from learning.maps import scenario_family

@@ -1,0 +1,12 @@
+test_explicit_rules_directory_is_bound_before_schedule_freeze (tests.v5.test_scenario_identity.ScenarioIdentityTests.test_explicit_rules_directory_is_bound_before_schedule_freeze) ... ok
+test_legacy_rows_remain_readable_but_cannot_mix_with_v2 (tests.v5.test_scenario_identity.ScenarioIdentityTests.test_legacy_rows_remain_readable_but_cannot_mix_with_v2) ... ok
+test_physical_changes_but_not_paths_change_the_scenario (tests.v5.test_scenario_identity.ScenarioIdentityTests.test_physical_changes_but_not_paths_change_the_scenario) ... ok
+test_scheduled_corpora_do_not_cross_partitions (tests.v5.test_scenario_identity.ScenarioIdentityTests.test_scheduled_corpora_do_not_cross_partitions) ... ok
+test_seed_does_not_move_the_scenario_between_splits (tests.v5.test_scenario_identity.ScenarioIdentityTests.test_seed_does_not_move_the_scenario_between_splits) ... ok
+test_shards_and_index_use_scenario_partition (tests.v5.test_scenario_identity.ScenarioIdentityTests.test_shards_and_index_use_scenario_partition) ... ok
+test_v2_rejects_incorrect_or_missing_scenario_partition (tests.v5.test_scenario_identity.ScenarioIdentityTests.test_v2_rejects_incorrect_or_missing_scenario_partition) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 1.044s
+
+OK
