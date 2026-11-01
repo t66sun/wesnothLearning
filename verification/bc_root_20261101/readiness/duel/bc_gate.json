@@ -1,0 +1,118 @@
+{
+  "imitation": {
+    "effective": false,
+    "formats": {
+      "duel": {
+        "samples": 710,
+        "cross_entropy": 2.2655697862866897,
+        "uniform_entropy": 3.5322480151765974,
+        "kinds": {
+          "recruit": {
+            "samples": 127,
+            "correct": 65,
+            "same_kind": 127,
+            "same_actor": 108,
+            "same_destination": 108,
+            "ranks": {
+              "1": 65,
+              "2-3": 50,
+              "4-8": 12,
+              "9-16": 0,
+              "17+": 0
+            },
+            "accuracy": 0.5118110236220472,
+            "mean_candidates": 35.70866141732284
+          },
+          "move": {
+            "samples": 329,
+            "correct": 157,
+            "same_kind": 227,
+            "same_actor": 201,
+            "same_destination": 166,
+            "ranks": {
+              "1": 157,
+              "2-3": 87,
+              "4-8": 47,
+              "9-16": 27,
+              "17+": 11
+            },
+            "accuracy": 0.47720364741641336,
+            "mean_candidates": 35.29483282674772
+          },
+          "attack": {
+            "samples": 200,
+            "correct": 69,
+            "same_kind": 174,
+            "same_actor": 113,
+            "same_destination": 87,
+            "ranks": {
+              "1": 69,
+              "2-3": 61,
+              "4-8": 44,
+              "9-16": 12,
+              "17+": 14
+            },
+            "accuracy": 0.345,
+            "mean_candidates": 36.71
+          }
+        },
+        "accuracy": 0.45211267605633804,
+        "uniform_accuracy": 0.031078730011425672,
+        "effective": false
+      }
+    }
+  },
+  "coverage": {
+    "passed": true,
+    "actions": {
+      "all": {
+        "matched": 4461,
+        "total": 4909,
+        "ratio": 0.9087390507231615
+      },
+      "recruit": {
+        "matched": 647,
+        "total": 756,
+        "ratio": 0.8558201058201058
+      },
+      "move": {
+        "matched": 1957,
+        "total": 2127,
+        "ratio": 0.920075223319229
+      },
+      "attack": {
+        "matched": 1212,
+        "total": 1381,
+        "ratio": 0.8776249094858798
+      }
+    },
+    "reasons": {
+      "attack:actor_absent": 14,
+      "attack:destination_absent": 133,
+      "attack:enemy_absent": 2,
+      "attack:weapon_absent": 20,
+      "move:destination_absent": 170,
+      "move_attack:actor_absent": 2,
+      "move_attack:destination_absent": 133,
+      "move_attack:enemy_absent": 2,
+      "move_attack:weapon_absent": 14,
+      "recruit:slot_absent": 18,
+      "recruit:type_absent": 91
+    }
+  },
+  "corpus": {
+    "games": 48,
+    "required": 48,
+    "passed": true
+  },
+  "opening": {
+    "passed": false,
+    "blocking": false
+  },
+  "distinct_scenarios": 30,
+  "min_distinct": 12,
+  "missing_scenario_rows": 0,
+  "scope": "initialisation_only",
+  "status": "not_passed",
+  "passed": false
+}

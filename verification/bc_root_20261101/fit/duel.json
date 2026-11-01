@@ -1,0 +1,513 @@
+{
+  "format": "duel",
+  "source_run": "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop",
+  "version": 5,
+  "train_rows": 1534,
+  "validation_rows": 354,
+  "train_fit": {
+    "effective": false,
+    "formats": {
+      "duel": {
+        "samples": 1484,
+        "cross_entropy": 1.2669117225790925,
+        "uniform_entropy": 3.427674466725164,
+        "kinds": {
+          "recruit": {
+            "samples": 121,
+            "correct": 71,
+            "same_kind": 120,
+            "same_actor": 87,
+            "same_destination": 87,
+            "ranks": {
+              "1": 71,
+              "2-3": 33,
+              "4-8": 15,
+              "9-16": 2,
+              "17+": 0
+            },
+            "accuracy": 0.5867768595041323,
+            "mean_candidates": 32.099173553719005
+          },
+          "move": {
+            "samples": 852,
+            "correct": 481,
+            "same_kind": 798,
+            "same_actor": 556,
+            "same_destination": 519,
+            "ranks": {
+              "1": 481,
+              "2-3": 226,
+              "4-8": 107,
+              "9-16": 30,
+              "17+": 8
+            },
+            "accuracy": 0.5645539906103286,
+            "mean_candidates": 36.0962441314554
+          },
+          "attack": {
+            "samples": 286,
+            "correct": 134,
+            "same_kind": 239,
+            "same_actor": 194,
+            "same_destination": 177,
+            "ranks": {
+              "1": 134,
+              "2-3": 92,
+              "4-8": 46,
+              "9-16": 12,
+              "17+": 2
+            },
+            "accuracy": 0.46853146853146854,
+            "mean_candidates": 35.82867132867133
+          }
+        },
+        "accuracy": 0.5977088948787062,
+        "uniform_accuracy": 0.04188770827505439,
+        "effective": false
+      }
+    }
+  },
+  "heldout_fit": {
+    "effective": false,
+    "formats": {
+      "duel": {
+        "samples": 332,
+        "cross_entropy": 2.4950924264379295,
+        "uniform_entropy": 3.4899368078809907,
+        "kinds": {
+          "recruit": {
+            "samples": 30,
+            "correct": 16,
+            "same_kind": 30,
+            "same_actor": 23,
+            "same_destination": 23,
+            "ranks": {
+              "1": 16,
+              "2-3": 9,
+              "4-8": 4,
+              "9-16": 1,
+              "17+": 0
+            },
+            "accuracy": 0.5333333333333333,
+            "mean_candidates": 29.566666666666666
+          },
+          "move": {
+            "samples": 191,
+            "correct": 53,
+            "same_kind": 92,
+            "same_actor": 76,
+            "same_destination": 65,
+            "ranks": {
+              "1": 53,
+              "2-3": 50,
+              "4-8": 69,
+              "9-16": 18,
+              "17+": 1
+            },
+            "accuracy": 0.2774869109947644,
+            "mean_candidates": 35.55497382198953
+          },
+          "attack": {
+            "samples": 78,
+            "correct": 21,
+            "same_kind": 63,
+            "same_actor": 37,
+            "same_destination": 34,
+            "ranks": {
+              "1": 21,
+              "2-3": 30,
+              "4-8": 16,
+              "9-16": 7,
+              "17+": 4
+            },
+            "accuracy": 0.2692307692307692,
+            "mean_candidates": 34.85897435897436
+          }
+        },
+        "accuracy": 0.3132530120481928,
+        "uniform_accuracy": 0.0330854740220322,
+        "effective": false
+      }
+    }
+  },
+  "representation": {
+    "schema": 5,
+    "status": "measured",
+    "totals": {
+      "decisions": 354,
+      "covered": 354,
+      "missing_intent": 0,
+      "alias_decisions": 0,
+      "teacher_aliased": 0,
+      "teacher_nonfirst_alias": 0,
+      "missing_actor": 0,
+      "missing_target": 0,
+      "missing_local": 0,
+      "missing_geometry": 0,
+      "coverage": 1.0,
+      "coverage_denominator": 354,
+      "nonfirst_alias_rate": 0.0
+    },
+    "strata": {
+      "action": {
+        "attack": {
+          "decisions": 78,
+          "covered": 78,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 78,
+          "nonfirst_alias_rate": 0.0
+        },
+        "end_turn": {
+          "decisions": 55,
+          "covered": 55,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 55,
+          "nonfirst_alias_rate": 0.0
+        },
+        "move": {
+          "decisions": 191,
+          "covered": 191,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 191,
+          "nonfirst_alias_rate": 0.0
+        },
+        "recruit": {
+          "decisions": 30,
+          "covered": 30,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 30,
+          "nonfirst_alias_rate": 0.0
+        }
+      },
+      "all": {
+        "all": {
+          "decisions": 354,
+          "covered": 354,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 354,
+          "nonfirst_alias_rate": 0.0
+        }
+      },
+      "engine": {
+        "lite": {
+          "decisions": 354,
+          "covered": 354,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 354,
+          "nonfirst_alias_rate": 0.0
+        }
+      },
+      "faction": {
+        "Knalgan Alliance": {
+          "decisions": 87,
+          "covered": 87,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 87,
+          "nonfirst_alias_rate": 0.0
+        },
+        "Northerners": {
+          "decisions": 243,
+          "covered": 243,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 243,
+          "nonfirst_alias_rate": 0.0
+        },
+        "Rebels": {
+          "decisions": 24,
+          "covered": 24,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 24,
+          "nonfirst_alias_rate": 0.0
+        }
+      },
+      "format": {
+        "duel": {
+          "decisions": 354,
+          "covered": 354,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 354,
+          "nonfirst_alias_rate": 0.0
+        }
+      },
+      "format_action": {
+        "duel/attack": {
+          "decisions": 78,
+          "covered": 78,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 78,
+          "nonfirst_alias_rate": 0.0
+        },
+        "duel/end_turn": {
+          "decisions": 55,
+          "covered": 55,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 55,
+          "nonfirst_alias_rate": 0.0
+        },
+        "duel/move": {
+          "decisions": 191,
+          "covered": 191,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 191,
+          "nonfirst_alias_rate": 0.0
+        },
+        "duel/recruit": {
+          "decisions": 30,
+          "covered": 30,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 30,
+          "nonfirst_alias_rate": 0.0
+        }
+      },
+      "map": {
+        "arena2": {
+          "decisions": 166,
+          "covered": 166,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 166,
+          "nonfirst_alias_rate": 0.0
+        },
+        "weldyn_channel": {
+          "decisions": 188,
+          "covered": 188,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 188,
+          "nonfirst_alias_rate": 0.0
+        }
+      },
+      "source": {
+        "astra": {
+          "decisions": 354,
+          "covered": 354,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 354,
+          "nonfirst_alias_rate": 0.0
+        }
+      },
+      "turn": {
+        "late": {
+          "decisions": 75,
+          "covered": 75,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 75,
+          "nonfirst_alias_rate": 0.0
+        },
+        "middle": {
+          "decisions": 137,
+          "covered": 137,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 137,
+          "nonfirst_alias_rate": 0.0
+        },
+        "opening": {
+          "decisions": 142,
+          "covered": 142,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 142,
+          "nonfirst_alias_rate": 0.0
+        }
+      }
+    },
+    "intent_sources": {
+      "intent": 354
+    },
+    "identical_decision_inputs": 345,
+    "conflicting_exact_input_groups": 0,
+    "conflicting_exact_input_decisions": 0,
+    "nonfirst_alias_examples": [],
+    "coverage_pass": true,
+    "interpretation": "Input identity is a representation collision, never evidence of equal action value. Actual-only coverage may differ after interrupted movement."
+  },
+  "tiny_fit": {
+    "format": "duel",
+    "samples": 64,
+    "steps": 200,
+    "cross_entropy": 0.005001903977245092,
+    "accuracy": 1.0,
+    "passed": true,
+    "action_types": {
+      "recruit": {
+        "samples": 3,
+        "correct": 3
+      },
+      "move": {
+        "samples": 38,
+        "correct": 38
+      },
+      "attack": {
+        "samples": 12,
+        "correct": 12
+      },
+      "end_turn": {
+        "samples": 11,
+        "correct": 11
+      }
+    },
+    "equivalent_samples": 0,
+    "equivalent_accuracy": null,
+    "seed": 19,
+    "status": "measured",
+    "changes_original_model": false
+  },
+  "seconds": 185.0432941960171
+}

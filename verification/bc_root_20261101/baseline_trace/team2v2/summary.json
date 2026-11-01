@@ -1,0 +1,37 @@
+{
+  "format": "team2v2",
+  "variant": "baseline",
+  "games": 8,
+  "counts": {
+    "recruit:total": 168,
+    "recruit:matched": 158,
+    "recruit:generated": 168,
+    "move:total": 2248,
+    "move:matched": 1215,
+    "move:generated": 1231,
+    "end_turn:total": 390,
+    "end_turn:matched": 390,
+    "end_turn:generated": 390,
+    "move_attack:total": 358,
+    "move_attack:matched": 234,
+    "move_attack:generated": 248,
+    "attack:total": 39,
+    "attack:matched": 38,
+    "attack:generated": 39
+  },
+  "stages": {
+    "recruit:matched": 158,
+    "move:matched": 1215,
+    "end_turn:matched": 390,
+    "move:generation": 1017,
+    "move_attack:generation": 110,
+    "move_attack:matched": 234,
+    "move_attack:selection": 14,
+    "attack:matched": 38,
+    "recruit:selection": 10,
+    "move:selection": 16,
+    "attack:selection": 1
+  },
+  "trajectory_sha256": "11ea0e7da927b0cd23b4dee6bf500ba5a6ef228cdc8b3ed52e37890863c6eea1",
+  "seconds": 615.9710880590137
+}

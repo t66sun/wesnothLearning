@@ -1,0 +1,16 @@
+test_planning_cannot_starve_later_actors_or_combat_features (tests.v5.test_combat_destination_priority.CombatDestinationPriorityTests.test_planning_cannot_starve_later_actors_or_combat_features) ... ok
+test_position_or_village_pick_keeps_its_combat_probe_priority (tests.v5.test_combat_destination_priority.CombatDestinationPriorityTests.test_position_or_village_pick_keeps_its_combat_probe_priority) ... ok
+test_reachable_safe_retreat_survives_the_proximity_shortlist (tests.v5.test_combat_destination_priority.CombatDestinationPriorityTests.test_reachable_safe_retreat_survives_the_proximity_shortlist) ... FAIL
+
+======================================================================
+FAIL: test_reachable_safe_retreat_survives_the_proximity_shortlist (tests.v5.test_combat_destination_priority.CombatDestinationPriorityTests.test_reachable_safe_retreat_survives_the_proximity_shortlist)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/bc_root_20261101_safe_red/tests/v5/test_combat_destination_priority.py", line 51, in test_reachable_safe_retreat_survives_the_proximity_shortlist
+    self.assertGreaterEqual(matching(row['candidates'],data['intent']),0)
+AssertionError: -1 not greater than or equal to 0
+
+----------------------------------------------------------------------
+Ran 3 tests in 3.523s
+
+FAILED (failures=1)

@@ -1,0 +1,11 @@
+{
+  "source": "8ce517935da9d59c1dba23309c246e365960f5e3",
+  "baseline": "06859a8b96a6da8285c095579d1628c7204b341e",
+  "helpers": "7cb81b03cfbbd0d7b47f5ced57cd415fece42686",
+  "fixtures": {
+    "data/datasets/diagnostic/bc_budget_20261101.json.gz": "4573c925ff45b8863bb127c74abcd2f7db24e979f05eef910f8119d727452fa3",
+    "data/datasets/diagnostic/bc_priority_20261101.json": "85a24279d2258a4c05a7e666f9f3053d4cb1bce8f0227924a98138f7556b14d5",
+    "data/datasets/diagnostic/bc_retreat_20261101.json.gz": "6b39be95e62283f27071856154f98642500f29a1353a437d0bd87b72274abb0d",
+    "data/datasets/diagnostic/bc_right_side_20261101.json.gz": "bcb11734bbf631dadf6e9b3481fb5e91e69f9bb6b26cd933ee0953c48e933bf9"
+  }
+}

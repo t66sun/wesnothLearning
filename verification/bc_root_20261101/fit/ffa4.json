@@ -1,0 +1,528 @@
+{
+  "format": "ffa4",
+  "source_run": "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop",
+  "version": 1,
+  "train_rows": 1965,
+  "validation_rows": 701,
+  "train_fit": {
+    "effective": false,
+    "formats": {
+      "ffa4": {
+        "samples": 1925,
+        "cross_entropy": 2.8030124347240895,
+        "uniform_entropy": 3.5208822607251675,
+        "kinds": {
+          "recruit": {
+            "samples": 137,
+            "correct": 0,
+            "same_kind": 0,
+            "same_actor": 0,
+            "same_destination": 0,
+            "ranks": {
+              "1": 0,
+              "2-3": 82,
+              "4-8": 44,
+              "9-16": 11,
+              "17+": 0
+            },
+            "accuracy": 0.0,
+            "mean_candidates": 31.00729927007299
+          },
+          "move": {
+            "samples": 1120,
+            "correct": 0,
+            "same_kind": 0,
+            "same_actor": 0,
+            "same_destination": 0,
+            "ranks": {
+              "1": 0,
+              "2-3": 365,
+              "4-8": 344,
+              "9-16": 265,
+              "17+": 146
+            },
+            "accuracy": 0.0,
+            "mean_candidates": 36.21071428571429
+          },
+          "attack": {
+            "samples": 285,
+            "correct": 0,
+            "same_kind": 0,
+            "same_actor": 0,
+            "same_destination": 0,
+            "ranks": {
+              "1": 0,
+              "2-3": 156,
+              "4-8": 96,
+              "9-16": 30,
+              "17+": 3
+            },
+            "accuracy": 0.0,
+            "mean_candidates": 35.10877192982456
+          }
+        },
+        "accuracy": 0.19896103896103895,
+        "uniform_accuracy": 0.031460530080786295,
+        "effective": false
+      }
+    }
+  },
+  "heldout_fit": {
+    "effective": false,
+    "formats": {
+      "ffa4": {
+        "samples": 689,
+        "cross_entropy": 2.6927392126340823,
+        "uniform_entropy": 3.523013983144972,
+        "kinds": {
+          "recruit": {
+            "samples": 43,
+            "correct": 0,
+            "same_kind": 0,
+            "same_actor": 0,
+            "same_destination": 0,
+            "ranks": {
+              "1": 0,
+              "2-3": 25,
+              "4-8": 17,
+              "9-16": 1,
+              "17+": 0
+            },
+            "accuracy": 0.0,
+            "mean_candidates": 28.41860465116279
+          },
+          "move": {
+            "samples": 300,
+            "correct": 0,
+            "same_kind": 0,
+            "same_actor": 0,
+            "same_destination": 0,
+            "ranks": {
+              "1": 0,
+              "2-3": 86,
+              "4-8": 86,
+              "9-16": 82,
+              "17+": 46
+            },
+            "accuracy": 0.0,
+            "mean_candidates": 36.25333333333333
+          },
+          "attack": {
+            "samples": 188,
+            "correct": 0,
+            "same_kind": 0,
+            "same_actor": 0,
+            "same_destination": 0,
+            "ranks": {
+              "1": 0,
+              "2-3": 99,
+              "4-8": 69,
+              "9-16": 18,
+              "17+": 2
+            },
+            "accuracy": 0.0,
+            "mean_candidates": 36.244680851063826
+          }
+        },
+        "accuracy": 0.22931785195936139,
+        "uniform_accuracy": 0.03152853291995422,
+        "effective": false
+      }
+    }
+  },
+  "representation": {
+    "schema": 5,
+    "status": "measured",
+    "totals": {
+      "decisions": 701,
+      "covered": 701,
+      "missing_intent": 0,
+      "alias_decisions": 0,
+      "teacher_aliased": 0,
+      "teacher_nonfirst_alias": 0,
+      "missing_actor": 0,
+      "missing_target": 0,
+      "missing_local": 0,
+      "missing_geometry": 0,
+      "coverage": 1.0,
+      "coverage_denominator": 701,
+      "nonfirst_alias_rate": 0.0
+    },
+    "strata": {
+      "action": {
+        "attack": {
+          "decisions": 188,
+          "covered": 188,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 188,
+          "nonfirst_alias_rate": 0.0
+        },
+        "end_turn": {
+          "decisions": 170,
+          "covered": 170,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 170,
+          "nonfirst_alias_rate": 0.0
+        },
+        "move": {
+          "decisions": 300,
+          "covered": 300,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 300,
+          "nonfirst_alias_rate": 0.0
+        },
+        "recruit": {
+          "decisions": 43,
+          "covered": 43,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 43,
+          "nonfirst_alias_rate": 0.0
+        }
+      },
+      "all": {
+        "all": {
+          "decisions": 701,
+          "covered": 701,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 701,
+          "nonfirst_alias_rate": 0.0
+        }
+      },
+      "engine": {
+        "lite": {
+          "decisions": 701,
+          "covered": 701,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 701,
+          "nonfirst_alias_rate": 0.0
+        }
+      },
+      "faction": {
+        "Drakes": {
+          "decisions": 68,
+          "covered": 68,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 68,
+          "nonfirst_alias_rate": 0.0
+        },
+        "Loyalists": {
+          "decisions": 447,
+          "covered": 447,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 447,
+          "nonfirst_alias_rate": 0.0
+        },
+        "Undead": {
+          "decisions": 186,
+          "covered": 186,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 186,
+          "nonfirst_alias_rate": 0.0
+        }
+      },
+      "format": {
+        "ffa4": {
+          "decisions": 701,
+          "covered": 701,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 701,
+          "nonfirst_alias_rate": 0.0
+        }
+      },
+      "format_action": {
+        "ffa4/attack": {
+          "decisions": 188,
+          "covered": 188,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 188,
+          "nonfirst_alias_rate": 0.0
+        },
+        "ffa4/end_turn": {
+          "decisions": 170,
+          "covered": 170,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 170,
+          "nonfirst_alias_rate": 0.0
+        },
+        "ffa4/move": {
+          "decisions": 300,
+          "covered": 300,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 300,
+          "nonfirst_alias_rate": 0.0
+        },
+        "ffa4/recruit": {
+          "decisions": 43,
+          "covered": 43,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 43,
+          "nonfirst_alias_rate": 0.0
+        }
+      },
+      "map": {
+        "arena4": {
+          "decisions": 68,
+          "covered": 68,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 68,
+          "nonfirst_alias_rate": 0.0
+        },
+        "clash": {
+          "decisions": 186,
+          "covered": 186,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 186,
+          "nonfirst_alias_rate": 0.0
+        },
+        "isars_cross": {
+          "decisions": 447,
+          "covered": 447,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 447,
+          "nonfirst_alias_rate": 0.0
+        }
+      },
+      "source": {
+        "astra": {
+          "decisions": 701,
+          "covered": 701,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 701,
+          "nonfirst_alias_rate": 0.0
+        }
+      },
+      "turn": {
+        "late": {
+          "decisions": 456,
+          "covered": 456,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 456,
+          "nonfirst_alias_rate": 0.0
+        },
+        "middle": {
+          "decisions": 165,
+          "covered": 165,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 165,
+          "nonfirst_alias_rate": 0.0
+        },
+        "opening": {
+          "decisions": 80,
+          "covered": 80,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 80,
+          "nonfirst_alias_rate": 0.0
+        }
+      }
+    },
+    "intent_sources": {
+      "intent": 701
+    },
+    "identical_decision_inputs": 689,
+    "conflicting_exact_input_groups": 0,
+    "conflicting_exact_input_decisions": 0,
+    "nonfirst_alias_examples": [],
+    "coverage_pass": true,
+    "interpretation": "Input identity is a representation collision, never evidence of equal action value. Actual-only coverage may differ after interrupted movement."
+  },
+  "tiny_fit": {
+    "format": "ffa4",
+    "samples": 64,
+    "steps": 200,
+    "cross_entropy": 0.004544230177998543,
+    "accuracy": 1.0,
+    "passed": true,
+    "action_types": {
+      "recruit": {
+        "samples": 2,
+        "correct": 2
+      },
+      "move": {
+        "samples": 39,
+        "correct": 39
+      },
+      "attack": {
+        "samples": 12,
+        "correct": 12
+      },
+      "end_turn": {
+        "samples": 11,
+        "correct": 11
+      }
+    },
+    "equivalent_samples": 0,
+    "equivalent_accuracy": null,
+    "seed": 19,
+    "status": "measured",
+    "changes_original_model": false
+  },
+  "seconds": 328.193523430964
+}

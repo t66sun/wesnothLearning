@@ -1,0 +1,637 @@
+{
+  "source": "8ce517935da9d59c1dba23309c246e365960f5e3",
+  "exit_code": 0,
+  "seconds": 1863.1995906829834,
+  "formats": {
+    "duel": {
+      "stage": "bc_complete",
+      "batch": 10,
+      "version": 10,
+      "effective": false,
+      "error": null,
+      "counters": {
+        "environment_games": 48,
+        "collection_batches": 11,
+        "optimizer_steps": 500,
+        "unique_families_seen": 48,
+        "decisions_seen": 83441,
+        "effective_dataset_passes": 45.516821049686044
+      },
+      "pending_train": {
+        "paths": [
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00000-duel-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00001-duel-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00002-duel-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00003-duel-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00004-duel-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00005-duel-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00006-duel-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00007-duel-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00008-duel-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00009-duel-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00010-duel-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00011-duel-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00012-duel-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00013-duel-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00014-duel-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00015-duel-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00016-duel-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00017-duel-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00018-duel-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00019-duel-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00020-duel-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00021-duel-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00022-duel-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00023-duel-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00024-duel-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00025-duel-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00026-duel-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00027-duel-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00028-duel-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00029-duel-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00030-duel-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00031-duel-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00032-duel-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00033-duel-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00034-duel-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00035-duel-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00036-duel-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00037-duel-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00038-duel-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00039-duel-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00040-duel-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00041-duel-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00042-duel-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00043-duel-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00044-duel-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00045-duel-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00046-duel-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/duel/data/teacher-00047-duel-t0.jsonl.gz"
+        ],
+        "method": "bc",
+        "cursor": {
+          "epoch": 0,
+          "step": 0
+        },
+        "reward_config": {
+          "economy": 0.15,
+          "control": 0.1,
+          "explore": 0.1,
+          "mode": "adaptive",
+          "entropy": 0.01,
+          "bc_aux": 0.1,
+          "gamma": 1.0,
+          "gae_lambda": 0.95,
+          "reward_version": 0,
+          "reward_formula_id": "v5-potential-1"
+        },
+        "identity": {
+          "train": "7d43f14276a498bd4b15f1b1d34193abfe308612c8b2cb984433e1950197b667"
+        }
+      },
+      "logs": {
+        "jobs.jsonl": {
+          "records": 66,
+          "complete": 66,
+          "faulted": 0,
+          "turn_truncated": 8,
+          "budget_interrupted": 0
+        }
+      },
+      "peak_rss_mb": 1048,
+      "gate": {
+        "imitation": {
+          "effective": false,
+          "formats": {
+            "duel": {
+              "samples": 710,
+              "cross_entropy": 2.2655697862866897,
+              "uniform_entropy": 3.5322480151765974,
+              "kinds": {
+                "recruit": {
+                  "samples": 127,
+                  "correct": 65,
+                  "same_kind": 127,
+                  "same_actor": 108,
+                  "same_destination": 108,
+                  "ranks": {
+                    "1": 65,
+                    "2-3": 50,
+                    "4-8": 12,
+                    "9-16": 0,
+                    "17+": 0
+                  },
+                  "accuracy": 0.5118110236220472,
+                  "mean_candidates": 35.70866141732284
+                },
+                "move": {
+                  "samples": 329,
+                  "correct": 157,
+                  "same_kind": 227,
+                  "same_actor": 201,
+                  "same_destination": 166,
+                  "ranks": {
+                    "1": 157,
+                    "2-3": 87,
+                    "4-8": 47,
+                    "9-16": 27,
+                    "17+": 11
+                  },
+                  "accuracy": 0.47720364741641336,
+                  "mean_candidates": 35.29483282674772
+                },
+                "attack": {
+                  "samples": 200,
+                  "correct": 69,
+                  "same_kind": 174,
+                  "same_actor": 113,
+                  "same_destination": 87,
+                  "ranks": {
+                    "1": 69,
+                    "2-3": 61,
+                    "4-8": 44,
+                    "9-16": 12,
+                    "17+": 14
+                  },
+                  "accuracy": 0.345,
+                  "mean_candidates": 36.71
+                }
+              },
+              "accuracy": 0.45211267605633804,
+              "uniform_accuracy": 0.031078730011425672,
+              "effective": false
+            }
+          }
+        },
+        "coverage": {
+          "passed": true,
+          "actions": {
+            "all": {
+              "matched": 4461,
+              "total": 4909,
+              "ratio": 0.9087390507231615
+            },
+            "recruit": {
+              "matched": 647,
+              "total": 756,
+              "ratio": 0.8558201058201058
+            },
+            "move": {
+              "matched": 1957,
+              "total": 2127,
+              "ratio": 0.920075223319229
+            },
+            "attack": {
+              "matched": 1212,
+              "total": 1381,
+              "ratio": 0.8776249094858798
+            }
+          },
+          "reasons": {
+            "attack:actor_absent": 14,
+            "attack:destination_absent": 133,
+            "attack:enemy_absent": 2,
+            "attack:weapon_absent": 20,
+            "move:destination_absent": 170,
+            "move_attack:actor_absent": 2,
+            "move_attack:destination_absent": 133,
+            "move_attack:enemy_absent": 2,
+            "move_attack:weapon_absent": 14,
+            "recruit:slot_absent": 18,
+            "recruit:type_absent": 91
+          }
+        },
+        "corpus": {
+          "games": 48,
+          "required": 48,
+          "passed": true
+        },
+        "opening": {
+          "passed": false,
+          "blocking": false
+        },
+        "distinct_scenarios": 30,
+        "min_distinct": 12,
+        "missing_scenario_rows": 0,
+        "scope": "initialisation_only",
+        "status": "not_passed",
+        "passed": false
+      }
+    },
+    "ffa4": {
+      "stage": "bc_complete",
+      "batch": 5,
+      "version": 5,
+      "effective": false,
+      "error": null,
+      "counters": {
+        "environment_games": 45,
+        "collection_batches": 6,
+        "optimizer_steps": 248,
+        "unique_families_seen": 34,
+        "decisions_seen": 41841,
+        "effective_dataset_passes": 21.66368082462938
+      },
+      "pending_train": {
+        "paths": [
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/ffa4/data/teacher-00000-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/ffa4/data/teacher-00001-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/ffa4/data/teacher-00002-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/ffa4/data/teacher-00003-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/ffa4/data/teacher-00004-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/ffa4/data/teacher-00005-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/ffa4/data/teacher-00006-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/ffa4/data/teacher-00007-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/ffa4/data/teacher-00008-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/ffa4/data/teacher-00009-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/ffa4/data/teacher-00010-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/ffa4/data/teacher-00011-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/ffa4/data/teacher-00012-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/ffa4/data/teacher-00013-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/ffa4/data/teacher-00014-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/ffa4/data/teacher-00015-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/ffa4/data/teacher-00016-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/ffa4/data/teacher-00017-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/ffa4/data/teacher-00018-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/ffa4/data/teacher-00019-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/ffa4/data/teacher-00020-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/ffa4/data/teacher-00021-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/ffa4/data/teacher-00022-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/ffa4/data/teacher-00023-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/ffa4/data/teacher-00024-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/ffa4/data/teacher-00025-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/ffa4/data/teacher-00026-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/ffa4/data/teacher-00027-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/ffa4/data/teacher-00028-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/ffa4/data/teacher-00029-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/ffa4/data/teacher-00030-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/ffa4/data/teacher-00031-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/ffa4/data/teacher-00032-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/ffa4/data/teacher-00033-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/ffa4/data/teacher-00034-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/ffa4/data/teacher-00035-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/ffa4/data/teacher-00036-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/ffa4/data/teacher-00037-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/ffa4/data/teacher-00038-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/ffa4/data/teacher-00039-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/ffa4/data/teacher-00040-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/ffa4/data/teacher-00042-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/ffa4/data/teacher-00043-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/ffa4/data/teacher-00044-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/ffa4/data/teacher-00046-ffa4-t0.jsonl.gz"
+        ],
+        "method": "bc",
+        "cursor": {
+          "epoch": 0,
+          "step": 0
+        },
+        "reward_config": {
+          "economy": 0.15,
+          "control": 0.1,
+          "explore": 0.1,
+          "mode": "adaptive",
+          "entropy": 0.01,
+          "bc_aux": 0.1,
+          "gamma": 1.0,
+          "gae_lambda": 0.95,
+          "reward_version": 0,
+          "reward_formula_id": "v5-potential-1"
+        },
+        "identity": {
+          "train": "20562a3c6f681004e5f16b39aee2524c063bc38d6611a7fc482b9c6d700f66ad"
+        }
+      },
+      "logs": {
+        "jobs.jsonl": {
+          "records": 48,
+          "complete": 45,
+          "faulted": 0,
+          "turn_truncated": 13,
+          "budget_interrupted": 3
+        }
+      },
+      "peak_rss_mb": 1442,
+      "gate": {
+        "imitation": {
+          "effective": false,
+          "formats": {
+            "ffa4": {
+              "samples": 1002,
+              "cross_entropy": 1.9725716566135307,
+              "uniform_entropy": 3.585611447830504,
+              "kinds": {
+                "recruit": {
+                  "samples": 78,
+                  "correct": 32,
+                  "same_kind": 77,
+                  "same_actor": 59,
+                  "same_destination": 59,
+                  "ranks": {
+                    "1": 32,
+                    "2-3": 33,
+                    "4-8": 11,
+                    "9-16": 2,
+                    "17+": 0
+                  },
+                  "accuracy": 0.41025641025641024,
+                  "mean_candidates": 36.756410256410255
+                },
+                "move": {
+                  "samples": 346,
+                  "correct": 186,
+                  "same_kind": 251,
+                  "same_actor": 231,
+                  "same_destination": 197,
+                  "ranks": {
+                    "1": 186,
+                    "2-3": 95,
+                    "4-8": 37,
+                    "9-16": 22,
+                    "17+": 6
+                  },
+                  "accuracy": 0.5375722543352601,
+                  "mean_candidates": 36.23121387283237
+                },
+                "attack": {
+                  "samples": 452,
+                  "correct": 127,
+                  "same_kind": 270,
+                  "same_actor": 244,
+                  "same_destination": 161,
+                  "ranks": {
+                    "1": 127,
+                    "2-3": 105,
+                    "4-8": 124,
+                    "9-16": 62,
+                    "17+": 34
+                  },
+                  "accuracy": 0.2809734513274336,
+                  "mean_candidates": 36.98893805309734
+                }
+              },
+              "accuracy": 0.4530938123752495,
+              "uniform_accuracy": 0.028355330296400503,
+              "effective": false
+            }
+          }
+        },
+        "coverage": {
+          "passed": true,
+          "actions": {
+            "all": {
+              "matched": 9762,
+              "total": 10703,
+              "ratio": 0.9120807250303653
+            },
+            "recruit": {
+              "matched": 886,
+              "total": 1010,
+              "ratio": 0.8772277227722772
+            },
+            "move": {
+              "matched": 4453,
+              "total": 4866,
+              "ratio": 0.9151253596383067
+            },
+            "attack": {
+              "matched": 2895,
+              "total": 3299,
+              "ratio": 0.8775386480751743
+            }
+          },
+          "reasons": {
+            "attack:actor_absent": 23,
+            "attack:destination_absent": 335,
+            "attack:enemy_absent": 13,
+            "attack:kind_absent": 2,
+            "attack:weapon_absent": 31,
+            "move:actor_absent": 2,
+            "move:destination_absent": 411,
+            "move_attack:actor_absent": 16,
+            "move_attack:destination_absent": 333,
+            "move_attack:enemy_absent": 13,
+            "move_attack:kind_absent": 1,
+            "move_attack:weapon_absent": 26,
+            "recruit:slot_absent": 98,
+            "recruit:type_absent": 26
+          }
+        },
+        "corpus": {
+          "games": 40,
+          "required": 48,
+          "passed": false
+        },
+        "opening": {
+          "passed": false,
+          "blocking": false
+        },
+        "distinct_scenarios": 25,
+        "min_distinct": 12,
+        "missing_scenario_rows": 0,
+        "scope": "initialisation_only",
+        "status": "not_passed",
+        "passed": false
+      }
+    },
+    "team2v2": {
+      "stage": "bc_complete",
+      "batch": 3,
+      "version": 3,
+      "effective": false,
+      "error": null,
+      "counters": {
+        "environment_games": 32,
+        "collection_batches": 4,
+        "optimizer_steps": 128,
+        "unique_families_seen": 20,
+        "decisions_seen": 28049,
+        "effective_dataset_passes": 13.69580078125
+      },
+      "pending_train": {
+        "paths": [
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00000-team2v2-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00001-team2v2-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00002-team2v2-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00003-team2v2-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00004-team2v2-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00005-team2v2-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00006-team2v2-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00007-team2v2-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00008-team2v2-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00009-team2v2-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00010-team2v2-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00011-team2v2-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00012-team2v2-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00013-team2v2-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00014-team2v2-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00015-team2v2-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00016-team2v2-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00017-team2v2-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00018-team2v2-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00019-team2v2-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00020-team2v2-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00021-team2v2-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00022-team2v2-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00023-team2v2-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00024-team2v2-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00025-team2v2-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00026-team2v2-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00027-team2v2-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00028-team2v2-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00029-team2v2-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00030-team2v2-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bc_root_20261101_readiness/runs/bc_readiness/team2v2/data/teacher-00031-team2v2-t0.jsonl.gz"
+        ],
+        "method": "bc",
+        "cursor": {
+          "epoch": 0,
+          "step": 0
+        },
+        "reward_config": {
+          "economy": 0.15,
+          "control": 0.1,
+          "explore": 0.1,
+          "mode": "adaptive",
+          "entropy": 0.01,
+          "bc_aux": 0.1,
+          "gamma": 1.0,
+          "gae_lambda": 0.95,
+          "reward_version": 0,
+          "reward_formula_id": "v5-potential-1"
+        },
+        "identity": {
+          "train": "b71ba312d324d3782528d9af28ffe674d1b472e5833b3fe7ec602ff8c6d69d02"
+        }
+      },
+      "logs": {
+        "jobs.jsonl": {
+          "records": 32,
+          "complete": 32,
+          "faulted": 0,
+          "turn_truncated": 20,
+          "budget_interrupted": 0
+        }
+      },
+      "peak_rss_mb": 1328,
+      "gate": {
+        "imitation": {
+          "effective": false,
+          "formats": {
+            "team2v2": {
+              "samples": 1011,
+              "cross_entropy": 1.9503712828623907,
+              "uniform_entropy": 3.5678392990909296,
+              "kinds": {
+                "recruit": {
+                  "samples": 59,
+                  "correct": 9,
+                  "same_kind": 50,
+                  "same_actor": 25,
+                  "same_destination": 25,
+                  "ranks": {
+                    "1": 9,
+                    "2-3": 26,
+                    "4-8": 18,
+                    "9-16": 5,
+                    "17+": 1
+                  },
+                  "accuracy": 0.15254237288135594,
+                  "mean_candidates": 36.779661016949156
+                },
+                "move": {
+                  "samples": 684,
+                  "correct": 357,
+                  "same_kind": 618,
+                  "same_actor": 410,
+                  "same_destination": 411,
+                  "ranks": {
+                    "1": 357,
+                    "2-3": 168,
+                    "4-8": 98,
+                    "9-16": 44,
+                    "17+": 17
+                  },
+                  "accuracy": 0.5219298245614035,
+                  "mean_candidates": 36.70906432748538
+                },
+                "attack": {
+                  "samples": 149,
+                  "correct": 28,
+                  "same_kind": 54,
+                  "same_actor": 67,
+                  "same_destination": 32,
+                  "ranks": {
+                    "1": 28,
+                    "2-3": 29,
+                    "4-8": 44,
+                    "9-16": 28,
+                    "17+": 20
+                  },
+                  "accuracy": 0.18791946308724833,
+                  "mean_candidates": 36.993288590604024
+                }
+              },
+              "accuracy": 0.4658753709198813,
+              "uniform_accuracy": 0.028648725365735612,
+              "effective": false
+            }
+          }
+        },
+        "coverage": {
+          "passed": true,
+          "actions": {
+            "all": {
+              "matched": 9825,
+              "total": 10494,
+              "ratio": 0.9362492853058891
+            },
+            "recruit": {
+              "matched": 438,
+              "total": 510,
+              "ratio": 0.8588235294117647
+            },
+            "move": {
+              "matched": 6855,
+              "total": 7313,
+              "ratio": 0.9373718036373582
+            },
+            "attack": {
+              "matched": 1282,
+              "total": 1421,
+              "ratio": 0.9021815622800844
+            }
+          },
+          "reasons": {
+            "attack:actor_absent": 3,
+            "attack:destination_absent": 111,
+            "attack:enemy_absent": 6,
+            "attack:kind_absent": 2,
+            "attack:weapon_absent": 17,
+            "move:destination_absent": 458,
+            "move_attack:actor_absent": 3,
+            "move_attack:destination_absent": 110,
+            "move_attack:enemy_absent": 6,
+            "move_attack:weapon_absent": 17,
+            "recruit:slot_absent": 64,
+            "recruit:type_absent": 8
+          }
+        },
+        "corpus": {
+          "games": 24,
+          "required": 48,
+          "passed": false
+        },
+        "opening": {
+          "passed": false,
+          "blocking": false
+        },
+        "distinct_scenarios": 14,
+        "min_distinct": 12,
+        "missing_scenario_rows": 0,
+        "scope": "initialisation_only",
+        "status": "not_passed",
+        "passed": false
+      }
+    }
+  }
+}

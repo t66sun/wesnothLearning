@@ -1,0 +1,468 @@
+{
+  "format": "team2v2",
+  "source_run": "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop",
+  "version": 1,
+  "train_rows": 1650,
+  "validation_rows": 152,
+  "train_fit": {
+    "effective": false,
+    "formats": {
+      "team2v2": {
+        "samples": 1622,
+        "cross_entropy": 2.1651737810504126,
+        "uniform_entropy": 3.479185606535739,
+        "kinds": {
+          "recruit": {
+            "samples": 54,
+            "correct": 13,
+            "same_kind": 25,
+            "same_actor": 15,
+            "same_destination": 15,
+            "ranks": {
+              "1": 13,
+              "2-3": 26,
+              "4-8": 10,
+              "9-16": 4,
+              "17+": 1
+            },
+            "accuracy": 0.24074074074074073,
+            "mean_candidates": 26.48148148148148
+          },
+          "move": {
+            "samples": 1138,
+            "correct": 322,
+            "same_kind": 635,
+            "same_actor": 381,
+            "same_destination": 418,
+            "ranks": {
+              "1": 322,
+              "2-3": 440,
+              "4-8": 266,
+              "9-16": 65,
+              "17+": 45
+            },
+            "accuracy": 0.28295254833040423,
+            "mean_candidates": 35.46924428822496
+          },
+          "attack": {
+            "samples": 112,
+            "correct": 20,
+            "same_kind": 44,
+            "same_actor": 46,
+            "same_destination": 29,
+            "ranks": {
+              "1": 20,
+              "2-3": 28,
+              "4-8": 42,
+              "9-16": 15,
+              "17+": 7
+            },
+            "accuracy": 0.17857142857142858,
+            "mean_candidates": 33.901785714285715
+          }
+        },
+        "accuracy": 0.40197287299630086,
+        "uniform_accuracy": 0.033516532381344326,
+        "effective": false
+      }
+    }
+  },
+  "heldout_fit": {
+    "effective": false,
+    "formats": {
+      "team2v2": {
+        "samples": 146,
+        "cross_entropy": 1.9878416975883588,
+        "uniform_entropy": 3.5475758448819246,
+        "kinds": {
+          "recruit": {
+            "samples": 2,
+            "correct": 0,
+            "same_kind": 1,
+            "same_actor": 1,
+            "same_destination": 1,
+            "ranks": {
+              "1": 0,
+              "2-3": 0,
+              "4-8": 2,
+              "9-16": 0,
+              "17+": 0
+            },
+            "accuracy": 0.0,
+            "mean_candidates": 32.5
+          },
+          "move": {
+            "samples": 92,
+            "correct": 24,
+            "same_kind": 32,
+            "same_actor": 26,
+            "same_destination": 27,
+            "ranks": {
+              "1": 24,
+              "2-3": 42,
+              "4-8": 19,
+              "9-16": 3,
+              "17+": 4
+            },
+            "accuracy": 0.2608695652173913,
+            "mean_candidates": 36.53260869565217
+          },
+          "attack": {
+            "samples": 14,
+            "correct": 1,
+            "same_kind": 1,
+            "same_actor": 6,
+            "same_destination": 1,
+            "ranks": {
+              "1": 1,
+              "2-3": 3,
+              "4-8": 4,
+              "9-16": 2,
+              "17+": 4
+            },
+            "accuracy": 0.07142857142857142,
+            "mean_candidates": 37.0
+          }
+        },
+        "accuracy": 0.4246575342465753,
+        "uniform_accuracy": 0.029158601529586412,
+        "effective": false
+      }
+    }
+  },
+  "representation": {
+    "schema": 5,
+    "status": "measured",
+    "totals": {
+      "decisions": 152,
+      "covered": 152,
+      "missing_intent": 0,
+      "alias_decisions": 0,
+      "teacher_aliased": 0,
+      "teacher_nonfirst_alias": 0,
+      "missing_actor": 0,
+      "missing_target": 0,
+      "missing_local": 0,
+      "missing_geometry": 0,
+      "coverage": 1.0,
+      "coverage_denominator": 152,
+      "nonfirst_alias_rate": 0.0
+    },
+    "strata": {
+      "action": {
+        "attack": {
+          "decisions": 14,
+          "covered": 14,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 14,
+          "nonfirst_alias_rate": 0.0
+        },
+        "end_turn": {
+          "decisions": 44,
+          "covered": 44,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 44,
+          "nonfirst_alias_rate": 0.0
+        },
+        "move": {
+          "decisions": 92,
+          "covered": 92,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 92,
+          "nonfirst_alias_rate": 0.0
+        },
+        "recruit": {
+          "decisions": 2,
+          "covered": 2,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 2,
+          "nonfirst_alias_rate": 0.0
+        }
+      },
+      "all": {
+        "all": {
+          "decisions": 152,
+          "covered": 152,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 152,
+          "nonfirst_alias_rate": 0.0
+        }
+      },
+      "engine": {
+        "lite": {
+          "decisions": 152,
+          "covered": 152,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 152,
+          "nonfirst_alias_rate": 0.0
+        }
+      },
+      "faction": {
+        "Drakes": {
+          "decisions": 152,
+          "covered": 152,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 152,
+          "nonfirst_alias_rate": 0.0
+        }
+      },
+      "format": {
+        "team2v2": {
+          "decisions": 152,
+          "covered": 152,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 152,
+          "nonfirst_alias_rate": 0.0
+        }
+      },
+      "format_action": {
+        "team2v2/attack": {
+          "decisions": 14,
+          "covered": 14,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 14,
+          "nonfirst_alias_rate": 0.0
+        },
+        "team2v2/end_turn": {
+          "decisions": 44,
+          "covered": 44,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 44,
+          "nonfirst_alias_rate": 0.0
+        },
+        "team2v2/move": {
+          "decisions": 92,
+          "covered": 92,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 92,
+          "nonfirst_alias_rate": 0.0
+        },
+        "team2v2/recruit": {
+          "decisions": 2,
+          "covered": 2,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 2,
+          "nonfirst_alias_rate": 0.0
+        }
+      },
+      "map": {
+        "arena4": {
+          "decisions": 152,
+          "covered": 152,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 152,
+          "nonfirst_alias_rate": 0.0
+        }
+      },
+      "source": {
+        "astra": {
+          "decisions": 152,
+          "covered": 152,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 152,
+          "nonfirst_alias_rate": 0.0
+        }
+      },
+      "turn": {
+        "late": {
+          "decisions": 95,
+          "covered": 95,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 95,
+          "nonfirst_alias_rate": 0.0
+        },
+        "middle": {
+          "decisions": 38,
+          "covered": 38,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 38,
+          "nonfirst_alias_rate": 0.0
+        },
+        "opening": {
+          "decisions": 19,
+          "covered": 19,
+          "missing_intent": 0,
+          "alias_decisions": 0,
+          "teacher_aliased": 0,
+          "teacher_nonfirst_alias": 0,
+          "missing_actor": 0,
+          "missing_target": 0,
+          "missing_local": 0,
+          "missing_geometry": 0,
+          "coverage": 1.0,
+          "coverage_denominator": 19,
+          "nonfirst_alias_rate": 0.0
+        }
+      }
+    },
+    "intent_sources": {
+      "intent": 152
+    },
+    "identical_decision_inputs": 152,
+    "conflicting_exact_input_groups": 0,
+    "conflicting_exact_input_decisions": 0,
+    "nonfirst_alias_examples": [],
+    "coverage_pass": true,
+    "interpretation": "Input identity is a representation collision, never evidence of equal action value. Actual-only coverage may differ after interrupted movement."
+  },
+  "tiny_fit": {
+    "format": "team2v2",
+    "samples": 64,
+    "steps": 200,
+    "cross_entropy": 0.032497841864824295,
+    "accuracy": 1.0,
+    "passed": true,
+    "action_types": {
+      "recruit": {
+        "samples": 3,
+        "correct": 3
+      },
+      "move": {
+        "samples": 42,
+        "correct": 42
+      },
+      "attack": {
+        "samples": 7,
+        "correct": 7
+      },
+      "end_turn": {
+        "samples": 12,
+        "correct": 12
+      }
+    },
+    "equivalent_samples": 0,
+    "equivalent_accuracy": null,
+    "seed": 19,
+    "status": "measured",
+    "changes_original_model": false
+  },
+  "seconds": 308.1472752750851
+}

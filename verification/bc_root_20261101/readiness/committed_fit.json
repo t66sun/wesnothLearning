@@ -1,0 +1,398 @@
+{
+  "duel": {
+    "version": 10,
+    "train_rows": 2048,
+    "heldout_rows": 751,
+    "train": {
+      "effective": true,
+      "formats": {
+        "duel": {
+          "samples": 1962,
+          "cross_entropy": 0.9333244230404542,
+          "uniform_entropy": 3.5481945250390114,
+          "kinds": {
+            "recruit": {
+              "samples": 345,
+              "correct": 238,
+              "same_kind": 345,
+              "same_actor": 332,
+              "same_destination": 332,
+              "ranks": {
+                "1": 238,
+                "2-3": 87,
+                "4-8": 19,
+                "9-16": 0,
+                "17+": 1
+              },
+              "accuracy": 0.6898550724637681,
+              "mean_candidates": 36.04347826086956
+            },
+            "move": {
+              "samples": 835,
+              "correct": 545,
+              "same_kind": 780,
+              "same_actor": 614,
+              "same_destination": 583,
+              "ranks": {
+                "1": 545,
+                "2-3": 200,
+                "4-8": 67,
+                "9-16": 18,
+                "17+": 5
+              },
+              "accuracy": 0.6526946107784432,
+              "mean_candidates": 35.84550898203593
+            },
+            "attack": {
+              "samples": 556,
+              "correct": 374,
+              "same_kind": 532,
+              "same_actor": 460,
+              "same_destination": 418,
+              "ranks": {
+                "1": 374,
+                "2-3": 120,
+                "4-8": 50,
+                "9-16": 12,
+                "17+": 0
+              },
+              "accuracy": 0.6726618705035972,
+              "mean_candidates": 36.95323741007194
+            }
+          },
+          "accuracy": 0.6972477064220184,
+          "uniform_accuracy": 0.02988084789612882,
+          "effective": true
+        }
+      }
+    },
+    "heldout": {
+      "effective": false,
+      "formats": {
+        "duel": {
+          "samples": 710,
+          "cross_entropy": 2.2655697862866897,
+          "uniform_entropy": 3.5322480151765974,
+          "kinds": {
+            "recruit": {
+              "samples": 127,
+              "correct": 65,
+              "same_kind": 127,
+              "same_actor": 108,
+              "same_destination": 108,
+              "ranks": {
+                "1": 65,
+                "2-3": 50,
+                "4-8": 12,
+                "9-16": 0,
+                "17+": 0
+              },
+              "accuracy": 0.5118110236220472,
+              "mean_candidates": 35.70866141732284
+            },
+            "move": {
+              "samples": 329,
+              "correct": 157,
+              "same_kind": 227,
+              "same_actor": 201,
+              "same_destination": 166,
+              "ranks": {
+                "1": 157,
+                "2-3": 87,
+                "4-8": 47,
+                "9-16": 27,
+                "17+": 11
+              },
+              "accuracy": 0.47720364741641336,
+              "mean_candidates": 35.29483282674772
+            },
+            "attack": {
+              "samples": 200,
+              "correct": 69,
+              "same_kind": 174,
+              "same_actor": 113,
+              "same_destination": 87,
+              "ranks": {
+                "1": 69,
+                "2-3": 61,
+                "4-8": 44,
+                "9-16": 12,
+                "17+": 14
+              },
+              "accuracy": 0.345,
+              "mean_candidates": 36.71
+            }
+          },
+          "accuracy": 0.45211267605633804,
+          "uniform_accuracy": 0.031078730011425672,
+          "effective": false
+        }
+      }
+    },
+    "gate_reproduced": true
+  },
+  "ffa4": {
+    "version": 5,
+    "train_rows": 2048,
+    "heldout_rows": 1024,
+    "train": {
+      "effective": false,
+      "formats": {
+        "ffa4": {
+          "samples": 1972,
+          "cross_entropy": 1.4792925968131478,
+          "uniform_entropy": 3.5638313013938925,
+          "kinds": {
+            "recruit": {
+              "samples": 207,
+              "correct": 75,
+              "same_kind": 204,
+              "same_actor": 126,
+              "same_destination": 126,
+              "ranks": {
+                "1": 75,
+                "2-3": 74,
+                "4-8": 53,
+                "9-16": 2,
+                "17+": 3
+              },
+              "accuracy": 0.36231884057971014,
+              "mean_candidates": 36.333333333333336
+            },
+            "move": {
+              "samples": 911,
+              "correct": 568,
+              "same_kind": 770,
+              "same_actor": 634,
+              "same_destination": 616,
+              "ranks": {
+                "1": 568,
+                "2-3": 228,
+                "4-8": 80,
+                "9-16": 26,
+                "17+": 9
+              },
+              "accuracy": 0.6234906695938529,
+              "mean_candidates": 36.26893523600439
+            },
+            "attack": {
+              "samples": 583,
+              "correct": 212,
+              "same_kind": 397,
+              "same_actor": 365,
+              "same_destination": 268,
+              "ranks": {
+                "1": 212,
+                "2-3": 176,
+                "4-8": 128,
+                "9-16": 49,
+                "17+": 18
+              },
+              "accuracy": 0.36363636363636365,
+              "mean_candidates": 36.898799313893655
+            }
+          },
+          "accuracy": 0.5562880324543611,
+          "uniform_accuracy": 0.02962737532232839,
+          "effective": false
+        }
+      }
+    },
+    "heldout": {
+      "effective": false,
+      "formats": {
+        "ffa4": {
+          "samples": 1002,
+          "cross_entropy": 1.9725716566135307,
+          "uniform_entropy": 3.585611447830504,
+          "kinds": {
+            "recruit": {
+              "samples": 78,
+              "correct": 32,
+              "same_kind": 77,
+              "same_actor": 59,
+              "same_destination": 59,
+              "ranks": {
+                "1": 32,
+                "2-3": 33,
+                "4-8": 11,
+                "9-16": 2,
+                "17+": 0
+              },
+              "accuracy": 0.41025641025641024,
+              "mean_candidates": 36.756410256410255
+            },
+            "move": {
+              "samples": 346,
+              "correct": 186,
+              "same_kind": 251,
+              "same_actor": 231,
+              "same_destination": 197,
+              "ranks": {
+                "1": 186,
+                "2-3": 95,
+                "4-8": 37,
+                "9-16": 22,
+                "17+": 6
+              },
+              "accuracy": 0.5375722543352601,
+              "mean_candidates": 36.23121387283237
+            },
+            "attack": {
+              "samples": 452,
+              "correct": 127,
+              "same_kind": 270,
+              "same_actor": 244,
+              "same_destination": 161,
+              "ranks": {
+                "1": 127,
+                "2-3": 105,
+                "4-8": 124,
+                "9-16": 62,
+                "17+": 34
+              },
+              "accuracy": 0.2809734513274336,
+              "mean_candidates": 36.98893805309734
+            }
+          },
+          "accuracy": 0.4530938123752495,
+          "uniform_accuracy": 0.028355330296400503,
+          "effective": false
+        }
+      }
+    },
+    "gate_reproduced": true
+  },
+  "team2v2": {
+    "version": 3,
+    "train_rows": 2048,
+    "heldout_rows": 1024,
+    "train": {
+      "effective": false,
+      "formats": {
+        "team2v2": {
+          "samples": 2022,
+          "cross_entropy": 1.6512331165498606,
+          "uniform_entropy": 3.5762091549741575,
+          "kinds": {
+            "recruit": {
+              "samples": 113,
+              "correct": 28,
+              "same_kind": 101,
+              "same_actor": 65,
+              "same_destination": 65,
+              "ranks": {
+                "1": 28,
+                "2-3": 39,
+                "4-8": 33,
+                "9-16": 11,
+                "17+": 2
+              },
+              "accuracy": 0.24778761061946902,
+              "mean_candidates": 36.24778761061947
+            },
+            "move": {
+              "samples": 1314,
+              "correct": 816,
+              "same_kind": 1247,
+              "same_actor": 923,
+              "same_destination": 922,
+              "ranks": {
+                "1": 816,
+                "2-3": 298,
+                "4-8": 141,
+                "9-16": 48,
+                "17+": 11
+              },
+              "accuracy": 0.6210045662100456,
+              "mean_candidates": 36.81278538812786
+            },
+            "attack": {
+              "samples": 335,
+              "correct": 70,
+              "same_kind": 143,
+              "same_actor": 156,
+              "same_destination": 91,
+              "ranks": {
+                "1": 70,
+                "2-3": 71,
+                "4-8": 87,
+                "9-16": 63,
+                "17+": 44
+              },
+              "accuracy": 0.208955223880597,
+              "mean_candidates": 36.96417910447761
+            }
+          },
+          "accuracy": 0.5445103857566765,
+          "uniform_accuracy": 0.028308417143565006,
+          "effective": false
+        }
+      }
+    },
+    "heldout": {
+      "effective": false,
+      "formats": {
+        "team2v2": {
+          "samples": 1011,
+          "cross_entropy": 1.9503712828623907,
+          "uniform_entropy": 3.5678392990909296,
+          "kinds": {
+            "recruit": {
+              "samples": 59,
+              "correct": 9,
+              "same_kind": 50,
+              "same_actor": 25,
+              "same_destination": 25,
+              "ranks": {
+                "1": 9,
+                "2-3": 26,
+                "4-8": 18,
+                "9-16": 5,
+                "17+": 1
+              },
+              "accuracy": 0.15254237288135594,
+              "mean_candidates": 36.779661016949156
+            },
+            "move": {
+              "samples": 684,
+              "correct": 357,
+              "same_kind": 618,
+              "same_actor": 410,
+              "same_destination": 411,
+              "ranks": {
+                "1": 357,
+                "2-3": 168,
+                "4-8": 98,
+                "9-16": 44,
+                "17+": 17
+              },
+              "accuracy": 0.5219298245614035,
+              "mean_candidates": 36.70906432748538
+            },
+            "attack": {
+              "samples": 149,
+              "correct": 28,
+              "same_kind": 54,
+              "same_actor": 67,
+              "same_destination": 32,
+              "ranks": {
+                "1": 28,
+                "2-3": 29,
+                "4-8": 44,
+                "9-16": 28,
+                "17+": 20
+              },
+              "accuracy": 0.18791946308724833,
+              "mean_candidates": 36.993288590604024
+            }
+          },
+          "accuracy": 0.4658753709198813,
+          "uniform_accuracy": 0.028648725365735612,
+          "effective": false
+        }
+      }
+    },
+    "gate_reproduced": true
+  }
+}
