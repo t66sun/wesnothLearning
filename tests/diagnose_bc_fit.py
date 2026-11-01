@@ -1,6 +1,5 @@
 """Offline historical-checkpoint fit diagnosis; no experiment state is written."""
 import argparse
-import copy
 import json
 from pathlib import Path
 import time
@@ -10,6 +9,8 @@ from learning.audit import audit_bc, fit_small_set
 from learning.bc import imitation_quality
 from learning.model import Policy
 from learning.sequences import read_shards
+from learning.rowpack import plain_row
+from learning.features import VERSION
 
 
 def main():
@@ -39,7 +40,7 @@ def main():
                   heldout_fit=imitation_quality(model,valid),
                   # Storage row schema 6 has the same decoded feature vectors as
                   # feature schema 5. audit_bc consumes feature rows, not rowpack.
-                  representation=audit_bc([dict(r, schema=5) for r in valid]),
+                  representation=audit_bc(dict(plain_row(r), schema=VERSION) for r in valid),
                   tiny_fit=fit_small_set(model,train,steps=args.steps),
                   seconds=time.monotonic()-started)
     args.output.parent.mkdir(parents=True, exist_ok=True)
