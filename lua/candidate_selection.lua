@@ -40,14 +40,21 @@ function M.select(pool)
     local function take(a)
         selected[#selected+1]=a;used[identity(a)]=true
     end
-    for _,kind in ipairs {'combat','recruit','move'} do
+    -- Primary full moves are already budgeted/probed once per actor. Preserve
+    -- them when more combat landings become available instead of losing actors
+    -- in the final refill. The remaining slots still prefer combat.
+    for _,a in ipairs(unique) do
+        if a._primary_move and #selected<36 then take(a) end
+    end
+    for _,kind in ipairs {'recruit','combat','move'} do
         local bucket=classes[kind];local limit=LIMIT[kind];local count=0
+        for _,a in ipairs(selected) do if class(a)==kind then count=count+1 end end
         -- One ranked action per actor/recruit type per pass preserves diversity.
-        while count<limit do
+        while count<limit and #selected<36 do
             local groups={};local added=false
             for _,a in ipairs(bucket) do
                 local key=group(a)
-                if not used[identity(a)] and not groups[key] and count<limit then
+                if not used[identity(a)] and not groups[key] and count<limit and #selected<36 then
                     take(a);groups[key]=true;count=count+1;added=true
                 end
             end
