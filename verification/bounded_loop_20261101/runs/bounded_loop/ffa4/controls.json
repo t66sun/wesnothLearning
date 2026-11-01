@@ -1,0 +1,6 @@
+{
+  "controls": {
+    "ffa4": "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/frozen/opponents/gpt6astra.zip"
+  },
+  "calibration": "single fixed Astra"
+}

@@ -1,0 +1,915 @@
+{
+  "stage": "bc",
+  "command": [
+    "/home/tongshu/venv/bin/python",
+    "-u",
+    "-m",
+    "learning",
+    "run",
+    "--run-dir",
+    "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop",
+    "--hours",
+    "0.32",
+    "--phase",
+    "bc",
+    "--formats",
+    "duel",
+    "ffa4",
+    "team2v2",
+    "--workers",
+    "8",
+    "--trainer-threads",
+    "1",
+    "--seed",
+    "20261101",
+    "--bc-games",
+    "24",
+    "24",
+    "24",
+    "--native-bc-games",
+    "0",
+    "0",
+    "0",
+    "--bc-records",
+    "2048",
+    "--bc-validation-records",
+    "1024",
+    "--wesnoth",
+    "/home/tongshu/myDev/wesnothLearning/WesnothLearning/.runtime/install/bin/wesnoth"
+  ],
+  "seconds": 558.3290596008301,
+  "exit_code": -15,
+  "stop_reason": "committed_batch_limit",
+  "states": {
+    "duel": {
+      "format": "duel",
+      "stage": "bc",
+      "phase": "bc",
+      "clock": {
+        "started": 1793505441.8902433,
+        "update_deadline": 1793506401.8902433,
+        "deadline": 1793506593.8902433
+      },
+      "batch": 5,
+      "version": 5,
+      "history": [
+        {
+          "batch": 0,
+          "method": "bc",
+          "elapsed_hours": 0.052568270100487605,
+          "reads": {
+            "bc": {
+              "requested": 2048,
+              "rows": 500,
+              "families": 7,
+              "selected": 7,
+              "families_decoded": 7,
+              "families_selected": 7,
+              "families_admitted": 7,
+              "families_retained": 7,
+              "windows": 13,
+              "sources": {
+                "astra": 500
+              },
+              "engines": {
+                "lite": 500
+              },
+              "kinds": {
+                "recruit": 44,
+                "end_turn": 83,
+                "move": 258,
+                "attack": 28,
+                "move_attack": 87
+              },
+              "gz_bytes": 6880099,
+              "retained_bytes": 55808960,
+              "deficit": 1548,
+              "stop_reason": "insufficient_data"
+            },
+            "validation": {
+              "requested": 1024,
+              "rows": 52,
+              "families": 1,
+              "selected": 1,
+              "families_decoded": 1,
+              "families_selected": 1,
+              "families_admitted": 1,
+              "families_retained": 1,
+              "windows": 2,
+              "sources": {
+                "astra": 52
+              },
+              "engines": {
+                "lite": 52
+              },
+              "kinds": {
+                "recruit": 8,
+                "move": 17,
+                "end_turn": 10,
+                "attack": 7,
+                "move_attack": 10
+              },
+              "gz_bytes": 560970,
+              "retained_bytes": 5284368,
+              "deficit": 972,
+              "stop_reason": "insufficient_data"
+            }
+          },
+          "peak_rss_mb": 537,
+          "updates": 16,
+          "loss": 3.3107064545620233,
+          "interrupted": false,
+          "approx_kl": 0.0,
+          "kl_stopped": false,
+          "decisions_seen": 2234,
+          "unique_families_seen": 7,
+          "effective_dataset_passes": 4.468,
+          "sequence_windows": 13,
+          "microbatch": 32,
+          "window_visits": 64,
+          "unique_windows_seen": 13,
+          "repeated_window_visits": 51
+        },
+        {
+          "batch": 1,
+          "method": "bc",
+          "elapsed_hours": 0.07156380474567413,
+          "reads": {
+            "bc": {
+              "requested": 2048,
+              "rows": 998,
+              "families": 13,
+              "selected": 13,
+              "families_decoded": 13,
+              "families_selected": 13,
+              "families_admitted": 13,
+              "families_retained": 13,
+              "windows": 26,
+              "sources": {
+                "astra": 998
+              },
+              "engines": {
+                "lite": 998
+              },
+              "kinds": {
+                "recruit": 81,
+                "move": 541,
+                "end_turn": 157,
+                "attack": 67,
+                "move_attack": 152
+              },
+              "gz_bytes": 13571880,
+              "retained_bytes": 111858152,
+              "deficit": 1050,
+              "stop_reason": "insufficient_data"
+            },
+            "validation": {
+              "requested": 1024,
+              "rows": 131,
+              "families": 3,
+              "selected": 3,
+              "families_decoded": 3,
+              "families_selected": 3,
+              "families_admitted": 3,
+              "families_retained": 3,
+              "windows": 5,
+              "sources": {
+                "astra": 131
+              },
+              "engines": {
+                "lite": 131
+              },
+              "kinds": {
+                "move": 53,
+                "end_turn": 25,
+                "recruit": 17,
+                "attack": 13,
+                "move_attack": 23
+              },
+              "gz_bytes": 1222929,
+              "retained_bytes": 13317804,
+              "deficit": 893,
+              "stop_reason": "insufficient_data"
+            }
+          },
+          "peak_rss_mb": 630,
+          "updates": 28,
+          "loss": 2.6708225360406295,
+          "interrupted": false,
+          "approx_kl": 0.0,
+          "kl_stopped": false,
+          "decisions_seen": 4027,
+          "unique_families_seen": 13,
+          "effective_dataset_passes": 4.0350701402805615,
+          "sequence_windows": 26,
+          "microbatch": 32,
+          "window_visits": 112,
+          "unique_windows_seen": 26,
+          "repeated_window_visits": 86
+        },
+        {
+          "batch": 2,
+          "method": "bc",
+          "elapsed_hours": 0.10524934914377,
+          "reads": {
+            "bc": {
+              "requested": 2048,
+              "rows": 1534,
+              "families": 19,
+              "selected": 19,
+              "families_decoded": 19,
+              "families_selected": 19,
+              "families_admitted": 19,
+              "families_retained": 19,
+              "windows": 44,
+              "sources": {
+                "astra": 1534
+              },
+              "engines": {
+                "lite": 1534
+              },
+              "kinds": {
+                "recruit": 121,
+                "end_turn": 275,
+                "move": 852,
+                "move_attack": 200,
+                "attack": 86
+              },
+              "gz_bytes": 19778685,
+              "retained_bytes": 168004036,
+              "deficit": 514,
+              "stop_reason": "insufficient_data"
+            },
+            "validation": {
+              "requested": 1024,
+              "rows": 354,
+              "families": 5,
+              "selected": 5,
+              "families_decoded": 5,
+              "families_selected": 5,
+              "families_admitted": 5,
+              "families_retained": 5,
+              "windows": 10,
+              "sources": {
+                "astra": 354
+              },
+              "engines": {
+                "lite": 354
+              },
+              "kinds": {
+                "recruit": 30,
+                "move": 191,
+                "end_turn": 55,
+                "move_attack": 52,
+                "attack": 26
+              },
+              "gz_bytes": 4350003,
+              "retained_bytes": 39611076,
+              "deficit": 670,
+              "stop_reason": "insufficient_data"
+            }
+          },
+          "peak_rss_mb": 751,
+          "updates": 44,
+          "loss": 1.6987046423733276,
+          "interrupted": false,
+          "approx_kl": 0.0,
+          "kl_stopped": false,
+          "decisions_seen": 6124,
+          "unique_families_seen": 19,
+          "effective_dataset_passes": 3.9921773142112125,
+          "sequence_windows": 44,
+          "microbatch": 32,
+          "window_visits": 176,
+          "unique_windows_seen": 43,
+          "repeated_window_visits": 133
+        },
+        {
+          "batch": 3,
+          "method": "bc",
+          "elapsed_hours": 0.1325272521045473,
+          "reads": {
+            "bc": {
+              "requested": 2048,
+              "rows": 1534,
+              "families": 19,
+              "selected": 19,
+              "families_decoded": 19,
+              "families_selected": 19,
+              "families_admitted": 19,
+              "families_retained": 19,
+              "windows": 44,
+              "sources": {
+                "astra": 1534
+              },
+              "engines": {
+                "lite": 1534
+              },
+              "kinds": {
+                "end_turn": 275,
+                "move": 852,
+                "move_attack": 200,
+                "attack": 86,
+                "recruit": 121
+              },
+              "gz_bytes": 19778685,
+              "retained_bytes": 168004036,
+              "deficit": 514,
+              "stop_reason": "insufficient_data"
+            },
+            "validation": {
+              "requested": 1024,
+              "rows": 354,
+              "families": 5,
+              "selected": 5,
+              "families_decoded": 5,
+              "families_selected": 5,
+              "families_admitted": 5,
+              "families_retained": 5,
+              "windows": 10,
+              "sources": {
+                "astra": 354
+              },
+              "engines": {
+                "lite": 354
+              },
+              "kinds": {
+                "recruit": 30,
+                "move": 191,
+                "end_turn": 55,
+                "move_attack": 52,
+                "attack": 26
+              },
+              "gz_bytes": 4350003,
+              "retained_bytes": 39611076,
+              "deficit": 670,
+              "stop_reason": "insufficient_data"
+            }
+          },
+          "peak_rss_mb": 755,
+          "updates": 44,
+          "loss": 1.4582909492832683,
+          "interrupted": false,
+          "approx_kl": 0.0,
+          "kl_stopped": false,
+          "decisions_seen": 6754,
+          "unique_families_seen": 19,
+          "effective_dataset_passes": 4.402868318122556,
+          "sequence_windows": 44,
+          "microbatch": 32,
+          "window_visits": 176,
+          "unique_windows_seen": 41,
+          "repeated_window_visits": 135
+        },
+        {
+          "batch": 4,
+          "method": "bc",
+          "elapsed_hours": 0.15412139455477397,
+          "reads": {
+            "bc": {
+              "requested": 2048,
+              "rows": 1534,
+              "families": 19,
+              "selected": 19,
+              "families_decoded": 19,
+              "families_selected": 19,
+              "families_admitted": 19,
+              "families_retained": 19,
+              "windows": 44,
+              "sources": {
+                "astra": 1534
+              },
+              "engines": {
+                "lite": 1534
+              },
+              "kinds": {
+                "recruit": 121,
+                "move": 852,
+                "end_turn": 275,
+                "move_attack": 200,
+                "attack": 86
+              },
+              "gz_bytes": 19778685,
+              "retained_bytes": 168004036,
+              "deficit": 514,
+              "stop_reason": "insufficient_data"
+            },
+            "validation": {
+              "requested": 1024,
+              "rows": 354,
+              "families": 5,
+              "selected": 5,
+              "families_decoded": 5,
+              "families_selected": 5,
+              "families_admitted": 5,
+              "families_retained": 5,
+              "windows": 10,
+              "sources": {
+                "astra": 354
+              },
+              "engines": {
+                "lite": 354
+              },
+              "kinds": {
+                "recruit": 30,
+                "move": 191,
+                "end_turn": 55,
+                "move_attack": 52,
+                "attack": 26
+              },
+              "gz_bytes": 4350003,
+              "retained_bytes": 39611076,
+              "deficit": 670,
+              "stop_reason": "insufficient_data"
+            }
+          },
+          "peak_rss_mb": 755,
+          "updates": 44,
+          "loss": 1.174330320048863,
+          "interrupted": false,
+          "approx_kl": 0.0,
+          "kl_stopped": false,
+          "decisions_seen": 6125,
+          "unique_families_seen": 19,
+          "effective_dataset_passes": 3.9928292046936114,
+          "sequence_windows": 44,
+          "microbatch": 32,
+          "window_visits": 176,
+          "unique_windows_seen": 42,
+          "repeated_window_visits": 134
+        }
+      ],
+      "snapshots": [],
+      "best_key": null,
+      "bc_key": null,
+      "ppo_key": null,
+      "best_kind": null,
+      "pending_train": null,
+      "pending_validation": null,
+      "teacher_shards": [
+        "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/duel/data/teacher-00000-duel-t0.jsonl.gz",
+        "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/duel/data/teacher-00001-duel-t0.jsonl.gz",
+        "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/duel/data/teacher-00002-duel-t0.jsonl.gz",
+        "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/duel/data/teacher-00003-duel-t0.jsonl.gz",
+        "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/duel/data/teacher-00004-duel-t0.jsonl.gz",
+        "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/duel/data/teacher-00005-duel-t0.jsonl.gz",
+        "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/duel/data/teacher-00006-duel-t0.jsonl.gz",
+        "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/duel/data/teacher-00007-duel-t0.jsonl.gz",
+        "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/duel/data/teacher-00008-duel-t0.jsonl.gz",
+        "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/duel/data/teacher-00009-duel-t0.jsonl.gz",
+        "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/duel/data/teacher-00010-duel-t0.jsonl.gz",
+        "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/duel/data/teacher-00011-duel-t0.jsonl.gz",
+        "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/duel/data/teacher-00012-duel-t0.jsonl.gz",
+        "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/duel/data/teacher-00013-duel-t0.jsonl.gz",
+        "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/duel/data/teacher-00014-duel-t0.jsonl.gz",
+        "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/duel/data/teacher-00015-duel-t0.jsonl.gz",
+        "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/duel/data/teacher-00016-duel-t0.jsonl.gz",
+        "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/duel/data/teacher-00017-duel-t0.jsonl.gz",
+        "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/duel/data/teacher-00018-duel-t0.jsonl.gz",
+        "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/duel/data/teacher-00019-duel-t0.jsonl.gz",
+        "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/duel/data/teacher-00020-duel-t0.jsonl.gz",
+        "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/duel/data/teacher-00021-duel-t0.jsonl.gz",
+        "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/duel/data/teacher-00022-duel-t0.jsonl.gz",
+        "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/duel/data/teacher-00023-duel-t0.jsonl.gz"
+      ],
+      "effective": false,
+      "error": null,
+      "dagger_shards": [],
+      "policy_shards": [],
+      "counters": {
+        "environment_games": 24,
+        "collection_batches": 5,
+        "optimizer_steps": 176,
+        "unique_families_seen": 24,
+        "decisions_seen": 25264,
+        "effective_dataset_passes": 20.890944977307942
+      },
+      "reward_controller": {
+        "config": {
+          "economy": 0.15,
+          "control": 0.1,
+          "explore": 0.1,
+          "mode": "adaptive",
+          "entropy": 0.01,
+          "bc_aux": 0.1,
+          "gamma": 1.0,
+          "gae_lambda": 0.95,
+          "reward_version": 0,
+          "reward_formula_id": "v5-potential-1"
+        },
+        "cursor": 0,
+        "last_check": 0,
+        "games": 24,
+        "blocks": [],
+        "seen_blocks": [],
+        "windows": [],
+        "control_previous": null,
+        "last_error": null,
+        "metrics_error": null,
+        "applied_schedule": []
+      },
+      "families_seen": [
+        "054818f0883d6329d73a401c07cea11e06eb82bb166fcc374f40e9b597d0e6eb",
+        "0f59026d6f225109aecc6280f9940c95477a0c82b4f1180207780cf087614171",
+        "17f51e2778a2611a63e418b545b55f5603813a2a0622a5c0d80aa4fe2fe3cbe5",
+        "1d072ee66305ddcc9976c75b3358ab88dfec766ea289ffaa7f31bd3163da7846",
+        "238cb751757a98506b84c1656de2c7de16e53833a042dfb8c84cbcc100696015",
+        "26ca1490205972fdacae55a5c9b085c2d2aa782cfa1afeaf762f85bdc242e75a",
+        "43e281b394484820a0ab4019d5a2be21cd70f9b75ffd60bad870cc4dac1d579d",
+        "4c805c57749914abe53432b1abe1c07b29dbca8d49ad7385e3447d5f80d6e42d",
+        "4d5e568344f5a0f8eccfd2d02c77ee1e4f9d6b69dd7004d414c5cd1c67f884e8",
+        "916a9be3f9c9077136845424c62444f0cb53226f66fa28ccb860bf5259f51308",
+        "97a01efdaa80b3c6bab4899e9aba15f56d50a4075e38f7e95e83d9e607ee1cee",
+        "99792692d7b4789a4f291a0ed78d455f2bf35a28819b7335ba51f919fbac3ed0",
+        "a3786972d9fe4a7ecf0dd406e35850d20c627ccce06df0e71b918d525dcc197e",
+        "aceff176f134c0593fe0e8c5e648c3298def620aa30c3c3bb4fde997cca2fb90",
+        "b0b2be8240e2d62c84ade5cc194709c66cd045f4db8d5bbbeb3a8ac521370bfb",
+        "b37e6babda595058868205ed162bfa727b276e204ecdc05d0969ddb76f2caf28",
+        "be06ca6ed056f3aa54ddda75ba52152f092e95c20bac490e53a0a6e0ef0e5877",
+        "ced4b2d52e7a1036ceaac4c71017daffe5ebed9d1c567da8d5c6012965031a05",
+        "d03eaffaf236ec1e24e080a43417d81070e6db3ae39c0695e9e366ae2117e834",
+        "d369c640fbd477cda0fd8ac45ae5c042bc4018c4c49b7529f62cb0d32a47b2b8",
+        "dafa243f18d34c35863261fe0aad347f33c6a35c04ea02b93d2fcf7260717a95",
+        "dbf6ed9b8dd1896ed3baf4275097342ab5a746f3ee627cbb2254325ba0e8290e",
+        "e36fbad8f944e1a5ee4086052451b02955dddd6bca7079c88e4dd64d8cf5d637",
+        "fa6dfe62229b3244ee26945fdb6cf31957b55535ac44319889cf274843053b22"
+      ],
+      "bc_quality_best": 0.3275862068965517,
+      "bc_plateau": 3,
+      "control_metrics": {
+        "partition": "train",
+        "new_games": 0,
+        "faulted_games": 0
+      }
+    },
+    "ffa4": {
+      "format": "ffa4",
+      "stage": "bc",
+      "phase": "bc",
+      "clock": {
+        "started": 1793505441.8902433,
+        "update_deadline": 1793506401.8902433,
+        "deadline": 1793506593.8902433
+      },
+      "batch": 1,
+      "version": 1,
+      "history": [
+        {
+          "batch": 0,
+          "method": "bc",
+          "elapsed_hours": 0.08126365118556553,
+          "reads": {
+            "bc": {
+              "requested": 2048,
+              "rows": 964,
+              "families": 5,
+              "selected": 5,
+              "families_decoded": 5,
+              "families_selected": 5,
+              "families_admitted": 5,
+              "families_retained": 5,
+              "windows": 28,
+              "sources": {
+                "astra": 964
+              },
+              "engines": {
+                "lite": 964
+              },
+              "kinds": {
+                "recruit": 63,
+                "end_turn": 206,
+                "move": 555,
+                "move_attack": 88,
+                "attack": 52
+              },
+              "gz_bytes": 15211775,
+              "retained_bytes": 113608772,
+              "deficit": 1084,
+              "stop_reason": "insufficient_data"
+            },
+            "validation": {
+              "requested": 1024,
+              "rows": 435,
+              "families": 3,
+              "selected": 3,
+              "families_decoded": 3,
+              "families_selected": 3,
+              "families_admitted": 3,
+              "families_retained": 3,
+              "windows": 14,
+              "sources": {
+                "astra": 435
+              },
+              "engines": {
+                "lite": 435
+              },
+              "kinds": {
+                "recruit": 37,
+                "end_turn": 110,
+                "move_attack": 59,
+                "attack": 41,
+                "move": 188
+              },
+              "gz_bytes": 7456447,
+              "retained_bytes": 51044460,
+              "deficit": 589,
+              "stop_reason": "insufficient_data"
+            }
+          },
+          "peak_rss_mb": 705,
+          "updates": 28,
+          "loss": 3.1924360651256785,
+          "interrupted": false,
+          "approx_kl": 0.0,
+          "kl_stopped": false,
+          "decisions_seen": 3783,
+          "unique_families_seen": 5,
+          "effective_dataset_passes": 3.9242738589211617,
+          "sequence_windows": 28,
+          "microbatch": 32,
+          "window_visits": 112,
+          "unique_windows_seen": 27,
+          "repeated_window_visits": 85
+        }
+      ],
+      "snapshots": [],
+      "best_key": null,
+      "bc_key": null,
+      "ppo_key": null,
+      "best_kind": null,
+      "pending_train": {
+        "paths": [
+          "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00000-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00001-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00002-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00003-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00004-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00005-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00006-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00007-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00008-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00009-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00010-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00011-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00012-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00013-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00014-ffa4-t0.jsonl.gz",
+          "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00015-ffa4-t0.jsonl.gz"
+        ],
+        "method": "bc",
+        "cursor": {
+          "epoch": 0,
+          "step": 0
+        },
+        "reward_config": {
+          "economy": 0.15,
+          "control": 0.1,
+          "explore": 0.1,
+          "mode": "adaptive",
+          "entropy": 0.01,
+          "bc_aux": 0.1,
+          "gamma": 1.0,
+          "gae_lambda": 0.95,
+          "reward_version": 0,
+          "reward_formula_id": "v5-potential-1"
+        },
+        "identity": {
+          "train": "8d0f19f1172a7bddea5167366396318a9d2ef5a5c8eb4026036ff051af1e1c21"
+        }
+      },
+      "pending_validation": null,
+      "teacher_shards": [
+        "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00000-ffa4-t0.jsonl.gz",
+        "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00001-ffa4-t0.jsonl.gz",
+        "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00002-ffa4-t0.jsonl.gz",
+        "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00003-ffa4-t0.jsonl.gz",
+        "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00004-ffa4-t0.jsonl.gz",
+        "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00005-ffa4-t0.jsonl.gz",
+        "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00006-ffa4-t0.jsonl.gz",
+        "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00007-ffa4-t0.jsonl.gz",
+        "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00008-ffa4-t0.jsonl.gz",
+        "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00009-ffa4-t0.jsonl.gz",
+        "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00010-ffa4-t0.jsonl.gz",
+        "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00011-ffa4-t0.jsonl.gz",
+        "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00012-ffa4-t0.jsonl.gz",
+        "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00013-ffa4-t0.jsonl.gz",
+        "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00014-ffa4-t0.jsonl.gz",
+        "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/ffa4/data/teacher-00015-ffa4-t0.jsonl.gz"
+      ],
+      "effective": false,
+      "error": null,
+      "dagger_shards": [],
+      "policy_shards": [],
+      "counters": {
+        "environment_games": 16,
+        "collection_batches": 2,
+        "optimizer_steps": 28,
+        "unique_families_seen": 8,
+        "decisions_seen": 3783,
+        "effective_dataset_passes": 3.9242738589211617
+      },
+      "reward_controller": {
+        "config": {
+          "economy": 0.15,
+          "control": 0.1,
+          "explore": 0.1,
+          "mode": "adaptive",
+          "entropy": 0.01,
+          "bc_aux": 0.1,
+          "gamma": 1.0,
+          "gae_lambda": 0.95,
+          "reward_version": 0,
+          "reward_formula_id": "v5-potential-1"
+        },
+        "cursor": 0,
+        "last_check": 0,
+        "games": 8,
+        "blocks": [],
+        "seen_blocks": [],
+        "windows": [],
+        "control_previous": null,
+        "last_error": null,
+        "metrics_error": null,
+        "applied_schedule": []
+      },
+      "families_seen": [
+        "1cb88bc333cc6faad6433b6ee15ffa5e0cc9f2ba812d78e7e75e8329e7f0bf2b",
+        "682b870b149c57419cae371759cca8904419afd5edd863dd060a8bfdb14d6679",
+        "7879eb62cd58a45eed8439ea0cfe1007a68435da889f5971615685d3351fc7d4",
+        "7f5b30745ebf40f38be86beab7a1742ad33cca9e3edc1b305fc99c583b5f0fd9",
+        "b0e042a7bba579a1a3e76fd174c2715a30aa12129a949d4735cfce26dee3cbbf",
+        "c941ec6220eee0d6b4c2d6dd677afcefaa32ebe5f699f5efa22e26267b077d52",
+        "cbf08e73afe2735e78a55c0ade5ad4a22e7845164ae1b99034a6d77bb53da5b4",
+        "f1fda7ebfc81fe5f3c3c5f8d1dda42946c973d8ff0989116094e30a4ae846219"
+      ],
+      "bc_quality_best": 0.23167848699763594,
+      "bc_plateau": 0,
+      "control_metrics": {
+        "partition": "train",
+        "new_games": 8,
+        "faulted_games": 0
+      }
+    },
+    "team2v2": {
+      "format": "team2v2",
+      "stage": "bc",
+      "phase": "bc",
+      "clock": {
+        "started": 1793505441.8902433,
+        "update_deadline": 1793506401.8902433,
+        "deadline": 1793506593.8902433
+      },
+      "batch": 1,
+      "version": 1,
+      "history": [
+        {
+          "batch": 0,
+          "method": "bc",
+          "elapsed_hours": 0.1016538659731547,
+          "reads": {
+            "bc": {
+              "requested": 2048,
+              "rows": 1650,
+              "families": 7,
+              "selected": 7,
+              "families_decoded": 7,
+              "families_selected": 7,
+              "families_admitted": 7,
+              "families_retained": 7,
+              "windows": 46,
+              "sources": {
+                "astra": 1650
+              },
+              "engines": {
+                "lite": 1650
+              },
+              "kinds": {
+                "move": 1138,
+                "end_turn": 346,
+                "recruit": 54,
+                "move_attack": 75,
+                "attack": 37
+              },
+              "gz_bytes": 31306518,
+              "retained_bytes": 214775640,
+              "deficit": 398,
+              "stop_reason": "insufficient_data"
+            },
+            "validation": {
+              "requested": 1024,
+              "rows": 152,
+              "families": 1,
+              "selected": 1,
+              "families_decoded": 1,
+              "families_selected": 1,
+              "families_admitted": 1,
+              "families_retained": 1,
+              "windows": 6,
+              "sources": {
+                "astra": 152
+              },
+              "engines": {
+                "lite": 152
+              },
+              "kinds": {
+                "recruit": 2,
+                "move": 92,
+                "end_turn": 44,
+                "move_attack": 12,
+                "attack": 2
+              },
+              "gz_bytes": 1985602,
+              "retained_bytes": 18813312,
+              "deficit": 872,
+              "stop_reason": "insufficient_data"
+            }
+          },
+          "peak_rss_mb": 807,
+          "updates": 48,
+          "loss": 2.899088926652136,
+          "interrupted": false,
+          "approx_kl": 0.0,
+          "kl_stopped": false,
+          "decisions_seen": 6727,
+          "unique_families_seen": 7,
+          "effective_dataset_passes": 4.076969696969697,
+          "sequence_windows": 46,
+          "microbatch": 32,
+          "window_visits": 192,
+          "unique_windows_seen": 44,
+          "repeated_window_visits": 148
+        }
+      ],
+      "snapshots": [],
+      "best_key": null,
+      "bc_key": null,
+      "ppo_key": null,
+      "best_kind": null,
+      "pending_train": null,
+      "pending_validation": null,
+      "teacher_shards": [
+        "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/team2v2/data/teacher-00000-team2v2-t0.jsonl.gz",
+        "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/team2v2/data/teacher-00001-team2v2-t0.jsonl.gz",
+        "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/team2v2/data/teacher-00002-team2v2-t0.jsonl.gz",
+        "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/team2v2/data/teacher-00003-team2v2-t0.jsonl.gz",
+        "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/team2v2/data/teacher-00004-team2v2-t0.jsonl.gz",
+        "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/team2v2/data/teacher-00005-team2v2-t0.jsonl.gz",
+        "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/team2v2/data/teacher-00006-team2v2-t0.jsonl.gz",
+        "/home/tongshu/acceptance/bounded_loop_20261101/runs/bounded_loop/team2v2/data/teacher-00007-team2v2-t0.jsonl.gz"
+      ],
+      "effective": false,
+      "error": null,
+      "dagger_shards": [],
+      "policy_shards": [],
+      "counters": {
+        "environment_games": 8,
+        "collection_batches": 1,
+        "optimizer_steps": 48,
+        "unique_families_seen": 8,
+        "decisions_seen": 6727,
+        "effective_dataset_passes": 4.076969696969697
+      },
+      "reward_controller": {
+        "config": {
+          "economy": 0.15,
+          "control": 0.1,
+          "explore": 0.1,
+          "mode": "adaptive",
+          "entropy": 0.01,
+          "bc_aux": 0.1,
+          "gamma": 1.0,
+          "gae_lambda": 0.95,
+          "reward_version": 0,
+          "reward_formula_id": "v5-potential-1"
+        },
+        "cursor": 0,
+        "last_check": 0,
+        "games": 0,
+        "blocks": [],
+        "seen_blocks": [],
+        "windows": [],
+        "control_previous": null,
+        "last_error": null,
+        "metrics_error": null,
+        "applied_schedule": []
+      },
+      "control_metrics": {
+        "partition": "train",
+        "new_games": 8,
+        "faulted_games": 0
+      },
+      "families_seen": [
+        "00ba546e00809bb3c5ecf8476921d903acaea6287b965d3a5864e5f96c040cd6",
+        "00d9d1746f8d81af4d125e92dae416e680c2da8c201940770599ca3efccf0691",
+        "03a1f996e993951c21dee1e0c2515568dace7c7ce8c85f165c7e1f55aa52087b",
+        "097d667b6dc037c4fafe90ae21bebda7c934433bc190ca6021f8212a70975090",
+        "28441571d0d5dfa9b5ddd7a83a3b543bfc5da8f6d61e66cf12d232978ece801f",
+        "35c5bdf83f3d57e5f891c5fbae8509101fd1f90ebb07db4be7bb0f9e1ddd746d",
+        "a9bf96660690df186f5dd501ea300b904d7e0d78b24c5c3599cf17d2591ab0b0",
+        "c34dc7ef1d68c57d1531409e7850e6d49c87b3a06da29ab797fe1ecbc889668e"
+      ],
+      "bc_quality_best": 0.4246575342465753,
+      "bc_plateau": 0
+    }
+  }
+}

@@ -3,7 +3,7 @@
 Static review date: 2026-10-31 (Asia/Shanghai).
 Source: `f563cade05eabeb6a45f48ce0dc476654cf71ae4`, initially clean `master` working tree.
 
-Scope: the training/coordinator, BC/PPO, recurrent policy, shared Lua candidate generation, lite policy execution, combat and deployment paths. This is a targeted static review, not an exhaustive proof of correctness. No tests, games, collection, training or remote acceptance were run. Existing reports are cited as historical evidence, not fresh acceptance. The original review wrote only this report. The subsequently authorized implementation of items 1-4 and 6-8 is recorded below; the other items remain proposals.
+Scope: the training/coordinator, BC/PPO, recurrent policy, shared Lua candidate generation, lite policy execution, combat and deployment paths. This is a targeted static review, not an exhaustive proof of correctness. No tests, games, collection, training or remote acceptance were run. Existing reports are cited as historical evidence, not fresh acceptance. The original review wrote only this report. The subsequently authorized implementation of items 1-4 and 6-8 and the failed bounded run in item 11 are recorded below; the other items remain proposals.
 
 P1 means a direct threat to usable policy behavior or acceptance; P2 means a concrete scaling cost or an unresolved quality prerequisite. Implementation facts, conditional consequences and missing evidence are distinguished below. Temporary documentation is English-only under the repository rules.
 
@@ -67,7 +67,7 @@ Evidence for items 6-7: `verification/window_memory_20261101/REPORT.md`. Two pre
 
 ## 11. P1 — Add an approximately one-hour complete training-loop test
 
-**Status:** planned, NOT RUN. This is a requested follow-up test plan; this document edit does not launch it. Run after the relevant repairs with the candidate contract frozen.
+**Status:** executed on Ubuntu 2026-11-01; **FAIL at BC**, full-loop acceptance remains open. `tests/bounded_training_loop.py` froze all three formats and stage ceilings before launch. After 558.33 s, duel reached the five-committed-batch cap; BC batches were 5/1/1. Recorded complete games were 24/16/13, all turn-truncated, with zero recorded faults. Duel met its 24-game target but failed candidate coverage and imitation (overall accuracy 31.33%; recruit coverage 37.94%). The other formats had only eight games in their last gate. PPO, stop/resume, final evaluation and export were NOT RUN; no forced gate or retry. Evidence: `verification/bounded_loop_20261101/REPORT.md`.
 
 **Purpose:** exercise the complete operational chain on Ubuntu: initialization/calibration, BC and its ordinary gate, PPO rollouts and at least two committed updates, checkpoint stop/resume, validation/selection, final evaluation, and audited export. Use a manually bounded smoke profile to expose integration failures and actual training cost; one hour cannot establish convergence or playing strength.
 
@@ -75,7 +75,7 @@ Evidence for items 6-7: `verification/window_memory_20261101/REPORT.md`. Two pre
 
 **Pass criteria:** every declared format reaches all stages; the ordinary BC gate passes; at least two PPO updates commit; resume continues from the recorded boundary without replaying committed work; the selected checkpoint completes its required evaluation and exports with the current sequence-parity audit. Record completed/faulted/truncated games, training updates, gate results, elapsed time by stage, source/rule/model identities and the actual candidate budget. Reuse matching same-future evidence where valid. If a gate or required panel cannot finish inside the cap, record the exact incomplete stage as FAIL/NOT RUN as appropriate, rather than forcing PPO, reducing acceptance criteria or extending the run automatically. Any reduced-format diagnostic must be identified as partial, not a completed all-format loop.
 
-**Repair direction:** implement only the bounded smoke orchestration/configuration needed to exercise the existing pipeline, then run this test when explicitly activated. Save new commands and results under a new dated verification directory. Use the first concrete failure to guide repair; keep this short loop distinct from the formal strength evaluation in items 9-10.
+**Repair direction:** the bounded orchestration is implemented and its BC failure path was exercised; later stage paths remain unverified. Address item 10 by diagnosing teacher-label coverage and held-out per-kind imitation using the recorded rows, then rerun only when instructed. Keep the ordinary gates and the distinction from formal strength evaluation.
 
 ## Suggested order
 

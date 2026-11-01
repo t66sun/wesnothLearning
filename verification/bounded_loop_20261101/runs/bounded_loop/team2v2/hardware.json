@@ -1,0 +1,6 @@
+{
+  "device": "cpu",
+  "cuda_runtime": null,
+  "gpu": null,
+  "trainer_threads": 1
+}
