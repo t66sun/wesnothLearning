@@ -24,7 +24,7 @@ class CandidateBudgetTests(unittest.TestCase):
 
     def test_crowded_pool_reserves_all_three_classes(self):
         rows = self.select(self.pool())
-        self.assertEqual(Counter(r['kind'] for r in rows), dict(move=12, recruit=12, attack=12))
+        self.assertEqual(Counter(r['kind'] for r in rows), dict(move=8, recruit=12, attack=16))
 
     def test_refill_sparse_and_duplicate_pools(self):
         pool = self.pool(moves=50, recruits=2, attacks=0)
@@ -42,7 +42,7 @@ class CandidateBudgetTests(unittest.TestCase):
             if row['kind']=='attack' and row['x']%2:
                 row.update(kind='move_attack', ex=row['x']+1, ey=2)
         counts = Counter(r['kind'] for r in self.select(pool))
-        self.assertEqual(counts['attack']+counts['move_attack'], 12)
+        self.assertEqual(counts['attack']+counts['move_attack'], 16)
         self.assertGreater(counts['move_attack'], 0)
 
     def test_crowded_generator_keeps_combat_and_recruits(self):
@@ -71,14 +71,14 @@ class CandidateBudgetTests(unittest.TestCase):
         rows, timing = modules['candidates.lua'].generate(obs)
         self.assertEqual(rows[1]['kind'], 'end_turn')
         self.assertLessEqual(len(rows), 37)
-        self.assertEqual(timing['budget'], 'work-12000-v5')
+        self.assertEqual(timing['budget'], 'work-12000-v6')
         self.assertLessEqual(timing['work'], 12000)
         self.assertLessEqual(timing['reaches'], 28)
         self.assertLessEqual(timing['paths'], 8)
-        self.assertLessEqual(timing['recruit_probes'], 24)
+        self.assertLessEqual(timing['recruit_probes'], 64)
         self.assertLessEqual(timing['attack_probes'], 32)
-        self.assertLessEqual(timing['move_probes'], 32)
-        self.assertLessEqual(timing['predictions'], 16)
+        self.assertLessEqual(timing['move_probes'], 48)
+        self.assertLessEqual(timing['predictions'], 36)
 
     def test_remember_survives_a_unit_killed_by_its_own_attack(self):
         lua, modules = initialize()

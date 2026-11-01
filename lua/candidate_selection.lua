@@ -1,4 +1,7 @@
 local M={}
+-- Per-class shares of the 36 actionable slots: combat keeps the largest share
+-- because every attack intent also competes for it.
+local LIMIT={combat=16,recruit=12,move=8}
 local function class(a)
     return (a.kind=='attack' or a.kind=='move_attack') and 'combat' or a.kind
 end
@@ -33,13 +36,13 @@ function M.select(pool)
         selected[#selected+1]=a;used[identity(a)]=true
     end
     for _,kind in ipairs {'combat','recruit','move'} do
-        local bucket=classes[kind];local count=0
+        local bucket=classes[kind];local limit=LIMIT[kind];local count=0
         -- One ranked action per actor/recruit type per pass preserves diversity.
-        while count<12 do
+        while count<limit do
             local groups={};local added=false
             for _,a in ipairs(bucket) do
                 local key=group(a)
-                if not used[identity(a)] and not groups[key] and count<12 then
+                if not used[identity(a)] and not groups[key] and count<limit then
                     take(a);groups[key]=true;count=count+1;added=true
                 end
             end
