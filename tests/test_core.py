@@ -143,19 +143,14 @@ class CoreTests(unittest.TestCase):
                 audit[fmt]=[record(players=PLAYERS[fmt],index=0),record(players=PLAYERS[fmt],index=1)]
                 for row in audit[fmt]:
                     row['format']=fmt;row['candidates']*=16
-            old_limit=addons.MAX_PACKAGE_BYTES
-            addons.MAX_PACKAGE_BYTES=64*1024*1024
-            try:
-                export_checkpoints(checkpoints,tmp,audit_records=audit)
-                manifest=json.loads(Path(tmp,'export.json').read_text())
-                self.assertEqual(set(manifest['models']),set(FORMATS))
-                for m in manifest['models'].values(): self.assertLessEqual(m['python_lua_max_error'],1e-5)
-                with addons.open_addon(Path(tmp)/'NeuralArena.zip') as addon:
-                    self.assertEqual(addons.validate(addon),'NeuralArena')
-                    self.assertNotIn('@ADDON@',(addon/'lua/bot.lua').read_text())
-                    for fmt in FORMATS: self.assertTrue((addon/'lua'/f'weights_{fmt}.lua').exists())
-            finally:
-                addons.MAX_PACKAGE_BYTES=old_limit
+            export_checkpoints(checkpoints,tmp,audit_records=audit)
+            manifest=json.loads(Path(tmp,'export.json').read_text())
+            self.assertEqual(set(manifest['models']),set(FORMATS))
+            for m in manifest['models'].values(): self.assertLessEqual(m['python_lua_max_error'],1e-5)
+            with addons.open_addon(Path(tmp)/'NeuralArena.zip') as addon:
+                self.assertEqual(addons.validate(addon),'NeuralArena')
+                self.assertNotIn('@ADDON@',(addon/'lua/bot.lua').read_text())
+                for fmt in FORMATS: self.assertTrue((addon/'lua'/f'weights_{fmt}.lua').exists())
 
     def test_export_rejects_checkpoint_without_combat_profile(self):
         with tempfile.TemporaryDirectory() as tmp:
