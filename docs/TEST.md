@@ -37,8 +37,6 @@ The recruit-label audit reproduces all selected type/placement preferences (98 t
 
 **Current rule boundary:** new lite runs use `expected_damage_v2` contextual retaliation. Old BC evidence remains tied to v1 source/corpus; no v2 ordinary readiness or teacher-strength pass exists. The versioned rule checks and six-case comparison are in `verification/retaliation_20261102/REPORT.md`.
 
-**Export blocker:** `test_sdk_package` now reaches the real uncompressed 16 MiB SDK check and fails. The three-format checkpoint identity/numerical export check passes with assembly isolated; delivery remains FAIL. Repair compact weight serialization without raising the gate, then run the real SDK export and loading/parity checks before the full-loop attempt. Evidence: `verification/retaliation_20261102/export/tests.log`; this blocks delivery, not optimizer execution.
-
 **Procedure:** investigate recruit type/placement generalization before further collection or feature tuning. Preserve every gate. A future complete-loop run must freeze source, formats, seed, workers, row/game/time limits and unchanged panel requirements. Reuse valid candidate/regression evidence. The bounded runner's post-BC branches remain unverified.
 
 **Pass:** all declared formats pass ordinary BC, commit at least two PPO updates, resume without repeating committed work, complete the required final panel and pass audited export. Record model/input identities, complete/faulted/truncated counts and stage durations. No forced PPO or automatic budget extension. Native strength remains outside this smoke.

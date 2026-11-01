@@ -1,0 +1,31 @@
+test_three_model_package_size_and_exact_loaded_weights (tests.v5.test_weight_export.WeightExportTests.test_three_model_package_size_and_exact_loaded_weights) ... {"addon_bytes": 50380768, "weight_bytes": {"lua/weights_ffa4.lua": 16758450, "lua/weights_team2v2.lua": 16757872, "lua/weights_duel.lua": 16758009}}
+FAIL
+test_sdk_package (tests.test_core.CoreTests.test_sdk_package) ... ERROR
+
+======================================================================
+ERROR: test_sdk_package (tests.test_core.CoreTests.test_sdk_package)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/compact_weights_red_20261102/tests/test_core.py", line 146, in test_sdk_package
+    export_checkpoints(checkpoints,tmp,audit_records=audit)
+  File "/home/tongshu/acceptance/compact_weights_red_20261102/learning/export.py", line 118, in export_checkpoints
+    addon=export(models,destination,name=name,version=versions,evaluation=evaluation)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/acceptance/compact_weights_red_20261102/learning/export.py", line 73, in export
+    addons.validate(addon)
+  File "/home/tongshu/acceptance/compact_weights_red_20261102/vendor/arena/addons.py", line 87, in validate
+    raise ValueError('submission exceeds 16 MiB' if limit == MAX_PACKAGE_BYTES else 'submission exceeds the size limit')
+ValueError: submission exceeds 16 MiB
+
+======================================================================
+FAIL: test_three_model_package_size_and_exact_loaded_weights (tests.v5.test_weight_export.WeightExportTests.test_three_model_package_size_and_exact_loaded_weights)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/compact_weights_red_20261102/tests/v5/test_weight_export.py", line 48, in test_three_model_package_size_and_exact_loaded_weights
+    self.assertLessEqual(total, 16 * 1024 * 1024)
+AssertionError: 50380768 not less than or equal to 16777216
+
+----------------------------------------------------------------------
+Ran 2 tests in 5.642s
+
+FAILED (failures=1, errors=1)

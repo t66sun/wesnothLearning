@@ -166,6 +166,7 @@ flowchart LR
 
 - `ensure_export()` 写入内部插件及 features、weights、config、export 清单；内部插件不受 SDK 提交大小上限约束。配置不再携带候选预算，所有调用方共用同一生成器契约，各阶段评分共享生成器返回的完整集合。
 - `python -m learning export` 写出可部署插件（三种赛制、`arena.json` schema 2、vendored runtime、数值一致性记录），`python -m learning package` 把它打包为 `delivery/NeuralArena.zip`。导出要求引擎/教师身份匹配、权重已训练、审计与当前 schema 一致。
+- 权重文件以 base64 保存小端 float32 向量，并内嵌 Lua 解码器。加载后精确还原原有表结构，包括负零和非规格化数，不做量化。序列数值审计执行与部署相同的序列化源码。三赛制插件仍须满足 SDK 解压后 16 MiB 上限。当前 SDK、序列与原版加载验收见 `verification/compact_weights_20261102/REPORT.md`。
 - `python -m learning bundle` 构建可直接解压的 Ubuntu 24.04 训练归档（`BUNDLE_MANIFEST.json`、`SHA256SUMS`、固定成员权限，排除运行状态与证据）；`verify-bundle` 对其做静态复检。
 
 ## 11. 工具
