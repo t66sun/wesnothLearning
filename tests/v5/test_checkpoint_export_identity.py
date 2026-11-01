@@ -8,6 +8,7 @@ import torch
 from learning.common import read_json, write_json
 from learning.experiment import FormatExperiment
 from learning.export import export_checkpoints
+from learning.sample import opening_map
 from tests import test_validation_cadence as cadence
 from tests.v5 import helpers
 
@@ -38,7 +39,7 @@ class CheckpointExportIdentityTests(unittest.TestCase):
                         winner=j['meta']['policy_sides'][0], winning_team=(j.get('teams') or [None]*4)[j['meta']['policy_sides'][0]-1],
                         rank_points={str(s):3 if s in j['meta']['policy_sides'] else 0 for s in range(1,5)},faults={})) for j in jobs]
                 r.execute = execute
-                with patch('learning.maps.frozen_map', return_value=('Gg,Gg\nGg,Gg','0'*64)):
+                with patch('learning.maps.frozen_map', return_value=(opening_map(4),'0'*64)):
                     r.validate_model('ppo')
                 selected, kind, _ = r._select_final()
                 self.assertEqual(kind, 'champion')
