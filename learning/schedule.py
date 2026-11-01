@@ -33,6 +33,17 @@ def scenario_factions(index, players, format_name=None):
     return list(designs[index%len(designs)])
 
 
+def teacher_factions(index, players, format_name):
+    group=scenario_factions(index,players,format_name)
+    if format_name!='team2v2': return group
+    pool=list(params.FACTIONS)
+    # Each seat teaches all six factions once per 24 games. Relabel the
+    # whole design together so four distinct factions and team roles survive.
+    focal=(index//players+index%players)%len(pool)
+    shift=focal-pool.index(group[(-index)%players])
+    return [pool[(pool.index(faction)+shift)%len(pool)] for faction in group]
+
+
 def base_job(directory, ident, bots, seed, deadline, wesnoth, block=0, format_name=None,
              faction_list=None):
     return dict(id=ident, bots=bots, seed=seed & 0xffffffff,
@@ -121,7 +132,7 @@ def teacher_jobs(directory, teachers, fixed, support, batch_index, seed, deadlin
             side=(n-rotation)%n+1
             ident=f'teacher-{i:05}-{fmt}-t0'
             job=base_job(directory,ident,bots,rng.randrange(2**32),deadline,wesnoth,i,fmt,
-                         faction_list=scenario_factions(i,n,fmt))
+                         faction_list=teacher_factions(i,n,fmt))
             job.update(shard=str(Path(directory)/'data'/(ident+'.jsonl.gz')),
                        # Collector work is training instrumentation. Formal evaluation keeps 1/10 s.
                        timeout=10,learning=dict(support=support,sides={str(side):dict(teacher=Path(teacher).stem,version='teacher-frozen')}),

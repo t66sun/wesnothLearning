@@ -5,7 +5,7 @@ import unittest
 
 import params
 from learning.data import split
-from learning.schedule import teacher_jobs
+from learning.schedule import teacher_jobs, scenario_factions
 
 
 def jobs(count, batch=0, stride=None):
@@ -15,6 +15,13 @@ def jobs(count, batch=0, stride=None):
 
 
 class TeacherFactionTests(unittest.TestCase):
+    def test_non_team_teacher_designs_remain_unchanged(self):
+        for fmt, players in [('duel', 2), ('ffa4', 4)]:
+            schedule = teacher_jobs('.', ['gpt6astra'], ['baseline'], 'support', 0,
+                20261101, 1000, 'unused', formats=[fmt], count=60)
+            self.assertEqual([j['factions'] for j in schedule],
+                             [scenario_factions(i, players, fmt) for i in range(60)])
+
     def test_each_team_seat_teaches_every_faction_in_24_games(self):
         for start in (0, 1, 4):
             with self.subTest(block=start):
