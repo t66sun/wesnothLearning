@@ -5,9 +5,10 @@ import hashlib
 import json
 from pathlib import Path
 import time
+from unittest.mock import patch
 
 from learning.coverage import FIELDS, matching, reason
-from learning.lite_host import LiteHost, teacher_candidate
+from learning.lite_host import LiteHost, teacher_candidate, host_modules
 from learning.lite_policy import game_spec
 from learning.rules_catalog import resolve_dir
 
@@ -44,13 +45,13 @@ def main():
         for job in jobs.values():
             rules_dir = resolve_dir(job.get('rules_dir'))
             rules = json.loads((rules_dir/'rules.json').read_text())
-            host = LiteHost(game_spec(job, rules), rules_dir)
-            modules = dict(host.modules)
+            modules = host_modules()
             source = modules['candidates.lua']
             if args.variant == 'unlimited_work': source = source.replace('total=12000,', 'total=10000000,')
             if args.variant == 'no_threat': source = source.replace('local threats=threat_map(obs,enemies,allow,charge)', 'local threats={}')
             modules['candidates.lua'] = traced(source)
-            host.adapter.configure_host(modules)
+            with patch('learning.lite_host.host_modules', return_value=modules):
+                host = LiteHost(game_spec(job, rules), rules_dir)
             sides = set(map(int, job['learning']['sides']))
             decision = 0
             view = host.adapter.observe(1)
