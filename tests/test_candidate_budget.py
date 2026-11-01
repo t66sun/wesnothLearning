@@ -23,8 +23,8 @@ class CandidateBudgetTests(unittest.TestCase):
         return rows
 
     def test_crowded_pool_reserves_all_three_classes(self):
-        rows = self.select(self.pool())
-        self.assertEqual(Counter(r['kind'] for r in rows), dict(move=8, recruit=12, attack=16))
+        rows = self.select(self.pool(moves=40, recruits=20, attacks=40))
+        self.assertEqual(Counter(r['kind'] for r in rows), dict(move=2, recruit=6, attack=28))
 
     def test_refill_sparse_and_duplicate_pools(self):
         pool = self.pool(moves=50, recruits=2, attacks=0)
@@ -37,12 +37,12 @@ class CandidateBudgetTests(unittest.TestCase):
         self.assertEqual(self.select([]), [])
 
     def test_move_attack_shares_combat_quota(self):
-        pool = self.pool()
+        pool = self.pool(moves=40, recruits=20, attacks=40)
         for row in pool:
             if row['kind']=='attack' and row['x']%2:
                 row.update(kind='move_attack', ex=row['x']+1, ey=2)
         counts = Counter(r['kind'] for r in self.select(pool))
-        self.assertEqual(counts['attack']+counts['move_attack'], 16)
+        self.assertEqual(counts['attack']+counts['move_attack'], 28)
         self.assertGreater(counts['move_attack'], 0)
 
     def test_crowded_generator_keeps_combat_and_recruits(self):
@@ -71,11 +71,11 @@ class CandidateBudgetTests(unittest.TestCase):
         rows, timing = modules['candidates.lua'].generate(obs)
         self.assertEqual(rows[1]['kind'], 'end_turn')
         self.assertLessEqual(len(rows), 37)
-        self.assertEqual(timing['budget'], 'work-12000-v6')
+        self.assertEqual(timing['budget'], 'work-12000-v7')
         self.assertLessEqual(timing['work'], 12000)
         self.assertLessEqual(timing['reaches'], 28)
         self.assertLessEqual(timing['paths'], 8)
-        self.assertLessEqual(timing['recruit_probes'], 64)
+        self.assertLessEqual(timing['recruit_probes'], 192)
         self.assertLessEqual(timing['attack_probes'], 32)
         self.assertLessEqual(timing['move_probes'], 48)
         self.assertLessEqual(timing['predictions'], 36)
