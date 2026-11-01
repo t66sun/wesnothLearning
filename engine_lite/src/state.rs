@@ -3,7 +3,7 @@ use serde::{Deserialize,Serialize};
 use serde_json::{json,Value};
 use std::{cmp::Reverse,collections::{BTreeMap,BTreeSet,BinaryHeap},sync::Arc};
 
-/// `expected_damage_v1` poison: one six-HP tick at the poisoned unit's own turn.
+/// `expected_damage_v2` poison: one six-HP tick at the poisoned unit's own turn.
 pub const POISON_TICK: i32 = 6;
 
 #[derive(Clone,Serialize,Deserialize)]
@@ -292,9 +292,10 @@ impl Game {
                 let apos=a.pos;let dpos=d.pos;
                 let modifiers=self.combat_modifiers(&a,&d,&self.units);
                 let attacking=self.rules.units[&a.unit_type].weapons[weapon].clone();
-                let counter=combat::counter_weapon(&self.rules,&d,&attacking).map(|i|self.rules.units[&d.unit_type].weapons[i].clone());
-                strikes=combat::resolve(&self.rules,&mut a,&mut d,weapon,
+                let outcome=combat::resolve(&self.rules,&mut a,&mut d,weapon,
                     &self.spec.terrain[apos],&self.spec.terrain[dpos],self.turn,&modifiers);
+                let counter=outcome.defender_weapon.map(|i|&self.rules.units[&d.unit_type].weapons[i]);
+                strikes=outcome.strikes;
                 // This is the standard core feeding death rule, not a WML event
                 // interpreter. Its permanent object bonus survives advancement.
                 let feed=|killer:&mut Unit,victim:&Unit|{
@@ -305,7 +306,7 @@ impl Game {
                 };
                 if d.hp<=0{feed(&mut a,&d);}else if a.hp<=0{feed(&mut d,&a);}
                 let plague=if d.hp<=0{attacking.plague_type.clone().map(|name|(name,a.side,d.pos,d.unit_type.clone()))}
-                    else if a.hp<=0{counter.and_then(|w|w.plague_type).map(|name|(name,d.side,a.pos,a.unit_type.clone()))}else{None};
+                    else if a.hp<=0{counter.and_then(|w|w.plague_type.clone()).map(|name|(name,d.side,a.pos,a.unit_type.clone()))}else{None};
                 if let Some((name,side,pos,victim))=plague {
                     if !self.rules.terrains[&self.spec.terrain[pos]].village && !self.rules.units[&victim].abilities.contains("unplagueable") {
                         let t=&self.rules.units[&name];let id=format!("lite-{}",self.next_id);self.next_id+=1;
@@ -436,7 +437,7 @@ impl Game {
             "explored":if self.sides[s-1].fog{*self.exploration_earned.get(&self.exploration_scope(s)).unwrap_or(&0.)}else{0.},
             "total_strategic_weight":weight.max(1.)})
     }
-    /// `expected_damage_v1` forecast: one deterministic resolution from the
+    /// `expected_damage_v2` forecast: one deterministic resolution from the
     /// requesting side's public context. `samples` stays accepted for compatibility
     /// with existing callers and is ignored, because there is nothing to sample.
     pub fn forecast(&self,s:usize,attacker:&str,target:&str,weapon:usize,_samples:usize)->Result<Value,String>{

@@ -1,0 +1,25 @@
+{
+  "extension": "/home/tongshu/acceptance/retaliation_fixed_20261102/.extension/_engine_lite.so",
+  "extension_sha256": "ccb7c763cbce620e5d07736e6ae73df2c3891bdd9f281ab79ee10d63e2675365",
+  "combat_version": "expected_damage_v2",
+  "cases": {
+    "one_counter": {
+      "seconds_per_1000": [
+        0.007352281827479601,
+        0.007254923228174448,
+        0.007269484922289848
+      ],
+      "median_seconds": 0.007269484922289848,
+      "attacker_hp": 21
+    },
+    "two_counters": {
+      "seconds_per_1000": [
+        0.010027213953435421,
+        0.0099072998855263,
+        0.009916684124618769
+      ],
+      "median_seconds": 0.009916684124618769,
+      "attacker_hp": 20
+    }
+  }
+}

@@ -1,7 +1,7 @@
 use crate::model::{Rules, Unit, Weapon};
 use serde::{Deserialize,Serialize};
 
-/// `expected_damage_v1`: every strike resolves its expected damage exactly, so a
+/// `expected_damage_v2`: every strike resolves its expected damage exactly, so a
 /// battle has one deterministic outcome instead of a random sample. Hit chance is
 /// still computed and reported; it scales the damage instead of deciding a roll.
 pub const SLOW_DAMAGE_NUMERATOR: i64 = 3;
@@ -31,10 +31,24 @@ pub struct Modifiers {
     pub attacker_firststrike:bool,
     pub defender_firststrike:bool,
 }
-pub fn counter_weapon(rules:&Rules,defender:&Unit,attack:&Weapon)->Option<usize> {
-    rules.units[&defender.unit_type].weapons.iter().enumerate()
-        .filter(|(_,w)|w.range==attack.range)
-        .max_by_key(|(_,w)|w.damage*w.strikes as i32).map(|(i,_)|i)
+pub struct Resolution {
+    pub strikes: Vec<Strike>,
+    pub defender_weapon: Option<usize>,
+}
+
+fn resolved_weapon(rules:&Rules,unit:&Unit,index:usize)->Weapon {
+    let mut weapon=rules.units[&unit.unit_type].weapons[index].clone();
+    if let Some(&damage)=unit.resolved_weapon_damage.get(index){weapon.damage=damage;}
+    weapon
+}
+
+fn defense_score(attacker:&Unit,defender:&Unit)->(i32,i32,i32) {
+    let hp=|unit:&Unit|unit.hp.max(0)-if unit.hp>0 && unit.status.contains("poisoned") {
+        crate::state::POISON_TICK
+    }else{0};
+    // Native better_defense ordering, evaluated on lite's deterministic outcome.
+    (i32::from(attacker.hp<=0)-i32::from(defender.hp<=0),
+     hp(defender)-hp(attacker),-attacker.hp.max(0))
 }
 /// Slowed strikes deal three quarters of the modified damage, rounded up.
 pub fn slowed_damage(damage:i64)->i64 {
@@ -89,10 +103,32 @@ fn strike(rules:&Rules,a:&mut Unit,d:&mut Unit,w:&Weapon,
     Strike{attacker:a.id.clone(),defender:d.id.clone(),hit:chance>0,chance,damage:dealt,defender_hp:d.hp}
 }
 pub fn resolve(rules:&Rules,a:&mut Unit,d:&mut Unit,weapon:usize,
-               attacker_terrain:&str,defender_terrain:&str,turn:u32,modifiers:&Modifiers)->Vec<Strike> {
-    let mut aw=rules.units[&a.unit_type].weapons[weapon].clone();
-    if let Some(&damage)=a.resolved_weapon_damage.get(weapon){aw.damage=damage;}
-    let dw=counter_weapon(rules,d,&aw).map(|i|{let mut w=rules.units[&d.unit_type].weapons[i].clone();if let Some(&damage)=d.resolved_weapon_damage.get(i){w.damage=damage;}w});
+               attacker_terrain:&str,defender_terrain:&str,turn:u32,modifiers:&Modifiers)->Resolution {
+    let aw=resolved_weapon(rules,a,weapon);
+    let mut choices=rules.units[&d.unit_type].weapons.iter().enumerate()
+        .filter(|(_,w)|w.range==aw.range).map(|(i,_)|i).peekable();
+    let first=choices.next();
+    if choices.peek().is_none() {
+        return resolve_with_counter(rules,a,d,&aw,first,attacker_terrain,defender_terrain,turn,modifiers);
+    }
+    let mut best_a=a.clone();let mut best_d=d.clone();
+    let mut best=resolve_with_counter(rules,&mut best_a,&mut best_d,&aw,first,
+        attacker_terrain,defender_terrain,turn,modifiers);
+    for counter in choices {
+        let mut aa=a.clone();let mut dd=d.clone();
+        let outcome=resolve_with_counter(rules,&mut aa,&mut dd,&aw,Some(counter),
+            attacker_terrain,defender_terrain,turn,modifiers);
+        if defense_score(&aa,&dd)>defense_score(&best_a,&best_d) {
+            best_a=aa;best_d=dd;best=outcome;
+        }
+    }
+    *a=best_a;*d=best_d;
+    best
+}
+
+fn resolve_with_counter(rules:&Rules,a:&mut Unit,d:&mut Unit,aw:&Weapon,counter:Option<usize>,
+               attacker_terrain:&str,defender_terrain:&str,turn:u32,modifiers:&Modifiers)->Resolution {
+    let dw=counter.map(|i|resolved_weapon(rules,d,i));
     let charge=aw.specials.contains("charge");
     let berserk=aw.specials.contains("berserk") || dw.as_ref().is_some_and(|w|w.specials.contains("berserk"));
     let mut log=vec![];
@@ -121,7 +157,7 @@ pub fn resolve(rules:&Rules,a:&mut Unit,d:&mut Unit,weapon:usize,
     if a.hp>0 {a.xp+=if d.hp<=0 {8*dl.max(1)} else {dl};}
     if d.hp>0 {d.xp+=if a.hp<=0 {8*al.max(1)} else {al};}
     a.moves=0;a.attacks_left=a.attacks_left.saturating_sub(1);a.acted=true;
-    log
+    Resolution{strikes:log,defender_weapon:counter}
 }
 
 #[cfg(test)]
@@ -187,7 +223,7 @@ mod tests {
 
     fn strike_once(rules: &Rules, attacker: &mut Unit, defender: &mut Unit,
                    weapon_index: usize) -> Strike {
-        resolve(rules, attacker, defender, weapon_index, PLAIN, PLAIN, 1, &Modifiers::default())
+        resolve(rules, attacker, defender, weapon_index, PLAIN, PLAIN, 1, &Modifiers::default()).strikes
             .into_iter().next().expect("one strike")
     }
 
@@ -256,7 +292,7 @@ mod tests {
         let rules = rules(60, vec![weapon(10, 2, &[])], vec![weapon(4, 2, &[])]);
         let mut a = unit("a", "A", 40);
         let mut d = unit("d", "D", 40);
-        let log = resolve(&rules, &mut a, &mut d, 0, PLAIN, PLAIN, 1, &Modifiers::default());
+        let log = resolve(&rules, &mut a, &mut d, 0, PLAIN, PLAIN, 1, &Modifiers::default()).strikes;
         let order: Vec<(&str, i32)> = log.iter().map(|s| (s.attacker.as_str(), s.damage)).collect();
         assert_eq!(order, vec![("a", 7), ("d", 3), ("a", 7), ("d", 3)]);
         assert_eq!((d.hp, a.hp), (26, 34));
@@ -267,7 +303,7 @@ mod tests {
         let rules = rules(60, vec![weapon(10, 1, &[])], vec![weapon(4, 1, &["firststrike"])]);
         let mut a = unit("a", "A", 40);
         let mut d = unit("d", "D", 40);
-        let log = resolve(&rules, &mut a, &mut d, 0, PLAIN, PLAIN, 1, &Modifiers::default());
+        let log = resolve(&rules, &mut a, &mut d, 0, PLAIN, PLAIN, 1, &Modifiers::default()).strikes;
         assert_eq!(log.iter().map(|s| s.attacker.as_str()).collect::<Vec<_>>(), vec!["d", "a"]);
     }
 
@@ -276,7 +312,7 @@ mod tests {
         let rules = rules(60, vec![weapon(10, 1, &[])], vec![weapon(4, 3, &[])]);
         let mut a = unit("a", "A", 40);
         let mut d = unit("d", "D", 5);
-        let log = resolve(&rules, &mut a, &mut d, 0, PLAIN, PLAIN, 1, &Modifiers::default());
+        let log = resolve(&rules, &mut a, &mut d, 0, PLAIN, PLAIN, 1, &Modifiers::default()).strikes;
         assert_eq!(log.len(), 1);
         assert_eq!((d.hp, a.hp), (0, 40));
         assert_eq!(a.xp, 8);
@@ -290,7 +326,7 @@ mod tests {
         let rules = rules(100, vec![drain], vec![]);
         let mut a = unit("a", "A", 10);
         let mut d = unit("d", "D", 3);
-        let log = resolve(&rules, &mut a, &mut d, 0, PLAIN, PLAIN, 1, &Modifiers::default());
+        let log = resolve(&rules, &mut a, &mut d, 0, PLAIN, PLAIN, 1, &Modifiers::default()).strikes;
         assert_eq!(log[0].damage, 3);
         assert_eq!((a.hp, d.hp), (11, 0));
     }
@@ -300,10 +336,90 @@ mod tests {
         let rules = rules(100, vec![weapon(10, 1, &["slow"])], vec![weapon(10, 1, &[])]);
         let mut a = unit("a", "A", 40);
         let mut d = unit("d", "D", 40);
-        let log = resolve(&rules, &mut a, &mut d, 0, PLAIN, PLAIN, 1, &Modifiers::default());
+        let log = resolve(&rules, &mut a, &mut d, 0, PLAIN, PLAIN, 1, &Modifiers::default()).strikes;
         assert_eq!(log[0].damage, 11);
         assert!(d.status.contains("slowed"));
         // Retaliation now uses S=ceil(3*10/4)=8 at 100%: 8*1.10 -> 9.
         assert_eq!(log[1].damage, 9);
+    }
+
+    #[test]
+    fn retaliation_uses_the_opponents_resistance() {
+        let mut hammer = weapon(10, 2, &[]);
+        hammer.damage_type = "impact".into();
+        let mut rules = rules(60, vec![weapon(1, 1, &[])], vec![weapon(7, 3, &[]), hammer]);
+        rules.units.get_mut("A").unwrap().resistance =
+            BTreeMap::from([("blade".into(), 40), ("impact".into(), 120)]);
+        let mut a = unit("a", "A", 40);
+        let mut d = unit("d", "D", 40);
+        let log = resolve(&rules, &mut a, &mut d, 0, PLAIN, PLAIN, 1, &Modifiers::default()).strikes;
+        let blows: Vec<i32> = log.iter().filter(|s| s.attacker == "d").map(|s| s.damage).collect();
+        assert_eq!(blows, vec![8, 8]);
+        assert_eq!(a.hp, 24);
+    }
+
+    #[test]
+    fn retaliation_uses_terrain_and_magical_chance() {
+        let rules = rules(10, vec![weapon(1, 1, &[])],
+                          vec![weapon(10, 3, &[]), weapon(6, 3, &["magical"])]);
+        let mut a = unit("a", "A", 40);
+        let mut d = unit("d", "D", 40);
+        let log = resolve(&rules, &mut a, &mut d, 0, PLAIN, PLAIN, 1, &Modifiers::default()).strikes;
+        assert!(log.iter().filter(|s| s.attacker == "d").all(|s| s.chance == 70));
+        assert_eq!(a.hp, 25);
+    }
+
+    #[test]
+    fn retaliation_uses_resolved_instance_damage() {
+        let rules = rules(100, vec![weapon(1, 1, &[])],
+                          vec![weapon(7, 3, &[]), weapon(8, 2, &[])]);
+        let mut a = unit("a", "A", 40);
+        let mut d = unit("d", "D", 40);
+        d.resolved_weapon_damage = vec![1, 10];
+        resolve(&rules, &mut a, &mut d, 0, PLAIN, PLAIN, 1, &Modifiers::default());
+        assert_eq!(a.hp, 18);
+    }
+
+    #[test]
+    fn retaliation_prefers_surviving_with_firststrike() {
+        let rules = rules(100, vec![weapon(40, 1, &[])],
+                          vec![weapon(20, 1, &[]), weapon(8, 1, &["firststrike"])]);
+        let mut a = unit("a", "A", 8);
+        let mut d = unit("d", "D", 20);
+        let log = resolve(&rules, &mut a, &mut d, 0, PLAIN, PLAIN, 1, &Modifiers::default()).strikes;
+        assert_eq!((a.hp, d.hp), (0, 20));
+        assert_eq!(log[0].attacker, "d");
+    }
+
+    #[test]
+    fn retaliation_compares_absorb_and_surviving_poison() {
+        let mut absorb = weapon(6, 2, &[]);
+        absorb.opponent_damage_percent = Some(50);
+        let rules_absorb = rules(100, vec![weapon(10, 3, &[])],
+                                 vec![weapon(10, 2, &[]), absorb]);
+        let mut a = unit("a", "A", 40);
+        let mut d = unit("d", "D", 40);
+        resolve(&rules_absorb, &mut a, &mut d, 0, PLAIN, PLAIN, 1, &Modifiers::default());
+        assert_eq!((a.hp, d.hp), (26, 22));
+        let rules_poison = rules(100, vec![weapon(1, 1, &[])],
+                                 vec![weapon(5, 2, &[]), weapon(4, 2, &["poison"])]);
+        let mut a = unit("a", "A", 40);
+        let mut d = unit("d", "D", 40);
+        resolve(&rules_poison, &mut a, &mut d, 0, PLAIN, PLAIN, 1, &Modifiers::default());
+        assert_eq!(a.hp, 30);
+        assert!(a.status.contains("poisoned"));
+    }
+
+    #[test]
+    fn retaliation_keeps_the_first_exact_tie_and_excludes_other_ranges() {
+        let mut ranged = weapon(100, 4, &[]);
+        ranged.range = "ranged".into();
+        let rules = rules(60, vec![weapon(1, 1, &[])],
+                          vec![ranged, weapon(4, 2, &[]), weapon(4, 2, &[])]);
+        let mut a = unit("a", "A", 40);
+        let mut d = unit("d", "D", 40);
+        let outcome = resolve(&rules, &mut a, &mut d, 0, PLAIN, PLAIN, 1, &Modifiers::default());
+        assert_eq!(outcome.defender_weapon, Some(1));
+        assert_eq!(a.hp, 34);
     }
 }

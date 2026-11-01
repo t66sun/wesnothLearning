@@ -143,20 +143,20 @@ class EngineIdentityTest(unittest.TestCase):
 
     def test_module_and_snapshot_identity(self):
         self.assertEqual(ENGINE_VERSION, "lite-0.2")
-        self.assertEqual(RNG_VERSION, "deterministic-expected_damage_v1")
-        self.assertEqual(COMBAT_VERSION, "expected_damage_v1")
+        self.assertEqual(RNG_VERSION, "deterministic-expected_damage_v2")
+        self.assertEqual(COMBAT_VERSION, "expected_damage_v2")
         self.assertEqual((ENGINE_VERSION, RNG_VERSION, COMBAT_VERSION),
                          (DECLARED_ENGINE, DECLARED_RNG, DECLARED_COMBAT))
         self.assertIsInstance(LiteEngine, type)
         engine = H.engine()
         snapshot = H.snapshot(engine)
         self.assertEqual(snapshot["engine_id"], "lite-0.2")
-        self.assertEqual(snapshot["rng_version"], "deterministic-expected_damage_v1")
-        self.assertEqual(snapshot["combat_version"], "expected_damage_v1")
+        self.assertEqual(snapshot["rng_version"], "deterministic-expected_damage_v2")
+        self.assertEqual(snapshot["combat_version"], "expected_damage_v2")
         observation = H.observe(engine, 1)
         self.assertEqual(observation["engine_id"], "lite-0.2")
-        self.assertEqual(observation["rng_version"], "deterministic-expected_damage_v1")
-        self.assertEqual(observation["combat_version"], "expected_damage_v1")
+        self.assertEqual(observation["rng_version"], "deterministic-expected_damage_v2")
+        self.assertEqual(observation["combat_version"], "expected_damage_v2")
         self.assertEqual(observation["rules_version"], "synthetic-v5")
         self.assertTrue(observation["approximate"])
 
@@ -593,7 +593,7 @@ class CombatTest(unittest.TestCase):
         no resistance), matching freeze.py's ``100 - resistance_against``.
         """
         # The default defender hex is 40% defense; a 10-damage single strike
-        # rounds to 5 under `expected_damage_v1` and 6 when vulnerability is 125%.
+        # rounds to 5 under `expected_damage_v2` and 6 when vulnerability is 125%.
         rules = H.rules()
         rules["units"]["Fighter"]["weapons"][0].update(damage=10, strikes=1)
         engine = _combat_engine("Fighter", "Skeleton", rules_data=rules)
@@ -693,7 +693,7 @@ class CombatTest(unittest.TestCase):
     def test_forecast_is_a_single_point_mass(self):
         engine = H.engine()
         first = json.loads(engine.forecast(1, "p1", "e1", 0, 128))
-        self.assertEqual(first["combat_version"], "expected_damage_v1")
+        self.assertEqual(first["combat_version"], "expected_damage_v2")
         self.assertFalse(first["approximate"])
         self.assertEqual(first["samples"], 1)
         # The sample count stays accepted for compatibility and is ignored,

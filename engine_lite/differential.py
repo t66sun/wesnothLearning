@@ -4,7 +4,7 @@ python -m engine_lite.differential --wesnoth /opt/wesnoth-1.18.8/bin/wesnoth \
     --rules data/rules/1.18.8 --output verification/native-differential
 
 Native executes one real battle per case. Lite runs the same state through the
-deterministic `expected_damage_v1` rules; the native random rolls are recorded but
+deterministic `expected_damage_v2` rules; the native random rolls are recorded but
 are not treated as an oracle for damage, statuses or death timing.
 """
 from __future__ import annotations
@@ -90,7 +90,7 @@ def combat_case(native, lite, rules, case):
     """Record a native battle and the deterministic lite battle for the same state.
 
     Native resolves every strike with a random roll, so its damage, statuses and
-    death turn are not an oracle for `expected_damage_v1`. The rule-invariant
+    death turn are not an oracle for `expected_damage_v2`. The rule-invariant
     comparison is the strike order (who strikes first, and the alternation) up to
     the first death; damage and status deltas are recorded as expected differences
     instead of being reported as parity or as a failed gate.
@@ -131,7 +131,7 @@ def combat_case(native, lite, rules, case):
                 status='failed' if differences else 'expected_difference',
                 differences=differences, expected_differences=expected,
                 native_actual=probe, lite_actual=outcome,
-                rule_profile='expected_damage_v1',
+                rule_profile='expected_damage_v2',
                 note='native stochastic strikes are not an oracle for deterministic expected damage')
 
 
@@ -198,7 +198,7 @@ def main(argv=None):
     rules = json.loads(rules_bytes)
     start = time.monotonic()
     report = dict(kind='native_lite_differential_v1', rules_sha256=hashlib.sha256(rules_bytes).hexdigest(),
-                  cases=[], combat_version='expected_damage_v1')
+                  cases=[], combat_version='expected_damage_v2')
     lite = LiteAdapter(game_spec(rules), rules_dir=args.rules, require_accepted=False)
     with NativeTransport(wesnoth=args.wesnoth, timeout=60, startup_timeout=120) as native:
         if not args.skip_state:
@@ -218,7 +218,7 @@ def main(argv=None):
              '| Case | Result |', '|---|---|']
     lines += [f"| {c['name']} | {c.get('status', 'passed' if c['passed'] else 'failed')} |" for c in report['cases']]
     lines += ['', 'The JSON contains real native strike traces and the deterministic lite battle for the same',
-              'state. Native random rolls are not an oracle for `expected_damage_v1`: damage, status and',
+              'state. Native random rolls are not an oracle for `expected_damage_v2`: damage, status and',
               'death deltas are recorded as expected differences, and only strike order is compared.',
               'This is a representative rule audit, not a claim that arbitrary campaign scripts are supported.', '']
     (args.output/'REPORT.md').write_text('\n'.join(lines), encoding='utf-8')

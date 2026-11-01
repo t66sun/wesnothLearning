@@ -1,0 +1,37 @@
+test_last_best_selected_keep_identity_and_finished_bookkeeping (tests.v5.test_checkpoint_export_identity.CheckpointExportIdentityTests.test_last_best_selected_keep_identity_and_finished_bookkeeping) ... ERROR
+test_sdk_package (tests.test_core.CoreTests.test_sdk_package) ... ERROR
+test_capacity_and_cuda_defaults (tests.test_core.CoreTests.test_capacity_and_cuda_defaults) ... FAIL
+
+======================================================================
+ERROR: test_last_best_selected_keep_identity_and_finished_bookkeeping (tests.v5.test_checkpoint_export_identity.CheckpointExportIdentityTests.test_last_best_selected_keep_identity_and_finished_bookkeeping)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/retaliation_red_20261102/tests/v5/test_checkpoint_export_identity.py", line 33, in test_last_best_selected_keep_identity_and_finished_bookkeeping
+    r.finish_train()
+  File "/home/tongshu/acceptance/retaliation_red_20261102/learning/experiment.py", line 402, in finish_train
+    counters[key] = counters.get(key, 0) + metrics[key]
+                                           ~~~~~~~^^^^^
+KeyError: 'planned_steps'
+
+======================================================================
+ERROR: test_sdk_package (tests.test_core.CoreTests.test_sdk_package)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/retaliation_red_20261102/tests/test_core.py", line 148, in test_sdk_package
+    export_checkpoints(checkpoints,tmp,audit_records=audit)
+  File "/home/tongshu/acceptance/retaliation_red_20261102/learning/export.py", line 110, in export_checkpoints
+    raise ValueError('checkpoint combat or teacher identity differs: '+fmt)
+ValueError: checkpoint combat or teacher identity differs: duel
+
+======================================================================
+FAIL: test_capacity_and_cuda_defaults (tests.test_core.CoreTests.test_capacity_and_cuda_defaults)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/retaliation_red_20261102/tests/test_core.py", line 86, in test_capacity_and_cuda_defaults
+    self.assertEqual(sum(p.numel() for p in model.parameters()),763122+16*len(UNIT_TYPES))
+AssertionError: 776178 != 772530
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.425s
+
+FAILED (failures=1, errors=2)

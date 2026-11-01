@@ -1,0 +1,7 @@
+test_forecast_execution_and_plague_share_the_selected_counter (tests.v5.test_retaliation.RetaliationTests.test_forecast_execution_and_plague_share_the_selected_counter) ... ok
+test_v1_snapshots_and_rows_are_rejected (tests.v5.test_retaliation.RetaliationTests.test_v1_snapshots_and_rows_are_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.025s
+
+OK

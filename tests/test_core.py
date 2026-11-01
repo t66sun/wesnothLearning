@@ -17,7 +17,7 @@ from learning.export import lua_parameters, compact_lua, export, export_checkpoi
 from learning.data import advantages, reward, split, write_shard, read_shards
 from learning.train import train, checkpoint, restore_rng
 from learning.adapters import ENGINE_VERSION, RNG_VERSION, COMBAT_VERSION
-from learning.teachers import PROFILE
+from learning.teachers import PROFILE, identity as teacher_identity
 import addons
 import native
 
@@ -42,8 +42,8 @@ def record(players=2, game='g', index=0):
 
 
 IDENTITY=dict(engine='lite',engine_version='lite-0.2',
-              rng_version='deterministic-expected_damage_v1',combat_version='expected_damage_v1',
-              teacher='gpt6astra',teacher_profile='expected_damage_v1',teacher_source_sha256='fixture')
+              rng_version='deterministic-expected_damage_v2',combat_version='expected_damage_v2',
+              **teacher_identity())
 
 
 class CoreTests(unittest.TestCase):
@@ -83,7 +83,8 @@ class CoreTests(unittest.TestCase):
         from learning.__main__ import parser
         model=Policy('duel')
         # Only the unit embedding grows when the frozen vocabulary expands.
-        self.assertEqual(sum(p.numel() for p in model.parameters()),763122+16*len(UNIT_TYPES))
+        # Includes seven movement action inputs and the entity next_round input.
+        self.assertEqual(sum(p.numel() for p in model.parameters()),766770+16*len(UNIT_TYPES))
         self.assertEqual(model.unit_embedding.embedding_dim,16)
         self.assertEqual(model.unit_embedding.num_embeddings,len(UNIT_TYPES))
         self.assertEqual([l.out_features for l in model.scorer if isinstance(l,torch.nn.Linear)],[512,256,128,1])
