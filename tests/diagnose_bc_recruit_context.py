@@ -101,9 +101,9 @@ def main():
                       quality=bc.imitation_quality(model, heldout))
     own_index = [name for name, _ in ENTITY].index('own')
     total_index = [name for name, _ in GLOBAL].index('own_units')
-    result['incomplete_own_context_rows'] = sum(
+    result['incomplete_own_context_rows'] = int(sum(
         abs(sum(e['features'][own_index] for e in r['spatial']['entities']) - r['global'][total_index] * 40) > .01
-        for r in train + heldout)
+        for r in train + heldout))
     args.output.write_text(json.dumps(result, indent=2) + '\n', encoding='utf-8')
     print(json.dumps(dict(metrics=metrics, seconds=elapsed, kinds=result['heldout']['kinds'])), flush=True)
 
