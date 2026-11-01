@@ -346,16 +346,31 @@ function M.generate(obs)
     -- is already generated when its budget runs out.
     local threats=threat_map(obs,enemies,allow,charge)
     local plans={}
-    for _,u in ipairs(obs.own) do
-        if u.moves>0 then
-            if not allow('reach',WORK.reaches,COST.reach) then break end
+    local mobile={}
+    for _,u in ipairs(obs.own) do if u.moves>0 then mobile[#mobile+1]=u end end
+    -- Planning must leave work to emit legal moves and forecast the retained
+    -- combat set. Share its remainder across actors instead of spending it all
+    -- on the first few IDs before the probe loop even starts.
+    local planning_limit=WORK.total-WORK.move_probes*COST.probe-WORK.predictions*COST.predict
+    for index,u in ipairs(mobile) do
+        local started=work
+        local share=math.max(0,math.floor((planning_limit-work)/(#mobile-index+1)))
+        local function unit_charge(units)
+            if work-started+units>share then cut=true;return false end
+            return charge(units)
+        end
+        local function unit_allow(kind,limit,cost)
+            if calls[kind]>=limit or not unit_charge(cost) then cut=true;return false end
+            calls[kind]=calls[kind]+1;return true
+        end
+        if unit_allow('reach',WORK.reaches,COST.reach) then
             local reach=wesnoth.paths.find_reach(u,{viewing_side=obs.side,ignore_visibility=false})
             -- Cheap proximity ranks every reachable hex before the scored cap, so a
             -- bounded decision keeps the tiles near enemies and villages rather than
             -- whatever prefix the native reach table happens to return.
             local scored={}
             for _,p in ipairs(reach) do
-                if not charge(1) then break end
+                if not unit_charge(1) then break end
                 if (p[1]~=u.x or p[2]~=u.y) and not obs.occupied[p[1]..','..p[2]] then
                     local score=-minimum(p[1],p[2],enemies)*.2-minimum(p[1],p[2],villages)
                     for _,e in ipairs(enemies) do if distance(p[1],p[2],e)==1 then score=score+10 end end
@@ -373,7 +388,7 @@ function M.generate(obs)
             local picked={};local selected={}
             local reachable={}
             for _,d in ipairs(destinations) do reachable[d.p[1]..','..d.p[2]]=d end
-            local rate=tactical_ratings(obs,u,destinations,enemies,villages,supporters,threats,charge)
+            local rate=tactical_ratings(obs,u,destinations,enemies,villages,supporters,threats,unit_charge)
             local function pick(d,category,goal)
                 if not d then return end
                 -- A village/position pick can also be an attack landing. Keep
@@ -413,12 +428,12 @@ function M.generate(obs)
             table.sort(goals,function(a,b) local da=distance(u.x,u.y,a);local db=distance(u.x,u.y,b);return da<db or da==db and (a[1]<b[1] or a[1]==b[1] and a[2]<b[2]) end)
             for gi=1,math.min(3,#goals) do
                 local goal=goals[gi];local path
-                if wesnoth.paths.find_path and allow('path',WORK.paths,COST.path) then
+                if wesnoth.paths.find_path and unit_allow('path',WORK.paths,COST.path) then
                     path=wesnoth.paths.find_path(u,goal[1],goal[2],{viewing_side=obs.side,ignore_visibility=false})
                 end
                 local positions={}
                 for pi,p in ipairs(path or {}) do
-                    if not charge(1) then break end
+                    if not unit_charge(1) then break end
                     positions[p[1]..','..p[2]]=pi
                 end
                 -- Intermediate points expose where a safe path can be stopped by
@@ -430,7 +445,7 @@ function M.generate(obs)
             end
             if u.canrecruit and obs.memory.home then
                 local home=obs.memory.home
-                if wesnoth.paths.find_path and allow('path',WORK.paths,COST.path) then
+                if wesnoth.paths.find_path and unit_allow('path',WORK.paths,COST.path) then
                     local path=wesnoth.paths.find_path(u,home[1],home[2],{viewing_side=obs.side,ignore_visibility=false})
                     for _,p in ipairs(path or {}) do pick(reachable[p[1]..','..p[2]],'return',home) end
                 end
