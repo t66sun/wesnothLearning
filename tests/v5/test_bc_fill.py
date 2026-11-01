@@ -86,6 +86,18 @@ class BoundedFillTests(unittest.TestCase):
         self.assertEqual(stats['stop_reason'], 'insufficient_data')
         self.assertEqual(stats['families_decoded'], 2)
 
+    def test_long_family_cannot_short_circuit_the_initial_family_pool(self):
+        names = [f'long-{i}' for i in range(10) if data.split(f'long-{i}') == 'train'][:3]
+        paths = [self.shard(name, 8, decisions_per_turn=8) for name in names]
+        stats = {}
+        rows = read_shards(paths, partition='train', limit=64, seed=7, stats=stats)
+        # The declared first pool has two families (64 / 32). Either family
+        # alone can fill the request, but both must receive their fair share.
+        self.assertEqual(sorted(self.counts(rows).values()), [32, 32])
+        self.assertEqual(stats['families_decoded'], 2)
+        self.assertEqual(stats['rows'], 64)
+        self.assertEqual(stats['deficit'], 0)
+
     def test_gz_budget_stops_before_decoding_the_next_family(self):
         budget = (self.directory / 'shards' / 'small.jsonl.gz').stat().st_size
         stats = {}

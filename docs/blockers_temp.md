@@ -9,7 +9,7 @@ P1 means a direct threat to usable policy behavior or acceptance; P2 means a con
 
 ## 1. Completed — Balanced candidate quotas and refill
 
-Implemented in `lua/candidate_selection.lua`, called by the shared generator: combat/recruit/move each reserve up to 12 unique actions, with actor/type diversity, deterministic refill to 36 actionable entries, and a separate end-turn slot (37 maximum). Sparse pools are not padded with duplicates. Crowded-board and quota regressions pass on Ubuntu. Native timing at the new limit remains pending in TEST.md C1; no strength claim.
+Implemented in `lua/candidate_selection.lua`, called by the shared generator: combat/recruit/move each reserve up to 12 unique actions, with actor/type diversity, deterministic refill to 36 actionable entries, and a separate end-turn slot (37 maximum). Sparse pools are not padded with duplicates. Crowded-board and quota regressions pass on Ubuntu. Seeded native timing passes at the current limit (`verification/native_inference_20261102/REPORT_seeded.md`); no strength claim.
 
 ## 2. Completed — One candidate set in training and deployment
 
@@ -67,7 +67,9 @@ Evidence for items 6-7: `verification/window_memory_20261101/REPORT.md`. Two pre
 
 **Further diagnosis:** `verification/bc_fit_20261102/REPORT.md` reproduces the frozen checkpoint fits and separates recruit type/slot and attack ranking errors. The committed team corpus contains zero Undead training games, while its last bounded batch retains 9 of 19 available training families. Matched 88-step class-balance and explicit recruit-context probes still fail; neither is adopted.
 
-**Repair direction:** audit family admission and class/faction exposure before further fitting changes; retain the existing gates. Complete teacher ranking/strength evidence separately before a teacher-quality claim. Do not expand candidate counts to compensate for missing generation paths or treat forced PPO as readiness.
+**Additional repair:** the reader stopped a provenance bucket as soon as a few long games supplied its row quota, before considering its declared initial family pool. The pool now gets considered under unchanged byte limits: the same frozen FFA/team reads grow from 22/9 to 30/14 families at 2048 rows. A regression fails before and passes after; `verification/bc_admission_20261102/REPORT.md` retains all results, including one unrelated baseline hash-test failure. No post-repair fitting pass is claimed.
+
+**Repair direction:** audit focal-faction coverage and remaining corpus limits before further fitting changes; retain the existing gates. Complete teacher ranking/strength evidence separately before a teacher-quality claim. Do not expand candidate counts to compensate for missing generation paths or treat forced PPO as readiness.
 
 ## 11. P1 — Add an approximately one-hour complete training-loop test
 
