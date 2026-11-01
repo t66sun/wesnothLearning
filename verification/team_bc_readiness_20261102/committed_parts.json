@@ -1,0 +1,844 @@
+{
+  "team2v2": {
+    "version": 3,
+    "checkpoint_sha256": "ffb554ca152ac93e3602bd45c98841238ef7ee59640b5bf7fb4ba64ba8148a97",
+    "exposure": {
+      "rows": 2048,
+      "windows": 37,
+      "families": 12,
+      "row_counts": {
+        "recruit": 98,
+        "move": 1382,
+        "end_turn": 229,
+        "attack": 339
+      },
+      "row_share": {
+        "recruit": 0.0478515625,
+        "move": 0.6748046875,
+        "end_turn": 0.11181640625,
+        "attack": 0.16552734375
+      },
+      "expected_loss_share": {
+        "recruit": 0.06128710528435124,
+        "move": 0.6621884827567712,
+        "end_turn": 0.1037819005193982,
+        "attack": 0.17274251143946628
+      }
+    },
+    "train": {
+      "samples": 2039,
+      "kinds": {
+        "recruit": {
+          "samples": 98,
+          "correct": 24,
+          "same_kind": 90,
+          "within_kind_correct": 28,
+          "top3": 60,
+          "same_type": 41,
+          "same_slot": 45
+        },
+        "move": {
+          "samples": 1382,
+          "correct": 783,
+          "same_kind": 1270,
+          "within_kind_correct": 855,
+          "top3": 1131
+        },
+        "end_turn": {
+          "samples": 220,
+          "correct": 153,
+          "same_kind": 153,
+          "within_kind_correct": 220,
+          "top3": 208
+        },
+        "attack": {
+          "samples": 339,
+          "correct": 86,
+          "same_kind": 172,
+          "within_kind_correct": 141,
+          "top3": 185,
+          "same_actor": 132,
+          "same_target": 145,
+          "same_landing": 115,
+          "same_weapon": 140
+        }
+      },
+      "recruit_types": {
+        "Orcish Grunt": {
+          "samples": 8,
+          "correct": 0,
+          "same_type": 1
+        },
+        "Troll Whelp": {
+          "samples": 3,
+          "correct": 1,
+          "same_type": 1
+        },
+        "Orcish Assassin": {
+          "samples": 2,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Goblin Spearman": {
+          "samples": 5,
+          "correct": 2,
+          "same_type": 5
+        },
+        "Spearman": {
+          "samples": 13,
+          "correct": 4,
+          "same_type": 4
+        },
+        "Bowman": {
+          "samples": 3,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Cavalryman": {
+          "samples": 2,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Saurian Augur": {
+          "samples": 4,
+          "correct": 1,
+          "same_type": 2
+        },
+        "Drake Fighter": {
+          "samples": 3,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Drake Clasher": {
+          "samples": 1,
+          "correct": 0,
+          "same_type": 1
+        },
+        "Saurian Skirmisher": {
+          "samples": 4,
+          "correct": 0,
+          "same_type": 3
+        },
+        "Elvish Fighter": {
+          "samples": 14,
+          "correct": 2,
+          "same_type": 4
+        },
+        "Elvish Shaman": {
+          "samples": 5,
+          "correct": 4,
+          "same_type": 5
+        },
+        "Mage": {
+          "samples": 3,
+          "correct": 1,
+          "same_type": 1
+        },
+        "Elvish Archer": {
+          "samples": 4,
+          "correct": 0,
+          "same_type": 1
+        },
+        "Thief": {
+          "samples": 1,
+          "correct": 0,
+          "same_type": 1
+        },
+        "Dark Adept": {
+          "samples": 5,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Skeleton": {
+          "samples": 6,
+          "correct": 4,
+          "same_type": 6
+        },
+        "Skeleton Archer": {
+          "samples": 5,
+          "correct": 1,
+          "same_type": 1
+        },
+        "Walking Corpse": {
+          "samples": 5,
+          "correct": 4,
+          "same_type": 5
+        },
+        "Vampire Bat": {
+          "samples": 1,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Ghost": {
+          "samples": 1,
+          "correct": 0,
+          "same_type": 0
+        }
+      },
+      "kind_confusion": {
+        "recruit": {
+          "recruit": 90,
+          "move": 6,
+          "attack": 2
+        },
+        "move": {
+          "move": 1270,
+          "attack": 100,
+          "end_turn": 12
+        },
+        "end_turn": {
+          "end_turn": 153,
+          "move": 60,
+          "attack": 7
+        },
+        "attack": {
+          "move": 167,
+          "attack": 172
+        }
+      },
+      "error_examples": [
+        {
+          "game_id": "teacher-00012-team2v2-t0",
+          "turn": 1,
+          "label": {
+            "kind": "recruit",
+            "type": "Orcish Grunt",
+            "x": 2,
+            "y": 2
+          },
+          "predicted": {
+            "kind": "recruit",
+            "type": "Orcish Grunt",
+            "x": 3,
+            "y": 4
+          },
+          "margin": 0.5112571716308594
+        },
+        {
+          "game_id": "teacher-00012-team2v2-t0",
+          "turn": 1,
+          "label": {
+            "kind": "recruit",
+            "type": "Orcish Grunt",
+            "x": 3,
+            "y": 2
+          },
+          "predicted": {
+            "kind": "recruit",
+            "type": "Troll Whelp",
+            "x": 3,
+            "y": 4
+          },
+          "margin": 0.2983241081237793
+        },
+        {
+          "game_id": "teacher-00012-team2v2-t0",
+          "turn": 1,
+          "label": {
+            "kind": "recruit",
+            "type": "Orcish Grunt",
+            "x": 2,
+            "y": 3
+          },
+          "predicted": {
+            "kind": "recruit",
+            "type": "Troll Whelp",
+            "x": 3,
+            "y": 4
+          },
+          "margin": 0.5311927795410156
+        },
+        {
+          "game_id": "teacher-00012-team2v2-t0",
+          "turn": 1,
+          "label": {
+            "kind": "recruit",
+            "type": "Orcish Assassin",
+            "x": 4,
+            "y": 3
+          },
+          "predicted": {
+            "kind": "recruit",
+            "type": "Troll Whelp",
+            "x": 3,
+            "y": 4
+          },
+          "margin": 0.5592231750488281
+        },
+        {
+          "game_id": "teacher-00012-team2v2-t0",
+          "turn": 1,
+          "label": {
+            "kind": "recruit",
+            "type": "Orcish Grunt",
+            "x": 3,
+            "y": 4
+          },
+          "predicted": {
+            "kind": "recruit",
+            "type": "Troll Whelp",
+            "x": 3,
+            "y": 4
+          },
+          "margin": 0.04159212112426758
+        },
+        {
+          "game_id": "teacher-00012-team2v2-t0",
+          "turn": 2,
+          "label": {
+            "kind": "recruit",
+            "type": "Orcish Grunt",
+            "x": 2,
+            "y": 2
+          },
+          "predicted": {
+            "kind": "recruit",
+            "type": "Troll Whelp",
+            "x": 2,
+            "y": 2
+          },
+          "margin": 0.07355213165283203
+        },
+        {
+          "game_id": "teacher-00012-team2v2-t0",
+          "turn": 6,
+          "label": {
+            "kind": "move_attack",
+            "x": 9,
+            "y": 8,
+            "tx": 9,
+            "ty": 12,
+            "ex": 10,
+            "ey": 12,
+            "weapon": 2
+          },
+          "predicted": {
+            "kind": "move",
+            "x": 8,
+            "y": 9,
+            "tx": 10,
+            "ty": 7,
+            "full": true
+          },
+          "margin": 12.432814836502075
+        },
+        {
+          "game_id": "teacher-00012-team2v2-t0",
+          "turn": 25,
+          "label": {
+            "kind": "recruit",
+            "type": "Orcish Grunt",
+            "x": 3,
+            "y": 4
+          },
+          "predicted": {
+            "kind": "recruit",
+            "type": "Goblin Spearman",
+            "x": 3,
+            "y": 4
+          },
+          "margin": 0.07635021209716797
+        },
+        {
+          "game_id": "teacher-00012-team2v2-t0",
+          "turn": 25,
+          "label": {
+            "kind": "move_attack",
+            "x": 6,
+            "y": 8,
+            "tx": 9,
+            "ty": 11,
+            "ex": 9,
+            "ey": 12,
+            "weapon": 1
+          },
+          "predicted": {
+            "kind": "move",
+            "x": 7,
+            "y": 9,
+            "tx": 5,
+            "ty": 7,
+            "full": true
+          },
+          "margin": 1.3223867416381836
+        },
+        {
+          "game_id": "teacher-00012-team2v2-t0",
+          "turn": 34,
+          "label": {
+            "kind": "recruit",
+            "type": "Orcish Grunt",
+            "x": 4,
+            "y": 3
+          },
+          "predicted": {
+            "kind": "recruit",
+            "type": "Goblin Spearman",
+            "x": 4,
+            "y": 2
+          },
+          "margin": 0.18581485748291016
+        },
+        {
+          "game_id": "teacher-00012-team2v2-t0",
+          "turn": 34,
+          "label": {
+            "kind": "move_attack",
+            "x": 12,
+            "y": 8,
+            "tx": 10,
+            "ty": 10,
+            "ex": 9,
+            "ey": 11,
+            "weapon": 1
+          },
+          "predicted": {
+            "kind": "move",
+            "x": 10,
+            "y": 7,
+            "tx": 13,
+            "ty": 8,
+            "full": true
+          },
+          "margin": 1.1474313735961914
+        },
+        {
+          "game_id": "teacher-00012-team2v2-t0",
+          "turn": 34,
+          "label": {
+            "kind": "move_attack",
+            "x": 10,
+            "y": 13,
+            "tx": 7,
+            "ty": 12,
+            "ex": 8,
+            "ey": 11,
+            "weapon": 1
+          },
+          "predicted": {
+            "kind": "move",
+            "x": 10,
+            "y": 13,
+            "tx": 12,
+            "ty": 9,
+            "full": true
+          },
+          "margin": 2.4053151607513428
+        }
+      ]
+    },
+    "heldout": {
+      "samples": 1005,
+      "kinds": {
+        "attack": {
+          "samples": 216,
+          "correct": 30,
+          "same_kind": 94,
+          "within_kind_correct": 62,
+          "top3": 80,
+          "same_actor": 69,
+          "same_target": 66,
+          "same_landing": 52,
+          "same_weapon": 64
+        },
+        "move": {
+          "samples": 584,
+          "correct": 309,
+          "same_kind": 495,
+          "within_kind_correct": 361,
+          "top3": 436
+        },
+        "recruit": {
+          "samples": 59,
+          "correct": 11,
+          "same_kind": 53,
+          "within_kind_correct": 13,
+          "top3": 26,
+          "same_type": 20,
+          "same_slot": 27
+        },
+        "end_turn": {
+          "samples": 146,
+          "correct": 92,
+          "same_kind": 92,
+          "within_kind_correct": 146,
+          "top3": 143
+        }
+      },
+      "recruit_types": {
+        "Orcish Assassin": {
+          "samples": 4,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Orcish Archer": {
+          "samples": 2,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Troll Whelp": {
+          "samples": 1,
+          "correct": 1,
+          "same_type": 1
+        },
+        "Dark Adept": {
+          "samples": 3,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Skeleton": {
+          "samples": 4,
+          "correct": 2,
+          "same_type": 4
+        },
+        "Skeleton Archer": {
+          "samples": 6,
+          "correct": 1,
+          "same_type": 1
+        },
+        "Walking Corpse": {
+          "samples": 10,
+          "correct": 5,
+          "same_type": 9
+        },
+        "Dwarvish Fighter": {
+          "samples": 7,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Footpad": {
+          "samples": 6,
+          "correct": 1,
+          "same_type": 2
+        },
+        "Poacher": {
+          "samples": 2,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Dwarvish Thunderer": {
+          "samples": 3,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Thief": {
+          "samples": 2,
+          "correct": 0,
+          "same_type": 1
+        },
+        "Saurian Augur": {
+          "samples": 2,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Drake Fighter": {
+          "samples": 2,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Drake Clasher": {
+          "samples": 1,
+          "correct": 0,
+          "same_type": 1
+        },
+        "Drake Burner": {
+          "samples": 1,
+          "correct": 0,
+          "same_type": 0
+        },
+        "Saurian Skirmisher": {
+          "samples": 2,
+          "correct": 1,
+          "same_type": 1
+        },
+        "Vampire Bat": {
+          "samples": 1,
+          "correct": 0,
+          "same_type": 0
+        }
+      },
+      "kind_confusion": {
+        "attack": {
+          "move": 122,
+          "attack": 94
+        },
+        "move": {
+          "move": 495,
+          "attack": 80,
+          "end_turn": 9
+        },
+        "recruit": {
+          "recruit": 53,
+          "move": 4,
+          "attack": 2
+        },
+        "end_turn": {
+          "end_turn": 92,
+          "move": 47,
+          "attack": 7
+        }
+      },
+      "error_examples": [
+        {
+          "game_id": "teacher-00003-team2v2-t0",
+          "turn": 17,
+          "label": {
+            "kind": "move_attack",
+            "x": 7,
+            "y": 12,
+            "tx": 11,
+            "ty": 11,
+            "ex": 11,
+            "ey": 12,
+            "weapon": 1
+          },
+          "predicted": {
+            "kind": "move",
+            "x": 7,
+            "y": 12,
+            "tx": 7,
+            "ty": 15,
+            "full": true
+          },
+          "margin": 1.301839828491211
+        },
+        {
+          "game_id": "teacher-00003-team2v2-t0",
+          "turn": 17,
+          "label": {
+            "kind": "recruit",
+            "type": "Orcish Assassin",
+            "x": 13,
+            "y": 6
+          },
+          "predicted": {
+            "kind": "recruit",
+            "type": "Troll Whelp",
+            "x": 13,
+            "y": 6
+          },
+          "margin": 0.47896289825439453
+        },
+        {
+          "game_id": "teacher-00003-team2v2-t0",
+          "turn": 18,
+          "label": {
+            "kind": "move_attack",
+            "x": 11,
+            "y": 13,
+            "tx": 15,
+            "ty": 14,
+            "ex": 16,
+            "ey": 14,
+            "weapon": 1
+          },
+          "predicted": {
+            "kind": "move",
+            "x": 7,
+            "y": 15,
+            "tx": 12,
+            "ty": 14,
+            "full": true
+          },
+          "margin": 1.933701992034912
+        },
+        {
+          "game_id": "teacher-00003-team2v2-t0",
+          "turn": 18,
+          "label": {
+            "kind": "move_attack",
+            "x": 11,
+            "y": 14,
+            "tx": 15,
+            "ty": 15,
+            "ex": 16,
+            "ey": 15,
+            "weapon": 1
+          },
+          "predicted": {
+            "kind": "move",
+            "x": 11,
+            "y": 14,
+            "tx": 11,
+            "ty": 13,
+            "full": true
+          },
+          "margin": 0.3488035202026367
+        },
+        {
+          "game_id": "teacher-00003-team2v2-t0",
+          "turn": 19,
+          "label": {
+            "kind": "recruit",
+            "type": "Orcish Assassin",
+            "x": 13,
+            "y": 6
+          },
+          "predicted": {
+            "kind": "move",
+            "x": 12,
+            "y": 14,
+            "tx": 7,
+            "ty": 12,
+            "full": true
+          },
+          "margin": 2.7396926879882812
+        },
+        {
+          "game_id": "teacher-00003-team2v2-t0",
+          "turn": 19,
+          "label": {
+            "kind": "move_attack",
+            "x": 11,
+            "y": 8,
+            "tx": 15,
+            "ty": 10,
+            "ex": 16,
+            "ey": 9,
+            "weapon": 2
+          },
+          "predicted": {
+            "kind": "move",
+            "x": 12,
+            "y": 14,
+            "tx": 7,
+            "ty": 12,
+            "full": true
+          },
+          "margin": 13.581061124801636
+        },
+        {
+          "game_id": "teacher-00003-team2v2-t0",
+          "turn": 20,
+          "label": {
+            "kind": "move_attack",
+            "x": 13,
+            "y": 6,
+            "tx": 15,
+            "ty": 9,
+            "ex": 16,
+            "ey": 8,
+            "weapon": 2
+          },
+          "predicted": {
+            "kind": "move",
+            "x": 9,
+            "y": 9,
+            "tx": 8,
+            "ty": 9,
+            "full": true
+          },
+          "margin": 3.0010111331939697
+        },
+        {
+          "game_id": "teacher-00003-team2v2-t0",
+          "turn": 20,
+          "label": {
+            "kind": "move_attack",
+            "x": 13,
+            "y": 7,
+            "tx": 15,
+            "ty": 9,
+            "ex": 16,
+            "ey": 8,
+            "weapon": 2
+          },
+          "predicted": {
+            "kind": "move",
+            "x": 9,
+            "y": 9,
+            "tx": 7,
+            "ty": 10,
+            "full": true
+          },
+          "margin": 0.7377152442932129
+        },
+        {
+          "game_id": "teacher-00003-team2v2-t0",
+          "turn": 21,
+          "label": {
+            "kind": "move_attack",
+            "x": 13,
+            "y": 2,
+            "tx": 13,
+            "ty": 5,
+            "ex": 13,
+            "ey": 6,
+            "weapon": 1
+          },
+          "predicted": {
+            "kind": "move",
+            "x": 5,
+            "y": 14,
+            "tx": 6,
+            "ty": 11,
+            "full": true
+          },
+          "margin": 6.489701628684998
+        },
+        {
+          "game_id": "teacher-00003-team2v2-t0",
+          "turn": 21,
+          "label": {
+            "kind": "recruit",
+            "type": "Orcish Assassin",
+            "x": 13,
+            "y": 5
+          },
+          "predicted": {
+            "kind": "recruit",
+            "type": "Troll Whelp",
+            "x": 13,
+            "y": 5
+          },
+          "margin": 0.4893970489501953
+        },
+        {
+          "game_id": "teacher-00003-team2v2-t0",
+          "turn": 22,
+          "label": {
+            "kind": "move_attack",
+            "x": 7,
+            "y": 10,
+            "tx": 8,
+            "ty": 9,
+            "ex": 9,
+            "ey": 9,
+            "weapon": 1
+          },
+          "predicted": {
+            "kind": "move",
+            "x": 10,
+            "y": 2,
+            "tx": 14,
+            "ty": 3,
+            "full": true
+          },
+          "margin": 1.4354805946350098
+        },
+        {
+          "game_id": "teacher-00003-team2v2-t0",
+          "turn": 22,
+          "label": {
+            "kind": "attack",
+            "x": 8,
+            "y": 8,
+            "tx": 9,
+            "ty": 9,
+            "weapon": 1
+          },
+          "predicted": {
+            "kind": "move",
+            "x": 10,
+            "y": 2,
+            "tx": 14,
+            "ty": 3,
+            "full": true
+          },
+          "margin": 1.0842185020446777
+        }
+      ]
+    },
+    "seconds": 22.0439000420738
+  }
+}
