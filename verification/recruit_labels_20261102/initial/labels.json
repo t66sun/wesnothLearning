@@ -1,0 +1,6427 @@
+{
+  "checkpoint_sha256": "ffb554ca152ac93e3602bd45c98841238ef7ee59640b5bf7fb4ba64ba8148a97",
+  "teacher_file_sha256": "a4f8f66d67170212704c89d3e3077ed9325ff7607536c85e362088b73cee55e0",
+  "weights": {
+    "Horseman": 0.5,
+    "Goblin Spearman": 0.3,
+    "Orcish Archer": 0.7,
+    "Walking Corpse": 0.15,
+    "Mage": 0.7,
+    "Saurian Augur": 1.2,
+    "Footpad": 1.3,
+    "Cavalryman": 0.8,
+    "Drake Clasher": 1.4,
+    "Ghoul": 0.65,
+    "Dark Adept": 2.4,
+    "Drake Glider": 0.25,
+    "Drake Fighter": 1.8,
+    "Bowman": 0.8,
+    "Drake Burner": 1.0,
+    "Saurian Skirmisher": 0.8,
+    "Spearman": 3.8,
+    "Vampire Bat": 0.1,
+    "Merman Fighter": 0.01,
+    "Poacher": 1.0,
+    "Skeleton Archer": 0.8,
+    "Dwarvish Guardsman": 0.3,
+    "Fencer": 0.2,
+    "Skeleton": 2.2,
+    "Elvish Archer": 1.7,
+    "Orcish Assassin": 1.0,
+    "Elvish Fighter": 2.8,
+    "Wose": 0.6,
+    "Merman Hunter": 0.01,
+    "Gryphon Rider": 0.3,
+    "Dwarvish Fighter": 2.3,
+    "Dwarvish Ulfserker": 0.25,
+    "Heavy Infantryman": 0.4,
+    "Elvish Scout": 0.25,
+    "Wolf Rider": 0.4,
+    "Troll Whelp": 1.4,
+    "Naga Fighter": 0.01,
+    "Ghost": 0.65,
+    "Orcish Grunt": 4.0,
+    "Thief": 0.4,
+    "Elvish Shaman": 0.7,
+    "Dwarvish Thunderer": 0.8
+  },
+  "train": {
+    "samples": 98,
+    "counts": {
+      "type_optimal": 98,
+      "slot_optimal": 97,
+      "own_context_complete": 98,
+      "enemy_count_matches": 94
+    },
+    "unique_type": 91,
+    "unique_slot": 53,
+    "rows": [
+      {
+        "game_id": "teacher-00012-team2v2-t0",
+        "family": "4ae77b472d9162d169f777c1b9438b1158bca1ae8d22a115be0cef8d99e3fdf2",
+        "turn": 1,
+        "label_type": "Orcish Grunt",
+        "label_slot": [
+          2,
+          2
+        ],
+        "own_counts": {},
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Goblin Spearman": 0.3,
+          "Naga Fighter": 0.01,
+          "Orcish Archer": 0.7,
+          "Orcish Assassin": 1.0,
+          "Orcish Grunt": 4.0,
+          "Troll Whelp": 1.4,
+          "Wolf Rider": 0.4
+        },
+        "top_types": [
+          "Orcish Grunt"
+        ],
+        "top_slots": [
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            3,
+            4
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00012-team2v2-t0",
+        "family": "4ae77b472d9162d169f777c1b9438b1158bca1ae8d22a115be0cef8d99e3fdf2",
+        "turn": 1,
+        "label_type": "Orcish Grunt",
+        "label_slot": [
+          3,
+          2
+        ],
+        "own_counts": {
+          "Orcish Grunt": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Goblin Spearman": 0.3,
+          "Naga Fighter": 0.01,
+          "Orcish Archer": 0.7,
+          "Orcish Assassin": 1.0,
+          "Orcish Grunt": 2.0,
+          "Troll Whelp": 1.4,
+          "Wolf Rider": 0.4
+        },
+        "top_types": [
+          "Orcish Grunt"
+        ],
+        "top_slots": [
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            2
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00012-team2v2-t0",
+        "family": "4ae77b472d9162d169f777c1b9438b1158bca1ae8d22a115be0cef8d99e3fdf2",
+        "turn": 1,
+        "label_type": "Troll Whelp",
+        "label_slot": [
+          4,
+          2
+        ],
+        "own_counts": {
+          "Orcish Grunt": 2
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Goblin Spearman": 0.3,
+          "Naga Fighter": 0.01,
+          "Orcish Archer": 0.7,
+          "Orcish Assassin": 1.0,
+          "Orcish Grunt": 1.3333333333333333,
+          "Troll Whelp": 1.4,
+          "Wolf Rider": 0.4
+        },
+        "top_types": [
+          "Troll Whelp"
+        ],
+        "top_slots": [
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            2
+          ],
+          [
+            4,
+            3
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00012-team2v2-t0",
+        "family": "4ae77b472d9162d169f777c1b9438b1158bca1ae8d22a115be0cef8d99e3fdf2",
+        "turn": 1,
+        "label_type": "Orcish Grunt",
+        "label_slot": [
+          2,
+          3
+        ],
+        "own_counts": {
+          "Orcish Grunt": 2,
+          "Troll Whelp": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Goblin Spearman": 0.3,
+          "Naga Fighter": 0.01,
+          "Orcish Archer": 0.7,
+          "Orcish Assassin": 1.0,
+          "Orcish Grunt": 1.3333333333333333,
+          "Troll Whelp": 0.7,
+          "Wolf Rider": 0.4
+        },
+        "top_types": [
+          "Orcish Grunt"
+        ],
+        "top_slots": [
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            3
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00012-team2v2-t0",
+        "family": "4ae77b472d9162d169f777c1b9438b1158bca1ae8d22a115be0cef8d99e3fdf2",
+        "turn": 1,
+        "label_type": "Orcish Assassin",
+        "label_slot": [
+          4,
+          3
+        ],
+        "own_counts": {
+          "Orcish Grunt": 3,
+          "Troll Whelp": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Goblin Spearman": 0.3,
+          "Naga Fighter": 0.01,
+          "Orcish Archer": 0.7,
+          "Orcish Assassin": 1.0,
+          "Orcish Grunt": 1.0,
+          "Troll Whelp": 0.7,
+          "Wolf Rider": 0.4
+        },
+        "top_types": [
+          "Orcish Assassin",
+          "Orcish Grunt"
+        ],
+        "top_slots": [
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            3
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00012-team2v2-t0",
+        "family": "4ae77b472d9162d169f777c1b9438b1158bca1ae8d22a115be0cef8d99e3fdf2",
+        "turn": 1,
+        "label_type": "Orcish Grunt",
+        "label_slot": [
+          3,
+          4
+        ],
+        "own_counts": {
+          "Orcish Grunt": 3,
+          "Troll Whelp": 1,
+          "Orcish Assassin": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Goblin Spearman": 0.3,
+          "Naga Fighter": 0.01,
+          "Orcish Archer": 0.7,
+          "Orcish Assassin": 0.5,
+          "Orcish Grunt": 1.0,
+          "Troll Whelp": 0.7,
+          "Wolf Rider": 0.4
+        },
+        "top_types": [
+          "Orcish Grunt"
+        ],
+        "top_slots": [
+          [
+            3,
+            4
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00012-team2v2-t0",
+        "family": "4ae77b472d9162d169f777c1b9438b1158bca1ae8d22a115be0cef8d99e3fdf2",
+        "turn": 2,
+        "label_type": "Orcish Grunt",
+        "label_slot": [
+          2,
+          2
+        ],
+        "own_counts": {
+          "Orcish Grunt": 4,
+          "Troll Whelp": 1,
+          "Orcish Assassin": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Goblin Spearman": 0.3,
+          "Naga Fighter": 0.01,
+          "Orcish Archer": 0.7,
+          "Orcish Assassin": 0.5,
+          "Orcish Grunt": 0.8,
+          "Troll Whelp": 0.7,
+          "Wolf Rider": 0.4
+        },
+        "top_types": [
+          "Orcish Grunt"
+        ],
+        "top_slots": [
+          [
+            2,
+            2
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00012-team2v2-t0",
+        "family": "4ae77b472d9162d169f777c1b9438b1158bca1ae8d22a115be0cef8d99e3fdf2",
+        "turn": 2,
+        "label_type": "Goblin Spearman",
+        "label_slot": [
+          4,
+          3
+        ],
+        "own_counts": {
+          "Orcish Grunt": 5,
+          "Troll Whelp": 1,
+          "Orcish Assassin": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Goblin Spearman": 0.3
+        },
+        "top_types": [
+          "Goblin Spearman"
+        ],
+        "top_slots": [
+          [
+            4,
+            3
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00012-team2v2-t0",
+        "family": "4ae77b472d9162d169f777c1b9438b1158bca1ae8d22a115be0cef8d99e3fdf2",
+        "turn": 25,
+        "label_type": "Orcish Grunt",
+        "label_slot": [
+          3,
+          4
+        ],
+        "own_counts": {
+          "Orcish Grunt": 2,
+          "Goblin Spearman": 3,
+          "Troll Whelp": 1
+        },
+        "undead": 0,
+        "drakes": 2,
+        "type_scores": {
+          "Goblin Spearman": 0.075,
+          "Orcish Grunt": 1.3333333333333333
+        },
+        "top_types": [
+          "Orcish Grunt"
+        ],
+        "top_slots": [
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            3
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00012-team2v2-t0",
+        "family": "4ae77b472d9162d169f777c1b9438b1158bca1ae8d22a115be0cef8d99e3fdf2",
+        "turn": 33,
+        "label_type": "Goblin Spearman",
+        "label_slot": [
+          3,
+          4
+        ],
+        "own_counts": {
+          "Orcish Grunt": 3,
+          "Goblin Spearman": 5,
+          "Troll Whelp": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Goblin Spearman": 0.049999999999999996
+        },
+        "top_types": [
+          "Goblin Spearman"
+        ],
+        "top_slots": [
+          [
+            3,
+            4
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00012-team2v2-t0",
+        "family": "4ae77b472d9162d169f777c1b9438b1158bca1ae8d22a115be0cef8d99e3fdf2",
+        "turn": 34,
+        "label_type": "Orcish Grunt",
+        "label_slot": [
+          4,
+          3
+        ],
+        "own_counts": {
+          "Orcish Grunt": 3,
+          "Goblin Spearman": 6,
+          "Troll Whelp": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Goblin Spearman": 0.04285714285714286,
+          "Orcish Grunt": 1.0
+        },
+        "top_types": [
+          "Orcish Grunt"
+        ],
+        "top_slots": [
+          [
+            4,
+            3
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00012-team2v2-t0",
+        "family": "4ae77b472d9162d169f777c1b9438b1158bca1ae8d22a115be0cef8d99e3fdf2",
+        "turn": 38,
+        "label_type": "Troll Whelp",
+        "label_slot": [
+          3,
+          4
+        ],
+        "own_counts": {
+          "Orcish Grunt": 5,
+          "Goblin Spearman": 6,
+          "Troll Whelp": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Goblin Spearman": 0.04285714285714286,
+          "Orcish Grunt": 0.6666666666666666,
+          "Troll Whelp": 0.7
+        },
+        "top_types": [
+          "Troll Whelp"
+        ],
+        "top_slots": [
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            3
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00012-team2v2-t0",
+        "family": "4ae77b472d9162d169f777c1b9438b1158bca1ae8d22a115be0cef8d99e3fdf2",
+        "turn": 40,
+        "label_type": "Orcish Assassin",
+        "label_slot": [
+          2,
+          2
+        ],
+        "own_counts": {
+          "Orcish Grunt": 5,
+          "Goblin Spearman": 6,
+          "Troll Whelp": 2
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Goblin Spearman": 0.04285714285714286,
+          "Naga Fighter": 0.01,
+          "Orcish Archer": 0.7,
+          "Orcish Assassin": 1.0,
+          "Orcish Grunt": 0.6666666666666666,
+          "Troll Whelp": 0.4666666666666666
+        },
+        "top_types": [
+          "Orcish Assassin"
+        ],
+        "top_slots": [
+          [
+            2,
+            2
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00002-team2v2-t0",
+        "family": "f8d1a044c47671f6665f8fd1dffe6c861ec40b148baecc1d93056d6d82b094c7",
+        "turn": 1,
+        "label_type": "Spearman",
+        "label_slot": [
+          16,
+          2
+        ],
+        "own_counts": {},
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Bowman": 0.8,
+          "Cavalryman": 0.8,
+          "Fencer": 0.2,
+          "Heavy Infantryman": 0.4,
+          "Horseman": 0.5,
+          "Mage": 0.7,
+          "Merman Fighter": 0.01,
+          "Spearman": 3.8
+        },
+        "top_types": [
+          "Spearman"
+        ],
+        "top_slots": [
+          [
+            16,
+            2
+          ],
+          [
+            16,
+            3
+          ],
+          [
+            17,
+            2
+          ],
+          [
+            17,
+            4
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00002-team2v2-t0",
+        "family": "f8d1a044c47671f6665f8fd1dffe6c861ec40b148baecc1d93056d6d82b094c7",
+        "turn": 1,
+        "label_type": "Spearman",
+        "label_slot": [
+          17,
+          2
+        ],
+        "own_counts": {
+          "Spearman": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Bowman": 0.8,
+          "Cavalryman": 0.8,
+          "Fencer": 0.2,
+          "Heavy Infantryman": 0.4,
+          "Horseman": 0.5,
+          "Mage": 0.7,
+          "Merman Fighter": 0.01,
+          "Spearman": 1.9
+        },
+        "top_types": [
+          "Spearman"
+        ],
+        "top_slots": [
+          [
+            16,
+            3
+          ],
+          [
+            17,
+            2
+          ],
+          [
+            17,
+            4
+          ],
+          [
+            18,
+            2
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00002-team2v2-t0",
+        "family": "f8d1a044c47671f6665f8fd1dffe6c861ec40b148baecc1d93056d6d82b094c7",
+        "turn": 1,
+        "label_type": "Spearman",
+        "label_slot": [
+          18,
+          2
+        ],
+        "own_counts": {
+          "Spearman": 2
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Bowman": 0.8,
+          "Cavalryman": 0.8,
+          "Fencer": 0.2,
+          "Heavy Infantryman": 0.4,
+          "Horseman": 0.5,
+          "Mage": 0.7,
+          "Merman Fighter": 0.01,
+          "Spearman": 1.2666666666666666
+        },
+        "top_types": [
+          "Spearman"
+        ],
+        "top_slots": [
+          [
+            16,
+            3
+          ],
+          [
+            17,
+            4
+          ],
+          [
+            18,
+            2
+          ],
+          [
+            18,
+            3
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00002-team2v2-t0",
+        "family": "f8d1a044c47671f6665f8fd1dffe6c861ec40b148baecc1d93056d6d82b094c7",
+        "turn": 1,
+        "label_type": "Spearman",
+        "label_slot": [
+          16,
+          3
+        ],
+        "own_counts": {
+          "Spearman": 3
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Bowman": 0.8,
+          "Cavalryman": 0.8,
+          "Fencer": 0.2,
+          "Heavy Infantryman": 0.4,
+          "Horseman": 0.5,
+          "Mage": 0.7,
+          "Merman Fighter": 0.01,
+          "Spearman": 0.95
+        },
+        "top_types": [
+          "Spearman"
+        ],
+        "top_slots": [
+          [
+            16,
+            3
+          ],
+          [
+            17,
+            4
+          ],
+          [
+            18,
+            3
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00002-team2v2-t0",
+        "family": "f8d1a044c47671f6665f8fd1dffe6c861ec40b148baecc1d93056d6d82b094c7",
+        "turn": 1,
+        "label_type": "Bowman",
+        "label_slot": [
+          18,
+          3
+        ],
+        "own_counts": {
+          "Spearman": 4
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Bowman": 0.8,
+          "Cavalryman": 0.8,
+          "Fencer": 0.2,
+          "Heavy Infantryman": 0.4,
+          "Horseman": 0.5,
+          "Mage": 0.7,
+          "Merman Fighter": 0.01,
+          "Spearman": 0.76
+        },
+        "top_types": [
+          "Bowman",
+          "Cavalryman"
+        ],
+        "top_slots": [
+          [
+            17,
+            4
+          ],
+          [
+            18,
+            3
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00002-team2v2-t0",
+        "family": "f8d1a044c47671f6665f8fd1dffe6c861ec40b148baecc1d93056d6d82b094c7",
+        "turn": 1,
+        "label_type": "Cavalryman",
+        "label_slot": [
+          17,
+          4
+        ],
+        "own_counts": {
+          "Spearman": 4,
+          "Bowman": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Bowman": 0.4,
+          "Cavalryman": 0.8,
+          "Fencer": 0.2,
+          "Heavy Infantryman": 0.4,
+          "Horseman": 0.5,
+          "Mage": 0.7,
+          "Merman Fighter": 0.01,
+          "Spearman": 0.76
+        },
+        "top_types": [
+          "Cavalryman"
+        ],
+        "top_slots": [
+          [
+            17,
+            4
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00002-team2v2-t0",
+        "family": "f8d1a044c47671f6665f8fd1dffe6c861ec40b148baecc1d93056d6d82b094c7",
+        "turn": 2,
+        "label_type": "Spearman",
+        "label_slot": [
+          17,
+          4
+        ],
+        "own_counts": {
+          "Spearman": 4,
+          "Bowman": 1,
+          "Cavalryman": 1
+        },
+        "undead": 0,
+        "drakes": 4,
+        "type_scores": {
+          "Bowman": 0.4,
+          "Merman Fighter": 0.01,
+          "Spearman": 1.3679999999999999
+        },
+        "top_types": [
+          "Spearman"
+        ],
+        "top_slots": [
+          [
+            17,
+            4
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": false
+      },
+      {
+        "game_id": "teacher-00002-team2v2-t0",
+        "family": "f8d1a044c47671f6665f8fd1dffe6c861ec40b148baecc1d93056d6d82b094c7",
+        "turn": 11,
+        "label_type": "Spearman",
+        "label_slot": [
+          17,
+          4
+        ],
+        "own_counts": {
+          "Spearman": 5,
+          "Bowman": 1,
+          "Cavalryman": 1
+        },
+        "undead": 1,
+        "drakes": 3,
+        "type_scores": {
+          "Bowman": 0.4,
+          "Merman Fighter": 0.01,
+          "Spearman": 1.14
+        },
+        "top_types": [
+          "Spearman"
+        ],
+        "top_slots": [
+          [
+            16,
+            3
+          ],
+          [
+            17,
+            4
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00002-team2v2-t0",
+        "family": "f8d1a044c47671f6665f8fd1dffe6c861ec40b148baecc1d93056d6d82b094c7",
+        "turn": 16,
+        "label_type": "Spearman",
+        "label_slot": [
+          17,
+          4
+        ],
+        "own_counts": {
+          "Spearman": 7,
+          "Bowman": 1,
+          "Cavalryman": 1
+        },
+        "undead": 0,
+        "drakes": 2,
+        "type_scores": {
+          "Bowman": 0.4,
+          "Fencer": 0.2,
+          "Merman Fighter": 0.01,
+          "Spearman": 0.855
+        },
+        "top_types": [
+          "Spearman"
+        ],
+        "top_slots": [
+          [
+            17,
+            4
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00015-team2v2-t0",
+        "family": "3fcb32b520397c58beec84e1a5a1e2028b36ab10047b794a370cb902daaab14b",
+        "turn": 26,
+        "label_type": "Saurian Augur",
+        "label_slot": [
+          13,
+          6
+        ],
+        "own_counts": {
+          "Saurian Skirmisher": 1,
+          "Drake Clasher": 1,
+          "Drake Fighter": 1
+        },
+        "undead": 1,
+        "drakes": 0,
+        "type_scores": {
+          "Drake Burner": 1.0,
+          "Drake Clasher": 0.7,
+          "Drake Fighter": 0.9,
+          "Drake Glider": 0.25,
+          "Saurian Augur": 1.2,
+          "Saurian Skirmisher": 0.4
+        },
+        "top_types": [
+          "Saurian Augur"
+        ],
+        "top_slots": [
+          [
+            13,
+            6
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00015-team2v2-t0",
+        "family": "3fcb32b520397c58beec84e1a5a1e2028b36ab10047b794a370cb902daaab14b",
+        "turn": 29,
+        "label_type": "Drake Fighter",
+        "label_slot": [
+          13,
+          6
+        ],
+        "own_counts": {
+          "Saurian Skirmisher": 1,
+          "Drake Clasher": 1,
+          "Drake Fighter": 1,
+          "Saurian Augur": 1
+        },
+        "undead": 3,
+        "drakes": 0,
+        "type_scores": {
+          "Drake Clasher": 0.7,
+          "Drake Fighter": 0.9,
+          "Drake Glider": 0.25,
+          "Saurian Augur": 0.6,
+          "Saurian Skirmisher": 0.4
+        },
+        "top_types": [
+          "Drake Fighter"
+        ],
+        "top_slots": [
+          [
+            13,
+            6
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00015-team2v2-t0",
+        "family": "3fcb32b520397c58beec84e1a5a1e2028b36ab10047b794a370cb902daaab14b",
+        "turn": 31,
+        "label_type": "Saurian Augur",
+        "label_slot": [
+          13,
+          6
+        ],
+        "own_counts": {
+          "Saurian Skirmisher": 1,
+          "Drake Clasher": 1,
+          "Drake Fighter": 2
+        },
+        "undead": 4,
+        "drakes": 0,
+        "type_scores": {
+          "Drake Fighter": 0.6,
+          "Drake Glider": 0.25,
+          "Saurian Augur": 1.2,
+          "Saurian Skirmisher": 0.4
+        },
+        "top_types": [
+          "Saurian Augur"
+        ],
+        "top_slots": [
+          [
+            13,
+            6
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00015-team2v2-t0",
+        "family": "3fcb32b520397c58beec84e1a5a1e2028b36ab10047b794a370cb902daaab14b",
+        "turn": 33,
+        "label_type": "Saurian Augur",
+        "label_slot": [
+          13,
+          6
+        ],
+        "own_counts": {
+          "Saurian Augur": 1,
+          "Saurian Skirmisher": 1,
+          "Drake Clasher": 1,
+          "Drake Fighter": 2
+        },
+        "undead": 2,
+        "drakes": 0,
+        "type_scores": {
+          "Drake Glider": 0.25,
+          "Saurian Augur": 0.6,
+          "Saurian Skirmisher": 0.4
+        },
+        "top_types": [
+          "Saurian Augur"
+        ],
+        "top_slots": [
+          [
+            13,
+            6
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00015-team2v2-t0",
+        "family": "3fcb32b520397c58beec84e1a5a1e2028b36ab10047b794a370cb902daaab14b",
+        "turn": 36,
+        "label_type": "Drake Clasher",
+        "label_slot": [
+          13,
+          6
+        ],
+        "own_counts": {
+          "Saurian Augur": 1,
+          "Saurian Ambusher": 1,
+          "Drake Fighter": 2
+        },
+        "undead": 1,
+        "drakes": 0,
+        "type_scores": {
+          "Drake Clasher": 1.4,
+          "Drake Fighter": 0.6,
+          "Drake Glider": 0.25,
+          "Saurian Augur": 0.6,
+          "Saurian Skirmisher": 0.8
+        },
+        "top_types": [
+          "Drake Clasher"
+        ],
+        "top_slots": [
+          [
+            13,
+            6
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00015-team2v2-t0",
+        "family": "3fcb32b520397c58beec84e1a5a1e2028b36ab10047b794a370cb902daaab14b",
+        "turn": 38,
+        "label_type": "Drake Fighter",
+        "label_slot": [
+          13,
+          6
+        ],
+        "own_counts": {
+          "Saurian Augur": 1,
+          "Drake Clasher": 1,
+          "Saurian Ambusher": 1,
+          "Drake Fighter": 1
+        },
+        "undead": 1,
+        "drakes": 0,
+        "type_scores": {
+          "Drake Fighter": 0.9,
+          "Drake Glider": 0.25,
+          "Saurian Augur": 0.6,
+          "Saurian Skirmisher": 0.8
+        },
+        "top_types": [
+          "Drake Fighter"
+        ],
+        "top_slots": [
+          [
+            13,
+            6
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00015-team2v2-t0",
+        "family": "3fcb32b520397c58beec84e1a5a1e2028b36ab10047b794a370cb902daaab14b",
+        "turn": 41,
+        "label_type": "Saurian Skirmisher",
+        "label_slot": [
+          13,
+          6
+        ],
+        "own_counts": {
+          "Saurian Augur": 1,
+          "Drake Clasher": 1,
+          "Drake Fighter": 2,
+          "Saurian Ambusher": 1
+        },
+        "undead": 3,
+        "drakes": 0,
+        "type_scores": {
+          "Drake Fighter": 0.6,
+          "Drake Glider": 0.25,
+          "Saurian Augur": 0.6,
+          "Saurian Skirmisher": 0.8
+        },
+        "top_types": [
+          "Saurian Skirmisher"
+        ],
+        "top_slots": [
+          [
+            13,
+            6
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00015-team2v2-t0",
+        "family": "3fcb32b520397c58beec84e1a5a1e2028b36ab10047b794a370cb902daaab14b",
+        "turn": 44,
+        "label_type": "Saurian Augur",
+        "label_slot": [
+          13,
+          6
+        ],
+        "own_counts": {
+          "Drake Fighter": 2,
+          "Saurian Skirmisher": 1,
+          "Saurian Ambusher": 1
+        },
+        "undead": 1,
+        "drakes": 0,
+        "type_scores": {
+          "Drake Glider": 0.25,
+          "Saurian Augur": 1.2,
+          "Saurian Skirmisher": 0.4
+        },
+        "top_types": [
+          "Saurian Augur"
+        ],
+        "top_slots": [
+          [
+            13,
+            6
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00015-team2v2-t0",
+        "family": "3fcb32b520397c58beec84e1a5a1e2028b36ab10047b794a370cb902daaab14b",
+        "turn": 47,
+        "label_type": "Saurian Skirmisher",
+        "label_slot": [
+          13,
+          6
+        ],
+        "own_counts": {
+          "Drake Fighter": 2,
+          "Saurian Skirmisher": 1,
+          "Saurian Augur": 1,
+          "Saurian Ambusher": 1
+        },
+        "undead": 2,
+        "drakes": 0,
+        "type_scores": {
+          "Saurian Skirmisher": 0.4
+        },
+        "top_types": [
+          "Saurian Skirmisher"
+        ],
+        "top_slots": [
+          [
+            13,
+            6
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00010-team2v2-t0",
+        "family": "d355c4abd80a167c0c9dd83cade483d685159935b76bff0b43b861ee6016bbf2",
+        "turn": 9,
+        "label_type": "Elvish Fighter",
+        "label_slot": [
+          17,
+          4
+        ],
+        "own_counts": {
+          "Elvish Archer": 2,
+          "Elvish Fighter": 2
+        },
+        "undead": 0,
+        "drakes": 2,
+        "type_scores": {
+          "Elvish Fighter": 0.9333333333333332
+        },
+        "top_types": [
+          "Elvish Fighter"
+        ],
+        "top_slots": [
+          [
+            17,
+            4
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00010-team2v2-t0",
+        "family": "d355c4abd80a167c0c9dd83cade483d685159935b76bff0b43b861ee6016bbf2",
+        "turn": 33,
+        "label_type": "Elvish Shaman",
+        "label_slot": [
+          17,
+          4
+        ],
+        "own_counts": {
+          "Elvish Archer": 1,
+          "Elvish Fighter": 4
+        },
+        "undead": 1,
+        "drakes": 0,
+        "type_scores": {
+          "Elvish Fighter": 0.5599999999999999,
+          "Elvish Shaman": 0.7,
+          "Merman Hunter": 0.01
+        },
+        "top_types": [
+          "Elvish Shaman"
+        ],
+        "top_slots": [
+          [
+            16,
+            3
+          ],
+          [
+            17,
+            4
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00010-team2v2-t0",
+        "family": "d355c4abd80a167c0c9dd83cade483d685159935b76bff0b43b861ee6016bbf2",
+        "turn": 37,
+        "label_type": "Elvish Fighter",
+        "label_slot": [
+          17,
+          4
+        ],
+        "own_counts": {
+          "Elvish Archer": 1,
+          "Elvish Fighter": 4,
+          "Elvish Shaman": 1
+        },
+        "undead": 1,
+        "drakes": 0,
+        "type_scores": {
+          "Elvish Fighter": 0.5599999999999999,
+          "Elvish Shaman": 0.35,
+          "Merman Hunter": 0.01
+        },
+        "top_types": [
+          "Elvish Fighter"
+        ],
+        "top_slots": [
+          [
+            16,
+            3
+          ],
+          [
+            17,
+            4
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00010-team2v2-t0",
+        "family": "d355c4abd80a167c0c9dd83cade483d685159935b76bff0b43b861ee6016bbf2",
+        "turn": 48,
+        "label_type": "Elvish Fighter",
+        "label_slot": [
+          17,
+          4
+        ],
+        "own_counts": {
+          "Elvish Archer": 2,
+          "Elvish Fighter": 5,
+          "Elvish Shaman": 1
+        },
+        "undead": 0,
+        "drakes": 1,
+        "type_scores": {
+          "Elvish Fighter": 0.4666666666666666,
+          "Elvish Shaman": 0.35,
+          "Merman Hunter": 0.01
+        },
+        "top_types": [
+          "Elvish Fighter"
+        ],
+        "top_slots": [
+          [
+            16,
+            3
+          ],
+          [
+            17,
+            4
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00008-team2v2-t0",
+        "family": "bf1507b63b46e3c281049c092f48822d8810286351af9d80b6ffecc9f8d4336b",
+        "turn": 1,
+        "label_type": "Spearman",
+        "label_slot": [
+          2,
+          2
+        ],
+        "own_counts": {},
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Bowman": 0.8,
+          "Cavalryman": 0.8,
+          "Fencer": 0.2,
+          "Heavy Infantryman": 0.4,
+          "Horseman": 0.5,
+          "Mage": 0.7,
+          "Merman Fighter": 0.01,
+          "Spearman": 3.8
+        },
+        "top_types": [
+          "Spearman"
+        ],
+        "top_slots": [
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            3,
+            4
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00008-team2v2-t0",
+        "family": "bf1507b63b46e3c281049c092f48822d8810286351af9d80b6ffecc9f8d4336b",
+        "turn": 1,
+        "label_type": "Spearman",
+        "label_slot": [
+          3,
+          2
+        ],
+        "own_counts": {
+          "Spearman": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Bowman": 0.8,
+          "Cavalryman": 0.8,
+          "Fencer": 0.2,
+          "Heavy Infantryman": 0.4,
+          "Horseman": 0.5,
+          "Mage": 0.7,
+          "Merman Fighter": 0.01,
+          "Spearman": 1.9
+        },
+        "top_types": [
+          "Spearman"
+        ],
+        "top_slots": [
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            2
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00008-team2v2-t0",
+        "family": "bf1507b63b46e3c281049c092f48822d8810286351af9d80b6ffecc9f8d4336b",
+        "turn": 1,
+        "label_type": "Spearman",
+        "label_slot": [
+          4,
+          2
+        ],
+        "own_counts": {
+          "Spearman": 2
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Bowman": 0.8,
+          "Cavalryman": 0.8,
+          "Fencer": 0.2,
+          "Heavy Infantryman": 0.4,
+          "Horseman": 0.5,
+          "Mage": 0.7,
+          "Merman Fighter": 0.01,
+          "Spearman": 1.2666666666666666
+        },
+        "top_types": [
+          "Spearman"
+        ],
+        "top_slots": [
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            2
+          ],
+          [
+            4,
+            3
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00008-team2v2-t0",
+        "family": "bf1507b63b46e3c281049c092f48822d8810286351af9d80b6ffecc9f8d4336b",
+        "turn": 1,
+        "label_type": "Spearman",
+        "label_slot": [
+          2,
+          3
+        ],
+        "own_counts": {
+          "Spearman": 3
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Bowman": 0.8,
+          "Cavalryman": 0.8,
+          "Fencer": 0.2,
+          "Heavy Infantryman": 0.4,
+          "Horseman": 0.5,
+          "Mage": 0.7,
+          "Merman Fighter": 0.01,
+          "Spearman": 0.95
+        },
+        "top_types": [
+          "Spearman"
+        ],
+        "top_slots": [
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            3
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00008-team2v2-t0",
+        "family": "bf1507b63b46e3c281049c092f48822d8810286351af9d80b6ffecc9f8d4336b",
+        "turn": 1,
+        "label_type": "Bowman",
+        "label_slot": [
+          4,
+          3
+        ],
+        "own_counts": {
+          "Spearman": 4
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Bowman": 0.8,
+          "Cavalryman": 0.8,
+          "Fencer": 0.2,
+          "Heavy Infantryman": 0.4,
+          "Horseman": 0.5,
+          "Mage": 0.7,
+          "Merman Fighter": 0.01,
+          "Spearman": 0.76
+        },
+        "top_types": [
+          "Bowman",
+          "Cavalryman"
+        ],
+        "top_slots": [
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            3
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00008-team2v2-t0",
+        "family": "bf1507b63b46e3c281049c092f48822d8810286351af9d80b6ffecc9f8d4336b",
+        "turn": 1,
+        "label_type": "Cavalryman",
+        "label_slot": [
+          3,
+          4
+        ],
+        "own_counts": {
+          "Spearman": 4,
+          "Bowman": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Bowman": 0.4,
+          "Cavalryman": 0.8,
+          "Fencer": 0.2,
+          "Heavy Infantryman": 0.4,
+          "Horseman": 0.5,
+          "Mage": 0.7,
+          "Merman Fighter": 0.01,
+          "Spearman": 0.76
+        },
+        "top_types": [
+          "Cavalryman"
+        ],
+        "top_slots": [
+          [
+            3,
+            4
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00008-team2v2-t0",
+        "family": "bf1507b63b46e3c281049c092f48822d8810286351af9d80b6ffecc9f8d4336b",
+        "turn": 3,
+        "label_type": "Spearman",
+        "label_slot": [
+          3,
+          4
+        ],
+        "own_counts": {
+          "Spearman": 4,
+          "Bowman": 1,
+          "Cavalryman": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Bowman": 0.4,
+          "Merman Fighter": 0.01,
+          "Spearman": 0.76
+        },
+        "top_types": [
+          "Spearman"
+        ],
+        "top_slots": [
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            3
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00008-team2v2-t0",
+        "family": "bf1507b63b46e3c281049c092f48822d8810286351af9d80b6ffecc9f8d4336b",
+        "turn": 27,
+        "label_type": "Bowman",
+        "label_slot": [
+          3,
+          4
+        ],
+        "own_counts": {
+          "Spearman": 5
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Bowman": 0.8,
+          "Fencer": 0.2,
+          "Merman Fighter": 0.01,
+          "Spearman": 0.6333333333333333
+        },
+        "top_types": [
+          "Bowman"
+        ],
+        "top_slots": [
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            3
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00008-team2v2-t0",
+        "family": "bf1507b63b46e3c281049c092f48822d8810286351af9d80b6ffecc9f8d4336b",
+        "turn": 43,
+        "label_type": "Spearman",
+        "label_slot": [
+          3,
+          4
+        ],
+        "own_counts": {
+          "Spearman": 4,
+          "Bowman": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Bowman": 0.4,
+          "Merman Fighter": 0.01,
+          "Spearman": 0.76
+        },
+        "top_types": [
+          "Spearman"
+        ],
+        "top_slots": [
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            3
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00008-team2v2-t0",
+        "family": "bf1507b63b46e3c281049c092f48822d8810286351af9d80b6ffecc9f8d4336b",
+        "turn": 59,
+        "label_type": "Mage",
+        "label_slot": [
+          4,
+          3
+        ],
+        "own_counts": {
+          "Swordsman": 2,
+          "Spearman": 5,
+          "Cavalryman": 1,
+          "Bowman": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Bowman": 0.4,
+          "Cavalryman": 0.4,
+          "Fencer": 0.2,
+          "Heavy Infantryman": 0.4,
+          "Mage": 0.7,
+          "Merman Fighter": 0.01
+        },
+        "top_types": [
+          "Mage"
+        ],
+        "top_slots": [
+          [
+            4,
+            3
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00007-team2v2-t0",
+        "family": "4fdf759956b739a64123e429ebdb2338b6ab5716dd241e534ade506db0ffd925",
+        "turn": 18,
+        "label_type": "Elvish Fighter",
+        "label_slot": [
+          13,
+          6
+        ],
+        "own_counts": {
+          "Elvish Captain": 1,
+          "Elvish Archer": 1,
+          "Mage": 1,
+          "Elvish Fighter": 4,
+          "Elvish Shaman": 1,
+          "Wose": 1
+        },
+        "undead": 1,
+        "drakes": 0,
+        "type_scores": {
+          "Elvish Fighter": 0.5599999999999999,
+          "Elvish Shaman": 0.35,
+          "Merman Hunter": 0.01
+        },
+        "top_types": [
+          "Elvish Fighter"
+        ],
+        "top_slots": [
+          [
+            13,
+            6
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00007-team2v2-t0",
+        "family": "4fdf759956b739a64123e429ebdb2338b6ab5716dd241e534ade506db0ffd925",
+        "turn": 20,
+        "label_type": "Elvish Fighter",
+        "label_slot": [
+          13,
+          6
+        ],
+        "own_counts": {
+          "Elvish Captain": 2,
+          "Elvish Archer": 1,
+          "Mage": 1,
+          "Elvish Fighter": 4,
+          "Elvish Shaman": 1,
+          "Wose": 1
+        },
+        "undead": 1,
+        "drakes": 0,
+        "type_scores": {
+          "Elvish Fighter": 0.5599999999999999,
+          "Elvish Shaman": 0.35,
+          "Merman Hunter": 0.01
+        },
+        "top_types": [
+          "Elvish Fighter"
+        ],
+        "top_slots": [
+          [
+            13,
+            6
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00007-team2v2-t0",
+        "family": "4fdf759956b739a64123e429ebdb2338b6ab5716dd241e534ade506db0ffd925",
+        "turn": 22,
+        "label_type": "Elvish Archer",
+        "label_slot": [
+          13,
+          6
+        ],
+        "own_counts": {
+          "Elvish Captain": 2,
+          "Elvish Archer": 1,
+          "Mage": 1,
+          "Elvish Fighter": 5,
+          "Elvish Shaman": 1,
+          "Wose": 1
+        },
+        "undead": 1,
+        "drakes": 0,
+        "type_scores": {
+          "Elvish Archer": 0.85,
+          "Elvish Fighter": 0.4666666666666666,
+          "Elvish Scout": 0.25,
+          "Elvish Shaman": 0.35,
+          "Merman Hunter": 0.01
+        },
+        "top_types": [
+          "Elvish Archer"
+        ],
+        "top_slots": [
+          [
+            13,
+            6
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00007-team2v2-t0",
+        "family": "4fdf759956b739a64123e429ebdb2338b6ab5716dd241e534ade506db0ffd925",
+        "turn": 24,
+        "label_type": "Elvish Shaman",
+        "label_slot": [
+          13,
+          6
+        ],
+        "own_counts": {
+          "Elvish Captain": 1,
+          "Elvish Archer": 2,
+          "Mage": 1,
+          "Elvish Fighter": 5,
+          "Wose": 1
+        },
+        "undead": 1,
+        "drakes": 0,
+        "type_scores": {
+          "Elvish Fighter": 0.4666666666666666,
+          "Elvish Shaman": 0.7,
+          "Merman Hunter": 0.01
+        },
+        "top_types": [
+          "Elvish Shaman"
+        ],
+        "top_slots": [
+          [
+            13,
+            6
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00007-team2v2-t0",
+        "family": "4fdf759956b739a64123e429ebdb2338b6ab5716dd241e534ade506db0ffd925",
+        "turn": 26,
+        "label_type": "Mage",
+        "label_slot": [
+          13,
+          6
+        ],
+        "own_counts": {
+          "Elvish Captain": 1,
+          "Elvish Archer": 2,
+          "Elvish Fighter": 5,
+          "Wose": 1,
+          "Elvish Shaman": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Elvish Archer": 0.5666666666666667,
+          "Elvish Fighter": 0.4666666666666666,
+          "Elvish Scout": 0.25,
+          "Elvish Shaman": 0.35,
+          "Mage": 0.7,
+          "Merman Hunter": 0.01
+        },
+        "top_types": [
+          "Mage"
+        ],
+        "top_slots": [
+          [
+            13,
+            6
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00007-team2v2-t0",
+        "family": "4fdf759956b739a64123e429ebdb2338b6ab5716dd241e534ade506db0ffd925",
+        "turn": 27,
+        "label_type": "Elvish Archer",
+        "label_slot": [
+          13,
+          5
+        ],
+        "own_counts": {
+          "Elvish Captain": 1,
+          "Elvish Archer": 2,
+          "Elvish Fighter": 5,
+          "Wose": 1,
+          "Elvish Shaman": 1,
+          "Mage": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Elvish Archer": 0.5666666666666667,
+          "Elvish Fighter": 0.4666666666666666,
+          "Elvish Scout": 0.25,
+          "Elvish Shaman": 0.35,
+          "Merman Hunter": 0.01
+        },
+        "top_types": [
+          "Elvish Archer"
+        ],
+        "top_slots": [
+          [
+            13,
+            5
+          ],
+          [
+            14,
+            4
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00007-team2v2-t0",
+        "family": "4fdf759956b739a64123e429ebdb2338b6ab5716dd241e534ade506db0ffd925",
+        "turn": 28,
+        "label_type": "Elvish Fighter",
+        "label_slot": [
+          13,
+          6
+        ],
+        "own_counts": {
+          "Elvish Captain": 1,
+          "Elvish Archer": 3,
+          "Elvish Fighter": 5,
+          "Wose": 1,
+          "Elvish Shaman": 1,
+          "Mage": 1
+        },
+        "undead": 1,
+        "drakes": 0,
+        "type_scores": {
+          "Elvish Fighter": 0.4666666666666666
+        },
+        "top_types": [
+          "Elvish Fighter"
+        ],
+        "top_slots": [
+          [
+            13,
+            6
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00007-team2v2-t0",
+        "family": "4fdf759956b739a64123e429ebdb2338b6ab5716dd241e534ade506db0ffd925",
+        "turn": 29,
+        "label_type": "Elvish Fighter",
+        "label_slot": [
+          13,
+          5
+        ],
+        "own_counts": {
+          "Elvish Captain": 1,
+          "Elvish Archer": 2,
+          "Elvish Fighter": 6,
+          "Wose": 1,
+          "Elvish Shaman": 1,
+          "Mage": 1
+        },
+        "undead": 1,
+        "drakes": 0,
+        "type_scores": {
+          "Elvish Fighter": 0.39999999999999997,
+          "Elvish Shaman": 0.35,
+          "Merman Hunter": 0.01
+        },
+        "top_types": [
+          "Elvish Fighter"
+        ],
+        "top_slots": [
+          [
+            13,
+            5
+          ],
+          [
+            14,
+            4
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00007-team2v2-t0",
+        "family": "4fdf759956b739a64123e429ebdb2338b6ab5716dd241e534ade506db0ffd925",
+        "turn": 31,
+        "label_type": "Mage",
+        "label_slot": [
+          13,
+          6
+        ],
+        "own_counts": {
+          "Elvish Captain": 1,
+          "Elvish Archer": 2,
+          "Elvish Fighter": 7,
+          "Wose": 1,
+          "Elvish Shaman": 1,
+          "Mage": 1
+        },
+        "undead": 3,
+        "drakes": 0,
+        "type_scores": {
+          "Elvish Archer": 0.5666666666666667,
+          "Elvish Fighter": 0.35,
+          "Elvish Scout": 0.25,
+          "Elvish Shaman": 0.35,
+          "Mage": 0.7,
+          "Merman Hunter": 0.01
+        },
+        "top_types": [
+          "Mage"
+        ],
+        "top_slots": [
+          [
+            13,
+            6
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00009-team2v2-t0",
+        "family": "00cddca6f8e0f7293facf8313bf747ac7e2da110688e05e324017ce520b9aa21",
+        "turn": 33,
+        "label_type": "Goblin Spearman",
+        "label_slot": [
+          24,
+          11
+        ],
+        "own_counts": {
+          "Orcish Grunt": 4,
+          "Goblin Spearman": 5,
+          "Troll Warrior": 1,
+          "Troll Whelp": 2
+        },
+        "undead": 1,
+        "drakes": 0,
+        "type_scores": {
+          "Goblin Spearman": 0.049999999999999996
+        },
+        "top_types": [
+          "Goblin Spearman"
+        ],
+        "top_slots": [
+          [
+            24,
+            12
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": false,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00009-team2v2-t0",
+        "family": "00cddca6f8e0f7293facf8313bf747ac7e2da110688e05e324017ce520b9aa21",
+        "turn": 41,
+        "label_type": "Goblin Spearman",
+        "label_slot": [
+          24,
+          11
+        ],
+        "own_counts": {
+          "Troll Whelp": 3,
+          "Orcish Grunt": 4,
+          "Goblin Spearman": 5
+        },
+        "undead": 3,
+        "drakes": 0,
+        "type_scores": {
+          "Goblin Spearman": 0.049999999999999996
+        },
+        "top_types": [
+          "Goblin Spearman"
+        ],
+        "top_slots": [
+          [
+            24,
+            10
+          ],
+          [
+            24,
+            11
+          ],
+          [
+            24,
+            12
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00009-team2v2-t0",
+        "family": "00cddca6f8e0f7293facf8313bf747ac7e2da110688e05e324017ce520b9aa21",
+        "turn": 43,
+        "label_type": "Orcish Grunt",
+        "label_slot": [
+          24,
+          11
+        ],
+        "own_counts": {
+          "Troll Whelp": 3,
+          "Goblin Spearman": 6,
+          "Orcish Grunt": 4
+        },
+        "undead": 2,
+        "drakes": 0,
+        "type_scores": {
+          "Goblin Spearman": 0.04285714285714286,
+          "Orcish Grunt": 0.8,
+          "Troll Whelp": 0.7
+        },
+        "top_types": [
+          "Orcish Grunt"
+        ],
+        "top_slots": [
+          [
+            24,
+            11
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": false
+      },
+      {
+        "game_id": "teacher-00009-team2v2-t0",
+        "family": "00cddca6f8e0f7293facf8313bf747ac7e2da110688e05e324017ce520b9aa21",
+        "turn": 44,
+        "label_type": "Troll Whelp",
+        "label_slot": [
+          24,
+          10
+        ],
+        "own_counts": {
+          "Troll Whelp": 2,
+          "Goblin Spearman": 6,
+          "Orcish Grunt": 5
+        },
+        "undead": 3,
+        "drakes": 0,
+        "type_scores": {
+          "Goblin Spearman": 0.04285714285714286,
+          "Naga Fighter": 0.01,
+          "Orcish Archer": 0.7,
+          "Orcish Grunt": 0.6666666666666666,
+          "Troll Whelp": 0.9333333333333332
+        },
+        "top_types": [
+          "Troll Whelp"
+        ],
+        "top_slots": [
+          [
+            24,
+            10
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00009-team2v2-t0",
+        "family": "00cddca6f8e0f7293facf8313bf747ac7e2da110688e05e324017ce520b9aa21",
+        "turn": 45,
+        "label_type": "Goblin Spearman",
+        "label_slot": [
+          26,
+          7
+        ],
+        "own_counts": {
+          "Troll Whelp": 3,
+          "Goblin Spearman": 6,
+          "Orcish Grunt": 4
+        },
+        "undead": 2,
+        "drakes": 0,
+        "type_scores": {
+          "Goblin Spearman": 0.04285714285714286
+        },
+        "top_types": [
+          "Goblin Spearman"
+        ],
+        "top_slots": [
+          [
+            25,
+            10
+          ],
+          [
+            26,
+            7
+          ],
+          [
+            26,
+            8
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": false
+      },
+      {
+        "game_id": "teacher-00021-team2v2-t0",
+        "family": "228734ec68f6372ba77759c5b9c9213c3dab9d1c58db2fef04f2c2c5ab347af2",
+        "turn": 30,
+        "label_type": "Drake Fighter",
+        "label_slot": [
+          24,
+          11
+        ],
+        "own_counts": {
+          "Drake Clasher": 2,
+          "Saurian Skirmisher": 1,
+          "Saurian Augur": 2,
+          "Drake Fighter": 1
+        },
+        "undead": 1,
+        "drakes": 0,
+        "type_scores": {
+          "Drake Fighter": 0.9,
+          "Drake Glider": 0.25,
+          "Saurian Augur": 0.39999999999999997,
+          "Saurian Skirmisher": 0.4
+        },
+        "top_types": [
+          "Drake Fighter"
+        ],
+        "top_slots": [
+          [
+            24,
+            10
+          ],
+          [
+            24,
+            11
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00021-team2v2-t0",
+        "family": "228734ec68f6372ba77759c5b9c9213c3dab9d1c58db2fef04f2c2c5ab347af2",
+        "turn": 33,
+        "label_type": "Saurian Skirmisher",
+        "label_slot": [
+          26,
+          7
+        ],
+        "own_counts": {
+          "Drake Clasher": 2,
+          "Saurian Skirmisher": 1,
+          "Saurian Augur": 2,
+          "Drake Fighter": 2
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Saurian Skirmisher": 0.4
+        },
+        "top_types": [
+          "Saurian Skirmisher"
+        ],
+        "top_slots": [
+          [
+            24,
+            10
+          ],
+          [
+            24,
+            11
+          ],
+          [
+            24,
+            12
+          ],
+          [
+            25,
+            10
+          ],
+          [
+            26,
+            7
+          ],
+          [
+            26,
+            8
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00021-team2v2-t0",
+        "family": "228734ec68f6372ba77759c5b9c9213c3dab9d1c58db2fef04f2c2c5ab347af2",
+        "turn": 36,
+        "label_type": "Saurian Skirmisher",
+        "label_slot": [
+          24,
+          11
+        ],
+        "own_counts": {
+          "Drake Clasher": 2,
+          "Saurian Skirmisher": 2,
+          "Saurian Augur": 2,
+          "Drake Fighter": 2
+        },
+        "undead": 1,
+        "drakes": 0,
+        "type_scores": {
+          "Saurian Skirmisher": 0.26666666666666666
+        },
+        "top_types": [
+          "Saurian Skirmisher"
+        ],
+        "top_slots": [
+          [
+            24,
+            10
+          ],
+          [
+            24,
+            11
+          ],
+          [
+            24,
+            12
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00001-team2v2-t0",
+        "family": "32796ca81d9cf4afd3c7a1f99f345fe1eea51c7869fdd606c9b74da335185f5d",
+        "turn": 58,
+        "label_type": "Thief",
+        "label_slot": [
+          24,
+          11
+        ],
+        "own_counts": {
+          "Dwarvish Thunderer": 1,
+          "Dwarvish Fighter": 4,
+          "Footpad": 3,
+          "Thief": 1,
+          "Poacher": 1
+        },
+        "undead": 0,
+        "drakes": 2,
+        "type_scores": {
+          "Thief": 0.2
+        },
+        "top_types": [
+          "Thief"
+        ],
+        "top_slots": [
+          [
+            24,
+            10
+          ],
+          [
+            24,
+            11
+          ],
+          [
+            24,
+            12
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00016-team2v2-t0",
+        "family": "a3837afd868e23310001990b12006ac7bd6645ab167b8010d49bc535ff60127e",
+        "turn": 1,
+        "label_type": "Elvish Fighter",
+        "label_slot": [
+          2,
+          2
+        ],
+        "own_counts": {},
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Elvish Archer": 1.7,
+          "Elvish Fighter": 2.8,
+          "Elvish Scout": 0.25,
+          "Elvish Shaman": 0.7,
+          "Mage": 0.7,
+          "Merman Hunter": 0.01,
+          "Wose": 0.6
+        },
+        "top_types": [
+          "Elvish Fighter"
+        ],
+        "top_slots": [
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            2
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00016-team2v2-t0",
+        "family": "a3837afd868e23310001990b12006ac7bd6645ab167b8010d49bc535ff60127e",
+        "turn": 1,
+        "label_type": "Elvish Archer",
+        "label_slot": [
+          3,
+          2
+        ],
+        "own_counts": {
+          "Elvish Fighter": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Elvish Archer": 1.7,
+          "Elvish Fighter": 1.4,
+          "Elvish Scout": 0.25,
+          "Elvish Shaman": 0.7,
+          "Mage": 0.7,
+          "Merman Hunter": 0.01,
+          "Wose": 0.6
+        },
+        "top_types": [
+          "Elvish Archer"
+        ],
+        "top_slots": [
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            2
+          ],
+          [
+            4,
+            3
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00016-team2v2-t0",
+        "family": "a3837afd868e23310001990b12006ac7bd6645ab167b8010d49bc535ff60127e",
+        "turn": 1,
+        "label_type": "Elvish Fighter",
+        "label_slot": [
+          4,
+          2
+        ],
+        "own_counts": {
+          "Elvish Fighter": 1,
+          "Elvish Archer": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Elvish Archer": 0.85,
+          "Elvish Fighter": 1.4,
+          "Elvish Scout": 0.25,
+          "Elvish Shaman": 0.7,
+          "Mage": 0.7,
+          "Merman Hunter": 0.01,
+          "Wose": 0.6
+        },
+        "top_types": [
+          "Elvish Fighter"
+        ],
+        "top_slots": [
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            2
+          ],
+          [
+            4,
+            3
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00016-team2v2-t0",
+        "family": "a3837afd868e23310001990b12006ac7bd6645ab167b8010d49bc535ff60127e",
+        "turn": 1,
+        "label_type": "Elvish Fighter",
+        "label_slot": [
+          2,
+          3
+        ],
+        "own_counts": {
+          "Elvish Fighter": 2,
+          "Elvish Archer": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Elvish Archer": 0.85,
+          "Elvish Fighter": 0.9333333333333332,
+          "Elvish Scout": 0.25,
+          "Elvish Shaman": 0.7,
+          "Mage": 0.7,
+          "Merman Hunter": 0.01,
+          "Wose": 0.6
+        },
+        "top_types": [
+          "Elvish Fighter"
+        ],
+        "top_slots": [
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            3
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00016-team2v2-t0",
+        "family": "a3837afd868e23310001990b12006ac7bd6645ab167b8010d49bc535ff60127e",
+        "turn": 1,
+        "label_type": "Elvish Archer",
+        "label_slot": [
+          4,
+          3
+        ],
+        "own_counts": {
+          "Elvish Fighter": 3,
+          "Elvish Archer": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Elvish Archer": 0.85,
+          "Elvish Fighter": 0.7,
+          "Elvish Scout": 0.25,
+          "Elvish Shaman": 0.7,
+          "Mage": 0.7,
+          "Merman Hunter": 0.01,
+          "Wose": 0.6
+        },
+        "top_types": [
+          "Elvish Archer"
+        ],
+        "top_slots": [
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            3
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00016-team2v2-t0",
+        "family": "a3837afd868e23310001990b12006ac7bd6645ab167b8010d49bc535ff60127e",
+        "turn": 1,
+        "label_type": "Elvish Shaman",
+        "label_slot": [
+          3,
+          4
+        ],
+        "own_counts": {
+          "Elvish Fighter": 3,
+          "Elvish Archer": 2
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Elvish Archer": 0.5666666666666667,
+          "Elvish Fighter": 0.7,
+          "Elvish Scout": 0.25,
+          "Elvish Shaman": 0.7,
+          "Mage": 0.7,
+          "Merman Hunter": 0.01,
+          "Wose": 0.6
+        },
+        "top_types": [
+          "Elvish Fighter",
+          "Elvish Shaman",
+          "Mage"
+        ],
+        "top_slots": [
+          [
+            3,
+            4
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00016-team2v2-t0",
+        "family": "a3837afd868e23310001990b12006ac7bd6645ab167b8010d49bc535ff60127e",
+        "turn": 5,
+        "label_type": "Elvish Shaman",
+        "label_slot": [
+          4,
+          3
+        ],
+        "own_counts": {
+          "Elvish Fighter": 3,
+          "Elvish Archer": 2
+        },
+        "undead": 1,
+        "drakes": 0,
+        "type_scores": {
+          "Elvish Archer": 0.5666666666666667,
+          "Elvish Fighter": 0.7,
+          "Elvish Scout": 0.25,
+          "Elvish Shaman": 0.7,
+          "Merman Hunter": 0.01
+        },
+        "top_types": [
+          "Elvish Fighter",
+          "Elvish Shaman"
+        ],
+        "top_slots": [
+          [
+            4,
+            3
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": false
+      },
+      {
+        "game_id": "teacher-00016-team2v2-t0",
+        "family": "a3837afd868e23310001990b12006ac7bd6645ab167b8010d49bc535ff60127e",
+        "turn": 27,
+        "label_type": "Elvish Fighter",
+        "label_slot": [
+          3,
+          4
+        ],
+        "own_counts": {
+          "Elvish Fighter": 5,
+          "Elvish Archer": 3,
+          "Elvish Shaman": 1
+        },
+        "undead": 1,
+        "drakes": 0,
+        "type_scores": {
+          "Elvish Fighter": 0.4666666666666666,
+          "Elvish Shaman": 0.35,
+          "Merman Hunter": 0.01
+        },
+        "top_types": [
+          "Elvish Fighter"
+        ],
+        "top_slots": [
+          [
+            3,
+            4
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00016-team2v2-t0",
+        "family": "a3837afd868e23310001990b12006ac7bd6645ab167b8010d49bc535ff60127e",
+        "turn": 31,
+        "label_type": "Elvish Fighter",
+        "label_slot": [
+          3,
+          4
+        ],
+        "own_counts": {
+          "Elvish Fighter": 6,
+          "Elvish Archer": 3,
+          "Elvish Shaman": 1
+        },
+        "undead": 1,
+        "drakes": 0,
+        "type_scores": {
+          "Elvish Fighter": 0.39999999999999997
+        },
+        "top_types": [
+          "Elvish Fighter"
+        ],
+        "top_slots": [
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            3
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00016-team2v2-t0",
+        "family": "a3837afd868e23310001990b12006ac7bd6645ab167b8010d49bc535ff60127e",
+        "turn": 37,
+        "label_type": "Elvish Fighter",
+        "label_slot": [
+          4,
+          3
+        ],
+        "own_counts": {
+          "Elvish Archer": 3,
+          "Elvish Shaman": 1,
+          "Elvish Fighter": 6,
+          "Mage": 1
+        },
+        "undead": 1,
+        "drakes": 0,
+        "type_scores": {
+          "Elvish Fighter": 0.39999999999999997
+        },
+        "top_types": [
+          "Elvish Fighter"
+        ],
+        "top_slots": [
+          [
+            2,
+            3
+          ],
+          [
+            4,
+            3
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00013-team2v2-t0",
+        "family": "8c5ed5c5395652c96efc2deea96463bde22bada96847269b8ae3887aee375a42",
+        "turn": 24,
+        "label_type": "Elvish Fighter",
+        "label_slot": [
+          24,
+          11
+        ],
+        "own_counts": {
+          "Elvish Fighter": 6,
+          "Elvish Archer": 2,
+          "Wose": 1
+        },
+        "undead": 0,
+        "drakes": 2,
+        "type_scores": {
+          "Elvish Fighter": 0.39999999999999997
+        },
+        "top_types": [
+          "Elvish Fighter"
+        ],
+        "top_slots": [
+          [
+            24,
+            11
+          ],
+          [
+            24,
+            12
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00013-team2v2-t0",
+        "family": "8c5ed5c5395652c96efc2deea96463bde22bada96847269b8ae3887aee375a42",
+        "turn": 42,
+        "label_type": "Elvish Shaman",
+        "label_slot": [
+          24,
+          11
+        ],
+        "own_counts": {
+          "Elvish Fighter": 5,
+          "Elvish Captain": 1,
+          "Elvish Archer": 1,
+          "Wose": 1
+        },
+        "undead": 0,
+        "drakes": 2,
+        "type_scores": {
+          "Elvish Fighter": 0.4666666666666666,
+          "Elvish Shaman": 0.7,
+          "Merman Hunter": 0.01
+        },
+        "top_types": [
+          "Elvish Shaman"
+        ],
+        "top_slots": [
+          [
+            24,
+            10
+          ],
+          [
+            24,
+            11
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00011-team2v2-t0",
+        "family": "16f2b86fd6bee7d7d4fafb78b566c618dac9988169689df2fbb117031a35b329",
+        "turn": 1,
+        "label_type": "Dark Adept",
+        "label_slot": [
+          12,
+          4
+        ],
+        "own_counts": {},
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Dark Adept": 2.4,
+          "Ghost": 0.65,
+          "Ghoul": 0.65,
+          "Skeleton Archer": 0.8,
+          "Skeleton": 2.2,
+          "Vampire Bat": 0.1,
+          "Walking Corpse": 0.15
+        },
+        "top_types": [
+          "Dark Adept"
+        ],
+        "top_slots": [
+          [
+            12,
+            4
+          ],
+          [
+            13,
+            5
+          ],
+          [
+            13,
+            6
+          ],
+          [
+            14,
+            4
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00011-team2v2-t0",
+        "family": "16f2b86fd6bee7d7d4fafb78b566c618dac9988169689df2fbb117031a35b329",
+        "turn": 1,
+        "label_type": "Skeleton",
+        "label_slot": [
+          14,
+          4
+        ],
+        "own_counts": {
+          "Dark Adept": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Dark Adept": 1.2,
+          "Ghost": 0.65,
+          "Ghoul": 0.65,
+          "Skeleton Archer": 0.8,
+          "Skeleton": 2.2,
+          "Vampire Bat": 0.1,
+          "Walking Corpse": 0.15
+        },
+        "top_types": [
+          "Skeleton"
+        ],
+        "top_slots": [
+          [
+            13,
+            5
+          ],
+          [
+            13,
+            6
+          ],
+          [
+            14,
+            4
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00011-team2v2-t0",
+        "family": "16f2b86fd6bee7d7d4fafb78b566c618dac9988169689df2fbb117031a35b329",
+        "turn": 1,
+        "label_type": "Dark Adept",
+        "label_slot": [
+          13,
+          5
+        ],
+        "own_counts": {
+          "Dark Adept": 1,
+          "Skeleton": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Dark Adept": 1.2,
+          "Ghost": 0.65,
+          "Ghoul": 0.65,
+          "Skeleton Archer": 0.8,
+          "Skeleton": 1.1,
+          "Vampire Bat": 0.1,
+          "Walking Corpse": 0.15
+        },
+        "top_types": [
+          "Dark Adept"
+        ],
+        "top_slots": [
+          [
+            13,
+            5
+          ],
+          [
+            13,
+            6
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00011-team2v2-t0",
+        "family": "16f2b86fd6bee7d7d4fafb78b566c618dac9988169689df2fbb117031a35b329",
+        "turn": 1,
+        "label_type": "Skeleton",
+        "label_slot": [
+          13,
+          6
+        ],
+        "own_counts": {
+          "Dark Adept": 2,
+          "Skeleton": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Dark Adept": 0.7999999999999999,
+          "Ghost": 0.65,
+          "Ghoul": 0.65,
+          "Skeleton Archer": 0.8,
+          "Skeleton": 1.1,
+          "Vampire Bat": 0.1,
+          "Walking Corpse": 0.15
+        },
+        "top_types": [
+          "Skeleton"
+        ],
+        "top_slots": [
+          [
+            13,
+            6
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00011-team2v2-t0",
+        "family": "16f2b86fd6bee7d7d4fafb78b566c618dac9988169689df2fbb117031a35b329",
+        "turn": 2,
+        "label_type": "Skeleton Archer",
+        "label_slot": [
+          13,
+          6
+        ],
+        "own_counts": {
+          "Dark Adept": 2,
+          "Skeleton": 2
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Dark Adept": 0.7999999999999999,
+          "Ghost": 0.65,
+          "Ghoul": 0.65,
+          "Skeleton Archer": 0.8,
+          "Skeleton": 0.7333333333333334,
+          "Vampire Bat": 0.1,
+          "Walking Corpse": 0.15
+        },
+        "top_types": [
+          "Dark Adept",
+          "Skeleton Archer"
+        ],
+        "top_slots": [
+          [
+            13,
+            6
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00011-team2v2-t0",
+        "family": "16f2b86fd6bee7d7d4fafb78b566c618dac9988169689df2fbb117031a35b329",
+        "turn": 2,
+        "label_type": "Dark Adept",
+        "label_slot": [
+          13,
+          5
+        ],
+        "own_counts": {
+          "Dark Adept": 2,
+          "Skeleton": 2,
+          "Skeleton Archer": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Dark Adept": 0.7999999999999999,
+          "Ghost": 0.65,
+          "Ghoul": 0.65,
+          "Skeleton Archer": 0.4,
+          "Skeleton": 0.7333333333333334,
+          "Vampire Bat": 0.1,
+          "Walking Corpse": 0.15
+        },
+        "top_types": [
+          "Dark Adept"
+        ],
+        "top_slots": [
+          [
+            13,
+            5
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00011-team2v2-t0",
+        "family": "16f2b86fd6bee7d7d4fafb78b566c618dac9988169689df2fbb117031a35b329",
+        "turn": 2,
+        "label_type": "Walking Corpse",
+        "label_slot": [
+          12,
+          4
+        ],
+        "own_counts": {
+          "Skeleton": 2,
+          "Skeleton Archer": 1,
+          "Dark Adept": 3
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Walking Corpse": 0.15
+        },
+        "top_types": [
+          "Walking Corpse"
+        ],
+        "top_slots": [
+          [
+            12,
+            4
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00011-team2v2-t0",
+        "family": "16f2b86fd6bee7d7d4fafb78b566c618dac9988169689df2fbb117031a35b329",
+        "turn": 4,
+        "label_type": "Vampire Bat",
+        "label_slot": [
+          13,
+          6
+        ],
+        "own_counts": {
+          "Skeleton Archer": 1,
+          "Dark Adept": 3,
+          "Walking Corpse": 1,
+          "Skeleton": 2
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Vampire Bat": 0.1,
+          "Walking Corpse": 0.075
+        },
+        "top_types": [
+          "Vampire Bat"
+        ],
+        "top_slots": [
+          [
+            13,
+            6
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00011-team2v2-t0",
+        "family": "16f2b86fd6bee7d7d4fafb78b566c618dac9988169689df2fbb117031a35b329",
+        "turn": 5,
+        "label_type": "Walking Corpse",
+        "label_slot": [
+          13,
+          5
+        ],
+        "own_counts": {
+          "Skeleton Archer": 1,
+          "Dark Adept": 3,
+          "Walking Corpse": 1,
+          "Vampire Bat": 1,
+          "Skeleton": 2
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Walking Corpse": 0.075
+        },
+        "top_types": [
+          "Walking Corpse"
+        ],
+        "top_slots": [
+          [
+            13,
+            5
+          ],
+          [
+            14,
+            4
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00011-team2v2-t0",
+        "family": "16f2b86fd6bee7d7d4fafb78b566c618dac9988169689df2fbb117031a35b329",
+        "turn": 6,
+        "label_type": "Skeleton",
+        "label_slot": [
+          14,
+          4
+        ],
+        "own_counts": {
+          "Skeleton Archer": 1,
+          "Walking Corpse": 2,
+          "Vampire Bat": 1,
+          "Dark Adept": 2,
+          "Skeleton": 2
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Skeleton Archer": 0.4,
+          "Skeleton": 0.7333333333333334,
+          "Vampire Bat": 0.05,
+          "Walking Corpse": 0.049999999999999996
+        },
+        "top_types": [
+          "Skeleton"
+        ],
+        "top_slots": [
+          [
+            14,
+            4
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00011-team2v2-t0",
+        "family": "16f2b86fd6bee7d7d4fafb78b566c618dac9988169689df2fbb117031a35b329",
+        "turn": 7,
+        "label_type": "Skeleton Archer",
+        "label_slot": [
+          13,
+          6
+        ],
+        "own_counts": {
+          "Skeleton Archer": 1,
+          "Walking Corpse": 2,
+          "Vampire Bat": 1,
+          "Skeleton": 3,
+          "Dark Adept": 2
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Skeleton Archer": 0.4,
+          "Vampire Bat": 0.05,
+          "Walking Corpse": 0.049999999999999996
+        },
+        "top_types": [
+          "Skeleton Archer"
+        ],
+        "top_slots": [
+          [
+            13,
+            6
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00011-team2v2-t0",
+        "family": "16f2b86fd6bee7d7d4fafb78b566c618dac9988169689df2fbb117031a35b329",
+        "turn": 8,
+        "label_type": "Skeleton Archer",
+        "label_slot": [
+          13,
+          5
+        ],
+        "own_counts": {
+          "Skeleton Archer": 2,
+          "Walking Corpse": 2,
+          "Vampire Bat": 1,
+          "Skeleton": 2,
+          "Dark Adept": 2
+        },
+        "undead": 1,
+        "drakes": 0,
+        "type_scores": {
+          "Skeleton Archer": 0.26666666666666666,
+          "Vampire Bat": 0.05,
+          "Walking Corpse": 0.049999999999999996
+        },
+        "top_types": [
+          "Skeleton Archer"
+        ],
+        "top_slots": [
+          [
+            13,
+            5
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00011-team2v2-t0",
+        "family": "16f2b86fd6bee7d7d4fafb78b566c618dac9988169689df2fbb117031a35b329",
+        "turn": 17,
+        "label_type": "Skeleton",
+        "label_slot": [
+          13,
+          6
+        ],
+        "own_counts": {
+          "Walking Corpse": 3,
+          "Skeleton": 3,
+          "Skeleton Archer": 2,
+          "Dark Adept": 4,
+          "Ghoul": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Dark Adept": 0.48,
+          "Ghoul": 0.325,
+          "Skeleton Archer": 0.26666666666666666,
+          "Skeleton": 0.55,
+          "Vampire Bat": 0.1,
+          "Walking Corpse": 0.0375
+        },
+        "top_types": [
+          "Skeleton"
+        ],
+        "top_slots": [
+          [
+            13,
+            6
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00011-team2v2-t0",
+        "family": "16f2b86fd6bee7d7d4fafb78b566c618dac9988169689df2fbb117031a35b329",
+        "turn": 18,
+        "label_type": "Ghost",
+        "label_slot": [
+          13,
+          5
+        ],
+        "own_counts": {
+          "Walking Corpse": 3,
+          "Skeleton": 3,
+          "Skeleton Archer": 2,
+          "Ghoul": 1,
+          "Dark Adept": 3
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Dark Adept": 0.6,
+          "Ghost": 0.65,
+          "Ghoul": 0.325,
+          "Skeleton Archer": 0.26666666666666666,
+          "Skeleton": 0.55,
+          "Vampire Bat": 0.1
+        },
+        "top_types": [
+          "Ghost"
+        ],
+        "top_slots": [
+          [
+            13,
+            5
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00011-team2v2-t0",
+        "family": "16f2b86fd6bee7d7d4fafb78b566c618dac9988169689df2fbb117031a35b329",
+        "turn": 19,
+        "label_type": "Walking Corpse",
+        "label_slot": [
+          13,
+          6
+        ],
+        "own_counts": {
+          "Walking Corpse": 3,
+          "Skeleton": 3,
+          "Skeleton Archer": 2,
+          "Ghoul": 1,
+          "Dark Adept": 3,
+          "Ghost": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Walking Corpse": 0.0375
+        },
+        "top_types": [
+          "Walking Corpse"
+        ],
+        "top_slots": [
+          [
+            13,
+            6
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00011-team2v2-t0",
+        "family": "16f2b86fd6bee7d7d4fafb78b566c618dac9988169689df2fbb117031a35b329",
+        "turn": 20,
+        "label_type": "Dark Adept",
+        "label_slot": [
+          13,
+          5
+        ],
+        "own_counts": {
+          "Walking Corpse": 4,
+          "Skeleton": 3,
+          "Skeleton Archer": 1,
+          "Ghoul": 1,
+          "Dark Adept": 3,
+          "Ghost": 1
+        },
+        "undead": 1,
+        "drakes": 0,
+        "type_scores": {
+          "Dark Adept": 0.6,
+          "Ghost": 0.325,
+          "Ghoul": 0.325,
+          "Skeleton Archer": 0.4,
+          "Skeleton": 0.55,
+          "Vampire Bat": 0.1
+        },
+        "top_types": [
+          "Dark Adept"
+        ],
+        "top_slots": [
+          [
+            13,
+            5
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00011-team2v2-t0",
+        "family": "16f2b86fd6bee7d7d4fafb78b566c618dac9988169689df2fbb117031a35b329",
+        "turn": 21,
+        "label_type": "Skeleton",
+        "label_slot": [
+          13,
+          6
+        ],
+        "own_counts": {
+          "Walking Corpse": 4,
+          "Skeleton": 2,
+          "Skeleton Archer": 1,
+          "Ghoul": 1,
+          "Dark Adept": 4,
+          "Ghost": 1
+        },
+        "undead": 1,
+        "drakes": 0,
+        "type_scores": {
+          "Dark Adept": 0.48,
+          "Ghost": 0.325,
+          "Ghoul": 0.325,
+          "Skeleton Archer": 0.4,
+          "Skeleton": 0.7333333333333334,
+          "Vampire Bat": 0.1
+        },
+        "top_types": [
+          "Skeleton"
+        ],
+        "top_slots": [
+          [
+            13,
+            6
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00011-team2v2-t0",
+        "family": "16f2b86fd6bee7d7d4fafb78b566c618dac9988169689df2fbb117031a35b329",
+        "turn": 21,
+        "label_type": "Walking Corpse",
+        "label_slot": [
+          12,
+          4
+        ],
+        "own_counts": {
+          "Walking Corpse": 4,
+          "Skeleton": 3,
+          "Skeleton Archer": 1,
+          "Ghoul": 1,
+          "Dark Adept": 4,
+          "Ghost": 1
+        },
+        "undead": 1,
+        "drakes": 0,
+        "type_scores": {
+          "Walking Corpse": 0.03
+        },
+        "top_types": [
+          "Walking Corpse"
+        ],
+        "top_slots": [
+          [
+            12,
+            4
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00011-team2v2-t0",
+        "family": "16f2b86fd6bee7d7d4fafb78b566c618dac9988169689df2fbb117031a35b329",
+        "turn": 25,
+        "label_type": "Skeleton Archer",
+        "label_slot": [
+          13,
+          6
+        ],
+        "own_counts": {
+          "Walking Corpse": 6,
+          "Skeleton": 5,
+          "Skeleton Archer": 1,
+          "Ghoul": 1,
+          "Dark Adept": 5,
+          "Ghost": 1
+        },
+        "undead": 1,
+        "drakes": 0,
+        "type_scores": {
+          "Dark Adept": 0.39999999999999997,
+          "Ghost": 0.325,
+          "Ghoul": 0.325,
+          "Skeleton Archer": 0.4,
+          "Skeleton": 0.3666666666666667,
+          "Vampire Bat": 0.1
+        },
+        "top_types": [
+          "Dark Adept",
+          "Skeleton Archer"
+        ],
+        "top_slots": [
+          [
+            13,
+            6
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00011-team2v2-t0",
+        "family": "16f2b86fd6bee7d7d4fafb78b566c618dac9988169689df2fbb117031a35b329",
+        "turn": 25,
+        "label_type": "Skeleton Archer",
+        "label_slot": [
+          13,
+          5
+        ],
+        "own_counts": {
+          "Walking Corpse": 6,
+          "Skeleton": 5,
+          "Skeleton Archer": 2,
+          "Ghoul": 1,
+          "Dark Adept": 5,
+          "Ghost": 1
+        },
+        "undead": 1,
+        "drakes": 0,
+        "type_scores": {
+          "Skeleton Archer": 0.26666666666666666,
+          "Vampire Bat": 0.1,
+          "Walking Corpse": 0.02142857142857143
+        },
+        "top_types": [
+          "Skeleton Archer"
+        ],
+        "top_slots": [
+          [
+            13,
+            5
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00011-team2v2-t0",
+        "family": "16f2b86fd6bee7d7d4fafb78b566c618dac9988169689df2fbb117031a35b329",
+        "turn": 26,
+        "label_type": "Dark Adept",
+        "label_slot": [
+          14,
+          4
+        ],
+        "own_counts": {
+          "Walking Corpse": 6,
+          "Skeleton": 5,
+          "Bone Shooter": 1,
+          "Ghoul": 1,
+          "Dark Adept": 5,
+          "Ghost": 1,
+          "Skeleton Archer": 2
+        },
+        "undead": 1,
+        "drakes": 0,
+        "type_scores": {
+          "Dark Adept": 0.39999999999999997,
+          "Ghost": 0.325,
+          "Ghoul": 0.325,
+          "Skeleton Archer": 0.26666666666666666,
+          "Skeleton": 0.3666666666666667,
+          "Vampire Bat": 0.1
+        },
+        "top_types": [
+          "Dark Adept"
+        ],
+        "top_slots": [
+          [
+            14,
+            4
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00011-team2v2-t0",
+        "family": "16f2b86fd6bee7d7d4fafb78b566c618dac9988169689df2fbb117031a35b329",
+        "turn": 27,
+        "label_type": "Skeleton",
+        "label_slot": [
+          13,
+          6
+        ],
+        "own_counts": {
+          "Walking Corpse": 6,
+          "Skeleton": 5,
+          "Bone Shooter": 1,
+          "Ghoul": 1,
+          "Dark Adept": 6,
+          "Ghost": 1,
+          "Skeleton Archer": 2
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Dark Adept": 0.34285714285714286,
+          "Ghost": 0.325,
+          "Ghoul": 0.325,
+          "Skeleton Archer": 0.26666666666666666,
+          "Skeleton": 0.3666666666666667,
+          "Vampire Bat": 0.1
+        },
+        "top_types": [
+          "Skeleton"
+        ],
+        "top_slots": [
+          [
+            13,
+            6
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00011-team2v2-t0",
+        "family": "16f2b86fd6bee7d7d4fafb78b566c618dac9988169689df2fbb117031a35b329",
+        "turn": 27,
+        "label_type": "Walking Corpse",
+        "label_slot": [
+          13,
+          5
+        ],
+        "own_counts": {
+          "Walking Corpse": 6,
+          "Skeleton": 6,
+          "Bone Shooter": 1,
+          "Ghoul": 1,
+          "Dark Adept": 6,
+          "Ghost": 1,
+          "Skeleton Archer": 2
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Walking Corpse": 0.02142857142857143
+        },
+        "top_types": [
+          "Walking Corpse"
+        ],
+        "top_slots": [
+          [
+            13,
+            5
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      }
+    ]
+  },
+  "validation": {
+    "samples": 59,
+    "counts": {
+      "type_optimal": 59,
+      "slot_optimal": 59,
+      "own_context_complete": 59,
+      "enemy_count_matches": 59
+    },
+    "unique_type": 56,
+    "unique_slot": 29,
+    "rows": [
+      {
+        "game_id": "teacher-00003-team2v2-t0",
+        "family": "f3b723504120f63a3b0b8c0db9a4626dc7956d0b13d524ae416abbcc0cfe1723",
+        "turn": 17,
+        "label_type": "Orcish Assassin",
+        "label_slot": [
+          13,
+          6
+        ],
+        "own_counts": {
+          "Orcish Grunt": 5,
+          "Goblin Spearman": 2,
+          "Orcish Archer": 1,
+          "Troll Whelp": 2
+        },
+        "undead": 0,
+        "drakes": 1,
+        "type_scores": {
+          "Goblin Spearman": 0.09999999999999999,
+          "Naga Fighter": 0.01,
+          "Orcish Archer": 0.35,
+          "Orcish Assassin": 1.0,
+          "Orcish Grunt": 0.6666666666666666,
+          "Troll Whelp": 0.4666666666666666
+        },
+        "top_types": [
+          "Orcish Assassin"
+        ],
+        "top_slots": [
+          [
+            13,
+            6
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00003-team2v2-t0",
+        "family": "f3b723504120f63a3b0b8c0db9a4626dc7956d0b13d524ae416abbcc0cfe1723",
+        "turn": 19,
+        "label_type": "Orcish Assassin",
+        "label_slot": [
+          13,
+          6
+        ],
+        "own_counts": {
+          "Orcish Grunt": 5,
+          "Goblin Spearman": 2,
+          "Orcish Archer": 1,
+          "Troll Whelp": 2
+        },
+        "undead": 0,
+        "drakes": 1,
+        "type_scores": {
+          "Goblin Spearman": 0.09999999999999999,
+          "Naga Fighter": 0.01,
+          "Orcish Archer": 0.35,
+          "Orcish Assassin": 1.0,
+          "Orcish Grunt": 0.6666666666666666,
+          "Troll Whelp": 0.4666666666666666
+        },
+        "top_types": [
+          "Orcish Assassin"
+        ],
+        "top_slots": [
+          [
+            13,
+            6
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00003-team2v2-t0",
+        "family": "f3b723504120f63a3b0b8c0db9a4626dc7956d0b13d524ae416abbcc0cfe1723",
+        "turn": 21,
+        "label_type": "Orcish Assassin",
+        "label_slot": [
+          13,
+          5
+        ],
+        "own_counts": {
+          "Orcish Grunt": 5,
+          "Goblin Spearman": 2,
+          "Troll Whelp": 2
+        },
+        "undead": 0,
+        "drakes": 2,
+        "type_scores": {
+          "Goblin Spearman": 0.09999999999999999,
+          "Naga Fighter": 0.01,
+          "Orcish Archer": 0.7,
+          "Orcish Assassin": 1.0,
+          "Orcish Grunt": 0.6666666666666666,
+          "Troll Whelp": 0.4666666666666666
+        },
+        "top_types": [
+          "Orcish Assassin"
+        ],
+        "top_slots": [
+          [
+            13,
+            5
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00003-team2v2-t0",
+        "family": "f3b723504120f63a3b0b8c0db9a4626dc7956d0b13d524ae416abbcc0cfe1723",
+        "turn": 23,
+        "label_type": "Orcish Archer",
+        "label_slot": [
+          13,
+          6
+        ],
+        "own_counts": {
+          "Orcish Grunt": 5,
+          "Goblin Spearman": 1,
+          "Troll Whelp": 2,
+          "Orcish Assassin": 1
+        },
+        "undead": 0,
+        "drakes": 1,
+        "type_scores": {
+          "Goblin Spearman": 0.15,
+          "Naga Fighter": 0.01,
+          "Orcish Archer": 0.7,
+          "Orcish Grunt": 0.6666666666666666,
+          "Troll Whelp": 0.4666666666666666
+        },
+        "top_types": [
+          "Orcish Archer"
+        ],
+        "top_slots": [
+          [
+            13,
+            6
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00003-team2v2-t0",
+        "family": "f3b723504120f63a3b0b8c0db9a4626dc7956d0b13d524ae416abbcc0cfe1723",
+        "turn": 26,
+        "label_type": "Orcish Archer",
+        "label_slot": [
+          13,
+          5
+        ],
+        "own_counts": {
+          "Orcish Grunt": 5,
+          "Goblin Spearman": 1,
+          "Troll Whelp": 2,
+          "Orcish Assassin": 1
+        },
+        "undead": 0,
+        "drakes": 2,
+        "type_scores": {
+          "Goblin Spearman": 0.15,
+          "Naga Fighter": 0.01,
+          "Orcish Archer": 0.7,
+          "Orcish Assassin": 0.5,
+          "Orcish Grunt": 0.6666666666666666,
+          "Troll Whelp": 0.4666666666666666
+        },
+        "top_types": [
+          "Orcish Archer"
+        ],
+        "top_slots": [
+          [
+            13,
+            5
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00003-team2v2-t0",
+        "family": "f3b723504120f63a3b0b8c0db9a4626dc7956d0b13d524ae416abbcc0cfe1723",
+        "turn": 34,
+        "label_type": "Troll Whelp",
+        "label_slot": [
+          14,
+          4
+        ],
+        "own_counts": {
+          "Orcish Grunt": 5,
+          "Troll Whelp": 1,
+          "Orcish Assassin": 1
+        },
+        "undead": 0,
+        "drakes": 2,
+        "type_scores": {
+          "Goblin Spearman": 0.3,
+          "Naga Fighter": 0.01,
+          "Orcish Archer": 0.7,
+          "Orcish Assassin": 0.5,
+          "Orcish Grunt": 0.6666666666666666,
+          "Troll Whelp": 0.7
+        },
+        "top_types": [
+          "Orcish Archer",
+          "Troll Whelp"
+        ],
+        "top_slots": [
+          [
+            14,
+            4
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00003-team2v2-t0",
+        "family": "f3b723504120f63a3b0b8c0db9a4626dc7956d0b13d524ae416abbcc0cfe1723",
+        "turn": 35,
+        "label_type": "Orcish Assassin",
+        "label_slot": [
+          13,
+          6
+        ],
+        "own_counts": {
+          "Orcish Grunt": 3,
+          "Troll Whelp": 2
+        },
+        "undead": 0,
+        "drakes": 1,
+        "type_scores": {
+          "Goblin Spearman": 0.3,
+          "Naga Fighter": 0.01,
+          "Orcish Archer": 0.7,
+          "Orcish Assassin": 1.0,
+          "Orcish Grunt": 1.0,
+          "Troll Whelp": 0.4666666666666666
+        },
+        "top_types": [
+          "Orcish Assassin",
+          "Orcish Grunt"
+        ],
+        "top_slots": [
+          [
+            13,
+            6
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00014-team2v2-t0",
+        "family": "823c993bbcbb22ef31be74630ac14e791f09c8ca8846aebb7bd4b1d1a611be4b",
+        "turn": 1,
+        "label_type": "Dark Adept",
+        "label_slot": [
+          16,
+          2
+        ],
+        "own_counts": {},
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Dark Adept": 2.4,
+          "Ghost": 0.65,
+          "Ghoul": 0.65,
+          "Skeleton Archer": 0.8,
+          "Skeleton": 2.2,
+          "Vampire Bat": 0.1,
+          "Walking Corpse": 0.15
+        },
+        "top_types": [
+          "Dark Adept"
+        ],
+        "top_slots": [
+          [
+            16,
+            2
+          ],
+          [
+            16,
+            3
+          ],
+          [
+            17,
+            2
+          ],
+          [
+            17,
+            4
+          ],
+          [
+            18,
+            2
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00014-team2v2-t0",
+        "family": "823c993bbcbb22ef31be74630ac14e791f09c8ca8846aebb7bd4b1d1a611be4b",
+        "turn": 1,
+        "label_type": "Skeleton",
+        "label_slot": [
+          17,
+          2
+        ],
+        "own_counts": {
+          "Dark Adept": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Dark Adept": 1.2,
+          "Ghost": 0.65,
+          "Ghoul": 0.65,
+          "Skeleton Archer": 0.8,
+          "Skeleton": 2.2,
+          "Vampire Bat": 0.1,
+          "Walking Corpse": 0.15
+        },
+        "top_types": [
+          "Skeleton"
+        ],
+        "top_slots": [
+          [
+            16,
+            3
+          ],
+          [
+            17,
+            2
+          ],
+          [
+            17,
+            4
+          ],
+          [
+            18,
+            2
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00014-team2v2-t0",
+        "family": "823c993bbcbb22ef31be74630ac14e791f09c8ca8846aebb7bd4b1d1a611be4b",
+        "turn": 1,
+        "label_type": "Dark Adept",
+        "label_slot": [
+          18,
+          2
+        ],
+        "own_counts": {
+          "Dark Adept": 1,
+          "Skeleton": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Dark Adept": 1.2,
+          "Ghost": 0.65,
+          "Ghoul": 0.65,
+          "Skeleton Archer": 0.8,
+          "Skeleton": 1.1,
+          "Vampire Bat": 0.1,
+          "Walking Corpse": 0.15
+        },
+        "top_types": [
+          "Dark Adept"
+        ],
+        "top_slots": [
+          [
+            16,
+            3
+          ],
+          [
+            17,
+            4
+          ],
+          [
+            18,
+            2
+          ],
+          [
+            18,
+            3
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00014-team2v2-t0",
+        "family": "823c993bbcbb22ef31be74630ac14e791f09c8ca8846aebb7bd4b1d1a611be4b",
+        "turn": 1,
+        "label_type": "Skeleton",
+        "label_slot": [
+          16,
+          3
+        ],
+        "own_counts": {
+          "Dark Adept": 2,
+          "Skeleton": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Dark Adept": 0.7999999999999999,
+          "Ghost": 0.65,
+          "Ghoul": 0.65,
+          "Skeleton Archer": 0.8,
+          "Skeleton": 1.1,
+          "Vampire Bat": 0.1,
+          "Walking Corpse": 0.15
+        },
+        "top_types": [
+          "Skeleton"
+        ],
+        "top_slots": [
+          [
+            16,
+            3
+          ],
+          [
+            17,
+            4
+          ],
+          [
+            18,
+            3
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00014-team2v2-t0",
+        "family": "823c993bbcbb22ef31be74630ac14e791f09c8ca8846aebb7bd4b1d1a611be4b",
+        "turn": 1,
+        "label_type": "Skeleton Archer",
+        "label_slot": [
+          18,
+          3
+        ],
+        "own_counts": {
+          "Dark Adept": 2,
+          "Skeleton": 2
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Dark Adept": 0.7999999999999999,
+          "Ghost": 0.65,
+          "Ghoul": 0.65,
+          "Skeleton Archer": 0.8,
+          "Skeleton": 0.7333333333333334,
+          "Vampire Bat": 0.1,
+          "Walking Corpse": 0.15
+        },
+        "top_types": [
+          "Dark Adept",
+          "Skeleton Archer"
+        ],
+        "top_slots": [
+          [
+            17,
+            4
+          ],
+          [
+            18,
+            3
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00014-team2v2-t0",
+        "family": "823c993bbcbb22ef31be74630ac14e791f09c8ca8846aebb7bd4b1d1a611be4b",
+        "turn": 1,
+        "label_type": "Dark Adept",
+        "label_slot": [
+          17,
+          4
+        ],
+        "own_counts": {
+          "Dark Adept": 2,
+          "Skeleton": 2,
+          "Skeleton Archer": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Dark Adept": 0.7999999999999999,
+          "Ghost": 0.65,
+          "Ghoul": 0.65,
+          "Skeleton Archer": 0.4,
+          "Skeleton": 0.7333333333333334,
+          "Vampire Bat": 0.1,
+          "Walking Corpse": 0.15
+        },
+        "top_types": [
+          "Dark Adept"
+        ],
+        "top_slots": [
+          [
+            17,
+            4
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00014-team2v2-t0",
+        "family": "823c993bbcbb22ef31be74630ac14e791f09c8ca8846aebb7bd4b1d1a611be4b",
+        "turn": 2,
+        "label_type": "Walking Corpse",
+        "label_slot": [
+          16,
+          2
+        ],
+        "own_counts": {
+          "Skeleton": 2,
+          "Dark Adept": 3,
+          "Skeleton Archer": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Walking Corpse": 0.15
+        },
+        "top_types": [
+          "Walking Corpse"
+        ],
+        "top_slots": [
+          [
+            16,
+            2
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00014-team2v2-t0",
+        "family": "823c993bbcbb22ef31be74630ac14e791f09c8ca8846aebb7bd4b1d1a611be4b",
+        "turn": 6,
+        "label_type": "Walking Corpse",
+        "label_slot": [
+          17,
+          4
+        ],
+        "own_counts": {
+          "Dark Adept": 2,
+          "Skeleton": 2,
+          "Skeleton Archer": 1,
+          "Walking Corpse": 1
+        },
+        "undead": 0,
+        "drakes": 2,
+        "type_scores": {
+          "Walking Corpse": 0.075
+        },
+        "top_types": [
+          "Walking Corpse"
+        ],
+        "top_slots": [
+          [
+            16,
+            3
+          ],
+          [
+            17,
+            4
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00014-team2v2-t0",
+        "family": "823c993bbcbb22ef31be74630ac14e791f09c8ca8846aebb7bd4b1d1a611be4b",
+        "turn": 7,
+        "label_type": "Walking Corpse",
+        "label_slot": [
+          16,
+          3
+        ],
+        "own_counts": {
+          "Dark Adept": 2,
+          "Skeleton": 2,
+          "Skeleton Archer": 1,
+          "Walking Corpse": 2
+        },
+        "undead": 0,
+        "drakes": 1,
+        "type_scores": {
+          "Walking Corpse": 0.049999999999999996
+        },
+        "top_types": [
+          "Walking Corpse"
+        ],
+        "top_slots": [
+          [
+            16,
+            3
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00014-team2v2-t0",
+        "family": "823c993bbcbb22ef31be74630ac14e791f09c8ca8846aebb7bd4b1d1a611be4b",
+        "turn": 8,
+        "label_type": "Walking Corpse",
+        "label_slot": [
+          17,
+          4
+        ],
+        "own_counts": {
+          "Dark Adept": 2,
+          "Skeleton": 1,
+          "Skeleton Archer": 1,
+          "Walking Corpse": 3
+        },
+        "undead": 0,
+        "drakes": 2,
+        "type_scores": {
+          "Walking Corpse": 0.0375
+        },
+        "top_types": [
+          "Walking Corpse"
+        ],
+        "top_slots": [
+          [
+            17,
+            4
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00014-team2v2-t0",
+        "family": "823c993bbcbb22ef31be74630ac14e791f09c8ca8846aebb7bd4b1d1a611be4b",
+        "turn": 33,
+        "label_type": "Walking Corpse",
+        "label_slot": [
+          16,
+          3
+        ],
+        "own_counts": {
+          "Walking Corpse": 14,
+          "Dark Adept": 1,
+          "Skeleton": 1,
+          "Vampire Bat": 1,
+          "Skeleton Archer": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Walking Corpse": 0.01
+        },
+        "top_types": [
+          "Walking Corpse"
+        ],
+        "top_slots": [
+          [
+            16,
+            3
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00014-team2v2-t0",
+        "family": "823c993bbcbb22ef31be74630ac14e791f09c8ca8846aebb7bd4b1d1a611be4b",
+        "turn": 34,
+        "label_type": "Walking Corpse",
+        "label_slot": [
+          16,
+          2
+        ],
+        "own_counts": {
+          "Walking Corpse": 15,
+          "Dark Adept": 1,
+          "Skeleton": 1,
+          "Vampire Bat": 1,
+          "Skeleton Archer": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Walking Corpse": 0.009375
+        },
+        "top_types": [
+          "Walking Corpse"
+        ],
+        "top_slots": [
+          [
+            16,
+            2
+          ],
+          [
+            17,
+            4
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00014-team2v2-t0",
+        "family": "823c993bbcbb22ef31be74630ac14e791f09c8ca8846aebb7bd4b1d1a611be4b",
+        "turn": 35,
+        "label_type": "Skeleton Archer",
+        "label_slot": [
+          17,
+          4
+        ],
+        "own_counts": {
+          "Walking Corpse": 16,
+          "Dark Adept": 1,
+          "Skeleton": 1,
+          "Vampire Bat": 1,
+          "Skeleton Archer": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Skeleton Archer": 0.4,
+          "Vampire Bat": 0.05,
+          "Walking Corpse": 0.008823529411764706
+        },
+        "top_types": [
+          "Skeleton Archer"
+        ],
+        "top_slots": [
+          [
+            17,
+            4
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00014-team2v2-t0",
+        "family": "823c993bbcbb22ef31be74630ac14e791f09c8ca8846aebb7bd4b1d1a611be4b",
+        "turn": 36,
+        "label_type": "Skeleton Archer",
+        "label_slot": [
+          18,
+          3
+        ],
+        "own_counts": {
+          "Walking Corpse": 15,
+          "Dark Adept": 1,
+          "Skeleton": 1,
+          "Vampire Bat": 1,
+          "Skeleton Archer": 2
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Skeleton Archer": 0.26666666666666666,
+          "Vampire Bat": 0.05,
+          "Walking Corpse": 0.009375
+        },
+        "top_types": [
+          "Skeleton Archer"
+        ],
+        "top_slots": [
+          [
+            16,
+            3
+          ],
+          [
+            18,
+            3
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00014-team2v2-t0",
+        "family": "823c993bbcbb22ef31be74630ac14e791f09c8ca8846aebb7bd4b1d1a611be4b",
+        "turn": 37,
+        "label_type": "Walking Corpse",
+        "label_slot": [
+          17,
+          4
+        ],
+        "own_counts": {
+          "Walking Corpse": 15,
+          "Dark Sorcerer": 1,
+          "Skeleton": 1,
+          "Skeleton Archer": 3
+        },
+        "undead": 1,
+        "drakes": 0,
+        "type_scores": {
+          "Walking Corpse": 0.009375
+        },
+        "top_types": [
+          "Walking Corpse"
+        ],
+        "top_slots": [
+          [
+            16,
+            3
+          ],
+          [
+            17,
+            4
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00014-team2v2-t0",
+        "family": "823c993bbcbb22ef31be74630ac14e791f09c8ca8846aebb7bd4b1d1a611be4b",
+        "turn": 38,
+        "label_type": "Skeleton Archer",
+        "label_slot": [
+          16,
+          3
+        ],
+        "own_counts": {
+          "Walking Corpse": 16,
+          "Dark Sorcerer": 1,
+          "Skeleton": 1,
+          "Skeleton Archer": 3
+        },
+        "undead": 1,
+        "drakes": 0,
+        "type_scores": {
+          "Skeleton Archer": 0.2,
+          "Vampire Bat": 0.1,
+          "Walking Corpse": 0.008823529411764706
+        },
+        "top_types": [
+          "Skeleton Archer"
+        ],
+        "top_slots": [
+          [
+            16,
+            3
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00019-team2v2-t0",
+        "family": "d2b43eef083665ecc05acac94568764c1760c5fab81728da0fe15a7360a5ef52",
+        "turn": 1,
+        "label_type": "Dwarvish Fighter",
+        "label_slot": [
+          12,
+          4
+        ],
+        "own_counts": {},
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Dwarvish Fighter": 2.3,
+          "Dwarvish Guardsman": 0.3,
+          "Dwarvish Thunderer": 0.8,
+          "Dwarvish Ulfserker": 0.25,
+          "Footpad": 1.3,
+          "Gryphon Rider": 0.3,
+          "Poacher": 1.0,
+          "Thief": 0.4
+        },
+        "top_types": [
+          "Dwarvish Fighter"
+        ],
+        "top_slots": [
+          [
+            12,
+            4
+          ],
+          [
+            13,
+            5
+          ],
+          [
+            13,
+            6
+          ],
+          [
+            14,
+            4
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00019-team2v2-t0",
+        "family": "d2b43eef083665ecc05acac94568764c1760c5fab81728da0fe15a7360a5ef52",
+        "turn": 1,
+        "label_type": "Footpad",
+        "label_slot": [
+          14,
+          4
+        ],
+        "own_counts": {
+          "Dwarvish Fighter": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Dwarvish Fighter": 1.15,
+          "Dwarvish Guardsman": 0.3,
+          "Dwarvish Thunderer": 0.8,
+          "Dwarvish Ulfserker": 0.25,
+          "Footpad": 1.3,
+          "Gryphon Rider": 0.3,
+          "Poacher": 1.0,
+          "Thief": 0.4
+        },
+        "top_types": [
+          "Footpad"
+        ],
+        "top_slots": [
+          [
+            13,
+            5
+          ],
+          [
+            13,
+            6
+          ],
+          [
+            14,
+            4
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00019-team2v2-t0",
+        "family": "d2b43eef083665ecc05acac94568764c1760c5fab81728da0fe15a7360a5ef52",
+        "turn": 1,
+        "label_type": "Dwarvish Fighter",
+        "label_slot": [
+          13,
+          5
+        ],
+        "own_counts": {
+          "Dwarvish Fighter": 1,
+          "Footpad": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Dwarvish Fighter": 1.15,
+          "Dwarvish Guardsman": 0.3,
+          "Dwarvish Thunderer": 0.8,
+          "Dwarvish Ulfserker": 0.25,
+          "Footpad": 0.65,
+          "Gryphon Rider": 0.3,
+          "Poacher": 1.0,
+          "Thief": 0.4
+        },
+        "top_types": [
+          "Dwarvish Fighter"
+        ],
+        "top_slots": [
+          [
+            13,
+            5
+          ],
+          [
+            13,
+            6
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00019-team2v2-t0",
+        "family": "d2b43eef083665ecc05acac94568764c1760c5fab81728da0fe15a7360a5ef52",
+        "turn": 1,
+        "label_type": "Poacher",
+        "label_slot": [
+          13,
+          6
+        ],
+        "own_counts": {
+          "Dwarvish Fighter": 2,
+          "Footpad": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Dwarvish Fighter": 0.7666666666666666,
+          "Dwarvish Guardsman": 0.3,
+          "Dwarvish Thunderer": 0.8,
+          "Dwarvish Ulfserker": 0.25,
+          "Footpad": 0.65,
+          "Gryphon Rider": 0.3,
+          "Poacher": 1.0,
+          "Thief": 0.4
+        },
+        "top_types": [
+          "Poacher"
+        ],
+        "top_slots": [
+          [
+            13,
+            6
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00019-team2v2-t0",
+        "family": "d2b43eef083665ecc05acac94568764c1760c5fab81728da0fe15a7360a5ef52",
+        "turn": 2,
+        "label_type": "Dwarvish Thunderer",
+        "label_slot": [
+          13,
+          6
+        ],
+        "own_counts": {
+          "Dwarvish Fighter": 2,
+          "Footpad": 1,
+          "Poacher": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Dwarvish Fighter": 0.7666666666666666,
+          "Dwarvish Guardsman": 0.3,
+          "Dwarvish Thunderer": 0.8,
+          "Dwarvish Ulfserker": 0.25,
+          "Footpad": 0.65,
+          "Gryphon Rider": 0.3,
+          "Poacher": 0.5,
+          "Thief": 0.4
+        },
+        "top_types": [
+          "Dwarvish Thunderer"
+        ],
+        "top_slots": [
+          [
+            13,
+            6
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00019-team2v2-t0",
+        "family": "d2b43eef083665ecc05acac94568764c1760c5fab81728da0fe15a7360a5ef52",
+        "turn": 2,
+        "label_type": "Dwarvish Fighter",
+        "label_slot": [
+          13,
+          5
+        ],
+        "own_counts": {
+          "Dwarvish Fighter": 2,
+          "Footpad": 1,
+          "Dwarvish Thunderer": 1,
+          "Poacher": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Dwarvish Fighter": 0.7666666666666666,
+          "Dwarvish Guardsman": 0.3,
+          "Dwarvish Thunderer": 0.4,
+          "Dwarvish Ulfserker": 0.25,
+          "Footpad": 0.65,
+          "Gryphon Rider": 0.3,
+          "Poacher": 0.5,
+          "Thief": 0.4
+        },
+        "top_types": [
+          "Dwarvish Fighter"
+        ],
+        "top_slots": [
+          [
+            13,
+            5
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00019-team2v2-t0",
+        "family": "d2b43eef083665ecc05acac94568764c1760c5fab81728da0fe15a7360a5ef52",
+        "turn": 4,
+        "label_type": "Footpad",
+        "label_slot": [
+          13,
+          6
+        ],
+        "own_counts": {
+          "Dwarvish Thunderer": 1,
+          "Dwarvish Fighter": 3,
+          "Footpad": 1,
+          "Poacher": 1
+        },
+        "undead": 1,
+        "drakes": 1,
+        "type_scores": {
+          "Dwarvish Fighter": 0.575,
+          "Dwarvish Guardsman": 0.3,
+          "Dwarvish Thunderer": 0.4,
+          "Dwarvish Ulfserker": 0.25,
+          "Footpad": 0.65,
+          "Poacher": 0.5
+        },
+        "top_types": [
+          "Footpad"
+        ],
+        "top_slots": [
+          [
+            13,
+            6
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00019-team2v2-t0",
+        "family": "d2b43eef083665ecc05acac94568764c1760c5fab81728da0fe15a7360a5ef52",
+        "turn": 6,
+        "label_type": "Dwarvish Thunderer",
+        "label_slot": [
+          13,
+          6
+        ],
+        "own_counts": {
+          "Dwarvish Fighter": 2,
+          "Footpad": 1,
+          "Poacher": 1
+        },
+        "undead": 1,
+        "drakes": 0,
+        "type_scores": {
+          "Dwarvish Fighter": 0.7666666666666666,
+          "Dwarvish Thunderer": 0.8,
+          "Footpad": 0.65,
+          "Poacher": 0.5,
+          "Thief": 0.4
+        },
+        "top_types": [
+          "Dwarvish Thunderer"
+        ],
+        "top_slots": [
+          [
+            13,
+            6
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00019-team2v2-t0",
+        "family": "d2b43eef083665ecc05acac94568764c1760c5fab81728da0fe15a7360a5ef52",
+        "turn": 9,
+        "label_type": "Dwarvish Fighter",
+        "label_slot": [
+          13,
+          6
+        ],
+        "own_counts": {
+          "Dwarvish Fighter": 1,
+          "Footpad": 1,
+          "Dwarvish Thunderer": 1,
+          "Poacher": 1
+        },
+        "undead": 1,
+        "drakes": 1,
+        "type_scores": {
+          "Dwarvish Fighter": 1.15,
+          "Dwarvish Thunderer": 0.4,
+          "Footpad": 0.65,
+          "Poacher": 0.5,
+          "Thief": 0.4
+        },
+        "top_types": [
+          "Dwarvish Fighter"
+        ],
+        "top_slots": [
+          [
+            13,
+            6
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00019-team2v2-t0",
+        "family": "d2b43eef083665ecc05acac94568764c1760c5fab81728da0fe15a7360a5ef52",
+        "turn": 12,
+        "label_type": "Thief",
+        "label_slot": [
+          13,
+          6
+        ],
+        "own_counts": {
+          "Dwarvish Fighter": 2,
+          "Footpad": 1,
+          "Dwarvish Thunderer": 1
+        },
+        "undead": 4,
+        "drakes": 1,
+        "type_scores": {
+          "Thief": 0.4
+        },
+        "top_types": [
+          "Thief"
+        ],
+        "top_slots": [
+          [
+            13,
+            6
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00019-team2v2-t0",
+        "family": "d2b43eef083665ecc05acac94568764c1760c5fab81728da0fe15a7360a5ef52",
+        "turn": 16,
+        "label_type": "Footpad",
+        "label_slot": [
+          13,
+          6
+        ],
+        "own_counts": {
+          "Dwarvish Fighter": 1
+        },
+        "undead": 0,
+        "drakes": 1,
+        "type_scores": {
+          "Dwarvish Fighter": 1.15,
+          "Dwarvish Thunderer": 0.8,
+          "Footpad": 1.3,
+          "Poacher": 1.0,
+          "Thief": 0.4
+        },
+        "top_types": [
+          "Footpad"
+        ],
+        "top_slots": [
+          [
+            13,
+            6
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00019-team2v2-t0",
+        "family": "d2b43eef083665ecc05acac94568764c1760c5fab81728da0fe15a7360a5ef52",
+        "turn": 20,
+        "label_type": "Footpad",
+        "label_slot": [
+          13,
+          6
+        ],
+        "own_counts": {
+          "Dwarvish Fighter": 1
+        },
+        "undead": 2,
+        "drakes": 0,
+        "type_scores": {
+          "Dwarvish Fighter": 1.15,
+          "Dwarvish Guardsman": 0.3,
+          "Dwarvish Thunderer": 0.8,
+          "Dwarvish Ulfserker": 0.25,
+          "Footpad": 1.3,
+          "Gryphon Rider": 0.3,
+          "Poacher": 1.0,
+          "Thief": 0.4
+        },
+        "top_types": [
+          "Footpad"
+        ],
+        "top_slots": [
+          [
+            13,
+            6
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00019-team2v2-t0",
+        "family": "d2b43eef083665ecc05acac94568764c1760c5fab81728da0fe15a7360a5ef52",
+        "turn": 21,
+        "label_type": "Footpad",
+        "label_slot": [
+          13,
+          6
+        ],
+        "own_counts": {
+          "Dwarvish Fighter": 1
+        },
+        "undead": 3,
+        "drakes": 1,
+        "type_scores": {
+          "Dwarvish Fighter": 1.15,
+          "Footpad": 1.3,
+          "Poacher": 1.0,
+          "Thief": 0.4
+        },
+        "top_types": [
+          "Footpad"
+        ],
+        "top_slots": [
+          [
+            13,
+            6
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00018-team2v2-t0",
+        "family": "9f6afdfe3e81d3623d4d8f4940591638dd7bb2d20c27101a98ad2be12ffeed6b",
+        "turn": 30,
+        "label_type": "Saurian Augur",
+        "label_slot": [
+          17,
+          4
+        ],
+        "own_counts": {
+          "Drake Warrior": 1,
+          "Drake Fighter": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Drake Glider": 0.25,
+          "Saurian Augur": 1.2,
+          "Saurian Skirmisher": 0.8
+        },
+        "top_types": [
+          "Saurian Augur"
+        ],
+        "top_slots": [
+          [
+            16,
+            3
+          ],
+          [
+            17,
+            4
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00022-team2v2-t0",
+        "family": "d1e77a6d71a7de577e1681450f915ce3ea40b3ca13f60207343d01ebbd850033",
+        "turn": 1,
+        "label_type": "Dwarvish Fighter",
+        "label_slot": [
+          16,
+          2
+        ],
+        "own_counts": {},
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Dwarvish Fighter": 2.3,
+          "Dwarvish Guardsman": 0.3,
+          "Dwarvish Thunderer": 0.8,
+          "Dwarvish Ulfserker": 0.25,
+          "Footpad": 1.3,
+          "Gryphon Rider": 0.3,
+          "Poacher": 1.0,
+          "Thief": 0.4
+        },
+        "top_types": [
+          "Dwarvish Fighter"
+        ],
+        "top_slots": [
+          [
+            16,
+            2
+          ],
+          [
+            16,
+            3
+          ],
+          [
+            17,
+            2
+          ],
+          [
+            17,
+            4
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00022-team2v2-t0",
+        "family": "d1e77a6d71a7de577e1681450f915ce3ea40b3ca13f60207343d01ebbd850033",
+        "turn": 1,
+        "label_type": "Footpad",
+        "label_slot": [
+          17,
+          2
+        ],
+        "own_counts": {
+          "Dwarvish Fighter": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Dwarvish Fighter": 1.15,
+          "Dwarvish Guardsman": 0.3,
+          "Dwarvish Thunderer": 0.8,
+          "Dwarvish Ulfserker": 0.25,
+          "Footpad": 1.3,
+          "Gryphon Rider": 0.3,
+          "Poacher": 1.0,
+          "Thief": 0.4
+        },
+        "top_types": [
+          "Footpad"
+        ],
+        "top_slots": [
+          [
+            16,
+            3
+          ],
+          [
+            17,
+            2
+          ],
+          [
+            17,
+            4
+          ],
+          [
+            18,
+            2
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00022-team2v2-t0",
+        "family": "d1e77a6d71a7de577e1681450f915ce3ea40b3ca13f60207343d01ebbd850033",
+        "turn": 1,
+        "label_type": "Dwarvish Fighter",
+        "label_slot": [
+          18,
+          2
+        ],
+        "own_counts": {
+          "Dwarvish Fighter": 1,
+          "Footpad": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Dwarvish Fighter": 1.15,
+          "Dwarvish Guardsman": 0.3,
+          "Dwarvish Thunderer": 0.8,
+          "Dwarvish Ulfserker": 0.25,
+          "Footpad": 0.65,
+          "Gryphon Rider": 0.3,
+          "Poacher": 1.0,
+          "Thief": 0.4
+        },
+        "top_types": [
+          "Dwarvish Fighter"
+        ],
+        "top_slots": [
+          [
+            16,
+            3
+          ],
+          [
+            17,
+            4
+          ],
+          [
+            18,
+            2
+          ],
+          [
+            18,
+            3
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00022-team2v2-t0",
+        "family": "d1e77a6d71a7de577e1681450f915ce3ea40b3ca13f60207343d01ebbd850033",
+        "turn": 1,
+        "label_type": "Poacher",
+        "label_slot": [
+          16,
+          3
+        ],
+        "own_counts": {
+          "Dwarvish Fighter": 2,
+          "Footpad": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Dwarvish Fighter": 0.7666666666666666,
+          "Dwarvish Guardsman": 0.3,
+          "Dwarvish Thunderer": 0.8,
+          "Dwarvish Ulfserker": 0.25,
+          "Footpad": 0.65,
+          "Gryphon Rider": 0.3,
+          "Poacher": 1.0,
+          "Thief": 0.4
+        },
+        "top_types": [
+          "Poacher"
+        ],
+        "top_slots": [
+          [
+            16,
+            3
+          ],
+          [
+            17,
+            4
+          ],
+          [
+            18,
+            3
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00022-team2v2-t0",
+        "family": "d1e77a6d71a7de577e1681450f915ce3ea40b3ca13f60207343d01ebbd850033",
+        "turn": 1,
+        "label_type": "Dwarvish Thunderer",
+        "label_slot": [
+          18,
+          3
+        ],
+        "own_counts": {
+          "Dwarvish Fighter": 2,
+          "Footpad": 1,
+          "Poacher": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Dwarvish Fighter": 0.7666666666666666,
+          "Dwarvish Guardsman": 0.3,
+          "Dwarvish Thunderer": 0.8,
+          "Dwarvish Ulfserker": 0.25,
+          "Footpad": 0.65,
+          "Gryphon Rider": 0.3,
+          "Poacher": 0.5,
+          "Thief": 0.4
+        },
+        "top_types": [
+          "Dwarvish Thunderer"
+        ],
+        "top_slots": [
+          [
+            17,
+            4
+          ],
+          [
+            18,
+            3
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00022-team2v2-t0",
+        "family": "d1e77a6d71a7de577e1681450f915ce3ea40b3ca13f60207343d01ebbd850033",
+        "turn": 1,
+        "label_type": "Dwarvish Fighter",
+        "label_slot": [
+          17,
+          4
+        ],
+        "own_counts": {
+          "Dwarvish Fighter": 2,
+          "Footpad": 1,
+          "Poacher": 1,
+          "Dwarvish Thunderer": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Dwarvish Fighter": 0.7666666666666666,
+          "Dwarvish Guardsman": 0.3,
+          "Dwarvish Thunderer": 0.4,
+          "Dwarvish Ulfserker": 0.25,
+          "Footpad": 0.65,
+          "Gryphon Rider": 0.3,
+          "Poacher": 0.5,
+          "Thief": 0.4
+        },
+        "top_types": [
+          "Dwarvish Fighter"
+        ],
+        "top_slots": [
+          [
+            17,
+            4
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00022-team2v2-t0",
+        "family": "d1e77a6d71a7de577e1681450f915ce3ea40b3ca13f60207343d01ebbd850033",
+        "turn": 13,
+        "label_type": "Thief",
+        "label_slot": [
+          16,
+          3
+        ],
+        "own_counts": {
+          "Dwarvish Fighter": 2,
+          "Poacher": 1
+        },
+        "undead": 3,
+        "drakes": 0,
+        "type_scores": {
+          "Thief": 0.4
+        },
+        "top_types": [
+          "Thief"
+        ],
+        "top_slots": [
+          [
+            16,
+            3
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00000-team2v2-t0",
+        "family": "a9bf96660690df186f5dd501ea300b904d7e0d78b24c5c3599cf17d2591ab0b0",
+        "turn": 1,
+        "label_type": "Drake Fighter",
+        "label_slot": [
+          2,
+          2
+        ],
+        "own_counts": {},
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Drake Burner": 1.0,
+          "Drake Clasher": 1.4,
+          "Drake Fighter": 1.8,
+          "Drake Glider": 0.25,
+          "Saurian Augur": 1.2,
+          "Saurian Skirmisher": 0.8
+        },
+        "top_types": [
+          "Drake Fighter"
+        ],
+        "top_slots": [
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            2
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00000-team2v2-t0",
+        "family": "a9bf96660690df186f5dd501ea300b904d7e0d78b24c5c3599cf17d2591ab0b0",
+        "turn": 1,
+        "label_type": "Drake Clasher",
+        "label_slot": [
+          3,
+          2
+        ],
+        "own_counts": {
+          "Drake Fighter": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Drake Burner": 1.0,
+          "Drake Clasher": 1.4,
+          "Drake Fighter": 0.9,
+          "Drake Glider": 0.25,
+          "Saurian Augur": 1.2,
+          "Saurian Skirmisher": 0.8
+        },
+        "top_types": [
+          "Drake Clasher"
+        ],
+        "top_slots": [
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            2
+          ],
+          [
+            4,
+            3
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00000-team2v2-t0",
+        "family": "a9bf96660690df186f5dd501ea300b904d7e0d78b24c5c3599cf17d2591ab0b0",
+        "turn": 1,
+        "label_type": "Saurian Augur",
+        "label_slot": [
+          4,
+          2
+        ],
+        "own_counts": {
+          "Drake Fighter": 1,
+          "Drake Clasher": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Drake Burner": 1.0,
+          "Drake Clasher": 0.7,
+          "Drake Fighter": 0.9,
+          "Drake Glider": 0.25,
+          "Saurian Augur": 1.2,
+          "Saurian Skirmisher": 0.8
+        },
+        "top_types": [
+          "Saurian Augur"
+        ],
+        "top_slots": [
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            2
+          ],
+          [
+            4,
+            3
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00000-team2v2-t0",
+        "family": "a9bf96660690df186f5dd501ea300b904d7e0d78b24c5c3599cf17d2591ab0b0",
+        "turn": 1,
+        "label_type": "Drake Burner",
+        "label_slot": [
+          2,
+          3
+        ],
+        "own_counts": {
+          "Drake Fighter": 1,
+          "Drake Clasher": 1,
+          "Saurian Augur": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Drake Burner": 1.0,
+          "Drake Clasher": 0.7,
+          "Drake Fighter": 0.9,
+          "Drake Glider": 0.25,
+          "Saurian Augur": 0.6,
+          "Saurian Skirmisher": 0.8
+        },
+        "top_types": [
+          "Drake Burner"
+        ],
+        "top_slots": [
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            3
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00000-team2v2-t0",
+        "family": "a9bf96660690df186f5dd501ea300b904d7e0d78b24c5c3599cf17d2591ab0b0",
+        "turn": 1,
+        "label_type": "Drake Fighter",
+        "label_slot": [
+          4,
+          3
+        ],
+        "own_counts": {
+          "Drake Fighter": 1,
+          "Drake Clasher": 1,
+          "Saurian Augur": 1,
+          "Drake Burner": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Drake Burner": 0.5,
+          "Drake Clasher": 0.7,
+          "Drake Fighter": 0.9,
+          "Drake Glider": 0.25,
+          "Saurian Augur": 0.6,
+          "Saurian Skirmisher": 0.8
+        },
+        "top_types": [
+          "Drake Fighter"
+        ],
+        "top_slots": [
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            3
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00000-team2v2-t0",
+        "family": "a9bf96660690df186f5dd501ea300b904d7e0d78b24c5c3599cf17d2591ab0b0",
+        "turn": 5,
+        "label_type": "Saurian Skirmisher",
+        "label_slot": [
+          3,
+          4
+        ],
+        "own_counts": {
+          "Drake Fighter": 2,
+          "Drake Clasher": 1,
+          "Saurian Augur": 1,
+          "Drake Burner": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Drake Glider": 0.25,
+          "Saurian Augur": 0.6,
+          "Saurian Skirmisher": 0.8
+        },
+        "top_types": [
+          "Saurian Skirmisher"
+        ],
+        "top_slots": [
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            3
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00000-team2v2-t0",
+        "family": "a9bf96660690df186f5dd501ea300b904d7e0d78b24c5c3599cf17d2591ab0b0",
+        "turn": 15,
+        "label_type": "Saurian Skirmisher",
+        "label_slot": [
+          3,
+          4
+        ],
+        "own_counts": {
+          "Drake Fighter": 2,
+          "Saurian Skirmisher": 1,
+          "Drake Burner": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Saurian Skirmisher": 0.4
+        },
+        "top_types": [
+          "Saurian Skirmisher"
+        ],
+        "top_slots": [
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            3
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00020-team2v2-t0",
+        "family": "150b28d3d65be07e8a6a0e04a55066af532da5d9b2fefe97e77101cf051a1a4b",
+        "turn": 9,
+        "label_type": "Walking Corpse",
+        "label_slot": [
+          3,
+          4
+        ],
+        "own_counts": {
+          "Dark Adept": 3,
+          "Skeleton": 2,
+          "Walking Corpse": 2,
+          "Skeleton Archer": 2
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Walking Corpse": 0.049999999999999996
+        },
+        "top_types": [
+          "Walking Corpse"
+        ],
+        "top_slots": [
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            3
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00020-team2v2-t0",
+        "family": "150b28d3d65be07e8a6a0e04a55066af532da5d9b2fefe97e77101cf051a1a4b",
+        "turn": 11,
+        "label_type": "Skeleton",
+        "label_slot": [
+          3,
+          4
+        ],
+        "own_counts": {
+          "Skeleton": 2,
+          "Walking Corpse": 3,
+          "Skeleton Archer": 1,
+          "Dark Adept": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Skeleton Archer": 0.4,
+          "Skeleton": 0.7333333333333334,
+          "Vampire Bat": 0.1,
+          "Walking Corpse": 0.0375
+        },
+        "top_types": [
+          "Skeleton"
+        ],
+        "top_slots": [
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            3
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00020-team2v2-t0",
+        "family": "150b28d3d65be07e8a6a0e04a55066af532da5d9b2fefe97e77101cf051a1a4b",
+        "turn": 12,
+        "label_type": "Walking Corpse",
+        "label_slot": [
+          4,
+          3
+        ],
+        "own_counts": {
+          "Skeleton": 3,
+          "Walking Corpse": 3,
+          "Dark Adept": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Walking Corpse": 0.0375
+        },
+        "top_types": [
+          "Walking Corpse"
+        ],
+        "top_slots": [
+          [
+            4,
+            3
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00020-team2v2-t0",
+        "family": "150b28d3d65be07e8a6a0e04a55066af532da5d9b2fefe97e77101cf051a1a4b",
+        "turn": 13,
+        "label_type": "Skeleton Archer",
+        "label_slot": [
+          3,
+          4
+        ],
+        "own_counts": {
+          "Skeleton": 3,
+          "Walking Corpse": 4,
+          "Dark Adept": 1
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Skeleton Archer": 0.8,
+          "Vampire Bat": 0.1,
+          "Walking Corpse": 0.03
+        },
+        "top_types": [
+          "Skeleton Archer"
+        ],
+        "top_slots": [
+          [
+            3,
+            4
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00020-team2v2-t0",
+        "family": "150b28d3d65be07e8a6a0e04a55066af532da5d9b2fefe97e77101cf051a1a4b",
+        "turn": 15,
+        "label_type": "Vampire Bat",
+        "label_slot": [
+          3,
+          4
+        ],
+        "own_counts": {
+          "Skeleton": 3,
+          "Walking Corpse": 5,
+          "Skeleton Archer": 1
+        },
+        "undead": 1,
+        "drakes": 0,
+        "type_scores": {
+          "Vampire Bat": 0.1,
+          "Walking Corpse": 0.024999999999999998
+        },
+        "top_types": [
+          "Vampire Bat"
+        ],
+        "top_slots": [
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            3
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00020-team2v2-t0",
+        "family": "150b28d3d65be07e8a6a0e04a55066af532da5d9b2fefe97e77101cf051a1a4b",
+        "turn": 27,
+        "label_type": "Skeleton",
+        "label_slot": [
+          3,
+          4
+        ],
+        "own_counts": {
+          "Walking Corpse": 6,
+          "Bone Shooter": 1,
+          "Vampire Bat": 2,
+          "Skeleton": 1,
+          "Skeleton Archer": 2,
+          "Dark Adept": 2
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Dark Adept": 0.7999999999999999,
+          "Ghost": 0.65,
+          "Ghoul": 0.65,
+          "Skeleton Archer": 0.26666666666666666,
+          "Skeleton": 1.1,
+          "Vampire Bat": 0.03333333333333333
+        },
+        "top_types": [
+          "Skeleton"
+        ],
+        "top_slots": [
+          [
+            3,
+            4
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00020-team2v2-t0",
+        "family": "150b28d3d65be07e8a6a0e04a55066af532da5d9b2fefe97e77101cf051a1a4b",
+        "turn": 28,
+        "label_type": "Skeleton Archer",
+        "label_slot": [
+          4,
+          3
+        ],
+        "own_counts": {
+          "Walking Corpse": 6,
+          "Bone Shooter": 1,
+          "Vampire Bat": 2,
+          "Skeleton": 2,
+          "Skeleton Archer": 2,
+          "Dark Adept": 2
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Skeleton Archer": 0.26666666666666666,
+          "Vampire Bat": 0.03333333333333333,
+          "Walking Corpse": 0.02142857142857143
+        },
+        "top_types": [
+          "Skeleton Archer"
+        ],
+        "top_slots": [
+          [
+            2,
+            3
+          ],
+          [
+            4,
+            3
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      },
+      {
+        "game_id": "teacher-00020-team2v2-t0",
+        "family": "150b28d3d65be07e8a6a0e04a55066af532da5d9b2fefe97e77101cf051a1a4b",
+        "turn": 31,
+        "label_type": "Walking Corpse",
+        "label_slot": [
+          3,
+          4
+        ],
+        "own_counts": {
+          "Walking Corpse": 6,
+          "Bone Shooter": 1,
+          "Vampire Bat": 2,
+          "Skeleton": 2,
+          "Skeleton Archer": 3,
+          "Dark Adept": 2
+        },
+        "undead": 0,
+        "drakes": 0,
+        "type_scores": {
+          "Walking Corpse": 0.02142857142857143
+        },
+        "top_types": [
+          "Walking Corpse"
+        ],
+        "top_slots": [
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            3
+          ]
+        ],
+        "type_optimal": true,
+        "slot_optimal": true,
+        "own_context_complete": true,
+        "enemy_count_matches": true
+      }
+    ]
+  }
+}

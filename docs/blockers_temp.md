@@ -79,7 +79,9 @@ Evidence for items 6-7: `verification/window_memory_20261101/REPORT.md`. Two pre
 
 **Cost repair:** fresh BC now reuses its actual training read for the nonempty check and releases it after the update attempt; resume still reads and checks content afresh. This eliminates the measured discarded full read without changing optimizer sampling or gates. All 29 affected Ubuntu checks pass, including the read-count regression that fails on baseline. Evidence: `verification/bc_preflight_read_20261102/REPORT.md`; full-run speedup is unmeasured.
 
-**Repair direction:** investigate recruit type/placement generalization before more collection or feature tuning. Retain the original gates and complete teacher ranking/strength evidence separately. Do not expand candidate counts to compensate for missing generation paths or treat forced PPO as readiness.
+**Retention diagnosis:** The recruit-label audit reproduces all selected type/placement preferences (98 train, 59 validation); the full corpus has 348 recruits but the batch retains 98. Matching validation type-count/boost contexts increase from 7/59 selected to 25/59 full-corpus. Target-row retention, rather than prefix overcount, dominates the measured reader charge; early fair allocation is the next repair. This is read-only diagnosis, not a fitting pass (`verification/recruit_labels_20261102/REPORT.md`).
+
+**Repair direction:** release unused target rows during fair family admission before more collection or feature tuning. Retain the original gates and complete teacher ranking/strength evidence separately. Do not expand candidate counts to compensate for missing generation paths or treat forced PPO as readiness.
 
 ## 11. P1 — Add an approximately one-hour complete training-loop test
 

@@ -1,0 +1,1 @@
+{"train": {"samples": 98, "counts": {"type_optimal": 98, "slot_optimal": 97, "own_context_complete": 98, "enemy_count_matches": 94}, "unique_type": 91, "unique_slot": 53}, "validation": {"samples": 59, "counts": {"type_optimal": 59, "slot_optimal": 59, "own_context_complete": 59, "enemy_count_matches": 59}, "unique_type": 56, "unique_slot": 29}}
