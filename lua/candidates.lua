@@ -11,7 +11,7 @@ for i,field in ipairs(schema.action_features) do feature_index[field[1]]=i end
 -- Generation is cut by charged work and per-stage call caps, never by a clock,
 -- so the same state always yields the same candidate set.
 local WORK={
-    version='work-12000-v7',
+    version='work-12000-v8',
     total=12000,          -- charged search work per decision
     entities=16,          -- enemies/villages/friends scanned by scoring
     threat_enemies=12,    -- enemies expanded into the threat map
@@ -376,6 +376,9 @@ function M.generate(obs)
             local rate=tactical_ratings(obs,u,destinations,enemies,villages,supporters,threats,charge)
             local function pick(d,category,goal)
                 if not d then return end
+                -- A village/position pick can also be an attack landing. Keep
+                -- probe priority independent of whichever category found it first.
+                if category=='attack' then d.combat=true end
                 if d.tactical==nil and not rate(d) then return end
                 local key=d.p[1]..','..d.p[2]
                 if not picked[key] then
@@ -451,8 +454,8 @@ function M.generate(obs)
                 -- budget cannot be spent on position picks before any attack-adjacent
                 -- destination is checked. Categories themselves are unchanged.
                 local ordered={}
-                for _,d in ipairs(selected) do if d.category=='attack' then ordered[#ordered+1]=d end end
-                for _,d in ipairs(selected) do if d.category~='attack' then ordered[#ordered+1]=d end end
+                for _,d in ipairs(selected) do if d.combat then ordered[#ordered+1]=d end end
+                for _,d in ipairs(selected) do if not d.combat then ordered[#ordered+1]=d end end
                 plans[#plans+1]={u=u,selected=ordered,primary=true}
             end
         end

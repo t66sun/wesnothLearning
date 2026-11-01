@@ -37,7 +37,9 @@ def main():
                   train_rows=len(train), validation_rows=len(valid),
                   train_fit=imitation_quality(model, training_view),
                   heldout_fit=imitation_quality(model,valid),
-                  representation=audit_bc(valid),
+                  # Storage row schema 6 has the same decoded feature vectors as
+                  # feature schema 5. audit_bc consumes feature rows, not rowpack.
+                  representation=audit_bc([dict(r, schema=5) for r in valid]),
                   tiny_fit=fit_small_set(model,train,steps=args.steps),
                   seconds=time.monotonic()-started)
     args.output.parent.mkdir(parents=True, exist_ok=True)
