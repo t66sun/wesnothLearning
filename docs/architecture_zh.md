@@ -103,6 +103,8 @@ flowchart LR
 
 新 manifest 冻结该包并把其血脉记为教师身份，因此教师与 DAgger 行携带同一身份。`LiteHost` 拒绝官方 baseline 座位，只接受 manifest 声明的 `gpt6astra` 来源。
 
+团战教师采集循环重映射阵营名称，使每 24 个计划对局覆盖每个教师座位上的全部六阵营，修正原团战组合的样本偏置。调度不读取分区或标签，训练/验证仍由物理场景哈希决定；阵营互异、全部盟友配对、机器人角色及非团战/评估设计保持原样。调度证据见 `verification/team_teacher_factions_20261102/REPORT.md`，修改后的 BC 就绪仍待验证。
+
 ## 6. 策略网络
 
 架构 id `relational_v5`，每个赛制一个独立模型（约 0.77 M 参数；精确值冻结在各自 manifest 中）。

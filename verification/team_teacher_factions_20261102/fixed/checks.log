@@ -1,0 +1,64 @@
+test_batching_preserves_design_and_all_ally_pairs (tests.v5.test_teacher_factions.TeacherFactionTests.test_batching_preserves_design_and_all_ally_pairs) ... ok
+test_each_team_seat_teaches_every_faction_in_24_games (tests.v5.test_teacher_factions.TeacherFactionTests.test_each_team_seat_teaches_every_faction_in_24_games) ... ok
+test_non_team_teacher_designs_remain_unchanged (tests.v5.test_teacher_factions.TeacherFactionTests.test_non_team_teacher_designs_remain_unchanged) ... ok
+test_short_team_corpus_has_training_examples_of_every_faction (tests.v5.test_teacher_factions.TeacherFactionTests.test_short_team_corpus_has_training_examples_of_every_faction) ... ok
+test_block_bootstrap_and_incomplete_blocks (tests.test_schedule.ScheduleTests.test_block_bootstrap_and_incomplete_blocks) ... ok
+test_deadline_config_and_log_recovery (tests.test_schedule.ScheduleTests.test_deadline_config_and_log_recovery) ... ok
+test_frozen_schedule (tests.test_schedule.ScheduleTests.test_frozen_schedule) ... ok
+test_linux_command_omits_windows_only_option (tests.test_schedule.ScheduleTests.test_linux_command_omits_windows_only_option) ... ok
+test_official_ai_in_all_team_roles (tests.test_schedule.ScheduleTests.test_official_ai_in_all_team_roles) ... ok
+test_team_assignment_and_credit (tests.test_schedule.ScheduleTests.test_team_assignment_and_credit) ... ok
+test_two_controls_are_never_merged_and_opening_fixture_is_safe (tests.test_schedule.ScheduleTests.test_two_controls_are_never_merged_and_opening_fixture_is_safe) ... ok
+test_wml_teams_are_opt_in (tests.test_schedule.ScheduleTests.test_wml_teams_are_opt_in) ... ok
+test_cluster_means_do_not_weight_repetitions_as_scenarios (tests.v5.test_evaluation_design.EvaluationDesignTests.test_cluster_means_do_not_weight_repetitions_as_scenarios) ... ok
+test_distinct_positive_scenarios_can_pass_without_more_blocks (tests.v5.test_evaluation_design.EvaluationDesignTests.test_distinct_positive_scenarios_can_pass_without_more_blocks) ... ok
+test_each_panel_block_starts_from_its_own_factions (tests.v5.test_evaluation_design.EvaluationDesignTests.test_each_panel_block_starts_from_its_own_factions) ... ok
+test_final_report_prints_scenario_count_and_floor (tests.v5.test_evaluation_design.EvaluationDesignTests.test_final_report_prints_scenario_count_and_floor) ... ok
+test_frozen_floors_and_existing_schedule_capacity (tests.v5.test_evaluation_design.EvaluationDesignTests.test_frozen_floors_and_existing_schedule_capacity) ... ok
+test_gate_reports_distinct_scenarios (tests.v5.test_evaluation_design.EvaluationDesignTests.test_gate_reports_distinct_scenarios) ... ok
+test_promotion_panel_reaches_the_distinct_floor (tests.v5.test_evaluation_design.EvaluationDesignTests.test_promotion_panel_reaches_the_distinct_floor) ... ok
+test_repeated_identical_blocks_are_insufficient (tests.v5.test_evaluation_design.EvaluationDesignTests.test_repeated_identical_blocks_are_insufficient) ... ok
+test_teacher_games_reach_the_bc_scenario_floor (tests.v5.test_evaluation_design.EvaluationDesignTests.test_teacher_games_reach_the_bc_scenario_floor) ... ok
+test_unmeasured_legacy_panel_cannot_nominate (tests.v5.test_evaluation_design.EvaluationDesignTests.test_unmeasured_legacy_panel_cannot_nominate) ... ok
+test_explicit_rules_directory_is_bound_before_schedule_freeze (tests.v5.test_scenario_identity.ScenarioIdentityTests.test_explicit_rules_directory_is_bound_before_schedule_freeze) ... ok
+test_legacy_rows_remain_readable_but_cannot_mix_with_v2 (tests.v5.test_scenario_identity.ScenarioIdentityTests.test_legacy_rows_remain_readable_but_cannot_mix_with_v2) ... ok
+test_physical_changes_but_not_paths_change_the_scenario (tests.v5.test_scenario_identity.ScenarioIdentityTests.test_physical_changes_but_not_paths_change_the_scenario) ... ok
+test_scheduled_corpora_do_not_cross_partitions (tests.v5.test_scenario_identity.ScenarioIdentityTests.test_scheduled_corpora_do_not_cross_partitions) ... ok
+test_seed_does_not_move_the_scenario_between_splits (tests.v5.test_scenario_identity.ScenarioIdentityTests.test_seed_does_not_move_the_scenario_between_splits) ... ok
+test_shards_and_index_use_scenario_partition (tests.v5.test_scenario_identity.ScenarioIdentityTests.test_shards_and_index_use_scenario_partition) ... ok
+test_v2_rejects_incorrect_or_missing_scenario_partition (tests.v5.test_scenario_identity.ScenarioIdentityTests.test_v2_rejects_incorrect_or_missing_scenario_partition) ... ok
+test_internal_export_resume_keeps_weights_integrity_without_sdk_size_cap (tests.v5.test_training_failure_fixes.FailureBoundaryTests.test_internal_export_resume_keeps_weights_integrity_without_sdk_size_cap) ... ok
+test_opening_probe_is_recorded_but_never_blocks_ppo (tests.v5.test_training_failure_fixes.FailureBoundaryTests.test_opening_probe_is_recorded_but_never_blocks_ppo) ... ok
+test_training_error_is_failed_without_final_holdout (tests.v5.test_training_failure_fixes.FailureBoundaryTests.test_training_error_is_failed_without_final_holdout) ... ok
+test_underfilled_promotion_never_selects_best (tests.v5.test_training_failure_fixes.FailureBoundaryTests.test_underfilled_promotion_never_selects_best) ... ok
+test_v100_metric_error_keeps_opening_and_records_error (tests.v5.test_training_failure_fixes.FailureBoundaryTests.test_v100_metric_error_keeps_opening_and_records_error) ... ok
+test_opponents_actions_cannot_pass_students_opening (tests.v5.test_training_failure_fixes.OpeningAndFeatureTests.test_opponents_actions_cannot_pass_students_opening) ... ok
+test_repeated_move_uses_named_feature_not_primary (tests.v5.test_training_failure_fixes.OpeningAndFeatureTests.test_repeated_move_uses_named_feature_not_primary) ... ok
+test_auto_uses_next_sampling_method_after_bc_gate (tests.v5.test_training_failure_fixes.PhaseEntryTests.test_auto_uses_next_sampling_method_after_bc_gate) ... 
+  test_auto_uses_next_sampling_method_after_bc_gate (tests.v5.test_training_failure_fixes.PhaseEntryTests.test_auto_uses_next_sampling_method_after_bc_gate) (qualified=True) ... ERROR
+test_bc_only_stops_without_ppo_or_final_and_can_resume_as_ppo (tests.v5.test_training_failure_fixes.PhaseEntryTests.test_bc_only_stops_without_ppo_or_final_and_can_resume_as_ppo) ... ok
+test_cli_phase_entry_is_separate_from_reward_controls (tests.v5.test_training_failure_fixes.PhaseEntryTests.test_cli_phase_entry_is_separate_from_reward_controls) ... ok
+test_forced_phase_is_explicit_preserves_gates_and_original_clock (tests.v5.test_training_failure_fixes.PhaseEntryTests.test_forced_phase_is_explicit_preserves_gates_and_original_clock) ... ok
+test_resumed_pending_batch_keeps_method_before_new_phase (tests.v5.test_training_failure_fixes.PhaseEntryTests.test_resumed_pending_batch_keeps_method_before_new_phase) ... ok
+test_bounded_calls_reach_every_panel_stratum_without_reused_ids (tests.v5.test_training_failure_fixes.ReferencePlanningTests.test_bounded_calls_reach_every_panel_stratum_without_reused_ids) ... ok
+test_failed_slot_uses_new_attempt_not_success_count (tests.v5.test_training_failure_fixes.ReferencePlanningTests.test_failed_slot_uses_new_attempt_not_success_count) ... ok
+test_metric_fault_freezes_adaptive_until_valid_metrics (tests.v5.test_training_failure_fixes.ReferencePlanningTests.test_metric_fault_freezes_adaptive_until_valid_metrics) ... ok
+test_budget_or_fault_is_not_a_terminal_observation (tests.v5.test_training_failure_fixes.TerminalHorizonTests.test_budget_or_fault_is_not_a_terminal_observation) ... ok
+test_early_terminal_snapshot_preserves_real_winner_and_loser (tests.v5.test_training_failure_fixes.TerminalHorizonTests.test_early_terminal_snapshot_preserves_real_winner_and_loser) ... ok
+test_real_lite_early_elimination_before_first_own_turn (tests.v5.test_training_failure_fixes.TerminalHorizonTests.test_real_lite_early_elimination_before_first_own_turn) ... ok
+
+======================================================================
+ERROR: test_auto_uses_next_sampling_method_after_bc_gate (tests.v5.test_training_failure_fixes.PhaseEntryTests.test_auto_uses_next_sampling_method_after_bc_gate) (qualified=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/team_teacher_fixed_20261102/tests/v5/test_training_failure_fixes.py", line 213, in test_auto_uses_next_sampling_method_after_bc_gate
+    runner.learn()
+  File "/home/tongshu/acceptance/team_teacher_fixed_20261102/learning/experiment.py", line 620, in learn
+    self.state['policy_shards']=sorted(set(self.state['policy_shards']+[str(p) for p in paths]))
+                                           ~~~~~~~~~~^^^^^^^^^^^^^^^^^
+KeyError: 'policy_shards'
+
+----------------------------------------------------------------------
+Ran 47 tests in 2.175s
+
+FAILED (errors=1)
