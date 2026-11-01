@@ -82,6 +82,11 @@ def main():
                     if not matched and not snapshot.exists():
                         snapshot.write_text(json.dumps(dict(spec=host.adapter.spec, snapshot=host.snapshot(),
                                                            side=side, intent=intent, row=row)))
+                    if cause=='generation' and not pool:
+                        empty = args.out/'empty-generation.json'
+                        if not empty.exists():
+                            empty.write_text(json.dumps(dict(spec=host.adapter.spec, snapshot=host.snapshot(),
+                                                             side=side, intent=intent, row=row)))
                 view = host.execute(intent)['view']
             host.adapter.close()
     result = dict(format=args.format, variant=args.variant, games=len(jobs), counts=counts,
