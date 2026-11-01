@@ -357,13 +357,18 @@ class FormatExperiment:
             and r.get('status')=='complete' and not r.get('result',{}).get('faults')
             and r.get('training_eligible',True) and r.get('coverage',{}).get('matched',0)>0]
 
-    def finish_train(self):
-        pending=self.state['pending_train'];method=pending['method']
+    def read_bc_batch(self,method):
         pool=self.state['teacher_shards']+self.state['dagger_shards']+list(map(str,self.human_paths()))
         if method=='ppo': pool=pool+list(self.state.get('policy_shards',[]))
         pool_seed=self.config['seed']+self.state['version']
-        reads={}
-        bc=read_shards(pool,partition='train',limit=self.config['bc_records'],seed=pool_seed,format_name=self.fmt,stats=reads.setdefault('bc',{}))
+        stats={}
+        bc=read_shards(pool,partition='train',limit=self.config['bc_records'],seed=pool_seed,format_name=self.fmt,stats=stats)
+        return pool,bc,stats
+
+    def finish_train(self,prepared_bc=None):
+        pending=self.state['pending_train'];method=pending['method']
+        pool,bc,stats=self.read_bc_batch(method) if prepared_bc is None else prepared_bc
+        reads=dict(bc=stats)
         validation=read_shards(pool,partition='validation',limit=self.config['bc_validation_records'],seed=self.config['seed'],format_name=self.fmt,stats=reads.setdefault('validation',{})) if method=='bc' else []
         rows=bc+validation if method=='bc' else read_shards(pending['paths'],format_name=self.fmt)
         if method == 'ppo':
@@ -622,10 +627,13 @@ class FormatExperiment:
                 original=[j['shard'] for j in jobs if j['id'] in successful and j.get('meta',{}).get('phase')=='teacher']
                 self.state['teacher_shards']=sorted(set(self.state['teacher_shards']+original))
                 paths=self.state['teacher_shards']+list(map(str,self.human_paths()))
-            if not read_shards(paths,partition='train',limit=self.config['bc_records'],format_name=self.fmt):
+            prepared_bc=self.read_bc_batch(method) if method=='bc' else None
+            if not (prepared_bc[1] if prepared_bc is not None else read_shards(paths,partition='train',limit=self.config['bc_records'],format_name=self.fmt)):
                 self.state['batch']+=1;self.save();continue
             self.state['pending_train']=dict(paths=paths,method=method,cursor=dict(epoch=0,step=0),reward_config=self.controller.freeze());self.save()
-            if not self.finish_train(): break
+            finished=self.finish_train(prepared_bc)
+            del prepared_bc
+            if not finished: break
 
     def _checkpoint_version(self,path):
         state=torch.load(path,map_location='cpu',weights_only=False)

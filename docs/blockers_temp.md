@@ -77,7 +77,9 @@ Evidence for items 6-7: `verification/window_memory_20261101/REPORT.md`. Two pre
 
 **Learning-curve result:** 600 additional original-loss updates on the same frozen team batch complete in 671.2 s. Train recruit/attack accuracy rises to 71.43%/77.58%; validation rises to 40.68%/37.04%, so recruitment still fails its 60% gate. Validation move falls from 52.91% to 47.43% and CE worsens. This establishes initial underoptimization plus a remaining generalization gap, not a successful epoch-tuning fix. A separate read-only measurement finds a discarded full preflight read costs 11.90 s before the actual 11.57 s training read. Evidence: `verification/bc_learning_curve_20261102/REPORT.md`.
 
-**Repair direction:** remove the measured duplicate BC preflight read while preserving empty batches, actual sampling and resume; investigate recruit type/placement generalization before more collection or feature tuning. Retain the original gates and complete teacher ranking/strength evidence separately. Do not expand candidate counts to compensate for missing generation paths or treat forced PPO as readiness.
+**Cost repair:** fresh BC now reuses its actual training read for the nonempty check and releases it after the update attempt; resume still reads and checks content afresh. This eliminates the measured discarded full read without changing optimizer sampling or gates. All 29 affected Ubuntu checks pass, including the read-count regression that fails on baseline. Evidence: `verification/bc_preflight_read_20261102/REPORT.md`; full-run speedup is unmeasured.
+
+**Repair direction:** investigate recruit type/placement generalization before more collection or feature tuning. Retain the original gates and complete teacher ranking/strength evidence separately. Do not expand candidate counts to compensate for missing generation paths or treat forced PPO as readiness.
 
 ## 11. P1 — Add an approximately one-hour complete training-loop test
 
