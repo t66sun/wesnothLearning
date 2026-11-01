@@ -6,6 +6,8 @@ Updated 2026-10-27. For agents taking over startup, maintenance and instruction-
 
 **Current route:** every manifest freezes the sole custom teacher package `gpt6astra` and its lineage, so teacher games, DAgger corrections and exports carry one identity. Lite is the default engine and the default evaluation engine, so a fresh run collects lite Astra teacher games (`native_bc_games` 0) and its final comparison is lite Astra; official-baseline seats stay native-only. Capabilities and limits are in architecture.md §4–§5.
 
+Current lite combat and teacher profile is `expected_damage_v2` (contextual retaliation). Rebuild the matching extension before new work. Resume v1 runs only with their original source/build; do not relabel frozen rows or checkpoints. Explicit old-weight initialization still uses the existing branch/reset-optimizer route and does not establish readiness under the new rules.
+
 ## 1. Determine the task first
 
 Read the root `AGENTS.md` first, then read the matching chapter below:

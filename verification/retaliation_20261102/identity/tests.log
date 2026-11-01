@@ -1,0 +1,6 @@
+test_last_best_selected_keep_identity_and_finished_bookkeeping (tests.v5.test_checkpoint_export_identity.CheckpointExportIdentityTests.test_last_best_selected_keep_identity_and_finished_bookkeeping) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 4.107s
+
+OK

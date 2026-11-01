@@ -1,0 +1,48 @@
+test_last_best_selected_keep_identity_and_finished_bookkeeping (tests.v5.test_checkpoint_export_identity.CheckpointExportIdentityTests.test_last_best_selected_keep_identity_and_finished_bookkeeping) ... ERROR
+test_sdk_package (tests.test_core.CoreTests.test_sdk_package) ... ERROR
+test_capacity_and_cuda_defaults (tests.test_core.CoreTests.test_capacity_and_cuda_defaults) ... ok
+
+======================================================================
+ERROR: test_last_best_selected_keep_identity_and_finished_bookkeeping (tests.v5.test_checkpoint_export_identity.CheckpointExportIdentityTests.test_last_best_selected_keep_identity_and_finished_bookkeeping)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/retaliation_export_20261102/tests/v5/test_checkpoint_export_identity.py", line 42, in test_last_best_selected_keep_identity_and_finished_bookkeeping
+    r.validate_model('ppo')
+  File "/home/tongshu/acceptance/retaliation_export_20261102/learning/experiment.py", line 449, in validate_model
+    jobs=evaluation_jobs(self.directory,greedy,control,self.fixed,blocks,
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/acceptance/retaliation_export_20261102/learning/schedule.py", line 99, in evaluation_jobs
+    decorate(job,fmt,scenario['map_index'],phase)
+  File "/home/tongshu/acceptance/retaliation_export_20261102/learning/maps.py", line 132, in decorate
+    return bind_scenario(job)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/acceptance/retaliation_export_20261102/learning/maps.py", line 65, in bind_scenario
+    job['scenario_family'] = scenario_family(job)
+                             ^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/acceptance/retaliation_export_20261102/learning/maps.py", line 53, in scenario_family
+    return _digest(scenario_identity(job))
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/acceptance/retaliation_export_20261102/learning/maps.py", line 36, in scenario_identity
+    board=dict(terrain=board['terrain'], starts=board['starts'],
+                       ~~~~~^^^^^^^^^^^
+TypeError: string indices must be integers, not 'str'
+
+======================================================================
+ERROR: test_sdk_package (tests.test_core.CoreTests.test_sdk_package)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/retaliation_export_20261102/tests/test_core.py", line 149, in test_sdk_package
+    export_checkpoints(checkpoints,tmp,audit_records=audit)
+  File "/home/tongshu/acceptance/retaliation_export_20261102/learning/export.py", line 118, in export_checkpoints
+    addon=export(models,destination,name=name,version=versions,evaluation=evaluation)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/acceptance/retaliation_export_20261102/learning/export.py", line 73, in export
+    addons.validate(addon)
+  File "/home/tongshu/acceptance/retaliation_export_20261102/vendor/arena/addons.py", line 87, in validate
+    raise ValueError('submission exceeds 16 MiB' if limit == MAX_PACKAGE_BYTES else 'submission exceeds the size limit')
+ValueError: submission exceeds the size limit
+
+----------------------------------------------------------------------
+Ran 3 tests in 4.795s
+
+FAILED (errors=2)
