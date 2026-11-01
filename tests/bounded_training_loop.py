@@ -67,6 +67,23 @@ def ppo_updates(state):
     return sum(entry.get('updates', 0) for entry in state.get('history', []) if entry.get('method') == 'ppo')
 
 
+def final_panels_complete(blocks, min_distinct):
+    for fmt, state in states().items():
+        if state.get('stage') != 'finished' or state.get('pending_train') or state.get('error'):
+            return False
+        report = read(RUN / fmt / 'report/summary.json')
+        controls = report.get('controls', {})
+        if report.get('error') or not controls:
+            return False
+        for control in controls.values():
+            if (control.get('planned_blocks') != blocks or control.get('blocks') != blocks
+                    or control.get('missing_blocks') != 0 or control.get('fault_games') != 0
+                    or control.get('distinct_scenarios', 0) < min_distinct
+                    or control.get('status') not in ('passed', 'not_passed', 'inconclusive')):
+                return False
+    return True
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=False)
     plan = dict(source=os.environ['SOURCE_COMMIT'], formats=FORMATS, workers=8,
@@ -74,7 +91,7 @@ def main():
                 bc_seconds=1200, bc_committed_batches_max=5, bc_game_targets=[24,24,24],
                 bc_records=2048, bc_validation_records=1024, epochs=4, minibatch=256,
                 ppo_seconds=900, ppo_batch_limit=4, rollout_games=4,
-                turn_limit=30, final_blocks=30, evaluation_seconds=900,
+                turn_limit=30, final_blocks=30, final_min_distinct=12, evaluation_seconds=900,
                 export_seconds=300, total_stage_ceiling_seconds=3300,
                 limits='Stage timeout is a hard stop; polling may observe one in-flight batch beyond a committed-batch cap. No automatic retry, forced PPO or gate edits.')
     (OUT / 'plan.json').write_text(json.dumps(plan, indent=2))
@@ -83,6 +100,7 @@ def main():
                    '--seed', 20261101, '--bc-games', 24,24,24, '--native-bc-games', 0,0,0,
                    '--bc-records', 2048, '--bc-validation-records', 1024,
                    '--training-max-turns', plan['turn_limit'],
+                   '--final-blocks', plan['final_blocks'],
                    '--wesnoth', os.environ['WESNOTH_EXE'])
     if not stage('bc', args, 1200, batch_limit=5):
         return finish('FAIL', 'BC execution or bounded batch/time limit')
@@ -109,6 +127,8 @@ def main():
     phase('evaluate', .24)
     if not stage('evaluate', command('run','--resume',RUN),900):
         return finish('FAIL', 'final evaluation execution or time limit')
+    if not final_panels_complete(plan['final_blocks'], plan['final_min_distinct']):
+        return finish('FAIL', 'final evaluation panel incomplete or failed')
     audit = ROOT / 'runs/audit_inputs'
     audit.mkdir()
     for fmt in FORMATS:
