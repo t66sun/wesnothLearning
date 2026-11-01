@@ -68,7 +68,7 @@ flowchart LR
 - 确定性战斗：每次攻击结算为 `ceil(damage × chance × 1.10)`；slow 在命中率之前把伤害乘 `ceil(3/4)`；poison 在该单位自己的回合扣 6 HP；无战斗 RNG、无命中注入。`forecast()` 是点质量，只为兼容接收 `samples`。
 - 反击对同射程武器复用确定性战斗结算，依次比较击杀减死亡、中毒调整后的剩余 HP 差、对攻击者伤害；完全相同保留第一把武器。直接复用胜出状态和攻击记录，其武器也用于反击瘟疫；仅一把或无反击武器时无需比较。已修复骷髅对矮人战士误选斧而非锤的问题；完整原版武器过滤和概率语义仍有差距（`verification/retaliation_20261102/REPORT.md`）。
 - lite 已实现机制：按地形代价移动、可见敌军 ZOC、友军通行、连通的城堡招募/经济、村庄占领、fog/shroud/历史地形、盟友共享、行动顺序轮转、领袖击杀与队伍终局、逐次攻击的死亡/反击/经验升级、slow、poison、drain、firststrike、marksman、magical、charge、berserk、基础 plague、治疗/休息、concealment/nightstalk/teleport、确定性攻击结算。
-- lite 近似路径：相邻领导力、illumination、backstab、steadfast、反击触发 plague、单步 teleport 代价。已知缺口：复合修正取整、完整的武器声明过滤、变体实例、随机特质、AMLA 选择、状态清除精确时机、视距代价/jamming、远程寻路 ZOC、战役事件。未知能力/脚本会阻断招募链，而不是静默降级。
+- lite 近似路径：相邻领导力、illumination、backstab、steadfast、反击触发 plague、单步 teleport 代价。已知缺口：复合修正取整、完整的武器声明过滤、变体实例、随机特质、AMLA 选择、状态清除精确时机、视距代价/jamming、远程寻路 ZOC、战役事件。冻结基础类型权重诊断发现全部捕获中有 26 个非默认声明，均不在实际 158 单位训练闭包内；动态声明及完整原版过滤仍未验收（`verification/weapon_weights_20261102/REPORT.md`）。未知能力/脚本会阻断招募链，而不是静默降级。
 - `lua/` 是唯一的合法性/观察实现：原版 Wesnoth 以插件方式加载它，`LiteHost` 把同一批模块加载进内嵌 Lua VM。
 
 ## 5. 观察、候选与行

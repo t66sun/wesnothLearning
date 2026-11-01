@@ -1,0 +1,642 @@
+{
+  "source_commit": "822bb975b90a756a8459ae2b9926201d5aea69b5",
+  "rules_sha256": "d6fceafe7d0c9c67c750551b9901dbfb2b22290992a8daa1616a460e11826dca",
+  "captures": [
+    {
+      "scope": "core",
+      "sha256": "1b85e8c65944237f44cb92a49cc3ee5b1a55ec21f97fa7a327bae23f78291b15"
+    },
+    {
+      "scope": "Dead_Water",
+      "sha256": "0335d2de5cd73c8abf1d38884634eb7e3ca32830a7a9a957bed45a43118ec53c"
+    },
+    {
+      "scope": "Delfadors_Memoirs",
+      "sha256": "69dfe6ced966018451f1a01f78cfbd77801dffee4753c4328a9437dbd46ce0e6"
+    },
+    {
+      "scope": "Descent_Into_Darkness",
+      "sha256": "0afc1f52a6f5b3afc35e156e5631ce475c1086e01794a21b321490e1c1b6fba8"
+    },
+    {
+      "scope": "Eastern_Invasion",
+      "sha256": "5b5997922bf1427c6e8745d0f56255bd536a37f2436692f29cc058f75bd6a385"
+    },
+    {
+      "scope": "Heir_To_The_Throne",
+      "sha256": "f24e5d716f392fdc76cc4a89b3c5baea3ab322c76afd351853d41837d0d0846c"
+    },
+    {
+      "scope": "Legend_of_Wesmere",
+      "sha256": "9a0bbebb97be73487967e9201b33abdf8cadabe12f75d54abab21812dcfd4c07"
+    },
+    {
+      "scope": "Liberty",
+      "sha256": "207e7d6200220ca57771828b204b80ef304a242c97a7a7480c4f5c10740d9c5f"
+    },
+    {
+      "scope": "Northern_Rebirth",
+      "sha256": "8e26ed732704535cba0183b87aed24568a976b6e1d65b43b0f32c00fcf6185c7"
+    },
+    {
+      "scope": "Sceptre_of_Fire",
+      "sha256": "b6a64e33bc945503013ba35b4759351fdb966f8a0d7adb924de0da3db96893c8"
+    },
+    {
+      "scope": "Secrets_of_the_Ancients",
+      "sha256": "3778d30a3d7eb0b6d6566b10890df1729a6547ee21bd7a321e8178501e278fce"
+    },
+    {
+      "scope": "Son_Of_The_Black_Eye",
+      "sha256": "c4944f832828c1bd11655f7837cb8f28476ffc88a72a408740940f2e6fd3ed4f"
+    },
+    {
+      "scope": "The_Hammer_of_Thursagan",
+      "sha256": "e6ffc0b16644d6d2ca1eaafb99d8e73ac8964905c919e14170989262c3301fed"
+    },
+    {
+      "scope": "The_Rise_Of_Wesnoth",
+      "sha256": "8e2198b598373b148720ede0d74a008410ae9a4dbbfbd3ddd06c6a035bc4e8c5"
+    },
+    {
+      "scope": "The_South_Guard",
+      "sha256": "e1a947718f43b3bb21f0b86655a13a0b225243cf04a66cf8fb05c0262e15779a"
+    },
+    {
+      "scope": "Two_Brothers",
+      "sha256": "40d81d381e44626862a040be902661addc34b6219bd46662f28dbd8455e6d955"
+    },
+    {
+      "scope": "Under_the_Burning_Suns",
+      "sha256": "70ca0a0a0468f099c19826eec65223066a86d0a233aedb01c1320a44e89934fd"
+    },
+    {
+      "scope": "Winds_of_Fate",
+      "sha256": "98ff8adb3b19ca4d46c5f842e19398f13e5ba1d66128974a17642dff7677f326"
+    },
+    {
+      "scope": "World_Conquest",
+      "sha256": "7f503fb4b275d3867d6d2857c0f43ee80937f49df51021e0a6c30448ab8576a4"
+    },
+    {
+      "scope": "tutorial",
+      "sha256": "01acc6405fb2f13c1aaaaf4757931ee3d3798e16f2a318d51350389f158e08c2"
+    }
+  ],
+  "captured_units": 587,
+  "attack_declarations_with_scope_repetition": 11093,
+  "training_unit_count": 158,
+  "training_unit_ids": [
+    "Ancient Wose",
+    "Arch Mage",
+    "Assassin",
+    "Banebow",
+    "Blood Bat",
+    "Bone Shooter",
+    "Bowman",
+    "Cavalier",
+    "Cavalryman",
+    "Dark Adept",
+    "Dark Sorcerer",
+    "Deathblade",
+    "Direwolf Rider",
+    "Dragoon",
+    "Drake Arbiter",
+    "Drake Blademaster",
+    "Drake Burner",
+    "Drake Clasher",
+    "Drake Enforcer",
+    "Drake Fighter",
+    "Drake Flameheart",
+    "Drake Flare",
+    "Drake Glider",
+    "Drake Thrasher",
+    "Drake Warden",
+    "Drake Warrior",
+    "Draug",
+    "Dread Bat",
+    "Duelist",
+    "Dwarvish Berserker",
+    "Dwarvish Dragonguard",
+    "Dwarvish Fighter",
+    "Dwarvish Guardsman",
+    "Dwarvish Lord",
+    "Dwarvish Sentinel",
+    "Dwarvish Stalwart",
+    "Dwarvish Steelclad",
+    "Dwarvish Thunderer",
+    "Dwarvish Thunderguard",
+    "Dwarvish Ulfserker",
+    "Elder Wose",
+    "Elvish Archer",
+    "Elvish Avenger",
+    "Elvish Captain",
+    "Elvish Champion",
+    "Elvish Druid",
+    "Elvish Enchantress",
+    "Elvish Fighter",
+    "Elvish Hero",
+    "Elvish Marksman",
+    "Elvish Marshal",
+    "Elvish Outrider",
+    "Elvish Ranger",
+    "Elvish Rider",
+    "Elvish Scout",
+    "Elvish Shaman",
+    "Elvish Sharpshooter",
+    "Elvish Shyde",
+    "Elvish Sorceress",
+    "Elvish Sylph",
+    "Fencer",
+    "Fire Drake",
+    "Footpad",
+    "Fugitive",
+    "General",
+    "Ghast",
+    "Ghost",
+    "Ghoul",
+    "Goblin Impaler",
+    "Goblin Knight",
+    "Goblin Pillager",
+    "Goblin Rouser",
+    "Goblin Spearman",
+    "Grand Knight",
+    "Grand Marshal",
+    "Great Mage",
+    "Gryphon Master",
+    "Gryphon Rider",
+    "Halberdier",
+    "Heavy Infantryman",
+    "Horseman",
+    "Huntsman",
+    "Hurricane Drake",
+    "Inferno Drake",
+    "Iron Mauler",
+    "Javelineer",
+    "Knight",
+    "Lancer",
+    "Lich",
+    "Lieutenant",
+    "Longbowman",
+    "Mage",
+    "Mage of Light",
+    "Master Bowman",
+    "Master at Arms",
+    "Merman Entangler",
+    "Merman Fighter",
+    "Merman Hoplite",
+    "Merman Hunter",
+    "Merman Javelineer",
+    "Merman Netcaster",
+    "Merman Spearman",
+    "Merman Triton",
+    "Merman Warrior",
+    "Naga Fighter",
+    "Naga Myrmidon",
+    "Naga Warrior",
+    "Necromancer",
+    "Necrophage",
+    "Nightgaunt",
+    "Orcish Archer",
+    "Orcish Assassin",
+    "Orcish Crossbowman",
+    "Orcish Grunt",
+    "Orcish Nightblade",
+    "Orcish Slayer",
+    "Orcish Slurbow",
+    "Orcish Warlord",
+    "Orcish Warrior",
+    "Outlaw",
+    "Paladin",
+    "Pikeman",
+    "Poacher",
+    "Ranger",
+    "Red Mage",
+    "Revenant",
+    "Rogue",
+    "Royal Guard",
+    "Saurian Ambusher",
+    "Saurian Augur",
+    "Saurian Flanker",
+    "Saurian Oracle",
+    "Saurian Prophet",
+    "Saurian Seer",
+    "Saurian Skirmisher",
+    "Saurian Soothsayer",
+    "Shadow",
+    "Shock Trooper",
+    "Silver Mage",
+    "Skeleton",
+    "Skeleton Archer",
+    "Sky Drake",
+    "Soulless",
+    "Spearman",
+    "Spectre",
+    "Swordsman",
+    "Thief",
+    "Trapper",
+    "Troll",
+    "Troll Rocklobber",
+    "Troll Warrior",
+    "Troll Whelp",
+    "Vampire Bat",
+    "Walking Corpse",
+    "White Mage",
+    "Wolf Rider",
+    "Wose",
+    "Wraith"
+  ],
+  "nondefault_weight_declarations": [
+    {
+      "unit": "Caravan",
+      "native_id": "Caravan",
+      "weapon": "whip",
+      "weights": {
+        "attack_weight": "0.0"
+      },
+      "scopes": [
+        "Sceptre_of_Fire"
+      ],
+      "in_training_closure": false
+    },
+    {
+      "unit": "Eyestalk",
+      "native_id": "Eyestalk",
+      "weapon": "smash",
+      "weights": {
+        "attack_weight": "0.0"
+      },
+      "scopes": [
+        "The_South_Guard"
+      ],
+      "in_training_closure": false
+    },
+    {
+      "unit": "Giant Scorpion",
+      "native_id": "Giant Scorpion",
+      "weapon": "sting",
+      "weights": {
+        "defense_weight": "4.0"
+      },
+      "scopes": [
+        "core",
+        "Dead_Water",
+        "Delfadors_Memoirs",
+        "Descent_Into_Darkness",
+        "Eastern_Invasion",
+        "Heir_To_The_Throne",
+        "Legend_of_Wesmere",
+        "Liberty",
+        "Northern_Rebirth",
+        "Sceptre_of_Fire",
+        "Secrets_of_the_Ancients",
+        "Son_Of_The_Black_Eye",
+        "The_Hammer_of_Thursagan",
+        "The_Rise_Of_Wesnoth",
+        "The_South_Guard",
+        "Two_Brothers",
+        "Under_the_Burning_Suns",
+        "Winds_of_Fate",
+        "World_Conquest",
+        "tutorial"
+      ],
+      "in_training_closure": false
+    },
+    {
+      "unit": "Giant Scorpling",
+      "native_id": "Giant Scorpling",
+      "weapon": "sting",
+      "weights": {
+        "defense_weight": "4.0"
+      },
+      "scopes": [
+        "core",
+        "Dead_Water",
+        "Delfadors_Memoirs",
+        "Descent_Into_Darkness",
+        "Eastern_Invasion",
+        "Heir_To_The_Throne",
+        "Legend_of_Wesmere",
+        "Liberty",
+        "Northern_Rebirth",
+        "Sceptre_of_Fire",
+        "Secrets_of_the_Ancients",
+        "Son_Of_The_Black_Eye",
+        "The_Hammer_of_Thursagan",
+        "The_Rise_Of_Wesnoth",
+        "The_South_Guard",
+        "Two_Brothers",
+        "Under_the_Burning_Suns",
+        "Winds_of_Fate",
+        "World_Conquest",
+        "tutorial"
+      ],
+      "in_training_closure": false
+    },
+    {
+      "unit": "Quenoth Champion",
+      "native_id": "Quenoth Champion",
+      "weapon": "glaive",
+      "weights": {
+        "defense_weight": 0
+      },
+      "scopes": [
+        "Under_the_Burning_Suns"
+      ],
+      "in_training_closure": false
+    },
+    {
+      "unit": "Quenoth Champion",
+      "native_id": "Quenoth Champion",
+      "weapon": "glaive",
+      "weights": {
+        "defense_weight": 0
+      },
+      "scopes": [
+        "Under_the_Burning_Suns"
+      ],
+      "in_training_closure": false
+    },
+    {
+      "unit": "Quenoth Fighter",
+      "native_id": "Quenoth Fighter",
+      "weapon": "spear",
+      "weights": {
+        "defense_weight": 0
+      },
+      "scopes": [
+        "Under_the_Burning_Suns"
+      ],
+      "in_training_closure": false
+    },
+    {
+      "unit": "Quenoth Fighter1",
+      "native_id": "Quenoth Fighter1",
+      "weapon": "spear",
+      "weights": {
+        "defense_weight": 0
+      },
+      "scopes": [
+        "Under_the_Burning_Suns"
+      ],
+      "in_training_closure": false
+    },
+    {
+      "unit": "Quenoth Fighter10",
+      "native_id": "Quenoth Fighter10",
+      "weapon": "spear",
+      "weights": {
+        "defense_weight": 0
+      },
+      "scopes": [
+        "Under_the_Burning_Suns"
+      ],
+      "in_training_closure": false
+    },
+    {
+      "unit": "Quenoth Fighter2",
+      "native_id": "Quenoth Fighter2",
+      "weapon": "spear",
+      "weights": {
+        "defense_weight": 0
+      },
+      "scopes": [
+        "Under_the_Burning_Suns"
+      ],
+      "in_training_closure": false
+    },
+    {
+      "unit": "Quenoth Fighter3",
+      "native_id": "Quenoth Fighter3",
+      "weapon": "spear",
+      "weights": {
+        "defense_weight": 0
+      },
+      "scopes": [
+        "Under_the_Burning_Suns"
+      ],
+      "in_training_closure": false
+    },
+    {
+      "unit": "Quenoth Fighter4",
+      "native_id": "Quenoth Fighter4",
+      "weapon": "spear",
+      "weights": {
+        "defense_weight": 0
+      },
+      "scopes": [
+        "Under_the_Burning_Suns"
+      ],
+      "in_training_closure": false
+    },
+    {
+      "unit": "Quenoth Fighter5",
+      "native_id": "Quenoth Fighter5",
+      "weapon": "spear",
+      "weights": {
+        "defense_weight": 0
+      },
+      "scopes": [
+        "Under_the_Burning_Suns"
+      ],
+      "in_training_closure": false
+    },
+    {
+      "unit": "Quenoth Fighter6",
+      "native_id": "Quenoth Fighter6",
+      "weapon": "spear",
+      "weights": {
+        "defense_weight": 0
+      },
+      "scopes": [
+        "Under_the_Burning_Suns"
+      ],
+      "in_training_closure": false
+    },
+    {
+      "unit": "Quenoth Fighter7",
+      "native_id": "Quenoth Fighter7",
+      "weapon": "spear",
+      "weights": {
+        "defense_weight": 0
+      },
+      "scopes": [
+        "Under_the_Burning_Suns"
+      ],
+      "in_training_closure": false
+    },
+    {
+      "unit": "Quenoth Fighter8",
+      "native_id": "Quenoth Fighter8",
+      "weapon": "spear",
+      "weights": {
+        "defense_weight": 0
+      },
+      "scopes": [
+        "Under_the_Burning_Suns"
+      ],
+      "in_training_closure": false
+    },
+    {
+      "unit": "Quenoth Fighter9",
+      "native_id": "Quenoth Fighter9",
+      "weapon": "spear",
+      "weights": {
+        "defense_weight": 0
+      },
+      "scopes": [
+        "Under_the_Burning_Suns"
+      ],
+      "in_training_closure": false
+    },
+    {
+      "unit": "Quenoth Flanker",
+      "native_id": "Quenoth Flanker",
+      "weapon": "sword",
+      "weights": {
+        "defense_weight": 0
+      },
+      "scopes": [
+        "Under_the_Burning_Suns"
+      ],
+      "in_training_closure": false
+    },
+    {
+      "unit": "Quenoth Ranger",
+      "native_id": "Quenoth Ranger",
+      "weapon": "sword",
+      "weights": {
+        "defense_weight": 0
+      },
+      "scopes": [
+        "Under_the_Burning_Suns"
+      ],
+      "in_training_closure": false
+    },
+    {
+      "unit": "Quenoth Sun Singer",
+      "native_id": "Quenoth Sun Singer",
+      "weapon": "sun ray",
+      "weights": {
+        "defense_weight": 0
+      },
+      "scopes": [
+        "Under_the_Burning_Suns"
+      ],
+      "in_training_closure": false
+    },
+    {
+      "unit": "Quenoth Sun Sylph",
+      "native_id": "Quenoth Sun Sylph",
+      "weapon": "sun ray",
+      "weights": {
+        "defense_weight": 0
+      },
+      "scopes": [
+        "Under_the_Burning_Suns"
+      ],
+      "in_training_closure": false
+    },
+    {
+      "unit": "Quenoth Sun Sylph",
+      "native_id": "Quenoth Sun Sylph",
+      "weapon": "sun incarnate",
+      "weights": {
+        "defense_weight": 0
+      },
+      "scopes": [
+        "Under_the_Burning_Suns"
+      ],
+      "in_training_closure": false
+    },
+    {
+      "unit": "Quenoth Warrior",
+      "native_id": "Quenoth Warrior",
+      "weapon": "glaive",
+      "weights": {
+        "defense_weight": 0
+      },
+      "scopes": [
+        "Under_the_Burning_Suns"
+      ],
+      "in_training_closure": false
+    },
+    {
+      "unit": "Quenoth Warrior",
+      "native_id": "Quenoth Warrior",
+      "weapon": "glaive",
+      "weights": {
+        "defense_weight": 0
+      },
+      "scopes": [
+        "Under_the_Burning_Suns"
+      ],
+      "in_training_closure": false
+    },
+    {
+      "unit": "Sand Scamperer",
+      "native_id": "Sand Scamperer",
+      "weapon": "sting",
+      "weights": {
+        "defense_weight": "4.0"
+      },
+      "scopes": [
+        "core",
+        "Dead_Water",
+        "Delfadors_Memoirs",
+        "Descent_Into_Darkness",
+        "Eastern_Invasion",
+        "Heir_To_The_Throne",
+        "Legend_of_Wesmere",
+        "Liberty",
+        "Northern_Rebirth",
+        "Sceptre_of_Fire",
+        "Secrets_of_the_Ancients",
+        "Son_Of_The_Black_Eye",
+        "The_Hammer_of_Thursagan",
+        "The_Rise_Of_Wesnoth",
+        "The_South_Guard",
+        "Two_Brothers",
+        "Under_the_Burning_Suns",
+        "Winds_of_Fate",
+        "World_Conquest",
+        "tutorial"
+      ],
+      "in_training_closure": false
+    },
+    {
+      "unit": "Sand Scuttler",
+      "native_id": "Sand Scuttler",
+      "weapon": "sting",
+      "weights": {
+        "defense_weight": "4.0"
+      },
+      "scopes": [
+        "core",
+        "Dead_Water",
+        "Delfadors_Memoirs",
+        "Descent_Into_Darkness",
+        "Eastern_Invasion",
+        "Heir_To_The_Throne",
+        "Legend_of_Wesmere",
+        "Liberty",
+        "Northern_Rebirth",
+        "Sceptre_of_Fire",
+        "Secrets_of_the_Ancients",
+        "Son_Of_The_Black_Eye",
+        "The_Hammer_of_Thursagan",
+        "The_Rise_Of_Wesnoth",
+        "The_South_Guard",
+        "Two_Brothers",
+        "Under_the_Burning_Suns",
+        "Winds_of_Fate",
+        "World_Conquest",
+        "tutorial"
+      ],
+      "in_training_closure": false
+    }
+  ],
+  "affected_training_unit_ids": [],
+  "scope": "top-level base-type attack declarations only; excludes variations and runtime objects",
+  "limits": "No native combat, collection, training or strength result; full filters remain unaccepted."
+}
