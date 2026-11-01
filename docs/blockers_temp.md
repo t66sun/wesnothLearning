@@ -75,7 +75,9 @@ Evidence for items 6-7: `verification/window_memory_20261101/REPORT.md`. Two pre
 
 **Post-repair ordinary check:** fresh team-only BC exits naturally after about 21m08s, with 30 complete / 2 budget-interrupted games, zero faults and 120 committed updates. The last model covers 24/48 required games: coverage passes at 92.59%, imitation still fails (recruit 18.64%, attack 13.89%). All six factions reach the exact training batch, whose recruit/attack accuracy is only 24.49%/25.37%. This confirms remaining training-set fitting and collection-cost limits; no all-format readiness or strength pass. Evidence: `verification/team_bc_readiness_20261102/REPORT.md`.
 
-**Repair direction:** measure a bounded learning curve on the frozen committed batch before another collection or representation variant; retain the original objective and gates. Complete teacher ranking/strength evidence separately before a teacher-quality claim. Do not expand candidate counts to compensate for missing generation paths or treat forced PPO as readiness.
+**Learning-curve result:** 600 additional original-loss updates on the same frozen team batch complete in 671.2 s. Train recruit/attack accuracy rises to 71.43%/77.58%; validation rises to 40.68%/37.04%, so recruitment still fails its 60% gate. Validation move falls from 52.91% to 47.43% and CE worsens. This establishes initial underoptimization plus a remaining generalization gap, not a successful epoch-tuning fix. A separate read-only measurement finds a discarded full preflight read costs 11.90 s before the actual 11.57 s training read. Evidence: `verification/bc_learning_curve_20261102/REPORT.md`.
+
+**Repair direction:** remove the measured duplicate BC preflight read while preserving empty batches, actual sampling and resume; investigate recruit type/placement generalization before more collection or feature tuning. Retain the original gates and complete teacher ranking/strength evidence separately. Do not expand candidate counts to compensate for missing generation paths or treat forced PPO as readiness.
 
 ## 11. P1 — Add an approximately one-hour complete training-loop test
 
