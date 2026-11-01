@@ -1,7 +1,12 @@
 local M={}
--- Per-class shares of the 36 actionable slots: combat keeps the largest share
--- because every attack intent also competes for it.
-local LIMIT={combat=16,recruit=12,move=8}
+-- Per-class reserves of the 36 actionable slots.  Combat takes the largest one:
+-- the teacher's attack intents are the class a 37-slot pool loses most often, and
+-- every retained combat candidate costs one forecast rather than a position, so
+-- the reserve can be wide without starving movement.  Move keeps only two first-
+-- pass slots because the ranked refill already gives every mobile unit its best
+-- full move, and recruiting keeps six so that the type diversity the round-robin
+-- probe buys survives selection.
+local LIMIT={combat=28,recruit=6,move=2}
 local function class(a)
     return (a.kind=='attack' or a.kind=='move_attack') and 'combat' or a.kind
 end

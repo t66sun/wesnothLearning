@@ -11,7 +11,7 @@ for i,field in ipairs(schema.action_features) do feature_index[field[1]]=i end
 -- Generation is cut by charged work and per-stage call caps, never by a clock,
 -- so the same state always yields the same candidate set.
 local WORK={
-    version='work-12000-v6',
+    version='work-12000-v7',
     total=12000,          -- charged search work per decision
     entities=16,          -- enemies/villages/friends scanned by scoring
     threat_enemies=12,    -- enemies expanded into the threat map
@@ -21,7 +21,7 @@ local WORK={
     rated=40,             -- destinations tactically rated eagerly per unit
     reaches=28,           -- find_reach calls per decision
     paths=8,              -- find_path calls per decision
-    recruit_probes=64,    -- ai.check_recruit calls
+    recruit_probes=192,   -- ai.check_recruit calls
     attack_probes=32,     -- ai.check_attack calls
     move_probes=48,       -- ai.check_move calls
     predictions=36,       -- combat forecasts, one per retained combat candidate

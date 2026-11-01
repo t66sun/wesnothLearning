@@ -52,6 +52,25 @@ wesnoth.paths.find_reach=function(u,cfg) return hexes end
 """
 
 
+MANY_RECRUIT_TYPES = """
+-- Thirty affordable types over twelve castles.  The generator visits at most eight
+-- castles per type, so the first eight types alone exhaust a sixty-four probe
+-- budget and the last ones need the wider one.
+local types={}
+for i=1,30 do
+    local name='T'..i
+    wesnoth.unit_types[name]={cost=1}
+    types[#types+1]=name
+end
+wesnoth.sides[1].gold=100
+wesnoth.sides[1].recruit=types
+wesnoth.current.map=setmetatable({width=16,height=6},{__index=function(_,k)
+    if type(k)=='table' and k[2]==2 and k[1]<=12 then return 'Ch' end
+    return 'Gg'
+end})
+"""
+
+
 def _rows(table):
     return [table[index] for index in range(1, len(table) + 1)]
 
@@ -80,11 +99,11 @@ class CandidatePoolBudgetTests(unittest.TestCase):
         self.assertLessEqual(len(self.actions), 37)
         self.assertEqual(self.actions[0]['kind'], 'end_turn')
         self.assertIs(self.timing['truncated'], True)
-        self.assertEqual(self.timing['budget'], 'work-12000-v6')
+        self.assertEqual(self.timing['budget'], 'work-12000-v7')
         self.assertLessEqual(self.timing['work'], 12000)
         self.assertLessEqual(self.timing['reaches'], 28)
         self.assertLessEqual(self.timing['paths'], 8)
-        self.assertLessEqual(self.timing['recruit_probes'], 64)
+        self.assertLessEqual(self.timing['recruit_probes'], 192)
         self.assertLessEqual(self.timing['attack_probes'], 32)
         self.assertLessEqual(self.timing['move_probes'], 48)
         self.assertLessEqual(self.timing['predictions'], 36)
@@ -145,6 +164,21 @@ class CandidatePoolBudgetTests(unittest.TestCase):
             if action['kind'] not in ('attack', 'move_attack'):
                 self.assertEqual(action['features'][24], 0, action['kind'])
 
+    def test_recruit_probe_budget_spans_every_affordable_type(self):
+        lua, modules = contracts.initialize()
+        lua.execute(MANY_RECRUIT_TYPES)
+        obs = modules['observation.lua'].capture(lua.table(), 1)
+        actions, timing = modules['candidates.lua'].generate(obs)
+        actions = _rows(actions)
+        # The fixture holds more legal (type, castle) pairs than any budget grants,
+        # so the reported count is the budget actually spent, not the pool's size.
+        self.assertEqual(timing['recruit_probes'], 192)
+        self.assertIs(timing['truncated'], True)
+        # Eight types exhaust sixty-four probes, so more than eight retained types
+        # is exactly what the wider budget buys.
+        recruited = {action['type'] for action in actions if action['kind'] == 'recruit'}
+        self.assertGreater(len(recruited), 8, sorted(recruited))
+
     def test_oversized_reachable_sets_are_cut_to_the_work_budget(self):
         lua, modules = contracts.initialize()
         lua.execute(DENSE)
@@ -153,12 +187,12 @@ class CandidatePoolBudgetTests(unittest.TestCase):
         actions = _rows(actions)
         self.assertIs(timing['truncated'], True)
         self.assertEqual(actions[0]['kind'], 'end_turn')
-        self.assertEqual(timing['budget'], 'work-12000-v6')
+        self.assertEqual(timing['budget'], 'work-12000-v7')
         self.assertLessEqual(len(actions), 37)
         self.assertLessEqual(timing['work'], 12000)
         self.assertLessEqual(timing['reaches'], 28)
         self.assertLessEqual(timing['paths'], 8)
-        self.assertLessEqual(timing['recruit_probes'], 64)
+        self.assertLessEqual(timing['recruit_probes'], 192)
         self.assertLessEqual(timing['attack_probes'], 32)
         self.assertLessEqual(timing['move_probes'], 48)
         self.assertLessEqual(timing['predictions'], 36)
