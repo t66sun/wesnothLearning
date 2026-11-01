@@ -2,8 +2,22 @@
 local M={}
 local function zeros(n) local a={};for i=1,n do a[i]=0 end;return a end
 local function append(a,b) for _,v in ipairs(b) do a[#a+1]=v end end
+local function sparse(x,offset)
+    local indices,values={},{}
+    for j=1,#x do
+        if x[j]~=0 then indices[#indices+1]=j+(offset or 0);values[#values+1]=x[j] end
+    end
+    return indices,values
+end
 local function linear(x,l,relu)
-    local y={};for i,row in ipairs(l.weight) do local v=l.bias[i];for j,t in ipairs(x) do v=v+row[j]*t end;y[i]=relu and math.max(0,v) or v end;return y
+    local indices,values=sparse(x)
+    local y={}
+    for i,row in ipairs(l.weight) do
+        local v=l.bias[i]
+        for j=1,#indices do v=v+row[indices[j]]*values[j] end
+        y[i]=relu and math.max(0,v) or v
+    end
+    return y
 end
 local function softmax(x)
     local m=-math.huge;for _,v in ipairs(x) do m=math.max(m,v) end
@@ -89,9 +103,10 @@ function M.forward(w,g,opponents,candidates,spatial,memory,turn)
     -- first scorer layer once and add each candidate tail in the same column order as a full row.
     local first=w.scorer[1]
     local base={}
+    local context_indices,context_values=sparse(context)
     for i,columns in ipairs(first.weight) do
         local v=first.bias[i]
-        for j=1,#context do v=v+columns[j]*context[j] end
+        for j=1,#context_indices do v=v+columns[context_indices[j]]*context_values[j] end
         base[i]=v
     end
     local split=#context
@@ -103,10 +118,12 @@ function M.forward(w,g,opponents,candidates,spatial,memory,turn)
             local e=a[name];append(row,e and (lookup[e.id] and entities[lookup[e.id]] or project(w,e)) or zeros(64))
         end
         append(row,linear(a['local'],w['local'],true));append(row,a.geometry)
+        -- Skip exact zeros only; retain the dense column accumulation order.
+        local indices,values=sparse(row,split)
         local x={}
         for k,columns in ipairs(first.weight) do
             local v=base[k]
-            for j=1,#row do v=v+columns[split+j]*row[j] end
+            for j=1,#indices do v=v+columns[indices[j]]*values[j] end
             x[k]=math.max(0,v)
         end
         for k=2,#w.scorer do x=linear(x,w.scorer[k],k<#w.scorer) end

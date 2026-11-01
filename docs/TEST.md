@@ -33,16 +33,6 @@ Every item states what is open, the smallest Ubuntu procedure that would close i
 
 **Evidence:** `verification/bc_root_20261101/REPORT.md` separates generated-pool loss, retained-pool loss, offline historical fit and fresh ordinary readiness. The fixed 40-game subset was used in diagnosis and repair, so it is not an unseen hold-out. Earlier failures stay in `verification/bounded_loop_20261101/REPORT.md` and `verification/teacher_coverage_20261101/REPORT.md` / `REPORT_v7.md`. No new post-BC or same-future acceptance is claimed.
 
-## C1 — Current candidate contract native timing
-
-**Status:** FAIL for `work-12000-v8` on Ubuntu. Generation p95 is 55/84/26 ms in duel/ffa4/team2v2, but scoring p95 is 459/488/456 ms against 400 ms; team2v2's measured decision maximum is 1,056 ms against 800 ms. The unchanged v7 control also fails (scoring 445/478/467 ms; team2v2 maximum 1,028 ms). Native games report no faults. These runs overlapped other work on the host, so they do not isolate a candidate-version regression or establish unloaded latency. Earlier timing acceptance cannot close this item.
-
-**Procedure:** on explicit execution instruction, use the existing `verification/candidate_work_budget_20261031/check.py` in an isolated Ubuntu source directory, with fixed source/rules, seeds 20261101/20261102, exported seed-0 policy, dense map and unchanged one-second native timeout. Record host load and run versions sequentially without concurrent training. Reuse the accepted candidate unit/provenance checks. The benchmark's pre-existing 20-to-30-turn fallback for fewer than ten midgame decisions must remain visible in the report.
-
-**Pass:** all existing benchmark stage/decision thresholds pass, zero faulted games, at most 37 candidates and 12,000 charged work. Do not rerun selectively until a pass or relax thresholds. Failure blocks native latency acceptance, not the measured lite coverage result.
-
-**Evidence:** `verification/bc_root_20261101/REPORT.md`, `native_v8/summary.json` and `native_v7/summary.json`; raw game events are retained with both summaries. This is not a strength panel.
-
 ## R3 — Adapted teacher strength evidence
 
 **Status:** the adaptation itself is implemented, six value-level positions were checked, and a bounded smoke ran on the Ubuntu host 2026-10-31: 14 games, all `complete`, `truncated=0`, adapted versus frozen Astra differed by −1.5 rank points in duel, +0.2083 in ffa4 and −1.125 in team2v2, one block and one distinct scenario per format, therefore inconclusive for strength. Full legal-board teacher query/ranking and the complete 12-block comparison are NOT RUN. Tactical evidence and strength evidence stay separate.
