@@ -80,14 +80,14 @@ class CandidatePoolBudgetTests(unittest.TestCase):
         self.assertLessEqual(len(self.actions), 37)
         self.assertEqual(self.actions[0]['kind'], 'end_turn')
         self.assertIs(self.timing['truncated'], True)
-        self.assertEqual(self.timing['budget'], 'work-12000-v5')
+        self.assertEqual(self.timing['budget'], 'work-12000-v6')
         self.assertLessEqual(self.timing['work'], 12000)
         self.assertLessEqual(self.timing['reaches'], 28)
         self.assertLessEqual(self.timing['paths'], 8)
-        self.assertLessEqual(self.timing['recruit_probes'], 24)
+        self.assertLessEqual(self.timing['recruit_probes'], 64)
         self.assertLessEqual(self.timing['attack_probes'], 32)
-        self.assertLessEqual(self.timing['move_probes'], 32)
-        self.assertLessEqual(self.timing['predictions'], 16)
+        self.assertLessEqual(self.timing['move_probes'], 48)
+        self.assertLessEqual(self.timing['predictions'], 36)
         self.assertEqual({action['kind'] for action in self.actions} - KINDS, set())
 
     def test_generation_is_deterministic_and_clock_independent(self):
@@ -137,7 +137,7 @@ class CandidatePoolBudgetTests(unittest.TestCase):
 
     def test_battle_forecasts_cover_the_retained_combat_set_within_sixteen(self):
         combat = [action for action in self.actions if action['kind'] in ('attack', 'move_attack')]
-        self.assertLessEqual(self.timing['predictions'], 16)
+        self.assertLessEqual(self.timing['predictions'], 36)
         self.assertEqual(self.timing['predictions'], len(combat))
         for action in combat:
             self.assertIsNotNone(action['features'], action)
@@ -153,15 +153,15 @@ class CandidatePoolBudgetTests(unittest.TestCase):
         actions = _rows(actions)
         self.assertIs(timing['truncated'], True)
         self.assertEqual(actions[0]['kind'], 'end_turn')
-        self.assertEqual(timing['budget'], 'work-12000-v5')
+        self.assertEqual(timing['budget'], 'work-12000-v6')
         self.assertLessEqual(len(actions), 37)
         self.assertLessEqual(timing['work'], 12000)
         self.assertLessEqual(timing['reaches'], 28)
         self.assertLessEqual(timing['paths'], 8)
-        self.assertLessEqual(timing['recruit_probes'], 24)
+        self.assertLessEqual(timing['recruit_probes'], 64)
         self.assertLessEqual(timing['attack_probes'], 32)
-        self.assertLessEqual(timing['move_probes'], 32)
-        self.assertLessEqual(timing['predictions'], 16)
+        self.assertLessEqual(timing['move_probes'], 48)
+        self.assertLessEqual(timing['predictions'], 36)
         self.assertEqual({action['kind'] for action in actions} - KINDS, set())
 
 

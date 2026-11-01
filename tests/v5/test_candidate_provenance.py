@@ -110,7 +110,7 @@ class CandidateProvenanceTests(unittest.TestCase):
         self.assertTrue(rows)
         self.assertEqual({row['side'] for row in rows}, {1})
         self.assertEqual({row['candidate_version'] for row in rows},
-                         {'schema5-work-12000-v5'})
+                         {'schema5-work-12000-v6'})
         diagnostic = [call for call in calls if not call['teacher'] and not call['generate_candidates']]
         collected = [call for call in calls if call['side'] == 1 and call['generate_candidates']]
         unrecorded = [call for call in calls if call['teacher']]
@@ -128,8 +128,8 @@ class CandidateProvenanceTests(unittest.TestCase):
         for call in collected:
             self.assertFalse(call['teacher'], call)
             self.assertTrue(call['generate_candidates'], call)
-            self.assertEqual(call['timing']['budget'], 'work-12000-v5', call)
-            self.assertEqual(_version(call['timing']), 'schema5-work-12000-v5')
+            self.assertEqual(call['timing']['budget'], 'work-12000-v6', call)
+            self.assertEqual(_version(call['timing']), 'schema5-work-12000-v6')
 
     def test_human_capture_without_timing_keeps_v1_and_validates(self):
         path, row = _capture(self.directory, 'capture-v1.log')

@@ -11,20 +11,20 @@ for i,field in ipairs(schema.action_features) do feature_index[field[1]]=i end
 -- Generation is cut by charged work and per-stage call caps, never by a clock,
 -- so the same state always yields the same candidate set.
 local WORK={
-    version='work-12000-v5',
+    version='work-12000-v6',
     total=12000,          -- charged search work per decision
     entities=16,          -- enemies/villages/friends scanned by scoring
     threat_enemies=12,    -- enemies expanded into the threat map
     threats=8,            -- threat entries retained per hex
     goals=12,             -- tactical goals retained per unit
-    positions=40,         -- reach positions scored per moving unit
+    positions=64,         -- reach positions scored per moving unit
     rated=40,             -- destinations tactically rated eagerly per unit
     reaches=28,           -- find_reach calls per decision
     paths=8,              -- find_path calls per decision
-    recruit_probes=24,    -- ai.check_recruit calls
+    recruit_probes=64,    -- ai.check_recruit calls
     attack_probes=32,     -- ai.check_attack calls
-    move_probes=32,       -- ai.check_move calls
-    predictions=16,       -- combat forecasts
+    move_probes=48,       -- ai.check_move calls
+    predictions=36,       -- combat forecasts, one per retained combat candidate
 }
 local COST={reach=40,path=20,probe=2,predict=30}
 local function owner_kind(obs,p)
@@ -302,7 +302,13 @@ function M.generate(obs)
     end
     local castles={}
     for _,p in pairs(obs.tiles) do if p.terrain:match('^[CK]') then castles[#castles+1]={p.x,p.y} end end
-    table.sort(castles,function(a,b) return a[1]<b[1] or a[1]==b[1] and a[2]<b[2] end)
+    -- A bounded probe budget must reach the forward castles first, so recruit slots
+    -- are ordered by distance to the nearest enemy instead of map coordinates.
+    table.sort(castles,function(a,b)
+        local da,db=minimum(a[1],a[2],enemies),minimum(b[1],b[2],enemies)
+        if da~=db then return da<db end
+        return a[1]<b[1] or a[1]==b[1] and a[2]<b[2]
+    end)
     for _,name in ipairs(wesnoth.sides[obs.side].recruit) do
         if wesnoth.unit_types[name].cost<=wesnoth.sides[obs.side].gold then
             local recruit_locations=0
@@ -312,7 +318,7 @@ function M.generate(obs)
                     -- Explicit detached identity prevents probes consuming native unit IDs.
                     local u=wesnoth.units.create {type=name,side=obs.side,x=p[1],y=p[2],random_traits=false,
                         random_gender=false,generate_name=false,facing='ne',id='learning_probe',underlying_id=2147483647}
-                    add({kind='recruit',type=name,x=p[1],y=p[2]},u)
+                    add({kind='recruit',type=name,x=p[1],y=p[2],_gain=-minimum(p[1],p[2],enemies)},u)
                     recruit_locations=recruit_locations+1
                     if recruit_locations>=8 then break end
                 end
@@ -440,7 +446,15 @@ function M.generate(obs)
             best('explore',function(p)
                 return not O.visible(obs.side,p[1],p[2]) and 100-distance(u.x,u.y,p) or distance(u.x,u.y,p)
             end)
-            if #selected>0 then plans[#plans+1]={u=u,selected=selected,primary=true} end
+            if #selected>0 then
+                -- Combat-adjacent destinations are probed first, so a bounded probe
+                -- budget cannot be spent on position picks before any attack-adjacent
+                -- destination is checked. Categories themselves are unchanged.
+                local ordered={}
+                for _,d in ipairs(selected) do if d.category=='attack' then ordered[#ordered+1]=d end end
+                for _,d in ipairs(selected) do if d.category~='attack' then ordered[#ordered+1]=d end end
+                plans[#plans+1]={u=u,selected=ordered,primary=true}
+            end
         end
     end
     -- Probe round by round across units: every mobile actor gets its best

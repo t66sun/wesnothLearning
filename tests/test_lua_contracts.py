@@ -154,7 +154,7 @@ class LuaContractTests(unittest.TestCase):
         obs['leader']=None
         actions,timing=modules['candidates.lua'].generate(obs)
         self.assertEqual(len(actions),1);self.assertEqual(actions[1]['kind'],'end_turn')
-        self.assertEqual(timing['budget'],'work-12000-v5')
+        self.assertEqual(timing['budget'],'work-12000-v6')
 
     def test_deployed_bot_scores_every_shared_candidate(self):
         def run():
