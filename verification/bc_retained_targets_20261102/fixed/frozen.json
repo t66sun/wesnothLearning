@@ -1,0 +1,60 @@
+{
+  "checkpoint_sha256": "ffb554ca152ac93e3602bd45c98841238ef7ee59640b5bf7fb4ba64ba8148a97",
+  "seconds": 16.618546839104965,
+  "maxrss_kib": 999280,
+  "stats": {
+    "requested": 2048,
+    "rows": 2048,
+    "families": 16,
+    "selected": 17,
+    "families_decoded": 16,
+    "families_selected": 17,
+    "families_admitted": 16,
+    "families_retained": 16,
+    "windows": 40,
+    "sources": {
+      "astra": 2048
+    },
+    "engines": {
+      "lite": 2048
+    },
+    "kinds": {
+      "recruit": 91,
+      "move": 1393,
+      "end_turn": 240,
+      "move_attack": 299,
+      "attack": 25
+    },
+    "gz_bytes": 98498946,
+    "retained_bytes": 382374612,
+    "deficit": 0,
+    "stop_reason": "window_limit"
+  },
+  "family_rows": {
+    "4ae77b472d9162d169f777c1b9438b1158bca1ae8d22a115be0cef8d99e3fdf2": 128,
+    "f8d1a044c47671f6665f8fd1dffe6c861ec40b148baecc1d93056d6d82b094c7": 128,
+    "3fcb32b520397c58beec84e1a5a1e2028b36ab10047b794a370cb902daaab14b": 128,
+    "d355c4abd80a167c0c9dd83cade483d685159935b76bff0b43b861ee6016bbf2": 128,
+    "bf1507b63b46e3c281049c092f48822d8810286351af9d80b6ffecc9f8d4336b": 128,
+    "4fdf759956b739a64123e429ebdb2338b6ab5716dd241e534ade506db0ffd925": 128,
+    "00cddca6f8e0f7293facf8313bf747ac7e2da110688e05e324017ce520b9aa21": 128,
+    "228734ec68f6372ba77759c5b9c9213c3dab9d1c58db2fef04f2c2c5ab347af2": 128,
+    "32796ca81d9cf4afd3c7a1f99f345fe1eea51c7869fdd606c9b74da335185f5d": 128,
+    "a3837afd868e23310001990b12006ac7bd6645ab167b8010d49bc535ff60127e": 128,
+    "8c5ed5c5395652c96efc2deea96463bde22bada96847269b8ae3887aee375a42": 128,
+    "16f2b86fd6bee7d7d4fafb78b566c618dac9988169689df2fbb117031a35b329": 128,
+    "e08a04d5f2312d889a7ee970a5100f1829cc26b3f19b4c94302deb1f86aa93e8": 128,
+    "e5e79707669ac4a56d12dd06f1bf04e54a1d3db86ceba8c0652958d30a1660f7": 128,
+    "00ba546e00809bb3c5ecf8476921d903acaea6287b965d3a5864e5f96c040cd6": 128,
+    "320b8ac4ba84c046edc0cbb9c2006c9e6c4451d11bfc56b9728b3c3f753713f7": 128
+  },
+  "faction_rows": {
+    "Northerners": 384,
+    "Loyalists": 384,
+    "Drakes": 256,
+    "Rebels": 512,
+    "Knalgan Alliance": 256,
+    "Undead": 256
+  },
+  "max_history": 60
+}

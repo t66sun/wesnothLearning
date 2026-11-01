@@ -1,0 +1,8 @@
+test_rounding_keeps_families_balanced_and_prior_shares_nonincreasing (tests.v5.test_bc_retention.RetainedTargetTests.test_rounding_keeps_families_balanced_and_prior_shares_nonincreasing) ... ok
+test_unused_target_objects_are_released_before_next_decode (tests.v5.test_bc_retention.RetainedTargetTests.test_unused_target_objects_are_released_before_next_decode) ... ok
+test_unused_targets_do_not_exclude_families_from_retained_budget (tests.v5.test_bc_retention.RetainedTargetTests.test_unused_targets_do_not_exclude_families_from_retained_budget) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 33.116s
+
+OK
