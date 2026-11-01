@@ -1,0 +1,10 @@
+test_auto_uses_next_sampling_method_after_bc_gate (tests.v5.test_training_failure_fixes.PhaseEntryTests.test_auto_uses_next_sampling_method_after_bc_gate) ... ok
+test_bc_only_stops_without_ppo_or_final_and_can_resume_as_ppo (tests.v5.test_training_failure_fixes.PhaseEntryTests.test_bc_only_stops_without_ppo_or_final_and_can_resume_as_ppo) ... ok
+test_cli_phase_entry_is_separate_from_reward_controls (tests.v5.test_training_failure_fixes.PhaseEntryTests.test_cli_phase_entry_is_separate_from_reward_controls) ... ok
+test_forced_phase_is_explicit_preserves_gates_and_original_clock (tests.v5.test_training_failure_fixes.PhaseEntryTests.test_forced_phase_is_explicit_preserves_gates_and_original_clock) ... ok
+test_resumed_pending_batch_keeps_method_before_new_phase (tests.v5.test_training_failure_fixes.PhaseEntryTests.test_resumed_pending_batch_keeps_method_before_new_phase) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.043s
+
+OK
