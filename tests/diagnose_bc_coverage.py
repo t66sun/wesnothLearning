@@ -32,10 +32,13 @@ def main():
     p.add_argument('--format', required=True)
     p.add_argument('--out', type=Path, required=True)
     p.add_argument('--games', type=int, default=1)
+    p.add_argument('--job')
+    p.add_argument('--decisions',type=int)
     p.add_argument('--variant', choices=['baseline', 'unlimited_work', 'no_threat'], default='baseline')
     args = p.parse_args()
     args.out.mkdir(parents=True, exist_ok=False)
-    records = sorted([json.loads(x) for x in (args.run/args.format/'jobs.jsonl').read_text().splitlines()], key=lambda x:x['id'])[:args.games]
+    records = sorted([json.loads(x) for x in (args.run/args.format/'jobs.jsonl').read_text().splitlines()], key=lambda x:x['id'])
+    records = [r for r in records if r['id']==args.job] if args.job else records[:args.games]
     wanted = {r['id'] for r in records}
     jobs = {j['id']:j for f in sorted((args.run/args.format/'schedules').glob('*.json')) for j in json.loads(f.read_text()) if j['id'] in wanted}
     counts, stages = Counter(), Counter()
@@ -88,8 +91,9 @@ def main():
                             empty.write_text(json.dumps(dict(spec=host.adapter.spec, snapshot=host.snapshot(),
                                                              side=side, intent=intent, row=row)))
                 view = host.execute(intent)['view']
+                if args.decisions and decision>=args.decisions: break
             host.adapter.close()
-    result = dict(format=args.format, variant=args.variant, games=len(jobs), counts=counts,
+    result = dict(format=args.format, variant=args.variant, games=len(jobs), decision_cap=args.decisions, counts=counts,
                   stages=stages, trajectory_sha256=digest.hexdigest(), seconds=time.monotonic()-started)
     (args.out/'summary.json').write_text(json.dumps(result, indent=2))
     print(json.dumps(result), flush=True)
