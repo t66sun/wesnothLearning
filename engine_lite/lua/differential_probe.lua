@@ -34,7 +34,9 @@ function M.before(action)
     local ap,dp,aw,dw=wesnoth.simulate_combat(a,action.weapon,d)
     battle={a=a,d=d,aid=a.id,did=d.id,strikes=setmetatable({},{__array=true}),
         oracle={attacker=distribution(ap),defender=distribution(dp),
-            attacker_hit=aw.chance_to_hit/100,defender_hit=dw.chance_to_hit/100}}
+            attacker_hit=aw.chance_to_hit/100,defender_hit=dw.chance_to_hit/100,
+            attacker_weapon={number=aw.number,name=aw.name,damage=aw.damage,strikes=aw.num_blows},
+            defender_weapon={number=dw.number,name=dw.name,damage=dw.damage,strikes=dw.num_blows}}}
 end
 function M.after()
     if not battle then return nil end
