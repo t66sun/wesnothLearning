@@ -127,6 +127,7 @@ def peak_rss_mb():
 
 def coverage_gate(results):
     totals={k:[0,0] for k in ('all','recruit','move','attack')}
+    reasons={}
     for result in results:
         if result.get('result',{}).get('faults') or result.get('training_eligible') is False:continue
         c=result.get('coverage',{})
@@ -134,8 +135,11 @@ def coverage_gate(results):
         for kind in ('recruit','move','attack'):
             v=c.get('kinds',{}).get(kind,{})
             totals[kind][0]+=v.get('matched',0);totals[kind][1]+=v.get('total',0)
+        for key,count in c.get('reasons',{}).items():
+            reasons[key]=reasons.get(key,0)+count
     metrics={k:dict(matched=m,total=n,ratio=m/n if n else 0) for k,(m,n) in totals.items()}
-    return dict(passed=all(v['total']>0 and v['ratio']>=(.9 if k=='all' else .8) for k,v in metrics.items()),actions=metrics)
+    return dict(passed=all(v['total']>0 and v['ratio']>=(.9 if k=='all' else .8) for k,v in metrics.items()),actions=metrics,
+                reasons=dict(sorted(reasons.items())))
 
 
 def bc_effective(gate):

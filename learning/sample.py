@@ -6,6 +6,7 @@ import gzip
 import os
 import time
 from .common import ROOT, repair_tail, write_json
+from .coverage import reason
 from .data import keeps_behavior, keeps_reward_diagnostics, write_shard
 import match
 _priority_set=False
@@ -78,6 +79,13 @@ def play_job(job):
         rows=[r for r in records if (r.get('actual',{}).get('kind')==kind or kind=='attack' and r.get('actual',{}).get('kind')=='move_attack') and r.get('representable',True)]
         coverage[kind]=dict(total=len(rows),matched=sum(r['choice']>=0 for r in rows))
     eligible=[r for r in records if r.get('representable',True)]
+    reasons={}
+    for r in eligible:
+        if r['choice']>=0: continue
+        kind=r['actual']['kind']
+        for name in (('move_attack','attack') if kind=='move_attack' else (kind,)):
+            key=f"{name}:{reason(r['candidates'],r['actual'])}"
+            reasons[key]=reasons.get(key,0)+1
 
     written=None
     if job.get('shard'):
@@ -118,7 +126,7 @@ def play_job(job):
     return dict(id=job['id'],status='complete',result=result,meta=meta,**evidence,
         training_eligible=not result.get('faults') and (written is None or bool(written['written'])),training_shard=written,
         coverage=dict(total=len(eligible),matched=sum(r['choice']>=0 for r in eligible),
-                      all_actions=len(records),all_matched=matched,kinds=coverage),
+                      all_actions=len(records),all_matched=matched,kinds=coverage,reasons=reasons),
         truncated=sum(r['timing']['truncated'] for r in records))
 
 
