@@ -40,12 +40,16 @@ class RetainedTargetTests(unittest.TestCase):
         original = sequences._family_windows
         references = []
         decoded = []
+        histories = {}
 
         def observe(*args):
             self.assertLessEqual(sum(ref() is not None for ref in references), 96)
             windows, prefix = original(*args)
             references.extend(weakref.ref(row['candidates'][0]['features'])
                               for window in windows for row in window)
+            histories.update({(row['game_family'], row['turn'], row['decision']):
+                              [slot['turn'] for slot in row['_history']]
+                              for window in windows for row in window})
             decoded.append(str(args[0][0][0]))
             return windows, prefix
 
@@ -55,7 +59,8 @@ class RetainedTargetTests(unittest.TestCase):
         self.assertEqual(len(set(decoded)), 3)
         self.assertEqual(len(decoded), 3)
         for row in rows:
-            self.assertEqual(len(row['_history']), row['turn']-1)
+            self.assertEqual([slot['turn'] for slot in row['_history']],
+                             histories[row['game_family'], row['turn'], row['decision']])
 
     def test_unused_targets_do_not_exclude_families_from_retained_budget(self):
         costs = []
