@@ -1,0 +1,15 @@
+{
+  "source_commit": "959ae6a676449b3bb4192f4cf9349698c53c48da",
+  "parent_run": "runs/team_bc_v2",
+  "checkpoint_sha256": "2fd567c68ae75ed3f5f9f62dc012d6e02965502937e63cbd8bf58f6f0905732c",
+  "script": "tests/diagnose_bc_learning_curve.py",
+  "script_sha256": "5f37895f997e626e324388070c42690cb3655eeeba9d0f70d97a7412fab70b59",
+  "max_updates": 600,
+  "update_seconds": 900,
+  "external_seconds": 1200,
+  "train_rows_max": 2048,
+  "validation_rows_max": 1024,
+  "changes": "None: restore original model/Adam/RNG and use the original objective/sampler on a copy.",
+  "reason": "The exact last committed batch fits recruits at 43/165 and attacks at 105/366; test remaining underoptimization before changing the objective or inputs.",
+  "limits": "No new games, source/data/checkpoint edits, parent-run resume, forced PPO, deadline extension or additional seed."
+}
