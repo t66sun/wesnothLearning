@@ -1,0 +1,42 @@
+test_fresh_run_keeps_current_log_eligibility (tests.v5.test_branch_teacher_evidence.BranchTeacherEvidenceTests.test_fresh_run_keeps_current_log_eligibility) ... ok
+test_inherited_and_child_games_supply_the_same_corpus_and_coverage (tests.v5.test_branch_teacher_evidence.BranchTeacherEvidenceTests.test_inherited_and_child_games_supply_the_same_corpus_and_coverage) ... FAIL
+test_later_parent_collection_and_ineligible_results_are_not_inherited (tests.v5.test_branch_teacher_evidence.BranchTeacherEvidenceTests.test_later_parent_collection_and_ineligible_results_are_not_inherited) ... FAIL
+test_nested_lineage_deduplicates_paths_and_keeps_format_boundaries (tests.v5.test_branch_teacher_evidence.BranchTeacherEvidenceTests.test_nested_lineage_deduplicates_paths_and_keeps_format_boundaries) ... FAIL
+
+======================================================================
+FAIL: test_inherited_and_child_games_supply_the_same_corpus_and_coverage (tests.v5.test_branch_teacher_evidence.BranchTeacherEvidenceTests.test_inherited_and_child_games_supply_the_same_corpus_and_coverage)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/branch_teacher_red_20261102/tests/v5/test_branch_teacher_evidence.py", line 43, in test_inherited_and_child_games_supply_the_same_corpus_and_coverage
+    self.assertEqual({row['id'] for row in evidence}, {'parent', 'child'})
+AssertionError: Items in the second set but not the first:
+'parent'
+
+======================================================================
+FAIL: test_later_parent_collection_and_ineligible_results_are_not_inherited (tests.v5.test_branch_teacher_evidence.BranchTeacherEvidenceTests.test_later_parent_collection_and_ineligible_results_are_not_inherited)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/branch_teacher_red_20261102/tests/v5/test_branch_teacher_evidence.py", line 61, in test_later_parent_collection_and_ineligible_results_are_not_inherited
+    self.assertEqual([row['id'] for row in experiment.teacher_evidence()], ['included'])
+AssertionError: Lists differ: [] != ['included']
+
+Second list contains 1 additional elements.
+First extra element 0:
+'included'
+
+- []
++ ['included']
+
+======================================================================
+FAIL: test_nested_lineage_deduplicates_paths_and_keeps_format_boundaries (tests.v5.test_branch_teacher_evidence.BranchTeacherEvidenceTests.test_nested_lineage_deduplicates_paths_and_keeps_format_boundaries)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/branch_teacher_red_20261102/tests/v5/test_branch_teacher_evidence.py", line 74, in test_nested_lineage_deduplicates_paths_and_keeps_format_boundaries
+    self.assertEqual(len(evidence), 2)  # Different shard paths may have the same local job ID.
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 != 2
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.002s
+
+FAILED (failures=3)

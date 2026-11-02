@@ -154,7 +154,7 @@ Stages run in order: `calibration` → `bc` → `ppo` → `final`.
 
 The clock reserves 10/12 of `hours` for updates and 2/12 for frozen evaluation; `final_holdout_hours` is carved out of the evaluation window.
 
-Checkpoints are written atomically beside `state.json`; resume validates the manifest hash, schema, weights and optimizer state; a branch run also accepts the parent manifest hash its inherited checkpoint still pins. `--branch-from` copies a complete `latest.pt` into a new run with parent identities, new clock and seed, and either a kept or reset optimizer.
+Checkpoints are written atomically beside `state.json`; resume validates the manifest hash, schema, weights and optimizer state; a branch run also accepts the parent manifest hash its inherited checkpoint still pins. `--branch-from` copies a complete `latest.pt` into a new run with parent identities, new clock and seed, and either a kept or reset optimizer. Corpus and coverage gates reuse eligible ancestor teacher results only for shard paths retained by that checkpoint; later ancestor collection is excluded and nested lineage is deduplicated by shard path. Thirty affected Ubuntu checks and a read-only 40-game parent check pass (`verification/branch_teacher_evidence_20261102/REPORT.md`).
 
 ## 9. Evaluation and selection
 
