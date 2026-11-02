@@ -7,7 +7,7 @@ use std::sync::Arc;
 const PLAIN: &str = "Gg";
 
 fn weapon() -> Weapon {
-    Weapon{id:"blade".into(),damage:10,strikes:1,damage_type:"blade".into(),range:"melee".into(),
+    Weapon{id:"blade".into(),damage:10,strikes:1,damage_type:"blade".into(),range:"melee".into(),accuracy:0,parry:0,
         specials:BTreeSet::new(),plague_type:None,drain_percent:None,opponent_damage_percent:None,
         defense_cth_sub:0,opponent_attacks:None}
 }

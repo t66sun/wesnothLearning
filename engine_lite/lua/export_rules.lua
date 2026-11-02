@@ -202,7 +202,8 @@ function M.capture(options)
             if u.status[immunity] then record.abilities[#record.abilities+1]=immunity end
         end
         for _,a in ipairs(u.attacks) do
-            local weapon={id=a.name,damage=a.damage,strikes=a.number,damage_type=a.type,range=a.range,specials={}}
+            local weapon={id=a.name,damage=a.damage,strikes=a.number,damage_type=a.type,range=a.range,
+                accuracy=a.accuracy or 0,parry=a.parry or 0,specials={}}
             for _,specials in ipairs(children(a.__cfg,'specials')) do for _,s in ipairs(specials) do
                 local compiled=compile_special(s[1],s[2],weapon)
                 local name=compiled or s[2].id or s[1]

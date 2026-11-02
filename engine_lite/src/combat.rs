@@ -43,7 +43,8 @@ pub(super) fn strike(rules:&Rules,a:&mut Unit,d:&mut Unit,w:&Weapon,
           opposing_weapon:Option<&Weapon>,terrain:&str,turn:u32,charging:bool,
           offense:bool,modifiers:&Modifiers,roll:u32)->Strike {
     let at=&rules.units[&a.unit_type];let dt=&rules.units[&d.unit_type];
-    let mut chance=dt.defense[terrain];
+    let mut chance=(i64::from(dt.defense[terrain])+i64::from(w.accuracy)
+        -i64::from(opposing_weapon.map_or(0,|other|other.parry))).clamp(0,100) as u32;
     if w.specials.contains("magical") { chance=70; }
     if offense && w.specials.contains("marksman") { chance=chance.max(60); }
     chance=chance.saturating_sub(if offense{modifiers.attacker_cth_sub}else{modifiers.defender_cth_sub});
@@ -155,7 +156,7 @@ mod tests {
     fn weapon(damage: i32, strikes: u32, specials: &[&str]) -> Weapon {
         Weapon {
             id: "blade".into(), damage, strikes, damage_type: "blade".into(),
-            range: "melee".into(),
+            range: "melee".into(), accuracy:0, parry:0,
             specials: specials.iter().map(|s| s.to_string()).collect(),
             plague_type: None, drain_percent: None, opponent_damage_percent: None,
             defense_cth_sub: 0, opponent_attacks: None,
