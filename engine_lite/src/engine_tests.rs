@@ -136,3 +136,34 @@ fn forecast_is_a_single_point_mass_that_matches_the_resolved_battle() {
     g.step(Action::Attack{unit:"u1".into(),target:"u2".into(),weapon:0}).expect("attack");
     assert_eq!(hp(&g,"u2"),predicted);
 }
+
+#[test]
+fn probabilistic_forecast_preserves_state() {
+    let g=game(1);
+    let before=serde_json::to_value(&g).unwrap();
+    let f=g.forecast(1,"u1","u2",0,128).unwrap();
+    for who in ["attacker","defender"] {
+        assert!((f[who]["average_hp"].as_f64().unwrap()-14.0).abs()<1e-12);
+        assert!((f[who]["hp_chance"]["10"].as_f64().unwrap()-0.6).abs()<1e-12);
+        assert!((f[who]["hp_chance"]["20"].as_f64().unwrap()-0.4).abs()<1e-12);
+    }
+    assert_eq!(serde_json::to_value(&g).unwrap(),before);
+    assert_eq!(f,game(999).forecast(1,"u1","u2",0,1).unwrap());
+}
+
+#[test]
+fn probabilistic_execution_restores_same_future() {
+    let action=Action::Attack{unit:"u1".into(),target:"u2".into(),weapon:0};
+    let mut outcomes=BTreeSet::new();
+    for seed in 0..64 {
+        let mut a=game(seed);
+        let mut b:Game=serde_json::from_value(serde_json::to_value(&a).unwrap()).unwrap();
+        a.forecast(1,"u1","u2",0,128).unwrap();
+        let one=a.step(action.clone()).unwrap();
+        assert_eq!(one,b.step(action.clone()).unwrap());
+        let damage=one["strikes"][0]["damage"].as_i64().unwrap();
+        assert!(damage==0 || damage==10);
+        outcomes.insert(damage);
+    }
+    assert_eq!(outcomes,BTreeSet::from([0,10]));
+}
