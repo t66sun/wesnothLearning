@@ -1,0 +1,16 @@
+test_old_teacher_rows_cannot_enter_a_new_batch (tests.v5.test_astra_adaptation.AstraAdaptationTests.test_old_teacher_rows_cannot_enter_a_new_batch) ... ok
+test_six_public_positions_rank_deterministically (tests.v5.test_astra_adaptation.AstraAdaptationTests.test_six_public_positions_rank_deterministically) ... FAIL
+test_source_is_derived_and_marked (tests.v5.test_astra_adaptation.AstraAdaptationTests.test_source_is_derived_and_marked) ... ok
+
+======================================================================
+FAIL: test_six_public_positions_rank_deterministically (tests.v5.test_astra_adaptation.AstraAdaptationTests.test_six_public_positions_rank_deterministically)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/teacher_surviving_slow_red_20261103/tests/v5/test_astra_adaptation.py", line 75, in test_six_public_positions_rank_deterministically
+    self.assertEqual(self.score(kill=1, slow=1, target_damage=20),
+AssertionError: 92.0 != 80.0
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.022s
+
+FAILED (failures=1)

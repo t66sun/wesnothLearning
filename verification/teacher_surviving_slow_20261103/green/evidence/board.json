@@ -1,0 +1,638 @@
+{
+  "lite": {
+    "legal": true,
+    "legal_actions": [
+      {
+        "kind": "end_turn"
+      },
+      {
+        "kind": "attack",
+        "target": "defender",
+        "unit": "attacker",
+        "weapon": 0
+      },
+      {
+        "kind": "attack",
+        "target": "defender",
+        "unit": "attacker",
+        "weapon": 1
+      },
+      {
+        "kind": "attack",
+        "target": "defender",
+        "unit": "attacker",
+        "weapon": 2
+      }
+    ],
+    "plan": {
+      "enemy": "defender",
+      "ex": 8,
+      "ey": 7,
+      "id": "attacker",
+      "kind": "combat",
+      "tx": 7,
+      "ty": 7,
+      "weapon": 3,
+      "x": 7,
+      "y": 7
+    },
+    "teacher_error": null,
+    "trace": [
+      {
+        "attacker": "attacker",
+        "danger_cost_margin": -30.668,
+        "defender": "defender",
+        "forecast": {
+          "attacker": {
+            "average_hp": 36.668,
+            "hp_chance": {
+              "17": 0.11016,
+              "28": 0.22032000000000002,
+              "39": 0.44088,
+              "50": 0.22864
+            },
+            "poisoned": 0.0,
+            "slowed": 0.0
+          },
+          "defender": {
+            "average_hp": 2.4,
+            "hp_chance": {
+              "0": 0.49,
+              "4": 0.42,
+              "8": 0.09000000000000002
+            },
+            "poisoned": 0.0,
+            "slowed": 0.0
+          }
+        },
+        "parameters": {
+          "dealt": 5.6,
+          "death": 0,
+          "death_cost": 0.7,
+          "enemy_max": 57,
+          "enemy_value": 36.0,
+          "expected_hp": 36.668,
+          "kill": 0.49,
+          "own_max": 50,
+          "own_poison": 0.0,
+          "own_value": 70.0,
+          "poison": 0.0,
+          "risk": 0,
+          "risk_weight": 0.35,
+          "slow": 0.0,
+          "taken": 13.332,
+          "target_damage": 14.693684210526316
+        },
+        "score": -1.0159578947368395,
+        "target_damage_estimate": 19.8,
+        "weapon": 1
+      },
+      {
+        "attacker": "attacker",
+        "danger_cost_margin": -44.0,
+        "defender": "defender",
+        "forecast": {
+          "attacker": {
+            "average_hp": 50.0,
+            "hp_chance": {
+              "50": 0.9999999999999999
+            },
+            "poisoned": 0.0,
+            "slowed": 0.0
+          },
+          "defender": {
+            "average_hp": 0.29160000000000014,
+            "hp_chance": {
+              "0": 0.9162999999999999,
+              "3": 0.07560000000000003,
+              "8": 0.008100000000000005
+            },
+            "poisoned": 0.0,
+            "slowed": 0.9918999999999999
+          }
+        },
+        "parameters": {
+          "dealt": 7.7084,
+          "death": 0,
+          "death_cost": 0.7,
+          "enemy_max": 57,
+          "enemy_value": 36.0,
+          "expected_hp": 50.0,
+          "kill": 0.9162999999999999,
+          "own_max": 50,
+          "own_poison": 0.0,
+          "own_value": 70.0,
+          "poison": 0.0,
+          "risk": 0,
+          "risk_weight": 0.35,
+          "slow": 0.9918999999999999,
+          "taken": 0.0,
+          "target_damage": 14.693684210526316
+        },
+        "score": 31.96452442105263,
+        "target_damage_estimate": 19.8,
+        "weapon": 2
+      },
+      {
+        "attacker": "attacker",
+        "danger_cost_margin": -44.0,
+        "defender": "defender",
+        "forecast": {
+          "attacker": {
+            "average_hp": 50.0,
+            "hp_chance": {
+              "50": 1.0
+            },
+            "poisoned": 0.0,
+            "slowed": 0.0
+          },
+          "defender": {
+            "average_hp": 0.06480000000000004,
+            "hp_chance": {
+              "0": 0.9919,
+              "8": 0.008100000000000005
+            },
+            "poisoned": 0.0,
+            "slowed": 0.0
+          }
+        },
+        "parameters": {
+          "dealt": 7.9352,
+          "death": 0,
+          "death_cost": 0.7,
+          "enemy_max": 57,
+          "enemy_value": 36.0,
+          "expected_hp": 50.0,
+          "kill": 0.9919,
+          "own_max": 50,
+          "own_poison": 0.0,
+          "own_value": 70.0,
+          "poison": 0.0,
+          "risk": 0,
+          "risk_weight": 0.35,
+          "slow": 0.0,
+          "taken": 0.0,
+          "target_damage": 14.693684210526316
+        },
+        "score": 33.5784252631579,
+        "target_damage_estimate": 19.8,
+        "weapon": 3
+      }
+    ]
+  },
+  "native": {
+    "legal": true,
+    "legal_actions": [
+      {
+        "kind": "end_turn"
+      },
+      {
+        "kind": "attack",
+        "target": "defender",
+        "unit": "attacker",
+        "weapon": 0
+      },
+      {
+        "kind": "attack",
+        "target": "defender",
+        "unit": "attacker",
+        "weapon": 1
+      },
+      {
+        "kind": "attack",
+        "target": "defender",
+        "unit": "attacker",
+        "weapon": 2
+      }
+    ],
+    "plan": {
+      "enemy": "defender",
+      "ex": 8,
+      "ey": 7,
+      "id": "attacker",
+      "kind": "combat",
+      "tx": 7,
+      "ty": 7,
+      "weapon": 3,
+      "x": 7,
+      "y": 7
+    },
+    "teacher_error": null,
+    "trace": [
+      {
+        "attacker": "attacker",
+        "danger_cost_margin": -30.668,
+        "defender": "defender",
+        "forecast": {
+          "attacker": {
+            "average_hp": 36.668,
+            "hp_chance": {
+              "17": 0.11016000000000001,
+              "28": 0.22032000000000002,
+              "39": 0.44088,
+              "50": 0.22863999999999998
+            },
+            "poisoned": 0,
+            "slowed": 0
+          },
+          "defender": {
+            "average_hp": 2.4000000000000004,
+            "hp_chance": {
+              "0": 0.49,
+              "4": 0.42,
+              "8": 0.09000000000000004
+            },
+            "poisoned": 0,
+            "slowed": 0
+          }
+        },
+        "parameters": {
+          "dealt": 5.6,
+          "death": 0,
+          "death_cost": 0.7,
+          "enemy_max": 57,
+          "enemy_poisoned": false,
+          "enemy_slowed": false,
+          "enemy_value": 36,
+          "expected_hp": 36.668,
+          "kill": 0.49,
+          "own_max": 50,
+          "own_poison": 0,
+          "own_poisoned": false,
+          "own_value": 70,
+          "poison": 0,
+          "risk": 0,
+          "risk_weight": 0.35,
+          "slow": 0,
+          "taken": 13.332,
+          "target_damage": 14.693684210526316
+        },
+        "score": -1.0159578947368395,
+        "target_damage_estimate": 19.8,
+        "weapon": 1
+      },
+      {
+        "attacker": "attacker",
+        "danger_cost_margin": -43.99999999999999,
+        "defender": "defender",
+        "forecast": {
+          "attacker": {
+            "average_hp": 49.99999999999999,
+            "hp_chance": {
+              "50": 0.9999999999999999
+            },
+            "poisoned": 0,
+            "slowed": 0
+          },
+          "defender": {
+            "average_hp": 0.2916000000000001,
+            "hp_chance": {
+              "0": 0.9162999999999999,
+              "3": 0.07560000000000003,
+              "8": 0.008100000000000003
+            },
+            "poisoned": 0,
+            "slowed": 0.9918999999999999
+          }
+        },
+        "parameters": {
+          "dealt": 7.7084,
+          "death": 0,
+          "death_cost": 0.7,
+          "enemy_max": 57,
+          "enemy_poisoned": false,
+          "enemy_slowed": false,
+          "enemy_value": 36,
+          "expected_hp": 49.99999999999999,
+          "kill": 0.9162999999999999,
+          "own_max": 50,
+          "own_poison": 0,
+          "own_poisoned": false,
+          "own_value": 70,
+          "poison": 0,
+          "risk": 0,
+          "risk_weight": 0.35,
+          "slow": 0.9918999999999999,
+          "taken": 7.105427357601002e-15,
+          "target_damage": 14.693684210526316
+        },
+        "score": 31.96452442105262,
+        "target_damage_estimate": 19.8,
+        "weapon": 2
+      },
+      {
+        "attacker": "attacker",
+        "danger_cost_margin": -44.0,
+        "defender": "defender",
+        "forecast": {
+          "attacker": {
+            "average_hp": 50,
+            "hp_chance": {
+              "50": 1
+            },
+            "poisoned": 0,
+            "slowed": 0
+          },
+          "defender": {
+            "average_hp": 0.06480000000000002,
+            "hp_chance": {
+              "0": 0.9919,
+              "8": 0.008100000000000003
+            },
+            "poisoned": 0,
+            "slowed": 0
+          }
+        },
+        "parameters": {
+          "dealt": 7.9352,
+          "death": 0,
+          "death_cost": 0.7,
+          "enemy_max": 57,
+          "enemy_poisoned": false,
+          "enemy_slowed": false,
+          "enemy_value": 36,
+          "expected_hp": 50,
+          "kill": 0.9919,
+          "own_max": 50,
+          "own_poison": 0,
+          "own_poisoned": false,
+          "own_value": 70,
+          "poison": 0,
+          "risk": 0,
+          "risk_weight": 0.35,
+          "slow": 0,
+          "taken": 0,
+          "target_damage": 14.693684210526316
+        },
+        "score": 33.5784252631579,
+        "target_damage_estimate": 19.8,
+        "weapon": 3
+      }
+    ]
+  },
+  "spec": {
+    "allow_approximate": true,
+    "differential_probe": true,
+    "experience_modifier": 100,
+    "height": 13,
+    "max_turns": 4,
+    "seed": 713,
+    "sides": [
+      {
+        "base_income": 2,
+        "faction": "Rebels",
+        "fog": false,
+        "gold": 0,
+        "id": 1,
+        "recruit": [
+          "Elvish Fighter"
+        ],
+        "share_maps": false,
+        "share_view": false,
+        "shroud": false,
+        "team": "1"
+      },
+      {
+        "base_income": 2,
+        "faction": "Northerners",
+        "fog": false,
+        "gold": 0,
+        "id": 2,
+        "recruit": [
+          "Orcish Grunt"
+        ],
+        "share_maps": false,
+        "share_view": false,
+        "shroud": false,
+        "team": "2"
+      }
+    ],
+    "terrain": [
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Kh",
+      "Ch",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg"
+    ],
+    "units": [
+      {
+        "attacks_left": 0,
+        "hp": 47,
+        "id": "leader1",
+        "leader": true,
+        "moves": 0,
+        "pos": 78,
+        "side": 1,
+        "status": [],
+        "traits": [],
+        "unit_type": "Elvish Captain",
+        "xp": 0
+      },
+      {
+        "attacks_left": 0,
+        "hp": 58,
+        "id": "leader2",
+        "leader": true,
+        "moves": 0,
+        "pos": 168,
+        "side": 2,
+        "status": [],
+        "traits": [],
+        "unit_type": "Orcish Warrior",
+        "xp": 0
+      },
+      {
+        "attacks_left": 1,
+        "hp": 50,
+        "id": "attacker",
+        "leader": false,
+        "moves": 0,
+        "pos": 84,
+        "side": 1,
+        "status": [],
+        "traits": [],
+        "unit_type": "Elvish Enchantress",
+        "xp": 0
+      },
+      {
+        "attacks_left": 1,
+        "hp": 8,
+        "id": "defender",
+        "leader": false,
+        "moves": 0,
+        "pos": 85,
+        "side": 2,
+        "status": [],
+        "traits": [],
+        "unit_type": "Dwarvish Steelclad",
+        "xp": 0
+      }
+    ],
+    "village_owner": {},
+    "width": 13
+  }
+}

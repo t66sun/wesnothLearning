@@ -1,0 +1,36 @@
+{
+  "source": "9118fac3628542b585a35f27d2115560057d4ddc",
+  "teacher": {
+    "teacher": "gpt6astra",
+    "teacher_profile": "probabilistic_combat_v6",
+    "teacher_source_sha256": "ad75d870ce68fa6b489ad922fd8bb3059e29bbe7626f296e74d2b6fad828c7d4"
+  },
+  "rules_sha256": "e6b4f6200b0a8ad58a536b844fff37cfa9e0091bf0a0b702a8982155310f2f17",
+  "native_executable_sha256": "33f64aa3f5ee40228bd44e357b3f4d784121d4392ff774d6c059c7defa3e5fcf",
+  "wall_seconds": 1.3688841199036688,
+  "observations": {
+    "native": {
+      "selected_weapon": 3,
+      "legal": true,
+      "slow_score": 31.96452442105262,
+      "magical_score": 33.5784252631579,
+      "slow_kill": 0.9162999999999999,
+      "magical_kill": 0.9919,
+      "slow_marginal": 0.9918999999999999,
+      "surviving_slow": 0.0756,
+      "lower_kill_slow_selected": false
+    },
+    "lite": {
+      "selected_weapon": 3,
+      "legal": true,
+      "slow_score": 31.96452442105263,
+      "magical_score": 33.5784252631579,
+      "slow_kill": 0.9162999999999999,
+      "magical_kill": 0.9919,
+      "slow_marginal": 0.9918999999999999,
+      "surviving_slow": 0.0756,
+      "lower_kill_slow_selected": false
+    }
+  },
+  "limits": "One fixed first-decision board; surviving-slow weapon choice only, not strength acceptance."
+}

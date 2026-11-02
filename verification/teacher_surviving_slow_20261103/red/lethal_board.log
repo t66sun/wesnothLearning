@@ -1,0 +1,45 @@
+{
+  "source": "ed62f88f9b9a6d592c0610e7ef208283614029a8",
+  "teacher": {
+    "teacher": "gpt6astra",
+    "teacher_profile": "probabilistic_combat_v6",
+    "teacher_source_sha256": "02ea1d360add0950be8db9cf11d9c2997ad1ad8ae2562f31bc44ab69c2d0311a"
+  },
+  "rules_sha256": "e6b4f6200b0a8ad58a536b844fff37cfa9e0091bf0a0b702a8982155310f2f17",
+  "native_executable_sha256": "33f64aa3f5ee40228bd44e357b3f4d784121d4392ff774d6c059c7defa3e5fcf",
+  "wall_seconds": 1.3712821931112558,
+  "observations": {
+    "native": {
+      "selected_weapon": 2,
+      "legal": true,
+      "slow_score": 40.529035842105245,
+      "magical_score": 33.5784252631579,
+      "slow_kill": 0.9162999999999999,
+      "magical_kill": 0.9919,
+      "slow_marginal": 0.9918999999999999,
+      "surviving_slow": 0.0756,
+      "lower_kill_slow_selected": true
+    },
+    "lite": {
+      "selected_weapon": 2,
+      "legal": true,
+      "slow_score": 40.52903584210526,
+      "magical_score": 33.5784252631579,
+      "slow_kill": 0.9162999999999999,
+      "magical_kill": 0.9919,
+      "slow_marginal": 0.9918999999999999,
+      "surviving_slow": 0.0756,
+      "lower_kill_slow_selected": true
+    }
+  },
+  "limits": "One fixed first-decision board; surviving-slow weapon choice only, not strength acceptance."
+}
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/tongshu/acceptance/teacher_surviving_slow_red_20261103/tests/diagnose_teacher_lethal_slow.py", line 69, in <module>
+    main()
+  File "/home/tongshu/acceptance/teacher_surviving_slow_red_20261103/tests/diagnose_teacher_lethal_slow.py", line 64, in main
+    assert all(result['legal'] and result['selected_weapon'] == 3
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'native': {'selected_weapon': 2, 'legal': True, 'slow_score': 40.529035842105245, 'magical_score': 33.5784252631579, 'slow_kill': 0.9162999999999999, 'magical_kill': 0.9919, 'slow_marginal': 0.9918999999999999, 'surviving_slow': 0.0756, 'lower_kill_slow_selected': True}, 'lite': {'selected_weapon': 2, 'legal': True, 'slow_score': 40.52903584210526, 'magical_score': 33.5784252631579, 'slow_kill': 0.9162999999999999, 'magical_kill': 0.9919, 'slow_marginal': 0.9918999999999999, 'surviving_slow': 0.0756, 'lower_kill_slow_selected': True}}
