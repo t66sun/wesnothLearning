@@ -162,6 +162,7 @@ class StandardFeedingEngineTests(unittest.TestCase):
         rules['units']['Victim'] = H._unit_type('Victim', hp=40,
             abilities=['unplagueable'] if immune else [],
             weapons=[dict(id='tap', damage=0, strikes=1, damage_type='blade', range='melee')])
+        rules['units']['Victim']['defense'] = dict.fromkeys(H.DEFENSE, 100)
         feeder = H._unit('feeder', 'Fighter', 2 if defending else 1, 4 if defending else 3, 2, hp=20, leader=True)
         feeder['unit_type'] = 'Feeder'
         victim = H._unit('victim', 'Fighter', 1 if defending else 2, 3 if defending else 4, 2, hp=1)

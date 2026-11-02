@@ -1,0 +1,52 @@
+test_excess_experience_carries_to_the_next_threshold (tests.v5.test_amla.AmlaTests.test_excess_experience_carries_to_the_next_threshold) ... FAIL
+test_no_amla_without_declaration_or_after_limit (tests.v5.test_amla.AmlaTests.test_no_amla_without_declaration_or_after_limit) ... ok
+test_repeated_amla_rounds_the_twenty_percent_increase (tests.v5.test_amla.AmlaTests.test_repeated_amla_rounds_the_twenty_percent_increase) ... ERROR
+test_standard_amla_heals_preserves_type_and_consumes_experience (tests.v5.test_amla.AmlaTests.test_standard_amla_heals_preserves_type_and_consumes_experience) ... FAIL
+
+======================================================================
+ERROR: test_repeated_amla_rounds_the_twenty_percent_increase (tests.v5.test_amla.AmlaTests.test_repeated_amla_rounds_the_twenty_percent_increase)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/amla_red_20261102/tests/v5/test_amla.py", line 36, in test_repeated_amla_rounds_the_twenty_percent_increase
+    self.assertEqual((actual['hp'], actual['resolved_max_experience'], actual['amla_count']), (46, 58, 2))
+                                                                       ~~~~~~^^^^^^^^^^^^^^
+KeyError: 'amla_count'
+
+======================================================================
+FAIL: test_excess_experience_carries_to_the_next_threshold (tests.v5.test_amla.AmlaTests.test_excess_experience_carries_to_the_next_threshold)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/amla_red_20261102/tests/v5/test_amla.py", line 46, in test_excess_experience_carries_to_the_next_threshold
+    self.assertEqual((actual['hp'], actual['xp']), (43, 6))
+AssertionError: Tuples differ: (12, 46) != (43, 6)
+
+First differing element 0:
+12
+43
+
+- (12, 46)
++ (43, 6)
+
+======================================================================
+FAIL: test_standard_amla_heals_preserves_type_and_consumes_experience (tests.v5.test_amla.AmlaTests.test_standard_amla_heals_preserves_type_and_consumes_experience)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/amla_red_20261102/tests/v5/test_amla.py", line 28, in test_standard_amla_heals_preserves_type_and_consumes_experience
+    self.assertEqual((actual['unit_type'], actual['hp'], actual['xp']), ('Fighter', 43, 0))
+AssertionError: Tuples differ: ('Fighter', 12, 40) != ('Fighter', 43, 0)
+
+First differing element 1:
+12
+43
+
+- ('Fighter', 12, 40)
+?             ^^  -
+
++ ('Fighter', 43, 0)
+?             ^^
+
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.017s
+
+FAILED (failures=2, errors=1)

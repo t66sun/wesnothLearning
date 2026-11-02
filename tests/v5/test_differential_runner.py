@@ -46,7 +46,7 @@ class DifferentialRunnerTests(unittest.TestCase):
         self.assertEqual(result['expected_differences'][0]['check'], 'strike 0')
         self.assertEqual(result['expected_differences'][0]['difference']['damage'],
                          dict(native=4, lite=7))
-        self.assertEqual(result['rule_profile'], 'probabilistic_combat_v2')
+        self.assertEqual(result['rule_profile'], 'probabilistic_combat_v3')
 
     def test_combined_status_orders_expected_differences_below_failures(self):
         self.assertEqual(_combined_status([dict(status='failed', passed=False), dict(status='expected_difference', passed=True)]), 'failed')

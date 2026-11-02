@@ -13,7 +13,7 @@
 
 BC 教师对局目标为单挑 **300**、FF4 **600**、2v2 **400**，默认全局 **8 workers**。新 manifest 冻结唯一的自定义教师包 `gpt6astra`，教师对局、DAgger 纠正与导出因此共享同一身份；lite 运行采集这些教师对局（`native_bc_games` 默认 0）。当前未运行正式训练。
 
-Rust 规则核、空间/关系/记忆模型、BC/PPO、奖励在线控制、纯 Lua 导出均已有实现。新实验默认 lite，使用 `data/rules/1.18.8-training` 的 587 单位和 438 地形，按六阵营 158 单位训练闭包检查启动，教师身份冻结在各 manifest 中。完整战役行为、全流水线性能与正式训练强度的边界见架构文档。
+Rust 规则核、空间/关系/记忆模型、BC/PPO、奖励在线控制、纯 Lua 导出均已有实现。新实验默认 lite，使用 `data/rules/1.18.8-amla` 的 587 单位和 438 地形，按六阵营 158 单位训练闭包检查启动，教师身份冻结在各 manifest 中。完整战役行为、全流水线性能与正式训练强度的边界见架构文档。
 
 当前实现为 schema 5 / 候选 v3，补充四人 BC 所需的公开战术输入；Ubuntu 已通过 BC→PPO→最终评测的受限链路，剩余验收工作见 `docs/TEST_zh.md`。支持 `run --phase bc`、`phase ppo` 和 `phase evaluate` 分阶段运行，显式 `--force --reason` 可跳过 BC 资格并保留真实门结果。旧正式实验冻结 schema 4/v2，新旧数据和检查点不自动迁移。
 

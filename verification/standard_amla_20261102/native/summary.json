@@ -1,0 +1,93 @@
+{
+  "source": "a8c3819",
+  "rules_sha256": "f4bec4fb5bc9fad7944e4aed873c431d6aa5fc3aac92ef2f22d7893ef60a2afe",
+  "native_sha256": "33f64aa3f5ee40228bd44e357b3f4d784121d4392ff774d6c059c7defa3e5fcf",
+  "transport_sha256": "0f811064ebd71e8820ec2b88a6f3d1fc0d9583e567dc29c69873705ed57d7203",
+  "cases": [
+    {
+      "name": "attacker",
+      "result": {
+        "native": {
+          "advanced": true,
+          "hp": 77,
+          "xp": 0,
+          "max_xp": 180
+        },
+        "lite": {
+          "advanced": true,
+          "hp": 77,
+          "xp": 0,
+          "max_xp": 180
+        }
+      }
+    },
+    {
+      "name": "defender",
+      "result": {
+        "native": {
+          "advanced": true,
+          "hp": 77,
+          "xp": 0,
+          "max_xp": 180
+        },
+        "lite": {
+          "advanced": true,
+          "hp": 77,
+          "xp": 0,
+          "max_xp": 180
+        }
+      }
+    },
+    {
+      "name": "kill",
+      "result": {
+        "native": {
+          "advanced": true,
+          "hp": 77,
+          "xp": 0,
+          "max_xp": 180
+        },
+        "lite": {
+          "advanced": true,
+          "hp": 77,
+          "xp": 0,
+          "max_xp": 180
+        }
+      }
+    },
+    {
+      "name": "repeat",
+      "result": {
+        "native": {
+          "advanced": true,
+          "hp": 80,
+          "xp": 0,
+          "max_xp": 216
+        },
+        "lite": {
+          "advanced": true,
+          "hp": 80,
+          "xp": 0,
+          "max_xp": 216
+        }
+      }
+    },
+    {
+      "name": "training_repeat",
+      "result": {
+        "native": {
+          "advanced": true,
+          "hp": 86,
+          "xp": 0,
+          "max_xp": 217
+        },
+        "lite": {
+          "advanced": true,
+          "hp": 86,
+          "xp": 0,
+          "max_xp": 217
+        }
+      }
+    }
+  ]
+}

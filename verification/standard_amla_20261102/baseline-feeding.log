@@ -1,0 +1,27 @@
+test_feeding_max_hp_bonus_is_preserved_on_advancement (tests.v5.test_coverage_audit_regressions.StandardFeedingEngineTests.test_feeding_max_hp_bonus_is_preserved_on_advancement) ... FAIL
+test_feeding_works_on_attack_and_retaliation_and_survives_snapshot (tests.v5.test_coverage_audit_regressions.StandardFeedingEngineTests.test_feeding_works_on_attack_and_retaliation_and_survives_snapshot) ... FAIL
+test_unplagueable_victims_do_not_feed (tests.v5.test_coverage_audit_regressions.StandardFeedingEngineTests.test_unplagueable_victims_do_not_feed) ... ok
+
+======================================================================
+FAIL: test_feeding_max_hp_bonus_is_preserved_on_advancement (tests.v5.test_coverage_audit_regressions.StandardFeedingEngineTests.test_feeding_max_hp_bonus_is_preserved_on_advancement)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/amla_first_20261102/tests/v5/test_coverage_audit_regressions.py", line 196, in test_feeding_max_hp_bonus_is_preserved_on_advancement
+    self.assertEqual(unit['unit_type'], 'Fed Veteran')
+AssertionError: 'Feeder' != 'Fed Veteran'
+- Feeder
++ Fed Veteran
+
+
+======================================================================
+FAIL: test_feeding_works_on_attack_and_retaliation_and_survives_snapshot (tests.v5.test_coverage_audit_regressions.StandardFeedingEngineTests.test_feeding_works_on_attack_and_retaliation_and_survives_snapshot)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/amla_first_20261102/tests/v5/test_coverage_audit_regressions.py", line 181, in test_feeding_works_on_attack_and_retaliation_and_survives_snapshot
+    self.assertEqual(unit['hp'], 21)
+AssertionError: 20 != 21
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.692s
+
+FAILED (failures=2)

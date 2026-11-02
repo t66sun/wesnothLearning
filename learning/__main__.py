@@ -21,7 +21,7 @@ def parser():
     run.add_argument('--device',default='cpu',help='cpu / cuda / cuda:0 / auto')
     run.add_argument('--engine',choices=['native','lite'],default=None,help='默认 lite；采样和最终评测均跟随此引擎')
     run.add_argument('--evaluation-engine',choices=['native','lite'],default=None,help='最终评测引擎，默认跟随 --engine')
-    run.add_argument('--rules-dir',help='冻结规则目录，默认 data/rules/1.18.8-training；恢复时使用 manifest')
+    run.add_argument('--rules-dir',help='冻结规则目录，默认 data/rules/1.18.8-amla；恢复时使用 manifest')
     run.add_argument('--reward-mode',choices=['fixed','scheduled','adaptive'],default='adaptive')
     run.add_argument('--phase',choices=['auto','bc'],default=None,help='auto 一键流程；bc 只做 BC，完成后等待显式 PPO/评测指令')
     run.add_argument('--allow-approximate',action=argparse.BooleanOptionalAction,default=None,help='lite 默认接受已记录近似；不允许未支持的训练单位')

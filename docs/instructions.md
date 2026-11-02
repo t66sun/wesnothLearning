@@ -6,7 +6,7 @@ Updated 2026-10-27. For agents taking over startup, maintenance and instruction-
 
 **Current route:** every manifest freezes the sole custom teacher package `gpt6astra` and its lineage, so teacher games, DAgger corrections and exports carry one identity. Lite is the default engine and the default evaluation engine, so a fresh run collects lite Astra teacher games (`native_bc_games` 0) and its final comparison is lite Astra; official-baseline seats stay native-only. Capabilities and limits are in architecture.md §4–§5.
 
-Current lite combat/teacher profile is `probabilistic_combat_v2`, RNG `splitmix64-rejection-v1`. Rebuild the matching extension. Resume expected_damage_v1/v2 and probabilistic_combat_v1 runs with their original source/build; never relabel frozen data, snapshots or checkpoints. Old weights require the existing explicit initialization/reset-optimizer route and new-rule acceptance.
+Current lite combat/teacher profile is `probabilistic_combat_v3`, RNG `splitmix64-rejection-v1`. Rebuild the matching extension. Resume expected_damage_v1/v2 and probabilistic_combat_v1/v2 runs with their original source/build; never relabel frozen data, snapshots or checkpoints. Old weights require the existing explicit initialization/reset-optimizer route and new-rule acceptance.
 
 ## 1. Determine the task first
 
@@ -72,7 +72,7 @@ The current implementation as of 2026-10-23 is schema 5 / candidate v3. The Ubun
 
 An archive from `python -m learning bundle --output PATH`, checked by `python -m learning verify-bundle PATH`, is how a clean Ubuntu 24.04 `x86_64` machine receives this project. It is an alternative to the server environment above, never a replacement, so keep the existing server directory untouched.
 
-The archive carries the source tree, the frozen `1.18.8-training` rules, curated human games, dataset inputs and the opponent packages kept under `data/opponents/` (the frozen `gpt6astra.zip`), which `BUNDLE_MANIFEST.json` lists under `data.opponents`; the verifier requires at least one. It excludes `.git`, virtual environments, caches, `.runtime/`, `runs/`, `verification/`, `delivery/`, `tmp/`, `data/rules/1.18.8`, `data/humanData`, `data/references`, compiled suffixes, Cargo `target/` and `AGENTS.md`, so it records no run, strength result or delivery decision. `docs/instructions.md` and its mirror are required members: the builder refuses an archive without them.
+The archive carries the source tree, the frozen `1.18.8-amla` rules, curated human games, dataset inputs and the opponent packages kept under `data/opponents/` (the frozen `gpt6astra.zip`), which `BUNDLE_MANIFEST.json` lists under `data.opponents`; the verifier requires at least one. It excludes `.git`, virtual environments, caches, `.runtime/`, `runs/`, `verification/`, `delivery/`, `tmp/`, `data/rules/1.18.8`, `data/humanData`, `data/references`, compiled suffixes, Cargo `target/` and `AGENTS.md`, so it records no run, strength result or delivery decision. `docs/instructions.md` and its mirror are required members: the builder refuses an archive without them.
 
 ```bash
 python -m learning bundle --output dist/WesnothLearning-training.tar.gz \
@@ -100,12 +100,12 @@ Status: builder, verifier, `bash -n` and the setup/train script checks pass on t
 
 ## 3. Verify the actually runnable scope before starting
 
-New experiments use lite by default, with rules defaulting to `data/rules/1.18.8-training` (587 units, 438 terrains). The startup gate verifies the actual 158-unit closure of the six factions, accepts recorded approximations and rejects unsupported types and missing references; whole-package semantics/performance flags keep their original values. A fresh manifest freezes the sole custom teacher package (`gpt6astra`) and its lineage; the evaluation engine follows the sampling engine unless `--evaluation-engine` overrides it. Capabilities and limits are in architecture.md §4–§5.
+New experiments use lite by default, with rules defaulting to `data/rules/1.18.8-amla` (587 units, 438 terrains). The startup gate verifies the actual 158-unit closure of the six factions, accepts recorded approximations and rejects unsupported types and missing references; whole-package semantics/performance flags keep their original values. A fresh manifest freezes the sole custom teacher package (`gpt6astra`) and its lineage; the evaluation engine follows the sampling engine unless `--evaluation-engine` overrides it. Capabilities and limits are in architecture.md §4–§5.
 
 The default directory is usually enough. Captured inputs moved under `data/` on 2026-10-24, so a checkout predating that move keeps `rules/`, `datasets/`, `humanData*`, `opponents/` and `references/` at the root: move them into `data/` before running, or the defaults no longer resolve. When the user specifies another frozen package, pass it:
 
 ```bash
-rules_dir="$project/data/rules/1.18.8-training"
+rules_dir="$project/data/rules/1.18.8-amla"
 # add --rules-dir "$rules_dir" to the new training command
 ```
 

@@ -6,7 +6,7 @@ pub const ENGINE_VERSION: &str = "lite-0.2";
 /// Versioned referee-only SplitMix64 stream with unbiased percent rolls.
 pub const RNG_VERSION: &str = "splitmix64-rejection-v1";
 /// Combat/status rule profile recorded in observations, snapshots, jobs and data.
-pub const COMBAT_VERSION: &str = "probabilistic_combat_v2";
+pub const COMBAT_VERSION: &str = "probabilistic_combat_v3";
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Weapon {
@@ -35,6 +35,7 @@ pub struct UnitType {
     pub experience: u32,
     pub alignment: String,
     #[serde(default)] pub advances_to: Vec<String>,
+    #[serde(default)] pub standard_amla: bool,
     #[serde(default)] pub weapons: Vec<Weapon>,
     /// Expanded, concrete terrain-code tables. Defense = percent chance to hit.
     pub movement: BTreeMap<String, u32>,
@@ -134,6 +135,7 @@ pub struct Unit {
     #[serde(default)] pub acted: bool,
     /// The native standard feeding object adds one permanent max HP per kill.
     #[serde(default)] pub feeding_bonus: i32,
+    #[serde(default)] pub amla_count: u32,
     /// Fully resolved trait/object statistics may be injected by native capture.
     /// The core never invents random traits from incomplete declarations.
     #[serde(default)] pub resolved_max_hp: Option<i32>,

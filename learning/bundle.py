@@ -22,7 +22,7 @@ from .common import ROOT
 
 ARCHIVE_ROOT = 'WesnothLearning'
 SCHEMA = 1
-RULES_DIR = 'data/rules/1.18.8-training'
+RULES_DIR = 'data/rules/1.18.8-amla'
 CATALOG = RULES_DIR + '/catalog-summary.json'
 RULES = RULES_DIR + '/rules.json'
 RULE_VERSION = '1.18.8'

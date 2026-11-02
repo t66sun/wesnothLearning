@@ -13,6 +13,7 @@ from pathlib import Path
 import runpy
 
 from .freeze import ABILITIES, SPECIALS, _validate_raw_wml, canonical, write
+from .wml import children
 
 
 DISPLAY_ATTRIBUTES = {
@@ -22,31 +23,12 @@ DISPLAY_ATTRIBUTES = {
 GLOBAL_GAPS = [
     'native compound combat modifier rounding and declaration filters need differential acceptance',
     'random trait generation and trait preservation across advancement are not implemented',
-    'advancement choice and AMLA execution are not implemented',
+    'custom advancement choices and nonstandard AMLA are not implemented',
     'separate vision_costs and jamming are not implemented',
     'runtime unit variations are not implemented',
 ]
 
 
-def children(cfg):
-    """Read the exporter's JSON object form and legacy JSON array form."""
-    if isinstance(cfg, dict):
-        pairs = [cfg[key] for key in sorted(
-            (key for key in cfg if str(key).isdecimal()), key=lambda key: int(key))]
-    else:
-        pairs = cfg if isinstance(cfg, list) else []
-    for pair in pairs:
-        if isinstance(pair, dict):
-            tag, value = pair.get('1'), pair.get('2')
-        elif isinstance(pair, list) and len(pair) == 2:
-            tag, value = pair
-        else:
-            raise ValueError('raw WML child is not a tag/config pair')
-        if value == []:
-            value = {}
-        if not isinstance(tag, str) or not isinstance(value, dict):
-            raise ValueError('raw WML child has no tag/config')
-        yield tag, value
 
 
 def semantic(cfg):
@@ -215,7 +197,7 @@ def audit_catalog(directory):
             gaps = []
             if definition['events']:
                 gaps.append('scripted_type_event')
-            if definition['advancements']:
+            if definition['advancements'] and not rules['units'][unit_id].get('standard_amla'):
                 gaps.append('amla_execution_unimplemented')
             if gameplay_variants:
                 gaps.append('runtime_unit_variations_unimplemented')

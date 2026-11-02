@@ -1,0 +1,14 @@
+test_catalog_distinguishes_implemented_standard_amla (tests.v5.test_amla_declarations.AmlaDeclarationTests.test_catalog_distinguishes_implemented_standard_amla) ... ok
+test_exact_declaration_and_no_declaration (tests.v5.test_amla_declarations.AmlaDeclarationTests.test_exact_declaration_and_no_declaration) ... ok
+test_multiple_choices_are_not_silently_standardized (tests.v5.test_amla_declarations.AmlaDeclarationTests.test_multiple_choices_are_not_silently_standardized) ... ok
+test_name_does_not_hide_different_effect_or_conditions (tests.v5.test_amla_declarations.AmlaDeclarationTests.test_name_does_not_hide_different_effect_or_conditions) ... ok
+test_compiled_coverage_does_not_treat_amla_only_abilities_as_runtime (tests.v5.test_rule_coverage_completion.CoverageAuditTests.test_compiled_coverage_does_not_treat_amla_only_abilities_as_runtime) ... ok
+test_advancement_and_plague_are_transitive_and_missing_references_block (tests.v5.test_rule_coverage_completion.TrainingClosureTests.test_advancement_and_plague_are_transitive_and_missing_references_block) ... ok
+test_missing_coverage_entry_and_untyped_plague_block (tests.v5.test_rule_coverage_completion.TrainingClosureTests.test_missing_coverage_entry_and_untyped_plague_block) ... ok
+test_real_profile_seeds_come_from_the_shared_training_configuration (tests.v5.test_rule_coverage_completion.TrainingClosureTests.test_real_profile_seeds_come_from_the_shared_training_configuration) ... ok
+test_unknown_declarations_and_events_cannot_be_hidden_by_approximate (tests.v5.test_rule_coverage_completion.TrainingClosureTests.test_unknown_declarations_and_events_cannot_be_hidden_by_approximate) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 2.654s
+
+OK

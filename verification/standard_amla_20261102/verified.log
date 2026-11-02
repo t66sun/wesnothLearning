@@ -1,0 +1,26 @@
+test_excess_experience_carries_to_the_next_threshold (tests.v5.test_amla.AmlaTests.test_excess_experience_carries_to_the_next_threshold) ... ok
+test_feeding_bonus_is_preserved_by_amla (tests.v5.test_amla.AmlaTests.test_feeding_bonus_is_preserved_by_amla) ... ok
+test_no_amla_without_declaration_or_after_limit (tests.v5.test_amla.AmlaTests.test_no_amla_without_declaration_or_after_limit) ... ok
+test_old_combat_snapshots_are_rejected (tests.v5.test_amla.AmlaTests.test_old_combat_snapshots_are_rejected) ... ok
+test_repeated_amla_rounds_the_twenty_percent_increase (tests.v5.test_amla.AmlaTests.test_repeated_amla_rounds_the_twenty_percent_increase) ... ok
+test_standard_amla_heals_preserves_type_and_consumes_experience (tests.v5.test_amla.AmlaTests.test_standard_amla_heals_preserves_type_and_consumes_experience) ... ok
+test_preflight_accepts_matching_bundle (tests.test_bundle_scripts.BundleScriptTests.test_preflight_accepts_matching_bundle) ... ok
+test_preflight_rejects_missing_required_path (tests.test_bundle_scripts.BundleScriptTests.test_preflight_rejects_missing_required_path) ... ok
+test_preflight_rejects_tampered_file (tests.test_bundle_scripts.BundleScriptTests.test_preflight_rejects_tampered_file) ... ok
+test_preflight_reports_legacy_engine_lite_wheel (tests.test_bundle_scripts.BundleScriptTests.test_preflight_reports_legacy_engine_lite_wheel) ... ok
+test_preflight_reports_wesnoth_learning_lite_wheel (tests.test_bundle_scripts.BundleScriptTests.test_preflight_reports_wesnoth_learning_lite_wheel) ... ok
+test_preflight_requires_sums_for_extracted_bundle (tests.test_bundle_scripts.BundleScriptTests.test_preflight_requires_sums_for_extracted_bundle) ... ok
+test_scripts_parse (tests.test_bundle_scripts.BundleScriptTests.test_scripts_parse) ... ok
+test_setup_help_changes_nothing (tests.test_bundle_scripts.BundleScriptTests.test_setup_help_changes_nothing) ... ok
+test_train_forwards_arguments_and_logs (tests.test_bundle_scripts.BundleScriptTests.test_train_forwards_arguments_and_logs) ... ok
+test_train_help_prints_defaults_and_starts_nothing (tests.test_bundle_scripts.BundleScriptTests.test_train_help_prints_defaults_and_starts_nothing) ... ok
+test_train_refuses_without_setup (tests.test_bundle_scripts.BundleScriptTests.test_train_refuses_without_setup) ... ok
+test_native_observe_legal_decision_and_execute (tests.v5.test_native_rpc.NativeRpcSmokeTests.test_native_observe_legal_decision_and_execute) ... ok
+test_native_restore_rejects_a_diverged_replay_log (tests.v5.test_native_rpc.NativeRpcSmokeTests.test_native_restore_rejects_a_diverged_replay_log) ... ok
+test_native_restore_restarts_and_replays_same_state (tests.v5.test_native_rpc.NativeRpcSmokeTests.test_native_restore_restarts_and_replays_same_state) ... ok
+test_native_timeout_closes_the_session (tests.v5.test_native_rpc.NativeRpcSmokeTests.test_native_timeout_closes_the_session) ... ok
+
+----------------------------------------------------------------------
+Ran 21 tests in 8.787s
+
+OK

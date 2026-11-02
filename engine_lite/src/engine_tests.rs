@@ -14,7 +14,7 @@ fn weapon() -> Weapon {
 
 fn unit_type(id:&str)->UnitType {
     UnitType{id:id.into(),scope:"test".into(),hp:20,moves:5,vision:5,level:1,cost:10,
-        experience:20,alignment:"neutral".into(),advances_to:vec![],weapons:vec![weapon()],
+        experience:20,alignment:"neutral".into(),advances_to:vec![],standard_amla:false,weapons:vec![weapon()],
         movement:BTreeMap::from([(PLAIN.to_string(),1)]),
         defense:BTreeMap::from([(PLAIN.to_string(),60)]),
         resistance:BTreeMap::from([("blade".to_string(),100)]),
@@ -36,7 +36,7 @@ fn rules()->Rules {
 
 fn unit(id:&str,kind:&str,side:usize,pos:usize)->Unit {
     Unit{id:id.into(),unit_type:kind.into(),side,pos,hp:20,moves:5,attacks_left:1,xp:0,
-        leader:false,status:BTreeSet::new(),traits:BTreeSet::new(),acted:true,feeding_bonus:0,
+        leader:false,status:BTreeSet::new(),traits:BTreeSet::new(),acted:true,feeding_bonus:0,amla_count:0,
         resolved_max_hp:None,resolved_max_moves:None,resolved_max_experience:None,
         resolved_weapon_damage:vec![]}
 }
