@@ -31,6 +31,12 @@ CASES = (
     ('poison_kill_advancement', 'Elvish Fighter', 'Orcish Assassin', 1, 20, 6),
     ('slow_kill_advancement', 'Elvish Fighter', 'Elvish Shaman', 1, 20, 6),
     ('mutual_advancement', 'Elvish Fighter', 'Orcish Grunt', 0, 8, 1),
+    ('firststrike', 'Elvish Fighter', 'Drake Clasher', 0, None, None),
+    ('marksman', 'Elvish Sharpshooter', 'Elvish Archer', 1, None, None),
+    ('charge', 'Horseman', 'Orcish Grunt', 0, None, None),
+    ('backstab', 'Thief', 'Orcish Grunt', 0, None, None),
+    ('backstab_ffa', 'Thief', 'Orcish Grunt', 0, None, None),
+    ('backstab_petrified', 'Thief', 'Orcish Grunt', 0, None, None),
     ('level_zero_kill', 'Elvish Fighter', 'Goblin Spearman', 0, 20, 1),
 )
 
@@ -61,6 +67,17 @@ def main():
             }.get(name, ()):
                 unit = spec['units'][index]
                 unit['xp'] = rules['units'][unit['unit_type']]['experience'] - gap
+            if name.startswith('backstab'):
+                flanker = dict(id='flanker', unit_type='Elvish Fighter', side=1, pos=19,
+                               hp=rules['units']['Elvish Fighter']['hp'], moves=0,
+                               attacks_left=0, xp=0, leader=False, status=[], traits=[])
+                if name == 'backstab_ffa':
+                    spec['sides'].append(dict(spec['sides'][1], id=3, team='3'))
+                    spec['units'].append(dict(flanker, id='leader3', side=3, pos=42, leader=True))
+                    flanker['side'] = 3
+                if name == 'backstab_petrified':
+                    flanker['status'] = ['petrified']
+                spec['units'].append(flanker)
             for side in spec['sides']:
                 side['gold'] = 0
             for index, hp in ((2, attacker_hp), (3, defender_hp)):
