@@ -72,8 +72,9 @@ def main():
                                hp=rules['units']['Elvish Fighter']['hp'], moves=0,
                                attacks_left=0, xp=0, leader=False, status=[], traits=[])
                 if name == 'backstab_ffa':
-                    spec['sides'].append(dict(spec['sides'][1], id=3, team='3'))
-                    spec['units'].append(dict(flanker, id='leader3', side=3, pos=42, leader=True))
+                    for side_id, pos in ((3, 42), (4, 44)):
+                        spec['sides'].append(dict(spec['sides'][1], id=side_id, team=str(side_id)))
+                        spec['units'].append(dict(flanker, id=f'leader{side_id}', side=side_id, pos=pos, leader=True))
                     flanker['side'] = 3
                 if name == 'backstab_petrified':
                     flanker['status'] = ['petrified']
