@@ -1,0 +1,8 @@
+test_old_teacher_rows_cannot_enter_a_new_batch (tests.v5.test_astra_adaptation.AstraAdaptationTests.test_old_teacher_rows_cannot_enter_a_new_batch) ... ok
+test_six_public_positions_rank_deterministically (tests.v5.test_astra_adaptation.AstraAdaptationTests.test_six_public_positions_rank_deterministically) ... ok
+test_source_is_derived_and_marked (tests.v5.test_astra_adaptation.AstraAdaptationTests.test_source_is_derived_and_marked) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.021s
+
+OK

@@ -1,0 +1,36 @@
+{
+  "comparisons": {
+    "lite": {
+      "after_weapon": 3,
+      "all_choices_legal": true,
+      "before_weapon": 3,
+      "ranged_danger_cost_inactive": true,
+      "ranged_forecasts_equal": true,
+      "remote_not_attackable": true,
+      "same_target_and_landing": true,
+      "target_damage_estimates_equal": true,
+      "weapon_changed": false
+    },
+    "native": {
+      "after_weapon": 3,
+      "all_choices_legal": true,
+      "before_weapon": 3,
+      "ranged_danger_cost_inactive": true,
+      "ranged_forecasts_equal": true,
+      "remote_not_attackable": true,
+      "same_target_and_landing": true,
+      "target_damage_estimates_equal": true,
+      "weapon_changed": false
+    }
+  },
+  "limits": "Two fixed first-decision boards; weapon stability only, not strength acceptance.",
+  "native_executable_sha256": "33f64aa3f5ee40228bd44e357b3f4d784121d4392ff774d6c059c7defa3e5fcf",
+  "rules_sha256": "e6b4f6200b0a8ad58a536b844fff37cfa9e0091bf0a0b702a8982155310f2f17",
+  "source": "cbee1cf4ec48fe204a3cded7513680e57642def6",
+  "teacher": {
+    "teacher": "gpt6astra",
+    "teacher_profile": "probabilistic_combat_v6",
+    "teacher_source_sha256": "02ea1d360add0950be8db9cf11d9c2997ad1ad8ae2562f31bc44ab69c2d0311a"
+  },
+  "wall_seconds": 2.705742351943627
+}

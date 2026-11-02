@@ -1,0 +1,31 @@
+{
+  "source_commit": "cbee1cf4ec48fe204a3cded7513680e57642def6",
+  "root": "/home/tongshu/acceptance/teacher_slow_attribution_green_20261103",
+  "engine": "native",
+  "native_rules": "wesnoth-1.18.8-native-v2",
+  "teacher": {
+    "teacher": "gpt6astra",
+    "teacher_profile": "probabilistic_combat_v6",
+    "teacher_source_sha256": "02ea1d360add0950be8db9cf11d9c2997ad1ad8ae2562f31bc44ab69c2d0311a",
+    "teacher_parent_sha256": "2a216c96081990621dc15772e9de1bf40e4f5f451223fe52e5b20625464dc933"
+  },
+  "artifacts": {
+    "/home/tongshu/myDev/wesnothLearning/WesnothLearning/.runtime/install/bin/wesnoth": "33f64aa3f5ee40228bd44e357b3f4d784121d4392ff774d6c059c7defa3e5fcf",
+    "/home/tongshu/acceptance/teacher_slow_attribution_green_20261103/.runtime/entropy.so": "f12d763303445aa437de06d0dba129dc923e3d81fd1fc82d72b8e331916480cf",
+    "/home/tongshu/acceptance/teacher_slow_attribution_green_20261103/data/rules/1.18.8-combat-filtered/rules.json": "e6b4f6200b0a8ad58a536b844fff37cfa9e0091bf0a0b702a8982155310f2f17",
+    "/home/tongshu/acceptance/teacher_slow_attribution_green_20261103/data/rules/1.18.8-combat-filtered/catalog-summary.json": "0bb354291aeb39bdbffab74af738273b11378be8c692dfb42c053ebf1a9d5ded",
+    "/home/tongshu/acceptance/teacher_slow_attribution_green_20261103/data/opponents/gpt6astra.zip": "2a216c96081990621dc15772e9de1bf40e4f5f451223fe52e5b20625464dc933",
+    "/home/tongshu/acceptance/teacher_slow_attribution_green_20261103/panel-r3/astra_frozen.zip": "982e49cd9dcb6fc793f48fb8682861d7e4369b8f602b5ae83f5ab0e6760c70e9",
+    "/home/tongshu/acceptance/teacher_slow_attribution_green_20261103/panel-r3/astra_adapted.zip": "04bf351a2c85cdfd1d06691541694780836292f71c88c8051f1e07acb29e4202",
+    "/home/tongshu/acceptance/teacher_slow_attribution_green_20261103/tests/acceptance_teacher_strength.py": "ad9664ae3d8aab966276fa2b98d609163692fc1f3cc59d62164e45448fc6cf42",
+    "/home/tongshu/acceptance/teacher_slow_attribution_green_20261103/learning/schedule.py": "769a42cb0857711a0369254d847ab65a0e4ef013dffa1db36004394eabb99a84",
+    "/home/tongshu/acceptance/teacher_slow_attribution_green_20261103/learning/evaluate.py": "60fbdd0ac348704a8db7058ce4c7b895fb84fc1b0167bb958b1f27523607251f",
+    "/home/tongshu/acceptance/teacher_slow_attribution_green_20261103/learning/maps.py": "798700140177c9eb2059d282fd09c93e3e9d0418706b397603a94c646ba514d4",
+    "/home/tongshu/acceptance/teacher_slow_attribution_green_20261103/learning/sample.py": "90f6a6969f6cde8cef7030e4d4083b08e00f9d26acd3a2c4396e424cc22e6033",
+    "/home/tongshu/acceptance/teacher_slow_attribution_green_20261103/vendor/arena/match.py": "ebdde7eb92bb425730727f96530253b920a6027ecb49de47009d26baf63692b0",
+    "/home/tongshu/acceptance/teacher_slow_attribution_green_20261103/vendor/arena/native.py": "9b2a3169a5a9b590472e5212e548371a46ad2c107cc9ee3a4813e0b4469269df",
+    "/home/tongshu/acceptance/teacher_slow_attribution_green_20261103/vendor/arena/addons.py": "141857306234b31291e9118899048a92230e30ce6a42cb64ffac74d217e2f9d8",
+    "/home/tongshu/acceptance/teacher_slow_attribution_green_20261103/vendor/arena/params.py": "3c1423bd63ac8ac708e65d39cc59265076abbb9325f58fa5f32a69cff972d71a",
+    "/home/tongshu/acceptance/teacher_slow_attribution_green_20261103/vendor/arena/runtime/runtime.lua": "dd75b50e87368ab446517b13736918f35d345b2b74d69bb95e050cb10da9325a"
+  }
+}

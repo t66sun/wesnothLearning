@@ -1,0 +1,43 @@
+{
+  "source": "f820df13a745d7be1b4313c77f4be8a05bc4ba1f",
+  "teacher": {
+    "teacher": "gpt6astra",
+    "teacher_profile": "probabilistic_combat_v6",
+    "teacher_source_sha256": "24aa546bbcce6670b0baef8751730d64c229b37cfe608d6cc59fd3e4c211eb98"
+  },
+  "rules_sha256": "e6b4f6200b0a8ad58a536b844fff37cfa9e0091bf0a0b702a8982155310f2f17",
+  "native_executable_sha256": "33f64aa3f5ee40228bd44e357b3f4d784121d4392ff774d6c059c7defa3e5fcf",
+  "wall_seconds": 2.7039246161002666,
+  "comparisons": {
+    "native": {
+      "before_weapon": 3,
+      "after_weapon": 2,
+      "weapon_changed": true,
+      "same_target_and_landing": true,
+      "ranged_forecasts_equal": true,
+      "target_damage_estimates_equal": true,
+      "ranged_danger_cost_inactive": true,
+      "all_choices_legal": true,
+      "remote_not_attackable": true
+    },
+    "lite": {
+      "before_weapon": 3,
+      "after_weapon": 2,
+      "weapon_changed": true,
+      "same_target_and_landing": true,
+      "ranged_forecasts_equal": true,
+      "target_damage_estimates_equal": true,
+      "ranged_danger_cost_inactive": true,
+      "all_choices_legal": true,
+      "remote_not_attackable": true
+    }
+  },
+  "limits": "Two fixed first-decision boards; weapon stability only, not strength acceptance."
+}
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/teacher_slow_attribution_red_20261103/tests/diagnose_teacher_slow.py", line 101, in <module>
+    main()
+  File "/home/tongshu/acceptance/teacher_slow_attribution_red_20261103/tests/diagnose_teacher_slow.py", line 96, in main
+    assert all(result['before_weapon'] == result['after_weapon'] == 3
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'native': {'before_weapon': 3, 'after_weapon': 2, 'weapon_changed': True, 'same_target_and_landing': True, 'ranged_forecasts_equal': True, 'target_damage_estimates_equal': True, 'ranged_danger_cost_inactive': True, 'all_choices_legal': True, 'remote_not_attackable': True}, 'lite': {'before_weapon': 3, 'after_weapon': 2, 'weapon_changed': True, 'same_target_and_landing': True, 'ranged_forecasts_equal': True, 'target_damage_estimates_equal': True, 'ranged_danger_cost_inactive': True, 'all_choices_legal': True, 'remote_not_attackable': True}}
