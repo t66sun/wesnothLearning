@@ -16,6 +16,9 @@ CASES = (
     ('poison', 'Orcish Assassin', 'Elvish Fighter', 1, None, None),
     ('slow', 'Elvish Shaman', 'Orcish Grunt', 1, None, None),
     ('resistance_retaliation', 'Skeleton', 'Dwarvish Fighter', 0, None, None),
+    ('berserk', 'Dwarvish Ulfserker', 'Orcish Grunt', 0, None, None),
+    ('drain', 'Ghost', 'Elvish Fighter', 0, 12, None),
+    ('slow_retaliation', 'Elvish Shaman', 'Elvish Archer', 1, None, None),
     ('ranged_without_retaliation', 'Mage', 'Orcish Grunt', 1, None, None),
 )
 
@@ -48,6 +51,12 @@ def main():
             lite_legal = lite.legal_actions(1)
             assert action in native_legal and action in lite_legal, name
             forecast = lite.forecast(1, 'attacker', 'defender', weapon)
+            snapshot = lite.snapshot()
+            started_forecasts = time.perf_counter()
+            for _ in range(100):
+                assert lite.forecast(1, 'attacker', 'defender', weapon) == forecast
+            forecast_us = (time.perf_counter()-started_forecasts)*10000
+            assert lite.snapshot() == snapshot
             native_result = native.step(action)
             lite_result = lite.step(action)
             row = dict(name=name, spec=spec, action=action, initial=before,
@@ -72,7 +81,7 @@ def main():
                 native_poison=oracle[who]['poisoned'], lite_poison=forecast[who]['poisoned'],
                 native_slow=oracle[who]['slowed'], lite_slow=forecast[who]['slowed'])
                 for who in ('attacker', 'defender')}
-            rows.append(dict(name=name, metrics=metrics,
+            rows.append(dict(name=name, metrics=metrics, forecast_us=forecast_us,
                              native_counter=oracle['defender_weapon']))
             print(json.dumps(rows[-1]), flush=True)
         executable_hash = native.executable_hash

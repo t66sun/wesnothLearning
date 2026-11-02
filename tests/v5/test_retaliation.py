@@ -16,7 +16,7 @@ class RetaliationTests(unittest.TestCase):
         rules['units']['Fighter']['weapons'][0].update(damage=1, strikes=1)
         rules['units']['Fighter']['resistance']['blade'] = 10
         rules['units']['Skeleton']['weapons'] = [
-            dict(id='blade', damage=100, strikes=1, damage_type='blade', range='melee'),
+            dict(id='blade', damage=60, strikes=1, damage_type='blade', range='melee'),
             dict(id='plague', damage=20, strikes=1, damage_type='impact', range='melee',
                  specials=['plague'], plague_type='Ghost')]
         spec = H.spec(fog=False)
