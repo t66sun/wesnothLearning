@@ -164,6 +164,20 @@ class TrainingReadinessTests(unittest.TestCase):
             with self.assertRaisesRegex(RuntimeError, 'lack compiled weapon hit modifiers'):
                 rules_catalog.load(root)
 
+    def test_old_rules_without_weapon_weights_cannot_start_training(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            seeds = self.package(root)
+            raw = json.loads((root/'rules.json').read_bytes())
+            raw['units'][sorted(seeds)[0]]['weapons'] = [dict(id='sword', specials=[], accuracy=0, parry=0)]
+            value = json.dumps(raw).encode()
+            (root/'rules.json').write_bytes(value)
+            summary = json.loads((root/rules_catalog.SUMMARY).read_text())
+            summary['rules_file_sha256'] = hashlib.sha256(value).hexdigest()
+            (root/rules_catalog.SUMMARY).write_text(json.dumps(summary))
+            with self.assertRaisesRegex(RuntimeError, 'lack compiled weapon weights'):
+                rules_catalog.load(root)
+
     def test_summary_identity_must_match_compiled_rules(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
