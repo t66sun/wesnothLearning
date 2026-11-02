@@ -1,5 +1,4 @@
-//! Engine-level tests for the deterministic `expected_damage_v1` contract:
-//! poison timing, slowed movement, seed independence and the point-mass forecast.
+//! Seeded execution, public probability forecasts, poison and slow contracts.
 use crate::model::*;
 use crate::state::{Game,POISON_TICK};
 use std::collections::{BTreeMap,BTreeSet};
@@ -68,12 +67,12 @@ fn poison_ticks_eight_on_its_own_turn_and_floors_at_one_hp() {
     // The other side's boundary never ticks the poisoned unit.
     g.end_turn();
     assert_eq!(hp(&g,"u1"),10);
-    // Own turn, no rest because the unit already acted: 10-6 = 4.
+    // Own turn, no rest because the unit already acted: 10-8 = 2.
     g.end_turn();
     assert_eq!(hp(&g,"u1"),2);
     g.end_turn();
     assert_eq!(hp(&g,"u1"),2);
-    // Second own turn: rest is 2, poison is 6, so the floor keeps it alive at 1.
+    // Second own turn: rest is 2, poison is 8, so the floor keeps it alive at 1.
     g.end_turn();
     assert_eq!(POISON_TICK,8);
     assert_eq!(hp(&g,"u1"),1);

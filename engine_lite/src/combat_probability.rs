@@ -1,5 +1,6 @@
 //! Exact finite combat distributions. Merge equal HP/status states after each blow;
-//! no sampling, hidden state, RNG reads, or probability pruning in forecasts.
+//! no sampling, hidden state, RNG reads, or probability pruning. Native berserk
+//! prediction stops once death probability reaches 99%; execution does not.
 use crate::{combat::{self,Modifiers},model::{Rules,Unit,Weapon}};
 use std::collections::BTreeMap;
 use serde_json::{json,Value};
@@ -17,7 +18,7 @@ impl State {
     fn new(a:&Unit,d:&Unit)->Self {Self{ah:a.hp,dh:d.hp,as_:flags(a),ds:flags(d),an:0,dn:0}}
     fn done(self)->bool {self.ah<=0 || self.dh<=0 || (self.as_|self.ds)&4!=0}
 }
-pub struct Distribution { states:BTreeMap<State,f64> }
+pub struct Distribution { states:BTreeMap<State,f64>, truncated:bool }
 impl Distribution {
     pub fn json(&self)->Value {
         let side=|defense:bool| {
@@ -29,7 +30,7 @@ impl Distribution {
             }
             json!({"average_hp":mean,"hp_chance":hp,"poisoned":poison,"slowed":slow})
         };
-        json!({"attacker":side(false),"defender":side(true),"approximate":false,
+        json!({"attacker":side(false),"defender":side(true),"approximate":self.truncated,
             "samples":0,"combat_version":crate::model::COMBAT_VERSION})
     }
     fn score(&self)->[f64;3] {
@@ -57,7 +58,8 @@ fn distribution(r:&Rules,a:&Unit,d:&Unit,aw:&Weapon,counter:Option<usize>,at:&st
     let af=aw.specials.contains("firststrike") || (m.attacker_firststrike && dw.as_ref().is_some_and(|w|w.range=="melee"));
     let df=dw.as_ref().is_some_and(|w|w.specials.contains("firststrike") || (m.defender_firststrike && aw.range=="melee"));
     let mut states=BTreeMap::from([(State::new(a,d),1.)]);
-    for _ in 0..rounds {
+    let mut truncated=false;
+    for round in 0..rounds {
         let mut initialized=BTreeMap::new();let mut max_count=0;
         for (mut s,p) in states {
             if !s.done() {
@@ -90,8 +92,11 @@ fn distribution(r:&Rules,a:&Unit,d:&Unit,aw:&Weapon,counter:Option<usize>,at:&st
             }
         }
         if states.keys().all(|s|s.done()){break;}
+        // Wesnoth 1.18.8 attack_prediction.cpp uses the same 0.99 stopping rule.
+        let dead:f64=states.iter().filter(|(s,_)|s.ah<=0 || s.dh<=0).map(|(_,p)|p).sum();
+        if round+1<rounds && dead>=0.99 {truncated=true;break;}
     }
-    Distribution{states}
+    Distribution{states,truncated}
 }
 
 pub fn select(r:&Rules,a:&Unit,d:&Unit,weapon:usize,at:&str,dt:&str,turn:u32,m:&Modifiers)->(Option<usize>,Distribution) {

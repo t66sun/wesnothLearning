@@ -3,7 +3,7 @@ use serde::{Deserialize,Serialize};
 use serde_json::{json,Value};
 use std::{cmp::Reverse,collections::{BTreeMap,BTreeSet,BinaryHeap},sync::Arc};
 
-/// `expected_damage_v2` poison: one six-HP tick at the poisoned unit's own turn.
+/// Native poison: one eight-HP tick at the poisoned unit's own turn.
 pub const POISON_TICK: i32 = 8;
 
 #[derive(Clone,Serialize,Deserialize)]
@@ -438,9 +438,8 @@ impl Game {
             "explored":if self.sides[s-1].fog{*self.exploration_earned.get(&self.exploration_scope(s)).unwrap_or(&0.)}else{0.},
             "total_strategic_weight":weight.max(1.)})
     }
-    /// `expected_damage_v2` forecast: one deterministic resolution from the
-    /// requesting side's public context. `samples` stays accepted for compatibility
-    /// with existing callers and is ignored, because there is nothing to sample.
+    /// Probability propagation from legal public context; never reads referee RNG.
+    /// `samples` remains accepted for compatibility; no Monte Carlo sampling.
     pub fn forecast(&self,s:usize,attacker:&str,target:&str,weapon:usize,_samples:usize)->Result<Value,String>{
         self.side_check(s)?;
         let public=self.public_units(s);

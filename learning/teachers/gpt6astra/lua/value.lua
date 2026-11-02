@@ -1,7 +1,6 @@
--- Shared tactical values for the deterministic probabilistic_combat_v1 rules.
--- The frozen upstream package computed slow as a 50% damage cut and poison as
--- eight points per tick.  This derived teacher keeps the upstream decision
--- structure but ranks attacks with the rules the lite engine actually applies.
+-- Shared tactical values for probabilistic_combat_v1 rules.
+-- Native half-damage slow and eight-point poison; retain the teacher decision
+-- structure while evaluating the engine's public combat probabilities.
 local V={}
 
 V.COMBAT_PROFILE='probabilistic_combat_v1'

@@ -78,8 +78,13 @@ pub(super) fn strike(rules:&Rules,a:&mut Unit,d:&mut Unit,w:&Weapon,
 }
 pub fn resolve_seeded(rules:&Rules,a:&mut Unit,d:&mut Unit,weapon:usize,
     at:&str,dt:&str,turn:u32,modifiers:&Modifiers,rng:&mut u64)->Resolution {
-    let (counter,_)=crate::combat_probability::select(rules,a,d,weapon,at,dt,turn,modifiers);
     let aw=resolved_weapon(rules,a,weapon);
+    let mut choices=rules.units[&d.unit_type].weapons.iter().enumerate()
+        .filter(|(_,w)|w.range==aw.range).map(|(i,_)|i);
+    let first=choices.next();
+    let counter=if choices.next().is_none(){first}else{
+        crate::combat_probability::select(rules,a,d,weapon,at,dt,turn,modifiers).0
+    };
     resolve_with_counter(rules,a,d,&aw,counter,at,dt,turn,modifiers,&mut || roll_percent(rng))
 }
 

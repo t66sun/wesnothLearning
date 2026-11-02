@@ -131,7 +131,7 @@ class LiteAdapter:
 
     def forecast(self, side, attacker, target, weapon, samples=128):
         # `samples` is kept for callers that still pass it; the resolver is
-        # deterministic, so the value is ignored by the engine.
+        # distribution-based, so the value is ignored by the engine.
         return json.loads(self.core.forecast(side, attacker, target, weapon, samples))
 
     def configure_host(self, modules):
