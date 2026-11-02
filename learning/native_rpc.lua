@@ -139,12 +139,23 @@ local function action_intent(a)
     assert(target,'target is not legally visible')
     return {kind='attack',x=u.x,y=u.y,tx=target.x,ty=target.y,weapon=a.weapon+1}
 end
+-- Captured WML stores mixed attribute/child tables as JSON objects. Restore
+-- numeric child keys only inside native_cfg before passing it to the engine.
+local function native_config(value)
+    if type(value)~='table' then return value end
+    local out={}
+    for key,child in pairs(value) do
+        local index=type(key)=='string' and key:match('^%d+$') and tonumber(key) or key
+        out[index]=native_config(child)
+    end
+    return out
+end
 function M.initialize()
     if session.initialized then return end;session.initialized=true
     for _,u in ipairs(session.spec.units) do
         local x,y=coords(u.pos)
         assert(not u.traits or #u.traits==0 or u.native_cfg,'native traits require captured native_cfg')
-        local cfg=u.native_cfg or {id=u.id,type=u.unit_type,side=u.side,x=x,y=y,canrecruit=u.leader or false,
+        local cfg=u.native_cfg and native_config(u.native_cfg) or {id=u.id,type=u.unit_type,side=u.side,x=x,y=y,canrecruit=u.leader or false,
             hitpoints=u.hp,moves=u.moves,attacks_left=u.attacks_left,experience=u.xp or 0,random_traits=false,random_gender=false,generate_name=false}
         local created=wesnoth.units.create(cfg)
         for _,status in ipairs(u.status or {}) do created.status[status]=true end

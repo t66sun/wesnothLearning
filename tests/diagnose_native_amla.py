@@ -28,12 +28,12 @@ def main():
     rows = []
     with NativeTransport(wesnoth=args.wesnoth, timeout=30, startup_timeout=120) as native:
         for name, defending, count, modifier, gap in CASES:
-            spec = game_spec(rules, 'Elvish Shaman' if defending else 'Elvish Champion',
-                             'Elvish Champion' if defending else 'Orcish Grunt')
+            spec = game_spec(rules, 'Elvish Shaman' if defending else 'Dwarvish Lord',
+                             'Dwarvish Lord' if defending else 'Orcish Grunt')
             spec['experience_modifier'] = modifier
             index = 3 if defending else 2
             champion = spec['units'][index]
-            definition = rules['units']['Elvish Champion']
+            definition = rules['units']['Dwarvish Lord']
             required = (definition['experience']*modifier+50)//100
             for _ in range(count):
                 required += (required*20+50)//100
@@ -60,6 +60,11 @@ def main():
             native.reset(spec)
             lite = LiteAdapter(spec, rules_dir=args.rules, require_accepted=False)
             initial = {'native': native.observe(1), 'lite': lite.observe(1)}
+            for backend, view in initial.items():
+                actor = next(u for u in view['units'] if u['id'] == champion['id'])
+                assert actor['resolved_max_hp'] == definition['hp']+3*count, (name, backend, 'initial max HP')
+                assert actor['resolved_max_experience'] == required, (name, backend, 'initial max XP')
+                assert set(actor['status']) >= {'poisoned', 'slowed'}, (name, backend, 'initial statuses')
             predicted = lite.forecast(1, 'attacker', 'defender', action['weapon'])
             nr, lr = native.step(action), lite.step(action)
             after = {'native': native.observe(1), 'lite': lite.observe(1)}
