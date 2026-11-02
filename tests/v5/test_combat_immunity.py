@@ -19,8 +19,8 @@ class CombatImmunityTests(unittest.TestCase):
             id='sword', damage=1, strikes=1, damage_type='blade', range='melee')]
         rules['units']['Skeleton']['weapons'] = [weapon] if defense else []
         spec = H.spec(fog=False)
-        spec['units'][0].update(hp=20, leader=False)
-        spec['units'][2].update(unit_type='Skeleton', hp=20, moves=4, leader=False)
+        spec['units'][0].update(hp=20)
+        spec['units'][2].update(unit_type='Skeleton', hp=20, moves=4)
         target = spec['units'][0 if defense else 2]
         if special == 'plague':
             target['hp'] = 1

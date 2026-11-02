@@ -38,6 +38,12 @@ CASES = (
     ('backstab_ffa', 'Thief', 'Orcish Grunt', 0, None, None),
     ('backstab_petrified', 'Thief', 'Orcish Grunt', 0, None, None),
     ('level_zero_kill', 'Elvish Fighter', 'Goblin Spearman', 0, 20, 1),
+    ('immune_poison', 'Orcish Assassin', 'Elvish Fighter', 1, None, None),
+    ('immune_drain', 'Ghost', 'Elvish Fighter', 0, 12, None),
+    ('immune_plague', 'Walking Corpse', 'Mage', 0, None, 1),
+    ('immune_counter_poison', 'Elvish Fighter', 'Orcish Assassin', 1, None, None),
+    ('immune_counter_drain', 'Elvish Fighter', 'Ghost', 0, None, 12),
+    ('immune_counter_plague', 'Elvish Fighter', 'Walking Corpse', 0, 1, None),
 )
 
 
@@ -59,6 +65,9 @@ def main():
             if args.case and name not in args.case:
                 continue
             spec = game_spec(rules, attacker, defender)
+            if name.startswith('immune_'):
+                flag = {'poison': 'unpoisonable', 'drain': 'undrainable', 'plague': 'unplagueable'}[name.rsplit('_', 1)[1]]
+                spec['units'][2 if 'counter' in name else 3]['status'] = [flag]
             for index, gap in {
                 'combat_advancement': ((2, 1),), 'kill_advancement': ((2, 8),),
                 'defender_advancement': ((3, 1),), 'slow_advancement': ((3, 1),),
@@ -106,6 +115,15 @@ def main():
                        lite_actual=lite_result)
             after_units = lite.observe(1)['units']
             row['after'] = dict(native=native.observe(1)['units'], lite=after_units)
+            if name.startswith('immune_'):
+                victim = spec['units'][2 if 'counter' in name else 3]
+                for backend, units in row['after'].items():
+                    alive = next((u for u in units if u['id'] == victim['id']), None)
+                    if name.endswith('poison'):
+                        assert not alive or 'poisoned' not in alive['status'], (name, backend)
+                    if name.endswith('plague'):
+                        assert alive is None, (name, backend, 'fixture must exercise lethal plague')
+                        assert not any(u['pos'] == victim['pos'] for u in units), (name, backend, 'immune victim converted')
             # Validate each sampled outcome against its own opponent outcome;
             # the two engines intentionally use different random streams.
             for backend, units in row['after'].items():
