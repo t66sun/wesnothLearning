@@ -1,0 +1,88 @@
+   Compiling target-lexicon v0.12.16
+   Compiling proc-macro2 v1.0.107
+   Compiling quote v1.0.47
+   Compiling unicode-ident v1.0.27
+   Compiling once_cell v1.21.4
+   Compiling autocfg v1.5.1
+   Compiling serde_core v1.0.229
+   Compiling rustix v1.1.5
+   Compiling linux-raw-sys v0.12.1
+   Compiling bitflags v2.13.2
+   Compiling shlex v2.0.1
+   Compiling find-msvc-tools v0.1.15
+   Compiling cfg-if v1.0.5
+   Compiling libc v0.2.191
+   Compiling env_home v0.1.0
+   Compiling cc v1.9.0
+   Compiling either v1.19.0
+   Compiling num-traits v0.2.19
+   Compiling parking_lot_core v0.9.12
+   Compiling pyo3-build-config v0.23.5
+   Compiling typeid v1.0.3
+   Compiling serde v1.0.229
+   Compiling pkg-config v0.3.34
+   Compiling syn v3.0.9
+   Compiling syn v2.0.119
+   Compiling lua-src v547.0.0
+   Compiling memoffset v0.9.1
+   Compiling zmij v1.0.23
+   Compiling which v7.0.3
+   Compiling pyo3-macros-backend v0.23.5
+   Compiling luajit-src v210.5.12+a4f56a4
+   Compiling pyo3-ffi v0.23.5
+   Compiling smallvec v1.16.3
+   Compiling memchr v2.8.3
+   Compiling erased-serde v0.4.10
+   Compiling scopeguard v1.2.0
+   Compiling rustversion v1.0.23
+   Compiling mlua-sys v0.6.8
+   Compiling heck v0.5.0
+   Compiling lock_api v0.4.14
+   Compiling pyo3 v0.23.5
+   Compiling ordered-float v2.10.1
+   Compiling serde_json v1.0.154
+   Compiling parking_lot v0.12.5
+   Compiling bstr v1.13.1
+   Compiling unindent v0.2.4
+   Compiling itoa v1.0.18
+   Compiling indoc v2.0.8
+   Compiling rustc-hash v2.1.3
+   Compiling serde_derive v1.0.229
+   Compiling serde-value v0.7.0
+   Compiling pyo3-macros v0.23.5
+   Compiling mlua v0.10.5
+   Compiling wesnoth-learning-lite v0.1.0 (/home/tongshu/acceptance/filters_verified_20261103/engine_lite)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 9.93s
+     Running unittests src/lib.rs (engine_lite/target/debug/deps/_engine_lite-8cc7dea43e215635)
+
+running 21 tests
+test combat::tests::a_killed_defender_cannot_retaliate_and_grants_kill_experience ... ok
+test combat::tests::drain_heals_from_the_actual_capped_hp_loss ... ok
+test combat::tests::a_new_slow_changes_the_following_retaliation ... ok
+test combat::tests::defender_firststrike_strikes_before_the_attacker ... ok
+test combat::tests::resolve_keeps_strike_order_and_retaliation ... ok
+test combat::tests::connected_strikes_use_full_damage_without_uplift ... ok
+test combat::tests::retaliation_keeps_the_first_exact_tie_and_excludes_other_ranges ... ok
+test combat::tests::retaliation_compares_absorb_and_surviving_poison ... ok
+test combat::tests::slowed_damage_is_half_with_native_rounding ... ok
+test combat::tests::retaliation_prefers_surviving_with_firststrike ... ok
+test combat::tests::zero_chance_never_connects_or_applies_status ... ok
+test combat::tests::retaliation_uses_resolved_instance_damage ... ok
+test combat::tests::retaliation_uses_terrain_and_magical_chance ... ok
+test combat::tests::zero_damage_strike_connects_and_applies_status ... ok
+test combat::tests::retaliation_uses_the_opponents_resistance ... ok
+test engine_tests::poison_ticks_eight_on_its_own_turn_and_floors_at_one_hp ... ok
+test engine_tests::slow_doubles_movement_cost_until_the_side_boundary ... ok
+test engine_tests::attack_damage_is_reproducible_for_the_same_seed ... ok
+test engine_tests::probabilistic_forecast_preserves_state ... ok
+test engine_tests::forecast_distribution_contains_the_resolved_battle ... ok
+test engine_tests::probabilistic_execution_restores_same_future ... ok
+
+test result: ok. 21 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+   Doc-tests _engine_lite
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

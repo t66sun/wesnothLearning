@@ -1,0 +1,28 @@
+{
+  "source": "4feb937",
+  "rules_sha256": "e6b4f6200b0a8ad58a536b844fff37cfa9e0091bf0a0b702a8982155310f2f17",
+  "native_sha256": "33f64aa3f5ee40228bd44e357b3f4d784121d4392ff774d6c059c7defa3e5fcf",
+  "transport_sha256": "0f811064ebd71e8820ec2b88a6f3d1fc0d9583e567dc29c69873705ed57d7203",
+  "cases": [
+    {
+      "name": "zero",
+      "counter": "hammer",
+      "result": "PASS"
+    },
+    {
+      "name": "negative",
+      "counter": "hammer",
+      "result": "PASS"
+    },
+    {
+      "name": "none",
+      "counter": null,
+      "result": "PASS"
+    },
+    {
+      "name": "positive",
+      "counter": "axe",
+      "result": "PASS"
+    }
+  ]
+}

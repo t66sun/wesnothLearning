@@ -1,0 +1,150 @@
+{
+  "source": "2cee13047447dbd848d951a17e851d64b819a2a8",
+  "rules_sha256": "e6b4f6200b0a8ad58a536b844fff37cfa9e0091bf0a0b702a8982155310f2f17",
+  "executable_sha256": "33f64aa3f5ee40228bd44e357b3f4d784121d4392ff774d6c059c7defa3e5fcf",
+  "transport_sha256": "0f811064ebd71e8820ec2b88a6f3d1fc0d9583e567dc29c69873705ed57d7203",
+  "seconds": 4.662627992918715,
+  "cases": [
+    {
+      "name": "backstab",
+      "metrics": {
+        "attacker": {
+          "native_mean_hp": 14.400000000000002,
+          "lite_hp": 14.399999999999999,
+          "native_death": 0.16000000000000003,
+          "lite_death": 0.16000000000000003,
+          "native_poison": 0,
+          "lite_poison": 0.0,
+          "native_slow": 0,
+          "lite_slow": 0.0
+        },
+        "defender": {
+          "native_mean_hp": 24.368,
+          "lite_hp": 24.368,
+          "native_death": 0,
+          "lite_death": 0,
+          "native_poison": 0,
+          "lite_poison": 0.0,
+          "native_slow": 0,
+          "lite_slow": 0.0
+        }
+      },
+      "forecast_us": 17.0235987752676,
+      "native_counter": {
+        "damage": 12,
+        "name": "sword",
+        "number": 1,
+        "strikes": 2
+      }
+    },
+    {
+      "name": "backstab_ffa",
+      "metrics": {
+        "attacker": {
+          "native_mean_hp": 14.400000000000002,
+          "lite_hp": 14.399999999999999,
+          "native_death": 0.16000000000000003,
+          "lite_death": 0.16000000000000003,
+          "native_poison": 0,
+          "lite_poison": 0.0,
+          "native_slow": 0,
+          "lite_slow": 0.0
+        },
+        "defender": {
+          "native_mean_hp": 24.368,
+          "lite_hp": 31.184000000000005,
+          "native_death": 0,
+          "lite_death": 0,
+          "native_poison": 0,
+          "lite_poison": 0.0,
+          "native_slow": 0,
+          "lite_slow": 0.0
+        }
+      },
+      "forecast_us": 17.916930373758078,
+      "native_counter": {
+        "damage": 12,
+        "name": "sword",
+        "number": 1,
+        "strikes": 2
+      }
+    },
+    {
+      "name": "backstab_petrified",
+      "metrics": {
+        "attacker": {
+          "native_mean_hp": 14.400000000000002,
+          "lite_hp": 14.399999999999999,
+          "native_death": 0.16000000000000003,
+          "lite_death": 0.16000000000000003,
+          "native_poison": 0,
+          "lite_poison": 0.0,
+          "native_slow": 0,
+          "lite_slow": 0.0
+        },
+        "defender": {
+          "native_mean_hp": 31.184,
+          "lite_hp": 31.184000000000005,
+          "native_death": 0,
+          "lite_death": 0,
+          "native_poison": 0,
+          "lite_poison": 0.0,
+          "native_slow": 0,
+          "lite_slow": 0.0
+        }
+      },
+      "forecast_us": 16.891611739993095,
+      "native_counter": {
+        "damage": 12,
+        "name": "sword",
+        "number": 1,
+        "strikes": 2
+      }
+    }
+  ],
+  "failures": [
+    [
+      "backstab_ffa",
+      "defender",
+      "average_hp",
+      24.368,
+      31.184000000000005
+    ],
+    [
+      "backstab_ffa",
+      "defender",
+      "hp 34",
+      0,
+      0.31872
+    ],
+    [
+      "backstab_ffa",
+      "defender",
+      "hp 14",
+      0.18144,
+      0
+    ],
+    [
+      "backstab_ffa",
+      "defender",
+      "hp 22",
+      0.42047999999999996,
+      0
+    ],
+    [
+      "backstab_ffa",
+      "defender",
+      "hp 26",
+      0,
+      0.18144
+    ],
+    [
+      "backstab_ffa",
+      "defender",
+      "hp 30",
+      0.31872,
+      0.42047999999999996
+    ]
+  ],
+  "scope": "Fixed public battles: full HP/status probability parity at 1e-9. No training or strength claim."
+}

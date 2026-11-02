@@ -1,0 +1,46 @@
+{
+  "filters_compiled_20261103": {
+    "commit": "ec8e9229d12260480f7a8844143f5c944fb62ac6",
+    "archive_sha256": "b85e7d4e3ec39faa679b539a26d719f0ad112e7f2920369f4efab628cd621e3a",
+    "files_checked": 1647,
+    "mismatched": []
+  },
+  "filters_verified_20261103": {
+    "commit": "4feb93797d4943a8a1308212051013fe0c00a407",
+    "archive_sha256": "45bc19a887c00849e8e5d44b5858ab659d24e356b009ed7ef366e48464a93748",
+    "files_checked": 1648,
+    "mismatched": []
+  },
+  "filters_conditions_20261103": {
+    "commit": "0eb65aaccb92c85f3e3bde2abcfef1733751a38d",
+    "archive_sha256": "fe9474667fa2325c8fd4ddcf3cd15d34aee87197ca6aae189f8454bdcd3f522b",
+    "files_checked": 1648,
+    "mismatched": []
+  },
+  "filters_backstab_20261103": {
+    "commit": "2cee13047447dbd848d951a17e851d64b819a2a8",
+    "archive_sha256": "23caecceb7c98982cc6445b0d4f164b81cbd72bf3f4fcbb965929e1b835afd68",
+    "files_checked": 1648,
+    "mismatched": []
+  },
+  "filters_fixed_20261103": {
+    "commit": "8b001003aa6a94ef47f66b37506e82b229240364",
+    "archive_sha256": "bd9bbe55773ec55ca77e05ca147715f36eb04aa5299d8bcdd0929b5e3ca1de3a",
+    "files_checked": 1648,
+    "mismatched": []
+  },
+  "filters_fixed_20261103/.extension/_engine_lite.so": "fea9729adb4e85cd22c16cfbb53acf19027c2c27e7e7296a88391bc3a2d51d85",
+  "filters_compiled_20261103/data/rules/1.18.8-combat-filtered/rules.json": "e6b4f6200b0a8ad58a536b844fff37cfa9e0091bf0a0b702a8982155310f2f17",
+  "firststrike": {
+    "maximum_absolute_error": 7.105427357601002e-15,
+    "result": "PASS"
+  },
+  "marksman": {
+    "maximum_absolute_error": 4.440892098500626e-16,
+    "result": "PASS"
+  },
+  "charge": {
+    "maximum_absolute_error": 3.552713678800501e-15,
+    "result": "PASS"
+  }
+}

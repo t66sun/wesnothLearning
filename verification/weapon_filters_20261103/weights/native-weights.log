@@ -1,0 +1,4 @@
+{"name": "zero", "counter": "hammer", "result": "PASS"}
+{"name": "negative", "counter": "hammer", "result": "PASS"}
+{"name": "none", "counter": null, "result": "PASS"}
+{"name": "positive", "counter": "axe", "result": "PASS"}

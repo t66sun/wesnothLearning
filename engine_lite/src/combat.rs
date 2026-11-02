@@ -83,7 +83,7 @@ pub fn resolve_seeded(rules:&Rules,a:&mut Unit,d:&mut Unit,weapon:usize,
     at:&str,dt:&str,turn:u32,modifiers:&Modifiers,rng:&mut u64)->Resolution {
     let aw=resolved_weapon(rules,a,weapon);
     let mut choices=rules.units[&d.unit_type].weapons.iter().enumerate()
-        .filter(|(_,w)|w.range==aw.range).map(|(i,_)|i);
+        .filter(|(_,w)|w.range==aw.range && w.defense_weight>0.).map(|(i,_)|i);
     let first=choices.next();
     let counter=if choices.next().is_none(){first}else{
         crate::combat_probability::select(rules,a,d,weapon,at,dt,turn,modifiers).0
@@ -156,7 +156,7 @@ mod tests {
     fn weapon(damage: i32, strikes: u32, specials: &[&str]) -> Weapon {
         Weapon {
             id: "blade".into(), damage, strikes, damage_type: "blade".into(),
-            range: "melee".into(), accuracy:0, parry:0,
+            range: "melee".into(), accuracy:0, parry:0, attack_weight:1., defense_weight:1.,
             specials: specials.iter().map(|s| s.to_string()).collect(),
             plague_type: None, drain_percent: None, opponent_damage_percent: None,
             defense_cth_sub: 0, opponent_attacks: None,

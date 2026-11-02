@@ -146,7 +146,7 @@ fn distribution(r:&Rules,a:&Unit,d:&Unit,aw:&Weapon,counter:Option<usize>,at:&st
 
 pub fn select(r:&Rules,a:&Unit,d:&Unit,weapon:usize,at:&str,dt:&str,turn:u32,m:&Modifiers)->(Option<usize>,Distribution) {
     let aw=combat::resolved_weapon(r,a,weapon);
-    let mut choices=r.units[&d.unit_type].weapons.iter().enumerate().filter(|(_,w)|w.range==aw.range).map(|(i,_)|i);
+    let mut choices=r.units[&d.unit_type].weapons.iter().enumerate().filter(|(_,w)|w.range==aw.range && w.defense_weight>0.).map(|(i,_)|i);
     let mut best=choices.next();
     let mut result=distribution(r,a,d,&aw,best,at,dt,turn,m);
     for counter in choices {

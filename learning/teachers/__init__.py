@@ -1,4 +1,4 @@
-"""Maintained Astra teacher source adapted to the deterministic lite rules.
+"""Maintained Astra teacher source adapted to the stochastic lite rules.
 
 The frozen opponent package in ``data/opponents/gpt6astra.zip`` stays
 read-only.  This package holds the derived source that the lite host loads for
@@ -12,7 +12,7 @@ from pathlib import Path
 
 PARENT_PACKAGE = Path(__file__).resolve().parents[2] / 'data/opponents/gpt6astra.zip'
 SOURCE = Path(__file__).resolve().parent / 'gpt6astra'
-PROFILE = 'probabilistic_combat_v4'
+PROFILE = 'probabilistic_combat_v5'
 
 
 def source_digest():

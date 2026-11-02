@@ -31,6 +31,12 @@ CASES = (
     ('poison_kill_advancement', 'Elvish Fighter', 'Orcish Assassin', 1, 20, 6),
     ('slow_kill_advancement', 'Elvish Fighter', 'Elvish Shaman', 1, 20, 6),
     ('mutual_advancement', 'Elvish Fighter', 'Orcish Grunt', 0, 8, 1),
+    ('firststrike', 'Elvish Fighter', 'Drake Clasher', 0, None, None),
+    ('marksman', 'Elvish Sharpshooter', 'Elvish Archer', 1, None, None),
+    ('charge', 'Horseman', 'Orcish Grunt', 0, None, None),
+    ('backstab', 'Thief', 'Orcish Grunt', 0, None, None),
+    ('backstab_ffa', 'Thief', 'Orcish Grunt', 0, None, None),
+    ('backstab_petrified', 'Thief', 'Orcish Grunt', 0, None, None),
     ('level_zero_kill', 'Elvish Fighter', 'Goblin Spearman', 0, 20, 1),
 )
 
@@ -61,6 +67,18 @@ def main():
             }.get(name, ()):
                 unit = spec['units'][index]
                 unit['xp'] = rules['units'][unit['unit_type']]['experience'] - gap
+            if name.startswith('backstab'):
+                flanker = dict(id='flanker', unit_type='Elvish Fighter', side=1, pos=32,
+                               hp=rules['units']['Elvish Fighter']['hp'], moves=0,
+                               attacks_left=0, xp=0, leader=False, status=[], traits=[])
+                if name == 'backstab_ffa':
+                    for side_id, pos in ((3, 42), (4, 44)):
+                        spec['sides'].append(dict(spec['sides'][1], id=side_id, team=str(side_id)))
+                        spec['units'].append(dict(flanker, id=f'leader{side_id}', side=side_id, pos=pos, leader=True))
+                    flanker['side'] = 3
+                if name == 'backstab_petrified':
+                    flanker['status'] = ['petrified']
+                spec['units'].append(flanker)
             for side in spec['sides']:
                 side['gold'] = 0
             for index, hp in ((2, attacker_hp), (3, defender_hp)):
@@ -121,6 +139,9 @@ def main():
             lite.close()
             (args.output/(name+'.json')).write_text(json.dumps(row, indent=2)+'\n')
             oracle = row['native']['oracle']
+            if name.startswith('backstab'):
+                expected_damage = 4 if name == 'backstab_petrified' else 8
+                assert oracle['attacker_weapon']['damage'] == expected_damage, (name, 'backstab activation')
             for who in ('attacker', 'defender'):
                 for metric in ('average_hp', 'poisoned', 'slowed'):
                     if abs(oracle[who][metric]-forecast[who][metric]) >= 1e-9:
