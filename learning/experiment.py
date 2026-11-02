@@ -356,9 +356,22 @@ class FormatExperiment:
         return summary
 
     def teacher_evidence(self):
-        return [r for r in read_log(self.directory/'jobs.jsonl') if r.get('meta',{}).get('phase')=='teacher'
-            and r.get('status')=='complete' and not r.get('result',{}).get('faults')
-            and r.get('training_eligible',True) and r.get('coverage',{}).get('matched',0)>0]
+        directories=[self.directory]
+        parents={Path(entry['parent']).resolve()/self.fmt for entry in self.state.get('lineage',[])}
+        directories.extend(sorted(parents-{self.directory.resolve()}))
+        inherited={Path(path).resolve() for path in self.state.get('teacher_shards',[])} if parents else set()
+        evidence=[];seen=set()
+        for index,directory in enumerate(directories):
+            for row in read_log(directory/'jobs.jsonl'):
+                shard=(directory/'data'/(row['id']+'.jsonl.gz')).resolve()
+                # A parent may keep collecting after the copied checkpoint. Only
+                # that checkpoint's retained shards belong to the child's corpus.
+                if shard in seen or (index and shard not in inherited): continue
+                if (row.get('meta',{}).get('phase')=='teacher' and row.get('status')=='complete'
+                        and not row.get('result',{}).get('faults') and row.get('training_eligible',True)
+                        and row.get('coverage',{}).get('matched',0)>0):
+                    evidence.append(row);seen.add(shard)
+        return evidence
 
     def read_bc_batch(self,method):
         pool=self.state['teacher_shards']+self.state['dagger_shards']+list(map(str,self.human_paths()))
