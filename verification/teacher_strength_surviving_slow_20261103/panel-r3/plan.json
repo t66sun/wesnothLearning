@@ -1,0 +1,32 @@
+{
+  "root": "/home/tongshu/acceptance/teacher_surviving_slow_green_20261103",
+  "output": "/home/tongshu/acceptance/teacher_surviving_slow_green_20261103/panel-r3",
+  "source_commit": "9118fac3628542b585a35f27d2115560057d4ddc",
+  "wesnoth": "/home/tongshu/myDev/wesnothLearning/WesnothLearning/.runtime/install/bin/wesnoth",
+  "wesnoth_version": "1.18.8",
+  "seed": 20261103,
+  "blocks": 12,
+  "min_distinct": 12,
+  "workers": 8,
+  "max_turns": 30,
+  "timeout": 1,
+  "first_timeout": 10,
+  "team_contexts": [
+    "baseline_partner",
+    "self_team"
+  ],
+  "games": {
+    "duel": 24,
+    "ffa4": 48,
+    "team2v2": 96
+  },
+  "created": 1793647683.7781966,
+  "deadline": 1793669283.7781966,
+  "budget_seconds": 21600,
+  "partition": "validation",
+  "holdout_used": false,
+  "schedule_sha256": "fcd7259ce0db646a9cfcf731cb703898b0be568cac80ccf0d6edaed4bcaf8799",
+  "identities_sha256": "262ffe0cddbf5f4d0ca6b9207d5137fb3f769338bff92f5c73df12490e47a648",
+  "pass_rule": "Existing comparisons: 12 complete blocks, 12 families, CI low > 0",
+  "limit": "Report turn_limit separately; candidate truncation is a different counter."
+}

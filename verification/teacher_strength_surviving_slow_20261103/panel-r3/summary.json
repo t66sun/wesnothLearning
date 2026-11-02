@@ -1,0 +1,181 @@
+{
+  "comparison": {
+    "duel": {
+      "status": "inconclusive",
+      "blocks": 12,
+      "planned_blocks": 12,
+      "missing_blocks": 0,
+      "fault_games": 0,
+      "distinct_scenarios": 12,
+      "min_distinct": 12,
+      "reason": "inconclusive",
+      "block_differences": {
+        "0": 0.0,
+        "1": 0.0,
+        "2": 0.0,
+        "3": -3,
+        "4": 0,
+        "5": 0.0,
+        "6": 0.0,
+        "7": 0.0,
+        "8": 0.0,
+        "9": 0.0,
+        "10": 3,
+        "11": 0.0
+      },
+      "difference": 0.0,
+      "interval95": [
+        -0.75,
+        0.75
+      ],
+      "policy_score": 1.4583333333333333,
+      "control_score": 1.4583333333333333,
+      "contexts": {
+        "solo": {
+          "difference": 0,
+          "interval95": [
+            -0.75,
+            0.75
+          ],
+          "blocks": 12,
+          "distinct_scenarios": 12
+        }
+      }
+    },
+    "ffa4": {
+      "status": "inconclusive",
+      "blocks": 12,
+      "planned_blocks": 12,
+      "missing_blocks": 0,
+      "fault_games": 0,
+      "distinct_scenarios": 12,
+      "min_distinct": 12,
+      "reason": "inconclusive",
+      "block_differences": {
+        "0": -0.04166666666666663,
+        "1": -0.16666666666666663,
+        "2": 0.0,
+        "3": 0.04166666666666663,
+        "4": -0.33333333333333337,
+        "5": -0.2916666666666667,
+        "6": 0.0,
+        "7": 0.5833333333333333,
+        "8": 0.08333333333333331,
+        "9": 0.125,
+        "10": -0.125,
+        "11": 0.08333333333333326
+      },
+      "difference": -0.0034722222222222376,
+      "interval95": [
+        -0.12152777777777779,
+        0.13194444444444442
+      ],
+      "policy_score": 0.5798611111111112,
+      "control_score": 0.5833333333333334,
+      "contexts": {
+        "solo": {
+          "difference": -0.003472222222222226,
+          "interval95": [
+            -0.12152777777777779,
+            0.13194444444444445
+          ],
+          "blocks": 12,
+          "distinct_scenarios": 12
+        }
+      }
+    },
+    "team2v2": {
+      "status": "inconclusive",
+      "blocks": 12,
+      "planned_blocks": 12,
+      "missing_blocks": 0,
+      "fault_games": 0,
+      "distinct_scenarios": 12,
+      "min_distinct": 12,
+      "reason": "inconclusive",
+      "block_differences": {
+        "0": 0.0,
+        "1": 0.75,
+        "2": 0.0,
+        "3": 0.0,
+        "4": -0.75,
+        "5": -0.375,
+        "6": -0.75,
+        "7": 0.75,
+        "8": 0.0,
+        "9": -0.75,
+        "10": -0.375,
+        "11": 0.375
+      },
+      "difference": -0.09375,
+      "interval95": [
+        -0.375,
+        0.1875
+      ],
+      "policy_score": 1.3020833333333333,
+      "control_score": 1.3958333333333333,
+      "contexts": {
+        "baseline_partner": {
+          "difference": -0.0625,
+          "interval95": [
+            -0.75,
+            0.6875
+          ],
+          "blocks": 12,
+          "distinct_scenarios": 12
+        },
+        "self_team": {
+          "difference": -0.125,
+          "interval95": [
+            -0.375,
+            0
+          ],
+          "blocks": 12,
+          "distinct_scenarios": 12
+        }
+      }
+    }
+  },
+  "counts": {
+    "duel": {
+      "planned": 24,
+      "observed": 24,
+      "statuses": {
+        "complete": 24
+      },
+      "completion_reasons": {
+        "last_leader": 22,
+        "turn_limit": 2
+      },
+      "fault_games": 0,
+      "candidate_truncations": 0
+    },
+    "ffa4": {
+      "planned": 48,
+      "observed": 48,
+      "statuses": {
+        "complete": 48
+      },
+      "completion_reasons": {
+        "last_leader": 26,
+        "turn_limit": 22
+      },
+      "fault_games": 0,
+      "candidate_truncations": 0
+    },
+    "team2v2": {
+      "planned": 96,
+      "observed": 96,
+      "statuses": {
+        "complete": 96
+      },
+      "completion_reasons": {
+        "last_team": 67,
+        "turn_limit": 29
+      },
+      "fault_games": 0,
+      "candidate_truncations": 0
+    }
+  },
+  "recorded_at": 1793648112.5236626
+}

@@ -105,7 +105,7 @@ flowchart LR
 
 教师能力是声明的，不是假设的：
 
-- `gpt6astra` —— 冻结的按决策查询 Lua 教师（`learning/teachers/`，派生源码；`data/opponents/gpt6astra.zip` 是其血脉，也是每个 manifest 随包冻结的教师）。派生源码适配 `probabilistic_combat_v6` 的攻击评分：slow 价值为被攻击目标伤害估计的 50% 加移动限制，poison 每回合 8 点。其他敌军只参与危险代价，不增加目标的减速收益。独立构造的原版/Lite 固定对照及三赛制减速案例通过（`verification/teacher_slow_attribution_20261103/REPORT.md`）。`teacher_profile` 与 `teacher_source_sha256` 随行式记录、检查点、作业元数据和导出传递，单次运行不会混用不同 profile。
+- `gpt6astra` —— 冻结的按决策查询 Lua 教师（`learning/teachers/`，派生源码；`data/opponents/gpt6astra.zip` 是其血脉，也是每个 manifest 随包冻结的教师）。派生源码适配 `probabilistic_combat_v6` 的攻击评分：slow 价值为被攻击目标伤害估计的 50% 加移动限制，poison 每回合 8 点。其他敌军只参与危险代价，不增加目标的减速收益；减速收益从原版边际概率中排除死亡结果。独立原版/Lite 目标归因对照、三赛制减速案例及致死选武器回归通过（`verification/teacher_slow_attribution_20261103/REPORT.md`、`verification/teacher_surviving_slow_20261103/REPORT.md`）。`teacher_profile` 与 `teacher_source_sha256` 随行式记录、检查点、作业元数据和导出传递，单次运行不会混用不同 profile。
 
 新 manifest 冻结该包并把其血脉记为教师身份，因此教师与 DAgger 行携带同一身份。`LiteHost` 拒绝官方 baseline 座位，只接受 manifest 声明的 `gpt6astra` 来源。
 
@@ -234,7 +234,7 @@ BC 模仿验证在 64 行推理块之间共享本次调用的历史缓存；无�
 - 原版对局可由其种子复现：`match.play_game` 把种子写入场景，`runtime.lua` 据此调用 `math.randomseed(seed)`，并预载 `setup.sh` 构建的 `.runtime/entropy.so` 与 `ARENA_ENTROPY_SEED`，使 Wesnoth 的默认与逐动作 C++ RNG 从按种子生成的流取值，而不再读取操作系统熵。种子 20261017 的同一场 stock 对局运行两次产生完全相同的决定性事件流（`verification/native_seed_20261031/REPORT.md`）。不同种子的对局仍然不同；跨种子的原版比较只使用记录到的计数，不声称 lite 与原版相等。
 - 共享候选的来源与数值一致性证据见 `verification/candidate_budget_20261031_exact37/REPORT.md`；`work-12000-v8` 的 45 项受影响 Ubuntu 检查通过，见 `verification/bc_root_20261101/REPORT.md`。当前同种子原版耗时通过，见 `verification/native_inference_20261102/REPORT_seeded.md`：六组成对对局、零故障，评分 p95 为 122/133/114 ms，保持 37 候选与 12,000 工作量。仅排除耗时、规范化各方独立审计批次的顺序后，完整事件内容一致。未优化基线在空闲主机也通过；整组成对面板耗时降低 44.9%。此紧凑地图随机策略检查不代表选定模型的最终评估或原版棋力验收。
 - 当前 v2 规则下普通 BC 就绪仍未完成。有界团战分支复用父运行 40 局，只补收八局，均达到回合上限、零记录故障。新增五批提交 272 次更新，在 631.25 秒触及批数上限。语料 48/48、覆盖率 94.21% 通过；验证招募/攻击仍仅为 40.00%/39.72%。最后 2048 行读取保留 37 个家族；训练招募/攻击也仅为 42.86%/44.88%。v10 没有待完成训练，但八个周期验证任务仍未完成（`verification/team_bc_branch_20261102/REPORT.md`）。先前固定批次探针和被拒绝的上下文输入保留为独立证据；不据此采用生产调参。完整教师排序/棋力仍见 TEST.md R3，普通门禁训练仍见 L2，不声明三赛制回环、收敛或棋力。
-- 目标减速收益修复后的完整原版教师面板完成 168/168 局、零故障，三赛制均有 12 个有效区块和 12 个场景族。三个区间均跨零，53 局达到回合上限。棋力／迁移验收仍见 TEST.md R3（`verification/teacher_strength_slow_20261103/REPORT.md`）。现有显著优越门槛未改，也未声明单独的非劣效容差。
+- 减速收益排除死亡结果后的完整原版教师面板完成 168/168 局、零故障，三赛制均有 12 个有效区块和 12 个场景族。三个区间均跨零，53 局达到回合上限。棋力／迁移验收仍见 TEST.md R3（`verification/teacher_strength_surviving_slow_20261103/REPORT.md`）。现有显著优越门槛未改，也未声明单独的非劣效容差。
 - 任何运行都没有收敛或棋力结论。
 
 ## 14. 文档地图
