@@ -1,4 +1,4 @@
-"""Inspect one fixed teacher choice when slow can kill its low-HP target."""
+"""Regress the teacher choice when slow can kill its low-HP target."""
 import argparse
 import hashlib
 import json
@@ -58,9 +58,11 @@ def main():
     summary = dict(source=args.source, teacher=identity(), rules_sha256=hashlib.sha256(raw).hexdigest(),
                    native_executable_sha256=native_hash, wall_seconds=time.monotonic() - started,
                    observations=observations,
-                   limits='One predeclared first-decision board; no scorer change or strength claim.')
+                   limits='One fixed first-decision board; surviving-slow weapon choice only, not strength acceptance.')
     write(args.output / 'summary.json', summary)
     print(json.dumps(summary, indent=2), flush=True)
+    assert all(result['legal'] and result['selected_weapon'] == 3
+               for result in observations.values()), observations
 
 
 if __name__ == '__main__':

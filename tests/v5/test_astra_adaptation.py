@@ -72,6 +72,8 @@ class AstraAdaptationTests(unittest.TestCase):
         plain = self.score(dealt=6)
         self.assertGreater(slowed, plain)
         self.assertLess(self.legacy(dealt=0, slow=1), 6)
+        self.assertEqual(self.score(kill=1, slow=1, target_damage=20),
+                         self.score(kill=1))
 
         # 5. A poison tick is eight points, so a poison-only attack beats a
         #    seven-point hit, matching the native poison amount.
