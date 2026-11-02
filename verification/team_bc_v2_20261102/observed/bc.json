@@ -1,0 +1,586 @@
+{
+  "stage": "bc",
+  "command": [
+    "/home/tongshu/venv/bin/python",
+    "-u",
+    "-m",
+    "learning",
+    "run",
+    "--run-dir",
+    "/home/tongshu/acceptance/team_bc_v2_20261102/runs/team_bc_v2",
+    "--hours",
+    "0.3333333333333333",
+    "--phase",
+    "bc",
+    "--formats",
+    "team2v2",
+    "--device",
+    "cpu",
+    "--engine",
+    "lite",
+    "--evaluation-engine",
+    "lite",
+    "--workers",
+    "8",
+    "--trainer-threads",
+    "1",
+    "--seed",
+    "20261101",
+    "--bc-games",
+    "48",
+    "48",
+    "48",
+    "--native-bc-games",
+    "0",
+    "0",
+    "0",
+    "--bc-batch-games",
+    "8",
+    "--bc-records",
+    "2048",
+    "--bc-validation-records",
+    "1024",
+    "--training-max-turns",
+    "30",
+    "--wesnoth",
+    "/home/tongshu/myDev/wesnothLearning/WesnothLearning/.runtime/install/bin/wesnoth"
+  ],
+  "seconds": 933.3039269447327,
+  "exit_code": -15,
+  "stop_reason": "committed_batch_limit",
+  "states": {
+    "team2v2": {
+      "format": "team2v2",
+      "stage": "bc",
+      "phase": "bc",
+      "clock": {
+        "started": 1793615253.940527,
+        "update_deadline": 1793616253.940527,
+        "deadline": 1793616453.940527
+      },
+      "batch": 5,
+      "version": 5,
+      "history": [
+        {
+          "batch": 0,
+          "method": "bc",
+          "elapsed_hours": 0.040838379528787404,
+          "reads": {
+            "bc": {
+              "requested": 2048,
+              "rows": 1357,
+              "families": 6,
+              "selected": 6,
+              "families_decoded": 6,
+              "families_selected": 6,
+              "families_admitted": 6,
+              "families_retained": 6,
+              "windows": 24,
+              "sources": {
+                "astra": 1357
+              },
+              "engines": {
+                "lite": 1357
+              },
+              "kinds": {
+                "recruit": 66,
+                "move": 915,
+                "end_turn": 180,
+                "move_attack": 179,
+                "attack": 17
+              },
+              "gz_bytes": 16097159,
+              "retained_bytes": 186192652,
+              "deficit": 691,
+              "stop_reason": "insufficient_data"
+            },
+            "validation": {
+              "requested": 1024,
+              "rows": 468,
+              "families": 2,
+              "selected": 2,
+              "families_decoded": 2,
+              "families_selected": 2,
+              "families_admitted": 2,
+              "families_retained": 2,
+              "windows": 8,
+              "sources": {
+                "astra": 468
+              },
+              "engines": {
+                "lite": 468
+              },
+              "kinds": {
+                "recruit": 37,
+                "move": 307,
+                "end_turn": 60,
+                "move_attack": 57,
+                "attack": 7
+              },
+              "gz_bytes": 5210106,
+              "retained_bytes": 59734028,
+              "deficit": 556,
+              "stop_reason": "insufficient_data"
+            }
+          },
+          "peak_rss_mb": 803,
+          "updates": 24,
+          "loss": 3.5531323617324233,
+          "interrupted": false,
+          "approx_kl": 0.0,
+          "kl_stopped": false,
+          "decisions_seen": 5370,
+          "unique_families_seen": 6,
+          "effective_dataset_passes": 3.95725865880619,
+          "sequence_windows": 24,
+          "microbatch": 32,
+          "window_visits": 96,
+          "unique_windows_seen": 23,
+          "repeated_window_visits": 73
+        },
+        {
+          "batch": 1,
+          "method": "bc",
+          "elapsed_hours": 0.09214913745721182,
+          "reads": {
+            "bc": {
+              "requested": 2048,
+              "rows": 2048,
+              "families": 11,
+              "selected": 11,
+              "families_decoded": 11,
+              "families_selected": 11,
+              "families_admitted": 11,
+              "families_retained": 11,
+              "windows": 40,
+              "sources": {
+                "astra": 2048
+              },
+              "engines": {
+                "lite": 2048
+              },
+              "kinds": {
+                "recruit": 124,
+                "move": 1329,
+                "end_turn": 278,
+                "move_attack": 292,
+                "attack": 25
+              },
+              "gz_bytes": 30277587,
+              "retained_bytes": 286744080,
+              "deficit": 0,
+              "stop_reason": "window_limit"
+            },
+            "validation": {
+              "requested": 1024,
+              "rows": 1024,
+              "families": 5,
+              "selected": 5,
+              "families_decoded": 5,
+              "families_selected": 5,
+              "families_admitted": 5,
+              "families_retained": 5,
+              "windows": 18,
+              "sources": {
+                "astra": 1024
+              },
+              "engines": {
+                "lite": 1024
+              },
+              "kinds": {
+                "recruit": 71,
+                "move": 720,
+                "end_turn": 125,
+                "move_attack": 92,
+                "attack": 16
+              },
+              "gz_bytes": 13927335,
+              "retained_bytes": 139571536,
+              "deficit": 0,
+              "stop_reason": "window_limit"
+            }
+          },
+          "peak_rss_mb": 1072,
+          "updates": 40,
+          "loss": 2.5790766872698443,
+          "interrupted": false,
+          "approx_kl": 0.0,
+          "kl_stopped": false,
+          "decisions_seen": 8287,
+          "unique_families_seen": 11,
+          "effective_dataset_passes": 4.04638671875,
+          "sequence_windows": 40,
+          "microbatch": 32,
+          "window_visits": 160,
+          "unique_windows_seen": 40,
+          "repeated_window_visits": 120
+        },
+        {
+          "batch": 2,
+          "method": "bc",
+          "elapsed_hours": 0.14543290191226535,
+          "reads": {
+            "bc": {
+              "requested": 2048,
+              "rows": 2048,
+              "families": 19,
+              "selected": 19,
+              "families_decoded": 19,
+              "families_selected": 19,
+              "families_admitted": 19,
+              "families_retained": 19,
+              "windows": 48,
+              "sources": {
+                "astra": 2048
+              },
+              "engines": {
+                "lite": 2048
+              },
+              "kinds": {
+                "recruit": 147,
+                "end_turn": 281,
+                "move": 1272,
+                "move_attack": 324,
+                "attack": 24
+              },
+              "gz_bytes": 51867202,
+              "retained_bytes": 312427472,
+              "deficit": 0,
+              "stop_reason": "window_limit"
+            },
+            "validation": {
+              "requested": 1024,
+              "rows": 1024,
+              "families": 5,
+              "selected": 5,
+              "families_decoded": 5,
+              "families_selected": 5,
+              "families_admitted": 5,
+              "families_retained": 5,
+              "windows": 18,
+              "sources": {
+                "astra": 1024
+              },
+              "engines": {
+                "lite": 1024
+              },
+              "kinds": {
+                "recruit": 71,
+                "move": 720,
+                "end_turn": 125,
+                "move_attack": 92,
+                "attack": 16
+              },
+              "gz_bytes": 13927335,
+              "retained_bytes": 139571536,
+              "deficit": 0,
+              "stop_reason": "window_limit"
+            }
+          },
+          "peak_rss_mb": 1094,
+          "updates": 48,
+          "loss": 2.062617268465298,
+          "interrupted": false,
+          "approx_kl": 0.0,
+          "kl_stopped": false,
+          "decisions_seen": 9231,
+          "unique_families_seen": 19,
+          "effective_dataset_passes": 4.50732421875,
+          "sequence_windows": 46,
+          "microbatch": 32,
+          "window_visits": 192,
+          "unique_windows_seen": 45,
+          "repeated_window_visits": 147
+        },
+        {
+          "batch": 3,
+          "method": "bc",
+          "elapsed_hours": 0.198990701701906,
+          "reads": {
+            "bc": {
+              "requested": 2048,
+              "rows": 2048,
+              "families": 24,
+              "selected": 24,
+              "families_decoded": 24,
+              "families_selected": 24,
+              "families_admitted": 24,
+              "families_retained": 24,
+              "windows": 52,
+              "sources": {
+                "astra": 2048
+              },
+              "engines": {
+                "lite": 2048
+              },
+              "kinds": {
+                "move_attack": 358,
+                "move": 1233,
+                "end_turn": 288,
+                "attack": 32,
+                "recruit": 137
+              },
+              "gz_bytes": 62594722,
+              "retained_bytes": 329656476,
+              "deficit": 0,
+              "stop_reason": "window_limit"
+            },
+            "validation": {
+              "requested": 1024,
+              "rows": 1024,
+              "families": 8,
+              "selected": 8,
+              "families_decoded": 8,
+              "families_selected": 8,
+              "families_admitted": 8,
+              "families_retained": 8,
+              "windows": 20,
+              "sources": {
+                "astra": 1024
+              },
+              "engines": {
+                "lite": 1024
+              },
+              "kinds": {
+                "recruit": 57,
+                "move": 722,
+                "end_turn": 117,
+                "move_attack": 115,
+                "attack": 13
+              },
+              "gz_bytes": 24096265,
+              "retained_bytes": 155560732,
+              "deficit": 0,
+              "stop_reason": "window_limit"
+            }
+          },
+          "peak_rss_mb": 1128,
+          "updates": 48,
+          "loss": 1.855696491067647,
+          "interrupted": false,
+          "approx_kl": 0.0,
+          "kl_stopped": false,
+          "decisions_seen": 9295,
+          "unique_families_seen": 24,
+          "effective_dataset_passes": 4.53857421875,
+          "sequence_windows": 47,
+          "microbatch": 32,
+          "window_visits": 192,
+          "unique_windows_seen": 47,
+          "repeated_window_visits": 145
+        },
+        {
+          "batch": 4,
+          "method": "bc",
+          "elapsed_hours": 0.25772861778736117,
+          "reads": {
+            "bc": {
+              "requested": 2048,
+              "rows": 2048,
+              "families": 32,
+              "selected": 32,
+              "families_decoded": 32,
+              "families_selected": 32,
+              "families_admitted": 32,
+              "families_retained": 32,
+              "windows": 57,
+              "sources": {
+                "astra": 2048
+              },
+              "engines": {
+                "lite": 2048
+              },
+              "kinds": {
+                "attack": 30,
+                "move_attack": 336,
+                "move": 1232,
+                "end_turn": 285,
+                "recruit": 165
+              },
+              "gz_bytes": 87535174,
+              "retained_bytes": 358315268,
+              "deficit": 0,
+              "stop_reason": "window_limit"
+            },
+            "validation": {
+              "requested": 1024,
+              "rows": 1024,
+              "families": 8,
+              "selected": 8,
+              "families_decoded": 8,
+              "families_selected": 8,
+              "families_admitted": 8,
+              "families_retained": 8,
+              "windows": 20,
+              "sources": {
+                "astra": 1024
+              },
+              "engines": {
+                "lite": 1024
+              },
+              "kinds": {
+                "recruit": 57,
+                "move": 722,
+                "end_turn": 117,
+                "move_attack": 115,
+                "attack": 13
+              },
+              "gz_bytes": 24096265,
+              "retained_bytes": 155560732,
+              "deficit": 0,
+              "stop_reason": "window_limit"
+            }
+          },
+          "peak_rss_mb": 1137,
+          "updates": 56,
+          "loss": 1.793068147962913,
+          "interrupted": false,
+          "approx_kl": 0.0,
+          "kl_stopped": false,
+          "decisions_seen": 9550,
+          "unique_families_seen": 32,
+          "effective_dataset_passes": 4.6630859375,
+          "sequence_windows": 54,
+          "microbatch": 32,
+          "window_visits": 224,
+          "unique_windows_seen": 53,
+          "repeated_window_visits": 171
+        }
+      ],
+      "snapshots": [],
+      "best_key": null,
+      "bc_key": null,
+      "ppo_key": null,
+      "best_kind": null,
+      "pending_train": null,
+      "pending_validation": null,
+      "teacher_shards": [
+        "/home/tongshu/acceptance/team_bc_v2_20261102/runs/team_bc_v2/team2v2/data/teacher-00000-team2v2-t0.jsonl.gz",
+        "/home/tongshu/acceptance/team_bc_v2_20261102/runs/team_bc_v2/team2v2/data/teacher-00001-team2v2-t0.jsonl.gz",
+        "/home/tongshu/acceptance/team_bc_v2_20261102/runs/team_bc_v2/team2v2/data/teacher-00002-team2v2-t0.jsonl.gz",
+        "/home/tongshu/acceptance/team_bc_v2_20261102/runs/team_bc_v2/team2v2/data/teacher-00003-team2v2-t0.jsonl.gz",
+        "/home/tongshu/acceptance/team_bc_v2_20261102/runs/team_bc_v2/team2v2/data/teacher-00004-team2v2-t0.jsonl.gz",
+        "/home/tongshu/acceptance/team_bc_v2_20261102/runs/team_bc_v2/team2v2/data/teacher-00005-team2v2-t0.jsonl.gz",
+        "/home/tongshu/acceptance/team_bc_v2_20261102/runs/team_bc_v2/team2v2/data/teacher-00006-team2v2-t0.jsonl.gz",
+        "/home/tongshu/acceptance/team_bc_v2_20261102/runs/team_bc_v2/team2v2/data/teacher-00007-team2v2-t0.jsonl.gz",
+        "/home/tongshu/acceptance/team_bc_v2_20261102/runs/team_bc_v2/team2v2/data/teacher-00008-team2v2-t0.jsonl.gz",
+        "/home/tongshu/acceptance/team_bc_v2_20261102/runs/team_bc_v2/team2v2/data/teacher-00009-team2v2-t0.jsonl.gz",
+        "/home/tongshu/acceptance/team_bc_v2_20261102/runs/team_bc_v2/team2v2/data/teacher-00010-team2v2-t0.jsonl.gz",
+        "/home/tongshu/acceptance/team_bc_v2_20261102/runs/team_bc_v2/team2v2/data/teacher-00011-team2v2-t0.jsonl.gz",
+        "/home/tongshu/acceptance/team_bc_v2_20261102/runs/team_bc_v2/team2v2/data/teacher-00012-team2v2-t0.jsonl.gz",
+        "/home/tongshu/acceptance/team_bc_v2_20261102/runs/team_bc_v2/team2v2/data/teacher-00013-team2v2-t0.jsonl.gz",
+        "/home/tongshu/acceptance/team_bc_v2_20261102/runs/team_bc_v2/team2v2/data/teacher-00014-team2v2-t0.jsonl.gz",
+        "/home/tongshu/acceptance/team_bc_v2_20261102/runs/team_bc_v2/team2v2/data/teacher-00015-team2v2-t0.jsonl.gz",
+        "/home/tongshu/acceptance/team_bc_v2_20261102/runs/team_bc_v2/team2v2/data/teacher-00016-team2v2-t0.jsonl.gz",
+        "/home/tongshu/acceptance/team_bc_v2_20261102/runs/team_bc_v2/team2v2/data/teacher-00017-team2v2-t0.jsonl.gz",
+        "/home/tongshu/acceptance/team_bc_v2_20261102/runs/team_bc_v2/team2v2/data/teacher-00018-team2v2-t0.jsonl.gz",
+        "/home/tongshu/acceptance/team_bc_v2_20261102/runs/team_bc_v2/team2v2/data/teacher-00019-team2v2-t0.jsonl.gz",
+        "/home/tongshu/acceptance/team_bc_v2_20261102/runs/team_bc_v2/team2v2/data/teacher-00020-team2v2-t0.jsonl.gz",
+        "/home/tongshu/acceptance/team_bc_v2_20261102/runs/team_bc_v2/team2v2/data/teacher-00021-team2v2-t0.jsonl.gz",
+        "/home/tongshu/acceptance/team_bc_v2_20261102/runs/team_bc_v2/team2v2/data/teacher-00022-team2v2-t0.jsonl.gz",
+        "/home/tongshu/acceptance/team_bc_v2_20261102/runs/team_bc_v2/team2v2/data/teacher-00023-team2v2-t0.jsonl.gz",
+        "/home/tongshu/acceptance/team_bc_v2_20261102/runs/team_bc_v2/team2v2/data/teacher-00024-team2v2-t0.jsonl.gz",
+        "/home/tongshu/acceptance/team_bc_v2_20261102/runs/team_bc_v2/team2v2/data/teacher-00025-team2v2-t0.jsonl.gz",
+        "/home/tongshu/acceptance/team_bc_v2_20261102/runs/team_bc_v2/team2v2/data/teacher-00026-team2v2-t0.jsonl.gz",
+        "/home/tongshu/acceptance/team_bc_v2_20261102/runs/team_bc_v2/team2v2/data/teacher-00027-team2v2-t0.jsonl.gz",
+        "/home/tongshu/acceptance/team_bc_v2_20261102/runs/team_bc_v2/team2v2/data/teacher-00028-team2v2-t0.jsonl.gz",
+        "/home/tongshu/acceptance/team_bc_v2_20261102/runs/team_bc_v2/team2v2/data/teacher-00029-team2v2-t0.jsonl.gz",
+        "/home/tongshu/acceptance/team_bc_v2_20261102/runs/team_bc_v2/team2v2/data/teacher-00030-team2v2-t0.jsonl.gz",
+        "/home/tongshu/acceptance/team_bc_v2_20261102/runs/team_bc_v2/team2v2/data/teacher-00031-team2v2-t0.jsonl.gz",
+        "/home/tongshu/acceptance/team_bc_v2_20261102/runs/team_bc_v2/team2v2/data/teacher-00032-team2v2-t0.jsonl.gz",
+        "/home/tongshu/acceptance/team_bc_v2_20261102/runs/team_bc_v2/team2v2/data/teacher-00033-team2v2-t0.jsonl.gz",
+        "/home/tongshu/acceptance/team_bc_v2_20261102/runs/team_bc_v2/team2v2/data/teacher-00034-team2v2-t0.jsonl.gz",
+        "/home/tongshu/acceptance/team_bc_v2_20261102/runs/team_bc_v2/team2v2/data/teacher-00035-team2v2-t0.jsonl.gz",
+        "/home/tongshu/acceptance/team_bc_v2_20261102/runs/team_bc_v2/team2v2/data/teacher-00036-team2v2-t0.jsonl.gz",
+        "/home/tongshu/acceptance/team_bc_v2_20261102/runs/team_bc_v2/team2v2/data/teacher-00037-team2v2-t0.jsonl.gz",
+        "/home/tongshu/acceptance/team_bc_v2_20261102/runs/team_bc_v2/team2v2/data/teacher-00038-team2v2-t0.jsonl.gz",
+        "/home/tongshu/acceptance/team_bc_v2_20261102/runs/team_bc_v2/team2v2/data/teacher-00039-team2v2-t0.jsonl.gz"
+      ],
+      "effective": false,
+      "error": null,
+      "dagger_shards": [],
+      "policy_shards": [],
+      "counters": {
+        "environment_games": 40,
+        "collection_batches": 5,
+        "optimizer_steps": 216,
+        "unique_families_seen": 40,
+        "decisions_seen": 41733,
+        "effective_dataset_passes": 21.71262975255619
+      },
+      "reward_controller": {
+        "config": {
+          "economy": 0.15,
+          "control": 0.1,
+          "explore": 0.1,
+          "mode": "adaptive",
+          "entropy": 0.01,
+          "bc_aux": 0.1,
+          "gamma": 1.0,
+          "gae_lambda": 0.95,
+          "reward_version": 0,
+          "reward_formula_id": "v5-potential-1"
+        },
+        "cursor": 0,
+        "last_check": 0,
+        "games": 32,
+        "blocks": [],
+        "seen_blocks": [],
+        "windows": [],
+        "control_previous": null,
+        "last_error": null,
+        "metrics_error": null,
+        "applied_schedule": []
+      },
+      "families_seen": [
+        "00ba546e00809bb3c5ecf8476921d903acaea6287b965d3a5864e5f96c040cd6",
+        "00cddca6f8e0f7293facf8313bf747ac7e2da110688e05e324017ce520b9aa21",
+        "150b28d3d65be07e8a6a0e04a55066af532da5d9b2fefe97e77101cf051a1a4b",
+        "16f2b86fd6bee7d7d4fafb78b566c618dac9988169689df2fbb117031a35b329",
+        "1c25ccaa23da7f6b16a0f010f2322179397ec4d43e53db6148108943d717c728",
+        "228734ec68f6372ba77759c5b9c9213c3dab9d1c58db2fef04f2c2c5ab347af2",
+        "2814aee5a579ab81c83f7f8d0e431fab413bee21882de314276e8a0b154db0c3",
+        "2a8fe2c4fd6a61a5fbb23dbbe21f8c753c33d7d29d72bf11cb947636ed9f4936",
+        "315c2d8e7f666c402350ab72cecfb56e368897afa5f76b9168c7b733b6d02ca4",
+        "320b8ac4ba84c046edc0cbb9c2006c9e6c4451d11bfc56b9728b3c3f753713f7",
+        "32796ca81d9cf4afd3c7a1f99f345fe1eea51c7869fdd606c9b74da335185f5d",
+        "37962a1ee0694a8af832f9ead9c0febea8824c64cfbe562aa68e0a99b34a309a",
+        "3fcb32b520397c58beec84e1a5a1e2028b36ab10047b794a370cb902daaab14b",
+        "49b5a115ea148c553ab6f951b57a4f68cc60c51ee39f16ae63032fbdf4ce35e9",
+        "4ae77b472d9162d169f777c1b9438b1158bca1ae8d22a115be0cef8d99e3fdf2",
+        "4fdf759956b739a64123e429ebdb2338b6ab5716dd241e534ade506db0ffd925",
+        "5068b65f1e99f94a7b93ad8cb9ddc8d89c52d22cba3c18e0cf0c47218e0001a6",
+        "535033246295c46ec0ccbe119642a3b83eac57af96a1dfe3603ad464cf3a058e",
+        "58026b4e0721fd89cdbf0e83860a74b76d211c9bafda358392c659fdf5a9a666",
+        "620003a31457fd335c333b1a6d71bccb1eb1bfbf30e376e9ea1fa8f4c0391046",
+        "823c993bbcbb22ef31be74630ac14e791f09c8ca8846aebb7bd4b1d1a611be4b",
+        "8c5ed5c5395652c96efc2deea96463bde22bada96847269b8ae3887aee375a42",
+        "99d2070f5af1396907483cc7aa318613332fdfbb28f884e735dfba752eb2b539",
+        "9f6afdfe3e81d3623d4d8f4940591638dd7bb2d20c27101a98ad2be12ffeed6b",
+        "a37ebaac72dd1b010dc6f7e12823c4e28091c89786d1ba6880cff30dda318cd9",
+        "a3837afd868e23310001990b12006ac7bd6645ab167b8010d49bc535ff60127e",
+        "a6ba2fe2dcfd4f5c50aa8e2cda127cf3dd2030507406299ebc0961e3394f9cd0",
+        "a9bf96660690df186f5dd501ea300b904d7e0d78b24c5c3599cf17d2591ab0b0",
+        "b9d9c5952ea1094c1ef094cdb9acdc50efddab6242a05f9f5039e0c85f4fa503",
+        "bf1507b63b46e3c281049c092f48822d8810286351af9d80b6ffecc9f8d4336b",
+        "d1af866d5274bd6f1607f561d75f98ff6898418d2759c81201f7642f1c28ec2e",
+        "d1e77a6d71a7de577e1681450f915ce3ea40b3ca13f60207343d01ebbd850033",
+        "d2b43eef083665ecc05acac94568764c1760c5fab81728da0fe15a7360a5ef52",
+        "d355c4abd80a167c0c9dd83cade483d685159935b76bff0b43b861ee6016bbf2",
+        "e08a04d5f2312d889a7ee970a5100f1829cc26b3f19b4c94302deb1f86aa93e8",
+        "e5e79707669ac4a56d12dd06f1bf04e54a1d3db86ceba8c0652958d30a1660f7",
+        "e61eb418b4a1005247c017d1e23d1e8328b156474f3851e7e80cf681a377f724",
+        "e6d3bb65f588a57b353c85fca5d87a0caf7542be9567d675f9b992826b810cb6",
+        "f3b723504120f63a3b0b8c0db9a4626dc7956d0b13d524ae416abbcc0cfe1723",
+        "f8d1a044c47671f6665f8fd1dffe6c861ec40b148baecc1d93056d6d82b094c7"
+      ],
+      "bc_quality_best": 0.52015732546706,
+      "bc_plateau": 0,
+      "control_metrics": {
+        "partition": "train",
+        "new_games": 8,
+        "faulted_games": 0
+      }
+    }
+  }
+}
