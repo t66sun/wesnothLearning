@@ -1,0 +1,36 @@
+{
+  "comparisons": {
+    "lite": {
+      "after_weapon": 2,
+      "all_choices_legal": true,
+      "before_weapon": 3,
+      "ranged_danger_cost_inactive": true,
+      "ranged_forecasts_equal": true,
+      "remote_not_attackable": true,
+      "same_target_and_landing": true,
+      "target_damage_estimates_equal": true,
+      "weapon_changed": true
+    },
+    "native": {
+      "after_weapon": 2,
+      "all_choices_legal": true,
+      "before_weapon": 3,
+      "ranged_danger_cost_inactive": true,
+      "ranged_forecasts_equal": true,
+      "remote_not_attackable": true,
+      "same_target_and_landing": true,
+      "target_damage_estimates_equal": true,
+      "weapon_changed": true
+    }
+  },
+  "limits": "Two fixed first-decision boards; observed diagnosis, not a strength or repair acceptance.",
+  "native_executable_sha256": "33f64aa3f5ee40228bd44e357b3f4d784121d4392ff774d6c059c7defa3e5fcf",
+  "rules_sha256": "e6b4f6200b0a8ad58a536b844fff37cfa9e0091bf0a0b702a8982155310f2f17",
+  "source": "c96369396efe214fcb9b1a382ed543c714d5880a",
+  "teacher": {
+    "teacher": "gpt6astra",
+    "teacher_profile": "probabilistic_combat_v6",
+    "teacher_source_sha256": "24aa546bbcce6670b0baef8751730d64c229b37cfe608d6cc59fd3e4c211eb98"
+  },
+  "wall_seconds": 2.7383311630692333
+}
