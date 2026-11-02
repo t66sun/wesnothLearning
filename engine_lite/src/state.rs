@@ -283,7 +283,7 @@ impl Game {
                     let mut id=format!("lite-{}",self.next_id);self.next_id+=1;
                     while self.unit(&id).is_some(){id=format!("lite-{}",self.next_id);self.next_id+=1;}
                     self.units.push(Unit{id,unit_type,side:self.current,pos:to,hp:t.hp,moves:0,attacks_left:0,
-                        xp:0,leader:false,status:BTreeSet::new(),traits:BTreeSet::new(),acted:true,feeding_bonus:0,
+                        xp:0,leader:false,status:BTreeSet::new(),traits:BTreeSet::new(),acted:true,feeding_bonus:0,amla_count:0,
                         resolved_max_hp:None,resolved_max_moves:None,resolved_max_experience:None,resolved_weapon_damage:vec![]});actual=Some(to);
                 }
             },
@@ -312,7 +312,7 @@ impl Game {
                     if !self.rules.terrains[&self.spec.terrain[pos]].village && !self.rules.units[&victim].abilities.contains("unplagueable") {
                         let t=&self.rules.units[&name];let id=format!("lite-{}",self.next_id);self.next_id+=1;
                         self.units.push(Unit{id,unit_type:name,side,pos,hp:t.hp,moves:0,attacks_left:0,
-                            xp:0,leader:false,status:BTreeSet::new(),traits:BTreeSet::new(),acted:true,feeding_bonus:0,
+                            xp:0,leader:false,status:BTreeSet::new(),traits:BTreeSet::new(),acted:true,feeding_bonus:0,amla_count:0,
                             resolved_max_hp:None,resolved_max_moves:None,resolved_max_experience:None,resolved_weapon_damage:vec![]});
                     }
                 }
@@ -327,12 +327,19 @@ impl Game {
         let u=&mut self.units[i];if u.hp<=0{return;}
         let t=&self.rules.units[&u.unit_type];
         let required=u.max_xp(&self.rules);
-        if u.xp>=required {if let Some(next)=t.advances_to.first() {
+        if u.xp<required {return;}
+        if let Some(next)=t.advances_to.first() {
             let nt=&self.rules.units[next];u.xp-=required;u.unit_type=next.clone();u.hp=nt.hp+u.feeding_bonus;
             u.resolved_max_hp=None;u.resolved_max_moves=None;u.resolved_max_experience=None;u.resolved_weapon_damage.clear();
-            u.status.remove("poisoned");u.status.remove("slowed");
-        }}
+        }else if t.standard_amla && u.amla_count<100 {
+            u.xp-=required;u.amla_count+=1;
+            u.resolved_max_hp=Some(u.max_hp(&self.rules)-u.feeding_bonus+3);
+            u.resolved_max_experience=Some((u64::from(required)+(u64::from(required)*20+50)/100).min(u64::from(u32::MAX)) as u32);
+            u.hp=u.max_hp(&self.rules);
+        }else{return;}
+        u.status.remove("poisoned");u.status.remove("slowed");
     }
+
     fn check_victory(&mut self) {
         for s in &mut self.sides {
             s.eliminated=!self.units.iter().any(|u|u.hp>0 && u.side==s.id && u.leader);

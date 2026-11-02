@@ -11,6 +11,7 @@ import json
 from pathlib import Path
 
 from learning.rules_catalog import provenance
+from .advancement import compile_advancement
 
 SPECIALS = {'poison', 'slow', 'drains', 'magical', 'marksman', 'charge',
             'firststrike', 'berserk', 'swarm', 'plague', 'petrifies', 'backstab',
@@ -134,6 +135,11 @@ def freeze_captures(captures, output):
     for path, raw, capture in loaded:
         for unit_id, original in capture['units'].items():
             unit = dict(original)
+            native_id = unit_id if unit_id in capture.get('raw_definitions', {}) else unit.get('native_id')
+            raw_definition = capture.get('raw_definitions', {}).get(native_id)
+            if raw_definition is None:
+                raise ValueError(f'{unit_id}: missing raw advancement declarations')
+            unit['standard_amla'], advancement_errors = compile_advancement(raw_definition)
             if unit.get('id') != unit_id or unit.get('hp', 0) <= 0 or unit.get('experience', 0) <= 0:
                 raise ValueError(f'{path}: malformed unit {unit_id}')
             if set(unit['movement']) != set(terrains) or set(unit['defense']) != set(terrains):
@@ -144,7 +150,7 @@ def freeze_captures(captures, output):
                 raise ValueError(f'{unit_id}: invalid movement cost')
             if any(not isinstance(v, int) or not 0 <= v <= 100 for v in unit['defense'].values()):
                 raise ValueError(f'{unit_id}: defense must be native chance-to-hit percent')
-            unsupported = list(unit.get('unsupported', []))
+            unsupported = list(unit.get('unsupported', [])) + advancement_errors
             unsupported += [f'ability:{a}' for a in unit.get('abilities', []) if a not in ABILITIES]
             for weapon in unit.get('weapons', []):
                 unsupported += [f'weapon:{weapon["id"]}:{s}' for s in weapon.get('specials', []) if s not in SPECIALS]
@@ -174,7 +180,7 @@ def freeze_captures(captures, output):
             if weapon.get('plague_type') and weapon['plague_type'] not in units:
                 raise ValueError(f'{unit_id}: plague type absent')
     source_hash = hashlib.sha256(canonical(provenance)).hexdigest()
-    rules = {'source_version': '1.18.8', 'rules_version': 'lite-0.1-' + source_hash[:16],
+    rules = {'source_version': '1.18.8', 'rules_version': 'lite-amla-1-' + source_hash[:16],
              'source_hash': source_hash, 'units': units, 'terrains': terrains,
              'lawful_bonus': [0, 25, 25, 0, -25, -25]}
     missing_scopes = sorted(required_scopes - scopes)

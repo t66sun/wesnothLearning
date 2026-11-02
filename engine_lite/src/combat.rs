@@ -165,7 +165,7 @@ mod tests {
     fn unit_type(id: &str, hp: i32, defense: u32, weapons: Vec<Weapon>) -> UnitType {
         UnitType {
             id: id.into(), scope: "test".into(), hp, moves: 5, vision: 5, level: 1,
-            cost: 10, experience: 20, alignment: "neutral".into(), advances_to: vec![],
+            cost: 10, experience: 20, alignment: "neutral".into(), advances_to: vec![], standard_amla:false,
             weapons,
             movement: BTreeMap::from([(PLAIN.to_string(), 1)]),
             defense: BTreeMap::from([(PLAIN.to_string(), defense)]),
@@ -199,7 +199,7 @@ mod tests {
             id: id.into(), unit_type: unit_type.into(), side: if id == "a" { 1 } else { 2 },
             pos: if id == "a" { 0 } else { 1 }, hp, moves: 5, attacks_left: 1,
             xp: 0, leader: false, status: BTreeSet::new(), traits: BTreeSet::new(),
-            acted: false, feeding_bonus: 0, resolved_max_hp: None,
+            acted: false, feeding_bonus: 0, amla_count: 0, resolved_max_hp: None,
             resolved_max_moves: None, resolved_max_experience: None,
             resolved_weapon_damage: vec![],
         }
