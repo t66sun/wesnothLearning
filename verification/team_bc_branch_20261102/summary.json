@@ -1,0 +1,505 @@
+{
+  "seconds": 631.2515721321106,
+  "stop_reason": "committed_batch_limit",
+  "exit_code": -15,
+  "version": 10,
+  "batch": 10,
+  "additional_updates": 272,
+  "teacher_shards": 48,
+  "child_results": 8,
+  "statuses": {
+    "complete": 8
+  },
+  "phases": {
+    "teacher": 8
+  },
+  "faulted_games": 0,
+  "turn_truncated": 8,
+  "result_keys": [
+    "engine_id",
+    "rng_version",
+    "combat_version",
+    "winner",
+    "winning_team",
+    "truncated",
+    "reason",
+    "survivors",
+    "bots",
+    "factions",
+    "teams",
+    "turns",
+    "faults",
+    "rank_points",
+    "approximate"
+  ],
+  "scheduler_events": {
+    "start": 16,
+    "finish": 8
+  },
+  "corpus": {
+    "games": 48,
+    "required": 48,
+    "passed": true
+  },
+  "coverage": {
+    "passed": true,
+    "actions": {
+      "all": {
+        "matched": 11284,
+        "total": 11978,
+        "ratio": 0.9420604441476039
+      },
+      "recruit": {
+        "matched": 691,
+        "total": 785,
+        "ratio": 0.8802547770700637
+      },
+      "move": {
+        "matched": 7458,
+        "total": 7920,
+        "ratio": 0.9416666666666667
+      },
+      "attack": {
+        "matched": 1725,
+        "total": 1863,
+        "ratio": 0.9259259259259259
+      }
+    },
+    "reasons": {
+      "attack:actor_absent": 2,
+      "attack:destination_absent": 122,
+      "attack:enemy_absent": 2,
+      "attack:kind_absent": 1,
+      "attack:weapon_absent": 11,
+      "move:actor_absent": 2,
+      "move:destination_absent": 460,
+      "move_attack:destination_absent": 121,
+      "move_attack:enemy_absent": 2,
+      "move_attack:weapon_absent": 11,
+      "recruit:slot_absent": 78,
+      "recruit:type_absent": 16
+    }
+  },
+  "quality": {
+    "samples": 1014,
+    "cross_entropy": 1.3434091526610847,
+    "uniform_entropy": 3.5787516627670826,
+    "kinds": {
+      "recruit": {
+        "samples": 85,
+        "correct": 34,
+        "same_kind": 83,
+        "same_actor": 60,
+        "same_destination": 60,
+        "ranks": {
+          "1": 34,
+          "2-3": 33,
+          "4-8": 12,
+          "9-16": 6,
+          "17+": 0
+        },
+        "accuracy": 0.4,
+        "mean_candidates": 36.082352941176474
+      },
+      "move": {
+        "samples": 667,
+        "correct": 426,
+        "same_kind": 607,
+        "same_actor": 483,
+        "same_destination": 460,
+        "ranks": {
+          "1": 426,
+          "2-3": 165,
+          "4-8": 60,
+          "9-16": 14,
+          "17+": 2
+        },
+        "accuracy": 0.638680659670165,
+        "mean_candidates": 36.70014992503748
+      },
+      "attack": {
+        "samples": 141,
+        "correct": 56,
+        "same_kind": 85,
+        "same_actor": 88,
+        "same_destination": 63,
+        "ranks": {
+          "1": 56,
+          "2-3": 31,
+          "4-8": 32,
+          "9-16": 15,
+          "17+": 7
+        },
+        "accuracy": 0.3971631205673759,
+        "mean_candidates": 37.0
+      }
+    },
+    "accuracy": 0.6094674556213018,
+    "uniform_accuracy": 0.02838145800654149,
+    "effective": false
+  },
+  "pending_train": null,
+  "pending_validation": "bc",
+  "error": null,
+  "parent_checkpoint_unchanged": true,
+  "history": [
+    {
+      "batch": 5,
+      "updates": 56,
+      "samples": null,
+      "peak_rss_mb": 1133,
+      "reads": {
+        "bc": {
+          "requested": 2048,
+          "rows": 2048,
+          "families": 36,
+          "selected": 38,
+          "families_decoded": 36,
+          "families_selected": 38,
+          "families_admitted": 36,
+          "families_retained": 36,
+          "windows": 59,
+          "sources": {
+            "astra": 2048
+          },
+          "engines": {
+            "lite": 2048
+          },
+          "kinds": {
+            "recruit": 150,
+            "move": 1302,
+            "end_turn": 277,
+            "move_attack": 295,
+            "attack": 24
+          },
+          "gz_bytes": 99088550,
+          "retained_bytes": 378744452,
+          "deficit": 0,
+          "stop_reason": "window_limit"
+        },
+        "validation": {
+          "requested": 1024,
+          "rows": 1024,
+          "families": 10,
+          "selected": 10,
+          "families_decoded": 10,
+          "families_selected": 10,
+          "families_admitted": 10,
+          "families_retained": 10,
+          "windows": 24,
+          "sources": {
+            "astra": 1024
+          },
+          "engines": {
+            "lite": 1024
+          },
+          "kinds": {
+            "recruit": 85,
+            "end_turn": 131,
+            "move": 667,
+            "move_attack": 119,
+            "attack": 22
+          },
+          "gz_bytes": 27772763,
+          "retained_bytes": 158430356,
+          "deficit": 0,
+          "stop_reason": "window_limit"
+        }
+      }
+    },
+    {
+      "batch": 6,
+      "updates": 56,
+      "samples": null,
+      "peak_rss_mb": 1143,
+      "reads": {
+        "bc": {
+          "requested": 2048,
+          "rows": 2048,
+          "families": 36,
+          "selected": 38,
+          "families_decoded": 36,
+          "families_selected": 38,
+          "families_admitted": 36,
+          "families_retained": 36,
+          "windows": 60,
+          "sources": {
+            "astra": 2048
+          },
+          "engines": {
+            "lite": 2048
+          },
+          "kinds": {
+            "move": 1311,
+            "end_turn": 269,
+            "recruit": 143,
+            "move_attack": 305,
+            "attack": 20
+          },
+          "gz_bytes": 98052400,
+          "retained_bytes": 376426944,
+          "deficit": 0,
+          "stop_reason": "window_limit"
+        },
+        "validation": {
+          "requested": 1024,
+          "rows": 1024,
+          "families": 10,
+          "selected": 10,
+          "families_decoded": 10,
+          "families_selected": 10,
+          "families_admitted": 10,
+          "families_retained": 10,
+          "windows": 24,
+          "sources": {
+            "astra": 1024
+          },
+          "engines": {
+            "lite": 1024
+          },
+          "kinds": {
+            "recruit": 85,
+            "end_turn": 131,
+            "move": 667,
+            "move_attack": 119,
+            "attack": 22
+          },
+          "gz_bytes": 27772763,
+          "retained_bytes": 158430356,
+          "deficit": 0,
+          "stop_reason": "window_limit"
+        }
+      }
+    },
+    {
+      "batch": 7,
+      "updates": 52,
+      "samples": null,
+      "peak_rss_mb": 1167,
+      "reads": {
+        "bc": {
+          "requested": 2048,
+          "rows": 2048,
+          "families": 35,
+          "selected": 38,
+          "families_decoded": 35,
+          "families_selected": 38,
+          "families_admitted": 35,
+          "families_retained": 35,
+          "windows": 53,
+          "sources": {
+            "astra": 2048
+          },
+          "engines": {
+            "lite": 2048
+          },
+          "kinds": {
+            "recruit": 105,
+            "move_attack": 354,
+            "move": 1301,
+            "end_turn": 258,
+            "attack": 30
+          },
+          "gz_bytes": 99980032,
+          "retained_bytes": 386465168,
+          "deficit": 0,
+          "stop_reason": "window_limit"
+        },
+        "validation": {
+          "requested": 1024,
+          "rows": 1024,
+          "families": 10,
+          "selected": 10,
+          "families_decoded": 10,
+          "families_selected": 10,
+          "families_admitted": 10,
+          "families_retained": 10,
+          "windows": 24,
+          "sources": {
+            "astra": 1024
+          },
+          "engines": {
+            "lite": 1024
+          },
+          "kinds": {
+            "recruit": 85,
+            "end_turn": 131,
+            "move": 667,
+            "move_attack": 119,
+            "attack": 22
+          },
+          "gz_bytes": 27772763,
+          "retained_bytes": 158430356,
+          "deficit": 0,
+          "stop_reason": "window_limit"
+        }
+      }
+    },
+    {
+      "batch": 8,
+      "updates": 52,
+      "samples": null,
+      "peak_rss_mb": 1167,
+      "reads": {
+        "bc": {
+          "requested": 2048,
+          "rows": 2048,
+          "families": 37,
+          "selected": 38,
+          "families_decoded": 37,
+          "families_selected": 38,
+          "families_admitted": 37,
+          "families_retained": 37,
+          "windows": 54,
+          "sources": {
+            "astra": 2048
+          },
+          "engines": {
+            "lite": 2048
+          },
+          "kinds": {
+            "recruit": 156,
+            "end_turn": 273,
+            "move": 1294,
+            "move_attack": 299,
+            "attack": 26
+          },
+          "gz_bytes": 100420099,
+          "retained_bytes": 380515756,
+          "deficit": 0,
+          "stop_reason": "window_limit"
+        },
+        "validation": {
+          "requested": 1024,
+          "rows": 1024,
+          "families": 10,
+          "selected": 10,
+          "families_decoded": 10,
+          "families_selected": 10,
+          "families_admitted": 10,
+          "families_retained": 10,
+          "windows": 24,
+          "sources": {
+            "astra": 1024
+          },
+          "engines": {
+            "lite": 1024
+          },
+          "kinds": {
+            "recruit": 85,
+            "end_turn": 131,
+            "move": 667,
+            "move_attack": 119,
+            "attack": 22
+          },
+          "gz_bytes": 27772763,
+          "retained_bytes": 158430356,
+          "deficit": 0,
+          "stop_reason": "window_limit"
+        }
+      }
+    },
+    {
+      "batch": 9,
+      "updates": 56,
+      "samples": null,
+      "peak_rss_mb": 1167,
+      "reads": {
+        "bc": {
+          "requested": 2048,
+          "rows": 2048,
+          "families": 37,
+          "selected": 38,
+          "families_decoded": 37,
+          "families_selected": 38,
+          "families_admitted": 37,
+          "families_retained": 37,
+          "windows": 57,
+          "sources": {
+            "astra": 2048
+          },
+          "engines": {
+            "lite": 2048
+          },
+          "kinds": {
+            "recruit": 126,
+            "move": 1285,
+            "end_turn": 276,
+            "move_attack": 336,
+            "attack": 25
+          },
+          "gz_bytes": 100420099,
+          "retained_bytes": 386175596,
+          "deficit": 0,
+          "stop_reason": "window_limit"
+        },
+        "validation": {
+          "requested": 1024,
+          "rows": 1024,
+          "families": 10,
+          "selected": 10,
+          "families_decoded": 10,
+          "families_selected": 10,
+          "families_admitted": 10,
+          "families_retained": 10,
+          "windows": 24,
+          "sources": {
+            "astra": 1024
+          },
+          "engines": {
+            "lite": 1024
+          },
+          "kinds": {
+            "recruit": 85,
+            "end_turn": 131,
+            "move": 667,
+            "move_attack": 119,
+            "attack": 22
+          },
+          "gz_bytes": 27772763,
+          "retained_bytes": 158430356,
+          "deficit": 0,
+          "stop_reason": "window_limit"
+        }
+      }
+    }
+  ],
+  "true_turn_truncated": 8,
+  "result_reasons": {
+    "turn_limit": 8
+  },
+  "turn_frames": {
+    "31": 8
+  },
+  "schedules": {
+    "bc-batch-000005.json": {
+      "count": 8,
+      "phases": {
+        "teacher": 8
+      }
+    },
+    "validation-000010.json": {
+      "count": 8,
+      "phases": {
+        "null": 8
+      }
+    },
+    "bc-batch-000008.json": {
+      "count": 0,
+      "phases": {}
+    },
+    "bc-batch-000007.json": {
+      "count": 0,
+      "phases": {}
+    },
+    "bc-batch-000006.json": {
+      "count": 0,
+      "phases": {}
+    },
+    "bc-batch-000009.json": {
+      "count": 0,
+      "phases": {}
+    }
+  },
+  "remaining_source_cwd_processes": []
+}
