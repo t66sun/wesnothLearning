@@ -1,0 +1,6 @@
+test_internal_export_resume_keeps_weights_integrity_without_sdk_size_cap (tests.v5.test_training_failure_fixes.FailureBoundaryTests.test_internal_export_resume_keeps_weights_integrity_without_sdk_size_cap) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.076s
+
+OK
