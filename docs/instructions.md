@@ -6,7 +6,7 @@ Updated 2026-10-27. For agents taking over startup, maintenance and instruction-
 
 **Current route:** every manifest freezes the sole custom teacher package `gpt6astra` and its lineage, so teacher games, DAgger corrections and exports carry one identity. Lite is the default engine and the default evaluation engine, so a fresh run collects lite Astra teacher games (`native_bc_games` 0) and its final comparison is lite Astra; official-baseline seats stay native-only. Capabilities and limits are in architecture.md §4–§5.
 
-Current lite combat/teacher profile is `probabilistic_combat_v1`, RNG `splitmix64-rejection-v1`. Rebuild the matching extension. Resume expected_damage_v1/v2 runs with their original source/build; never relabel frozen data, snapshots or checkpoints. Old weights require the existing explicit initialization/reset-optimizer route and new-rule acceptance.
+Current lite combat/teacher profile is `probabilistic_combat_v2`, RNG `splitmix64-rejection-v1`. Rebuild the matching extension. Resume expected_damage_v1/v2 and probabilistic_combat_v1 runs with their original source/build; never relabel frozen data, snapshots or checkpoints. Old weights require the existing explicit initialization/reset-optimizer route and new-rule acceptance.
 
 ## 1. Determine the task first
 
