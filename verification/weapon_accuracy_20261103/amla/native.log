@@ -1,0 +1,5 @@
+{"name": "attacker", "result": {"native": {"advanced": true, "hp": 75, "xp": 0, "max_xp": 180}, "lite": {"advanced": true, "hp": 75, "xp": 0, "max_xp": 180}}}
+{"name": "defender", "result": {"native": {"advanced": true, "hp": 75, "xp": 0, "max_xp": 180}, "lite": {"advanced": true, "hp": 75, "xp": 0, "max_xp": 180}}}
+{"name": "kill", "result": {"native": {"advanced": true, "hp": 75, "xp": 0, "max_xp": 180}, "lite": {"advanced": true, "hp": 75, "xp": 0, "max_xp": 180}}}
+{"name": "repeat", "result": {"native": {"advanced": true, "hp": 78, "xp": 0, "max_xp": 216}, "lite": {"advanced": true, "hp": 78, "xp": 0, "max_xp": 216}}}
+{"name": "training_repeat", "result": {"native": {"advanced": true, "hp": 84, "xp": 0, "max_xp": 217}, "lite": {"advanced": true, "hp": 84, "xp": 0, "max_xp": 217}}}

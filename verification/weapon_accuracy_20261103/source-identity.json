@@ -1,0 +1,16 @@
+{
+  "accuracy_first_20261103": {
+    "commit": "9426d774bef117fe634cb31e54c3c28fd3c334a8",
+    "archive_sha256": "2e105d8fbeb631af44ec7f132a258f1cf7562cf49198d18ade942564948d1776",
+    "files_checked": 1622,
+    "mismatched": []
+  },
+  "accuracy_native_20261103": {
+    "commit": "df60b46478907bb426665c89467a4b7afa0c6a9a",
+    "archive_sha256": "a128e4af15c30bc726a2c2806d5f151d1a2b3068212b65c4ea885dd2926280d7",
+    "files_checked": 1623,
+    "mismatched": []
+  },
+  "accuracy_first_20261103/.extension/_engine_lite.so": "14e1176bd85805d820a3be98046ed02049fa2fe49055d8f73770ba9c1ac43e7a",
+  "accuracy_first_20261103/data/rules/1.18.8-combat/rules.json": "4af6785a21267a18e18ec58dde86be09146a3c4fcdd9fce0726e014f0f8966a1"
+}

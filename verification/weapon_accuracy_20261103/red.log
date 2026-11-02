@@ -1,0 +1,51 @@
+test_accuracy_and_parry_feed_execution_and_full_distribution (tests.v5.test_weapon_accuracy.WeaponAccuracyTests.test_accuracy_and_parry_feed_execution_and_full_distribution) ... FAIL
+test_old_v3_snapshot_is_rejected (tests.v5.test_weapon_accuracy.WeaponAccuracyTests.test_old_v3_snapshot_is_rejected) ... FAIL
+test_signed_clamping_special_order_and_absent_counter (tests.v5.test_weapon_accuracy.WeaponAccuracyTests.test_signed_clamping_special_order_and_absent_counter) ... 
+  test_signed_clamping_special_order_and_absent_counter (tests.v5.test_weapon_accuracy.WeaponAccuracyTests.test_signed_clamping_special_order_and_absent_counter) (accuracy=-100, parry=0, special=None, counter=True) ... FAIL
+  test_signed_clamping_special_order_and_absent_counter (tests.v5.test_weapon_accuracy.WeaponAccuracyTests.test_signed_clamping_special_order_and_absent_counter) (accuracy=100, parry=-50, special=None, counter=True) ... FAIL
+  test_signed_clamping_special_order_and_absent_counter (tests.v5.test_weapon_accuracy.WeaponAccuracyTests.test_signed_clamping_special_order_and_absent_counter) (accuracy=20, parry=30, special=None, counter=False) ... FAIL
+
+======================================================================
+FAIL: test_accuracy_and_parry_feed_execution_and_full_distribution (tests.v5.test_weapon_accuracy.WeaponAccuracyTests.test_accuracy_and_parry_feed_execution_and_full_distribution)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/accuracy_red_20261103/tests/v5/test_weapon_accuracy.py", line 30, in test_accuracy_and_parry_feed_execution_and_full_distribution
+    self.assertAlmostEqual(forecast['defender']['hp_chance']['26'], .7)
+AssertionError: 0.6 != 0.7 within 7 places (0.09999999999999998 difference)
+
+======================================================================
+FAIL: test_old_v3_snapshot_is_rejected (tests.v5.test_weapon_accuracy.WeaponAccuracyTests.test_old_v3_snapshot_is_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/accuracy_red_20261103/tests/v5/test_weapon_accuracy.py", line 52, in test_old_v3_snapshot_is_rejected
+    with self.assertRaisesRegex(ValueError, 'snapshot version mismatch'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_signed_clamping_special_order_and_absent_counter (tests.v5.test_weapon_accuracy.WeaponAccuracyTests.test_signed_clamping_special_order_and_absent_counter) (accuracy=-100, parry=0, special=None, counter=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/accuracy_red_20261103/tests/v5/test_weapon_accuracy.py", line 46, in test_signed_clamping_special_order_and_absent_counter
+    self.assertEqual(result['strikes'][0]['chance'], expected)
+AssertionError: 60 != 0
+
+======================================================================
+FAIL: test_signed_clamping_special_order_and_absent_counter (tests.v5.test_weapon_accuracy.WeaponAccuracyTests.test_signed_clamping_special_order_and_absent_counter) (accuracy=100, parry=-50, special=None, counter=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/accuracy_red_20261103/tests/v5/test_weapon_accuracy.py", line 46, in test_signed_clamping_special_order_and_absent_counter
+    self.assertEqual(result['strikes'][0]['chance'], expected)
+AssertionError: 60 != 100
+
+======================================================================
+FAIL: test_signed_clamping_special_order_and_absent_counter (tests.v5.test_weapon_accuracy.WeaponAccuracyTests.test_signed_clamping_special_order_and_absent_counter) (accuracy=20, parry=30, special=None, counter=False)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/accuracy_red_20261103/tests/v5/test_weapon_accuracy.py", line 46, in test_signed_clamping_special_order_and_absent_counter
+    self.assertEqual(result['strikes'][0]['chance'], expected)
+AssertionError: 60 != 80
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.022s
+
+FAILED (failures=5)

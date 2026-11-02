@@ -1,0 +1,6 @@
+{"name": "both_directions", "attacker_hit": 0.7, "result": "PASS"}
+{"name": "lower_clamp", "attacker_hit": 0, "result": "PASS"}
+{"name": "upper_clamp", "attacker_hit": 1, "result": "PASS"}
+{"name": "magical", "attacker_hit": 0.7, "result": "PASS"}
+{"name": "marksman", "attacker_hit": 0.6, "result": "PASS"}
+{"name": "no_counter", "attacker_hit": 0.8, "result": "PASS"}

@@ -1,0 +1,38 @@
+{
+  "source": "9PLACEHOLDER",
+  "rules_sha256": "4af6785a21267a18e18ec58dde86be09146a3c4fcdd9fce0726e014f0f8966a1",
+  "native_sha256": "33f64aa3f5ee40228bd44e357b3f4d784121d4392ff774d6c059c7defa3e5fcf",
+  "transport_sha256": "0f811064ebd71e8820ec2b88a6f3d1fc0d9583e567dc29c69873705ed57d7203",
+  "cases": [
+    {
+      "name": "both_directions",
+      "attacker_hit": 0.7,
+      "result": "PASS"
+    },
+    {
+      "name": "lower_clamp",
+      "attacker_hit": 0,
+      "result": "PASS"
+    },
+    {
+      "name": "upper_clamp",
+      "attacker_hit": 1,
+      "result": "PASS"
+    },
+    {
+      "name": "magical",
+      "attacker_hit": 0.7,
+      "result": "PASS"
+    },
+    {
+      "name": "marksman",
+      "attacker_hit": 0.6,
+      "result": "PASS"
+    },
+    {
+      "name": "no_counter",
+      "attacker_hit": 0.8,
+      "result": "PASS"
+    }
+  ]
+}

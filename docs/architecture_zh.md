@@ -25,7 +25,7 @@
 | `engine_lite/` | Rust/PyO3 确定性引擎、内嵌 Lua 5.4 宿主、规则采集/审计工具（`audit`、`capture`、`freeze`、`inventory`、`differential`） |
 | `lua/` | 原版部署与 lite 宿主共用的插件 Lua：observation、candidates、spatial/relational 网络、routing、rewards、teacher |
 | `vendor/arena/` | vendored WesnothArena 原版 SDK（runtime、对局运行器、bot、阵营/领袖/招募档案） |
-| `data/rules/` | 冻结规则：`1.18.8-amla`（默认，587 单位 / 438 地形）与历史 `1.18.8` |
+| `data/rules/` | 冻结规则：`1.18.8-combat`（默认，587 单位 / 438 地形）与历史 `1.18.8` |
 | `data/` | 采集输入：`humanData/`、`humanData_curated/`、`replays/`（整月大厅录像归档，每月一个 tar）、`replays_curated/`（从中整理的标准时代人类对局）、`datasets/`、`opponents/gpt6astra.zip`（冻结的教师包） |
 | `tests/` | `tests/v5/` 契约套件、旧版单元套件、手工烟测脚本，共享夹具在 `tests/v5/helpers.py` |
 | `benchmarks/` | 冻结的引擎负载契约（`contract.json`）及其运行器 |
@@ -60,13 +60,13 @@ flowchart LR
 
 ## 4. 规则与引擎
 
-`data/rules/1.18.8-amla` 是默认冻结清单（`rules.json` sha256 `f4bec4fb5bc9fad7944e4aed873c431d6aa5fc3aac92ef2f22d7893ef60a2afe`，source hash `58ead901…`，规则版本 `lite-amla-1-58ead901dadf8ebe`）。`catalog-summary.json` 记录 587 单位、438 地形、覆盖 0 exact / 467 approximate / 120 unsupported scripts，且 `training_acceptance.native_semantics_accepted = false`、`performance_accepted = false`。
+`data/rules/1.18.8-combat` 是默认冻结清单（`rules.json` sha256 `4af6785a21267a18e18ec58dde86be09146a3c4fcdd9fce0726e014f0f8966a1`，source hash `58ead901…`，规则版本 `lite-combat-1-58ead901dadf8ebe`）。`catalog-summary.json` 记录 587 单位、438 地形、覆盖 0 exact / 467 approximate / 120 unsupported scripts，且 `training_acceptance.native_semantics_accepted = false`、`performance_accepted = false`。
 
 - `rules_catalog.load()` 校验文件哈希、source hash 与版本；训练范围接受已记录的近似。启动还要求存在六阵营训练闭包（领袖、招募以及所有可达的升级/瘟疫链），否则拒绝启动。
-- `LiteAdapter` 在使用前校验扩展构建三元组（`ENGINE_VERSION='lite-0.2'`、`RNG_VERSION='splitmix64-rejection-v1'`、`COMBAT_VERSION='probabilistic_combat_v3'`）与声明身份一致。
+- `LiteAdapter` 在使用前校验扩展构建三元组（`ENGINE_VERSION='lite-0.2'`、`RNG_VERSION='splitmix64-rejection-v1'`、`COMBAT_VERSION='probabilistic_combat_v4'`）与声明身份一致。
 - `_engine_lite.LiteEngine(rules_json, spec_json)` 提供 `reset`、`observe`/`observe_batch`、`legal_actions`/`legal_batch`、`step`/`step_batch`（非法动作时恢复批次前状态）、`snapshot`/`restore`、`forecast`、`configure_host`、`decision` 和 `execute_candidate`。JSON 的 `pos`/`to` 是从 0 开始的行主序下标，Lua 桥接层转换为从 1 开始的六角坐标并锁定观察方，策略无法切换视角。`GameSpec` 明确给出宽高、平地地形、阵营、单位、种子和 `max_turns`；`side.id` 从 1 连续编号，`allow_approximate` 必须显式给出。快照是裁判真值，绝不下发给策略。
-- 带种子战斗（`probabilistic_combat_v3`）：裁判内部 SplitMix64 无偏抽样命中；命中伤害无增益，减速按原版半伤害取整，中毒扣 8 HP。快照/回滚恢复随机流，公开预测不读取或消耗它。预测合并 HP/状态概率，samples 被忽略并返回 0。狂暴预测与原版相同，在某轮死亡概率达到 99% 后停止（`approximate=true`），实际执行仍最多 30 轮。
-- 反击按同射程武器的击杀减死亡、中毒调整后 HP 差及损伤比较概率分布，使用原版 0.01 容差。执行在无反击或仅一把武器时跳过预测。原版预测包含致命命中的状态，升级分支恢复到当前最大 HP，条件升级的中毒恢复使用原版边缘概率估计；这类升级预测标记 `approximate=true`。执行中零级击杀给 4 XP，类型升级清除毒/减速。固定原版对照与 Python/Rust 回归见 `verification/combat_boundaries_20261102/REPORT.md`。标准 AMLA 仅接受捕获中的精确声明：最大 HP +3、回满血、最大经验按取整增加 20%、清毒/减速、最多 100 次，并保留吞噬加成。训练门禁要求 158 个可达单位均含编译声明，其中 65 个支持标准 AMLA。证据见 `verification/standard_amla_20261102/REPORT.md`。完整武器过滤、accuracy/parry 及原版棋力仍未验收。
+- 带种子战斗（`probabilistic_combat_v4`）：裁判内部 SplitMix64 无偏抽样命中；命中伤害无增益，减速按原版半伤害取整，中毒扣 8 HP。快照/回滚恢复随机流，公开预测不读取或消耗它。预测合并 HP/状态概率，samples 被忽略并返回 0。狂暴预测与原版相同，在某轮死亡概率达到 99% 后停止（`approximate=true`），实际执行仍最多 30 轮。
+- 反击按同射程武器的击杀减死亡、中毒调整后 HP 差及损伤比较概率分布，使用原版 0.01 容差。执行在无反击或仅一把武器时跳过预测。原版预测包含致命命中的状态，升级分支恢复到当前最大 HP，条件升级的中毒恢复使用原版边缘概率估计；这类升级预测标记 `approximate=true`。执行中零级击杀给 4 XP，类型升级清除毒/减速。固定原版对照与 Python/Rust 回归见 `verification/combat_boundaries_20261102/REPORT.md`。标准 AMLA 仅接受捕获中的精确声明：最大 HP +3、回满血、最大经验按取整增加 20%、清毒/减速、最多 100 次，并保留吞噬加成。训练门禁要求 158 个可达单位均含编译声明，其中 65 个支持标准 AMLA。证据见 `verification/standard_amla_20261102/REPORT.md`。accuracy 和对方武器 parry 现已在普通命中率限制及魔法/精准效果之前生效，预测与执行共用计算。11 个固定原版案例和受影响回归通过（`verification/weapon_accuracy_20261103/REPORT.md`）。完整武器过滤及原版棋力仍未验收。
 - lite 已实现机制：按地形代价移动、可见敌军 ZOC、友军通行、连通的城堡招募/经济、村庄占领、fog/shroud/历史地形、盟友共享、行动顺序轮转、领袖击杀与队伍终局、逐次攻击的死亡/反击/经验升级、slow、poison、drain、firststrike、marksman、magical、charge、berserk、基础 plague、治疗/休息、concealment/nightstalk/teleport、带种子命中抽样。
 - lite 近似路径：相邻领导力、illumination、backstab、steadfast、反击触发 plague、单步 teleport 代价。已知缺口：复合修正取整、完整的武器声明过滤、变体实例、随机特质、AMLA 选择、状态清除精确时机、视距代价/jamming、远程寻路 ZOC、战役事件。冻结基础类型权重诊断发现全部捕获中有 26 个非默认声明，均不在实际 158 单位训练闭包内；动态声明及完整原版过滤仍未验收（`verification/weapon_weights_20261102/REPORT.md`）。未知能力/脚本会阻断招募链，而不是静默降级。
 - `lua/` 是唯一的合法性/观察实现：原版 Wesnoth 以插件方式加载它，`LiteHost` 把同一批模块加载进内嵌 Lua VM。
@@ -104,7 +104,7 @@ flowchart LR
 
 教师能力是声明的，不是假设的：
 
-- `gpt6astra` —— 冻结的按决策查询 Lua 教师（`learning/teachers/`，派生源码；`data/opponents/gpt6astra.zip` 是其血脉，也是每个 manifest 随包冻结的教师）。派生源码只在 lite 规则变化处适配：攻击评分使用 `probabilistic_combat_v3`，slow 价值 50% 伤害加移动限制，poison 每回合 8 点。`teacher_profile` 与 `teacher_source_sha256` 随行式记录、检查点、作业元数据和导出传递，单次运行不会混用不同 profile。
+- `gpt6astra` —— 冻结的按决策查询 Lua 教师（`learning/teachers/`，派生源码；`data/opponents/gpt6astra.zip` 是其血脉，也是每个 manifest 随包冻结的教师）。派生源码只在 lite 规则变化处适配：攻击评分使用 `probabilistic_combat_v4`，slow 价值 50% 伤害加移动限制，poison 每回合 8 点。`teacher_profile` 与 `teacher_source_sha256` 随行式记录、检查点、作业元数据和导出传递，单次运行不会混用不同 profile。
 
 新 manifest 冻结该包并把其血脉记为教师身份，因此教师与 DAgger 行携带同一身份。`LiteHost` 拒绝官方 baseline 座位，只接受 manifest 声明的 `gpt6astra` 来源。
 
