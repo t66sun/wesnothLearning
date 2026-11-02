@@ -1,0 +1,35 @@
+{
+  "commits": {
+    "1d26154": "1d26154485ba1e057ca3ac3689d21af5c6a64a06",
+    "3de9a1f": "3de9a1f1fbe59ed2d2a14b75722afc266ce68c91",
+    "c66797f": "c66797f59da8b650e425af583c1eda53bcaa86dc",
+    "185e03d": "185e03d01bb5aaf56abb70cb0413faeb2e2ca1ea",
+    "0ba23c7": "0ba23c778be86272096df89e59da71cd46a0e9ab",
+    "a8c3819": "a8c38191a2ccdc7fdad1e1c0f814a4dbd5cc1562",
+    "ae13302": "ae13302bddc00bd32ef55df895c1cb55768d8f4c"
+  },
+  "archives": {
+    "amla-final.tar": {
+      "sha256": "8bb954b9a6c30c010d2e1b58cf2777a29ba7822f70cdd1b6b1e253e6c4ca9ee9",
+      "pax": {
+        "comment": "0ba23c778be86272096df89e59da71cd46a0e9ab"
+      }
+    },
+    "amla-verified.tar": {
+      "sha256": "826c5d4471d63cd9dd97bacafdb90636f9507e52715f0d8a4f612473b5c7fab1",
+      "pax": {
+        "comment": "a8c38191a2ccdc7fdad1e1c0f814a4dbd5cc1562"
+      }
+    },
+    "amla-audit.tar": {
+      "sha256": "20974ef67d1d2893ce02a24d7119fd942f79b9c626412958e03038e0d773d876",
+      "pax": {
+        "comment": "ae13302bddc00bd32ef55df895c1cb55768d8f4c"
+      }
+    }
+  },
+  "rules": {
+    "1.18.8-training": "d6fceafe7d0c9c67c750551b9901dbfb2b22290992a8daa1616a460e11826dca",
+    "1.18.8-amla": "f4bec4fb5bc9fad7944e4aed873c431d6aa5fc3aac92ef2f22d7893ef60a2afe"
+  }
+}

@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/amla_native_20261102/tests/diagnose_native_amla.py", line 103, in <module>
+    main()
+  File "/home/tongshu/acceptance/amla_native_20261102/tests/diagnose_native_amla.py", line 72, in main
+    assert abs(oracle[metric]-predicted[side][metric]) < 1e-9, (name, side, metric)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ('attacker', 'defender', 'average_hp')

@@ -19,4 +19,3 @@ def children(cfg):
         if not isinstance(tag, str) or not isinstance(value, dict):
             raise ValueError('raw WML child has no tag/config')
         yield tag, value
-
