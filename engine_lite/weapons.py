@@ -20,8 +20,8 @@ def compile_weapons(raw, compact):
                 raise ValueError(f'weapon {field} must be an integer')
             weapon[field] = value
         for field in ('attack_weight', 'defense_weight'):
-            value = declaration.get(field, 1)
-            if not isinstance(value, (int, float)) or isinstance(value, bool) or not math.isfinite(value):
+            value = float(declaration.get(field, 1))
+            if not math.isfinite(value):
                 raise ValueError(f'weapon {field} must be a finite number')
             weapon[field] = value
         weapon['specials'] = []
