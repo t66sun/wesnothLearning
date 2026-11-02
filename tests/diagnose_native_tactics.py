@@ -30,6 +30,7 @@ CASES = (
     ('slow_advancement', 'Elvish Shaman', 'Orcish Grunt', 1, None, 20),
     ('poison_kill_advancement', 'Elvish Fighter', 'Orcish Assassin', 1, 20, 6),
     ('slow_kill_advancement', 'Elvish Fighter', 'Elvish Shaman', 1, 20, 6),
+    ('mutual_advancement', 'Elvish Fighter', 'Orcish Grunt', 0, 8, 1),
     ('level_zero_kill', 'Elvish Fighter', 'Goblin Spearman', 0, 20, 1),
 )
 
@@ -56,7 +57,7 @@ def main():
                 'combat_advancement': ((2, 1),), 'kill_advancement': ((2, 8),),
                 'defender_advancement': ((3, 1),), 'slow_advancement': ((3, 1),),
                 'poison_kill_advancement': ((2, 8),), 'slow_kill_advancement': ((2, 8),),
-                'level_zero_kill': ((2, 5),),
+                'level_zero_kill': ((2, 5),), 'mutual_advancement': ((2, 8), (3, 8)),
             }.get(name, ()):
                 unit = spec['units'][index]
                 unit['xp'] = rules['units'][unit['unit_type']]['experience'] - gap

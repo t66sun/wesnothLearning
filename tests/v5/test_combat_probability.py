@@ -74,6 +74,16 @@ class CombatProbabilityTests(unittest.TestCase):
         actual = next(u for u in H.observe(engine)['units'] if u['id'] == 'p1')
         self.assertEqual((actual['unit_type'], actual['xp']), ('Fighter', 39))
 
+    def test_advancement_cannot_invent_poison(self):
+        _, rules, spec = self.battle(xp=32, counter=True)
+        rules['units']['Skeleton']['weapons'][0]['specials'] = []
+        spec['units'][0]['hp'] = 1
+        engine = H.engine(game_spec=spec, rules_data=rules)
+        value = self.forecast(engine)
+        self.assertGreater(value['attacker']['hp_chance']['0'], 0.)
+        self.assertGreater(value['defender']['hp_chance']['0'], 0.)
+        self.assertEqual(value['attacker']['poisoned'], 0.)
+
     def test_old_probability_profile_is_rejected(self):
         engine, _, _ = self.battle()
         before = H.snapshot(engine)
