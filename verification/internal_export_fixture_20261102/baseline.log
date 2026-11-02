@@ -1,0 +1,14 @@
+test_internal_export_resume_keeps_weights_integrity_without_sdk_size_cap (tests.v5.test_training_failure_fixes.FailureBoundaryTests.test_internal_export_resume_keeps_weights_integrity_without_sdk_size_cap) ... FAIL
+
+======================================================================
+FAIL: test_internal_export_resume_keeps_weights_integrity_without_sdk_size_cap (tests.v5.test_training_failure_fixes.FailureBoundaryTests.test_internal_export_resume_keeps_weights_integrity_without_sdk_size_cap)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/branch_teacher_red_20261102/tests/v5/test_training_failure_fixes.py", line 111, in test_internal_export_resume_keeps_weights_integrity_without_sdk_size_cap
+    with self.assertRaisesRegex(ValueError,'16 MiB'):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 0.051s
+
+FAILED (failures=1)
