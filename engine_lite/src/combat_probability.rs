@@ -1,6 +1,7 @@
 //! Native-compatible finite combat distributions. Merge equal HP/status states after each blow;
 //! no sampling, hidden state, RNG reads, or probability pruning. Native berserk
 //! prediction stops once death probability reaches 99%; execution does not.
+//! Native advancement healing and poison marginals are prediction approximations.
 use crate::{combat::{self,Modifiers},model::{Rules,Unit,Weapon}};
 use std::collections::BTreeMap;
 use serde_json::{json,Value};
@@ -18,7 +19,7 @@ impl State {
     fn new(a:&Unit,d:&Unit)->Self {Self{ah:a.hp,dh:d.hp,as_:flags(a),ds:flags(d),an:0,dn:0}}
     fn done(self)->bool {self.ah<=0 || self.dh<=0 || (self.as_|self.ds)&4!=0}
 }
-pub struct Distribution { states:BTreeMap<State,f64>, poisoned:[f64;2], truncated:bool }
+pub struct Distribution { states:BTreeMap<State,f64>, poisoned:[f64;2], approximate:bool }
 impl Distribution {
     pub fn json(&self)->Value {
         let side=|defense:bool| {
@@ -30,7 +31,7 @@ impl Distribution {
             }
             json!({"average_hp":mean,"hp_chance":hp,"poisoned":self.poisoned[usize::from(defense)],"slowed":slow})
         };
-        json!({"attacker":side(false),"defender":side(true),"approximate":self.truncated,
+        json!({"attacker":side(false),"defender":side(true),"approximate":self.approximate,
             "samples":0,"combat_version":crate::model::COMBAT_VERSION})
     }
     fn score(&self)->[f64;3] {
@@ -63,7 +64,7 @@ fn distribution(r:&Rules,a:&Unit,d:&Unit,aw:&Weapon,counter:Option<usize>,at:&st
     let af=aw.specials.contains("firststrike") || (m.attacker_firststrike && dw.as_ref().is_some_and(|w|w.range=="melee"));
     let df=dw.as_ref().is_some_and(|w|w.specials.contains("firststrike") || (m.defender_firststrike && aw.range=="melee"));
     let mut states=BTreeMap::from([(State::new(a,d),1.)]);
-    let mut truncated=false;
+    let mut approximate=false;
     for round in 0..rounds {
         let mut initialized=BTreeMap::new();let mut max_count=0;
         for (mut s,p) in states {
@@ -104,7 +105,7 @@ fn distribution(r:&Rules,a:&Unit,d:&Unit,aw:&Weapon,counter:Option<usize>,at:&st
         if states.keys().all(|s|s.done()){break;}
         // Wesnoth 1.18.8 attack_prediction.cpp uses the same 0.99 stopping rule.
         let dead:f64=states.iter().filter(|(s,_)|s.ah<=0 || s.dh<=0).map(|(_,p)|p).sum();
-        if round+1<rounds && dead>=0.99 {truncated=true;break;}
+        if round+1<rounds && dead>=0.99 {approximate=true;break;}
     }
     let units=[a,d];
     let levels=[r.units[&a.unit_type].level,r.units[&d.unit_type].level];
@@ -123,12 +124,12 @@ fn distribution(r:&Rules,a:&Unit,d:&Unit,aw:&Weapon,counter:Option<usize>,at:&st
             // recovery is estimated from touched, survival and kill marginals.
             let alive=(1.-dead[i]).max(0.);let kill=dead[1-i].clamp(0.,1.);
             if units[i].status.contains("poisoned") {poisoned[i]=1.-kill;}
-            else if alive>0. {poisoned[i]-=(alive-1.+poisoned[i])*kill/alive;}
+            else if alive>0. && poisoned[i]>0. {poisoned[i]-=(alive-1.+poisoned[i])*kill/alive;}
         }
     }
-    if !heals.iter().any(|&h|h) {return Distribution{states,poisoned,truncated};}
+    if !heals.iter().any(|&h|h) {return Distribution{states,poisoned,approximate};}
     // Native predicts healing to the current max HP, not an advancement choice.
-    let truncated=truncated || (0..2).any(|i| (forced[i] && dead[i]<1.) || (heals[i] && dead[1-i]>0.));
+    let approximate=approximate || (0..2).any(|i| (forced[i] && dead[i]<1.) || (heals[i] && dead[1-i]>0.));
     let mut healed=BTreeMap::new();
     for (mut s,p) in states {
         let killed=[s.dh<=0,s.ah<=0];
@@ -140,7 +141,7 @@ fn distribution(r:&Rules,a:&Unit,d:&Unit,aw:&Weapon,counter:Option<usize>,at:&st
         }
         *healed.entry(s).or_insert(0.)+=p;
     }
-    Distribution{states:healed,poisoned,truncated}
+    Distribution{states:healed,poisoned,approximate}
 }
 
 pub fn select(r:&Rules,a:&Unit,d:&Unit,weapon:usize,at:&str,dt:&str,turn:u32,m:&Modifiers)->(Option<usize>,Distribution) {
