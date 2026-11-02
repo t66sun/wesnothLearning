@@ -1,4 +1,5 @@
 """Standard AMLA executes only when declared by the frozen unit type."""
+import json
 import unittest
 from tests.v5 import helpers as H
 
@@ -40,6 +41,13 @@ class AmlaTests(unittest.TestCase):
             with self.subTest(declared=declared, count=count):
                 actual = self.attack(self.battle(declared=declared, count=count))
                 self.assertEqual((actual['hp'], actual['xp']), (12, 40))
+
+    def test_old_combat_snapshots_are_rejected(self):
+        engine = self.battle()
+        saved = H.snapshot(engine)
+        saved['combat_version'] = 'probabilistic_combat_v2'
+        with self.assertRaisesRegex(ValueError, 'snapshot version mismatch'):
+            engine.restore(json.dumps(saved))
 
     def test_excess_experience_carries_to_the_next_threshold(self):
         actual = self.attack(self.battle(xp=45))

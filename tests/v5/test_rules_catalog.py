@@ -94,11 +94,11 @@ class TrainingReadinessTests(unittest.TestCase):
         seeds = set(profile['LEADERS'])
         for recruits in profile['RECRUITS']:
             seeds.update(recruits.split(','))
-        units = {name: dict(abilities=[], weapons=[], advances_to=[], unsupported=[])
+        units = {name: dict(abilities=[], weapons=[], advances_to=[], standard_amla=False, unsupported=[])
                  for name in seeds}
         units[profile['LEADERS'][0]]['advances_to'] = ['Fixture advancement']
         if not missing:
-            units['Fixture advancement'] = dict(abilities=[], weapons=[], advances_to=[],
+            units['Fixture advancement'] = dict(abilities=[], weapons=[], advances_to=[], standard_amla=False,
                                                unsupported=['scripted_type_event'] if unsupported else [])
         # Peripheral scripts remain in the frozen package without blocking training.
         units['Campaign only'] = dict(abilities=[], weapons=[], advances_to=[],
@@ -136,6 +136,20 @@ class TrainingReadinessTests(unittest.TestCase):
                 with self.assertRaisesRegex(RuntimeError, 'training closure is not ready'):
                     rules_catalog.load(root)
 
+    def test_old_rules_without_amla_declarations_cannot_start_training(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            seeds = self.package(root)
+            raw = json.loads((root/'rules.json').read_bytes())
+            del raw['units'][sorted(seeds)[0]]['standard_amla']
+            value = json.dumps(raw).encode()
+            (root/'rules.json').write_bytes(value)
+            summary = json.loads((root/rules_catalog.SUMMARY).read_text())
+            summary['rules_file_sha256'] = hashlib.sha256(value).hexdigest()
+            (root/rules_catalog.SUMMARY).write_text(json.dumps(summary))
+            with self.assertRaisesRegex(RuntimeError, 'lack compiled AMLA'):
+                rules_catalog.load(root)
+
     def test_summary_identity_must_match_compiled_rules(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
@@ -152,7 +166,7 @@ class TrainingReadinessTests(unittest.TestCase):
             self.assertEqual(rules_catalog.resolve_dir(), (ROOT / 'from-env').resolve())
             self.assertEqual(rules_catalog.resolve_dir(ROOT / 'explicit'), (ROOT / 'explicit').resolve())
         with mock.patch.dict(os.environ, {}, clear=True):
-            self.assertEqual(rules_catalog.resolve_dir(), (ROOT / 'data/rules/1.18.8-training').resolve())
+            self.assertEqual(rules_catalog.resolve_dir(), (ROOT / 'data/rules/1.18.8-amla').resolve())
 
 
 class ProvenanceCacheTests(unittest.TestCase):

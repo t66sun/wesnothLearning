@@ -21,7 +21,7 @@ ROOT = Path(__file__).resolve().parents[1]
 def resolve_dir(value=None):
     """Resolve one rule directory consistently for features, jobs and adapters."""
     return Path(value or os.environ.get('WESNOTH_RULES_DIR') or
-                ROOT / 'data/rules/1.18.8-training').resolve()
+                ROOT / 'data/rules/1.18.8-amla').resolve()
 
 
 @lru_cache(maxsize=4)
@@ -68,6 +68,10 @@ def _training_acceptance(metadata, rules_dir, rules):
         raise RuntimeError('lite P1/P2 acceptance is pending; training closure is not ready: '
                            f'missing={closure["missing_unit_ids"]}, '
                            f'unsupported={closure["unsupported_unit_ids"]}')
+    missing = [name for name in closure['unit_ids']
+               if not isinstance(rules['units'][name].get('standard_amla'), bool)]
+    if missing:
+        raise RuntimeError('training rules lack compiled AMLA declarations: '+', '.join(missing))
     profile_path = ROOT / closure['profile']
     return dict(scope=closure['scope'], profile=closure['profile'],
                 profile_sha256=hashlib.sha256(profile_path.read_bytes()).hexdigest(),
