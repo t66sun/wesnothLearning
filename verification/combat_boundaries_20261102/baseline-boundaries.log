@@ -1,0 +1,69 @@
+test_fatal_debuffs_remain_in_native_prediction (tests.v5.test_combat_probability.CombatProbabilityTests.test_fatal_debuffs_remain_in_native_prediction) ... 
+  test_fatal_debuffs_remain_in_native_prediction (tests.v5.test_combat_probability.CombatProbabilityTests.test_fatal_debuffs_remain_in_native_prediction) (special='poison') ... FAIL
+  test_fatal_debuffs_remain_in_native_prediction (tests.v5.test_combat_probability.CombatProbabilityTests.test_fatal_debuffs_remain_in_native_prediction) (special='slow') ... FAIL
+test_combat_experience_heals_forecast_and_execution (tests.v5.test_combat_probability.CombatProbabilityTests.test_combat_experience_heals_forecast_and_execution) ... FAIL
+test_conditional_advancement_uses_kill_probability (tests.v5.test_combat_probability.CombatProbabilityTests.test_conditional_advancement_uses_kill_probability) ... FAIL
+test_conditional_poison_uses_native_marginal_estimate (tests.v5.test_combat_probability.CombatProbabilityTests.test_conditional_poison_uses_native_marginal_estimate) ... FAIL
+test_zero_level_kill_awards_four_experience (tests.v5.test_combat_probability.CombatProbabilityTests.test_zero_level_kill_awards_four_experience) ... FAIL
+
+======================================================================
+FAIL: test_fatal_debuffs_remain_in_native_prediction (tests.v5.test_combat_probability.CombatProbabilityTests.test_fatal_debuffs_remain_in_native_prediction) (special='poison')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/combat_boundaries_audit_20261102/tests/v5/test_combat_probability.py", line 40, in test_fatal_debuffs_remain_in_native_prediction
+    self.assertAlmostEqual(value[key], .6)
+AssertionError: 0.0 != 0.6 within 7 places (0.6 difference)
+
+======================================================================
+FAIL: test_fatal_debuffs_remain_in_native_prediction (tests.v5.test_combat_probability.CombatProbabilityTests.test_fatal_debuffs_remain_in_native_prediction) (special='slow')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/combat_boundaries_audit_20261102/tests/v5/test_combat_probability.py", line 40, in test_fatal_debuffs_remain_in_native_prediction
+    self.assertAlmostEqual(value[key], .6)
+AssertionError: 0.0 != 0.6 within 7 places (0.6 difference)
+
+======================================================================
+FAIL: test_combat_experience_heals_forecast_and_execution (tests.v5.test_combat_probability.CombatProbabilityTests.test_combat_experience_heals_forecast_and_execution)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/combat_boundaries_audit_20261102/tests/v5/test_combat_probability.py", line 47, in test_combat_experience_heals_forecast_and_execution
+    self.assertTrue(value['approximate'])
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_conditional_advancement_uses_kill_probability (tests.v5.test_combat_probability.CombatProbabilityTests.test_conditional_advancement_uses_kill_probability)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/combat_boundaries_audit_20261102/tests/v5/test_combat_probability.py", line 58, in test_conditional_advancement_uses_kill_probability
+    self.assertEqual(value['hp_chance'], {'20': .4, '40': .6})
+AssertionError: {'20': 1.0} != {'20': 0.4, '40': 0.6}
+- {'20': 1.0}
++ {'20': 0.4, '40': 0.6}
+
+======================================================================
+FAIL: test_conditional_poison_uses_native_marginal_estimate (tests.v5.test_combat_probability.CombatProbabilityTests.test_conditional_poison_uses_native_marginal_estimate)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/combat_boundaries_audit_20261102/tests/v5/test_combat_probability.py", line 65, in test_conditional_poison_uses_native_marginal_estimate
+    self.assertAlmostEqual(value['poisoned'], .24 * (1-.6))
+AssertionError: 0.24 != 0.096 within 7 places (0.144 difference)
+
+======================================================================
+FAIL: test_zero_level_kill_awards_four_experience (tests.v5.test_combat_probability.CombatProbabilityTests.test_zero_level_kill_awards_four_experience)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/combat_boundaries_audit_20261102/tests/v5/test_combat_probability.py", line 75, in test_zero_level_kill_awards_four_experience
+    self.assertEqual((actual['unit_type'], actual['xp']), ('Fighter', 39))
+AssertionError: Tuples differ: ('Ghost', 3) != ('Fighter', 39)
+
+First differing element 0:
+'Ghost'
+'Fighter'
+
+- ('Ghost', 3)
++ ('Fighter', 39)
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.034s
+
+FAILED (failures=6)

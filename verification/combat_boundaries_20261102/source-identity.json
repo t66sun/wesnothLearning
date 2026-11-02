@@ -1,0 +1,9 @@
+{
+  "archive": "/home/tongshu/acceptance/combat-boundaries-verified.tar",
+  "sha256": "c821ed529430b1d5ef2d6de46feebc94bfd5cf4fe187fa2a7d3fd20e3ea0231d",
+  "pax_headers": {
+    "comment": "a44864d0fb68cd0537a3f369876baddf15b1ed34"
+  },
+  "changed_archive_files": [],
+  "extension_sha256": "a7f0b3ded924701f6ff5132357915ae565d21ebf8de66a764c9a4a315e4feb7c"
+}
