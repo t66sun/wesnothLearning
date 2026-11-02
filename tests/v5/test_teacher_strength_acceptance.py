@@ -99,8 +99,9 @@ class TeacherStrengthAcceptanceTests(unittest.TestCase):
             self.assertEqual(result['formats'][fmt]['status'], 'not_passed')
             self.assertEqual(result['status'], 'not_passed')
         del comparison['team2v2']
-        self.assertEqual(acceptance.noninferiority(plan, comparison, counts)['formats']['team2v2']['status'],
-                         'inconclusive')
+        result = acceptance.noninferiority(plan, comparison, counts)
+        self.assertEqual(result['formats']['team2v2']['status'], 'inconclusive')
+        self.assertEqual(result['status'], 'inconclusive')
 
     def test_missing_faulted_or_incomplete_design_cannot_pass(self):
         for defect in ('missing_job', 'missing_block', 'fault', 'few_families', 'missing_identity'):
@@ -118,7 +119,7 @@ class TeacherStrengthAcceptanceTests(unittest.TestCase):
                     comparison['duel']['status'] = 'insufficient_design'
                 result = acceptance.noninferiority(plan, comparison, counts)
                 self.assertEqual(result['formats']['duel']['status'], 'inconclusive')
-                self.assertEqual(result['status'], 'not_passed')
+                self.assertEqual(result['status'], 'inconclusive')
 
     def test_report_preserves_original_superiority_result(self):
         jobs, results = [], []

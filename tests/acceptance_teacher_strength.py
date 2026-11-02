@@ -180,8 +180,9 @@ def noninferiority(plan, comparison, counts):
                             difference=(float(Decimal(str(row['difference'])) / scale)
                                         if row.get('difference') is not None else None),
                             interval95=[float(value) for value in normalized] if normalized else None)
-    return dict(margin=plan['margin'], formats=formats,
-                status='passed' if all(row['status'] == 'passed' for row in formats.values()) else 'not_passed')
+    status = ('inconclusive' if any(row['status'] == 'inconclusive' for row in formats.values()) else
+              'passed' if all(row['status'] == 'passed' for row in formats.values()) else 'not_passed')
+    return dict(margin=plan['margin'], formats=formats, status=status)
 
 
 def report(output):
