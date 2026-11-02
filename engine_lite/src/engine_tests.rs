@@ -1,5 +1,4 @@
-//! Engine-level tests for the deterministic `expected_damage_v1` contract:
-//! poison timing, slowed movement, seed independence and the point-mass forecast.
+//! Seeded execution, public probability forecasts, poison and slow contracts.
 use crate::model::*;
 use crate::state::{Game,POISON_TICK};
 use std::collections::{BTreeMap,BTreeSet};
@@ -60,7 +59,7 @@ fn game(seed:u64)->Game {Game::new(Arc::new(rules()),spec(seed)).expect("valid g
 fn hp(g:&Game,id:&str)->i32 {g.units[g.unit(id).expect(id)].hp}
 
 #[test]
-fn poison_ticks_six_on_its_own_turn_and_floors_at_one_hp() {
+fn poison_ticks_eight_on_its_own_turn_and_floors_at_one_hp() {
     let mut g=game(1);
     let i=g.unit("u1").unwrap();
     g.units[i].status.insert("poisoned".into());
@@ -68,14 +67,14 @@ fn poison_ticks_six_on_its_own_turn_and_floors_at_one_hp() {
     // The other side's boundary never ticks the poisoned unit.
     g.end_turn();
     assert_eq!(hp(&g,"u1"),10);
-    // Own turn, no rest because the unit already acted: 10-6 = 4.
+    // Own turn, no rest because the unit already acted: 10-8 = 2.
     g.end_turn();
-    assert_eq!(hp(&g,"u1"),4);
+    assert_eq!(hp(&g,"u1"),2);
     g.end_turn();
-    assert_eq!(hp(&g,"u1"),4);
-    // Second own turn: rest is 2, poison is 6, so the floor keeps it alive at 1.
+    assert_eq!(hp(&g,"u1"),2);
+    // Second own turn: rest is 2, poison is 8, so the floor keeps it alive at 1.
     g.end_turn();
-    assert_eq!(POISON_TICK,6);
+    assert_eq!(POISON_TICK,8);
     assert_eq!(hp(&g,"u1"),1);
     assert!(g.units[g.unit("u1").unwrap()].status.contains("poisoned"));
 }
@@ -96,43 +95,55 @@ fn slow_doubles_movement_cost_until_the_side_boundary() {
 }
 
 #[test]
-fn attack_damage_is_seed_independent() {
+fn attack_damage_is_reproducible_for_the_same_seed() {
     let action=Action::Attack{unit:"u1".into(),target:"u2".into(),weapon:0};
-    let mut first=game(1);let mut second=game(0xdead_beef);
-    let one=first.step(action.clone()).expect("attack");
-    let two=second.step(action).expect("attack");
-    assert_eq!(one["strikes"],two["strikes"]);
-    assert_eq!(hp(&first,"u2"),hp(&second,"u2"));
-    // D=10 at 60%: ceil(10*60*1.10/100) = 7.
-    assert_eq!(one["strikes"][0]["damage"],7);
-    assert_eq!(one["strikes"][0]["chance"],60);
-    assert_eq!(hp(&first,"u2"),13);
+    let mut first=game(1);let mut second=game(1);
+    assert_eq!(first.step(action.clone()).unwrap(),second.step(action).unwrap());
 }
 
 #[test]
-fn forecast_is_a_single_point_mass_that_matches_the_resolved_battle() {
+fn forecast_distribution_contains_the_resolved_battle() {
     let mut g=game(1);
-    let before=(g.turn,g.revision,hp(&g,"u1"),hp(&g,"u2"));
-    let view=g.forecast(1,"u1","u2",0,128).expect("forecast");
+    let before=serde_json::to_value(&g).unwrap();
+    let view=g.forecast(1,"u1","u2",0,128).unwrap();
     assert_eq!(view["combat_version"],COMBAT_VERSION);
     assert_eq!(view["approximate"],false);
-    assert_eq!(view["samples"],1);
-    for who in ["attacker","defender"] {
-        let chance=view[who]["hp_chance"].as_object().expect("point mass");
-        assert_eq!(chance.len(),1);
-        let (hp_key,probability)=chance.iter().next().unwrap();
-        assert_eq!(*probability,1.0);
-        assert_eq!(view[who]["average_hp"],hp_key.parse::<i32>().unwrap());
-        assert!(view[who]["poisoned"].as_i64().is_some());
-        assert!(view[who]["slowed"].as_i64().is_some());
+    assert_eq!(view["samples"],0);
+    assert_eq!(serde_json::to_value(&g).unwrap(),before);
+    for samples in [0,100_000] {assert_eq!(view,g.forecast(1,"u1","u2",0,samples).unwrap());}
+    g.step(Action::Attack{unit:"u1".into(),target:"u2".into(),weapon:0}).unwrap();
+    for (who,id) in [("attacker","u1"),("defender","u2")] {
+        assert!(view[who]["hp_chance"][hp(&g,id).to_string()].as_f64().unwrap()>0.);
     }
-    // The query must not advance or mutate the game.
-    assert_eq!((g.turn,g.revision,hp(&g,"u1"),hp(&g,"u2")),before);
-    // Out-of-range sample counts stay accepted and ignored.
-    assert_eq!(g.forecast(1,"u1","u2",0,0).unwrap()["samples"],1);
-    assert_eq!(g.forecast(1,"u1","u2",0,100_000).unwrap()["samples"],1);
-    // The prediction is the battle that actually happens.
-    let predicted=view["defender"]["average_hp"].as_i64().unwrap() as i32;
-    g.step(Action::Attack{unit:"u1".into(),target:"u2".into(),weapon:0}).expect("attack");
-    assert_eq!(hp(&g,"u2"),predicted);
+}
+
+#[test]
+fn probabilistic_forecast_preserves_state() {
+    let g=game(1);
+    let before=serde_json::to_value(&g).unwrap();
+    let f=g.forecast(1,"u1","u2",0,128).unwrap();
+    for who in ["attacker","defender"] {
+        assert!((f[who]["average_hp"].as_f64().unwrap()-14.0).abs()<1e-12);
+        assert!((f[who]["hp_chance"]["10"].as_f64().unwrap()-0.6).abs()<1e-12);
+        assert!((f[who]["hp_chance"]["20"].as_f64().unwrap()-0.4).abs()<1e-12);
+    }
+    assert_eq!(serde_json::to_value(&g).unwrap(),before);
+    assert_eq!(f,game(999).forecast(1,"u1","u2",0,1).unwrap());
+}
+
+#[test]
+fn probabilistic_execution_restores_same_future() {
+    let action=Action::Attack{unit:"u1".into(),target:"u2".into(),weapon:0};
+    let mut outcomes=BTreeSet::new();
+    for seed in 0..64 {
+        let mut a=game(seed);
+        let mut b:Game=serde_json::from_value(serde_json::to_value(&a).unwrap()).unwrap();
+        a.forecast(1,"u1","u2",0,128).unwrap();
+        let one=a.step(action.clone()).unwrap();
+        assert_eq!(one,b.step(action.clone()).unwrap());
+        let damage=one["strikes"][0]["damage"].as_i64().unwrap();
+        assert!(damage==0 || damage==10);
+        outcomes.insert(damage);
+    }
+    assert_eq!(outcomes,BTreeSet::from([0,10]));
 }

@@ -1,16 +1,6 @@
 use crate::model::{Rules, Unit, Weapon};
 use serde::{Deserialize,Serialize};
 
-/// `expected_damage_v2`: every strike resolves its expected damage exactly, so a
-/// battle has one deterministic outcome instead of a random sample. Hit chance is
-/// still computed and reported; it scales the damage instead of deciding a roll.
-pub const SLOW_DAMAGE_NUMERATOR: i64 = 3;
-pub const SLOW_DAMAGE_DENOMINATOR: i64 = 4;
-/// Ten percent uplift applied once, folded into the same integer rounding.
-pub const DAMAGE_PERCENT: i64 = 110;
-/// Percent uplift times percent chance: 110 * 100.
-pub const DAMAGE_SCALE: i64 = 10_000;
-
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Strike {
     pub attacker: String,
@@ -36,32 +26,22 @@ pub struct Resolution {
     pub defender_weapon: Option<usize>,
 }
 
-fn resolved_weapon(rules:&Rules,unit:&Unit,index:usize)->Weapon {
+pub(super) fn resolved_weapon(rules:&Rules,unit:&Unit,index:usize)->Weapon {
     let mut weapon=rules.units[&unit.unit_type].weapons[index].clone();
     if let Some(&damage)=unit.resolved_weapon_damage.get(index){weapon.damage=damage;}
     weapon
 }
 
-fn defense_score(attacker:&Unit,defender:&Unit)->(i32,i32,i32) {
-    let hp=|unit:&Unit|unit.hp.max(0)-if unit.hp>0 && unit.status.contains("poisoned") {
-        crate::state::POISON_TICK
-    }else{0};
-    // Native better_defense ordering, evaluated on lite's deterministic outcome.
-    (i32::from(attacker.hp<=0)-i32::from(defender.hp<=0),
-     hp(defender)-hp(attacker),-attacker.hp.max(0))
+/// Native rounding: half ties move towards the unmodified damage.
+fn round_damage(damage:i64, bonus:i64, divisor:i64)->i64 {
+    if damage==0 {return 0;}
+    ( (damage*bonus+divisor/2-i64::from(bonus>=divisor))/divisor ).max(1)
 }
-/// Slowed strikes deal three quarters of the modified damage, rounded up.
-pub fn slowed_damage(damage:i64)->i64 {
-    (SLOW_DAMAGE_NUMERATOR*damage+SLOW_DAMAGE_DENOMINATOR-1)/SLOW_DAMAGE_DENOMINATOR
-}
-/// `ceil(damage*chance*1.10/100)` with wide integers and one final rounding.
-pub fn expected_damage(damage:i64,chance:u32)->i64 {
-    let percent=i64::from(chance.min(100));
-    (damage*DAMAGE_PERCENT*percent+DAMAGE_SCALE-1)/DAMAGE_SCALE
-}
-fn strike(rules:&Rules,a:&mut Unit,d:&mut Unit,w:&Weapon,
+#[cfg(test)]
+pub fn slowed_damage(damage:i64)->i64 {round_damage(damage,1,2)}
+pub(super) fn strike(rules:&Rules,a:&mut Unit,d:&mut Unit,w:&Weapon,
           opposing_weapon:Option<&Weapon>,terrain:&str,turn:u32,charging:bool,
-          offense:bool,modifiers:&Modifiers)->Strike {
+          offense:bool,modifiers:&Modifiers,roll:u32)->Strike {
     let at=&rules.units[&a.unit_type];let dt=&rules.units[&d.unit_type];
     let mut chance=dt.defense[terrain];
     if w.specials.contains("magical") { chance=70; }
@@ -74,20 +54,14 @@ fn strike(rules:&Rules,a:&mut Unit,d:&mut Unit,w:&Weapon,
     let mut resist=*dt.resistance.get(&w.damage_type).unwrap_or(&100);
     if offense && dt.abilities.contains("steadfast") && resist<100 {resist=(100-2*(100-resist)).max(50);}
     let leadership=if offense{modifiers.attacker_leadership}else{modifiers.defender_leadership};
-    let mut numerator=w.damage*(100+tod+leadership)*resist;
-    if charging { numerator*=2; }
-    if offense && modifiers.backstab && w.specials.contains("backstab") {numerator*=2;}
-    // Wesnoth's exact compound-modifier rounding remains an explicit approximation.
-    // Absorb belongs to the selected opposing weapon and works in either role.
-    // Keep it in the compound damage calculation, before the single rounding.
+    let mut bonus=i64::from(100+tod+leadership)*i64::from(resist);
+    if charging {bonus*=2;}
+    if offense && modifiers.backstab && w.specials.contains("backstab") {bonus*=2;}
     let percent=opposing_weapon.and_then(|other|other.opponent_damage_percent).unwrap_or(100);
-    let base=((i64::from(numerator)*i64::from(percent)+500000)/1000000)
-        .max(if w.damage>0 {1} else {0});
-    // The only slowed effect on damage is the three-quarter multiplier, applied to
-    // the fully modified strike damage before the hit chance uplift.
-    let modified=if a.status.contains("slowed") {slowed_damage(base)} else {base};
-    let connected=chance>0;
-    let dealt=(if connected {expected_damage(modified,chance).min(i64::from(d.hp)).max(0)} else {0}) as i32;
+    let divisor=if a.status.contains("slowed") {2_000_000}else{1_000_000};
+    let modified=round_damage(i64::from(w.damage),bonus*i64::from(percent),divisor);
+    let connected=roll<chance;
+    let dealt=if connected {modified.min(i64::from(d.hp)).max(0) as i32}else{0};
     if connected {
         d.hp-=dealt;
         if w.specials.contains("drains") && !dt.abilities.contains("undrainable") {
@@ -100,34 +74,42 @@ fn strike(rules:&Rules,a:&mut Unit,d:&mut Unit,w:&Weapon,
             if w.specials.contains("stun") { d.status.insert("stunned".into()); }
         }
     }
-    Strike{attacker:a.id.clone(),defender:d.id.clone(),hit:chance>0,chance,damage:dealt,defender_hp:d.hp}
+    Strike{attacker:a.id.clone(),defender:d.id.clone(),hit:connected,chance,damage:dealt,defender_hp:d.hp}
 }
-pub fn resolve(rules:&Rules,a:&mut Unit,d:&mut Unit,weapon:usize,
-               attacker_terrain:&str,defender_terrain:&str,turn:u32,modifiers:&Modifiers)->Resolution {
+pub fn resolve_seeded(rules:&Rules,a:&mut Unit,d:&mut Unit,weapon:usize,
+    at:&str,dt:&str,turn:u32,modifiers:&Modifiers,rng:&mut u64)->Resolution {
     let aw=resolved_weapon(rules,a,weapon);
     let mut choices=rules.units[&d.unit_type].weapons.iter().enumerate()
-        .filter(|(_,w)|w.range==aw.range).map(|(i,_)|i).peekable();
+        .filter(|(_,w)|w.range==aw.range).map(|(i,_)|i);
     let first=choices.next();
-    if choices.peek().is_none() {
-        return resolve_with_counter(rules,a,d,&aw,first,attacker_terrain,defender_terrain,turn,modifiers);
+    let counter=if choices.next().is_none(){first}else{
+        crate::combat_probability::select(rules,a,d,weapon,at,dt,turn,modifiers).0
+    };
+    resolve_with_counter(rules,a,d,&aw,counter,at,dt,turn,modifiers,&mut || roll_percent(rng))
+}
+
+/// SplitMix64 with rejection sampling, including seed zero. Referee-only state.
+pub fn roll_percent(state:&mut u64)->u32 {
+    loop {
+        *state=state.wrapping_add(0x9e3779b97f4a7c15);
+        let mut z=*state;
+        z=(z^(z>>30)).wrapping_mul(0xbf58476d1ce4e5b9);
+        z=(z^(z>>27)).wrapping_mul(0x94d049bb133111eb);
+        z^=z>>31;
+        if z>=16 {return (z%100) as u32;}
     }
-    let mut best_a=a.clone();let mut best_d=d.clone();
-    let mut best=resolve_with_counter(rules,&mut best_a,&mut best_d,&aw,first,
-        attacker_terrain,defender_terrain,turn,modifiers);
-    for counter in choices {
-        let mut aa=a.clone();let mut dd=d.clone();
-        let outcome=resolve_with_counter(rules,&mut aa,&mut dd,&aw,Some(counter),
-            attacker_terrain,defender_terrain,turn,modifiers);
-        if defense_score(&aa,&dd)>defense_score(&best_a,&best_d) {
-            best_a=aa;best_d=dd;best=outcome;
-        }
-    }
-    *a=best_a;*d=best_d;
-    best
+}
+
+#[cfg(test)]
+fn resolve(rules:&Rules,a:&mut Unit,d:&mut Unit,weapon:usize,
+    at:&str,dt:&str,turn:u32,modifiers:&Modifiers)->Resolution {
+    let (counter,_)=crate::combat_probability::select(rules,a,d,weapon,at,dt,turn,modifiers);
+    let aw=resolved_weapon(rules,a,weapon);
+    resolve_with_counter(rules,a,d,&aw,counter,at,dt,turn,modifiers,&mut || 0)
 }
 
 fn resolve_with_counter(rules:&Rules,a:&mut Unit,d:&mut Unit,aw:&Weapon,counter:Option<usize>,
-               attacker_terrain:&str,defender_terrain:&str,turn:u32,modifiers:&Modifiers)->Resolution {
+               attacker_terrain:&str,defender_terrain:&str,turn:u32,modifiers:&Modifiers,roll:&mut impl FnMut()->u32)->Resolution {
     let dw=counter.map(|i|resolved_weapon(rules,d,i));
     let charge=aw.specials.contains("charge");
     let berserk=aw.specials.contains("berserk") || dw.as_ref().is_some_and(|w|w.specials.contains("berserk"));
@@ -146,8 +128,8 @@ fn resolve_with_counter(rules:&Rules,a:&mut Unit,d:&mut Unit,aw:&Weapon,counter:
         for n in 0..an.max(dn) {
             for defense in if first {[true,false]} else {[false,true]} {
                 if a.hp<=0 || d.hp<=0 || a.status.contains("petrified") || d.status.contains("petrified") { break; }
-                if defense && n<dn { log.push(strike(rules,d,a,dw.as_ref().unwrap(),Some(&aw),attacker_terrain,turn,charge,false,modifiers)); }
-                if !defense && n<an { log.push(strike(rules,a,d,&aw,dw.as_ref(),defender_terrain,turn,charge,true,modifiers)); }
+                if defense && n<dn { log.push(strike(rules,d,a,dw.as_ref().unwrap(),Some(&aw),attacker_terrain,turn,charge,false,modifiers,roll())); }
+                if !defense && n<an { log.push(strike(rules,a,d,&aw,dw.as_ref(),defender_terrain,turn,charge,true,modifiers,roll())); }
             }
             if a.hp<=0 || d.hp<=0 || a.status.contains("petrified") || d.status.contains("petrified") { break; }
         }
@@ -228,42 +210,37 @@ mod tests {
     }
 
     #[test]
-    fn expected_damage_matches_the_r1_table() {
-        // D=10 at 60% defense: 10*60*1.10/100 = 6.6 -> 7.
+    fn connected_strikes_use_full_damage_without_uplift() {
         let rules_60 = rules(60, vec![weapon(10, 1, &[])], vec![]);
         let mut a = unit("a", "A", 40);
         let mut d = unit("d", "D", 40);
         let hit = strike_once(&rules_60, &mut a, &mut d, 0);
-        assert_eq!((hit.chance, hit.damage, hit.hit), (60, 7, true));
-        assert_eq!(d.hp, 33);
-        // A second damage value catches a scale error that still rounds 10@60 to 7.
+        assert_eq!((hit.chance, hit.damage, hit.hit), (60, 10, true));
+        assert_eq!(d.hp, 30);
         let rules_13 = rules(60, vec![weapon(13, 1, &[])], vec![]);
         let mut a = unit("a", "A", 40);
         let mut d = unit("d", "D", 40);
-        assert_eq!(strike_once(&rules_13, &mut a, &mut d, 0).damage, 9);
-        // 100% chance: exactly the 10% uplift, 11.
+        assert_eq!(strike_once(&rules_13, &mut a, &mut d, 0).damage, 13);
         let rules_100 = rules(100, vec![weapon(10, 1, &[])], vec![]);
         let mut a = unit("a", "A", 40);
         let mut d = unit("d", "D", 40);
-        assert_eq!(strike_once(&rules_100, &mut a, &mut d, 0).damage, 11);
-        // 1% chance rounds up to one point instead of vanishing.
+        assert_eq!(strike_once(&rules_100, &mut a, &mut d, 0).damage, 10);
         let rules_1 = rules(1, vec![weapon(10, 1, &[])], vec![]);
         let mut a = unit("a", "A", 40);
         let mut d = unit("d", "D", 40);
-        assert_eq!(strike_once(&rules_1, &mut a, &mut d, 0).damage, 1);
+        assert_eq!(strike_once(&rules_1, &mut a, &mut d, 0).damage, 10);
     }
 
     #[test]
-    fn slowed_damage_is_three_quarters_rounded_up_then_scaled() {
-        // Slowed D=10 -> S=8, then 8*60*1.10/100 = 5.28 -> 6.
+    fn slowed_damage_is_half_with_native_rounding() {
         let rules = rules(60, vec![weapon(10, 1, &[])], vec![]);
         let mut a = unit("a", "A", 40);
         let mut d = unit("d", "D", 40);
         a.status.insert("slowed".into());
         let hit = strike_once(&rules, &mut a, &mut d, 0);
-        assert_eq!((hit.damage, d.hp), (6, 34));
-        assert_eq!(slowed_damage(10), 8);
-        assert_eq!(slowed_damage(11), 9);
+        assert_eq!((hit.damage, d.hp), (5, 35));
+        assert_eq!(slowed_damage(10), 5);
+        assert_eq!(slowed_damage(11), 6);
     }
 
     #[test]
@@ -294,8 +271,8 @@ mod tests {
         let mut d = unit("d", "D", 40);
         let log = resolve(&rules, &mut a, &mut d, 0, PLAIN, PLAIN, 1, &Modifiers::default()).strikes;
         let order: Vec<(&str, i32)> = log.iter().map(|s| (s.attacker.as_str(), s.damage)).collect();
-        assert_eq!(order, vec![("a", 7), ("d", 3), ("a", 7), ("d", 3)]);
-        assert_eq!((d.hp, a.hp), (26, 34));
+        assert_eq!(order, vec![("a", 10), ("d", 4), ("a", 10), ("d", 4)]);
+        assert_eq!((d.hp, a.hp), (20, 32));
     }
 
     #[test]
@@ -337,10 +314,9 @@ mod tests {
         let mut a = unit("a", "A", 40);
         let mut d = unit("d", "D", 40);
         let log = resolve(&rules, &mut a, &mut d, 0, PLAIN, PLAIN, 1, &Modifiers::default()).strikes;
-        assert_eq!(log[0].damage, 11);
+        assert_eq!(log[0].damage, 10);
         assert!(d.status.contains("slowed"));
-        // Retaliation now uses S=ceil(3*10/4)=8 at 100%: 8*1.10 -> 9.
-        assert_eq!(log[1].damage, 9);
+        assert_eq!(log[1].damage, 5);
     }
 
     #[test]
@@ -354,8 +330,8 @@ mod tests {
         let mut d = unit("d", "D", 40);
         let log = resolve(&rules, &mut a, &mut d, 0, PLAIN, PLAIN, 1, &Modifiers::default()).strikes;
         let blows: Vec<i32> = log.iter().filter(|s| s.attacker == "d").map(|s| s.damage).collect();
-        assert_eq!(blows, vec![8, 8]);
-        assert_eq!(a.hp, 24);
+        assert_eq!(blows, vec![12, 12]);
+        assert_eq!(a.hp, 16);
     }
 
     #[test]
@@ -366,7 +342,7 @@ mod tests {
         let mut d = unit("d", "D", 40);
         let log = resolve(&rules, &mut a, &mut d, 0, PLAIN, PLAIN, 1, &Modifiers::default()).strikes;
         assert!(log.iter().filter(|s| s.attacker == "d").all(|s| s.chance == 70));
-        assert_eq!(a.hp, 25);
+        assert_eq!(a.hp, 22);
     }
 
     #[test]
@@ -377,7 +353,7 @@ mod tests {
         let mut d = unit("d", "D", 40);
         d.resolved_weapon_damage = vec![1, 10];
         resolve(&rules, &mut a, &mut d, 0, PLAIN, PLAIN, 1, &Modifiers::default());
-        assert_eq!(a.hp, 18);
+        assert_eq!(a.hp, 20);
     }
 
     #[test]
@@ -400,13 +376,13 @@ mod tests {
         let mut a = unit("a", "A", 40);
         let mut d = unit("d", "D", 40);
         resolve(&rules_absorb, &mut a, &mut d, 0, PLAIN, PLAIN, 1, &Modifiers::default());
-        assert_eq!((a.hp, d.hp), (26, 22));
+        assert_eq!((a.hp, d.hp), (28, 25));
         let rules_poison = rules(100, vec![weapon(1, 1, &[])],
                                  vec![weapon(5, 2, &[]), weapon(4, 2, &["poison"])]);
         let mut a = unit("a", "A", 40);
         let mut d = unit("d", "D", 40);
         resolve(&rules_poison, &mut a, &mut d, 0, PLAIN, PLAIN, 1, &Modifiers::default());
-        assert_eq!(a.hp, 30);
+        assert_eq!(a.hp, 32);
         assert!(a.status.contains("poisoned"));
     }
 
@@ -420,6 +396,6 @@ mod tests {
         let mut d = unit("d", "D", 40);
         let outcome = resolve(&rules, &mut a, &mut d, 0, PLAIN, PLAIN, 1, &Modifiers::default());
         assert_eq!(outcome.defender_weapon, Some(1));
-        assert_eq!(a.hp, 34);
+        assert_eq!(a.hp, 32);
     }
 }

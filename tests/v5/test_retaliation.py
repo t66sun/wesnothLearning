@@ -11,10 +11,12 @@ class RetaliationTests(unittest.TestCase):
     def test_forecast_execution_and_plague_share_the_selected_counter(self):
         rules = H.rules()
         rules['lawful_bonus'] = [0]
+        for unit in rules['units'].values():
+            unit['defense'] = dict.fromkeys(unit['defense'], 100)
         rules['units']['Fighter']['weapons'][0].update(damage=1, strikes=1)
         rules['units']['Fighter']['resistance']['blade'] = 10
         rules['units']['Skeleton']['weapons'] = [
-            dict(id='blade', damage=100, strikes=1, damage_type='blade', range='melee'),
+            dict(id='blade', damage=60, strikes=1, damage_type='blade', range='melee'),
             dict(id='plague', damage=20, strikes=1, damage_type='impact', range='melee',
                  specials=['plague'], plague_type='Ghost')]
         spec = H.spec(fog=False)
@@ -32,6 +34,29 @@ class RetaliationTests(unittest.TestCase):
                          forecast['defender']['average_hp'])
         raised = [u for u in units if u['hp'] > 0 and u['pos'] == spec['units'][0]['pos']]
         self.assertEqual([(u['unit_type'], u['side']) for u in raised], [('Ghost', 2)])
+
+    def test_rng_is_private_and_failed_batch_restores_it(self):
+        engine = H.engine()
+        before = H.snapshot(engine)
+        view = H.observe(engine, 1)
+        forecast = json.loads(engine.forecast(1, 'p1', 'e1', 0, 128))
+        altered = copy.deepcopy(before)
+        altered['game']['combat_rng'] ^= 123456789
+        H.restore(engine, altered)
+        self.assertEqual(H.observe(engine, 1), view)
+        self.assertEqual(json.loads(engine.forecast(1, 'p1', 'e1', 0, 128)), forecast)
+        H.restore(engine, before)
+        attack = dict(kind='attack', unit='p1', target='e1', weapon=0)
+        with self.assertRaises(ValueError):
+            engine.step_batch(json.dumps([attack, dict(kind='attack', unit='missing', target='e1', weapon=0)]))
+        self.assertEqual(H.snapshot(engine), before)
+        actual = H.step(engine, attack)
+        H.restore(engine, before)
+        self.assertEqual(H.step(engine, attack), actual)
+        old = copy.deepcopy(before)
+        old.update(combat_version='expected_damage_v2', rng_version='deterministic-expected_damage_v2')
+        with self.assertRaisesRegex(ValueError, 'snapshot version mismatch'):
+            H.restore(engine, old)
 
     def test_v1_snapshots_and_rows_are_rejected(self):
         engine = H.engine()

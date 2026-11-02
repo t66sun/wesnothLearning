@@ -1,5 +1,6 @@
 mod model;
 mod combat;
+mod combat_probability;
 mod state;
 mod host;
 #[cfg(test)] mod engine_tests;
@@ -83,7 +84,7 @@ impl LiteEngine {
         host::restore(&self.lua,value["host"].clone()).map_err(error)?;Ok(())
     }
     /// `samples` remains in the signature for existing callers and is ignored:
-    /// one deterministic resolution replaces the former Monte Carlo estimate.
+    /// finite-state probability propagation replaces Monte Carlo estimation.
     #[pyo3(signature=(side,attacker,target,weapon,samples=128))]
     fn forecast(&self,side:usize,attacker:&str,target:&str,weapon:usize,samples:usize)->PyResult<String>{
         encode(&self.game.lock().map_err(error)?.forecast(side,attacker,target,weapon,samples).map_err(error)?)

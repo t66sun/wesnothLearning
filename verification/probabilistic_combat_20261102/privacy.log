@@ -1,0 +1,8 @@
+test_forecast_execution_and_plague_share_the_selected_counter (tests.v5.test_retaliation.RetaliationTests.test_forecast_execution_and_plague_share_the_selected_counter) ... ok
+test_rng_is_private_and_failed_batch_restores_it (tests.v5.test_retaliation.RetaliationTests.test_rng_is_private_and_failed_batch_restores_it) ... ok
+test_v1_snapshots_and_rows_are_rejected (tests.v5.test_retaliation.RetaliationTests.test_v1_snapshots_and_rows_are_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.027s
+
+OK
