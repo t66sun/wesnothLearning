@@ -6,7 +6,7 @@ pub const ENGINE_VERSION: &str = "lite-0.2";
 /// Versioned referee-only SplitMix64 stream with unbiased percent rolls.
 pub const RNG_VERSION: &str = "splitmix64-rejection-v1";
 /// Combat/status rule profile recorded in observations, snapshots, jobs and data.
-pub const COMBAT_VERSION: &str = "probabilistic_combat_v1";
+pub const COMBAT_VERSION: &str = "probabilistic_combat_v2";
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Weapon {

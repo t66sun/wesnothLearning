@@ -126,6 +126,9 @@ fn distribution(r:&Rules,a:&Unit,d:&Unit,aw:&Weapon,counter:Option<usize>,at:&st
             else if alive>0. {poisoned[i]-=(alive-1.+poisoned[i])*kill/alive;}
         }
     }
+    if !heals.iter().any(|&h|h) {return Distribution{states,poisoned,truncated};}
+    // Native predicts healing to the current max HP, not an advancement choice.
+    let truncated=truncated || (0..2).any(|i| (forced[i] && dead[i]<1.) || (heals[i] && dead[1-i]>0.));
     let mut healed=BTreeMap::new();
     for (mut s,p) in states {
         let killed=[s.dh<=0,s.ah<=0];
