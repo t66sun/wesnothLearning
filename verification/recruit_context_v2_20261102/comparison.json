@@ -1,0 +1,207 @@
+{
+  "updates": 588,
+  "training_seconds": 412.2307803609874,
+  "start_counts_equal": true,
+  "window_visits_equal": true,
+  "decisions_seen_equal": true,
+  "parent_checkpoint_unchanged": true,
+  "incomplete_own_context_rows": 0,
+  "control_quality": {
+    "effective": false,
+    "formats": {
+      "team2v2": {
+        "samples": 1017,
+        "cross_entropy": 1.938170317703292,
+        "uniform_entropy": 3.580615498994705,
+        "kinds": {
+          "recruit": {
+            "samples": 57,
+            "correct": 32,
+            "same_kind": 55,
+            "same_actor": 48,
+            "same_destination": 48,
+            "ranks": {
+              "1": 32,
+              "2-3": 22,
+              "4-8": 2,
+              "9-16": 1,
+              "17+": 0
+            },
+            "accuracy": 0.5614035087719298,
+            "mean_candidates": 36.29824561403509
+          },
+          "move": {
+            "samples": 722,
+            "correct": 425,
+            "same_kind": 575,
+            "same_actor": 484,
+            "same_destination": 451,
+            "ranks": {
+              "1": 425,
+              "2-3": 187,
+              "4-8": 94,
+              "9-16": 16,
+              "17+": 0
+            },
+            "accuracy": 0.5886426592797784,
+            "mean_candidates": 36.8213296398892
+          },
+          "attack": {
+            "samples": 128,
+            "correct": 32,
+            "same_kind": 66,
+            "same_actor": 63,
+            "same_destination": 48,
+            "ranks": {
+              "1": 32,
+              "2-3": 32,
+              "4-8": 36,
+              "9-16": 20,
+              "17+": 8
+            },
+            "accuracy": 0.25,
+            "mean_candidates": 37.0
+          }
+        },
+        "accuracy": 0.5830875122910522,
+        "uniform_accuracy": 0.028321969908797935,
+        "effective": false
+      }
+    }
+  },
+  "context_quality": {
+    "effective": false,
+    "formats": {
+      "team2v2": {
+        "samples": 1017,
+        "cross_entropy": 2.037760270380341,
+        "uniform_entropy": 3.580615498994705,
+        "kinds": {
+          "recruit": {
+            "samples": 57,
+            "correct": 35,
+            "same_kind": 51,
+            "same_actor": 46,
+            "same_destination": 46,
+            "ranks": {
+              "1": 35,
+              "2-3": 12,
+              "4-8": 4,
+              "9-16": 3,
+              "17+": 3
+            },
+            "accuracy": 0.6140350877192983,
+            "mean_candidates": 36.29824561403509
+          },
+          "move": {
+            "samples": 722,
+            "correct": 415,
+            "same_kind": 563,
+            "same_actor": 472,
+            "same_destination": 434,
+            "ranks": {
+              "1": 415,
+              "2-3": 196,
+              "4-8": 96,
+              "9-16": 14,
+              "17+": 1
+            },
+            "accuracy": 0.574792243767313,
+            "mean_candidates": 36.8213296398892
+          },
+          "attack": {
+            "samples": 128,
+            "correct": 33,
+            "same_kind": 69,
+            "same_actor": 67,
+            "same_destination": 48,
+            "ranks": {
+              "1": 33,
+              "2-3": 31,
+              "4-8": 35,
+              "9-16": 20,
+              "17+": 9
+            },
+            "accuracy": 0.2578125,
+            "mean_candidates": 37.0
+          }
+        },
+        "accuracy": 0.5771878072763028,
+        "uniform_accuracy": 0.028321969908797935,
+        "effective": false
+      }
+    }
+  },
+  "train": {
+    "attack": {
+      "samples": 366,
+      "correct": 249,
+      "same_kind": 319,
+      "within_kind_correct": 282,
+      "top3": 324,
+      "same_actor": 286,
+      "same_target": 307,
+      "same_landing": 275,
+      "same_weapon": 306
+    },
+    "move": {
+      "samples": 1232,
+      "correct": 922,
+      "same_kind": 1100,
+      "within_kind_correct": 1019,
+      "top3": 1181
+    },
+    "end_turn": {
+      "samples": 254,
+      "correct": 253,
+      "same_kind": 253,
+      "within_kind_correct": 254,
+      "top3": 253
+    },
+    "recruit": {
+      "samples": 165,
+      "correct": 153,
+      "same_kind": 164,
+      "within_kind_correct": 154,
+      "top3": 165,
+      "same_type": 156,
+      "same_slot": 161
+    }
+  },
+  "heldout": {
+    "recruit": {
+      "samples": 57,
+      "correct": 35,
+      "same_kind": 51,
+      "within_kind_correct": 36,
+      "top3": 47,
+      "same_type": 39,
+      "same_slot": 46
+    },
+    "move": {
+      "samples": 722,
+      "correct": 415,
+      "same_kind": 563,
+      "within_kind_correct": 512,
+      "top3": 611
+    },
+    "attack": {
+      "samples": 128,
+      "correct": 33,
+      "same_kind": 69,
+      "within_kind_correct": 67,
+      "top3": 64,
+      "same_actor": 48,
+      "same_target": 57,
+      "same_landing": 46,
+      "same_weapon": 66
+    },
+    "end_turn": {
+      "samples": 110,
+      "correct": 104,
+      "same_kind": 104,
+      "within_kind_correct": 110,
+      "top3": 110
+    }
+  }
+}

@@ -17,6 +17,7 @@ from learning.export import load_model
 from learning.features import ENTITY, GLOBAL
 from learning.model import batch
 from learning.sequences import read_shards
+from learning.updates import prepare, setup
 from tests import diagnose_bc_parts as parts
 
 
@@ -42,6 +43,8 @@ def main():
     parser.add_argument('--run', type=Path, required=True)
     parser.add_argument('--format', required=True)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--updates', type=int, help='maximum updates using complete epochs; default eight epochs')
+    parser.add_argument('--seconds', type=int, default=600)
     args = parser.parse_args()
     torch.set_num_threads(1)
     config = json.loads((args.run / 'manifest.json').read_text())['config']
@@ -64,6 +67,8 @@ def main():
     for key in ('exp_avg', 'exp_avg_sq'):
         optimizer.state[expanded.weight][key] = F.pad(optimizer.state[expanded.weight][key], (0, 2))
     current = None
+    steps = setup(model, prepare(model, train, allow_drop=True), config['minibatch'])[-1]
+    epochs = args.updates // steps if args.updates is not None else 8
 
     def inputs(rows, *a, **kw):
         nonlocal current
@@ -86,19 +91,26 @@ def main():
     def committed(cursor):
         cursors.append({k: cursor[k] for k in ('epoch', 'step', 'updates', 'decisions_seen',
                                               'visited_windows', 'window_visits')})
+        if cursor['updates'] % 50 == 0:
+            print(json.dumps(dict(updates=cursor['updates'],
+                                  training_seconds=time.monotonic()-started)), flush=True)
 
     with patch.object(bc, 'batch', inputs), patch.object(parts, 'batch', inputs):
         model.eval()
         before = parts.decompose(model, heldout)
         model.train()
         started = time.monotonic()
-        metrics = bc.update(model, optimizer, train, epochs=8, deadline=time.time() + 600, on_step=committed)
+        metrics = bc.update(model, optimizer, train, epochs=epochs, minibatch=config['minibatch'],
+                            deadline=time.time() + args.seconds, on_step=committed)
         elapsed = time.monotonic() - started
         model.eval()
         result = dict(format=args.format, checkpoint_sha256=hashlib.sha256(path.read_bytes()).hexdigest(),
-                      epochs=8, seconds_cap=600, training_seconds=elapsed, metrics=metrics, cursors=cursors,
+                      epochs=epochs, max_updates=args.updates, planned_updates=epochs*steps,
+                      seconds_cap=args.seconds, training_seconds=elapsed, metrics=metrics, cursors=cursors,
                       before=before, train=parts.decompose(model, train), heldout=parts.decompose(model, heldout),
                       quality=bc.imitation_quality(model, heldout))
+        if not metrics['interrupted']:
+            assert metrics['updates'] == epochs*steps
     own_index = [name for name, _ in ENTITY].index('own')
     total_index = [name for name, _ in GLOBAL].index('own_units')
     result['incomplete_own_context_rows'] = int(sum(

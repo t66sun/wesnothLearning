@@ -1,0 +1,12 @@
+{"updates": 50, "training_seconds": 37.99963413202204}
+{"updates": 100, "training_seconds": 71.77461560699157}
+{"updates": 150, "training_seconds": 106.46840830589645}
+{"updates": 200, "training_seconds": 142.42370684701018}
+{"updates": 250, "training_seconds": 177.87841367605142}
+{"updates": 300, "training_seconds": 212.87876578909345}
+{"updates": 350, "training_seconds": 248.83735270798206}
+{"updates": 400, "training_seconds": 284.2259869570844}
+{"updates": 450, "training_seconds": 317.90213389508426}
+{"updates": 500, "training_seconds": 351.10779436910525}
+{"updates": 550, "training_seconds": 383.7812648790423}
+{"metrics": {"updates": 588, "loss": 1.035540568016685, "interrupted": false, "approx_kl": 0.0, "kl_stopped": false, "decisions_seen": 99026, "unique_families_seen": 32, "effective_dataset_passes": 48.3525390625, "sequence_windows": 54, "microbatch": 32, "window_visits": 2352, "unique_windows_seen": 54, "repeated_window_visits": 2298}, "seconds": 412.2307803609874, "kinds": {"recruit": {"samples": 57, "correct": 35, "same_kind": 51, "within_kind_correct": 36, "top3": 47, "same_type": 39, "same_slot": 46}, "move": {"samples": 722, "correct": 415, "same_kind": 563, "within_kind_correct": 512, "top3": 611}, "attack": {"samples": 128, "correct": 33, "same_kind": 69, "within_kind_correct": 67, "top3": 64, "same_actor": 48, "same_target": 57, "same_landing": 46, "same_weapon": 66}, "end_turn": {"samples": 110, "correct": 104, "same_kind": 104, "within_kind_correct": 110, "top3": 110}}}

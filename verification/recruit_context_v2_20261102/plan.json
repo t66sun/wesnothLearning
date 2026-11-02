@@ -1,0 +1,19 @@
+{
+  "source_commit": "905eae5013ba6c8ba9dc052cca96c8c2fd7925a8",
+  "parent_run": "/home/tongshu/acceptance/team_bc_v2_20261102/runs/team_bc_v2",
+  "checkpoint_sha256": "2fd567c68ae75ed3f5f9f62dc012d6e02965502937e63cbd8bf58f6f0905732c",
+  "control": "/home/tongshu/acceptance/team_bc_v2_20261102/verification/team_bc_v2_20261102/original_loss_curve.json",
+  "max_updates": 600,
+  "expected_complete_epoch_updates": 588,
+  "update_seconds": 900,
+  "external_seconds": 1200,
+  "train_rows": 2048,
+  "validation_rows": 1024,
+  "changed_inputs": [
+    "candidate recruit type count among visible own nonleaders / 10",
+    "recruit slot distance to current visible enemies / 50"
+  ],
+  "objective": "Original loss and sampler, same model/Adam/RNG start; two zero-initialized scorer columns; no production feature change.",
+  "pass_criterion": "Compare the complete frozen validation gate unchanged; do not adopt on training-only improvement or a single class.",
+  "limits": "One matched arm, no new games, seeds, parent-run edits, deadline extension or later phase."
+}
