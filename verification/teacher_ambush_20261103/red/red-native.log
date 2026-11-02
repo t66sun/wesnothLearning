@@ -1,0 +1,64 @@
+{
+  "result": {
+    "bots": [
+      "teacher_ambush",
+      "baseline"
+    ],
+    "seed": 713,
+    "turns": 1,
+    "winner": 2,
+    "survivors": [
+      2
+    ],
+    "reason": "last_leader",
+    "faults": {
+      "1": "~add-ons/teacher_ambush/lua/four.lua:314: assertion failed!"
+    },
+    "rank_points": {
+      "1": 0,
+      "2": 1
+    },
+    "eliminated": {
+      "1": 1
+    },
+    "seconds": 1.0698,
+    "actions": 1,
+    "factions": [
+      "Drakes",
+      "Northerners"
+    ],
+    "spawns": [
+      [
+        7,
+        7
+      ],
+      [
+        7,
+        1
+      ]
+    ],
+    "lenient": false,
+    "native_replay": "/home/tongshu/acceptance/teacher_ambush_red_20261103/native/ambush.replay.gz",
+    "rules_version": "wesnoth-1.18.8-native-v2"
+  },
+  "trace": {
+    "TEACHER_BEFORE": {
+      "ambusher_visible": false,
+      "checked": true
+    },
+    "TEACHER_MOVE": {
+      "changed": true,
+      "ok": false,
+      "status": 2005,
+      "x": 3,
+      "y": 4
+    }
+  }
+}
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/teacher_ambush_red_20261103/tests/diagnose_teacher_ambush.py", line 56, in <module>
+    main()
+  File "/home/tongshu/acceptance/teacher_ambush_red_20261103/tests/diagnose_teacher_ambush.py", line 49, in main
+    assert not result['faults'], result['faults']
+           ^^^^^^^^^^^^^^^^^^^^
+AssertionError: {1: '~add-ons/teacher_ambush/lua/four.lua:314: assertion failed!'}

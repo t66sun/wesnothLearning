@@ -1,0 +1,5 @@
+{
+  "schema": 2,
+  "id": "teacher_ambush",
+  "entry": "lua/bot.lua"
+}

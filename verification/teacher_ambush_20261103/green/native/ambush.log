@@ -1,0 +1,13 @@
+20261103 02:23:12 warning config: add-on 'arena_runtime' has no _info.cfg; cannot read version info
+20261103 02:23:12 warning config: add-on 'teacher_ambush' has no _info.cfg; cannot read version info
+ARENA2 0fe73b3f95472a59f010d016 START {"players":2,"version":"1.18.8"}
+ARENA2 0fe73b3f95472a59f010d016 SNAPSHOT {"gold":[100,100],"side":1,"turn":1,"units":[{"hp":55,"id":"Drake Flare-1","max_hp":55,"moves":5,"side":1,"type":"Drake Flare","x":7,"xp":0,"y":7},{"hp":58,"id":"Orcish Warrior-2","max_hp":58,"moves":5,"side":2,"type":"Orcish Warrior","x":7,"xp":0,"y":1}],"villages":{}}
+ARENA2 0fe73b3f95472a59f010d016 TURN {"side":1,"turn":1}
+ARENA2 0fe73b3f95472a59f010d016 CALL {"budget":10.0,"first":true,"phase":"evaluation","side":1}
+ARENA2 0fe73b3f95472a59f010d016 EXECUTE {"side":1}
+ARENA2 0fe73b3f95472a59f010d016 TEACHER_BEFORE {"ambusher_visible":false,"checked":true}
+ARENA2 0fe73b3f95472a59f010d016 TEACHER_MOVE {"changed":true,"ok":false,"status":2005,"x":3,"y":4}
+ARENA2 0fe73b3f95472a59f010d016 TEACHER_AFTER {"ambusher_visible":true,"attacks":0,"x":3,"y":4}
+ARENA2 0fe73b3f95472a59f010d016 SNAPSHOT {"gold":[100,100],"side":1,"turn":1,"units":[{"hp":55,"id":"Drake Flare-1","max_hp":55,"moves":5,"side":1,"type":"Drake Flare","x":7,"xp":0,"y":7},{"hp":58,"id":"Orcish Warrior-2","max_hp":58,"moves":5,"side":2,"type":"Orcish Warrior","x":7,"xp":0,"y":1},{"hp":39,"id":"actor","max_hp":39,"moves":0,"side":1,"type":"Drake Fighter","x":3,"xp":0,"y":4},{"hp":52,"id":"ambusher","max_hp":52,"moves":4,"side":2,"type":"Wose","x":2,"xp":0,"y":3},{"hp":38,"id":"target","max_hp":38,"moves":5,"side":2,"type":"Orcish Grunt","x":4,"xp":0,"y":4}],"villages":{}}
+ARENA2 0fe73b3f95472a59f010d016 RESULT {"eliminated":{},"faults":{},"reason":"turn_limit","survivors":[1,2],"turns":1}
+ARENA2 0fe73b3f95472a59f010d016 RETURN {"budget":10.0,"elapsed_ms":3,"first":true,"phase":"execution","side":1}

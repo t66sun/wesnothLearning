@@ -1,0 +1,8 @@
+test_ambush_stops_before_the_planned_attack (tests.v5.test_teacher_movement.TeacherMovementTests.test_ambush_stops_before_the_planned_attack) ... ok
+test_normal_arrival_executes_the_planned_attack (tests.v5.test_teacher_movement.TeacherMovementTests.test_normal_arrival_executes_the_planned_attack) ... ok
+test_other_native_move_errors_still_fail (tests.v5.test_teacher_movement.TeacherMovementTests.test_other_native_move_errors_still_fail) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.005s
+
+OK

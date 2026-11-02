@@ -1,0 +1,204 @@
+{
+  "schema": 2,
+  "rules_version": "wesnoth-1.18.8-native-v2",
+  "result": {
+    "bots": [
+      "teacher_ambush",
+      "baseline"
+    ],
+    "seed": 713,
+    "turns": 1,
+    "winner": 2,
+    "survivors": [
+      2
+    ],
+    "reason": "last_leader",
+    "faults": {
+      "1": "~add-ons/teacher_ambush/lua/four.lua:314: assertion failed!"
+    },
+    "rank_points": {
+      "1": 0,
+      "2": 1
+    },
+    "eliminated": {
+      "1": 1
+    },
+    "seconds": 1.0698,
+    "actions": 1,
+    "factions": [
+      "Drakes",
+      "Northerners"
+    ],
+    "spawns": [
+      [
+        7,
+        7
+      ],
+      [
+        7,
+        1
+      ]
+    ],
+    "lenient": false,
+    "native_replay": "/home/tongshu/acceptance/teacher_ambush_red_20261103/native/ambush.replay.gz",
+    "rules_version": "wesnoth-1.18.8-native-v2"
+  },
+  "map": {
+    "width": 7,
+    "height": 7,
+    "terrain": [
+      [
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Kh"
+      ],
+      [
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg"
+      ],
+      [
+        "Gg",
+        "Gs^Ft",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg"
+      ],
+      [
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg"
+      ],
+      [
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg"
+      ],
+      [
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg"
+      ],
+      [
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Kh"
+      ]
+    ],
+    "starts": [
+      [
+        7,
+        7
+      ],
+      [
+        7,
+        1
+      ]
+    ]
+  },
+  "frames": [
+    {
+      "gold": [
+        100,
+        100
+      ],
+      "side": 1,
+      "turn": 1,
+      "units": [
+        {
+          "hp": 55,
+          "id": "Drake Flare-1",
+          "max_hp": 55,
+          "moves": 5,
+          "side": 1,
+          "type": "Drake Flare",
+          "x": 7,
+          "xp": 0,
+          "y": 7
+        },
+        {
+          "hp": 58,
+          "id": "Orcish Warrior-2",
+          "max_hp": 58,
+          "moves": 5,
+          "side": 2,
+          "type": "Orcish Warrior",
+          "x": 7,
+          "xp": 0,
+          "y": 1
+        }
+      ],
+      "villages": {}
+    },
+    {
+      "gold": [
+        100,
+        100
+      ],
+      "side": 1,
+      "turn": 1,
+      "units": [
+        {
+          "hp": 58,
+          "id": "Orcish Warrior-2",
+          "max_hp": 58,
+          "moves": 5,
+          "side": 2,
+          "type": "Orcish Warrior",
+          "x": 7,
+          "xp": 0,
+          "y": 1
+        },
+        {
+          "hp": 52,
+          "id": "ambusher",
+          "max_hp": 52,
+          "moves": 4,
+          "side": 2,
+          "type": "Wose",
+          "x": 2,
+          "xp": 0,
+          "y": 3
+        },
+        {
+          "hp": 38,
+          "id": "target",
+          "max_hp": 38,
+          "moves": 5,
+          "side": 2,
+          "type": "Orcish Grunt",
+          "x": 4,
+          "xp": 0,
+          "y": 4
+        }
+      ],
+      "villages": {}
+    }
+  ]
+}
