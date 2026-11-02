@@ -71,21 +71,21 @@ class AstraAdaptationTests(unittest.TestCase):
         slowed = self.score(slow=1, risk=20)
         plain = self.score(dealt=6)
         self.assertGreater(slowed, plain)
-        self.assertAlmostEqual(self.values.slow_gain(20), 7.0)
+        self.assertAlmostEqual(self.values.slow_gain(20), 12.0)
         self.assertLess(self.legacy(dealt=0, slow=1), 6)
 
-        # 5. A poison tick is six points, so a poison-only attack loses to a
-        #    seven-point hit; the old eight-point value ranked it first.
+        # 5. A poison tick is eight points, so a poison-only attack beats a
+        #    seven-point hit, matching the native poison amount.
         poisoned = self.score(poison=1)
         hit = self.score(dealt=7)
-        self.assertGreater(hit, poisoned)
+        self.assertGreater(poisoned, hit)
         self.assertGreater(self.legacy(poison=1), 7)
 
         # 6. Poison immunity removes the status bonus, so a normal attack wins.
         immune = self.score(poison=1, enemy_poisoned=True)
         normal = self.score(dealt=3)
         self.assertGreater(normal, immune)
-        self.assertEqual(self.values.POISON_TICK, 6.0)
+        self.assertEqual(self.values.POISON_TICK, 8.0)
 
     def test_old_teacher_rows_cannot_enter_a_new_batch(self):
         row = helpers.sequence_rows(turns=1, decisions_per_turn=1)[0]

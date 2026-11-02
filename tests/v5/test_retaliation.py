@@ -11,6 +11,8 @@ class RetaliationTests(unittest.TestCase):
     def test_forecast_execution_and_plague_share_the_selected_counter(self):
         rules = H.rules()
         rules['lawful_bonus'] = [0]
+        for unit in rules['units'].values():
+            unit['defense'] = dict.fromkeys(unit['defense'], 100)
         rules['units']['Fighter']['weapons'][0].update(damage=1, strikes=1)
         rules['units']['Fighter']['resistance']['blade'] = 10
         rules['units']['Skeleton']['weapons'] = [

@@ -1,4 +1,4 @@
-"""Manual native probability versus lite point-mass audit; never a parity gate."""
+"""Native/lite probability regression on fixed public combat positions."""
 import argparse
 import hashlib
 import json
@@ -60,6 +60,12 @@ def main():
             lite.close()
             (args.output/(name+'.json')).write_text(json.dumps(row, indent=2)+'\n')
             oracle = row['native']['oracle']
+            for who in ('attacker', 'defender'):
+                for metric in ('average_hp', 'poisoned', 'slowed'):
+                    assert abs(oracle[who][metric]-forecast[who][metric]) < 1e-9, (name, who, metric)
+                nh, lh = oracle[who]['hp_chance'], forecast[who]['hp_chance']
+                for hp in set(nh) | set(lh):
+                    assert abs(nh.get(hp, 0)-lh.get(hp, 0)) < 1e-9, (name, who, hp)
             metrics = {who: dict(native_mean_hp=oracle[who]['average_hp'],
                 lite_hp=forecast[who]['average_hp'], native_death=oracle[who]['hp_chance'].get('0', 0),
                 lite_death=forecast[who]['hp_chance'].get('0', 0),
@@ -74,7 +80,7 @@ def main():
     result = dict(source=args.source, rules_sha256=hashlib.sha256(raw).hexdigest(),
                   executable_sha256=executable_hash, transport_sha256=transport_hash,
                   seconds=time.monotonic()-started, cases=rows,
-                  scope='Six fixed public battles; native probabilities are not lite acceptance targets. No training or strength claim.')
+                  scope='Six fixed public battles: full HP/status probability parity at 1e-9. No training or strength claim.')
     (args.output/'summary.json').write_text(json.dumps(result, indent=2)+'\n')
 
 

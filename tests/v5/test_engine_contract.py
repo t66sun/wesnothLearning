@@ -143,20 +143,20 @@ class EngineIdentityTest(unittest.TestCase):
 
     def test_module_and_snapshot_identity(self):
         self.assertEqual(ENGINE_VERSION, "lite-0.2")
-        self.assertEqual(RNG_VERSION, "deterministic-expected_damage_v2")
-        self.assertEqual(COMBAT_VERSION, "expected_damage_v2")
+        self.assertEqual(RNG_VERSION, "splitmix64-rejection-v1")
+        self.assertEqual(COMBAT_VERSION, "probabilistic_combat_v1")
         self.assertEqual((ENGINE_VERSION, RNG_VERSION, COMBAT_VERSION),
                          (DECLARED_ENGINE, DECLARED_RNG, DECLARED_COMBAT))
         self.assertIsInstance(LiteEngine, type)
         engine = H.engine()
         snapshot = H.snapshot(engine)
         self.assertEqual(snapshot["engine_id"], "lite-0.2")
-        self.assertEqual(snapshot["rng_version"], "deterministic-expected_damage_v2")
-        self.assertEqual(snapshot["combat_version"], "expected_damage_v2")
+        self.assertEqual(snapshot["rng_version"], "splitmix64-rejection-v1")
+        self.assertEqual(snapshot["combat_version"], "probabilistic_combat_v1")
         observation = H.observe(engine, 1)
         self.assertEqual(observation["engine_id"], "lite-0.2")
-        self.assertEqual(observation["rng_version"], "deterministic-expected_damage_v2")
-        self.assertEqual(observation["combat_version"], "expected_damage_v2")
+        self.assertEqual(observation["rng_version"], "splitmix64-rejection-v1")
+        self.assertEqual(observation["combat_version"], "probabilistic_combat_v1")
         self.assertEqual(observation["rules_version"], "synthetic-v5")
         self.assertTrue(observation["approximate"])
 
@@ -539,8 +539,11 @@ class MovementTest(unittest.TestCase):
 
 
 def _combat_engine(attacker_type, defender_type, *, rules_data=None,
-                   defender_hp=None, attacker_xp=0, terrain=None):
-    rules = rules_data or H.rules()
+                   defender_hp=None, attacker_xp=0, terrain=None, certain=False):
+    rules = copy.deepcopy(rules_data or H.rules())
+    if certain:
+        for unit in rules["units"].values():
+            unit["defense"] = dict.fromkeys(unit["defense"], 100)
     codes = list(terrain) if terrain is not None else list(PLAIN)
     units = [
         _unit_row(attacker_type, 1, 2, 2, uid="a1", rules_data=rules,
@@ -593,31 +596,25 @@ class CombatTest(unittest.TestCase):
         no resistance), matching freeze.py's ``100 - resistance_against``.
         """
         # The default defender hex is 40% defense; a 10-damage single strike
-        # rounds to 5 under `expected_damage_v2` and 6 when vulnerability is 125%.
+        # rounds to 5 under `probabilistic_combat_v1` and 6 when vulnerability is 125%.
         rules = H.rules()
         rules["units"]["Fighter"]["weapons"][0].update(damage=10, strikes=1)
-        engine = _combat_engine("Fighter", "Skeleton", rules_data=rules)
+        engine = _combat_engine("Fighter", "Skeleton", rules_data=rules, certain=True)
         plain = _attack(engine)["strikes"][0]["damage"]
 
         rules["units"]["Skeleton"]["resistance"]["blade"] = 125
-        engine = _combat_engine("Fighter", "Skeleton", rules_data=rules)
+        engine = _combat_engine("Fighter", "Skeleton", rules_data=rules, certain=True)
         vulnerable = _attack(engine)["strikes"][0]["damage"]
-        self.assertEqual((plain, vulnerable), (5, 6))
+        self.assertEqual((plain, vulnerable), (10, 12))
 
     def test_strikes_follow_deterministic_order_and_stop_on_death(self):
-        # Fighter 5 damage at 40% defense: every strike connects for 3, so both
-        # sides trade three times before the defender dies on the fifth strike.
-        engine = _combat_engine("Fighter", "Fighter", defender_hp=7)
+        # Guaranteed full hits isolate strike order and death interruption.
+        engine = _combat_engine("Fighter", "Fighter", defender_hp=7, certain=True)
         result = _attack(engine)
         self.assertEqual([(strike["attacker"], strike["hit"], strike["damage"])
                           for strike in result["strikes"]],
-                         [("a1", True, 3), ("d1", True, 3), ("a1", True, 3),
-                          ("d1", True, 3), ("a1", True, 1)])
-        self.assertEqual(result["strikes"][0]["defender_hp"], 4)
-        self.assertEqual(result["strikes"][1]["defender_hp"], 37)
-        self.assertEqual(result["strikes"][2]["defender_hp"], 1)
-        self.assertEqual(result["strikes"][3]["defender_hp"], 34)
-        self.assertEqual(result["strikes"][-1]["defender_hp"], 0)
+                         [("a1", True, 5), ("d1", True, 5), ("a1", True, 2)])
+        self.assertEqual([strike["defender_hp"] for strike in result["strikes"]], [2, 35, 0])
         self.assertTrue(result["finished"])
         self.assertEqual(result["winner"], "A")
         self.assertTrue(_side_at(engine, 2)["eliminated"])
@@ -639,7 +636,7 @@ class CombatTest(unittest.TestCase):
         rules["units"]["Veteran"] = H._unit_type("Veteran", hp=55, moves=5,
                                                  cost=20, level=2)
         engine = _combat_engine("Fighter", "Fighter", rules_data=rules,
-                                defender_hp=2)
+                                defender_hp=2, certain=True)
         _attack(engine)
         attacker = _unit_at(engine, 1, "a1")
         self.assertEqual(attacker["unit_type"], "Veteran")
@@ -653,7 +650,7 @@ class CombatTest(unittest.TestCase):
              "damage_type": "blade", "range": "melee",
              "specials": ["poison", "slow"]}])
 
-        engine = _combat_engine("Poisoner", "Fighter", rules_data=rules)
+        engine = _combat_engine("Poisoner", "Fighter", rules_data=rules, certain=True)
         _attack(engine)
         self.assertEqual(sorted(_unit_at(engine, 1, "d1")["status"]),
                          ["poisoned", "slowed"])
@@ -675,14 +672,14 @@ class CombatTest(unittest.TestCase):
         self.assertEqual(_unit_at(engine, 1, "d1")["hp"], 40)
 
         engine = _combat_engine("Poisoner", "Fighter", rules_data=rules,
-                                defender_hp=1)
+                                defender_hp=1, certain=True)
         result = _attack(engine)
         self.assertEqual(len(result["strikes"]), 1)
         self.assertEqual(result["strikes"][0]["defender_hp"], 0)
         self.assertIsNone(_unit_at(engine, 1, "d1"))
 
     def test_leader_death_eliminates_the_side_and_ends_the_game(self):
-        engine = _combat_engine("Fighter", "Fighter", defender_hp=1)
+        engine = _combat_engine("Fighter", "Fighter", defender_hp=1, certain=True)
         result = _attack(engine)
         self.assertTrue(result["finished"])
         self.assertEqual(result["winner"], "A")
@@ -690,12 +687,12 @@ class CombatTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "game has ended"):
             H.step(engine, {"kind": "end_turn"})
 
-    def test_forecast_is_a_single_point_mass(self):
+    def test_forecast_is_an_exact_distribution(self):
         engine = H.engine()
         first = json.loads(engine.forecast(1, "p1", "e1", 0, 128))
-        self.assertEqual(first["combat_version"], "expected_damage_v2")
+        self.assertEqual(first["combat_version"], "probabilistic_combat_v1")
         self.assertFalse(first["approximate"])
-        self.assertEqual(first["samples"], 1)
+        self.assertEqual(first["samples"], 0)
         # The sample count stays accepted for compatibility and is ignored,
         # including values the stochastic resolver used to reject.
         for samples in (0, 1, 128, 4096, 4097, 10 ** 6):
@@ -706,24 +703,21 @@ class CombatTest(unittest.TestCase):
         for role in ("attacker", "defender"):
             with self.subTest(role=role):
                 stats = first[role]
-                self.assertEqual(len(stats["hp_chance"]), 1)
-                ((hp, probability),) = stats["hp_chance"].items()
-                self.assertEqual(probability, 1.0)
-                self.assertEqual(stats["average_hp"], int(hp))
-                self.assertIn(stats["poisoned"], (0, 1))
-                self.assertIn(stats["slowed"], (0, 1))
+                self.assertAlmostEqual(sum(stats["hp_chance"].values()), 1.0)
+                self.assertAlmostEqual(stats["average_hp"], sum(int(h)*p for h,p in stats["hp_chance"].items()))
+                self.assertTrue(all(0 <= stats[k] <= 1 for k in ("poisoned", "slowed")))
 
     def test_forecast_resolves_once_without_mutating_the_game(self):
-        engine = _combat_engine("Fighter", "Fighter", defender_hp=7)
+        engine = _combat_engine("Fighter", "Fighter", defender_hp=7, certain=True)
         snapshot = H.snapshot(engine)
         observation = H.observe(engine, 1)
         forecast = json.loads(engine.forecast(1, "a1", "d1", 0, 512))
         self.assertEqual(H.snapshot(engine), snapshot)
         self.assertEqual(H.observe(engine, 1), observation)
         self.assertEqual(forecast["defender"]["average_hp"], 0)
-        self.assertEqual(forecast["attacker"]["average_hp"], 34)
+        self.assertEqual(forecast["attacker"]["average_hp"], 35)
         result = _attack(engine)
-        self.assertEqual(len(result["strikes"]), 5)
+        self.assertEqual(len(result["strikes"]), 3)
         self.assertIsNone(_unit_at(engine, 1, "d1"))
         self.assertEqual(_unit_at(engine, 1, "a1")["hp"], forecast["attacker"]["average_hp"])
 
