@@ -107,7 +107,8 @@ class FailureBoundaryTests(unittest.TestCase):
             runner=cadence.ValidationCadenceTests().runner(temp)
             model=Policy('duel')
             addon=Path(FormatExperiment.ensure_export(runner,model,'support','LearningSupport'))
-            # The actual generated weights exceed the submitted-package limit.
+            # Compact weights fit; keep this an actually oversized SDK submission.
+            with (addon/'README.md').open('a') as stream: stream.write('x'*(16*1024*1024))
             with self.assertRaisesRegex(ValueError,'16 MiB'):
                 addons.validate(addon)
             self.assertEqual(FormatExperiment.ensure_export(runner,model,'support','LearningSupport'),str(addon))
