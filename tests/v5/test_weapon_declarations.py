@@ -12,7 +12,8 @@ class WeaponDeclarationTests(unittest.TestCase):
         raw = {'1': {'1': 'attack', '2': dict(name='sword', accuracy=10, parry=-5)},
                '2': {'1': 'attack', '2': dict(name='bow')}}
         self.assertEqual(compile_weapons(raw, compact),
-                         [dict(id='sword', accuracy=10, parry=-5), dict(id='bow', accuracy=0, parry=0)])
+                         ([dict(id='sword', accuracy=10, parry=-5, attack_weight=1, defense_weight=1, specials=[]),
+                           dict(id='bow', accuracy=0, parry=0, attack_weight=1, defense_weight=1, specials=[])], []))
         self.assertEqual(compact, before)
 
     def test_mismatched_inventory_or_order_is_rejected(self):

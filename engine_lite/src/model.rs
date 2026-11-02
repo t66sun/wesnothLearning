@@ -17,6 +17,8 @@ pub struct Weapon {
     pub range: String,
     #[serde(default)] pub accuracy: i32,
     #[serde(default)] pub parry: i32,
+    #[serde(default = "weapon_weight")] pub attack_weight: f64,
+    #[serde(default = "weapon_weight")] pub defense_weight: f64,
     #[serde(default)] pub specials: BTreeSet<String>,
     #[serde(default)] pub plague_type: Option<String>,
     #[serde(default)] pub drain_percent: Option<u32>,
@@ -24,6 +26,8 @@ pub struct Weapon {
     #[serde(default)] pub defense_cth_sub: u32,
     #[serde(default)] pub opponent_attacks: Option<u32>,
 }
+
+fn weapon_weight()->f64 {1.}
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct UnitType {
