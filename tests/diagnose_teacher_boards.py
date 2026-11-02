@@ -28,9 +28,10 @@ def board(rules, name, fmt):
     spec = game_spec(rules, attacker, defender)
     # Keep remote leaders outside next-turn threat range of the tactical pair.
     spec.update(width=13, height=13, terrain=['Gg'] * 169)
-    spec['terrain'][0] = 'Kh'
-    spec['terrain'][1] = 'Ch'
-    for u, pos in zip(spec['units'], (0, 168, 84, 85)):
+    # Own leader anchors the four-player territorial heuristic within six hexes.
+    spec['terrain'][78] = 'Kh'
+    spec['terrain'][79] = 'Ch'
+    for u, pos in zip(spec['units'], (78, 168, 84, 85)):
         u['pos'] = pos
     if fmt != 'duel':
         for side, pos in ((3, 156), (4, 12)):
@@ -113,7 +114,7 @@ def main():
                     plan = decision['teacher_action']
                     assert plan == lite['teacher_action'], (plan, lite['teacher_action'])
                     _, _, target, weapon = CASES[name]
-                    assert (plan['kind'], plan['id'], plan['enemy'], plan['weapon']) == ('combat', 'attacker', target, weapon), plan
+                    assert tuple(plan.get(k) for k in ('kind', 'id', 'enemy', 'weapon')) == ('combat', 'attacker', target, weapon), plan
                     outcome = native.execute_candidate(teacher_candidate(plan))
                     row['native_outcome'] = outcome
                     assert outcome['committed'], outcome
