@@ -43,7 +43,7 @@ def host_modules(teacher_path=None):
                for name in ('observation.lua', 'candidate_selection.lua', 'candidates.lua', 'spatial.lua', 'routing.lua', 'rewards.lua')}
     modules['features.lua'] = 'return ' + _lua(schema())
     # The frozen archive remains lineage only; the host runs the maintained
-    # derived source adapted to expected_damage_v1.
+    # derived source adapted to the current probabilistic combat profile.
     modules.update(lua_modules())
     return modules
 

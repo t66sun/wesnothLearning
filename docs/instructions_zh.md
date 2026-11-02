@@ -6,7 +6,7 @@
 
 **当前路线：**每个 manifest 冻结唯一的自定义教师包 `gpt6astra` 及其血脉，因此教师对局、DAgger 纠正与导出一致携带同一身份。lite 是默认引擎，也是默认评估引擎；新 run 采集 lite Astra 教师对局（`native_bc_games` 为 0），最终对照同样为 lite Astra，官方 baseline 席位仍仅走 native。能力与限制见 architecture.md §4–§5。
 
-当前 lite 战斗/教师 profile 为 `probabilistic_combat_v5`，RNG 为 `splitmix64-rejection-v1`。构建匹配扩展后才能使用。旧 expected_damage_v1/v2、probabilistic_combat_v1/v2/v3/v4 运行须使用原源码/构建；不得重写冻结数据、快照或检查点身份。旧权重须走既有显式初始化/重置优化器流程，并重新验收。
+当前 lite 战斗/教师 profile 为 `probabilistic_combat_v6`，RNG 为 `splitmix64-rejection-v1`。构建匹配扩展后才能使用。旧 expected_damage_v1/v2、probabilistic_combat_v1/v2/v3/v4/v5 运行须使用原源码/构建；不得重写冻结数据、快照或检查点身份。旧权重须走既有显式初始化/重置优化器流程，并重新验收。
 
 当前编译规则包可按 `verification/weapon_filters_20261103/REPORT.md` 中的步骤从既有不可变捕获生成；使用新输出目录并保留旧包。
 ## 1. 接手时先确定任务

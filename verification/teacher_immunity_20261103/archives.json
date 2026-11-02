@@ -1,0 +1,18 @@
+{
+  "teacher_boards": {
+    "source": "a2d194b6a10eb8bc9615a23fde3a4b5025a10cf7",
+    "archive_sha256": "11f38bd0201f24b9fabe52525dbbb0900d439a81a5d740fa045fc44d608e3e27"
+  },
+  "teacher_immunity_checked": {
+    "source": "90d796ae996354c954b14c0c6cdfe509f0acbae2",
+    "archive_sha256": "8d4a1b61bd91377b4b730ad32a7b9488b1846774f77e09860402aaf92f57d7dc"
+  },
+  "teacher_boards_final": {
+    "source": "0111083915a5a5076f39e43be7c67c9e4739b447",
+    "archive_sha256": "83956cf93e0afe8271a1ee8f056e8fb881b5bcf0eefee7d94a371db8c573ae08"
+  },
+  "immunity_native_final": {
+    "source": "afec90f76d7157315a25974ba758cee315e1be8a",
+    "archive_sha256": "5bda9e97a2dd30dc199c383d4926de393e2b05e4d0d5463f99b03d2e4c52d4a3"
+  }
+}

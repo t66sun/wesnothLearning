@@ -1,0 +1,76 @@
+test_drain_immunity_blocks_healing_in_forecast_and_execution (tests.v5.test_combat_immunity.CombatImmunityTests.test_drain_immunity_blocks_healing_in_forecast_and_execution) ... 
+  test_drain_immunity_blocks_healing_in_forecast_and_execution (tests.v5.test_combat_immunity.CombatImmunityTests.test_drain_immunity_blocks_healing_in_forecast_and_execution) (defense=False, immune=True) ... FAIL
+  test_drain_immunity_blocks_healing_in_forecast_and_execution (tests.v5.test_combat_immunity.CombatImmunityTests.test_drain_immunity_blocks_healing_in_forecast_and_execution) (defense=True, immune=True) ... FAIL
+test_plague_immunity_blocks_conversion_in_both_directions (tests.v5.test_combat_immunity.CombatImmunityTests.test_plague_immunity_blocks_conversion_in_both_directions) ... 
+  test_plague_immunity_blocks_conversion_in_both_directions (tests.v5.test_combat_immunity.CombatImmunityTests.test_plague_immunity_blocks_conversion_in_both_directions) (defense=False, immune=True) ... FAIL
+  test_plague_immunity_blocks_conversion_in_both_directions (tests.v5.test_combat_immunity.CombatImmunityTests.test_plague_immunity_blocks_conversion_in_both_directions) (defense=True, immune=True) ... FAIL
+test_poison_immunity_blocks_nonfatal_and_fatal_forecasts_and_execution (tests.v5.test_combat_immunity.CombatImmunityTests.test_poison_immunity_blocks_nonfatal_and_fatal_forecasts_and_execution) ... 
+  test_poison_immunity_blocks_nonfatal_and_fatal_forecasts_and_execution (tests.v5.test_combat_immunity.CombatImmunityTests.test_poison_immunity_blocks_nonfatal_and_fatal_forecasts_and_execution) (defense=False, immune=True) ... FAIL
+  test_poison_immunity_blocks_nonfatal_and_fatal_forecasts_and_execution (tests.v5.test_combat_immunity.CombatImmunityTests.test_poison_immunity_blocks_nonfatal_and_fatal_forecasts_and_execution) (defense=True, immune=True) ... FAIL
+
+======================================================================
+FAIL: test_drain_immunity_blocks_healing_in_forecast_and_execution (tests.v5.test_combat_immunity.CombatImmunityTests.test_drain_immunity_blocks_healing_in_forecast_and_execution) (defense=False, immune=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/teacher_immunity_checked_20261103/tests/v5/test_combat_immunity.py", line 53, in test_drain_immunity_blocks_healing_in_forecast_and_execution
+    self.assertEqual(forecast['defender' if defense else 'attacker']['average_hp'], expected)
+AssertionError: 25.0 != 20
+
+======================================================================
+FAIL: test_drain_immunity_blocks_healing_in_forecast_and_execution (tests.v5.test_combat_immunity.CombatImmunityTests.test_drain_immunity_blocks_healing_in_forecast_and_execution) (defense=True, immune=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/teacher_immunity_checked_20261103/tests/v5/test_combat_immunity.py", line 53, in test_drain_immunity_blocks_healing_in_forecast_and_execution
+    self.assertEqual(forecast['defender' if defense else 'attacker']['average_hp'], expected)
+AssertionError: 24.0 != 19
+
+======================================================================
+FAIL: test_plague_immunity_blocks_conversion_in_both_directions (tests.v5.test_combat_immunity.CombatImmunityTests.test_plague_immunity_blocks_conversion_in_both_directions) (defense=False, immune=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/teacher_immunity_checked_20261103/tests/v5/test_combat_immunity.py", line 65, in test_plague_immunity_blocks_conversion_in_both_directions
+    self.assertEqual([u['unit_type'] for u in raised], [] if immune else ['Ghost'])
+AssertionError: Lists differ: ['Ghost'] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+'Ghost'
+
+- ['Ghost']
++ []
+
+======================================================================
+FAIL: test_plague_immunity_blocks_conversion_in_both_directions (tests.v5.test_combat_immunity.CombatImmunityTests.test_plague_immunity_blocks_conversion_in_both_directions) (defense=True, immune=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/teacher_immunity_checked_20261103/tests/v5/test_combat_immunity.py", line 65, in test_plague_immunity_blocks_conversion_in_both_directions
+    self.assertEqual([u['unit_type'] for u in raised], [] if immune else ['Ghost'])
+AssertionError: Lists differ: ['Ghost'] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+'Ghost'
+
+- ['Ghost']
++ []
+
+======================================================================
+FAIL: test_poison_immunity_blocks_nonfatal_and_fatal_forecasts_and_execution (tests.v5.test_combat_immunity.CombatImmunityTests.test_poison_immunity_blocks_nonfatal_and_fatal_forecasts_and_execution) (defense=False, immune=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/teacher_immunity_checked_20261103/tests/v5/test_combat_immunity.py", line 41, in test_poison_immunity_blocks_nonfatal_and_fatal_forecasts_and_execution
+    self.assertEqual(forecast['attacker' if defense else 'defender']['poisoned'], float(not immune))
+AssertionError: 1.0 != 0.0
+
+======================================================================
+FAIL: test_poison_immunity_blocks_nonfatal_and_fatal_forecasts_and_execution (tests.v5.test_combat_immunity.CombatImmunityTests.test_poison_immunity_blocks_nonfatal_and_fatal_forecasts_and_execution) (defense=True, immune=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/teacher_immunity_checked_20261103/tests/v5/test_combat_immunity.py", line 41, in test_poison_immunity_blocks_nonfatal_and_fatal_forecasts_and_execution
+    self.assertEqual(forecast['attacker' if defense else 'defender']['poisoned'], float(not immune))
+AssertionError: 1.0 != 0.0
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.045s
+
+FAILED (failures=6)
