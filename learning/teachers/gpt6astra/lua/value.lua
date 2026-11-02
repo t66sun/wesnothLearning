@@ -13,8 +13,8 @@ function V.poison_gain(value,max_hp)
     return V.POISON_TICK*(value or 0)/math.max(1,max_hp or 1)
 end
 
-function V.slow_gain(risk)
-    return (1-V.SLOW_DAMAGE)*(risk or 0)+V.SLOW_MOVE_VALUE
+function V.slow_gain(target_damage)
+    return (1-V.SLOW_DAMAGE)*(target_damage or 0)+V.SLOW_MOVE_VALUE
 end
 
 function V.combat_score(p)
@@ -23,7 +23,7 @@ function V.combat_score(p)
     local s=(p.dealt or 0)*ev/emax+(p.kill or 0)*ev*0.8
         -(p.taken or 0)*uv/umax-(p.death or 0)*uv*(p.death_cost or 0.7)
     if not p.enemy_poisoned then s=s+(p.poison or 0)*V.poison_gain(ev,emax) end
-    if not p.enemy_slowed then s=s+(p.slow or 0)*V.slow_gain(p.risk) end
+    if not p.enemy_slowed then s=s+(p.slow or 0)*V.slow_gain(p.target_damage) end
     if not p.own_poisoned then s=s-(p.own_poison or 0)*V.poison_gain(uv,umax) end
     s=s-math.max(0,(p.risk or 0)*(p.risk_weight or 0.35)-(p.expected_hp or 0)+6)*uv/umax*1.3
     return s
