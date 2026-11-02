@@ -1,0 +1,13 @@
+test_cli_mode_is_fixed_at_prepare (tests.v5.test_teacher_strength_acceptance.TeacherStrengthAcceptanceTests.test_cli_mode_is_fixed_at_prepare) ... ok
+test_compatibility_transform_is_only_used_when_requested (tests.v5.test_teacher_strength_acceptance.TeacherStrengthAcceptanceTests.test_compatibility_transform_is_only_used_when_requested) ... ok
+test_declared_schedule_covers_full_roster_and_original_contexts (tests.v5.test_teacher_strength_acceptance.TeacherStrengthAcceptanceTests.test_declared_schedule_covers_full_roster_and_original_contexts) ... ok
+test_exact_margin_never_passes_and_all_formats_are_required (tests.v5.test_teacher_strength_acceptance.TeacherStrengthAcceptanceTests.test_exact_margin_never_passes_and_all_formats_are_required) ... ok
+test_missing_faulted_or_incomplete_design_cannot_pass (tests.v5.test_teacher_strength_acceptance.TeacherStrengthAcceptanceTests.test_missing_faulted_or_incomplete_design_cannot_pass) ... ok
+test_ni_prepare_requires_archive_before_creating_output (tests.v5.test_teacher_strength_acceptance.TeacherStrengthAcceptanceTests.test_ni_prepare_requires_archive_before_creating_output) ... ok
+test_report_preserves_original_superiority_result (tests.v5.test_teacher_strength_acceptance.TeacherStrengthAcceptanceTests.test_report_preserves_original_superiority_result) ... ok
+test_small_negative_superiority_result_can_pass_ni (tests.v5.test_teacher_strength_acceptance.TeacherStrengthAcceptanceTests.test_small_negative_superiority_result_can_pass_ni) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 1.954s
+
+OK
