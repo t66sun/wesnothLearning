@@ -1,0 +1,8 @@
+test_small_negative_superiority_result_can_pass_ni (tests.v5.test_teacher_strength_acceptance.TeacherStrengthAcceptanceTests.test_small_negative_superiority_result_can_pass_ni) ... ok
+test_exact_margin_never_passes_and_all_formats_are_required (tests.v5.test_teacher_strength_acceptance.TeacherStrengthAcceptanceTests.test_exact_margin_never_passes_and_all_formats_are_required) ... ok
+test_missing_faulted_or_incomplete_design_cannot_pass (tests.v5.test_teacher_strength_acceptance.TeacherStrengthAcceptanceTests.test_missing_faulted_or_incomplete_design_cannot_pass) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.000s
+
+OK
