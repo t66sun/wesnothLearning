@@ -310,7 +310,7 @@ impl Game {
                     else if a.hp<=0{counter.and_then(|w|w.plague_type.as_ref()).map(|name|(name,d.side,a.pos,&a))}else{None};
                 if let Some((name,side,pos,victim))=plague {
                     if !self.rules.terrains[&self.spec.terrain[pos]].village && !self.rules.units[&victim.unit_type].abilities.contains("unplagueable") && !victim.status.contains("unplagueable") {
-                        let t=&self.rules.units[&name];let id=format!("lite-{}",self.next_id);self.next_id+=1;
+                        let t=&self.rules.units[name];let id=format!("lite-{}",self.next_id);self.next_id+=1;
                         self.units.push(Unit{id,unit_type:name.clone(),side,pos,hp:t.hp,moves:0,attacks_left:0,
                             xp:0,leader:false,status:BTreeSet::new(),traits:BTreeSet::new(),acted:true,feeding_bonus:0,amla_count:0,
                             resolved_max_hp:None,resolved_max_moves:None,resolved_max_experience:None,resolved_weapon_damage:vec![]});
