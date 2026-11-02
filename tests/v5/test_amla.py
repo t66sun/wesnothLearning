@@ -42,6 +42,21 @@ class AmlaTests(unittest.TestCase):
                 actual = self.attack(self.battle(declared=declared, count=count))
                 self.assertEqual((actual['hp'], actual['xp']), (12, 40))
 
+    def test_feeding_bonus_is_preserved_by_amla(self):
+        engine = self.battle()
+        saved = H.snapshot(engine)
+        game = saved['game']
+        game['rules']['units']['Fighter']['abilities'] = ['feeding']
+        game['rules']['units']['Fighter']['weapons'][0].update(damage=8)
+        game['rules']['units']['Skeleton']['defense'] = dict.fromkeys(H.DEFENSE, 100)
+        next(u for u in game['units'] if u['id']=='p1')['xp'] = 32
+        next(u for u in game['units'] if u['id']=='e1')['hp'] = 1
+        # Build from an explicit fixture; snapshots keep frozen rule identities.
+        spec = dict(game['spec'], units=game['units'])
+        engine = H.engine(game_spec=spec, rules_data=game['rules'])
+        actual = self.attack(engine)
+        self.assertEqual((actual['hp'], actual['resolved_max_hp'], actual['feeding_bonus']), (44, 43, 1))
+
     def test_old_combat_snapshots_are_rejected(self):
         engine = self.battle()
         saved = H.snapshot(engine)
