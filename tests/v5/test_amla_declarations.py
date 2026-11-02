@@ -1,6 +1,9 @@
 """AMLA compiler accepts the exact native rule, never its display label alone."""
 import copy
 import unittest
+from pathlib import Path
+
+from engine_lite.audit import audit_catalog
 
 from engine_lite.advancement import compile_advancement
 
@@ -17,6 +20,12 @@ def standard():
 
 
 class AmlaDeclarationTests(unittest.TestCase):
+    def test_catalog_distinguishes_implemented_standard_amla(self):
+        report = audit_catalog(Path(__file__).resolve().parents[2] / 'data/rules/1.18.8-amla')
+        self.assertNotIn('amla_execution_unimplemented',
+                         report['units']['Dwarvish Lord']['definition_gaps'])
+        self.assertEqual(report['training_closure']['unsupported_unit_ids'], [])
+
     def test_exact_declaration_and_no_declaration(self):
         self.assertEqual(compile_advancement(standard()), (True, []))
         self.assertEqual(compile_advancement({}), (False, []))

@@ -39,7 +39,7 @@ Every item states what is open, the smallest Ubuntu procedure that would close i
 
 ## R3 — Adapted teacher strength evidence
 
-**Status:** the adaptation itself is implemented, six value-level positions were checked, and a bounded smoke ran on the Ubuntu host 2026-10-31: 14 games, all `complete`, `truncated=0`, adapted versus frozen Astra differed by −1.5 rank points in duel, +0.2083 in ffa4 and −1.125 in team2v2, one block and one distinct scenario per format, therefore inconclusive for strength. Full legal-board teacher query/ranking and the complete 12-block comparison are NOT RUN, including the current expected_damage_v2 profile. Tactical evidence and strength evidence stay separate.
+**Status:** the adaptation itself is implemented, six value-level positions were checked, and a bounded smoke ran on the Ubuntu host 2026-10-31: 14 games, all `complete`, `truncated=0`, adapted versus frozen Astra differed by −1.5 rank points in duel, +0.2083 in ffa4 and −1.125 in team2v2, one block and one distinct scenario per format, therefore inconclusive for strength. Full legal-board teacher query/ranking and the complete 12-block comparison are NOT RUN, including the current probabilistic_combat_v3 profile. Tactical evidence and strength evidence stay separate.
 
 **Procedure:** compare frozen unadapted versus adapted Astra under the same rules, with paired initial maps, factions and roles, using one complete existing rotation block per format as a bounded smoke (predeclare games and turn cap). Reuse matching new-rule games where roles and schedules align. Truncated or underfilled results stay inconclusive. Claiming maintained or improved strength requires the unchanged complete 12-block validation/champion contract on a frozen hold-out validation schedule, never tuned on.
 
@@ -72,8 +72,8 @@ No credentials in evidence. A failure, a missing required observation, a silent 
 
 ## R4 — Remaining native combat declarations and advancement
 
-**Status:** fatal poison/slow prediction, combat/kill advancement healing, status clearing and level-zero kill XP are implemented and covered by fixed native regressions (`verification/combat_boundaries_20261102/REPORT.md`). Complete weapon filtering and default AMLA execution remain unaccepted; their native regressions are unwritten.
+**Status:** fatal poison/slow prediction, combat/kill advancement healing, status clearing and level-zero kill XP are implemented and covered by fixed native regressions (`verification/combat_boundaries_20261102/REPORT.md`). Standard AMLA execution has five passing native cases (`verification/standard_amla_20261102/REPORT.md`). Complete weapon filtering and accuracy/parry remain unaccepted; an Elvish Champion accuracy=10 case currently fails. Weapon regression coverage is incomplete.
 
-**Procedure:** ship committed source to a fresh Ubuntu directory. Reuse frozen 1.18.8-training rules and the installed native oracle. Add fixed legal positions for weapon disabling/weights and standard AMLA; compare complete HP/status distributions, sampled advancement state and counter identity. Record source/rules/executable hashes in a new dated evidence directory. No collection/training is authorized by this plan.
+**Procedure:** ship committed source to a fresh Ubuntu directory. Reuse frozen 1.18.8-amla rules and the installed native oracle. Add fixed legal positions for weapon disabling/weights and accuracy/parry; compare complete HP/status distributions, sampled advancement state and counter identity. Record source/rules/executable hashes in a new dated evidence directory. No collection/training is authorized by this plan.
 
 **Pass:** supported cases match the declared native contract; unsupported declarations remain explicitly rejected or approximate. Native strength/transfer also requires the separately authorized R3 panel. **Training blocker:** full native-transfer claims; approximation-gated lite use remains available.

@@ -23,7 +23,7 @@ DISPLAY_ATTRIBUTES = {
 GLOBAL_GAPS = [
     'native compound combat modifier rounding and declaration filters need differential acceptance',
     'random trait generation and trait preservation across advancement are not implemented',
-    'advancement choice and AMLA execution are not implemented',
+    'custom advancement choices and nonstandard AMLA are not implemented',
     'separate vision_costs and jamming are not implemented',
     'runtime unit variations are not implemented',
 ]
@@ -197,7 +197,7 @@ def audit_catalog(directory):
             gaps = []
             if definition['events']:
                 gaps.append('scripted_type_event')
-            if definition['advancements']:
+            if definition['advancements'] and not rules['units'][unit_id].get('standard_amla'):
                 gaps.append('amla_execution_unimplemented')
             if gameplay_variants:
                 gaps.append('runtime_unit_variations_unimplemented')
