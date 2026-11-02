@@ -180,7 +180,7 @@ class TrainingReadinessTests(unittest.TestCase):
             self.assertEqual(rules_catalog.resolve_dir(), (ROOT / 'from-env').resolve())
             self.assertEqual(rules_catalog.resolve_dir(ROOT / 'explicit'), (ROOT / 'explicit').resolve())
         with mock.patch.dict(os.environ, {}, clear=True):
-            self.assertEqual(rules_catalog.resolve_dir(), (ROOT / 'data/rules/1.18.8-combat').resolve())
+            self.assertEqual(rules_catalog.resolve_dir(), (ROOT / 'data/rules/1.18.8-combat-filtered').resolve())
 
 
 class ProvenanceCacheTests(unittest.TestCase):

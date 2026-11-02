@@ -21,7 +21,7 @@ def standard():
 
 class AmlaDeclarationTests(unittest.TestCase):
     def test_catalog_distinguishes_implemented_standard_amla(self):
-        report = audit_catalog(Path(__file__).resolve().parents[2] / 'data/rules/1.18.8-combat')
+        report = audit_catalog(Path(__file__).resolve().parents[2] / 'data/rules/1.18.8-combat-filtered')
         self.assertNotIn('amla_execution_unimplemented',
                          report['units']['Dwarvish Lord']['definition_gaps'])
         self.assertEqual(report['training_closure']['unsupported_unit_ids'], [])

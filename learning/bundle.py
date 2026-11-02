@@ -22,7 +22,7 @@ from .common import ROOT
 
 ARCHIVE_ROOT = 'WesnothLearning'
 SCHEMA = 1
-RULES_DIR = 'data/rules/1.18.8-combat'
+RULES_DIR = 'data/rules/1.18.8-combat-filtered'
 CATALOG = RULES_DIR + '/catalog-summary.json'
 RULES = RULES_DIR + '/rules.json'
 RULE_VERSION = '1.18.8'

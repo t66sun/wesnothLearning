@@ -1,9 +1,9 @@
--- Shared tactical values for probabilistic_combat_v4 rules.
+-- Shared tactical values for probabilistic_combat_v5 rules.
 -- Native half-damage slow and eight-point poison; retain the teacher decision
 -- structure while evaluating the engine's public combat probabilities.
 local V={}
 
-V.COMBAT_PROFILE='probabilistic_combat_v4'
+V.COMBAT_PROFILE='probabilistic_combat_v5'
 V.DAMAGE_UPLIFT=1.0
 V.SLOW_DAMAGE=0.5
 V.POISON_TICK=8

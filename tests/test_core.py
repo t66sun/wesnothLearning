@@ -42,7 +42,7 @@ def record(players=2, game='g', index=0):
 
 
 IDENTITY=dict(engine='lite',engine_version='lite-0.2',
-              rng_version='splitmix64-rejection-v1',combat_version='probabilistic_combat_v4',
+              rng_version='splitmix64-rejection-v1',combat_version='probabilistic_combat_v5',
               **teacher_identity())
 
 

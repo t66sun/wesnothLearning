@@ -21,7 +21,7 @@ ROOT = Path(__file__).resolve().parents[1]
 def resolve_dir(value=None):
     """Resolve one rule directory consistently for features, jobs and adapters."""
     return Path(value or os.environ.get('WESNOTH_RULES_DIR') or
-                ROOT / 'data/rules/1.18.8-combat').resolve()
+                ROOT / 'data/rules/1.18.8-combat-filtered').resolve()
 
 
 @lru_cache(maxsize=4)
@@ -78,6 +78,12 @@ def _training_acceptance(metadata, rules_dir, rules):
                       for field in ('accuracy', 'parry'))]
     if missing:
         raise RuntimeError('training rules lack compiled weapon hit modifiers: '+', '.join(missing))
+    missing = [name for name in closure['unit_ids']
+               if any(not isinstance(weapon.get(field), (int, float))
+                      for weapon in rules['units'][name]['weapons']
+                      for field in ('attack_weight', 'defense_weight'))]
+    if missing:
+        raise RuntimeError('training rules lack compiled weapon weights: '+', '.join(missing))
     profile_path = ROOT / closure['profile']
     return dict(scope=closure['scope'], profile=closure['profile'],
                 profile_sha256=hashlib.sha256(profile_path.read_bytes()).hexdigest(),

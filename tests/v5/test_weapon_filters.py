@@ -22,6 +22,13 @@ class WeaponFilterTests(unittest.TestCase):
         spec['units'][2].update(unit_type='Skeleton', hp=36, moves=4)
         return H.engine(game_spec=spec, rules_data=rules)
 
+    def test_old_v4_snapshot_is_rejected(self):
+        engine = self.battle([1, 1])
+        old = H.snapshot(engine)
+        old['combat_version'] = 'probabilistic_combat_v4'
+        with self.assertRaisesRegex(ValueError, 'snapshot version mismatch'):
+            H.restore(engine, old)
+
     def test_nonpositive_defense_weight_is_ineligible(self):
         for weight in (0, -1):
             with self.subTest(weight=weight):
