@@ -1,0 +1,2013 @@
+{
+  "name": "immune_counter_drain",
+  "spec": {
+    "width": 7,
+    "height": 7,
+    "terrain": [
+      "Kh",
+      "Ch",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg^Vh",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg",
+      "Gg"
+    ],
+    "sides": [
+      {
+        "id": 1,
+        "team": "1",
+        "faction": "Rebels",
+        "gold": 0,
+        "base_income": 2,
+        "recruit": [
+          "Elvish Fighter"
+        ],
+        "fog": false,
+        "shroud": false,
+        "share_view": false,
+        "share_maps": false
+      },
+      {
+        "id": 2,
+        "team": "2",
+        "faction": "Northerners",
+        "gold": 0,
+        "base_income": 2,
+        "recruit": [
+          "Orcish Grunt"
+        ],
+        "fog": false,
+        "shroud": false,
+        "share_view": false,
+        "share_maps": false
+      }
+    ],
+    "units": [
+      {
+        "id": "leader1",
+        "unit_type": "Elvish Captain",
+        "side": 1,
+        "pos": 0,
+        "hp": 47,
+        "moves": 5,
+        "attacks_left": 1,
+        "xp": 0,
+        "leader": true,
+        "status": [],
+        "traits": []
+      },
+      {
+        "id": "leader2",
+        "unit_type": "Orcish Warrior",
+        "side": 2,
+        "pos": 48,
+        "hp": 58,
+        "moves": 5,
+        "attacks_left": 1,
+        "xp": 0,
+        "leader": true,
+        "status": [],
+        "traits": []
+      },
+      {
+        "id": "attacker",
+        "unit_type": "Elvish Fighter",
+        "side": 1,
+        "pos": 23,
+        "hp": 33,
+        "moves": 5,
+        "attacks_left": 1,
+        "xp": 0,
+        "leader": false,
+        "status": [
+          "undrainable"
+        ],
+        "traits": []
+      },
+      {
+        "id": "defender",
+        "unit_type": "Ghost",
+        "side": 2,
+        "pos": 24,
+        "hp": 12,
+        "moves": 7,
+        "attacks_left": 1,
+        "xp": 0,
+        "leader": false,
+        "status": [],
+        "traits": []
+      }
+    ],
+    "village_owner": {},
+    "seed": 713,
+    "max_turns": 4,
+    "experience_modifier": 100,
+    "allow_approximate": true,
+    "differential_probe": true
+  },
+  "action": {
+    "kind": "attack",
+    "unit": "attacker",
+    "target": "defender",
+    "weapon": 0
+  },
+  "initial": {
+    "native": {
+      "approximate": false,
+      "current_side": 1,
+      "engine_id": "native-1.18.8",
+      "explored": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "height": 7,
+      "last_seen": {
+        "defender": {
+          "turn": 1,
+          "unit": {
+            "attacks_left": 1,
+            "hp": 12,
+            "id": "defender",
+            "leader": false,
+            "moves": 7,
+            "pos": 24,
+            "resolved_max_experience": 30,
+            "resolved_max_hp": 18,
+            "resolved_max_moves": 7,
+            "side": 2,
+            "status": [
+              "unpoisonable",
+              "undrainable",
+              "unplagueable"
+            ],
+            "traits": [],
+            "unit_type": "Ghost",
+            "xp": 0
+          }
+        },
+        "leader2": {
+          "turn": 1,
+          "unit": {
+            "attacks_left": 1,
+            "hp": 58,
+            "id": "leader2",
+            "leader": true,
+            "moves": 5,
+            "pos": 48,
+            "resolved_max_experience": 67,
+            "resolved_max_hp": 58,
+            "resolved_max_moves": 5,
+            "side": 2,
+            "status": [],
+            "traits": [],
+            "unit_type": "Orcish Warrior",
+            "xp": 0
+          }
+        }
+      },
+      "rng_version": "native-1.18.8",
+      "rules_version": "native-1.18.8",
+      "side": 1,
+      "sides": [
+        {
+          "base_income": 2,
+          "eliminated": false,
+          "fog": false,
+          "gold": 0,
+          "id": 1,
+          "recruit": [
+            "Elvish Fighter"
+          ],
+          "share_maps": false,
+          "share_view": false,
+          "shroud": false,
+          "team": "1",
+          "total_income": 2
+        },
+        {
+          "base_income": null,
+          "eliminated": false,
+          "fog": false,
+          "gold": null,
+          "id": 2,
+          "recruit": null,
+          "share_maps": false,
+          "share_view": false,
+          "shroud": false,
+          "team": "2",
+          "total_income": null
+        }
+      ],
+      "terrain": [
+        "Kh",
+        "Ch",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg^Vh",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg"
+      ],
+      "truncated": false,
+      "turn": 1,
+      "units": [
+        {
+          "attacks_left": 1,
+          "hp": 33,
+          "id": "attacker",
+          "leader": false,
+          "moves": 5,
+          "pos": 23,
+          "resolved_max_experience": 37,
+          "resolved_max_hp": 33,
+          "resolved_max_moves": 5,
+          "side": 1,
+          "status": [
+            "undrainable"
+          ],
+          "traits": [],
+          "unit_type": "Elvish Fighter",
+          "xp": 0
+        },
+        {
+          "attacks_left": 1,
+          "hp": 12,
+          "id": "defender",
+          "leader": false,
+          "moves": 7,
+          "pos": 24,
+          "resolved_max_experience": 30,
+          "resolved_max_hp": 18,
+          "resolved_max_moves": 7,
+          "side": 2,
+          "status": [
+            "unpoisonable",
+            "undrainable",
+            "unplagueable"
+          ],
+          "traits": [],
+          "unit_type": "Ghost",
+          "xp": 0
+        },
+        {
+          "attacks_left": 1,
+          "hp": 47,
+          "id": "leader1",
+          "leader": true,
+          "moves": 5,
+          "pos": 0,
+          "resolved_max_experience": 85,
+          "resolved_max_hp": 47,
+          "resolved_max_moves": 5,
+          "side": 1,
+          "status": [],
+          "traits": [],
+          "unit_type": "Elvish Captain",
+          "xp": 0
+        },
+        {
+          "attacks_left": 1,
+          "hp": 58,
+          "id": "leader2",
+          "leader": true,
+          "moves": 5,
+          "pos": 48,
+          "resolved_max_experience": 67,
+          "resolved_max_hp": 58,
+          "resolved_max_moves": 5,
+          "side": 2,
+          "status": [],
+          "traits": [],
+          "unit_type": "Orcish Warrior",
+          "xp": 0
+        }
+      ],
+      "villages": {
+        "8": [
+          0,
+          1
+        ]
+      },
+      "visible": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "width": 7,
+      "winner": null
+    },
+    "lite": {
+      "approximate": true,
+      "combat_version": "probabilistic_combat_v6",
+      "current_side": 1,
+      "engine_id": "lite-0.2",
+      "explored": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "finished": false,
+      "height": 7,
+      "last_seen": {
+        "defender": {
+          "turn": 1,
+          "unit": {
+            "acted": false,
+            "amla_count": 0,
+            "attacks_left": 1,
+            "feeding_bonus": 0,
+            "hp": 12,
+            "id": "defender",
+            "leader": false,
+            "moves": 7,
+            "pos": 24,
+            "resolved_max_experience": null,
+            "resolved_max_hp": null,
+            "resolved_max_moves": null,
+            "resolved_weapon_damage": [],
+            "side": 2,
+            "status": [
+              "undrainable",
+              "unplagueable",
+              "unpoisonable"
+            ],
+            "traits": [],
+            "unit_type": "Ghost",
+            "xp": 0
+          }
+        },
+        "leader2": {
+          "turn": 1,
+          "unit": {
+            "acted": false,
+            "amla_count": 0,
+            "attacks_left": 1,
+            "feeding_bonus": 0,
+            "hp": 58,
+            "id": "leader2",
+            "leader": true,
+            "moves": 5,
+            "pos": 48,
+            "resolved_max_experience": null,
+            "resolved_max_hp": null,
+            "resolved_max_moves": null,
+            "resolved_weapon_damage": [],
+            "side": 2,
+            "status": [],
+            "traits": [],
+            "unit_type": "Orcish Warrior",
+            "xp": 0
+          }
+        }
+      },
+      "rng_version": "splitmix64-rejection-v1",
+      "rules_hash": "58ead901dadf8ebec9f55384d15daee3ba9414eccb3932a4bc2a02bb784e361c",
+      "rules_version": "lite-combat-2-58ead901dadf8ebe",
+      "side": 1,
+      "sides": [
+        {
+          "base_income": 2,
+          "eliminated": false,
+          "fog": false,
+          "gold": 0,
+          "id": 1,
+          "recruit": [
+            "Elvish Fighter"
+          ],
+          "share_maps": false,
+          "share_view": false,
+          "shroud": false,
+          "team": "1",
+          "total_income": 2
+        },
+        {
+          "base_income": null,
+          "eliminated": false,
+          "fog": false,
+          "gold": null,
+          "id": 2,
+          "recruit": null,
+          "share_maps": false,
+          "share_view": false,
+          "shroud": false,
+          "team": "2",
+          "total_income": null
+        }
+      ],
+      "terrain": [
+        "Kh",
+        "Ch",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg^Vh",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg"
+      ],
+      "truncated": false,
+      "turn": 1,
+      "units": [
+        {
+          "acted": false,
+          "amla_count": 0,
+          "attacks_left": 1,
+          "feeding_bonus": 0,
+          "hp": 47,
+          "id": "leader1",
+          "leader": true,
+          "moves": 5,
+          "pos": 0,
+          "resolved_max_experience": null,
+          "resolved_max_hp": null,
+          "resolved_max_moves": null,
+          "resolved_weapon_damage": [],
+          "side": 1,
+          "status": [],
+          "traits": [],
+          "unit_type": "Elvish Captain",
+          "xp": 0
+        },
+        {
+          "acted": false,
+          "amla_count": 0,
+          "attacks_left": 1,
+          "feeding_bonus": 0,
+          "hp": 58,
+          "id": "leader2",
+          "leader": true,
+          "moves": 5,
+          "pos": 48,
+          "resolved_max_experience": null,
+          "resolved_max_hp": null,
+          "resolved_max_moves": null,
+          "resolved_weapon_damage": [],
+          "side": 2,
+          "status": [],
+          "traits": [],
+          "unit_type": "Orcish Warrior",
+          "xp": 0
+        },
+        {
+          "acted": false,
+          "amla_count": 0,
+          "attacks_left": 1,
+          "feeding_bonus": 0,
+          "hp": 33,
+          "id": "attacker",
+          "leader": false,
+          "moves": 5,
+          "pos": 23,
+          "resolved_max_experience": null,
+          "resolved_max_hp": null,
+          "resolved_max_moves": null,
+          "resolved_weapon_damage": [],
+          "side": 1,
+          "status": [
+            "undrainable"
+          ],
+          "traits": [],
+          "unit_type": "Elvish Fighter",
+          "xp": 0
+        },
+        {
+          "acted": false,
+          "amla_count": 0,
+          "attacks_left": 1,
+          "feeding_bonus": 0,
+          "hp": 12,
+          "id": "defender",
+          "leader": false,
+          "moves": 7,
+          "pos": 24,
+          "resolved_max_experience": null,
+          "resolved_max_hp": null,
+          "resolved_max_moves": null,
+          "resolved_weapon_damage": [],
+          "side": 2,
+          "status": [
+            "undrainable",
+            "unplagueable",
+            "unpoisonable"
+          ],
+          "traits": [],
+          "unit_type": "Ghost",
+          "xp": 0
+        }
+      ],
+      "villages": {
+        "8": [
+          0,
+          1
+        ]
+      },
+      "visible": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "width": 7,
+      "winner": null
+    }
+  },
+  "legal": {
+    "native": [
+      {
+        "kind": "end_turn"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 7,
+        "unit": "attacker"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 14,
+        "unit": "attacker"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 21,
+        "unit": "attacker"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 28,
+        "unit": "attacker"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 35,
+        "unit": "attacker"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 42,
+        "unit": "attacker"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 1,
+        "unit": "attacker"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 8,
+        "unit": "attacker"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 15,
+        "unit": "attacker"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 22,
+        "unit": "attacker"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 29,
+        "unit": "attacker"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 36,
+        "unit": "attacker"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 43,
+        "unit": "attacker"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 2,
+        "unit": "attacker"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 9,
+        "unit": "attacker"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 16,
+        "unit": "attacker"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 30,
+        "unit": "attacker"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 37,
+        "unit": "attacker"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 44,
+        "unit": "attacker"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 3,
+        "unit": "attacker"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 10,
+        "unit": "attacker"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 17,
+        "unit": "attacker"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 31,
+        "unit": "attacker"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 38,
+        "unit": "attacker"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 45,
+        "unit": "attacker"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 4,
+        "unit": "attacker"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 11,
+        "unit": "attacker"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 18,
+        "unit": "attacker"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 25,
+        "unit": "attacker"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 39,
+        "unit": "attacker"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 46,
+        "unit": "attacker"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 5,
+        "unit": "attacker"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 12,
+        "unit": "attacker"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 19,
+        "unit": "attacker"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 26,
+        "unit": "attacker"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 6,
+        "unit": "attacker"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 13,
+        "unit": "attacker"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 20,
+        "unit": "attacker"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 27,
+        "unit": "attacker"
+      },
+      {
+        "kind": "attack",
+        "target": "defender",
+        "unit": "attacker",
+        "weapon": 0
+      },
+      {
+        "kind": "attack",
+        "target": "defender",
+        "unit": "attacker",
+        "weapon": 1
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 7,
+        "unit": "leader1"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 14,
+        "unit": "leader1"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 21,
+        "unit": "leader1"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 28,
+        "unit": "leader1"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 35,
+        "unit": "leader1"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 1,
+        "unit": "leader1"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 8,
+        "unit": "leader1"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 15,
+        "unit": "leader1"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 22,
+        "unit": "leader1"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 29,
+        "unit": "leader1"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 2,
+        "unit": "leader1"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 9,
+        "unit": "leader1"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 16,
+        "unit": "leader1"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 30,
+        "unit": "leader1"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 3,
+        "unit": "leader1"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 10,
+        "unit": "leader1"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 17,
+        "unit": "leader1"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 4,
+        "unit": "leader1"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 11,
+        "unit": "leader1"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 18,
+        "unit": "leader1"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 25,
+        "unit": "leader1"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 5,
+        "unit": "leader1"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 12,
+        "unit": "leader1"
+      },
+      {
+        "full": false,
+        "kind": "move",
+        "to": 19,
+        "unit": "leader1"
+      }
+    ],
+    "lite": [
+      {
+        "kind": "end_turn"
+      },
+      {
+        "kind": "move",
+        "unit": "leader1",
+        "to": 1,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "leader1",
+        "to": 2,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "leader1",
+        "to": 3,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "leader1",
+        "to": 4,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "leader1",
+        "to": 5,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "leader1",
+        "to": 7,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "leader1",
+        "to": 8,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "leader1",
+        "to": 9,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "leader1",
+        "to": 10,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "leader1",
+        "to": 11,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "leader1",
+        "to": 12,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "leader1",
+        "to": 14,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "leader1",
+        "to": 15,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "leader1",
+        "to": 16,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "leader1",
+        "to": 17,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "leader1",
+        "to": 18,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "leader1",
+        "to": 19,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "leader1",
+        "to": 21,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "leader1",
+        "to": 22,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "leader1",
+        "to": 25,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "leader1",
+        "to": 28,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "leader1",
+        "to": 29,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "leader1",
+        "to": 30,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "leader1",
+        "to": 35,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "attacker",
+        "to": 1,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "attacker",
+        "to": 2,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "attacker",
+        "to": 3,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "attacker",
+        "to": 4,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "attacker",
+        "to": 5,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "attacker",
+        "to": 6,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "attacker",
+        "to": 7,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "attacker",
+        "to": 8,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "attacker",
+        "to": 9,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "attacker",
+        "to": 10,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "attacker",
+        "to": 11,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "attacker",
+        "to": 12,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "attacker",
+        "to": 13,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "attacker",
+        "to": 14,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "attacker",
+        "to": 15,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "attacker",
+        "to": 16,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "attacker",
+        "to": 17,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "attacker",
+        "to": 18,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "attacker",
+        "to": 19,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "attacker",
+        "to": 20,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "attacker",
+        "to": 21,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "attacker",
+        "to": 22,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "attacker",
+        "to": 25,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "attacker",
+        "to": 26,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "attacker",
+        "to": 27,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "attacker",
+        "to": 28,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "attacker",
+        "to": 29,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "attacker",
+        "to": 30,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "attacker",
+        "to": 31,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "attacker",
+        "to": 35,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "attacker",
+        "to": 36,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "attacker",
+        "to": 37,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "attacker",
+        "to": 38,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "attacker",
+        "to": 39,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "attacker",
+        "to": 42,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "attacker",
+        "to": 43,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "attacker",
+        "to": 44,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "attacker",
+        "to": 45,
+        "full": false
+      },
+      {
+        "kind": "move",
+        "unit": "attacker",
+        "to": 46,
+        "full": false
+      },
+      {
+        "kind": "attack",
+        "unit": "attacker",
+        "target": "defender",
+        "weapon": 0
+      },
+      {
+        "kind": "attack",
+        "unit": "attacker",
+        "target": "defender",
+        "weapon": 1
+      }
+    ]
+  },
+  "native": {
+    "attacker": {
+      "hp": 25,
+      "status": []
+    },
+    "defender": {
+      "hp": 6,
+      "status": []
+    },
+    "oracle": {
+      "attacker": {
+        "average_hp": 25.800000000000004,
+        "hp_chance": {
+          "0": 0,
+          "1": 0,
+          "10": 0,
+          "11": 0,
+          "12": 0,
+          "13": 0,
+          "14": 0,
+          "15": 0,
+          "16": 0,
+          "17": 0,
+          "18": 0,
+          "19": 0,
+          "2": 0,
+          "20": 0,
+          "21": 0.21600000000000003,
+          "22": 0,
+          "23": 0,
+          "24": 0,
+          "25": 0.43200000000000005,
+          "26": 0,
+          "27": 0,
+          "28": 0,
+          "29": 0.28800000000000003,
+          "3": 0,
+          "30": 0,
+          "31": 0,
+          "32": 0,
+          "33": 0.06400000000000002,
+          "4": 0,
+          "5": 0,
+          "6": 0,
+          "7": 0,
+          "8": 0,
+          "9": 0
+        },
+        "poisoned": 0,
+        "slowed": 0
+      },
+      "attacker_hit": 0.5,
+      "attacker_weapon": {
+        "damage": 3,
+        "name": "sword",
+        "number": 1,
+        "strikes": 4
+      },
+      "defender": {
+        "average_hp": 6,
+        "hp_chance": {
+          "0": 0.0625,
+          "1": 0,
+          "10": 0,
+          "11": 0,
+          "12": 0.0625,
+          "13": 0,
+          "14": 0,
+          "15": 0,
+          "16": 0,
+          "17": 0,
+          "18": 0,
+          "2": 0,
+          "3": 0.25,
+          "4": 0,
+          "5": 0,
+          "6": 0.375,
+          "7": 0,
+          "8": 0,
+          "9": 0.25
+        },
+        "poisoned": 0,
+        "slowed": 0
+      },
+      "defender_hit": 0.6,
+      "defender_weapon": {
+        "damage": 4,
+        "name": "touch",
+        "number": 1,
+        "strikes": 3
+      }
+    },
+    "strikes": [
+      {
+        "attacker": "attacker",
+        "defender": "defender",
+        "defender_hp": 9,
+        "hit": true
+      },
+      {
+        "attacker": "defender",
+        "defender": "attacker",
+        "defender_hp": 29,
+        "hit": true
+      },
+      {
+        "attacker": "attacker",
+        "defender": "defender",
+        "defender_hp": 9,
+        "hit": false
+      },
+      {
+        "attacker": "defender",
+        "defender": "attacker",
+        "defender_hp": 29,
+        "hit": false
+      },
+      {
+        "attacker": "attacker",
+        "defender": "defender",
+        "defender_hp": 6,
+        "hit": true
+      },
+      {
+        "attacker": "defender",
+        "defender": "attacker",
+        "defender_hp": 25,
+        "hit": true
+      },
+      {
+        "attacker": "attacker",
+        "defender": "defender",
+        "defender_hp": 6,
+        "hit": false
+      }
+    ]
+  },
+  "lite_forecast": {
+    "approximate": false,
+    "attacker": {
+      "average_hp": 25.8,
+      "hp_chance": {
+        "21": 0.21600000000000003,
+        "25": 0.43200000000000005,
+        "29": 0.28800000000000003,
+        "33": 0.06400000000000002
+      },
+      "poisoned": 0.0,
+      "slowed": 0.0
+    },
+    "combat_version": "probabilistic_combat_v6",
+    "defender": {
+      "average_hp": 5.999999999999999,
+      "hp_chance": {
+        "0": 0.0625,
+        "12": 0.0625,
+        "3": 0.25,
+        "6": 0.375,
+        "9": 0.25
+      },
+      "poisoned": 0.0,
+      "slowed": 0.0
+    },
+    "samples": 0
+  },
+  "lite_actual": {
+    "actual_pos": null,
+    "current_side": 1,
+    "finished": false,
+    "intent": {
+      "kind": "attack",
+      "target": "defender",
+      "unit": "attacker",
+      "weapon": 0
+    },
+    "interrupted": false,
+    "strikes": [
+      {
+        "attacker": "attacker",
+        "chance": 50,
+        "damage": 0,
+        "defender": "defender",
+        "defender_hp": 12,
+        "hit": false
+      },
+      {
+        "attacker": "defender",
+        "chance": 60,
+        "damage": 4,
+        "defender": "attacker",
+        "defender_hp": 29,
+        "hit": true
+      },
+      {
+        "attacker": "attacker",
+        "chance": 50,
+        "damage": 3,
+        "defender": "defender",
+        "defender_hp": 9,
+        "hit": true
+      },
+      {
+        "attacker": "defender",
+        "chance": 60,
+        "damage": 4,
+        "defender": "attacker",
+        "defender_hp": 25,
+        "hit": true
+      },
+      {
+        "attacker": "attacker",
+        "chance": 50,
+        "damage": 0,
+        "defender": "defender",
+        "defender_hp": 9,
+        "hit": false
+      },
+      {
+        "attacker": "defender",
+        "chance": 60,
+        "damage": 0,
+        "defender": "attacker",
+        "defender_hp": 25,
+        "hit": false
+      },
+      {
+        "attacker": "attacker",
+        "chance": 50,
+        "damage": 3,
+        "defender": "defender",
+        "defender_hp": 6,
+        "hit": true
+      }
+    ],
+    "truncated": false,
+    "turn": 1,
+    "winner": null
+  },
+  "after": {
+    "native": [
+      {
+        "attacks_left": 0,
+        "hp": 25,
+        "id": "attacker",
+        "leader": false,
+        "moves": 0,
+        "pos": 23,
+        "resolved_max_experience": 37,
+        "resolved_max_hp": 33,
+        "resolved_max_moves": 5,
+        "side": 1,
+        "status": [
+          "undrainable"
+        ],
+        "traits": [],
+        "unit_type": "Elvish Fighter",
+        "xp": 1
+      },
+      {
+        "attacks_left": 1,
+        "hp": 6,
+        "id": "defender",
+        "leader": false,
+        "moves": 7,
+        "pos": 24,
+        "resolved_max_experience": 30,
+        "resolved_max_hp": 18,
+        "resolved_max_moves": 7,
+        "side": 2,
+        "status": [
+          "unpoisonable",
+          "undrainable",
+          "unplagueable"
+        ],
+        "traits": [],
+        "unit_type": "Ghost",
+        "xp": 1
+      },
+      {
+        "attacks_left": 1,
+        "hp": 47,
+        "id": "leader1",
+        "leader": true,
+        "moves": 5,
+        "pos": 0,
+        "resolved_max_experience": 85,
+        "resolved_max_hp": 47,
+        "resolved_max_moves": 5,
+        "side": 1,
+        "status": [],
+        "traits": [],
+        "unit_type": "Elvish Captain",
+        "xp": 0
+      },
+      {
+        "attacks_left": 1,
+        "hp": 58,
+        "id": "leader2",
+        "leader": true,
+        "moves": 5,
+        "pos": 48,
+        "resolved_max_experience": 67,
+        "resolved_max_hp": 58,
+        "resolved_max_moves": 5,
+        "side": 2,
+        "status": [],
+        "traits": [],
+        "unit_type": "Orcish Warrior",
+        "xp": 0
+      }
+    ],
+    "lite": [
+      {
+        "acted": false,
+        "amla_count": 0,
+        "attacks_left": 1,
+        "feeding_bonus": 0,
+        "hp": 47,
+        "id": "leader1",
+        "leader": true,
+        "moves": 5,
+        "pos": 0,
+        "resolved_max_experience": null,
+        "resolved_max_hp": null,
+        "resolved_max_moves": null,
+        "resolved_weapon_damage": [],
+        "side": 1,
+        "status": [],
+        "traits": [],
+        "unit_type": "Elvish Captain",
+        "xp": 0
+      },
+      {
+        "acted": false,
+        "amla_count": 0,
+        "attacks_left": 1,
+        "feeding_bonus": 0,
+        "hp": 58,
+        "id": "leader2",
+        "leader": true,
+        "moves": 5,
+        "pos": 48,
+        "resolved_max_experience": null,
+        "resolved_max_hp": null,
+        "resolved_max_moves": null,
+        "resolved_weapon_damage": [],
+        "side": 2,
+        "status": [],
+        "traits": [],
+        "unit_type": "Orcish Warrior",
+        "xp": 0
+      },
+      {
+        "acted": true,
+        "amla_count": 0,
+        "attacks_left": 0,
+        "feeding_bonus": 0,
+        "hp": 25,
+        "id": "attacker",
+        "leader": false,
+        "moves": 0,
+        "pos": 23,
+        "resolved_max_experience": null,
+        "resolved_max_hp": null,
+        "resolved_max_moves": null,
+        "resolved_weapon_damage": [],
+        "side": 1,
+        "status": [
+          "undrainable"
+        ],
+        "traits": [],
+        "unit_type": "Elvish Fighter",
+        "xp": 1
+      },
+      {
+        "acted": false,
+        "amla_count": 0,
+        "attacks_left": 1,
+        "feeding_bonus": 0,
+        "hp": 6,
+        "id": "defender",
+        "leader": false,
+        "moves": 7,
+        "pos": 24,
+        "resolved_max_experience": null,
+        "resolved_max_hp": null,
+        "resolved_max_moves": null,
+        "resolved_weapon_damage": [],
+        "side": 2,
+        "status": [
+          "undrainable",
+          "unplagueable",
+          "unpoisonable"
+        ],
+        "traits": [],
+        "unit_type": "Ghost",
+        "xp": 1
+      }
+    ]
+  }
+}

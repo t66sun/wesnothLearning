@@ -1,0 +1,122 @@
+{
+  "cases": [
+    {
+      "error": null,
+      "format": "duel",
+      "name": "lethal_target",
+      "status": "PASS"
+    },
+    {
+      "error": null,
+      "format": "duel",
+      "name": "survive_retaliation",
+      "status": "PASS"
+    },
+    {
+      "error": null,
+      "format": "duel",
+      "name": "magical_weapon",
+      "status": "PASS"
+    },
+    {
+      "error": null,
+      "format": "duel",
+      "name": "poison_weapon",
+      "status": "PASS"
+    },
+    {
+      "error": null,
+      "format": "duel",
+      "name": "slow_weapon",
+      "status": "PASS"
+    },
+    {
+      "error": null,
+      "format": "duel",
+      "name": "poison_immunity",
+      "status": "PASS"
+    },
+    {
+      "error": null,
+      "format": "ffa4",
+      "name": "lethal_target",
+      "status": "PASS"
+    },
+    {
+      "error": null,
+      "format": "ffa4",
+      "name": "survive_retaliation",
+      "status": "PASS"
+    },
+    {
+      "error": null,
+      "format": "ffa4",
+      "name": "magical_weapon",
+      "status": "PASS"
+    },
+    {
+      "error": null,
+      "format": "ffa4",
+      "name": "poison_weapon",
+      "status": "PASS"
+    },
+    {
+      "error": null,
+      "format": "ffa4",
+      "name": "slow_weapon",
+      "status": "PASS"
+    },
+    {
+      "error": null,
+      "format": "ffa4",
+      "name": "poison_immunity",
+      "status": "PASS"
+    },
+    {
+      "error": null,
+      "format": "team2v2",
+      "name": "lethal_target",
+      "status": "PASS"
+    },
+    {
+      "error": null,
+      "format": "team2v2",
+      "name": "survive_retaliation",
+      "status": "PASS"
+    },
+    {
+      "error": null,
+      "format": "team2v2",
+      "name": "magical_weapon",
+      "status": "PASS"
+    },
+    {
+      "error": null,
+      "format": "team2v2",
+      "name": "poison_weapon",
+      "status": "PASS"
+    },
+    {
+      "error": null,
+      "format": "team2v2",
+      "name": "slow_weapon",
+      "status": "PASS"
+    },
+    {
+      "error": null,
+      "format": "team2v2",
+      "name": "poison_immunity",
+      "status": "PASS"
+    }
+  ],
+  "limits": "Fixed first-decision boards only; no strength or full-game claim.",
+  "native_executable_sha256": "33f64aa3f5ee40228bd44e357b3f4d784121d4392ff774d6c059c7defa3e5fcf",
+  "rules_sha256": "e6b4f6200b0a8ad58a536b844fff37cfa9e0091bf0a0b702a8982155310f2f17",
+  "source": "0111083915a5a5076f39e43be7c67c9e4739b447",
+  "teacher": {
+    "teacher": "gpt6astra",
+    "teacher_profile": "probabilistic_combat_v6",
+    "teacher_source_sha256": "d0eb8d922b0c5b8092863ff712b9f2b4df097ac3653d90432c5d2d906aa87a38"
+  },
+  "wall_seconds": 48.87654452607967
+}

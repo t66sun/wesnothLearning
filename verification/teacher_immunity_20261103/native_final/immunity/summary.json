@@ -1,0 +1,139 @@
+{
+  "source": "afec90f76d7157315a25974ba758cee315e1be8a",
+  "rules_sha256": "e6b4f6200b0a8ad58a536b844fff37cfa9e0091bf0a0b702a8982155310f2f17",
+  "executable_sha256": "33f64aa3f5ee40228bd44e357b3f4d784121d4392ff774d6c059c7defa3e5fcf",
+  "transport_sha256": "0f811064ebd71e8820ec2b88a6f3d1fc0d9583e567dc29c69873705ed57d7203",
+  "seconds": 6.19925485085696,
+  "cases": [
+    {
+      "name": "immune_plague",
+      "metrics": {
+        "attacker": {
+          "native_mean_hp": 18,
+          "lite_hp": 18.0,
+          "native_death": 0,
+          "lite_death": 0,
+          "native_poison": 0,
+          "lite_poison": 0.0,
+          "native_slow": 0,
+          "lite_slow": 0.0
+        },
+        "defender": {
+          "native_mean_hp": 0,
+          "lite_hp": 0.0,
+          "native_death": 1,
+          "lite_death": 1.0,
+          "native_poison": 0,
+          "lite_poison": 0.0,
+          "native_slow": 0,
+          "lite_slow": 0.0
+        }
+      },
+      "forecast_us": 9.312320034950972,
+      "native_counter": {
+        "damage": 5,
+        "name": "staff",
+        "number": 1,
+        "strikes": 1
+      }
+    },
+    {
+      "name": "immune_counter_poison",
+      "metrics": {
+        "attacker": {
+          "native_mean_hp": 27.6,
+          "lite_hp": 27.6,
+          "native_death": 0,
+          "lite_death": 0,
+          "native_poison": 0,
+          "lite_poison": 0.0,
+          "native_slow": 0,
+          "lite_slow": 0.0
+        },
+        "defender": {
+          "native_mean_hp": 21.2,
+          "lite_hp": 21.200000000000006,
+          "native_death": 0,
+          "lite_death": 0,
+          "native_poison": 0,
+          "lite_poison": 0.0,
+          "native_slow": 0,
+          "lite_slow": 0.0
+        }
+      },
+      "forecast_us": 24.041379801928997,
+      "native_counter": {
+        "damage": 3,
+        "name": "throwing knives",
+        "number": 2,
+        "strikes": 3
+      }
+    },
+    {
+      "name": "immune_counter_drain",
+      "metrics": {
+        "attacker": {
+          "native_mean_hp": 25.800000000000004,
+          "lite_hp": 25.8,
+          "native_death": 0,
+          "lite_death": 0,
+          "native_poison": 0,
+          "lite_poison": 0.0,
+          "native_slow": 0,
+          "lite_slow": 0.0
+        },
+        "defender": {
+          "native_mean_hp": 6,
+          "lite_hp": 5.999999999999999,
+          "native_death": 0.0625,
+          "lite_death": 0.0625,
+          "native_poison": 0,
+          "lite_poison": 0.0,
+          "native_slow": 0,
+          "lite_slow": 0.0
+        }
+      },
+      "forecast_us": 36.1034506931901,
+      "native_counter": {
+        "damage": 4,
+        "name": "touch",
+        "number": 1,
+        "strikes": 3
+      }
+    },
+    {
+      "name": "immune_counter_plague",
+      "metrics": {
+        "attacker": {
+          "native_mean_hp": 0,
+          "lite_hp": 0.0,
+          "native_death": 1,
+          "lite_death": 1.0,
+          "native_poison": 0,
+          "lite_poison": 0.0,
+          "native_slow": 0,
+          "lite_slow": 0.0
+        },
+        "defender": {
+          "native_mean_hp": 15,
+          "lite_hp": 15.0,
+          "native_death": 0,
+          "lite_death": 0,
+          "native_poison": 0,
+          "lite_poison": 0.0,
+          "native_slow": 0,
+          "lite_slow": 0.0
+        }
+      },
+      "forecast_us": 10.4928994551301,
+      "native_counter": {
+        "damage": 6,
+        "name": "touch",
+        "number": 1,
+        "strikes": 2
+      }
+    }
+  ],
+  "failures": [],
+  "scope": "Fixed public battles: full HP/status probability parity at 1e-9. No training or strength claim."
+}

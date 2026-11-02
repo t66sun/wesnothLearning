@@ -1,0 +1,11 @@
+{"name": "immune_poison", "metrics": {"attacker": {"native_mean_hp": 21.2, "lite_hp": 21.200000000000003, "native_death": 0, "lite_death": 0, "native_poison": 0, "lite_poison": 0.0, "native_slow": 0, "lite_slow": 0.0}, "defender": {"native_mean_hp": 27.6, "lite_hp": 27.600000000000005, "native_death": 0, "lite_death": 0, "native_poison": 0, "lite_poison": 0.0, "native_slow": 0, "lite_slow": 0.0}}, "forecast_us": 24.395768996328115, "native_counter": {"damage": 4, "name": "bow", "number": 2, "strikes": 3}}
+{"name": "immune_drain", "metrics": {"attacker": {"native_mean_hp": 6, "lite_hp": 6.0, "native_death": 0.0625, "lite_death": 0.0625, "native_poison": 0, "lite_poison": 0.0, "native_slow": 0, "lite_slow": 0.0}, "defender": {"native_mean_hp": 25.8, "lite_hp": 25.800000000000004, "native_death": 0, "lite_death": 0, "native_poison": 0, "lite_poison": 0.0, "native_slow": 0, "lite_slow": 0.0}}, "forecast_us": 35.53797025233507, "native_counter": {"damage": 3, "name": "sword", "number": 1, "strikes": 4}}
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/tongshu/acceptance/teacher_boards_final_20261103/tests/diagnose_native_tactics.py", line 192, in <module>
+    main()
+  File "/home/tongshu/acceptance/teacher_boards_final_20261103/tests/diagnose_native_tactics.py", line 125, in main
+    assert alive is None, (name, backend, 'fixture must exercise lethal plague')
+           ^^^^^^^^^^^^^
+AssertionError: ('immune_plague', 'native', 'fixture must exercise lethal plague')
