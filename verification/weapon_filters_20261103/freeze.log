@@ -1,0 +1,12 @@
+{
+  "rules_version": "lite-combat-2-58ead901dadf8ebe",
+  "rules_sha256": "e6b4f6200b0a8ad58a536b844fff37cfa9e0091bf0a0b702a8982155310f2f17",
+  "coverage": {
+    "exact": 0,
+    "approximate": 467,
+    "unsupported_script": 120
+  },
+  "closure_count": 158,
+  "closure_unsupported": [],
+  "newly_unsupported": []
+}

@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "<stdin>", line 8, in <module>
+  File "/home/tongshu/acceptance/filters_first_20261103/engine_lite/freeze.py", line 144, in freeze_captures
+    unit['weapons'], weapon_errors = compile_weapons(raw_definition, unit['weapons'])
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/acceptance/filters_first_20261103/engine_lite/weapons.py", line 25, in compile_weapons
+    raise ValueError(f'weapon {field} must be a finite number')
+ValueError: weapon defense_weight must be a finite number

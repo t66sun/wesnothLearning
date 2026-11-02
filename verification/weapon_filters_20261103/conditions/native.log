@@ -1,0 +1,15 @@
+{"name": "firststrike", "metrics": {"attacker": {"native_mean_hp": 18.6, "lite_hp": 18.6, "native_death": 0, "lite_death": 0, "native_poison": 0, "lite_poison": 0.0, "native_slow": 0, "lite_slow": 0.0}, "defender": {"native_mean_hp": 31.800000000000004, "lite_hp": 31.799999999999997, "native_death": 0, "lite_death": 0, "native_poison": 0, "lite_poison": 0.0, "native_slow": 0, "lite_slow": 0.0}}, "forecast_us": 47.23228979855776, "native_counter": {"damage": 6, "name": "spear", "number": 2, "strikes": 4}}
+{"name": "marksman", "metrics": {"attacker": {"native_mean_hp": 37.073600000000006, "lite_hp": 37.073600000000006, "native_death": 0, "lite_death": 0, "native_poison": 0, "lite_poison": 0.0, "native_slow": 0, "lite_slow": 0.0}, "defender": {"native_mean_hp": 2.75456, "lite_hp": 2.7545599999999997, "native_death": 0.68256, "lite_death": 0.68256, "native_poison": 0, "lite_poison": 0.0, "native_slow": 0, "lite_slow": 0.0}}, "forecast_us": 30.197750311344862, "native_counter": {"damage": 5, "name": "bow", "number": 2, "strikes": 4}}
+{"name": "charge", "metrics": {"attacker": {"native_mean_hp": 21.2, "lite_hp": 21.199999999999996, "native_death": 0, "lite_death": 0, "native_poison": 0, "lite_poison": 0.0, "native_slow": 0, "lite_slow": 0.0}, "defender": {"native_mean_hp": 16.400000000000002, "lite_hp": 16.4, "native_death": 0, "lite_death": 0, "native_poison": 0, "lite_poison": 0.0, "native_slow": 0, "lite_slow": 0.0}}, "forecast_us": 14.400349464267492, "native_counter": {"damage": 14, "name": "sword", "number": 1, "strikes": 2}}
+{"name": "backstab", "metrics": {"attacker": {"native_mean_hp": 14.400000000000002, "lite_hp": 14.399999999999999, "native_death": 0.16000000000000003, "lite_death": 0.16000000000000003, "native_poison": 0, "lite_poison": 0.0, "native_slow": 0, "lite_slow": 0.0}, "defender": {"native_mean_hp": 31.184, "lite_hp": 31.184000000000005, "native_death": 0, "lite_death": 0, "native_poison": 0, "lite_poison": 0.0, "native_slow": 0, "lite_slow": 0.0}}, "forecast_us": 16.923400107771158, "native_counter": {"damage": 12, "name": "sword", "number": 1, "strikes": 2}}
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/filters_conditions_20261103/tests/diagnose_native_tactics.py", line 170, in <module>
+    main()
+  File "/home/tongshu/acceptance/filters_conditions_20261103/tests/diagnose_native_tactics.py", line 87, in main
+    native.reset(spec)
+  File "/home/tongshu/acceptance/filters_conditions_20261103/learning/native_transport.py", line 175, in reset
+    (addon / '_main.cfg').write_text(_scenario(self.spec, options), encoding='utf-8')
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/acceptance/filters_conditions_20261103/learning/native_transport.py", line 54, in _scenario
+    raise ValueError('native transport supports sequential sides in duel/FFA4/2v2')
+ValueError: native transport supports sequential sides in duel/FFA4/2v2
