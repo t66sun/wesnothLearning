@@ -67,7 +67,13 @@ def main():
             spec = game_spec(rules, attacker, defender)
             if name.startswith('immune_'):
                 flag = {'poison': 'unpoisonable', 'drain': 'undrainable', 'plague': 'unplagueable'}[name.rsplit('_', 1)[1]]
-                spec['units'][2 if 'counter' in name else 3]['status'] = [flag]
+                victim = spec['units'][2 if 'counter' in name else 3]
+                victim['status'] = [flag]
+                if name.endswith('plague'):
+                    # Native and Lite have different rolls. Deep water gives these
+                    # land units 100% hit chance, so both exercise the lethal branch.
+                    spec['terrain'][victim['pos']] = 'Wo'
+                    assert rules['units'][victim['unit_type']]['defense']['Wo'] == 100
             for index, gap in {
                 'combat_advancement': ((2, 1),), 'kill_advancement': ((2, 8),),
                 'defender_advancement': ((3, 1),), 'slow_advancement': ((3, 1),),
