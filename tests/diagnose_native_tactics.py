@@ -87,6 +87,28 @@ def main():
                        lite_actual=lite_result)
             after_units = lite.observe(1)['units']
             row['after'] = dict(native=native.observe(1)['units'], lite=after_units)
+            # Validate each sampled outcome against its own opponent outcome;
+            # the two engines intentionally use different random streams.
+            for backend, units in row['after'].items():
+                alive = {u['id']: u for u in units}
+                for index, enemy_index in ((2, 3), (3, 2)):
+                    initial = spec['units'][index]
+                    current = alive.get(initial['id'])
+                    if current is None:
+                        continue
+                    enemy = spec['units'][enemy_index]
+                    level = rules['units'][enemy['unit_type']]['level']
+                    gain = (8*level if level else 4) if enemy['id'] not in alive else level
+                    xp = initial['xp'] + gain
+                    definition = rules['units'][initial['unit_type']]
+                    if xp >= definition['experience'] and definition['advances_to']:
+                        xp -= definition['experience']
+                        if current['unit_type'] not in definition['advances_to']:
+                            failures.append((name, backend, initial['id'], 'missing advancement'))
+                        if set(current['status']) & {'poisoned', 'slowed'}:
+                            failures.append((name, backend, initial['id'], 'advancement kept debuff'))
+                    if current['xp'] != xp:
+                        failures.append((name, backend, initial['id'], 'experience', xp, current['xp']))
             for who, index in (('attacker', 2), ('defender', 3)):
                 after = next((u for u in after_units if u['id'] == who), None)
                 # Native prediction heals to the original max HP; execution chooses a new type.

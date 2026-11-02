@@ -40,12 +40,17 @@ class CombatProbabilityTests(unittest.TestCase):
                 self.assertAlmostEqual(value[key], .6)
 
     def test_combat_experience_heals_forecast_and_execution(self):
-        engine, _, _ = self.battle(hp=36, xp=39)
+        _, rules, spec = self.battle(hp=36, xp=39)
+        spec['units'][0]['status'] = ['poisoned', 'slowed']
+        engine = H.engine(game_spec=spec, rules_data=rules)
         value = self.forecast(engine)
+        self.assertTrue(value['approximate'])
+        self.assertEqual((value['attacker']['poisoned'], value['attacker']['slowed']), (0., 0.))
         self.assertEqual(value['attacker']['hp_chance'], {'40': 1.})
         H.step(engine, dict(kind='attack', unit='p1', target='e1', weapon=0))
         actual = next(u for u in H.observe(engine)['units'] if u['id'] == 'p1')
         self.assertEqual((actual['unit_type'], actual['hp'], actual['xp']), ('Ghost', 30, 0))
+        self.assertFalse(set(actual['status']) & {'poisoned', 'slowed'})
 
     def test_conditional_advancement_uses_kill_probability(self):
         engine, _, _ = self.battle(xp=32)
