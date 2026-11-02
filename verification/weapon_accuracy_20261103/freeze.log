@@ -1,0 +1,147 @@
+{
+  "rules_version": "lite-combat-1-58ead901dadf8ebe",
+  "source_hash": "58ead901dadf8ebec9f55384d15daee3ba9414eccb3932a4bc2a02bb784e361c",
+  "rules_sha256": "4af6785a21267a18e18ec58dde86be09146a3c4fcdd9fce0726e014f0f8966a1",
+  "closure_count": 158,
+  "unsupported": [],
+  "modifiers": {
+    "Elvish Champion": [
+      {
+        "id": "sword",
+        "accuracy": 10,
+        "parry": 0
+      }
+    ],
+    "Elvish Champion Kalian": [
+      {
+        "id": "sword",
+        "accuracy": 10,
+        "parry": 0
+      }
+    ],
+    "Quenoth Champion": [
+      {
+        "id": "glaive",
+        "accuracy": 0,
+        "parry": 10
+      },
+      {
+        "id": "glaive",
+        "accuracy": 0,
+        "parry": 10
+      }
+    ],
+    "Quenoth Fighter": [
+      {
+        "id": "spear",
+        "accuracy": 0,
+        "parry": 10
+      }
+    ],
+    "Quenoth Fighter1": [
+      {
+        "id": "spear",
+        "accuracy": 0,
+        "parry": 10
+      }
+    ],
+    "Quenoth Fighter10": [
+      {
+        "id": "spear",
+        "accuracy": 0,
+        "parry": 10
+      }
+    ],
+    "Quenoth Fighter2": [
+      {
+        "id": "spear",
+        "accuracy": 0,
+        "parry": 10
+      }
+    ],
+    "Quenoth Fighter3": [
+      {
+        "id": "spear",
+        "accuracy": 0,
+        "parry": 10
+      }
+    ],
+    "Quenoth Fighter4": [
+      {
+        "id": "spear",
+        "accuracy": 0,
+        "parry": 10
+      }
+    ],
+    "Quenoth Fighter5": [
+      {
+        "id": "spear",
+        "accuracy": 0,
+        "parry": 10
+      }
+    ],
+    "Quenoth Fighter6": [
+      {
+        "id": "spear",
+        "accuracy": 0,
+        "parry": 10
+      }
+    ],
+    "Quenoth Fighter7": [
+      {
+        "id": "spear",
+        "accuracy": 0,
+        "parry": 10
+      }
+    ],
+    "Quenoth Fighter8": [
+      {
+        "id": "spear",
+        "accuracy": 0,
+        "parry": 10
+      }
+    ],
+    "Quenoth Fighter9": [
+      {
+        "id": "spear",
+        "accuracy": 0,
+        "parry": 10
+      }
+    ],
+    "Quenoth Flanker": [
+      {
+        "id": "sword",
+        "accuracy": 0,
+        "parry": 10
+      }
+    ],
+    "Quenoth Ranger": [
+      {
+        "id": "sword",
+        "accuracy": 0,
+        "parry": 20
+      }
+    ],
+    "Quenoth Warrior": [
+      {
+        "id": "glaive",
+        "accuracy": 0,
+        "parry": 10
+      },
+      {
+        "id": "glaive",
+        "accuracy": 0,
+        "parry": 10
+      }
+    ]
+  },
+  "training_modifiers": {
+    "Elvish Champion": [
+      {
+        "id": "sword",
+        "accuracy": 10,
+        "parry": 0
+      }
+    ]
+  }
+}

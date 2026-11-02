@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 # cross-checked in LiteAdapter so a stale extension can never write new rows.
 ENGINE_VERSION = 'lite-0.2'
 RNG_VERSION = 'splitmix64-rejection-v1'
-COMBAT_VERSION = 'probabilistic_combat_v3'
+COMBAT_VERSION = 'probabilistic_combat_v4'
 
 
 class GameAdapter(Protocol):

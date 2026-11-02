@@ -73,8 +73,8 @@ required=(
     learning/__main__.py
     engine_lite/Cargo.toml
     engine_lite/pyproject.toml
-    data/rules/1.18.8-amla/rules.json
-    data/rules/1.18.8-amla/catalog-summary.json
+    data/rules/1.18.8-combat/rules.json
+    data/rules/1.18.8-combat/catalog-summary.json
     data/opponents/gpt6astra.zip
     data/humanData_curated/games.jsonl
     run.sh
@@ -241,7 +241,7 @@ import pathlib
 import sys
 
 root = pathlib.Path(sys.argv[1])
-rules_dir = root / 'data/rules/1.18.8-amla'
+rules_dir = root / 'data/rules/1.18.8-combat'
 summary = json.loads((rules_dir / 'catalog-summary.json').read_text(encoding='utf-8'))
 rules_path = rules_dir / 'rules.json'
 digest = hashlib.sha256(rules_path.read_bytes()).hexdigest()

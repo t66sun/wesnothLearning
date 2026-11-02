@@ -12,6 +12,7 @@ from pathlib import Path
 
 from learning.rules_catalog import provenance
 from .advancement import compile_advancement
+from .weapons import compile_weapons
 
 SPECIALS = {'poison', 'slow', 'drains', 'magical', 'marksman', 'charge',
             'firststrike', 'berserk', 'swarm', 'plague', 'petrifies', 'backstab',
@@ -140,6 +141,7 @@ def freeze_captures(captures, output):
             if raw_definition is None:
                 raise ValueError(f'{unit_id}: missing raw advancement declarations')
             unit['standard_amla'], advancement_errors = compile_advancement(raw_definition)
+            unit['weapons'] = compile_weapons(raw_definition, unit['weapons'])
             if unit.get('id') != unit_id or unit.get('hp', 0) <= 0 or unit.get('experience', 0) <= 0:
                 raise ValueError(f'{path}: malformed unit {unit_id}')
             if set(unit['movement']) != set(terrains) or set(unit['defense']) != set(terrains):
@@ -180,7 +182,7 @@ def freeze_captures(captures, output):
             if weapon.get('plague_type') and weapon['plague_type'] not in units:
                 raise ValueError(f'{unit_id}: plague type absent')
     source_hash = hashlib.sha256(canonical(provenance)).hexdigest()
-    rules = {'source_version': '1.18.8', 'rules_version': 'lite-amla-1-' + source_hash[:16],
+    rules = {'source_version': '1.18.8', 'rules_version': 'lite-combat-1-' + source_hash[:16],
              'source_hash': source_hash, 'units': units, 'terrains': terrains,
              'lawful_bonus': [0, 25, 25, 0, -25, -25]}
     missing_scopes = sorted(required_scopes - scopes)

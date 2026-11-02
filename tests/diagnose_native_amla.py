@@ -17,6 +17,7 @@ CASES = [('attacker', False, 0, 100, 1), ('defender', True, 0, 100, 1),
 
 def main():
     parser = argparse.ArgumentParser()
+    parser.add_argument('--unit', default='Dwarvish Lord')
     parser.add_argument('--rules', type=Path, required=True)
     parser.add_argument('--wesnoth', required=True)
     parser.add_argument('--source', required=True)
@@ -28,12 +29,12 @@ def main():
     rows = []
     with NativeTransport(wesnoth=args.wesnoth, timeout=30, startup_timeout=120) as native:
         for name, defending, count, modifier, gap in CASES:
-            spec = game_spec(rules, 'Elvish Shaman' if defending else 'Dwarvish Lord',
-                             'Dwarvish Lord' if defending else 'Orcish Grunt')
+            spec = game_spec(rules, 'Elvish Shaman' if defending else args.unit,
+                             args.unit if defending else 'Orcish Grunt')
             spec['experience_modifier'] = modifier
             index = 3 if defending else 2
             champion = spec['units'][index]
-            definition = rules['units']['Dwarvish Lord']
+            definition = rules['units'][args.unit]
             required = (definition['experience']*modifier+50)//100
             for _ in range(count):
                 required += (required*20+50)//100
