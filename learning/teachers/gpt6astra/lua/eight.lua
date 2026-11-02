@@ -298,7 +298,9 @@ local function move(u,x,y,full)
         local next_hex=path[i]
         if u.moves<=0 or not ai.check_move(u,next_hex[1],next_hex[2]).ok then return false end
         local final_step=i==#path
-        assert((full and final_step and ai.move_full or ai.move)(u,next_hex).ok)
+        local result=(full and final_step and ai.move_full or ai.move)(u,next_hex)
+        if result.status==2005 then return false end -- Native ambush interrupts a legal move.
+        assert(result.ok)
         if u.x==x and u.y==y then return true end
         for _,e in ipairs(AH.get_attackable_enemies()) do if not seen[e.id] then return false end end
         if wesnoth.ms_since_init()-started>150 then return false end
