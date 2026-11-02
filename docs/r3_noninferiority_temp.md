@@ -8,7 +8,7 @@ Status: predeclared, execution NOT RUN. The user approved a five-percentage-poin
 
 The two completed scoring repairs count toward the user's two-round limit: attribute slow benefit to the attacked target, then exclude fatal outcomes from that benefit. No further teacher tuning is part of this experiment. The original superiority results remain inconclusive at their original evidence paths; they are not reinterpreted as non-inferiority results.
 
-The candidate production source is `9118fac3628542b585a35f27d2115560057d4ddc`, also present unchanged in master `693fc42`. Its teacher source SHA256 is `ad75d870ce68fa6b489ad922fd8bb3059e29bbe7626f296e74d2b6fad828c7d4`; `ad75` here denotes a teacher digest prefix, not a Git commit. See [the surviving-slow repair](../verification/teacher_surviving_slow_20261103/REPORT.md) and [its native panel](../verification/teacher_strength_surviving_slow_20261103/REPORT.md).
+The candidate production source is `9118fac3628542b585a35f27d2115560057d4ddc`, also present unchanged in master `693fc42`. Its teacher source SHA256 is `ad75d870ce68fa6b489ad922fd8bb3059e29bbe7626f296e74d2b6fad828c7d4`. See [the surviving-slow repair](../verification/teacher_surviving_slow_20261103/REPORT.md) and [its native panel](../verification/teacher_strength_surviving_slow_20261103/REPORT.md).
 
 The new experiment compares this fixed candidate with the frozen Astra lineage on native Wesnoth 1.18.8. It does not train a policy, collect learning shards, alter rule data or claim complete native semantics. Final holdout maps remain untouched.
 
@@ -71,7 +71,7 @@ The planning calculation is `n = (1.96 + 1.644854)^2 * SD^2 / 0.05^2`, assuming 
 
 Repeated seeds do not create new scenario families. The actual analysis has 15 scenario clusters per format; repetitions reduce within-scenario random-outcome noise but do not remove genuine between-scenario heterogeneity. The pilot SD includes both components, which the small pilot does not estimate separately. The calculation therefore cannot certify that this panel has 95% power or will pass. Its purpose is a fixed, finite allocation that gives the highest-variance duel comparison more work while retaining every format and context.
 
-The earlier equal allocation of 240 blocks per format would have used 3360 games. The fixed allocation above uses 4560 games: more duel and FFA games, fewer team games. The [measured pilot cost](../verification/teacher_strength_surviving_slow_20261103/REPORT.md), 419.681 seconds for 168 games, gives a linear estimate of `419.681 / 168 * 4560 = 11391.34` seconds, approximately 3 hours 10 minutes. Different roster entries, match lengths and host load can change that cost; the six-hour ceiling remains binding.
+The [measured pilot cost](../verification/teacher_strength_surviving_slow_20261103/REPORT.md), 419.681 seconds for 168 games, gives a linear estimate of `419.681 / 168 * 4560 = 11391.34` seconds, approximately 3 hours 10 minutes. Different roster entries, match lengths and host load can change that cost; the six-hour ceiling remains binding.
 
 ## Observation, stopping and reporting
 
