@@ -1,0 +1,50 @@
+{
+  "source_commit": "97d7d9ddf87948bb59781f8f68a7d9b1e3a03fe3",
+  "root": "/home/tongshu/acceptance/teacher_noninferiority_20261103",
+  "engine": "native",
+  "native_rules": "wesnoth-1.18.8-native-v2",
+  "teacher": {
+    "teacher": "gpt6astra",
+    "teacher_profile": "probabilistic_combat_v6",
+    "teacher_source_sha256": "ad75d870ce68fa6b489ad922fd8bb3059e29bbe7626f296e74d2b6fad828c7d4",
+    "teacher_parent_sha256": "2a216c96081990621dc15772e9de1bf40e4f5f451223fe52e5b20625464dc933"
+  },
+  "control_compatibility": {
+    "files": {
+      "lua/duel.lua": {
+        "old_sha256": "898f88eff3497b7ae2bb675279a8c556ba5c28038c64ca0e6922c0e76d7bf4ce",
+        "new_sha256": "c69d193e8a1edd414481dc96e365e4a25d90ac930a7d73a488008c93e7b1cbff"
+      },
+      "lua/four.lua": {
+        "old_sha256": "705169e8c1e33dbcb38e60398f4a972e0e82fb1679877beb98fc57107e12fa30",
+        "new_sha256": "07778a77b448b26a5d92d9f2a6a12628da8061e8969fd1b88aeb50b7f7feb6c0"
+      },
+      "lua/eight.lua": {
+        "old_sha256": "ccc54766da035e5ab5f93f7a6862f78198764942930a489ac7408d8d0a730b2e",
+        "new_sha256": "ee7d66ed87a14968f7402984fad5bbe9d1146440640f3aa1520dcbcc8e2c7f97"
+      }
+    }
+  },
+  "source_archive": "/home/tongshu/acceptance/teacher-noninferiority-20261103.tar",
+  "artifacts": {
+    "/home/tongshu/myDev/wesnothLearning/WesnothLearning/.runtime/install/bin/wesnoth": "33f64aa3f5ee40228bd44e357b3f4d784121d4392ff774d6c059c7defa3e5fcf",
+    "/home/tongshu/acceptance/teacher_noninferiority_20261103/.runtime/entropy.so": "f12d763303445aa437de06d0dba129dc923e3d81fd1fc82d72b8e331916480cf",
+    "/home/tongshu/acceptance/teacher_noninferiority_20261103/data/rules/1.18.8-combat-filtered/rules.json": "e6b4f6200b0a8ad58a536b844fff37cfa9e0091bf0a0b702a8982155310f2f17",
+    "/home/tongshu/acceptance/teacher_noninferiority_20261103/data/rules/1.18.8-combat-filtered/catalog-summary.json": "0bb354291aeb39bdbffab74af738273b11378be8c692dfb42c053ebf1a9d5ded",
+    "/home/tongshu/acceptance/teacher_noninferiority_20261103/data/opponents/gpt6astra.zip": "2a216c96081990621dc15772e9de1bf40e4f5f451223fe52e5b20625464dc933",
+    "/home/tongshu/acceptance/teacher_noninferiority_20261103/panel/astra_control_compatible.zip": "a6beba9667c2aa5ac777b98b6c2074312779e1adb92c7c870393d22206ba05ec",
+    "/home/tongshu/acceptance/teacher_noninferiority_20261103/panel/astra_adapted.zip": "773047bffe6a29188cbfbd64b3f37e6906cb4f7fce3ee40b49f73e0d193a9a9f",
+    "/home/tongshu/acceptance/teacher_noninferiority_20261103/tests/acceptance_teacher_strength.py": "53389c762d544984ff6c93196351b5c1c7b671118dd5d9dfcba7b274c98180b2",
+    "/home/tongshu/acceptance/teacher_noninferiority_20261103/learning/schedule.py": "769a42cb0857711a0369254d847ab65a0e4ef013dffa1db36004394eabb99a84",
+    "/home/tongshu/acceptance/teacher_noninferiority_20261103/learning/evaluate.py": "60fbdd0ac348704a8db7058ce4c7b895fb84fc1b0167bb958b1f27523607251f",
+    "/home/tongshu/acceptance/teacher_noninferiority_20261103/learning/maps.py": "798700140177c9eb2059d282fd09c93e3e9d0418706b397603a94c646ba514d4",
+    "/home/tongshu/acceptance/teacher_noninferiority_20261103/learning/sample.py": "90f6a6969f6cde8cef7030e4d4083b08e00f9d26acd3a2c4396e424cc22e6033",
+    "/home/tongshu/acceptance/teacher_noninferiority_20261103/vendor/arena/match.py": "ebdde7eb92bb425730727f96530253b920a6027ecb49de47009d26baf63692b0",
+    "/home/tongshu/acceptance/teacher_noninferiority_20261103/vendor/arena/native.py": "9b2a3169a5a9b590472e5212e548371a46ad2c107cc9ee3a4813e0b4469269df",
+    "/home/tongshu/acceptance/teacher_noninferiority_20261103/vendor/arena/addons.py": "141857306234b31291e9118899048a92230e30ce6a42cb64ffac74d217e2f9d8",
+    "/home/tongshu/acceptance/teacher_noninferiority_20261103/vendor/arena/params.py": "3c1423bd63ac8ac708e65d39cc59265076abbb9325f58fa5f32a69cff972d71a",
+    "/home/tongshu/acceptance/teacher_noninferiority_20261103/vendor/arena/runtime/runtime.lua": "dd75b50e87368ab446517b13736918f35d345b2b74d69bb95e050cb10da9325a",
+    "/home/tongshu/acceptance/teacher_noninferiority_20261103/tests/teacher_control_compatibility.py": "e6b9924e7002ddd7dcc5077c8bae5867f744c40a83e4074561f3223cba37fd79",
+    "/home/tongshu/acceptance/teacher-noninferiority-20261103.tar": "20d1c2e2120375f3ddaa8a83c347f33e17cbb682c4a4220c8a4cea9f7243f8bc"
+  }
+}
