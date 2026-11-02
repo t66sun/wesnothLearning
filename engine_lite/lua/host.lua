@@ -159,7 +159,7 @@ function wesnoth.paths.find_path(u,x,y,options)
 end
 function wesnoth.schedule.get_time_of_day() return {lawful_bonus=rules.lawful_bonus[(view.turn-1)%#rules.lawful_bonus+1]} end
 function wesnoth.simulate_combat(u,weapon,target)
-    -- Deterministic forecast: one resolved battle, a point mass per side.
+    -- Public HP/status probability distributions; never sample referee RNG.
     local result=rpc('forecast',{attacker=u.id,target=target.id,weapon=weapon-1,pos=position(u)})
     local function decode(c)
         local chance={};for hp,p in pairs(c.hp_chance) do chance[tonumber(hp)]=p end

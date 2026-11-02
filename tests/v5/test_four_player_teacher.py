@@ -13,7 +13,7 @@ class FourPlayerTeacherTests(unittest.TestCase):
 
         modules = host_modules(Path('data/opponents/gpt6astra.zip'))
         self.assertEqual(modules['astra/four.lua'], lua_modules()['astra/four.lua'])
-        self.assertIn('probabilistic_combat_v1', modules['astra/value.lua'])
+        self.assertIn('probabilistic_combat_v2', modules['astra/value.lua'])
 
     def test_four_player_astra_reads_native_configs_without_advancing_state(self):
         from _engine_lite import LiteEngine

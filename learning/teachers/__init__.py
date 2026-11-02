@@ -12,7 +12,7 @@ from pathlib import Path
 
 PARENT_PACKAGE = Path(__file__).resolve().parents[2] / 'data/opponents/gpt6astra.zip'
 SOURCE = Path(__file__).resolve().parent / 'gpt6astra'
-PROFILE = 'probabilistic_combat_v1'
+PROFILE = 'probabilistic_combat_v2'
 
 
 def source_digest():

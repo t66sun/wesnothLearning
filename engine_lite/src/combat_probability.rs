@@ -1,6 +1,7 @@
 //! Native-compatible finite combat distributions. Merge equal HP/status states after each blow;
 //! no sampling, hidden state, RNG reads, or probability pruning. Native berserk
 //! prediction stops once death probability reaches 99%; execution does not.
+//! Native advancement healing and poison marginals are prediction approximations.
 use crate::{combat::{self,Modifiers},model::{Rules,Unit,Weapon}};
 use std::collections::BTreeMap;
 use serde_json::{json,Value};
@@ -18,29 +19,34 @@ impl State {
     fn new(a:&Unit,d:&Unit)->Self {Self{ah:a.hp,dh:d.hp,as_:flags(a),ds:flags(d),an:0,dn:0}}
     fn done(self)->bool {self.ah<=0 || self.dh<=0 || (self.as_|self.ds)&4!=0}
 }
-pub struct Distribution { states:BTreeMap<State,f64>, truncated:bool }
+pub struct Distribution { states:BTreeMap<State,f64>, poisoned:[f64;2], approximate:bool }
 impl Distribution {
     pub fn json(&self)->Value {
         let side=|defense:bool| {
-            let mut hp=BTreeMap::<String,f64>::new();let mut mean=0.;let mut poison=0.;let mut slow=0.;
+            let mut hp=BTreeMap::<String,f64>::new();let mut mean=0.;let mut slow=0.;
             for (s,p) in &self.states {
                 let (h,status)=if defense{(s.dh,s.ds)}else{(s.ah,s.as_)};
                 *hp.entry(h.max(0).to_string()).or_default()+=p;mean+=f64::from(h.max(0))*p;
-                if status&1!=0 {poison+=p;} if status&2!=0 {slow+=p;}
+                if status&2!=0 {slow+=p;}
             }
-            json!({"average_hp":mean,"hp_chance":hp,"poisoned":poison,"slowed":slow})
+            json!({"average_hp":mean,"hp_chance":hp,"poisoned":self.poisoned[usize::from(defense)],"slowed":slow})
         };
-        json!({"attacker":side(false),"defender":side(true),"approximate":self.truncated,
+        json!({"attacker":side(false),"defender":side(true),"approximate":self.approximate,
             "samples":0,"combat_version":crate::model::COMBAT_VERSION})
     }
     fn score(&self)->[f64;3] {
-        let mut v=[0.;3];
+        let mut hp=[0.;2];let mut dead=[0.;2];
         for (s,p) in &self.states {
-            let hp=|h:i32,f:u8|f64::from(h.max(0)-if h>0 && f&1!=0{crate::state::POISON_TICK}else{0});
-            v[0]+=(i32::from(s.ah<=0)-i32::from(s.dh<=0)) as f64*p;
-            v[1]+=(hp(s.dh,s.ds)-hp(s.ah,s.as_))*p;
-            v[2]-=f64::from(s.ah.max(0))*p;
-        } v
+            for (i,h) in [s.ah,s.dh].into_iter().enumerate() {
+                hp[i]+=f64::from(h.max(0))*p;if h<=0 {dead[i]+=p;}
+            }
+        }
+        // Native's poisoned marginal includes fatal hits; its defense score
+        // subtracts death probability before charging the surviving poison cost.
+        let poison=|i:usize|if self.poisoned[i]>0. {
+            (self.poisoned[i]-dead[i])*f64::from(crate::state::POISON_TICK)
+        }else{0.};
+        [dead[0]-dead[1],hp[1]-poison(1)-hp[0]+poison(0),-hp[0]]
     }
 }
 fn better(a:&Distribution,b:&Distribution)->bool {
@@ -58,7 +64,7 @@ fn distribution(r:&Rules,a:&Unit,d:&Unit,aw:&Weapon,counter:Option<usize>,at:&st
     let af=aw.specials.contains("firststrike") || (m.attacker_firststrike && dw.as_ref().is_some_and(|w|w.range=="melee"));
     let df=dw.as_ref().is_some_and(|w|w.specials.contains("firststrike") || (m.defender_firststrike && aw.range=="melee"));
     let mut states=BTreeMap::from([(State::new(a,d),1.)]);
-    let mut truncated=false;
+    let mut approximate=false;
     for round in 0..rounds {
         let mut initialized=BTreeMap::new();let mut max_count=0;
         for (mut s,p) in states {
@@ -86,6 +92,11 @@ fn distribution(r:&Rules,a:&Unit,d:&Unit,aw:&Weapon,counter:Option<usize>,at:&st
                     if chance<1. {*next.entry(s).or_insert(0.)+=p*(1.-chance);}
                     if chance>0. {
                         let mut success=State::new(&aa,&dd);success.an=s.an;success.dn=s.dn;
+                        // The native prediction counts debuffs on fatal blows too,
+                        // although execution only applies statuses to survivors.
+                        let (target,weapon,status)=if defense{(a,dw.as_ref().unwrap(),&mut success.as_)}else{(d,aw,&mut success.ds)};
+                        if weapon.specials.contains("poison") && !r.units[&target.unit_type].abilities.contains("unpoisonable") && !target.status.contains("unpoisonable") {*status|=1;}
+                        if weapon.specials.contains("slow") {*status|=2;}
                         *next.entry(success).or_insert(0.)+=p*chance;
                     }
                 } states=next;
@@ -94,9 +105,43 @@ fn distribution(r:&Rules,a:&Unit,d:&Unit,aw:&Weapon,counter:Option<usize>,at:&st
         if states.keys().all(|s|s.done()){break;}
         // Wesnoth 1.18.8 attack_prediction.cpp uses the same 0.99 stopping rule.
         let dead:f64=states.iter().filter(|(s,_)|s.ah<=0 || s.dh<=0).map(|(_,p)|p).sum();
-        if round+1<rounds && dead>=0.99 {truncated=true;break;}
+        if round+1<rounds && dead>=0.99 {approximate=true;break;}
     }
-    Distribution{states,truncated}
+    let units=[a,d];
+    let levels=[r.units[&a.unit_type].level,r.units[&d.unit_type].level];
+    let forced=[a.xp.saturating_add(levels[1])>=a.max_xp(r),d.xp.saturating_add(levels[0])>=d.max_xp(r)];
+    let heals=[a.xp.saturating_add(combat::kill_xp(levels[1]))>=a.max_xp(r),d.xp.saturating_add(combat::kill_xp(levels[0]))>=d.max_xp(r)];
+    let mut dead=[0.;2];let mut poisoned=[0.;2];
+    for (s,p) in &states {
+        for (i,(hp,status)) in [(s.ah,s.as_),(s.dh,s.ds)].into_iter().enumerate() {
+            if hp<=0 {dead[i]+=p;}if status&1!=0 {poisoned[i]+=p;}
+        }
+    }
+    for i in 0..2 {
+        if forced[i] {poisoned[i]=0.;}
+        else if heals[i] {
+            // Match native calculate_probability_of_debuff: conditional poison
+            // recovery is estimated from touched, survival and kill marginals.
+            let alive=(1.-dead[i]).max(0.);let kill=dead[1-i].clamp(0.,1.);
+            if units[i].status.contains("poisoned") {poisoned[i]=1.-kill;}
+            else if alive>0. && poisoned[i]>0. {poisoned[i]-=(alive-1.+poisoned[i])*kill/alive;}
+        }
+    }
+    if !heals.iter().any(|&h|h) {return Distribution{states,poisoned,approximate};}
+    // Native predicts healing to the current max HP, not an advancement choice.
+    let approximate=approximate || (0..2).any(|i| (forced[i] && dead[i]<1.) || (heals[i] && dead[1-i]>0.));
+    let mut healed=BTreeMap::new();
+    for (mut s,p) in states {
+        let killed=[s.dh<=0,s.ah<=0];
+        for (i,(hp,status)) in [(&mut s.ah,&mut s.as_),(&mut s.dh,&mut s.ds)].into_iter().enumerate() {
+            if *hp>0 && (forced[i] || heals[i] && killed[i]) {
+                *hp=units[i].max_hp(r);*status &= !3;
+            }
+            if forced[i] {*status &= !2;}
+        }
+        *healed.entry(s).or_insert(0.)+=p;
+    }
+    Distribution{states:healed,poisoned,approximate}
 }
 
 pub fn select(r:&Rules,a:&Unit,d:&Unit,weapon:usize,at:&str,dt:&str,turn:u32,m:&Modifiers)->(Option<usize>,Distribution) {

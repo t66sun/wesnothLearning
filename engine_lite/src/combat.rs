@@ -76,6 +76,8 @@ pub(super) fn strike(rules:&Rules,a:&mut Unit,d:&mut Unit,w:&Weapon,
     }
     Strike{attacker:a.id.clone(),defender:d.id.clone(),hit:connected,chance,damage:dealt,defender_hp:d.hp}
 }
+pub(super) fn kill_xp(level:u32)->u32 {if level==0 {4}else{8*level}}
+
 pub fn resolve_seeded(rules:&Rules,a:&mut Unit,d:&mut Unit,weapon:usize,
     at:&str,dt:&str,turn:u32,modifiers:&Modifiers,rng:&mut u64)->Resolution {
     let aw=resolved_weapon(rules,a,weapon);
@@ -136,8 +138,8 @@ fn resolve_with_counter(rules:&Rules,a:&mut Unit,d:&mut Unit,aw:&Weapon,counter:
         if a.hp<=0 || d.hp<=0 || a.status.contains("petrified") || d.status.contains("petrified") {break;}
     }
     let al=rules.units[&a.unit_type].level;let dl=rules.units[&d.unit_type].level;
-    if a.hp>0 {a.xp+=if d.hp<=0 {8*dl.max(1)} else {dl};}
-    if d.hp>0 {d.xp+=if a.hp<=0 {8*al.max(1)} else {al};}
+    if a.hp>0 {a.xp+=if d.hp<=0 {kill_xp(dl)} else {dl};}
+    if d.hp>0 {d.xp+=if a.hp<=0 {kill_xp(al)} else {al};}
     a.moves=0;a.attacks_left=a.attacks_left.saturating_sub(1);a.acted=true;
     Resolution{strikes:log,defender_weapon:counter}
 }

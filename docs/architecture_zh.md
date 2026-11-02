@@ -63,10 +63,10 @@ flowchart LR
 `data/rules/1.18.8-training` 是默认冻结清单（`rules.json` sha256 `d6fceafe7d0c9c67c750551b9901dbfb2b22290992a8daa1616a460e11826dca`，source hash `c08f8a08…`，规则版本 `lite-0.1-c08f8a08d6fb802d`）。`catalog-summary.json` 记录 587 单位、438 地形、覆盖 0 exact / 470 approximate / 117 unsupported scripts，且 `training_acceptance.native_semantics_accepted = false`、`performance_accepted = false`。
 
 - `rules_catalog.load()` 校验文件哈希、source hash 与版本；训练范围接受已记录的近似。启动还要求存在六阵营训练闭包（领袖、招募以及所有可达的升级/瘟疫链），否则拒绝启动。
-- `LiteAdapter` 在使用前校验扩展构建三元组（`ENGINE_VERSION='lite-0.2'`、`RNG_VERSION='splitmix64-rejection-v1'`、`COMBAT_VERSION='probabilistic_combat_v1'`）与声明身份一致。
+- `LiteAdapter` 在使用前校验扩展构建三元组（`ENGINE_VERSION='lite-0.2'`、`RNG_VERSION='splitmix64-rejection-v1'`、`COMBAT_VERSION='probabilistic_combat_v2'`）与声明身份一致。
 - `_engine_lite.LiteEngine(rules_json, spec_json)` 提供 `reset`、`observe`/`observe_batch`、`legal_actions`/`legal_batch`、`step`/`step_batch`（非法动作时恢复批次前状态）、`snapshot`/`restore`、`forecast`、`configure_host`、`decision` 和 `execute_candidate`。JSON 的 `pos`/`to` 是从 0 开始的行主序下标，Lua 桥接层转换为从 1 开始的六角坐标并锁定观察方，策略无法切换视角。`GameSpec` 明确给出宽高、平地地形、阵营、单位、种子和 `max_turns`；`side.id` 从 1 连续编号，`allow_approximate` 必须显式给出。快照是裁判真值，绝不下发给策略。
-- 带种子战斗（`probabilistic_combat_v1`）：裁判内部 SplitMix64 无偏抽样命中；命中伤害无增益，减速按原版半伤害取整，中毒扣 8 HP。快照/回滚恢复随机流，公开预测不读取或消耗它。预测合并 HP/状态概率，samples 被忽略并返回 0。狂暴预测与原版相同，在某轮死亡概率达到 99% 后停止（`approximate=true`），实际执行仍最多 30 轮。
-- 反击按同射程武器的击杀减死亡、中毒调整后 HP 差及损伤比较概率分布，使用原版 0.01 容差。执行在无反击或仅一把武器时跳过预测。9 个原版局面完整 HP/状态分布在 1e-9 内一致，包含狂暴、吸血与减速反击（`verification/probabilistic_combat_20261102/REPORT.md`）。完整武器过滤和升级/状态边界仍未验收。
+- 带种子战斗（`probabilistic_combat_v2`）：裁判内部 SplitMix64 无偏抽样命中；命中伤害无增益，减速按原版半伤害取整，中毒扣 8 HP。快照/回滚恢复随机流，公开预测不读取或消耗它。预测合并 HP/状态概率，samples 被忽略并返回 0。狂暴预测与原版相同，在某轮死亡概率达到 99% 后停止（`approximate=true`），实际执行仍最多 30 轮。
+- 反击按同射程武器的击杀减死亡、中毒调整后 HP 差及损伤比较概率分布，使用原版 0.01 容差。执行在无反击或仅一把武器时跳过预测。原版预测包含致命命中的状态，升级分支恢复到当前最大 HP，条件升级的中毒恢复使用原版边缘概率估计；这类升级预测标记 `approximate=true`。执行中零级击杀给 4 XP，类型升级清除毒/减速。固定原版对照与 Python/Rust 回归见 `verification/combat_boundaries_20261102/REPORT.md`。完整武器过滤、默认 AMLA 执行及原版棋力仍未验收。
 - lite 已实现机制：按地形代价移动、可见敌军 ZOC、友军通行、连通的城堡招募/经济、村庄占领、fog/shroud/历史地形、盟友共享、行动顺序轮转、领袖击杀与队伍终局、逐次攻击的死亡/反击/经验升级、slow、poison、drain、firststrike、marksman、magical、charge、berserk、基础 plague、治疗/休息、concealment/nightstalk/teleport、带种子命中抽样。
 - lite 近似路径：相邻领导力、illumination、backstab、steadfast、反击触发 plague、单步 teleport 代价。已知缺口：复合修正取整、完整的武器声明过滤、变体实例、随机特质、AMLA 选择、状态清除精确时机、视距代价/jamming、远程寻路 ZOC、战役事件。冻结基础类型权重诊断发现全部捕获中有 26 个非默认声明，均不在实际 158 单位训练闭包内；动态声明及完整原版过滤仍未验收（`verification/weapon_weights_20261102/REPORT.md`）。未知能力/脚本会阻断招募链，而不是静默降级。
 - `lua/` 是唯一的合法性/观察实现：原版 Wesnoth 以插件方式加载它，`LiteHost` 把同一批模块加载进内嵌 Lua VM。
@@ -104,7 +104,7 @@ flowchart LR
 
 教师能力是声明的，不是假设的：
 
-- `gpt6astra` —— 冻结的按决策查询 Lua 教师（`learning/teachers/`，派生源码；`data/opponents/gpt6astra.zip` 是其血脉，也是每个 manifest 随包冻结的教师）。派生源码只在 lite 规则变化处适配：攻击评分使用 `probabilistic_combat_v1`，slow 价值 50% 伤害加移动限制，poison 每回合 8 点。`teacher_profile` 与 `teacher_source_sha256` 随行式记录、检查点、作业元数据和导出传递，单次运行不会混用不同 profile。
+- `gpt6astra` —— 冻结的按决策查询 Lua 教师（`learning/teachers/`，派生源码；`data/opponents/gpt6astra.zip` 是其血脉，也是每个 manifest 随包冻结的教师）。派生源码只在 lite 规则变化处适配：攻击评分使用 `probabilistic_combat_v2`，slow 价值 50% 伤害加移动限制，poison 每回合 8 点。`teacher_profile` 与 `teacher_source_sha256` 随行式记录、检查点、作业元数据和导出传递，单次运行不会混用不同 profile。
 
 新 manifest 冻结该包并把其血脉记为教师身份，因此教师与 DAgger 行携带同一身份。`LiteHost` 拒绝官方 baseline 座位，只接受 manifest 声明的 `gpt6astra` 来源。
 
@@ -224,7 +224,7 @@ BC 模仿验证在 64 行推理块之间共享本次调用的历史缓存；无�
 
 - lite 规则是近似的（587 单位中 470 个），且明确未经原版语义验收；整包性能未验收。
 - 两个后端都采用随机战斗，但随机流不同。固定局面的概率一致不代表完整跨引擎等价。
-- 带种子概率战斗通过 21 项 Rust、83 项 Python/Lua 和 9 个原版分布对照，见 `verification/probabilistic_combat_20261102/REPORT.md`。完整原版语义和棋力仍未验收。
+- 概率战斗的致命状态、条件/必然升级和零级经验已有固定原版对照与自动回归证据，见 `verification/combat_boundaries_20261102/REPORT.md`；首次随机战斗改造证据保留在 `verification/probabilistic_combat_20261102/REPORT.md`。完整原版语义和棋力仍未验收。
 - DAgger 只属于 Astra：冻结教师能回答按决策查询，每条纠正行都携带该身份。
 - 官方 baseline 仅限原版；lite 运行无法对它评估。
 - 整理后的录像语料（`data/replays_curated/`，1,076 局标准时代对局）仍只是暂存：只有记录于 1.18.8 的 197 局能进入 BC。大厅归档以其 `[scenario]` 块作为起始块，因为 1.18.8 自行展开场景并合并已记录的 RNG；缺少 `[carryover_sides_start].random_seed` 的大厅归档按 `missing_initial_rng` 跳过。录像标记只能放在动作之前以及末尾各一次，因为在同步上下文内遇到的 `[custom_command]` 会被回放机拒绝。已准备三局、由官方 1.18.8 实际播放并导入 84 条 BC 行（`verification/curated_bc_20261031/REPORT.md`）；不声明更大范围的语料播放。
