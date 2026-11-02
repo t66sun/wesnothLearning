@@ -89,7 +89,7 @@ def main():
     result = dict(source=args.source, rules_sha256=hashlib.sha256(raw).hexdigest(),
                   executable_sha256=executable_hash, transport_sha256=transport_hash,
                   seconds=time.monotonic()-started, cases=rows,
-                  scope='Six fixed public battles: full HP/status probability parity at 1e-9. No training or strength claim.')
+                  scope='Nine fixed public battles: full HP/status probability parity at 1e-9. No training or strength claim.')
     (args.output/'summary.json').write_text(json.dumps(result, indent=2)+'\n')
 
 

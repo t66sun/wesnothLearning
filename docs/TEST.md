@@ -69,3 +69,11 @@ Limits: unwritten tests, missing inputs/runtime, unproved quality/strength
 ```
 
 No credentials in evidence. A failure, a missing required observation, a silent skip or an identity mismatch blocks the affected acceptance. Documentation-only changes run document, link and diff checks only. This plan has no runtime result.
+
+## R4 — Probability combat beyond fixed native positions
+
+**Status:** 21 Rust, 83 Python/Lua and nine native distributions pass at 1e-9. Complete weapon filtering and advancement/status boundary equivalence remain unaccepted; their native tests are unwritten.
+
+**Procedure:** ship committed source to a fresh Ubuntu directory. Reuse frozen 1.18.8-training rules and the installed native oracle. Add fixed legal positions for weapon disabling/weights, lethal poison/slow and advancement clearing; compare complete HP/status distributions and counter identity, preserving native berserk cutoff. Record source/rules/executable hashes in a new dated evidence directory. No collection/training is authorized by this plan.
+
+**Pass:** supported cases match the declared native contract; unsupported declarations remain explicitly rejected or approximate. Native strength/transfer also requires the separately authorized R3 panel. Current evidence: `verification/probabilistic_combat_20261102/REPORT.md`. **Training blocker:** full native-transfer claims; approximation-gated lite use remains available.

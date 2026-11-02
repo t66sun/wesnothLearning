@@ -1,4 +1,4 @@
-//! Exact finite combat distributions. Merge equal HP/status states after each blow;
+//! Native-compatible finite combat distributions. Merge equal HP/status states after each blow;
 //! no sampling, hidden state, RNG reads, or probability pruning. Native berserk
 //! prediction stops once death probability reaches 99%; execution does not.
 use crate::{combat::{self,Modifiers},model::{Rules,Unit,Weapon}};
