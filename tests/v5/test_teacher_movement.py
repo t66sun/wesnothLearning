@@ -9,7 +9,7 @@ ROOT = Path(__file__).resolve().parents[2]
 STRATEGIES = ('duel', 'four', 'eight')
 
 
-def scene(strategy, status):
+def scene(strategy, status, *, source=None):
     lua = LuaRuntime(unpack_returned_tuples=True)
     lua.globals().move_status = status
     lua.execute("""
@@ -33,7 +33,9 @@ end
 ai.move_full=ai.move
 plan={kind='combat',id='actor',x=4,y=3,tx=3,ty=4,enemy='target',weapon=1}
 """)
-    module = lua.execute((ROOT / f'learning/teachers/gpt6astra/lua/{strategy}.lua').read_text())
+    if source is None:
+        source = (ROOT / f'learning/teachers/gpt6astra/lua/{strategy}.lua').read_text()
+    module = lua.execute(source)
     return lua, module
 
 
