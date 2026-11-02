@@ -4,7 +4,7 @@ use serde_json::{json,Value};
 use std::{cmp::Reverse,collections::{BTreeMap,BTreeSet,BinaryHeap},sync::Arc};
 
 /// `expected_damage_v2` poison: one six-HP tick at the poisoned unit's own turn.
-pub const POISON_TICK: i32 = 6;
+pub const POISON_TICK: i32 = 8;
 
 #[derive(Clone,Serialize,Deserialize)]
 pub struct Game {
@@ -18,6 +18,7 @@ pub struct Game {
     pub current: usize,
     pub revision: u64,
     pub next_id: u64,
+    pub combat_rng: u64,
     pub finished: bool,
     pub truncated: bool,
     pub winner: Option<String>,
@@ -67,7 +68,7 @@ impl Game {
         let count=spec.sides.len();
         let mut g=Self{rules,units:spec.units.clone(),sides:spec.sides.clone(),village_owner:owner,
             knowledge:vec![Knowledge{visible:vec![false;n],explored:vec![false;n],terrain:vec![None;n],..Knowledge::default()};count],
-            spec,turn:1,current:1,revision:0,next_id:1,finished:false,truncated:false,winner:None,
+            combat_rng:spec.seed,spec,turn:1,current:1,revision:0,next_id:1,finished:false,truncated:false,winner:None,
             exploration_seen:BTreeMap::new(),exploration_earned:BTreeMap::new()};
         g.update_visibility();g.update_exploration(true);Ok(g)
     }
@@ -292,8 +293,8 @@ impl Game {
                 let apos=a.pos;let dpos=d.pos;
                 let modifiers=self.combat_modifiers(&a,&d,&self.units);
                 let attacking=self.rules.units[&a.unit_type].weapons[weapon].clone();
-                let outcome=combat::resolve(&self.rules,&mut a,&mut d,weapon,
-                    &self.spec.terrain[apos],&self.spec.terrain[dpos],self.turn,&modifiers);
+                let outcome=combat::resolve_seeded(&self.rules,&mut a,&mut d,weapon,
+                    &self.spec.terrain[apos],&self.spec.terrain[dpos],self.turn,&modifiers,&mut self.combat_rng);
                 let counter=outcome.defender_weapon.map(|i|&self.rules.units[&d.unit_type].weapons[i]);
                 strikes=outcome.strikes;
                 // This is the standard core feeding death rule, not a WML event
@@ -449,16 +450,10 @@ impl Game {
         let at=self.knowledge[s-1].terrain[a.pos].as_ref().ok_or("unknown attacker terrain")?;
         let dt=self.knowledge[s-1].terrain[d.pos].as_ref().ok_or("unknown defender terrain")?;
         let modifiers=self.combat_modifiers(a,d,&public);
-        let mut aa=a.clone();let mut dd=d.clone();
-        combat::resolve(&self.rules,&mut aa,&mut dd,weapon,at,dt,self.turn,&modifiers);
-        let side=|u:&Unit|{
-            let hp=u.hp.max(0);
-            json!({"average_hp":hp,"hp_chance":BTreeMap::from([(hp.to_string(),1.0)]),
-                "poisoned":i32::from(u.status.contains("poisoned")),"slowed":i32::from(u.status.contains("slowed"))})
-        };
-        Ok(json!({"approximate":false,"samples":1,"combat_version":COMBAT_VERSION,
-            "attacker":side(&aa),"defender":side(&dd)}))
+        let (_,distribution)=crate::combat_probability::select(&self.rules,a,d,weapon,at,dt,self.turn,&modifiers);
+        Ok(distribution.json())
     }
+
     fn combat_modifiers(&self,a:&Unit,d:&Unit,context:&[Unit])->combat::Modifiers {
         let leadership=|target:&Unit|{
             let adjacent=self.adjacent(target.pos);

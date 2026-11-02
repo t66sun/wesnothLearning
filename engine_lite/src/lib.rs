@@ -1,5 +1,6 @@
 mod model;
 mod combat;
+mod combat_probability;
 mod state;
 mod host;
 #[cfg(test)] mod engine_tests;
