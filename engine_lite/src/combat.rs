@@ -65,11 +65,11 @@ pub(super) fn strike(rules:&Rules,a:&mut Unit,d:&mut Unit,w:&Weapon,
     let dealt=if connected {modified.min(i64::from(d.hp)).max(0) as i32}else{0};
     if connected {
         d.hp-=dealt;
-        if w.specials.contains("drains") && !dt.abilities.contains("undrainable") {
+        if w.specials.contains("drains") && !dt.abilities.contains("undrainable") && !d.status.contains("undrainable") {
             a.hp=(a.hp+(i64::from(dealt)*i64::from(w.drain_percent.unwrap_or(50))/100) as i32).min(a.max_hp(rules));
         }
         if d.hp>0 {
-            if w.specials.contains("poison") && !dt.abilities.contains("unpoisonable") { d.status.insert("poisoned".into()); }
+            if w.specials.contains("poison") && !dt.abilities.contains("unpoisonable") && !d.status.contains("unpoisonable") { d.status.insert("poisoned".into()); }
             if w.specials.contains("slow") { d.status.insert("slowed".into()); }
             if w.specials.contains("petrifies") { d.status.insert("petrified".into()); }
             if w.specials.contains("stun") { d.status.insert("stunned".into()); }

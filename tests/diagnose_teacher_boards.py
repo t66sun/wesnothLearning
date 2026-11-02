@@ -14,7 +14,7 @@ from learning.teachers import identity
 
 
 CASES = {
-    'lethal_target': ('Elvish Fighter', 'Orcish Grunt', 'defender', 1),
+    'lethal_target': ('Elvish Fighter', 'Orcish Grunt', 'defender', 2),
     'survive_retaliation': ('Elvish Fighter', 'Orcish Grunt', 'alternative', 1),
     'magical_weapon': ('Mage', 'Elvish Fighter', 'defender', 2),
     'poison_weapon': ('Orcish Assassin', 'Elvish Fighter', 'defender', 2),
@@ -26,8 +26,14 @@ CASES = {
 def board(rules, name, fmt):
     attacker, defender, _, _ = CASES[name]
     spec = game_spec(rules, attacker, defender)
+    # Keep remote leaders outside next-turn threat range of the tactical pair.
+    spec.update(width=13, height=13, terrain=['Gg'] * 169)
+    spec['terrain'][0] = 'Kh'
+    spec['terrain'][1] = 'Ch'
+    for u, pos in zip(spec['units'], (0, 168, 84, 85)):
+        u['pos'] = pos
     if fmt != 'duel':
-        for side, pos in ((3, 42), (4, 6)):
+        for side, pos in ((3, 156), (4, 12)):
             spec['sides'].append(dict(spec['sides'][1], id=side, team=str(side)))
             spec['units'].append(unit(rules, f'leader{side}', 'Orcish Warrior', side, pos, leader=True))
     for side in spec['sides']:
@@ -36,11 +42,11 @@ def board(rules, name, fmt):
             side['team'] = str((side['id'] - 1) % 2 + 1)
     if name in ('lethal_target', 'survive_retaliation', 'poison_immunity'):
         kind = 'Dark Adept' if name == 'survive_retaliation' else defender
-        spec['units'].append(unit(rules, 'alternative', kind, 2, 16))
+        spec['units'].append(unit(rules, 'alternative', kind, 2, 71))
     if name == 'lethal_target':
         spec['units'][3]['hp'] = 1
     if name == 'survive_retaliation':
-        spec['units'][2]['hp'] = 1
+        spec['units'][2]['hp'] = 12
     if name == 'poison_immunity':
         spec['units'][3]['status'] = ['unpoisonable']
     for u in spec['units']:
