@@ -1,4 +1,4 @@
-"""Diagnose slow valuation on two fixed boards without changing teacher scoring."""
+"""Regress slow valuation with and without an unrelated remote threat."""
 import argparse
 import hashlib
 import json
@@ -86,13 +86,15 @@ def main():
     summary = dict(source=args.source, teacher=identity(), rules_sha256=hashlib.sha256(raw).hexdigest(),
                    native_executable_sha256=native_hash, wall_seconds=time.monotonic() - started,
                    comparisons=comparisons,
-                   limits='Two fixed first-decision boards; observed diagnosis, not a strength or repair acceptance.')
+                   limits='Two fixed first-decision boards; weapon stability only, not strength acceptance.')
     write(args.output / 'summary.json', summary)
     print(json.dumps(summary, indent=2), flush=True)
     for result in comparisons.values():
         for key in ('same_target_and_landing', 'ranged_forecasts_equal', 'target_damage_estimates_equal',
                     'ranged_danger_cost_inactive', 'all_choices_legal', 'remote_not_attackable'):
             assert result[key], (key, result)
+    assert all(result['before_weapon'] == result['after_weapon'] == 3
+               for result in comparisons.values()), comparisons
 
 
 if __name__ == '__main__':

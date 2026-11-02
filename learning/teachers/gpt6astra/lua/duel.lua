@@ -67,20 +67,22 @@ end
 
 local function danger(c,u,x,y,excluded)
     local hits={}
+    local target_damage=0
     local dodge=u:defense_on(terrain(x,y))/100
-    for _,e in ipairs(c.threats[key(x,y)] or {}) do if e.id~=excluded then
+    for _,e in ipairs(c.threats[key(x,y)] or {}) do
         local damage=0
         for _,a in ipairs(e.attacks) do
             damage=math.max(damage,a.damage*a.number*(1-dodge)*(1-u:resistance_against(a.type)/100)*tod(e,e.side>c.side and c.turn or c.turn+1))
         end
         damage=damage*V.DAMAGE_UPLIFT
         if e.status.slowed then damage=damage*V.SLOW_DAMAGE end
-        hits[#hits+1]=damage*(0.7+0.3*e.hitpoints/e.max_hitpoints)
-    end end
+        local hit=damage*(0.7+0.3*e.hitpoints/e.max_hitpoints)
+        if e.id==excluded then target_damage=hit else hits[#hits+1]=hit end
+    end
     table.sort(hits,function(a,b) return a>b end)
     local total=0
     for i=1,math.min(4,#hits) do total=total+hits[i]*(i==1 and 1 or 0.75) end
-    return total,#hits
+    return total,#hits,target_damage
 end
 
 local function recruit(c,data)
@@ -142,7 +144,7 @@ local function attacks(c,start)
                 for x,y in wesnoth.current.map:iter_adjacent(e.x,e.y) do if reach[key(x,y)] and
                     (not u.canrecruit or dist({x,y},c.homes[u.id])<=1 or e.canrecruit) then
                     local clone=u:clone();clone.x=x;clone.y=y
-                    local risk=danger(c,u,x,y,e.id)
+                    local risk,_,target_damage=danger(c,u,x,y,e.id)
                     for weapon=1,#u.attacks do
                         local a,d=wesnoth.simulate_combat(clone,weapon,e)
                         sims=sims+1
@@ -154,7 +156,7 @@ local function attacks(c,start)
                         local s=V.combat_score{dealt=dealt,taken=taken,kill=kill,death=death,
                             enemy_value=ev,enemy_max=e.max_hitpoints,own_value=uv,own_max=u.max_hitpoints,
                             death_cost=death_cost,poison=d.poisoned or 0,enemy_poisoned=e.status.poisoned,
-                            slow=d.slowed or 0,enemy_slowed=e.status.slowed,
+                            slow=d.slowed or 0,enemy_slowed=e.status.slowed,target_damage=target_damage,
                             own_poison=a.poisoned or 0,own_poisoned=u.status.poisoned,
                             risk=risk,expected_hp=a.average_hp,risk_weight=attack_risk}
                         if e.canrecruit then s=s+kill*(#wesnoth.sides==2 and 250 or 130)+dealt*(0.25+leader_pressure*(pressure[e.id] or 0)^3) end

@@ -68,10 +68,9 @@ class AstraAdaptationTests(unittest.TestCase):
         self.assertGreater(accurate, speculative)
 
         # 4. Slow is worth the damage cut plus the movement restriction.
-        slowed = self.score(slow=1, risk=20)
+        slowed = self.score(slow=1, target_damage=20)
         plain = self.score(dealt=6)
         self.assertGreater(slowed, plain)
-        self.assertAlmostEqual(self.values.slow_gain(20), 12.0)
         self.assertLess(self.legacy(dealt=0, slow=1), 6)
 
         # 5. A poison tick is eight points, so a poison-only attack beats a
