@@ -1,0 +1,11 @@
+test_ambush_halts_the_original_frozen_control_plan (tests.v5.test_teacher_control_compatibility.TeacherControlCompatibilityTests.test_ambush_halts_the_original_frozen_control_plan) ... ok
+test_normal_arrival_and_other_move_errors_keep_their_behavior (tests.v5.test_teacher_control_compatibility.TeacherControlCompatibilityTests.test_normal_arrival_and_other_move_errors_keep_their_behavior) ... ok
+test_reversing_the_known_hunks_restores_every_parent_byte (tests.v5.test_teacher_control_compatibility.TeacherControlCompatibilityTests.test_reversing_the_known_hunks_restores_every_parent_byte) ... ok
+test_ambush_stops_before_the_planned_attack (tests.v5.test_teacher_movement.TeacherMovementTests.test_ambush_stops_before_the_planned_attack) ... ok
+test_normal_arrival_executes_the_planned_attack (tests.v5.test_teacher_movement.TeacherMovementTests.test_normal_arrival_executes_the_planned_attack) ... ok
+test_other_native_move_errors_still_fail (tests.v5.test_teacher_movement.TeacherMovementTests.test_other_native_move_errors_still_fail) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.015s
+
+OK
