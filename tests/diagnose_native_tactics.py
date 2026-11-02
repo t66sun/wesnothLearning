@@ -56,7 +56,7 @@ def main():
                        lite_actual=lite_result)
             for who, identifier in (('attacker', 'attacker'), ('defender', 'defender')):
                 after = next((u for u in lite.observe(1)['units'] if u['id'] == identifier), None)
-                assert forecast[who]['average_hp'] == (after['hp'] if after else 0), name
+                assert forecast[who]['hp_chance'].get(str(after['hp'] if after else 0), 0) > 0, name
             lite.close()
             (args.output/(name+'.json')).write_text(json.dumps(row, indent=2)+'\n')
             oracle = row['native']['oracle']

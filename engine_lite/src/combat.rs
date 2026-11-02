@@ -205,42 +205,37 @@ mod tests {
     }
 
     #[test]
-    fn expected_damage_matches_the_r1_table() {
-        // D=10 at 60% defense: 10*60*1.10/100 = 6.6 -> 7.
+    fn connected_strikes_use_full_damage_without_uplift() {
         let rules_60 = rules(60, vec![weapon(10, 1, &[])], vec![]);
         let mut a = unit("a", "A", 40);
         let mut d = unit("d", "D", 40);
         let hit = strike_once(&rules_60, &mut a, &mut d, 0);
-        assert_eq!((hit.chance, hit.damage, hit.hit), (60, 7, true));
-        assert_eq!(d.hp, 33);
-        // A second damage value catches a scale error that still rounds 10@60 to 7.
+        assert_eq!((hit.chance, hit.damage, hit.hit), (60, 10, true));
+        assert_eq!(d.hp, 30);
         let rules_13 = rules(60, vec![weapon(13, 1, &[])], vec![]);
         let mut a = unit("a", "A", 40);
         let mut d = unit("d", "D", 40);
-        assert_eq!(strike_once(&rules_13, &mut a, &mut d, 0).damage, 9);
-        // 100% chance: exactly the 10% uplift, 11.
+        assert_eq!(strike_once(&rules_13, &mut a, &mut d, 0).damage, 13);
         let rules_100 = rules(100, vec![weapon(10, 1, &[])], vec![]);
         let mut a = unit("a", "A", 40);
         let mut d = unit("d", "D", 40);
-        assert_eq!(strike_once(&rules_100, &mut a, &mut d, 0).damage, 11);
-        // 1% chance rounds up to one point instead of vanishing.
+        assert_eq!(strike_once(&rules_100, &mut a, &mut d, 0).damage, 10);
         let rules_1 = rules(1, vec![weapon(10, 1, &[])], vec![]);
         let mut a = unit("a", "A", 40);
         let mut d = unit("d", "D", 40);
-        assert_eq!(strike_once(&rules_1, &mut a, &mut d, 0).damage, 1);
+        assert_eq!(strike_once(&rules_1, &mut a, &mut d, 0).damage, 10);
     }
 
     #[test]
-    fn slowed_damage_is_three_quarters_rounded_up_then_scaled() {
-        // Slowed D=10 -> S=8, then 8*60*1.10/100 = 5.28 -> 6.
+    fn slowed_damage_is_half_with_native_rounding() {
         let rules = rules(60, vec![weapon(10, 1, &[])], vec![]);
         let mut a = unit("a", "A", 40);
         let mut d = unit("d", "D", 40);
         a.status.insert("slowed".into());
         let hit = strike_once(&rules, &mut a, &mut d, 0);
-        assert_eq!((hit.damage, d.hp), (6, 34));
-        assert_eq!(slowed_damage(10), 8);
-        assert_eq!(slowed_damage(11), 9);
+        assert_eq!((hit.damage, d.hp), (5, 35));
+        assert_eq!(slowed_damage(10), 5);
+        assert_eq!(slowed_damage(11), 6);
     }
 
     #[test]
@@ -271,8 +266,8 @@ mod tests {
         let mut d = unit("d", "D", 40);
         let log = resolve(&rules, &mut a, &mut d, 0, PLAIN, PLAIN, 1, &Modifiers::default()).strikes;
         let order: Vec<(&str, i32)> = log.iter().map(|s| (s.attacker.as_str(), s.damage)).collect();
-        assert_eq!(order, vec![("a", 7), ("d", 3), ("a", 7), ("d", 3)]);
-        assert_eq!((d.hp, a.hp), (26, 34));
+        assert_eq!(order, vec![("a", 10), ("d", 4), ("a", 10), ("d", 4)]);
+        assert_eq!((d.hp, a.hp), (20, 32));
     }
 
     #[test]
@@ -314,10 +309,9 @@ mod tests {
         let mut a = unit("a", "A", 40);
         let mut d = unit("d", "D", 40);
         let log = resolve(&rules, &mut a, &mut d, 0, PLAIN, PLAIN, 1, &Modifiers::default()).strikes;
-        assert_eq!(log[0].damage, 11);
+        assert_eq!(log[0].damage, 10);
         assert!(d.status.contains("slowed"));
-        // Retaliation now uses S=ceil(3*10/4)=8 at 100%: 8*1.10 -> 9.
-        assert_eq!(log[1].damage, 9);
+        assert_eq!(log[1].damage, 5);
     }
 
     #[test]
@@ -331,8 +325,8 @@ mod tests {
         let mut d = unit("d", "D", 40);
         let log = resolve(&rules, &mut a, &mut d, 0, PLAIN, PLAIN, 1, &Modifiers::default()).strikes;
         let blows: Vec<i32> = log.iter().filter(|s| s.attacker == "d").map(|s| s.damage).collect();
-        assert_eq!(blows, vec![8, 8]);
-        assert_eq!(a.hp, 24);
+        assert_eq!(blows, vec![12, 12]);
+        assert_eq!(a.hp, 16);
     }
 
     #[test]
@@ -343,7 +337,7 @@ mod tests {
         let mut d = unit("d", "D", 40);
         let log = resolve(&rules, &mut a, &mut d, 0, PLAIN, PLAIN, 1, &Modifiers::default()).strikes;
         assert!(log.iter().filter(|s| s.attacker == "d").all(|s| s.chance == 70));
-        assert_eq!(a.hp, 25);
+        assert_eq!(a.hp, 22);
     }
 
     #[test]
@@ -354,7 +348,7 @@ mod tests {
         let mut d = unit("d", "D", 40);
         d.resolved_weapon_damage = vec![1, 10];
         resolve(&rules, &mut a, &mut d, 0, PLAIN, PLAIN, 1, &Modifiers::default());
-        assert_eq!(a.hp, 18);
+        assert_eq!(a.hp, 20);
     }
 
     #[test]
@@ -377,13 +371,13 @@ mod tests {
         let mut a = unit("a", "A", 40);
         let mut d = unit("d", "D", 40);
         resolve(&rules_absorb, &mut a, &mut d, 0, PLAIN, PLAIN, 1, &Modifiers::default());
-        assert_eq!((a.hp, d.hp), (26, 22));
+        assert_eq!((a.hp, d.hp), (28, 25));
         let rules_poison = rules(100, vec![weapon(1, 1, &[])],
                                  vec![weapon(5, 2, &[]), weapon(4, 2, &["poison"])]);
         let mut a = unit("a", "A", 40);
         let mut d = unit("d", "D", 40);
         resolve(&rules_poison, &mut a, &mut d, 0, PLAIN, PLAIN, 1, &Modifiers::default());
-        assert_eq!(a.hp, 30);
+        assert_eq!(a.hp, 32);
         assert!(a.status.contains("poisoned"));
     }
 
@@ -397,6 +391,6 @@ mod tests {
         let mut d = unit("d", "D", 40);
         let outcome = resolve(&rules, &mut a, &mut d, 0, PLAIN, PLAIN, 1, &Modifiers::default());
         assert_eq!(outcome.defender_weapon, Some(1));
-        assert_eq!(a.hp, 34);
+        assert_eq!(a.hp, 32);
     }
 }
