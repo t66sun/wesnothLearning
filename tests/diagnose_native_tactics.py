@@ -68,7 +68,7 @@ def main():
                 unit = spec['units'][index]
                 unit['xp'] = rules['units'][unit['unit_type']]['experience'] - gap
             if name.startswith('backstab'):
-                flanker = dict(id='flanker', unit_type='Elvish Fighter', side=1, pos=19,
+                flanker = dict(id='flanker', unit_type='Elvish Fighter', side=1, pos=32,
                                hp=rules['units']['Elvish Fighter']['hp'], moves=0,
                                attacks_left=0, xp=0, leader=False, status=[], traits=[])
                 if name == 'backstab_ffa':
@@ -139,6 +139,9 @@ def main():
             lite.close()
             (args.output/(name+'.json')).write_text(json.dumps(row, indent=2)+'\n')
             oracle = row['native']['oracle']
+            if name.startswith('backstab'):
+                expected_damage = 4 if name == 'backstab_petrified' else 8
+                assert oracle['attacker_weapon']['damage'] == expected_damage, (name, 'backstab activation')
             for who in ('attacker', 'defender'):
                 for metric in ('average_hp', 'poisoned', 'slowed'):
                     if abs(oracle[who][metric]-forecast[who][metric]) >= 1e-9:
