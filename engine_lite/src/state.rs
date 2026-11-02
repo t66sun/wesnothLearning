@@ -495,7 +495,7 @@ impl Game {
         let dq=(d.pos%self.spec.width) as i32;let dr=(d.pos/self.spec.width) as i32-dq/2;
         let oq=2*dq-aq;let oy=2*dr-ar+oq.div_euclid(2);
         let behind=if oq>=0 && oq<self.spec.width as i32 && oy>=0 && oy<self.spec.height as i32 {Some(oy as usize*self.spec.width+oq as usize)}else{None};
-        let backstab=behind.is_some_and(|p|context.iter().any(|u|u.hp>0 && u.pos==p && !self.enemy(u.side,a.side) && !u.status.contains("petrified")));
+        let backstab=behind.is_some_and(|p|context.iter().any(|u|u.hp>0 && u.pos==p && self.enemy(u.side,d.side) && !u.status.contains("petrified")));
         combat::Modifiers{attacker_leadership:leadership(a),defender_leadership:leadership(d),illumination:light+dark,backstab,
             attacker_cth_sub:diversion(a),defender_cth_sub:diversion(d),
             attacker_firststrike:initiative(a),defender_firststrike:initiative(d)}
