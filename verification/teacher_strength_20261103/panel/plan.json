@@ -1,0 +1,32 @@
+{
+  "root": "/home/tongshu/acceptance/teacher_strength_20261103",
+  "output": "/home/tongshu/acceptance/teacher_strength_20261103/panel",
+  "source_commit": "a5f8be0bd4a894385d9a86c9f26c5424c3a87a18",
+  "wesnoth": "/home/tongshu/myDev/wesnothLearning/WesnothLearning/.runtime/install/bin/wesnoth",
+  "wesnoth_version": "1.18.8",
+  "seed": 20261103,
+  "blocks": 12,
+  "min_distinct": 12,
+  "workers": 8,
+  "max_turns": 30,
+  "timeout": 1,
+  "first_timeout": 10,
+  "team_contexts": [
+    "baseline_partner",
+    "self_team"
+  ],
+  "games": {
+    "duel": 24,
+    "ffa4": 48,
+    "team2v2": 96
+  },
+  "created": 1793643048.429073,
+  "deadline": 1793664648.429073,
+  "budget_seconds": 21600,
+  "partition": "validation",
+  "holdout_used": false,
+  "schedule_sha256": "c07c32a2abf902740b961d2a4cc522c2c299d405a440e89afc61e5ed81e82a8d",
+  "identities_sha256": "e2a7d9ba078a65a097ff19b2bb6d46e9c64b5862c2631280cecd667390d64f24",
+  "pass_rule": "Existing comparisons: 12 complete blocks, 12 families, CI low > 0",
+  "limit": "Report turn_limit separately; candidate truncation is a different counter."
+}

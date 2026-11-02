@@ -1,0 +1,68 @@
+{
+  "source": "c4907460eb157d34acbadbb6b23d4b02b45e1ced",
+  "teacher": {
+    "teacher": "gpt6astra",
+    "teacher_profile": "probabilistic_combat_v6",
+    "teacher_source_sha256": "24aa546bbcce6670b0baef8751730d64c229b37cfe608d6cc59fd3e4c211eb98"
+  },
+  "native_executable_sha256": "33f64aa3f5ee40228bd44e357b3f4d784121d4392ff774d6c059c7defa3e5fcf",
+  "entropy_sha256": "f12d763303445aa437de06d0dba129dc923e3d81fd1fc82d72b8e331916480cf",
+  "result": {
+    "bots": [
+      "teacher_ambush",
+      "baseline"
+    ],
+    "seed": 713,
+    "turns": 1,
+    "winner": 0,
+    "survivors": [
+      1,
+      2
+    ],
+    "reason": "turn_limit",
+    "faults": {},
+    "rank_points": {
+      "1": 0.5,
+      "2": 0.5
+    },
+    "eliminated": {},
+    "seconds": 1.0661,
+    "actions": 1,
+    "factions": [
+      "Drakes",
+      "Northerners"
+    ],
+    "spawns": [
+      [
+        7,
+        7
+      ],
+      [
+        7,
+        1
+      ]
+    ],
+    "lenient": false,
+    "native_replay": "/home/tongshu/acceptance/teacher_ambush_fixed_20261103/native/ambush.replay.gz",
+    "rules_version": "wesnoth-1.18.8-native-v2"
+  },
+  "trace": {
+    "TEACHER_BEFORE": {
+      "ambusher_visible": false,
+      "checked": true
+    },
+    "TEACHER_MOVE": {
+      "changed": true,
+      "ok": false,
+      "status": 2005,
+      "x": 3,
+      "y": 4
+    },
+    "TEACHER_AFTER": {
+      "ambusher_visible": true,
+      "attacks": 0,
+      "x": 3,
+      "y": 4
+    }
+  }
+}

@@ -1,0 +1,59 @@
+test_ambush_stops_before_the_planned_attack (tests.v5.test_teacher_movement.TeacherMovementTests.test_ambush_stops_before_the_planned_attack) ... 
+  test_ambush_stops_before_the_planned_attack (tests.v5.test_teacher_movement.TeacherMovementTests.test_ambush_stops_before_the_planned_attack) (strategy='duel') ... ERROR
+  test_ambush_stops_before_the_planned_attack (tests.v5.test_teacher_movement.TeacherMovementTests.test_ambush_stops_before_the_planned_attack) (strategy='four') ... ERROR
+  test_ambush_stops_before_the_planned_attack (tests.v5.test_teacher_movement.TeacherMovementTests.test_ambush_stops_before_the_planned_attack) (strategy='eight') ... ERROR
+test_normal_arrival_executes_the_planned_attack (tests.v5.test_teacher_movement.TeacherMovementTests.test_normal_arrival_executes_the_planned_attack) ... ok
+test_other_native_move_errors_still_fail (tests.v5.test_teacher_movement.TeacherMovementTests.test_other_native_move_errors_still_fail) ... ok
+
+======================================================================
+ERROR: test_ambush_stops_before_the_planned_attack (tests.v5.test_teacher_movement.TeacherMovementTests.test_ambush_stops_before_the_planned_attack) (strategy='duel')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/teacher_ambush_red_20261103/tests/v5/test_teacher_movement.py", line 45, in test_ambush_stops_before_the_planned_attack
+    teacher.execution(teacher, lua.table(), lua.table(plan=lua.globals().plan))
+  File "lupa/lua54.pyx", line 921, in lupa.lua54._LuaObject.__call__
+  File "lupa/lua54.pyx", line 1886, in lupa.lua54.call_lua
+  File "lupa/lua54.pyx", line 1913, in lupa.lua54.execute_lua_call
+  File "lupa/lua54.pyx", line 1794, in lupa.lua54.raise_lua_error
+lupa.lua54.LuaError: [string "<python>"]:265: assertion failed!
+stack traceback:
+	[string "<python>"]:282: in function <[string "<python>"]:273>
+	[string "<python>"]:265: in upvalue 'move'
+	[C]: in function 'assert'
+
+======================================================================
+ERROR: test_ambush_stops_before_the_planned_attack (tests.v5.test_teacher_movement.TeacherMovementTests.test_ambush_stops_before_the_planned_attack) (strategy='four')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/teacher_ambush_red_20261103/tests/v5/test_teacher_movement.py", line 45, in test_ambush_stops_before_the_planned_attack
+    teacher.execution(teacher, lua.table(), lua.table(plan=lua.globals().plan))
+  File "lupa/lua54.pyx", line 921, in lupa.lua54._LuaObject.__call__
+  File "lupa/lua54.pyx", line 1886, in lupa.lua54.call_lua
+  File "lupa/lua54.pyx", line 1913, in lupa.lua54.execute_lua_call
+  File "lupa/lua54.pyx", line 1794, in lupa.lua54.raise_lua_error
+lupa.lua54.LuaError: [string "<python>"]:314: assertion failed!
+stack traceback:
+	[string "<python>"]:331: in function <[string "<python>"]:322>
+	[string "<python>"]:314: in upvalue 'move'
+	[C]: in function 'assert'
+
+======================================================================
+ERROR: test_ambush_stops_before_the_planned_attack (tests.v5.test_teacher_movement.TeacherMovementTests.test_ambush_stops_before_the_planned_attack) (strategy='eight')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/teacher_ambush_red_20261103/tests/v5/test_teacher_movement.py", line 45, in test_ambush_stops_before_the_planned_attack
+    teacher.execution(teacher, lua.table(), lua.table(plan=lua.globals().plan))
+  File "lupa/lua54.pyx", line 921, in lupa.lua54._LuaObject.__call__
+  File "lupa/lua54.pyx", line 1886, in lupa.lua54.call_lua
+  File "lupa/lua54.pyx", line 1913, in lupa.lua54.execute_lua_call
+  File "lupa/lua54.pyx", line 1794, in lupa.lua54.raise_lua_error
+lupa.lua54.LuaError: [string "<python>"]:301: assertion failed!
+stack traceback:
+	[string "<python>"]:318: in function <[string "<python>"]:309>
+	[string "<python>"]:301: in upvalue 'move'
+	[C]: in function 'assert'
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.006s
+
+FAILED (errors=3)

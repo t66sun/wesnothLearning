@@ -1,0 +1,60 @@
+{
+  "result": {
+    "bots": [
+      "teacher_ambush",
+      "baseline"
+    ],
+    "seed": 713,
+    "turns": 1,
+    "winner": 0,
+    "survivors": [
+      1,
+      2
+    ],
+    "reason": "turn_limit",
+    "faults": {},
+    "rank_points": {
+      "1": 0.5,
+      "2": 0.5
+    },
+    "eliminated": {},
+    "seconds": 1.0661,
+    "actions": 1,
+    "factions": [
+      "Drakes",
+      "Northerners"
+    ],
+    "spawns": [
+      [
+        7,
+        7
+      ],
+      [
+        7,
+        1
+      ]
+    ],
+    "lenient": false,
+    "native_replay": "/home/tongshu/acceptance/teacher_ambush_fixed_20261103/native/ambush.replay.gz",
+    "rules_version": "wesnoth-1.18.8-native-v2"
+  },
+  "trace": {
+    "TEACHER_BEFORE": {
+      "ambusher_visible": false,
+      "checked": true
+    },
+    "TEACHER_MOVE": {
+      "changed": true,
+      "ok": false,
+      "status": 2005,
+      "x": 3,
+      "y": 4
+    },
+    "TEACHER_AFTER": {
+      "ambusher_visible": true,
+      "attacks": 0,
+      "x": 3,
+      "y": 4
+    }
+  }
+}
