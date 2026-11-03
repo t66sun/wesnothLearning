@@ -70,9 +70,14 @@ local function danger(c,u,x,y,excluded)
     local target_damage=0
     local dodge=u:defense_on(terrain(x,y))/100
     for _,e in ipairs(c.threats[key(x,y)] or {}) do
+        local hit_chance=1-dodge
+        if e.id==excluded then
+            -- Price slow at the attacker's pre-move defense across all landings.
+            hit_chance=1-u:defense_on(terrain(u.x,u.y))/100
+        end
         local damage=0
         for _,a in ipairs(e.attacks) do
-            damage=math.max(damage,a.damage*a.number*(1-dodge)*(1-u:resistance_against(a.type)/100)*tod(e,e.side>c.side and c.turn or c.turn+1))
+            damage=math.max(damage,a.damage*a.number*hit_chance*(1-u:resistance_against(a.type)/100)*tod(e,e.side>c.side and c.turn or c.turn+1))
         end
         damage=damage*V.DAMAGE_UPLIFT
         if e.status.slowed then damage=damage*V.SLOW_DAMAGE end

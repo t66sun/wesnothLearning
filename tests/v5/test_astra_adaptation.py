@@ -95,6 +95,28 @@ class AstraAdaptationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'different Astra teacher profile'):
             validate_record(row, 'duel')
 
+    def test_duel_slow_does_not_reward_an_exposed_landing(self):
+        from engine_lite.differential import unit
+
+        rules = helpers.rules()
+        slower = rules['units']['Archer']
+        slower['weapons'] = [dict(id='entangle', damage=3, strikes=2, damage_type='impact',
+                                  range='ranged', specials=['slow'])]
+        slower['defense'].update({'Gg': 60, 'Gg^Vh': 40})  # Chance to be hit.
+        terrain = ['Gg'] * 169
+        terrain[84] = 'Gg^Vh'  # (7, 7), adjacent to the same target as the grass alternatives.
+        units = [unit(rules, 'home', 'Fighter', 1, 0, leader=True),
+                 unit(rules, 'away', 'Fighter', 2, 168, leader=True),
+                 unit(rules, 'slower', 'Archer', 1, 83),
+                 unit(rules, 'target', 'Fighter', 2, 85, hp=14)]
+        spec = helpers.spec(width=13, height=13, terrain=terrain, units=units, fog=False)
+        for side in spec['sides']:
+            side['gold'] = 0
+        engine = helpers.engine(rules_data=rules, game_spec=spec)
+        plan = helpers.decision(engine, teacher=True)['teacher_action']
+        self.assertEqual((plan['kind'], plan['enemy'], plan['tx'], plan['ty']),
+                         ('combat', 'target', 7, 7))
+
     def test_source_is_derived_and_marked(self):
         modules = lua_modules()
         self.assertIn('astra/value.lua', modules)

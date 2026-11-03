@@ -1,0 +1,25 @@
+test_duel_slow_does_not_reward_an_exposed_landing (tests.v5.test_astra_adaptation.AstraAdaptationTests.test_duel_slow_does_not_reward_an_exposed_landing) ... FAIL
+
+======================================================================
+FAIL: test_duel_slow_does_not_reward_an_exposed_landing (tests.v5.test_astra_adaptation.AstraAdaptationTests.test_duel_slow_does_not_reward_an_exposed_landing)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/duel_slow_landing_red_20261103/tests/v5/test_astra_adaptation.py", line 117, in test_duel_slow_does_not_reward_an_exposed_landing
+    self.assertEqual((plan['kind'], plan['enemy'], plan['tx'], plan['ty']),
+AssertionError: Tuples differ: ('combat', 'target', 8, 6) != ('combat', 'target', 7, 7)
+
+First differing element 2:
+8
+7
+
+- ('combat', 'target', 8, 6)
+?                      ^  ^
+
++ ('combat', 'target', 7, 7)
+?                      ^  ^
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.032s
+
+FAILED (failures=1)
