@@ -78,7 +78,7 @@ class RevisionTests(unittest.TestCase):
             row=read_shards([path])[0];self.assertFalse(row['value_valid']);self.assertAlmostEqual(row['terminal_reward'],0.)
             policy=dict(record(),source='policy',teacher=False,potential=.2)
             self.assertEqual(write_shard(path,'game',[policy],result)['excluded'],'missing_truncation_bootstrap')
-            write_shard(path,'game',[policy],result,{'1':dict(value=.6,potential=.3)})
+            write_shard(path,'game',[policy],result,{'1':dict(value=.6,potential=.3,reward_raw=policy['reward_raw'])})
             self.assertAlmostEqual(read_shards([path])[0]['bootstrap_value'],.6)
         with patch('learning.maps.frozen_map',return_value=(opening_map(4),'0'*64)):
             jobs=evaluation_jobs('.', 'p','baseline',['baseline'],1,1,3000000000,'unused',formats=['duel'])
