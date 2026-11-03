@@ -19,7 +19,7 @@ Removed bot prefix truncation and export-only score limits. Lite, native collect
 
 Removed the remaining score limit and the per-caller candidate budget: `lua/candidates.lua` now decides generation work itself, no caller passes `budget_ms`, and every native policy seat — rollout, nomination, collection, deployment, lite host and benchmark — scores the complete shared set (37 candidates) under the unchanged one-second native timeout. Generation is charged, so the pool no longer grows without bound on larger visible armies, and generation is timed separately from scoring (`generate_ms`, `score_ms`) so a dense midgame decision can be judged stage by stage.
 
-Evidence: `verification/candidate_work_budget_20261031/REPORT.md` plays two seeded games per format (duel, ffa4, team2v2) on a fixed dense synthetic map with a frozen 1 s budget and records decision, generation and scoring percentiles. Remaining limits: those games use a randomly initialized exported policy on a compact map, so this is a latency and contract acceptance, not a strength, convergence or final-evaluation result; item 9 stays open. Native rule transfer is covered separately in item 5.
+Evidence: `verification/candidate_work_budget_20261031/REPORT.md` plays two seeded games per format (duel, ffa4, team2v2) on a fixed dense synthetic map with a frozen 1 s budget and records decision, generation and scoring percentiles. Remaining limits: those games use a randomly initialized exported policy on a compact map, so this is a latency and contract acceptance, not a strength, convergence or final-evaluation result. Item 9 records the separate selected-checkpoint evaluation. Native rule transfer is covered separately in item 5.
 
 ## 4. Completed — Deterministic charged work budget bounds the nested generation work
 
@@ -51,13 +51,11 @@ Evidence for items 6-7: `verification/window_memory_20261101/REPORT.md`. Two pre
 
 `learning/common.py` gains `repair_tail`: it reads one byte for a terminated log and otherwise scans backwards in 1 MiB chunks, so a repair costs the interrupted tail plus one chunk. `learning/coordinator.py` repairs each log once per broker call and appends every later result; `learning/sample.py` uses the same helper in `collect`. `tests/test_experiment.py` asserts exactly one repair per log across 15 appended results, byte-level tail cases including a multi-chunk tail, and the `collect` call site; point mutations of both call sites and of the chunk loop fail those assertions. Evidence: `verification/log_tail_repair_20261101/REPORT.md`. Limits recorded there: no games or training, no read-volume assertion in the repository, concurrent writers and long-run dispatch latency unmeasured.
 
-## 9. P1 — End-to-end final evaluation acceptance is still open
+## 9. Completed — Selected checkpoint finishes the native final panel
 
-**Evidence:** `docs/TEST.md`, L1, records that the restored-Astra reduced run reached updates/resume/selection but its 120 final games all faulted. It separately records the subsequent action-budget fix and says the final-evaluation rerun is NOT RUN. `verification/action_budget_20261031/REPORT.md` measures eight short duel games using a seeded policy, not the selected trained checkpoint across the required final panel.
+L1's selected trained duel v12 checkpoint completed its original 120-game Ubuntu holdout in 19m39s. The frozen Astra and baseline controls each scored 30/30 rotation blocks across 30 distinct scenarios. There were zero faults, 109 last-leader finishes and 11 turn-limit draws. From turn 10 onward the policy recorded 13,704 regular returns with p95 240 ms and maximum 316 ms. The official score differences were −1.00 against Astra and −0.65 against baseline. Both strength comparisons returned `not_passed`.
 
-**Impact:** the previous timeout cause has a bounded fix; it should not be reported as universally still broken. However, a usable selected-checkpoint final-evaluation chain has not yet been established by that evidence, and there is no measured coverage here of dense midgames or the other two formats. This is an acceptance blocker, not a static proof of a current execution failure.
-
-**Repair direction:** after resolving the deployment selection contract, explicitly authorize and run the remaining isolated Ubuntu final-evaluation step using frozen source/checkpoint identities. Reuse the existing resume evidence, preserve failed history, and report actual complete/faulted/truncated counts without lowering the panel or timeout requirements.
+The original stop/resume and matching future batches remain covered by [the L1 run](../verification/acceptance_20261031_astra/REPORT.md). The isolated replay used its frozen checkpoint and original schedule with the current deployment runtime. [Final evaluation evidence](../verification/selected_final_20261103/REPORT.md)
 
 ## 10. P2 — Candidate coverage and teacher strength accepted; ordinary BC remains open
 
@@ -115,6 +113,6 @@ Evidence for items 6-7: `verification/window_memory_20261101/REPORT.md`. Two pre
 
 ## Suggested order
 
-The common deployed candidate contract and its bounded decision budget across native paths are settled (1-4). Close the final-evaluation acceptance gap (9) with that contract frozen. In parallel planning, address the measurable training-cost causes (6-8). Use the accepted teacher and supported combat scope from item 5 when addressing ordinary BC quality (10). Finish with the bounded complete-loop test (11), recording any stage that cannot complete within its one-hour budget.
+The common deployed candidate contract and its bounded decision budget across native paths are settled (1-4). The selected-checkpoint evaluation (9) and the training-cost repairs (6-8) are complete. Use the accepted teacher and supported combat scope from item 5 when addressing ordinary BC quality (10). Finish with the bounded complete-loop test (11), recording any stage that cannot complete within its one-hour budget.
 
 This report proposes repair directions only. It does not authorize implementation, collection or training, and it does not replace the resident acceptance plan.

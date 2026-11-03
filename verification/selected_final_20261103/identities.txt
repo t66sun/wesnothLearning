@@ -1,0 +1,3 @@
+e5771b557f7ea37ff1029de1030a8cf624984cfe9163abdedcdd3880d055bdec  /home/tongshu/acceptance/selected_final_20261103.tar.gz
+f12d763303445aa437de06d0dba129dc923e3d81fd1fc82d72b8e331916480cf  .runtime/entropy.so
+d6fceafe7d0c9c67c750551b9901dbfb2b22290992a8daa1616a460e11826dca  data/rules/1.18.8-training/rules.json

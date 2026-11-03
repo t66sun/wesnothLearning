@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/tongshu/acceptance/selected_final_20261103/tests/acceptance_selected_final.py", line 76, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/home/tongshu/acceptance/selected_final_20261103/tests/acceptance_selected_final.py", line 36, in main
+    assert state['features'] == current and state['architecture'] == ARCHITECTURE
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
