@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/duel_landing_diagnosis_20261103/tests/diagnose_teacher_landing.py", line 119, in <module>
+    main()
+  File "/home/tongshu/acceptance/duel_landing_diagnosis_20261103/tests/diagnose_teacher_landing.py", line 88, in main
+    raise RuntimeError(f'fixed decision not completed: {result}')
+RuntimeError: fixed decision not completed: {'bots': ['astra_adapted', 'astra_control_compatible'], 'seed': 272584090, 'turns': 4, 'winner': 1, 'survivors': [1], 'reason': 'last_leader', 'faults': {2: "...-ons/astra_control_compatible/lua/landing_probe_duel.lua:166: variable 'target_damage' must be assigned before being used"}, 'rank_points': {1: 1, 2: 0}, 'eliminated': {2: 4}, 'seconds': 1.3453, 'actions': 60, 'factions': ['Loyalists', 'Rebels'], 'spawns': [[14, 4], [14, 25]], 'lenient': False, 'native_replay': '/home/tongshu/acceptance/duel_landing_diagnosis_20261103/control/native.replay.gz', 'rules_version': 'wesnoth-1.18.8-native-v2'}
