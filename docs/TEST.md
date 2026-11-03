@@ -2,7 +2,7 @@
 
 > Language: English | [中文](TEST_zh.md)
 
-Updated 2026-11-01. This file holds only acceptance work that is still open. Accepted items leave it as a whole and stay as dated evidence under `verification/`; `docs/architecture.md` describes the current implementation, not its acceptance history.
+Updated 2026-11-03. This file holds only acceptance work that is still open. Accepted items leave it as a whole and stay as dated evidence under `verification/`; `docs/architecture.md` describes the current implementation, not its acceptance history.
 
 Every item states what is open, the smallest Ubuntu procedure that would close it, the pass criteria and the evidence path. Status vocabulary: **PASS**, **FAIL**, **NOT RUN**, **REUSED** (existing evidence with matching identities). A check that cannot run is NOT RUN, never a skipped pass. Bounded smoke results label themselves inconclusive for strength, and no item here authorizes collection, formal training or tuning.
 
@@ -29,21 +29,13 @@ Every item states what is open, the smallest Ubuntu procedure that would close i
 
 **Fitting evidence:** the final exact 2048-row training read retains 37 families / 54 windows; train recruit/attack accuracy is only 54/126 (42.86%) / 162/361 (44.88%). Held-out recruit-type/slot matches are 48/85 and 60/85. Of 141 attacks, 56 predictions choose movement; restricting the winner to attack candidates yields only 82 exact matches, so both action-kind competition and within-kind ranking remain. Earlier fixed-batch original-loss and matched context probes establish incomplete fitting and generalization; the two context inputs remain rejected. No production optimizer, sampler or feature change is adopted. Evidence: `verification/team_bc_branch_20261102/REPORT.md`, `verification/team_bc_v2_20261102/REPORT.md`, `verification/recruit_context_v2_20261102/REPORT.md`.
 
-**Current boundary:** native/lite transfer and teacher strength remain separate R3 concerns. The v2 experiments do not migrate historical v1 evidence or establish convergence. Compatible branch evidence reuse has 30 passing Ubuntu checks and now avoids recollecting the 40 inherited games (`verification/branch_teacher_evidence_20261102/REPORT.md`). Reader/faction fixes, redundant-read removal and validation-history reuse remain accepted; earlier controls are not matched runtime comparisons with this corpus/checkpoint. Historical evidence stays at its original paths.
+**Current boundary:** ordinary BC readiness is still open. The teacher met its separate maintained-strength criterion ([evidence](../verification/duel_landing_ni_20261103/REPORT.md)). The v2 experiments do not migrate historical v1 evidence or establish convergence. Compatible branch evidence reuse has 30 passing Ubuntu checks and now avoids recollecting the 40 inherited games (`verification/branch_teacher_evidence_20261102/REPORT.md`). Reader/faction fixes, redundant-read removal and validation-history reuse remain accepted; earlier controls are not matched runtime comparisons with this corpus/checkpoint. Historical evidence stays at its original paths.
 
 **Procedure:** address held-out recruit-type and attack ranking without lowering any gate. Use the frozen v2 batch for bounded, matched diagnostics before collecting another corpus or adopting tuning. A future complete-loop run must freeze source, formats, seed, workers, row/game/time limits and unchanged panels. The accepted turn-limit wiring (`verification/training_turn_limit_20261102/REPORT.md`) and 13 deterministic runner handoff checks (`verification/bounded_final_20261102/REPORT.md`) prove wiring only; actual post-BC execution remains unverified.
 
 **Pass:** all declared formats pass ordinary BC, commit at least two PPO updates, resume without repeating committed work, complete the required final panel and pass audited export. Record model/input identities, complete/faulted/truncated counts and stage durations. No forced PPO or automatic budget extension. Native strength remains outside this smoke.
 
 **Evidence:** current v2 branch diagnosis, identities, complete metadata and limits: `verification/team_bc_branch_20261102/REPORT.md`; parent evidence: `verification/team_bc_v2_20261102/REPORT.md`. These do not replace failed all-format evidence in `verification/bounded_loop_20261101/REPORT.md` or historical v1 evidence in `verification/team_bc_readiness_20261102/REPORT.md`. No new post-BC or same-future acceptance is claimed.
-
-## R3 — Adapted teacher maintained-strength acceptance
-
-**Current status.** The previous candidate failed the 5-point duel criterion with a 95% interval of −6.09 to −0.73 percentage points. The authorized duel repair passes the b0025 native decision and its Lite regression. Independent strength confirmation is pending. [Fixed-board evidence](../verification/duel_slow_landing_20261103/REPORT.md)
-
-**Inputs and procedure.** Follow the [prospective duel protocol](r3_duel_noninferiority_temp.md). Freeze the repaired candidate and the compatible control, check the reference four-player package members and native inputs, then run 960 new paired duel blocks on Hamlets with 15 scenario families, 30 turns, eight workers and a six-hour limit. The prior FFA and team results apply only after the isolation check. [Previous endpoint](../verification/teacher_noninferiority_20261103/REPORT.md)
-
-**Pass criterion.** On complete, fault-free data in every format, the lower endpoint of the 95% scenario-cluster interval for the normalized official-score difference must exceed −0.05. R3 and blocker 5 remain open on duel. The 30-turn match contract defines the scope of the result. [Endpoint report](../verification/teacher_noninferiority_20261103/REPORT.md)
 
 ## Execution and report
 
