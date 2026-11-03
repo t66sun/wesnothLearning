@@ -75,7 +75,7 @@ class RevisionTests(unittest.TestCase):
             self.assertEqual(report['excluded'],'faulted_game');self.assertEqual(read_shards([path]),[])
             result.update(faults={},reason='turn_limit')
             write_shard(path,'game',[record()],result)
-            row=read_shards([path])[0];self.assertFalse(row['value_valid']);self.assertAlmostEqual(row['reward'],0.)
+            row=read_shards([path])[0];self.assertFalse(row['value_valid']);self.assertAlmostEqual(row['terminal_reward'],0.)
             policy=dict(record(),source='policy',teacher=False,potential=.2)
             self.assertEqual(write_shard(path,'game',[policy],result)['excluded'],'missing_truncation_bootstrap')
             write_shard(path,'game',[policy],result,{'1':dict(value=.6,potential=.3)})
