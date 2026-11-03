@@ -3,6 +3,7 @@ import copy
 import gzip
 import tempfile
 import unittest
+from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
 from unittest.mock import patch
 
@@ -60,7 +61,10 @@ class ParallelExportAuditTests(unittest.TestCase):
         files = dict(duel=paths, ffa4=[self.shard('ffa', ('f', 1, 37), ('f', 2, 8), fmt='ffa4')])
         models = {fmt: helpers.model(format_name=fmt) for fmt in files}
         expected = {fmt: verify_numerics(model, read_raw_shards(files[fmt], fmt)) for fmt, model in models.items()}
-        self.assertEqual(verify_shard_numerics(models, files, workers=2), expected)
+        with patch('learning.sequence_parity.ProcessPoolExecutor', wraps=ProcessPoolExecutor) as pool:
+            self.assertEqual(verify_shard_numerics(models, files, workers=2), expected)
+        self.assertEqual(pool.call_count, 1)
+        self.assertEqual(pool.call_args.kwargs['max_workers'], 2)
         self.assertEqual(verify_shard_numerics(models, files, workers=1), expected)
         duel = dict(duel=models['duel'])
         with self.assertRaisesRegex(ValueError, '37 retained candidates'):
