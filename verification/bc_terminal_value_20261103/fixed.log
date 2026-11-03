@@ -1,0 +1,22 @@
+test_bc_value_update_uses_the_valid_terminal_outcome_in_each_schema (tests.v5.test_reward_row_schema.RewardRowSchemaTests.test_bc_value_update_uses_the_valid_terminal_outcome_in_each_schema) ... ok
+test_legacy_training_and_homogeneous_schema_six_training (tests.v5.test_reward_row_schema.RewardRowSchemaTests.test_legacy_training_and_homogeneous_schema_six_training) ... ok
+test_row_reward_is_not_the_terminal_value (tests.v5.test_reward_row_schema.RewardRowSchemaTests.test_row_reward_is_not_the_terminal_value) ... ok
+test_schema_five_and_six_gae_are_bit_identical_and_steps_are_audited (tests.v5.test_reward_row_schema.RewardRowSchemaTests.test_schema_five_and_six_gae_are_bit_identical_and_steps_are_audited) ... ok
+test_truncation_keeps_bootstrap_and_no_terminal_reward_application (tests.v5.test_reward_row_schema.RewardRowSchemaTests.test_truncation_keeps_bootstrap_and_no_terminal_reward_application) ... ok
+test_capture_requires_complete_native_evidence_and_unknown_value_is_masked (tests.test_human.HumanTests.test_capture_requires_complete_native_evidence_and_unknown_value_is_masked) ... ok
+test_gae_hand_computed_and_truncated_tail (tests.v5.test_learning_core.RewardTests.test_gae_hand_computed_and_truncated_tail) ... ok
+test_faults_are_excluded_and_truncated_teacher_value_is_masked (tests.test_training_revision.RevisionTests.test_faults_are_excluded_and_truncated_teacher_value_is_masked) ... ERROR
+
+======================================================================
+ERROR: test_faults_are_excluded_and_truncated_teacher_value_is_masked (tests.test_training_revision.RevisionTests.test_faults_are_excluded_and_truncated_teacher_value_is_masked)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/bc_value_target_fixed_20261103/tests/test_training_revision.py", line 78, in test_faults_are_excluded_and_truncated_teacher_value_is_masked
+    row=read_shards([path])[0];self.assertFalse(row['value_valid']);self.assertAlmostEqual(row['reward'],0.)
+                                                                                           ~~~^^^^^^^^^^
+KeyError: 'reward'
+
+----------------------------------------------------------------------
+Ran 8 tests in 1.290s
+
+FAILED (errors=1)

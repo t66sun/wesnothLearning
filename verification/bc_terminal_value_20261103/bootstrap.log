@@ -1,0 +1,6 @@
+test_faults_are_excluded_and_truncated_teacher_value_is_masked (tests.test_training_revision.RevisionTests.test_faults_are_excluded_and_truncated_teacher_value_is_masked) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.050s
+
+OK

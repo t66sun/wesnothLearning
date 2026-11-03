@@ -1,0 +1,15 @@
+test_faults_are_excluded_and_truncated_teacher_value_is_masked (tests.test_training_revision.RevisionTests.test_faults_are_excluded_and_truncated_teacher_value_is_masked) ... ERROR
+
+======================================================================
+ERROR: test_faults_are_excluded_and_truncated_teacher_value_is_masked (tests.test_training_revision.RevisionTests.test_faults_are_excluded_and_truncated_teacher_value_is_masked)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/bc_value_target_red_20261103/tests/test_training_revision.py", line 78, in test_faults_are_excluded_and_truncated_teacher_value_is_masked
+    row=read_shards([path])[0];self.assertFalse(row['value_valid']);self.assertAlmostEqual(row['reward'],0.)
+                                                                                           ~~~^^^^^^^^^^
+KeyError: 'reward'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.036s
+
+FAILED (errors=1)
