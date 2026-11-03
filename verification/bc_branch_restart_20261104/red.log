@@ -1,0 +1,17 @@
+test_child_calibrates_trains_and_rechecks_its_own_gate (tests.v5.test_branch_restart_bc.BranchRestartBCTests.test_child_calibrates_trains_and_rechecks_its_own_gate) ... FAIL
+
+======================================================================
+FAIL: test_child_calibrates_trains_and_rechecks_its_own_gate (tests.v5.test_branch_restart_bc.BranchRestartBCTests.test_child_calibrates_trains_and_rechecks_its_own_gate)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/bc_branch_restart_red_20261104/tests/v5/test_branch_restart_bc.py", line 96, in test_child_calibrates_trains_and_rechecks_its_own_gate
+    self.assertEqual(runner.state['stage'], 'calibration')
+AssertionError: 'bc' != 'calibration'
+- bc
++ calibration
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.551s
+
+FAILED (failures=1)

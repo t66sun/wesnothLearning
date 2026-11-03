@@ -1,0 +1,22 @@
+test_child_calibrates_trains_and_rechecks_its_own_gate (tests.v5.test_branch_restart_bc.BranchRestartBCTests.test_child_calibrates_trains_and_rechecks_its_own_gate) ... ok
+test_cli_requires_branch_bc_phase_and_new_optimizer (tests.v5.test_branch_restart_bc.BranchRestartBCTests.test_cli_requires_branch_bc_phase_and_new_optimizer) ... --branch-restart-bc requires --branch-from, --phase bc and --branch-reset-optimizer
+--branch-restart-bc requires --branch-from, --phase bc and --branch-reset-optimizer
+--branch-restart-bc requires --branch-from, --phase bc and --branch-reset-optimizer
+ok
+test_rejects_incompatible_supervision_contracts (tests.v5.test_branch_restart_bc.BranchRestartBCTests.test_rejects_incompatible_supervision_contracts) ... ok
+test_branch_copies_and_records_parent_without_editing_it (tests.v5.test_checkpoint_ops.CheckpointContractTests.test_branch_copies_and_records_parent_without_editing_it) ... ok
+test_failed_atomic_save_leaves_the_previous_checkpoint (tests.v5.test_checkpoint_ops.CheckpointContractTests.test_failed_atomic_save_leaves_the_previous_checkpoint) ... ok
+test_incompatible_identity_is_rejected_before_loading_weights (tests.v5.test_checkpoint_ops.CheckpointContractTests.test_incompatible_identity_is_rejected_before_loading_weights) ... ok
+test_inherited_branch_checkpoint_is_recognised_by_its_parent_pin (tests.v5.test_checkpoint_ops.CheckpointContractTests.test_inherited_branch_checkpoint_is_recognised_by_its_parent_pin) ... ok
+test_resume_accepts_the_parent_pin_of_a_branch (tests.v5.test_checkpoint_ops.CheckpointContractTests.test_resume_accepts_the_parent_pin_of_a_branch) ... ok
+test_rollout_identity_covers_targets_and_provenance (tests.v5.test_checkpoint_ops.CheckpointContractTests.test_rollout_identity_covers_targets_and_provenance) ... ok
+test_fresh_run_keeps_current_log_eligibility (tests.v5.test_branch_teacher_evidence.BranchTeacherEvidenceTests.test_fresh_run_keeps_current_log_eligibility) ... ok
+test_inherited_and_child_games_supply_the_same_corpus_and_coverage (tests.v5.test_branch_teacher_evidence.BranchTeacherEvidenceTests.test_inherited_and_child_games_supply_the_same_corpus_and_coverage) ... ok
+test_later_parent_collection_and_ineligible_results_are_not_inherited (tests.v5.test_branch_teacher_evidence.BranchTeacherEvidenceTests.test_later_parent_collection_and_ineligible_results_are_not_inherited) ... ok
+test_nested_lineage_deduplicates_paths_and_keeps_format_boundaries (tests.v5.test_branch_teacher_evidence.BranchTeacherEvidenceTests.test_nested_lineage_deduplicates_paths_and_keeps_format_boundaries) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 1.048s
+
+OK
+Experiment: stage_complete
