@@ -1,0 +1,1524 @@
+{
+  "source": "/home/tongshu/acceptance/bc_v6_readiness_20261103",
+  "run": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness",
+  "formats": {
+    "duel": {
+      "file_counts": {
+        "dagger": 4,
+        "last_bc": 1,
+        "latest": 1,
+        "rollout": 4,
+        "teacher": 56
+      },
+      "state_pool_counts": {
+        "teacher_shards": 56,
+        "dagger_shards": 4,
+        "policy_shards": 0
+      },
+      "shard_bytes": 71550480,
+      "checkpoint_bytes": 18917079,
+      "files": [
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/rollout-00036-duel-g0.dagger.jsonl.gz",
+          "role": "dagger",
+          "bytes": 1429696,
+          "sha256": "2637081180c6d62b57fe725673e34186a7dcdd58062632dc23f3286473a1a947",
+          "final_state_pools": [
+            "dagger_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/rollout-00036-duel-g0.jsonl.gz",
+          "role": "rollout",
+          "bytes": 1440739,
+          "sha256": "3135ba1007eb4ccae5976b63c1501805b29a2b873fa140f34e5ec4be746345c3",
+          "final_state_pools": []
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/rollout-00036-duel-g1.dagger.jsonl.gz",
+          "role": "dagger",
+          "bytes": 3462969,
+          "sha256": "4d1d1e2b5b3f0c0adba48f8da708cf199d7480d002e2c3845596e6af23346b55",
+          "final_state_pools": [
+            "dagger_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/rollout-00036-duel-g1.jsonl.gz",
+          "role": "rollout",
+          "bytes": 3475786,
+          "sha256": "313d672cc233ddcc6351928d8907e25a38b48e63ea70b74fd0ae5bc2447b31a7",
+          "final_state_pools": []
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/rollout-00036-duel-g2.dagger.jsonl.gz",
+          "role": "dagger",
+          "bytes": 408723,
+          "sha256": "a06a05f6a865012884ee9a959c9fa00eb60e52fd895def240b668bd255efb3ba",
+          "final_state_pools": [
+            "dagger_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/rollout-00036-duel-g2.jsonl.gz",
+          "role": "rollout",
+          "bytes": 410044,
+          "sha256": "88b695e903d78be0cac63fa1c134636bd6d72f254137808e712cedc1431a3dac",
+          "final_state_pools": []
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/rollout-00036-duel-g3.dagger.jsonl.gz",
+          "role": "dagger",
+          "bytes": 1079144,
+          "sha256": "0bcf59d9cccba6b9eeb3cc7986a6183aec92ea855cce737116d66e5c9faeec7f",
+          "final_state_pools": [
+            "dagger_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/rollout-00036-duel-g3.jsonl.gz",
+          "role": "rollout",
+          "bytes": 1096382,
+          "sha256": "1bcb6aca2bf38a73d3144fb7a61517497df8c0c0e8b867ae0ef407ee337b791d",
+          "final_state_pools": []
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00000-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 400006,
+          "sha256": "ae2155a33e07be1222a6f512b01ecd8a37ce60f5313d05e383bcf89198cf990b",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00001-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 2424755,
+          "sha256": "3e426a40a4ff12d0428e1940ea1913fabc1aa1d9875536ab79e9b5d4b5ed5e88",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00002-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 304492,
+          "sha256": "687a64af0bbd90555166b7c209cc6f613ba77716793d5368e6f8cea39677f315",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00003-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 2326150,
+          "sha256": "b22983f0f748f786bed593563b30f13f4fc998f2828ae71924d050312547b72e",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00004-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 414785,
+          "sha256": "14ebbe01c2e20c964730646c1b800cc0478525362c6354872b7b760873672c8e",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00005-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1136477,
+          "sha256": "e024162a4175c2daf26b339b77e5cd386699991563b83bfbe96e67f812fa45fd",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00006-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 660955,
+          "sha256": "b0d1ad642b7d248b68cf9dbc92c127d89fc0e1c4705cb791fec3a677a5a194a3",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00007-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 2510451,
+          "sha256": "57160b18697508c7522b111beb263daa369a6526973720a472f6f661436a3658",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00008-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 337711,
+          "sha256": "78361c6d279dbeca75f74274b510927ad5016018922519ecf706252f645ad036",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00009-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1509737,
+          "sha256": "2d5a42d59a1d90760ebd311ba9030226b27b7914f9f704ca6edf6c157744c797",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00010-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 537800,
+          "sha256": "df061b46daa93f8b664359914e37a33b6761beda0be59a1100765cae3172669a",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00011-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1277312,
+          "sha256": "d19255afcf88358529a39d72fed5ffe82f6085092edc3de88534a96fae116e80",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00012-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 470941,
+          "sha256": "9e999bf3d8db4b489d81fb791e26e8e8f0e785c6bbd89bcd235912cc39e60d1d",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00013-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1375732,
+          "sha256": "db6396ee9ca6a12284def71589ffd98c87abd8f952f4ef4d6335facae58424e3",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00014-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 303111,
+          "sha256": "f9ab3f1017f85fd6b377ad9d683bfbb7c9a2e3574a7cf72eaf08f1b5b84c5f52",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00015-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 902245,
+          "sha256": "99c0a0a48eca513b45ff5bd8109399e71cad3737db66274640bc86468bbca215",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00016-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 236989,
+          "sha256": "96d2892c9083696efb02af74a446b6c70ca82f3494358ec80dfd123beac8daa9",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00017-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1215694,
+          "sha256": "c6569e11d02e8568ee13fef8c9378f91f3c2ddb67342953356489f62e4e1adb3",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00018-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 240008,
+          "sha256": "f16dc18b69275fb6518406bf480b5d4c537ecddb4b03c0eebbfff90d7f7a3282",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00019-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1837866,
+          "sha256": "b5dbef4d78d6333e9aa37a0cf78201c3017f96de13bccd3d7da706f4bdad8579",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00020-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 503979,
+          "sha256": "960abbdeb8d187bd03ed7eddee1b31bcca1e061ae42e86092c54587b21a0e44e",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00021-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 3423943,
+          "sha256": "a602ca1af393daf830f705bbc6f11d794597f67452df38dbd505fef0e1f05532",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00022-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 470031,
+          "sha256": "63add7ab2b3171d7ec5d2a94b33b6134b2b41e27004d1f624365040dd654a2b2",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00023-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1082901,
+          "sha256": "996d15f3edd3b3c0c136bfa45a78042d6b37d34515ec008310bb091795aa2308",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00024-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 438274,
+          "sha256": "9e70686cbac3b7f60c0fd53eb8c0ad887982a8179a2e1c67583d32a223ad2654",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00025-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1321932,
+          "sha256": "09bf3cfb1797918350f428eccb9fdf4d2b0f8558e6289e61ce55b93bf8c8b2c5",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00026-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 529441,
+          "sha256": "ae4f61889810a9f61fa58e893f3da36c0f8df5bbc62ba19384c7c32d5b2816f0",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00027-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 2848074,
+          "sha256": "c3590cf476e005626b82c995d38bcf0e130ed3f4173cb9852019b84818fd7723",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00028-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 393771,
+          "sha256": "0b7097d51a39f228cedf0e41b5d5827c9f84e5afbb7b95bb9c15d38154a83d08",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00029-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1069905,
+          "sha256": "b22a25666562dfd9a0af1755a992f91b23b40c42d58ce05a5e9f0d7050b29556",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00030-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 429948,
+          "sha256": "9faa79da32361bde6350b57d9740cf52828347512c097a32edab932cfda8104b",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00031-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1954809,
+          "sha256": "d9b2da1257510977ca8f535c914d9db839c97d9d9800e63e1b6b8d93899caab0",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00032-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 388848,
+          "sha256": "f5880d0e036a7190d4f2c5f4fe13d66d0719e4ba1d53f7d5c861b198f1420437",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00033-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1278650,
+          "sha256": "7135a9dde47aa6dd0dce990409edf48e05ced58dd8212203b3f80feef588488c",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00034-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 296947,
+          "sha256": "35c8007426b3ef8a9f07d56669d59a7ea685ff284d4fc8f2ac1117c17cfcc4a1",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00035-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1328546,
+          "sha256": "1b55837201aad9dd94ea43f1faeafebfb6155fe81d06fada47229afcbb6cc2ae",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00036-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 664804,
+          "sha256": "f91d292833e3e908f30964a8fb573eb2383d2f10c8b52092215f8d377d1786d2",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00037-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 977607,
+          "sha256": "bd6f61e5dc30cfbe0a73156adb06aba374134fec8a8cdae548274fca5f7d6951",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00038-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 363445,
+          "sha256": "94a6735ef2f970d2b36c3762444d65cf3f59eae81c31279e13640f03622a7850",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00039-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 2602741,
+          "sha256": "719bfb9dc29e1e280ad8ee41f5a0e14507d0541d2a36a8ac1cef3e9085b4b800",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00040-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 500720,
+          "sha256": "c83e716174bb6492223418b5f7e9a03888e096f9c4c8ab5857d8751be464e5b2",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00041-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1081881,
+          "sha256": "712f3187f9fbdc7be56c62538875fcdfb247420c902e53e7a40af636f6d4b59b",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00042-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 429059,
+          "sha256": "ca63bec839e4f558b4dd66ae297d0a904356d6b3664f76ecb76a22ccb6e2891f",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00043-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 2798055,
+          "sha256": "e0aac00314c065b19fec4393fc65b2ce009ee6d446f8b0b4fb5e6fdb03136575",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00044-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 289619,
+          "sha256": "8aadd0780365746c6cee11faca62f650dcdcadf20804571edec77ea31b289bbf",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00045-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1210074,
+          "sha256": "317c074b5e59802e8db1124206d1d69d47fab660d72c0ada3cecbec41737ef4f",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00046-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 230294,
+          "sha256": "1843b02d93a744d671da4d5676cbbadbd414699b00138e461d4d746f9fe365d8",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00047-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1228139,
+          "sha256": "71db4c90f69e40fd783010b7af8a37e50f9b78b30b26b94dd35c484ff70940f2",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00288-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 272282,
+          "sha256": "be40dacdf8cc4726428a86fda7eeebb76e4b43af437f217a7be8bdb14bc70373",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00289-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1731129,
+          "sha256": "842c18f1800cd1d61e45658a6c81050ed052061f2149a684179ab7d45d06ff76",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00290-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 378697,
+          "sha256": "cc8de02e9a9a653d3ccff3a1fa368e5eeeed4e02b638594e9182fdb0f072bd90",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00291-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 2121053,
+          "sha256": "d6007ae04c3d074761d9247e062f23d227dd7e20bf4f47a459005a967efe1f84",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00292-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 763882,
+          "sha256": "62b250ab46fe22ae35cc70809458864f0e9f71e18fcd19ddbf51289df7c0510b",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00293-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1268245,
+          "sha256": "a2d7f9d856ef272a1ef8bb5fddb14ee1f194d3698411d9bf0e0c82ffd3797300",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00294-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 600412,
+          "sha256": "1c2b7f7b22cb89b0c81f3e61dd67cf8d2776ec02dbc5281882bf7befc0601166",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/teacher-00295-duel-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1051643,
+          "sha256": "673bc310b8b2be37c505d44d9bf93ac00456545b779926ee451e139bcf2d8940",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/latest.pt",
+          "role": "latest",
+          "bytes": 9456050,
+          "sha256": "7e6804cbc27eccd243c847075f14cc9f07192a732455193b4e20d1684b108323"
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/last_bc.pt",
+          "role": "last_bc",
+          "bytes": 9461029,
+          "sha256": "7047c53595bfe634bfc90cc2b6d733a861a24b34ee8d55ba0da24c7f4e4014df"
+        }
+      ]
+    },
+    "ffa4": {
+      "file_counts": {
+        "last_bc": 1,
+        "latest": 1,
+        "teacher": 48
+      },
+      "state_pool_counts": {
+        "teacher_shards": 48,
+        "dagger_shards": 0,
+        "policy_shards": 0
+      },
+      "shard_bytes": 90521554,
+      "checkpoint_bytes": 18880599,
+      "files": [
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/data/teacher-00000-ffa4-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1503100,
+          "sha256": "ff5607282ce39f3b1f99cc36c8924aeab6ba13ed6448aac1266057404e4cdf50",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/data/teacher-00001-ffa4-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 2978625,
+          "sha256": "eff055bba28efc00ccc4bbc3e258f8680dfd70989c82a6f33d03b5132f064871",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/data/teacher-00002-ffa4-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1048803,
+          "sha256": "57743711288d5fba8f57213176fc04a619920337ad1d7827ee58c5497495b900",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/data/teacher-00003-ffa4-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 2047186,
+          "sha256": "cd4fce863f1082adfd347903e98186e997e9dc7b67754d7a5cb3375b3f5107db",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/data/teacher-00004-ffa4-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1050495,
+          "sha256": "7df196faa80830a68f957431679dc3afdbf5820b19d1cada6f2223334b00230d",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/data/teacher-00005-ffa4-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 3047573,
+          "sha256": "e9f0f56e27b27d546f0282b1dd1a75d2be706a56ade7d858f4ae96869b03fe7a",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/data/teacher-00006-ffa4-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 3059728,
+          "sha256": "2b5a6314f49854456a48a3ec53a2498ee8bda6b6340f66e84030ffd6b19fa55c",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/data/teacher-00007-ffa4-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1823550,
+          "sha256": "0cf9323233eda2783875f3c6261489eb77f4e1036157b968572e7eeeea3bfcc8",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/data/teacher-00008-ffa4-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 621503,
+          "sha256": "0474ed445f8ae350bd18a7179608a8201e56a0569a92e546d3186440271942aa",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/data/teacher-00009-ffa4-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1307149,
+          "sha256": "050be36a3894f1dd7e2aed6063efe3b2c44ab1bd22367a14ffca686ab7c78af5",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/data/teacher-00010-ffa4-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 2751206,
+          "sha256": "fd2ef453b55348754f6cc5fa34996809390d9880d2453294be36c2e11d47d20c",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/data/teacher-00011-ffa4-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1419091,
+          "sha256": "5a763709b8f1fa28e12a31c2ad74d4d071fde1c5fb5ab40fd4c9080376483709",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/data/teacher-00012-ffa4-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1111443,
+          "sha256": "6826a59fefa2a9ce951d00f3c1bda2f63be7312ca9f4b41c2696b0452e2e622e",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/data/teacher-00013-ffa4-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1290219,
+          "sha256": "d3067c8fcc88e886df1e2e64cb25c778afbd79cb5a93687d74b0d6727eaf5e42",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/data/teacher-00014-ffa4-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1416630,
+          "sha256": "b6920e01217fd34a9ce010e1d33a50b9128fdd9874b134441a05c9e73cff8265",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/data/teacher-00015-ffa4-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1705082,
+          "sha256": "dd345f5a543aea98c5db8d2e14faf05e119475d19fe1ed16507150dfb62dcde7",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/data/teacher-00016-ffa4-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1015009,
+          "sha256": "e31232d3dceb710c9a45c459a3e725996bf51b98e015e9f6a84243e47c031ca1",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/data/teacher-00017-ffa4-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 3029814,
+          "sha256": "df4b864391270b0e9f6ba85f3912b456b66b624101c2ea6642b6e62dc39a920e",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/data/teacher-00018-ffa4-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1089251,
+          "sha256": "53e3a7ffecdd8dee36057c2a88b4c807b39af4bb36d7779430a6b67076666854",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/data/teacher-00019-ffa4-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1871644,
+          "sha256": "fb9f5029822a631d90255b824227aa216bcc73b3134a37fc0716a4505edfa059",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/data/teacher-00020-ffa4-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1141890,
+          "sha256": "1bdb2e690bd590de9e8511a26bf59d3409c0234eb68dd619b70a250632ecfc4f",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/data/teacher-00021-ffa4-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 776018,
+          "sha256": "cf547fa2f77a2f731e4c1424153e2a99e776e9629870060db01e5433c2541d5f",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/data/teacher-00022-ffa4-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1835102,
+          "sha256": "5ad4d60d005113f10ecbd067e4fcf2eb119ea6232b32f98280089f0a2e516587",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/data/teacher-00023-ffa4-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1297849,
+          "sha256": "f2f9de19a7817753bad9a65a7005ed39edd5e41b883d7081eafe63778242c2f1",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/data/teacher-00024-ffa4-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 2629696,
+          "sha256": "a005041b291a0160e71551fb011d92228c31e58aa6ab4e64c5583796529ea9df",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/data/teacher-00025-ffa4-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 3231867,
+          "sha256": "7147a97d27ebf83208874e90efdc8e48544625bed400687752411017dcd8547c",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/data/teacher-00026-ffa4-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1235538,
+          "sha256": "ece9145cda9b2e272882d8cc342652ec51476836257cdd43fa7a54027baf10e7",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/data/teacher-00027-ffa4-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1009386,
+          "sha256": "4879c369bc34c01ffd1ba5eaa232b53da6a77c75c083774e8849d49f9bbc3114",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/data/teacher-00028-ffa4-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1113443,
+          "sha256": "3ceca4077d75437c482e5af4d90ab72e1651968706e46ba823958a90f6298ad5",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/data/teacher-00029-ffa4-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 5120394,
+          "sha256": "4a4c7a805681dfd4a0b2dd70e246b2416156e211c1da869aeb077e1cfb835f4f",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/data/teacher-00030-ffa4-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1368297,
+          "sha256": "13336b4452c95e93b4832171f4633b576d4ada59b0bd21b34c9e8c1130c7f16c",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/data/teacher-00031-ffa4-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1566104,
+          "sha256": "6c4b32f42b71dffcad9eb781fd1ce3dc42c1c04f56d7fbbff935f5da0a1f9dc7",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/data/teacher-00032-ffa4-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 624175,
+          "sha256": "a550597ddc37c82519f7abd9273f97a94869cc73af49a052c3fc84a589043ae7",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/data/teacher-00033-ffa4-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 2080389,
+          "sha256": "063b512c61f123dfab494687a28da940254b62ae43fc8e4a852662acaa37f865",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/data/teacher-00034-ffa4-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1551250,
+          "sha256": "3d86773b5c630819d358fb9f768bab483d4206aed1059ff11b5e611b0aa8453a",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/data/teacher-00035-ffa4-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 2980434,
+          "sha256": "d532f388119330e0a7e81f784a32cd2d17bbbb922bf729ef30fbbcb2e5ec7426",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/data/teacher-00036-ffa4-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1044803,
+          "sha256": "0a518470e0bf7fe99311837927eb89c9b10d832b14557798ef03c36738b8234a",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/data/teacher-00037-ffa4-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 4257791,
+          "sha256": "4f73189608bad98e62b294d72a29688288553f8bc660ec4003d0a75c2c61159f",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/data/teacher-00038-ffa4-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1112327,
+          "sha256": "6fb71ce85a5daa45ddf68a75615fe962dd445f4b6f8c73f1e2bfca7268daeecb",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/data/teacher-00039-ffa4-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 2651795,
+          "sha256": "b8e43d3b20e5152eb208b99def8b1ef81bb2abbfa8ab4c2ab400fa89d5966cfc",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/data/teacher-00040-ffa4-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1115219,
+          "sha256": "043d0a55f5ad53af0e05e36df75ac6213e0ab85c494d24d416b2ceae71fcc630",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/data/teacher-00041-ffa4-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 876106,
+          "sha256": "1cc3d6655e7e1a9e7856fb63664c6a1bf966e7f02eed7a24c506ec4f4dd480f0",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/data/teacher-00042-ffa4-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 900953,
+          "sha256": "e644cf6eed1af147bcd4b8ad6aede1319d10bafffc39439206edc54bd2b703b3",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/data/teacher-00043-ffa4-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 4170739,
+          "sha256": "5480cc61d3a73c8853c4bc0b9aed81e048ce64bb3a7d447f822a24b3ede7ab43",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/data/teacher-00044-ffa4-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 2482848,
+          "sha256": "41837b6fccfde018eb8a8ee5d6180b8598ab7960dba0b01634701aaf08bd37d2",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/data/teacher-00045-ffa4-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 3372343,
+          "sha256": "d582f70f73899839cbac87ff2b8b6dfed113ec5f0fd7b6a9d45a372df8eb6b28",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/data/teacher-00046-ffa4-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1844476,
+          "sha256": "84f1016c0c774001c1b43edcf7279898f6c7434b1c6edeba1c5c0a3b24f1535b",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/data/teacher-00047-ffa4-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1943221,
+          "sha256": "9148d1db2f35bc582195e1cfd93e3f711a586ccd78ca0e1d82b3a92390835f08",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/latest.pt",
+          "role": "latest",
+          "bytes": 9437810,
+          "sha256": "ce1ac0b549e1c5afdbc1fbdd8a6c59b64a01bd825ed99686bc87c239d4f86b29"
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/ffa4/last_bc.pt",
+          "role": "last_bc",
+          "bytes": 9442789,
+          "sha256": "ebfc4f668e025c2620b98be192d2c801f1fd247053a14d1440e70231ae905ae3"
+        }
+      ]
+    },
+    "team2v2": {
+      "file_counts": {
+        "last_bc": 1,
+        "latest": 1,
+        "teacher": 48
+      },
+      "state_pool_counts": {
+        "teacher_shards": 48,
+        "dagger_shards": 0,
+        "policy_shards": 0
+      },
+      "shard_bytes": 132404882,
+      "checkpoint_bytes": 18157587,
+      "files": [
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/data/teacher-00000-team2v2-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1624413,
+          "sha256": "fb8d609731bcaea1c9d2bf9fccdaeae271f7db462b7740d9454e75fa0eab4637",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/data/teacher-00001-team2v2-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 3221782,
+          "sha256": "bca1ee1e498a10259056692facea88430b32aab1895d3b286c7e327a702e038e",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/data/teacher-00002-team2v2-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1606714,
+          "sha256": "53aa5cab57846eec6982624e07ad1b89727b5282bb899dc3165737015448ea4f",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/data/teacher-00003-team2v2-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 3927081,
+          "sha256": "a8b1a3b392caef022de9e0467496b78f36f1d5129cc07c45c775d42f1e4b6855",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/data/teacher-00004-team2v2-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1823917,
+          "sha256": "28b635b2876e4219186b5924bf777520a1fd86e2db8e7c913d21123cff53bd97",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/data/teacher-00005-team2v2-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 3849223,
+          "sha256": "aa61a4471db18a400a34abfd25c2f477ebebaab481aa0b0d18aa761f70b03c0c",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/data/teacher-00006-team2v2-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 2008029,
+          "sha256": "3d06e1b2f69c851b0ddf173d8cf552bdee7b22b3f6c0113c686ff6829e55b43b",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/data/teacher-00007-team2v2-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1836241,
+          "sha256": "22cb203de88f069309de44f2554b507c508d9f8be687a227ff8418496aa8f5c3",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/data/teacher-00008-team2v2-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 2022697,
+          "sha256": "42bdf2a10aedb07d72730fc95a1476e0252386fa72fc5330f87dc3406f94fa83",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/data/teacher-00009-team2v2-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 5598210,
+          "sha256": "5e38a44126293818e4bb0821a8006f3776bcde4c113e77e3fd4f9b131b54d165",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/data/teacher-00010-team2v2-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 2027219,
+          "sha256": "ab07579a6060714a9e1123da7df9359443053a3d0c81a4f1354ba8c0edcff392",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/data/teacher-00011-team2v2-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 4636958,
+          "sha256": "bcbe759e72d8e37eea32aa4b40c0c7c0dcaaf4294b4673ad423c03bb7c6276d1",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/data/teacher-00012-team2v2-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 2138028,
+          "sha256": "3a6fe295faa18505405d81d5aab0d5d20e57cb8e9bc734657338a1e7dec9cc80",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/data/teacher-00013-team2v2-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 3326769,
+          "sha256": "f4876f37b1e6b2ae96e798faad8cc305d06b832521c489dc14cc254afa139168",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/data/teacher-00014-team2v2-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 3040883,
+          "sha256": "d5b168e6e2e74754a59fe001603b9844d2e8feb819ca385df9baa1a77e9c7551",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/data/teacher-00015-team2v2-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1482840,
+          "sha256": "59099c2557ad434da08669b75915a890c8dce6c78e2704c708b89a5e2ebd16a8",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/data/teacher-00016-team2v2-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1607359,
+          "sha256": "69e4efef2e60cc0b1bfc44f250ef0928a4b4f7fa5f93eea5f8f3b049be4dc8d7",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/data/teacher-00017-team2v2-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 6164301,
+          "sha256": "15417f63cc75c2ab2dc176e4007e0a3ba43668406ea29297828f13a0bb30e45f",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/data/teacher-00018-team2v2-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1242436,
+          "sha256": "23f2b5a4fe591d1a93a0d0d2f57e295c337f90fcfb21a7a506085d17070636e9",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/data/teacher-00019-team2v2-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 2109563,
+          "sha256": "60b05b75517df4ed2b06c8ba21cd44de45b741dde10a9c53a8aa9a435b6fd0e1",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/data/teacher-00020-team2v2-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 2906906,
+          "sha256": "cc1b8f33a0debb472f8fd21511fc00b6f133eb790beab8215fd1500a3106fa52",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/data/teacher-00021-team2v2-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 3273277,
+          "sha256": "05926ab7a33f375c26bba1a5600472ce10db3fa3274316f0cbe1583268c7689b",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/data/teacher-00022-team2v2-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1576492,
+          "sha256": "6913e7d46e1db933b2344b65746e51b93d05c8484e326e0889aa4a071206d1ae",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/data/teacher-00023-team2v2-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 3062078,
+          "sha256": "b8c9022f79fc706e077f800ffb4b32ce319664e2534d10962e1115acf6523b9a",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/data/teacher-00024-team2v2-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1157078,
+          "sha256": "1276bac8dcbbecc4ff22e049b0d894b14b7a31471bb1a9cb53c7ab33a685404f",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/data/teacher-00025-team2v2-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 3912767,
+          "sha256": "2f6793b336153906ce0673a367117a5e30568b4a32bccaf0f4e4894b601c7921",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/data/teacher-00026-team2v2-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 2088224,
+          "sha256": "6c88d87c1cdba3fa44f7c6715905a5fbd229e651534e877855e8af8a4cb7494e",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/data/teacher-00027-team2v2-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 2516885,
+          "sha256": "5c1fce7cd3dbeb9c8d5307afad4cb2c19d2feb663d0a7939a92c1932ec0cac6d",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/data/teacher-00028-team2v2-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 2434475,
+          "sha256": "1c1b94484b961df0664cdd6bcb863667a212f463fc5dc792e93d859d8d6e5e94",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/data/teacher-00029-team2v2-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 3887986,
+          "sha256": "0513428dd466debf4e556d97b3240c8de6bb3c76eec66ab4d3d49db89460d932",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/data/teacher-00030-team2v2-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1359415,
+          "sha256": "9d8aed720024e0da54493a046f5d5f2a8d2d63e401adcea1e758441fa09675fc",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/data/teacher-00031-team2v2-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 2514775,
+          "sha256": "fcfc7f03c67787fa8807ec0f965d25d61981d1e220ec0d6902d14bc1095e1543",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/data/teacher-00032-team2v2-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1578123,
+          "sha256": "425c975ebc5026954bb461270876c064dc8e2cf848da76e706d05a3f08953124",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/data/teacher-00033-team2v2-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 5683600,
+          "sha256": "e7aea54c793a5f41657067f53757f4bee635c4ff3e076949aa9f1fd6d346d5b4",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/data/teacher-00034-team2v2-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1978799,
+          "sha256": "802dbe19c6536eba64b399bc856024cbc2e37513ef04d53942487cd1e33fdd12",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/data/teacher-00035-team2v2-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 4332198,
+          "sha256": "6bbd4e31de4a965935f07cba4b5a0f900d8c76662ce7abb014b044aa8cb64241",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/data/teacher-00036-team2v2-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1964324,
+          "sha256": "bf2af71b17b486116fd84a6d6a43e8dac5eb8be2de603d4bf1206456498f5a3b",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/data/teacher-00037-team2v2-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 4015909,
+          "sha256": "9bcb06b010a2150a9eebc200e82d6e7a2c7c467287586cb9feeb52011482e9d9",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/data/teacher-00038-team2v2-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 2416329,
+          "sha256": "90d6dbda29e18e0bbe2d8d4fea3e86392030f1b146683139ea5b7c49ef36bb84",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/data/teacher-00039-team2v2-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 2800625,
+          "sha256": "2c1708d2d1d61cdbf8dae18db9841fe2b92270ea171c789da526b4bc6d1240af",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/data/teacher-00040-team2v2-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1473194,
+          "sha256": "3399aaac3a2ff2a7d2db50689e6ef31a9c32f61c305b1eee3d229333ece6130a",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/data/teacher-00041-team2v2-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 5939554,
+          "sha256": "2a53d4e383b1587a4c578f1b0776b64ac920678267183d83d7bb9a364bbdb97d",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/data/teacher-00042-team2v2-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1495056,
+          "sha256": "dd3b3684ede862410333dfc3b4028244815a085d885ed9f33a7fb45f820a3657",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/data/teacher-00043-team2v2-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 2193418,
+          "sha256": "11bc0f535c41729c7de69d66bfb8db31383cba5af4f4e58a7ee239b7379821b4",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/data/teacher-00044-team2v2-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 2880009,
+          "sha256": "37d85a6bc27da3a92f0800d4d30124e437e45c9de9f46f13725c9c292a2d82c2",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/data/teacher-00045-team2v2-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 3297435,
+          "sha256": "3524f97b8c924ce1088604cad28d4416dec2d4d2e45c205385eb15f9e525fa7f",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/data/teacher-00046-team2v2-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 1625385,
+          "sha256": "0690b3acea99fe34a331dafdfecdc419cf0cb14b19862ade83453a06701117c8",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/data/teacher-00047-team2v2-t0.jsonl.gz",
+          "role": "teacher",
+          "bytes": 2745903,
+          "sha256": "19032692690dd9aa2f88767f126fe6052a0cfca60e8003b6b504e0256187e4e9",
+          "final_state_pools": [
+            "teacher_shards"
+          ]
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/latest.pt",
+          "role": "latest",
+          "bytes": 9076310,
+          "sha256": "222013d026c7d25644b78fd61e897e65f3aef2588239589f14bf5b7211bcf80b"
+        },
+        {
+          "path": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/team2v2/last_bc.pt",
+          "role": "last_bc",
+          "bytes": 9081277,
+          "sha256": "c50295f6c86eca588f940f4cdf10080478fbdfe184c8a701aca321cd6159607c"
+        }
+      ]
+    }
+  }
+}
