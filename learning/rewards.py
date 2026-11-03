@@ -107,11 +107,14 @@ def transition_reward(now, following, config, *, terminal_reward=0., delta_turn=
     return (total, pieces) if components else total
 
 
+def terminal_reward_key(row):
+    return 'terminal_reward' if row.get('schema') == 6 else 'reward'
+
+
 def row_transition(row, following=None, *, gamma=None):
     """Compute the original own-turn reward and span from explicit row terms."""
     terminal = following is None
-    immediate = ((row['terminal_reward'] if row.get('schema') == 6 else row['reward'])
-                 if terminal and not row.get('truncated') else 0.)
+    immediate = row[terminal_reward_key(row)] if terminal and not row.get('truncated') else 0.
     turns = (max(0,(row.get('bootstrap_turn') or row['turn'])-row['turn']) if terminal
              else max(0,following['turn']-row['turn']))
     after = ((row.get('bootstrap_raw') if row.get('truncated') else row.get('reward_after',row['reward_raw']))

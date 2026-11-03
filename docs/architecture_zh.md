@@ -91,7 +91,7 @@ flowchart LR
 
 训练、lite 评估和原版部署评分同一集合，不再二次截断。生成器仅使用合法可见上下文，不读取教师答案。候选契约写入 schema，旧检查点/导出不能静默在新候选集合下恢复，冻结证据与权重不改写。
 
-行是训练契约：schema 6，由 `rowpack` v2 编码（JSON 元数据加每行一个 base64 float32 块），装在 gzip JSONL shard 中。每行携带引擎/规则/RNG/战斗/候选/奖励版本、奖励公式、场景族、split 规则、对局族、教师身份与来源（`astra`、`human`、`policy`）。`data.validate_record` 拒绝任何出处、宽度、有限性、意图字段或奖励配置与冻结运行不一致的行。
+行是训练契约：schema 6，由 `rowpack` v2 编码（JSON 元数据加每行一个 base64 float32 块），装在 gzip JSONL shard 中。每行携带引擎/规则/RNG/战斗/候选/奖励版本、奖励公式、场景族、split 规则、对局族、教师身份与来源（`astra`、`human`、`policy`）。`data.validate_record` 拒绝任何出处、宽度、有限性、意图字段或奖励配置与冻结运行不一致的行。BC 仅用结果有效的行训练价值头，schema 6 读取 `terminal_reward`，schema 5 读取 `reward`。
 
 有界 shard 读取会先考虑每个来源桶规划的首批对局族，再按行配额决定停止，避免一个长对局提前排除池中其他对局；额外族仅用于补足缺口。原有压缩/保留字节预算继续约束准入，完整原始前缀仍被保留。同一冻结批次、同样 2048 行上限下，FFA/团战读入族数由 22/9 增至 30/14；这不证明模仿质量。证据：`verification/bc_admission_20261102/REPORT.md`。
 
