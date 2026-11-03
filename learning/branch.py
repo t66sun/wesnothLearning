@@ -53,19 +53,38 @@ def prepare(source, destination, formats, *, seed, reset_optimizer=False, clock=
                 reset_optimizer=bool(reset_optimizer), clock=clock, checkpoints=records)
 
 
+def fresh_state(fmt, clock, phase):
+    return dict(format=fmt, stage='calibration', phase=phase, clock=clock, batch=0, version=0,
+                history=[], snapshots=[], best_key=None, bc_key=None, ppo_key=None, best_kind=None,
+                pending_train=None, pending_validation=None, teacher_shards=[], effective=False, error=None)
+
+
+def validate_bc_inputs(parent, child):
+    """A restarted BC phase consumes the parent's raw supervision on its original split."""
+    for key in ('row_schema', 'batch_contract', 'teacher'):
+        if parent.get(key) != child[key]:
+            raise ValueError(f'BC branch requires matching {key}')
+    if ([o['sha256'] for o in parent['opponents']] != [o['sha256'] for o in child['opponents']]
+            or parent['config'].get('training_max_turns', 60) != child['config'].get('training_max_turns', 60)):
+        raise ValueError('BC branch requires matching opponent packages and training turn limit')
+
+
 def adopt(state, branch, clock, phase):
     """Return the child runner state for a copied checkpoint."""
-    state = copy.deepcopy(state)
+    if branch.get('restart_bc'):
+        if state.get('pending_train') or state.get('pending_validation'):
+            raise ValueError('BC branch requires a committed parent boundary')
+        initial = fresh_state(state['format'], clock, phase)
+        for key in ('teacher_shards', 'dagger_shards', 'lineage'):
+            initial[key] = list(state.get(key, []))
+        state = initial
+    else:
+        state = copy.deepcopy(state)
+        state.update(clock=clock, stage='bc', phase=phase, pending_train=None, pending_validation=None, error=None)
     state.setdefault('lineage', []).append(dict(
         parent=branch['parent'], parent_manifest_sha256=branch['parent_manifest_sha256'],
         parent_clock=branch['parent_clock'], seed=branch['seed'],
         optimizer='reset' if branch['reset_optimizer'] else 'kept',
         checkpoints=branch['checkpoints'], created=branch['created']))
-    state['clock'] = clock
-    state['stage'] = 'bc'
-    state['phase'] = phase
-    state['pending_train'] = None
-    state['pending_validation'] = None
-    state['error'] = None
     state['branch'] = dict(parent=branch['parent'], manifest_sha256=branch['parent_manifest_sha256'])
     return state

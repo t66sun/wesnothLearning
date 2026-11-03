@@ -9,6 +9,7 @@ import shutil
 import time
 import traceback
 import torch
+from .branch import fresh_state
 from .adapters import COMBAT_VERSION, ENGINE_VERSION, RNG_VERSION
 from .common import ROOT, read_json, write_json, sha256
 from .data import read_shards
@@ -226,7 +227,7 @@ class FormatExperiment:
             inherited={key:loaded.get(key) for key in expected}
             if any(inherited[key]!=value for key,value in expected.items()):
                 # Old weights may still seed a fresh plan, but never continue a run.
-                if not (info and info.get('reset_optimizer')):
+                if not (info and info.get('reset_optimizer') and not info.get('restart_bc')):
                     raise ValueError(f'checkpoint combat profile {inherited!r} does not match {expected!r}; '
                                      'old weights are explicit initialization only')
                 self.state['initialized_from']=inherited
@@ -236,9 +237,7 @@ class FormatExperiment:
             random.seed(seed);torch.manual_seed(seed)
             self.model=Policy(fmt).to(self.device)
             self.optimizer=torch.optim.Adam(self.model.parameters(),lr=self.config['learning_rate'])
-            self.state=dict(format=fmt,stage='calibration',phase=self.config.get('phase','auto'),clock=clock,batch=0,version=0,history=[],snapshots=[],
-                best_key=None,bc_key=None,ppo_key=None,best_kind=None,pending_train=None,pending_validation=None,
-                teacher_shards=[],effective=False,error=None)
+            self.state=fresh_state(fmt,clock,self.config.get('phase','auto'))
             self.save()
         from .control import RewardController
         self.controller=RewardController(self.directory.parent,self.fmt,state=self.state.get('reward_controller'),config=dict(mode=self.config['reward_mode']))
@@ -590,12 +589,13 @@ class FormatExperiment:
             method=self.state['pending_train']['method']
             if not self.finish_train(): return
         while True:
-            from .phases import apply_phase
+            from .phases import apply_phase, ppo_batch_target_reached
             apply_phase(self)
             phase=self.state.get('phase','auto')
             if phase=='evaluate': return
             if self.state['pending_validation']: self.validate_model(self.state['pending_validation'])
             if phase=='bc' and self.state['effective']: return
+            if phase=='ppo' and ppo_batch_target_reached(self.state): return
             if time.time()>=self.update_deadline(): return
             self.controller.boundary(self.state['batch'],self.state.pop('control_metrics',None))
             method='ppo' if phase=='ppo' or (phase!='bc' and self.state['effective']) else 'bc'

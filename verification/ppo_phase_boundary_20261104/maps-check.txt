@@ -1,0 +1,6 @@
+test_auto_uses_next_sampling_method_after_bc_gate (tests.v5.test_training_failure_fixes.PhaseEntryTests.test_auto_uses_next_sampling_method_after_bc_gate) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.005s
+
+OK
