@@ -1,0 +1,21 @@
+test_verify_numerics_37_candidates_two_turns (tests.v5.test_learning_core.AuditExportTests.test_verify_numerics_37_candidates_two_turns) ... ERROR
+
+======================================================================
+ERROR: test_verify_numerics_37_candidates_two_turns (tests.v5.test_learning_core.AuditExportTests.test_verify_numerics_37_candidates_two_turns)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/frozen_double_red_20261104/tests/v5/test_learning_core.py", line 796, in test_verify_numerics_37_candidates_two_turns
+    error = verify_numerics(model, attach_histories(rows))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/venv/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 120, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/acceptance/frozen_double_red_20261104/learning/export.py", line 165, in verify_numerics
+    if not math.isfinite(error) or error>1e-5: raise ValueError(f'{model.format_name}: Python/Lua error {error} exceeds 1e-5')
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: duel: Python/Lua error 1.810136887314684e-05 exceeds 1e-5
+
+----------------------------------------------------------------------
+Ran 1 test in 1.217s
+
+FAILED (errors=1)

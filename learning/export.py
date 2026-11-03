@@ -1,4 +1,5 @@
 from pathlib import Path
+import copy
 import json
 import shutil
 import torch
@@ -143,24 +144,22 @@ def verify_numerics(model, records):
     network=lua.execute((ROOT/'lua/network.lua').read_text(encoding='utf-8'))
     weights=lua.execute(weight_source(lua_parameters(model)))
     relational=require('relational.lua')
-    training=model.training;model.eval()
+    frozen=copy.deepcopy(model).cpu().double().eval()
     memories={};error=0.;turns=set()
-    try:
-        for row in records:
-            key=sequence_key(row);memory=memories.setdefault(key,lua.table())
-            turns.add((key,row['turn']))
-            logits,value=model(*batch([row],next(model.parameters()).device))
-            scores,v,_=network.forward(weights,lua.eval(native.lua(row['global'])),lua.eval(native.lua(row['opponents'])),
-                lua.eval(native.lua(row['candidates'])),lua.eval(native.lua(row['spatial'])),memory,row['turn'])
-            candidate_error = max((abs(logits[0,i].item()-scores[i+1]) for i in range(len(row['candidates']))),
-                                  default=0.0)
-            error=max(error,abs(value.item()-v),candidate_error)
-            if row.get('committed',True) and memory.turn!=row['turn']:
-                write=row.get('memory_write',row)
-                _,_,pending=network.forward(weights,lua.eval(native.lua(write['global'])),lua.eval(native.lua(write['opponents'])),lua.table(),
-                    lua.eval(native.lua(write['spatial'])),memory,row['turn'])
-                relational.commit(memory,pending)
-    finally: model.train(training)
+    for row in records:
+        key=sequence_key(row);memory=memories.setdefault(key,lua.table())
+        turns.add((key,row['turn']))
+        logits,value=frozen(*batch([row],dtype=torch.float64))
+        scores,v,_=network.forward(weights,lua.eval(native.lua(row['global'])),lua.eval(native.lua(row['opponents'])),
+            lua.eval(native.lua(row['candidates'])),lua.eval(native.lua(row['spatial'])),memory,row['turn'])
+        candidate_error = max((abs(logits[0,i].item()-scores[i+1]) for i in range(len(row['candidates']))),
+                              default=0.0)
+        error=max(error,abs(value.item()-v),candidate_error)
+        if row.get('committed',True) and memory.turn!=row['turn']:
+            write=row.get('memory_write',row)
+            _,_,pending=network.forward(weights,lua.eval(native.lua(write['global'])),lua.eval(native.lua(write['opponents'])),lua.table(),
+                lua.eval(native.lua(write['spatial'])),memory,row['turn'])
+            relational.commit(memory,pending)
     if len(turns)<2: raise ValueError('numerical audit requires continuous turn memory')
     if not math.isfinite(error) or error>1e-5: raise ValueError(f'{model.format_name}: Python/Lua error {error} exceeds 1e-5')
     return error
