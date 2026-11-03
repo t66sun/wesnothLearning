@@ -56,6 +56,7 @@ flowchart LR
 - `Experiment` (`learning/coordinator.py`) freezes `manifest.json` and `clock.json`, then spawns one trainer process per requested format. `FormatExperiment` (`learning/experiment.py`) owns exactly one format's model, optimizer, reward controller, RNG stream and history.
 - Trainers submit job batches to the broker. The broker runs one fixed-size worker pool (`ProcessPoolExecutor`, spawn) for all formats, marks past-deadline jobs `budget_interrupted`, logs every result to `<run>/<format>/jobs.jsonl`, repairs one interrupted trailing line when a log is first opened and appends later results without rereading it, and returns whole batches to the owning trainer.
 - A worker runs one game through `sample.play_job`: lite games in-process via `LiteHost`; native games via the arena match runner driving one resident Wesnoth process with isolated user/add-on directories and file-backed Lua RPC (`native_transport`).
+- Lite final-panel jobs request a score-only path for Astra seats. It tracks publicly observed village ownership and unit home hexes, calls the same teacher planner and executes each action through the shared Lua executor. Jobs collecting learner rows, opening behavior or reward diagnostics use the full observations and outcomes.
 - Worker exceptions return `infrastructure_error` and fail the owning batch; trainer exits are recorded, and no format retries another format's games.
 
 ## 4. Rules and engines

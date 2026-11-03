@@ -141,8 +141,14 @@ class LiteAdapter:
     def decision(self, side, *, teacher=False, generate_candidates=True):
         return json.loads(self.core.decision(side, teacher, generate_candidates))
 
+    def score_astra_decision(self, side):
+        return json.loads(self.core.decision(side, True, False, True))
+
     def execute_candidate(self, action):
         return json.loads(self.core.execute_candidate(json.dumps(action)))
+
+    def score_astra_execute(self, action):
+        return json.loads(self.core.execute_candidate(json.dumps(action), True))
 
 
 def create_adapter(engine, game_spec=None, **kwargs) -> GameAdapter:

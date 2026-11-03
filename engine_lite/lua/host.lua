@@ -209,10 +209,37 @@ function ai.move_full(u,p) u=assert(to_unit(u));return perform{kind='move',unit=
 function ai.recruit(name,p) return perform{kind='recruit',unit_type=name,to=assert(position(p))} end
 function ai.attack(u,e,weapon) u,e=assert(to_unit(u)),assert(to_unit(e));return perform{kind='attack',unit=u.id,target=e.id,weapon=weapon-1} end
 
-function lite_decision(side,teacher,generate_candidates)
+local function teacher_ledger(side,own,villages)
+    teacher_memories[side]=teacher_memories[side] or {owners={},home={}}
+    local ledger=teacher_memories[side]
+    for _,u in ipairs(own) do if not ledger.home[u.id] then ledger.home[u.id]={u.x,u.y} end end
+    -- Astra indexes remembered villages by x*1000+y, not observation's "x,y".
+    ledger.owners={}
+    for key,owner in pairs(villages) do
+        local x,y=key:match('^(%d+),(%d+)$')
+        if x then ledger.owners[tonumber(x)*1000+tonumber(y)]=owner end
+    end
+    return ledger
+end
+local function astra_plan(ledger)
+    local strategy=#view.sides==2 and 'duel' or #view.sides==4 and 'four' or nil
+    assert(strategy,'Astra host supports two/four player games')
+    local astra=require_module('~add-ons/gpt6astra/lua/'..strategy..'.lua')
+    local probe=copy(ledger)
+    astra:evaluation({},probe)
+    return copy(probe.plan) or {kind='end_turn'}
+end
+function lite_decision(side,teacher,generate_candidates,score_only_astra)
     refresh(bridge('view',{side=side}))
     local O=require_module('observation.lua');local C=require_module('candidates.lua')
-    memories[side]=memories[side] or {};local obs=O.capture(memories[side],side)
+    memories[side]=memories[side] or {}
+    if score_only_astra then
+        assert(teacher and generate_candidates==false,'only an unrecorded Astra seat can omit policy inputs')
+        O.villages(memories[side],side)
+        local own=wesnoth.units.find_on_map {side=side}
+        return {teacher_action=astra_plan(teacher_ledger(side,own,memories[side].villages))}
+    end
+    local obs=O.capture(memories[side],side)
     local candidates,timing
     if generate_candidates==false then
         -- Unrecorded Astra seats and diagnostic terminal observations need no
@@ -230,46 +257,37 @@ function lite_decision(side,teacher,generate_candidates)
     local raw=W.capture(obs,obs.memory,{judge=false,total_strategic_weight=labels.total_strategic_weight,
         shared_exploration_members={side},shared_exploration_scope=tostring(side)})
     raw.economy=labels.economy;raw.explored=labels.explored
-    local teacher_action
-    teacher_memories[side]=teacher_memories[side] or {owners={},home={}}
-    local ledger=teacher_memories[side]
-    for _,u in ipairs(obs.own) do if not ledger.home[u.id] then ledger.home[u.id]={u.x,u.y} end end
-    -- Astra indexes remembered villages by x*1000+y, not observation's "x,y".
-    -- Both consumers must see the same last legally observed ownership.
-    ledger.owners={}
-    for key,owner in pairs(obs.memory.villages or {}) do
-        local x,y=key:match('^(%d+),(%d+)$')
-        if x then ledger.owners[tonumber(x)*1000+tonumber(y)]=owner end
-    end
-    if teacher then
-        local strategy=#view.sides==2 and 'duel' or #view.sides==4 and 'four' or nil
-        assert(strategy,'Astra host supports two/four player games')
-        local astra=require_module('~add-ons/gpt6astra/lua/'..strategy..'.lua')
-        local probe=copy(ledger)
-        astra:evaluation({},probe);teacher_action=copy(probe.plan)
-        if not teacher_action then teacher_action={kind='end_turn'} end
-    end
+    local ledger=teacher_ledger(side,obs.own,obs.memory.villages)
+    local teacher_action=teacher and astra_plan(ledger) or nil
     return {global=obs.global,opponents=obs.opponents,spatial=obs.spatial,candidates=candidates,timing=timing,
         side=side,turn=view.turn,teacher_action=teacher_action,potential=obs.potential,reward_raw=raw,
         engine_id='lite-0.2',approximate=true,combat_version=view.combat_version}
 end
-function lite_execute(action)
+function lite_execute(action,score_only_astra)
     local side=view.side;events={}
     local O=require_module('observation.lua');local C=require_module('candidates.lua')
-    local obs=O.capture(memories[side] or {},side)
-    local schema=require_module('features.lua')
-    if not action.features then action.features=O.normalize({[action.kind]=1},schema.action_features) end
-    local prior=require_module('spatial.lua').memory_observation(obs)
-    local diagnostics=C.diagnostics(obs,action,last_candidates)
+    local obs,prior,diagnostics
+    if not score_only_astra then
+        obs=O.capture(memories[side] or {},side)
+        local schema=require_module('features.lua')
+        if not action.features then action.features=O.normalize({[action.kind]=1},schema.action_features) end
+        prior=require_module('spatial.lua').memory_observation(obs)
+        diagnostics=C.diagnostics(obs,action,last_candidates)
+    end
     local execution
     if action.kind=='end_turn' then perform{kind='end_turn'};execution={changed=true} else execution=C.execute(action) end
+    local changed=execution and execution.changed or false
+    if score_only_astra then
+        -- A move can reveal a village that is hidden again before the next decision.
+        O.villages(memories[side],side)
+        return {events=events,view=view,committed=changed}
+    end
     if not execution or execution.changed then C.remember(obs,action) end
     C.outcome(action,diagnostics)
     local post=O.capture(memories[side] or {},side);local labels=rpc('reward_labels')
     local raw=require_module('rewards.lua').capture(post,post.memory,{judge=false,
         total_strategic_weight=labels.total_strategic_weight,shared_exploration_members={side},shared_exploration_scope=tostring(side)})
     raw.economy=labels.economy;raw.explored=labels.explored
-    local changed=execution and execution.changed or false
     local write=action.kind=='end_turn' and prior or require_module('spatial.lua').memory_observation(post)
     return {events=events,diagnostics=diagnostics,view=view,reward_after=raw,execution=execution,committed=changed,memory_write=changed and write or nil}
 end

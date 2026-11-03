@@ -23,6 +23,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('run', type=Path)
     parser.add_argument('output', type=Path)
+    parser.add_argument('--score-only-astra', action='store_true')
     args = parser.parse_args()
     directory = args.run / 'team2v2'
     schedule = directory / 'schedules/validation-000010.json'
@@ -36,6 +37,7 @@ def main():
     # Holdout jobs have no policy telemetry. Keep this validation board, its
     # frozen bots and all game settings. Only the time allowance and output move.
     job.pop('learning')
+    job['score_only_astra'] = args.score_only_astra
     job['output'] = str(args.output / 'replay.json')
     job['deadline'] = time.time() + 115
     model = Path(job['meta']['policy']).parent / 'model.pt'
@@ -53,9 +55,9 @@ def main():
         counts[role + '_decision'] += 1
         return value
 
-    def timed_execute(host, action):
+    def timed_execute(host, action, **options):
         start = time.process_time()
-        outcome = execute(host, action)
+        outcome = execute(host, action, **options)
         cpu_by_role[role + '_execute'] += time.process_time() - start
         counts[role + '_execute'] += 1
         identity = {k: action[k] for k in ('kind','x','y','tx','ty','ex','ey','type','weapon','full') if k in action}
@@ -74,6 +76,7 @@ def main():
         stats.sort_stats('cumulative').print_stats(60)
         stats.sort_stats('tottime').print_stats(40)
     observed = dict(source=os.environ['SOURCE_COMMIT'], python=platform.python_version(),
+                    score_only_astra=args.score_only_astra,
                     torch=torch.__version__, torch_threads=torch.get_num_threads(),
                     interop_threads=torch.get_num_interop_threads(), cpu_seconds=cpu_seconds,
                     wall_seconds=seconds, cpu_by_role=cpu_by_role, calls=counts,
