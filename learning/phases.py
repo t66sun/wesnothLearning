@@ -9,11 +9,13 @@ from .control import _atomic, _locked
 PHASES = ('auto', 'bc', 'ppo', 'evaluate')
 
 
-def request_phase(run_dir, phase, *, formats=None, force=False, reason='', hours=None):
+def request_phase(run_dir, phase, *, formats=None, force=False, reason='', hours=None, ppo_batches=None):
     if phase not in PHASES: raise ValueError('unknown phase')
     if force and phase != 'ppo': raise ValueError('--force is only valid for PPO')
     if force and not reason.strip(): raise ValueError('forced PPO requires --reason')
     if hours is not None and (not math.isfinite(hours) or hours <= 0): raise ValueError('phase hours must be positive and finite')
+    if ppo_batches is not None and (phase != 'ppo' or type(ppo_batches) is not int or ppo_batches < 1):
+        raise ValueError('--ppo-batches requires a positive integer for a PPO phase')
     root=Path(run_dir)
     manifest=read_json(root/'manifest.json')
     from .features import VERSION
@@ -34,6 +36,8 @@ def request_phase(run_dir, phase, *, formats=None, force=False, reason='', hours
                 raise ValueError(f'{fmt}: BC gates not passed; use --force --reason to enter PPO explicitly')
             commands[fmt]=dict(id=uuid.uuid4().hex,phase=phase,force=force,reason=reason,
                                requested_at=now,deadline=now+hours*3600 if hours is not None else None)
+            if ppo_batches is not None:
+                commands[fmt]['ppo_batches'] = ppo_batches
         for fmt,command in commands.items(): _atomic(root/'phase'/f'{fmt}.pending.json',command)
     return commands
 
@@ -47,6 +51,14 @@ def show_phases(run_dir):
                         pretraining_complete=state.get('effective',False),
                         history=state.get('phase_history',[]),pending=read_json(path) if path.exists() else None)
     return result
+
+
+def ppo_batch_target_reached(state):
+    target = state.get('phase_ppo_target')
+    if target is None:
+        return False
+    batches = state['history'][target['history_start']:]
+    return sum(1 for entry in batches if entry['method'] == 'ppo' and entry['updates'] > 0) >= target['batches']
 
 
 def apply_phase(runner):
@@ -63,6 +75,11 @@ def apply_phase(runner):
             state.setdefault('phase_history',[]).append(dict(command,previous_phase=state.get('phase','auto'),
                 pretraining_complete=state.get('effective',False),applied_at=time.time()))
             state.update(phase=phase,phase_deadline=command['deadline'],phase_command_id=command['id'])
+            state.pop('phase_ppo_target', None)
+            if 'ppo_batches' in command:
+                # A pending update belongs to the previous request and appends its history on commit.
+                start = len(state['history']) + int(bool(state.get('pending_train')))
+                state['phase_ppo_target'] = dict(history_start=start, batches=command['ppo_batches'])
             state.pop('status',None)
             if phase=='ppo' and command['force']:
                 state['forced_ppo']=dict(reason=command['reason'],command_id=command['id'],version=state['version'])

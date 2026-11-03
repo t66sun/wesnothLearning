@@ -590,12 +590,13 @@ class FormatExperiment:
             method=self.state['pending_train']['method']
             if not self.finish_train(): return
         while True:
-            from .phases import apply_phase
+            from .phases import apply_phase, ppo_batch_target_reached
             apply_phase(self)
             phase=self.state.get('phase','auto')
             if phase=='evaluate': return
             if self.state['pending_validation']: self.validate_model(self.state['pending_validation'])
             if phase=='bc' and self.state['effective']: return
+            if phase=='ppo' and ppo_batch_target_reached(self.state): return
             if time.time()>=self.update_deadline(): return
             self.controller.boundary(self.state['batch'],self.state.pop('control_metrics',None))
             method='ppo' if phase=='ppo' or (phase!='bc' and self.state['effective']) else 'bc'

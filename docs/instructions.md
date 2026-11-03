@@ -229,6 +229,8 @@ The normal/forced PPO commands above are alternatives. The command writes a phas
 
 `run --phase bc --hours 4` gives BC the full 4 hours with no time reserved for automatic final evaluation. `phase --hours` allocates this request's phase deadline, measured from the request time and persisted in the checkpoint; the original manifest/clock are untouched. Omitting it reuses the remaining time of the original total budget (auto reuses the original update deadline), and an expired budget requires an explicit new phase duration. A normal `run --resume --hours` still does not extend the budget. Once final evaluation starts, the directory cannot return to training; a new experiment is required. Phase commands never start or resume training themselves and do not bypass source/schema frozen checks.
 
+For a committed stop before the deadline, add `--ppo-batches N` to `phase ppo`. Each requested format finishes after N newly scheduled PPO batches have applied at least one optimizer step and any due validation has run. A resumed batch already pending at the request boundary finishes under its existing plan and falls outside this count. Each new request starts its own count. The phase deadline can end training earlier.
+
 Read enough state for an existing experiment in one pass; widen the scope only on the first check or a real anomaly. Confirm the manifest exists before looking at the controller so no control directory is created for a nonexistent experiment path.
 
 ```bash
