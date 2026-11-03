@@ -1,0 +1,12 @@
+{"shard": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/rollout-00036-duel-g0.jsonl.gz", "rows": 133, "turns": 15, "full": 120, "load_seconds": 0.41298699704930186}
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/bounded_loop_runner_9386c58_20261104/loop-export-cost.py", line 15, in <module>
+    error = verify_numerics(model, rows)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/venv/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 120, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/acceptance/bounded_loop_runner_9386c58_20261104/learning/export.py", line 165, in verify_numerics
+    if not math.isfinite(error) or error>1e-5: raise ValueError(f'{model.format_name}: Python/Lua error {error} exceeds 1e-5')
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: duel: Python/Lua error 2.196747449723091e-05 exceeds 1e-5
