@@ -5,6 +5,7 @@ Run only on instruction. Each stage uses the ordinary CLI and gates.
 import json
 import os
 from pathlib import Path
+import shutil
 import signal
 import subprocess
 import sys
@@ -53,13 +54,19 @@ def stage(name, args, seconds, batch_limit=None):
         code = process.wait()
     result = dict(stage=name, command=args, seconds=time.time()-start, exit_code=code,
                   stop_reason=reason, states=states())
+    if code == 0 and reason is None and name in ('bc', 'ppo_first', 'ppo_resume'):
+        # Later phases atomically replace latest.pt. Retain the actual restart inputs.
+        directory = OUT / 'checkpoints' / name
+        directory.mkdir(parents=True)
+        for fmt in FORMATS:
+            shutil.copyfile(RUN / fmt / 'latest.pt', directory / (fmt + '.pt'))
     (OUT / (name + '.json')).write_text(json.dumps(result, indent=2))
     return code == 0 and reason is None
 
 
-def phase(name, hours):
+def phase(name, hours, *options):
     with (OUT / ('request-'+name+'.log')).open('a') as log:
-        subprocess.run(command('phase', name, '--run-dir', RUN, '--hours', hours),
+        subprocess.run(command('phase', name, '--run-dir', RUN, '--hours', hours, *options),
                        cwd=ROOT, check=True, stdout=log)
 
 
@@ -86,11 +93,12 @@ def final_panels_complete(blocks, min_distinct):
 
 def main():
     OUT.mkdir(parents=True, exist_ok=False)
+    parent = os.environ.get('BOUNDED_BC_PARENT')
     plan = dict(source=os.environ['SOURCE_COMMIT'], formats=FORMATS, workers=8,
                 trainer_threads=1, seed=20261101, engine='lite', evaluation_engine='lite',
                 bc_seconds=1200, bc_committed_batches_max=5, bc_game_targets=[24,24,24],
                 bc_records=2048, bc_validation_records=1024, epochs=4, minibatch=256,
-                ppo_seconds=900, ppo_batch_limit=4, rollout_games=4,
+                bc_parent=parent, ppo_seconds=900, ppo_batch_limit=4, ppo_successful_batches=1, rollout_games=4,
                 turn_limit=30, final_blocks=30, final_min_distinct=12, evaluation_seconds=900,
                 export_seconds=300, total_stage_ceiling_seconds=3300,
                 limits='Stage timeout is a hard stop; polling may observe one in-flight batch beyond a committed-batch cap. No automatic retry, forced PPO or gate edits.')
@@ -102,16 +110,20 @@ def main():
                    '--training-max-turns', plan['turn_limit'],
                    '--final-blocks', plan['final_blocks'],
                    '--wesnoth', os.environ['WESNOTH_EXE'])
+    if parent:
+        args.extend(['--branch-from', parent, '--branch-restart-bc', '--branch-reset-optimizer'])
     if not stage('bc', args, 1200, batch_limit=5):
         return finish('FAIL', 'BC execution or bounded batch/time limit')
-    if not all(s.get('effective') for s in states().values()):
-        return finish('FAIL', 'ordinary BC gate not passed')
+    if not all(s.get('stage') == 'bc_complete' and s.get('effective') and not s.get('pending_train')
+               and any(entry['method'] == 'bc' and entry['updates'] > 0 for entry in s['history'])
+               for s in states().values()):
+        return finish('FAIL', 'ordinary BC gate or new committed BC update missing')
     # Two separately budgeted ordinary phases exercise stop/resume from committed state.
     for name in ('ppo_first', 'ppo_resume'):
         before = states()
         initial = {fmt: s.get('batch',0) for fmt,s in before.items()}
         updates_before = {fmt: ppo_updates(s) for fmt,s in before.items()}
-        phase('ppo', .12)
+        phase('ppo', .12, '--ppo-batches', plan['ppo_successful_batches'])
         limits = {fmt: batch + plan['ppo_batch_limit'] for fmt, batch in initial.items()}
         if not stage(name, command('run','--resume',RUN),450,batch_limit=limits):
             return finish('FAIL', name+' execution or time limit')
