@@ -23,9 +23,26 @@ end
 function M.visible(side,x,y)
     return not wesnoth.sides.is_fogged(side,x,y) and not wesnoth.sides.is_shrouded(side,x,y)
 end
+function M.villages(memory,side)
+    memory.villages=memory.villages or {}
+    local villages={}
+    for _,p in ipairs(wesnoth.map.find {gives_income=true}) do
+        if not wesnoth.sides.is_shrouded(side,p[1],p[2]) or memory.villages[p[1]..','..p[2]]~=nil then villages[#villages+1]=p end
+    end
+    table.sort(villages,function(a,b) return a[1]<b[1] or a[1]==b[1] and a[2]<b[2] end)
+    local owned,counts=0,{}
+    for _,p in ipairs(villages) do
+        local key=p[1]..','..p[2]
+        if M.visible(side,p[1],p[2]) then memory.villages[key]=wesnoth.map.get_owner(p) or 0 end
+        local owner=memory.villages[key]
+        if owner then counts[owner]=(counts[owner] or 0)+1 end
+        if owner==side then owned=owned+1 end
+    end
+    return villages,owned,counts
+end
 function M.capture(memory,viewing_side)
     local side=viewing_side or wesnoth.current.side
-    memory.villages=memory.villages or {}; memory.seen=memory.seen or {}
+    memory.seen=memory.seen or {}
     local own=wesnoth.units.find_on_map {side=side}
     -- The vision filter is part of the query. No hidden unit fields are consumed.
     local visible=wesnoth.units.find_on_map { {'filter_vision',{side=side,visible='yes'}} }
@@ -44,19 +61,7 @@ function M.capture(memory,viewing_side)
     local hp=0
     for _,u in ipairs(own) do hp=hp+u.hitpoints;if u.canrecruit and not leader then leader=u end end
     if leader and not memory.home then memory.home={leader.x,leader.y} end
-    local villages={}
-    for _,p in ipairs(wesnoth.map.find {gives_income=true}) do
-        if not wesnoth.sides.is_shrouded(side,p[1],p[2]) or memory.villages[p[1]..','..p[2]]~=nil then villages[#villages+1]=p end
-    end
-    table.sort(villages,function(a,b) return a[1]<b[1] or a[1]==b[1] and a[2]<b[2] end)
-    local owned,counts=0,{}
-    for _,p in ipairs(villages) do
-        local key=p[1]..','..p[2]
-        if M.visible(side,p[1],p[2]) then memory.villages[key]=wesnoth.map.get_owner(p) or 0 end
-        local owner=memory.villages[key]
-        if owner then counts[owner]=(counts[owner] or 0)+1 end
-        if owner==side then owned=owned+1 end
-    end
+    local villages,owned,counts=M.villages(memory,side)
     local opponent_rows, initial,teammates={},0,0
     local threat=0
     if not memory.roster then

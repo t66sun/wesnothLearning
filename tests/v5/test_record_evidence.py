@@ -11,7 +11,9 @@ class RecordEvidenceTests(unittest.TestCase):
         self.addCleanup(self.fixture.doCleanups)
 
     def play(self, phase, opening=False):
-        job = self.fixture.job(bots=['p', 'p'], policy=lambda row: dict(choice=0, log_probability=0., value=0.),
+        game_id = 'opening' if opening else phase
+        job = self.fixture.job(id=game_id, shard=str(self.fixture.directory / 'shards' / (game_id + '.jsonl.gz')),
+                               bots=['p', 'p'], policy=lambda row: dict(choice=0, log_probability=0., value=0.),
                                bootstrap_policy=lambda row: 0.)
         job['meta'].update(phase=phase)
         if opening:
