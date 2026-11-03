@@ -45,3 +45,15 @@ The original command was `/usr/bin/time -v timeout 360s /home/tongshu/venv/bin/p
 ## Three-format export proxy
 
 The separately frozen proxy uses the same three BC checkpoints, the first four duel and eight FFA/team teacher shards by name, and all four retained duel policy/DAgger pairs. Its 24 games have 28 physical archives and 5,236 raw rows. The full CLI and SDK packaging share a 300-second wall ceiling. The plan records every input hash, byte/row count, checkpoint identity, command and host load before launch. [Frozen plan](proxy-plan.json) · [Proxy driver](proxy.py)
+
+**PASS in 171.738 seconds.** The single authorized proxy exited 0, averaged 739% CPU and produced a 9,377,324-byte SDK ZIP. Its SHA256 `9e323bfd8b03523533fa3b7aeb31948563545abbab3951369700f695e58535ab` matches the export manifest. Peak one-second sampled process-tree RSS/PSS was 5,565,332/4,781,711 KiB. GNU time reported 1,267.77 user CPU seconds and peak single-process RSS of 947,944 KiB. [Result](proxy-result.json) · [Raw timing, export manifest and worker-cap check](proxy-results.tar.gz)
+
+| Format | Frozen files | Raw rows | Python/Lua maximum error |
+| --- | ---: | ---: | ---: |
+| Duel | 12 | 1,755 | 6.394884621840902e-14 |
+| FFA | 8 | 1,678 | 2.1316282072803006e-14 |
+| Team | 8 | 1,803 | 1.9539925233402755e-14 |
+
+The CLI and proxy driver were shipped at `e8322be348b02d4a2df2ddde05871403110a5182` using the same archive command with the added `verification/parallel_export_audit_20261104` path. Archive SHA256 was `97102e594e93588facbda47a27b61a09e54089a4c3d0cff9f9a1693eb743a985`. The fresh directory was `/home/tongshu/acceptance/audit_workers_proxy_20261104`. The frozen manifest SHA256 was `7e0590ac341ff742cd7be6142afe9b5d5f7f08fefabf410dcbb6b6a1baca096f`. The driver ran `/usr/bin/time -v -o proxy.time timeout --signal=KILL 300s /home/tongshu/venv/bin/python -B -u -m learning export` with the complete arguments in the manifest. Host load averages at freeze were 0.067, 0.356 and 0.531. After the proxy exited, the strengthened two-format regression asserted one shared pool capped at two workers and passed in 7.339 seconds.
+
+The package remains in this isolated proxy directory. This timing covers the declared retained BC checkpoints and corpus. Selecting and exporting new checkpoints in the integrated bounded run is separate acceptance.

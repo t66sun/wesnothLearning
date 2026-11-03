@@ -1,0 +1,13 @@
+{
+  "exit": 0,
+  "wall_seconds": 171.7379896750208,
+  "plan_sha256": "7e0590ac341ff742cd7be6142afe9b5d5f7f08fefabf410dcbb6b6a1baca096f",
+  "rss_kib": 5565332,
+  "pss_kib": 4781711,
+  "max_errors": {
+    "duel": 6.394884621840902e-14,
+    "ffa4": 2.1316282072803006e-14,
+    "team2v2": 1.9539925233402755e-14
+  },
+  "package_sha256": "9e323bfd8b03523533fa3b7aeb31948563545abbab3951369700f695e58535ab"
+}
