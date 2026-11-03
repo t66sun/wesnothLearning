@@ -314,6 +314,8 @@ After each change, verify the actually effective config, then record old→new, 
 
 ## 9. Reporting and handover
 
+For an authorized delivery export, `export --audit-data DIR --audit-workers N` uses up to N processes per format. The default is one. Each format's subdirectory supplies all of its `*.jsonl.gz` shards, including any sequence fragments stored in different files.
+
 Keep reports short and at least include:
 
 ```text

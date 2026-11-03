@@ -171,6 +171,7 @@ Teacher acceptance measures the maintained Astra teacher against the original As
 
 ## 10. Delivery
 
+- The file-backed export audit groups shards that share a sequence before decoding rows. Each worker keeps an entire sequence's chronological memory together. The maximum Python/Lua error, candidate coverage and turn evidence are checked over each whole format.
 - `ensure_export()` writes internal add-ons with features, weights, config and export metadata; these are not subject to the SDK submission size limit. Config carries no candidate budget; every caller uses the one generator contract, and every phase scores the complete shared-generator result.
 - `python -m learning export` writes a deployable add-on (all three formats, `arena.json` schema 2, vendored runtime, numeric parity record) and `python -m learning package` zips it as `delivery/NeuralArena.zip`. Export requires matching engine/teacher identity, trained weights and current-schema audit parity.
 - Weight files carry little-endian float32 vectors in base64 and a self-contained Lua decoder. Loading restores the existing tables exactly, including signed zero and subnormals; no quantization is applied. Sequence parity executes the same serialized source as deployment. The three-format add-on must still fit the SDK's 16 MiB uncompressed limit. Current SDK/sequence/native-loading acceptance: `verification/compact_weights_20261102/REPORT.md`.
