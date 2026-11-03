@@ -117,9 +117,13 @@ function wesnoth.units.create(cfg)
         hp=t.hp,moves=t.moves,xp=0,attacks_left=1,leader=cfg.canrecruit or false,status={}}
 end
 function wesnoth.map.distance_between(x,y,tx,ty)
-    local q=x-1;local r=y-1-math.floor(q/2)
-    local tq=tx-1;local tr=ty-1-math.floor(tq/2)
-    return math.max(math.abs(q-tq),math.abs(r-tr),math.abs(q+r-tq-tr))
+    local dq=tx-x
+    local dr=ty-y+(x-1)//2-(tx-1)//2
+    -- Reflect the axial displacement so dq is nonnegative. When dr is also
+    -- nonnegative their sum is the longest cube axis; otherwise either dq or -dr is.
+    if dq<0 then dq,dr=-dq,-dr end
+    if dr>=0 then return dq+dr end
+    return dq>=-dr and dq or -dr
 end
 function wesnoth.map.get_owner(p)
     local k=position(p);local known=k and view.villages[tostring(k)]
