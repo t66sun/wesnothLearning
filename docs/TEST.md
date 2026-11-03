@@ -27,6 +27,8 @@ Every item states what is open, the smallest Ubuntu procedure that would close i
 
 **Evidence:** current v2 branch diagnosis, identities, complete metadata and limits: `verification/team_bc_branch_20261102/REPORT.md`; parent evidence: `verification/team_bc_v2_20261102/REPORT.md`. These do not replace failed all-format evidence in `verification/bounded_loop_20261101/REPORT.md` or historical v1 evidence in `verification/team_bc_readiness_20261102/REPORT.md`. No new post-BC or same-future acceptance is claimed.
 
+**Candidate coverage under v9 remains unmeasured across formats.** The Sablestone decision recovers eight recruit choices and displaces seven partial moves. Compare matched v8/v9 teacher-intent coverage by class on frozen inputs before using v9 as readiness evidence. Preserve the 90% overall and 80% per-class coverage gates and the original imitation thresholds. Record candidate identities with the L2 result. [Fixed-board Ubuntu evidence](../verification/recruit_probe_priority_20261103/REPORT.md)
+
 ## Execution and report
 
 1. Identify the changed owner, the activated item and reused evidence. Predeclare maximum rows/windows/steps/games and numeric tolerances; implement only needed assertions or helpers; record real commands before running.

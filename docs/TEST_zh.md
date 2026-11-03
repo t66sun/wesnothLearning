@@ -27,6 +27,8 @@
 
 **证据：** 当前 v2 分支诊断、身份、完整元数据和限制见 `verification/team_bc_branch_20261102/REPORT.md`；父运行证据见 `verification/team_bc_v2_20261102/REPORT.md`。它们不替代 `verification/bounded_loop_20261101/REPORT.md` 的三赛制失败或 `verification/team_bc_readiness_20261102/REPORT.md` 的历史 v1 证据。没有新的 BC 之后或同未来验收结论。
 
+**v9 在各赛制的候选覆盖率仍待验证。** Sablestone 的固定决策找回八个招募候选，七个部分移动被挤出。将 v9 用于就绪验收前，应在相同冻结输入上逐类对比 v8/v9 对教师意图的覆盖，保留整体 90%、各类 80% 的覆盖门槛和原有模仿门槛。L2 结果须记录候选契约身份。[Ubuntu 固定局面证据](../verification/recruit_probe_priority_20261103/REPORT.md)
+
 ## 执行与报告
 
 1. 确认变更所有者、激活事项与可复用证据。预先声明行/窗口/步数/对局上限与数值容差；只实现需要的断言或助手；运行前记录真实命令。
