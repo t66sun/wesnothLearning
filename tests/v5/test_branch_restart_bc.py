@@ -1,7 +1,6 @@
 """A BC restart keeps its compatible supervision and earns its own phase result."""
 import json
 import tempfile
-import time
 import unittest
 from pathlib import Path
 from unittest import mock
@@ -9,9 +8,9 @@ from unittest import mock
 import torch
 
 from learning.__main__ import main
-from learning.branch import prepare
 from learning.checkpoints import checkpoint
 from learning.common import ROOT, read_json, sha256, write_json
+from learning.coordinator import Experiment
 from learning.data import split, write_shard
 from learning.experiment import FormatExperiment, default_config
 from tests.v5 import helpers
@@ -51,11 +50,12 @@ class BranchRestartBCTests(unittest.TestCase):
     def test_child_calibrates_trains_and_rechecks_its_own_gate(self):
         with tempfile.TemporaryDirectory(dir=ROOT) as tmp:
             parent, child = Path(tmp)/'parent', Path(tmp)/'child'
-            config = default_config('cpu') | dict(phase='bc', epochs=1, human_data=str(parent/'human'))
+            config = default_config('cpu') | dict(phase='bc', formats=['duel'], epochs=1, human_data=str(parent/'human'))
             config['bc_games']['duel'] = 2
-            manifest = dict(config=config, opponents=[dict(path='gpt6astra.zip')], baseline=dict(path='unused'))
+            manifest = dict(config=config, opponents=[dict(path='gpt6astra.zip', sha256='astra')],
+                            baseline=dict(path='unused'), teacher=dict(teacher_profile='v6'),
+                            rules=dict(rules_sha256='fixture'), row_schema=6, batch_contract='scenario-v2')
             write_json(parent/'manifest.json', manifest)
-            write_json(child/'manifest.json', manifest | dict(run='child'))
             model = helpers.model(seed=31)
             optimizer = torch.optim.Adam(model.parameters(), lr=.02)
             paths = []
@@ -76,20 +76,25 @@ class BranchRestartBCTests(unittest.TestCase):
                                 teacher_shards=paths, dagger_shards=[], snapshots=['parent snapshot'],
                                 counters=dict(optimizer_steps=1824), history=[dict(method='bc', updates=1824)],
                                 reward_controller=dict(games=48), bc_plateau=10, phase_deadline=1)
-            clock = dict(started=time.time(), deadline=time.time()+120, update_deadline=time.time()+100)
+            write_json(parent/'clock.json', parent_state['clock'])
             identity = object.__new__(FormatExperiment)
             identity.config = config
             parent_checkpoint = parent/'duel/latest.pt'
             checkpoint(parent_checkpoint, model, optimizer, runner=parent_state,
                        manifest_sha256=sha256(parent/'manifest.json'), **identity.identity())
             parent_hash = sha256(parent_checkpoint)
-            info = prepare(parent, child, ['duel'], seed=31, reset_optimizer=True, clock=parent_state['clock'])
-            info.update(parent=str(parent), parent_manifest_sha256=sha256(parent/'manifest.json'),
-                        parent_clock=parent_state['clock'], restart_bc=True)
-            write_json(child/'branch.json', info)
+            def freeze_fixture(directory, opponents, wesnoth, config):
+                frozen = manifest | dict(config=config)
+                write_json(directory/'manifest.json', frozen)
+                return frozen, []
+            with mock.patch('learning.coordinator.freeze', side_effect=freeze_fixture):
+                experiment = Experiment(child, config=config | dict(branch_reset_optimizer=True, branch_restart_bc=True),
+                                        branch_from=parent)
+            self.assertTrue(read_json(child/'branch.json')['restart_bc'])
+            clock = experiment.clock
             collector = mock.Mock(side_effect=AssertionError('parent corpus already meets the target'))
             with mock.patch.object(FormatExperiment, 'ensure_export', return_value='unused'):
-                runner = FormatExperiment(child/'duel', 'duel', manifest, clock, collector, branch=True)
+                runner = FormatExperiment(child/'duel', 'duel', experiment.manifest, clock, collector, branch=True)
                 self.assertTrue(all(torch.equal(v, runner.model.state_dict()[k]) for k,v in model.state_dict().items()))
                 self.assertEqual(runner.optimizer.param_groups[0]['lr'], config['learning_rate'])
                 self.assertEqual(runner.state['teacher_shards'], paths)
@@ -114,7 +119,7 @@ class BranchRestartBCTests(unittest.TestCase):
                 self.assertEqual(gate['imitation']['formats']['duel']['samples'], 1)
                 self.assertFalse(gate['passed'])
                 self.assertFalse(runner.state['effective'])
-                resumed = FormatExperiment(child/'duel', 'duel', manifest, clock, collector, resume=True)
+                resumed = FormatExperiment(child/'duel', 'duel', experiment.manifest, clock, collector, resume=True)
                 self.assertEqual(resumed.state, runner.state)
                 self.assertEqual(sha256(parent_checkpoint), parent_hash)
                 collector.assert_not_called()

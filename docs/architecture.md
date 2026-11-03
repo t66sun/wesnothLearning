@@ -159,6 +159,8 @@ The clock reserves 10/12 of `hours` for updates and 2/12 for frozen evaluation; 
 
 Checkpoints are written atomically beside `state.json`; resume validates the manifest hash, schema, weights and optimizer state; a branch run also accepts the parent manifest hash its inherited checkpoint still pins. `--branch-from` copies a complete `latest.pt` into a new run with parent identities, new clock and seed, and either a kept or reset optimizer. Corpus and coverage gates reuse eligible ancestor teacher results only for shard paths retained by that checkpoint; later ancestor collection is excluded and nested lineage is deduplicated by shard path. Thirty affected Ubuntu checks and a read-only 40-game parent check pass (`verification/branch_teacher_evidence_20261102/REPORT.md`).
 
+A branch with `--branch-restart-bc` starts calibration with compatible parent weights, the original teacher and DAgger shard paths, and their lineage. Adam, counters, phase state, reward control and selection start fresh. Each format recomputes the ordinary gates after a child BC update. Original scenario-family partitions still apply to the reused data, including families used to select the parent checkpoint.
+
 ## 9. Evaluation and selection
 
 `learning/evaluate.py` scores a game by official result (2-player/team win 3, draw 1, loss 0; ffa4 rank points divided by 3) and compares policy versus control per format over complete rotation blocks. Differences get a cluster bootstrap (5,000 resamples, 2.5/97.5 percentiles) clustered by scenario family, so repeated identical layouts cannot inflate evidence.

@@ -211,6 +211,8 @@ The 2026-10-24 rolling reward-window fix passed [isolated Ubuntu acceptance](../
 
 ### Running BC, PPO and final evaluation separately
 
+To start a new BC phase from a compatible parent's weights and supervision, run `python -m learning run --run-dir CHILD --branch-from PARENT --branch-restart-bc --branch-reset-optimizer --phase bc` with the parent's formats, engine and training turn limit. The parent must be at a committed boundary. The child uses its own seed and budget, starts calibration, and evaluates its first updated model on the original validation split.
+
 These entries apply to new experiments matching the current schema/sources. Finished schema 4 experiments cannot be resumed directly with schema 5. The default `run` is still the auto flow; for BC only, create the experiment with `--phase bc`; after BC passes or the phase budget ends it is saved as `bc_complete` and PPO/final evaluation never start automatically.
 
 ```bash

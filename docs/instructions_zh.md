@@ -211,6 +211,8 @@ test -f "$run_dir/manifest.json" || exit 1
 
 ### 分开运行 BC、PPO 和最终评测
 
+要使用兼容父运行的权重和监督语料开始新的 BC 阶段，可运行 `python -m learning run --run-dir CHILD --branch-from PARENT --branch-restart-bc --branch-reset-optimizer --phase bc`，传入与父运行一致的赛制、引擎和训练回合上限。父运行须处在已提交的批次边界。子运行使用自己的种子和预算，从校准开始，以原验证分区评估首次更新的模型。
+
 以下入口用于与当前 schema/源码匹配的新实验。旧 schema 4 的已结束实验不能用 schema 5 直接恢复。默认 `run` 仍是 auto 一键流程；只做 BC 时创建实验加 `--phase bc`，BC 达标或阶段预算结束后保存为 `bc_complete`，不自动开始 PPO/最终评测。
 
 ```bash
