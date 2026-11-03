@@ -37,6 +37,7 @@ class BoundedLoopProgressTests(unittest.TestCase):
              mock.patch.object(loop, 'OUT', Path(tmp)/'observed'), \
              mock.patch.object(loop, 'RUN', Path(tmp)/'run'), \
              mock.patch.object(loop, 'states', side_effect=lambda: copy.deepcopy(snapshot)), \
+             mock.patch.object(loop, 'validation_complete', return_value=True), \
              mock.patch.object(loop, 'stage', side_effect=stage), \
              mock.patch.object(loop, 'phase') as phase, \
              mock.patch.dict('os.environ', SOURCE_COMMIT='fixture', WESNOTH_EXE='unused'):
