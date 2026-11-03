@@ -54,11 +54,12 @@ class _ParityAudit:
 
     @torch.no_grad()
     def measure(self, records):
+        import native
         if not all('_history' in row for row in records):
             records = attach_histories(records)
         lua = self.lua
         def table(value):
-            return lua.table_from(value, recursive=True)
+            return lua.eval(native.lua(value))
         history_cache = {}
         memories = {}
         turns = set()
