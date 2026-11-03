@@ -35,7 +35,8 @@ class TeacherStrengthAcceptanceTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             output = Path(temporary) / 'panel'
             args = Namespace(root=temporary, output=str(output), wesnoth='unused',
-                             source_commit='unit-test', noninferiority=True, source_archive=None)
+                             source_commit='unit-test', noninferiority=True, duel_noninferiority=False,
+                             reuse_panel=None, source_archive=None)
             with self.assertRaisesRegex(ValueError, '--source-archive'):
                 acceptance.prepare(args)
             args.source_archive = str(Path(temporary) / 'missing.tar')
@@ -89,6 +90,18 @@ class TeacherStrengthAcceptanceTests(unittest.TestCase):
         self.assertEqual(result['status'], 'passed')
         self.assertEqual(comparison, original)
         self.assertEqual(result['formats']['duel']['interval95'], [-0.04, -0.02])
+
+    def test_duel_confirmation_schedules_and_scores_only_the_new_duel_endpoint(self):
+        design = acceptance.panel_design(duel_only=True)
+        with patch('learning.maps.frozen_map', return_value=(opening_map(2), '0' * 64)):
+            jobs = acceptance.panel_jobs('.', 'candidate', 'control', 3000000000, 'unused', design)
+        families = Counter(j['scenario_family'] for j in jobs if j['meta']['rotation'] == 0)
+        self.assertEqual((design['seed'], Counter(j['meta']['format'] for j in jobs),
+                          sorted(families.values())), (20261105, {'duel': 1920}, [64] * 15))
+        _, comparison, counts = complete_report()
+        design['games'] = {'duel': len(jobs)}
+        result = acceptance.noninferiority(design, {'duel': comparison['duel']}, {'duel': counts['duel']})
+        self.assertEqual((result['status'], set(result['formats'])), ('passed', {'duel'}))
 
     def test_exact_margin_never_passes_and_all_formats_are_required(self):
         for fmt, lower in (('duel', -0.15), ('ffa4', -0.05), ('team2v2', -0.15)):
