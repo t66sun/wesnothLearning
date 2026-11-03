@@ -11,7 +11,7 @@ for i,field in ipairs(schema.action_features) do feature_index[field[1]]=i end
 -- Generation is cut by charged work and per-stage call caps, never by a clock,
 -- so the same state always yields the same candidate set.
 local WORK={
-    version='work-12000-v8',
+    version='work-12000-v9',
     total=12000,          -- charged search work per decision
     entities=16,          -- enemies/villages/friends scanned by scoring
     threat_enemies=12,    -- enemies expanded into the threat map
@@ -261,6 +261,48 @@ local function features(obs,a,u,target,enemies,villages,friends)
     if target then score=score+2 end
     return O.normalize(f,schema.action_features),score
 end
+local function recruit_candidates(obs,enemies,allow,add)
+    local castles={}
+    for key,p in pairs(obs.tiles) do
+        if p.terrain:match('^[CK]') and not obs.occupied[key] then castles[#castles+1]={p.x,p.y} end
+    end
+    table.sort(castles,function(a,b)
+        local da,db=minimum(a[1],a[2],enemies),minimum(b[1],b[2],enemies)
+        if da~=db then return da<db end
+        return a[1]<b[1] or a[1]==b[1] and a[2]<b[2]
+    end)
+    local names,locations={},{}
+    for _,name in ipairs(wesnoth.sides[obs.side].recruit) do
+        if wesnoth.unit_types[name].cost<=wesnoth.sides[obs.side].gold then
+            names[#names+1]=name;locations[name]=0
+        end
+    end
+    local completed={}
+    for first,name in ipairs(names) do
+        for _,p in ipairs(castles) do
+            if locations[name]>=8 then break end
+            if not completed[p] then
+                -- A successful probe opens this slot to the remaining roster now.
+                -- An unsuccessful first type leaves it available on later passes.
+                for i=first,#names do
+                    local unit_type=names[i]
+                    if locations[unit_type]<8 then
+                        if not allow('recruit_probe',WORK.recruit_probes,COST.probe) then return end
+                        if ai.check_recruit(unit_type,p).ok then
+                            completed[p]=true
+                            locations[unit_type]=locations[unit_type]+1
+                            -- Detached probes must not consume native unit IDs.
+                            local u=wesnoth.units.create {type=unit_type,side=obs.side,x=p[1],y=p[2],random_traits=false,
+                                random_gender=false,generate_name=false,facing='ne',id='learning_probe',underlying_id=2147483647}
+                            add({kind='recruit',type=unit_type,x=p[1],y=p[2],_gain=-minimum(p[1],p[2],enemies)},u)
+                        elseif i==first then break end
+                    end
+                end
+            end
+        end
+    end
+end
+
 function M.generate(obs)
     local started=wesnoth.ms_since_init()
     local work,cut=0,false
@@ -299,31 +341,7 @@ function M.generate(obs)
         a._home=u.canrecruit and obs.memory.home and a.tx==obs.memory.home[1] and a.ty==obs.memory.home[2] or false
         pool[#pool+1]=a
     end
-    local castles={}
-    for _,p in pairs(obs.tiles) do if p.terrain:match('^[CK]') then castles[#castles+1]={p.x,p.y} end end
-    -- A bounded probe budget must reach the forward castles first, so recruit slots
-    -- are ordered by distance to the nearest enemy instead of map coordinates.
-    table.sort(castles,function(a,b)
-        local da,db=minimum(a[1],a[2],enemies),minimum(b[1],b[2],enemies)
-        if da~=db then return da<db end
-        return a[1]<b[1] or a[1]==b[1] and a[2]<b[2]
-    end)
-    for _,name in ipairs(wesnoth.sides[obs.side].recruit) do
-        if wesnoth.unit_types[name].cost<=wesnoth.sides[obs.side].gold then
-            local recruit_locations=0
-            for _,p in ipairs(castles) do
-                if not obs.occupied[p[1]..','..p[2]] and allow('recruit_probe',WORK.recruit_probes,COST.probe)
-                    and ai.check_recruit(name,p).ok then
-                    -- Explicit detached identity prevents probes consuming native unit IDs.
-                    local u=wesnoth.units.create {type=name,side=obs.side,x=p[1],y=p[2],random_traits=false,
-                        random_gender=false,generate_name=false,facing='ne',id='learning_probe',underlying_id=2147483647}
-                    add({kind='recruit',type=name,x=p[1],y=p[2],_gain=-minimum(p[1],p[2],enemies)},u)
-                    recruit_locations=recruit_locations+1
-                    if recruit_locations>=8 then break end
-                end
-            end
-        end
-    end
+    recruit_candidates(obs,enemies,allow,add)
     for _,u in ipairs(obs.own) do
         if u.attacks_left>0 then
             local denied=false
