@@ -1,0 +1,11 @@
+{
+  "start_state_equal": true,
+  "ordered_windows_sha256": "6acc1a8181096dfdb13de615a1bd317a452222fdaee7cce8a3ab4239f3e6a05c",
+  "ordered_windows_equal": true,
+  "decisions_seen": 37597,
+  "original_inputs_unchanged": true,
+  "complete_gate": {
+    "control": false,
+    "recruit_type": false
+  }
+}

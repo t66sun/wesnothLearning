@@ -1,0 +1,291 @@
+{
+  "train_hash": "b481c919d735046613cd26b22af9ea2b95de625a13a318b2f4b6558eb15273e2",
+  "validation_hash": "5e537315c2de4bc5d32c9d24fd036e5e0934d8e6865eed5e9b78257ffd86e0f2",
+  "checkpoint_sha256": "b74350699b445e63cdd11fd07f317e0d818fe3d3166d49705b1342b00336035e",
+  "state_hashes": {
+    "model": "5dab8347be9112506b1bc9bc2d6e22833faad5df9505369709880350bb98cb72",
+    "adam": "29828b16b001b17d9b5c4567eb70912bac5ee6a727cf6076d519775c57cbb34b",
+    "python_rng": "86a2901d62297c39a21bd601b108ab2e335c954017289fb7cc5d9d3962d56467",
+    "torch_rng": "a4af19a29a8273567a5d9836423a6f45052fa0a1f0eb4ab395eb3282b2e48ebc"
+  },
+  "runtime_file": "/home/tongshu/acceptance/team_bc_branch_20261102/learning/bc.py",
+  "loss_swap": {
+    "original": [
+      0.8314144015312195,
+      0.8314144015312195
+    ],
+    "recruit_type": [
+      0.8457203507423401,
+      1.4502758979797363
+    ]
+  },
+  "duplicate_actor_groups": {
+    "train": 126,
+    "validation": 85
+  },
+  "train_rows": 2048,
+  "validation_rows": 1024,
+  "windows": 54,
+  "steps_per_epoch": 14,
+  "epochs": 16,
+  "updates_per_arm": 224,
+  "max_seconds_per_arm": 600,
+  "thresholds": {
+    "all": 0.4,
+    "recruit": 0.6,
+    "move": 0.35,
+    "attack": 0.35
+  },
+  "frozen_gate": {
+    "imitation": {
+      "effective": false,
+      "formats": {
+        "team2v2": {
+          "samples": 1014,
+          "cross_entropy": 1.3434091526610847,
+          "uniform_entropy": 3.5787516627670826,
+          "kinds": {
+            "recruit": {
+              "samples": 85,
+              "correct": 34,
+              "same_kind": 83,
+              "same_actor": 60,
+              "same_destination": 60,
+              "ranks": {
+                "1": 34,
+                "2-3": 33,
+                "4-8": 12,
+                "9-16": 6,
+                "17+": 0
+              },
+              "accuracy": 0.4,
+              "mean_candidates": 36.082352941176474
+            },
+            "move": {
+              "samples": 667,
+              "correct": 426,
+              "same_kind": 607,
+              "same_actor": 483,
+              "same_destination": 460,
+              "ranks": {
+                "1": 426,
+                "2-3": 165,
+                "4-8": 60,
+                "9-16": 14,
+                "17+": 2
+              },
+              "accuracy": 0.638680659670165,
+              "mean_candidates": 36.70014992503748
+            },
+            "attack": {
+              "samples": 141,
+              "correct": 56,
+              "same_kind": 85,
+              "same_actor": 88,
+              "same_destination": 63,
+              "ranks": {
+                "1": 56,
+                "2-3": 31,
+                "4-8": 32,
+                "9-16": 15,
+                "17+": 7
+              },
+              "accuracy": 0.3971631205673759,
+              "mean_candidates": 37.0
+            }
+          },
+          "accuracy": 0.6094674556213018,
+          "uniform_accuracy": 0.02838145800654149,
+          "effective": false
+        }
+      }
+    },
+    "coverage": {
+      "passed": true,
+      "actions": {
+        "all": {
+          "matched": 11284,
+          "total": 11978,
+          "ratio": 0.9420604441476039
+        },
+        "recruit": {
+          "matched": 691,
+          "total": 785,
+          "ratio": 0.8802547770700637
+        },
+        "move": {
+          "matched": 7458,
+          "total": 7920,
+          "ratio": 0.9416666666666667
+        },
+        "attack": {
+          "matched": 1725,
+          "total": 1863,
+          "ratio": 0.9259259259259259
+        }
+      },
+      "reasons": {
+        "attack:actor_absent": 2,
+        "attack:destination_absent": 122,
+        "attack:enemy_absent": 2,
+        "attack:kind_absent": 1,
+        "attack:weapon_absent": 11,
+        "move:actor_absent": 2,
+        "move:destination_absent": 460,
+        "move_attack:destination_absent": 121,
+        "move_attack:enemy_absent": 2,
+        "move_attack:weapon_absent": 11,
+        "recruit:slot_absent": 78,
+        "recruit:type_absent": 16
+      }
+    },
+    "corpus": {
+      "games": 48,
+      "required": 48,
+      "passed": true
+    },
+    "opening": {
+      "passed": false,
+      "blocking": false
+    },
+    "distinct_scenarios": 47,
+    "min_distinct": 12,
+    "missing_scenario_rows": 0,
+    "scope": "initialisation_only",
+    "status": "not_passed",
+    "passed": false
+  },
+  "start": {
+    "validation": {
+      "samples": 1014,
+      "cross_entropy": 1.3434091526610847,
+      "uniform_entropy": 3.5787516627670826,
+      "kinds": {
+        "recruit": {
+          "samples": 85,
+          "correct": 34,
+          "same_kind": 83,
+          "same_actor": 60,
+          "same_destination": 60,
+          "ranks": {
+            "1": 34,
+            "2-3": 33,
+            "4-8": 12,
+            "9-16": 6,
+            "17+": 0
+          },
+          "accuracy": 0.4,
+          "mean_candidates": 36.082352941176474
+        },
+        "move": {
+          "samples": 667,
+          "correct": 426,
+          "same_kind": 607,
+          "same_actor": 483,
+          "same_destination": 460,
+          "ranks": {
+            "1": 426,
+            "2-3": 165,
+            "4-8": 60,
+            "9-16": 14,
+            "17+": 2
+          },
+          "accuracy": 0.638680659670165,
+          "mean_candidates": 36.70014992503748
+        },
+        "attack": {
+          "samples": 141,
+          "correct": 56,
+          "same_kind": 85,
+          "same_actor": 88,
+          "same_destination": 63,
+          "ranks": {
+            "1": 56,
+            "2-3": 31,
+            "4-8": 32,
+            "9-16": 15,
+            "17+": 7
+          },
+          "accuracy": 0.3971631205673759,
+          "mean_candidates": 37.0
+        }
+      },
+      "accuracy": 0.6094674556213018,
+      "uniform_accuracy": 0.02838145800654149,
+      "effective": false
+    },
+    "complete_gate": false,
+    "train_kinds": {
+      "recruit": {
+        "samples": 126,
+        "correct": 54,
+        "same_kind": 121,
+        "within_kind_correct": 58,
+        "top3": 87,
+        "same_type": 75,
+        "same_slot": 85
+      },
+      "move": {
+        "samples": 1285,
+        "correct": 872,
+        "same_kind": 1148,
+        "within_kind_correct": 977,
+        "top3": 1168
+      },
+      "end_turn": {
+        "samples": 256,
+        "correct": 235,
+        "same_kind": 235,
+        "within_kind_correct": 256,
+        "top3": 253
+      },
+      "attack": {
+        "samples": 361,
+        "correct": 162,
+        "same_kind": 257,
+        "within_kind_correct": 207,
+        "top3": 258,
+        "same_actor": 200,
+        "same_target": 241,
+        "same_landing": 192,
+        "same_weapon": 238
+      }
+    },
+    "validation_kinds": {
+      "recruit": {
+        "samples": 85,
+        "correct": 34,
+        "same_kind": 83,
+        "within_kind_correct": 35,
+        "top3": 67,
+        "same_type": 48,
+        "same_slot": 60
+      },
+      "end_turn": {
+        "samples": 121,
+        "correct": 102,
+        "same_kind": 102,
+        "within_kind_correct": 121,
+        "top3": 118
+      },
+      "move": {
+        "samples": 667,
+        "correct": 426,
+        "same_kind": 607,
+        "within_kind_correct": 464,
+        "top3": 591
+      },
+      "attack": {
+        "samples": 141,
+        "correct": 56,
+        "same_kind": 85,
+        "within_kind_correct": 82,
+        "top3": 87,
+        "same_actor": 69,
+        "same_target": 77,
+        "same_landing": 63,
+        "same_weapon": 83
+      }
+    }
+  }
+}
