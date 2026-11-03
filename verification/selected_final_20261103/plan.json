@@ -1,0 +1,34 @@
+{
+  "source_commit": "ea449f711877b2966598fee1a014f488ad4d6f20",
+  "workers": 4,
+  "original_schedule_sha256": "31049d275eef253d72f3ed3a8f000b0c3e0c3d7dbf9c6ce2271720eeb1dc67fc",
+  "schedule_sha256": "3cf5cc2dc49375251748fa8acc00d513258c21bdaf18c1c7a5e9b1e0a62ff211",
+  "selection": {
+    "candidate": "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/a/duel/last_ppo.pt",
+    "candidate_version": 12,
+    "champion": null,
+    "champion_version": null,
+    "selected": "/home/tongshu/myDev/wesnothLearning/acceptance_20261031_astra/src/runs/l1-20261031b/a/duel/last_ppo.pt",
+    "selected_kind": "fallback",
+    "selected_version": 12,
+    "reason": "no retained champion",
+    "selected_sha256": "603e3c83d6658b96d65da62bdf5cb277e979fbb19b080d4269ee4ac6e65fff08",
+    "frozen_before_holdout": true,
+    "format": "duel"
+  },
+  "checkpoint_sha256": "603e3c83d6658b96d65da62bdf5cb277e979fbb19b080d4269ee4ac6e65fff08",
+  "control_sha256": "2a216c96081990621dc15772e9de1bf40e4f5f451223fe52e5b20625464dc933",
+  "native_sha256": "33f64aa3f5ee40228bd44e357b3f4d784121d4392ff774d6c059c7defa3e5fcf",
+  "candidate_selection": {
+    "version": "work-12000-v8",
+    "combat": 28,
+    "recruit": 6,
+    "move": 2,
+    "actionable": 36,
+    "end_turn": 1
+  },
+  "deadline": 1793721855.2946353,
+  "games": 120,
+  "blocks_per_control": 30,
+  "min_distinct": 12
+}

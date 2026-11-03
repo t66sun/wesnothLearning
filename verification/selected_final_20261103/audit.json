@@ -1,0 +1,36 @@
+{
+  "original_checkpoint_sha256": "603e3c83d6658b96d65da62bdf5cb277e979fbb19b080d4269ee4ac6e65fff08",
+  "counts": {
+    "final-gpt6astra": {
+      "last_leader": 52,
+      "loss": 36,
+      "win": 16,
+      "turn_limit": 8,
+      "draw": 8
+    },
+    "final-baseline": {
+      "last_leader": 57,
+      "loss": 35,
+      "win": 22,
+      "turn_limit": 3,
+      "draw": 3
+    }
+  },
+  "policy_returns": {
+    "first": {
+      "count": 120,
+      "max_ms": 916,
+      "p95_ms": 873
+    },
+    "regular": {
+      "count": 23331,
+      "max_ms": 316,
+      "p95_ms": 232
+    },
+    "turn10plus_regular": {
+      "count": 13704,
+      "max_ms": 316,
+      "p95_ms": 240
+    }
+  }
+}
