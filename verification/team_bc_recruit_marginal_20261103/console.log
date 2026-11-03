@@ -1,0 +1,14 @@
+preflight b481c919d735046613cd26b22af9ea2b95de625a13a318b2f4b6558eb15273e2 5e537315c2de4bc5d32c9d24fd036e5e0934d8e6865eed5e9b78257ffd86e0f2 {'model': '5dab8347be9112506b1bc9bc2d6e22833faad5df9505369709880350bb98cb72', 'adam': '29828b16b001b17d9b5c4567eb70912bac5ee6a727cf6076d519775c57cbb34b', 'python_rng': '86a2901d62297c39a21bd601b108ab2e335c954017289fb7cc5d9d3962d56467', 'torch_rng': 'a4af19a29a8273567a5d9836423a6f45052fa0a1f0eb4ab395eb3282b2e48ebc'}
+control start
+control updates 56 elapsed 44.67
+control updates 112 elapsed 86.21
+control updates 168 elapsed 125.57
+control updates 224 elapsed 166.27
+control complete False {'recruit': Counter({'samples': 85, 'same_kind': 84, 'same_slot': 73, 'top3': 69, 'same_type': 47, 'within_kind_correct': 42, 'correct': 41}), 'end_turn': Counter({'samples': 121, 'within_kind_correct': 121, 'top3': 116, 'correct': 92, 'same_kind': 92}), 'move': Counter({'samples': 667, 'same_kind': 570, 'top3': 566, 'within_kind_correct': 478, 'correct': 408}), 'attack': Counter({'samples': 141, 'same_kind': 117, 'same_weapon': 112, 'top3': 102, 'same_target': 96, 'same_actor': 93, 'same_landing': 78, 'within_kind_correct': 77, 'correct': 68})}
+recruit_type start
+recruit_type updates 56 elapsed 44.6
+recruit_type updates 112 elapsed 86.13
+recruit_type updates 168 elapsed 125.55
+recruit_type updates 224 elapsed 166.24
+recruit_type complete False {'recruit': Counter({'samples': 85, 'same_kind': 84, 'same_slot': 71, 'top3': 70, 'same_type': 44, 'within_kind_correct': 38, 'correct': 37}), 'end_turn': Counter({'samples': 121, 'within_kind_correct': 121, 'top3': 117, 'correct': 95, 'same_kind': 95}), 'move': Counter({'samples': 667, 'top3': 590, 'same_kind': 583, 'within_kind_correct': 473, 'correct': 413}), 'attack': Counter({'samples': 141, 'same_kind': 111, 'same_weapon': 105, 'top3': 100, 'same_target': 93, 'same_actor': 88, 'within_kind_correct': 77, 'same_landing': 74, 'correct': 64})}
+{"start_state_equal": true, "ordered_windows_sha256": "6acc1a8181096dfdb13de615a1bd317a452222fdaee7cce8a3ab4239f3e6a05c", "ordered_windows_equal": true, "decisions_seen": 37597, "original_inputs_unchanged": true, "complete_gate": {"control": false, "recruit_type": false}}
