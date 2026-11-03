@@ -211,6 +211,8 @@ test -f "$run_dir/manifest.json" || exit 1
 
 ### 分开运行 BC、PPO 和最终评测
 
+要使用兼容父运行的权重和监督语料开始新的 BC 阶段，可运行 `python -m learning run --run-dir CHILD --branch-from PARENT --branch-restart-bc --branch-reset-optimizer --phase bc`，传入与父运行一致的赛制、引擎和训练回合上限。父运行须处在已提交的批次边界。子运行使用自己的种子和预算，从校准开始，以原验证分区评估首次更新的模型。
+
 以下入口用于与当前 schema/源码匹配的新实验。旧 schema 4 的已结束实验不能用 schema 5 直接恢复。默认 `run` 仍是 auto 一键流程；只做 BC 时创建实验加 `--phase bc`，BC 达标或阶段预算结束后保存为 `bc_complete`，不自动开始 PPO/最终评测。
 
 ```bash
@@ -228,6 +230,8 @@ test -f "$run_dir/manifest.json" || exit 1
 上述正常/强制 PPO 命令是二选一示例。命令先写阶段请求：运行中的训练器在当前批次完成后读取；已经停止的实验需随后 resume，不能向仍持锁的实验启动第二个进程。恢复时先完成已有 pending_train 的冻结方法，再开始新阶段采样。PPO 阶段结束保存为 `ppo_complete`，最终评测需显式请求。正式 BC/PPO 的样本、奖励版本和 rehearsal 要求仍生效，强转不保证训练质量，也不凭空生成 BC 数据。
 
 `run --phase bc --hours 4` 给 BC 完整 4 小时，不预留自动最终评测时间。`phase --hours` 明确分配这次请求的阶段截止时间，从请求时刻计时，持久化在检查点；不改原 manifest/clock。省略则沿用原总预算的剩余时间（auto 沿用原更新截止），原预算过期时必须明确给出新阶段时长。普通 `run --resume --hours` 仍不会续预算。最终评测启动后不可在原目录返回训练；需要新实验。阶段命令不会自动启动或恢复训练，也不绕过源码/schema 冻结检查。
+
+若要在截止前停在已提交边界，可为 `phase ppo` 加上 `--ppo-batches N`。每种目标赛制各自提交 N 个新调度且至少执行一步优化器更新的 PPO 批次，完成到期验证后结束阶段。请求生效时已有的待提交批次按原计划完成，不计入本次目标。每次新请求独立计数，阶段截止时间仍可提前结束训练。
 
 对已有实验一次读取足够的状态；首次检查或实际异常才扩大范围。先确认 manifest 存在，再查看控制器，避免对不存在的实验路径创建控制目录。
 

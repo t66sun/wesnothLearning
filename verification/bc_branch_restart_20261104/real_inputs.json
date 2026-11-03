@@ -1,0 +1,56 @@
+{
+  "parent_manifest": "32adc2420926f9dc9e2f88a5c2a4e35956d486f121dd94b970485b1f3244a9be",
+  "formats": {
+    "duel": {
+      "parent_checkpoint": "7e6804cbc27eccd243c847075f14cc9f07192a732455193b4e20d1684b108323",
+      "teacher_games": 56,
+      "dagger_shards": 4,
+      "scenario_families": {
+        "train": 25,
+        "validation": 6
+      },
+      "coverage": {
+        "matched": 5533,
+        "total": 6128,
+        "ratio": 0.9029046997389034
+      },
+      "stage": "calibration",
+      "effective": false,
+      "optimizer_steps": 0
+    },
+    "ffa4": {
+      "parent_checkpoint": "ce1ac0b549e1c5afdbc1fbdd8a6c59b64a01bd825ed99686bc87c239d4f86b29",
+      "teacher_games": 48,
+      "dagger_shards": 0,
+      "scenario_families": {
+        "train": 35,
+        "validation": 4
+      },
+      "coverage": {
+        "matched": 8278,
+        "total": 9133,
+        "ratio": 0.9063834446512646
+      },
+      "stage": "calibration",
+      "effective": false,
+      "optimizer_steps": 0
+    },
+    "team2v2": {
+      "parent_checkpoint": "222013d026c7d25644b78fd61e897e65f3aef2588239589f14bf5b7211bcf80b",
+      "teacher_games": 48,
+      "dagger_shards": 0,
+      "scenario_families": {
+        "train": 35,
+        "validation": 13
+      },
+      "coverage": {
+        "matched": 11034,
+        "total": 11836,
+        "ratio": 0.9322406218316999
+      },
+      "stage": "calibration",
+      "effective": false,
+      "optimizer_steps": 0
+    }
+  }
+}

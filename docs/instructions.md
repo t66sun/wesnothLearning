@@ -211,6 +211,8 @@ The 2026-10-24 rolling reward-window fix passed [isolated Ubuntu acceptance](../
 
 ### Running BC, PPO and final evaluation separately
 
+To start a new BC phase from a compatible parent's weights and supervision, run `python -m learning run --run-dir CHILD --branch-from PARENT --branch-restart-bc --branch-reset-optimizer --phase bc` with the parent's formats, engine and training turn limit. The parent must be at a committed boundary. The child uses its own seed and budget, starts calibration, and evaluates its first updated model on the original validation split.
+
 These entries apply to new experiments matching the current schema/sources. Finished schema 4 experiments cannot be resumed directly with schema 5. The default `run` is still the auto flow; for BC only, create the experiment with `--phase bc`; after BC passes or the phase budget ends it is saved as `bc_complete` and PPO/final evaluation never start automatically.
 
 ```bash
@@ -228,6 +230,8 @@ These entries apply to new experiments matching the current schema/sources. Fini
 The normal/forced PPO commands above are alternatives. The command writes a phase request first: a running trainer reads it after finishing the current batch; a stopped experiment needs a later resume and no second process may be started against a still-locked experiment. On resume, existing `pending_train` finishes with its frozen method before the new phase samples. PPO end is saved as `ppo_complete` and final evaluation must be requested explicitly. Formal BC/PPO sample, reward-version and rehearsal requirements still apply; a force override guarantees no training quality and invents no BC data.
 
 `run --phase bc --hours 4` gives BC the full 4 hours with no time reserved for automatic final evaluation. `phase --hours` allocates this request's phase deadline, measured from the request time and persisted in the checkpoint; the original manifest/clock are untouched. Omitting it reuses the remaining time of the original total budget (auto reuses the original update deadline), and an expired budget requires an explicit new phase duration. A normal `run --resume --hours` still does not extend the budget. Once final evaluation starts, the directory cannot return to training; a new experiment is required. Phase commands never start or resume training themselves and do not bypass source/schema frozen checks.
+
+For a committed stop before the deadline, add `--ppo-batches N` to `phase ppo`. Each requested format finishes after N newly scheduled PPO batches have applied at least one optimizer step and any due validation has run. A resumed batch already pending at the request boundary finishes under its existing plan and falls outside this count. Each new request starts its own count. The phase deadline can end training earlier.
 
 Read enough state for an existing experiment in one pass; widen the scope only on the first check or a real anomaly. Confirm the manifest exists before looking at the controller so no control directory is created for a nonexistent experiment path.
 
