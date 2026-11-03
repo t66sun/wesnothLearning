@@ -13,6 +13,7 @@ import shutil
 import sys
 import tempfile
 import time
+import zipfile
 
 
 FORMATS = ('duel', 'ffa4', 'team2v2')
@@ -23,7 +24,10 @@ WORKERS = 8
 BUDGET_SECONDS = 6 * 3600
 
 
-def panel_design(noninferiority=False):
+def panel_design(noninferiority=False, *, duel_only=False):
+    if duel_only:
+        return dict(mode='noninferiority', seed=20261105, margin=0.05, label='r3-duel-ni',
+                    scales=dict(duel=3), min_distinct=15, required_blocks=dict(duel=960))
     if noninferiority:
         return dict(mode='noninferiority', seed=20261104, margin=0.05,
                     scales=dict(duel=3, ffa4=1, team2v2=3), min_distinct=15,
@@ -85,12 +89,11 @@ def panel_jobs(output, adapted, frozen, deadline, executable, design):
 
     if design['mode'] == 'noninferiority':
         jobs = []
-        for index, fmt in enumerate(FORMATS):
-            blocks = design['required_blocks'][fmt]
+        for fmt, blocks in design['required_blocks'].items():
             jobs.extend(evaluation_jobs(
                 output, str(adapted), str(frozen), ['baseline'], blocks,
-                design['seed'] + index * 100003, deadline, executable,
-                label='r3-ni-panel', formats=(fmt,), team_contexts=CONTEXTS,
+                design['seed'] + FORMATS.index(fmt) * 100003, deadline, executable,
+                label=design.get('label', 'r3-ni-panel'), formats=(fmt,), team_contexts=CONTEXTS,
                 repeats=blocks // design['min_distinct'], min_distinct=design['min_distinct']))
         jobs.sort(key=lambda job: (job['meta']['block'], job['meta']['rotation'],
                                   FORMATS.index(job['meta']['format']), job['meta']['context']))
@@ -108,6 +111,46 @@ def panel_jobs(output, adapted, frozen, deadline, executable, design):
     return jobs
 
 
+def multiplayer_reuse(reference, identity, adapted, control, jobs):
+    """Transfer only the two accepted four-player results from the frozen November panel."""
+    from learning.common import read_json, sha256
+    from learning.maps import frozen_map
+
+    summary_hash = sha256(reference / 'summary.json')
+    if summary_hash != '8d56d7df50d9b53d83e824ddcb8b5d155351818d4f7c1966cd6be129f0e7d44d':
+        raise ValueError('expected the completed 4560-game NI panel')
+    previous = read_json(reference / 'identities.json')
+    previous_root = Path(previous['root'])
+    for path, expected in previous['artifacts'].items():
+        old = Path(path)
+        if path == previous['source_archive'] or old.name in (
+                adapted.name, control.name, 'acceptance_teacher_strength.py'):
+            continue
+        current = (Path(identity['root']) / old.relative_to(previous_root)
+                   if old.is_relative_to(previous_root) else old)
+        if identity['artifacts'].get(str(current)) != expected:
+            raise ValueError(f'four-player acceptance input changed: {old.name}')
+    for package, permitted in ((adapted, {'astra_adapted/lua/duel.lua'}), (control, set())):
+        baseline = reference / package.name
+        prior_package = previous_root / 'panel' / package.name
+        if sha256(baseline) != previous['artifacts'][str(prior_package)]:
+            raise ValueError(f'previous staged package changed: {package.name}')
+        with zipfile.ZipFile(baseline) as before, zipfile.ZipFile(package) as after:
+            left, right = set(before.namelist()), set(after.namelist())
+            changed = (left ^ right) | {p for p in left & right if before.read(p) != after.read(p)}
+        if changed != permitted:
+            raise ValueError(f'cannot isolate duel repair in {package.name}: {sorted(changed)}')
+    prior_jobs = read_json(reference / 'schedule.json')
+    if {job['seed'] for job in jobs}.intersection(job['seed'] for job in prior_jobs):
+        raise ValueError('duel confirmation overlaps the previous NI panel seeds')
+    four_maps = {(j['meta']['map'], j['meta']['map_sha256']) for j in prior_jobs
+                 if j['meta']['format'] in ('ffa4', 'team2v2')}
+    if four_maps != {('loris_river', frozen_map('loris_river')[1])}:
+        raise ValueError('four-player validation map changed')
+    return dict(formats=['ffa4', 'team2v2'], source_commit=previous['source_commit'],
+                summary_sha256=summary_hash, changed_candidate_member='astra_adapted/lua/duel.lua')
+
+
 def prepare(args):
     from learning.common import sha256, write_json
     import addons
@@ -116,25 +159,32 @@ def prepare(args):
 
     root = Path(args.root).resolve()
     output = Path(args.output).resolve()
-    if args.noninferiority and not args.source_archive:
+    ni = args.noninferiority or args.duel_noninferiority
+    if args.duel_noninferiority != bool(args.reuse_panel):
+        raise ValueError('--duel-noninferiority requires --reuse-panel, used only with that mode')
+    if ni and not args.source_archive:
         raise ValueError('--source-archive is required for noninferiority')
     archive = Path(args.source_archive).resolve(strict=True) if args.source_archive else None
     executable = native.find_wesnoth(args.wesnoth)
     version = native.check_version(executable)
-    design = panel_design(args.noninferiority)
+    design = panel_design(ni, duel_only=args.duel_noninferiority)
     output.mkdir(parents=True, exist_ok=False)
     with addons.open_addon(teachers.PARENT_PACKAGE) as source:
-        name = 'astra_control_compatible' if args.noninferiority else 'astra_frozen'
-        frozen, compatibility = stage(source, name, output, compatible=args.noninferiority)
+        name = 'astra_control_compatible' if ni else 'astra_frozen'
+        frozen, compatibility = stage(source, name, output, compatible=ni)
     adapted, _ = stage(teachers.SOURCE, 'astra_adapted', output)
     identity = identities(root, executable, frozen, adapted, args.source_commit, compatibility, archive)
     created = time.time()
     deadline = created + BUDGET_SECONDS
     jobs = panel_jobs(output, adapted, frozen, deadline, executable, design)
+    if args.duel_noninferiority:
+        design['reused_evidence'] = multiplayer_reuse(Path(args.reuse_panel).resolve(),
+                                                      identity, adapted, frozen, jobs)
     # This assertion protects the declared full panel, not game outcomes.
     counts = Counter(job['meta']['format'] for job in jobs)
-    expected = (dict(duel=1920, ffa4=1200, team2v2=1440) if args.noninferiority else
-                dict(duel=24, ffa4=48, team2v2=96))
+    per_block = dict(duel=2, ffa4=4, team2v2=8)
+    expected = ({fmt: per_block[fmt] * n for fmt, n in design['required_blocks'].items()}
+                if ni else dict(duel=24, ffa4=48, team2v2=96))
     assert counts == expected, counts
     schedule = output / 'schedule.json'
     write_json(schedule, jobs)
@@ -144,23 +194,23 @@ def prepare(args):
                 source_archive_sha256=identity['artifacts'][str(archive)] if archive is not None else None,
                 wesnoth=executable, wesnoth_version=version, **design, workers=WORKERS,
                 max_turns=30, timeout=1, first_timeout=10,
-                team_contexts=list(CONTEXTS), games=dict(counts),
+                team_contexts=list(CONTEXTS) if 'team2v2' in counts else [], games=dict(counts),
                 created=created, deadline=deadline, budget_seconds=BUDGET_SECONDS,
                 partition='validation', holdout_used=False,
                 schedule_sha256=sha256(schedule),
                 identities_sha256=sha256(output / 'identities.json'),
                 pass_rule='Existing comparisons: 12 complete blocks, 12 families, CI low > 0',
                 limit='Report turn_limit separately; candidate truncation is a different counter.')
-    if args.noninferiority:
+    if ni:
         plan['pass_rule'] = ('All declared games/blocks and 15 families per format, zero faults; '
-                             'all three normalized CI lower bounds > -0.05')
+                             'each scheduled format normalized CI lower bound > -0.05')
     write_json(output / 'plan.json', plan)
     print(json.dumps(plan, indent=2), flush=True)
 
 
 def noninferiority(plan, comparison, counts):
     formats = {}
-    for fmt in FORMATS:
+    for fmt in plan['required_blocks']:
         row, count = comparison.get(fmt, {}), counts.get(fmt, {})
         required, scale = plan['required_blocks'][fmt], plan['scales'][fmt]
         interval = row.get('interval95')
@@ -193,8 +243,9 @@ def report(output):
     results = [json.loads(line) for line in (output / 'jobs.jsonl').read_text(
         encoding='utf-8').splitlines() if line]
     lookup = {row['id']: row for row in results}
+    plan = read_json(output / 'plan.json')
     counts = {}
-    for fmt in FORMATS:
+    for fmt in plan['games']:
         planned = [job for job in jobs if job['meta']['format'] == fmt]
         rows = [lookup[job['id']] for job in planned if job['id'] in lookup]
         counts[fmt] = dict(planned=len(planned), observed=len(rows),
@@ -207,7 +258,6 @@ def report(output):
     summary = dict(comparison=comparisons(jobs, results, min_blocks=BLOCKS,
                                           min_distinct=BLOCKS, team_contexts=CONTEXTS),
                    counts=counts, recorded_at=time.time())
-    plan = read_json(output / 'plan.json')
     if plan.get('mode') == 'noninferiority':
         summary['noninferiority'] = noninferiority(plan, summary['comparison'], counts)
     with (output / 'summary.json').open('x', encoding='utf-8') as stream:
@@ -249,7 +299,10 @@ def main():
     prepare_parser.add_argument('--wesnoth', required=True)
     prepare_parser.add_argument('--source-commit', required=True)
     prepare_parser.add_argument('--source-archive')
-    prepare_parser.add_argument('--noninferiority', action='store_true')
+    ni_modes = prepare_parser.add_mutually_exclusive_group()
+    ni_modes.add_argument('--noninferiority', action='store_true')
+    ni_modes.add_argument('--duel-noninferiority', action='store_true')
+    prepare_parser.add_argument('--reuse-panel', type=Path)
     for command in ('run', 'report'):
         commands.add_parser(command).add_argument('--output', required=True)
     args = parser.parse_args()
