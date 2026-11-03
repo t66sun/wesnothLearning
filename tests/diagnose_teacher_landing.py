@@ -30,9 +30,10 @@ def insert(text, anchor, replacement):
     return text.replace(anchor, replacement)
 
 
-def traced_duel(source):
+def traced_duel(source, adapted):
     text = insert(source, 'local M = {}', 'local M = {landing_rows={},landing_cutoff=false}')
-    text = insert(text, TRACE_AT, ROW + TRACE_AT)
+    row = ROW if adapted else ROW.replace('target_damage=target_damage,', '')
+    text = insert(text, TRACE_AT, row + TRACE_AT)
     cutoff = 'if sims>=240 or wesnoth.ms_since_init()-start>350 then return best end'
     return insert(text, cutoff, cutoff.replace('then return', 'then M.landing_cutoff=true;return'))
 
@@ -48,7 +49,7 @@ def stage(package, directory, challenger):
         source = (challenger / 'lua/duel.lua').read_text().replace(
             '~add-ons/gpt6astra/lua/value.lua', f'~add-ons/{staged.name}/lua/landing_probe_value.lua')
         shutil.copyfile(challenger / 'lua/value.lua', lua / 'landing_probe_value.lua')
-    (lua / 'landing_probe_duel.lua').write_text(traced_duel(source))
+    (lua / 'landing_probe_duel.lua').write_text(traced_duel(source, staged.name == 'astra_adapted'))
     wrapper = (ROOT / 'tests/fixtures/teacher_landing_probe.lua').read_text()
     (lua / 'bot.lua').write_text(wrapper.replace('ADDON', staged.name))
     return staged
