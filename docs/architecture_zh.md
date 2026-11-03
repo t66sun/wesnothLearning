@@ -15,7 +15,7 @@
 
 学习流程为：从声明的教师做行为克隆（BC），随后由奖励控制器驱动的 PPO。交付物是带导出权重的 Lua AI 插件；训练不会把自己安装进游戏。
 
-不声明：lite 与 native 规则等价、原版性能验收、棋力。
+待验收范围包括完整 lite/native 规则等价、原版性能和训练后策略棋力。
 
 ## 2. 仓库布局
 
@@ -66,10 +66,10 @@ flowchart LR
 - `LiteAdapter` 在使用前校验扩展构建三元组（`ENGINE_VERSION='lite-0.2'`、`RNG_VERSION='splitmix64-rejection-v1'`、`COMBAT_VERSION='probabilistic_combat_v6'`）与声明身份一致。
 - `_engine_lite.LiteEngine(rules_json, spec_json)` 提供 `reset`、`observe`/`observe_batch`、`legal_actions`/`legal_batch`、`step`/`step_batch`（非法动作时恢复批次前状态）、`snapshot`/`restore`、`forecast`、`configure_host`、`decision` 和 `execute_candidate`。JSON 的 `pos`/`to` 是从 0 开始的行主序下标，Lua 桥接层转换为从 1 开始的六角坐标并锁定观察方，策略无法切换视角。`GameSpec` 明确给出宽高、平地地形、阵营、单位、种子和 `max_turns`；`side.id` 从 1 连续编号，`allow_approximate` 必须显式给出。快照是裁判真值，绝不下发给策略。
 - 带种子战斗（`probabilistic_combat_v6`）：裁判内部 SplitMix64 无偏抽样命中；命中伤害无增益，减速按原版半伤害取整，中毒扣 8 HP。快照/回滚恢复随机流，公开预测不读取或消耗它。预测合并 HP/状态概率，samples 被忽略并返回 0。狂暴预测与原版相同，在某轮死亡概率达到 99% 后停止（`approximate=true`），实际执行仍最多 30 轮。
-- 反击按同射程武器的击杀减死亡、中毒调整后 HP 差及损伤比较概率分布，使用原版 0.01 容差。执行在无反击或仅一把武器时跳过预测。原版预测包含致命命中的状态，升级分支恢复到当前最大 HP，条件升级的中毒恢复使用原版边缘概率估计；这类升级预测标记 `approximate=true`。执行中零级击杀给 4 XP，类型升级清除毒/减速。固定原版对照与 Python/Rust 回归见 `verification/combat_boundaries_20261102/REPORT.md`。标准 AMLA 仅接受捕获中的精确声明：最大 HP +3、回满血、最大经验按取整增加 20%、清毒/减速、最多 100 次，并保留吞噬加成。训练门禁要求 158 个可达单位均含编译声明，其中 65 个支持标准 AMLA。证据见 `verification/standard_amla_20261102/REPORT.md`。accuracy 和对方武器 parry 现已在普通命中率限制及魔法/精准效果之前生效，预测与执行共用计算。11 个固定原版案例和受影响回归通过（`verification/weapon_accuracy_20261103/REPORT.md`）。编译器精确识别受支持的武器声明形状，拒绝未知条件及禁用声明；非正防御权重排除反击，显式选择零攻击权重武器仍合法，与原版一致。标准背刺要求夹击者敌对目标，包括 FFA 第三方，且排除石化夹击者。R4 在此声明范围内通过验收：31 个固定原版案例及 170 项相关 Python 检查（`verification/weapon_filters_20261103/REPORT.md`）。原版棋力仍未验收。
+- 反击按同射程武器的击杀减死亡、中毒调整后 HP 差及损伤比较概率分布，使用原版 0.01 容差。执行在无反击或仅一把武器时跳过预测。原版预测包含致命命中的状态，升级分支恢复到当前最大 HP，条件升级的中毒恢复使用原版边缘概率估计；这类升级预测标记 `approximate=true`。执行中零级击杀给 4 XP，类型升级清除毒/减速。固定原版对照与 Python/Rust 回归见 `verification/combat_boundaries_20261102/REPORT.md`。标准 AMLA 仅接受捕获中的精确声明：最大 HP +3、回满血、最大经验按取整增加 20%、清毒/减速、最多 100 次，并保留吞噬加成。训练门禁要求 158 个可达单位均含编译声明，其中 65 个支持标准 AMLA。证据见 `verification/standard_amla_20261102/REPORT.md`。accuracy 和对方武器 parry 现已在普通命中率限制及魔法/精准效果之前生效，预测与执行共用计算。11 个固定原版案例和受影响回归通过（`verification/weapon_accuracy_20261103/REPORT.md`）。编译器精确识别受支持的武器声明形状，拒绝未知条件及禁用声明；非正防御权重排除反击，显式选择零攻击权重武器仍合法，与原版一致。标准背刺要求夹击者敌对目标，包括 FFA 第三方，且排除石化夹击者。R4 在此声明范围内通过验收：31 个固定原版案例及 170 项相关 Python 检查（`verification/weapon_filters_20261103/REPORT.md`）。
 - lite 已实现机制：按地形代价移动、可见敌军 ZOC、友军通行、连通的城堡招募/经济、村庄占领、fog/shroud/历史地形、盟友共享、行动顺序轮转、领袖击杀与队伍终局、逐次攻击的死亡/反击/经验升级、slow、poison、drain、firststrike、marksman、magical、charge、berserk、基础 plague、治疗/休息、concealment/nightstalk/teleport、带种子命中抽样。
 - lite 近似路径：相邻领导力、illumination、backstab、steadfast、反击触发 plague、单步 teleport 代价。已知缺口：复合修正取整、自定义武器声明、变体实例、随机特质、AMLA 选择、状态清除精确时机、视距代价/jamming、远程寻路 ZOC、战役事件。冻结基础类型权重诊断发现全部捕获中有 26 个非默认声明，均不在实际 158 单位训练闭包内；受支持基础权重的历史诊断已由 `verification/weapon_filters_20261103/REPORT.md` 中的验收补齐；任意动态声明仍不支持。未知能力/脚本会阻断招募链，而不是静默降级。
-- 单位当前的 unpoisonable、undrainable、unplagueable 状态与类型免疫共同约束攻击和反击；预测与执行均遵守中毒/吸血免疫，瘟疫不转换免疫死者。18 个固定合法棋盘验证了三赛制教师目标/武器选择、查询不改变战局及快照复现，另有 6 个原版免疫战斗比较通过（`verification/teacher_immunity_20261103/REPORT.md`）。这不代表完整对局或棋力验收。
+- 单位当前的 unpoisonable、undrainable、unplagueable 状态与类型免疫共同约束攻击和反击；预测与执行均遵守中毒/吸血免疫，瘟疫不转换免疫死者。18 个固定合法棋盘验证了三赛制教师目标/武器选择、查询不改变战局及快照复现，另有 6 个原版免疫战斗比较通过（`verification/teacher_immunity_20261103/REPORT.md`）。
 - `lua/` 是唯一的合法性/观察实现：原版 Wesnoth 以插件方式加载它，`LiteHost` 把同一批模块加载进内嵌 Lua VM。
 
 ## 5. 观察、候选与行
@@ -165,7 +165,7 @@ BC 模仿验证在 64 行推理块之间共享本次调用的历史缓存；无�
 
 比较状态优先级：`infrastructure_error` → `inconclusive`（缺块/块数不足）→ `insufficient_design`（不同族少于要求）→ `passed`（区间下界 > 0）→ `not_passed`（区间上界 ≤ 0）→ `inconclusive`。
 
-R3 将教师与采用相同原版伏击处理的原始 Astra 策略比较。使用上述场景聚类区间，单挑和组队的官方成绩差及区间端点除以 3，四人混战已在 0–1 范围。各赛制下界均须高于 −0.05。官方 30 回合裁定计入成绩并单列局数。组队采用基线队友与同策略队友两种配置的等权合并结果。4560 局冻结面板覆盖各赛制全部 15 个验证场景族，混战与组队通过，单挑下界为 −0.06094，R3 因此仍开放。[教师验收证据](../verification/teacher_noninferiority_20261103/REPORT.md)
+教师验收将维护中的 Astra 教师与采用相同原版伏击处理的原始 Astra 策略比较。使用上述场景聚类区间，单挑及组队成绩除以 3，各赛制下界均须高于 −0.05。官方 30 回合裁定计入成绩；组队对基线队友与同策略队友等权计分。修复后的教师在验证地图上通过验收。独立 1920 局单挑区间为 [−0.028125, +0.019271]。相同的四人策略路径复用上轮混战 [−0.043611, +0.067917] 和组队 [−0.034028, +0.029861] 区间。[教师验收及输入身份](../verification/duel_landing_ni_20261103/REPORT.md)
 
 `selection.py` 只复用完整且可比对的 12 block 面板，只有候选既通过又得分更高时才替换冠军。报告为机器可读 JSON 加简短 Markdown profile；每个面板都记录调度、种子、控制方与引擎身份。
 
@@ -229,14 +229,14 @@ R3 将教师与采用相同原版伏击处理的原始 Astra 策略比较。使�
 
 - lite 规则是近似的（587 单位中 467 个），且明确未经原版语义验收；整包性能未验收。
 - 两个后端都采用随机战斗，但随机流不同。固定局面的概率一致不代表完整跨引擎等价。
-- 概率战斗的致命状态、条件/必然升级和零级经验已有固定原版对照与自动回归证据，见 `verification/combat_boundaries_20261102/REPORT.md`；首次随机战斗改造证据保留在 `verification/probabilistic_combat_20261102/REPORT.md`。完整原版语义和棋力仍未验收。
+- 概率战斗的致命状态、条件/必然升级和零级经验已有固定原版对照与自动回归证据，见 `verification/combat_boundaries_20261102/REPORT.md`；首次随机战斗改造证据保留在 `verification/probabilistic_combat_20261102/REPORT.md`。完整原版语义仍待验收。
 - DAgger 只属于 Astra：冻结教师能回答按决策查询，每条纠正行都携带该身份。
 - 官方 baseline 仅限原版；lite 运行无法对它评估。
 - 整理后的录像语料（`data/replays_curated/`，1,076 局标准时代对局）仍只是暂存：只有记录于 1.18.8 的 197 局能进入 BC。大厅归档以其 `[scenario]` 块作为起始块，因为 1.18.8 自行展开场景并合并已记录的 RNG；缺少 `[carryover_sides_start].random_seed` 的大厅归档按 `missing_initial_rng` 跳过。录像标记只能放在动作之前以及末尾各一次，因为在同步上下文内遇到的 `[custom_command]` 会被回放机拒绝。已准备三局、由官方 1.18.8 实际播放并导入 84 条 BC 行（`verification/curated_bc_20261031/REPORT.md`）；不声明更大范围的语料播放。
 - 原版对局可由其种子复现：`match.play_game` 把种子写入场景，`runtime.lua` 据此调用 `math.randomseed(seed)`，并预载 `setup.sh` 构建的 `.runtime/entropy.so` 与 `ARENA_ENTROPY_SEED`，使 Wesnoth 的默认与逐动作 C++ RNG 从按种子生成的流取值，而不再读取操作系统熵。种子 20261017 的同一场 stock 对局运行两次产生完全相同的决定性事件流（`verification/native_seed_20261031/REPORT.md`）。不同种子的对局仍然不同；跨种子的原版比较只使用记录到的计数，不声称 lite 与原版相等。
 - 共享候选的来源与数值一致性证据见 `verification/candidate_budget_20261031_exact37/REPORT.md`；`work-12000-v8` 的 45 项受影响 Ubuntu 检查通过，见 `verification/bc_root_20261101/REPORT.md`。当前同种子原版耗时通过，见 `verification/native_inference_20261102/REPORT_seeded.md`：六组成对对局、零故障，评分 p95 为 122/133/114 ms，保持 37 候选与 12,000 工作量。仅排除耗时、规范化各方独立审计批次的顺序后，完整事件内容一致。未优化基线在空闲主机也通过；整组成对面板耗时降低 44.9%。此紧凑地图随机策略检查不代表选定模型的最终评估或原版棋力验收。
-- 当前 v2 规则下普通 BC 就绪仍未完成。有界团战分支复用父运行 40 局，只补收八局，均达到回合上限、零记录故障。新增五批提交 272 次更新，在 631.25 秒触及批数上限。语料 48/48、覆盖率 94.21% 通过；验证招募/攻击仍仅为 40.00%/39.72%。最后 2048 行读取保留 37 个家族；训练招募/攻击也仅为 42.86%/44.88%。v10 没有待完成训练，但八个周期验证任务仍未完成（`verification/team_bc_branch_20261102/REPORT.md`）。先前固定批次探针和被拒绝的上下文输入保留为独立证据；不据此采用生产调参。单挑教师棋力仍见 TEST.md R3，普通门禁训练仍见 L2，不声明三赛制回环、收敛或棋力。
-- 单挑减速收益按攻击者移动前的防御估算，同一目标在不同攻击落点使用相同的状态价值。其他敌军威胁和落点防御按拟选格计算。b0025 原版实盘与 Lite 回归已验收此修复；单挑保持棋力仍待 R3 独立验证。[固定棋盘证据](../verification/duel_slow_landing_20261103/REPORT.md)
+- 当前 v2 规则下普通 BC 就绪仍未完成。有界团战分支复用父运行 40 局，只补收八局，均达到回合上限、零记录故障。新增五批提交 272 次更新，在 631.25 秒触及批数上限。语料 48/48、覆盖率 94.21% 通过；验证招募/攻击仍仅为 40.00%/39.72%。最后 2048 行读取保留 37 个家族；训练招募/攻击也仅为 42.86%/44.88%。v10 没有待完成训练，但八个周期验证任务仍未完成（`verification/team_bc_branch_20261102/REPORT.md`）。先前固定批次探针和被拒绝的上下文输入保留为独立证据；不据此采用生产调参。普通门禁训练仍见 L2，不声明三赛制回环、收敛或棋力。
+- 单挑减速收益按攻击者移动前的防御估算，同一目标在不同攻击落点使用相同的状态价值。其他敌军威胁和落点防御按拟选格计算。b0025 原版实盘与 Lite 回归已验收此修复。[固定棋盘证据](../verification/duel_slow_landing_20261103/REPORT.md)
 - 训练后策略的收敛与棋力仍待验收。
 
 ## 14. 文档地图

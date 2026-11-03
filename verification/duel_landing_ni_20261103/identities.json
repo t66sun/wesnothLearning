@@ -1,0 +1,50 @@
+{
+  "source_commit": "31e6f2a2c0196539636e3cca4578e6d9c5bd1658",
+  "root": "/home/tongshu/acceptance/duel_landing_ni_20261103",
+  "engine": "native",
+  "native_rules": "wesnoth-1.18.8-native-v2",
+  "teacher": {
+    "teacher": "gpt6astra",
+    "teacher_profile": "probabilistic_combat_v6",
+    "teacher_source_sha256": "d64e1178c0a8af9b1b10e2626f03e7cb8ed70a5a368d3c38860d40723a903eb5",
+    "teacher_parent_sha256": "2a216c96081990621dc15772e9de1bf40e4f5f451223fe52e5b20625464dc933"
+  },
+  "control_compatibility": {
+    "files": {
+      "lua/duel.lua": {
+        "old_sha256": "898f88eff3497b7ae2bb675279a8c556ba5c28038c64ca0e6922c0e76d7bf4ce",
+        "new_sha256": "c69d193e8a1edd414481dc96e365e4a25d90ac930a7d73a488008c93e7b1cbff"
+      },
+      "lua/four.lua": {
+        "old_sha256": "705169e8c1e33dbcb38e60398f4a972e0e82fb1679877beb98fc57107e12fa30",
+        "new_sha256": "07778a77b448b26a5d92d9f2a6a12628da8061e8969fd1b88aeb50b7f7feb6c0"
+      },
+      "lua/eight.lua": {
+        "old_sha256": "ccc54766da035e5ab5f93f7a6862f78198764942930a489ac7408d8d0a730b2e",
+        "new_sha256": "ee7d66ed87a14968f7402984fad5bbe9d1146440640f3aa1520dcbcc8e2c7f97"
+      }
+    }
+  },
+  "source_archive": "/home/tongshu/acceptance/duel-landing-ni-20261103.tar",
+  "artifacts": {
+    "/home/tongshu/myDev/wesnothLearning/WesnothLearning/.runtime/install/bin/wesnoth": "33f64aa3f5ee40228bd44e357b3f4d784121d4392ff774d6c059c7defa3e5fcf",
+    "/home/tongshu/acceptance/duel_landing_ni_20261103/.runtime/entropy.so": "f12d763303445aa437de06d0dba129dc923e3d81fd1fc82d72b8e331916480cf",
+    "/home/tongshu/acceptance/duel_landing_ni_20261103/data/rules/1.18.8-combat-filtered/rules.json": "e6b4f6200b0a8ad58a536b844fff37cfa9e0091bf0a0b702a8982155310f2f17",
+    "/home/tongshu/acceptance/duel_landing_ni_20261103/data/rules/1.18.8-combat-filtered/catalog-summary.json": "0bb354291aeb39bdbffab74af738273b11378be8c692dfb42c053ebf1a9d5ded",
+    "/home/tongshu/acceptance/duel_landing_ni_20261103/data/opponents/gpt6astra.zip": "2a216c96081990621dc15772e9de1bf40e4f5f451223fe52e5b20625464dc933",
+    "/home/tongshu/acceptance/duel_landing_ni_20261103/panel/astra_control_compatible.zip": "ad4115783ba1a38871f5ffcbbbc5a1fb0a202e112d4c2a48fa7b09c462354c67",
+    "/home/tongshu/acceptance/duel_landing_ni_20261103/panel/astra_adapted.zip": "472619df1b8d62f08ef3bce1025d1c2575c68ac96d22c46376823718816eb9fd",
+    "/home/tongshu/acceptance/duel_landing_ni_20261103/tests/acceptance_teacher_strength.py": "3bf927d32b05aff0fd63676532ba601ae388645adc5d3915ff115da68dfe992f",
+    "/home/tongshu/acceptance/duel_landing_ni_20261103/learning/schedule.py": "769a42cb0857711a0369254d847ab65a0e4ef013dffa1db36004394eabb99a84",
+    "/home/tongshu/acceptance/duel_landing_ni_20261103/learning/evaluate.py": "60fbdd0ac348704a8db7058ce4c7b895fb84fc1b0167bb958b1f27523607251f",
+    "/home/tongshu/acceptance/duel_landing_ni_20261103/learning/maps.py": "798700140177c9eb2059d282fd09c93e3e9d0418706b397603a94c646ba514d4",
+    "/home/tongshu/acceptance/duel_landing_ni_20261103/learning/sample.py": "90f6a6969f6cde8cef7030e4d4083b08e00f9d26acd3a2c4396e424cc22e6033",
+    "/home/tongshu/acceptance/duel_landing_ni_20261103/vendor/arena/match.py": "ebdde7eb92bb425730727f96530253b920a6027ecb49de47009d26baf63692b0",
+    "/home/tongshu/acceptance/duel_landing_ni_20261103/vendor/arena/native.py": "9b2a3169a5a9b590472e5212e548371a46ad2c107cc9ee3a4813e0b4469269df",
+    "/home/tongshu/acceptance/duel_landing_ni_20261103/vendor/arena/addons.py": "141857306234b31291e9118899048a92230e30ce6a42cb64ffac74d217e2f9d8",
+    "/home/tongshu/acceptance/duel_landing_ni_20261103/vendor/arena/params.py": "3c1423bd63ac8ac708e65d39cc59265076abbb9325f58fa5f32a69cff972d71a",
+    "/home/tongshu/acceptance/duel_landing_ni_20261103/vendor/arena/runtime/runtime.lua": "dd75b50e87368ab446517b13736918f35d345b2b74d69bb95e050cb10da9325a",
+    "/home/tongshu/acceptance/duel_landing_ni_20261103/tests/teacher_control_compatibility.py": "e6b9924e7002ddd7dcc5077c8bae5867f744c40a83e4074561f3223cba37fd79",
+    "/home/tongshu/acceptance/duel-landing-ni-20261103.tar": "ba5649a61326c8cc115f3c9ef98fbc8f38f93c8beaf90fd1b7b17c4b539f4e3d"
+  }
+}
