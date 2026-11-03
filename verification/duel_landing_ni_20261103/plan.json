@@ -1,0 +1,46 @@
+{
+  "root": "/home/tongshu/acceptance/duel_landing_ni_20261103",
+  "output": "/home/tongshu/acceptance/duel_landing_ni_20261103/panel",
+  "source_commit": "31e6f2a2c0196539636e3cca4578e6d9c5bd1658",
+  "source_archive": "/home/tongshu/acceptance/duel-landing-ni-20261103.tar",
+  "source_archive_sha256": "ba5649a61326c8cc115f3c9ef98fbc8f38f93c8beaf90fd1b7b17c4b539f4e3d",
+  "wesnoth": "/home/tongshu/myDev/wesnothLearning/WesnothLearning/.runtime/install/bin/wesnoth",
+  "wesnoth_version": "1.18.8",
+  "mode": "noninferiority",
+  "seed": 20261105,
+  "margin": 0.05,
+  "label": "r3-duel-ni",
+  "scales": {
+    "duel": 3
+  },
+  "min_distinct": 15,
+  "required_blocks": {
+    "duel": 960
+  },
+  "reused_evidence": {
+    "formats": [
+      "ffa4",
+      "team2v2"
+    ],
+    "source_commit": "97d7d9ddf87948bb59781f8f68a7d9b1e3a03fe3",
+    "summary_sha256": "8d56d7df50d9b53d83e824ddcb8b5d155351818d4f7c1966cd6be129f0e7d44d",
+    "changed_candidate_member": "astra_adapted/lua/duel.lua"
+  },
+  "workers": 8,
+  "max_turns": 30,
+  "timeout": 1,
+  "first_timeout": 10,
+  "team_contexts": [],
+  "games": {
+    "duel": 1920
+  },
+  "created": 1793703100.7168,
+  "deadline": 1793724700.7168,
+  "budget_seconds": 21600,
+  "partition": "validation",
+  "holdout_used": false,
+  "schedule_sha256": "b0a54c2b0e24fde606c1523b6d1c6d46be486a01b7878d9908aa68ece794d602",
+  "identities_sha256": "7cacb40f1437a5fd888bedaf1f47503d440c79f655daeab49fd25f8471e2c598",
+  "pass_rule": "All declared games/blocks and 15 families per format, zero faults; each scheduled format normalized CI lower bound > -0.05",
+  "limit": "Report turn_limit separately; candidate truncation is a different counter."
+}

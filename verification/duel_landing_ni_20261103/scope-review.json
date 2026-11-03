@@ -1,0 +1,48 @@
+{
+  "reviewed_at": 1793703128.7149124,
+  "source": "31e6f2a2c0196539636e3cca4578e6d9c5bd1658",
+  "reference": {
+    "formats": [
+      "ffa4",
+      "team2v2"
+    ],
+    "source_commit": "97d7d9ddf87948bb59781f8f68a7d9b1e3a03fe3",
+    "summary_sha256": "8d56d7df50d9b53d83e824ddcb8b5d155351818d4f7c1966cd6be129f0e7d44d",
+    "changed_candidate_member": "astra_adapted/lua/duel.lua"
+  },
+  "git_scope_command": "git diff --name-status 97d7d9d 31e6f2a -- ':!docs' ':!tests' ':!verification'",
+  "git_scope_output": [
+    "M\tlearning/teachers/gpt6astra/lua/duel.lua"
+  ],
+  "installed_wesnoth_share": "/home/tongshu/myDev/wesnothLearning/WesnothLearning/.runtime/install/share/wesnoth",
+  "installation_entries_observed": 21703,
+  "installation_entries_with_ctime_or_mtime_since_reference_start": 0,
+  "n_jobs": 1920,
+  "unique_ids": 1920,
+  "n_blocks": 960,
+  "paired": true,
+  "families": 15,
+  "repeats": [
+    64
+  ],
+  "unique_game_seeds": 960,
+  "previous_4560_seed_overlap": 0,
+  "formats": [
+    "duel"
+  ],
+  "maps": [
+    "hamlets"
+  ],
+  "turn_limits": [
+    30
+  ],
+  "teacher": {
+    "teacher": "gpt6astra",
+    "teacher_profile": "probabilistic_combat_v6",
+    "teacher_source_sha256": "d64e1178c0a8af9b1b10e2626f03e7cb8ed70a5a368d3c38860d40723a903eb5",
+    "teacher_parent_sha256": "2a216c96081990621dc15772e9de1bf40e4f5f451223fe52e5b20625464dc933"
+  },
+  "plan_sha256": "6c4244b264953452238c4894bb683aac33bcc1ecd0450055cc2971c7278d12e3",
+  "prepared_local": "2026-11-03T18:51:40.716800+08:00",
+  "deadline_local": "2026-11-04T00:51:40.716800+08:00"
+}
