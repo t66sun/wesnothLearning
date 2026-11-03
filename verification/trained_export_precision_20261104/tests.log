@@ -1,0 +1,14 @@
+test_memory_cache_is_separate_for_sides_and_new_jobs (tests.v5.test_lite_policy_memory.FrozenMemoryTests.test_memory_cache_is_separate_for_sides_and_new_jobs) ... ok
+test_real_policy_parity_and_one_replay_until_history_or_turn_changes (tests.v5.test_lite_policy_memory.FrozenMemoryTests.test_real_policy_parity_and_one_replay_until_history_or_turn_changes) ... ok
+test_long_rollout_encodes_each_history_row_once (tests.v5.test_window_memory_cost.IncrementalMemoryTests.test_long_rollout_encodes_each_history_row_once) ... ok
+test_verify_numerics_requires_full_budget_and_two_turns (tests.v5.test_learning_core.AuditExportTests.test_verify_numerics_requires_full_budget_and_two_turns) ... ok
+test_verify_numerics_37_candidates_two_turns (tests.v5.test_learning_core.AuditExportTests.test_verify_numerics_37_candidates_two_turns) ... ok
+test_verify_numerics_memory_overflow_and_128_entities (tests.v5.test_learning_core.AuditExportTests.test_verify_numerics_memory_overflow_and_128_entities) ... ok
+test_bulk_batch_matches_numpy_and_list_records_and_optional_memory_context (tests.v5.test_replay_optimization.ReplayOptimizationTests.test_bulk_batch_matches_numpy_and_list_records_and_optional_memory_context) ... ok
+test_shared_replay_matches_reference_outputs_gradients_and_recomputes (tests.v5.test_replay_optimization.ReplayOptimizationTests.test_shared_replay_matches_reference_outputs_gradients_and_recomputes) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 12.101s
+
+OK
+encoder rows per forward: 158 -> 57; outputs/gradients equivalent across two optimizer updates

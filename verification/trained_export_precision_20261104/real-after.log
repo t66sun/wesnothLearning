@@ -1,0 +1,2 @@
+{"shard": "/home/tongshu/acceptance/bc_v6_readiness_20261103/runs/bc_readiness/duel/data/rollout-00036-duel-g0.jsonl.gz", "rows": 133, "turns": 15, "full": 120, "load_seconds": 0.44791738619096577}
+{"max_error": 5.684341886080802e-14, "audit_seconds": 21.575103994924575, "max_rss_kib": 499624}
