@@ -99,6 +99,7 @@ def main():
                 bc_seconds=1200, bc_committed_batches_max=5, bc_game_targets=[24,24,24],
                 bc_records=2048, bc_validation_records=1024, epochs=4, minibatch=256,
                 bc_parent=parent, ppo_seconds=900, ppo_batch_limit=4, ppo_successful_batches=1, rollout_games=4,
+                validation_interval=3,
                 turn_limit=30, final_blocks=30, final_min_distinct=12, evaluation_seconds=900,
                 export_seconds=300, total_stage_ceiling_seconds=3300,
                 limits='Stage timeout is a hard stop; polling may observe one in-flight batch beyond a committed-batch cap. No automatic retry, forced PPO or gate edits.')
@@ -108,6 +109,7 @@ def main():
                    '--seed', 20261101, '--bc-games', 24,24,24, '--native-bc-games', 0,0,0,
                    '--bc-records', 2048, '--bc-validation-records', 1024,
                    '--training-max-turns', plan['turn_limit'],
+                   '--validation-interval', plan['validation_interval'],
                    '--final-blocks', plan['final_blocks'],
                    '--wesnoth', os.environ['WESNOTH_EXE'])
     if parent:
@@ -130,7 +132,8 @@ def main():
         after = states()
         (OUT / (name+'-boundary.json')).write_text(json.dumps(
             dict(before=initial,updates_before=updates_before,after=after),indent=2))
-        if not all(s.get('stage') == 'ppo_complete' and not s.get('pending_train') and not s.get('error')
+        if not all(s.get('stage') == 'ppo_complete' and not s.get('pending_train')
+                   and not s.get('pending_validation') and not s.get('error')
                    and s.get('batch', 0) > initial[fmt] and ppo_updates(s) > updates_before[fmt]
                    for fmt, s in after.items()):
             return finish('FAIL', name+' did not commit new PPO updates at a completed boundary')
@@ -145,7 +148,8 @@ def main():
     audit.mkdir()
     for fmt in FORMATS:
         (audit/fmt).symlink_to(RUN/fmt/'data',target_is_directory=True)
-    export_args = command('export','--audit-data',audit,'--output',ROOT/'delivery/bounded_loop')
+    export_args = command('export','--audit-data',audit,'--audit-workers',plan['workers'],
+                          '--output',ROOT/'delivery/bounded_loop')
     for fmt in FORMATS: export_args.extend(['--'+fmt,str(RUN/fmt/'selected.pt')])
     if not stage('export',export_args,300):
         return finish('FAIL','audited export')

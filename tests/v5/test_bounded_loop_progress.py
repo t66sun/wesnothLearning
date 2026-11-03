@@ -10,7 +10,7 @@ from tests import bounded_training_loop as loop
 
 
 class BoundedLoopProgressTests(unittest.TestCase):
-    def run_loop(self, *, bc_updates=1, resume_updates=1, pending=False, failed=False):
+    def run_loop(self, *, bc_updates=1, resume_updates=1, pending=False, pending_validation=False, failed=False):
         initial_batches = dict(duel=5, ffa4=2, team2v2=1)
         snapshot = {fmt: dict(batch=batch, stage='bc_complete', effective=True,
                              history=[dict(method='bc', updates=bc_updates)], pending_train=None, error=None)
@@ -28,6 +28,7 @@ class BoundedLoopProgressTests(unittest.TestCase):
                         state['history'].append(dict(method='ppo', updates=updates))
                     if name == 'ppo_resume':
                         state['pending_train'] = {'method': 'ppo'} if pending else None
+                        state['pending_validation'] = 'ppo' if pending_validation else None
                         if failed:
                             state.update(stage='failed', error='trainer failed')
             return name != 'evaluate'  # Stop before any real evaluation/export.
@@ -65,7 +66,7 @@ class BoundedLoopProgressTests(unittest.TestCase):
         self.assertIn('ppo_resume', result['reason'])
 
     def test_resume_must_finish_at_a_committed_boundary(self):
-        for options in (dict(pending=True), dict(failed=True)):
+        for options in (dict(pending=True), dict(pending_validation=True), dict(failed=True)):
             with self.subTest(options=options):
                 calls, _, result, _ = self.run_loop(**options)
                 self.assertNotIn('evaluate', dict(calls))
