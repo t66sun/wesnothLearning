@@ -91,7 +91,7 @@ class Policy(nn.Module):
             with torch.set_grad_enabled(torch.is_grad_enabled() and differentiable):
                 for start in range(0,len(selected),32):
                     keys=selected[start:start+32]
-                    tensors=batch([rows[key] for key in keys],scene.device,include_history=False)
+                    tensors=batch([rows[key] for key in keys],scene.device,include_history=False,dtype=scene.dtype)
                     s,_=self.encode_scene(tensors[0],tensors[1],tensors[3],tensors[5])
                     summary=torch.tanh(self.summary(s))
                     for j,key in enumerate(keys):
@@ -151,10 +151,11 @@ class Policy(nn.Module):
         return logits,self.value(context).squeeze(-1)
 
 
-def batch(records,device='cpu',include_history=True,history_cache=None):
+def batch(records,device='cpu',include_history=True,history_cache=None,*,dtype=torch.float32):
     b=len(records); n=max(1,max(len(r['opponents']) for r in records)); a=max(1,max(len(r['candidates']) for r in records))
-    zeros=lambda shape: np.zeros(shape,dtype=np.float32)
-    stack=lambda values: np.stack(values).astype(np.float32,copy=False)
+    precision=np.float64 if dtype==torch.float64 else np.float32
+    zeros=lambda shape: np.zeros(shape,dtype=precision)
+    stack=lambda values: np.stack(values).astype(precision,copy=False)
     g=stack([r['global'] for r in records])
     opponents=zeros((b,n,len(OPPONENT))); actions=zeros((b,a,len(ACTION)))
     om=np.zeros((b,n),dtype=bool); am=np.zeros((b,a),dtype=bool)

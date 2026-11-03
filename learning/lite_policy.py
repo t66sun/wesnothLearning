@@ -49,7 +49,9 @@ class FrozenPolicies:
             if not path.is_file(): raise ValueError('lite needs frozen tensor weights beside exported addon: '+str(path))
             key=(str(path.resolve()),sha256(path),self.format)
             if key not in _models:
-                model,_=load_model(path,self.format,'cpu');model.eval();_models[key]=model
+                model,_=load_model(path,self.format,'cpu')
+                # Deployed Lua evaluates the frozen float32 coefficients in double precision.
+                _models[key]=model.double().eval()
                 while len(_models)>4: _models.popitem(last=False)
             _models.move_to_end(key)
             self.models[side]=_models[key]
@@ -68,7 +70,7 @@ class FrozenPolicies:
                 count,h,slots,turns=self.memory_states.get(side,
                     (0,next(model.parameters()).new_zeros(1,128),[],[]))
                 for write in history[count:]:
-                    inputs=batch([write],'cpu',include_history=False)
+                    inputs=batch([write],'cpu',include_history=False,dtype=torch.float64)
                     scene,_=model.encode_scene(inputs[0],inputs[1],inputs[3],inputs[5])
                     h=model.gru(scene,h)
                     slots=(slots+[torch.tanh(model.summary(scene))])[-32:]
@@ -76,7 +78,7 @@ class FrozenPolicies:
                 self.memory_states[side]=(len(history),h,slots,turns)
                 memory=torch.cat([h,model.memory_read(h,slots,[row['turn']-t for t in turns])],-1)
                 cached=(key,memory);self.memory_contexts[side]=cached
-            tensors=batch([row],'cpu',include_history=False)
+            tensors=batch([row],'cpu',include_history=False,dtype=torch.float64)
             tensors[5]['memory_context']=cached[1]
             logits,value=model(*tensors)
         if bootstrap: return float(value[0])
