@@ -25,6 +25,36 @@ def write_rows(directory,rows,bootstraps=None,**kwargs):
 
 
 class RewardRowSchemaTests(unittest.TestCase):
+    def test_bc_value_update_uses_the_valid_terminal_outcome_in_each_schema(self):
+        import torch
+        from learning.train import train
+
+        raw = helpers.sequence_rows(turns=1, decisions_per_turn=2, game_id='b', game_family='b')
+        with helpers.temporary_directory() as directory:
+            current = write_rows(directory, raw)
+        current[1].update(value_valid=False, terminal_reward=0.)
+        legacy = []
+        for row in current:
+            human = {k: v for k, v in row.items() if k not in ('terminal_reward', 'reward_step')}
+            human.update(schema=5, source='human', teacher=False, engine_id='native',
+                         human_control=True, native_version='1.18.8', result_verified=row['value_valid'],
+                         reward=1. if row['value_valid'] else None)
+            legacy.append(human)
+
+        for rows in (legacy, current):
+            with self.subTest(schema=rows[0]['schema']):
+                model = helpers.model()
+                model.requires_grad_(False)
+                output = model.value[-1]
+                output.weight.zero_()
+                output.bias.fill_(.75)
+                output.bias.requires_grad_(True)
+                optimizer = torch.optim.SGD([output.bias], lr=1.)
+                result = train(model, optimizer, rows, method='bc', epochs=1)
+                self.assertEqual(result['updates'], 1)
+                # One SGD step on half squared error moves .75 exactly to the valid win.
+                self.assertAlmostEqual(output.bias.item(), 1., places=6)
+
     def test_schema_five_and_six_gae_are_bit_identical_and_steps_are_audited(self):
         import struct
         from learning.data import advantages
