@@ -1,4 +1,5 @@
 """File-backed export checks every sequence with complete memory across shard fragments."""
+import copy
 import gzip
 import tempfile
 import unittest
@@ -21,14 +22,18 @@ class ParallelExportAuditTests(unittest.TestCase):
         self.addCleanup(temp.cleanup)
         self.root = Path(temp.name)
 
-    def shard(self, name, *entries):
+    def write_rows(self, name, rows):
         path = self.root / (name + '.jsonl.gz')
         with gzip.open(path, 'wt', encoding='utf-8') as stream:
-            for game, turn, count in entries:
-                row = helpers.pad_candidates(record(game=game, index=turn), count)
+            for row in rows:
                 row['split'] = record_split(row)
                 stream.write(pack_line(row) + '\n')
         return path
+
+    def shard(self, name, *entries, fmt='duel'):
+        rows = [helpers.pad_candidates(record(2 if fmt == 'duel' else 4, game, turn), count)
+                for game, turn, count in entries]
+        return self.write_rows(name, [dict(row, format=fmt) for row in rows])
 
     def test_cli_passes_shard_paths_without_eager_reads_and_selects_worker_count(self):
         for fmt in ('duel', 'ffa4', 'team2v2'):
@@ -52,13 +57,33 @@ class ParallelExportAuditTests(unittest.TestCase):
         paths = [first, bridge, end, independent]
         groups = _sequence_file_groups(paths)
         self.assertCountEqual(groups, [[first, bridge, end], [independent]])
-        model = helpers.model()
-        reference = verify_numerics(model, read_raw_shards(paths, 'duel'))
-        self.assertEqual(verify_shard_numerics(model, paths, workers=2), reference)
-        self.assertEqual(verify_shard_numerics(model, paths, workers=1), reference)
+        files = dict(duel=paths, ffa4=[self.shard('ffa', ('f', 1, 37), ('f', 2, 8), fmt='ffa4')])
+        models = {fmt: helpers.model(format_name=fmt) for fmt in files}
+        expected = {fmt: verify_numerics(model, read_raw_shards(files[fmt], fmt)) for fmt, model in models.items()}
+        self.assertEqual(verify_shard_numerics(models, files, workers=2), expected)
+        self.assertEqual(verify_shard_numerics(models, files, workers=1), expected)
+        duel = dict(duel=models['duel'])
         with self.assertRaisesRegex(ValueError, '37 retained candidates'):
-            verify_shard_numerics(model, [first, bridge, end], workers=2)
+            verify_shard_numerics(duel, dict(duel=[first, bridge, end]), workers=2)
         with self.assertRaisesRegex(ValueError, 'continuous turn memory'):
-            verify_shard_numerics(model, [independent], workers=2)
+            verify_shard_numerics(duel, dict(duel=[independent]), workers=2)
         with self.assertRaisesRegex(ValueError, 'workers must be positive'):
-            verify_shard_numerics(model, paths, workers=0)
+            verify_shard_numerics(duel, dict(duel=paths), workers=0)
+
+    def test_reuse_requires_equal_complete_inputs_and_writes(self):
+        from learning.sequence_parity import _ParityAudit, _Measurement
+        policy = [dict(record(game='game', index=turn), source='policy') for turn in (1, 2)]
+        policy[0]['memory_write'] = copy.deepcopy({k: policy[0][k] for k in ('global', 'opponents', 'spatial', 'turn')})
+        dagger = [dict(copy.deepcopy(row), source='astra', data_pool='dagger', choice=-1) for row in policy]
+        policy_file = self.write_rows('policy', policy)
+        audit = _ParityAudit(helpers.model())
+        stats = _Measurement(True, 2, 1e-12)
+        with patch.object(audit, 'measure', return_value=stats) as scored:
+            result = audit.measure_files([policy_file, self.write_rows('dagger', dagger)])
+            self.assertEqual(result, _Measurement(True, 4, 1e-12))
+            self.assertEqual(scored.call_count, 1)
+            dagger[0]['memory_write']['global'][0] += 0.125
+            scored.reset_mock()
+            result = audit.measure_files([policy_file, self.write_rows('changed', dagger)])
+            self.assertEqual(result, _Measurement(True, 4, 1e-12))
+            self.assertEqual(scored.call_count, 2)

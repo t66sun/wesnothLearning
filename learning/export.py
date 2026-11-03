@@ -114,13 +114,13 @@ def export_checkpoints(checkpoints, destination, name='NeuralArena', evaluation=
         identities[fmt]=identity
         if state.get('runner',{}).get('version',0)<=0 and state.get('metrics',{}).get('updates',0)<=0:
             raise ValueError('delivery requires a trained checkpoint, not initial support weights: '+fmt)
-        if audit_paths is not None:
-            errors[fmt]=verify_shard_numerics(models[fmt],audit_paths.get(fmt,()),audit_workers)
-        elif audit_records and audit_records.get(fmt):
+        if audit_paths is None:
+            if not audit_records or not audit_records.get(fmt):
+                raise ValueError('delivery export requires actual current-schema sequence parity data for '+fmt)
             errors[fmt]=verify_numerics(models[fmt],audit_records[fmt])
-        else:
-            raise ValueError('delivery export requires actual current-schema sequence parity data for '+fmt)
         versions[fmt]=dict(checkpoint_sha256=sha256(path),version=state.get('runner',{}).get('version',state.get('version','unknown')))
+    if audit_paths is not None:
+        errors=verify_shard_numerics(models,audit_paths,audit_workers)
     addon=export(models,destination,name=name,version=versions,evaluation=evaluation)
     manifest=json.loads((Path(destination)/'export.json').read_text(encoding='utf-8'))
     for fmt,error in errors.items():

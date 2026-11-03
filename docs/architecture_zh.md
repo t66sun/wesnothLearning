@@ -171,7 +171,7 @@ BC 模仿验证在 64 行推理块之间共享本次调用的历史缓存；无�
 
 ## 10. 交付
 
-- 导出审计先把含有同一序列的文件归入同组，再解码决策行。每条完整序列的记忆在同一进程内按时序推进；每种赛制汇总全部分组的 Python/Lua 最大误差、候选覆盖和回合证据。
+- 导出审计由各赛制共用一个进程池，同一对局同一方的完整序列归入同组。策略序列和 DAgger 副本只有在起始历史和每行按序输入、提交标志、记忆写入逐字节相同时才共用评分计算。两者都逐行校验并计入回合和候选覆盖证据，每种赛制单独检查 Python/Lua 最大误差与覆盖门槛。
 - `ensure_export()` 写入内部插件及 features、weights、config、export 清单；内部插件不受 SDK 提交大小上限约束。配置不再携带候选预算，所有调用方共用同一生成器契约，各阶段评分共享生成器返回的完整集合。
 - `python -m learning export` 写出可部署插件（三种赛制、`arena.json` schema 2、vendored runtime、数值一致性记录），`python -m learning package` 把它打包为 `delivery/NeuralArena.zip`。导出要求引擎/教师身份匹配、权重已训练、审计与当前 schema 一致。
 - 权重文件以 base64 保存小端 float32 向量，并内嵌 Lua 解码器。加载后精确还原原有表结构，包括负零和非规格化数，不做量化。序列数值审计执行与部署相同的序列化源码。三赛制插件仍须满足 SDK 解压后 16 MiB 上限。当前 SDK、序列与原版加载验收见 `verification/compact_weights_20261102/REPORT.md`。
