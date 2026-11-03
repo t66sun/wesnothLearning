@@ -12,7 +12,7 @@ from tests import bounded_training_loop as loop
 class BoundedLoopFinalTests(unittest.TestCase):
     def run_loop(self, *, control_changes=None, state_changes=None, missing_report=False):
         snapshot = {fmt: dict(batch=1, stage='bc_complete', effective=True,
-                             history=[], pending_train=None, error=None)
+                             history=[dict(method='bc', updates=1)], pending_train=None, error=None)
                     for fmt in loop.FORMATS}
         calls = []
 

@@ -10,10 +10,10 @@ from tests import bounded_training_loop as loop
 
 
 class BoundedLoopProgressTests(unittest.TestCase):
-    def run_loop(self, *, resume_updates=1, pending=False, failed=False):
+    def run_loop(self, *, bc_updates=1, resume_updates=1, pending=False, pending_validation=False, failed=False):
         initial_batches = dict(duel=5, ffa4=2, team2v2=1)
         snapshot = {fmt: dict(batch=batch, stage='bc_complete', effective=True,
-                             history=[], pending_train=None, error=None)
+                             history=[dict(method='bc', updates=bc_updates)], pending_train=None, error=None)
                     for fmt, batch in initial_batches.items()}
         calls = []
 
@@ -28,6 +28,7 @@ class BoundedLoopProgressTests(unittest.TestCase):
                         state['history'].append(dict(method='ppo', updates=updates))
                     if name == 'ppo_resume':
                         state['pending_train'] = {'method': 'ppo'} if pending else None
+                        state['pending_validation'] = 'ppo' if pending_validation else None
                         if failed:
                             state.update(stage='failed', error='trainer failed')
             return name != 'evaluate'  # Stop before any real evaluation/export.
@@ -45,11 +46,18 @@ class BoundedLoopProgressTests(unittest.TestCase):
             return calls, phase.call_args_list, result, boundaries
 
     def test_each_format_gets_its_own_ppo_batch_allowance(self):
-        calls, _, _, boundaries = self.run_loop()
+        calls, phases, _, boundaries = self.run_loop()
         limits = dict(calls)
         self.assertEqual(limits['ppo_first'], dict(duel=9, ffa4=6, team2v2=5))
         self.assertEqual(limits['ppo_resume'], dict(duel=10, ffa4=7, team2v2=6))
         self.assertEqual(boundaries['ppo_first-boundary.json']['before'], dict(duel=5, ffa4=2, team2v2=1))
+        self.assertEqual([call.args[2:] for call in phases if call.args[0] == 'ppo'],
+                         [('--ppo-batches', 1)] * 2)
+
+    def test_passed_bc_gate_requires_new_bc_work(self):
+        calls, _, result, _ = self.run_loop(bc_updates=0)
+        self.assertEqual([name for name, _ in calls], ['bc'])
+        self.assertIn('BC update', result['reason'])
 
     def test_resume_must_commit_new_updates(self):
         calls, phases, result, _ = self.run_loop(resume_updates=0)
@@ -58,7 +66,7 @@ class BoundedLoopProgressTests(unittest.TestCase):
         self.assertIn('ppo_resume', result['reason'])
 
     def test_resume_must_finish_at_a_committed_boundary(self):
-        for options in (dict(pending=True), dict(failed=True)):
+        for options in (dict(pending=True), dict(pending_validation=True), dict(failed=True)):
             with self.subTest(options=options):
                 calls, _, result, _ = self.run_loop(**options)
                 self.assertNotIn('evaluate', dict(calls))

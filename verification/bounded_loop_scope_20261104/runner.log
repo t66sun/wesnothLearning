@@ -1,0 +1,30 @@
+test_each_format_gets_its_own_ppo_batch_allowance (tests.v5.test_bounded_loop_progress.BoundedLoopProgressTests.test_each_format_gets_its_own_ppo_batch_allowance) ... FAIL final evaluation execution or time limit
+ok
+test_passed_bc_gate_requires_new_bc_work (tests.v5.test_bounded_loop_progress.BoundedLoopProgressTests.test_passed_bc_gate_requires_new_bc_work) ... FAIL ordinary BC gate or new committed BC update missing
+ok
+test_resume_must_commit_new_updates (tests.v5.test_bounded_loop_progress.BoundedLoopProgressTests.test_resume_must_commit_new_updates) ... FAIL ppo_resume did not commit new PPO updates at a completed boundary
+ok
+test_resume_must_finish_at_a_committed_boundary (tests.v5.test_bounded_loop_progress.BoundedLoopProgressTests.test_resume_must_finish_at_a_committed_boundary) ... FAIL ppo_resume did not commit new PPO updates at a completed boundary
+FAIL ppo_resume did not commit new PPO updates at a completed boundary
+ok
+test_stage_enforces_each_formats_limit (tests.v5.test_bounded_loop_progress.BoundedLoopProgressTests.test_stage_enforces_each_formats_limit) ... ok
+test_complete_panel_does_not_require_a_strength_pass (tests.v5.test_bounded_loop_final.BoundedLoopFinalTests.test_complete_panel_does_not_require_a_strength_pass) ... OBSERVED review final panel completeness and all per-format gates before acceptance
+OBSERVED review final panel completeness and all per-format gates before acceptance
+OBSERVED review final panel completeness and all per-format gates before acceptance
+ok
+test_failed_evaluation_state_stops_before_export (tests.v5.test_bounded_loop_final.BoundedLoopFinalTests.test_failed_evaluation_state_stops_before_export) ... FAIL final evaluation panel incomplete or failed
+FAIL final evaluation panel incomplete or failed
+FAIL final evaluation panel incomplete or failed
+ok
+test_missing_and_underfilled_final_panels_stop_before_export (tests.v5.test_bounded_loop_final.BoundedLoopFinalTests.test_missing_and_underfilled_final_panels_stop_before_export) ... FAIL final evaluation panel incomplete or failed
+FAIL final evaluation panel incomplete or failed
+FAIL final evaluation panel incomplete or failed
+FAIL final evaluation panel incomplete or failed
+FAIL final evaluation panel incomplete or failed
+FAIL final evaluation panel incomplete or failed
+ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.026s
+
+OK

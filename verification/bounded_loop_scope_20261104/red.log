@@ -1,0 +1,39 @@
+test_passed_bc_gate_requires_new_bc_work (tests.v5.test_bounded_loop_progress.BoundedLoopProgressTests.test_passed_bc_gate_requires_new_bc_work) ... FAIL final evaluation execution or time limit
+FAIL
+test_each_format_gets_its_own_ppo_batch_allowance (tests.v5.test_bounded_loop_progress.BoundedLoopProgressTests.test_each_format_gets_its_own_ppo_batch_allowance) ... FAIL final evaluation execution or time limit
+FAIL
+
+======================================================================
+FAIL: test_passed_bc_gate_requires_new_bc_work (tests.v5.test_bounded_loop_progress.BoundedLoopProgressTests.test_passed_bc_gate_requires_new_bc_work)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/bounded_loop_runner_red_20261104/tests/v5/test_bounded_loop_progress.py", line 58, in test_passed_bc_gate_requires_new_bc_work
+    self.assertEqual([name for name, _ in calls], ['bc'])
+AssertionError: Lists differ: ['bc', 'ppo_first', 'ppo_resume', 'evaluate'] != ['bc']
+
+First list contains 3 additional elements.
+First extra element 1:
+'ppo_first'
+
+- ['bc', 'ppo_first', 'ppo_resume', 'evaluate']
++ ['bc']
+
+======================================================================
+FAIL: test_each_format_gets_its_own_ppo_batch_allowance (tests.v5.test_bounded_loop_progress.BoundedLoopProgressTests.test_each_format_gets_its_own_ppo_batch_allowance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/bounded_loop_runner_red_20261104/tests/v5/test_bounded_loop_progress.py", line 53, in test_each_format_gets_its_own_ppo_batch_allowance
+    self.assertEqual([call.args[2:] for call in phases if call.args[0] == 'ppo'],
+AssertionError: Lists differ: [(), ()] != [('--ppo-batches', 1), ('--ppo-batches', 1)]
+
+First differing element 0:
+()
+('--ppo-batches', 1)
+
+- [(), ()]
++ [('--ppo-batches', 1), ('--ppo-batches', 1)]
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.003s
+
+FAILED (failures=2)
