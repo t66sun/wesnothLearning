@@ -784,6 +784,9 @@ class AuditExportTests(unittest.TestCase):
     def test_verify_numerics_37_candidates_two_turns(self):
         with helpers.temporary_directory() as directory:
             model = self._checkpoint_model(directory)
+            # Exercise the logit scale of a trained checkpoint.
+            with torch.no_grad():
+                model.scorer[-1].weight.mul_(1500)
             rows = _rows(turns=2, decisions_per_turn=1)
             for row in rows:
                 row['candidates'] = row['candidates'][:37]

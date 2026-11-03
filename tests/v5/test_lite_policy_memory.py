@@ -47,7 +47,7 @@ class FrozenMemoryTests(unittest.TestCase):
 
     def expected(self, record, history, bootstrap=False):
         with torch.no_grad():
-            logits, value = self.reference(*batch([dict(record, _history=history)]))
+            logits, value = self.reference(*batch([dict(record, _history=history)], dtype=torch.float64))
         if bootstrap:
             return float(value[0])
         scores = logits[0, :len(record['candidates'])].tolist()

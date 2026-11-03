@@ -15,6 +15,7 @@ def parser():
     run.add_argument('--run-dir',default='runs/first');run.add_argument('--resume',metavar='RUN_DIR',help='恢复原目录冻结的设备、进程数和截止时间')
     run.add_argument('--branch-from',metavar='RUN_DIR',help='从另一实验的 latest.pt 建立显式分支（新目录、新预算，保留父记录）')
     run.add_argument('--branch-reset-optimizer',action='store_true',help='分支时只保留权重，重新初始化 Adam')
+    run.add_argument('--branch-restart-bc',action='store_true',help='用兼容的父权重与教师分片从校准开始，重新训练并验证 BC')
     run.add_argument('--hours',type=float,default=12);run.add_argument('--workers',type=int,default=None,help='全局游戏进程数（1–16；默认 8）')
     run.add_argument('--formats',nargs='+',choices=FORMATS,default=list(FORMATS))
     run.add_argument('--human-data',default=str(ROOT/'data/datasets/human'))
@@ -44,6 +45,7 @@ def parser():
     phase.add_argument('--force',action='store_true',help='仅 PPO：明确跳过未通过的 BC 资格门，不改写门结果')
     phase.add_argument('--reason',default='')
     phase.add_argument('--hours',type=float,help='显式分配本阶段预算；不修改原 clock/manifest，省略沿用原剩余预算')
+    phase.add_argument('--ppo-batches',type=int,help='每赛制提交指定数量的新 PPO 批次并完成到期验证后结束本阶段')
     collect=commands.add_parser('collect',help='执行固定 JSON 采样任务清单（启动游戏）')
     collect.add_argument('--jobs',required=True);collect.add_argument('--workers',type=int,default=8)
     collect.add_argument('--output',required=True)
@@ -151,6 +153,7 @@ def main(argv=None):
             from .coordinator import Experiment
             config=run_config(args)
             if args.branch_from: config['branch_reset_optimizer']=bool(args.branch_reset_optimizer)
+            if args.branch_restart_bc: config['branch_restart_bc']=True
             result=Experiment(args.resume or args.run_dir,config=config,opponents=args.opponents,wesnoth=args.wesnoth,
                 resume=bool(args.resume),branch_from=args.branch_from).run()
             print('Experiment:',result['status'])
@@ -158,7 +161,7 @@ def main(argv=None):
             from .phases import request_phase,show_phases
             directory=output_path(args.run_dir)
             result=show_phases(directory) if args.phase=='show' else request_phase(directory,args.phase,
-                formats=args.formats,force=args.force,reason=args.reason,hours=args.hours)
+                formats=args.formats,force=args.force,reason=args.reason,hours=args.hours,ppo_batches=args.ppo_batches)
             print(json.dumps(result,ensure_ascii=False))
         elif args.command in ('collect','evaluate'):
             from .sample import collect

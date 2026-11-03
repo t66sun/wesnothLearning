@@ -56,6 +56,7 @@ flowchart LR
 - `Experiment`（`learning/coordinator.py`）冻结 `manifest.json` 与 `clock.json`，然后为每个请求赛制启动一个训练器进程。`FormatExperiment`（`learning/experiment.py`）只拥有一个赛制的模型、优化器、奖励控制器、RNG 流与历史。
 - 训练器把作业批提交给 broker。broker 用一个固定大小的 worker 池（`ProcessPoolExecutor`，spawn）服务全部赛制，将超过截止时间的作业标为 `budget_interrupted`，把每个结果写入 `<run>/<format>/jobs.jsonl`，每个日志首次打开时只修掉一条被中断的不完整尾行，其后结果直接追加、不再重读，再把整批返回给所属训练器。
 - worker 通过 `sample.play_job` 运行一局：lite 对局由 `LiteHost` 在进程内完成；原版对局由 arena 对局运行器驱动一个常驻 Wesnoth 进程（独立 user/add-on 目录，文件式 Lua RPC，见 `native_transport`）。
+- Lite 最终评测为 Astra 席位启用仅计分路径。它记录公开观察到的村庄归属和单位初始位置，调用相同的教师决策逻辑，并通过共用的 Lua 执行器执行动作。收集学习样本、开局行为或奖励诊断的对局使用完整的观察与动作结果。
 - worker 异常返回 `infrastructure_error` 并使所属批失败；训练器退出码被记录，任何赛制都不会重试其他赛制的对局。
 
 ## 4. 规则与引擎
@@ -151,13 +152,15 @@ BC 模仿验证在 64 行推理块之间共享本次调用的历史缓存；无�
 
 1. **Calibration** 在验证地图上采集三个 block 的固定参考对局，写入 `controls.json` 并转入 BC。只有单一固定参考时跳过采集。
 2. **BC** 按来源/引擎/族配额采样教师行，训练等权序列窗口，报告 loss、相对均匀分布的 CE 与逐类准确率。门禁把两种失败分开：每个覆盖缺失都按原因码计数（`kind_absent`、`actor_absent`、`destination_absent`、`enemy_absent`、`weapon_absent`、`mode_absent`、`type_absent`、`slot_absent`），每类原因之和等于该类 `total − matched`；留存下来的行按类别报告精确、同类、同单位、同落点与标签排名分桶的拟合情况。门禁：总覆盖 ≥90% 且每类 ≥80%；模仿有效（每类 ≥32 样本、CE < 均匀分布的 85%、准确率达阈值）；语料/审计检查；至少 12 个不同场景族。这四项全过才进入 PPO，否则只能用 `--phase ppo --force <reason>`，且保持 `effective = false`。四局开局探针记入 `bc_gate.json` 作为证据（`blocking: false`），但不参与门禁：它是行为抽查，不是质量度量。`effective` 在每个 BC 批次与每次验证时都从已存门禁重新计算。 窗口按来源/引擎/局面族配额有放回抽样，每个窗口只有一个抽样名额，长度不影响被抽中概率；指标区分窗口访问次数、唯一窗口数和重复访问，游标保留已访问索引。
-3. **PPO** 训练刚为当前策略快照采集的那一批（同一奖励/引擎/教师身份的 rollout shard），教师与人类行另作 BC rehearsal 集读取。批准备执行 `scenario-v2/no-drop-v1` 契约：先分区再提交身份，任何被排除行都会报错而不是被丢弃。更新使用确定性的逐 epoch 窗口计划、逻辑批 KL（拒绝阈值 0.02，在优化器步进前检查）与逐步计数器，使恢复的边界能复现未中断的未来。
+3. **PPO** 训练刚为当前策略快照采集的那一批（同一奖励/引擎/教师身份的 rollout shard），教师与人类行另作 BC rehearsal 集读取。批准备执行 `scenario-v2/no-drop-v1` 契约：先分区再提交身份，任何被排除行都会报错而不是被丢弃。更新使用确定性的逐 epoch 窗口计划、逻辑批 KL（拒绝阈值 0.02，在优化器步进前检查）与逐步计数器，使恢复的边界能复现未中断的未来。显式请求 `phase ppo --ppo-batches N` 将每种赛制的独立目标写入检查点。新调度的批次至少提交一步优化器更新才计数，训练器完成到期验证后停在目标边界。
 4. **Validation** 每 10 个版本对比教师与冠军，使用完整座位轮转；趋势面板需 3 个不同场景族，晋升面板（版本号 %100）需 12 block、≥12 个不同族，并在同一批 block 上重评冠军。
 5. **Selection** 至多用已记录的可比面板从最新完整候选中提名一个对抗 `best.pt`；最终评估在触碰 holdout 地图之前冻结 `selected.pt`，并报告 30 block、≥12 个不同族。
 
 时钟把 `hours` 的 10/12 留给更新、2/12 留给冻结评估；`final_holdout_hours` 从评估窗口中划出。
 
 检查点在 `state.json` 旁原子写入；恢复时校验 manifest 哈希、schema、权重与优化器状态，分支运行还接受其继承检查点仍指向的父 manifest 哈希。`--branch-from` 把完整 `latest.pt` 复制成新运行，记录父身份、新时钟与种子，并保留或重置优化器。语料与覆盖门禁只复用该检查点实际保留分片对应的合格祖先教师结果，排除祖先后续采集，并按分片路径去重嵌套谱系。30 项受影响 Ubuntu 检查及真实父运行 40 局只读检查通过（`verification/branch_teacher_evidence_20261102/REPORT.md`）。
+
+带 `--branch-restart-bc` 的分支使用兼容父权重、原教师和 DAgger 分片路径及谱系，从校准阶段开始。Adam、计数器、阶段状态、奖励控制和选模状态重新初始化。各赛制在子运行完成 BC 更新后重新计算常规门禁。复用数据沿用原有场景族分区，包括参与父检查点选取的验证场景族。[Ubuntu 验证和 v6 输入标识](../verification/bc_branch_restart_20261104/REPORT.md)
 
 ## 9. 评估与选择
 
@@ -174,6 +177,7 @@ BC 模仿验证在 64 行推理块之间共享本次调用的历史缓存；无�
 - `ensure_export()` 写入内部插件及 features、weights、config、export 清单；内部插件不受 SDK 提交大小上限约束。配置不再携带候选预算，所有调用方共用同一生成器契约，各阶段评分共享生成器返回的完整集合。
 - `python -m learning export` 写出可部署插件（三种赛制、`arena.json` schema 2、vendored runtime、数值一致性记录），`python -m learning package` 把它打包为 `delivery/NeuralArena.zip`。导出要求引擎/教师身份匹配、权重已训练、审计与当前 schema 一致。
 - 权重文件以 base64 保存小端 float32 向量，并内嵌 Lua 解码器。加载后精确还原原有表结构，包括负零和非规格化数，不做量化。序列数值审计执行与部署相同的序列化源码。三赛制插件仍须满足 SDK 解压后 16 MiB 上限。当前 SDK、序列与原版加载验收见 `verification/compact_weights_20261102/REPORT.md`。
+- 冻结的 Lite 策略和导出审计用双精度计算这些权重，与 Lua 的算术精度一致。BC 和 PPO 训练使用单精度。已训练单挑模型的一条完整对局序列通过了候选分数和价值的绝对误差门槛 `1e-5`。[真实检查点精度验收](../verification/trained_export_precision_20261104/REPORT.md)
 - `python -m learning bundle` 构建可直接解压的 Ubuntu 24.04 训练归档（`BUNDLE_MANIFEST.json`、`SHA256SUMS`、固定成员权限，排除运行状态与证据）；`verify-bundle` 对其做静态复检。
 
 ## 11. 工具

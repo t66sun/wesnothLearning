@@ -60,10 +60,12 @@ class LiteHost:
     def reset(self, game_spec):
         self.adapter.reset(game_spec)
 
-    def decision(self, side, *, teacher=False, generate_candidates=True):
+    def decision(self, side, *, teacher=False, generate_candidates=True, score_only_astra=False):
+        if score_only_astra: return self.adapter.score_astra_decision(side)
         return self.adapter.decision(side, teacher=teacher, generate_candidates=generate_candidates)
 
-    def execute(self, action):
+    def execute(self, action, *, score_only_astra=False):
+        if score_only_astra: return self.adapter.score_astra_execute(action)
         return self.adapter.execute_candidate(action)
 
     def snapshot(self):
@@ -131,6 +133,8 @@ def play_lite_job(job):
         current = 1
         learning=job.get('learning',{}).get('sides',{})
         learner_sides=set(map(int,learning)) if learning else set(job.get('learner_sides',[]))
+        score_only_astra = job.get('score_only_astra') and not (
+            job.get('learning') or job.get('shard') or learner_sides or record_decisions or keeps_reward_diagnostics(meta))
         def metric_snapshot(side,event):
             row=host.decision(side,teacher=False,generate_candidates=False)
             snapshot={k:row[k] for k in ('side','turn','global','spatial','reward_raw')}
@@ -154,62 +158,66 @@ def play_lite_job(job):
                 raise RuntimeError('lite decision budget exhausted; no progress/teacher loop must be diagnosed')
             decision_count += 1
             teacher=is_astra(bots[current-1]) if policies else False
-            side_decisions[current]=side_decisions.get(current,0)+1
-            query=not teacher and current in learner_sides and job.get('learning',{}).get('dagger_teacher') and side_decisions[current]%4==0 and query_total<32
-            # Unrecorded Astra seats need their plan, not student candidates.
-            # Policy seats (including DAgger queries) always need the full set.
-            decision = host.decision(current, teacher=teacher or bool(query),
-                                     generate_candidates=not teacher or current in learner_sides)
-            training=learning.get(str(current),{})
-            decision.update(schema=schema()['version'], format=job.get('format', job.get('meta', {}).get('format')),
-                            source='astra' if teacher else 'policy', engine_id='lite',
-                            rules_version=host.adapter.catalog['rules_version'],
-                            rules_sha256=host.adapter.rules_sha256, rng_version=RNG_VERSION,
-                            combat_version=COMBAT_VERSION, teacher_profile=teacher_profile,
-                            version=training.get('version','teacher-frozen' if teacher else 'v5-validation'),decision=decision_count,
-                            architecture_id='relational_v5', candidate_version=f"schema{schema()['version']}-"+decision['timing'].get('budget','fixed-20000-v1'),
-                            engine='lite', engine_version=ENGINE_VERSION,
-                            teacher_impl='astra_lite' if teacher else None,
-                            teammate_context=job.get('meta',{}).get('context','astra_partner' if job.get('teams') else 'solo'),
-                            data_pool=job.get('data_pool', 'original'),
-                            reward_config=config, reward_version=config['reward_version'],
-                            map=job.get('meta',{}).get('map'),map_sha256=job.get('meta',{}).get('map_sha256'),map_partition=job.get('meta',{}).get('map_partition'),
-                            reward_formula_id=config['reward_formula_id'], game_family=job.get('game_family', job_id),
-                            scenario_family=job.get('scenario_family'), split_rule=job.get('split_rule', 'family-seed-v1'))
-            teacher_plan=decision.pop('teacher_action',None)
-            if teacher:
-                action = teacher_candidate(teacher_plan)
-                choice = matching(decision['candidates'], action)
-                decision.update(choice=choice, log_probability=0., value=0., teacher='gpt6astra',
-                                actual=action, intent=action, representable=True)
+            if score_only_astra and teacher:
+                plan = host.decision(current, teacher=True, generate_candidates=False, score_only_astra=True)
+                outcome = host.execute(teacher_candidate(plan['teacher_action']), score_only_astra=True)
             else:
-                # Judge scalars supervise value/reward only. The actor receives
-                # exactly the public common Lua observation and candidates.
-                actor_input = {k: v for k, v in decision.items() if k not in ('reward_raw', 'reward_after', 'teacher_action')}
-                selected = policies.choose(actor_input,current) if policies else policy(actor_input)
-                choice = int(selected['choice'])
-                if not 0 <= choice < len(decision['candidates']):
-                    raise ValueError('policy returned an invalid candidate index')
-                action = decision['candidates'][choice]
-                decision.update(choice=choice, log_probability=float(selected['log_probability']),
-                                value=float(selected['value']), actual=action, intent=action)
-            outcome = host.execute(action)
-            decision['outcome'] = outcome['events']
-            decision['diagnostics'] = outcome['diagnostics']
-            decision['reward_after'] = outcome['reward_after']
-            decision['committed']=outcome['committed']
-            if outcome.get('memory_write'): decision['memory_write']=dict(outcome['memory_write'],turn=decision['turn'])
-            if policies and not teacher: policies.commit(current,decision,outcome)
-            if record_decisions: behavior.append(outcome['diagnostics'])
-            if current in learner_sides:
-                decision = compact_row(decision)
-                records.append(decision)
-                if not teacher and job.get('learning',{}).get('dagger_teacher'):
-                    label=dict(decision,source='astra',teacher='gpt6astra',teacher_impl='astra_lite',choice=-1,value_valid=False,data_pool='dagger')
-                    if query:
-                        query_count[current]=query_count.get(current,0)+1;query_total+=1
-                        wanted=teacher_candidate(teacher_plan);label.update(actual=wanted,intent=wanted,choice=matching(decision['candidates'],wanted),query_only=True)
-                    dagger.append(label)
+                side_decisions[current]=side_decisions.get(current,0)+1
+                query=not teacher and current in learner_sides and job.get('learning',{}).get('dagger_teacher') and side_decisions[current]%4==0 and query_total<32
+                # Unrecorded Astra seats need their plan, not student candidates.
+                # Policy seats (including DAgger queries) always need the full set.
+                decision = host.decision(current, teacher=teacher or bool(query),
+                                         generate_candidates=not teacher or current in learner_sides)
+                training=learning.get(str(current),{})
+                decision.update(schema=schema()['version'], format=job.get('format', job.get('meta', {}).get('format')),
+                                source='astra' if teacher else 'policy', engine_id='lite',
+                                rules_version=host.adapter.catalog['rules_version'],
+                                rules_sha256=host.adapter.rules_sha256, rng_version=RNG_VERSION,
+                                combat_version=COMBAT_VERSION, teacher_profile=teacher_profile,
+                                version=training.get('version','teacher-frozen' if teacher else 'v5-validation'),decision=decision_count,
+                                architecture_id='relational_v5', candidate_version=f"schema{schema()['version']}-"+decision['timing'].get('budget','fixed-20000-v1'),
+                                engine='lite', engine_version=ENGINE_VERSION,
+                                teacher_impl='astra_lite' if teacher else None,
+                                teammate_context=job.get('meta',{}).get('context','astra_partner' if job.get('teams') else 'solo'),
+                                data_pool=job.get('data_pool', 'original'),
+                                reward_config=config, reward_version=config['reward_version'],
+                                map=job.get('meta',{}).get('map'),map_sha256=job.get('meta',{}).get('map_sha256'),map_partition=job.get('meta',{}).get('map_partition'),
+                                reward_formula_id=config['reward_formula_id'], game_family=job.get('game_family', job_id),
+                                scenario_family=job.get('scenario_family'), split_rule=job.get('split_rule', 'family-seed-v1'))
+                teacher_plan=decision.pop('teacher_action',None)
+                if teacher:
+                    action = teacher_candidate(teacher_plan)
+                    choice = matching(decision['candidates'], action)
+                    decision.update(choice=choice, log_probability=0., value=0., teacher='gpt6astra',
+                                    actual=action, intent=action, representable=True)
+                else:
+                    # Judge scalars supervise value/reward only. The actor receives
+                    # exactly the public common Lua observation and candidates.
+                    actor_input = {k: v for k, v in decision.items() if k not in ('reward_raw', 'reward_after', 'teacher_action')}
+                    selected = policies.choose(actor_input,current) if policies else policy(actor_input)
+                    choice = int(selected['choice'])
+                    if not 0 <= choice < len(decision['candidates']):
+                        raise ValueError('policy returned an invalid candidate index')
+                    action = decision['candidates'][choice]
+                    decision.update(choice=choice, log_probability=float(selected['log_probability']),
+                                    value=float(selected['value']), actual=action, intent=action)
+                outcome = host.execute(action)
+                decision['outcome'] = outcome['events']
+                decision['diagnostics'] = outcome['diagnostics']
+                decision['reward_after'] = outcome['reward_after']
+                decision['committed']=outcome['committed']
+                if outcome.get('memory_write'): decision['memory_write']=dict(outcome['memory_write'],turn=decision['turn'])
+                if policies and not teacher: policies.commit(current,decision,outcome)
+                if record_decisions: behavior.append(outcome['diagnostics'])
+                if current in learner_sides:
+                    decision = compact_row(decision)
+                    records.append(decision)
+                    if not teacher and job.get('learning',{}).get('dagger_teacher'):
+                        label=dict(decision,source='astra',teacher='gpt6astra',teacher_impl='astra_lite',choice=-1,value_valid=False,data_pool='dagger')
+                        if query:
+                            query_count[current]=query_count.get(current,0)+1;query_total+=1
+                            wanted=teacher_candidate(teacher_plan);label.update(actual=wanted,intent=wanted,choice=matching(decision['candidates'],wanted),query_only=True)
+                        dagger.append(label)
             view = outcome['view'];current = view['current_side']
             newly = {s['id'] for s in view['sides'] if s['eliminated']} - defeated
             if newly:
