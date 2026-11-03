@@ -236,7 +236,7 @@ R3 将教师与采用相同原版伏击处理的原始 Astra 策略比较。使�
 - 原版对局可由其种子复现：`match.play_game` 把种子写入场景，`runtime.lua` 据此调用 `math.randomseed(seed)`，并预载 `setup.sh` 构建的 `.runtime/entropy.so` 与 `ARENA_ENTROPY_SEED`，使 Wesnoth 的默认与逐动作 C++ RNG 从按种子生成的流取值，而不再读取操作系统熵。种子 20261017 的同一场 stock 对局运行两次产生完全相同的决定性事件流（`verification/native_seed_20261031/REPORT.md`）。不同种子的对局仍然不同；跨种子的原版比较只使用记录到的计数，不声称 lite 与原版相等。
 - 共享候选的来源与数值一致性证据见 `verification/candidate_budget_20261031_exact37/REPORT.md`；`work-12000-v8` 的 45 项受影响 Ubuntu 检查通过，见 `verification/bc_root_20261101/REPORT.md`。当前同种子原版耗时通过，见 `verification/native_inference_20261102/REPORT_seeded.md`：六组成对对局、零故障，评分 p95 为 122/133/114 ms，保持 37 候选与 12,000 工作量。仅排除耗时、规范化各方独立审计批次的顺序后，完整事件内容一致。未优化基线在空闲主机也通过；整组成对面板耗时降低 44.9%。此紧凑地图随机策略检查不代表选定模型的最终评估或原版棋力验收。
 - 当前 v2 规则下普通 BC 就绪仍未完成。有界团战分支复用父运行 40 局，只补收八局，均达到回合上限、零记录故障。新增五批提交 272 次更新，在 631.25 秒触及批数上限。语料 48/48、覆盖率 94.21% 通过；验证招募/攻击仍仅为 40.00%/39.72%。最后 2048 行读取保留 37 个家族；训练招募/攻击也仅为 42.86%/44.88%。v10 没有待完成训练，但八个周期验证任务仍未完成（`verification/team_bc_branch_20261102/REPORT.md`）。先前固定批次探针和被拒绝的上下文输入保留为独立证据；不据此采用生产调参。单挑教师棋力仍见 TEST.md R3，普通门禁训练仍见 L2，不声明三赛制回环、收敛或棋力。
-- 两轮教师评分修复已通过固定棋盘验收。修复后的 168 局面板未证明显著更强，后续三赛制保持棋力验收因单挑未通过。[显著优越面板](../verification/teacher_strength_surviving_slow_20261103/REPORT.md) · [保持棋力面板](../verification/teacher_noninferiority_20261103/REPORT.md)
+- 单挑减速收益按攻击者移动前的防御估算，同一目标在不同攻击落点使用相同的状态价值。其他敌军威胁和落点防御按拟选格计算。b0025 原版实盘与 Lite 回归已验收此修复；单挑保持棋力仍待 R3 独立验证。[固定棋盘证据](../verification/duel_slow_landing_20261103/REPORT.md)
 - 训练后策略的收敛与棋力仍待验收。
 
 ## 14. 文档地图

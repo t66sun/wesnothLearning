@@ -39,9 +39,9 @@ Every item states what is open, the smallest Ubuntu procedure that would close i
 
 ## R3 — Adapted teacher maintained-strength acceptance
 
-**FAIL for the current teacher.** The complete native Ubuntu panel from `97d7d9d` measured a duel difference of −3.07 percentage points (95% interval −6.09 to −0.73) against the original Astra strategy with the same ambush handling. FFA passed (+1.06, −4.36 to +6.79), as did the equally weighted team comparison (0.00, −3.40 to +2.99). The duel interval crosses the allowed −5 point boundary. All three formats are required.
+**Current status.** The previous candidate failed the 5-point duel criterion with a 95% interval of −6.09 to −0.73 percentage points. The authorized duel repair passes the b0025 native decision and its Lite regression. Independent strength confirmation is pending. [Fixed-board evidence](../verification/duel_slow_landing_20261103/REPORT.md)
 
-**Inputs and procedure.** The fixed schedule completed 1,920 duel, 1,200 FFA and 1,440 team games on validation maps, with 960/300/180 complete rotation blocks, 15 families per format and zero faults. Follow the archived protocol and startup commands to inspect this candidate, its comparator and its recorded jobs. The two scoring repairs and this prospective panel exhaust the agreed experiment. The next acceptance attempt requires a separately agreed candidate and prospective design.
+**Inputs and procedure.** Follow the [prospective duel protocol](r3_duel_noninferiority_temp.md). Freeze the repaired candidate and the compatible control, check the reference four-player package members and native inputs, then run 960 new paired duel blocks on Hamlets with 15 scenario families, 30 turns, eight workers and a six-hour limit. The prior FFA and team results apply only after the isolation check. [Previous endpoint](../verification/teacher_noninferiority_20261103/REPORT.md)
 
 **Pass criterion.** On complete, fault-free data in every format, the lower endpoint of the 95% scenario-cluster interval for the normalized official-score difference must exceed −0.05. R3 and blocker 5 remain open on duel. The 30-turn match contract defines the scope of the result. [Endpoint report](../verification/teacher_noninferiority_20261103/REPORT.md)
 
