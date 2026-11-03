@@ -1,5 +1,4 @@
 from pathlib import Path
-import copy
 import json
 import shutil
 import torch
@@ -9,6 +8,7 @@ from .features import schema
 from .model import Policy,ARCHITECTURE
 from .formats import FORMATS
 from .weight_export import weight_source
+from .sequence_parity import verify_numerics, verify_shard_numerics
 import addons
 import native
 
@@ -88,7 +88,8 @@ def load_model(checkpoint, format_name, device='cpu'):
     return model, state
 
 
-def export_checkpoints(checkpoints, destination, name='NeuralArena', evaluation=None, audit_records=None):
+def export_checkpoints(checkpoints, destination, name='NeuralArena', evaluation=None, audit_records=None, *,
+                       audit_paths=None, audit_workers=1):
     if set(checkpoints)!=set(FORMATS): raise ValueError('provide duel, ffa4 and team2v2 checkpoints')
     models={};versions={};errors={};identities={}
     for fmt,path in checkpoints.items():
@@ -113,53 +114,16 @@ def export_checkpoints(checkpoints, destination, name='NeuralArena', evaluation=
         identities[fmt]=identity
         if state.get('runner',{}).get('version',0)<=0 and state.get('metrics',{}).get('updates',0)<=0:
             raise ValueError('delivery requires a trained checkpoint, not initial support weights: '+fmt)
-        if not audit_records or not audit_records.get(fmt):
-            raise ValueError('delivery export requires actual current-schema sequence parity data for '+fmt)
-        errors[fmt]=verify_numerics(models[fmt],audit_records[fmt])
+        if audit_paths is None:
+            if not audit_records or not audit_records.get(fmt):
+                raise ValueError('delivery export requires actual current-schema sequence parity data for '+fmt)
+            errors[fmt]=verify_numerics(models[fmt],audit_records[fmt])
         versions[fmt]=dict(checkpoint_sha256=sha256(path),version=state.get('runner',{}).get('version',state.get('version','unknown')))
+    if audit_paths is not None:
+        errors=verify_shard_numerics(models,audit_paths,audit_workers)
     addon=export(models,destination,name=name,version=versions,evaluation=evaluation)
     manifest=json.loads((Path(destination)/'export.json').read_text(encoding='utf-8'))
     for fmt,error in errors.items():
         manifest['models'][fmt].update(identities[fmt], python_lua_max_error=error)
     write_json(Path(destination)/'export.json',manifest)
     return addon
-
-
-@torch.no_grad()
-def verify_numerics(model, records):
-    """Audit actual checkpoint weights and recorded sequences; never substitute random rows."""
-    import math
-    from lupa import LuaRuntime
-    from .model import batch
-    from .sequences import attach_histories,sequence_key
-    if not records or not any(len(r['candidates'])>=37 for r in records):
-        raise ValueError('numerical audit requires a real sequence with at least 37 retained candidates')
-    if not all('_history' in row for row in records): records=attach_histories(records)
-    lua=LuaRuntime(unpack_returned_tuples=True)
-    def require(path):
-        filename=Path(path).name
-        if filename not in ('relational.lua',): raise ValueError('unexpected numerical audit require: '+path)
-        return lua.execute((ROOT/'lua'/filename).read_text(encoding='utf-8'))
-    lua.globals().wesnoth=lua.table_from({'require':require})
-    network=lua.execute((ROOT/'lua/network.lua').read_text(encoding='utf-8'))
-    weights=lua.execute(weight_source(lua_parameters(model)))
-    relational=require('relational.lua')
-    frozen=copy.deepcopy(model).cpu().double().eval()
-    memories={};error=0.;turns=set()
-    for row in records:
-        key=sequence_key(row);memory=memories.setdefault(key,lua.table())
-        turns.add((key,row['turn']))
-        logits,value=frozen(*batch([row],dtype=torch.float64))
-        scores,v,_=network.forward(weights,lua.eval(native.lua(row['global'])),lua.eval(native.lua(row['opponents'])),
-            lua.eval(native.lua(row['candidates'])),lua.eval(native.lua(row['spatial'])),memory,row['turn'])
-        candidate_error = max((abs(logits[0,i].item()-scores[i+1]) for i in range(len(row['candidates']))),
-                              default=0.0)
-        error=max(error,abs(value.item()-v),candidate_error)
-        if row.get('committed',True) and memory.turn!=row['turn']:
-            write=row.get('memory_write',row)
-            _,_,pending=network.forward(weights,lua.eval(native.lua(write['global'])),lua.eval(native.lua(write['opponents'])),lua.table(),
-                lua.eval(native.lua(write['spatial'])),memory,row['turn'])
-            relational.commit(memory,pending)
-    if len(turns)<2: raise ValueError('numerical audit requires continuous turn memory')
-    if not math.isfinite(error) or error>1e-5: raise ValueError(f'{model.format_name}: Python/Lua error {error} exceeds 1e-5')
-    return error

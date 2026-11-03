@@ -67,6 +67,7 @@ def parser():
     for fmt in FORMATS: export.add_argument('--'+fmt,required=True,metavar='CHECKPOINT')
     export.add_argument('--output',required=True)
     export.add_argument('--audit-data',required=True,help='每赛制子目录中的实际当前schema连续序列（含128候选）')
+    export.add_argument('--audit-workers',type=int,default=1,help='并行校验完整审计序列的最大进程数')
     export.add_argument('--name',default='NeuralArena');export.add_argument('--mode',choices=['greedy','rule','sample'],default='greedy')
     report=commands.add_parser('report',help='只从已有结果重算区间（不启动游戏）')
     report.add_argument('--jobs',required=True);report.add_argument('--results',required=True);report.add_argument('--output',required=True)
@@ -199,10 +200,10 @@ def main(argv=None):
             print(json.dumps(metrics))
         elif args.command=='export':
             from .export import export_checkpoints
-            from .sequences import read_raw_shards
             if args.mode!='greedy': raise ValueError('delivery export uses greedy decisions')
-            audit_records={fmt:read_raw_shards(sorted((Path(args.audit_data)/fmt).glob('*.jsonl.gz')),format_name=fmt) for fmt in FORMATS}
-            print(export_checkpoints({fmt:getattr(args,fmt) for fmt in FORMATS},output_path(args.output),name=args.name,audit_records=audit_records))
+            audit_paths={fmt:sorted((Path(args.audit_data)/fmt).glob('*.jsonl.gz')) for fmt in FORMATS}
+            print(export_checkpoints({fmt:getattr(args,fmt) for fmt in FORMATS},output_path(args.output),
+                                     name=args.name,audit_paths=audit_paths,audit_workers=args.audit_workers))
         elif args.command=='report':
             from .evaluate import control_comparisons, overall_status
             from .experiment import read_log
