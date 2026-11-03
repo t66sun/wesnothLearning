@@ -1,0 +1,31 @@
+{
+  "tier": "trend",
+  "format": "team2v2",
+  "engine_id": "lite",
+  "seed": 21261404,
+  "blocks": 1,
+  "control": "/home/tongshu/acceptance/bounded_loop_v6_strict_20261104/runs/bounded_loop/frozen/opponents/gpt6astra.zip",
+  "contexts": [
+    "astra_partner",
+    "self_team"
+  ],
+  "min_distinct": 3,
+  "comparison": {
+    "team2v2": {
+      "status": "inconclusive",
+      "blocks": 0,
+      "planned_blocks": 1,
+      "missing_blocks": 1,
+      "fault_games": 0,
+      "distinct_scenarios": 0,
+      "min_distinct": 3,
+      "reason": "inconclusive",
+      "block_differences": {},
+      "difference": null,
+      "interval95": null,
+      "policy_score": null,
+      "control_score": null,
+      "contexts": {}
+    }
+  }
+}
