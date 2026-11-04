@@ -113,7 +113,11 @@ impl Game {
             exploration_seen:BTreeMap::new(),exploration_earned:BTreeMap::new(),vision:VisionFootprints::default()};
         g.update_visibility();g.update_exploration(true);Ok(g)
     }
-    pub fn adjacent(&self,p:usize)->Vec<usize>{neighbors(p,self.spec.width,self.spec.height)}
+    pub fn adjacent(&self,p:usize)->Vec<usize>{
+        #[cfg(test)]
+        crate::engine_tests::NEIGHBOR_CALLS.with(|n| n.set(n.get()+1));
+        neighbors(p,self.spec.width,self.spec.height)
+    }
     pub fn enemy(&self,a:usize,b:usize)->bool {self.sides[a-1].team!=self.sides[b-1].team}
     pub fn side_check(&self,s:usize)->Result<(),String>{if s==0 || s>self.sides.len(){Err("invalid side".into())}else{Ok(())}}
     pub fn unit(&self,id:&str)->Option<usize>{self.units.iter().position(|u|u.id==id && u.hp>0)}

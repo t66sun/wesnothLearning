@@ -5,6 +5,7 @@ use std::collections::{BTreeMap,BTreeSet};
 use std::sync::Arc;
 
 const PLAIN: &str = "Gg";
+thread_local! { pub(crate) static NEIGHBOR_CALLS: std::cell::Cell<usize> = const { std::cell::Cell::new(0) }; }
 
 fn weapon() -> Weapon {
     Weapon{id:"blade".into(),damage:10,strikes:1,damage_type:"blade".into(),range:"melee".into(),accuracy:0,parry:0,attack_weight:1.,defense_weight:1.,
@@ -55,6 +56,23 @@ fn spec(seed:u64)->GameSpec {
 }
 
 fn game(seed:u64)->Game {Game::new(Arc::new(rules()),spec(seed)).expect("valid game")}
+
+#[test]
+fn reach_expands_local_neighbors_once_and_charges_adjacent_village_terrain() {
+    let mut g = game(1);
+    for other in g.units.iter_mut().skip(1) { other.hp = 0; }
+    let walker = g.units[0].clone();
+    let kind = Arc::make_mut(&mut g.rules).units.get_mut(&walker.unit_type).unwrap();
+    kind.abilities.insert("teleport".into());
+    kind.movement.insert(PLAIN.into(), 2);
+    g.knowledge[0].villages = BTreeMap::from([(0,(1,1)), (1,(1,1)), (8,(1,1))]);
+    NEIGHBOR_CALLS.with(|n| n.set(0));
+    let (distance, predecessor) = g.reach(&walker, 1);
+    assert_eq!((distance[1], predecessor[1]), (2,0)); // adjacent owned village
+    assert_eq!((distance[8], predecessor[8]), (1,0)); // remote owned village
+    let reached = distance.iter().filter(|&&d| d != u32::MAX).count();
+    assert_eq!(NEIGHBOR_CALLS.with(|n| n.get()), reached);
+}
 
 #[test]
 fn terrain_vision_reuses_only_unchanged_origins_and_types() {
