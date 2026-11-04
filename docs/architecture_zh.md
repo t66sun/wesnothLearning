@@ -203,7 +203,7 @@ BC 模仿验证在 64 行推理块之间共享本次调用的历史缓存；无�
 
 训练任务在场景准入、哈希与冻结之前绑定正整数配置 `training_max_turns`。有界 runner 传入其声明的 30；默认及旧配置保持 60。已冻结赛程与恢复时的 manifest 仍有优先权；评估和开局诊断保留独立上限。Ubuntu 50 项相关检查通过（`verification/training_turn_limit_20261102/REPORT.md`）；仅证明配置贯通，不证明普通 BC 或完整回环就绪。
 
-手动有界 runner 按每种赛制进入 PPO 阶段时的自身批次号计算四批上限。首次 PPO 和恢复都必须以 `ppo_complete` 结束，批次号和 PPO 提交更新数均增加，且没有待提交训练或训练器错误。边界记录保存进入时的更新计数与结束状态。审计导出前，每赛制必须结束评估且有非空控制方报告、完整 30 个区块、零缺块/故障局及至少 12 个不同场景；统计胜出不是运行链路门禁。13 项 Ubuntu 确定性检查覆盖这些交接（`verification/bounded_final_20261102/REPORT.md`，原进展计数证据见 `verification/bounded_progress_20261102/REPORT.md`）；实际 BC 之后执行仍开放。
+有界运行器在停机前和恢复后分别请求一个成功提交的新 PPO 批次，并保留实际检查点。进入留出终评前检查到期的中期验证轮换。最终导出要求每个对照完成 30 个区块、覆盖至少 12 个场景族、零故障且无缺块。Ubuntu 严格限时实跑中，三个赛制都重新通过普通 BC，在恢复前后提交了新 PPO 更新并冻结选模。组队中期验证和两个终评面板在截止时仍未完成。整链导出仍列在 L2。[严格限时实跑](../verification/bounded_loop_strict_20261104/REPORT.md) · [交接检查](../verification/bounded_validation_handoff_20261104/REPORT.md)
 
 ## 12. 默认参数
 
