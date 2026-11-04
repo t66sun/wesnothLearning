@@ -219,6 +219,8 @@ impl Game {
         self.reach_with_public(u, s, &self.public_units(s))
     }
     pub(crate) fn reach_with_public(&self,u:&Unit,s:usize,public:&[Unit])->(Vec<u32>,Vec<usize>) {
+        #[cfg(test)]
+        crate::engine_tests::REACH_SEARCHES.with(|c|c.set(c.get()+1));
         let n=self.spec.terrain.len();let mut dist=vec![u32::MAX;n];let mut prev=vec![usize::MAX;n];
         let t=&self.rules.units[&u.unit_type];
         let occupied:BTreeMap<usize,&Unit>=public.iter().map(|x|(x.pos,x)).collect();

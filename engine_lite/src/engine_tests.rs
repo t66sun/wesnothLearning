@@ -6,6 +6,7 @@ use std::sync::Arc;
 
 const PLAIN: &str = "Gg";
 thread_local! { pub(crate) static NEIGHBOR_CALLS: std::cell::Cell<usize> = const { std::cell::Cell::new(0) }; }
+thread_local! { pub(crate) static REACH_SEARCHES: std::cell::Cell<usize> = const { std::cell::Cell::new(0) }; }
 
 fn weapon() -> Weapon {
     Weapon{id:"blade".into(),damage:10,strikes:1,damage_type:"blade".into(),range:"melee".into(),accuracy:0,parry:0,attack_weight:1.,defense_weight:1.,
@@ -56,6 +57,62 @@ fn spec(seed:u64)->GameSpec {
 }
 
 fn game(seed:u64)->Game {Game::new(Arc::new(rules()),spec(seed)).expect("valid game")}
+
+fn intent_fixture() -> Game {
+    let mut catalog=rules();
+    let keep=catalog.terrains.get_mut(PLAIN).unwrap();keep.castle=true;keep.keep=true;
+    let mut board=spec(7);
+    board.sides[0].recruit.push("A".into());
+    Game::new(Arc::new(catalog),board).unwrap()
+}
+
+#[test]
+fn step_searches_only_the_moving_actor_once() {
+    let game=intent_fixture();
+    let listed=game.legal_actions(1).unwrap();
+    let mut observed=vec![];
+    for intent in [Action::EndTurn,
+        listed.iter().find(|a|matches!(a,Action::Move{..})).unwrap().clone(),
+        listed.iter().find(|a|matches!(a,Action::Attack{..})).unwrap().clone(),
+        listed.iter().find(|a|matches!(a,Action::Recruit{..})).unwrap().clone()] {
+        let mut copy=game.clone();
+        REACH_SEARCHES.with(|c|c.set(0));
+        copy.step(intent).unwrap();
+        observed.push(REACH_SEARCHES.with(|c|c.get()));
+    }
+    assert_eq!(observed, [0,1,0,0], "end, move, attack, recruit");
+}
+
+#[test]
+fn step_accepts_exactly_the_public_intents_and_rejects_without_mutation() {
+    let mut game=intent_fixture();
+    game.units[0].attacks_left=0;
+    game.units[3].status.insert("petrified".into());
+    let listed=game.legal_actions(1).unwrap();
+    let before=serde_json::to_value(&game).unwrap();
+    let ids=["l1","l2","u1","u2","missing"];
+    let mut intents=vec![Action::EndTurn];
+    for to in (0..=game.spec.terrain.len()).chain(std::iter::once(usize::MAX)) {
+        for id in ids {
+            for full in [false,true] {intents.push(Action::Move{unit:id.into(),to,full});}
+        }
+        for name in ["A","D","missing"] {intents.push(Action::Recruit{unit_type:name.into(),to});}
+    }
+    for unit in ids {for target in ids {for weapon in 0..2 {
+        intents.push(Action::Attack{unit:unit.into(),target:target.into(),weapon});
+    }}}
+    for intent in intents {
+        let mut canonical=intent.clone();
+        if let Action::Move{full,..}=&mut canonical {*full=false;}
+        let mut copy=game.clone();
+        let actual=copy.step(intent.clone());
+        assert_eq!(actual.is_ok(),listed.contains(&canonical),"{intent:?}");
+        if let Err(error)=actual {
+            assert_eq!(error,"action is absent from the player's legal intents");
+            assert_eq!(serde_json::to_value(&copy).unwrap(),before,"{intent:?}");
+        }
+    }
+}
 
 #[test]
 fn reach_expands_local_neighbors_once_and_charges_adjacent_village_terrain() {
