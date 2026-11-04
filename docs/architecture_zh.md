@@ -75,6 +75,8 @@ flowchart LR
 - 单位当前的 unpoisonable、undrainable、unplagueable 状态与类型免疫共同约束攻击和反击；预测与执行均遵守中毒/吸血免疫，瘟疫不转换免疫死者。18 个固定合法棋盘验证了三赛制教师目标/武器选择、查询不改变战局及快照复现，另有 6 个原版免疫战斗比较通过（`verification/teacher_immunity_20261103/REPORT.md`）。
 - `lua/` 是唯一的合法性/观察实现：原版 Wesnoth 以插件方式加载它，`LiteHost` 把同一批模块加载进内嵌 Lua VM。
 
+Lite 按单位槽位保存地形视野。单位类型或位置改变时，在固定地图上重算该单位的可视格。每次刷新仍按当前阵营、共享视野、隐匿、村庄和敌方记忆更新观察。快照保存已获得的知识，恢复和回滚副本从空的派生缓存开始。在一个冻结的组队验证对局中，进程 CPU 时间减少 12.56%，每个已提交动作后的所有公开观察均完全一致。[Ubuntu 对局记录与测试](../verification/vision_footprint_20261104/REPORT.md)
+
 ## 5. 观察、候选与行
 
 `learning/features.py`（`VERSION = 5`）是输入契约。`schema()` 固定每个有序特征名与缩放，并原样导出为 `features.lua`，因此训练器与 Lua 消费完全相同的输入。

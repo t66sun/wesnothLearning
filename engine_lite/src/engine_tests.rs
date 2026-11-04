@@ -56,6 +56,40 @@ fn spec(seed:u64)->GameSpec {
 
 fn game(seed:u64)->Game {Game::new(Arc::new(rules()),spec(seed)).expect("valid game")}
 
+#[test]
+fn terrain_vision_reuses_only_unchanged_origins_and_types() {
+    let mut catalog = rules();
+    catalog.units.get_mut("A").unwrap().vision = 1;
+    let mut board = spec(7);
+    for side in &mut board.sides { side.fog = true; side.shroud = true; }
+    let mut game = Game::new(Arc::new(catalog), board).unwrap();
+    let alive = game.units.iter().filter(|u| u.hp > 0).count();
+    assert_eq!(game.vision_searches(), alive);
+    let snapshot = serde_json::to_value(&game).unwrap();
+    assert!(snapshot.get("vision").is_none());
+    let mut restored: Game = serde_json::from_value(snapshot).unwrap();
+    assert_eq!(restored.vision_searches(), 0);
+    assert_eq!(game.clone().vision_searches(), 0);
+    let mut searches = alive;
+    for change in ["stationary", "move", "advance", "die", "replace"] {
+        for state in [&mut game, &mut restored] {
+            match change {
+                "move" => state.units[0].pos = 1,
+                "advance" => state.units[0].unit_type = "D".to_string(),
+                "die" => state.units[0].hp = 0,
+                "replace" => state.units[0].hp = 1,
+                _ => (),
+            }
+            state.update_visibility();
+        }
+        searches += usize::from(matches!(change, "move" | "advance" | "replace"));
+        assert_eq!(game.vision_searches(), searches, "{change}");
+        assert_eq!(serde_json::to_value(&game).unwrap(), serde_json::to_value(&restored).unwrap(), "{change}");
+        // Make the reference recompute all footprints at every boundary.
+        restored = game.clone();
+    }
+}
+
 fn hp(g:&Game,id:&str)->i32 {g.units[g.unit(id).expect(id)].hp}
 
 #[test]

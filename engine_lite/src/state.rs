@@ -6,6 +6,45 @@ use std::{cmp::Reverse,collections::{BTreeMap,BTreeSet,BinaryHeap},sync::Arc};
 /// Native poison: one eight-HP tick at the poisoned unit's own turn.
 pub const POISON_TICK: i32 = 8;
 
+struct UnitVision {
+    unit_type: String,
+    origin: usize,
+    tiles: Vec<usize>,
+}
+
+#[derive(Default)]
+struct VisionFootprints {
+    slots: Vec<Option<UnitVision>>,
+    #[cfg(test)]
+    searches: usize,
+}
+
+impl Clone for VisionFootprints {
+    // Forecasts and rollback copies need only the authoritative knowledge.
+    fn clone(&self) -> Self { Self::default() }
+}
+
+fn vision_tiles(spec: &GameSpec, kind: &UnitType, origin: usize) -> Vec<usize> {
+    let mut tiles = Vec::new();
+    let mut dist = vec![u32::MAX; spec.terrain.len()];
+    let mut queue = BinaryHeap::new();
+    dist[origin] = 0;
+    queue.push((Reverse(0u32), origin));
+    while let Some((Reverse(d), p)) = queue.pop() {
+        if d != dist[p] { continue; }
+        tiles.push(p);
+        for q in neighbors(p, spec.width, spec.height) {
+            // Native vision_costs/jamming are outside this movement-cost model.
+            let cost = kind.movement[&spec.terrain[q]].max(1);
+            if d.saturating_add(cost) <= kind.vision && d + cost < dist[q] {
+                dist[q] = d + cost;
+                queue.push((Reverse(dist[q]), q));
+            }
+        }
+    }
+    tiles
+}
+
 #[derive(Clone,Serialize,Deserialize)]
 pub struct Game {
     pub rules: Arc<Rules>,
@@ -14,6 +53,8 @@ pub struct Game {
     pub sides: Vec<Side>,
     pub village_owner: Vec<usize>,
     pub knowledge: Vec<Knowledge>,
+    #[serde(skip)]
+    vision: VisionFootprints,
     pub turn: u32,
     pub current: usize,
     pub revision: u64,
@@ -69,7 +110,7 @@ impl Game {
         let mut g=Self{rules,units:spec.units.clone(),sides:spec.sides.clone(),village_owner:owner,
             knowledge:vec![Knowledge{visible:vec![false;n],explored:vec![false;n],terrain:vec![None;n],..Knowledge::default()};count],
             combat_rng:spec.seed,spec,turn:1,current:1,revision:0,next_id:1,finished:false,truncated:false,winner:None,
-            exploration_seen:BTreeMap::new(),exploration_earned:BTreeMap::new()};
+            exploration_seen:BTreeMap::new(),exploration_earned:BTreeMap::new(),vision:VisionFootprints::default()};
         g.update_visibility();g.update_exploration(true);Ok(g)
     }
     pub fn adjacent(&self,p:usize)->Vec<usize>{neighbors(p,self.spec.width,self.spec.height)}
@@ -107,17 +148,20 @@ impl Game {
     }
     pub fn update_visibility(&mut self) {
         let n=self.spec.terrain.len();let count=self.sides.len();let mut raw=vec![vec![false;n];count];
-        for u in self.units.iter().filter(|u|u.hp>0) {
-            let t=&self.rules.units[&u.unit_type];let mut dist=vec![u32::MAX;n];let mut queue=BinaryHeap::new();
-            dist[u.pos]=0;queue.push((Reverse(0u32),u.pos));
-            while let Some((Reverse(d),p))=queue.pop() {
-                if d!=dist[p] {continue;}raw[u.side-1][p]=true;
-                for q in self.adjacent(p) {
-                    // Separate native vision_costs/jamming are not implemented yet.
-                    let cost=t.movement[&self.spec.terrain[q]].max(1);
-                    if d.saturating_add(cost)<=t.vision && d+cost<dist[q] {dist[q]=d+cost;queue.push((Reverse(d+cost),q));}
+        self.vision.slots.resize_with(self.units.len(), || None);
+        for (u, slot) in self.units.iter().zip(&mut self.vision.slots) {
+            if u.hp <= 0 { *slot = None; continue; }
+            // Within a game the map and rules are fixed. Unit type and origin
+            // determine this search; side, status and memory are applied below.
+            let footprint = match slot {
+                Some(saved) if saved.origin == u.pos && saved.unit_type == u.unit_type => saved,
+                _ => {
+                    #[cfg(test)] { self.vision.searches += 1; }
+                    slot.insert(UnitVision { unit_type: u.unit_type.clone(), origin: u.pos,
+                        tiles: vision_tiles(&self.spec, &self.rules.units[&u.unit_type], u.pos) })
                 }
-            }
+            };
+            for &p in &footprint.tiles { raw[u.side-1][p] = true; }
         }
         let previous:Vec<Vec<bool>>=self.knowledge.iter().map(|k|k.explored.clone()).collect();
         for i in 0..count {
@@ -148,6 +192,8 @@ impl Game {
             }
         }
     }
+    #[cfg(test)]
+    pub(crate) fn vision_searches(&self) -> usize { self.vision.searches }
     pub fn observe(&self,s:usize)->Result<Value,String>{
         self.side_check(s)?;let k=&self.knowledge[s-1];
         let public=self.public_units(s);
