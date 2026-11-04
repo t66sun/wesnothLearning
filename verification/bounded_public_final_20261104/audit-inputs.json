@@ -1,0 +1,50 @@
+{
+  "duel": {
+    "unique_files": 16,
+    "raw_rows": 2048,
+    "rows_by_source": {
+      "astra": 1024,
+      "policy": 1024
+    },
+    "files_by_source": {
+      "astra": 8,
+      "policy": 8
+    },
+    "unique_game_side_decision_keys": 1024,
+    "fault_rows": 0,
+    "uncovered_rows": 868,
+    "max_candidates": 37
+  },
+  "ffa4": {
+    "unique_files": 16,
+    "raw_rows": 3698,
+    "rows_by_source": {
+      "astra": 1849,
+      "policy": 1849
+    },
+    "files_by_source": {
+      "astra": 8,
+      "policy": 8
+    },
+    "unique_game_side_decision_keys": 1849,
+    "fault_rows": 0,
+    "uncovered_rows": 1629,
+    "max_candidates": 37
+  },
+  "team2v2": {
+    "unique_files": 16,
+    "raw_rows": 4746,
+    "rows_by_source": {
+      "astra": 2373,
+      "policy": 2373
+    },
+    "files_by_source": {
+      "astra": 8,
+      "policy": 8
+    },
+    "unique_game_side_decision_keys": 2373,
+    "fault_rows": 0,
+    "uncovered_rows": 2134,
+    "max_candidates": 37
+  }
+}
