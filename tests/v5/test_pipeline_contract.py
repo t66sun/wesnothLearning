@@ -496,44 +496,6 @@ class LiteJobTests(unittest.TestCase):
             self.assertEqual(call['generate_candidates'],call['budget'],call)
         self.assertTrue(any(call['generate_candidates'] for call in collected))
 
-    def test_query_and_bootstrap_decisions_get_full_candidates(self):
-        job = self.four_seat_job(id='query-bootstrap',
-                                 bootstrap_policy=lambda row: 0.5,
-                                 learning=dict(sides={'1': {}}, version='v5-test',
-                                               dagger_teacher='data/opponents/gpt6astra.zip'))
-        calls = []
-        with mock.patch.object(LiteHost, 'decision', self.decision_spy(calls)):
-            with catalog_patch(self.rules_dir):
-                outcome = play_lite_job(job)
-        self.assertEqual(outcome['status'], 'complete', outcome.get('error'))
-        self.assertTrue(outcome['result']['truncated'])
-        queries = [call for call in calls if call['side'] == 1 and call['teacher']]
-        self.assertTrue(queries, calls)
-        self.assertLessEqual(len(queries), 32, calls)
-        for call in queries:
-            self.assertTrue(call['generate_candidates'], call)
-            self.assertTrue(call['budget'], call)
-        bootstrap = [call for call in calls if call['kwargs'] == ['teacher']]
-        self.assertEqual(len(bootstrap), 1, calls)
-        self.assertEqual(bootstrap[0]['side'], 1)
-        self.assertFalse(bootstrap[0]['teacher'])
-        self.assertTrue(bootstrap[0]['generate_candidates'])
-        self.assertTrue(bootstrap[0]['budget'])
-        self.assertIs(calls[-1], bootstrap[0])
-        rows = read_gzip(job['shard'])
-        self.assertTrue(rows)
-        self.assertTrue(all(row['candidate_version'] == 'schema5-fixed-20000-v3' for row in rows))
-        bootstrapped = [row for row in rows if row.get('bootstrap_value') is not None]
-        self.assertTrue(bootstrapped)
-        dagger_path = Path(job['shard']).with_name(
-            Path(job['shard']).name.replace('.jsonl.gz', '.dagger.jsonl.gz'))
-        query_rows = [row for row in read_gzip(dagger_path) if row.get('query_only')]
-        self.assertTrue(query_rows)
-        self.assertLessEqual(len(query_rows), 32)
-        for row in query_rows:
-            self.assertGreater(len(row['candidates']), 1)
-            self.assertEqual(row['candidate_version'], 'schema5-fixed-20000-v3')
-
     def test_missing_catalog_is_reported_as_infrastructure_error(self):
         job = self.job(rules_dir=str(self.directory / 'missing'))
         outcome = play_lite_job(job)

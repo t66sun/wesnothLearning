@@ -1,4 +1,5 @@
 """Score-only Astra seats use the same public plan, ledger and referee transitions."""
+from pathlib import Path
 from unittest.mock import patch
 import unittest
 
@@ -22,8 +23,10 @@ class ScoreAstraTests(unittest.TestCase):
 
         def capture_plan(host, side, **options):
             row = decide(host, side, **options)
-            self.calls.append((side, options.get('teacher',False), options.get('generate_candidates',True),
-                               set(row) == {'teacher_action'}))
+            self.calls.append(dict(side=side, teacher=options.get('teacher',False),
+                                   generate=options.get('generate_candidates',True),
+                                   compact=set(row)=={'teacher_action'}, budget='budget' in row.get('timing',{}),
+                                   kwargs=sorted(options)))
             if options['teacher']:
                 ledger = host.snapshot()['host']['teacher_memory']
                 plans.append((row['teacher_action'], ledger))
@@ -77,23 +80,44 @@ class ScoreAstraTests(unittest.TestCase):
                 job.pop('shard')
                 job['meta'].update(phase='reward_reference', opening=opening)
                 _, _, result, _ = self.replay(job)
-                self.assertEqual({s for s,teacher,_,compact in self.calls if teacher and compact},
+                self.assertEqual({c['side'] for c in self.calls if c['teacher'] and c['compact']},
                                  set() if opening else {2})
-                self.assertTrue(any(s==1 and teacher and generate and not compact for s,teacher,generate,compact in self.calls))
-                self.assertTrue(any(s==1 and not teacher and not generate and not compact for s,teacher,generate,compact in self.calls))
+                learner = [c for c in self.calls if c['side']==1]
+                self.assertFalse(any(c['compact'] for c in learner))
+                self.assertTrue(any(c['teacher'] and c['generate'] for c in learner))
+                self.assertTrue(any(not c['teacher'] and not c['generate'] for c in learner))
                 self.assertEqual([m['side'] for m in result['reward_diagnostics']], [1])
                 self.assertEqual(bool(result.get('behavior')), opening)
 
-    def test_dagger_queries_and_truncation_bootstrap_keep_full_policy_data(self):
-        job = self.fixture.four_seat_job(learning={'sides':{'1':{}}, 'dagger_teacher':'data/opponents/gpt6astra.zip'})
+    def test_query_and_bootstrap_decisions_get_full_candidates(self):
+        job = self.fixture.four_seat_job(id='query-bootstrap', bootstrap_policy=lambda row: 0.5,
+            learning=dict(sides={'1':{}},version='v5-test',dagger_teacher='data/opponents/gpt6astra.zip'))
         job['meta']['phase'] = 'ppo'
-        self.replay(job)
-        compact_sides = {s for s,_,_,compact in self.calls if compact}
-        self.assertEqual(compact_sides, {2,3,4})
-        queries = [(generate,compact) for s,teacher,generate,compact in self.calls if s==1 and teacher]
+        _, _, result, _ = self.replay(job)
+        self.assertTrue(result['result']['truncated'])
+        self.assertEqual({c['side'] for c in self.calls if c['compact']}, {2,3,4})
+        queries = [c for c in self.calls if c['side']==1 and c['teacher']]
         self.assertTrue(queries)
-        self.assertTrue(all(generate and not compact for generate,compact in queries))
-        self.assertEqual(self.calls[-1], (1,False,True,False))
+        self.assertLessEqual(len(queries),32)
+        self.assertTrue(all(c['generate'] and c['budget'] and not c['compact'] for c in queries))
+        bootstrap = [c for c in self.calls if c['kwargs']==['teacher']]
+        self.assertEqual(len(bootstrap),1)
+        self.assertIs(self.calls[-1],bootstrap[0])
+        self.assertEqual(bootstrap[0],dict(side=1,teacher=False,generate=True,compact=False,budget=True,kwargs=['teacher']))
+        rows = pipeline.read_gzip(job['shard'])
+        self.assertTrue(rows)
+        features = pipeline.features.schema()
+        version = f"schema{features['version']}-{features['candidate_selection']['version']}"
+        self.assertTrue(all(row['candidate_version']==version for row in rows))
+        self.assertTrue(any(row.get('bootstrap_value') is not None for row in rows))
+        path = Path(job['shard'])
+        dagger_path = path.with_name(path.name.replace('.jsonl.gz','.dagger.jsonl.gz'))
+        labels = [row for row in pipeline.read_gzip(dagger_path) if row.get('query_only')]
+        self.assertTrue(labels)
+        self.assertLessEqual(len(labels),32)
+        for row in labels:
+            self.assertGreater(len(row['candidates']),1)
+            self.assertEqual(row['candidate_version'],version)
 
 
 if __name__ == '__main__':
