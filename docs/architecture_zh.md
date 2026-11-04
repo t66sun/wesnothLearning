@@ -57,6 +57,7 @@ flowchart LR
 - 训练器把作业批提交给 broker。broker 用一个固定大小的 worker 池（`ProcessPoolExecutor`，spawn）服务全部赛制，将超过截止时间的作业标为 `budget_interrupted`，把每个结果写入 `<run>/<format>/jobs.jsonl`，每个日志首次打开时只修掉一条被中断的不完整尾行，其后结果直接追加、不再重读，再把整批返回给所属训练器。
 - worker 通过 `sample.play_job` 运行一局：lite 对局由 `LiteHost` 在进程内完成；原版对局由 arena 对局运行器驱动一个常驻 Wesnoth 进程（独立 user/add-on 目录，文件式 Lua RPC，见 `native_transport`）。
 - Lite 最终评测为 Astra 席位启用仅计分路径。它记录公开观察到的村庄归属和单位初始位置，调用相同的教师决策逻辑，并通过共用的 Lua 执行器执行动作。收集学习样本、开局行为或奖励诊断的对局使用完整的观察与动作结果。
+- 最终评测中的学生席位生成完整的合法观察和候选集，每次行动后都更新可见信息。每个席位每回合首次成功执行动作时请求神经网络记忆行。需要奖励标签或开局诊断的对局仍计算这些数据。[同局学生验证对照](../verification/lite_score_policy_20261104/REPORT.md)
 - Lite Lua 宿主通过有符号轴向位移计算六角距离。在固定的 2v2 验证对局中，单 worker 耗时从 23.27 秒降至 21.96 秒，全部 1,031 个动作及裁判事件均相同。[Worker 性能记录](../verification/lite_lua_cost_20261104/REPORT.md)
 - worker 异常返回 `infrastructure_error` 并使所属批失败；训练器退出码被记录，任何赛制都不会重试其他赛制的对局。
 
