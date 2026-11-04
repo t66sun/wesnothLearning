@@ -15,11 +15,11 @@ Every item states what is open, the smallest Ubuntu procedure that would close i
 
 ## L2 — Ordinary gated all-format bounded loop
 
-**Open requirement.** Run the full approximately one-hour chain on Ubuntu. The separate ordinary BC readiness phase passed for all three formats on `87a68ea`, with the v6 teacher, v8 candidates and a target of 48 teacher games per format. It took 69m10s and ended at BC. The full-loop runner's earlier attempt stopped at its BC batch cap. [BC readiness](../verification/bc_ordinary_v6_20261103/REPORT.md) · [Earlier bounded loop](../verification/bounded_loop_20261101/REPORT.md)
+**Open requirement.** Complete the three-format training and deployment chain in one approximately one-hour Ubuntu run. The strict trial passed fresh ordinary BC and made new PPO progress on both sides of the restart. Team finished only one of eight scheduled trend games. Final evaluation completed 287/420 games and 71/90 blocks. The driver stopped before export. [Strict results](../verification/bounded_loop_strict_20261104/REPORT.md)
 
 **Procedure.** On separate activation, ship a committed source archive to a fresh directory. Use `tests/bounded_training_loop.py` with its frozen three-format schedule and unforced gates. Its profile targets 24/24/24 teacher games and reserves separate budgets for BC, initial PPO, resume, final evaluation and export. Record stage times, source/rules/checkpoint identities, jobs and committed updates. Report any stage that fails to reach its gate within its declared ceiling.
 
-**Pass.** In that run every format must pass ordinary BC, commit at least two PPO updates, resume from a committed boundary without repeating work and make new progress after resume. Each control's required final panel must complete all 30 blocks with at least 12 families and zero faults or missing blocks. Export the three selected checkpoints and pass the existing sequence-parity audit. Record commands and raw results under a fresh dated `verification/` directory. [Runner handoff checks](../verification/bounded_final_20261102/REPORT.md)
+**Pass.** In that run every format must pass ordinary BC, commit at least two PPO updates, resume from a committed boundary without repeating work and make new progress after resume. Complete every due validation rotation. Each control's required final panel must complete all 30 blocks with at least 12 families and zero faults or missing blocks. Export the three selected checkpoints and pass the existing sequence-parity audit. Record commands and raw results under a fresh dated `verification/` directory. [Runner handoff checks](../verification/bounded_final_20261102/REPORT.md)
 
 ## Execution and report
 
