@@ -264,43 +264,70 @@ impl Game {
         let occupied:BTreeSet<usize>=self.public_units(s).iter().map(|u|u.pos).collect();
         result.retain(|p|!occupied.contains(p));result
     }
+    fn can_act(u:&Unit,side:usize)->bool {u.side==side && !u.status.contains("petrified")}
+
+    fn move_search(&self,side:usize,u:&Unit,public:&[Unit])->Option<(Vec<u32>,Vec<usize>)> {
+        (Self::can_act(u,side) && u.moves>0).then(||self.reach_with_public(u,side,public))
+    }
+
+    fn move_destination(u:&Unit,to:usize,cost:u32,occupied:impl FnOnce(usize)->bool)->bool {
+        to!=u.pos && cost<=u.moves && !occupied(to)
+    }
+
+    fn can_attack(u:&Unit,side:usize)->bool {Self::can_act(u,side) && u.attacks_left>0}
+
+    fn attack_weapons(&self,actor:&Unit,target:&Unit)->std::ops::Range<usize> {
+        let adjacent_enemy=self.enemy(actor.side,target.side) && !target.status.contains("petrified")
+            && self.adjacent(actor.pos).contains(&target.pos);
+        0..if adjacent_enemy {self.rules.units[&actor.unit_type].weapons.len()} else {0}
+    }
+
+    fn affordable_recruits(&self,s:usize)->impl Iterator<Item=&String> {
+        let side=&self.sides[s-1];
+        side.recruit.iter().filter(move |name|self.rules.units[*name].cost<=side.gold)
+    }
+
     pub fn legal_actions(&self,s:usize)->Result<Vec<Action>,String> {
         self.side_check(s)?;
         if self.finished || self.current!=s {return Ok(vec![]);}
         let public=self.public_units(s);let occupied:BTreeSet<usize>=public.iter().map(|u|u.pos).collect();
         let mut actions=vec![Action::EndTurn];
-        for u in public.iter().filter(|u|u.side==s && !u.status.contains("petrified")) {
-            if u.moves>0 {let (d,_)=self.reach_with_public(u,s,&public);
-                for (p,&cost) in d.iter().enumerate(){if p!=u.pos && cost<=u.moves && !occupied.contains(&p){
+        for u in &public {
+            if let Some((d,_))=self.move_search(s,u,&public) {
+                for (p,&cost) in d.iter().enumerate(){if Self::move_destination(u,p,cost,|to|occupied.contains(&to)) {
                     actions.push(Action::Move{unit:u.id.clone(),to:p,full:false});
                 }}
             }
-            if u.attacks_left>0 {
-                for e in public.iter().filter(|e|self.enemy(s,e.side) && self.adjacent(u.pos).contains(&e.pos) && !e.status.contains("petrified")) {
-                    for weapon in 0..self.rules.units[&u.unit_type].weapons.len(){actions.push(Action::Attack{unit:u.id.clone(),target:e.id.clone(),weapon});}
+            if Self::can_attack(u,s) {
+                for e in &public {
+                    for weapon in self.attack_weapons(u,e) {actions.push(Action::Attack{unit:u.id.clone(),target:e.id.clone(),weapon});}
                 }
             }
         }
-        for name in &self.sides[s-1].recruit {
-            let t=&self.rules.units[name];
-            if t.cost<=self.sides[s-1].gold {for p in self.castle_slots(s) {actions.push(Action::Recruit{unit_type:name.clone(),to:p});}}
+        for name in self.affordable_recruits(s) {
+            for p in self.castle_slots(s) {actions.push(Action::Recruit{unit_type:name.clone(),to:p});}
         }
         Ok(actions)
     }
     pub fn step(&mut self,action:Action)->Result<Value,String>{
         if self.finished{return Err("game has ended".into());}
+        self.side_check(self.current)?;
+        let absent="action is absent from the player's legal intents";
         let mut strikes=vec![];let mut interrupted=false;let mut actual=None;
-        // Full moves share legality with ordinary moves, then consume remaining movement.
-        let canonical=match &action {Action::Move{unit,to,..}=>Action::Move{unit:unit.clone(),to:*to,full:false},_=>action.clone()};
-        if !self.legal_actions(self.current)?.contains(&canonical){return Err("action is absent from the player's legal intents".into());}
         match action.clone() {
             Action::EndTurn=>self.end_turn(),
             Action::Move{unit,to,full}=>{
-                let i=self.unit(&unit).ok_or("unit missing")?;let u=self.units[i].clone();let (_,prev)=self.reach(&u,self.current);
+                let i=self.unit(&unit).ok_or(absent)?;let u=self.units[i].clone();
+                let public=self.public_units(self.current);
+                let (costs,prev)=self.move_search(self.current,&u,&public).ok_or(absent)?;
+                // Ordinary and full moves use the same public destination and path.
+                if !costs.get(to).is_some_and(|&cost|Self::move_destination(&u,to,cost,|p|public.iter().any(|o|o.pos==p))) {
+                    return Err(absent.into());
+                }
                 let mut path=vec![];let mut p=to;
                 while p!=u.pos {path.push(p);p=prev[p];if p==usize::MAX{return Err("broken public path".into());}}
                 path.reverse();
-                let mut seen:BTreeSet<String>=self.public_units(self.current).iter().map(|u|u.id.clone()).collect();
+                let mut seen:BTreeSet<String>=public.into_iter().map(|u|u.id).collect();
                 let hidden:BTreeSet<String>=self.units.iter().filter(|u|u.hp>0 && self.concealed(u,self.current)).map(|u|u.id.clone()).collect();
                 let mut last_vacant=u.pos;
                 for p in path {
@@ -334,6 +361,9 @@ impl Game {
                 if full {self.units[i].moves=0;}actual=Some(self.units[i].pos);
             },
             Action::Recruit{unit_type,to}=>{
+                if !self.affordable_recruits(self.current).any(|name|name==&unit_type) || !self.castle_slots(self.current).contains(&to) {
+                    return Err(absent.into());
+                }
                 // A hidden occupant can interrupt a public legal recruit. Reveal by
                 // ordinary vision refresh, never overwrite the true occupying unit.
                 if self.units.iter().any(|u|u.hp>0 && u.pos==to){interrupted=true;}
@@ -347,7 +377,11 @@ impl Game {
                 }
             },
             Action::Attack{unit,target,weapon}=>{
-                let ai=self.unit(&unit).ok_or("attacker missing")?;let di=self.unit(&target).ok_or("defender missing")?;
+                let ai=self.unit(&unit).filter(|&i|Self::can_attack(&self.units[i],self.current)).ok_or(absent)?;
+                let public=self.public_units(self.current);
+                let defender=public.iter().find(|u|u.id==target).ok_or(absent)?;
+                if !self.attack_weapons(&self.units[ai],defender).contains(&weapon) {return Err(absent.into());}
+                let di=self.unit(&target).ok_or(absent)?;
                 let mut a=self.units[ai].clone();let mut d=self.units[di].clone();
                 let apos=a.pos;let dpos=d.pos;
                 let modifiers=self.combat_modifiers(&a,&d,&self.units);
