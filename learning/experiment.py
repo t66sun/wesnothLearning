@@ -465,6 +465,7 @@ class FormatExperiment:
             self.config['seed']+1000000+(0 if promotion else version*101),self.update_deadline(),self.exe,label=f'val{version:06}',formats=[self.fmt],team_contexts=contexts,
             faction_cycle=0 if promotion else (version//self.config['validation_interval']-1)%3,min_distinct=min_distinct)
         for job in jobs:
+            job['meta']['phase']='validation'
             job['learning']=dict(support=self.support,sides={str(side):dict(teacher=False,version=f'v{version}') for side in job['meta']['policy_sides']})
         jobs,results=self.execute(jobs,f'validation-{version:06}')
         comparison=comparisons(jobs,results,min_blocks=blocks,min_distinct=min_distinct,team_contexts=contexts)

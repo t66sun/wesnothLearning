@@ -103,7 +103,7 @@ flowchart LR
 
 行动者输入永不含裁判真相：奖励标量、教师动作、未观察单位、未探索地形与 RNG 状态在策略看到决策之前被剥离。
 
-作业记录就是这次运行的单局日志行，因此只在真正有人读的地方保留逐决策证据：`behavior` 只出现在开局探针（BC 开局门），`reward_diagnostics` 只出现在 validation 与 reward_reference 行（奖励控制器）。其余对局只留聚合结果——覆盖率、可用性、截断与 shard 身份。
+单局日志记录覆盖率、可用性、截断状态和分片身份。开局探针额外记录 `behavior`，供 BC 开局检查使用。普通 BC 和 PPO 验证对局标记为 `meta.phase=validation`，匹配的参照对局标记为 `meta.phase=reward_reference`。采集器据此将策略和参照对局的分时点观测结果写入 `reward_diagnostics`，供奖励控制器读取。
 
 教师能力是声明的，不是假设的：
 
