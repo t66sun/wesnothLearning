@@ -2,7 +2,7 @@
 
 > Language: English | [中文](TEST_zh.md)
 
-Updated 2026-11-03. This file holds only acceptance work that is still open. Accepted items leave it as a whole and stay as dated evidence under `verification/`; `docs/architecture.md` describes the current implementation, not its acceptance history.
+Updated 2026-11-04. This file holds only acceptance work that is still open. Accepted items leave it as a whole and stay as dated evidence under `verification/`; `docs/architecture.md` describes the current implementation, not its acceptance history.
 
 Every item states what is open, the smallest Ubuntu procedure that would close it, the pass criteria and the evidence path. Status vocabulary: **PASS**, **FAIL**, **NOT RUN**, **REUSED** (existing evidence with matching identities). A check that cannot run is NOT RUN, never a skipped pass. Bounded smoke results label themselves inconclusive for strength, and no item here authorizes collection, formal training or tuning.
 
@@ -13,13 +13,9 @@ Every item states what is open, the smallest Ubuntu procedure that would close i
 - Reuse accepted evidence instead of duplicating it. No full faction/rules/worker/seed matrix, new corpus, long convergence run or repeated pressure test merely because code moved.
 - Derived fixtures are prepared once with parent hashes and without editing historical evidence. A small chain proves wiring, not quality, promotion, convergence or strength.
 
-## L2 — Ordinary gated all-format bounded loop
+## Pending acceptance
 
-**Open requirement.** Complete the three-format training and deployment chain in one approximately one-hour Ubuntu run. The strict confirmation passed fresh BC, both PPO commit boundaries and all scheduled trend rotations. Duel and FFA finished their final panels. Team finished 209/240 games and missed five blocks. The driver stopped before export. [Strict confirmation](../verification/bounded_loop_confirmation_20261104/REPORT.md)
-
-**Procedure.** On separate activation, ship a committed source archive to a fresh directory. Use `tests/bounded_training_loop.py` with its frozen three-format schedule and unforced gates. Its profile targets 24/24/24 teacher games and reserves separate budgets for BC, initial PPO, resume, final evaluation and export. Record stage times, source/rules/checkpoint identities, jobs and committed updates. Report any stage that fails to reach its gate within its declared ceiling.
-
-**Pass.** In that run every format must pass ordinary BC, commit at least two PPO updates, resume from a committed boundary without repeating work and make new progress after resume. Complete every due validation rotation. Each control's required final panel must complete all 30 blocks with at least 12 families and zero faults or missing blocks. Export the three selected checkpoints and pass the existing sequence-parity audit. Record commands and raw results under a fresh dated `verification/` directory. [Runner handoff checks](../verification/bounded_final_20261102/REPORT.md)
+There are no pending acceptance items.
 
 ## Execution and report
 
