@@ -103,7 +103,7 @@ Fresh BC checks non-emptiness using the actual version-seeded teacher/DAgger/hum
 
 Actor inputs never contain referee truth: reward scalars, teacher actions, unseen units, unexplored terrain and RNG state are stripped before the policy sees a decision.
 
-A job record is the run's per-game log line, so it holds per-decision evidence only where a consumer reads it: `behavior` on opening probes (the BC opening gate) and `reward_diagnostics` on validation and reward-reference rows (the reward controller). Every other game keeps its aggregates — coverage, eligibility, truncation, shard identity.
+Each job records aggregate coverage, eligibility, truncation and shard identity. Opening probes add `behavior` for the BC opening gate. Ordinary BC and PPO validation games carry `meta.phase=validation`, and matched reference games carry `meta.phase=reward_reference`. These tags select the policy and reference horizons written to `reward_diagnostics` for the reward controller.
 
 Teacher capabilities are declared, not assumed:
 
