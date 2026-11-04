@@ -1,0 +1,225 @@
+{
+  "source": "3b6bc0682fc887e062377fa955fdaccdaeb23203",
+  "manifest_sha256": "c2c8811e615e40f9af8a4221e7e42d7121c3de167afbfed8634c66dd8189cb6d",
+  "formats": {
+    "duel": {
+      "boundaries": {
+        "bc": {
+          "sha256": "454a7e609aabea7850073f6786ee37b67ad2625c94722a824b63d63b30b7ad0d",
+          "version": 1,
+          "batch": 1,
+          "optimizer_updates": 56,
+          "teacher_games": 56,
+          "gate_sha256": "283bff8f83859775cfdbae98fd6adf6612ef1ed6f2bb663a687050d24c2fefb5"
+        },
+        "ppo_first": {
+          "sha256": "81ad3b5ec87c98ad1bc9dc2025660de590c7b117e8dc9b8e6f3d26b3b068f6a7",
+          "version": 2,
+          "batch": 2,
+          "batches": [
+            1
+          ],
+          "optimizer_updates": 4,
+          "jobs": [
+            "rollout-00001-duel-g0",
+            "rollout-00001-duel-g1",
+            "rollout-00001-duel-g2",
+            "rollout-00001-duel-g3"
+          ],
+          "status": {
+            "complete": 4
+          },
+          "eligible_shards": 4,
+          "truncated": 0,
+          "faulted": 0
+        },
+        "ppo_resume": {
+          "sha256": "66500c18b6b3d8960f2979551e32eaa679ce47cca2a637743980a71faa518b51",
+          "version": 3,
+          "batch": 3,
+          "batches": [
+            2
+          ],
+          "optimizer_updates": 4,
+          "jobs": [
+            "rollout-00002-duel-g0",
+            "rollout-00002-duel-g1",
+            "rollout-00002-duel-g2",
+            "rollout-00002-duel-g3"
+          ],
+          "status": {
+            "complete": 4
+          },
+          "eligible_shards": 4,
+          "truncated": 0,
+          "faulted": 0
+        }
+      },
+      "selected": {
+        "checkpoint_sha256": "bf713a2bef7c6553e7d9535f4af7998a6469e9d00abf4fd7f9c47b81147041fd",
+        "version": 3
+      },
+      "final": {
+        "games": 60,
+        "blocks": 30,
+        "contexts": [
+          "solo"
+        ],
+        "distinct_scenarios": 30,
+        "faulted": 0,
+        "truncated": 5,
+        "policy_sha256": "b5757a935ac9b89924a4e03dfb091ea929c53ef7d038448663de585b7be3aa4d"
+      },
+      "python_lua_max_error": 7.105427357601002e-14
+    },
+    "ffa4": {
+      "boundaries": {
+        "bc": {
+          "sha256": "07c8854aa16b27a3a07ffb2c868be8f15aa2d6ac2db3bbf2f2c75be54cf78855",
+          "version": 1,
+          "batch": 1,
+          "optimizer_updates": 64,
+          "teacher_games": 48,
+          "gate_sha256": "c173cf14309217f547d39adca5ebd240bb092ac3d28e7f1892b0e353c0c843ad"
+        },
+        "ppo_first": {
+          "sha256": "500dd1baaa572719c27674bc3b141912a09fa6dfd184b05047ee1e6a1e2d399a",
+          "version": 2,
+          "batch": 2,
+          "batches": [
+            1
+          ],
+          "optimizer_updates": 7,
+          "jobs": [
+            "rollout-00001-ffa4-g0",
+            "rollout-00001-ffa4-g1",
+            "rollout-00001-ffa4-g2",
+            "rollout-00001-ffa4-g3"
+          ],
+          "status": {
+            "complete": 4
+          },
+          "eligible_shards": 4,
+          "truncated": 4,
+          "faulted": 0
+        },
+        "ppo_resume": {
+          "sha256": "811787d4e9bbe8967e7c6f4b62edebd50a0ded40e5aec9ecbe952c5f047eb379",
+          "version": 3,
+          "batch": 3,
+          "batches": [
+            2
+          ],
+          "optimizer_updates": 14,
+          "jobs": [
+            "rollout-00002-ffa4-g0",
+            "rollout-00002-ffa4-g1",
+            "rollout-00002-ffa4-g2",
+            "rollout-00002-ffa4-g3"
+          ],
+          "status": {
+            "complete": 4
+          },
+          "eligible_shards": 4,
+          "truncated": 4,
+          "faulted": 0
+        }
+      },
+      "selected": {
+        "checkpoint_sha256": "20c5520b59effb1249dadeb31713846c7654a1c907591210c13763ebba719635",
+        "version": 3
+      },
+      "final": {
+        "games": 120,
+        "blocks": 30,
+        "contexts": [
+          "solo"
+        ],
+        "distinct_scenarios": 15,
+        "faulted": 0,
+        "truncated": 39,
+        "policy_sha256": "1741896874d5d97ce6a052ed2dcaaf8873bec2fb1f47a149cdfeac30ef2a13e9"
+      },
+      "python_lua_max_error": 2.3092638912203256e-14
+    },
+    "team2v2": {
+      "boundaries": {
+        "bc": {
+          "sha256": "b3034da353db07e926788897d100ce05c03fbde4c8ffc507ec93c49eeadaff94",
+          "version": 1,
+          "batch": 1,
+          "optimizer_updates": 56,
+          "teacher_games": 48,
+          "gate_sha256": "65a94ee8b240bb136ba2d22a8a62075c005df4cb82a3d5614a9ed154aa643d09"
+        },
+        "ppo_first": {
+          "sha256": "1255e9994b7a8041146fb2646a8f7b5593ec8cf55ea3f665aa528743d1d6bad4",
+          "version": 2,
+          "batch": 2,
+          "batches": [
+            1
+          ],
+          "optimizer_updates": 10,
+          "jobs": [
+            "rollout-00001-team2v2-g0",
+            "rollout-00001-team2v2-g1",
+            "rollout-00001-team2v2-g2",
+            "rollout-00001-team2v2-g3"
+          ],
+          "status": {
+            "complete": 4
+          },
+          "eligible_shards": 4,
+          "truncated": 3,
+          "faulted": 0
+        },
+        "ppo_resume": {
+          "sha256": "c5c64263c3745750350af806c6db290398c59121824f96b7a18e93e2bc7c0e45",
+          "version": 3,
+          "batch": 3,
+          "batches": [
+            2
+          ],
+          "optimizer_updates": 7,
+          "jobs": [
+            "rollout-00002-team2v2-g0",
+            "rollout-00002-team2v2-g1",
+            "rollout-00002-team2v2-g2",
+            "rollout-00002-team2v2-g3"
+          ],
+          "status": {
+            "complete": 4
+          },
+          "eligible_shards": 4,
+          "truncated": 4,
+          "faulted": 0
+        }
+      },
+      "selected": {
+        "checkpoint_sha256": "a2ac371f46a837f828eb658334159b5a7c0b8027792b269b3e5ff54e26894459",
+        "version": 3
+      },
+      "final": {
+        "games": 240,
+        "blocks": 30,
+        "contexts": [
+          "astra_partner",
+          "self_team"
+        ],
+        "distinct_scenarios": 15,
+        "faulted": 0,
+        "truncated": 122,
+        "policy_sha256": "f27be2bbaa69bbb6f30ef88243e61a5b4e2e3faf6fb8f6809ada0e529bdc30d5"
+      },
+      "python_lua_max_error": 2.1316282072803006e-14
+    }
+  },
+  "stage_seconds": {
+    "bc": 94.04726266860962,
+    "ppo_first": 173.1049153804779,
+    "ppo_resume": 404.36079144477844,
+    "evaluate": 851.8709247112274,
+    "export": 198.1990613937378
+  },
+  "export_sha256": "047db8d244bfb9244be620a1ba6cb5aee1e14b7f83fe3dc21a5b1973e0b39c28"
+}
