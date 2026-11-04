@@ -1,0 +1,362 @@
+{
+  "after": {
+    "hidden_far": {
+      "candidate_count": 30,
+      "candidates": "a16817cc367ed06c3de047c32378eec82597d234c7959afc42a2668efa99bb08",
+      "forecast": {
+        "attacker": {
+          "average_hp": 23.400000000000006,
+          "hp_chance": {
+            "15": 0.21599999999999997,
+            "22": 0.43199999999999994,
+            "29": 0.28800000000000003,
+            "36": 0.064
+          },
+          "poisoned": 0.0,
+          "slowed": 0.0
+        },
+        "defender": {
+          "average_hp": 28.599999999999998,
+          "hp_chance": {
+            "25": 0.21600000000000003,
+            "28": 0.43199999999999994,
+            "31": 0.28800000000000003,
+            "34": 0.064
+          },
+          "poisoned": 0.0,
+          "slowed": 0.0
+        }
+      },
+      "legal": "ee07a79494f2d6f76f6bda0af6abbfd26d4bf5f047a59825b2a98c011be5529e",
+      "public_view": "f8fb7cbf21abf2d1e285757dc30699c69b2ed6cdff6efc31b1da8f38a5ee0e6a",
+      "scene": "d6712ab28e4f87e6a07fddd7944bb8549e282124ff7f76810d645bb483de63e1",
+      "visible_ids": [
+        "actor",
+        "defender"
+      ]
+    },
+    "hidden_near": {
+      "candidate_count": 30,
+      "candidates": "a16817cc367ed06c3de047c32378eec82597d234c7959afc42a2668efa99bb08",
+      "forecast": {
+        "attacker": {
+          "average_hp": 23.400000000000006,
+          "hp_chance": {
+            "15": 0.21599999999999997,
+            "22": 0.43199999999999994,
+            "29": 0.28800000000000003,
+            "36": 0.064
+          },
+          "poisoned": 0.0,
+          "slowed": 0.0
+        },
+        "defender": {
+          "average_hp": 28.599999999999998,
+          "hp_chance": {
+            "25": 0.21600000000000003,
+            "28": 0.43199999999999994,
+            "31": 0.28800000000000003,
+            "34": 0.064
+          },
+          "poisoned": 0.0,
+          "slowed": 0.0
+        }
+      },
+      "legal": "ee07a79494f2d6f76f6bda0af6abbfd26d4bf5f047a59825b2a98c011be5529e",
+      "public_view": "f8fb7cbf21abf2d1e285757dc30699c69b2ed6cdff6efc31b1da8f38a5ee0e6a",
+      "scene": "d6712ab28e4f87e6a07fddd7944bb8549e282124ff7f76810d645bb483de63e1",
+      "visible_ids": [
+        "actor",
+        "defender"
+      ]
+    },
+    "reconcealed": {
+      "candidate_count": 37,
+      "candidates": "bbb3eb7ddb27c7e140b0114dddd6417ce13d5b8abf90dd2668fd2e98608cc18b",
+      "forecast": {
+        "attacker": {
+          "average_hp": 29.199999999999996,
+          "hp_chance": {
+            "13": 0.064,
+            "22": 0.28800000000000003,
+            "31": 0.43199999999999994,
+            "40": 0.21599999999999997
+          },
+          "poisoned": 0.0,
+          "slowed": 0.0
+        },
+        "defender": {
+          "average_hp": 26.799999999999997,
+          "hp_chance": {
+            "22": 0.21600000000000003,
+            "26": 0.432,
+            "30": 0.28800000000000003,
+            "34": 0.064
+          },
+          "poisoned": 0.0,
+          "slowed": 0.0
+        }
+      },
+      "legal": "404e342303c82f0af621b8caa8549f8275fef74a10546a5d0eb9e902c5c86796",
+      "public_view": "a4ef723dc0aec2ba59f042de47c5c98a88196c3f2fb009630cacad8dcb4dc3ef",
+      "scene": "19e8bd8756fa0bb70a361e5d4dd42cd6bf1d764131847aef6d1f242e7f5e0143",
+      "visible_ids": [
+        "actor",
+        "defender",
+        "support"
+      ]
+    },
+    "unflanked": {
+      "candidate_count": 37,
+      "candidates": "adbf3c3778e121cfda7aaa9b9a34530b8b25b1f630e7e30ac24767824b14765f",
+      "forecast": {
+        "attacker": {
+          "average_hp": 29.199999999999996,
+          "hp_chance": {
+            "13": 0.064,
+            "22": 0.28800000000000003,
+            "31": 0.43199999999999994,
+            "40": 0.21599999999999997
+          },
+          "poisoned": 0.0,
+          "slowed": 0.0
+        },
+        "defender": {
+          "average_hp": 26.799999999999997,
+          "hp_chance": {
+            "22": 0.21600000000000003,
+            "26": 0.432,
+            "30": 0.28800000000000003,
+            "34": 0.064
+          },
+          "poisoned": 0.0,
+          "slowed": 0.0
+        }
+      },
+      "legal": "64ec3a294e2fcbb73b21a816f67c9061123af92ea3f5e6958c7799c0d4d1b9e2",
+      "public_view": "04d072141f84610d67c85371da0514458ced478bde6ae84dabf6faed319ad124",
+      "scene": "7f196624919c1907876fd428e0442d90c8b90c8b70d1174ea16179b84bf4e826",
+      "visible_ids": [
+        "actor",
+        "defender",
+        "support"
+      ]
+    },
+    "visible_flanker": {
+      "candidate_count": 37,
+      "candidates": "940cde95ddb53f2abcbbdd34e6992c8f9ae36cc9f4e17f2f0b6e98479ac78f8e",
+      "forecast": {
+        "attacker": {
+          "average_hp": 29.199999999999996,
+          "hp_chance": {
+            "13": 0.064,
+            "22": 0.28800000000000003,
+            "31": 0.43199999999999994,
+            "40": 0.21599999999999997
+          },
+          "poisoned": 0.0,
+          "slowed": 0.0
+        },
+        "defender": {
+          "average_hp": 21.400000000000006,
+          "hp_chance": {
+            "13": 0.21600000000000003,
+            "20": 0.432,
+            "27": 0.28800000000000003,
+            "34": 0.064
+          },
+          "poisoned": 0.0,
+          "slowed": 0.0
+        }
+      },
+      "legal": "404e342303c82f0af621b8caa8549f8275fef74a10546a5d0eb9e902c5c86796",
+      "public_view": "986b3bcc623eec1c356ad498fa18b431584879eeca66c5aa23e3c895fae253a4",
+      "scene": "8120d2ce0a22f5ca47f8c1e2edc8be10fd599f24c731a2ab64caca15cfbc91c6",
+      "visible_ids": [
+        "actor",
+        "defender",
+        "support"
+      ]
+    }
+  },
+  "before": {
+    "hidden_far": {
+      "candidate_count": 30,
+      "candidates": "a16817cc367ed06c3de047c32378eec82597d234c7959afc42a2668efa99bb08",
+      "forecast": {
+        "attacker": {
+          "average_hp": 23.400000000000006,
+          "hp_chance": {
+            "15": 0.21599999999999997,
+            "22": 0.43199999999999994,
+            "29": 0.28800000000000003,
+            "36": 0.064
+          },
+          "poisoned": 0.0,
+          "slowed": 0.0
+        },
+        "defender": {
+          "average_hp": 28.599999999999998,
+          "hp_chance": {
+            "25": 0.21600000000000003,
+            "28": 0.43199999999999994,
+            "31": 0.28800000000000003,
+            "34": 0.064
+          },
+          "poisoned": 0.0,
+          "slowed": 0.0
+        }
+      },
+      "legal": "ee07a79494f2d6f76f6bda0af6abbfd26d4bf5f047a59825b2a98c011be5529e",
+      "public_view": "f8fb7cbf21abf2d1e285757dc30699c69b2ed6cdff6efc31b1da8f38a5ee0e6a",
+      "scene": "d6712ab28e4f87e6a07fddd7944bb8549e282124ff7f76810d645bb483de63e1",
+      "visible_ids": [
+        "actor",
+        "defender"
+      ]
+    },
+    "hidden_near": {
+      "candidate_count": 30,
+      "candidates": "ace6523c61947bd89e105bdf614fb1d2ee21032397e7c9ed79dd563c409f97ef",
+      "forecast": {
+        "attacker": {
+          "average_hp": 18.000000000000004,
+          "hp_chance": {
+            "16": 0.43199999999999994,
+            "26": 0.28800000000000003,
+            "36": 0.064,
+            "6": 0.21599999999999997
+          },
+          "poisoned": 0.0,
+          "slowed": 0.0
+        },
+        "defender": {
+          "average_hp": 28.599999999999998,
+          "hp_chance": {
+            "25": 0.21600000000000003,
+            "28": 0.43199999999999994,
+            "31": 0.28800000000000003,
+            "34": 0.064
+          },
+          "poisoned": 0.0,
+          "slowed": 0.0
+        }
+      },
+      "legal": "ee07a79494f2d6f76f6bda0af6abbfd26d4bf5f047a59825b2a98c011be5529e",
+      "public_view": "f8fb7cbf21abf2d1e285757dc30699c69b2ed6cdff6efc31b1da8f38a5ee0e6a",
+      "scene": "d6712ab28e4f87e6a07fddd7944bb8549e282124ff7f76810d645bb483de63e1",
+      "visible_ids": [
+        "actor",
+        "defender"
+      ]
+    },
+    "reconcealed": {
+      "candidate_count": 37,
+      "candidates": "bbb3eb7ddb27c7e140b0114dddd6417ce13d5b8abf90dd2668fd2e98608cc18b",
+      "forecast": {
+        "attacker": {
+          "average_hp": 29.199999999999996,
+          "hp_chance": {
+            "13": 0.064,
+            "22": 0.28800000000000003,
+            "31": 0.43199999999999994,
+            "40": 0.21599999999999997
+          },
+          "poisoned": 0.0,
+          "slowed": 0.0
+        },
+        "defender": {
+          "average_hp": 26.799999999999997,
+          "hp_chance": {
+            "22": 0.21600000000000003,
+            "26": 0.432,
+            "30": 0.28800000000000003,
+            "34": 0.064
+          },
+          "poisoned": 0.0,
+          "slowed": 0.0
+        }
+      },
+      "legal": "404e342303c82f0af621b8caa8549f8275fef74a10546a5d0eb9e902c5c86796",
+      "public_view": "a4ef723dc0aec2ba59f042de47c5c98a88196c3f2fb009630cacad8dcb4dc3ef",
+      "scene": "19e8bd8756fa0bb70a361e5d4dd42cd6bf1d764131847aef6d1f242e7f5e0143",
+      "visible_ids": [
+        "actor",
+        "defender",
+        "support"
+      ]
+    },
+    "unflanked": {
+      "candidate_count": 37,
+      "candidates": "adbf3c3778e121cfda7aaa9b9a34530b8b25b1f630e7e30ac24767824b14765f",
+      "forecast": {
+        "attacker": {
+          "average_hp": 29.199999999999996,
+          "hp_chance": {
+            "13": 0.064,
+            "22": 0.28800000000000003,
+            "31": 0.43199999999999994,
+            "40": 0.21599999999999997
+          },
+          "poisoned": 0.0,
+          "slowed": 0.0
+        },
+        "defender": {
+          "average_hp": 26.799999999999997,
+          "hp_chance": {
+            "22": 0.21600000000000003,
+            "26": 0.432,
+            "30": 0.28800000000000003,
+            "34": 0.064
+          },
+          "poisoned": 0.0,
+          "slowed": 0.0
+        }
+      },
+      "legal": "64ec3a294e2fcbb73b21a816f67c9061123af92ea3f5e6958c7799c0d4d1b9e2",
+      "public_view": "04d072141f84610d67c85371da0514458ced478bde6ae84dabf6faed319ad124",
+      "scene": "7f196624919c1907876fd428e0442d90c8b90c8b70d1174ea16179b84bf4e826",
+      "visible_ids": [
+        "actor",
+        "defender",
+        "support"
+      ]
+    },
+    "visible_flanker": {
+      "candidate_count": 37,
+      "candidates": "940cde95ddb53f2abcbbdd34e6992c8f9ae36cc9f4e17f2f0b6e98479ac78f8e",
+      "forecast": {
+        "attacker": {
+          "average_hp": 29.199999999999996,
+          "hp_chance": {
+            "13": 0.064,
+            "22": 0.28800000000000003,
+            "31": 0.43199999999999994,
+            "40": 0.21599999999999997
+          },
+          "poisoned": 0.0,
+          "slowed": 0.0
+        },
+        "defender": {
+          "average_hp": 21.400000000000006,
+          "hp_chance": {
+            "13": 0.21600000000000003,
+            "20": 0.432,
+            "27": 0.28800000000000003,
+            "34": 0.064
+          },
+          "poisoned": 0.0,
+          "slowed": 0.0
+        }
+      },
+      "legal": "404e342303c82f0af621b8caa8549f8275fef74a10546a5d0eb9e902c5c86796",
+      "public_view": "986b3bcc623eec1c356ad498fa18b431584879eeca66c5aa23e3c895fae253a4",
+      "scene": "8120d2ce0a22f5ca47f8c1e2edc8be10fd599f24c731a2ab64caca15cfbc91c6",
+      "visible_ids": [
+        "actor",
+        "defender",
+        "support"
+      ]
+    }
+  }
+}
