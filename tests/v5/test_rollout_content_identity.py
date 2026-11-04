@@ -1,5 +1,6 @@
 """V5: frozen rollout identity binds target IDs, training values and raw prefixes."""
 import copy
+import hashlib
 import unittest
 from unittest.mock import Mock, patch
 
@@ -12,6 +13,21 @@ from tests.v5.test_ppo_plan import _records, _bc
 
 
 class RolloutContentIdentityTests(unittest.TestCase):
+    def test_hashes_one_buffer_per_target_and_shared_prefix(self):
+        slot = dict(turn=1, floats=[-0., 0.125])
+        rows = [dict(turn=2, decision=i, choice=0, _history=[slot], values=[1, 1.e-12, -0.0]) for i in (1, 2)]
+        sha256 = hashlib.sha256
+        payloads = []
+        def track(initial=b''):
+            digest = Mock(wraps=sha256(initial))
+            if initial != b'rollout-content-v2\n':
+                payloads.append((bool(initial), digest))
+            return digest
+        with patch('learning.updates.hashlib.sha256', side_effect=track):
+            identity = rollout_identity(rows)
+        self.assertEqual(identity, '4c22a9676c4886e0b505807ee6c16a856a2609dcbd4bcdaf8ca9fd5116426196')
+        self.assertEqual([int(initial) + h.update.call_count for initial, h in payloads], [1, 1, 1])
+
     def changes(self, row):
         for key,value in [('game_id','other'),('side',2),('turn',3),('decision',99),
                           ('log_probability',-4.),('reward',-.5),('value',.7),('bootstrap_value',.8),

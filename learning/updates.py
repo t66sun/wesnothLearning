@@ -66,10 +66,7 @@ def rollout_identity(rows):
     encoder = json.JSONEncoder(sort_keys=True, separators=(',', ':'), allow_nan=False,
                                default=lambda value: value.tolist())
     def content_hash(payload):
-        content = hashlib.sha256()
-        for piece in encoder.iterencode(compact_row(payload)):
-            content.update(piece.encode())
-        return content.hexdigest()
+        return hashlib.sha256(encoder.encode(compact_row(payload)).encode()).hexdigest()
 
     ordered = sorted(rows, key=lambda r: (str(r.get('format')), str(r.get('source')),
         str(r.get('engine_id')), str(r.get('game_family')), str(r.get('game_id')),

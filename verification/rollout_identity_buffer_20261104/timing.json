@@ -1,0 +1,47 @@
+{
+  "shard": "/home/tongshu/acceptance/bounded_loop_v6_strict_20261104/runs/bounded_loop/team2v2/data/rollout-00002-team2v2-g0.jsonl.gz",
+  "shard_sha256": "370539f929b67f10e06538f121cac5b73fd2f62b7b881bd1e6b8dccd3ef84e23",
+  "first": [
+    1,
+    13
+  ],
+  "last": [
+    5,
+    121
+  ],
+  "trials_seconds": {
+    "original": [
+      0.2931713580619544,
+      0.2941463910974562
+    ],
+    "proposed": [
+      0.08617906807921827,
+      0.08621957618743181
+    ]
+  },
+  "means_seconds": {
+    "original": 0.2936588745797053,
+    "proposed": 0.08619932213332504
+  },
+  "saved_seconds_per_row": 0.006483111013949383,
+  "forms": {
+    "packed": {
+      "rows": 32,
+      "prefix_payloads": 5,
+      "maximum_payload_bytes": 176127,
+      "identity": "d5113ab4e73640b6f0e4831545539d1ff78f63a4cc7c3eb2b4f76d0dd0d6e4a0"
+    },
+    "lists": {
+      "rows": 32,
+      "prefix_payloads": 5,
+      "maximum_payload_bytes": 176127,
+      "identity": "d5113ab4e73640b6f0e4831545539d1ff78f63a4cc7c3eb2b4f76d0dd0d6e4a0"
+    },
+    "legacy_json": {
+      "rows": 2,
+      "prefix_payloads": 1,
+      "maximum_payload_bytes": 409,
+      "identity": "0028d1cb117b89530450e4e1921e1563cd1ca2f76b6a3eab3a795e2c0519d6c8"
+    }
+  }
+}

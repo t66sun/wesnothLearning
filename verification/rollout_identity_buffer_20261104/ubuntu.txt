@@ -1,0 +1,9 @@
+test_changed_valid_inputs_rejected_before_any_update (tests.v5.test_rollout_content_identity.RolloutContentIdentityTests.test_changed_valid_inputs_rejected_before_any_update) ... ok
+test_hashes_one_buffer_per_target_and_shared_prefix (tests.v5.test_rollout_content_identity.RolloutContentIdentityTests.test_hashes_one_buffer_per_target_and_shared_prefix) ... ok
+test_unchanged_rereads_and_container_forms_match (tests.v5.test_rollout_content_identity.RolloutContentIdentityTests.test_unchanged_rereads_and_container_forms_match) ... ok
+test_rollout_identity_covers_targets_and_provenance (tests.v5.test_checkpoint_ops.CheckpointContractTests.test_rollout_identity_covers_targets_and_provenance) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.997s
+
+OK
