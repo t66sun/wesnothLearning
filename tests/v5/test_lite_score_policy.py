@@ -23,7 +23,8 @@ class ScorePolicyTests(unittest.TestCase):
             for field in ('side', 'turn', 'global', 'opponents', 'spatial', 'candidates', 'potential'):
                 self.assertEqual(original[field], compact[field], (step, field))
             actions = compact['candidates']
-            action = (next(a for a in actions if a['kind'] == 'end_turn') if step % 4 == 0 else actions[0])
+            end_turn = next(a for a in actions if a['kind'] == 'end_turn')
+            action = end_turn if step % 4 == 0 else next((a for a in actions if a['kind'] in ('move','recruit')), end_turn)
             needed = turns.get(side) != compact['turn']
             old = json.loads(full.execute_candidate(json.dumps(action)))
             new = json.loads(score.execute_candidate(json.dumps(action), policy_memory_write=needed))
