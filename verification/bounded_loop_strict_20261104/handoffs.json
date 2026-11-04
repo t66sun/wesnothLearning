@@ -1,0 +1,164 @@
+{
+  "manifest_sha256": "f8a5886ac78286e874eaf6df49588b1a51aa73beefbcf928129df3fa15d8a757",
+  "formats": {
+    "duel": {
+      "boundaries": {
+        "bc": {
+          "sha256": "f0b00979fecb024d42179715ddf8f04505255da6a9efd2c7b244df5e4ecc514f",
+          "batch": 1,
+          "version": 1,
+          "optimizer_updates": 56
+        },
+        "ppo_first": {
+          "sha256": "5cf2c4f6fc6727c8c3495c86779093b51044ab3792bd60f5c6397f705a63644f",
+          "batch": 2,
+          "version": 2,
+          "batches": [
+            1
+          ],
+          "optimizer_updates": 4,
+          "jobs": [
+            "rollout-00001-duel-g0",
+            "rollout-00001-duel-g1",
+            "rollout-00001-duel-g2",
+            "rollout-00001-duel-g3"
+          ],
+          "status": {
+            "complete": 4
+          },
+          "eligible_shards": 4,
+          "truncated": 0,
+          "faulted": 0
+        },
+        "ppo_resume": {
+          "sha256": "cf9f1cef55d88ec7bb99a419bed45ff76037e4ac7499baa9dc25ed300fb203ac",
+          "batch": 3,
+          "version": 3,
+          "batches": [
+            2
+          ],
+          "optimizer_updates": 4,
+          "jobs": [
+            "rollout-00002-duel-g0",
+            "rollout-00002-duel-g1",
+            "rollout-00002-duel-g2",
+            "rollout-00002-duel-g3"
+          ],
+          "status": {
+            "complete": 4
+          },
+          "eligible_shards": 4,
+          "truncated": 0,
+          "faulted": 0
+        }
+      },
+      "selected_sha256": "473cabb568edc1ea4644c7f490ec860e6b7be0f49a305c83521feac55ccd9816"
+    },
+    "ffa4": {
+      "boundaries": {
+        "bc": {
+          "sha256": "c4d5d47a4f933cfdcae1dc6742d842bc08a991eb60c74be8694091b44a9b2fe1",
+          "batch": 1,
+          "version": 1,
+          "optimizer_updates": 64
+        },
+        "ppo_first": {
+          "sha256": "91517df9f884529e9d1e698aeb006dbb880d75759a039f14784b024ca1a0d15d",
+          "batch": 2,
+          "version": 2,
+          "batches": [
+            1
+          ],
+          "optimizer_updates": 7,
+          "jobs": [
+            "rollout-00001-ffa4-g0",
+            "rollout-00001-ffa4-g1",
+            "rollout-00001-ffa4-g2",
+            "rollout-00001-ffa4-g3"
+          ],
+          "status": {
+            "complete": 4
+          },
+          "eligible_shards": 4,
+          "truncated": 4,
+          "faulted": 0
+        },
+        "ppo_resume": {
+          "sha256": "7f56a8ce966ac329865bfe9956f60ad69f726bbebf86e81e304f569c4b5506dc",
+          "batch": 3,
+          "version": 3,
+          "batches": [
+            2
+          ],
+          "optimizer_updates": 14,
+          "jobs": [
+            "rollout-00002-ffa4-g0",
+            "rollout-00002-ffa4-g1",
+            "rollout-00002-ffa4-g2",
+            "rollout-00002-ffa4-g3"
+          ],
+          "status": {
+            "complete": 4
+          },
+          "eligible_shards": 4,
+          "truncated": 4,
+          "faulted": 0
+        }
+      },
+      "selected_sha256": "11df49191e9c863fd3740a1a5b326bd64a51e2849e607776bef2f999c1edf89c"
+    },
+    "team2v2": {
+      "boundaries": {
+        "bc": {
+          "sha256": "2d1d061e49d4df40e26031d4e3ea1087c205a45ca6a2468cd4d38e90b9c6bc1e",
+          "batch": 1,
+          "version": 1,
+          "optimizer_updates": 56
+        },
+        "ppo_first": {
+          "sha256": "3d96b464d80156f26d1f5282bf5f05f796f4fa2db705513b41b7e5b83352b987",
+          "batch": 2,
+          "version": 2,
+          "batches": [
+            1
+          ],
+          "optimizer_updates": 10,
+          "jobs": [
+            "rollout-00001-team2v2-g0",
+            "rollout-00001-team2v2-g1",
+            "rollout-00001-team2v2-g2",
+            "rollout-00001-team2v2-g3"
+          ],
+          "status": {
+            "complete": 4
+          },
+          "eligible_shards": 4,
+          "truncated": 3,
+          "faulted": 0
+        },
+        "ppo_resume": {
+          "sha256": "9093b985c1c15c4d973fa60eb67a780306881e1bbdb7fa29e86fa493045c1175",
+          "batch": 3,
+          "version": 3,
+          "batches": [
+            2
+          ],
+          "optimizer_updates": 7,
+          "jobs": [
+            "rollout-00002-team2v2-g0",
+            "rollout-00002-team2v2-g1",
+            "rollout-00002-team2v2-g2",
+            "rollout-00002-team2v2-g3"
+          ],
+          "status": {
+            "complete": 4
+          },
+          "eligible_shards": 4,
+          "truncated": 4,
+          "faulted": 0
+        }
+      },
+      "selected_sha256": "69d2dc94b2598ea94374bda8dfb144994fb949dd531a39f9ca806ee69d851248"
+    }
+  }
+}
