@@ -95,19 +95,19 @@ impl LiteEngine {
         self.modules=decode(modules_json)?;
         self.install_host()
     }
-    #[pyo3(signature=(side,teacher=false,generate_candidates=true,score_only_astra=false))]
-    fn decision(&mut self,side:usize,teacher:bool,generate_candidates:bool,score_only_astra:bool)->PyResult<String>{
+    #[pyo3(signature=(side,teacher=false,generate_candidates=true,score_only_astra=false,score_only_policy=false))]
+    fn decision(&mut self,side:usize,teacher:bool,generate_candidates:bool,score_only_astra:bool,score_only_policy:bool)->PyResult<String>{
         self.game.lock().map_err(error)?.side_check(side).map_err(error)?;
         host::set_side(&self.lua,side);
         let f:Function=self.lua.globals().get("lite_decision").map_err(error)?;
-        let result:mlua::Value=f.call((side,teacher,generate_candidates,score_only_astra)).map_err(error)?;
+        let result:mlua::Value=f.call((side,teacher,generate_candidates,score_only_astra,score_only_policy)).map_err(error)?;
         let value:Value=self.lua.from_value(result).map_err(error)?;encode(&value)
     }
-    #[pyo3(signature=(action_json,score_only_astra=false))]
-    fn execute_candidate(&mut self,action_json:&str,score_only_astra:bool)->PyResult<String>{
+    #[pyo3(signature=(action_json,score_only_astra=false,policy_memory_write=None))]
+    fn execute_candidate(&mut self,action_json:&str,score_only_astra:bool,policy_memory_write:Option<bool>)->PyResult<String>{
         let a:Value=decode(action_json)?;
         let f:Function=self.lua.globals().get("lite_execute").map_err(error)?;
-        let result:mlua::Value=f.call((self.lua.to_value(&a).map_err(error)?,score_only_astra)).map_err(error)?;
+        let result:mlua::Value=f.call((self.lua.to_value(&a).map_err(error)?,score_only_astra,policy_memory_write)).map_err(error)?;
         let value:Value=self.lua.from_value(result).map_err(error)?;encode(&value)
     }
 }

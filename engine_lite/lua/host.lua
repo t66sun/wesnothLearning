@@ -233,7 +233,14 @@ local function astra_plan(ledger)
     astra:evaluation({},probe)
     return copy(probe.plan) or {kind='end_turn'}
 end
-function lite_decision(side,teacher,generate_candidates,score_only_astra)
+local function reward_labels(obs,side)
+    local labels=rpc('reward_labels')
+    local raw=require_module('rewards.lua').capture(obs,obs.memory,{judge=false,
+        total_strategic_weight=labels.total_strategic_weight,shared_exploration_members={side},shared_exploration_scope=tostring(side)})
+    raw.economy=labels.economy;raw.explored=labels.explored
+    return raw
+end
+function lite_decision(side,teacher,generate_candidates,score_only_astra,score_only_policy)
     refresh(bridge('view',{side=side}))
     local O=require_module('observation.lua');local C=require_module('candidates.lua')
     memories[side]=memories[side] or {}
@@ -256,22 +263,25 @@ function lite_decision(side,teacher,generate_candidates,score_only_astra)
         candidates,timing=C.generate(obs)
     end
     last_candidates=candidates
-    local labels=rpc('reward_labels')
-    local W=require_module('rewards.lua')
-    local raw=W.capture(obs,obs.memory,{judge=false,total_strategic_weight=labels.total_strategic_weight,
-        shared_exploration_members={side},shared_exploration_scope=tostring(side)})
-    raw.economy=labels.economy;raw.explored=labels.explored
+    local raw=not score_only_policy and reward_labels(obs,side) or nil
     local ledger=teacher_ledger(side,obs.own,obs.memory.villages)
     local teacher_action=teacher and astra_plan(ledger) or nil
     return {global=obs.global,opponents=obs.opponents,spatial=obs.spatial,candidates=candidates,timing=timing,
         side=side,turn=view.turn,teacher_action=teacher_action,potential=obs.potential,reward_raw=raw,
         engine_id='lite-0.2',approximate=true,combat_version=view.combat_version}
 end
-function lite_execute(action,score_only_astra)
+function lite_execute(action,score_only_astra,policy_memory_write)
     local side=view.side;events={}
     local O=require_module('observation.lua');local C=require_module('candidates.lua')
     local obs,prior,diagnostics
-    if not score_only_astra then
+    if policy_memory_write~=nil then
+        -- The decision already captured this public state. Only an end-turn
+        -- first write needs its pre-action scene in canonical memory order.
+        obs={memory=memories[side]}
+        if policy_memory_write and action.kind=='end_turn' then
+            prior=require_module('spatial.lua').memory_observation(O.capture(obs.memory,side))
+        end
+    elseif not score_only_astra then
         obs=O.capture(memories[side] or {},side)
         local schema=require_module('features.lua')
         if not action.features then action.features=O.normalize({[action.kind]=1},schema.action_features) end
@@ -288,11 +298,14 @@ function lite_execute(action,score_only_astra)
     end
     if not execution or execution.changed then C.remember(obs,action) end
     C.outcome(action,diagnostics)
-    local post=O.capture(memories[side] or {},side);local labels=rpc('reward_labels')
-    local raw=require_module('rewards.lua').capture(post,post.memory,{judge=false,
-        total_strategic_weight=labels.total_strategic_weight,shared_exploration_members={side},shared_exploration_scope=tostring(side)})
-    raw.economy=labels.economy;raw.explored=labels.explored
-    local write=action.kind=='end_turn' and prior or require_module('spatial.lua').memory_observation(post)
+    -- Every execution observes the resulting visibility, even when this turn's
+    -- neural write already committed. Later decisions read those sightings.
+    local post=O.capture(memories[side] or {},side)
+    local raw=policy_memory_write==nil and reward_labels(post,side) or nil
+    local write
+    if policy_memory_write==nil or (changed and policy_memory_write) then
+        write=action.kind=='end_turn' and prior or require_module('spatial.lua').memory_observation(post)
+    end
     return {events=events,diagnostics=diagnostics,view=view,reward_after=raw,execution=execution,committed=changed,memory_write=changed and write or nil}
 end
 local function string_keys(map)

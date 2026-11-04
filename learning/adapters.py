@@ -144,11 +144,17 @@ class LiteAdapter:
     def score_astra_decision(self, side):
         return json.loads(self.core.decision(side, True, False, True))
 
+    def score_policy_decision(self, side):
+        return json.loads(self.core.decision(side, score_only_policy=True))
+
     def execute_candidate(self, action):
         return json.loads(self.core.execute_candidate(json.dumps(action)))
 
     def score_astra_execute(self, action):
         return json.loads(self.core.execute_candidate(json.dumps(action), True))
+
+    def score_policy_execute(self, action, memory_write):
+        return json.loads(self.core.execute_candidate(json.dumps(action), policy_memory_write=memory_write))
 
 
 def create_adapter(engine, game_spec=None, **kwargs) -> GameAdapter:

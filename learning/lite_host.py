@@ -60,12 +60,14 @@ class LiteHost:
     def reset(self, game_spec):
         self.adapter.reset(game_spec)
 
-    def decision(self, side, *, teacher=False, generate_candidates=True, score_only_astra=False):
+    def decision(self, side, *, teacher=False, generate_candidates=True, score_only_astra=False, score_only_policy=False):
         if score_only_astra: return self.adapter.score_astra_decision(side)
+        if score_only_policy: return self.adapter.score_policy_decision(side)
         return self.adapter.decision(side, teacher=teacher, generate_candidates=generate_candidates)
 
-    def execute(self, action, *, score_only_astra=False):
+    def execute(self, action, *, score_only_astra=False, policy_memory_write=None):
         if score_only_astra: return self.adapter.score_astra_execute(action)
+        if policy_memory_write is not None: return self.adapter.score_policy_execute(action,policy_memory_write)
         return self.adapter.execute_candidate(action)
 
     def snapshot(self):
@@ -133,8 +135,9 @@ def play_lite_job(job):
         current = 1
         learning=job.get('learning',{}).get('sides',{})
         learner_sides=set(map(int,learning)) if learning else set(job.get('learner_sides',[]))
-        score_only_astra = job.get('score_only_astra') and not (
-            job.get('learning') or job.get('shard') or learner_sides or record_decisions or keeps_reward_diagnostics(meta))
+        collecting = job.get('learning') or job.get('shard') or learner_sides or record_decisions or keeps_reward_diagnostics(meta)
+        score_only_astra = job.get('score_only_astra') and not collecting
+        score_only_policy = job.get('score_only_policy') and policies is not None and not collecting
         def metric_snapshot(side,event):
             row=host.decision(side,teacher=False,generate_candidates=False)
             snapshot={k:row[k] for k in ('side','turn','global','spatial','reward_raw')}
@@ -166,8 +169,12 @@ def play_lite_job(job):
                 query=not teacher and current in learner_sides and job.get('learning',{}).get('dagger_teacher') and side_decisions[current]%4==0 and query_total<32
                 # Unrecorded Astra seats need their plan, not student candidates.
                 # Policy seats (including DAgger queries) always need the full set.
-                decision = host.decision(current, teacher=teacher or bool(query),
-                                         generate_candidates=not teacher or current in learner_sides)
+                final_student = score_only_policy and not teacher
+                if final_student:
+                    decision = host.decision(current, teacher=False, score_only_policy=True)
+                else:
+                    decision = host.decision(current, teacher=teacher or bool(query),
+                                             generate_candidates=not teacher or current in learner_sides)
                 training=learning.get(str(current),{})
                 decision.update(schema=schema()['version'], format=job.get('format', job.get('meta', {}).get('format')),
                                 source='astra' if teacher else 'policy', engine_id='lite',
@@ -201,12 +208,15 @@ def play_lite_job(job):
                     action = decision['candidates'][choice]
                     decision.update(choice=choice, log_probability=float(selected['log_probability']),
                                     value=float(selected['value']), actual=action, intent=action)
-                outcome = host.execute(action)
-                decision['outcome'] = outcome['events']
-                decision['diagnostics'] = outcome['diagnostics']
-                decision['reward_after'] = outcome['reward_after']
-                decision['committed']=outcome['committed']
-                if outcome.get('memory_write'): decision['memory_write']=dict(outcome['memory_write'],turn=decision['turn'])
+                if final_student:
+                    outcome = host.execute(action, policy_memory_write=policies.needs_memory_write(current,decision['turn']))
+                else:
+                    outcome = host.execute(action)
+                    decision['outcome'] = outcome['events']
+                    decision['diagnostics'] = outcome['diagnostics']
+                    decision['reward_after'] = outcome['reward_after']
+                    decision['committed']=outcome['committed']
+                    if outcome.get('memory_write'): decision['memory_write']=dict(outcome['memory_write'],turn=decision['turn'])
                 if policies and not teacher: policies.commit(current,decision,outcome)
                 if record_decisions: behavior.append(outcome['diagnostics'])
                 if current in learner_sides:

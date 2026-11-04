@@ -752,7 +752,7 @@ class FormatExperiment:
         jobs=sorted([j for plan in plans.values() for j in plan],key=lambda j:(j['meta']['block'],j['meta']['rotation'],j['meta']['context'],j['meta']['label']))
         for job in jobs:
             job['engine']=evaluation_engine
-            if evaluation_engine=='lite': job['score_only_astra']=True
+            if evaluation_engine=='lite': job.update(score_only_astra=True,score_only_policy=True)
         _,results=self.execute(jobs,'final')
         reports={label:comparisons(plan,results,min_distinct=self.config['min_distinct']['final'],team_contexts=contexts)[self.fmt] for label,plan in plans.items()}
         last_method=(selected_state.get('runner',{}).get('history') or [{}])[-1].get('method')

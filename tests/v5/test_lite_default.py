@@ -210,6 +210,7 @@ class LiteDefaultTests(unittest.TestCase):
             self.assertEqual(set(summary['controls']), {'gpt6astra'})
             self.assertTrue(all(job['engine'] == 'lite' for job in scheduled))
             self.assertTrue(all(job.get('score_only_astra') for job in scheduled))
+            self.assertTrue(all(job.get('score_only_policy') for job in scheduled))
             self.assertTrue(all(set(job['bots']) <= {'policy', 'gpt6astra.zip'} for job in scheduled))
             self.assertEqual({job['meta']['context'] for job in scheduled}, {'astra_partner', 'self_team'})
             report = (runner.directory/'report/REPORT.md').read_text(encoding='utf-8')

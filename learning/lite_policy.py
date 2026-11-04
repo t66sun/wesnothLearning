@@ -88,9 +88,12 @@ class FrozenPolicies:
         chosen=self.rng[side].choices(range(len(scores)),weights=probabilities,k=1)[0] if stochastic else best
         return dict(choice=chosen,log_probability=math.log(max(1e-300,probabilities[chosen])),value=float(value[0]))
 
+    def needs_memory_write(self,side,turn):
+        history=self.histories[side]
+        return not history or history[-1]['turn']!=turn
+
     def commit(self,side,row,outcome):
         if not outcome.get('committed',outcome.get('execution',{}).get('changed',False)): return
-        history=self.histories[side]
-        if not history or history[-1]['turn']!=row['turn']:
+        if self.needs_memory_write(side,row['turn']):
             write=dict(outcome['memory_write'],turn=row['turn'],candidates=[])
-            history.append(compact_row(write))
+            self.histories[side].append(compact_row(write))
