@@ -105,5 +105,27 @@ class ValidationCadenceTests(unittest.TestCase):
         validate_config(default_config())
         with self.assertRaises(ValueError):validate_config(default_config()|dict(validation_interval=0))
 
+    def test_only_ordinary_validation_jobs_request_reward_diagnostics(self):
+        from learning.data import keeps_reward_diagnostics
+        from learning.sample import opening_map
+        with tempfile.TemporaryDirectory() as temp:
+            r = self.runner(temp)
+            requested = {}
+            def record(jobs, name):
+                requested[name] = {keeps_reward_diagnostics(j['meta']) for j in jobs}
+                return jobs, []
+            r.execute = record
+            write_json(r.directory / 'bc_gate.json', dict(imitation=dict(effective=False), coverage=dict(passed=False)))
+            with patch('learning.maps.frozen_map', return_value=(opening_map(4), '0' * 64)):
+                for version, method in [(3, 'bc'), (6, 'ppo')]:
+                    r.state['version'] = version
+                    r.validate_model(method)
+                for label in ('nomination-astra', 'final-astra'):
+                    jobs = evaluation_jobs(r.directory, 'policy', 'astra', r.fixed, 1, 19, 3000000000,
+                                           r.exe, label=label, formats=[r.fmt], min_distinct=1)
+                    record(jobs, label)
+            self.assertEqual(requested, {'validation-000003': {True}, 'validation-000006': {True},
+                                         'nomination-astra': {False}, 'final-astra': {False}})
+
 
 if __name__=='__main__':unittest.main()
