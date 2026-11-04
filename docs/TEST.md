@@ -15,7 +15,7 @@ Every item states what is open, the smallest Ubuntu procedure that would close i
 
 ## L2 — Ordinary gated all-format bounded loop
 
-**Open requirement.** Complete the three-format training and deployment chain in one approximately one-hour Ubuntu run. The strict trial passed fresh ordinary BC and made new PPO progress on both sides of the restart. Team finished only one of eight scheduled trend games. Final evaluation completed 287/420 games and 71/90 blocks. The driver stopped before export. [Strict results](../verification/bounded_loop_strict_20261104/REPORT.md)
+**Open requirement.** Complete the three-format training and deployment chain in one approximately one-hour Ubuntu run. The strict confirmation passed fresh BC, both PPO commit boundaries and all scheduled trend rotations. Duel and FFA finished their final panels. Team finished 209/240 games and missed five blocks. The driver stopped before export. [Strict confirmation](../verification/bounded_loop_confirmation_20261104/REPORT.md)
 
 **Procedure.** On separate activation, ship a committed source archive to a fresh directory. Use `tests/bounded_training_loop.py` with its frozen three-format schedule and unforced gates. Its profile targets 24/24/24 teacher games and reserves separate budgets for BC, initial PPO, resume, final evaluation and export. Record stage times, source/rules/checkpoint identities, jobs and committed updates. Report any stage that fails to reach its gate within its declared ceiling.
 
