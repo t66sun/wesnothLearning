@@ -7,7 +7,14 @@ from . import helpers
 
 class ScorePolicyTests(unittest.TestCase):
     def test_score_only_preserves_observations_and_every_consumed_write(self):
-        spec = helpers.spec(max_turns=4, fog=True, shroud=True)
+        # The final maps use fog without shroud. Also compare end-turn scene
+        # writes at the shrouded opening, before hypothetical attack landings.
+        for shroud, moves in ((False, True), (True, False)):
+            with self.subTest(shroud=shroud):
+                self.compare_game(shroud, moves)
+
+    def compare_game(self, shroud, moves):
+        spec = helpers.spec(max_turns=4, fog=True, shroud=shroud)
         full, score = (helpers.engine(game_spec=spec) for _ in range(2))
         turns = {}
         kinds = set()
@@ -24,7 +31,7 @@ class ScorePolicyTests(unittest.TestCase):
                 self.assertEqual(original[field], compact[field], (step, field))
             actions = compact['candidates']
             end_turn = next(a for a in actions if a['kind'] == 'end_turn')
-            action = end_turn if step % 4 == 0 else next((a for a in actions if a['kind'] in ('move','recruit')), end_turn)
+            action = end_turn if not moves or step % 4 == 0 else next((a for a in actions if a['kind'] in ('move','recruit')), end_turn)
             needed = turns.get(side) != compact['turn']
             old = json.loads(full.execute_candidate(json.dumps(action)))
             new = json.loads(score.execute_candidate(json.dumps(action), policy_memory_write=needed))
@@ -48,7 +55,7 @@ class ScorePolicyTests(unittest.TestCase):
                 for memory in state['host']['memory'].values():
                     memory.pop('reward', None)
             self.assertEqual(states[0]['host']['memory'], states[1]['host']['memory'])
-        self.assertEqual(kinds, {'turn_end', 'first_action', 'omitted'})
+        self.assertEqual(kinds, {'turn_end', 'first_action', 'omitted'} if moves else {'turn_end'})
 
 
 if __name__ == '__main__':
