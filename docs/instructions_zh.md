@@ -2,7 +2,7 @@
 
 > 语言：[English](instructions.md) | 中文
 
-更新日期：2026-10-27。面向接手启动、维护和按指令调参的 agent。架构与当前参数以 [architecture_zh.md](architecture_zh.md) 为准，已实现但未验收的事项及最小方案见 [TEST_zh.md](TEST_zh.md)，历史验收证据从架构文档链接查阅。本文件提供操作步骤，不重复维护架构状态和完整超参数表。
+运行契约和当前参数见[架构文档](architecture_zh.md)。待验收事项见[验收清单](TEST_zh.md)。
 
 **当前路线：**每个 manifest 冻结唯一的自定义教师包 `gpt6astra` 及其血脉，因此教师对局、DAgger 纠正与导出一致携带同一身份。lite 是默认引擎，也是默认评估引擎；新 run 采集 lite Astra 教师对局（`native_bc_games` 为 0），最终对照同样为 lite Astra，官方 baseline 席位仍仅走 native。能力与限制见 architecture.md §4–§5。
 
@@ -45,7 +45,7 @@ export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1
 export SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy
 ```
 
-这是近期修改所在的主项目；`releases/v5_completion_20261020` 是历史隔离工作目录。恢复旧实验时应使用其匹配的源码，不因路径相似就把两个目录混用。当前服务器使用上面的绝对 Python 路径；仓库 `run.sh` 使用 `.venv/bin/python`，只有确认该虚拟环境有效时才用包装脚本。已有环境不需要重新执行 setup。
+恢复旧实验时使用其冻结源码和匹配环境。`run.sh` 调用 `.venv/bin/python`。使用前确认该解释器与实验环境一致。
 
 快速自检只验证环境和身份，不开游戏：
 
@@ -65,9 +65,7 @@ cc -O2 -fPIC -shared -o .runtime/entropy.so vendor/arena/entropy.c -ldl
 sha256sum .runtime/entropy.so
 ```
 
-2026-10-22 的按座位候选优化新增了 Rust 扩展的决策参数；使用新源码前需在对应虚拟环境重新编译 `_engine_lite`，不能只复制 Python/Lua 文件。该修改及 300/600/400、8 workers 默认值已于 2026-10-22 在 Ubuntu 通过 T1–T4 受限验收（含 8 worker 真实链路、峰值 PSS 4.02 GiB），证据见 `verification/pretrain_acceptance_20261022/`，当前默认值见 architecture.md §12；启动正式训练仍需用户后续明确指令。
-
-2026-10-23 当前实现为 schema 5 / 候选 v3。Ubuntu 隔离目录 `/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022` 已完成阶段接入与恢复的最小验收，使用其 `.venv/bin/python`（共享已安装依赖，拥有自己的新编译扩展）。若主目录尚未同步修复，使用该隔离目录核验入口或先部署已验收源码并重编对应环境；部署记录见修复报告。Rust 用 `include_str!` 嵌入 `engine_lite/lua/host.lua`，只复制 Lua 不会更新已安装扩展。原 20 小时正式实验已失败结束，旧 schema 4/v2 检查点只能使用原匹配源码；新旧语料/检查点不混用。受限移动质量验收已归档至 [后续报告](../verification/bc_rootcause_20261023_2318/REPORT.md)；正式 BC 全部门仍照常执行。
+在匹配的虚拟环境中重新构建 `_engine_lite`。Rust 通过 `include_str!` 嵌入 `engine_lite/lua/host.lua`，修改这个 Lua 文件也需要重建扩展。
 
 ### 干净 Ubuntu 24.04 训练归档包
 
@@ -97,7 +95,7 @@ tar -xzf WesnothLearning-training.tar.gz && cd WesnothLearning
 
 故障：`preflight: SHA256SUMS verification failed` 表示解压副本与归档不一致——重新解压到干净目录，不要手工修补哈希；缺少 `SHA256SUMS` 表示解压不完整。系统门禁或 sudo 拒绝，用 Ubuntu 24.04 `x86_64` 加 root/`sudo` 解决，或自行装好系统包后加 `--skip-system-deps`。`identity: engine build … does not match declared …` 表示扩展过期：重跑安装。wheel 未被选中通常有两种原因：`setup.sh` 只在 `dist/` 中查找以 `wesnoth_learning_lite-`、`_engine_lite-`、`engine_lite-` 开头的文件（`--preflight` 会打印找到的文件），而构建器还要求文件名同时含 `manylinux` 与 `x86_64`。缺少 `.runtime/environment.sh`、`.venv/bin/python`、可导入的 `_engine_lite`、可执行的 `WESNOTH_EXE` 或运行目录已存在时，`train.sh` 拒绝启动。用户授权后按第 4 节启动运行。
 
-状态：构建器、校验器、`bash -n` 与 setup/train 脚本检查在参考工作站通过（17 项构建器/校验器测试与 11 项脚本测试），且从本树构建的一个归档通过校验（`ok: true`）。尚未执行 Ubuntu 24.04 上的解压、preflight、安装、Rust 或 Wesnoth 构建、`train.sh` 启动；操作者已于 2026-10-31 放弃该项验收（`PKG1`），因此不存在也不再计划归档包验收（[REPORT](../verification/acceptance_20261030/REPORT.md)），构建或安装成功从不证明收敛、棋力或可用模型。
+参考工作站已验证归档结构和脚本。干净 Ubuntu 24.04 上的解压、安装和启动尚未验收。[归档包核验记录](../verification/acceptance_20261030/REPORT.md)
 
 ## 3. 启动前核对实际可运行范围
 
@@ -176,20 +174,9 @@ set -o pipefail
 
 本指南不提供默认重跑 277 项测试、30 块性能矩阵或大样本战斗统计的前置流程。
 
-新 run 可用 `--final-holdout-hours H` 在既有最终 2/12 预算内冻结 holdout 预留（默认 0；`0 <= H < hours/6`）。仅最终提名提前 H 小时截止，holdout 仍用原总截止。本次获准的新建 30 小时训练取 H=4：25 小时更新、1 小时提名、4 小时 holdout；提名不完整保留冠军，不延长时钟或绕门。恢复沿用原冻结配置。
-
-
-**历史启动，2026-10-25：**cpuServer 上获准新 run `training_lite30h_20261025/source/runs/v5_lite30h_20261025`，源码 `822082d`，PID/session 225153。北京时间 14:40:27 启动，总计 30 小时：25 小时更新、1 小时提名、4 小时 holdout；总截止 10 月 26 日 20:40:27。纯 lite 三赛制、8 个共享 worker，300/600/400 目标和门禁不变。14:52:47 独立状态读取确认脱离 SSH 后主进程存活；三赛制均有有效批次、已提交优化器更新（76/40/36）和更新检查点，无训练器错误。保留冻结源码和配置不动。命令与证据见[启动报告](../verification/final_review_lite30h_20261025/REPORT.md)。
-
-**当前结束／导出状态，2026-10-26：**新建 30 小时 run 于北京时间 16:35:34 结束，退出码全为 0。导出所选 Duel／FFA4／2v2 v400／v100／v100，保留 lite 未通过／结论不充分／未通过状态。用户已明确授权本地试用例外，独立 NeuralArena20261026 已安装；19 个包文件哈希一致，44 个旧模型文件未变，实际原版注册通过。FFA4 float32／Lua 误差 2.2106e-5 仍未过原 1e-5 门槛，安装目录 LOCAL_TRIAL.json 保留失败标签。多人游戏启用 Arena AI: NeuralArena20261026 模组，并选择同名电脑 AI。旧模型继续可用。见[导出报告](../verification/lite_export_20261026/REPORT.md)及[安装记录](../verification/lite_export_20261026/INSTALLATION.md)。
+新实验可用 `--final-holdout-hours H` 在最终评估预算内预留 H 小时（默认 0，`0 <= H < hours/6`）。提名在总截止前 H 小时结束，未完成时保留现任冠军。最终评估沿用原截止时间，恢复时沿用冻结配置。
 
 ## 5. 恢复已有训练
-
-**历史结束状态，2026-10-24：**16:31 续训在 20:05:52 截止 PPO 更新，随后完成每赛制 30 块最终评估，于 **20:42:45** 正常退出，退出码 0。三个 lite Astra 实力对照均为 **not_passed**，该续训已结束。最终所选 Duel/FFA4 v100、2v2 v80，最新训练版本为 211/143/80。模型已下载到 `delivery/lite_final_20261024/`，本地安装为 **Arena AI: NeuralArena20261024**，旧附加组件保留。多人游戏启用该模组并选择同名电脑 AI，自动按赛制路由。导出数值与注册检查通过，原版棋力未验收。详见 [安装与实力复盘](../verification/model_strength_20261024_2120/REPORT.md)。下方启动记录是历史信息，未经新指令不要恢复。
-
-**2026-10-24 16:31 历史启动记录：**使用 `/home/tongshu/myDev/wesnothLearning/validation_window_fix_20261024_1630` 下的 `runs/v5_lite_windowfix_20261024_1630`。脱离 SSH 的脚本 PID/PGID 为 202233，初始协调器为 202234；进度读取 `launch.json`、`continuation.log`、各赛制状态和 scheduler 事件。上一轮 `validation_memory_repair_20261024_1321/runs/v5_lite_resume_20261024_1420` 已于 16:21:48 停止，它与 `validation_training_repair_20261023_194022/runs/v5_lite18h_20261024_003512` 都是必需的只读语料、策略和检查点来源，不能删除、移动或恢复。Duel/FF4 从保留的最佳完整 v100 检查点恢复；2v2 没有晋级最佳模型，采用最近合法 v60。三者继续 PPO，滑动窗口修复已部署。**10 月 24 日 20:05:52** 停止 PPO 更新，随后脚本请求最终验收，总截止为 **10 月 25 日 00:00（北京时间）**。不要另开脚本、恢复父实验或覆盖阶段指令；失败时先查证据，不能重跑迁移。选择依据、模型/优化器/RNG 核对及真实进度见 [部署交接](../verification/window_deploy_20261024_1620/REPORT.md)。
-
-`runs/v5_20261021_203930` 因两个训练器 OOM 已于 2026-10-21 21:48 停止，其数据与检查点保留；读取链路修复并验收后，2026-10-22 00:08 的 `runs/v5_20261022_000850` 又于 01:03:45 按用户要求停止。最近纯 lite / 6000×3 / 18 h 实验 `runs/v5_lite6000_replay_20261022_012336` 已按用户要求于 2026-10-22 06:53:44 停止，未进入 PPO；原计划 19:23:37 截止不表示仍在运行。停止状态与历史问题见带日期的 `verification/` 报告，未获新指令不恢复或新建训练。旧实验源码哈希已变，直接恢复会触发 `verify_frozen`，只在用户明确要求时按受控迁移处理并保留原 manifest 与预算。
 
 先查看原实验的 manifest、clock、最近检查点和错误记录；确认没有同目录的活跃主进程，再在匹配源码、环境和规则下执行：
 
@@ -204,8 +191,6 @@ test -f "$run_dir/manifest.json" || exit 1
 确认检查点、优化器、RNG、奖励控制器和未完成批次恢复，计数继续增长。出现 `source changed`、`manifest changed` 或规则/词表不符时，使用原匹配版本排查，保留原 manifest 与校验。需要新配置/新架构时按用户指令建立独立实验或实现明确迁移，不能编辑冻结文件假装是无变化恢复。
 
 `run.lock` 是文件锁，文件存在不等于正在运行；遇到 `already running` 先确认持锁进程，不通过删除锁文件启动第二个同目录实验。
-
-2026-10-24 奖励滑动窗口修复已通过 [隔离 Ubuntu 验收](../verification/reward_window_fix_20261024_1607/REPORT.md)，并经授权迁移部署到现已结束的 16:31 续训。新 manifest 冻结的控制器 SHA-256 为 `2d79571785ab3ebd1b4299653791b78e7a3f85c3cf9338684de855a3c858d1a9`；后续修改仍需新实验或明确受控迁移，不能覆盖冻结源码或清单。
 
 ## 6. 日常维护与进度判断
 
@@ -273,7 +258,7 @@ BC 局数不增长不一定挂住：配额已满而质量未过时会继续学�
 
 修复后只重跑受影响的失败/新增最小用例，已通过项按有效证据复用。新输出放到新的 `verification/<日期或任务>/`，保留初次失败和修复后结果。普通维护不修改已安装游戏 AI、历史 V4 权重或其他实验。
 
-2026-10-23 用户授权的归档清理已完成：服务器 `runs/` 只保留 `v5_lite20h_20261022_210712`、`v5_lite6000_replay_20261022_012336` 两次正式训练及其日志。更早训练、V4 产物和旧回环在 `/home/tongshu/myDev/wesnothLearning/training_archives/20261023_212221/`。历史 run 路径不存在时，先查该目录 `index.json`，按 `SHA256SUMS` 验证所需归档，再依 README 解压回原 project 根目录；归档记录完整相对路径，不向已有同名新实验覆盖恢复。恢复仍使用该实验原 schema、冻结源码和预算，归档不会重置训练资格或时钟。本次是一次性清理，没有安装自动删除任务；详细记录见 [归档报告](../verification/training_archive_20261023/REPORT.md)。
+恢复已归档的实验时，先从对应归档的 `index.json` 找到原路径，再按 `SHA256SUMS` 校验文件。按归档 README 中的相对路径恢复，避开已有同名实验。恢复后使用原实验的 schema、冻结源码和预算。[归档位置与恢复说明](../verification/training_archive_20261023/REPORT.md)
 
 ## 8. 得到指示后微调参数
 

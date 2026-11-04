@@ -2,7 +2,7 @@
 
 > Language: English | [中文](architecture_zh.md)
 
-Updated 2026-10-31. This file describes only the current implementation. Dated evidence, failed runs and superseded decisions stay in `verification/`; remaining acceptance work is in [TEST.md](TEST.md); operating steps are in [instructions.md](instructions.md).
+This file describes only the current implementation. Dated evidence, failed runs and superseded decisions stay in `verification/`; remaining acceptance work is in [TEST.md](TEST.md); operating steps are in [instructions.md](instructions.md).
 
 ## 1. Scope and boundaries
 
@@ -251,16 +251,3 @@ The bounded runner requires a new successful PPO batch before and after restarti
 - Ordinary BC readiness is accepted for all three formats with the v6 teacher, v8 candidate budget, 30 turns and a target of 48 teacher games per format. The normal phase completed in 69m10s. Duel/FFA/team coverage was 90.29%/90.64%/93.22%, and held-out recruitment reached 64.18%/61.33%/62.82% against the 60% floor. All imitation, corpus and design gates passed. Duel used its ordinary plateau refresh. [Ordinary BC report](../verification/bc_ordinary_v6_20261103/REPORT.md)
 - Duel slow valuation uses the attacker's pre-move defense to give the same target a common status value across attack landings. Other-enemy exposure and landing defense use the candidate hex. The b0025 native board and a Lite regression accept the repair. [Fixed-board evidence](../verification/duel_slow_landing_20261103/REPORT.md)
 - Convergence and playing strength of the trained policy remain open.
-
-## 14. Documentation map
-
-| Document | Responsibility |
-| --- | --- |
-| `README.md` / `docs/README_zh.md` | repository entry |
-| `docs/architecture.md` | this file: structure, contracts, parameters |
-| `docs/instructions.md` | operating steps, Ubuntu bundle and instruction-driven tuning |
-| `docs/TEST.md` | remaining acceptance items only |
-| `docs/THIRD_PARTY.md` | licensing |
-| `verification/<date>/REPORT.md` | dated commands, identities and results |
-
-Maintenance rules live in the root `AGENTS.md`; evidence is never retro-fitted, and an accepted item leaves `TEST.md` as a whole.
