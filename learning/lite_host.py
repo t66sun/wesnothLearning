@@ -137,6 +137,10 @@ def play_lite_job(job):
         learner_sides=set(map(int,learning)) if learning else set(job.get('learner_sides',[]))
         collecting = job.get('learning') or job.get('shard') or learner_sides or record_decisions or keeps_reward_diagnostics(meta)
         score_only_astra = job.get('score_only_astra') and not collecting
+        # Trajectories, DAgger and horizon snapshots only consume learner seats.
+        # The opening probe is the one consumer of every seat's action diagnostics.
+        if learner_sides and (meta.get('phase') in ('teacher','ppo','dagger_refresh') or keeps_reward_diagnostics(meta)):
+            score_only_astra = not record_decisions
         score_only_policy = job.get('score_only_policy') and policies is not None and not collecting
         def metric_snapshot(side,event):
             row=host.decision(side,teacher=False,generate_candidates=False)
@@ -161,7 +165,7 @@ def play_lite_job(job):
                 raise RuntimeError('lite decision budget exhausted; no progress/teacher loop must be diagnosed')
             decision_count += 1
             teacher=is_astra(bots[current-1]) if policies else False
-            if score_only_astra and teacher:
+            if score_only_astra and teacher and current not in learner_sides:
                 plan = host.decision(current, teacher=True, generate_candidates=False, score_only_astra=True)
                 outcome = host.execute(teacher_candidate(plan['teacher_action']), score_only_astra=True)
             else:
