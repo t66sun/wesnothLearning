@@ -10,8 +10,8 @@ from tests import bounded_training_loop as loop
 
 
 class BoundedLoopFinalTests(unittest.TestCase):
-    def run_loop(self, *, control_changes=None, state_changes=None, missing_report=False):
-        snapshot = {fmt: dict(batch=1, stage='bc_complete', effective=True,
+    def run_loop(self, *, control_changes=None, state_changes=None, missing_report=False, missing_trend_block=False):
+        snapshot = {fmt: dict(batch=1, version=1, stage='bc_complete', effective=True,
                              history=[dict(method='bc', updates=1)], pending_train=None, error=None)
                     for fmt in loop.FORMATS}
         calls = []
@@ -21,8 +21,16 @@ class BoundedLoopFinalTests(unittest.TestCase):
             if name.startswith('ppo_'):
                 for state in snapshot.values():
                     state['batch'] += 1
+                    state['version'] += 1
                     state['stage'] = 'ppo_complete'
                     state['history'].append(dict(method='ppo', updates=1))
+            if name == 'ppo_resume':
+                for fmt in snapshot:
+                    path = loop.RUN/fmt/'validation/v000003.json'
+                    path.parent.mkdir(parents=True)
+                    missing = int(missing_trend_block and fmt == 'team2v2')
+                    panel = dict(blocks=1-missing, missing_blocks=missing, fault_games=0)
+                    path.write_text(json.dumps(dict(blocks=1, comparison={fmt: panel})))
             if name == 'evaluate':
                 for fmt, state in snapshot.items():
                     state['stage'] = 'finished'
@@ -72,6 +80,11 @@ class BoundedLoopFinalTests(unittest.TestCase):
                 code, calls, _ = self.run_loop(state_changes=state)
                 self.assertEqual(code, 1)
                 self.assertNotIn('export', calls)
+
+    def test_incomplete_scheduled_validation_stops_before_holdout(self):
+        code, calls, result = self.run_loop(missing_trend_block=True)
+        self.assertEqual((code, calls[-1], result['reason']),
+                         (1, 'ppo_resume', 'scheduled validation panel incomplete'))
 
     def test_complete_panel_does_not_require_a_strength_pass(self):
         for status in ('passed', 'not_passed', 'inconclusive'):

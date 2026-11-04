@@ -74,6 +74,20 @@ def ppo_updates(state):
     return sum(entry.get('updates', 0) for entry in state.get('history', []) if entry.get('method') == 'ppo')
 
 
+def validation_complete(interval):
+    for fmt, state in states().items():
+        versions = range(interval, state['version'] + 1, interval)
+        if not versions:
+            return False
+        for version in versions:
+            report = read(RUN / fmt / 'validation' / f'v{version:06}.json')
+            panel = report.get('comparison', {}).get(fmt, {})
+            if (not report.get('blocks') or panel.get('blocks') != report['blocks']
+                    or panel.get('missing_blocks') != 0 or panel.get('fault_games') != 0):
+                return False
+    return True
+
+
 def final_panels_complete(blocks, min_distinct):
     for fmt, state in states().items():
         if state.get('stage') != 'finished' or state.get('pending_train') or state.get('error'):
@@ -139,6 +153,8 @@ def main():
             return finish('FAIL', name+' did not commit new PPO updates at a completed boundary')
     if not all(ppo_updates(s)>=2 for s in states().values()):
         return finish('FAIL', 'fewer than two committed PPO updates')
+    if not validation_complete(plan['validation_interval']):
+        return finish('FAIL', 'scheduled validation panel incomplete')
     phase('evaluate', .24)
     if not stage('evaluate', command('run','--resume',RUN),900):
         return finish('FAIL', 'final evaluation execution or time limit')
