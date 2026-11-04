@@ -20,10 +20,11 @@ pub fn create(game:Arc<Mutex<Game>>)->mlua::Result<Lua> {
             "legal"=>json!(g.legal_actions(side).map_err(mlua::Error::external)?),
             "reach"|"path"=>{
                 let id=a["id"].as_str().ok_or_else(||mlua::Error::external("missing visible unit ID"))?;
-                let mut u=g.public_units(side).into_iter().find(|u|u.id==id).ok_or_else(||mlua::Error::external("unit is not visible"))?;
+                let public=g.public_units(side);
+                let mut u=public.iter().find(|u|u.id==id).cloned().ok_or_else(||mlua::Error::external("unit is not visible"))?;
                 let max_moves=u.max_moves(&g.rules);
                 u.moves=if op=="path" {(g.spec.terrain.len() as u32).saturating_mul(100)} else {a["moves"].as_u64().unwrap_or(u.moves as u64).min(max_moves as u64) as u32};
-                let (dist,prev)=g.reach(&u,side);
+                let (dist,prev)=g.reach_with_public(&u,side,&public);
                 if op=="reach" {
                     json!(dist.into_iter().enumerate().filter(|(_,d)|*d<=u.moves).map(|(p,d)|json!([p,u.moves-d])).collect::<Vec<_>>())
                 } else {
