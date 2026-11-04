@@ -6,6 +6,10 @@ use std::sync::Arc;
 
 const PLAIN: &str = "Gg";
 thread_local! { pub(crate) static NEIGHBOR_CALLS: std::cell::Cell<usize> = const { std::cell::Cell::new(0) }; }
+thread_local! {
+    pub(crate) static GAME_CLONES: std::cell::Cell<usize> = const { std::cell::Cell::new(0) };
+    pub(crate) static PUBLIC_ROSTERS: std::cell::Cell<usize> = const { std::cell::Cell::new(0) };
+}
 
 fn weapon() -> Weapon {
     Weapon{id:"blade".into(),damage:10,strikes:1,damage_type:"blade".into(),range:"melee".into(),accuracy:0,parry:0,attack_weight:1.,defense_weight:1.,
@@ -56,6 +60,59 @@ fn spec(seed:u64)->GameSpec {
 }
 
 fn game(seed:u64)->Game {Game::new(Arc::new(rules()),spec(seed)).expect("valid game")}
+
+fn rpc_forecast(lua:&mlua::Lua,attacker:&str,target:&str,weapon:usize,pos:usize)->Result<serde_json::Value,String> {
+    use mlua::LuaSerdeExt;
+    let args=serde_json::json!({"side":1,"attacker":attacker,"target":target,"weapon":weapon,"pos":pos});
+    let rpc:mlua::Function=lua.globals().get("__bridge").unwrap();
+    let value=rpc.call::<mlua::Value>(("forecast",lua.to_value(&args).unwrap())).map_err(|e|e.to_string())?;
+    Ok(lua.from_value(value).unwrap())
+}
+
+#[test]
+fn forecast_rpc_projects_only_the_hypothetical_public_roster() {
+    let g=Arc::new(std::sync::Mutex::new(game(7)));
+    let lua=crate::host::create(g).unwrap();
+    GAME_CLONES.with(|c|c.set(0));PUBLIC_ROSTERS.with(|c|c.set(0));
+    rpc_forecast(&lua,"u1","u2",0,5).unwrap();
+    assert_eq!((GAME_CLONES.with(|c|c.get()),PUBLIC_ROSTERS.with(|c|c.get())),(0,1));
+}
+
+#[test]
+fn forecast_rpc_matches_copied_game_visibility_and_preserves_state_on_errors() {
+    let mut catalog=rules();let mut hidden=unit_type("H");hidden.level=2;
+    hidden.abilities.insert("leadership".into());hidden.concealment_terrains.insert(PLAIN.into());
+    catalog.units.insert("H".into(),hidden);
+    let mut board=spec(7);board.width=5;board.height=5;board.terrain=vec![PLAIN.into();25];
+    board.units=vec![unit("actor","A",1,17),unit("defender","D",2,13),
+        unit("support","H",2,18),unit("unseen","H",2,4)];
+    board.units[0].leader=true;board.units[1].leader=true;
+    let mut game=Game::new(Arc::new(catalog),board).unwrap();
+    game.knowledge[0].terrain[24]=None;game.knowledge[0].visible[23]=false;
+    assert!(game.public_units(1).iter().any(|u|u.id=="support"));
+    assert!(!game.public_units(1).iter().any(|u|u.id=="unseen"));
+    let mut projected=game.clone();projected.units[0].pos=16;
+    assert!(!projected.public_units(1).iter().any(|u|u.id=="support"));
+    let wanted=projected.forecast(1,"actor","defender",0,1).unwrap();
+    Arc::make_mut(&mut projected.rules).units.get_mut("H").unwrap().concealment_terrains.clear();
+    assert_ne!(wanted,projected.forecast(1,"actor","defender",0,1).unwrap());
+    let before=serde_json::to_value(&game).unwrap();let searches=game.vision_searches();
+    let g=Arc::new(std::sync::Mutex::new(game));let lua=crate::host::create(g.clone()).unwrap();
+    assert_eq!(rpc_forecast(&lua,"actor","defender",0,16).unwrap(),wanted);
+    for (a,d,w,p,error) in [
+        ("unseen","defender",0,16,"forecast uses an unseen unit"),
+        ("actor","unseen",0,16,"forecast uses an unseen unit"),
+        ("actor","support",0,16,"target not visible"),
+        ("actor","defender",0,24,"forecast terrain is unknown"),
+        ("actor","defender",0,25,"forecast terrain is unknown"),
+        ("actor","defender",9,16,"invalid weapon"),
+        ("defender","actor",0,23,"attacker not visible"),
+    ] {
+        assert!(rpc_forecast(&lua,a,d,w,p).unwrap_err().contains(error),"{a} {d} {p}");
+        let actual=g.lock().unwrap();assert_eq!(serde_json::to_value(&*actual).unwrap(),before);
+        assert_eq!(actual.vision_searches(),searches);
+    }
+}
 
 #[test]
 fn reach_expands_local_neighbors_once_and_charges_adjacent_village_terrain() {

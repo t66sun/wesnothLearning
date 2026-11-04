@@ -20,8 +20,12 @@ struct VisionFootprints {
 }
 
 impl Clone for VisionFootprints {
-    // Forecasts and rollback copies need only the authoritative knowledge.
-    fn clone(&self) -> Self { Self::default() }
+    // Rollback copies need only the authoritative knowledge.
+    fn clone(&self) -> Self {
+        #[cfg(test)]
+        crate::engine_tests::GAME_CLONES.with(|c|c.set(c.get()+1));
+        Self::default()
+    }
 }
 
 fn vision_tiles(spec: &GameSpec, kind: &UnitType, origin: usize) -> Vec<usize> {
@@ -122,13 +126,24 @@ impl Game {
     pub fn side_check(&self,s:usize)->Result<(),String>{if s==0 || s>self.sides.len(){Err("invalid side".into())}else{Ok(())}}
     pub fn unit(&self,id:&str)->Option<usize>{self.units.iter().position(|u|u.id==id && u.hp>0)}
     fn concealed(&self,u:&Unit,viewer:usize)->bool {
+        self.concealed_among(u,viewer,self.allied_positions(viewer,&self.units))
+    }
+    fn allied_positions<'a>(&'a self,viewer:usize,units:&'a [Unit])->impl Iterator<Item=usize>+'a {
+        units.iter().filter(move |u|u.hp>0 && !self.enemy(u.side,viewer)).map(|u|u.pos)
+    }
+    fn concealed_among(&self,u:&Unit,viewer:usize,mut allies:impl Iterator<Item=usize>)->bool {
         if !self.enemy(u.side,viewer) || u.status.contains("petrified") {return false;}
-        if self.units.iter().any(|f|f.hp>0 && !self.enemy(f.side,viewer) && self.adjacent(u.pos).contains(&f.pos)){return false;}
         let t=&self.rules.units[&u.unit_type];let tile=&self.rules.terrains[&self.spec.terrain[u.pos]];
-        (t.concealment_terrains.contains(&self.spec.terrain[u.pos]) &&
+        let hides=(t.concealment_terrains.contains(&self.spec.terrain[u.pos]) &&
             (!t.concealment_requires_full_moves || u.moves==u.max_moves(&self.rules))) ||
             t.abilities.iter().any(|a|tile.concealment.contains(a)) ||
-            (t.abilities.contains("nightstalk") && self.rules.lawful_bonus[(self.turn as usize-1)%self.rules.lawful_bonus.len()]<0)
+            (t.abilities.contains("nightstalk") && self.rules.lawful_bonus[(self.turn as usize-1)%self.rules.lawful_bonus.len()]<0);
+        if !hides {return false;}
+        let adjacent=self.adjacent(u.pos);
+        !allies.any(|pos|adjacent.contains(&pos))
+    }
+    fn visible_among(&self,u:&Unit,side:usize,allies:impl Iterator<Item=usize>)->bool {
+        u.hp>0 && (u.side==side || self.knowledge[side-1].visible[u.pos] && !self.concealed_among(u,side,allies))
     }
     fn skirmisher_at(&self,u:&Unit,pos:usize,context:&[Unit])->bool {
         self.rules.units[&u.unit_type].abilities.contains("skirmisher") || context.iter().any(|source|
@@ -137,7 +152,9 @@ impl Game {
             self.rules.units[&source.unit_type].abilities.contains("distract"))
     }
     pub fn public_units(&self,s:usize)->Vec<Unit> {
-        let mut public:Vec<Unit>=self.units.iter().filter(|u|u.hp>0 && (u.side==s || self.knowledge[s-1].visible[u.pos] && !self.concealed(u,s))).cloned().collect();
+        #[cfg(test)]
+        crate::engine_tests::PUBLIC_ROSTERS.with(|c|c.set(c.get()+1));
+        let mut public:Vec<Unit>=self.units.iter().filter(|u|self.visible_among(u,s,self.allied_positions(s,&self.units))).cloned().collect();
         // Native unit.status exposes intrinsic type immunities as public flags.
         // Keep them derived on the view so advancing or changing type cannot
         // leave a stale static immunity on the underlying unit.
@@ -506,13 +523,33 @@ impl Game {
     /// `samples` remains accepted for compatibility; no Monte Carlo sampling.
     pub fn forecast(&self,s:usize,attacker:&str,target:&str,weapon:usize,_samples:usize)->Result<Value,String>{
         self.side_check(s)?;
-        let public=self.public_units(s);
+        self.forecast_public(s,attacker,target,weapon,&self.public_units(s))
+    }
+
+    pub(crate) fn forecast_landing(&self,s:usize,attacker:&str,target:&str,weapon:usize,pos:Option<usize>)->Result<Value,String>{
+        self.side_check(s)?;
+        let mut public=self.public_units(s);
+        let index=public.iter().position(|u|u.id==attacker).ok_or("forecast uses an unseen unit")?;
+        if !public.iter().any(|u|u.id==target) {return Err("forecast uses an unseen unit".into());}
+        let pos=pos.ok_or("missing combat location")?;
+        if self.knowledge[s-1].terrain.get(pos).and_then(Option::as_ref).is_none() {return Err("forecast terrain is unknown".into());}
+        if public[index].pos!=pos {
+            public[index].pos=pos;
+            // A hypothetical landing can re-conceal a known unit. It cannot
+            // discover a new referee unit or advance the real side's knowledge.
+            let allies:Vec<_>=self.allied_positions(s,&public).collect();
+            public.retain(|u|self.visible_among(u,s,allies.iter().copied()));
+        }
+        self.forecast_public(s,attacker,target,weapon,&public)
+    }
+
+    fn forecast_public(&self,s:usize,attacker:&str,target:&str,weapon:usize,public:&[Unit])->Result<Value,String>{
         let a=public.iter().find(|u|u.id==attacker).ok_or("attacker not visible")?;
         let d=public.iter().find(|u|u.id==target).ok_or("target not visible")?;
         if weapon>=self.rules.units[&a.unit_type].weapons.len(){return Err("invalid weapon".into());}
         let at=self.knowledge[s-1].terrain[a.pos].as_ref().ok_or("unknown attacker terrain")?;
         let dt=self.knowledge[s-1].terrain[d.pos].as_ref().ok_or("unknown defender terrain")?;
-        let modifiers=self.combat_modifiers(a,d,&public);
+        let modifiers=self.combat_modifiers(a,d,public);
         let (_,distribution)=crate::combat_probability::select(&self.rules,a,d,weapon,at,dt,self.turn,&modifiers);
         Ok(distribution.json())
     }
