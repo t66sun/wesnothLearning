@@ -36,13 +36,8 @@ pub fn create(game:Arc<Mutex<Game>>)->mlua::Result<Lua> {
             "forecast"=>{
                 let attacker=a["attacker"].as_str().ok_or_else(||mlua::Error::external("missing attacker"))?;
                 let target=a["target"].as_str().ok_or_else(||mlua::Error::external("missing target"))?;
-                let public=g.public_units(side);
-                if !public.iter().any(|u|u.id==attacker) || !public.iter().any(|u|u.id==target) {return Err(mlua::Error::external("forecast uses an unseen unit"));}
-                let pos=a["pos"].as_u64().ok_or_else(||mlua::Error::external("missing combat location"))? as usize;
-                if pos>=g.spec.terrain.len() || g.knowledge[side-1].terrain[pos].is_none() {return Err(mlua::Error::external("forecast terrain is unknown"));}
-                let mut copy=g.clone();let i=copy.unit(attacker).unwrap();copy.units[i].pos=pos;
-                // Public probability distribution; no referee RNG or sample count.
-                copy.forecast(side,attacker,target,a["weapon"].as_u64().unwrap_or(0) as usize,1).map_err(mlua::Error::external)?
+                let pos=a["pos"].as_u64().map(|p|p as usize);
+                g.forecast_landing(side,attacker,target,a["weapon"].as_u64().unwrap_or(0) as usize,pos).map_err(mlua::Error::external)?
             },
             "step"=>{
                 if side!=g.current{return Err(mlua::Error::external("cannot act for another side"));}
