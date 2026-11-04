@@ -113,7 +113,11 @@ impl Game {
             exploration_seen:BTreeMap::new(),exploration_earned:BTreeMap::new(),vision:VisionFootprints::default()};
         g.update_visibility();g.update_exploration(true);Ok(g)
     }
-    pub fn adjacent(&self,p:usize)->Vec<usize>{neighbors(p,self.spec.width,self.spec.height)}
+    pub fn adjacent(&self,p:usize)->Vec<usize>{
+        #[cfg(test)]
+        crate::engine_tests::NEIGHBOR_CALLS.with(|n| n.set(n.get()+1));
+        neighbors(p,self.spec.width,self.spec.height)
+    }
     pub fn enemy(&self,a:usize,b:usize)->bool {self.sides[a-1].team!=self.sides[b-1].team}
     pub fn side_check(&self,s:usize)->Result<(),String>{if s==0 || s>self.sides.len(){Err("invalid side".into())}else{Ok(())}}
     pub fn unit(&self,id:&str)->Option<usize>{self.units.iter().position(|u|u.id==id && u.hp>0)}
@@ -212,23 +216,30 @@ impl Game {
     /// Public-information Dijkstra. Unknown terrain uses an explicit optimistic
     /// cost of one; execution stops when newly revealed terrain blocks the intent.
     pub fn reach(&self,u:&Unit,s:usize)->(Vec<u32>,Vec<usize>) {
+        self.reach_with_public(u, s, &self.public_units(s))
+    }
+    pub(crate) fn reach_with_public(&self,u:&Unit,s:usize,public:&[Unit])->(Vec<u32>,Vec<usize>) {
         let n=self.spec.terrain.len();let mut dist=vec![u32::MAX;n];let mut prev=vec![usize::MAX;n];
-        let t=&self.rules.units[&u.unit_type];let public=self.public_units(s);
+        let t=&self.rules.units[&u.unit_type];
         let occupied:BTreeMap<usize,&Unit>=public.iter().map(|x|(x.pos,x)).collect();
         let zoc:BTreeSet<usize>=public.iter().filter(|e|self.enemy(e.side,u.side) && self.rules.units[&e.unit_type].level>0 && !e.status.contains("petrified") && !e.status.contains("stunned"))
             .flat_map(|e|self.adjacent(e.pos)).collect();
         let mut queue=BinaryHeap::new();dist[u.pos]=0;prev[u.pos]=u.pos;queue.push((Reverse(0),u.pos));
         if u.status.contains("petrified") {return (dist,prev);}
         while let Some((Reverse(d),p))=queue.pop() {
-            if d!=dist[p] || p!=u.pos && zoc.contains(&p) && !self.skirmisher_at(u,p,&public) {continue;}
+            if d!=dist[p] || p!=u.pos && zoc.contains(&p) && !self.skirmisher_at(u,p,public) {continue;}
             let mut next=self.adjacent(p);
+            let local_count=next.len();
             if t.abilities.contains("teleport") && self.knowledge[s-1].villages.get(&p).is_some_and(|v|v.0==u.side) {
-                next.extend(self.knowledge[s-1].villages.iter().filter(|(_,v)|v.0==u.side).map(|(&q,_)|q));
+                for (&q, village) in &self.knowledge[s-1].villages {
+                    if village.0==u.side && !next[..local_count].contains(&q) { next.push(q); }
+                }
             }
-            for q in next {
+            for (index,q) in next.into_iter().enumerate() {
                 if occupied.get(&q).is_some_and(|o|self.enemy(o.side,u.side)) {continue;}
-                    let teleport=!self.adjacent(p).contains(&q);
-                    let mut cost=if teleport{1}else{self.knowledge[s-1].terrain[q].as_ref().map(|code|t.movement[code]).unwrap_or(1).max(1)};
+                // Adjacent owned villages keep their terrain cost; only the
+                // ordered tail of remote village destinations costs one.
+                let mut cost=if index>=local_count {1} else {self.knowledge[s-1].terrain[q].as_ref().map(|code|t.movement[code]).unwrap_or(1).max(1)};
                 if u.status.contains("slowed") {cost=cost.saturating_mul(2);}
                 let nd=d.saturating_add(cost);
                 if nd<=u.moves && nd<dist[q] {dist[q]=nd;prev[q]=p;queue.push((Reverse(nd),q));}
@@ -257,7 +268,7 @@ impl Game {
         let public=self.public_units(s);let occupied:BTreeSet<usize>=public.iter().map(|u|u.pos).collect();
         let mut actions=vec![Action::EndTurn];
         for u in public.iter().filter(|u|u.side==s && !u.status.contains("petrified")) {
-            if u.moves>0 {let (d,_)=self.reach(u,s);
+            if u.moves>0 {let (d,_)=self.reach_with_public(u,s,&public);
                 for (p,&cost) in d.iter().enumerate(){if p!=u.pos && cost<=u.moves && !occupied.contains(&p){
                     actions.push(Action::Move{unit:u.id.clone(),to:p,full:false});
                 }}
