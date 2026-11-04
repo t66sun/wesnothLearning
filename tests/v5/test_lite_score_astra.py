@@ -11,15 +11,19 @@ class ScoreAstraTests(unittest.TestCase):
         fixture = pipeline.LiteJobTests('test_astra_job_writes_schema_four_shard')
         fixture.setUp()
         self.addCleanup(fixture.doCleanups)
+        self.fixture = fixture
         self.rules = fixture.rules_dir
         self.job = fixture.job()
 
     def replay(self, job):
         plans, outcomes, compact = [], [], []
+        self.calls = []
         decide, execute = LiteHost.decision, LiteHost.execute
 
         def capture_plan(host, side, **options):
             row = decide(host, side, **options)
+            self.calls.append((side, options.get('teacher',False), options.get('generate_candidates',True),
+                               set(row) == {'teacher_action'}))
             if options['teacher']:
                 ledger = host.snapshot()['host']['teacher_memory']
                 plans.append((row['teacher_action'], ledger))
@@ -65,6 +69,31 @@ class ScoreAstraTests(unittest.TestCase):
                     self.assertTrue(result['behavior'])
                 else:
                     self.assertIn('reward_diagnostics', result)
+
+    def test_reference_records_only_its_teacher_and_opening_keeps_every_seat(self):
+        for opening in (False, True):
+            with self.subTest(opening=opening):
+                job = self.fixture.job(learning={'sides': {'1': {'teacher':'gpt6astra'}}})
+                job.pop('shard')
+                job['meta'].update(phase='reward_reference', opening=opening)
+                _, _, result, _ = self.replay(job)
+                self.assertEqual({s for s,teacher,_,compact in self.calls if teacher and compact},
+                                 set() if opening else {2})
+                self.assertTrue(any(s==1 and teacher and generate and not compact for s,teacher,generate,compact in self.calls))
+                self.assertTrue(any(s==1 and not teacher and not generate and not compact for s,teacher,generate,compact in self.calls))
+                self.assertEqual([m['side'] for m in result['reward_diagnostics']], [1])
+                self.assertEqual(bool(result.get('behavior')), opening)
+
+    def test_dagger_queries_and_truncation_bootstrap_keep_full_policy_data(self):
+        job = self.fixture.four_seat_job(learning={'sides':{'1':{}}, 'dagger_teacher':'data/opponents/gpt6astra.zip'})
+        job['meta']['phase'] = 'ppo'
+        self.replay(job)
+        compact_sides = {s for s,_,_,compact in self.calls if compact}
+        self.assertEqual(compact_sides, {2,3,4})
+        queries = [(generate,compact) for s,teacher,generate,compact in self.calls if s==1 and teacher]
+        self.assertTrue(queries)
+        self.assertTrue(all(generate and not compact for generate,compact in queries))
+        self.assertEqual(self.calls[-1], (1,False,True,False))
 
 
 if __name__ == '__main__':
