@@ -2,7 +2,7 @@
 
 > 语言：[English](architecture.md) | 中文
 
-更新日期：2026-10-31。本文件只描述当前实现。带日期的证据、失败运行与已被取代的决策留在 `verification/`；剩余验收工作见 [TEST_zh.md](TEST_zh.md)；运行与按指令调参见 [instructions_zh.md](instructions_zh.md)。
+本文件只描述当前实现。带日期的证据、失败运行与已被取代的决策留在 `verification/`；剩余验收工作见 [TEST_zh.md](TEST_zh.md)；运行与按指令调参见 [instructions_zh.md](instructions_zh.md)。
 
 ## 1. 范围与边界
 
@@ -251,16 +251,3 @@ BC 模仿验证在 64 行推理块之间共享本次调用的历史缓存；无�
 - 三个赛制已通过普通 BC 就绪验收，配置为 v6 教师、v8 候选、30 回合、每赛制 48 局教师目标，普通阶段耗时 69 分 10 秒。单挑/混战/组队覆盖率为 90.29%/90.64%/93.22%，留出招募命中率为 64.18%/61.33%/62.82%，均超过 60% 下限。语料、覆盖、模仿和场景设计门槛全部通过，单挑按普通停滞刷新规则补采。[普通 BC 报告](../verification/bc_ordinary_v6_20261103/REPORT.md)
 - 单挑减速收益按攻击者移动前的防御估算，同一目标在不同攻击落点使用相同的状态价值。其他敌军威胁和落点防御按拟选格计算。b0025 原版实盘与 Lite 回归已验收此修复。[固定棋盘证据](../verification/duel_slow_landing_20261103/REPORT.md)
 - 训练后策略的收敛与棋力仍待验收。
-
-## 14. 文档地图
-
-| 文档 | 职责 |
-| --- | --- |
-| `README.md` / `docs/README_zh.md` | 仓库入口 |
-| `docs/architecture.md` | 本文件：结构、契约、参数 |
-| `docs/instructions.md` | 操作步骤与按指令调参 |
-| `docs/TEST.md` | 仅剩的验收事项 |
-| `docs/THIRD_PARTY.md` | 许可 |
-| `verification/<date>/REPORT.md` | 带日期的命令、身份与结果 |
-
-维护规则见根目录 `AGENTS.md`；证据不得追溯修改，已验收事项整项离开 `TEST.md`。

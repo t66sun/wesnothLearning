@@ -2,7 +2,7 @@
 
 > Language: English | [中文](instructions_zh.md)
 
-Updated 2026-10-27. For agents taking over startup, maintenance and instruction-driven tuning. Architecture and current parameters are authoritative in [architecture.md](architecture.md); implemented-but-unaccepted items and minimal plans are in [TEST.md](TEST.md); historical acceptance evidence is linked from the architecture document. This file gives operational steps and does not duplicate architecture status or the full hyperparameter table.
+See the [architecture](architecture.md) for runtime contracts and parameters, and the [acceptance list](TEST.md) for pending checks.
 
 **Current route:** every manifest freezes the sole custom teacher package `gpt6astra` and its lineage, so teacher games, DAgger corrections and exports carry one identity. Lite is the default engine and the default evaluation engine, so a fresh run collects lite Astra teacher games (`native_bc_games` 0) and its final comparison is lite Astra; official-baseline seats stay native-only. Capabilities and limits are in architecture.md §4–§5.
 
@@ -45,7 +45,7 @@ export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1
 export SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy
 ```
 
-This is the main project holding recent changes; `releases/v5_completion_20261020` is a historical isolated working directory. Resuming an old experiment uses its matching sources; do not mix the two directories just because the paths look similar. The server uses the absolute Python path above; the repository `run.sh` uses `.venv/bin/python`, so use the wrapper script only after confirming that virtual environment is valid. An existing environment does not need setup again.
+Resume each experiment with its frozen source and matching environment. The `run.sh` wrapper uses `.venv/bin/python`. Check that interpreter before using the wrapper.
 
 A quick self-check verifies only the environment and identity, without launching the game:
 
@@ -65,9 +65,7 @@ cc -O2 -fPIC -shared -o .runtime/entropy.so vendor/arena/entropy.c -ldl
 sha256sum .runtime/entropy.so
 ```
 
-The 2026-10-22 per-seat candidate optimization added decision parameters to the Rust extension; before using the new sources, rebuild `_engine_lite` in the matching virtual environment instead of only copying Python/Lua files. That change and the 300/600/400, 8-worker defaults passed restricted Ubuntu acceptance T1–T4 on 2026-10-22 (including the real 8-worker chain and peak PSS 4.02 GiB); evidence is in `verification/pretrain_acceptance_20261022/` and the current defaults are in architecture.md §12. Starting formal training still needs a later explicit user instruction.
-
-The current implementation as of 2026-10-23 is schema 5 / candidate v3. The Ubuntu isolated directory `/home/tongshu/myDev/wesnothLearning/validation_training_repair_20261023_194022` has completed the minimal phase-wiring and resume acceptance and uses its own `.venv/bin/python` (shared installed dependencies, its own newly compiled extension). If the main directory has not yet synced the fixes, verify entries in that isolated directory or deploy the accepted sources first and rebuild the matching environment; the deployment record is in the repair report. Rust embeds `engine_lite/lua/host.lua` via `include_str!`, so copying Lua alone does not update an installed extension. The original 20-hour formal experiment has ended in failure and old schema 4/v2 checkpoints only work with their original matching sources; new and old corpora/checkpoints are never mixed. Restricted movement quality acceptance is archived in the [follow-up report](../verification/bc_rootcause_20261023_2318/REPORT.md); the real full BC gates still run as usual.
+Rebuild `_engine_lite` in the matching virtual environment when its Rust or embedded Lua changes. Rust embeds `engine_lite/lua/host.lua` through `include_str!`.
 
 ### Clean Ubuntu 24.04 training bundle
 
@@ -97,7 +95,7 @@ The target is Ubuntu 24.04 `x86_64` with `sudo` or root and network access; 22.0
 
 Failures: `preflight: SHA256SUMS verification failed` means the extracted copy differs from the archive — re-extract into a fresh directory and never repair hashes by hand; a missing `SHA256SUMS` means an incomplete extraction. An OS-gate or sudo refusal is satisfied by Ubuntu 24.04 `x86_64` with root/`sudo`, or by `--skip-system-deps` after installing the packages yourself. `identity: engine build … does not match declared …` means a stale extension: rerun setup. A wheel that is not picked up has two causes: `setup.sh` only searches `dist/` for names starting `wesnoth_learning_lite-`, `_engine_lite-` or `engine_lite-` (and `--preflight` prints the file it found), while the builder additionally demands `manylinux` and `x86_64` in the name. `train.sh` refuses without `.runtime/environment.sh`, `.venv/bin/python`, an importable `_engine_lite`, an executable `WESNOTH_EXE` or a free run directory. Section 4 starts a run once the user authorizes it.
 
-Status: builder, verifier, `bash -n` and the setup/train script checks pass on the reference workstation (17 builder/verifier and 11 script tests), and one archive built from this tree verifies `ok: true`. No Ubuntu 24.04 extraction, preflight, install, Rust or Wesnoth build, or `train.sh` start has run; the operator dropped that acceptance (`PKG1`) on 2026-10-31, so no bundle acceptance exists or is planned ([REPORT](../verification/acceptance_20261030/REPORT.md)), and building or installing an archive never proves convergence, strength or a usable model.
+The reference workstation verified the archive layout and scripts. Extraction, installation and startup on a clean Ubuntu 24.04 host remain unverified. [Bundle verification record](../verification/acceptance_20261030/REPORT.md)
 
 ## 3. Verify the actually runnable scope before starting
 
@@ -176,20 +174,9 @@ Post-start checks:
 
 This guide does not prescribe a default pre-flight rerun of 277 tests, the 30-block performance matrix or large-sample combat statistics.
 
-New runs may freeze `--final-holdout-hours H` inside the existing final 2/12 budget (default 0; `0 <= H < hours/6`). Only final nomination stops H hours before the original total deadline; holdout retains that deadline. For the authorized fresh 30-hour run, use H=4: 25 hours updates, 1 hour nomination, 4 hours holdout. Incomplete nomination retains the champion; no deadline extension or gate override. Resume keeps the original frozen config.
-
-
-**Historical startup, 2026-10-25:** authorized fresh run `training_lite30h_20261025/source/runs/v5_lite30h_20261025` on cpuServer, source `822082d`, PID/session 225153. Started 14:40:27 Asia/Shanghai with 30 hours total, 25 hours updates, one hour nomination and four hours holdout; total deadline October 26 20:40:27. Pure lite, three formats, eight shared workers and unchanged 300/600/400 targets/gates. Independent status reads at 14:52:47 confirm the detached coordinator is alive and all formats have valid batches, committed optimizer updates (76/40/36), newer checkpoints and no trainer errors. Keep its frozen sources/config untouched. Commands and evidence: [startup report](../verification/final_review_lite30h_20261025/REPORT.md).
-
-**Current completion/export, 2026-10-26:** the fresh 30-hour run finished at 16:35:34 Asia/Shanghai (all exit codes 0). Export uses selected duel/FFA4/2v2 v400/v100/v100, retaining not_passed/inconclusive/not_passed lite results. The user explicitly authorized local-trial installation of the separate NeuralArena20261026 add-on. All 19 package files match, 44 prior-model files are unchanged and actual native registration passes. FFA4 float32/Lua error 2.2106e-5 still fails the unchanged 1e-5 gate; installed LOCAL_TRIAL.json preserves it. Enable Arena AI: NeuralArena20261026 in multiplayer modifications and select its same-name AI. Old models remain available. See [export report](../verification/lite_export_20261026/REPORT.md) and [installation record](../verification/lite_export_20261026/INSTALLATION.md).
+Use `--final-holdout-hours H` to reserve H hours of the final evaluation budget (default 0, `0 <= H < hours/6`). Nomination stops H hours before the total deadline and retains the champion if incomplete. Holdout keeps the original deadline, and resume uses the frozen configuration.
 
 ## 5. Resuming existing training
-
-**Historical completion, 2026-10-24:** the 16:31 continuation finished normally at **20:42:45**, exit code 0, after its 20:05:52 PPO cutoff and all 30 final blocks per format. All three lite Astra strength comparisons are **not_passed**. That continuation is no longer active. Final selected checkpoints are duel/FFA4 v100 and team2v2 v80; latest trained versions are 211/143/80. Models are downloaded to `delivery/lite_final_20261024/` and installed locally as **Arena AI: NeuralArena20261024**, preserving older add-ons. Enable that modification and select its same-name computer AI in multiplayer; format routing is automatic. Numerical export and registration checks passed, not native playing-strength acceptance. See the [installation and strength review](../verification/model_strength_20261024_2120/REPORT.md). The following startup record is historical; do not restart it without a new instruction.
-
-**Historical continuation startup, 2026-10-24 16:31:** work from `/home/tongshu/myDev/wesnothLearning/validation_window_fix_20261024_1630`, run `runs/v5_lite_windowfix_20261024_1630`. Detached wrapper PID/PGID 202233, initial coordinator 202234. Read `launch.json`, `continuation.log`, per-format states and scheduler events. The prior `validation_memory_repair_20261024_1321/runs/v5_lite_resume_20261024_1420` stopped at 16:21:48; keep it and `validation_training_repair_20261023_194022/runs/v5_lite18h_20261024_003512` as required read-only corpus/policy/checkpoint sources. Duel/FF4 resume complete retained-best v100 checkpoints; 2v2 uses latest legal v60 because no promoted best exists. All three remain in PPO, with the accepted rolling-window repair deployed. PPO updates end **20:05:52 on October 24**; the wrapper then requests final evaluation within the total deadline **00:00 on October 25, Asia/Shanghai**. Do not start another wrapper, resume a parent or overwrite phase requests. On failure inspect evidence first; do not rerun migration. Full selection, checkpoint/optimizer/RNG checks and live progress are in the [deployment handoff](../verification/window_deploy_20261024_1620/REPORT.md).
-
-`runs/v5_20261021_203930` stopped at 2026-10-21 21:48 because two trainers hit OOM and its data and checkpoints are retained; after the read-path fix and acceptance, `runs/v5_20261022_000850` started at 2026-10-22 00:08 and was stopped by user request at 01:03:45. The most recent pure lite / 6000×3 / 18 h experiment `runs/v5_lite6000_replay_20261022_012336` was stopped by user request at 2026-10-22 06:53:44 without reaching PPO; its originally planned 19:23:37 deadline does not mean it is still running. Stop status and historical issues are in the dated `verification/` reports; do not resume or create training without a new instruction. Old experiment source hashes have changed, so a direct resume triggers `verify_frozen`; only handle it as a controlled migration when the user explicitly asks, keeping the original manifest and budget.
 
 Inspect the original experiment's manifest, clock, latest checkpoint and error records first, confirm no active main process in the same directory, then run against matching sources, environment and rules:
 
@@ -204,8 +191,6 @@ test -f "$run_dir/manifest.json" || exit 1
 Confirm that checkpoints, optimizer, RNG, reward controller and unfinished batches are restored and counters keep growing. On `source changed`, `manifest changed` or rule/vocabulary mismatch, diagnose with the original matching version and keep the original manifest and checksums. New config/new architecture means a separate experiment per user instruction or an explicit migration, never editing frozen files to pretend it was an unchanged resume.
 
 `run.lock` is a file lock; an existing file does not mean it is running. On `already running`, identify the lock holder first and never start a second process in the same directory by deleting the lock file.
-
-The 2026-10-24 rolling reward-window fix passed [isolated Ubuntu acceptance](../verification/reward_window_fix_20261024_1607/REPORT.md) and was deployed in the now-completed 16:31 continuation through an authorized derivative migration. Its manifest freezes controller SHA-256 `2d79571785ab3ebd1b4299653791b78e7a3f85c3cf9338684de855a3c858d1a9`. Future changes still require a new run or explicit controlled migration; never overwrite frozen source or manifests.
 
 ## 6. Daily maintenance and progress judgement
 
@@ -273,7 +258,7 @@ When sending signals, confirm ownership by PID, parent/child relation, command a
 
 After a fix, rerun only affected failed/new minimal cases and reuse accepted evidence. New output goes to a new `verification/<date or task>/`, keeping both the initial failure and the post-fix result. Routine maintenance does not modify the installed game AI, historical V4 weights or other experiments.
 
-The user-authorized archive cleanup finished on 2026-10-23: the server `runs/` now keeps only the two formal trainings `v5_lite20h_20261022_210712` and `v5_lite6000_replay_20261022_012336` plus their logs. Earlier trainings, V4 artifacts and old loopbacks are in `/home/tongshu/myDev/wesnothLearning/training_archives/20261023_212221/`. When a historical run path is missing, check that directory's `index.json`, verify the needed archive against `SHA256SUMS`, then unpack it back to the original project root per its README; archives keep full relative paths and never overwrite a newer experiment with the same name. Restores still use that experiment's original schema, frozen sources and budget; archiving does not reset training eligibility or clocks. This was a one-time cleanup with no automatic deletion task installed; details are in the [archive report](../verification/training_archive_20261023/REPORT.md).
+To restore an archived experiment, locate its original path in the archive’s `index.json` and verify its files against `SHA256SUMS`. Follow the archive README to restore relative paths without overwriting an existing run. Resume with the original schema, frozen source and budget. [Archive location and recovery instructions](../verification/training_archive_20261023/REPORT.md)
 
 ## 8. Tuning parameters on instruction
 
