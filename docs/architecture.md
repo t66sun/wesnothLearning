@@ -77,6 +77,8 @@ flowchart LR
 
 Lite stores terrain sight by unit slot. A change of type or position recomputes that unit's footprint on the fixed map. Every visibility refresh applies live side ownership, shared vision, concealment, villages and enemy memory. Snapshots contain the resulting knowledge. Restores and rollback copies begin with an empty derived cache. On one frozen team validation game this saved 12.56% of whole-worker CPU with identical public views after every committed action. [Ubuntu trace and fixture checks](../verification/vision_footprint_20261104/REPORT.md)
 
+Lite reach and path searches expand the six local neighbors once per visited hex. Adjacent owned villages retain their terrain cost, and the remaining teleport destinations follow in the existing village order. Lua path queries and legal-action enumeration reuse the units already visible to the querying side. [Counted work and validation-game equivalence](../verification/public_reach_20261104/REPORT.md)
+
 ## 5. Observation, candidates and rows
 
 `learning/features.py` (`VERSION = 5`) is the input contract. `schema()` fixes every ordered feature name and scale and is exported verbatim as `features.lua`, so the trainer and Lua consume identical inputs.
