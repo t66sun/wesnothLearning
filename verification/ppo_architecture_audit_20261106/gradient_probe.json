@@ -1,0 +1,1197 @@
+{
+  "occupancy": {
+    "duel/champion000200": {
+      "games": 24,
+      "worker_wall_seconds": 904.8110086917877,
+      "mean_seconds": 37.70045869549116
+    },
+    "duel/champion000300": {
+      "games": 24,
+      "worker_wall_seconds": 852.863968372345,
+      "mean_seconds": 35.53599868218104
+    },
+    "duel/champion000400": {
+      "games": 24,
+      "worker_wall_seconds": 882.9234471321106,
+      "mean_seconds": 36.788476963837944
+    },
+    "duel/champion000500": {
+      "games": 24,
+      "worker_wall_seconds": 721.5420744419098,
+      "mean_seconds": 30.064253101746242
+    },
+    "duel/champion000600": {
+      "games": 24,
+      "worker_wall_seconds": 791.8055529594421,
+      "mean_seconds": 32.99189803997675
+    },
+    "duel/champion000700": {
+      "games": 24,
+      "worker_wall_seconds": 702.7285876274109,
+      "mean_seconds": 29.280357817808788
+    },
+    "duel/champion000800": {
+      "games": 24,
+      "worker_wall_seconds": 757.3628404140472,
+      "mean_seconds": 31.55678501725197
+    },
+    "duel/champion000900": {
+      "games": 24,
+      "worker_wall_seconds": 1109.737574338913,
+      "mean_seconds": 46.239065597454704
+    },
+    "duel/final": {
+      "games": 60,
+      "worker_wall_seconds": 978.8811776638031,
+      "mean_seconds": 16.31468629439672
+    },
+    "duel/nominate": {
+      "games": 24,
+      "worker_wall_seconds": 665.0384457111359,
+      "mean_seconds": 27.709935237963993
+    },
+    "duel/reward": {
+      "games": 24,
+      "worker_wall_seconds": 480.59659218788147,
+      "mean_seconds": 20.024858007828396
+    },
+    "duel/rollout": {
+      "games": 3616,
+      "worker_wall_seconds": 49299.62639117241,
+      "mean_seconds": 13.633746236496794
+    },
+    "duel/teacher": {
+      "games": 300,
+      "worker_wall_seconds": 3376.571130990982,
+      "mean_seconds": 11.255237103303273
+    },
+    "duel/val000010": {
+      "games": 6,
+      "worker_wall_seconds": 83.0881712436676,
+      "mean_seconds": 13.848028540611267
+    },
+    "duel/val000020": {
+      "games": 6,
+      "worker_wall_seconds": 119.86956334114075,
+      "mean_seconds": 19.978260556856792
+    },
+    "duel/val000030": {
+      "games": 6,
+      "worker_wall_seconds": 87.6711494922638,
+      "mean_seconds": 14.611858248710632
+    },
+    "duel/val000040": {
+      "games": 6,
+      "worker_wall_seconds": 137.34831929206848,
+      "mean_seconds": 22.89138654867808
+    },
+    "duel/val000050": {
+      "games": 6,
+      "worker_wall_seconds": 94.01353549957275,
+      "mean_seconds": 15.668922583262125
+    },
+    "duel/val000060": {
+      "games": 6,
+      "worker_wall_seconds": 132.04735660552979,
+      "mean_seconds": 22.0078927675883
+    },
+    "duel/val000070": {
+      "games": 6,
+      "worker_wall_seconds": 134.35037446022034,
+      "mean_seconds": 22.39172907670339
+    },
+    "duel/val000080": {
+      "games": 6,
+      "worker_wall_seconds": 109.41163468360901,
+      "mean_seconds": 18.23527244726817
+    },
+    "duel/val000090": {
+      "games": 6,
+      "worker_wall_seconds": 126.02032041549683,
+      "mean_seconds": 21.003386735916138
+    },
+    "duel/val000100": {
+      "games": 24,
+      "worker_wall_seconds": 567.6354782581329,
+      "mean_seconds": 23.65147826075554
+    },
+    "duel/val000110": {
+      "games": 6,
+      "worker_wall_seconds": 104.15723896026611,
+      "mean_seconds": 17.359539826711018
+    },
+    "duel/val000120": {
+      "games": 6,
+      "worker_wall_seconds": 92.64519357681274,
+      "mean_seconds": 15.440865596135458
+    },
+    "duel/val000130": {
+      "games": 6,
+      "worker_wall_seconds": 114.1280996799469,
+      "mean_seconds": 19.021349946657818
+    },
+    "duel/val000140": {
+      "games": 6,
+      "worker_wall_seconds": 101.8026773929596,
+      "mean_seconds": 16.9671128988266
+    },
+    "duel/val000150": {
+      "games": 6,
+      "worker_wall_seconds": 82.88648724555969,
+      "mean_seconds": 13.814414540926615
+    },
+    "duel/val000160": {
+      "games": 6,
+      "worker_wall_seconds": 132.2623279094696,
+      "mean_seconds": 22.043721318244934
+    },
+    "duel/val000170": {
+      "games": 6,
+      "worker_wall_seconds": 135.76438641548157,
+      "mean_seconds": 22.627397735913593
+    },
+    "duel/val000180": {
+      "games": 6,
+      "worker_wall_seconds": 98.00987935066223,
+      "mean_seconds": 16.33497989177704
+    },
+    "duel/val000190": {
+      "games": 6,
+      "worker_wall_seconds": 124.04567217826843,
+      "mean_seconds": 20.67427869637807
+    },
+    "duel/val000200": {
+      "games": 24,
+      "worker_wall_seconds": 482.23851203918457,
+      "mean_seconds": 20.093271334966023
+    },
+    "duel/val000210": {
+      "games": 6,
+      "worker_wall_seconds": 107.96742868423462,
+      "mean_seconds": 17.994571447372437
+    },
+    "duel/val000220": {
+      "games": 6,
+      "worker_wall_seconds": 107.78980278968811,
+      "mean_seconds": 17.964967131614685
+    },
+    "duel/val000230": {
+      "games": 6,
+      "worker_wall_seconds": 116.55939817428589,
+      "mean_seconds": 19.42656636238098
+    },
+    "duel/val000240": {
+      "games": 6,
+      "worker_wall_seconds": 101.14689135551453,
+      "mean_seconds": 16.857815225919087
+    },
+    "duel/val000250": {
+      "games": 6,
+      "worker_wall_seconds": 126.75489544868469,
+      "mean_seconds": 21.125815908114117
+    },
+    "duel/val000260": {
+      "games": 6,
+      "worker_wall_seconds": 112.71446371078491,
+      "mean_seconds": 18.785743951797485
+    },
+    "duel/val000270": {
+      "games": 6,
+      "worker_wall_seconds": 97.22678518295288,
+      "mean_seconds": 16.204464197158813
+    },
+    "duel/val000280": {
+      "games": 6,
+      "worker_wall_seconds": 144.78012013435364,
+      "mean_seconds": 24.130020022392273
+    },
+    "duel/val000290": {
+      "games": 6,
+      "worker_wall_seconds": 108.09809422492981,
+      "mean_seconds": 18.0163490374883
+    },
+    "duel/val000300": {
+      "games": 24,
+      "worker_wall_seconds": 637.0296316146851,
+      "mean_seconds": 26.542901317278545
+    },
+    "duel/val000310": {
+      "games": 6,
+      "worker_wall_seconds": 124.51861572265625,
+      "mean_seconds": 20.753102620442707
+    },
+    "duel/val000320": {
+      "games": 6,
+      "worker_wall_seconds": 126.52844524383545,
+      "mean_seconds": 21.088074207305908
+    },
+    "duel/val000330": {
+      "games": 6,
+      "worker_wall_seconds": 89.82611775398254,
+      "mean_seconds": 14.971019625663757
+    },
+    "duel/val000340": {
+      "games": 6,
+      "worker_wall_seconds": 133.401029586792,
+      "mean_seconds": 22.233504931132
+    },
+    "duel/val000350": {
+      "games": 6,
+      "worker_wall_seconds": 99.65690422058105,
+      "mean_seconds": 16.609484036763508
+    },
+    "duel/val000360": {
+      "games": 6,
+      "worker_wall_seconds": 83.47805285453796,
+      "mean_seconds": 13.91300880908966
+    },
+    "duel/val000370": {
+      "games": 6,
+      "worker_wall_seconds": 96.01924395561218,
+      "mean_seconds": 16.003207325935364
+    },
+    "duel/val000380": {
+      "games": 6,
+      "worker_wall_seconds": 90.56974530220032,
+      "mean_seconds": 15.09495755036672
+    },
+    "duel/val000390": {
+      "games": 6,
+      "worker_wall_seconds": 93.87648916244507,
+      "mean_seconds": 15.646081527074179
+    },
+    "duel/val000400": {
+      "games": 24,
+      "worker_wall_seconds": 572.9364964962006,
+      "mean_seconds": 23.872354020675022
+    },
+    "duel/val000410": {
+      "games": 6,
+      "worker_wall_seconds": 95.20287108421326,
+      "mean_seconds": 15.86714518070221
+    },
+    "duel/val000420": {
+      "games": 6,
+      "worker_wall_seconds": 100.45074105262756,
+      "mean_seconds": 16.741790175437927
+    },
+    "duel/val000430": {
+      "games": 6,
+      "worker_wall_seconds": 127.53442573547363,
+      "mean_seconds": 21.255737622578938
+    },
+    "duel/val000440": {
+      "games": 6,
+      "worker_wall_seconds": 99.32007002830505,
+      "mean_seconds": 16.55334500471751
+    },
+    "duel/val000450": {
+      "games": 6,
+      "worker_wall_seconds": 94.6972234249115,
+      "mean_seconds": 15.782870570818583
+    },
+    "duel/val000460": {
+      "games": 6,
+      "worker_wall_seconds": 100.65756344795227,
+      "mean_seconds": 16.77626057465871
+    },
+    "duel/val000470": {
+      "games": 6,
+      "worker_wall_seconds": 127.77724313735962,
+      "mean_seconds": 21.296207189559937
+    },
+    "duel/val000480": {
+      "games": 6,
+      "worker_wall_seconds": 99.41093111038208,
+      "mean_seconds": 16.568488518397015
+    },
+    "duel/val000490": {
+      "games": 6,
+      "worker_wall_seconds": 106.999342918396,
+      "mean_seconds": 17.833223819732666
+    },
+    "duel/val000500": {
+      "games": 24,
+      "worker_wall_seconds": 506.47457671165466,
+      "mean_seconds": 21.10310736298561
+    },
+    "duel/val000510": {
+      "games": 6,
+      "worker_wall_seconds": 122.4842586517334,
+      "mean_seconds": 20.414043108622234
+    },
+    "duel/val000520": {
+      "games": 6,
+      "worker_wall_seconds": 115.30806183815002,
+      "mean_seconds": 19.218010306358337
+    },
+    "duel/val000530": {
+      "games": 6,
+      "worker_wall_seconds": 93.0957818031311,
+      "mean_seconds": 15.515963633855185
+    },
+    "duel/val000540": {
+      "games": 6,
+      "worker_wall_seconds": 90.56208205223083,
+      "mean_seconds": 15.093680342038473
+    },
+    "duel/val000550": {
+      "games": 6,
+      "worker_wall_seconds": 118.97889542579651,
+      "mean_seconds": 19.82981590429942
+    },
+    "duel/val000560": {
+      "games": 6,
+      "worker_wall_seconds": 122.69362592697144,
+      "mean_seconds": 20.44893765449524
+    },
+    "duel/val000570": {
+      "games": 6,
+      "worker_wall_seconds": 96.72438073158264,
+      "mean_seconds": 16.12073012193044
+    },
+    "duel/val000580": {
+      "games": 6,
+      "worker_wall_seconds": 120.33779382705688,
+      "mean_seconds": 20.056298971176147
+    },
+    "duel/val000590": {
+      "games": 6,
+      "worker_wall_seconds": 113.02493238449097,
+      "mean_seconds": 18.837488730748493
+    },
+    "duel/val000600": {
+      "games": 24,
+      "worker_wall_seconds": 495.2020196914673,
+      "mean_seconds": 20.63341748714447
+    },
+    "duel/val000610": {
+      "games": 6,
+      "worker_wall_seconds": 98.93670058250427,
+      "mean_seconds": 16.489450097084045
+    },
+    "duel/val000620": {
+      "games": 6,
+      "worker_wall_seconds": 138.51063656806946,
+      "mean_seconds": 23.085106094678242
+    },
+    "duel/val000630": {
+      "games": 6,
+      "worker_wall_seconds": 122.43018913269043,
+      "mean_seconds": 20.40503152211507
+    },
+    "duel/val000640": {
+      "games": 6,
+      "worker_wall_seconds": 87.1798198223114,
+      "mean_seconds": 14.529969970385233
+    },
+    "duel/val000650": {
+      "games": 6,
+      "worker_wall_seconds": 90.85839891433716,
+      "mean_seconds": 15.14306648572286
+    },
+    "duel/val000660": {
+      "games": 6,
+      "worker_wall_seconds": 109.30752420425415,
+      "mean_seconds": 18.217920700709026
+    },
+    "duel/val000670": {
+      "games": 6,
+      "worker_wall_seconds": 105.32945203781128,
+      "mean_seconds": 17.554908672968548
+    },
+    "duel/val000680": {
+      "games": 6,
+      "worker_wall_seconds": 98.34024000167847,
+      "mean_seconds": 16.390040000279743
+    },
+    "duel/val000690": {
+      "games": 6,
+      "worker_wall_seconds": 108.34282231330872,
+      "mean_seconds": 18.05713705221812
+    },
+    "duel/val000700": {
+      "games": 24,
+      "worker_wall_seconds": 634.0683324337006,
+      "mean_seconds": 26.41951385140419
+    },
+    "duel/val000710": {
+      "games": 6,
+      "worker_wall_seconds": 98.79967212677002,
+      "mean_seconds": 16.466612021128338
+    },
+    "duel/val000720": {
+      "games": 6,
+      "worker_wall_seconds": 91.46719670295715,
+      "mean_seconds": 15.244532783826193
+    },
+    "duel/val000730": {
+      "games": 6,
+      "worker_wall_seconds": 114.21590542793274,
+      "mean_seconds": 19.03598423798879
+    },
+    "duel/val000740": {
+      "games": 6,
+      "worker_wall_seconds": 91.78805613517761,
+      "mean_seconds": 15.298009355862936
+    },
+    "duel/val000750": {
+      "games": 6,
+      "worker_wall_seconds": 105.23347520828247,
+      "mean_seconds": 17.538912534713745
+    },
+    "duel/val000760": {
+      "games": 6,
+      "worker_wall_seconds": 126.75401544570923,
+      "mean_seconds": 21.125669240951538
+    },
+    "duel/val000770": {
+      "games": 6,
+      "worker_wall_seconds": 108.41525053977966,
+      "mean_seconds": 18.06920842329661
+    },
+    "duel/val000780": {
+      "games": 6,
+      "worker_wall_seconds": 116.41172075271606,
+      "mean_seconds": 19.40195345878601
+    },
+    "duel/val000790": {
+      "games": 6,
+      "worker_wall_seconds": 156.89323616027832,
+      "mean_seconds": 26.14887269337972
+    },
+    "duel/val000800": {
+      "games": 24,
+      "worker_wall_seconds": 584.5011892318726,
+      "mean_seconds": 24.35421621799469
+    },
+    "duel/val000810": {
+      "games": 6,
+      "worker_wall_seconds": 98.98054599761963,
+      "mean_seconds": 16.49675766626994
+    },
+    "duel/val000820": {
+      "games": 6,
+      "worker_wall_seconds": 113.45022010803223,
+      "mean_seconds": 18.90837001800537
+    },
+    "duel/val000830": {
+      "games": 6,
+      "worker_wall_seconds": 125.19619870185852,
+      "mean_seconds": 20.86603311697642
+    },
+    "duel/val000840": {
+      "games": 6,
+      "worker_wall_seconds": 95.98010277748108,
+      "mean_seconds": 15.996683796246847
+    },
+    "duel/val000850": {
+      "games": 6,
+      "worker_wall_seconds": 114.37448382377625,
+      "mean_seconds": 19.062413970629375
+    },
+    "duel/val000860": {
+      "games": 6,
+      "worker_wall_seconds": 91.14203143119812,
+      "mean_seconds": 15.190338571866354
+    },
+    "duel/val000870": {
+      "games": 6,
+      "worker_wall_seconds": 131.1186158657074,
+      "mean_seconds": 21.853102644284565
+    },
+    "duel/val000880": {
+      "games": 6,
+      "worker_wall_seconds": 130.27521395683289,
+      "mean_seconds": 21.71253565947215
+    },
+    "duel/val000890": {
+      "games": 6,
+      "worker_wall_seconds": 104.81296253204346,
+      "mean_seconds": 17.46882708867391
+    },
+    "duel/val000900": {
+      "games": 24,
+      "worker_wall_seconds": 656.6957519054413,
+      "mean_seconds": 27.362322996060055
+    },
+    "duel/val000910": {
+      "games": 6,
+      "worker_wall_seconds": 100.50536704063416,
+      "mean_seconds": 16.750894506772358
+    },
+    "duel/val000920": {
+      "games": 6,
+      "worker_wall_seconds": 120.0920979976654,
+      "mean_seconds": 20.01534966627757
+    },
+    "duel/val000930": {
+      "games": 6,
+      "worker_wall_seconds": 94.25233483314514,
+      "mean_seconds": 15.708722472190857
+    },
+    "duel/val000940": {
+      "games": 6,
+      "worker_wall_seconds": 107.03982543945312,
+      "mean_seconds": 17.83997090657552
+    },
+    "ffa4/champion000200": {
+      "games": 48,
+      "worker_wall_seconds": 3307.533986568451,
+      "mean_seconds": 68.9069580535094
+    },
+    "ffa4/champion000300": {
+      "games": 48,
+      "worker_wall_seconds": 3420.9825246334076,
+      "mean_seconds": 71.27046926319599
+    },
+    "ffa4/champion000400": {
+      "games": 48,
+      "worker_wall_seconds": 3280.15016913414,
+      "mean_seconds": 68.33646185696125
+    },
+    "ffa4/champion000500": {
+      "games": 48,
+      "worker_wall_seconds": 3051.517083644867,
+      "mean_seconds": 63.57327257593473
+    },
+    "ffa4/champion000600": {
+      "games": 48,
+      "worker_wall_seconds": 3308.1766481399536,
+      "mean_seconds": 68.92034683624904
+    },
+    "ffa4/final": {
+      "games": 120,
+      "worker_wall_seconds": 1613.1574034690857,
+      "mean_seconds": 13.44297836224238
+    },
+    "ffa4/nominate": {
+      "games": 48,
+      "worker_wall_seconds": 2523.981752872467,
+      "mean_seconds": 52.58295318484306
+    },
+    "ffa4/reward": {
+      "games": 24,
+      "worker_wall_seconds": 846.8745939731598,
+      "mean_seconds": 35.286441415548325
+    },
+    "ffa4/rollout": {
+      "games": 188,
+      "worker_wall_seconds": 13278.916610479355,
+      "mean_seconds": 70.63253516212423
+    },
+    "ffa4/teacher": {
+      "games": 960,
+      "worker_wall_seconds": 47736.81826353073,
+      "mean_seconds": 49.72585235784451
+    },
+    "ffa4/val000010": {
+      "games": 4,
+      "worker_wall_seconds": 116.21541118621826,
+      "mean_seconds": 29.053852796554565
+    },
+    "ffa4/val000020": {
+      "games": 4,
+      "worker_wall_seconds": 76.483065366745,
+      "mean_seconds": 19.12076634168625
+    },
+    "ffa4/val000030": {
+      "games": 4,
+      "worker_wall_seconds": 101.0905294418335,
+      "mean_seconds": 25.272632360458374
+    },
+    "ffa4/val000040": {
+      "games": 4,
+      "worker_wall_seconds": 129.0572452545166,
+      "mean_seconds": 32.26431131362915
+    },
+    "ffa4/val000050": {
+      "games": 4,
+      "worker_wall_seconds": 107.8395938873291,
+      "mean_seconds": 26.959898471832275
+    },
+    "ffa4/val000060": {
+      "games": 4,
+      "worker_wall_seconds": 127.32213759422302,
+      "mean_seconds": 31.830534398555756
+    },
+    "ffa4/val000070": {
+      "games": 4,
+      "worker_wall_seconds": 104.63339638710022,
+      "mean_seconds": 26.158349096775055
+    },
+    "ffa4/val000080": {
+      "games": 4,
+      "worker_wall_seconds": 101.74294519424438,
+      "mean_seconds": 25.435736298561096
+    },
+    "ffa4/val000090": {
+      "games": 4,
+      "worker_wall_seconds": 114.61610269546509,
+      "mean_seconds": 28.654025673866272
+    },
+    "ffa4/val000100": {
+      "games": 48,
+      "worker_wall_seconds": 1787.6842138767242,
+      "mean_seconds": 37.243421122431755
+    },
+    "ffa4/val000110": {
+      "games": 4,
+      "worker_wall_seconds": 107.80401730537415,
+      "mean_seconds": 26.951004326343536
+    },
+    "ffa4/val000120": {
+      "games": 4,
+      "worker_wall_seconds": 92.48478651046753,
+      "mean_seconds": 23.121196627616882
+    },
+    "ffa4/val000130": {
+      "games": 4,
+      "worker_wall_seconds": 81.54143977165222,
+      "mean_seconds": 20.385359942913055
+    },
+    "ffa4/val000140": {
+      "games": 4,
+      "worker_wall_seconds": 88.95936155319214,
+      "mean_seconds": 22.239840388298035
+    },
+    "ffa4/val000150": {
+      "games": 4,
+      "worker_wall_seconds": 78.06655693054199,
+      "mean_seconds": 19.516639232635498
+    },
+    "ffa4/val000160": {
+      "games": 4,
+      "worker_wall_seconds": 91.01219248771667,
+      "mean_seconds": 22.75304812192917
+    },
+    "ffa4/val000170": {
+      "games": 4,
+      "worker_wall_seconds": 81.0035948753357,
+      "mean_seconds": 20.250898718833923
+    },
+    "ffa4/val000180": {
+      "games": 4,
+      "worker_wall_seconds": 133.53084087371826,
+      "mean_seconds": 33.382710218429565
+    },
+    "ffa4/val000190": {
+      "games": 4,
+      "worker_wall_seconds": 89.73764753341675,
+      "mean_seconds": 22.434411883354187
+    },
+    "ffa4/val000200": {
+      "games": 48,
+      "worker_wall_seconds": 1764.0708577632904,
+      "mean_seconds": 36.751476203401886
+    },
+    "ffa4/val000210": {
+      "games": 4,
+      "worker_wall_seconds": 85.70629572868347,
+      "mean_seconds": 21.426573932170868
+    },
+    "ffa4/val000220": {
+      "games": 4,
+      "worker_wall_seconds": 109.27907133102417,
+      "mean_seconds": 27.319767832756042
+    },
+    "ffa4/val000230": {
+      "games": 4,
+      "worker_wall_seconds": 102.65831542015076,
+      "mean_seconds": 25.66457885503769
+    },
+    "ffa4/val000240": {
+      "games": 4,
+      "worker_wall_seconds": 136.1297414302826,
+      "mean_seconds": 34.03243535757065
+    },
+    "ffa4/val000250": {
+      "games": 4,
+      "worker_wall_seconds": 109.60628724098206,
+      "mean_seconds": 27.401571810245514
+    },
+    "ffa4/val000260": {
+      "games": 4,
+      "worker_wall_seconds": 62.47108793258667,
+      "mean_seconds": 15.617771983146667
+    },
+    "ffa4/val000270": {
+      "games": 4,
+      "worker_wall_seconds": 118.88137912750244,
+      "mean_seconds": 29.72034478187561
+    },
+    "ffa4/val000280": {
+      "games": 4,
+      "worker_wall_seconds": 92.73978209495544,
+      "mean_seconds": 23.18494552373886
+    },
+    "ffa4/val000290": {
+      "games": 4,
+      "worker_wall_seconds": 131.75596952438354,
+      "mean_seconds": 32.938992381095886
+    },
+    "ffa4/val000300": {
+      "games": 48,
+      "worker_wall_seconds": 1794.2118210792542,
+      "mean_seconds": 37.37941293915113
+    },
+    "ffa4/val000310": {
+      "games": 4,
+      "worker_wall_seconds": 88.77287793159485,
+      "mean_seconds": 22.193219482898712
+    },
+    "ffa4/val000320": {
+      "games": 4,
+      "worker_wall_seconds": 95.92179942131042,
+      "mean_seconds": 23.980449855327606
+    },
+    "ffa4/val000330": {
+      "games": 4,
+      "worker_wall_seconds": 91.15628623962402,
+      "mean_seconds": 22.789071559906006
+    },
+    "ffa4/val000340": {
+      "games": 4,
+      "worker_wall_seconds": 107.66707444190979,
+      "mean_seconds": 26.916768610477448
+    },
+    "ffa4/val000350": {
+      "games": 4,
+      "worker_wall_seconds": 79.16926193237305,
+      "mean_seconds": 19.79231548309326
+    },
+    "ffa4/val000360": {
+      "games": 4,
+      "worker_wall_seconds": 112.82005000114441,
+      "mean_seconds": 28.205012500286102
+    },
+    "ffa4/val000370": {
+      "games": 4,
+      "worker_wall_seconds": 92.97736597061157,
+      "mean_seconds": 23.244341492652893
+    },
+    "ffa4/val000380": {
+      "games": 4,
+      "worker_wall_seconds": 60.42623591423035,
+      "mean_seconds": 15.106558978557587
+    },
+    "ffa4/val000390": {
+      "games": 4,
+      "worker_wall_seconds": 83.46407914161682,
+      "mean_seconds": 20.866019785404205
+    },
+    "ffa4/val000400": {
+      "games": 48,
+      "worker_wall_seconds": 1938.2693660259247,
+      "mean_seconds": 40.380611792206764
+    },
+    "ffa4/val000410": {
+      "games": 4,
+      "worker_wall_seconds": 131.97856497764587,
+      "mean_seconds": 32.99464124441147
+    },
+    "ffa4/val000420": {
+      "games": 4,
+      "worker_wall_seconds": 123.7490587234497,
+      "mean_seconds": 30.937264680862427
+    },
+    "ffa4/val000430": {
+      "games": 4,
+      "worker_wall_seconds": 80.07643485069275,
+      "mean_seconds": 20.019108712673187
+    },
+    "ffa4/val000440": {
+      "games": 4,
+      "worker_wall_seconds": 84.87659955024719,
+      "mean_seconds": 21.219149887561798
+    },
+    "ffa4/val000450": {
+      "games": 4,
+      "worker_wall_seconds": 94.71336936950684,
+      "mean_seconds": 23.67834234237671
+    },
+    "ffa4/val000460": {
+      "games": 4,
+      "worker_wall_seconds": 95.90076994895935,
+      "mean_seconds": 23.975192487239838
+    },
+    "ffa4/val000470": {
+      "games": 4,
+      "worker_wall_seconds": 80.36554503440857,
+      "mean_seconds": 20.091386258602142
+    },
+    "ffa4/val000480": {
+      "games": 4,
+      "worker_wall_seconds": 110.99601984024048,
+      "mean_seconds": 27.74900496006012
+    },
+    "ffa4/val000490": {
+      "games": 4,
+      "worker_wall_seconds": 79.39989113807678,
+      "mean_seconds": 19.849972784519196
+    },
+    "ffa4/val000500": {
+      "games": 48,
+      "worker_wall_seconds": 1873.439171075821,
+      "mean_seconds": 39.02998273074627
+    },
+    "ffa4/val000510": {
+      "games": 4,
+      "worker_wall_seconds": 118.0251042842865,
+      "mean_seconds": 29.506276071071625
+    },
+    "ffa4/val000520": {
+      "games": 4,
+      "worker_wall_seconds": 94.29818749427795,
+      "mean_seconds": 23.57454687356949
+    },
+    "ffa4/val000530": {
+      "games": 4,
+      "worker_wall_seconds": 87.03779220581055,
+      "mean_seconds": 21.759448051452637
+    },
+    "ffa4/val000540": {
+      "games": 4,
+      "worker_wall_seconds": 123.36526870727539,
+      "mean_seconds": 30.841317176818848
+    },
+    "ffa4/val000550": {
+      "games": 4,
+      "worker_wall_seconds": 84.52273797988892,
+      "mean_seconds": 21.13068449497223
+    },
+    "ffa4/val000560": {
+      "games": 4,
+      "worker_wall_seconds": 91.30306553840637,
+      "mean_seconds": 22.825766384601593
+    },
+    "ffa4/val000570": {
+      "games": 4,
+      "worker_wall_seconds": 86.41081118583679,
+      "mean_seconds": 21.602702796459198
+    },
+    "ffa4/val000580": {
+      "games": 4,
+      "worker_wall_seconds": 84.53288149833679,
+      "mean_seconds": 21.133220374584198
+    },
+    "ffa4/val000590": {
+      "games": 4,
+      "worker_wall_seconds": 61.7085907459259,
+      "mean_seconds": 15.427147686481476
+    },
+    "ffa4/val000600": {
+      "games": 48,
+      "worker_wall_seconds": 1937.4522681236267,
+      "mean_seconds": 40.363588919242225
+    },
+    "team2v2/champion000200": {
+      "games": 96,
+      "worker_wall_seconds": 8355.123913288116,
+      "mean_seconds": 87.03254076341788
+    },
+    "team2v2/final": {
+      "games": 240,
+      "worker_wall_seconds": 3832.8928711414337,
+      "mean_seconds": 15.970386963089307
+    },
+    "team2v2/nominate": {
+      "games": 96,
+      "worker_wall_seconds": 4883.07611989975,
+      "mean_seconds": 50.86537624895573
+    },
+    "team2v2/reward": {
+      "games": 48,
+      "worker_wall_seconds": 2449.0043864250183,
+      "mean_seconds": 51.02092471718788
+    },
+    "team2v2/rollout": {
+      "games": 932,
+      "worker_wall_seconds": 86347.10191822052,
+      "mean_seconds": 92.64710506246837
+    },
+    "team2v2/teacher": {
+      "games": 400,
+      "worker_wall_seconds": 35563.117424726486,
+      "mean_seconds": 88.90779356181622
+    },
+    "team2v2/val000010": {
+      "games": 8,
+      "worker_wall_seconds": 319.97170090675354,
+      "mean_seconds": 39.99646261334419
+    },
+    "team2v2/val000020": {
+      "games": 8,
+      "worker_wall_seconds": 321.04006481170654,
+      "mean_seconds": 40.13000810146332
+    },
+    "team2v2/val000030": {
+      "games": 8,
+      "worker_wall_seconds": 194.31536054611206,
+      "mean_seconds": 24.289420068264008
+    },
+    "team2v2/val000040": {
+      "games": 8,
+      "worker_wall_seconds": 248.54095816612244,
+      "mean_seconds": 31.067619770765305
+    },
+    "team2v2/val000050": {
+      "games": 8,
+      "worker_wall_seconds": 341.42988300323486,
+      "mean_seconds": 42.67873537540436
+    },
+    "team2v2/val000060": {
+      "games": 8,
+      "worker_wall_seconds": 361.2887899875641,
+      "mean_seconds": 45.16109874844551
+    },
+    "team2v2/val000070": {
+      "games": 8,
+      "worker_wall_seconds": 298.2467954158783,
+      "mean_seconds": 37.28084942698479
+    },
+    "team2v2/val000080": {
+      "games": 8,
+      "worker_wall_seconds": 223.00802326202393,
+      "mean_seconds": 27.87600290775299
+    },
+    "team2v2/val000090": {
+      "games": 8,
+      "worker_wall_seconds": 228.1879277229309,
+      "mean_seconds": 28.523490965366364
+    },
+    "team2v2/val000100": {
+      "games": 96,
+      "worker_wall_seconds": 4317.00784611702,
+      "mean_seconds": 44.968831730385624
+    },
+    "team2v2/val000110": {
+      "games": 8,
+      "worker_wall_seconds": 182.3482928276062,
+      "mean_seconds": 22.793536603450775
+    },
+    "team2v2/val000120": {
+      "games": 8,
+      "worker_wall_seconds": 466.583153963089,
+      "mean_seconds": 58.322894245386124
+    },
+    "team2v2/val000130": {
+      "games": 8,
+      "worker_wall_seconds": 293.23643827438354,
+      "mean_seconds": 36.65455478429794
+    },
+    "team2v2/val000140": {
+      "games": 8,
+      "worker_wall_seconds": 199.03741884231567,
+      "mean_seconds": 24.87967735528946
+    },
+    "team2v2/val000150": {
+      "games": 8,
+      "worker_wall_seconds": 237.33343982696533,
+      "mean_seconds": 29.666679978370667
+    },
+    "team2v2/val000160": {
+      "games": 8,
+      "worker_wall_seconds": 228.19045639038086,
+      "mean_seconds": 28.523807048797607
+    },
+    "team2v2/val000170": {
+      "games": 8,
+      "worker_wall_seconds": 349.8319845199585,
+      "mean_seconds": 43.72899806499481
+    },
+    "team2v2/val000180": {
+      "games": 8,
+      "worker_wall_seconds": 491.2201120853424,
+      "mean_seconds": 61.4025140106678
+    },
+    "team2v2/val000190": {
+      "games": 8,
+      "worker_wall_seconds": 277.4315724372864,
+      "mean_seconds": 34.6789465546608
+    },
+    "team2v2/val000200": {
+      "games": 96,
+      "worker_wall_seconds": 4534.86727809906,
+      "mean_seconds": 47.238200813531876
+    },
+    "team2v2/val000210": {
+      "games": 8,
+      "worker_wall_seconds": 344.52490639686584,
+      "mean_seconds": 43.06561329960823
+    },
+    "team2v2/val000220": {
+      "games": 8,
+      "worker_wall_seconds": 376.32622241973877,
+      "mean_seconds": 47.040777802467346
+    },
+    "team2v2/val000230": {
+      "games": 8,
+      "worker_wall_seconds": 271.2271075248718,
+      "mean_seconds": 33.90338844060898
+    },
+    "team2v2/val000240": {
+      "games": 8,
+      "worker_wall_seconds": 376.57844138145447,
+      "mean_seconds": 47.07230517268181
+    },
+    "team2v2/val000250": {
+      "games": 8,
+      "worker_wall_seconds": 350.18129897117615,
+      "mean_seconds": 43.77266237139702
+    },
+    "team2v2/val000260": {
+      "games": 8,
+      "worker_wall_seconds": 232.4018292427063,
+      "mean_seconds": 29.050228655338287
+    },
+    "team2v2/val000270": {
+      "games": 8,
+      "worker_wall_seconds": 447.3108172416687,
+      "mean_seconds": 55.91385215520859
+    },
+    "team2v2/val000280": {
+      "games": 8,
+      "worker_wall_seconds": 172.51339983940125,
+      "mean_seconds": 21.564174979925156
+    }
+  },
+  "formats": {
+    "duel": [
+      {
+        "batch": 38,
+        "rows": 64,
+        "full_batch": 447,
+        "rehearsal_identities": [
+          {
+            "source": "policy",
+            "teacher_impl": null,
+            "sha256": null
+          }
+        ],
+        "excluded_rehearsal": 1024,
+        "scaled_loss": {
+          "actor": -0.014283964410424232,
+          "value": 0.24552969634532928,
+          "entropy": -0.005215887445956469,
+          "rehearsal": 0.0421108677983284
+        },
+        "scaled_gradient_norms": {
+          "actor": 10.643295288085938,
+          "value": 2.0326015949249268,
+          "entropy": 0.05256002023816109,
+          "rehearsal": 0.7502033114433289
+        },
+        "cosine_with_actor": {
+          "value": -0.03415492922067642,
+          "entropy": -0.29539045691490173,
+          "rehearsal": 0.12395227700471878
+        },
+        "combined_norm": 10.875057220458984,
+        "combined_actor_cosine": 0.9795141816139221,
+        "note": "Uniform 64-row diagnostic, coefficients match production; no optimizer step."
+      },
+      {
+        "batch": 939,
+        "rows": 64,
+        "full_batch": 724,
+        "rehearsal_identities": [
+          {
+            "source": "policy",
+            "teacher_impl": null,
+            "sha256": null
+          }
+        ],
+        "excluded_rehearsal": 1024,
+        "scaled_loss": {
+          "actor": -0.03353560343384743,
+          "value": 0.28427577018737793,
+          "entropy": -0.018067428842186928,
+          "rehearsal": 0.10129424184560776
+        },
+        "scaled_gradient_norms": {
+          "actor": 3.8450520038604736,
+          "value": 2.897261381149292,
+          "entropy": 0.04413837566971779,
+          "rehearsal": 0.5083643794059753
+        },
+        "cosine_with_actor": {
+          "value": -0.1010999009013176,
+          "entropy": 0.24639880657196045,
+          "rehearsal": -0.11593684554100037
+        },
+        "combined_norm": 4.547110080718994,
+        "combined_actor_cosine": 0.7706723213195801,
+        "note": "Uniform 64-row diagnostic, coefficients match production; no optimizer step."
+      }
+    ],
+    "team2v2": [
+      {
+        "batch": 53,
+        "rows": 64,
+        "full_batch": 1490,
+        "rehearsal_identities": [
+          {
+            "source": "policy",
+            "teacher_impl": null,
+            "sha256": null
+          }
+        ],
+        "excluded_rehearsal": 1024,
+        "scaled_loss": {
+          "actor": -0.019809916615486145,
+          "value": 0.04335357993841171,
+          "entropy": -0.007840504869818687,
+          "rehearsal": 0.07978305965662003
+        },
+        "scaled_gradient_norms": {
+          "actor": 5.681707859039307,
+          "value": 0.6215565204620361,
+          "entropy": 0.059331897646188736,
+          "rehearsal": 0.6161914467811584
+        },
+        "cosine_with_actor": {
+          "value": 0.03873660787940025,
+          "entropy": 0.05255817994475365,
+          "rehearsal": -0.10676813870668411
+        },
+        "combined_norm": 5.708371639251709,
+        "combined_actor_cosine": 0.9886566996574402,
+        "note": "Uniform 64-row diagnostic, coefficients match production; no optimizer step."
+      },
+      {
+        "batch": 283,
+        "rows": 64,
+        "full_batch": 1353,
+        "rehearsal_identities": [
+          {
+            "source": "policy",
+            "teacher_impl": null,
+            "sha256": null
+          }
+        ],
+        "excluded_rehearsal": 1024,
+        "scaled_loss": {
+          "actor": 0.06274476647377014,
+          "value": 0.054146669805049896,
+          "entropy": -0.013551633805036545,
+          "rehearsal": 0.13622422516345978
+        },
+        "scaled_gradient_norms": {
+          "actor": 6.769913196563721,
+          "value": 1.7100322246551514,
+          "entropy": 0.06060675159096718,
+          "rehearsal": 0.8256435394287109
+        },
+        "cosine_with_actor": {
+          "value": 0.02629769966006279,
+          "entropy": -0.3386063575744629,
+          "rehearsal": 0.20011359453201294
+        },
+        "combined_norm": 7.2052531242370605,
+        "combined_actor_cosine": 0.9659731984138489,
+        "note": "Uniform 64-row diagnostic, coefficients match production; no optimizer step."
+      }
+    ]
+  }
+}

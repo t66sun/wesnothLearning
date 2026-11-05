@@ -1,0 +1,18 @@
+{
+  "duel": {
+    "original_schedule": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/duel/schedules/nominate-v000940-astra-506aff95237f7250.json",
+    "schedule_sha256": "067ec54d5133274040e13b6740ff1da89b182e765a254a1f79ef7d9c740d8310",
+    "bc_checkpoint_sha256": "05908d7f972148ccc7b39b8df0cc00435e2176861654a632de44c379b94953ab",
+    "bc_export_sha256": "6ef19098bd73ca34cdefe434f2f567b0febaefefedbf1725264d86478b5820b7",
+    "latest_checkpoint_sha256": "e68b50e62d5a6452718f6496d7ff1bc28bc4d966975332e0fdf83cf34fde155b",
+    "latest_export_sha256": "5cd5ced4ed94655c628cf4aba3517dda3c1a46785f44abc412527501a88066b2"
+  },
+  "team2v2": {
+    "original_schedule": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/team2v2/schedules/nominate-v000284-astra-fc1240e9b83f5391.json",
+    "schedule_sha256": "0dda7121c0d86a6fd31e43e9573fd21117febe89819219e5000e5fb54af6d064",
+    "bc_checkpoint_sha256": "6a2a5c587d95853e8fb4fae7ee5c9cc997f00e2cad6b5a70f2389b6c26b17832",
+    "bc_export_sha256": "036c94a66eab06369f0564ef5d1a2672df0870ccb393ec588d67382f03be8381",
+    "latest_checkpoint_sha256": "0aaaf7d197ba72f02138ba2a893c2212b9e3751456d6136f02cfa4417b007a49",
+    "latest_export_sha256": "a3b7119f958ec19aaa4a3308feb7c86af7977eb1de921f9c1bc1821b7ba92538"
+  }
+}
