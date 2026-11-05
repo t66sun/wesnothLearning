@@ -35,7 +35,7 @@ def inspect(root):
                 turns=distribution([j['result'].get('turns', 0) for j in group]),
                 map_counts=counts(j.get('meta', {}).get('map', 'missing') for j in group),
                 faction_rosters=factions, learner_factions=learner_factions,
-                rows=sum(j.get('training_shard', {}).get('written', 0) for j in group))
+                rows=sum((j.get('training_shard') or {}).get('written', 0) for j in group))
         schedules = []
         for path in sorted((directory / 'schedules').glob('ppo-batch-*.json')):
             schedules.extend(json.loads(path.read_text()))
