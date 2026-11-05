@@ -1,0 +1,982 @@
+{
+  "duel": {
+    "phases": {
+      "dagger_refresh": {
+        "games": 4,
+        "reasons": {
+          "victory": 4
+        },
+        "turns": {
+          "n": 4,
+          "mean": 12.25,
+          "min": 9,
+          "max": 18,
+          "median": 11.0
+        },
+        "map_counts": {
+          "arena2": 2,
+          "sablestone_delta": 1,
+          "the_freelands": 1
+        },
+        "faction_rosters": {
+          "Drakes|Knalgan Alliance": 1,
+          "Loyalists|Northerners": 2,
+          "Rebels|Undead": 1
+        },
+        "learner_factions": {
+          "Drakes": 1,
+          "Loyalists": 1,
+          "Northerners": 1,
+          "Undead": 1
+        },
+        "rows": 470
+      },
+      "other": {
+        "games": 276,
+        "reasons": {
+          "turn_limit": 37,
+          "victory": 239
+        },
+        "turns": {
+          "n": 276,
+          "mean": 21.920289855072465,
+          "min": 10,
+          "max": 31,
+          "median": 22.0
+        },
+        "map_counts": {
+          "caves_of_the_basilisk": 30,
+          "hamlets": 216,
+          "ruined_passage": 30
+        },
+        "faction_rosters": {
+          "Drakes|Knalgan Alliance": 22,
+          "Drakes|Loyalists": 22,
+          "Drakes|Northerners": 22,
+          "Drakes|Rebels": 22,
+          "Drakes|Undead": 22,
+          "Knalgan Alliance|Loyalists": 22,
+          "Knalgan Alliance|Northerners": 22,
+          "Knalgan Alliance|Rebels": 22,
+          "Knalgan Alliance|Undead": 22,
+          "Loyalists|Northerners": 22,
+          "Loyalists|Rebels": 22,
+          "Loyalists|Undead": 22,
+          "Northerners|Rebels": 4,
+          "Northerners|Undead": 4,
+          "Rebels|Undead": 4
+        },
+        "learner_factions": {},
+        "rows": 0
+      },
+      "ppo": {
+        "games": 3608,
+        "reasons": {
+          "turn_limit": 42,
+          "victory": 3566
+        },
+        "turns": {
+          "n": 3608,
+          "mean": 14.226718403547672,
+          "min": 4,
+          "max": 61,
+          "median": 12.0
+        },
+        "map_counts": {
+          "arena2": 1804,
+          "sablestone_delta": 601,
+          "the_freelands": 601,
+          "weldyn_channel": 602
+        },
+        "faction_rosters": {
+          "Drakes|Knalgan Alliance": 1203,
+          "Loyalists|Northerners": 1202,
+          "Rebels|Undead": 1203
+        },
+        "learner_factions": {
+          "Drakes": 601,
+          "Knalgan Alliance": 602,
+          "Loyalists": 602,
+          "Northerners": 600,
+          "Rebels": 601,
+          "Undead": 602
+        },
+        "rows": 386593
+      },
+      "reward_reference": {
+        "games": 24,
+        "reasons": {
+          "turn_limit": 2,
+          "victory": 22
+        },
+        "turns": {
+          "n": 24,
+          "mean": 21.5,
+          "min": 13,
+          "max": 31,
+          "median": 20.0
+        },
+        "map_counts": {
+          "hamlets": 24
+        },
+        "faction_rosters": {
+          "Drakes|Knalgan Alliance": 8,
+          "Drakes|Loyalists": 4,
+          "Drakes|Northerners": 4,
+          "Drakes|Rebels": 4,
+          "Drakes|Undead": 4
+        },
+        "learner_factions": {
+          "Drakes": 4,
+          "Knalgan Alliance": 4,
+          "Loyalists": 4,
+          "Northerners": 4,
+          "Rebels": 4,
+          "Undead": 4
+        },
+        "rows": 0
+      },
+      "teacher": {
+        "games": 300,
+        "reasons": {
+          "turn_limit": 3,
+          "victory": 297
+        },
+        "turns": {
+          "n": 300,
+          "mean": 13.313333333333333,
+          "min": 4,
+          "max": 61,
+          "median": 12.0
+        },
+        "map_counts": {
+          "arena2": 150,
+          "sablestone_delta": 50,
+          "the_freelands": 50,
+          "weldyn_channel": 50
+        },
+        "faction_rosters": {
+          "Drakes|Knalgan Alliance": 20,
+          "Drakes|Loyalists": 20,
+          "Drakes|Northerners": 20,
+          "Drakes|Rebels": 20,
+          "Drakes|Undead": 20,
+          "Knalgan Alliance|Loyalists": 20,
+          "Knalgan Alliance|Northerners": 20,
+          "Knalgan Alliance|Rebels": 20,
+          "Knalgan Alliance|Undead": 20,
+          "Loyalists|Northerners": 20,
+          "Loyalists|Rebels": 20,
+          "Loyalists|Undead": 20,
+          "Northerners|Rebels": 20,
+          "Northerners|Undead": 20,
+          "Rebels|Undead": 20
+        },
+        "learner_factions": {
+          "Drakes": 50,
+          "Knalgan Alliance": 50,
+          "Loyalists": 50,
+          "Northerners": 50,
+          "Rebels": 50,
+          "Undead": 50
+        },
+        "rows": 29767
+      },
+      "validation": {
+        "games": 726,
+        "reasons": {
+          "turn_limit": 94,
+          "victory": 632
+        },
+        "turns": {
+          "n": 726,
+          "mean": 21.12258953168044,
+          "min": 10,
+          "max": 31,
+          "median": 20.0
+        },
+        "map_counts": {
+          "hamlets": 726
+        },
+        "faction_rosters": {
+          "Drakes|Knalgan Alliance": 76,
+          "Drakes|Loyalists": 132,
+          "Drakes|Northerners": 188,
+          "Drakes|Rebels": 130,
+          "Drakes|Undead": 74,
+          "Knalgan Alliance|Loyalists": 18,
+          "Knalgan Alliance|Northerners": 18,
+          "Knalgan Alliance|Rebels": 18,
+          "Knalgan Alliance|Undead": 18,
+          "Loyalists|Northerners": 18,
+          "Loyalists|Rebels": 18,
+          "Loyalists|Undead": 18
+        },
+        "learner_factions": {},
+        "rows": 0
+      }
+    },
+    "ppo_scenario_families": 6,
+    "ppo_scenarios": {
+      "0e6193addd261d1af147abd68e184b050af90b57ae9aec913126d3a40096cb65": {
+        "map": "arena2",
+        "factions": [
+          "Rebels",
+          "Undead"
+        ],
+        "max_turns": 60,
+        "count": 602
+      },
+      "daca163e731992b715fa37ff4e5eb1140898c7334879830054471826d77fc8db": {
+        "map": "weldyn_channel",
+        "factions": [
+          "Drakes",
+          "Knalgan Alliance"
+        ],
+        "max_turns": 60,
+        "count": 602
+      },
+      "6454e4049812212baff2aea3402d5406c906fd54ac48ee98c2da312addc4678c": {
+        "map": "arena2",
+        "factions": [
+          "Loyalists",
+          "Northerners"
+        ],
+        "max_turns": 60,
+        "count": 602
+      },
+      "01c24b83ad3505f3b01b1b55490cc9647d25c21b6a5983cf296f79ae620fb00a": {
+        "map": "sablestone_delta",
+        "factions": [
+          "Rebels",
+          "Undead"
+        ],
+        "max_turns": 60,
+        "count": 602
+      },
+      "a1884e30598f63d24569d9f4329cd1427e33a708b69fd4302377338e6345430e": {
+        "map": "arena2",
+        "factions": [
+          "Drakes",
+          "Knalgan Alliance"
+        ],
+        "max_turns": 60,
+        "count": 602
+      },
+      "cbaa8728a89f6b1dac7dc48db189d48214f5ef7013e12f703c61b45594f5f496": {
+        "map": "the_freelands",
+        "factions": [
+          "Loyalists",
+          "Northerners"
+        ],
+        "max_turns": 60,
+        "count": 602
+      }
+    },
+    "opponent_results": {
+      "fixed": {
+        "games": 1804,
+        "wins": 698,
+        "losses": 1088,
+        "draws": 18
+      },
+      "history": {
+        "games": 902,
+        "wins": 376,
+        "losses": 526,
+        "draws": 0
+      },
+      "current": {
+        "games": 902,
+        "wins": 302,
+        "losses": 576,
+        "draws": 24
+      }
+    },
+    "ppo": {
+      "batches": 902,
+      "kl_stops": 626,
+      "planned_steps": 9020,
+      "committed_steps": 6435,
+      "eligible_decisions": 386593,
+      "committed_decisions": 1149722,
+      "decisions_per_batch": {
+        "n": 902,
+        "mean": 428.59534368070956,
+        "min": 170,
+        "max": 1441,
+        "median": 411.0
+      },
+      "windows_per_batch": {
+        "n": 902,
+        "mean": 8.633037694013304,
+        "min": 6,
+        "max": 19,
+        "median": 8.0
+      },
+      "excluded_rehearsal_rows": {
+        "n": 902,
+        "mean": 1022.1286031042129,
+        "min": 788,
+        "max": 1024,
+        "median": 1024.0
+      },
+      "first_elapsed_hours": 1.4518394387430615,
+      "last_elapsed_hours": 24.99226923988925,
+      "rehearsal_sources": {
+        "policy": 902
+      }
+    }
+  },
+  "ffa4": {
+    "phases": {
+      "dagger_refresh": {
+        "games": 188,
+        "reasons": {
+          "turn_limit": 54,
+          "victory": 134
+        },
+        "turns": {
+          "n": 188,
+          "mean": 46.829787234042556,
+          "min": 18,
+          "max": 61,
+          "median": 47.0
+        },
+        "map_counts": {
+          "arena4": 110,
+          "clash": 31,
+          "isars_cross": 47
+        },
+        "faction_rosters": {
+          "Drakes|Knalgan Alliance|Loyalists|Northerners": 79,
+          "Loyalists|Northerners|Rebels|Undead": 46,
+          "Rebels|Undead|Drakes|Knalgan Alliance": 63
+        },
+        "learner_factions": {
+          "Drakes": 31,
+          "Knalgan Alliance": 36,
+          "Loyalists": 35,
+          "Northerners": 31,
+          "Rebels": 28,
+          "Undead": 27
+        },
+        "rows": 54135
+      },
+      "other": {
+        "games": 408,
+        "reasons": {
+          "turn_limit": 310,
+          "victory": 98
+        },
+        "turns": {
+          "n": 408,
+          "mean": 29.625,
+          "min": 15,
+          "max": 31,
+          "median": 31.0
+        },
+        "map_counts": {
+          "loris_river": 288,
+          "morituri": 120
+        },
+        "faction_rosters": {
+          "Drakes|Knalgan Alliance|Loyalists|Northerners": 32,
+          "Drakes|Knalgan Alliance|Loyalists|Rebels": 32,
+          "Drakes|Knalgan Alliance|Loyalists|Undead": 32,
+          "Drakes|Knalgan Alliance|Northerners|Rebels": 32,
+          "Drakes|Knalgan Alliance|Northerners|Undead": 32,
+          "Drakes|Knalgan Alliance|Rebels|Undead": 32,
+          "Drakes|Loyalists|Northerners|Rebels": 32,
+          "Drakes|Loyalists|Northerners|Undead": 32,
+          "Drakes|Loyalists|Rebels|Undead": 32,
+          "Drakes|Northerners|Rebels|Undead": 32,
+          "Knalgan Alliance|Loyalists|Northerners|Rebels": 32,
+          "Knalgan Alliance|Loyalists|Northerners|Undead": 32,
+          "Knalgan Alliance|Loyalists|Rebels|Undead": 8,
+          "Knalgan Alliance|Northerners|Rebels|Undead": 8,
+          "Loyalists|Northerners|Rebels|Undead": 8
+        },
+        "learner_factions": {},
+        "rows": 0
+      },
+      "reward_reference": {
+        "games": 24,
+        "reasons": {
+          "turn_limit": 22,
+          "victory": 2
+        },
+        "turns": {
+          "n": 24,
+          "mean": 30.916666666666668,
+          "min": 30,
+          "max": 31,
+          "median": 31.0
+        },
+        "map_counts": {
+          "loris_river": 24
+        },
+        "faction_rosters": {
+          "Drakes|Knalgan Alliance|Loyalists|Northerners": 12,
+          "Drakes|Knalgan Alliance|Loyalists|Rebels": 8,
+          "Drakes|Knalgan Alliance|Loyalists|Undead": 4
+        },
+        "learner_factions": {
+          "Drakes": 4,
+          "Knalgan Alliance": 4,
+          "Loyalists": 4,
+          "Northerners": 4,
+          "Rebels": 4,
+          "Undead": 4
+        },
+        "rows": 0
+      },
+      "teacher": {
+        "games": 960,
+        "reasons": {
+          "turn_limit": 220,
+          "victory": 740
+        },
+        "turns": {
+          "n": 960,
+          "mean": 46.24583333333333,
+          "min": 21,
+          "max": 61,
+          "median": 46.0
+        },
+        "map_counts": {
+          "arena4": 480,
+          "clash": 240,
+          "isars_cross": 240
+        },
+        "faction_rosters": {
+          "Drakes|Knalgan Alliance|Loyalists|Northerners": 60,
+          "Drakes|Knalgan Alliance|Loyalists|Rebels": 61,
+          "Drakes|Knalgan Alliance|Loyalists|Undead": 69,
+          "Drakes|Knalgan Alliance|Northerners|Rebels": 65,
+          "Drakes|Knalgan Alliance|Northerners|Undead": 64,
+          "Drakes|Knalgan Alliance|Rebels|Undead": 60,
+          "Drakes|Loyalists|Northerners|Rebels": 61,
+          "Drakes|Loyalists|Northerners|Undead": 70,
+          "Drakes|Loyalists|Rebels|Undead": 65,
+          "Drakes|Northerners|Rebels|Undead": 65,
+          "Knalgan Alliance|Loyalists|Northerners|Rebels": 60,
+          "Knalgan Alliance|Loyalists|Northerners|Undead": 61,
+          "Knalgan Alliance|Loyalists|Rebels|Undead": 70,
+          "Knalgan Alliance|Northerners|Rebels|Undead": 65,
+          "Loyalists|Northerners|Rebels|Undead": 64
+        },
+        "learner_factions": {
+          "Drakes": 161,
+          "Knalgan Alliance": 164,
+          "Loyalists": 141,
+          "Northerners": 165,
+          "Rebels": 170,
+          "Undead": 159
+        },
+        "rows": 242124
+      },
+      "validation": {
+        "games": 504,
+        "reasons": {
+          "turn_limit": 451,
+          "victory": 53
+        },
+        "turns": {
+          "n": 504,
+          "mean": 30.738095238095237,
+          "min": 24,
+          "max": 31,
+          "median": 31.0
+        },
+        "map_counts": {
+          "loris_river": 504
+        },
+        "faction_rosters": {
+          "Drakes|Knalgan Alliance|Loyalists|Northerners": 96,
+          "Drakes|Knalgan Alliance|Loyalists|Rebels": 96,
+          "Drakes|Knalgan Alliance|Loyalists|Undead": 96,
+          "Drakes|Knalgan Alliance|Northerners|Rebels": 24,
+          "Drakes|Knalgan Alliance|Northerners|Undead": 24,
+          "Drakes|Knalgan Alliance|Rebels|Undead": 24,
+          "Drakes|Loyalists|Northerners|Rebels": 24,
+          "Drakes|Loyalists|Northerners|Undead": 24,
+          "Drakes|Loyalists|Rebels|Undead": 24,
+          "Drakes|Northerners|Rebels|Undead": 24,
+          "Knalgan Alliance|Loyalists|Northerners|Rebels": 24,
+          "Knalgan Alliance|Loyalists|Northerners|Undead": 24
+        },
+        "learner_factions": {},
+        "rows": 0
+      }
+    },
+    "ppo_scenario_families": 0,
+    "ppo_scenarios": {},
+    "opponent_results": {
+      "fixed": {
+        "games": 0,
+        "wins": 0,
+        "losses": 0,
+        "draws": 0
+      },
+      "history": {
+        "games": 0,
+        "wins": 0,
+        "losses": 0,
+        "draws": 0
+      },
+      "current": {
+        "games": 0,
+        "wins": 0,
+        "losses": 0,
+        "draws": 0
+      }
+    },
+    "ppo": {
+      "batches": 0,
+      "kl_stops": 0,
+      "planned_steps": 0,
+      "committed_steps": 0,
+      "eligible_decisions": 0,
+      "committed_decisions": 0,
+      "decisions_per_batch": {
+        "n": 0,
+        "mean": null,
+        "min": null,
+        "max": null,
+        "median": null
+      },
+      "windows_per_batch": {
+        "n": 0,
+        "mean": null,
+        "min": null,
+        "max": null,
+        "median": null
+      },
+      "excluded_rehearsal_rows": {
+        "n": 0,
+        "mean": null,
+        "min": null,
+        "max": null,
+        "median": null
+      },
+      "first_elapsed_hours": null,
+      "last_elapsed_hours": null,
+      "rehearsal_sources": {}
+    }
+  },
+  "team2v2": {
+    "phases": {
+      "dagger_refresh": {
+        "games": 4,
+        "reasons": {
+          "turn_limit": 3,
+          "victory": 1
+        },
+        "turns": {
+          "n": 4,
+          "mean": 57.25,
+          "min": 46,
+          "max": 61,
+          "median": 61.0
+        },
+        "map_counts": {
+          "arena4": 3,
+          "isars_cross": 1
+        },
+        "faction_rosters": {
+          "Drakes|Knalgan Alliance|Loyalists|Northerners": 1,
+          "Loyalists|Northerners|Rebels|Undead": 3
+        },
+        "learner_factions": {
+          "Loyalists": 2,
+          "Northerners": 1,
+          "Undead": 1
+        },
+        "rows": 2112
+      },
+      "other": {
+        "games": 432,
+        "reasons": {
+          "turn_limit": 232,
+          "victory": 200
+        },
+        "turns": {
+          "n": 432,
+          "mean": 27.03240740740741,
+          "min": 9,
+          "max": 31,
+          "median": 31.0
+        },
+        "map_counts": {
+          "loris_river": 192,
+          "morituri": 240
+        },
+        "faction_rosters": {
+          "Drakes|Knalgan Alliance|Loyalists|Northerners": 32,
+          "Drakes|Knalgan Alliance|Northerners|Loyalists": 32,
+          "Drakes|Knalgan Alliance|Rebels|Loyalists": 32,
+          "Drakes|Knalgan Alliance|Undead|Loyalists": 32,
+          "Drakes|Loyalists|Knalgan Alliance|Northerners": 32,
+          "Knalgan Alliance|Drakes|Loyalists|Northerners": 32,
+          "Knalgan Alliance|Drakes|Northerners|Loyalists": 32,
+          "Knalgan Alliance|Drakes|Rebels|Loyalists": 32,
+          "Knalgan Alliance|Drakes|Undead|Loyalists": 32,
+          "Loyalists|Drakes|Northerners|Knalgan Alliance": 32,
+          "Loyalists|Drakes|Rebels|Knalgan Alliance": 32,
+          "Loyalists|Drakes|Undead|Knalgan Alliance": 32,
+          "Northerners|Drakes|Rebels|Knalgan Alliance": 16,
+          "Northerners|Drakes|Undead|Knalgan Alliance": 16,
+          "Rebels|Drakes|Undead|Knalgan Alliance": 16
+        },
+        "learner_factions": {},
+        "rows": 0
+      },
+      "ppo": {
+        "games": 928,
+        "reasons": {
+          "turn_limit": 300,
+          "victory": 628
+        },
+        "turns": {
+          "n": 928,
+          "mean": 43.24353448275862,
+          "min": 12,
+          "max": 61,
+          "median": 41.0
+        },
+        "map_counts": {
+          "arena4": 464,
+          "clash": 155,
+          "isars_cross": 309
+        },
+        "faction_rosters": {
+          "Drakes|Knalgan Alliance|Loyalists|Northerners": 155,
+          "Loyalists|Northerners|Rebels|Undead": 464,
+          "Rebels|Undead|Drakes|Knalgan Alliance": 309
+        },
+        "learner_factions": {
+          "Drakes": 116,
+          "Knalgan Alliance": 115,
+          "Loyalists": 157,
+          "Northerners": 156,
+          "Rebels": 191,
+          "Undead": 193
+        },
+        "rows": 343723
+      },
+      "reward_reference": {
+        "games": 48,
+        "reasons": {
+          "turn_limit": 34,
+          "victory": 14
+        },
+        "turns": {
+          "n": 48,
+          "mean": 28.0625,
+          "min": 11,
+          "max": 31,
+          "median": 31.0
+        },
+        "map_counts": {
+          "loris_river": 48
+        },
+        "faction_rosters": {
+          "Drakes|Knalgan Alliance|Loyalists|Northerners": 12,
+          "Drakes|Knalgan Alliance|Northerners|Loyalists": 8,
+          "Drakes|Knalgan Alliance|Rebels|Loyalists": 8,
+          "Drakes|Knalgan Alliance|Undead|Loyalists": 8,
+          "Drakes|Loyalists|Knalgan Alliance|Northerners": 12
+        },
+        "learner_factions": {
+          "Drakes": 8,
+          "Knalgan Alliance": 8,
+          "Loyalists": 8,
+          "Northerners": 8,
+          "Rebels": 8,
+          "Undead": 8
+        },
+        "rows": 0
+      },
+      "teacher": {
+        "games": 400,
+        "reasons": {
+          "turn_limit": 211,
+          "victory": 189
+        },
+        "turns": {
+          "n": 400,
+          "mean": 52.2575,
+          "min": 17,
+          "max": 61,
+          "median": 61.0
+        },
+        "map_counts": {
+          "arena4": 200,
+          "clash": 100,
+          "isars_cross": 100
+        },
+        "faction_rosters": {
+          "Drakes|Knalgan Alliance|Loyalists|Northerners": 3,
+          "Drakes|Knalgan Alliance|Northerners|Loyalists": 3,
+          "Drakes|Knalgan Alliance|Rebels|Loyalists": 3,
+          "Drakes|Knalgan Alliance|Undead|Loyalists": 4,
+          "Drakes|Loyalists|Knalgan Alliance|Northerners": 10,
+          "Drakes|Northerners|Knalgan Alliance|Rebels": 7,
+          "Drakes|Northerners|Loyalists|Rebels": 4,
+          "Drakes|Rebels|Knalgan Alliance|Undead": 4,
+          "Drakes|Rebels|Loyalists|Undead": 3,
+          "Drakes|Rebels|Northerners|Undead": 3,
+          "Drakes|Undead|Knalgan Alliance|Loyalists": 8,
+          "Drakes|Undead|Loyalists|Knalgan Alliance": 3,
+          "Drakes|Undead|Northerners|Knalgan Alliance": 3,
+          "Drakes|Undead|Rebels|Knalgan Alliance": 3,
+          "Knalgan Alliance|Drakes|Loyalists|Northerners": 3,
+          "Knalgan Alliance|Drakes|Northerners|Loyalists": 7,
+          "Knalgan Alliance|Drakes|Rebels|Loyalists": 6,
+          "Knalgan Alliance|Drakes|Undead|Loyalists": 7,
+          "Knalgan Alliance|Loyalists|Drakes|Northerners": 4,
+          "Knalgan Alliance|Loyalists|Northerners|Rebels": 6,
+          "Knalgan Alliance|Loyalists|Rebels|Northerners": 3,
+          "Knalgan Alliance|Loyalists|Undead|Northerners": 4,
+          "Knalgan Alliance|Northerners|Loyalists|Rebels": 6,
+          "Knalgan Alliance|Rebels|Northerners|Undead": 7,
+          "Knalgan Alliance|Undead|Loyalists|Drakes": 3,
+          "Knalgan Alliance|Undead|Northerners|Drakes": 3,
+          "Knalgan Alliance|Undead|Rebels|Drakes": 4,
+          "Loyalists|Drakes|Northerners|Knalgan Alliance": 7,
+          "Loyalists|Drakes|Rebels|Knalgan Alliance": 8,
+          "Loyalists|Drakes|Undead|Knalgan Alliance": 6,
+          "Loyalists|Knalgan Alliance|Drakes|Northerners": 4,
+          "Loyalists|Knalgan Alliance|Northerners|Rebels": 3,
+          "Loyalists|Knalgan Alliance|Rebels|Northerners": 3,
+          "Loyalists|Knalgan Alliance|Undead|Northerners": 3,
+          "Loyalists|Northerners|Drakes|Rebels": 8,
+          "Loyalists|Northerners|Knalgan Alliance|Rebels": 6,
+          "Loyalists|Northerners|Rebels|Undead": 3,
+          "Loyalists|Northerners|Undead|Rebels": 7,
+          "Loyalists|Rebels|Northerners|Undead": 10,
+          "Loyalists|Undead|Northerners|Drakes": 6,
+          "Loyalists|Undead|Rebels|Drakes": 3,
+          "Northerners|Drakes|Rebels|Knalgan Alliance": 7,
+          "Northerners|Drakes|Undead|Knalgan Alliance": 3,
+          "Northerners|Knalgan Alliance|Drakes|Loyalists": 3,
+          "Northerners|Knalgan Alliance|Rebels|Loyalists": 3,
+          "Northerners|Knalgan Alliance|Undead|Loyalists": 3,
+          "Northerners|Loyalists|Drakes|Rebels": 4,
+          "Northerners|Loyalists|Knalgan Alliance|Rebels": 4,
+          "Northerners|Loyalists|Rebels|Undead": 6,
+          "Northerners|Loyalists|Undead|Rebels": 4,
+          "Northerners|Rebels|Drakes|Undead": 4,
+          "Northerners|Rebels|Knalgan Alliance|Undead": 3,
+          "Northerners|Rebels|Loyalists|Undead": 3,
+          "Northerners|Rebels|Undead|Drakes": 4,
+          "Northerners|Undead|Rebels|Drakes": 9,
+          "Rebels|Drakes|Undead|Knalgan Alliance": 8,
+          "Rebels|Knalgan Alliance|Drakes|Loyalists": 6,
+          "Rebels|Loyalists|Drakes|Northerners": 3,
+          "Rebels|Loyalists|Knalgan Alliance|Northerners": 3,
+          "Rebels|Loyalists|Undead|Northerners": 4,
+          "Rebels|Northerners|Drakes|Undead": 6,
+          "Rebels|Northerners|Knalgan Alliance|Undead": 7,
+          "Rebels|Northerners|Loyalists|Undead": 6,
+          "Rebels|Northerners|Undead|Drakes": 3,
+          "Rebels|Undead|Drakes|Knalgan Alliance": 8,
+          "Rebels|Undead|Knalgan Alliance|Drakes": 3,
+          "Rebels|Undead|Loyalists|Drakes": 3,
+          "Rebels|Undead|Northerners|Drakes": 3,
+          "Undead|Drakes|Knalgan Alliance|Loyalists": 3,
+          "Undead|Drakes|Loyalists|Knalgan Alliance": 7,
+          "Undead|Drakes|Northerners|Knalgan Alliance": 6,
+          "Undead|Drakes|Rebels|Knalgan Alliance": 7,
+          "Undead|Knalgan Alliance|Drakes|Loyalists": 10,
+          "Undead|Loyalists|Drakes|Northerners": 6,
+          "Undead|Loyalists|Knalgan Alliance|Northerners": 3,
+          "Undead|Northerners|Drakes|Rebels": 6,
+          "Undead|Northerners|Knalgan Alliance|Rebels": 6,
+          "Undead|Northerners|Loyalists|Rebels": 7,
+          "Undead|Rebels|Drakes|Knalgan Alliance": 4,
+          "Undead|Rebels|Knalgan Alliance|Drakes": 4,
+          "Undead|Rebels|Loyalists|Drakes": 4,
+          "Undead|Rebels|Northerners|Drakes": 3
+        },
+        "learner_factions": {
+          "Drakes": 66,
+          "Knalgan Alliance": 66,
+          "Loyalists": 67,
+          "Northerners": 68,
+          "Rebels": 67,
+          "Undead": 66
+        },
+        "rows": 166379
+      },
+      "validation": {
+        "games": 400,
+        "reasons": {
+          "turn_limit": 244,
+          "victory": 156
+        },
+        "turns": {
+          "n": 400,
+          "mean": 26.6225,
+          "min": 8,
+          "max": 31,
+          "median": 31.0
+        },
+        "map_counts": {
+          "loris_river": 400
+        },
+        "faction_rosters": {
+          "Drakes|Knalgan Alliance|Loyalists|Northerners": 80,
+          "Drakes|Knalgan Alliance|Northerners|Loyalists": 88,
+          "Drakes|Knalgan Alliance|Rebels|Loyalists": 16,
+          "Drakes|Knalgan Alliance|Undead|Loyalists": 16,
+          "Drakes|Loyalists|Knalgan Alliance|Northerners": 88,
+          "Knalgan Alliance|Drakes|Loyalists|Northerners": 16,
+          "Knalgan Alliance|Drakes|Northerners|Loyalists": 16,
+          "Knalgan Alliance|Drakes|Rebels|Loyalists": 16,
+          "Knalgan Alliance|Drakes|Undead|Loyalists": 16,
+          "Loyalists|Drakes|Northerners|Knalgan Alliance": 16,
+          "Loyalists|Drakes|Rebels|Knalgan Alliance": 16,
+          "Loyalists|Drakes|Undead|Knalgan Alliance": 16
+        },
+        "learner_factions": {},
+        "rows": 0
+      }
+    },
+    "ppo_scenario_families": 7,
+    "ppo_scenarios": {
+      "e370e01967d145eb6081df7215b989058346055d4a79bf6c4568b52e48b2efba": {
+        "map": "arena4",
+        "factions": [
+          "Loyalists",
+          "Northerners",
+          "Rebels",
+          "Undead"
+        ],
+        "max_turns": 60,
+        "count": 309
+      },
+      "a086165aa6ccd4822b52fcd5e4e768f7d217398d8aab53d9bb62c0efae15a57f": {
+        "map": "clash",
+        "factions": [
+          "Drakes",
+          "Knalgan Alliance",
+          "Loyalists",
+          "Northerners"
+        ],
+        "max_turns": 60,
+        "count": 78
+      },
+      "ffad004032d1a39dd659cbcbf15b0947ff30692867f134850329d956850a39ba": {
+        "map": "arena4",
+        "factions": [
+          "Rebels",
+          "Undead",
+          "Drakes",
+          "Knalgan Alliance"
+        ],
+        "max_turns": 60,
+        "count": 155
+      },
+      "baa178ce0e201050255056eebbddf2f79699ddc12346ba70f71e9b050cf54adc": {
+        "map": "isars_cross",
+        "factions": [
+          "Loyalists",
+          "Northerners",
+          "Rebels",
+          "Undead"
+        ],
+        "max_turns": 60,
+        "count": 78
+      },
+      "d0d4a84c3fede49bdb32da9f3a7b2b9b6efa15cfe950beafb94c6ffdab79b096": {
+        "map": "isars_cross",
+        "factions": [
+          "Drakes",
+          "Knalgan Alliance",
+          "Loyalists",
+          "Northerners"
+        ],
+        "max_turns": 60,
+        "count": 77
+      },
+      "002f0aced40cc4b7a7e3bbbec37f32db19103b22af38523d70b57f03c44f7313": {
+        "map": "clash",
+        "factions": [
+          "Loyalists",
+          "Northerners",
+          "Rebels",
+          "Undead"
+        ],
+        "max_turns": 60,
+        "count": 77
+      },
+      "20b2496e68ad82470ceb939e807c13a9ee6658abb6263f1b3552332374b56e09": {
+        "map": "isars_cross",
+        "factions": [
+          "Rebels",
+          "Undead",
+          "Drakes",
+          "Knalgan Alliance"
+        ],
+        "max_turns": 60,
+        "count": 154
+      }
+    },
+    "opponent_results": {
+      "fixed": {
+        "games": 464,
+        "wins": 196,
+        "losses": 177,
+        "draws": 91
+      },
+      "history": {
+        "games": 464,
+        "wins": 127,
+        "losses": 128,
+        "draws": 209
+      },
+      "current": {
+        "games": 464,
+        "wins": 127,
+        "losses": 128,
+        "draws": 209
+      }
+    },
+    "ppo": {
+      "batches": 231,
+      "kl_stops": 207,
+      "planned_steps": 5460,
+      "committed_steps": 3196,
+      "eligible_decisions": 341940,
+      "committed_decisions": 833857,
+      "decisions_per_batch": {
+        "n": 231,
+        "mean": 1480.2597402597403,
+        "min": 521,
+        "max": 2742,
+        "median": 1468
+      },
+      "windows_per_batch": {
+        "n": 231,
+        "mean": 22.35930735930736,
+        "min": 12,
+        "max": 32,
+        "median": 23
+      },
+      "excluded_rehearsal_rows": {
+        "n": 231,
+        "mean": 992.4199134199134,
+        "min": 407,
+        "max": 1024,
+        "median": 1024
+      },
+      "first_elapsed_hours": 4.616238912542661,
+      "last_elapsed_hours": 24.872529517412186,
+      "rehearsal_sources": {
+        "policy": 231
+      }
+    }
+  }
+}

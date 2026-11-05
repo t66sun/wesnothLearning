@@ -1,0 +1,1057 @@
+{
+  "algebra": {
+    "truncated=False,outcome=-1.0": {
+      "immediate": -1.0,
+      "returns": -1.0
+    },
+    "truncated=False,outcome=1.0": {
+      "immediate": 1.0,
+      "returns": 1.0
+    },
+    "truncated=True,outcome=-1.0": {
+      "immediate": 0.0,
+      "returns": 0.2
+    },
+    "truncated=True,outcome=1.0": {
+      "immediate": 0.0,
+      "returns": 0.2
+    },
+    "assertion_truncated_outcomes_indistinguishable": true
+  },
+  "formats": {
+    "duel": {
+      "retention": {
+        "samples": 2048,
+        "families": 5,
+        "rows_sha256": "27ac5a1d50256f26b1a13f70829d8636307c301b882aa1d3f262d243ea9c9d20",
+        "admission": {
+          "requested": 2048,
+          "rows": 2048,
+          "families": 50,
+          "selected": 50,
+          "families_decoded": 50,
+          "families_selected": 50,
+          "families_admitted": 50,
+          "families_retained": 50,
+          "windows": 68,
+          "sources": {
+            "astra": 2048
+          },
+          "engines": {
+            "lite": 2048
+          },
+          "kinds": {
+            "recruit": 331,
+            "move": 978,
+            "end_turn": 230,
+            "attack": 135,
+            "move_attack": 374
+          },
+          "gz_bytes": 64782286,
+          "retained_bytes": 280309652,
+          "deficit": 0,
+          "stop_reason": "window_limit"
+        },
+        "models": {
+          "last_bc.pt": {
+            "sha256": "05908d7f972148ccc7b39b8df0cc00435e2176861654a632de44c379b94953ab",
+            "version": 38,
+            "accuracy": 0.64111328125,
+            "ce": {
+              "n": 2048,
+              "mean": 2.0376681442262066,
+              "std": 3.6878343459899563,
+              "min": -0.0,
+              "max": 22.5909481048584
+            },
+            "entropy": {
+              "n": 2048,
+              "mean": 0.4385935350439409,
+              "std": 0.5181231108338366,
+              "min": -0.0,
+              "max": 2.5070695877075195
+            },
+            "value": {
+              "n": 2048,
+              "mean": 0.5137050266957885,
+              "std": 0.5681770301089778,
+              "min": -0.7986798286437988,
+              "max": 1.1543205976486206
+            },
+            "kinds": {
+              "recruit": {
+                "samples": 331,
+                "accuracy": 0.7341389728096677
+              },
+              "move": {
+                "samples": 978,
+                "accuracy": 0.6175869120654397
+              },
+              "attack": {
+                "samples": 509,
+                "accuracy": 0.49901768172888017
+              },
+              "end_turn": {
+                "samples": 230,
+                "accuracy": 0.9217391304347826
+              }
+            }
+          },
+          "selected.pt": {
+            "sha256": "7065ad90650e48c0776ca4c3cb066008c1e151e62d0aeaa6095364c8e244f65b",
+            "version": 100,
+            "accuracy": 0.62060546875,
+            "ce": {
+              "n": 2048,
+              "mean": 2.1174943076725308,
+              "std": 3.7066296686630986,
+              "min": -0.0,
+              "max": 26.036943435668945
+            },
+            "entropy": {
+              "n": 2048,
+              "mean": 0.5045396012594708,
+              "std": 0.539069466046434,
+              "min": -0.0,
+              "max": 2.4378626346588135
+            },
+            "value": {
+              "n": 2048,
+              "mean": 0.15837264454967226,
+              "std": 0.48465407943797717,
+              "min": -1.1168434619903564,
+              "max": 1.099814534187317
+            },
+            "kinds": {
+              "recruit": {
+                "samples": 331,
+                "accuracy": 0.7190332326283988
+              },
+              "move": {
+                "samples": 978,
+                "accuracy": 0.614519427402863
+              },
+              "attack": {
+                "samples": 509,
+                "accuracy": 0.4793713163064833
+              },
+              "end_turn": {
+                "samples": 230,
+                "accuracy": 0.8173913043478261
+              }
+            }
+          },
+          "last_ppo.pt": {
+            "sha256": "e68b50e62d5a6452718f6496d7ff1bc28bc4d966975332e0fdf83cf34fde155b",
+            "version": 940,
+            "accuracy": 0.52490234375,
+            "ce": {
+              "n": 2048,
+              "mean": 1.6190205573475147,
+              "std": 1.5717163633347138,
+              "min": -0.0,
+              "max": 9.622880935668945
+            },
+            "entropy": {
+              "n": 2048,
+              "mean": 1.4114055938941021,
+              "std": 0.7960286297218391,
+              "min": -0.0,
+              "max": 3.3151261806488037
+            },
+            "value": {
+              "n": 2048,
+              "mean": -0.0315291966580844,
+              "std": 0.5977387615145129,
+              "min": -1.014197826385498,
+              "max": 1.0006762742996216
+            },
+            "kinds": {
+              "recruit": {
+                "samples": 331,
+                "accuracy": 0.649546827794562
+              },
+              "move": {
+                "samples": 978,
+                "accuracy": 0.48057259713701433
+              },
+              "attack": {
+                "samples": 509,
+                "accuracy": 0.39096267190569745
+              },
+              "end_turn": {
+                "samples": 230,
+                "accuracy": 0.8304347826086956
+              }
+            }
+          }
+        }
+      },
+      "rollout": [
+        {
+          "batch": 38,
+          "schedule_sha256": "f29b2ebfef29522741ee58b45fd302d6ad1a0d8d52906c1fb44d6570f199153f",
+          "model_sha256": "6ef19098bd73ca34cdefe434f2f567b0febaefefedbf1725264d86478b5820b7",
+          "rows": 447,
+          "source_shards": [
+            {
+              "path": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/duel/data/rollout-00038-duel-g0.jsonl.gz",
+              "sha256": "2b37c1d744cfba95fe4219f4796742b36f1d26c5522fcc69c81cc753dd2d7f38"
+            },
+            {
+              "path": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/duel/data/rollout-00038-duel-g1.jsonl.gz",
+              "sha256": "88d7f38aceb741770115b92911c864ba9b54f7fb0c5b85f6b42af63ae9135816"
+            },
+            {
+              "path": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/duel/data/rollout-00038-duel-g2.jsonl.gz",
+              "sha256": "96acb5e3a91f3727dc1a0c39e45c10f881e36c84817d2ab1122e0e4fd5f6f656"
+            },
+            {
+              "path": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/duel/data/rollout-00038-duel-g3.jsonl.gz",
+              "sha256": "1ae21f15bf1717b69874e953612ad1ba01f28da700f32e42120f8f1a1c083e8b"
+            }
+          ],
+          "games": [
+            {
+              "id": "rollout-00038-duel-g1",
+              "rows": 194,
+              "last_turn": 22,
+              "truncated": false,
+              "terminal_reward": -1.0,
+              "bootstrap": null,
+              "bootstrap_turn": null,
+              "last_value": -1.1549517481183198,
+              "final_reward": -1.0258147719062507
+            },
+            {
+              "id": "rollout-00038-duel-g2",
+              "rows": 66,
+              "last_turn": 10,
+              "truncated": false,
+              "terminal_reward": -1.0,
+              "bootstrap": null,
+              "bootstrap_turn": null,
+              "last_value": 0.9843866389711833,
+              "final_reward": -1.0673921449679666
+            },
+            {
+              "id": "rollout-00038-duel-g0",
+              "rows": 79,
+              "last_turn": 13,
+              "truncated": false,
+              "terminal_reward": -1.0,
+              "bootstrap": null,
+              "bootstrap_turn": null,
+              "last_value": -1.0747728494079105,
+              "final_reward": -0.9858798034168971
+            },
+            {
+              "id": "rollout-00038-duel-g3",
+              "rows": 108,
+              "last_turn": 11,
+              "truncated": false,
+              "terminal_reward": 1.0,
+              "bootstrap": null,
+              "bootstrap_turn": null,
+              "last_value": 1.203196294869379,
+              "final_reward": 0.8270039832370555
+            }
+          ],
+          "decisions_per_window": {
+            "n": 9,
+            "mean": 49.666666666666664,
+            "std": 20.725722075613085,
+            "min": 10,
+            "max": 76
+          },
+          "logp_error": {
+            "n": 128,
+            "mean": 2.3058115167248326e-07,
+            "std": 1.2122692125656814e-06,
+            "min": -4.314866081323032e-06,
+            "max": 3.496067143560211e-06
+          },
+          "max_abs_logp_error": 4.314866081323032e-06,
+          "max_abs_value_error": 1.8860382433594225e-07,
+          "entropy": {
+            "n": 128,
+            "mean": 0.620342536411738,
+            "std": 0.5635105088850165,
+            "min": -0.0,
+            "max": 2.1275084018707275
+          },
+          "advantages": {
+            "n": 447,
+            "mean": -0.45650405329611754,
+            "std": 0.5423603018740242,
+            "min": -2.0836174121637283,
+            "max": 0.3594323558881193
+          },
+          "returns": {
+            "n": 447,
+            "mean": -0.45758965200566615,
+            "std": 0.7980735127519176,
+            "min": -1.0673921449679664,
+            "max": 1.040145229261051
+          },
+          "terminal_contribution": {
+            "n": 447,
+            "mean": -0.31547334141300537,
+            "std": 0.6560439558448109,
+            "min": -1.0,
+            "max": 1.0
+          },
+          "within_turn_transitions": 391
+        },
+        {
+          "batch": 489,
+          "schedule_sha256": "db32d21ea3bbb469a5ec397cdacc6059c2cfadcd76c6fdb01b136586b8c7dfaa",
+          "model_sha256": "c5ed726ad79cf3c42d1f87911c91ad93a3e612a0b4bf98684ffe75cb8f53f101",
+          "rows": 536,
+          "source_shards": [
+            {
+              "path": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/duel/data/rollout-00489-duel-g0.jsonl.gz",
+              "sha256": "dce2c53db3f1b7109dab643e58a3e1f805eea87269c1fe9ea09751844d8b9e58"
+            },
+            {
+              "path": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/duel/data/rollout-00489-duel-g1.jsonl.gz",
+              "sha256": "daff69f6dd788c4477b26a095dc6b43504c8c5a1d369cbce56706f481611804a"
+            },
+            {
+              "path": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/duel/data/rollout-00489-duel-g2.jsonl.gz",
+              "sha256": "0b61ecf83e74e76a9af9a79e225574b9f30b9d5403039189758de68d80fa3ee0"
+            },
+            {
+              "path": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/duel/data/rollout-00489-duel-g3.jsonl.gz",
+              "sha256": "0be3b635044b851807a6f9800da418762284916362575bc5d8bc1a50f6d71542"
+            }
+          ],
+          "games": [
+            {
+              "id": "rollout-00489-duel-g1",
+              "rows": 187,
+              "last_turn": 19,
+              "truncated": false,
+              "terminal_reward": -1.0,
+              "bootstrap": null,
+              "bootstrap_turn": null,
+              "last_value": -1.0266778541460784,
+              "final_reward": -1.003906206218594
+            },
+            {
+              "id": "rollout-00489-duel-g2",
+              "rows": 41,
+              "last_turn": 5,
+              "truncated": false,
+              "terminal_reward": -1.0,
+              "bootstrap": null,
+              "bootstrap_turn": null,
+              "last_value": -0.7795492776597421,
+              "final_reward": -1.0256588895778898
+            },
+            {
+              "id": "rollout-00489-duel-g0",
+              "rows": 61,
+              "last_turn": 11,
+              "truncated": false,
+              "terminal_reward": -1.0,
+              "bootstrap": null,
+              "bootstrap_turn": null,
+              "last_value": -0.8765341831464715,
+              "final_reward": -0.9832584563714479
+            },
+            {
+              "id": "rollout-00489-duel-g3",
+              "rows": 247,
+              "last_turn": 27,
+              "truncated": false,
+              "terminal_reward": 1.0,
+              "bootstrap": null,
+              "bootstrap_turn": null,
+              "last_value": -0.04409659207769251,
+              "final_reward": 0.8947079217867344
+            }
+          ],
+          "decisions_per_window": {
+            "n": 10,
+            "mean": 53.6,
+            "std": 25.792246897081302,
+            "min": 8,
+            "max": 84
+          },
+          "logp_error": {
+            "n": 128,
+            "mean": -1.4257560417617961e-08,
+            "std": 7.651709654260223e-07,
+            "min": -4.487009344300574e-06,
+            "max": 2.0894365542201143e-06
+          },
+          "max_abs_logp_error": 4.487009344300574e-06,
+          "max_abs_value_error": 2.59504608912664e-07,
+          "entropy": {
+            "n": 128,
+            "mean": 1.4729710022802465,
+            "std": 0.7679568915582213,
+            "min": -0.0,
+            "max": 3.0227160453796387
+          },
+          "advantages": {
+            "n": 536,
+            "mean": 0.265301066138262,
+            "std": 0.5161891161050954,
+            "min": -1.069840332167665,
+            "max": 1.545975168082582
+          },
+          "returns": {
+            "n": 536,
+            "mean": -0.42039578895238594,
+            "std": 0.69453896541822,
+            "min": -1.0866600589248123,
+            "max": 0.9042162443334842
+          },
+          "terminal_contribution": {
+            "n": 536,
+            "mean": -0.128612513130523,
+            "std": 0.6491628544715319,
+            "min": -1.0,
+            "max": 1.0
+          },
+          "within_turn_transitions": 474
+        },
+        {
+          "batch": 939,
+          "schedule_sha256": "2f13eb50727303352a93c4e3116f2614eb322a8919054ed28afaf16ab48883a8",
+          "model_sha256": "ca2c6236b7ba6e1a0d9a2d8a6ed44b55987b7d65d7ccc764ec749c0be065b877",
+          "rows": 724,
+          "source_shards": [
+            {
+              "path": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/duel/data/rollout-00939-duel-g0.jsonl.gz",
+              "sha256": "ffa19b08d973be2929b8bf9df3ac77b1256831f2b144887b6ad557b5c10cf59c"
+            },
+            {
+              "path": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/duel/data/rollout-00939-duel-g1.jsonl.gz",
+              "sha256": "612abfb892c30c10b4e99ca45b8d7eddf5a1a37f85c33dca67f9b67daecc5d2d"
+            },
+            {
+              "path": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/duel/data/rollout-00939-duel-g2.jsonl.gz",
+              "sha256": "431d96ab7bc003bfe9e71003f3e1d9a439194b60e8b5e0c0ff035a31a4fafb26"
+            },
+            {
+              "path": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/duel/data/rollout-00939-duel-g3.jsonl.gz",
+              "sha256": "ac1d9f8223d5b14189b29d19240d63c733905885a32758b5d89f50f6f2a0bf8e"
+            }
+          ],
+          "games": [
+            {
+              "id": "rollout-00939-duel-g1",
+              "rows": 384,
+              "last_turn": 33,
+              "truncated": false,
+              "terminal_reward": -1.0,
+              "bootstrap": null,
+              "bootstrap_turn": null,
+              "last_value": -0.8627621651867853,
+              "final_reward": -0.9468139114079064
+            },
+            {
+              "id": "rollout-00939-duel-g2",
+              "rows": 63,
+              "last_turn": 11,
+              "truncated": false,
+              "terminal_reward": -1.0,
+              "bootstrap": null,
+              "bootstrap_turn": null,
+              "last_value": -0.928989663323275,
+              "final_reward": -0.967539865851493
+            },
+            {
+              "id": "rollout-00939-duel-g0",
+              "rows": 33,
+              "last_turn": 5,
+              "truncated": false,
+              "terminal_reward": -1.0,
+              "bootstrap": null,
+              "bootstrap_turn": null,
+              "last_value": -0.6769407093166631,
+              "final_reward": -1.0601833184925262
+            },
+            {
+              "id": "rollout-00939-duel-g3",
+              "rows": 244,
+              "last_turn": 30,
+              "truncated": false,
+              "terminal_reward": -1.0,
+              "bootstrap": null,
+              "bootstrap_turn": null,
+              "last_value": -0.8755567575469124,
+              "final_reward": -0.9499755579896126
+            }
+          ],
+          "decisions_per_window": {
+            "n": 12,
+            "mean": 60.333333333333336,
+            "std": 32.879409294504605,
+            "min": 4,
+            "max": 110
+          },
+          "logp_error": {
+            "n": 128,
+            "mean": -2.0086451005994565e-08,
+            "std": 5.225263118386882e-07,
+            "min": -2.34398582810158e-06,
+            "max": 1.4546766529122124e-06
+          },
+          "max_abs_logp_error": 2.34398582810158e-06,
+          "max_abs_value_error": 1.6677084246907725e-07,
+          "entropy": {
+            "n": 128,
+            "mean": 1.821255842802202,
+            "std": 0.9147416563377855,
+            "min": -0.0,
+            "max": 3.109680652618408
+          },
+          "advantages": {
+            "n": 724,
+            "mean": -0.4406522218994768,
+            "std": 0.6402819792452751,
+            "min": -1.806574222871956,
+            "max": 0.4877808930715867
+          },
+          "returns": {
+            "n": 724,
+            "mean": -0.6381033057590119,
+            "std": 0.27386430439903586,
+            "min": -1.0601833184925262,
+            "max": -0.20436400762831558
+          },
+          "terminal_contribution": {
+            "n": 724,
+            "mean": -0.5235237238669589,
+            "std": 0.22496721951900653,
+            "min": -1.0,
+            "max": -0.1937114844585004
+          },
+          "within_turn_transitions": 645
+        }
+      ],
+      "wall_seconds": 26.19572877883911
+    },
+    "team2v2": {
+      "retention": {
+        "samples": 2048,
+        "families": 14,
+        "rows_sha256": "4e4bfd00725bcd5b212db4c87947f2d96ab11c246bbcb16bccc3b053fee0a14e",
+        "admission": {
+          "requested": 2048,
+          "rows": 2048,
+          "families": 22,
+          "selected": 76,
+          "families_decoded": 22,
+          "families_selected": 76,
+          "families_admitted": 22,
+          "families_retained": 22,
+          "windows": 51,
+          "sources": {
+            "astra": 2048
+          },
+          "engines": {
+            "lite": 2048
+          },
+          "kinds": {
+            "move": 1279,
+            "end_turn": 291,
+            "move_attack": 295,
+            "recruit": 133,
+            "attack": 50
+          },
+          "gz_bytes": 99777509,
+          "retained_bytes": 380183748,
+          "deficit": 0,
+          "stop_reason": "window_limit"
+        },
+        "models": {
+          "last_bc.pt": {
+            "sha256": "6a2a5c587d95853e8fb4fae7ee5c9cc997f00e2cad6b5a70f2389b6c26b17832",
+            "version": 53,
+            "accuracy": 0.69873046875,
+            "ce": {
+              "n": 2048,
+              "mean": 1.057652803878508,
+              "std": 1.7797284572535157,
+              "min": -0.0,
+              "max": 15.73696231842041
+            },
+            "entropy": {
+              "n": 2048,
+              "mean": 0.8130948899487793,
+              "std": 0.5617500249056288,
+              "min": -0.0,
+              "max": 2.4953930377960205
+            },
+            "value": {
+              "n": 2048,
+              "mean": -0.023625863759662025,
+              "std": 0.6297814513029192,
+              "min": -0.9498714804649353,
+              "max": 1.167620301246643
+            },
+            "kinds": {
+              "recruit": {
+                "samples": 133,
+                "accuracy": 0.5864661654135338
+              },
+              "move": {
+                "samples": 1279,
+                "accuracy": 0.7224394057857702
+              },
+              "attack": {
+                "samples": 345,
+                "accuracy": 0.5072463768115942
+              },
+              "end_turn": {
+                "samples": 291,
+                "accuracy": 0.872852233676976
+              }
+            }
+          },
+          "selected.pt": {
+            "sha256": "02de100f80960c93450e491fc4b72d6094bd4702fcb4bb9efadabcf1ab560993",
+            "version": 100,
+            "accuracy": 0.63623046875,
+            "ce": {
+              "n": 2048,
+              "mean": 1.2034042263636913,
+              "std": 1.5957845195927547,
+              "min": -0.0,
+              "max": 14.058796882629395
+            },
+            "entropy": {
+              "n": 2048,
+              "mean": 1.0381802048118958,
+              "std": 0.6141677056971385,
+              "min": -0.0,
+              "max": 2.6872599124908447
+            },
+            "value": {
+              "n": 2048,
+              "mean": -0.4870145534086987,
+              "std": 0.4510191074492984,
+              "min": -1.0930920839309692,
+              "max": 0.8566098213195801
+            },
+            "kinds": {
+              "recruit": {
+                "samples": 133,
+                "accuracy": 0.48872180451127817
+              },
+              "move": {
+                "samples": 1279,
+                "accuracy": 0.653635652853792
+              },
+              "attack": {
+                "samples": 345,
+                "accuracy": 0.48985507246376814
+              },
+              "end_turn": {
+                "samples": 291,
+                "accuracy": 0.8006872852233677
+              }
+            }
+          },
+          "last_ppo.pt": {
+            "sha256": "0aaaf7d197ba72f02138ba2a893c2212b9e3751456d6136f02cfa4417b007a49",
+            "version": 284,
+            "accuracy": 0.59375,
+            "ce": {
+              "n": 2048,
+              "mean": 1.3048295806873582,
+              "std": 1.2574375349301827,
+              "min": -0.0,
+              "max": 10.814294815063477
+            },
+            "entropy": {
+              "n": 2048,
+              "mean": 1.4181015536209793,
+              "std": 0.6453794822259652,
+              "min": -0.0,
+              "max": 2.8915205001831055
+            },
+            "value": {
+              "n": 2048,
+              "mean": -1.0023736383263895,
+              "std": 0.774568735556942,
+              "min": -2.594435214996338,
+              "max": 0.7379668951034546
+            },
+            "kinds": {
+              "recruit": {
+                "samples": 133,
+                "accuracy": 0.45112781954887216
+              },
+              "move": {
+                "samples": 1279,
+                "accuracy": 0.6207974980453479
+              },
+              "attack": {
+                "samples": 345,
+                "accuracy": 0.48695652173913045
+              },
+              "end_turn": {
+                "samples": 291,
+                "accuracy": 0.6666666666666666
+              }
+            }
+          }
+        }
+      },
+      "rollout": [
+        {
+          "batch": 53,
+          "schedule_sha256": "16fcbb3c449500f80be762a4638202e6f16d6c48c1047121f3787a89272a46ba",
+          "model_sha256": "036c94a66eab06369f0564ef5d1a2672df0870ccb393ec588d67382f03be8381",
+          "rows": 1490,
+          "source_shards": [
+            {
+              "path": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/team2v2/data/rollout-00053-team2v2-g0.jsonl.gz",
+              "sha256": "ce2025ad485cfd762355320504f16c8528ff07d04ea14df073336155e1f51eb2"
+            },
+            {
+              "path": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/team2v2/data/rollout-00053-team2v2-g1.jsonl.gz",
+              "sha256": "aba63fb9ce4fe030b4284816a7f1d1e5bcc140ba154d47f53da4c4052c1d8261"
+            },
+            {
+              "path": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/team2v2/data/rollout-00053-team2v2-g2.jsonl.gz",
+              "sha256": "e8c2c36967bb82643f0e8e5d3583fc50ddcc20e00e81637ed2ba5938502c2b99"
+            },
+            {
+              "path": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/team2v2/data/rollout-00053-team2v2-g3.jsonl.gz",
+              "sha256": "f496f67fe90b5d1d357eb71062d631271b0e4274267a48413f77bd65556de164"
+            }
+          ],
+          "games": [
+            {
+              "id": "rollout-00053-team2v2-g1",
+              "rows": 766,
+              "last_turn": 60,
+              "truncated": true,
+              "terminal_reward": 0.0,
+              "bootstrap": 0.6782650895761664,
+              "bootstrap_turn": 61,
+              "last_value": 0.6845741588961411,
+              "final_reward": -0.0009650467561165721
+            },
+            {
+              "id": "rollout-00053-team2v2-g2",
+              "rows": 350,
+              "last_turn": 31,
+              "truncated": false,
+              "terminal_reward": 1.0,
+              "bootstrap": null,
+              "bootstrap_turn": null,
+              "last_value": 1.1284928310945728,
+              "final_reward": 0.8241096739308349
+            },
+            {
+              "id": "rollout-00053-team2v2-g0",
+              "rows": 238,
+              "last_turn": 22,
+              "truncated": false,
+              "terminal_reward": 1.0,
+              "bootstrap": null,
+              "bootstrap_turn": null,
+              "last_value": 1.145729950178122,
+              "final_reward": 0.8178075114040066
+            },
+            {
+              "id": "rollout-00053-team2v2-g3",
+              "rows": 136,
+              "last_turn": 27,
+              "truncated": false,
+              "terminal_reward": -1.0,
+              "bootstrap": null,
+              "bootstrap_turn": null,
+              "last_value": -0.8545940735725388,
+              "final_reward": -0.9195576321437763
+            }
+          ],
+          "decisions_per_window": {
+            "n": 19,
+            "mean": 78.42105263157895,
+            "std": 31.386077687028326,
+            "min": 5,
+            "max": 121
+          },
+          "logp_error": {
+            "n": 128,
+            "mean": -2.701258881664235e-08,
+            "std": 8.838045038119668e-07,
+            "min": -4.9588047050797e-06,
+            "max": 2.484626233645315e-06
+          },
+          "max_abs_logp_error": 4.9588047050797e-06,
+          "max_abs_value_error": 1.6867551222432553e-07,
+          "entropy": {
+            "n": 128,
+            "mean": 0.8595953682284225,
+            "std": 0.5051223885709157,
+            "min": 4.425039605848724e-06,
+            "max": 2.11641526222229
+          },
+          "advantages": {
+            "n": 1490,
+            "mean": -0.020472887866030652,
+            "std": 0.2863394440913522,
+            "min": -0.46710806595909626,
+            "max": 1.1858457640646496
+          },
+          "returns": {
+            "n": 1490,
+            "mean": 0.7038119546479743,
+            "std": 0.5398849406872868,
+            "min": -1.012282849004086,
+            "max": 1.037632402378454
+          },
+          "terminal_contribution": {
+            "n": 1490,
+            "mean": 0.1905390833926365,
+            "std": 0.3859385881116576,
+            "min": -1.0,
+            "max": 1.0
+          },
+          "within_turn_transitions": 1350
+        },
+        {
+          "batch": 168,
+          "schedule_sha256": "81b889cac8daa23851651fccb0ae9c17489dbf0340c561e9784c59b6753757b2",
+          "model_sha256": "bfe02070b3ad52f117261191b03c646c98740ec8691c6ee5f219482d018a1cd3",
+          "rows": 756,
+          "source_shards": [
+            {
+              "path": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/team2v2/data/rollout-00168-team2v2-g0.jsonl.gz",
+              "sha256": "2a15bc3f139b0bd520540c87b7b6c76a5d42f60613ee733d377b4cca00a409ad"
+            },
+            {
+              "path": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/team2v2/data/rollout-00168-team2v2-g1.jsonl.gz",
+              "sha256": "ab75f25c6a5a308c85783d9352dd2537477f8b0532f9ecb93fd12149823fb9d6"
+            },
+            {
+              "path": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/team2v2/data/rollout-00168-team2v2-g2.jsonl.gz",
+              "sha256": "38640155028af6c43711a6acc77281b0b139323a140cf1f9c218bdffaf2ca8f5"
+            },
+            {
+              "path": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/team2v2/data/rollout-00168-team2v2-g3.jsonl.gz",
+              "sha256": "73723f8c47e02c0a15c5b01b2a38acb56343a665e946ed113a62455a56a319e9"
+            }
+          ],
+          "games": [
+            {
+              "id": "rollout-00168-team2v2-g1",
+              "rows": 266,
+              "last_turn": 24,
+              "truncated": false,
+              "terminal_reward": 1.0,
+              "bootstrap": null,
+              "bootstrap_turn": null,
+              "last_value": 1.0251555548522595,
+              "final_reward": 0.816913729578635
+            },
+            {
+              "id": "rollout-00168-team2v2-g2",
+              "rows": 96,
+              "last_turn": 23,
+              "truncated": false,
+              "terminal_reward": -1.0,
+              "bootstrap": null,
+              "bootstrap_turn": null,
+              "last_value": -1.1486109812797471,
+              "final_reward": -0.9778682681564432
+            },
+            {
+              "id": "rollout-00168-team2v2-g0",
+              "rows": 171,
+              "last_turn": 30,
+              "truncated": false,
+              "terminal_reward": -1.0,
+              "bootstrap": null,
+              "bootstrap_turn": null,
+              "last_value": -1.1983265663849014,
+              "final_reward": -0.9541678229863636
+            },
+            {
+              "id": "rollout-00168-team2v2-g3",
+              "rows": 223,
+              "last_turn": 46,
+              "truncated": false,
+              "terminal_reward": -1.0,
+              "bootstrap": null,
+              "bootstrap_turn": null,
+              "last_value": -1.4334899299460488,
+              "final_reward": -0.972095976895959
+            }
+          ],
+          "decisions_per_window": {
+            "n": 16,
+            "mean": 47.25,
+            "std": 24.182896848806184,
+            "min": 16,
+            "max": 104
+          },
+          "logp_error": {
+            "n": 128,
+            "mean": 3.8376997081656956e-08,
+            "std": 7.491640063352365e-07,
+            "min": -2.3493200291824223e-06,
+            "max": 2.3313241119815586e-06
+          },
+          "max_abs_logp_error": 2.3493200291824223e-06,
+          "max_abs_value_error": 3.2268617311537184e-07,
+          "entropy": {
+            "n": 128,
+            "mean": 1.3194417931936187,
+            "std": 0.7092624480040831,
+            "min": 0.0013743365416303277,
+            "max": 2.911823272705078
+          },
+          "advantages": {
+            "n": 756,
+            "mean": -0.0014362472211731938,
+            "std": 0.1417133475919696,
+            "min": -0.4486376851436413,
+            "max": 0.8818198838279174
+          },
+          "returns": {
+            "n": 756,
+            "mean": -0.41069260539358415,
+            "std": 1.0170469398895203,
+            "min": -1.2299554186067463,
+            "max": 1.107333754128389
+          },
+          "terminal_contribution": {
+            "n": 756,
+            "mean": -0.05584943613142426,
+            "std": 0.5432447425915582,
+            "min": -1.0,
+            "max": 0.9999999999999999
+          },
+          "within_turn_transitions": 633
+        },
+        {
+          "batch": 283,
+          "schedule_sha256": "78e3d6f2ed404caa7dbe7981db492964702272afd1604481523b7a751c7fccc5",
+          "model_sha256": "2e2764bf45eda76d6ebee81f59ad322a02570de3382b71548df4c315e1c0beaa",
+          "rows": 1353,
+          "source_shards": [
+            {
+              "path": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/team2v2/data/rollout-00283-team2v2-g0.jsonl.gz",
+              "sha256": "e705b817a5acf39341edfc4a6e46241df50b631383709420866f124f65a18ce0"
+            },
+            {
+              "path": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/team2v2/data/rollout-00283-team2v2-g1.jsonl.gz",
+              "sha256": "5ae275908921ae89c1faed8186047114816a6ed47dafff8d4e026dade1c0ba97"
+            },
+            {
+              "path": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/team2v2/data/rollout-00283-team2v2-g2.jsonl.gz",
+              "sha256": "ddd60aa3ce0767e574dc73ea4afa0784b28615ede1b9cd76bce2f45dc96bf46e"
+            },
+            {
+              "path": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/team2v2/data/rollout-00283-team2v2-g3.jsonl.gz",
+              "sha256": "6245629c69a37b75dfce862c2a5965162e00f71cdcdad6c2705f193311312db5"
+            }
+          ],
+          "games": [
+            {
+              "id": "rollout-00283-team2v2-g1",
+              "rows": 468,
+              "last_turn": 60,
+              "truncated": true,
+              "terminal_reward": 0.0,
+              "bootstrap": -2.10318361733577,
+              "bootstrap_turn": 61,
+              "last_value": -2.118037362939097,
+              "final_reward": 0.004586937445286913
+            },
+            {
+              "id": "rollout-00283-team2v2-g2",
+              "rows": 351,
+              "last_turn": 51,
+              "truncated": true,
+              "terminal_reward": 0.0,
+              "bootstrap": -1.1801674584080926,
+              "bootstrap_turn": 61,
+              "last_value": -1.0978488244651288,
+              "final_reward": -0.023779275154049907
+            },
+            {
+              "id": "rollout-00283-team2v2-g0",
+              "rows": 261,
+              "last_turn": 24,
+              "truncated": false,
+              "terminal_reward": 1.0,
+              "bootstrap": null,
+              "bootstrap_turn": null,
+              "last_value": 0.3891154656351868,
+              "final_reward": 0.8515532877077685
+            },
+            {
+              "id": "rollout-00283-team2v2-g3",
+              "rows": 273,
+              "last_turn": 30,
+              "truncated": false,
+              "terminal_reward": 1.0,
+              "bootstrap": null,
+              "bootstrap_turn": null,
+              "last_value": 0.603531744958445,
+              "final_reward": 0.8360823590462042
+            }
+          ],
+          "decisions_per_window": {
+            "n": 22,
+            "mean": 61.5,
+            "std": 19.655556697557795,
+            "min": 8,
+            "max": 99
+          },
+          "logp_error": {
+            "n": 128,
+            "mean": -4.9186552038267485e-08,
+            "std": 6.351327375618739e-07,
+            "min": -2.0655580099671056e-06,
+            "max": 1.7526190205785497e-06
+          },
+          "max_abs_logp_error": 2.0655580099671056e-06,
+          "max_abs_value_error": 4.947870162474999e-07,
+          "entropy": {
+            "n": 128,
+            "mean": 1.3261459305549579,
+            "std": 0.6607050591266725,
+            "min": -0.0,
+            "max": 2.4378349781036377
+          },
+          "advantages": {
+            "n": 1353,
+            "mean": 0.1459567787103441,
+            "std": 0.27885053726792275,
+            "min": -0.8721199669833621,
+            "max": 0.951525856630279
+          },
+          "returns": {
+            "n": 1353,
+            "mean": -0.7548271918064329,
+            "std": 1.2131423773368182,
+            "min": -2.1088578697202287,
+            "max": 0.8515532877077685
+          },
+          "terminal_contribution": {
+            "n": 1353,
+            "mean": 0.22978490207217456,
+            "std": 0.3143005323890589,
+            "min": 0.0,
+            "max": 1.0
+          },
+          "within_turn_transitions": 1188
+        }
+      ],
+      "wall_seconds": 38.48061466217041
+    }
+  }
+}
