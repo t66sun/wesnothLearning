@@ -1,0 +1,14 @@
+[
+  {
+    "archive": "metadata.tar.gz",
+    "sha256": "65ccae29697be4cd06fb10cc42dbf9171028bc2d07b9343e17e66dd85593fdf3",
+    "files": 609,
+    "problems": []
+  },
+  {
+    "archive": "nomination_schedules.tar.gz",
+    "sha256": "98ad8e1a9fc5f8b65fce9efdfe2f5abda61793920355e7993121d878795034bf",
+    "files": 3,
+    "problems": []
+  }
+]

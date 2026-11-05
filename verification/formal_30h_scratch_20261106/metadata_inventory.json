@@ -1,0 +1,3047 @@
+[
+  {
+    "path": "SOURCE_COMMIT",
+    "bytes": 41,
+    "sha256": "36e085c96fa74eb247f816769f77c1eb4f4f5437467c274a8bc4bee364c08b22"
+  },
+  {
+    "path": "coordinator.pid",
+    "bytes": 7,
+    "sha256": "8cf91d03768cf3fefaeb026f5eaf94770ab503abf77486281333e9407b4110af"
+  },
+  {
+    "path": "exit.code",
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "finished.txt",
+    "bytes": 36,
+    "sha256": "7ce833401ad926e27214eddd16fb2d12b6b142d1d50fa5bb6a4ef0bbcd1bf2ec"
+  },
+  {
+    "path": "launch.sh",
+    "bytes": 983,
+    "sha256": "03d90d8bbf80664e238af4a52e99b978f234e5c3b64e3a790eac17d7123344bb"
+  },
+  {
+    "path": "launcher.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/clock.json",
+    "bytes": 111,
+    "sha256": "e8fa9dd509975029155eb24cc62954217358966d256dec7b1ae610ad238ac71b"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/control/duel.json",
+    "bytes": 42566,
+    "sha256": "302d1009b6f773299774c433b0ec16a244b7293c19d51f0223d0d97769d46596"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/control/ffa4.json",
+    "bytes": 41858,
+    "sha256": "2ab2428ba7fc7686e093a2e60f06af85b740f7149089b885598cbee852c9aca6"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/control/team2v2.json",
+    "bytes": 22389,
+    "sha256": "bb5d5363924f2775c147f228478f906dcb2ff0260b3bf7ddec3c7bee9fe5b0ac"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/bc_gate.json",
+    "bytes": 2945,
+    "sha256": "76da8653e7223cc8cac963f0814f702f1091608b37100c21131f5faa4c0cb51f"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/controls.json",
+    "bytes": 208,
+    "sha256": "99f3ca909722af4e8c4f0359ffbb41ea6634ef7d7bbe1a482c4ec699019bb024"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/hardware.json",
+    "bytes": 85,
+    "sha256": "5f21f29aeb036ee3c388448d47c8b6ecbbcfc32883dd7ed734f36f82007bedfb"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/jobs.jsonl",
+    "bytes": 12076857,
+    "sha256": "ad98271128f548b0219f3a79099ca02b54e6b068763a35ca2961d6dbaecfd57f"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/report/REPORT.md",
+    "bytes": 3449,
+    "sha256": "ebc51bca6b6bf1ed1d0d537ab78165b986ba0e50a8897acd92f5ddc4b17b2c27"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/report/summary.json",
+    "bytes": 5965,
+    "sha256": "5501c47298e12178b6919424f689dffa572c95b378fc282844c1712eb38a9a72"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/report/training.csv",
+    "bytes": 51914,
+    "sha256": "36f2dd2dd95698b231ad281d86190f9de99df6d44c6ce15b98e1481978d1c91d"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/final.json",
+    "bytes": 1371871,
+    "sha256": "20ffba7203b7be766195de2fdfa2e59456a2c809ac70de6c3adc22c1f241590c"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000010.json",
+    "bytes": 102667,
+    "sha256": "71dc32cf6ac92c964d0669bb708763bfde899f0f3d18f7f24940db356beb4c9e"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000020.json",
+    "bytes": 102627,
+    "sha256": "772f0298ab2c75033339dfe912a8649f30adc53b136293f50181a57b98280e77"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000030.json",
+    "bytes": 102617,
+    "sha256": "c6848eebe1ca835635a94c3dace78eab8d76446e0aaec6f9d6f2e78aabb2b827"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000040.json",
+    "bytes": 102669,
+    "sha256": "9ec4c4d225a774a61defd5e7bae138e7965863e8776723298031330c4a8f1ca5"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000050.json",
+    "bytes": 102627,
+    "sha256": "fea8958359c6b56a5402b8d4416faffc41e6867176128cf7d39f2a3c7a54b4d1"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000060.json",
+    "bytes": 102613,
+    "sha256": "fe993ba378f3742d824838032aa955c792e6a1cea28c3933b25418b0db4eeeb6"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000070.json",
+    "bytes": 102669,
+    "sha256": "3504eb42ac21d80c08fe7f4c5246dbd91df3d2f7c035a2fe7d89cba1a7be7cb6"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000080.json",
+    "bytes": 102629,
+    "sha256": "bdb64a70ee5909af3fe1b38e21217cac01b63e5fc62f45c128c1c0388cb1a62a"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000090.json",
+    "bytes": 102615,
+    "sha256": "8dfda739eb81edd0b3f2bd2d11d8976c501e76523b65d2f5af329deadb903b0a"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000100.json",
+    "bytes": 410747,
+    "sha256": "75f81f16a943fd96bfecd22cf281bca2467b7c386630b82d314051819dc08e8e"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000110.json",
+    "bytes": 102635,
+    "sha256": "345d229a4fab585b62c96b97a42d817466c670cbd413906064b7ace38430b8a3"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000120.json",
+    "bytes": 102619,
+    "sha256": "e05a8765389f96f753a1ee50488c7b7d0128af913ca97f8ddde5edebdfdfa89b"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000130.json",
+    "bytes": 102675,
+    "sha256": "de9b107a797ed0d0d6194e6306f0ce12c284131c4464618f3537b07893692e0b"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000140.json",
+    "bytes": 102635,
+    "sha256": "e73f65ab00e1986fa62a158edbf19c6e44f1e4266df73960251eae1ae9f0b16e"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000150.json",
+    "bytes": 102621,
+    "sha256": "f77198ae5f37c9958fecc9f6b931d3be804c3f80a7844c6306b4821a4e9112b0"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000160.json",
+    "bytes": 102673,
+    "sha256": "9708a3d1e2dee49e119ecb6224658657fc211ef3cd2f48ea38856d59d1eea61b"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000170.json",
+    "bytes": 102635,
+    "sha256": "38b9d249198ec680fe235adc657358c4c686db554820f341a4e56d0bf4320e39"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000180.json",
+    "bytes": 102619,
+    "sha256": "0da5ab7b7a18a13db24bf3cc9c0909699d898367a7af6021cd7874f476389455"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000190.json",
+    "bytes": 102675,
+    "sha256": "086c4fb35bf137ce15e0d18eef372d30144171442ea3534a4e75d1e4af6a163c"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000200.json",
+    "bytes": 410747,
+    "sha256": "75a1dcee230c1eda5bbf6898b4ff376918dd5fdf9bb517065912c469177ce012"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000210.json",
+    "bytes": 102623,
+    "sha256": "72b6e09d0f2edbe43c186046c45bbbe2edec48dd882d26410d7fccea4c610757"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000220.json",
+    "bytes": 102675,
+    "sha256": "ecafcdb8619836da9d43fb390fedd46a271849d8a78710cbe1c70eef61396299"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000230.json",
+    "bytes": 102635,
+    "sha256": "294a1d43e9586225756e7781b1b243625841432bad9087ba128374dbff893a02"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000240.json",
+    "bytes": 102623,
+    "sha256": "0f186eab260ad8301021b49179e45a8c45b563d158b3dc7eadce8201ce8b3a15"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000250.json",
+    "bytes": 102675,
+    "sha256": "10455acc5c5a628c81161c24cbdd151a072104fe23f3e33149d69bafde5d2c85"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000260.json",
+    "bytes": 102633,
+    "sha256": "b5ea2fc6e186899daf4ba0d80023e8000ef438cdc7b37882e087f924cad4c4f2"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000270.json",
+    "bytes": 102623,
+    "sha256": "c509a4dfea19f12947cfc74fc5b0c5311f8305c18c2e13d4ad0b444167370479"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000280.json",
+    "bytes": 102675,
+    "sha256": "209ab701be90c49fc894b7e24b00d20077f321dd38302091de9fcedca86562b0"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000290.json",
+    "bytes": 102631,
+    "sha256": "454d046487591fd59cef68fb823643b65db7fdd87ad74d63d9112fbc231a427b"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000300.json",
+    "bytes": 410747,
+    "sha256": "6ac9cc5993c9cc8a58d4176f9636229a3df7fd04f62115d5937e37ae66957548"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000310.json",
+    "bytes": 102675,
+    "sha256": "debfcf45e86f3008f6ac5957ac689dacd1c434c1e05da7bb82ec19d42779ce51"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000320.json",
+    "bytes": 102631,
+    "sha256": "81f8eb608c86e7d8497193e8b83e2dcb9bb0e65bedf852c9800edca1a59ef5b2"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000330.json",
+    "bytes": 102623,
+    "sha256": "115c0de6cd253218c6c6bea29d3f0b00246ff2fddd9989376a70c809b1385241"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000340.json",
+    "bytes": 102673,
+    "sha256": "e122d19a00ffecbd0bd20ff7b073f76956b4a441de103ec2ee48098908f8e7d5"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000350.json",
+    "bytes": 102633,
+    "sha256": "7b15267acbbe6cd5fa905167bdaf31be600b685a909ced27e9c088871dafcdf7"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000360.json",
+    "bytes": 102623,
+    "sha256": "dbe36b2a8978d23e34040639f6367713218c52a0a0c22a542af1d010e0133faa"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000370.json",
+    "bytes": 102675,
+    "sha256": "07b18b330a1793cc1b364398efb9f0432008c479603be5a2c54cb5dce16255b9"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000380.json",
+    "bytes": 102635,
+    "sha256": "a1068f1dd9ab546d78f5066e060b0538f3c1f6e67d43d31f721da1e1d6bb8734"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000390.json",
+    "bytes": 102623,
+    "sha256": "9f5744fa7320d47b4588143c486161bbbc0b765d905fccabe824b3d8d59fee51"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000400.json",
+    "bytes": 410747,
+    "sha256": "d6a3ce170ae101a156e03758326b2b09c535dabd22bcdc69ab5db265c546c7d4"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000410.json",
+    "bytes": 102635,
+    "sha256": "0ee40a8bb690fcc682272c287ed9ab7ee8d7b37bf4b5813c6e59479f7514c584"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000420.json",
+    "bytes": 102623,
+    "sha256": "cbed074eb3a04573c03878ea8dea2e9b977f1caa7b977b2cab92674f405a4d26"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000430.json",
+    "bytes": 102675,
+    "sha256": "36d47903a7ed6d3616a5848f927ec308e0b3ef885c09a9b0df339f46fb3d73f0"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000440.json",
+    "bytes": 102633,
+    "sha256": "490c206d9997f09cf8cec56de18569c1267b5b9d7d0fa71ea2055018def1220e"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000450.json",
+    "bytes": 102623,
+    "sha256": "df5ef2a4e24125512cce812ffae86b41d5e8dbfdef84ec2110e1d8f09d1f9449"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000460.json",
+    "bytes": 102675,
+    "sha256": "18cd1de41743b0f9518e8b14aa3222ce4a9ea986daaaa5339e195cd909fadf06"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000470.json",
+    "bytes": 102631,
+    "sha256": "46b05d8efbdf8f11ee86564685267bdf0605fec2183a7d6ba6f9440da1c57ee0"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000480.json",
+    "bytes": 102621,
+    "sha256": "67de0d7a5a7dc7796d0edc9da20a8663dba2181f5793a0bbc5e764090abfca34"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000490.json",
+    "bytes": 102673,
+    "sha256": "8b918f22c8190748d9370083369fd92df1564e2408d72684cc584e0f7186da09"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000500.json",
+    "bytes": 410747,
+    "sha256": "323d5e431e57e98198736d63e59931ebb42d2193a0e50379ab5d419d09771dfb"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000510.json",
+    "bytes": 102619,
+    "sha256": "cdcb17dcbff3ac85fa55656b6140724b1f4d0a4f267cb841fd0552101e5ea7a1"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000520.json",
+    "bytes": 102673,
+    "sha256": "3c01001f1ee8d521121a82552f0a0154f27d37bddf13ce979beccd1cd87baf9f"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000530.json",
+    "bytes": 102635,
+    "sha256": "289363affb73f6f4f6aa3935ea6916d6f3e56d9c12596be1df9e288c80778a22"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000540.json",
+    "bytes": 102623,
+    "sha256": "f749195b0e4f212a465303b4834c2d54be76c3a7dd9e125ec69d073fe6090ecf"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000550.json",
+    "bytes": 102675,
+    "sha256": "ffe3b248baeb05d57a2379ec32dc07cba421c3dc059778c57fd19e6c3a38570d"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000560.json",
+    "bytes": 102633,
+    "sha256": "cf201cee9a3d2060bded92b4fd97df96e9b3fb91dcfc44059c3f7f37b237ce72"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000570.json",
+    "bytes": 102621,
+    "sha256": "b854435ee474491caef33679117b38f44357cbe157bf7178b11e879f7516aa09"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000580.json",
+    "bytes": 102675,
+    "sha256": "9bcb48d745b74f5d837d4ee5116bf3a6666cccd07efcb60995d3ed23157042ea"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000590.json",
+    "bytes": 102633,
+    "sha256": "c3b80231ff4bceb4d7c241780020c283d6d41ba25c8af2c1278ab626497720f5"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000600.json",
+    "bytes": 410747,
+    "sha256": "15fc5a14fccb4c5936940dba66d15e1262a51ea5c03597b4ef784fa2f28af86b"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000610.json",
+    "bytes": 102675,
+    "sha256": "bdac63287c75cb0b22612f0e21be43c6444be9113d924c8f1b86508fc3b2a168"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000620.json",
+    "bytes": 102631,
+    "sha256": "761515522e2fc7107727dee2292bc67fae5f17cdb371b27ce8af3e103ca6a58e"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000630.json",
+    "bytes": 102619,
+    "sha256": "2a7c89b1f717f2029949935d97569c4bff245ede901caeec2a80df875b35ca02"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000640.json",
+    "bytes": 102673,
+    "sha256": "caf1c2ff63f1122ee1190fca427776fedb6aa407f4efd337619d3f24f6affd8e"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000650.json",
+    "bytes": 102633,
+    "sha256": "9d47e1cdbb73bd0294e3151febf1f70dcc7cb705dca4a45a52049b28df466ebb"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000660.json",
+    "bytes": 102623,
+    "sha256": "e7c1bb812e76c93e346419cca80a0a57dbfb387087e35711c17a41e7d15bb228"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000670.json",
+    "bytes": 102671,
+    "sha256": "7de069d71de795281101a0b2453ccf3bd9d1a5a81db4a8012846df8df6ddf113"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000680.json",
+    "bytes": 102633,
+    "sha256": "14baa81af5effe243d972a6ef81d03cab4430b9a28427eda824b48f87e09c193"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000690.json",
+    "bytes": 102623,
+    "sha256": "7f1e7ae7e685be96ad22f8a261cac94df0f8bf902a7c3500774662d493224dd7"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000700.json",
+    "bytes": 410747,
+    "sha256": "0325d69b3cacf42c17d1efe227183b54439f4de8d2a854bb52dc2a68b0581f45"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000710.json",
+    "bytes": 102635,
+    "sha256": "11ceb66ef341541ebadbf2d08f773f9cd184ff70d72dbfca72d822e4e4306c76"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000720.json",
+    "bytes": 102623,
+    "sha256": "bcf7ab362eee1fd24e388c57e1a626fece141e496afe4018f38371c286665d2f"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000730.json",
+    "bytes": 102673,
+    "sha256": "3f66f5e3b4e15571c9d9fc3b0f138fb4a65286a06dc09d1e368d35f44b41e961"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000740.json",
+    "bytes": 102633,
+    "sha256": "42b383499caf68f0b8b8c7d5fc0b2b7d0e02dfaca8a084b24a499dbfdb1b1a67"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000750.json",
+    "bytes": 102621,
+    "sha256": "97da6c6797cf98a47001bc3502a91a02653acb0fc3f366ca60a96cf5a5a125a8"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000760.json",
+    "bytes": 102671,
+    "sha256": "6bfb97c2c29cee01a839584d41a13b304d42e8bfdc09c03dccd1e49d32650aba"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000770.json",
+    "bytes": 102629,
+    "sha256": "ff25f3641d87db9fa1a71ff4de99586494d3fe5f1de86bd17c4cb5cb307598dc"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000780.json",
+    "bytes": 102623,
+    "sha256": "ce8e40d50aaf9005649328f9f6e26f4a4f9cffd4e06f38c8cef219c921c043d0"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000790.json",
+    "bytes": 102675,
+    "sha256": "0bd8fe19d0718b44b6413cc276370c8909c164e9448b4ec72f66e4e38058202b"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000800.json",
+    "bytes": 410747,
+    "sha256": "590bc93ca5a9ce39610cd6465dc3c473de2edfbe8709900f3902476bc99a0c5c"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000810.json",
+    "bytes": 102623,
+    "sha256": "1afecd38e8dbd58a61936ed58e31a80392648bf824b1bc46c1a053adbc1f737c"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000820.json",
+    "bytes": 102675,
+    "sha256": "2a00f4dbbc1d0a5ae2b042bb43791e6f5d88f2b1a304907ac64cd25bdd4a2724"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000830.json",
+    "bytes": 102635,
+    "sha256": "2ac5bca66d967102497c1cf9cc187c8be91fb7a9da43a0e37567f3dc47e2fd8e"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000840.json",
+    "bytes": 102623,
+    "sha256": "3cb7099575fa0ca61b03228df15da798ffe9a3117169d137879bb4baa9a84b73"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000850.json",
+    "bytes": 102673,
+    "sha256": "05ad33d9d9881e9a18f1b7f8cddaedee74d041354bd6157b38648f0135305daf"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000860.json",
+    "bytes": 102635,
+    "sha256": "708d6c5201d08767d8693bcbfcfa88b65c4fa04d41eddf906442c3b23d5d222c"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000870.json",
+    "bytes": 102623,
+    "sha256": "604bc2c47cad2af92c02fd7b0106bdfc64ae8c4b50cd424824c405a0b3d19608"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000880.json",
+    "bytes": 102675,
+    "sha256": "47f7201916ef140de69e6fb7b8b20bbae4754977bf3e303153d32370094903f2"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000890.json",
+    "bytes": 102635,
+    "sha256": "82ed91bfbf11df1f8a3c37019f68c9a9f5c186c39cfea44145885495c8d20220"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000900.json",
+    "bytes": 410747,
+    "sha256": "d9d183ecbe8f23fe971224ec114da9f4981759b15de0c3b37442a3611ab69480"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000910.json",
+    "bytes": 102669,
+    "sha256": "c8a79dfb1b1abe52d3f7256d07507c6758f82ab126b19cc01352d8d9b83b9a89"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000920.json",
+    "bytes": 102633,
+    "sha256": "2bd950166eca4a66222840cd057a7d17c303ad0e97a3e10ca4f7430aa19b087d"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000930.json",
+    "bytes": 102623,
+    "sha256": "627ed4cab3b15ba64fc5fbf1cbca0a8ab5fbb3b5d0faed3a2ea01a0092441917"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/validation-000940.json",
+    "bytes": 102673,
+    "sha256": "087e1e3c5ebd071f83b322286441b4ea8f6804ceb23c710ff22ab8b2290f2910"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/selection.json",
+    "bytes": 702,
+    "sha256": "fcd07af218e7030b2a1578e17c5ea2e794909880dae7cbd194b64b26c462a400"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/state.json",
+    "bytes": 3892165,
+    "sha256": "978ac0ec64acc8906676e8141e945a746402a347e6a9c42d9c0de3c134ea2a4a"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/champion-v000200.json",
+    "bytes": 1201,
+    "sha256": "a7808f5d5dd115424288e855d52717a630e8ab2bc99fcf6e3d6843bf516a6f64"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/champion-v000300.json",
+    "bytes": 1217,
+    "sha256": "e2ca68c34506236950bdd9f8deaca737e73ecfd0b53db74a5587acc0e7844469"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/champion-v000400.json",
+    "bytes": 1189,
+    "sha256": "770a45cb577016086908e0b5f63bb816706580874a1344a2bdfe81ffceeaa9af"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/champion-v000500.json",
+    "bytes": 1201,
+    "sha256": "16288b5ee13d8c27ee3d6a5f6d9d02fcbd38892590b2ea0fb851ec386f4e02f1"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/champion-v000600.json",
+    "bytes": 1222,
+    "sha256": "ea7315447a7ceb6e38b92a70503621e4bf1b100dad2d5254277a66e0b593fc06"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/champion-v000700.json",
+    "bytes": 1201,
+    "sha256": "aac2f986b442489f10893b9bd54108bc1cd9639e4075e24a905902887da59327"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/champion-v000800.json",
+    "bytes": 1195,
+    "sha256": "786a40dc12ea483f1b9090ffbc54df471e54a247462e0f837801f32fc8b3eb86"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/champion-v000900.json",
+    "bytes": 1233,
+    "sha256": "9364ced3328ee1b74b28d8dada23ea2bca946605e84fdb35b5036d686626b15b"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000010.json",
+    "bytes": 3827,
+    "sha256": "bb06981777de673a45aaa0c6701f4930c31f4cf9e64b4a8b62201f249c729d8c"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000020.json",
+    "bytes": 4930,
+    "sha256": "f7440d811e3452e7538403b1f76d35d54439323626ad3a058bc16a082cb432cb"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000030.json",
+    "bytes": 4935,
+    "sha256": "cbaca9b6930024ec14e377695aa9262d52cbbcd93df530ec6f98e83f74cf0b57"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000040.json",
+    "bytes": 4943,
+    "sha256": "86529335bcb55cda2dfbb5c4cff46ba4469458e343a93320726566e0946d3853"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000050.json",
+    "bytes": 4941,
+    "sha256": "567c285ec391d28d5cd024e222b53f34f57f2ba54c00a65c78d17871b0a5d757"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000060.json",
+    "bytes": 4940,
+    "sha256": "b3a748b6507ab062f315ac3a3b0b21b3c653600e683f76df5a08a4c208634478"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000070.json",
+    "bytes": 4939,
+    "sha256": "cb5a716d47905c4e468bc3e819c63d632e1d66296b8b2cc8dd4481cb83657d77"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000080.json",
+    "bytes": 4938,
+    "sha256": "11a8b53aa293a3eff6778d58a1294d45229556eb2544a5bcd4bbec3b6f61a840"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000090.json",
+    "bytes": 4937,
+    "sha256": "9498069f4cc5608815eece6a3f3c83eb2fdeba26dc753f3f7eee643564914c77"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000100.json",
+    "bytes": 18974,
+    "sha256": "8b3b74a237a278d8620ff55179bc2f9a83c93107a8ecbe59e434b575f0e550ff"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000110.json",
+    "bytes": 4930,
+    "sha256": "878ba831765c83a758ec562168034a3ccc41b973f30a6679b52088115894f0f4"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000120.json",
+    "bytes": 4918,
+    "sha256": "4939b5a5050d4b7170ffead6fbba95a5c64483ade9444d1a5446ee7b1bcc6892"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000130.json",
+    "bytes": 4955,
+    "sha256": "26d435178c257fd460eba80647d6bf084718c8c1dbe0ad37ae53695a5c35fbe2"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000140.json",
+    "bytes": 4936,
+    "sha256": "654c171bd113bb0e504587a04f6945d51e0a90588de8415d1ec3ac0f88ec5c7b"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000150.json",
+    "bytes": 4934,
+    "sha256": "b561c7f6c2188d69e00d88b190b47f64775a0ede9e798eafb989548d7d078ea5"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000160.json",
+    "bytes": 4948,
+    "sha256": "eef5ecda19ecca56538f28f7fe4317c3e5bdc36d1074bd5fbc8f19ed41b212ff"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000170.json",
+    "bytes": 4934,
+    "sha256": "ac3a68ca65ceef10235ec6dcac282417bbae738ffccf8500c8bdb1dedf54e637"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000180.json",
+    "bytes": 4924,
+    "sha256": "0a3206421a7cc99a4019b52a3d2ef36fc1f01210b3719719167fb5b2ba41ed75"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000190.json",
+    "bytes": 4950,
+    "sha256": "3158e34a5f53877fbb0729b05e0f69e36b9b30f62f02e7b65e1e13b946e76a9e"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000200.json",
+    "bytes": 19011,
+    "sha256": "ac4ea09631c47be78f7bfe8c48ee5c271200f3cf3d055fba971e2ad7da26b2ff"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000210.json",
+    "bytes": 4933,
+    "sha256": "e696c5df036d99e7e2aa8e0c74d090f369e6392a6d6bbba2e949298ea11297fb"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000220.json",
+    "bytes": 4949,
+    "sha256": "b0c3a8ae81cfba29ef30dcb17fe23fcfeab6c8bb20ca44591c4eaaccbe350ba8"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000230.json",
+    "bytes": 4940,
+    "sha256": "71c05745a95816c90c5e35e18ff282d0a8ad3edfc5c40c6ade2e805e3b9e345d"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000240.json",
+    "bytes": 4939,
+    "sha256": "541a5cf847935ddc9efcef0992b392bd5ea863b202665a6bc01841c0a5d81a56"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000250.json",
+    "bytes": 4949,
+    "sha256": "6e0c0643f90052481d121a7bfbbd870828aa088c293c5a59c4d7dd983513218a"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000260.json",
+    "bytes": 4945,
+    "sha256": "5b5bb823bca85bf117b69720112806a742266608ee525deb1c884e48d24ced41"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000270.json",
+    "bytes": 4927,
+    "sha256": "331cb39f60e03232a7816fa1b1ee305dbd3088ff1301848b01d4a708c7616358"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000280.json",
+    "bytes": 4953,
+    "sha256": "b15803b40bb3bb6024047dace5624fd3e22c50660a3e137170051072ef560539"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000290.json",
+    "bytes": 4942,
+    "sha256": "730aeea00f5c643715942d76210f9a600ae0f412aa479505b83972030e1452ef"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000300.json",
+    "bytes": 19021,
+    "sha256": "1bd3e1f3025d2ea52a752f14ecbbf46494318c30270db07e44d2abd6581c51af"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000310.json",
+    "bytes": 4951,
+    "sha256": "82dff44856de00eb283771448a79b3050c1e8c73c945ccc5753b9118647e3e1e"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000320.json",
+    "bytes": 4923,
+    "sha256": "131cc832ee86ec19dc9131c0ed230555c72b8709d2383f20103a433408ed23f8"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000330.json",
+    "bytes": 4936,
+    "sha256": "276df5a9a02dff5a174888258a04f2e51866e4f4e81055a6b6555f80e8528ad3"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000340.json",
+    "bytes": 4953,
+    "sha256": "2ce0feda22a811aea34c050436da1575eb6d9a9cc6dd823545198bd0a9435dcb"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000350.json",
+    "bytes": 4942,
+    "sha256": "b2e36ee43697e0739e3a263342f1ba9777975769a45e6362da052945c99c90fd"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000360.json",
+    "bytes": 4914,
+    "sha256": "8984612c9f27710ec19ac4faf14af7bbaa7d0e14aa52b7aa728f46b8235a4146"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000370.json",
+    "bytes": 4951,
+    "sha256": "7c03e6c48492a22bf6444eff6925f59c2612f283c907921827a7f6046cad0df0"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000380.json",
+    "bytes": 4946,
+    "sha256": "6a7bc881060f061c713e184d826264dc6f8dce05becd9f35112e9a0aa5de3ce8"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000390.json",
+    "bytes": 4937,
+    "sha256": "ab3a868e3d2167ca13630187ee86d1f48e362891f32e2db43caf65e29810afb1"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000400.json",
+    "bytes": 19039,
+    "sha256": "c48ded9991315d6ac4dbc6b90606ba5dee3fe2ec6cb0ce75a3bb6fcae1f37ae9"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000410.json",
+    "bytes": 4937,
+    "sha256": "1fa8f79e596267a532618aa8f8bab159d7f57b54ef0d2617bff97a85a262e39f"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000420.json",
+    "bytes": 4932,
+    "sha256": "bb96de31073ea5b206d65a6221fc35cd7e568fb9a706fb7931273219ce293849"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000430.json",
+    "bytes": 4956,
+    "sha256": "9350f4fafd05bf6f4543d812964b171d0f04f8448b08b82dc0fdf6e6a36f4ab1"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000440.json",
+    "bytes": 4940,
+    "sha256": "10fbbc0cb9fdbfbe1ff4eddecb41d416481ae6b38261896f1fdd0d4d6c68c1d9"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000450.json",
+    "bytes": 4939,
+    "sha256": "a49d41c46e31ead179743e810c409b34686785311fc50afa4f1224fc59f26359"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000460.json",
+    "bytes": 4955,
+    "sha256": "60233dcaa065b2aebc260ed787a6fbabb129101b779b47c15377ecd3656a6ae1"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000470.json",
+    "bytes": 4931,
+    "sha256": "76743c8a81f9127b96a681314ed861c45327a7f629b33505cf6577ea3d211fa0"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000480.json",
+    "bytes": 4937,
+    "sha256": "4ed685a61c25003ed2cd24503d0d1acabf83bb90db7d81fd5966254ad821ae4d"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000490.json",
+    "bytes": 4955,
+    "sha256": "d4e2c7b121cdc5eccc7f3164a1bd74fe8c98329f09ee877e57265184470b2b14"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000500.json",
+    "bytes": 19043,
+    "sha256": "e65f13a753c20d7c2d2ccd6eedfa63bb17071310360ccb9c88ca8e0ca501ebb8"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000510.json",
+    "bytes": 4934,
+    "sha256": "2bdf572c6b64c7a3bf39f530c164fe66033175e15737fcfad515c9ead11d4d66"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000520.json",
+    "bytes": 4953,
+    "sha256": "31908bcab14994040a0751cceb79b621fe34d36ed32cd656f10c5be8877d5076"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000530.json",
+    "bytes": 4946,
+    "sha256": "56a3bfc3ed5fef8ad2657e2b7cf3555e243430ecf284b47840f1e7d11af3ec3f"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000540.json",
+    "bytes": 4935,
+    "sha256": "94871d027177eef71e23322c2055ce1777f0d80b090a29a7536ce3bd85324206"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000550.json",
+    "bytes": 4957,
+    "sha256": "1175917b6717d6e5f17080e48d9e3c86a71456d1936174ef6c3bfec530af5733"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000560.json",
+    "bytes": 4945,
+    "sha256": "fd2515ba449a00461916e3c0ea79221fca949b6b3765b7aa9df07eddec4e18ed"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000570.json",
+    "bytes": 4927,
+    "sha256": "fd65782e3ed3faf7c2371fb10ed6ccadc2bb07d191a585a3a5606b6a305b0aec"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000580.json",
+    "bytes": 4953,
+    "sha256": "546428c0d0fc93e874021f399b1923a4e46d56a1c322d123686afbb85250be34"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000590.json",
+    "bytes": 4922,
+    "sha256": "33f932321c6c88253036bed375298cf1fa60f6223be59bf0b88c110e70613b06"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000600.json",
+    "bytes": 19046,
+    "sha256": "54685d65a7464fff0d9d4c1d74b40039bfd52dd6e73a8fabd0fe5321d8c6cce9"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000610.json",
+    "bytes": 4941,
+    "sha256": "1c1a8cc9f84954d96f3a7de3e5197c32c514a3ff1374285028c616f0efbb267d"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000620.json",
+    "bytes": 4930,
+    "sha256": "0231d6d5d29a8e414a473fb13bcee581740b4c3d3c7200b42c51b2931730414a"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000630.json",
+    "bytes": 4928,
+    "sha256": "955de5468b5fbbc476392a67fca57ff7d4888fa8ef36170a8bc853f2ce1e83b3"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000640.json",
+    "bytes": 4955,
+    "sha256": "7ff31dc5d7c32ae8a65d61139380495aca4adc22890be9d55a3229c0b909c8aa"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000650.json",
+    "bytes": 4944,
+    "sha256": "7f3d29a088d9de40731013a37f92aa8cc09fd67e71dcf387ca48ccc6d98fc432"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000660.json",
+    "bytes": 4934,
+    "sha256": "8c0b15f71beb7c39bf3eba3301dea57a1b24fd552640927e56c9bdf64451dc76"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000670.json",
+    "bytes": 4945,
+    "sha256": "dcadcd0daa694f1f04136bfbcf6c5fc8c520d0643efeebbac4d8597815c67828"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000680.json",
+    "bytes": 4945,
+    "sha256": "d1d533ae34adc0c30bee789cd54050ec705688b7784169d10f2ad2fdcab466b8"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000690.json",
+    "bytes": 4938,
+    "sha256": "5dd4bc49820c8710898341aa622584d3c2a35978587f7eeb354344d64c6768b4"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000700.json",
+    "bytes": 19015,
+    "sha256": "74d07ebb5e91efcb9e52614f27936155d37346feeaff9c69ee133341c38f57eb"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000710.json",
+    "bytes": 4934,
+    "sha256": "7d2067891a4d34ac2194df840653ab3d81e2c2c3407062841255f042a97f727d"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000720.json",
+    "bytes": 4929,
+    "sha256": "57573229811be783649a19951e5589161560b8ddb040e9f3ebfec391af67d538"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000730.json",
+    "bytes": 4951,
+    "sha256": "1b16a99bd95d4facced11aa6500387f8d1c72f8d168f37f0ac8507a92f36901a"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000740.json",
+    "bytes": 4934,
+    "sha256": "a6ccf867669ebf9f20f8b64001b11019dfa869d5503195f9e0fa28dce863f205"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000750.json",
+    "bytes": 4936,
+    "sha256": "07b98373d954db50c592807ad7b2a4011614f4a2831de3a37879e497e2f3afa1"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000760.json",
+    "bytes": 4959,
+    "sha256": "31b552c19e62e0e02b3970a22238fb5d43435b5813eb2af89800ff066059f138"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000770.json",
+    "bytes": 4923,
+    "sha256": "db1258ff4288c390ab4b34ba18cdb3bea0f7f3d578c2732c0c9354b82061af3a"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000780.json",
+    "bytes": 4935,
+    "sha256": "41df759a80e60e332236202cde2700d68b0b122ad0b4a47b6fdc4cab3ce7cef4"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000790.json",
+    "bytes": 4940,
+    "sha256": "389a629c1880adaecff56c284552ccd8c04a0f942d22c97e7f2113d3bc2ce1e8"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000800.json",
+    "bytes": 19044,
+    "sha256": "603725cf21f9a4af6f7456a3cd10ca416d09fcafc1f9cc7d73169fbd979964bf"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000810.json",
+    "bytes": 4930,
+    "sha256": "2e1889f9c1f9350e0f42e08015b2efe7a9acb1e091a48bf01dd155573f079c9a"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000820.json",
+    "bytes": 4942,
+    "sha256": "dbc9bf89ca3cb483483d2d878d37dd75d79d1286e4798c004849378e4f7630c5"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000830.json",
+    "bytes": 4914,
+    "sha256": "6dde64986aa3a920515eb09688802d1830c2b29c963ff00621d29dc2b97fe862"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000840.json",
+    "bytes": 4934,
+    "sha256": "1ad75f1eaa6783ff5d61e755438cabcf4ee999f3745779e89d324b61f1806ab3"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000850.json",
+    "bytes": 4955,
+    "sha256": "c87ca5f88e612362e9f1bfdfd7933326e11a4d889fdddf8b09516577644b9442"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000860.json",
+    "bytes": 4942,
+    "sha256": "7c64385b5dac787ba9613fce721680d6ed6a72ff6d8bec2ff4384d879b190b02"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000870.json",
+    "bytes": 4935,
+    "sha256": "188712cae34abc1388e8d70d8b061a501159684a30a08534559de1bacaabf9a7"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000880.json",
+    "bytes": 4955,
+    "sha256": "15124e92a390406f4f692c07c4751fe0ceb22e939078f6036ff5740fbcfd767f"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000890.json",
+    "bytes": 4925,
+    "sha256": "ae679ad6fee2a665ad6fe50ca4af66a0a1b1d96bd5966faa9ed2108a9e6851ed"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000900.json",
+    "bytes": 19010,
+    "sha256": "95656cf6716914d752fefa25e84fe747f9d2680ac411caad77fd4da0240137b4"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000910.json",
+    "bytes": 4956,
+    "sha256": "0f5fb8687b068bb565bb0318bbb00f68f837c679477e1c809b87e4bb0670b7a3"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000920.json",
+    "bytes": 4947,
+    "sha256": "5ea45c70283c6a1c4bce90f0f9a24b20d264c0f1f8c7f0956b127d233a7f1f30"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000930.json",
+    "bytes": 4940,
+    "sha256": "3fb5d144acd3e038e99d8ed282c2f62982f13ecd86022755dd326c3be7714b9c"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/control-v000940.json",
+    "bytes": 4943,
+    "sha256": "1fd3afb55b1750389e03c73b4e54f00035de6a41ec82e412770b845158d1320d"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/nominate-v000940-astra.json",
+    "bytes": 42697,
+    "sha256": "918c13444ae330d30af94d880e65c819ea420bd668d9d79599c5f1e88373432c"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000010.json",
+    "bytes": 1017,
+    "sha256": "f613604ee93b59bea9bfdc63225e660530fc6cdcf3320006e7153614086d4c00"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000020.json",
+    "bytes": 1045,
+    "sha256": "b24276adc4093d410aaa4443bd128d2d42508f4d8fcd86b9c655cec38beb7b3d"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000030.json",
+    "bytes": 1056,
+    "sha256": "45d90faf3deaf06e17af923a9d6a2594b3f5333c861c916c18b9a034a4142689"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000040.json",
+    "bytes": 1051,
+    "sha256": "4858c58ff8e21bbf6ee35b370f30b1ed1e94edbf8dfe84e1329d355f43be2125"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000050.json",
+    "bytes": 1051,
+    "sha256": "9aa136818e79f3bf5bfceb2a58401af8c83af84596089e6aa55807ccf62a1b30"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000060.json",
+    "bytes": 1033,
+    "sha256": "9baa7266a4660481fbdc8470b2e0624686877fd780d8a08339dbbd7182681de4"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000070.json",
+    "bytes": 1024,
+    "sha256": "cf51f554e809aaa503c43a8744e08a481db94efbd439200e3e7ee2226993ba9c"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000080.json",
+    "bytes": 1018,
+    "sha256": "6146fbcef7c981b107531df0ccacc5e5c8332a7e7ba709bb5003a1f565a13cab"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000090.json",
+    "bytes": 1049,
+    "sha256": "c6bc69bf53f55670822e6f59464c38d7000f010c146f6c84e55fd9d66bede361"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000100.json",
+    "bytes": 1233,
+    "sha256": "5a0ba59e37194c32733a3326b463af051d40f4d8e1f3b82b229265e8b11f3dd9"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000110.json",
+    "bytes": 1018,
+    "sha256": "7a11c58e479d6ff88b26b7a9188ee2d38b13e5be88dd6df4d671a831578af67e"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000120.json",
+    "bytes": 1018,
+    "sha256": "c2700c9b7822e262a5ecf0387cb3d1eb119a81470420446b6cfb3644dc3009be"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000130.json",
+    "bytes": 1057,
+    "sha256": "fae3e708bb120a4eb3767e40663ded4a2d7e6957f54318ed24265300bc910ec4"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000140.json",
+    "bytes": 1017,
+    "sha256": "6281a4d029da148597f036973325e5f3c094dbb7e09653b8499054fdfcb590ec"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000150.json",
+    "bytes": 1017,
+    "sha256": "5f8561d875f5d65451710e9ce4d2de015c4fff52e62c332acfa9b6842916ed8b"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000160.json",
+    "bytes": 1057,
+    "sha256": "513a24eb4510f602ed824cc544f92ac0acd75b636615dee4d66f1482cf945822"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000170.json",
+    "bytes": 1056,
+    "sha256": "d97db48dcfa21434b0afd16103a643e75e13b26b0d52fbb0409e937214139e9e"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000180.json",
+    "bytes": 1017,
+    "sha256": "a32a3c8892ff57f985c837fd35d5ef548141c7a6489b848ca92af0f361e3954f"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000190.json",
+    "bytes": 1056,
+    "sha256": "72fa477038576cdb75109614d2b427ac0dec3e3efee7d4e4d892c9fcb23c0b28"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000200.json",
+    "bytes": 1246,
+    "sha256": "28b71b3ae723c4dbb94cf726a97f073786fa6f9d35d61ac914f6f26d52e41b9f"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000210.json",
+    "bytes": 1049,
+    "sha256": "0c7ff66c7f9d099db8dc264d5f6606874a4b834a1bb2205af71af826e6e3975c"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000220.json",
+    "bytes": 1017,
+    "sha256": "57b663a2f62d29b8fa5903b788d09c751e84b85801b2496d00e9b71966d88eed"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000230.json",
+    "bytes": 1017,
+    "sha256": "acc2cbfd8407d6babaec565a17b68b70fccb79ab9829e025538349b4a3c3bfc4"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000240.json",
+    "bytes": 1016,
+    "sha256": "227d046d07d6a05d8e913e69336c07d717cc369aa2ba176a8b16c597d09c750b"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000250.json",
+    "bytes": 1016,
+    "sha256": "23dbca4c379ea7b15eb1dd0ba74476972ea9ea61023d9b222e476b7ad18665e9"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000260.json",
+    "bytes": 1056,
+    "sha256": "ff699a3bbf05ddfc555341ae13986d7e899b69e0fa9ec292fbd7276a04ae81ee"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000270.json",
+    "bytes": 1049,
+    "sha256": "32a2f231430d5dc10c4a0825436ba6f851be988ba428979c0ef71f9bdd74754b"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000280.json",
+    "bytes": 1055,
+    "sha256": "fda9ef46d8f34aa6bea4febd6f5b497b7b894ef28e8a87c7fa2e500c8e14271a"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000290.json",
+    "bytes": 1055,
+    "sha256": "f520f00b59f370569ff73dfc17d7a82d06363860e578ced51fffafdcabdd9d7b"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000300.json",
+    "bytes": 1236,
+    "sha256": "dc42556786524e4c77b0fb2c837428036c07571c2a42171608a13c1f92c26acb"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000310.json",
+    "bytes": 1018,
+    "sha256": "ca75349a3e480a6a1fa3472620651c40a59bffee2a65a93abd7840da5c2ec73c"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000320.json",
+    "bytes": 1018,
+    "sha256": "0622e55b5f0fecf4314206e88f07949bc8ed0ed9cf6ddc9f44b63607547cf4bc"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000330.json",
+    "bytes": 1051,
+    "sha256": "dba8cf4854c60d4075184324bfb4d17091b769faf2ac30dbf3998d25b9f6b4c9"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000340.json",
+    "bytes": 1057,
+    "sha256": "6c51c691afcee0d0e03566a86ee8e78e8b839a0f98d94020b07f2b38e5c3b85d"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000350.json",
+    "bytes": 1017,
+    "sha256": "b33151cd71099e603efc2727a7c69a30b808a4f628c2d6e1705a74091e940c9d"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000360.json",
+    "bytes": 1017,
+    "sha256": "dcd5f3ef4abf0666199c66f8254a8b43b4e91eed956c625f6c798d4c58b748ff"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000370.json",
+    "bytes": 1056,
+    "sha256": "23162732d762cabf8e7d3c40d083de4f41d69c623d528b5290f5278d89b57067"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000380.json",
+    "bytes": 1056,
+    "sha256": "f74fc391e64879ad71d13696a38c94402ec30cb4c3c07200b34667b6d427f3f8"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000390.json",
+    "bytes": 1017,
+    "sha256": "18d3c1aebac792b3f881be4b2ef2c0df21fd21a5487f85b9bfc9fdb65370e9e2"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000400.json",
+    "bytes": 1243,
+    "sha256": "cabcc6eb3346afc869f81f83acd41b95fe470aa7052ce266cb84d00ac5132fae"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000410.json",
+    "bytes": 1017,
+    "sha256": "602ae85686bbde58a7aea52050d28e6a42e5c8d903f15d2e4bac1d285f2c7187"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000420.json",
+    "bytes": 1017,
+    "sha256": "c2588cd89362c7fc9cb0e8ad9277c158279bf261710d641983f11732eb8e66ba"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000430.json",
+    "bytes": 1060,
+    "sha256": "78c681961d113987326c6eddd62dd5aa6bebceb6ef675060a008dec36cd224b2"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000440.json",
+    "bytes": 1017,
+    "sha256": "cf894e7ffdccb6af834cb0cb0233513c4a4213c54bbeaf43162d02ac9d298860"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000450.json",
+    "bytes": 1017,
+    "sha256": "81d0e4f4c70705415903f315dd905562f2f89a7efab673901467135ad1edbf00"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000460.json",
+    "bytes": 1054,
+    "sha256": "be20de7fdf4a89a63b3aa4e537c8e5d6843d7cd15007c91c610d47aef03dec48"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000470.json",
+    "bytes": 1056,
+    "sha256": "321d31359c482106d261729b8a4c571da4ba9716f5a39c7e2f8d60382228a0b3"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000480.json",
+    "bytes": 1056,
+    "sha256": "1a5a6b1e2d8df4d795eec64bfa563215d680bb1a0be956f03726dfa8c10b0751"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000490.json",
+    "bytes": 1017,
+    "sha256": "bcd1fcac85cdbd261b55945946f361a12d474431690eb94dbaf095890e10d240"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000500.json",
+    "bytes": 1234,
+    "sha256": "db8cf785964e1b714ff8ec39872abb947cb5761f29f46599de126008f6410723"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000510.json",
+    "bytes": 1018,
+    "sha256": "76ebfada5f0b1f093fb5701181a26c952df731720ca022cb61bd286307d119f2"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000520.json",
+    "bytes": 1060,
+    "sha256": "278c13a6de025e6346569335784646824b852347afe89b1f5f72e3394c9dae0a"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000530.json",
+    "bytes": 1051,
+    "sha256": "215bb4656c09b12f55c6a49fe139fc221d4315aef87c1f7857eb3b6389000186"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000540.json",
+    "bytes": 1051,
+    "sha256": "84dc53a9f2f5e274d4344976c04ae5eba1334907073ec9a9737e053d0485d9bb"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000550.json",
+    "bytes": 1060,
+    "sha256": "b7a17d461971820a65dfdb18acceee890b482d86a6af1013e0c89f0c2df40ffb"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000560.json",
+    "bytes": 1049,
+    "sha256": "c29ca7645f2387194d60ef4d96cf841fa4c9616a484ff615447c021ef0aeb1b4"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000570.json",
+    "bytes": 1017,
+    "sha256": "8a57627c2d4610e85f12830f63652fe88cf0dda7a2acbc9f9d5931bbe784de7e"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000580.json",
+    "bytes": 1055,
+    "sha256": "c43a28b5e88088dfed95d0cc9b98595eb68f4a3e8a785f0b1eb9bb6abe25ac06"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000590.json",
+    "bytes": 1051,
+    "sha256": "b0b393e2df6ad7af5e47aa96d329ba0fbdd2d1b66322bfa1a8d8c45b8a2a2f21"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000600.json",
+    "bytes": 1203,
+    "sha256": "c0b26c7079e1c7ab5107d74d978ec0bb134a7e912f353dc2a1efe4f94b73d9b8"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000610.json",
+    "bytes": 1017,
+    "sha256": "332183dd1b8809fd13855ffd96d48fdeb297c999c1255dbe8cd0afb13e8ba130"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000620.json",
+    "bytes": 1030,
+    "sha256": "78c5fb201e4a4b96df74f3c73ab6b681956178de88722909fa9256a3784dc900"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000630.json",
+    "bytes": 1049,
+    "sha256": "bef5982dcb202f3e565b43146b88557a979ace16cc19cbb9bc6607dfd533690c"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000640.json",
+    "bytes": 1017,
+    "sha256": "a7007f96e27f1ab03a5d8bdf3137887690f849abea7a0253fe94d4a2ace71351"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000650.json",
+    "bytes": 1049,
+    "sha256": "e063da5e472290c50314f024725dd0598242de88eb0b0c9ea627dfb7c1e7613b"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000660.json",
+    "bytes": 1018,
+    "sha256": "9b6a20acd8bc7dbe316d355c7198d597b04027da0c16d20f96dba9b7f6404bd4"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000670.json",
+    "bytes": 1017,
+    "sha256": "ca771f8cb044995499e816218809dcf38bafa3d1a29ad5ee595dac48b7d6a3e0"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000680.json",
+    "bytes": 1017,
+    "sha256": "e1e794adaebebfa2b46cc4a41b0f276600763419693bb10d055421e0f4f428c7"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000690.json",
+    "bytes": 1054,
+    "sha256": "064c926ac9b12db9eea7fac0ed72bfa95d09d9571cbb19150850b9048e86f26b"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000700.json",
+    "bytes": 1243,
+    "sha256": "1c9495886fbe0b863f640b12036de15a48de5a226ad9ecb6aa0659c702e9604a"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000710.json",
+    "bytes": 1018,
+    "sha256": "5b9cdcb9565f2012edfcf697c811fd771f780a61df5d25c24b6ebccbbda757b7"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000720.json",
+    "bytes": 1018,
+    "sha256": "b12a744ffb182102c44625f42e57474f3423cae15b8b2ccf93374c07349d39b0"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000730.json",
+    "bytes": 1057,
+    "sha256": "9280fc9b2ac90000a8c3e7d203c154ee4a15c5144120eb879ee0ff50b84f28a6"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000740.json",
+    "bytes": 1011,
+    "sha256": "0c3c7a01773a4b453e82ecad9aafbb96a2454e3b2ce8722f114d9d9a365bbc7d"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000750.json",
+    "bytes": 1017,
+    "sha256": "f257b38acc40ebd6d7e7276825a4569ec775c1a3931204c32b9fd5f90426d0d8"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000760.json",
+    "bytes": 1060,
+    "sha256": "988bd7623925ee535e4f4b4b10c75399b657351187f1b0e40229654c49c5db78"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000770.json",
+    "bytes": 1017,
+    "sha256": "0ce144d818cc932e868e386852db0ae184e05cb04ffdc56a3394e1df1ee634f1"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000780.json",
+    "bytes": 1017,
+    "sha256": "6b6e628b09f02842420951914a0c09760dccb952185cb2c157ee1fdae154474d"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000790.json",
+    "bytes": 1015,
+    "sha256": "7a22269a60ae364335ca4b969ff5e95a6d6c60f49ad5014a06c489699acef26a"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000800.json",
+    "bytes": 1233,
+    "sha256": "b05201fe3744503bebaa6d43870841a6ae4d7c588b953ed84bf0c4112375a7c7"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000810.json",
+    "bytes": 1018,
+    "sha256": "4be950aec716b861ac87d1344061ef296cc813d81633a20159d279f54ff917e6"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000820.json",
+    "bytes": 1017,
+    "sha256": "a4c44cab11e07dd9822a1c506a747c0368a8ecd5c686cce8f518eb928cb0935e"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000830.json",
+    "bytes": 1054,
+    "sha256": "71f782d2c289375d5a27bba03923adaa70ab31fe469477c51b6fbbda87c8b458"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000840.json",
+    "bytes": 1018,
+    "sha256": "d9ca085bdb2ed8789126e62274d893671e03d00bee5c541662b5e7ccb6f52116"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000850.json",
+    "bytes": 1015,
+    "sha256": "42ee84ef00ae3a01ca19e7737dbac09d03a503bc43b1ef9ec8690b42461fa090"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000860.json",
+    "bytes": 1017,
+    "sha256": "4e223daffa1ce5642d496ad626dc90c20aa07d551e060b3e915074c918dcb5eb"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000870.json",
+    "bytes": 1045,
+    "sha256": "bf3f823cf15a65503268b896bf34d69a4b629634614d4208fb1f405746c79e9e"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000880.json",
+    "bytes": 1055,
+    "sha256": "a1a5ffb55e308e816c00bcf05fba319a94dd8b16c07d0bc8a37b01eaa267f275"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000890.json",
+    "bytes": 1056,
+    "sha256": "3cf0fa0a50d31e42a9c6b5113c549f7c11e88dbc39ce9ec1db2c15e91e123044"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000900.json",
+    "bytes": 1240,
+    "sha256": "c017f862c5f0a0c86c85f58f662b7f2bf5a263db4d1d45cc875be05c0dfe2494"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000910.json",
+    "bytes": 1017,
+    "sha256": "ce71a4ec89b78479be11f37eb31062860b09076b122e9cec65802a0c2efbd1fa"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000920.json",
+    "bytes": 1048,
+    "sha256": "5f8c9fb303ce1208968ca6f67f1d087a46b8c931e0a9b8ae3557e6863986243c"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000930.json",
+    "bytes": 1055,
+    "sha256": "8bcbdcc7ef97ae5aa63730e1d1cf3910b0aa62d6e26e8e5e006eeb968a4fd72c"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/duel/validation/v000940.json",
+    "bytes": 1017,
+    "sha256": "17c0a2a110548ac4f1ba1e6b4a9b754f94af30e79576c5118b4fef855d9fbc1b"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/bc_gate.json",
+    "bytes": 3027,
+    "sha256": "bbae888571bc37fe5203d89d27e208527d1bd5d440e43eaa51910fed4dda34e0"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/controls.json",
+    "bytes": 208,
+    "sha256": "6f4e296059b770c33e9056ee30b4720f2eab1cb4339250ed045d2b272d4c5357"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/hardware.json",
+    "bytes": 85,
+    "sha256": "5f21f29aeb036ee3c388448d47c8b6ecbbcfc32883dd7ed734f36f82007bedfb"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/jobs.jsonl",
+    "bytes": 6020525,
+    "sha256": "07669184eb8ec17eee7ad13ebcdcd0b2f7f03feed5917fd9ec6c52e454986460"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/report/REPORT.md",
+    "bytes": 7907,
+    "sha256": "af9fff557eaaf38953ce4d19b43eff29fe6c03a2b16d656332c3f52bad16bf0d"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/report/summary.json",
+    "bytes": 6455,
+    "sha256": "086dbd9151258af5195599e5aa543e1544505405d95e4b036981458f7f534476"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/report/training.csv",
+    "bytes": 32818,
+    "sha256": "d7d88cb8b3654c540fce4d0a21baf7a1d051ac63b06f5c93d05640f5c10cb139"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/final.json",
+    "bytes": 1506879,
+    "sha256": "bad5261bec25052e0956295e52ac9fe37fa74cc7e7050206498f26aa541429bc"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000010.json",
+    "bytes": 60551,
+    "sha256": "923600fe5ca86f54c0940f617fb371dde46a8a397584d6e83aa6fa2e252f3d1c"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000020.json",
+    "bytes": 60515,
+    "sha256": "c0da61cb3b0b445c77999cea2c08d184bc18f73ed41e6f90534a3079e1c08b4c"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000030.json",
+    "bytes": 60515,
+    "sha256": "5dd9cefb624b45db481a71aa2bf9c19d0d7fd50299763c6d4d66bbf7d662f9ac"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000040.json",
+    "bytes": 60555,
+    "sha256": "9c9a7872b25cf0527444a2dc046b49b2df64d81e05bd2289026671424f74e8a1"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000050.json",
+    "bytes": 60515,
+    "sha256": "5d1b44d46741d80a4adcdfaf6299853f50c4783c05836c84672b5bb9fc04506d"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000060.json",
+    "bytes": 60515,
+    "sha256": "c6170a58ff9ddc99dda83f48aece6fc0a09844475b806d75d697237c8ffe66ce"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000070.json",
+    "bytes": 60551,
+    "sha256": "4b48435b44481fce1a424960aab22d72e80492a7b24f2f686c0ccd1522a9423d"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000080.json",
+    "bytes": 60515,
+    "sha256": "1bfedb0315dce255f71ad309e466db60d5881c3fbcdd00f74b23a9e100ee656e"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000090.json",
+    "bytes": 60511,
+    "sha256": "7fa016f3cb2766ba4d135c446a7bedc7e928bdfb473720d939b2786ccc4ae49b"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000100.json",
+    "bytes": 726147,
+    "sha256": "a0ac1f3ff959bda1f43f8601402e503cd924008cc969ecff8ecdf294965327a2"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000110.json",
+    "bytes": 60519,
+    "sha256": "431edbc06535201e950b291ea0f0fe0f32a606f9bacf80f3cb5030a8b11215b7"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000120.json",
+    "bytes": 60519,
+    "sha256": "1895f5bcc4650b9f37ceb0d406580bb27ac1a666226a87d63831f97e9fb42bb3"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000130.json",
+    "bytes": 60559,
+    "sha256": "0cf7ed3e469dd682084b692e27fb193316be2d19a4da259b45c3c0f9792376e2"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000140.json",
+    "bytes": 60519,
+    "sha256": "8dbdeb7d54e2c55cdd3d7ee3ca577b03a210d24efb5637aa7f3c2a694fa883cd"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000150.json",
+    "bytes": 60515,
+    "sha256": "fe7b01436a0ff9a934bfb4234a4cadae6ce631446e1c9b537276c6dac13550b1"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000160.json",
+    "bytes": 60559,
+    "sha256": "959800d972c739d88952501869c31a1dbd3702491fe6b1659fa967f235eb0a56"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000170.json",
+    "bytes": 60519,
+    "sha256": "0f3f378031ac42d4a41bf6767c47a177dd27ec7f58713d0a1db52584d3841c92"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000180.json",
+    "bytes": 60515,
+    "sha256": "a017047c0d2676c7f8611583510dbdda34e30818188ec6298f095eecbbc2f995"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000190.json",
+    "bytes": 60559,
+    "sha256": "01ec06e6952ff26b5015b5af066bf9c1710d7e4d0a1bfd654ee34a6a0255b6e0"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000200.json",
+    "bytes": 726147,
+    "sha256": "58662333026eb27503a8cdbde1386839dca291cb99b847d7ed7854c9efed6ddf"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000210.json",
+    "bytes": 60519,
+    "sha256": "9381e2a3c1688f8bd92ac6ea27f0880292d3d64e5e1767635b2825204d53f6bc"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000220.json",
+    "bytes": 60559,
+    "sha256": "c288759bee3accd32e8eb5c92be477e9c8926e2215310ff30f4970301501f3af"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000230.json",
+    "bytes": 60519,
+    "sha256": "f0e5fd9f32323d8acf07eb7ff17553509f21957a7f15480e404e6d9c86812de0"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000240.json",
+    "bytes": 60519,
+    "sha256": "fbb2cb584d8fc70f95de6a3fb4d09d1687563e3d07c8f330deba5996ff6ef832"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000250.json",
+    "bytes": 60559,
+    "sha256": "17d3198a3fdaffc9b9c2e3a9acef544e6ce594ebdb6312da81706bdbaf23dc2b"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000260.json",
+    "bytes": 60519,
+    "sha256": "ac3fe374dbe4a092c8ab0b482a737d45ea630e61ae7c63b9b3828bcb97b4c16e"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000270.json",
+    "bytes": 60519,
+    "sha256": "e0a45f50a2e07bc2b66e260940a12f355ec1e1b3893da7d47267c737c2714e8c"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000280.json",
+    "bytes": 60559,
+    "sha256": "5cd1ecdb3538132387ccf5ed1c9f5cbda67e25c2c10952eb7d378e5530ba2b8f"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000290.json",
+    "bytes": 60515,
+    "sha256": "99ab3069eb6cd4f30ddadb8ced63dd3ea11828c5f6c67ae2ab417863f81c9699"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000300.json",
+    "bytes": 726147,
+    "sha256": "d8041e1813201650cff8bb27f7ec643015b5179e882fd2991b7be241e25d042d"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000310.json",
+    "bytes": 60559,
+    "sha256": "a07bd77e60515c1e36fea9177865c1729faf22a0374accca5f542e9db6c6e332"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000320.json",
+    "bytes": 60519,
+    "sha256": "7c10288211421e13d3c53dec42abb7ee30f31a51788fbde0a1748186b0f41584"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000330.json",
+    "bytes": 60519,
+    "sha256": "6bb52b3c46b197d5fdf26d3498a1606c4121ddd87f2df68361a769aeff3845ba"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000340.json",
+    "bytes": 60559,
+    "sha256": "9f60396411f3764b565c5aaff5b0d630716e34ed869d31267a54540d81c7ee60"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000350.json",
+    "bytes": 60515,
+    "sha256": "6da516548e7e5fb99e6016d841a84a65f2557ebe4974e0d1b024c148200e59a1"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000360.json",
+    "bytes": 60515,
+    "sha256": "82896230e9d17174c564c7085d70a7622d2e6c902ad17b7db6f12569998ddedd"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000370.json",
+    "bytes": 60559,
+    "sha256": "3d107a9aec020461e1ea35dc7af89567fd54d5bf65f9e09332d6e807638273c4"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000380.json",
+    "bytes": 60519,
+    "sha256": "7855f381c0dcf3d075a7ffc0116601c81b7382e4ceb027f15e99f650765ef582"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000390.json",
+    "bytes": 60519,
+    "sha256": "2cbc77f7f059b3327443fc3a105b0fb4bb61b531c7053bb4acd8380138eb889a"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000400.json",
+    "bytes": 726147,
+    "sha256": "6413ba1b93e7d772384a0729717af6d8d516ef2744291f06ecdc7c96d73fb99a"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000410.json",
+    "bytes": 60519,
+    "sha256": "a0eb82581fcf7c14d94085ee3d20326f6ee23c58d898b374ab0ade5a8363e8d3"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000420.json",
+    "bytes": 60515,
+    "sha256": "0be51ac6130baca384710e820ef35414f376ad6f33ae90b3b0108a6a8f916312"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000430.json",
+    "bytes": 60559,
+    "sha256": "4e978dd195c12f8c75ade8ab9d5b229deac6f7a0ecf00580d2a05e997132b92a"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000440.json",
+    "bytes": 60519,
+    "sha256": "a3b5877d6786f4c376fda72cee1c5eae129f5f951c811e0bde11b10c06abdb8c"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000450.json",
+    "bytes": 60519,
+    "sha256": "b652f493edd434e0e95bdc00e31cc12cd2110b7899f859109996cdd5cdfbc8d1"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000460.json",
+    "bytes": 60555,
+    "sha256": "20a9d77d19b98de3d2b89c87173d809b1fb804aeb77b8e2ba31eb8cb73c6e4e8"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000470.json",
+    "bytes": 60515,
+    "sha256": "9f50a7f2358f2968fdb94935a5b631d8678a5f7c38208123488e30ec784ec213"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000480.json",
+    "bytes": 60519,
+    "sha256": "1f6c3ef47efea468406ac00ebe7670bcdfc42ad1eb283c8d3394d1b8fe0f8caf"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000490.json",
+    "bytes": 60555,
+    "sha256": "c3e51840744b978eef7e679e4c90b2678d3dd7408dd91c1e91beb7421eb34bb8"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000500.json",
+    "bytes": 726147,
+    "sha256": "1881333cc4065c419c685d6c1de161765b65d101cdafbf14696f2d7cd55ebb4e"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000510.json",
+    "bytes": 60515,
+    "sha256": "1dc0c50f353ab14b8b9f2078c35e7073f337cbde6fb52e5819d014a42cdc4b78"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000520.json",
+    "bytes": 60559,
+    "sha256": "d8b203a9b42502b250a1dd4bc7df0ad89fe11bf030c09fa70d179188ec5e9288"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000530.json",
+    "bytes": 60519,
+    "sha256": "87982724380b46e5498fb8e9d756e063ecf5cb2bacbd50bf040a6febcb0a5d51"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000540.json",
+    "bytes": 60519,
+    "sha256": "f06993d42fb6520e00721ec9cc3b01f2c04bcc16d3332119fb38e6789a7bfcdb"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000550.json",
+    "bytes": 60559,
+    "sha256": "bdd229e14480ac7b6725d6ca5dc3ad81ec7a52c5566cc0e46d8dc6344f4e7755"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000560.json",
+    "bytes": 60519,
+    "sha256": "af466c60453dfa4c98844182cafa2fa620c5ed6767e56b2f52e5b75ddaa38f85"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000570.json",
+    "bytes": 60519,
+    "sha256": "a102b232317bc38c4f038fce1f01f826c955f54e7e045e9273a8301f9b63384a"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000580.json",
+    "bytes": 60559,
+    "sha256": "03ae00204037a1ef49d23993bd85ed8fdd80ebb7df0d9b137a2516a8aef69ca2"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000590.json",
+    "bytes": 60519,
+    "sha256": "790bd3f1fd41178cc1c570388132035a94f9855d8db125bebac68ad834a8a65a"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/validation-000600.json",
+    "bytes": 726147,
+    "sha256": "161134f53768fc7f296719009f416e5d041da11bf06f7d3f3ce73d95202b68db"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/selection.json",
+    "bytes": 701,
+    "sha256": "f3016509451c0493da93b77abd209935cbcfc75595b39e782ea99d539b4d285f"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/state.json",
+    "bytes": 1672411,
+    "sha256": "9fe03a27a755a7e0dde3dd19342ef74661b74cba8bcd39151d9de508af1be19b"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/champion-v000200.json",
+    "bytes": 1469,
+    "sha256": "5bd30cfac2299345a0e030d120de62ead0ebc2173ef58ac3237b5c457f5b87c0"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/champion-v000300.json",
+    "bytes": 1490,
+    "sha256": "a2662363eeab2a0d13ce1d33e492dd695b6960e6391d781fc6353680e78e765a"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/champion-v000400.json",
+    "bytes": 1459,
+    "sha256": "43fe39cea7e5146245f9da550a74beb5bff277764bfd7e33836fc29a9d05275d"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/champion-v000500.json",
+    "bytes": 1463,
+    "sha256": "e68e056bee407c37279c25b5dcbed76f613d314ac5d0418a7d74a05be22a4df6"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/champion-v000600.json",
+    "bytes": 1431,
+    "sha256": "bff7e6032376e4d15d4e788bc7370140bd6b0d47647a17f91b6b5b085916de2e"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000010.json",
+    "bytes": 624,
+    "sha256": "8e352468c55b0f7cb7fce3f7bd86ddf4e0ff1058b2ca92f988c092921700b6c1"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000020.json",
+    "bytes": 2724,
+    "sha256": "d1c444439887621879cc00765c40b22c4a0d8ae0623c423274446e63ad1beb1e"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000030.json",
+    "bytes": 2732,
+    "sha256": "1c8b0b979f3524aa3d7239ee334c4591d5603240048523798b9dfbddb6a512dd"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000040.json",
+    "bytes": 2738,
+    "sha256": "365f78e39b254e2e1378fe6a449e12af9f970c705e62dd445557995cb7b741e4"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000050.json",
+    "bytes": 2691,
+    "sha256": "31f7fdf82beb7bc30d7c11bfaee3b5dcfbd1cc99b010f3f9d125c2d01520c8cf"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000060.json",
+    "bytes": 2787,
+    "sha256": "d6a7a231e02be16ce7f79e6ef48f86a30c10892c79806a63a2224f90822e992f"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000070.json",
+    "bytes": 2726,
+    "sha256": "42214db0e54a91320d8b0d8030e2b21c00e9f160a9d81eb1f6ed825752d2747a"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000080.json",
+    "bytes": 2719,
+    "sha256": "b702bb1cd33b59dbb29d4bb8676486b5cc1461e1b98bf05a4e3a3675afbfb204"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000090.json",
+    "bytes": 2724,
+    "sha256": "b6a7e548a3c9ef1b3fde8dcbc835a19fc5386238c5c8ac6445b059e999affc8d"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000100.json",
+    "bytes": 30442,
+    "sha256": "acde06d1199eaccf2390812a300dea2953fc748acec5febbc64fde3b13bcda9d"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000110.json",
+    "bytes": 2749,
+    "sha256": "16d5fc7347fa2b2ba6457c734071d71cbd09e9b64226783673a4c817ddd6995c"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000120.json",
+    "bytes": 2752,
+    "sha256": "d5cefca0e57fdc2588de2ffb4a66ec2a26476d6fff96bbe7fd03892d6f734aff"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000130.json",
+    "bytes": 2697,
+    "sha256": "e4b52353fd818f165f4666b44a013706b9bc88928b9b7d48f609b84871a3b11b"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000140.json",
+    "bytes": 2827,
+    "sha256": "afff370c163d7c1fc37007b5c48fcda03b4d7ba14344cf0b28e8dd60ad77f768"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000150.json",
+    "bytes": 2773,
+    "sha256": "c10e58a264246a2e56d51c6a323605688791c940cc7be2d4f59a0631304b308e"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000160.json",
+    "bytes": 2764,
+    "sha256": "62e35569aecc8b51c8f39ab54b7ac393f416eb87bb04b379358f9945d447cf6a"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000170.json",
+    "bytes": 2724,
+    "sha256": "36aa30e2b6661ce977b8ebc844e77abe01d33057d3f9c673923ac8d4c318fd03"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000180.json",
+    "bytes": 2734,
+    "sha256": "98a1ee3b62cdbaaea09b0512aa488be7a286b6dfb7642117e8d1b24ac4e17f8c"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000190.json",
+    "bytes": 2713,
+    "sha256": "a438e6fcb5878434bfa83a4ce0df7fb926b12cfdc86cffc12d71dc398c9a3b2f"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000200.json",
+    "bytes": 30433,
+    "sha256": "9597f88c40834168e87266bb5be0aa31686f18e613749548dd133fd24b100655"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000210.json",
+    "bytes": 2759,
+    "sha256": "46c395a233c261cc4c0e2b55b6f7d120280817f26dc964366e160bc0446a7e17"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000220.json",
+    "bytes": 2753,
+    "sha256": "f266e73325ca5a9134d7a34ce5efdda214976df11dbfaf6f5c51a0825a5de0a0"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000230.json",
+    "bytes": 2800,
+    "sha256": "0158ee61461698df938c6602cdd21656107587e993d44ce7eb106cf1bbebdcab"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000240.json",
+    "bytes": 2717,
+    "sha256": "4f40e1abb52ec46a02d8e1e37cc8c430853ccef24ab2d117fed4d4f4fb307d78"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000250.json",
+    "bytes": 2703,
+    "sha256": "63b6003395862bebe6783028ab522d2ee28e08a6166f263a873d488c823a2de3"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000260.json",
+    "bytes": 2786,
+    "sha256": "d853c2fe9800a8673b52bd72324193b6feac9d165cf7ee0435f6be5ab3a27b27"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000270.json",
+    "bytes": 2711,
+    "sha256": "3b013211f3a0828732e4f336a9b2e1ebb2b062ae3e7186532fc0eb2d59a6bd42"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000280.json",
+    "bytes": 2782,
+    "sha256": "c389aae04b07a7d40a2e232f4b23c9ef947c2f205f08bce65ba4c765853df249"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000290.json",
+    "bytes": 2825,
+    "sha256": "0d05b52edd2231bf2d017b17e505816df8f3a9258a6cf5283575c57427714833"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000300.json",
+    "bytes": 30446,
+    "sha256": "729ff663c0b34132ef0925eebd9b78614b0bcebb56aa2abb7b0a43f72be17ee2"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000310.json",
+    "bytes": 2805,
+    "sha256": "f2ff07d2d31d2daa4ec7887bc5220cc843a9d227b0de76ba9d4d3213981a3f97"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000320.json",
+    "bytes": 2828,
+    "sha256": "7c779525a265e33eaed7845c90db7ec1c87e335401ddc3c13a09253a0e7c7a65"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000330.json",
+    "bytes": 2731,
+    "sha256": "d49f3fd85e7f220e4914aa6705b9d37417d5cdf402388e6658bc832bb900d2b8"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000340.json",
+    "bytes": 2693,
+    "sha256": "b000c0f5feea61c5ad365facfecce0caca983a441cc0de7539f3eeac12631bdf"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000350.json",
+    "bytes": 2779,
+    "sha256": "f54f3332f59f641548f6cb0da73d9c1a3fd6a70f5e366b9a2a76e1cf51712eda"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000360.json",
+    "bytes": 2772,
+    "sha256": "eaa184bbf105e6afbe969331e67b2d5c1a7b944330711adad53ffc86bc3b936e"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000370.json",
+    "bytes": 2695,
+    "sha256": "2f1b52e0aed5aa6e07eec914cc0b65442c577f352556729e423d7f1f606930d3"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000380.json",
+    "bytes": 2737,
+    "sha256": "4c4a2c7bd96d16d833850c6a6b1bd121217c5f710baeddc32e0785c713ba54e1"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000390.json",
+    "bytes": 2721,
+    "sha256": "93552dc4c92d776f28854d848b0ff7a8499b11f84c82d2acae6ff86775a4c6d5"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000400.json",
+    "bytes": 30456,
+    "sha256": "1eb03ee3a27cdb0730478848b5c2a9ec896fc1ed957a13c50abf83e5de95a191"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000410.json",
+    "bytes": 2723,
+    "sha256": "5ff2031a7fd5c7ef4b488e46004d264d7aed7f9eec3e5b2c66cef432da4a5899"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000420.json",
+    "bytes": 2755,
+    "sha256": "e9205b34206bffd5ab1db2bcf7b7d589fdc3d579e5bbe66b42efcfce95fc6461"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000430.json",
+    "bytes": 2700,
+    "sha256": "69fcfda0c4e261e8387d0df7f1d4b97a109aabe99da70ca27b679a5fc688fabc"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000440.json",
+    "bytes": 2812,
+    "sha256": "00137a7b2ce866ba609749777f621746409ed3cad240ea53d4fae423a1505c87"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000450.json",
+    "bytes": 2670,
+    "sha256": "3765e5f4896c7391899a21e0edf90a22f6de65f6560944b3a1bcda1d49ccda09"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000460.json",
+    "bytes": 2754,
+    "sha256": "6e9324b18bc93026afd43689b1ecb7ff797f20dd855df134b6b24e6e4d5853fc"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000470.json",
+    "bytes": 2789,
+    "sha256": "e87ad777ed372b138b3f00f2cbb2b3bc5f47552a040c347f69a956ede4fb3838"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000480.json",
+    "bytes": 2786,
+    "sha256": "d59f71813bcb8be561f63ef4976579f4ce0235996c2df0a6c1f5ab9dc38d9501"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000490.json",
+    "bytes": 2804,
+    "sha256": "d978529350d7de2433c7ff50f4c2a8212c2682c9830422701594ada231b10b5a"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000500.json",
+    "bytes": 30459,
+    "sha256": "1b96ec798cd64e0a47309387123387979cb4b0d517f94f4216b5a977bd2f2491"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000510.json",
+    "bytes": 2801,
+    "sha256": "5fdf282e081659d47211f2eebc05204e394e86f8f7708b6fe0eb02fe96920fdb"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000520.json",
+    "bytes": 2739,
+    "sha256": "b68ced4afee7f2f63143191e39fecfe71c00eebef04588f8acdbae840d3daae7"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000530.json",
+    "bytes": 2788,
+    "sha256": "cccf70e144a53c045b63881461beba2f027ec005aca071248901b047c21bb1b5"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000540.json",
+    "bytes": 2723,
+    "sha256": "98c6857a6a47052772720214742b12a1a396453738c53286f8ac3d2c04a841a0"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000550.json",
+    "bytes": 2751,
+    "sha256": "0a66d1ba32500eead822e4ee95efa52ad20e25259b5405f14825ab50bcaefafb"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000560.json",
+    "bytes": 2799,
+    "sha256": "2e065d8bf3de85feb3498db5f239e950279e211acd6f35ab3a65649ecb13ac40"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000570.json",
+    "bytes": 2762,
+    "sha256": "14dcfa95b49dc9e00c3577e6c763409106707514023b81760c91bc77eb488fc2"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000580.json",
+    "bytes": 2774,
+    "sha256": "335801e9375fdd74221249e7eb4495b6b9a1dfb43c6acf3cbb60494ba613489b"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000590.json",
+    "bytes": 2824,
+    "sha256": "3f1a1e990cf8b2f4ddc482f1caa573bc0e1c3fb6af9c96ecd10c0872bb7c40a8"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/control-v000600.json",
+    "bytes": 30560,
+    "sha256": "27957fafaf0b26d874a4eba9985075a853352d7c69e1f1cf97c61340889418c7"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/nominate-v000601-astra.json",
+    "bytes": 42974,
+    "sha256": "a89e39ec50ca7c915b31b3566a6dfd65c8793c5946aa19922795a8331de8ae9c"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000010.json",
+    "bytes": 1122,
+    "sha256": "56d283e8dd9710996de4967b0d0d8af19c2841762b3e72d2188e4c3d8d8174d8"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000020.json",
+    "bytes": 1151,
+    "sha256": "d80907d338c58bbc9ed2128c1e36cf22ca6455aea73ee530ed859a8abcba7c19"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000030.json",
+    "bytes": 1152,
+    "sha256": "4e9a1c87330d06a4b459ecb2ae9ac751995b56cf34e5689c56d046af68439d58"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000040.json",
+    "bytes": 1145,
+    "sha256": "abea3531e37e71abb4b473f5bfe1aaf873eaca553e271695a1d6d07c261e0730"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000050.json",
+    "bytes": 1062,
+    "sha256": "92757ff0ee6eaa6208e836593c386bdf458de7a63a792d136a318eb8260e471e"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000060.json",
+    "bytes": 1167,
+    "sha256": "51eee5bbd425ab234da15a0dcb5163a46550d529fe8928b1a8e09c4722551a37"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000070.json",
+    "bytes": 1143,
+    "sha256": "e66c9936a8a9302079ff3bd1f3991e3f5ef1924908533ffac9896691f8f1f368"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000080.json",
+    "bytes": 1151,
+    "sha256": "ae8e1464d8101784b19fcd53a186fad14af8e911079cfdaf401d0954b621cc2a"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000090.json",
+    "bytes": 1041,
+    "sha256": "31f0411d43470821d917e2ecef7cd2989a9d35746bba6c2069cb08af6e574b04"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000100.json",
+    "bytes": 1504,
+    "sha256": "9fd8004b13eddc3f22df31989c1be4d689290fcb163e266e93883f53a41d49f9"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000110.json",
+    "bytes": 1029,
+    "sha256": "653199008a21fbc4fcd8445aecf46a71dc5f4d735bcdc5219d038237b2231ef2"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000120.json",
+    "bytes": 1154,
+    "sha256": "238061213ea8cf5b5b3ac8b2b5a0d463a62978dd9cefffcbb40f03131a18bd90"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000130.json",
+    "bytes": 1154,
+    "sha256": "6a7b97ca5771bae618aa314179ac12df6830deebc6955d43509c78a3b2394306"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000140.json",
+    "bytes": 1167,
+    "sha256": "dd9ac7fbe7d0302bdfbb234175e388ac75e79229b529f514b6585da30b0d027f"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000150.json",
+    "bytes": 1033,
+    "sha256": "aa7d8af24563ec1ff9d283c6f5eb2a374acdd6c20db112516d02351770e40c6c"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000160.json",
+    "bytes": 1125,
+    "sha256": "2516c783db1194e8bc15fc698bae4c93e7d78448eccde8202ddab701f3129aa5"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000170.json",
+    "bytes": 1147,
+    "sha256": "32273b68d5311cf784c31f735f46f0141a2f8fbc4e0e27b1aa9002aa17d1c568"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000180.json",
+    "bytes": 1153,
+    "sha256": "d162280c9578006193be0afc3bf98ef92e1c68da0aff997576353850d520b00b"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000190.json",
+    "bytes": 1150,
+    "sha256": "f55bf3556d1f08399f4422b6ed771e71a50474850ba5231d1352ac7c71419843"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000200.json",
+    "bytes": 1427,
+    "sha256": "1ea54850cb2326727ef583e669711de421d04c324440965724dd50e5acd0afc9"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000210.json",
+    "bytes": 1036,
+    "sha256": "0edcf7f264dc82fbe7b1bedd92f720b623d5b8eb801e52c5095e36f4c001339b"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000220.json",
+    "bytes": 1145,
+    "sha256": "40c51aec749c9e3f65611ae9d86227b9af8b80c2cf4498042b00693647b9659c"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000230.json",
+    "bytes": 1151,
+    "sha256": "0cb44a86defdaa4e94b16b1d6fed788a586a34989ab224e48b058d4e4bb03fab"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000240.json",
+    "bytes": 1153,
+    "sha256": "321f0216bad294fd1f8ccaea37b03ce5c556bd4b6bd159b817ed73dd249612a8"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000250.json",
+    "bytes": 1145,
+    "sha256": "1cfecbb5ccae79bb6f869a5dfce07850ca7f86fb147dc9474050feeb295f45c8"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000260.json",
+    "bytes": 1027,
+    "sha256": "dc97710559501e7e742aad123c6934b15676b0e977129ba85f58d134a13cf42c"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000270.json",
+    "bytes": 1152,
+    "sha256": "e562fb2e8a42f15119bdf134b6bbbd174b22eb04d038597963242e6da28f195f"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000280.json",
+    "bytes": 1125,
+    "sha256": "1f976890c2a544625038877d392d2285825f86c6b101c27a7fba1d22d3e964c1"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000290.json",
+    "bytes": 1118,
+    "sha256": "5bc9733bc306891c6c98c92a42f1f1b6634dde540788579807c51063ae3f3757"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000300.json",
+    "bytes": 1457,
+    "sha256": "d6749062a780443ffaed002059c38bc4d78192a570d61389ed4574645054657d"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000310.json",
+    "bytes": 1150,
+    "sha256": "148d7cac1edcc53dd6cda205a4f1831c6b949c69fc6e9da28ce37fecc6d3d848"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000320.json",
+    "bytes": 1145,
+    "sha256": "b91175f1b9e538b2ae281081f91599a0363937f9ad6b9aa3a2cc19be4b5c4366"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000330.json",
+    "bytes": 1154,
+    "sha256": "f1a6fe97cdec95abaa59f83e1a91e5b2abe9e20d658ce0165e525838cfe1dc2f"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000340.json",
+    "bytes": 1036,
+    "sha256": "b46a40e4c59b7a9a5565741d6fbd99759a10e2e42e0c20bd38af8aa05fe8d650"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000350.json",
+    "bytes": 1150,
+    "sha256": "872cc827de5d90df1aa39ff358bd982e9b52ed50e9227d8b7e6af2f3a08aae51"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000360.json",
+    "bytes": 1147,
+    "sha256": "81e791a969f4d1fd695277af68f70d4d673f1015897b02be33cec603ce342258"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000370.json",
+    "bytes": 1048,
+    "sha256": "edf7f73ed76417be87468c5a5c7fd7f23bdb89d3cddcc9474cdf833f6770a988"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000380.json",
+    "bytes": 1150,
+    "sha256": "aeb03eac3af2cd2a0db64e32c0e22255d09c4aac9e60ad83427dd2d4f8e9a749"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000390.json",
+    "bytes": 1145,
+    "sha256": "700729fb77bb61a777cc3892af732651418e247597ddad3cd9dd7da2924fc3be"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000400.json",
+    "bytes": 1452,
+    "sha256": "d6c6cf9e895d3eb956a0b97c69556830ec86b2c8602d317607f3752eef6a720d"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000410.json",
+    "bytes": 1153,
+    "sha256": "2d8dcedb78263365675bdac872a18e1c7dbae0efcd10b92c3ab5076fa31e7689"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000420.json",
+    "bytes": 1152,
+    "sha256": "79b0546287e82c32f560fd18326a98e9a5b14cc6843fdd9dd8bd9588663ad9cf"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000430.json",
+    "bytes": 1018,
+    "sha256": "9d62f22d990db644d1e1a8402090670104e8031872461cf448856e1aa1ea5865"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000440.json",
+    "bytes": 1167,
+    "sha256": "71e87bd53464c370fdc2c8850a498f31068e8a27ce0cd5e9a141665cf452cc77"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000450.json",
+    "bytes": 1152,
+    "sha256": "6d993faa5b23df4973869399e0b7cc3bd1919f05ba507a6e97f0c9c2ec3f721c"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000460.json",
+    "bytes": 1161,
+    "sha256": "46be33566d63f2f0b7062edb6ca644992d261b12477effbf7e936879109bd309"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000470.json",
+    "bytes": 1163,
+    "sha256": "d1f3401601bf4360e2a09aa00d52f66b289f72271a59d4be5dd831b678f8c46a"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000480.json",
+    "bytes": 1152,
+    "sha256": "6589d53c1488dd45aea8c51b2a4b86b4f5905a314ee42e584b97c0c7df8ef909"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000490.json",
+    "bytes": 1145,
+    "sha256": "8ad4d872058df05924eb6e4ad7276ff7ac6bdb438bcf75515e6a2a22bfa05cf9"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000500.json",
+    "bytes": 1445,
+    "sha256": "5aa6d5978f3366cc6b2ee3f84f18ebfb723b622f38875b6f99eafa3a7382734e"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000510.json",
+    "bytes": 1145,
+    "sha256": "31427940ed8abc888f76ac52a57d94924856fcd0d9452b1a2eeef928c0999f56"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000520.json",
+    "bytes": 1158,
+    "sha256": "f58911cbdd0216b4b1a765c897d8880c5bfb1e0bf3712f33ede05b809aad7a2a"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000530.json",
+    "bytes": 1118,
+    "sha256": "9d2089f32afc89c7a9fd72e5c32e319543e049cfe635a786ab152e13d923ae96"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000540.json",
+    "bytes": 1160,
+    "sha256": "18b0d9d8e565febdbb397618b3ef6fbc31c03fe85805cf75e3572a58a075ab3b"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000550.json",
+    "bytes": 1147,
+    "sha256": "5518125ebdb2259bbc52d0d5131ed9bad942a322899298ea92aab27c50b30754"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000560.json",
+    "bytes": 1143,
+    "sha256": "385f9e63bff6455cfaaf29516fc2baf306aa790ba87ed7f17606c6db3cbb87bb"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000570.json",
+    "bytes": 1154,
+    "sha256": "f25e11d8d6957758c6472786eb8a3dd8ee434f02297899b70eaf2de397fa98e0"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000580.json",
+    "bytes": 1152,
+    "sha256": "fc2bf8f0cdd2888b51ef76043cc9614bfdf4ef8d9485ae9c288ade3553a6e52f"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000590.json",
+    "bytes": 1161,
+    "sha256": "2d46b820c1e33707731cb9c5b0502e9b9647a630aa54bd4073bb97b95f7f3e6b"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/validation/v000600.json",
+    "bytes": 1453,
+    "sha256": "62c318bc3da332fb9b173980ca4df5047cef43f4ad6305968c3a951f578cad57"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/manifest.json",
+    "bytes": 57584,
+    "sha256": "6de9d81858c71c41de505db2c445bae5229fa8587db7a6d3d66d2ebc3eab3c88"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/scheduler.jsonl",
+    "bytes": 2118906,
+    "sha256": "d6b8aa0f1e2d661fb4ea686de4b6504653a4366354e51ac5531dd24338f9cafb"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/summary.json",
+    "bytes": 21803,
+    "sha256": "0bfcf2b76e3dbe86c814bc168d6471ad188a48efda0eb6806c9b52fe07a85c9b"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/bc_gate.json",
+    "bytes": 2996,
+    "sha256": "634c8cedc9b28ac78b616daae630393ddc5d6d71f515b540d1e26e593f7788de"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/controls.json",
+    "bytes": 211,
+    "sha256": "27a6ffde5e177dd922a781817faab58be8249de343674ea233c070ccb7ac5805"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/hardware.json",
+    "bytes": 85,
+    "sha256": "5f21f29aeb036ee3c388448d47c8b6ecbbcfc32883dd7ed734f36f82007bedfb"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/jobs.jsonl",
+    "bytes": 6980259,
+    "sha256": "da12709fd0051d6706a300d8e60a6d94858c4c441a5d3f9f6d271b9e092dc055"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/report/REPORT.md",
+    "bytes": 2364,
+    "sha256": "256aa0c552b34c1911f190e7f03bf061f0b05a7ddcb4948de2c8f28b7f7f5a32"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/report/summary.json",
+    "bytes": 6312,
+    "sha256": "f5271d49021db701163ce90d3641966e682aa045dd0024e41c657a670e2fc834"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/report/training.csv",
+    "bytes": 15799,
+    "sha256": "68c37850be63a89b86631ae86ac87cb97c5a5190b2173645254d52dda4625c24"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/schedules/final.json",
+    "bytes": 3038183,
+    "sha256": "26310526826f61d7354a0dd0660c347c0a88701d925a15784df38286f519f709"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/schedules/validation-000010.json",
+    "bytes": 122207,
+    "sha256": "0336eb488c17eac0cb61c15a3843308786d3630456b582860288cfbac5555802"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/schedules/validation-000020.json",
+    "bytes": 122211,
+    "sha256": "4feae52dc1306ffd83d0a7802e660d92fc50541de05a610a22eee566af393e25"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/schedules/validation-000030.json",
+    "bytes": 122211,
+    "sha256": "1021357033b3d5f2ea0217e8d73d904d17f04fcb30df1344fca0d8208a5f589d"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/schedules/validation-000040.json",
+    "bytes": 122211,
+    "sha256": "743e9ab981c0fa39d69090f461e9f288c764f476f257809747a5777ea5ca6cdf"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/schedules/validation-000050.json",
+    "bytes": 122211,
+    "sha256": "bc96b4b87e93b1d255caaa03a5fa9a92159b0c8d0c078c643332416bb248a235"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/schedules/validation-000060.json",
+    "bytes": 122203,
+    "sha256": "15204d4ab9e60e14bd3b1ff8d29e8a249cc1850dc1072139c233ad8cfabfb716"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/schedules/validation-000070.json",
+    "bytes": 122211,
+    "sha256": "3c4bb9e960a3c7ebca8880c51ff32799e7814859d7b33d67a35afcabc7b8d81d"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/schedules/validation-000080.json",
+    "bytes": 122211,
+    "sha256": "61d981431c554d0eb3f4d7ccc5293909046f321250a70d9eec28b484b33b3970"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/schedules/validation-000090.json",
+    "bytes": 122211,
+    "sha256": "7291a961186e180c9f4ad73ed58b1b844895d7bb8bf13e423a2815abe2b87e2c"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/schedules/validation-000100.json",
+    "bytes": 1466251,
+    "sha256": "6c070c7a93b3fa2a0acb036b5c63f791c5f24a16d94dbb0382042217c1942dde"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/schedules/validation-000110.json",
+    "bytes": 122223,
+    "sha256": "e55f4e309fb2875fb92d13d19b746fdb7ecfda5d9f5cbff0e55fce6a3e746f82"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/schedules/validation-000120.json",
+    "bytes": 122219,
+    "sha256": "09bef274599db697083c8fd626cde02647e3fdaba4627b79371e9d87d2bf2f50"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/schedules/validation-000130.json",
+    "bytes": 122223,
+    "sha256": "ca1a863cf9ac4a66c9b30b336238072fdd612f972502ec3f56642d3be6cb0622"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/schedules/validation-000140.json",
+    "bytes": 122223,
+    "sha256": "db152abae7f5c3aca1474bbbc96eeccf8a22794eb2e71dc83734b9a9ae3a2f45"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/schedules/validation-000150.json",
+    "bytes": 122219,
+    "sha256": "edc59554c585216d3d1b6544f2d16e9f91e81f43e79d3ab1e2f9666a36b6dff1"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/schedules/validation-000160.json",
+    "bytes": 122219,
+    "sha256": "2647c1e23d10d9f2dabcdea1ffe3900c3c4c75717c823d29743a8817c8bea7f4"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/schedules/validation-000170.json",
+    "bytes": 122223,
+    "sha256": "188f008237e3d572ca9fb9561d1f74ef0724691fff031cf0cf029b45c204a2cf"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/schedules/validation-000180.json",
+    "bytes": 122215,
+    "sha256": "481427f9b76a2cf88843c1e2af0972f9244b80951209c1b135bf403321e463c4"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/schedules/validation-000190.json",
+    "bytes": 122223,
+    "sha256": "bddf60c64105e75d1f4eb4252fdebdc336b3c30f480006ce47c6cc5c4f72334b"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/schedules/validation-000200.json",
+    "bytes": 1466251,
+    "sha256": "92d66a414b30f236c7b62986010da575f627fc0b854af277be438f7dafe614f7"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/schedules/validation-000210.json",
+    "bytes": 122223,
+    "sha256": "dd28044d16e409b9622db979b40a66849635905ca37c112c1ee75729ae728a56"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/schedules/validation-000220.json",
+    "bytes": 122223,
+    "sha256": "8f550f2df606ad146b0285959853bf21e5bf59d9a41dc0a33f1fb78495645cee"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/schedules/validation-000230.json",
+    "bytes": 122223,
+    "sha256": "2146e24a8919ad28a6c4b8ca39231b59fc8aaa57c91f2c449cf02f778f52f79e"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/schedules/validation-000240.json",
+    "bytes": 122223,
+    "sha256": "e7eafd49fde4ea1ab1896aab3610d4557e98a7a5536328c52e295376bd95794f"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/schedules/validation-000250.json",
+    "bytes": 122223,
+    "sha256": "406ab7adea3855895646e48e5c265ff11493b59099bc59525a8c031621cde7cd"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/schedules/validation-000260.json",
+    "bytes": 122223,
+    "sha256": "13b877122b0223c71c9f442490bc32a0c43740516ee0f69c65349c91a88b2235"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/schedules/validation-000270.json",
+    "bytes": 122223,
+    "sha256": "36359b0ca28b7fc49e28b2045017b3ba59f5b41ac61993ff07ed0142986952e1"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/schedules/validation-000280.json",
+    "bytes": 122223,
+    "sha256": "6d824e24fbb78e712c2ef0995098c234f1bdd2531f42242e8d327184fbb0dee1"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/selection.json",
+    "bytes": 710,
+    "sha256": "f1f40a40301ef6288aa0e4b0a88daab3e356f7ac0c301dd79d493bca1f8cf86e"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/state.json",
+    "bytes": 1195860,
+    "sha256": "4aee066979a85b5fe2e0095f5caceb453c1807037548dd963e94774cfdf3da80"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/champion-v000200.json",
+    "bytes": 1467,
+    "sha256": "a22a7525e2caccc20b04db8537ada0c6eeb7f58dd57e202c2f73166cfc3b995f"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/control-v000010.json",
+    "bytes": 3346,
+    "sha256": "d5d923d58191baa23642ca2fa31f4bb2e29456d028e2026b1ff25f4706e4063d"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/control-v000020.json",
+    "bytes": 1102,
+    "sha256": "f4b193cf925421d535ccec3aec24505efd270b74f7230644e005141e18c972cd"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/control-v000030.json",
+    "bytes": 2886,
+    "sha256": "678166b77c8f3b0d54fa321d552db6b459bbb14018b438d199103cc44c358775"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/control-v000040.json",
+    "bytes": 2912,
+    "sha256": "a526b8a5c530446b710f6b6a8254e93a5d425b1b82da2d2886b4505a2d69da59"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/control-v000050.json",
+    "bytes": 2925,
+    "sha256": "3e89a54ff0bb189948660c6152882fbf888e511d999c55d67c8693c7544c1990"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/control-v000060.json",
+    "bytes": 2925,
+    "sha256": "d2f847826fe6400d1a2a3778abe211d658a3d28a3b1546a4f24ca89672f95d6c"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/control-v000070.json",
+    "bytes": 2924,
+    "sha256": "b17a4799f809fe1dbb99f80a41bd1a31ab950e8c8e024cd87a9925218e634a2c"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/control-v000080.json",
+    "bytes": 2890,
+    "sha256": "3a4d94156412b61ba8e0356720b24c582e6d57b6e1df586a73c1954da928c06d"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/control-v000090.json",
+    "bytes": 2925,
+    "sha256": "11279d2715da5017d46ae498d238447aad39ff06a914a948080e42b3a915c031"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/control-v000100.json",
+    "bytes": 25446,
+    "sha256": "78ec19754d403306da0cd3de23958ee8f9ae7bc93195ee45e661e6c142eef543"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/control-v000110.json",
+    "bytes": 2936,
+    "sha256": "3a377b552631d1a96db4236c0f48a9ce12a8799561f71ff93b9f99b1f75d606a"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/control-v000120.json",
+    "bytes": 2832,
+    "sha256": "fadac057adc7e421bb320fea1781a3dec6d4d3120f40df860779bcbdf5b33d67"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/control-v000130.json",
+    "bytes": 2909,
+    "sha256": "fddaf0609c83cc6daf2b1cc6f24798b1e02489b0d9a7e0985e63f426b7a6c3d6"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/control-v000140.json",
+    "bytes": 2946,
+    "sha256": "6fdea672742dd5ff0af834bc2032b35a3b3c1bd29278e9bd7c10141f33175ff8"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/control-v000150.json",
+    "bytes": 2939,
+    "sha256": "14e9e9e07a14d44fc636bd570377df46ebc26266732448e115f02bfd4e6bdce7"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/control-v000160.json",
+    "bytes": 2926,
+    "sha256": "fde2857556ce3fb4993cf4e8a264d0e8dd08823491677363d2775bd66b66eae6"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/control-v000170.json",
+    "bytes": 2895,
+    "sha256": "305d45de41e962ec4ecc6ebdf72fef86b78abfa756d23c8c939c114d1c8368bf"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/control-v000180.json",
+    "bytes": 2843,
+    "sha256": "88047c732451e30215e905e42751aaa4d275b6f59df7671b11a6596c0dffe951"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/control-v000190.json",
+    "bytes": 2921,
+    "sha256": "3e7a0e1f3281615fec7058b60d6630223cb9a6962c0939fe30c983d49e4553d2"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/control-v000200.json",
+    "bytes": 32018,
+    "sha256": "ae1c69629cc13bb80956b0adc6d912a318451a991f0d9eea825ecca74a08d2dd"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/control-v000210.json",
+    "bytes": 2936,
+    "sha256": "eeab191fdd9830966d9f2964d4f400c81adef615fa9d66b94e73efa8c9e586ad"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/control-v000220.json",
+    "bytes": 2920,
+    "sha256": "66266bbd5c9d956dc60779feb75486803019b43a88d295c295ff5679f5217672"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/control-v000230.json",
+    "bytes": 2895,
+    "sha256": "0d3731c89a23bd6794e02a592c5cc85beddafd4c67d16a6aca36b39489498eca"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/control-v000240.json",
+    "bytes": 2940,
+    "sha256": "a5787a9f4b11c07ad4601386b53d13c5dfd5d25b5998d6e801656604625ce40f"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/control-v000250.json",
+    "bytes": 2939,
+    "sha256": "e1d5cc597b05379626220cfa5e9749e2ad4201620d006007db11bb73e1527a76"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/control-v000260.json",
+    "bytes": 2905,
+    "sha256": "67afedb81a73d1ec627386178a3411bb2421c55a8cafbc85eeedc37539c01858"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/control-v000270.json",
+    "bytes": 2800,
+    "sha256": "5148b8940a31ed06186451bb0ba952dbbf8d95632ad19f4ae1fecf9bc4b7727b"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/control-v000280.json",
+    "bytes": 2883,
+    "sha256": "b44798b69a0168713e7027ee3d4cda17104fcc9d4e3f903d32028b1ee468099d"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/nominate-v000284-astra.json",
+    "bytes": 42942,
+    "sha256": "36c06932dc83fc198c3a42896ebab55630b1df8387958a1e0e74742b9f7fbdad"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/v000010.json",
+    "bytes": 1231,
+    "sha256": "e1455b6996781918aa5e208de9b021faf7d42b1fa4ea9e15fd6145876f73018e"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/v000020.json",
+    "bytes": 1249,
+    "sha256": "f48275bda8d2b61361f17a084f280931d7ee1f318dcce9fddbfd7631644be5e5"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/v000030.json",
+    "bytes": 1233,
+    "sha256": "3c00ef103285af7f4c67ce63d39b666fc36be5dc46a5756d474640e0a46a80d9"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/v000040.json",
+    "bytes": 1249,
+    "sha256": "d8570b528bd21ff04126a98bef7eac2ac3ec0414a51eb07500810dba89e06513"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/v000050.json",
+    "bytes": 1240,
+    "sha256": "69e0411a09fad93fe5bcfb51f9faf8d0cdf9b1b9046bc252577325349a247f50"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/v000060.json",
+    "bytes": 1231,
+    "sha256": "c9271ca23188b0fb4bf83c421ceac3a9e3740b270a3def14f687d510cc3a044d"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/v000070.json",
+    "bytes": 1240,
+    "sha256": "eb07b6e440c7bc81d6408757e5948b3a3cda012784fd88c53ac5797560fc3326"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/v000080.json",
+    "bytes": 1213,
+    "sha256": "8dde49ee84934974cc33868d257f0f1ef055ee0a89c0317319e28512703c2735"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/v000090.json",
+    "bytes": 1249,
+    "sha256": "3b7cdc35db726192091292425657de7f8514a04984b0342352e61d1d0a61b4e7"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/v000100.json",
+    "bytes": 1482,
+    "sha256": "c3338caeb1f8eaa9fb18044780275f7cd48066d6f7ea1670b833b7e1d9396b57"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/v000110.json",
+    "bytes": 1240,
+    "sha256": "8b757768ffc3e17a8d386c4c450d23c3dca8fe4c71fe38fb93df59959c26eb10"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/v000120.json",
+    "bytes": 1201,
+    "sha256": "593baa065ef6198f96782b779dd63017c1808645f3dbce860db2eef112f60311"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/v000130.json",
+    "bytes": 1230,
+    "sha256": "60508fe5346b1c30ba89a7e1a75e4064559373bc06d929b0d71b1feebfd4ea0e"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/v000140.json",
+    "bytes": 1229,
+    "sha256": "6af2dab2987f0b31d49d089452fea3618cee0eb30e2c1f7051f4d0ccafd168a9"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/v000150.json",
+    "bytes": 1231,
+    "sha256": "c8bb2089b19d2435dd1c84138dbda24a95f0b2664dc8ceb845784681bcd78027"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/v000160.json",
+    "bytes": 1231,
+    "sha256": "8ddb503af3e0a0aa2ef614bc176ad34f0158523ef5b7dd8db70c6f4eab4fa89e"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/v000170.json",
+    "bytes": 1239,
+    "sha256": "e6be80791e0f24456ebe757bb3015cdaa2783b0485cf58d8bec51875228e9f3d"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/v000180.json",
+    "bytes": 1201,
+    "sha256": "c519fad1e2732f7abf102f2c8fe80fa33440b621e6f37f4d9023523a96579775"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/v000190.json",
+    "bytes": 1234,
+    "sha256": "e5d2f6a17eba188a532b7d4e89ebed5d7ad1cafed8e11d6f3f0d7af4cef026f1"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/v000200.json",
+    "bytes": 1485,
+    "sha256": "6abfa6f5de09688d09370544f73f0e4da557650ee7eeec59024976983b7542bc"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/v000210.json",
+    "bytes": 1231,
+    "sha256": "1a418f41ad2268d5bd21ee6e7c03e46c2dbe3abf5baadbf272ddb5dd32457117"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/v000220.json",
+    "bytes": 1227,
+    "sha256": "50cbe7587b8b536c45a0a3bbbba765d70c42e686a92b214e510f7cd15e766be4"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/v000230.json",
+    "bytes": 1215,
+    "sha256": "4d77dcd7f1e58cf4557d15e256b3cf35e17c7ec718f3baf4a617aac95afef9ef"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/v000240.json",
+    "bytes": 1243,
+    "sha256": "64c7707e0f1270632926f61912fa68968a88b163fc6659b76db501389af9c1e9"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/v000250.json",
+    "bytes": 1231,
+    "sha256": "3391e059657459bfe376be10f063c0ef36796d6e38d43e723052498dd2c51db8"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/v000260.json",
+    "bytes": 1233,
+    "sha256": "345604bc521d47d18cf95a0bd673101c2b67ea41a69af18a3f64d08b35eaabbc"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/v000270.json",
+    "bytes": 1201,
+    "sha256": "cf50b029314172a63218acff2f6f25502142dceb3e9679ac476d475ec8558c59"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/validation/v000280.json",
+    "bytes": 1242,
+    "sha256": "e22eb90511a9c4c4963af5734f4fb2ae081378ae7712b858fadbb6c84ea9a0e1"
+  },
+  {
+    "path": "source.sha256",
+    "bytes": 80,
+    "sha256": "42aadbf7597f01ce19bf00444d528741ffaec68f82765dce045f2cdd5cd68af6"
+  },
+  {
+    "path": "started.txt",
+    "bytes": 36,
+    "sha256": "bbacb8dd9b86281db840efba8a0d5926d1285ad1bb1ffe81ae6cd4a640ef27e5"
+  },
+  {
+    "path": "training.log",
+    "bytes": 21,
+    "sha256": "386672e00fbb8596be9a01bbef005bb31abe6d43a98e9b66c44389cc2c2c6522"
+  }
+]

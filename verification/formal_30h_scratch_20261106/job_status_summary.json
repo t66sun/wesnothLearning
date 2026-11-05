@@ -1,0 +1,58 @@
+[
+  {
+    "format": "duel",
+    "job_records": 4942,
+    "statuses": {
+      "complete": 4938,
+      "budget_interrupted": 4
+    },
+    "state_error": null,
+    "error_records": [
+      {
+        "id": "rollout-00940-duel-g0",
+        "status": "budget_interrupted",
+        "error": null,
+        "faults": null
+      },
+      {
+        "id": "rollout-00940-duel-g2",
+        "status": "budget_interrupted",
+        "error": null,
+        "faults": null
+      },
+      {
+        "id": "rollout-00940-duel-g3",
+        "status": "budget_interrupted",
+        "error": null,
+        "faults": null
+      },
+      {
+        "id": "rollout-00940-duel-g1",
+        "status": "budget_interrupted",
+        "error": null,
+        "faults": null
+      }
+    ],
+    "trainer_error_logs": []
+  },
+  {
+    "format": "ffa4",
+    "job_records": 2084,
+    "statuses": {
+      "complete": 2084
+    },
+    "state_error": null,
+    "error_records": [],
+    "trainer_error_logs": []
+  },
+  {
+    "format": "team2v2",
+    "job_records": 2212,
+    "statuses": {
+      "complete": 2212
+    },
+    "state_error": null,
+    "error_records": [],
+    "trainer_error_logs": []
+  }
+]

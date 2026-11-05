@@ -1,0 +1,340 @@
+{
+  "source_commit": "d2e6da5fbd07396c0c4d13a6588f66e1796f80fd",
+  "run": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch",
+  "format": "ffa4",
+  "teacher_shards": 960,
+  "scope": "all raw teacher records; no games or model updates",
+  "matched_definition": "choice >= 0; move_attack folded into attack once",
+  "counts": [
+    {
+      "group": "all",
+      "value": "all",
+      "matched": 242124,
+      "total": 274888,
+      "coverage": 0.8808096388347254
+    },
+    {
+      "group": "horizon",
+      "value": "1-30",
+      "matched": 170171,
+      "total": 187869,
+      "coverage": 0.9057960600205462
+    },
+    {
+      "group": "horizon",
+      "value": "31-60",
+      "matched": 71953,
+      "total": 87019,
+      "coverage": 0.8268653972121031
+    },
+    {
+      "group": "kind",
+      "value": "attack",
+      "matched": 78271,
+      "total": 93127,
+      "coverage": 0.8404759092422176
+    },
+    {
+      "group": "kind",
+      "value": "end_turn",
+      "matched": 37389,
+      "total": 37389,
+      "coverage": 1
+    },
+    {
+      "group": "kind",
+      "value": "move",
+      "matched": 105657,
+      "total": 119868,
+      "coverage": 0.8814445890479528
+    },
+    {
+      "group": "kind",
+      "value": "recruit",
+      "matched": 20807,
+      "total": 24504,
+      "coverage": 0.8491266731962128
+    },
+    {
+      "group": "map",
+      "value": "arena4",
+      "matched": 107764,
+      "total": 119244,
+      "coverage": 0.9037268122505115
+    },
+    {
+      "group": "map",
+      "value": "clash",
+      "matched": 68878,
+      "total": 87283,
+      "coverage": 0.7891341956623855
+    },
+    {
+      "group": "map",
+      "value": "isars_cross",
+      "matched": 65482,
+      "total": 68361,
+      "coverage": 0.9578853439826802
+    },
+    {
+      "group": "map_horizon",
+      "value": "arena4 1-30",
+      "matched": 75492,
+      "total": 82625,
+      "coverage": 0.9136701966717096
+    },
+    {
+      "group": "map_horizon",
+      "value": "arena4 31-60",
+      "matched": 32272,
+      "total": 36619,
+      "coverage": 0.8812911330183785
+    },
+    {
+      "group": "map_horizon",
+      "value": "clash 1-30",
+      "matched": 49584,
+      "total": 58388,
+      "coverage": 0.8492155922449819
+    },
+    {
+      "group": "map_horizon",
+      "value": "clash 31-60",
+      "matched": 19294,
+      "total": 28895,
+      "coverage": 0.6677279806194844
+    },
+    {
+      "group": "map_horizon",
+      "value": "isars_cross 1-30",
+      "matched": 45095,
+      "total": 46856,
+      "coverage": 0.9624167662625918
+    },
+    {
+      "group": "map_horizon",
+      "value": "isars_cross 31-60",
+      "matched": 20387,
+      "total": 21505,
+      "coverage": 0.9480120902115787
+    },
+    {
+      "group": "partition",
+      "value": "train",
+      "matched": 200792,
+      "total": 227223,
+      "coverage": 0.8836781487789528
+    },
+    {
+      "group": "partition",
+      "value": "validation",
+      "matched": 41332,
+      "total": 47665,
+      "coverage": 0.8671352145179901
+    },
+    {
+      "group": "partition_horizon",
+      "value": "train 1-30",
+      "matched": 140426,
+      "total": 154622,
+      "coverage": 0.9081890028585842
+    },
+    {
+      "group": "partition_horizon",
+      "value": "train 31-60",
+      "matched": 60366,
+      "total": 72601,
+      "coverage": 0.831476150466247
+    },
+    {
+      "group": "partition_horizon",
+      "value": "validation 1-30",
+      "matched": 29745,
+      "total": 33247,
+      "coverage": 0.894667188016964
+    },
+    {
+      "group": "partition_horizon",
+      "value": "validation 31-60",
+      "matched": 11587,
+      "total": 14418,
+      "coverage": 0.8036482175058954
+    },
+    {
+      "group": "turn",
+      "value": "1-5",
+      "matched": 33023,
+      "total": 34964,
+      "coverage": 0.9444857567784006
+    },
+    {
+      "group": "turn",
+      "value": "11-20",
+      "matched": 56080,
+      "total": 61616,
+      "coverage": 0.9101532069592314
+    },
+    {
+      "group": "turn",
+      "value": "21-30",
+      "matched": 50747,
+      "total": 58459,
+      "coverage": 0.868078482355155
+    },
+    {
+      "group": "turn",
+      "value": "31-40",
+      "matched": 36873,
+      "total": 44201,
+      "coverage": 0.8342118956584693
+    },
+    {
+      "group": "turn",
+      "value": "41-50",
+      "matched": 22725,
+      "total": 27657,
+      "coverage": 0.8216726326065734
+    },
+    {
+      "group": "turn",
+      "value": "51-60",
+      "matched": 12355,
+      "total": 15161,
+      "coverage": 0.8149198601675351
+    },
+    {
+      "group": "turn",
+      "value": "6-10",
+      "matched": 30321,
+      "total": 32830,
+      "coverage": 0.9235759975632044
+    }
+  ],
+  "reasons": [
+    {
+      "kind": "attack",
+      "reason": "actor_absent",
+      "count": 1769
+    },
+    {
+      "kind": "attack",
+      "reason": "destination_absent",
+      "count": 11278
+    },
+    {
+      "kind": "attack",
+      "reason": "enemy_absent",
+      "count": 552
+    },
+    {
+      "kind": "attack",
+      "reason": "kind_absent",
+      "count": 180
+    },
+    {
+      "kind": "attack",
+      "reason": "weapon_absent",
+      "count": 1077
+    },
+    {
+      "kind": "horizon:1-30",
+      "reason": "actor_absent",
+      "count": 864
+    },
+    {
+      "kind": "horizon:1-30",
+      "reason": "destination_absent",
+      "count": 13357
+    },
+    {
+      "kind": "horizon:1-30",
+      "reason": "enemy_absent",
+      "count": 361
+    },
+    {
+      "kind": "horizon:1-30",
+      "reason": "kind_absent",
+      "count": 107
+    },
+    {
+      "kind": "horizon:1-30",
+      "reason": "slot_absent",
+      "count": 1998
+    },
+    {
+      "kind": "horizon:1-30",
+      "reason": "type_absent",
+      "count": 290
+    },
+    {
+      "kind": "horizon:1-30",
+      "reason": "weapon_absent",
+      "count": 721
+    },
+    {
+      "kind": "horizon:31-60",
+      "reason": "actor_absent",
+      "count": 1710
+    },
+    {
+      "kind": "horizon:31-60",
+      "reason": "destination_absent",
+      "count": 11327
+    },
+    {
+      "kind": "horizon:31-60",
+      "reason": "enemy_absent",
+      "count": 191
+    },
+    {
+      "kind": "horizon:31-60",
+      "reason": "kind_absent",
+      "count": 73
+    },
+    {
+      "kind": "horizon:31-60",
+      "reason": "slot_absent",
+      "count": 1244
+    },
+    {
+      "kind": "horizon:31-60",
+      "reason": "type_absent",
+      "count": 165
+    },
+    {
+      "kind": "horizon:31-60",
+      "reason": "weapon_absent",
+      "count": 356
+    },
+    {
+      "kind": "move",
+      "reason": "actor_absent",
+      "count": 805
+    },
+    {
+      "kind": "move",
+      "reason": "destination_absent",
+      "count": 13406
+    },
+    {
+      "kind": "recruit",
+      "reason": "slot_absent",
+      "count": 3242
+    },
+    {
+      "kind": "recruit",
+      "reason": "type_absent",
+      "count": 455
+    }
+  ],
+  "timing": {
+    "truncated": 247520,
+    "candidates_37": 247011
+  },
+  "elapsed_seconds": 108.58205258916132,
+  "limits": [
+    "Turn 1-30 counts are observed prefixes of 60-turn games, not a newly collected 30-turn run.",
+    "Miss reason records the first surviving-candidate matching stage; it does not identify whether generation or retention lost an action.",
+    "Timing.truncated is a generator budget flag, not the game outcome turn-limit flag."
+  ]
+}

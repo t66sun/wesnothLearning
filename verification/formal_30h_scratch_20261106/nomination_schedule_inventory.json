@@ -1,0 +1,17 @@
+[
+  {
+    "path": "source/runs/formal_30h_scratch/duel/schedules/nominate-v000940-astra-506aff95237f7250.json",
+    "bytes": 406379,
+    "sha256": "067ec54d5133274040e13b6740ff1da89b182e765a254a1f79ef7d9c740d8310"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/ffa4/schedules/nominate-v000601-astra-4888d641a8335fb9.json",
+    "bytes": 717411,
+    "sha256": "ef0c8325a3740d5a947d816f547079fbe3e5f63003126cf1862b0b6d739eeaab"
+  },
+  {
+    "path": "source/runs/formal_30h_scratch/team2v2/schedules/nominate-v000284-astra-fc1240e9b83f5391.json",
+    "bytes": 1445659,
+    "sha256": "0dda7121c0d86a6fd31e43e9573fd21117febe89819219e5000e5fb54af6d064"
+  }
+]

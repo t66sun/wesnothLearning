@@ -1,0 +1,32 @@
+[
+  {
+    "path": "source.tar.gz",
+    "resolved": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source.tar.gz",
+    "bytes": 113989235,
+    "sha256": "0bff83d5c982a7f00c09a06cd7b1396224282b0c251915c34623f146433682fd"
+  },
+  {
+    "path": "source/.extension/_engine_lite.so",
+    "resolved": "/home/tongshu/acceptance/immutable_forecast_20261104/green/.extension/_engine_lite.so",
+    "bytes": 2723112,
+    "sha256": "56dd77140411db987377d6de4ffbf562da4d0e5c76bc16d34780da67e60e5ae4"
+  },
+  {
+    "path": "source/.runtime/entropy.so",
+    "resolved": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/.runtime/entropy.so",
+    "bytes": 16312,
+    "sha256": "f12d763303445aa437de06d0dba129dc923e3d81fd1fc82d72b8e331916480cf"
+  },
+  {
+    "path": "source/data/opponents/gpt6astra.zip",
+    "resolved": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/data/opponents/gpt6astra.zip",
+    "bytes": 15308,
+    "sha256": "2a216c96081990621dc15772e9de1bf40e4f5f451223fe52e5b20625464dc933"
+  },
+  {
+    "path": "source/data/rules/1.18.8-combat-filtered/rules.json",
+    "resolved": "/home/tongshu/acceptance/filters_compiled_20261103/data/rules/1.18.8-combat-filtered/rules.json",
+    "bytes": 11123325,
+    "sha256": "e6b4f6200b0a8ad58a536b844fff37cfa9e0091bf0a0b702a8982155310f2f17"
+  }
+]
