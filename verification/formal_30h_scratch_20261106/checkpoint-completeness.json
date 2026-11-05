@@ -1,0 +1,342 @@
+{
+  "duel": {
+    "raw_state_pending": {
+      "key_exists": true,
+      "type": "NoneType",
+      "nonempty": false,
+      "method": null
+    },
+    "checkpoints": {
+      "selected.pt": {
+        "exists": true,
+        "sha256": "7065ad90650e48c0776ca4c3cb066008c1e151e62d0aeaa6095364c8e244f65b",
+        "version": 100,
+        "stage": "ppo",
+        "effective": true,
+        "best_kind": "ppo",
+        "history_methods": {
+          "bc": 38,
+          "ppo": 62
+        },
+        "pending_key_exists": true,
+        "pending_type": "NoneType",
+        "pending_nonempty": false,
+        "pending_method": null,
+        "pending_cursor": null,
+        "last_committed_elapsed_hours": 3.104959641562568
+      },
+      "best.pt": {
+        "exists": true,
+        "sha256": "7065ad90650e48c0776ca4c3cb066008c1e151e62d0aeaa6095364c8e244f65b",
+        "version": 100,
+        "stage": "ppo",
+        "effective": true,
+        "best_kind": "ppo",
+        "history_methods": {
+          "bc": 38,
+          "ppo": 62
+        },
+        "pending_key_exists": true,
+        "pending_type": "NoneType",
+        "pending_nonempty": false,
+        "pending_method": null,
+        "pending_cursor": null,
+        "last_committed_elapsed_hours": 3.104959641562568
+      },
+      "last_bc.pt": {
+        "exists": true,
+        "sha256": "05908d7f972148ccc7b39b8df0cc00435e2176861654a632de44c379b94953ab",
+        "version": 38,
+        "stage": "bc",
+        "effective": true,
+        "best_kind": null,
+        "history_methods": {
+          "bc": 38
+        },
+        "pending_key_exists": true,
+        "pending_type": "NoneType",
+        "pending_nonempty": false,
+        "pending_method": null,
+        "pending_cursor": null,
+        "last_committed_elapsed_hours": 1.4385365641117096
+      },
+      "last_ppo.pt": {
+        "exists": true,
+        "sha256": "e68b50e62d5a6452718f6496d7ff1bc28bc4d966975332e0fdf83cf34fde155b",
+        "version": 940,
+        "stage": "ppo",
+        "effective": true,
+        "best_kind": "ppo",
+        "history_methods": {
+          "bc": 38,
+          "ppo": 902
+        },
+        "pending_key_exists": true,
+        "pending_type": "NoneType",
+        "pending_nonempty": false,
+        "pending_method": null,
+        "pending_cursor": null,
+        "last_committed_elapsed_hours": 24.99226923988925
+      },
+      "latest.pt": {
+        "exists": true,
+        "sha256": "834653aef37e811f719b136fb92e0bafea75a31d4c216590b8cfdf64e868383b",
+        "version": 940,
+        "stage": "finished",
+        "effective": true,
+        "best_kind": "ppo",
+        "history_methods": {
+          "bc": 38,
+          "ppo": 902
+        },
+        "pending_key_exists": true,
+        "pending_type": "NoneType",
+        "pending_nonempty": false,
+        "pending_method": null,
+        "pending_cursor": null,
+        "last_committed_elapsed_hours": 24.99226923988925
+      }
+    }
+  },
+  "ffa4": {
+    "raw_state_pending": {
+      "key_exists": true,
+      "type": "dict",
+      "nonempty": true,
+      "method": "bc"
+    },
+    "checkpoints": {
+      "selected.pt": {
+        "exists": true,
+        "sha256": "e11e8809161e2be84343f5657536eeea8e1296962fb882d1425c7caf3cef0eaa",
+        "version": 100,
+        "stage": "bc",
+        "effective": false,
+        "best_kind": "bc",
+        "history_methods": {
+          "bc": 100
+        },
+        "pending_key_exists": true,
+        "pending_type": "NoneType",
+        "pending_nonempty": false,
+        "pending_method": null,
+        "pending_cursor": null,
+        "last_committed_elapsed_hours": 5.598007955882284
+      },
+      "best.pt": {
+        "exists": true,
+        "sha256": "e11e8809161e2be84343f5657536eeea8e1296962fb882d1425c7caf3cef0eaa",
+        "version": 100,
+        "stage": "bc",
+        "effective": false,
+        "best_kind": "bc",
+        "history_methods": {
+          "bc": 100
+        },
+        "pending_key_exists": true,
+        "pending_type": "NoneType",
+        "pending_nonempty": false,
+        "pending_method": null,
+        "pending_cursor": null,
+        "last_committed_elapsed_hours": 5.598007955882284
+      },
+      "last_bc.pt": {
+        "exists": true,
+        "sha256": "77177ff80950bf75a33195826ef666889385baf88eb722b0494fe1e678e5d0f6",
+        "version": 601,
+        "stage": "bc",
+        "effective": false,
+        "best_kind": "bc",
+        "history_methods": {
+          "bc": 601
+        },
+        "pending_key_exists": true,
+        "pending_type": "NoneType",
+        "pending_nonempty": false,
+        "pending_method": null,
+        "pending_cursor": null,
+        "last_committed_elapsed_hours": 24.979817872775925
+      },
+      "last_ppo.pt": {
+        "exists": false
+      },
+      "latest.pt": {
+        "exists": true,
+        "sha256": "36735910027c10a6e43c32543677d64f76270f44b295be081eb19709f9afc7c9",
+        "version": 601,
+        "stage": "finished",
+        "effective": false,
+        "best_kind": "bc",
+        "history_methods": {
+          "bc": 601
+        },
+        "pending_key_exists": true,
+        "pending_type": "dict",
+        "pending_nonempty": true,
+        "pending_method": "bc",
+        "pending_cursor": {
+          "epoch": 0,
+          "step": 10,
+          "loss_sum": 3.03020878847326,
+          "updates": 10,
+          "decisions_seen": 784,
+          "visited_windows": [
+            2,
+            4,
+            5,
+            6,
+            9,
+            13,
+            15,
+            18,
+            20,
+            22,
+            24,
+            27,
+            28,
+            29,
+            34,
+            35,
+            36,
+            37,
+            40,
+            43,
+            46,
+            47,
+            51,
+            52,
+            59,
+            61,
+            62,
+            64,
+            68,
+            69
+          ],
+          "window_visits": 40
+        },
+        "last_committed_elapsed_hours": 24.979817872775925
+      }
+    }
+  },
+  "team2v2": {
+    "raw_state_pending": {
+      "key_exists": true,
+      "type": "dict",
+      "nonempty": true,
+      "method": "ppo"
+    },
+    "checkpoints": {
+      "selected.pt": {
+        "exists": true,
+        "sha256": "02de100f80960c93450e491fc4b72d6094bd4702fcb4bb9efadabcf1ab560993",
+        "version": 100,
+        "stage": "ppo",
+        "effective": true,
+        "best_kind": "ppo",
+        "history_methods": {
+          "bc": 53,
+          "ppo": 47
+        },
+        "pending_key_exists": true,
+        "pending_type": "NoneType",
+        "pending_nonempty": false,
+        "pending_method": null,
+        "pending_cursor": null,
+        "last_committed_elapsed_hours": 8.38827524277899
+      },
+      "best.pt": {
+        "exists": true,
+        "sha256": "02de100f80960c93450e491fc4b72d6094bd4702fcb4bb9efadabcf1ab560993",
+        "version": 100,
+        "stage": "ppo",
+        "effective": true,
+        "best_kind": "ppo",
+        "history_methods": {
+          "bc": 53,
+          "ppo": 47
+        },
+        "pending_key_exists": true,
+        "pending_type": "NoneType",
+        "pending_nonempty": false,
+        "pending_method": null,
+        "pending_cursor": null,
+        "last_committed_elapsed_hours": 8.38827524277899
+      },
+      "last_bc.pt": {
+        "exists": true,
+        "sha256": "6a2a5c587d95853e8fb4fae7ee5c9cc997f00e2cad6b5a70f2389b6c26b17832",
+        "version": 53,
+        "stage": "bc",
+        "effective": true,
+        "best_kind": null,
+        "history_methods": {
+          "bc": 53
+        },
+        "pending_key_exists": true,
+        "pending_type": "NoneType",
+        "pending_nonempty": false,
+        "pending_method": null,
+        "pending_cursor": null,
+        "last_committed_elapsed_hours": 4.516632697582245
+      },
+      "last_ppo.pt": {
+        "exists": true,
+        "sha256": "0aaaf7d197ba72f02138ba2a893c2212b9e3751456d6136f02cfa4417b007a49",
+        "version": 284,
+        "stage": "ppo",
+        "effective": true,
+        "best_kind": "ppo",
+        "history_methods": {
+          "bc": 53,
+          "ppo": 231
+        },
+        "pending_key_exists": true,
+        "pending_type": "NoneType",
+        "pending_nonempty": false,
+        "pending_method": null,
+        "pending_cursor": null,
+        "last_committed_elapsed_hours": 24.872529517412186
+      },
+      "latest.pt": {
+        "exists": true,
+        "sha256": "b74e05b08068741e04fa0e4e5eedd648041d427da59d0fc56660d43ffc80ba16",
+        "version": 284,
+        "stage": "finished",
+        "effective": true,
+        "best_kind": "ppo",
+        "history_methods": {
+          "bc": 53,
+          "ppo": 231
+        },
+        "pending_key_exists": true,
+        "pending_type": "dict",
+        "pending_nonempty": true,
+        "pending_method": "ppo",
+        "pending_cursor": {
+          "epoch": 3,
+          "step": 3,
+          "plan_version": 2,
+          "plan_seed": 20261017,
+          "plan_hash": "3c0aabb4cfef0ecf3ec6d2a813547fef8ecb45657f8910c9221b507e63b04a33",
+          "scope": "deferred",
+          "loss_sum": 1.8031675593811087,
+          "updates": 21,
+          "decisions_seen": 6219,
+          "inspected_decisions": 6459,
+          "committed_decisions": 6219
+        },
+        "last_committed_elapsed_hours": 24.872529517412186
+      }
+    }
+  },
+  "clock": {
+    "started": 1793796227.1654503,
+    "update_deadline": 1793886227.1654503,
+    "deadline": 1793904227.1654503,
+    "iso_plus_0800": {
+      "started": "2026-11-04T20:43:47.165450+08:00",
+      "update_deadline": "2026-11-05T21:43:47.165450+08:00",
+      "deadline": "2026-11-06T02:43:47.165450+08:00"
+    }
+  }
+}

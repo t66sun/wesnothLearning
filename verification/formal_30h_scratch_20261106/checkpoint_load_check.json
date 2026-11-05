@@ -1,0 +1,126 @@
+{
+  "manifest_sha256": "6de9d81858c71c41de505db2c445bae5229fa8587db7a6d3d66d2ebc3eab3c88",
+  "models": [
+    {
+      "format": "duel",
+      "path": "source/runs/formal_30h_scratch/duel/selected.pt",
+      "sha256": "7065ad90650e48c0776ca4c3cb066008c1e151e62d0aeaa6095364c8e244f65b",
+      "version": 100,
+      "manifest_matches": true,
+      "parameters": 776178,
+      "finite_weights": true,
+      "checkpoint_pending_train": false,
+      "state_pending_train": false
+    },
+    {
+      "format": "duel",
+      "path": "source/runs/formal_30h_scratch/duel/latest.pt",
+      "sha256": "834653aef37e811f719b136fb92e0bafea75a31d4c216590b8cfdf64e868383b",
+      "version": 940,
+      "manifest_matches": true,
+      "parameters": 776178,
+      "finite_weights": true,
+      "checkpoint_pending_train": false,
+      "state_pending_train": false
+    },
+    {
+      "format": "duel",
+      "path": "source/runs/formal_30h_scratch/duel/last_bc.pt",
+      "sha256": "05908d7f972148ccc7b39b8df0cc00435e2176861654a632de44c379b94953ab",
+      "version": 38,
+      "manifest_matches": true,
+      "parameters": 776178,
+      "finite_weights": true,
+      "checkpoint_pending_train": false,
+      "state_pending_train": false
+    },
+    {
+      "format": "duel",
+      "path": "source/runs/formal_30h_scratch/duel/last_ppo.pt",
+      "sha256": "e68b50e62d5a6452718f6496d7ff1bc28bc4d966975332e0fdf83cf34fde155b",
+      "version": 940,
+      "manifest_matches": true,
+      "parameters": 776178,
+      "finite_weights": true,
+      "checkpoint_pending_train": false,
+      "state_pending_train": false
+    },
+    {
+      "format": "ffa4",
+      "path": "source/runs/formal_30h_scratch/ffa4/selected.pt",
+      "sha256": "e11e8809161e2be84343f5657536eeea8e1296962fb882d1425c7caf3cef0eaa",
+      "version": 100,
+      "manifest_matches": true,
+      "parameters": 776178,
+      "finite_weights": true,
+      "checkpoint_pending_train": false,
+      "state_pending_train": true
+    },
+    {
+      "format": "ffa4",
+      "path": "source/runs/formal_30h_scratch/ffa4/latest.pt",
+      "sha256": "36735910027c10a6e43c32543677d64f76270f44b295be081eb19709f9afc7c9",
+      "version": 601,
+      "manifest_matches": true,
+      "parameters": 776178,
+      "finite_weights": true,
+      "checkpoint_pending_train": true,
+      "state_pending_train": true
+    },
+    {
+      "format": "ffa4",
+      "path": "source/runs/formal_30h_scratch/ffa4/last_bc.pt",
+      "sha256": "77177ff80950bf75a33195826ef666889385baf88eb722b0494fe1e678e5d0f6",
+      "version": 601,
+      "manifest_matches": true,
+      "parameters": 776178,
+      "finite_weights": true,
+      "checkpoint_pending_train": false,
+      "state_pending_train": true
+    },
+    {
+      "format": "team2v2",
+      "path": "source/runs/formal_30h_scratch/team2v2/selected.pt",
+      "sha256": "02de100f80960c93450e491fc4b72d6094bd4702fcb4bb9efadabcf1ab560993",
+      "version": 100,
+      "manifest_matches": true,
+      "parameters": 776178,
+      "finite_weights": true,
+      "checkpoint_pending_train": false,
+      "state_pending_train": true
+    },
+    {
+      "format": "team2v2",
+      "path": "source/runs/formal_30h_scratch/team2v2/latest.pt",
+      "sha256": "b74e05b08068741e04fa0e4e5eedd648041d427da59d0fc56660d43ffc80ba16",
+      "version": 284,
+      "manifest_matches": true,
+      "parameters": 776178,
+      "finite_weights": true,
+      "checkpoint_pending_train": true,
+      "state_pending_train": true
+    },
+    {
+      "format": "team2v2",
+      "path": "source/runs/formal_30h_scratch/team2v2/last_bc.pt",
+      "sha256": "6a2a5c587d95853e8fb4fae7ee5c9cc997f00e2cad6b5a70f2389b6c26b17832",
+      "version": 53,
+      "manifest_matches": true,
+      "parameters": 776178,
+      "finite_weights": true,
+      "checkpoint_pending_train": false,
+      "state_pending_train": true
+    },
+    {
+      "format": "team2v2",
+      "path": "source/runs/formal_30h_scratch/team2v2/last_ppo.pt",
+      "sha256": "0aaaf7d197ba72f02138ba2a893c2212b9e3751456d6136f02cfa4417b007a49",
+      "version": 284,
+      "manifest_matches": true,
+      "parameters": 776178,
+      "finite_weights": true,
+      "checkpoint_pending_train": false,
+      "state_pending_train": true
+    }
+  ]
+}

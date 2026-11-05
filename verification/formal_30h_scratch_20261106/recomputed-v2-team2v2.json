@@ -1,0 +1,437 @@
+{
+  "audit_utc": "2026-11-05T19:09:30.553778+00:00",
+  "source_files": {
+    "evaluate.py": "60fbdd0ac348704a8db7058ce4c7b895fb84fc1b0167bb958b1f27523607251f",
+    "selection.py": "3f7bdfd41f92f05f2f5b95c89182376fd0a2180b7fb3975d7740aae3783803c4",
+    "experiment.py": "31ef7c49b6d1afd9da7251219174a6c778af16bb6c2445a7952d6a3cdf8c66ae",
+    "schedule.py": "769a42cb0857711a0369254d847ab65a0e4ef013dffa1db36004394eabb99a84"
+  },
+  "jobs_file": {
+    "path": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/team2v2/jobs.jsonl",
+    "sha256": "da12709fd0051d6706a300d8e60a6d94858c4c441a5d3f9f6d271b9e092dc055"
+  },
+  "final": {
+    "file": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/team2v2/schedules/final.json",
+    "sha256": "26310526826f61d7354a0dd0660c347c0a88701d925a15784df38286f519f709",
+    "planned_games": 240,
+    "recorded_games": 240,
+    "unique_recorded_games": 240,
+    "issues": [],
+    "blocks": 30,
+    "rotation_grid": {
+      "players": 4,
+      "contexts": [
+        "astra_partner",
+        "self_team"
+      ]
+    },
+    "scenario_clusters": 15,
+    "cluster_multiplicity_histogram": {
+      "2": 15
+    },
+    "policy_seat_appearances": {
+      "astra_partner": {
+        "1": 30,
+        "4": 30,
+        "3": 30,
+        "2": 30
+      },
+      "self_team": {
+        "1": 60,
+        "3": 60,
+        "2": 60,
+        "4": 60
+      }
+    },
+    "outcomes": {
+      "astra_partner": {
+        "loss": 41,
+        "win": 30,
+        "draw": 49
+      },
+      "self_team": {
+        "loss": 48,
+        "win": 18,
+        "draw": 54
+      }
+    },
+    "average_rank_histogram": {},
+    "raw_score_means": {
+      "astra_partner": {
+        "policy": 1.1583333333333334,
+        "control": 1.4333333333333333
+      },
+      "self_team": {
+        "policy": 0.9,
+        "control": 1.65
+      }
+    },
+    "terminations": {
+      "victory": 137,
+      "turn_limit": 103
+    },
+    "comparison": {
+      "status": "not_passed",
+      "blocks": 30,
+      "planned_blocks": 30,
+      "missing_blocks": 0,
+      "fault_games": 0,
+      "distinct_scenarios": 15,
+      "min_distinct": 12,
+      "reason": "not_passed",
+      "block_differences": {
+        "0": 0.375,
+        "1": -1.875,
+        "2": -0.375,
+        "3": -0.75,
+        "4": -1.875,
+        "5": -1.125,
+        "6": 0.375,
+        "7": 0.0,
+        "8": 0.75,
+        "9": -0.375,
+        "10": -0.375,
+        "11": -1.875,
+        "12": -0.375,
+        "13": 0.75,
+        "14": 0.375,
+        "15": -1.5,
+        "16": 0.75,
+        "17": -0.375,
+        "18": -0.375,
+        "19": -2.25,
+        "20": -0.375,
+        "21": 0.0,
+        "22": -0.75,
+        "23": -1.125,
+        "24": -0.375,
+        "25": -1.125,
+        "26": -0.75,
+        "27": -0.75,
+        "28": 0.75,
+        "29": -0.75
+      },
+      "difference": -0.5125,
+      "interval95": [
+        -0.8375,
+        -0.2
+      ],
+      "policy_score": 1.0291666666666666,
+      "control_score": 1.5416666666666667,
+      "contexts": {
+        "astra_partner": {
+          "difference": -0.275,
+          "interval95": [
+            -0.625,
+            0.05
+          ],
+          "blocks": 30,
+          "distinct_scenarios": 15
+        },
+        "self_team": {
+          "difference": -0.75,
+          "interval95": [
+            -1.25,
+            -0.2
+          ],
+          "blocks": 30,
+          "distinct_scenarios": 15
+        }
+      }
+    },
+    "report_exact_match": true,
+    "unscheduled_final_log_ids": [],
+    "outcomes_by_actual_policy_seats": {
+      "astra_partner:1": {
+        "loss": 11,
+        "draw": 11,
+        "win": 8
+      },
+      "astra_partner:2": {
+        "win": 11,
+        "draw": 14,
+        "loss": 5
+      },
+      "astra_partner:3": {
+        "draw": 15,
+        "loss": 9,
+        "win": 6
+      },
+      "astra_partner:4": {
+        "win": 5,
+        "loss": 16,
+        "draw": 9
+      },
+      "self_team:1,3": {
+        "loss": 26,
+        "draw": 28,
+        "win": 6
+      },
+      "self_team:2,4": {
+        "win": 12,
+        "draw": 26,
+        "loss": 22
+      }
+    },
+    "rotation_to_actual_policy_seats": {
+      "astra_partner:r0": [
+        [
+          1
+        ]
+      ],
+      "astra_partner:r1": [
+        [
+          4
+        ]
+      ],
+      "astra_partner:r2": [
+        [
+          3
+        ]
+      ],
+      "astra_partner:r3": [
+        [
+          2
+        ]
+      ],
+      "self_team:r0": [
+        [
+          1,
+          3
+        ]
+      ],
+      "self_team:r1": [
+        [
+          2,
+          4
+        ]
+      ],
+      "self_team:r2": [
+        [
+          1,
+          3
+        ]
+      ],
+      "self_team:r3": [
+        [
+          2,
+          4
+        ]
+      ]
+    }
+  },
+  "nomination": [
+    {
+      "file": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/team2v2/schedules/nominate-v000284-astra-fc1240e9b83f5391.json",
+      "sha256": "0dda7121c0d86a6fd31e43e9573fd21117febe89819219e5000e5fb54af6d064",
+      "planned_games": 96,
+      "recorded_games": 96,
+      "unique_recorded_games": 96,
+      "issues": [],
+      "blocks": 12,
+      "rotation_grid": {
+        "players": 4,
+        "contexts": [
+          "astra_partner",
+          "self_team"
+        ]
+      },
+      "scenario_clusters": 12,
+      "cluster_multiplicity_histogram": {
+        "1": 12
+      },
+      "policy_seat_appearances": {
+        "astra_partner": {
+          "1": 12,
+          "4": 12,
+          "3": 12,
+          "2": 12
+        },
+        "self_team": {
+          "1": 24,
+          "3": 24,
+          "2": 24,
+          "4": 24
+        }
+      },
+      "outcomes": {
+        "astra_partner": {
+          "win": 10,
+          "loss": 12,
+          "draw": 26
+        },
+        "self_team": {
+          "draw": 32,
+          "loss": 14,
+          "win": 2
+        }
+      },
+      "average_rank_histogram": {},
+      "raw_score_means": {
+        "astra_partner": {
+          "policy": 1.1666666666666667,
+          "control": 1.2916666666666667
+        },
+        "self_team": {
+          "policy": 0.7916666666666666,
+          "control": 1.5416666666666667
+        }
+      },
+      "terminations": {
+        "victory": 38,
+        "turn_limit": 58
+      },
+      "comparison": {
+        "status": "not_passed",
+        "blocks": 12,
+        "planned_blocks": 12,
+        "missing_blocks": 0,
+        "fault_games": 0,
+        "distinct_scenarios": 12,
+        "min_distinct": 12,
+        "reason": "not_passed",
+        "block_differences": {
+          "0": -0.75,
+          "1": -0.375,
+          "2": 0.0,
+          "3": -1.125,
+          "4": 0.75,
+          "5": 0,
+          "6": 0.375,
+          "7": -1.125,
+          "8": 0,
+          "9": -1.125,
+          "10": -0.75,
+          "11": -1.125
+        },
+        "difference": -0.4375,
+        "interval95": [
+          -0.78125,
+          -0.09375
+        ],
+        "policy_score": 0.9791666666666666,
+        "control_score": 1.4166666666666667,
+        "contexts": {
+          "astra_partner": {
+            "difference": -0.125,
+            "interval95": [
+              -0.375,
+              0.1875
+            ],
+            "blocks": 12,
+            "distinct_scenarios": 12
+          },
+          "self_team": {
+            "difference": -0.75,
+            "interval95": [
+              -1.375,
+              -0.125
+            ],
+            "blocks": 12,
+            "distinct_scenarios": 12
+          }
+        }
+      },
+      "report_exact_match": true,
+      "selection_panel_complete": true,
+      "outcomes_by_actual_policy_seats": {
+        "astra_partner:1": {
+          "win": 3,
+          "draw": 6,
+          "loss": 3
+        },
+        "astra_partner:2": {
+          "loss": 3,
+          "draw": 7,
+          "win": 2
+        },
+        "astra_partner:3": {
+          "win": 3,
+          "draw": 6,
+          "loss": 3
+        },
+        "astra_partner:4": {
+          "loss": 3,
+          "draw": 7,
+          "win": 2
+        },
+        "self_team:1,3": {
+          "draw": 14,
+          "loss": 8,
+          "win": 2
+        },
+        "self_team:2,4": {
+          "loss": 6,
+          "draw": 18
+        }
+      },
+      "rotation_to_actual_policy_seats": {
+        "astra_partner:r0": [
+          [
+            1
+          ]
+        ],
+        "astra_partner:r1": [
+          [
+            4
+          ]
+        ],
+        "astra_partner:r2": [
+          [
+            3
+          ]
+        ],
+        "astra_partner:r3": [
+          [
+            2
+          ]
+        ],
+        "self_team:r0": [
+          [
+            1,
+            3
+          ]
+        ],
+        "self_team:r1": [
+          [
+            2,
+            4
+          ]
+        ],
+        "self_team:r2": [
+          [
+            1,
+            3
+          ]
+        ],
+        "self_team:r3": [
+          [
+            2,
+            4
+          ]
+        ]
+      }
+    }
+  ],
+  "selection": {
+    "selected_hash": "02de100f80960c93450e491fc4b72d6094bd4702fcb4bb9efadabcf1ab560993",
+    "record_hash_matches": true,
+    "report_hash_matches": true,
+    "selected_equals_best": true,
+    "selection": {
+      "candidate": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/team2v2/last_ppo.pt",
+      "candidate_version": 284,
+      "champion": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/team2v2/best.pt",
+      "champion_version": 100,
+      "selected": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/team2v2/best.pt",
+      "selected_kind": "champion",
+      "selected_version": 100,
+      "reason": "astra nomination did not pass",
+      "selected_sha256": "02de100f80960c93450e491fc4b72d6094bd4702fcb4bb9efadabcf1ab560993",
+      "frozen_before_holdout": true,
+      "format": "team2v2"
+    }
+  },
+  "supersedes": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/review_20261106/recomputed-team2v2.json",
+  "seat_audit_note": "Outcomes are keyed by actual scheduled policy_sides, not rotation index."
+}

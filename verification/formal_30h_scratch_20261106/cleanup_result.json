@@ -1,0 +1,83 @@
+{
+  "utc": "2026-11-05T19:22:08.101885+00:00",
+  "root": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041",
+  "plan_sha256": "7637ba40682a51828aa85ff53c88c4b7b32e43b611b0d89f83977329fb182761",
+  "processes_using_root": [],
+  "deleted_files": 50,
+  "deleted_directories": 4,
+  "deleted_logical_bytes": 657400,
+  "released_allocated_bytes": 770048,
+  "remaining_deleted_paths": [],
+  "preserved_checkpoints": [
+    {
+      "path": "source/runs/formal_30h_scratch/duel/latest.pt",
+      "sha256": "834653aef37e811f719b136fb92e0bafea75a31d4c216590b8cfdf64e868383b",
+      "unchanged": true
+    },
+    {
+      "path": "source/runs/formal_30h_scratch/duel/selected.pt",
+      "sha256": "7065ad90650e48c0776ca4c3cb066008c1e151e62d0aeaa6095364c8e244f65b",
+      "unchanged": true
+    },
+    {
+      "path": "source/runs/formal_30h_scratch/duel/best.pt",
+      "sha256": "7065ad90650e48c0776ca4c3cb066008c1e151e62d0aeaa6095364c8e244f65b",
+      "unchanged": true
+    },
+    {
+      "path": "source/runs/formal_30h_scratch/duel/last_bc.pt",
+      "sha256": "05908d7f972148ccc7b39b8df0cc00435e2176861654a632de44c379b94953ab",
+      "unchanged": true
+    },
+    {
+      "path": "source/runs/formal_30h_scratch/duel/last_ppo.pt",
+      "sha256": "e68b50e62d5a6452718f6496d7ff1bc28bc4d966975332e0fdf83cf34fde155b",
+      "unchanged": true
+    },
+    {
+      "path": "source/runs/formal_30h_scratch/ffa4/latest.pt",
+      "sha256": "36735910027c10a6e43c32543677d64f76270f44b295be081eb19709f9afc7c9",
+      "unchanged": true
+    },
+    {
+      "path": "source/runs/formal_30h_scratch/ffa4/selected.pt",
+      "sha256": "e11e8809161e2be84343f5657536eeea8e1296962fb882d1425c7caf3cef0eaa",
+      "unchanged": true
+    },
+    {
+      "path": "source/runs/formal_30h_scratch/ffa4/best.pt",
+      "sha256": "e11e8809161e2be84343f5657536eeea8e1296962fb882d1425c7caf3cef0eaa",
+      "unchanged": true
+    },
+    {
+      "path": "source/runs/formal_30h_scratch/ffa4/last_bc.pt",
+      "sha256": "77177ff80950bf75a33195826ef666889385baf88eb722b0494fe1e678e5d0f6",
+      "unchanged": true
+    },
+    {
+      "path": "source/runs/formal_30h_scratch/team2v2/latest.pt",
+      "sha256": "b74e05b08068741e04fa0e4e5eedd648041d427da59d0fc56660d43ffc80ba16",
+      "unchanged": true
+    },
+    {
+      "path": "source/runs/formal_30h_scratch/team2v2/selected.pt",
+      "sha256": "02de100f80960c93450e491fc4b72d6094bd4702fcb4bb9efadabcf1ab560993",
+      "unchanged": true
+    },
+    {
+      "path": "source/runs/formal_30h_scratch/team2v2/best.pt",
+      "sha256": "02de100f80960c93450e491fc4b72d6094bd4702fcb4bb9efadabcf1ab560993",
+      "unchanged": true
+    },
+    {
+      "path": "source/runs/formal_30h_scratch/team2v2/last_bc.pt",
+      "sha256": "6a2a5c587d95853e8fb4fae7ee5c9cc997f00e2cad6b5a70f2389b6c26b17832",
+      "unchanged": true
+    },
+    {
+      "path": "source/runs/formal_30h_scratch/team2v2/last_ppo.pt",
+      "sha256": "0aaaf7d197ba72f02138ba2a893c2212b9e3751456d6136f02cfa4417b007a49",
+      "unchanged": true
+    }
+  ]
+}
