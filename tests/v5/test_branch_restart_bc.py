@@ -14,6 +14,7 @@ from learning.coordinator import Experiment
 from learning.data import split, write_shard
 from learning.experiment import FormatExperiment, default_config
 from tests.v5 import helpers
+from learning.tasks import TASK_ID, FORMULA_ID, reward_config
 
 
 class BranchRestartBCTests(unittest.TestCase):
@@ -52,7 +53,7 @@ class BranchRestartBCTests(unittest.TestCase):
             parent, child = Path(tmp)/'parent', Path(tmp)/'child'
             config = default_config('cpu') | dict(phase='bc', formats=['duel'], epochs=1, human_data=str(parent/'human'))
             config['bc_games']['duel'] = 2
-            manifest = dict(config=config, opponents=[dict(path='gpt6astra.zip', sha256='astra')],
+            manifest = dict(config=config, task_id=TASK_ID, opponents=[dict(path='gpt6astra.zip', sha256='astra')],
                             baseline=dict(path='unused'), teacher=dict(teacher_profile='v6'),
                             rules=dict(rules_sha256='fixture'), row_schema=6, batch_contract='scenario-v2')
             write_json(parent/'manifest.json', manifest)
@@ -63,9 +64,11 @@ class BranchRestartBCTests(unittest.TestCase):
             for partition in ('train', 'validation'):
                 family = next(str(i) for i in range(100) if split(str(i)) == partition)
                 row = helpers.synthetic_decision_row(game_id=partition, game_family=family)
-                row.update(split_rule='scenario-v2', scenario_family=family)
+                row.update(split_rule='scenario-v2', scenario_family=family, task_id=TASK_ID,
+                           reward_config=reward_config(), reward_formula_id=FORMULA_ID)
                 path = parent/'duel/data'/(partition+'.jsonl.gz')
-                write_shard(path, partition, [row], dict(bots=['astra', 'astra'], faults=[], winner=1))
+                write_shard(path, partition, [row], dict(bots=['astra', 'astra'], faults=[], winner=1,
+                                                       task_id=TASK_ID, task_terminal=True))
                 paths.append(str(path))
                 kind = row['actual']['kind']
                 jobs.append(dict(id=partition, meta=dict(phase='teacher'), status='complete',
