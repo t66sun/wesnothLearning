@@ -16,7 +16,8 @@ function T.key(node)
     node.identity=table.concat(rows,';');return node.identity
 end
 function T.create(state,root_actions,config,expired)
-    local model={};local root={state=state,used=0,choices=root_actions}
+    local model={players=state.players};local root={state=state,used=0,choices=root_actions}
+    function model.player(node) return node.state.side end
     function model.key(node) return T.key(node) end
     function model.terminal(node) return node.state.leaf_only or node.state.turn>node.state.max_turns end
     function model.maximizing(node) return not state.enemies[state.root_side][node.state.side] end
