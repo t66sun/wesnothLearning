@@ -14,7 +14,8 @@ function M:evaluation(cfg,data)
     if not state then data.search={ms=wesnoth.ms_since_init()-start,depth=0,expired=true};return 0 end
     local settings=config[state.format] or config
     local function expired() return wesnoth.ms_since_init()-start>=(settings.tactical_ms or 700) end
-    local actions,predictions=A.generate(state,settings,expired,true)
+    local function roots_expired() return wesnoth.ms_since_init()-start>=math.min(settings.root_ms or 700,settings.tactical_ms or 700) end
+    local actions,predictions=A.generate(state,settings,roots_expired,true)
     local legal={}
     for _,a in ipairs(actions) do
         local ok=a.kind=='end_turn' or a.kind=='recruit' and ai.check_recruit(a.type,{a.x,a.y}).ok
@@ -23,7 +24,7 @@ function M:evaluation(cfg,data)
     end
     if #legal==0 then data.plan=nil;return 0 end
     local action,stats=Search.choose(state,legal,settings,expired)
-    stats.ms=wesnoth.ms_since_init()-start;stats.predictions=predictions;stats.algorithm=settings.algorithm
+    stats.ms=wesnoth.ms_since_init()-start;stats.predictions=predictions
     stats.model='public-local-v1';data.search=stats
     stats.cache_entries,stats.cache_hits=C.cache_stats()
     stats.expired=stats.ms>=(settings.planning_ms or 1000)
