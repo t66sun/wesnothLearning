@@ -3,6 +3,38 @@ from tests.test_search_teacher import load_teacher
 
 
 class TeacherVariantTests(unittest.TestCase):
+    def test_leader_death_removes_its_faction_but_keeps_a_team_partner(self):
+        lua,_=load_teacher()
+        lua.execute('''
+            a=unit('a',1,2,2,30,20);leader=unit('leader',2,2,3,5,1);leader.leader=true
+            follower=unit('follower',2,6,6,30,10);partner=unit('partner',4,6,7,30,10);partner.leader=true
+            s=board({a,leader,follower,partner},4);s.gold[2]=50;s.owners[geometry.key(6,6)]=2
+            s.enemies[2][4]=false;s.enemies[4][2]=false
+            after=state.apply(s,{kind='combat',id='a',enemy='leader',weapon=1,tx=2,ty=2})
+        ''')
+        self.assertEqual(lua.eval('after.units.follower.hp'),0)
+        self.assertEqual(lua.eval('after.units.partner.hp'),30)
+        self.assertTrue(lua.eval('after.defeated[2]'))
+        self.assertEqual(lua.eval('state.material(after,2)'),0)
+        self.assertEqual(lua.eval('s.units.follower.hp'),30)
+        self.assertIsNone(lua.eval('s.defeated'))
+
+    def test_another_known_living_leader_prevents_faction_elimination(self):
+        lua,_=load_teacher()
+        lua.execute('''
+            a=unit('a',1,2,2,30,20);leader=unit('leader',2,2,3,5,1);leader.leader=true
+            second=unit('second',2,6,6,30,10);second.leader=true;s=board{a,leader,second};s.gold[2]=50
+            after=state.apply(s,{kind='combat',id='a',enemy='leader',weapon=1,tx=2,ty=2})
+        ''')
+        self.assertEqual(lua.eval('after.units.second.hp'),30)
+        self.assertEqual(lua.eval('after.gold[2]'),50)
+        self.assertIsNone(lua.eval('after.defeated[2]'))
+
+    def test_live_state_identity_keeps_the_existing_private_seed(self):
+        lua,_=load_teacher();lua.globals().model=lua.globals().load_module('tree_model.lua')
+        lua.execute("s=board{unit('a',1,2,2,20,5)};identity=model.key{state=s,used=0}")
+        self.assertEqual(lua.eval('identity'),'1;1;0;0;a,1,2,2,20,0,1,0,0;0/0;0/0')
+
     def test_forecast_cache_reuses_distributions_without_stale_context(self):
         lua,_=load_teacher()
         lua.execute('''
