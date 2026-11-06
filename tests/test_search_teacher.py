@@ -89,7 +89,7 @@ class SearchTeacherTests(unittest.TestCase):
         lua, _ = load_teacher()
         lua.execute('''
             slow=unit('slow',1,1,2,20,3);slow.cost=10;slow.weapons[1].slow=true
-            hit=unit('hit',1,2,1,18,12,2);hit.cost=40
+            hit=unit('hit',1,2,1,18,12,2);hit.cost=30
             enemy=unit('enemy',2,2,2,26,10,2);enemy.cost=100
             s=board{slow,hit,enemy};actions=actions.generate(s,config,never,true)
             greedy=actions[1]
