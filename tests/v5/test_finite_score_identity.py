@@ -73,7 +73,8 @@ class FiniteScoreIdentityTests(unittest.TestCase):
         with tempfile.TemporaryDirectory(dir=ROOT) as temporary:
             parent, child = Path(temporary)/'parent', Path(temporary)/'child'
             config = default_config('cpu') | dict(formats=['duel'], phase='bc', human_data=str(parent/'empty'))
-            old_config = config | dict(task_id=LEGACY_TASK, training_max_turns=60)
+            old_config = config | dict(task_id=LEGACY_TASK, training_max_turns=60,
+                                       formats=['duel','ffa4','team2v2'])
             old_manifest = dict(config=old_config, opponents=[dict(path='gpt6astra.zip', sha256='astra')],
                                 rules=dict(rules_sha256='fixture'), baseline=dict(path='unused'))
             write_json(parent/'manifest.json', old_manifest)
@@ -102,6 +103,7 @@ class FiniteScoreIdentityTests(unittest.TestCase):
             branch = read_json(child/'branch.json')
             self.assertTrue(branch['reset_optimizer'])
             self.assertTrue(branch['weights_only'])
+            self.assertEqual(set(branch['checkpoints']), {'duel'})
             self.assertEqual(branch['checkpoints']['duel']['source'], str(source))
             self.assertEqual(branch['checkpoints']['duel']['sha256'], original)
             collector = mock.Mock(side_effect=AssertionError('fixture must not collect'))
@@ -128,6 +130,20 @@ class FiniteScoreIdentityTests(unittest.TestCase):
             self.assertEqual(sha256(source), original)
             self.assertFalse((child/'duel/last_bc.pt').exists())
             collector.assert_not_called()
+
+    def test_only_weights_initialization_allows_a_parent_format_subset(self):
+        with tempfile.TemporaryDirectory(dir=ROOT) as temporary:
+            parent = Path(temporary)/'parent'
+            config = default_config('cpu') | dict(phase='bc')
+            write_json(parent/'manifest.json', dict(config=config, task_id=TASK_ID))
+            write_json(parent/'clock.json', {})
+            with self.assertRaisesRegex(ValueError, 'keep the parent formats'):
+                Experiment(Path(temporary)/'same-task-child', config=config | dict(formats=['duel']),
+                           branch_from=parent)
+            write_json(parent/'manifest.json', dict(config=config | dict(formats=['duel']), task_id=TASK_ID))
+            with self.assertRaisesRegex(ValueError, 'subset of the parent formats'):
+                Experiment(Path(temporary)/'invalid-child', config=config | dict(
+                    formats=['ffa4'], branch_weights_only=True), branch_from=parent)
 
 
 if __name__ == '__main__':

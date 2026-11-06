@@ -149,7 +149,9 @@ class Experiment:
             self.config['rules_dir']=str(resolve_dir(self.config.get('rules_dir')))
             if self.config['engine']!=parent['config']['engine']:
                 raise ValueError('branch must keep the parent engine')
-            if set(self.config['formats'])!=set(parent['config']['formats']):
+            if weights_only and not set(self.config['formats']) <= set(parent['config']['formats']):
+                raise ValueError('weights-only formats must be a subset of the parent formats')
+            if not weights_only and set(self.config['formats'])!=set(parent['config']['formats']):
                 raise ValueError('branch must keep the parent formats')
             select_rules(self.config['rules_dir']);load(self.config['rules_dir'])
             self.directory.mkdir(parents=True,exist_ok=False)
