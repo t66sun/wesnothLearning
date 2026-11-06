@@ -68,9 +68,14 @@ def resume_pins(directory):
     return pins
 
 
-def validate_checkpoint(state, format_name=None, manifest_sha256=None):
+def validate_checkpoint(state, format_name=None, manifest_sha256=None, *, expected_task=None):
     """Reject a checkpoint that this execution cannot resume exactly."""
     version = state.get('checkpoint_version', 1)
+    if expected_task is not None:
+        from .tasks import require_task
+        require_task(expected_task)
+        if state.get('task_id') != expected_task:
+            raise ValueError('checkpoint training task differs; use explicit weights-only initialization')
     if version > CHECKPOINT_VERSION:
         raise ValueError('checkpoint was written by a newer execution format')
     if state.get('features') != schema():

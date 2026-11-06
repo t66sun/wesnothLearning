@@ -16,6 +16,8 @@ def parser():
     run.add_argument('--branch-from',metavar='RUN_DIR',help='从另一实验的 latest.pt 建立显式分支（新目录、新预算，保留父记录）')
     run.add_argument('--branch-reset-optimizer',action='store_true',help='分支时只保留权重，重新初始化 Adam')
     run.add_argument('--branch-restart-bc',action='store_true',help='用兼容的父权重与教师分片从校准开始，重新训练并验证 BC')
+    run.add_argument('--branch-weights-only',action='store_true',help='仅以父策略初始化新 BC 运行；重置价值头、优化器和全部训练状态')
+    run.add_argument('--branch-checkpoint',choices=['latest','last_bc'],default='latest',help='weights-only 初始化端点；默认 latest')
     run.add_argument('--hours',type=float,default=12);run.add_argument('--workers',type=int,default=None,help='全局游戏进程数（1–16；默认 8）')
     run.add_argument('--formats',nargs='+',choices=FORMATS,default=list(FORMATS))
     run.add_argument('--human-data',default=str(ROOT/'data/datasets/human'))
@@ -24,6 +26,7 @@ def parser():
     run.add_argument('--evaluation-engine',choices=['native','lite'],default=None,help='最终评测引擎，默认跟随 --engine')
     run.add_argument('--rules-dir',help='冻结规则目录，默认 data/rules/1.18.8-combat-filtered；恢复时使用 manifest')
     run.add_argument('--reward-mode',choices=['fixed','scheduled','adaptive'],default='adaptive')
+    run.add_argument('--ppo-aux-target',choices=['historical_action','frozen_bc_kl'],default=None,help='新运行的 PPO 辅助目标：历史动作 CE（默认）或冻结 BC 分布 KL')
     run.add_argument('--phase',choices=['auto','bc'],default=None,help='auto 一键流程；bc 只做 BC，完成后等待显式 PPO/评测指令')
     run.add_argument('--allow-approximate',action=argparse.BooleanOptionalAction,default=None,help='lite 默认接受已记录近似；不允许未支持的训练单位')
     run.add_argument('--trainer-threads',type=int,default=1,help='每个训练器的 CPU 计算线程数（默认 1）')
@@ -36,7 +39,7 @@ def parser():
     run.add_argument('--bc-batch-games',type=int,help='每个赛制每轮采集的教师局数（默认 8，共享全局进程池）')
     run.add_argument('--bc-records',type=int,help='轮换教师训练样本池容量（CPU 默认 2048，CUDA 默认 8192）')
     run.add_argument('--bc-validation-records',type=int,help='固定验证样本池容量（CPU 默认 1024，CUDA 默认 4096）')
-    run.add_argument('--training-max-turns',type=int,help='教师/PPO 训练局回合上限（默认 60；评估仍为 30）')
+    run.add_argument('--training-max-turns',type=int,help='新有限计分任务固定为 30，教师/DAgger/PPO 使用同一终局')
     run.add_argument('--shaping-weight',type=float,help='训练潜势差分权重（默认 0.05；设 0 可关闭）')
     phase=commands.add_parser('phase',help='在批次边界切换 BC/PPO/最终评测；停止的实验需随后 resume')
     phase.add_argument('phase',choices=['show','auto','bc','ppo','evaluate'])
@@ -132,7 +135,7 @@ def run_config(args):
     directory=bind_rules(args)
     from .experiment import default_config
     names=('hours','workers','device','trainer_threads','seed','final_blocks','formats','human_data','validation_interval',
-           'bc_batch_games','bc_records','bc_validation_records','training_max_turns','shaping_weight','engine','evaluation_engine','reward_mode','allow_approximate','phase','final_holdout_hours')
+           'bc_batch_games','bc_records','bc_validation_records','training_max_turns','shaping_weight','engine','evaluation_engine','reward_mode','allow_approximate','phase','final_holdout_hours','ppo_aux_target')
     config=default_config(args.device,engine=args.engine)|{name:getattr(args,name) for name in names if getattr(args,name) is not None}
     config['rules_dir']=str(directory)
     if args.bc_games is not None:config['bc_games']=dict(zip(FORMATS,args.bc_games))
@@ -149,12 +152,15 @@ def main(argv=None):
         from .manifest import output_path
         if args.command=='run':
             if args.resume and args.phase is not None: raise ValueError('resume keeps the saved phase; use phase --run-dir to change it')
+            if args.resume and args.ppo_aux_target is not None: raise ValueError('resume keeps the frozen PPO auxiliary target; choose the target on a new run')
             if args.resume and args.branch_from: raise ValueError('choose resume or branch, not both')
             if args.branch_from and Path(args.branch_from).resolve()==Path(args.run_dir).resolve(): raise ValueError('branch needs a new run directory')
             from .coordinator import Experiment
             config=run_config(args)
             if args.branch_from: config['branch_reset_optimizer']=bool(args.branch_reset_optimizer)
             if args.branch_restart_bc: config['branch_restart_bc']=True
+            if args.branch_weights_only: config['branch_weights_only']=True
+            config['branch_checkpoint']=args.branch_checkpoint
             result=Experiment(args.resume or args.run_dir,config=config,opponents=args.opponents,wesnoth=args.wesnoth,
                 resume=bool(args.resume),branch_from=args.branch_from).run()
             print('Experiment:',result['status'])
@@ -187,16 +193,19 @@ def main(argv=None):
             from .export import load_model
             from .model import Policy
             from .train import train, checkpoint, restore_rng
+            from .tasks import TASK_ID
+            from .checkpoints import validate_checkpoint
             torch.set_num_threads(args.threads)
             model,state=load_model(args.checkpoint,args.format,args.device) if args.checkpoint else (Policy(args.format).to(args.device),None)
             optimizer=torch.optim.Adam(model.parameters(),lr=1e-4 if args.method=='ppo' else 3e-4)
             if state:
+                validate_checkpoint(state,args.format,expected_task=TASK_ID)
                 optimizer.load_state_dict(state['optimizer']);restore_rng(state,args.device)
             paths=sorted(Path(args.data).glob('*.jsonl.gz'))
             bc_paths=sorted(Path(args.bc_data).glob('*.jsonl.gz')) if args.bc_data else []
-            metrics=train(model,optimizer,read_shards(paths,format_name=args.format),args.method,args.epochs,args.minibatch,
-                bc_records=read_shards(bc_paths,format_name=args.format))
-            checkpoint(output_path(args.output),model,optimizer,method=args.method,metrics=metrics,data_paths=[str(p) for p in paths])
+            metrics=train(model,optimizer,read_shards(paths,format_name=args.format,expected_task=TASK_ID),args.method,args.epochs,args.minibatch,
+                bc_records=read_shards(bc_paths,format_name=args.format,expected_task=TASK_ID))
+            checkpoint(output_path(args.output),model,optimizer,task_id=TASK_ID,method=args.method,metrics=metrics,data_paths=[str(p) for p in paths])
             print(json.dumps(metrics))
         elif args.command=='export':
             from .export import export_checkpoints

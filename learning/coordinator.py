@@ -120,6 +120,13 @@ class Experiment:
         self.directory=output_path(directory);self.resume=resume;self.branch_from=branch_from
         requested=dict(config or {})
         restart_bc=requested.get('branch_restart_bc', False)
+        weights_only=requested.get('branch_weights_only', False)
+        checkpoint_name=requested.get('branch_checkpoint', 'latest')
+        if weights_only and (not branch_from or resume or restart_bc or requested.get('phase') != 'bc'):
+            raise ValueError('--branch-weights-only requires --branch-from and --phase bc, without --branch-restart-bc')
+        if checkpoint_name not in ('latest', 'last_bc') or (checkpoint_name != 'latest' and not weights_only):
+            raise ValueError('--branch-checkpoint last_bc requires --branch-weights-only')
+        if weights_only: requested['branch_reset_optimizer']=True
         if restart_bc and (not branch_from or resume or requested.get('phase') != 'bc' or not requested.get('branch_reset_optimizer')):
             raise ValueError('--branch-restart-bc requires --branch-from, --phase bc and --branch-reset-optimizer')
         if resume:
@@ -132,6 +139,9 @@ class Experiment:
         elif branch_from:
             source=Path(branch_from).resolve()
             parent=read_json(source/'manifest.json');parent_clock=read_json(source/'clock.json')
+            from .tasks import TASK_ID
+            if parent.get('task_id') != TASK_ID and not weights_only:
+                raise ValueError('branch training task differs; use --branch-weights-only for a new run')
             self.config=default_config(requested.get('device','cuda'),engine=requested.get('engine'))|requested
             validate_config(self.config)
             from .features import select_rules
@@ -139,7 +149,9 @@ class Experiment:
             self.config['rules_dir']=str(resolve_dir(self.config.get('rules_dir')))
             if self.config['engine']!=parent['config']['engine']:
                 raise ValueError('branch must keep the parent engine')
-            if set(self.config['formats'])!=set(parent['config']['formats']):
+            if weights_only and not set(self.config['formats']) <= set(parent['config']['formats']):
+                raise ValueError('weights-only formats must be a subset of the parent formats')
+            if not weights_only and set(self.config['formats'])!=set(parent['config']['formats']):
                 raise ValueError('branch must keep the parent formats')
             select_rules(self.config['rules_dir']);load(self.config['rules_dir'])
             self.directory.mkdir(parents=True,exist_ok=False)
@@ -152,7 +164,8 @@ class Experiment:
             started=time.time();duration=self.config['hours']*3600
             self.clock=dict(started=started,update_deadline=started+duration*10/12,deadline=started+duration)
             records=prepare_branch(source,self.directory,self.config['formats'],seed=self.config['seed'],
-                reset_optimizer=bool(self.config.get('branch_reset_optimizer')),clock=parent_clock)
+                reset_optimizer=bool(self.config.get('branch_reset_optimizer')),clock=parent_clock,restart_bc=restart_bc,
+                weights_only=weights_only,checkpoint_name=checkpoint_name)
             records.update(parent=str(source),parent_manifest_sha256=sha256(source/'manifest.json'),
                 parent_clock=parent_clock)
             if restart_bc: records['restart_bc']=True

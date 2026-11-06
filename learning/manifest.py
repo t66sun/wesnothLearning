@@ -59,7 +59,9 @@ def freeze(run_dir, opponents, wesnoth, config):
     from .teachers import lineage
     rules_dir=resolve_dir(config.get('rules_dir'))
     catalog=load(rules_dir)
-    manifest=dict(schema=4,config=config,features=schema(),architecture=ARCHITECTURE,
+    from .tasks import validate_run
+    validate_run(config)
+    manifest=dict(schema=4,config=config,task_id=config['task_id'],features=schema(),architecture=ARCHITECTURE,
         batch_contract=BATCH_CONTRACT,
         row_schema=ROW_SCHEMA,
         rules=dict(directory=str(rules_dir),rules_sha256=catalog['rules_file_sha256'],
@@ -77,6 +79,11 @@ def freeze(run_dir, opponents, wesnoth, config):
 
 
 def verify_frozen(manifest):
+    from .tasks import require_task, validate_run
+    require_task(manifest.get('task_id'))
+    validate_run(manifest['config'])
+    if manifest['task_id'] != manifest['config']['task_id']:
+        raise ValueError('manifest training task differs from configuration')
     if manifest.get('batch_contract') != BATCH_CONTRACT:
         raise ValueError('legacy batch eligibility requires the original frozen sources; '
                          'use a new run for the scenario-v2 contract')

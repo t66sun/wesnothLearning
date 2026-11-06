@@ -101,7 +101,7 @@ Lite 可达性与寻路对每个展开的格子只枚举一次六个相邻格。
 
 冻结公开战术夹具区分最终保留和前置提议限制：最终槽位分配可能排除局部预测更优的武器，而每类型八个位置的招募提议可能在最终候选上限未满时就排除更安全且可负担的位置组合。同一组夹具保留了撤退、领袖疗伤、占村、先减速与结束回合选项。这些例子只限定当前决策的动作支持，不能证明棋力上限，也不足以支持整体增加预算。[具体见证、冻结策略排名与诊断成本](../verification/candidate_support_20261106/REPORT.md)
 
-行是训练契约：schema 6，由 `rowpack` v2 编码（JSON 元数据加每行一个 base64 float32 块），装在 gzip JSONL shard 中。每行携带引擎/规则/RNG/战斗/候选/奖励版本、奖励公式、场景族、split 规则、对局族、教师身份与来源（`astra`、`human`、`policy`）。`data.validate_record` 拒绝任何出处、宽度、有限性、意图字段或奖励配置与冻结运行不一致的行。BC 仅用结果有效的行训练价值头，schema 6 读取 `terminal_reward`，schema 5 读取 `reward`。
+行是训练契约：schema 6，由 `rowpack` v2 编码（JSON 元数据加每行一个 base64 float32 块），装在 gzip JSONL shard 中。每行携带任务/引擎/规则/RNG/战斗/候选/奖励身份、奖励公式、场景族、split 规则、对局族、教师身份与来源（`astra`、`human`、`policy`）。`data.validate_record` 拒绝不一致的出处、宽度、有限性、意图字段或奖励配置，训练读取要求匹配冻结任务身份。已知有限任务结果时，BC 价值监督使用 `terminal_reward - economy*reward_raw.economy - control*reward_raw.control`，与 PPO 完整回报相同；外部截断的 `value_valid=false`。历史 schema 5/6 数据仍可按原奖励语义用于只读诊断。
 
 有界 shard 读取会先考虑每个来源桶规划的首批对局族，再按行配额决定停止，避免一个长对局提前排除池中其他对局；额外族仅用于补足缺口。原有压缩/保留字节预算继续约束准入，完整原始前缀仍被保留。同一冻结批次、同样 2048 行上限下，FFA/团战读入族数由 22/9 增至 30/14；这不证明模仿质量。证据：`verification/bc_admission_20261102/REPORT.md`。
 
@@ -143,21 +143,25 @@ Lite 可达性与寻路对每个展开的格子只枚举一次六个相邻格。
 
 BC 模仿验证在 64 行推理块之间共享本次调用的历史缓存；无梯度且权重不变时，全部历史场景均可复用。每次验证重新建立缓存，有梯度重放仍保留八回合后缀。130 个决策/36 回合夹具的场景编码量从 238 降至 166，门禁指标一致；15 项受影响 Ubuntu 检查已有通过证据（`verification/bc_validation_cache_20261102/REPORT.md`）。生产耗时与 RSS 变化尚未测量。
 
+当前空间表示已证实两种有界信息损失。一对 32×16 的完全已知地形在同一空间格内改变地面路线连通性，完整 actor 张量和七个合法候选却完全相同。另一对 16×16 地形改变远处丘陵的位置；board 张量不同，但实际双卷积加均值池化编码器对应的含边界信息局部块多重集相同。邻近候选局部块、可见及最后可见实体坐标、已知区域掩码能够区分相应补偿对照。合法移动次序夹具证实同回合后续观察未写入循环记忆，但未证明有害的时机信息损失。四十个原始回合仍按三十二步脱离梯度加八步可微 GRU 重放；这不将 GAE 信用范围限制为八回合。尚未更改网络，也未证实棋力影响。[成对输入、结构论证与修复范围](../verification/representation_information_20261106/REPORT.md)
+
 ## 7. 奖励与在线控制
 
-奖励公式 `v5-potential-1`（`learning/rewards.py`）：
+新运行使用任务 `official-score-30-v1` 和奖励公式 `v5-official-score-potential-1`（`learning/tasks.py`、`learning/rewards.py`）：
 
-- 终局：duel 与 team2v2 为 ±1 / 0；ffa4 为居中名次点按最大偏差归一化；
+- 终局：duel/team 自身正式积分胜/平/负 `3/1/0` 通过 `z=2*score/3-1` 映射为 `(+1, -1/3, -1)`；FFA 正式名次分已在 `[0,1]`，使用 `z=2*score-1`；
 - 经济势函数：金币 + 军队造价·HP 比例 + 20·村庄，按队伍平均，并用 `200 + Σ|potential|` 归一化；
-- 逐行转移：势函数差乘 `γ^Δturn`，显式截断 bootstrap，以及对可见可达地形首次访问的探索账本。
+- 逐行转移：仅任务结束时应用 `z`，加上 `phi(next)-phi(now)`；初始 `phi=.15*economy+.10*control`，gamma 固定为 1，探索系数固定为 0。
 
-own-turn 时钟使用同一学习方相邻决策的回合差；同回合行动的 `Δturn=0`，GAE 的 `(γλ)^Δturn` 也遵循此规则。自然任务终局应用结果、清零经济/控制势函数并使用零 bootstrap。当前训练回合上限对仍存活的队伍视为外部截断：保留终点势函数及 critic bootstrap，PPO 忽略记录中的终局结果，BC 则将该结果标为无效。学习方已淘汰但队友仍存活时，仍属于该截断队伍。仅设置 `training_max_turns=30` 不会改变这些语义。
+教师、DAgger 和 PPO 在完整第 30 回合后或自然胜负时结束任务。两种边界均应用正式结果、清零终点势函数并禁止 bootstrap；队友共享结果，包括此前已被淘汰的学习方。早于任务完成的真正外部采样截断仍保留终点势函数及必需的 critic bootstrap。Native 报告完成的第 30 回合；Lite 推进到第 31 回合后停止，没有执行第 31 回合，实际采样上限将它与第 29 回合后的截断区分。own-turn 时钟仍使用同一方相邻决策的回合差：同回合行动 `delta_turn=0`，跨多回合时 GAE 使用 `lambda**delta_turn`。
 
-已选定的优化目标是正式比赛的 30 回合计分；生产实现仍为上述延续任务合同。team 正式自身积分按胜/平/负计 `3/1/0`，当前终局奖励 `+1/0/-1` 与自身减对手的积分差成比例，不与自身积分仿射等价。在宣称训练已对齐前，需要用新的目标/数据版本合同明确有限任务边界与精确计分统计量。原有 60 回合证据及 manifest 保留原义；固定 30 回合任务下，当前观测中的 `turn/30` 已能标识时间。
+探索为零且 gamma 为 1 时，完整回报为 `z-phi(start)`，势函数只引入与状态相关的常数，不改变结果偏好；不添加提前获胜奖励或 critic clamp。已有 `turn/30` 观测标识剩余时间。任务身份固定在 config、赛程、奖励配置、数据行和检查点中；旧 `continuation-v1`/`v5-potential-1` 输入仍可只读诊断，但不能用于有限任务训练或恢复，冻结数据和证据不得重标。
+
+有限任务边界已通过 116 项 Ubuntu 检查，覆盖真实 Lite 终局夹具、真实 native Lua finish hook、任务身份/仅权重初始化及 PPO 单次读取接入。还原旧平局零奖励后，完整回报数值断言失败；这不构成新任务训练或棋力验收。[命令、源码身份与限制](../verification/finite_score_20261106/REPORT.md)
 
 冻结 team 全量扫描覆盖已提交训练批的 924 局 / 341,940 个决策。到第 30 回合仍有 71.75% 的对局未结束，36.38% 的决策发生在此后。晚期触顶对局中，58.09% 的决策价值超出该运行 `.15/.10/.10` 系数下保守的完整回报范围 `[-1.25,+1.25]`。报告区分自然终局 MC 校准与截断 bootstrap 自洽性；GAE 拟合或假设有限上限目标均不构成棋力证据。[边界夹具、校准与目标对齐](../verification/team_critic_horizon_20261106/REPORT.md)
 
-`RewardController`（`learning/control.py`）为每个赛制维护只追加的事件链（序号、前序校验和、校验和）。它在匹配地图/阵营分层、带 Astra 参考的完整 12 block 验证窗口上推进，每次只改一个系数且幅度 ≤±10%，并保持在 `economy 0.05–0.20`、`control 0.02–0.15`、`explore 0–0.15` 之内。自适应提议需两个可比窗口；holdout/final/test 分区永不调奖励；待处理命令在批边界生效。证据由 `learning/reward_metrics.py` 从匹配的验证窗口构建：策略对局与 Astra 参考按相同地图/阵营/队友上下文比较，每个分层至少四个独立对局族，缺失记录进入 `excluded_evidence` 而不是凑成完整块。
+`RewardController`（`learning/control.py`）为每个赛制维护只追加的事件链（序号、前序校验和、校验和）。它在匹配地图/阵营分层、带 Astra 参考的完整 12 block 验证窗口上推进，每次只改一个系数且幅度 ≤±10%，并保持在 `economy 0.05–0.20`、`control 0.02–0.15` 之内。有限任务的探索系数始终为零，手动和计划更新同样受约束。自适应提议需两个可比窗口；holdout/final/test 分区永不调奖励；待处理命令在批边界生效。证据由 `learning/reward_metrics.py` 从匹配的验证窗口构建：策略对局与 Astra 参考按相同地图/阵营/队友上下文比较，每个分层至少四个独立对局族，缺失记录进入 `excluded_evidence` 而不是凑成完整块。
 
 ## 8. 训练管线
 
@@ -171,13 +175,19 @@ own-turn 时钟使用同一学习方相邻决策的回合差；同回合行动�
 4. **Validation** 每 10 个版本对比教师，使用完整座位轮转。普通面板明确预算单挑 6、FFA 12、团队 24 局：各赛制三个不同场景，团队包含两种队友上下文。连续面板按 block 数推进，遍历完整验证阵容。晋升面板（版本号 %100）需 12 block、≥12 个不同族，并在同一批 block 上重评冠军。配置拒绝不足以满足场景下限的预算，以及超过冻结设计容量的下限。[Ubuntu 预算与阵容证据](../verification/trend_budget_20261106/REPORT.md)
 5. **Selection** 至多用已记录的可比面板从最新完整候选中提名一个对抗 `best.pt`；最终评估在触碰 holdout 地图之前冻结 `selected.pt`，并报告 30 block、≥12 个不同族。
 
-PPO 复习项在排除评测 control 的实现与标签来源哈希后，对合格行计算单动作交叉熵。冻结正式运行的 902 个单挑、231 个组队批次全部仅保留历史策略标签，没有约束冻结 BC 的动作分布。[BC 能力保持调查](../verification/bc_retention_20261106/REPORT.md) 明确了冻结 BC KL 候选、自身策略来源资格与保持诊断；生产中尚未启用该辅助目标。
+PPO 复习有两个明确目标，在新运行的 `config.ppo_aux_target` 中冻结。`historical_action`（默认，旧配置缺少该字段时同样使用）对合格历史动作做交叉熵；`frozen_bc_kl` 只使用合格 policy/train 复习状态，在同一保留合法候选集上计算 `bc_aux * KL(stop_gradient(pi_BC) || pi_current)`。两种模式均保留评测 control 实现/标签哈希排除、场景分区、采样配额和等权窗口/微批次权重。仅将 Astra 标签的 source 改为 policy 不会使其合格。两个模型分别用自己的权重和缓存重放完整原始历史；锚点无梯度，其 value head 不提供蒸馏目标。系数仍来自既有逐批冻结的 `pending_train.reward_config.bc_aux`（默认 0.1），本模式不附带调参。
+
+首次 PPO 导出或采集前，`learning/bc_anchor.py` 将完整且合格的 `last_bc.pt` 复制为 `<format>/frozen_bc.pt`。阶段/检查点状态固定文件与参数哈希、赛制、行 schema、特征/架构、任务、来源 manifest、父运行谱系和教师初始化谱系，不改写 manifest。同任务的 BC 分支只可使用父运行明确固定的完整 BC 端点，且必须与分支起始权重/版本/schema 一致。旧任务 actor 初始化必须获得自己的 BC 结果。恢复及每次更新都校验同一锚点，文件或身份缺失/变化会在更新前报错；可变的 latest/selected/last_bc 角色不能重定向锚点。没有合格 BC 端点时，强制 PPO 也不能使用此模式。[目标定义与冻结梯度证据](../verification/bc_retention_20261106/REPORT.md) 是对照依据；实现测试不能证明保持了分布或提升了棋力。
 
 时钟把 `hours` 的 10/12 留给更新、2/12 留给冻结评估；`final_holdout_hours` 从评估窗口中划出。
+
+可选冻结 BC 目标通过 43 项独立 Ubuntu loss/runner/resume/来源/分支检查；与有限任务、完整 rollout 读取集成后通过 88 项联合检查，覆盖真实 runner/export/resume、任务兼容分片，以及 weights-only 初始化或 BC 重启时丢弃旧锚点的分支行为。在有限任务下将 KL 换回历史动作 CE，真实 runner 对照断言按预期失败。[独立证据](../verification/frozen_bc_anchor_20261106/REPORT.md)与[统一验收](../verification/ppo_task_anchor_acceptance_20261106/REPORT.md)证明接线；棋力与能力保持仍需实验判断。
 
 检查点在 `state.json` 旁原子写入；恢复时校验 manifest 哈希、schema、权重与优化器状态，分支运行还接受其继承检查点仍指向的父 manifest 哈希。`--branch-from` 把完整 `latest.pt` 复制成新运行，记录父身份、新时钟与种子，并保留或重置优化器。语料与覆盖门禁只复用该检查点实际保留分片对应的合格祖先教师结果，排除祖先后续采集，并按分片路径去重嵌套谱系。30 项受影响 Ubuntu 检查及真实父运行 40 局只读检查通过（`verification/branch_teacher_evidence_20261102/REPORT.md`）。
 
 带 `--branch-restart-bc` 的分支使用兼容父权重、原教师和 DAgger 分片路径及谱系，从校准阶段开始。Adam、计数器、阶段状态、奖励控制和选模状态重新初始化。各赛制在子运行完成 BC 更新后重新计算常规门禁。复用数据沿用原有场景族分区，包括参与父检查点选取的验证场景族。[Ubuntu 验证和 v6 输入标识](../verification/bc_branch_restart_20261104/REPORT.md)
+
+跨任务初始化必须使用 `--branch-weights-only --phase bc`，可显式选择 `--branch-checkpoint last_bc`（默认 `latest`）及父格式的非空子集。仅保留兼容的 actor 参数，记录确切源检查点及哈希，重置价值头、优化器、语料、奖励控制、计数器和门禁；新运行必须重新取得 BC 资格。普通分支保持原有继承合同和格式集合。任务标识不进入物理场景族哈希；已有哈希包含回合上限，因此旧 60 回合与新 30 回合的 BC 分区可能不同。旧 BC 初始化的 actor 不能仅因任务变化就宣称新 BC 验证分区独立；实验验收必须考虑地图分组和初始化谱系。
 
 PPO 效率诊断区分已提交、被 KL 拒绝和从未执行的工作。冻结运行中，单挑/组队被 KL 拒绝的决策访问占已检查访问的 7.45%/5.12%；未执行的计划步骤没有消耗前后向计算。六个单线程 CPU 样本每批数据准备耗时 14.16–38.24 秒，每个固定权重 epoch 耗时 5.79–22.24 秒。复习数据读取和原始历史计算是已有测量支持的后续方向；worker 槽位占用不代表 CPU 利用率。诊断没有提交优化器更新或生成新对局，也不构成提速或棋力提升证据。[成本分解、策略移动与改进顺序](../verification/ppo_efficiency_20261106/REPORT.md)
 
@@ -222,7 +232,7 @@ PPO 效率诊断区分已提交、被 KL 拒绝和从未执行的工作。冻结
 
 基准工作负载由 `benchmarks/contract.json` 固定：成对的 native/lite manifest、冷启动与常驻热态、等量工作与端到端两种模式，每组 30 个完整轮转块。验收要求主机、CPU 配额和 `work_signature` 完全一致，CPU 统计包含协调进程的整棵进程树，内存用 PSS（绝不以 RSS 代替），且 wall 与 CPU 都至少达到 native 的 5 倍；缺产物、故障或工作量不等一律保持 `inconclusive`。
 
-训练任务在场景准入、哈希与冻结之前绑定正整数配置 `training_max_turns`。有界 runner 传入其声明的 30；默认及旧配置保持 60。已冻结赛程与恢复时的 manifest 仍有优先权；评估和开局诊断保留独立上限。Ubuntu 50 项相关检查通过（`verification/training_turn_limit_20261102/REPORT.md`）；仅证明配置贯通，不证明普通 BC 或完整回环就绪。
+训练任务在场景准入与赛程冻结前绑定固定的 `training_max_turns=30` 和任务身份。评估同为 30；开局探针保留五回合的外部截断。旧 60 回合赛程与 manifest 只能用原源码恢复，不能作为本任务继续运行；此前回合上限接线证据保留原范围（`verification/training_turn_limit_20261102/REPORT.md`）。
 
 有界运行器要求各赛制在停机前和恢复后分别提交一个新的 PPO 批次，完成到期的中期验证轮换，并在留出评测前冻结选模。Ubuntu 源码 `3b6bc06` 从已验收的 BC 输入重新训练，完成全部 18 局中期验证，在 864 秒内部截止内用 851.87 秒完成了 420/420 局终评。90 个区组均完整，零故障。三个选定的 v3 检查点已导出，Python 与 Lua 的最大绝对误差为 7.11×10⁻¹⁴。整链用时 28 分 44 秒，正常退出。[完整有界回环及验收范围](../verification/bounded_public_final_20261104/REPORT.md)
 
@@ -244,10 +254,11 @@ PPO 效率诊断区分已提交、被 KL 拒绝和从未执行的工作。冻结
 | epoch / minibatch / micro | 4 / 256 / min(256, CPU 32 或 CUDA 64) |
 | BC 学习率 / PPO 学习率 | 3e-4 / 1e-4 |
 | PPO clip / value / entropy / BC 辅助 / 梯度裁剪 | 0.2 / 0.5 / 0.01 / 0.10 / 0.5 |
+| PPO 辅助目标 | `historical_action`；新运行可选 `frozen_bc_kl` |
 | KL 上限 / 计划版本 | 0.02 / 2 |
-| 奖励模式 / 取值范围 | adaptive / economy 0.05–0.20、control 0.02–0.15、explore 0–0.15 |
+| 奖励模式 / 取值范围 | adaptive / economy 0.05–0.20、control 0.02–0.15、explore 0；gamma 1 |
 | 共享候选上限 | 36 个动作 + 1 个结束回合（所有阶段） |
-| 回合上限 | 训练 60（`training_max_turns`）；校准/面板 30；开局诊断 5 |
+| 任务 / 回合上限 | `official-score-30-v1`；训练/校准/面板 30；开局诊断 5 |
 | shard 预算 | 压缩 96 MiB，保留估计 768 MiB |
 | final holdout 小时 | 0 |
 

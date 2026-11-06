@@ -104,11 +104,13 @@ def play_lite_job(job):
     from .teachers import identity as teacher_identity
     from .lite_policy import FrozenPolicies,game_spec,is_astra
     from .reward_metrics import summarize_game
+    from .tasks import TASK_ID, TASK_TURNS, bind_result, job_reward
     job_id = job['id']
     meta = job.get('meta', {})
     record_decisions = keeps_behavior(meta)
     records, dagger = TrajectoryBuffer(), TrajectoryBuffer()
     try:
+        config = job_reward(job)
         if time.time() >= job.get('deadline', float('inf')):
             return dict(id=job_id, status='budget_interrupted', engine='lite')
         if 'game_spec' not in job:
@@ -128,7 +130,6 @@ def play_lite_job(job):
                         require_accepted=job.get('require_accepted', True), teacher_path=teacher_path)
         teacher_profile=teacher_identity()['teacher_profile']
         behavior, bootstraps, metric_snapshots = [], {}, []
-        config = job.get('reward_config') or RewardConfig().to_dict()
         config = RewardConfig(**config).to_dict()
         rank_points, defeated = {}, set()
         decision_count = 0
@@ -192,6 +193,7 @@ def play_lite_job(job):
                                 teammate_context=job.get('meta',{}).get('context','astra_partner' if job.get('teams') else 'solo'),
                                 data_pool=job.get('data_pool', 'original'),
                                 reward_config=config, reward_version=config['reward_version'],
+                                task_id=config['task_id'],
                                 map=job.get('meta',{}).get('map'),map_sha256=job.get('meta',{}).get('map_sha256'),map_partition=job.get('meta',{}).get('map_partition'),
                                 reward_formula_id=config['reward_formula_id'], game_family=job.get('game_family', job_id),
                                 scenario_family=job.get('scenario_family'), split_rule=job.get('split_rule', 'family-seed-v1'))
@@ -227,7 +229,7 @@ def play_lite_job(job):
                     decision = compact_row(decision)
                     records.append(decision)
                     if not teacher and job.get('learning',{}).get('dagger_teacher'):
-                        label=dict(decision,source='astra',teacher='gpt6astra',teacher_impl='astra_lite',choice=-1,value_valid=False,data_pool='dagger')
+                        label=dict(decision,source='astra',teacher='gpt6astra',teacher_impl='astra_lite',choice=-1,value_valid=config['task_id']==TASK_ID,data_pool='dagger')
                         if query:
                             query_count[current]=query_count.get(current,0)+1;query_total+=1
                             wanted=teacher_candidate(teacher_plan);label.update(actual=wanted,intent=wanted,choice=matching(decision['candidates'],wanted),query_only=True)
@@ -241,7 +243,8 @@ def play_lite_job(job):
                     metric_snapshot(side,'eliminated')
             if view['finished']:
                 break
-        if view['truncated'] and any(not is_astra(bots[side-1]) for side in learner_sides):
+        scored_cap = config['task_id'] == TASK_ID and job['game_spec']['max_turns'] == TASK_TURNS
+        if view['truncated'] and not scored_cap and any(not is_astra(bots[side-1]) for side in learner_sides):
             # Never replace missing truncation values with zero or a teacher score.
             bootstrap_policy = job.get('bootstrap_policy')
             if bootstrap_policy is None and policies is None:
@@ -267,6 +270,7 @@ def play_lite_job(job):
                       reason='turn_limit' if view['truncated'] else 'victory', survivors=survivors,
                       bots=bots or ['gpt6astra']*len(teams), factions=job.get('factions') or [None]*len(teams), teams=teams if len(set(teams))<len(teams) else None,
                       turns=view['turn'], faults=[], rank_points=rank_points, approximate=True)
+        bind_result(result, job)
         written = write_shard(job['shard'], job_id, records, result, bootstraps) if job.get('shard') else None
         if dagger and job.get('shard'):
             path=Path(job['shard']);write_shard(path.with_name(path.name.replace('.jsonl.gz','.dagger.jsonl.gz')),job_id,dagger,result,bootstraps)

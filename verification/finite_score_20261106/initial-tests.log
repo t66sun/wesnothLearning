@@ -1,0 +1,39 @@
+test_bc_optimizer_supervises_the_same_shaped_value_target (tests.v5.test_finite_score.FiniteScoreArithmeticTests.test_bc_optimizer_supervises_the_same_shaped_value_target) ... FAIL
+test_cap_29_lite_round_30_is_still_external (tests.v5.test_finite_score.FiniteScoreArithmeticTests.test_cap_29_lite_round_30_is_still_external) ... ok
+test_completed_draw_telescopes_and_bc_matches_mc_and_ppo (tests.v5.test_finite_score.FiniteScoreArithmeticTests.test_completed_draw_telescopes_and_bc_matches_mc_and_ppo) ... ok
+test_early_external_cut_retains_potential_and_bootstrap (tests.v5.test_finite_score.FiniteScoreArithmeticTests.test_early_external_cut_retains_potential_and_bootstrap) ... ok
+test_eliminated_side_keeps_team_external_bootstrap_then_scores_final (tests.v5.test_finite_score.FiniteScoreArithmeticTests.test_eliminated_side_keeps_team_external_bootstrap_then_scores_final) ... ok
+test_ffa_uses_fixed_own_rank_scale_not_per_game_centering (tests.v5.test_finite_score.FiniteScoreArithmeticTests.test_ffa_uses_fixed_own_rank_scale_not_per_game_centering) ... ok
+test_legacy_configuration_is_never_implicitly_relabelled (tests.v5.test_finite_score.FiniteScoreArithmeticTests.test_legacy_configuration_is_never_implicitly_relabelled) ... ok
+test_natural_wins_and_losses_clear_endpoint_potential (tests.v5.test_finite_score.FiniteScoreArithmeticTests.test_natural_wins_and_losses_clear_endpoint_potential) ... ok
+test_new_config_rejects_discount_and_exploration_changes (tests.v5.test_finite_score.FiniteScoreArithmeticTests.test_new_config_rejects_discount_and_exploration_changes) ... ok
+test_own_official_points_have_one_positive_affine_normalization (tests.v5.test_finite_score.FiniteScoreArithmeticTests.test_own_official_points_have_one_positive_affine_normalization) ... ok
+test_raw_rowpack_and_training_reader_preserve_task_and_reject_old_data (tests.v5.test_finite_score.FiniteScoreArithmeticTests.test_raw_rowpack_and_training_reader_preserve_task_and_reject_old_data) ... ok
+test_same_turn_actions_and_multiturn_gap_keep_own_turn_lambda_clock (tests.v5.test_finite_score.FiniteScoreArithmeticTests.test_same_turn_actions_and_multiturn_gap_keep_own_turn_lambda_clock) ... ok
+test_team_outcome_includes_the_previously_eliminated_teammate (tests.v5.test_finite_score.FiniteScoreArithmeticTests.test_team_outcome_includes_the_previously_eliminated_teammate) ... ok
+test_complete_round_30_scores_both_sides_without_bootstrap (tests.v5.test_finite_score.FiniteScoreEngineTests.test_complete_round_30_scores_both_sides_without_bootstrap) ... ok
+test_dagger_queries_share_finite_outcome_and_value_valid (tests.v5.test_finite_score.FiniteScoreEngineTests.test_dagger_queries_share_finite_outcome_and_value_valid) ... ok
+test_early_eliminated_teammate_receives_final_draw (tests.v5.test_finite_score.FiniteScoreEngineTests.test_early_eliminated_teammate_receives_final_draw) ... ok
+test_native_event_ingestion_keeps_scored_and_external_boundary_identity (tests.v5.test_finite_score.FiniteScoreEngineTests.test_native_event_ingestion_keeps_scored_and_external_boundary_identity) ... ok
+test_native_runtime_suppresses_only_finite_scored_cap_bootstrap (tests.v5.test_finite_score.FiniteScoreEngineTests.test_native_runtime_suppresses_only_finite_scored_cap_bootstrap) ... ok
+test_real_external_cut_still_queries_and_records_bootstrap (tests.v5.test_finite_score.FiniteScoreEngineTests.test_real_external_cut_still_queries_and_records_bootstrap) ... ok
+test_real_natural_terminal_scores_without_tail_bootstrap (tests.v5.test_finite_score.FiniteScoreEngineTests.test_real_natural_terminal_scores_without_tail_bootstrap) ... ok
+test_checkpoint_task_checked_for_training_but_legacy_inference_loads (tests.v5.test_finite_score_identity.FiniteScoreIdentityTests.test_checkpoint_task_checked_for_training_but_legacy_inference_loads) ... ok
+test_legacy_manifest_cannot_resume_or_branch_as_the_same_task (tests.v5.test_finite_score_identity.FiniteScoreIdentityTests.test_legacy_manifest_cannot_resume_or_branch_as_the_same_task) ... ok
+test_old_bc_actor_initializes_fresh_task_without_inheriting_training_state (tests.v5.test_finite_score_identity.FiniteScoreIdentityTests.test_old_bc_actor_initializes_fresh_task_without_inheriting_training_state) ... ok
+test_restart_bc_rejects_legacy_supervision_contract (tests.v5.test_finite_score_identity.FiniteScoreIdentityTests.test_restart_bc_rejects_legacy_supervision_contract) ... ok
+test_task_identity_preserves_physical_scenario_partitions (tests.v5.test_finite_score_identity.FiniteScoreIdentityTests.test_task_identity_preserves_physical_scenario_partitions) ... ok
+test_weights_only_cli_is_explicit_and_selects_last_bc (tests.v5.test_finite_score_identity.FiniteScoreIdentityTests.test_weights_only_cli_is_explicit_and_selects_last_bc) ... ok
+
+======================================================================
+FAIL: test_bc_optimizer_supervises_the_same_shaped_value_target (tests.v5.test_finite_score.FiniteScoreArithmeticTests.test_bc_optimizer_supervises_the_same_shaped_value_target)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/finite_score_20261106_c241f63/source/tests/v5/test_finite_score.py", line 198, in test_bc_optimizer_supervises_the_same_shaped_value_target
+    self.assertAlmostEqual(output.bias.item(), -1/3-.06, places=6)
+AssertionError: 0.2500004172325134 != -0.3933333333333333 within 6 places (0.6433337505658467 difference)
+
+----------------------------------------------------------------------
+Ran 26 tests in 6.682s
+
+FAILED (failures=1)

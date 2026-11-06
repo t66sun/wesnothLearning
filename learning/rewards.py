@@ -2,6 +2,7 @@
 from dataclasses import asdict, dataclass
 import heapq
 import math
+from .tasks import LEGACY_TASK, TASK_ID, FORMULA_ID as SCORE_FORMULA
 
 FORMULA_ID = 'v5-potential-1'
 RANGES = {'economy': (.05, .20), 'control': (.02, .15), 'explore': (0., .15)}
@@ -19,6 +20,7 @@ class RewardConfig:
     gae_lambda: float = .95
     reward_version: int = 0
     reward_formula_id: str = FORMULA_ID
+    task_id: str = LEGACY_TASK
 
     def __post_init__(self):
         if self.mode not in ('fixed', 'scheduled', 'adaptive'):
@@ -34,16 +36,25 @@ class RewardConfig:
             raise ValueError('invalid discount')
         if type(self.reward_version) is not int or self.reward_version < 0:
             raise ValueError('invalid reward version')
-        if self.reward_formula_id != FORMULA_ID:
+        formula = {LEGACY_TASK: FORMULA_ID, TASK_ID: SCORE_FORMULA}.get(self.task_id)
+        if formula is None or self.reward_formula_id != formula:
             raise ValueError('unsupported reward formula')
+        if self.task_id == TASK_ID and (self.gamma != 1. or self.explore != 0.):
+            raise ValueError('official-score-30-v1 requires gamma=1 and explore=0')
 
     def to_dict(self):
         return asdict(self)
 
 
-def terminal_rewards(result):
+def terminal_rewards(result, task_id=LEGACY_TASK):
     """Return side-indexed rewards; FFA raw scores are centered together."""
     sides = list(range(1, len(result['bots']) + 1))
+    if task_id == TASK_ID:
+        from .evaluate import official_score
+        scale = 3. if result.get('teams') or len(sides) == 2 else 1.
+        return {s: 2. * official_score(result, s) / scale - 1. for s in sides}
+    if task_id != LEGACY_TASK:
+        raise ValueError('unknown training task')
     teams = result.get('teams')
     if teams and len(set(teams)) < len(sides):
         winning = result.get('winning_team', 0)
@@ -85,6 +96,8 @@ def transition_reward(now, following, config, *, terminal_reward=0., delta_turn=
     if delta_turn < 0:
         raise ValueError('negative own-turn span')
     gamma = config.gamma if gamma is None else gamma
+    if config.task_id == TASK_ID and gamma != 1.:
+        raise ValueError('official-score-30-v1 requires gamma=1')
     if not 0 < gamma <= 1:
         raise ValueError('invalid discount')
     discount = gamma ** delta_turn
