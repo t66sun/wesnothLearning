@@ -34,7 +34,7 @@ def init(args):
     manifest = dict(schema=1, source_commit=args.source_commit, evaluator_root=str(ROOT),
                     executable=executable, executable_sha256=digest(executable),
                     entropy_sha256=digest(match.ENTROPY_SHIM), baseline=baseline, workers=8,
-                    rules_sha256=digest(ROOT / 'data/rules/1.18.8-combat-filtered/rules.json'),
+                    native_capture_sha256=digest(ROOT / 'data/rules/1.18.8/rules.json'),
                     formats=list(FORMATS), horizons=list(HORIZONS), created=time.time(),
                     exploration_seconds=18000, post_seconds=14400, selection_seconds=3600,
                     improvement=.10, confidence=.95, min_distinct=12)
