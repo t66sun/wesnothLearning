@@ -63,6 +63,7 @@ function S.apply(s,a,rng)
         local u=G.copy(a.recruit);u.id='recruit:'..a.type..':'..G.key(a.x,a.y)
         u.x=a.x;u.y=a.y;u.moves=0;u.attacks_left=0;out.units[u.id]=u
         out.gold[u.side]=(out.gold[u.side] or 0)-u.cost
+        out.adjustment[u.side]=(out.adjustment[u.side] or 0)+(a.preference_bonus or 0)
         return out
     end
     local u=assert(out.units[a.id]);u.x=a.tx;u.y=a.ty;u.moves=a.remaining or 0

@@ -3,6 +3,28 @@ from tests.test_search_teacher import load_teacher
 
 
 class TeacherVariantTests(unittest.TestCase):
+    def test_recruit_preferences_avoid_always_buying_the_most_expensive_type(self):
+        lua,_=load_teacher()
+        lua.execute('''
+            leader=unit('leader',1,2,2,50,8);leader.leader=true
+            fighter=unit('fighter',1,0,0,40,8);fighter.type='Drake Fighter';fighter.cost=17
+            clasher=unit('clasher',1,0,0,40,8);clasher.type='Drake Clasher';clasher.cost=19
+            burner=unit('burner',1,0,0,40,8);burner.type='Drake Burner';burner.cost=21
+            s=board{leader};s.gold[1]=100;s.recruits={fighter,clasher,burner}
+            s.keeps[geometry.key(2,2)]={x=2,y=2}
+            for _,p in ipairs{{2,2},{2,3},{3,2}} do s.castles[geometry.key(p[1],p[2])]={x=p[1],y=p[2]} end
+            config.depth=1;config.reply_width=0
+            expensive=search.choose(s,actions.generate(s,config,never,true),config,never)
+            config.recruit_bias=4
+            first=search.choose(s,actions.generate(s,config,never,true),config,never)
+            next_state=state.apply(s,first)
+            second=search.choose(next_state,actions.generate(next_state,config,never,true),config,never)
+        ''')
+        self.assertEqual(lua.eval('expensive.type'),'Drake Burner')
+        self.assertEqual(lua.eval('first.type'),'Drake Clasher')
+        self.assertEqual(lua.eval('second.type'),'Drake Fighter')
+        self.assertEqual(lua.eval('s.gold[1]'),100)
+
     def test_leader_advance_accounts_for_extra_visible_followup_exposure(self):
         lua,_=load_teacher()
         lua.execute('''
