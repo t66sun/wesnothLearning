@@ -354,6 +354,8 @@ From that archived tree, use `/home/tongshu/venv/bin/python -m learning.teacher_
 4. `start` records the five-hour exploration and post-phase deadlines once. Subsequent `panel` calls use only train maps. Begin with one block, then two more using `--blocks 2 --offset 1`. `--opponent VERSION` enables version leagues only after a provisional six-cell baseline win. `status` reports complete evidence and unfinished panels.
 5. After five hours, `select` freezes validation and holdout designs from measured throughput, compares at most three candidates per format, freezes the composite package and runs holdout until the existing four-hour deadline. It writes `final.json` and `REPORT.md`; unqualified fallback selection cannot pass final acceptance.
 
+If a correctness audit disqualifies frozen candidates, preserve them and their matches. Before exploration ends, write a new immutable `selection_source.json` containing the reviewed selector's `evaluator_root` and `source_commit`, the original `base_source_commit`, `baseline_sha256`, unchanged `exploration_end`, `frozen` timestamp, and an `exclusions` map from candidate names to `reason` and `evidence`. Run only `select` from that reviewed archive. The selector validates these identities, excludes those versions from both nomination and fallback, and records the release in its output; the original manifest, clock, scores and acceptance thresholds stay fixed.
+
 Changing or restarting commands does not renew the clock. Keep failed versions and incomplete games. Do not tune from holdout, lower the 0.10/95%/12-scenario gate, or integrate the resulting teacher into training as part of this route.
 
 ## 10. Reporting and handover
