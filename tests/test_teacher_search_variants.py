@@ -3,6 +3,20 @@ from tests.test_search_teacher import load_teacher
 
 
 class TeacherVariantTests(unittest.TestCase):
+    def test_two_enemy_responses_expose_a_fatal_focus_fire(self):
+        lua,_=load_teacher()
+        lua.execute('''
+            leader=unit('leader',1,3,3,30,0);leader.leader=true
+            first=unit('first',2,3,2,30,20);second=unit('second',2,2,3,30,20)
+            s=board{leader,first,second};config.reply_width=3
+            one=search.reply(s,config,never)
+            config.reply_actions=2;two=search.reply(s,config,never)
+        ''')
+        self.assertEqual(lua.eval('one.units.leader.hp'),10)
+        self.assertEqual(lua.eval('two.units.leader.hp'),0)
+        self.assertTrue(lua.eval('two.defeated[1]'))
+        self.assertEqual(lua.eval('s.units.leader.hp'),30)
+
     def test_healthy_leader_stays_home_but_wounded_leader_can_seek_healing(self):
         lua,_=load_teacher()
         lua.execute('''
