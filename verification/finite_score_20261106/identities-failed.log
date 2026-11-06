@@ -1,0 +1,3 @@
+Traceback (most recent call last):
+  File "<stdin>", line 5, in <module>
+ImportError: cannot import name 'load' from 'learning.rules' (/home/tongshu/acceptance/finite_score_20261106_a969540/source/learning/rules.py)
