@@ -358,6 +358,8 @@ If a correctness audit disqualifies frozen candidates, preserve them and their m
 
 `python -m learning.teacher_lab.batch --directory EXPERIMENT --name PANEL --candidates A B --blocks 2 --offset 1` runs several frozen challengers against Astra in one shared eight-worker train panel, with matched scenes and unchanged scoring. For an older frozen evaluator, set `PYTHONPATH` to its root and execute the reviewed archive's `learning/teacher_lab/batch.py` by absolute path; the helper imports the frozen match/score modules and records its own source hash. Start it after the previous worker pool has finished.
 
+Add `--opponent VERSION` for a shared version-league panel. This requires a correctness-eligible provisional baseline winner across all six cells and at least three physical scenes; excluded candidates cannot unlock the league. Challengers must differ from the named frozen opponent. The existing clock, rotations, scoring and recorded opponent budgets still apply.
+
 Changing or restarting commands does not renew the clock. Keep failed versions and incomplete games. Do not tune from holdout, lower the 0.10/95%/12-scenario gate, or integrate the resulting teacher into training as part of this route.
 
 ## 10. Reporting and handover
