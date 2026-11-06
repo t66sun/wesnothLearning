@@ -1,0 +1,38 @@
+[
+  {
+    "format": "duel",
+    "path": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/duel/validation/nominate-v000940-astra.json",
+    "sha256": "918c13444ae330d30af94d880e65c819ea420bd668d9d79599c5f1e88373432c",
+    "complete": true,
+    "status": "inconclusive",
+    "blocks": 12,
+    "distinct_scenarios": 12,
+    "missing_blocks": 0,
+    "fault_games": 0,
+    "difference": -0.25
+  },
+  {
+    "format": "ffa4",
+    "path": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/ffa4/validation/nominate-v000601-astra.json",
+    "sha256": "a89e39ec50ca7c915b31b3566a6dfd65c8793c5946aa19922795a8331de8ae9c",
+    "complete": true,
+    "status": "inconclusive",
+    "blocks": 12,
+    "distinct_scenarios": 12,
+    "missing_blocks": 0,
+    "fault_games": 0,
+    "difference": -0.059027777777777776
+  },
+  {
+    "format": "team2v2",
+    "path": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/team2v2/validation/nominate-v000284-astra.json",
+    "sha256": "36c06932dc83fc198c3a42896ebab55630b1df8387958a1e0e74742b9f7fbdad",
+    "complete": true,
+    "status": "not_passed",
+    "blocks": 12,
+    "distinct_scenarios": 12,
+    "missing_blocks": 0,
+    "fault_games": 0,
+    "difference": -0.4375
+  }
+]

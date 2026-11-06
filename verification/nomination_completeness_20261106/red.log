@@ -1,0 +1,19 @@
+F
+======================================================================
+FAIL: test_complete_inconclusive_panel_is_reused_without_promoting (tests.v5.test_final_nomination.FinalNominationTests.test_complete_inconclusive_panel_is_reused_without_promoting)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/issue222_nomination_20261106/red/tests/v5/test_final_nomination.py", line 139, in test_complete_inconclusive_panel_is_reused_without_promoting
+    self.assertEqual(first, dict(choice='champion', reason='astra nomination did not pass'))
+AssertionError: {'choice': 'champion', 'reason': 'astra nomination panel incomplete'} != {'choice': 'champion', 'reason': 'astra nomination did not pass'}
+- {'choice': 'champion', 'reason': 'astra nomination panel incomplete'}
+?                                                      ^^^^^^^^^^^^^^
+
++ {'choice': 'champion', 'reason': 'astra nomination did not pass'}
+?                                                    ++++++++  ^^
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.601s
+
+FAILED (failures=1)
