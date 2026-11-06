@@ -114,7 +114,7 @@ def select(directory):
           for j in jobs_for(validation,row,baseline,fmt,h,blocks,'validation',timer['selection_end'],
                             manifest['executable'],seed=20261108)]
     results=execute(validation,jobs,workers=manifest['workers'],metadata=dict(partition='validation'))
-    report_panel(validation,jobs,results)
+    validation_summary=report_panel(validation,jobs,results)
     matched=matched_selection(jobs,results,shortlist)
     choices={};basis={}
     for fmt in FORMATS:
@@ -124,9 +124,12 @@ def select(directory):
             if key is not None: ranking.append((key,row['name'],row))
         ranking.sort(key=lambda r:(r[0],r[1]),reverse=True)
         choices[fmt]=ranking[0][2] if ranking else shortlist[fmt][0]
-        basis[fmt]='matched_validation' if ranking else 'exploration_fallback_validation_incomplete'
+        basis[fmt]='matched_validation' if ranking else 'unqualified_exploration_fallback'
     selected=compose(choices,post/'selected_teacher.zip')
-    selected.update(frozen=time.time(),basis=basis,source_candidates=choices)
+    qualified={fmt:basis[fmt]=='matched_validation' and all(
+        candidate_cells(validation_summary,choices[fmt]['name'],baseline['name']).get((fmt,h),{}).get('complete',False)
+        for h in HORIZONS) for fmt in FORMATS}
+    selected.update(frozen=time.time(),basis=basis,qualified=qualified,source_candidates=choices)
     write_new(post/'selected.json',selected)
     write_new(post/'matched_validation.json',matched)
     jobs=[job for rows in holdout_templates.values() for job in rows]
@@ -136,13 +139,13 @@ def select(directory):
     results=execute(holdout,jobs,workers=manifest['workers'],metadata=dict(partition='holdout',
                     selected_sha256=selected['package_sha256']))
     summary=report_panel(holdout,jobs,results,min_distinct=manifest['min_distinct'])
-    passed=len(summary)==6 and all(r['passed'] for r in summary.values())
+    passed=all(qualified.values()) and len(summary)==6 and all(r['passed'] for r in summary.values())
     final=dict(selected=selected,comparison=summary,passed=passed,finished=time.time(),clock=timer,
                scope='independent native teacher only; no training integration')
     write_new(directory/'final.json',final)
     lines=['# Independent teacher result','',f"Source: `{manifest['source_commit']}`.",
            f"Selected package SHA256: `{selected['package_sha256']}`.",'',
-           'Six-cell acceptance: '+('passed.' if passed else 'not achieved; see individual evidence below.'),'',
+           'Selection and six-cell acceptance: '+('passed.' if passed else 'not achieved; see individual evidence below.'),'',
            '| Format | Turns | Gain | 95% interval | Scenes | Complete | Passed |',
            '| --- | ---: | ---: | --- | ---: | --- | --- |']
     for r in summary.values():

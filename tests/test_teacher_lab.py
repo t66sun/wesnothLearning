@@ -204,6 +204,12 @@ class TeacherLabTests(unittest.TestCase):
         self.assertNotIn('b|astra|ffa4|100',rows)
 
     def test_post_phase_freezes_design_before_validation_and_selected_before_holdout(self):
+        self.post_phase()
+
+    def test_unqualified_selection_cannot_pass_using_holdout(self):
+        self.post_phase(fallback=True)
+
+    def post_phase(self,fallback=False):
         with tempfile.TemporaryDirectory() as temp:
             root=Path(temp);source=ROOT/'learning/teachers/search_teacher'
             baseline=stage(ROOT/'learning/teachers/gpt6astra','astra',root/'astra.zip')
@@ -228,13 +234,17 @@ class TeacherLabTests(unittest.TestCase):
             with patch('learning.teacher_lab.selection.time.time',return_value=18001),\
                     patch('learning.teacher_lab.selection.require_evaluator'),\
                     patch('learning.teacher_lab.selection.load_panels',return_value=(train,[outcome(j) for j in train])),\
+                    patch('learning.teacher_lab.selection.matched_selection',
+                          side_effect=lambda *args:{} if fallback else matched_selection(*args)),\
                     patch('learning.teacher_lab.selection.execute',side_effect=fake_execute):
                 select(root)
             final=read(root/'final.json')
-            self.assertTrue(final['passed'])
+            self.assertEqual(final['passed'],not fallback)
+            self.assertEqual(all(final['selected']['qualified'].values()),not fallback)
             self.assertEqual(len(final['comparison']),6)
             self.assertTrue(all(r['distinct_scenarios']>=12 for r in final['comparison'].values()))
-            self.assertEqual(set(final['selected']['basis'].values()),{'matched_validation'})
+            self.assertEqual(set(final['selected']['basis'].values()),
+                             {'unqualified_exploration_fallback' if fallback else 'matched_validation'})
 
 
 if __name__=='__main__':
