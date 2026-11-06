@@ -14,16 +14,20 @@ function M.reply(s,config,expired)
     for _=1,s.players-1 do
         if expired() then return nil end
         local reply_side=out.side
-        local choices=A.generate(out,cfg,expired,false)
-        local best,best_value=nil,-math.huge
-        for _,a in ipairs(choices) do
+        for _=1,math.max(1,config.reply_actions or 1) do
             if expired() then return nil end
-            local next_state=S.apply(out,a)
-            local value=S.value(next_state,out.side)
-            if value>best_value then best,best_value=next_state,value end
+            local choices=A.generate(out,cfg,expired,false)
+            local best,best_value=nil,-math.huge
+            for _,a in ipairs(choices) do
+                if expired() then return nil end
+                local next_state=S.apply(out,a)
+                local value=S.value(next_state,reply_side)
+                if value>best_value then best,best_value=next_state,value end
+            end
+            out=best or out
+            if out.leaf_only then return out end
+            if out.side~=reply_side then break end
         end
-        out=best or out
-        if out.leaf_only then return out end
         if out.side==reply_side then out=S.apply(out,{kind='end_turn'}) end
         if out.side==s.root_side then break end
     end
