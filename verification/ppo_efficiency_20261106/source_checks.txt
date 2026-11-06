@@ -1,0 +1,3 @@
+Tracked-source 1000-line gate PASS; unchanged grandfathered: [('tests/smoke_training_lite_8worker.py', 1050), ('tests/v5/test_pipeline_contract.py', 1504)]
+census.py measured/final byte identity PASS 65807e52eae9ae7b60a75f1ab7fd95e9aacf99e3f1fdaefba7d0e559fa0df72d
+probe.py measured/final byte identity PASS 6ef775c49a80378eab2e988eb0dada33f0419e9c8599f6e5b007b8db3283f368

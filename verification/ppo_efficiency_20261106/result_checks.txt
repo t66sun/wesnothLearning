@@ -1,0 +1,5 @@
+duel batches 902 ledger identities PASS
+team2v2 batches 231 ledger identities PASS
+6 frozen batches, 12 immutable-weight epochs PASS
+baseline max logp error 5.096658994840908e-06 value error 4.947870162474999e-07 logged stopped KL reproduction error 3.779806741904812e-08
+Actual model before/after digest, historical read_stats, row/window count assertions completed in probe.py.

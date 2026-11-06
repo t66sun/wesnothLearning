@@ -1,0 +1,185 @@
+{
+  "note": "Historical C.generate wall milliseconds for recorded learner decisions only. Excludes observation capture, teacher planning, execution, opponent decisions and process CPU.",
+  "batches": [
+    {
+      "format": "duel",
+      "batch": 38,
+      "recorded_learner_candidate_ms": {
+        "n": 447,
+        "total": 6198,
+        "minimum": 0,
+        "median": 12,
+        "mean": 13.865771812080537,
+        "maximum": 49
+      },
+      "preliminary_read": {
+        "wall_seconds": 0.7834576431196183,
+        "cpu_seconds": 0.783377827,
+        "returned_rows": 447
+      },
+      "dagger_raw_rows": 447,
+      "dagger_queries": 94,
+      "dagger_labels": 88,
+      "inputs": {
+        "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/duel/data/rollout-00038-duel-g0.jsonl.gz": "2b37c1d744cfba95fe4219f4796742b36f1d26c5522fcc69c81cc753dd2d7f38",
+        "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/duel/data/rollout-00038-duel-g0.dagger.jsonl.gz": "a0679108efc9f6717a7b6714ad134de5b692eb4ba7558325d03d01dbcbd482aa",
+        "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/duel/data/rollout-00038-duel-g1.jsonl.gz": "88d7f38aceb741770115b92911c864ba9b54f7fb0c5b85f6b42af63ae9135816",
+        "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/duel/data/rollout-00038-duel-g1.dagger.jsonl.gz": "0da03dc2db3d8545a46b94712dfd811fe90e048654ccbd71b9db40342df8bfad",
+        "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/duel/data/rollout-00038-duel-g2.jsonl.gz": "96acb5e3a91f3727dc1a0c39e45c10f881e36c84817d2ab1122e0e4fd5f6f656",
+        "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/duel/data/rollout-00038-duel-g2.dagger.jsonl.gz": "9d1902c308e1c5baeebe12f1a396e313043dbd0295cc0cf5350db0f55f85208a",
+        "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/duel/data/rollout-00038-duel-g3.jsonl.gz": "1ae21f15bf1717b69874e953612ad1ba01f28da700f32e42120f8f1a1c083e8b",
+        "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/duel/data/rollout-00038-duel-g3.dagger.jsonl.gz": "efe6c571155f09126cf1599ad47ba6207eb10518a53ed66aad05908f43712ade"
+      }
+    },
+    {
+      "format": "duel",
+      "batch": 489,
+      "recorded_learner_candidate_ms": {
+        "n": 536,
+        "total": 12239,
+        "minimum": 0,
+        "median": 21.0,
+        "mean": 22.833955223880597,
+        "maximum": 84
+      },
+      "preliminary_read": {
+        "wall_seconds": 0.9466008469462395,
+        "cpu_seconds": 0.9464484069999999,
+        "returned_rows": 536
+      },
+      "dagger_raw_rows": 536,
+      "dagger_queries": 89,
+      "dagger_labels": 77,
+      "inputs": {
+        "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/duel/data/rollout-00489-duel-g0.jsonl.gz": "dce2c53db3f1b7109dab643e58a3e1f805eea87269c1fe9ea09751844d8b9e58",
+        "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/duel/data/rollout-00489-duel-g0.dagger.jsonl.gz": "6bb220a38140a9f915010a148f403024b244de66e3bdf7247d4bdb0e5b16d196",
+        "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/duel/data/rollout-00489-duel-g1.jsonl.gz": "daff69f6dd788c4477b26a095dc6b43504c8c5a1d369cbce56706f481611804a",
+        "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/duel/data/rollout-00489-duel-g1.dagger.jsonl.gz": "805ec024fb80ae37e81db0eac825e9ff6c13a834ea53f1d9cffb6dadde248c29",
+        "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/duel/data/rollout-00489-duel-g2.jsonl.gz": "0b61ecf83e74e76a9af9a79e225574b9f30b9d5403039189758de68d80fa3ee0",
+        "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/duel/data/rollout-00489-duel-g2.dagger.jsonl.gz": "232f3c05c45cd52c2874e609ee2176c52a459ce359b1ec035fe72ca32c672847",
+        "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/duel/data/rollout-00489-duel-g3.jsonl.gz": "0be3b635044b851807a6f9800da418762284916362575bc5d8bc1a50f6d71542",
+        "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/duel/data/rollout-00489-duel-g3.dagger.jsonl.gz": "e575c09cc52a6c806f26cc1013c19d2553de5bf475c1fce1213bbc7742be699c"
+      }
+    },
+    {
+      "format": "duel",
+      "batch": 939,
+      "recorded_learner_candidate_ms": {
+        "n": 724,
+        "total": 9938,
+        "minimum": 0,
+        "median": 14.0,
+        "mean": 13.726519337016574,
+        "maximum": 49
+      },
+      "preliminary_read": {
+        "wall_seconds": 1.2737624240107834,
+        "cpu_seconds": 1.2736337290000002,
+        "returned_rows": 724
+      },
+      "dagger_raw_rows": 724,
+      "dagger_queries": 87,
+      "dagger_labels": 74,
+      "inputs": {
+        "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/duel/data/rollout-00939-duel-g0.jsonl.gz": "ffa19b08d973be2929b8bf9df3ac77b1256831f2b144887b6ad557b5c10cf59c",
+        "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/duel/data/rollout-00939-duel-g0.dagger.jsonl.gz": "293b2985e8d34e227fc83320167b7cd78e4672a448dba76cfe76352afd48d115",
+        "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/duel/data/rollout-00939-duel-g1.jsonl.gz": "612abfb892c30c10b4e99ca45b8d7eddf5a1a37f85c33dca67f9b67daecc5d2d",
+        "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/duel/data/rollout-00939-duel-g1.dagger.jsonl.gz": "55681949f6e0b21454eee650c866f5fc334c6305dd47af4037e5fb46fe361d86",
+        "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/duel/data/rollout-00939-duel-g2.jsonl.gz": "431d96ab7bc003bfe9e71003f3e1d9a439194b60e8b5e0c0ff035a31a4fafb26",
+        "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/duel/data/rollout-00939-duel-g2.dagger.jsonl.gz": "bde744fa75ea4a203d805bdc60be9b7b539bceefdec93422dd8028bd084974f6",
+        "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/duel/data/rollout-00939-duel-g3.jsonl.gz": "ac1d9f8223d5b14189b29d19240d63c733905885a32758b5d89f50f6f2a0bf8e",
+        "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/duel/data/rollout-00939-duel-g3.dagger.jsonl.gz": "87d569cd4712ccb8dc88e7fc5e348ba11292953c9c578f88ffb099eaa0118c2c"
+      }
+    },
+    {
+      "format": "team2v2",
+      "batch": 53,
+      "recorded_learner_candidate_ms": {
+        "n": 1490,
+        "total": 34791,
+        "minimum": 0,
+        "median": 21.0,
+        "mean": 23.3496644295302,
+        "maximum": 96
+      },
+      "preliminary_read": {
+        "wall_seconds": 3.0556628899648786,
+        "cpu_seconds": 3.055356444,
+        "returned_rows": 1490
+      },
+      "dagger_raw_rows": 1490,
+      "dagger_queries": 128,
+      "dagger_labels": 118,
+      "inputs": {
+        "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/team2v2/data/rollout-00053-team2v2-g0.jsonl.gz": "ce2025ad485cfd762355320504f16c8528ff07d04ea14df073336155e1f51eb2",
+        "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/team2v2/data/rollout-00053-team2v2-g0.dagger.jsonl.gz": "7857d2cf5129ca06bd1b28a12d2d16d99bb486ed0760921f3be406181997c4fb",
+        "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/team2v2/data/rollout-00053-team2v2-g1.jsonl.gz": "aba63fb9ce4fe030b4284816a7f1d1e5bcc140ba154d47f53da4c4052c1d8261",
+        "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/team2v2/data/rollout-00053-team2v2-g1.dagger.jsonl.gz": "8390c87112aa770c807178c5035faac53e1e758663a6f1840c966787dc665fa4",
+        "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/team2v2/data/rollout-00053-team2v2-g2.jsonl.gz": "e8c2c36967bb82643f0e8e5d3583fc50ddcc20e00e81637ed2ba5938502c2b99",
+        "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/team2v2/data/rollout-00053-team2v2-g2.dagger.jsonl.gz": "4ba08584885029d6ee3c16d47a8a69299e6fc49500e18dd12e9338d37d780d36",
+        "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/team2v2/data/rollout-00053-team2v2-g3.jsonl.gz": "f496f67fe90b5d1d357eb71062d631271b0e4274267a48413f77bd65556de164",
+        "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/team2v2/data/rollout-00053-team2v2-g3.dagger.jsonl.gz": "9fb16c9eae379a4acc6d37dedfbfbedea9e2be7a7ea446ef378906b90b266d8d"
+      }
+    },
+    {
+      "format": "team2v2",
+      "batch": 168,
+      "recorded_learner_candidate_ms": {
+        "n": 756,
+        "total": 13484,
+        "minimum": 0,
+        "median": 16.0,
+        "mean": 17.835978835978835,
+        "maximum": 112
+      },
+      "preliminary_read": {
+        "wall_seconds": 1.392678766977042,
+        "cpu_seconds": 1.3925652020000001,
+        "returned_rows": 756
+      },
+      "dagger_raw_rows": 756,
+      "dagger_queries": 120,
+      "dagger_labels": 115,
+      "inputs": {
+        "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/team2v2/data/rollout-00168-team2v2-g0.jsonl.gz": "2a15bc3f139b0bd520540c87b7b6c76a5d42f60613ee733d377b4cca00a409ad",
+        "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/team2v2/data/rollout-00168-team2v2-g0.dagger.jsonl.gz": "4f570f8b5eb4eab06e01f1a9768ad12e95f86c05a73eb6518a985c52a36a1e89",
+        "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/team2v2/data/rollout-00168-team2v2-g1.jsonl.gz": "ab75f25c6a5a308c85783d9352dd2537477f8b0532f9ecb93fd12149823fb9d6",
+        "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/team2v2/data/rollout-00168-team2v2-g1.dagger.jsonl.gz": "ab7fca7216053498015d4da2149027c6d5dda76ad7ff5461020e67b11d1bdac3",
+        "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/team2v2/data/rollout-00168-team2v2-g2.jsonl.gz": "38640155028af6c43711a6acc77281b0b139323a140cf1f9c218bdffaf2ca8f5",
+        "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/team2v2/data/rollout-00168-team2v2-g2.dagger.jsonl.gz": "eb68a20bcca746c09515b6f090c1695e65996425d4d1dc14b5e65937fcff2356",
+        "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/team2v2/data/rollout-00168-team2v2-g3.jsonl.gz": "73723f8c47e02c0a15c5b01b2a38acb56343a665e946ed113a62455a56a319e9",
+        "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/team2v2/data/rollout-00168-team2v2-g3.dagger.jsonl.gz": "31d089f8bacbf3408469896134afc755ec0771a2986d2ae500b673e1158d45a2"
+      }
+    },
+    {
+      "format": "team2v2",
+      "batch": 283,
+      "recorded_learner_candidate_ms": {
+        "n": 1353,
+        "total": 33766,
+        "minimum": 0,
+        "median": 23,
+        "mean": 24.95639320029564,
+        "maximum": 106
+      },
+      "preliminary_read": {
+        "wall_seconds": 2.7045308009255677,
+        "cpu_seconds": 2.704288677000001,
+        "returned_rows": 1353
+      },
+      "dagger_raw_rows": 1353,
+      "dagger_queries": 128,
+      "dagger_labels": 119,
+      "inputs": {
+        "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/team2v2/data/rollout-00283-team2v2-g0.jsonl.gz": "e705b817a5acf39341edfc4a6e46241df50b631383709420866f124f65a18ce0",
+        "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/team2v2/data/rollout-00283-team2v2-g0.dagger.jsonl.gz": "6479a2d9b5acc766b2228bab21ff197b8ec68b0fa91fc4410c736e38e3b740ef",
+        "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/team2v2/data/rollout-00283-team2v2-g1.jsonl.gz": "5ae275908921ae89c1faed8186047114816a6ed47dafff8d4e026dade1c0ba97",
+        "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/team2v2/data/rollout-00283-team2v2-g1.dagger.jsonl.gz": "b32edd1601fb93dc4a41c44d709815d7903ae1ff2865b01f73a4c8d91832258e",
+        "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/team2v2/data/rollout-00283-team2v2-g2.jsonl.gz": "ddd60aa3ce0767e574dc73ea4afa0784b28615ede1b9cd76bce2f45dc96bf46e",
+        "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/team2v2/data/rollout-00283-team2v2-g2.dagger.jsonl.gz": "540ab07675be7ca3b857e31b66f1cfc91f1b6c51e4642fdf2179bb979a026950",
+        "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/team2v2/data/rollout-00283-team2v2-g3.jsonl.gz": "6245629c69a37b75dfce862c2a5965162e00f71cdcdad6c2705f193311312db5",
+        "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/team2v2/data/rollout-00283-team2v2-g3.dagger.jsonl.gz": "636e9f4ba9aa20b76b0d87c7060f6bf6b5289c2bc8e3075bc63d6fb9bc8352c5"
+      }
+    }
+  ]
+}
