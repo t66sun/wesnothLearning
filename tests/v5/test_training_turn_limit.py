@@ -1,4 +1,4 @@
-"""The manual training horizon reaches frozen jobs without changing evaluation."""
+"""The finite task uses one 30-round horizon across training and evaluation."""
 import copy
 import json
 import tempfile
@@ -16,6 +16,7 @@ from learning.maps import scenario_family
 from learning.sample import opening_map
 from learning.schedule import teacher_jobs, rollout_jobs, evaluation_jobs
 from learning.updates import BATCH_CONTRACT
+from learning.tasks import TASK_ID
 
 
 def runner(directory, config):
@@ -40,26 +41,30 @@ def jobs(directory, fmt):
 class TrainingTurnLimitTests(unittest.TestCase):
     def test_default_cli_and_invalid_limits(self):
         config = default_config('cpu')
-        self.assertEqual(config['training_max_turns'], 60)
+        self.assertEqual(config['training_max_turns'], 30)
+        self.assertEqual(config['task_id'], TASK_ID)
         requested = run_config(parser().parse_args(['run', '--training-max-turns', '11']))
-        validate_config(requested)
+        with self.assertRaisesRegex(ValueError, 'training_max_turns'):
+            validate_config(requested)
         self.assertEqual(requested['training_max_turns'], 11)
         self.assertEqual(requested['bc_accuracy'], config['bc_accuracy'])
         self.assertEqual(requested['final_blocks'], 30)
-        for limit in (0, -1):
+        for limit in (0, -1, 29, 31, 60):
             with self.assertRaisesRegex(ValueError, 'training_max_turns'):
                 validate_config(config | dict(training_max_turns=limit))
         del config['training_max_turns']
-        validate_config(config)  # Historical manifests retain their 60-turn default.
+        with self.assertRaisesRegex(ValueError, 'training_max_turns'):
+            validate_config(config)
 
     def test_teacher_ppo_and_refresh_use_actual_limit_and_partition(self):
         for engine in ('lite', 'native'):
             for fmt in FORMATS:
                 with self.subTest(engine=engine, format=fmt), tempfile.TemporaryDirectory() as tmp, \
                      mock.patch('learning.maps.frozen_map', return_value=(opening_map(PLAYERS[fmt]), '0'*64)):
-                    experiment = runner(tmp, default_config('cpu', engine=engine) | dict(training_max_turns=11))
+                    experiment = runner(tmp, default_config('cpu', engine=engine))
                     scheduled, _ = experiment.execute(jobs(tmp, fmt), 'training')
-                    self.assertEqual({job['max_turns'] for job in scheduled}, {11})
+                    self.assertEqual({job['max_turns'] for job in scheduled}, {30})
+                    self.assertEqual({job['task_id'] for job in scheduled}, {TASK_ID})
                     self.assertEqual(json.loads((Path(tmp)/'schedules/training.json').read_text()), scheduled)
                     self.assertEqual(experiment.collector.call_args.args[0], scheduled)
                     for job in scheduled:
@@ -72,16 +77,13 @@ class TrainingTurnLimitTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp, \
              mock.patch('learning.maps.frozen_map', return_value=(opening_map(2), '0'*64)):
             config = default_config('cpu')
-            config.pop('training_max_turns', None)
             experiment = runner(tmp, config)
             initial = jobs(tmp, 'duel')
-            scheduled, _ = experiment.execute(copy.deepcopy(initial), 'legacy')
-            self.assertEqual({job['max_turns'] for job in scheduled}, {60})
-            experiment.config['training_max_turns'] = 11
+            scheduled, _ = experiment.execute(copy.deepcopy(initial), 'current')
+            self.assertEqual({job['max_turns'] for job in scheduled}, {30})
             scheduled, _ = experiment.execute(copy.deepcopy(initial), 'bounded')
-            self.assertEqual({job['max_turns'] for job in scheduled}, {11})
+            self.assertEqual({job['max_turns'] for job in scheduled}, {30})
             frozen = (Path(tmp)/'schedules/bounded.json').read_bytes()
-            experiment.config['training_max_turns'] = 9
             resumed, _ = experiment.execute(copy.deepcopy(initial), 'bounded')
             self.assertEqual(resumed, scheduled)
             self.assertEqual((Path(tmp)/'schedules/bounded.json').read_bytes(), frozen)
@@ -96,18 +98,18 @@ class TrainingTurnLimitTests(unittest.TestCase):
             directory = Path(tmp)
             baseline = directory/'baseline.engine'
             baseline.write_bytes(b'fixture')
-            config = default_config('cpu') | dict(training_max_turns=23)
-            write_json(directory/'manifest.json', dict(config=config, opponents=[], source={}, batch_contract=BATCH_CONTRACT,
+            config = default_config('cpu')
+            write_json(directory/'manifest.json', dict(config=config, task_id=TASK_ID, opponents=[], source={}, batch_contract=BATCH_CONTRACT,
                 baseline=dict(path=str(baseline), sha256=sha256(baseline))))
             write_json(directory/'clock.json', dict(started=1000., update_deadline=2000., deadline=3000.))
             requested = run_config(parser().parse_args(['run', '--resume', tmp, '--training-max-turns', '11']))
             resumed = Experiment(directory, config=requested, resume=True)
-            self.assertEqual(resumed.config['training_max_turns'], 23)
+            self.assertEqual(resumed.config['training_max_turns'], 30)
 
     def test_opening_probe_keeps_its_five_turn_limit(self):
         with tempfile.TemporaryDirectory() as tmp, \
              mock.patch('learning.maps.frozen_map', return_value=(opening_map(2), '0'*64)):
-            experiment = runner(tmp, default_config('cpu') | dict(training_max_turns=11))
+            experiment = runner(tmp, default_config('cpu'))
             probe = jobs(tmp, 'duel')[-1]
             probe.pop('training_scenario')
             probe['max_turns'] = 5

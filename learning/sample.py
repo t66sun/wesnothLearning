@@ -53,10 +53,16 @@ def play_job(job):
     if job.get('engine','native')=='lite':
         from .lite_host import play_lite_job
         return play_lite_job(job)
+    from .tasks import TASK_ID, bind_result, job_reward
+    reward_config = job_reward(job)
+    learning = job.get('learning')
+    if learning:
+        learning = dict(learning, sides={key: dict(value, task_id=reward_config.get('task_id'))
+                                        for key, value in learning['sides'].items()})
     try:
         result = match.play_game(bots=job['bots'], seed=job['seed'], factions=job['factions'],
             max_turns=job.get('max_turns',30), wesnoth=job['wesnoth'], replay_path=output,
-            learning=job.get('learning'), experiment_deadline=job['deadline'],
+            learning=learning, experiment_deadline=job['deadline'],
             timeout=job.get('timeout',1), first_timeout=job.get('first_timeout',10),
             teams=job.get('teams'),fog=job.get('fog',True),shroud=job.get('shroud',False),
             share_view=job.get('share_view',True),share_maps=job.get('share_maps',True),
@@ -64,6 +70,7 @@ def play_job(job):
     except RuntimeError as exc:
         status='budget_interrupted' if 'experiment_budget_interrupted' in str(exc) else 'infrastructure_error'
         return dict(id=job['id'], status=status, error=str(exc))
+    bind_result(result, job)
     records=[];bootstraps={};metric_snapshots=[]
     event_path=output.with_suffix('.events.jsonl.gz') if job.get('learning') else output.with_suffix('.events.jsonl')
     event_stream=gzip.open(event_path,'rt',encoding='utf-8') if job.get('learning') else event_path.open(encoding='utf-8')
@@ -89,14 +96,11 @@ def play_job(job):
 
     written=None
     if job.get('shard'):
-        from dataclasses import asdict
         from .features import schema
-        from .rewards import RewardConfig
-        reward_config=job.get('reward_config') or asdict(RewardConfig())
         provenance=dict(engine='native',engine_id='native',engine_version='1.18.8',native_version='1.18.8',
             rules_version=schema().get('rules_sha256') or 'native-1.18.8',rng_version='native-1.18.8',
             combat_version='native-1.18.8',teacher_profile='native',teacher_source_sha256='native-1.18.8',
-            architecture_id='relational_v5',
+            architecture_id='relational_v5',task_id=reward_config.get('task_id','continuation-v1'),
             reward_config=reward_config,reward_version=reward_config['reward_version'],reward_formula_id=reward_config['reward_formula_id'],
             data_pool='original',teacher_impl='astra_native',game_family=job.get('game_family',job['id']),
             scenario_family=job.get('scenario_family'),split_rule=job.get('split_rule','family-seed-v1'),
@@ -111,7 +115,7 @@ def play_job(job):
             for row in records:
                 label=row.get('dagger') or {}
                 context={k:v for k,v in row.items() if k!='dagger'}
-                context.update(choice=-1,source='astra',teacher='gpt6astra',data_pool='dagger',value_valid=False)
+                context.update(choice=-1,source='astra',teacher='gpt6astra',data_pool='dagger',value_valid=reward_config.get('task_id')==TASK_ID)
                 if not label.get('error') and label.get('choice',-1)>=0: context.update(label)
                 dagger.append(context)
             dagger_path=Path(job['shard']).with_name(Path(job['shard']).name.replace('.jsonl.gz','.dagger.jsonl.gz'))

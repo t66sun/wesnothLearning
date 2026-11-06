@@ -163,7 +163,7 @@ set -o pipefail
 
 长任务放到已有持久终端；有 tmux 时可先 `tmux new -s wesnoth-v5`，在其中执行环境和启动命令，使用 Ctrl-b、d 脱离，之后 `tmux attach -t wesnoth-v5` 接回。记录所用会话、主 PID、完整命令、日志和实验目录，确认断开 SSH 不会结束训练。不要依靠一个短时 SSH 工具请求持有整个长实验。
 
-明确要求缩短的新 run 可传 `--training-max-turns 30`，把教师、PPO 和 DAgger 训练局限制为 30 回合（普通默认 60）。该值进入冻结 manifest 和场景身份。评估仍为 30、开局诊断为 5，BC 门禁和面板规模不变。恢复沿用原配置及已冻结赛程，不能用此参数调整已有 run。
+新运行使用 `official-score-30-v1`：教师、PPO 和 DAgger 将完整第 30 回合作为正式计分终局。`--training-max-turns` 仅接受 30；gamma 为 1，探索奖励为 0，经济/控制保留势函数差分。评估同为 30，开局探针在 5 回合外部截断。BC 门禁和面板阈值保持现有合同。旧 60 回合数据与 manifest 不能恢复或混入本任务；`--human-data` 应指向空目录或兼容语料，不能重标历史数据。
 
 启动后的完成检查：
 
@@ -197,6 +197,8 @@ test -f "$run_dir/manifest.json" || exit 1
 ### 分开运行 BC、PPO 和最终评测
 
 要使用兼容父运行的权重和监督语料开始新的 BC 阶段，可运行 `python -m learning run --run-dir CHILD --branch-from PARENT --branch-restart-bc --branch-reset-optimizer --phase bc`，传入与父运行一致的赛制、引擎和训练回合上限。父运行须处在已提交的批次边界。子运行使用自己的种子和预算，从校准开始，以原验证分区评估首次更新的模型。
+
+以旧 BC actor 初始化新有限任务时，使用 `python -m learning run --run-dir CHILD --branch-from PARENT --branch-weights-only --branch-checkpoint last_bc --phase bc --formats duel --human-data EMPTY_OR_COMPATIBLE_DIRECTORY`，保留父运行的引擎和规则，并传入另行授权的预算和种子。仅权重初始化允许父运行赛制的非空子集，普通分支仍要求完整相同赛制集合。省略 `--branch-checkpoint` 则选择 `latest`。程序记录来源路径/哈希，重置价值头和优化器，从空训练状态、全新门禁与校准开始，不继承父语料和 BC 资格。普通 PPO 前需取得新任务的合格 BC 端点；后续同任务分支可复用兼容监督语料。仅在另行指令授权后启动。任务/回合上限变化不构成 warm-start actor 的独立验证集，实验设计需审计其历史地图/场景暴露。
 
 以下入口用于与当前 schema/源码匹配的新实验。旧 schema 4 的已结束实验不能用 schema 5 直接恢复。默认 `run` 仍是 auto 一键流程；只做 BC 时创建实验加 `--phase bc`，BC 达标或阶段预算结束后保存为 `bc_complete`，不自动开始 PPO/最终评测。
 
@@ -292,23 +294,23 @@ BC 局数不增长不一定挂住：配额已满而质量未过时会继续学�
 | --- | --- | --- |
 | economy | `--reward-economy` | 0.05–0.20 |
 | control | `--reward-control` | 0.02–0.15 |
-| explore | `--reward-explore` | 0–0.15 |
+| explore | `--reward-explore` | `official-score-30-v1` 固定为 0 |
 | 模式 | `--reward-mode` | fixed / scheduled / adaptive |
 | 熵系数 | `--entropy` | 非负有限数 |
 | BC 辅助系数 | `--bc-aux` | 非负有限数 |
 
-使用现有控制队列，不能直接写 state/checkpoint/config。以下变量必须先由用户指令赋值；例子只修改指定赛制的探索系数：
+使用现有控制队列，不能直接写 state/checkpoint/config。以下变量必须先由用户指令赋值；例子只修改指定赛制的经济势函数系数：
 
 ```bash
 : "${run_dir:?指定现有实验}"
 : "${target_format:?指定 duel/ffa4/team2v2}"
-: "${target_explore:?填写用户指定的探索系数}"
+: "${target_economy:?填写用户指定的经济系数}"
 : "${change_reason:?记录本次用户指令与变更原因}"
 test -f "$run_dir/manifest.json" || exit 1
 "$python" -m learning control show --run-dir "$run_dir"
 "$python" -m learning control set \
   --run-dir "$run_dir" --format "$target_format" \
-  --reward-explore "$target_explore" --reason "$change_reason"
+  --reward-economy "$target_economy" --reason "$change_reason"
 ```
 
 返回命令 ID 只表示已入队；等对应赛制完成当前批次，再核对 `control show` 的 pending、实际配置与应用序号，核对 events 中旧/新值、原因和递增的 reward_version。当前已开始的对局仍使用旧冻结配置，后续批次才使用新版本。相同 PPO 更新不能混用奖励版本。

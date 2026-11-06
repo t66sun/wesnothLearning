@@ -1,0 +1,15 @@
+test_completed_draw_telescopes_and_bc_matches_mc_and_ppo (tests.v5.test_finite_score.FiniteScoreArithmeticTests.test_completed_draw_telescopes_and_bc_matches_mc_and_ppo) ... FAIL
+
+======================================================================
+FAIL: test_completed_draw_telescopes_and_bc_matches_mc_and_ppo (tests.v5.test_finite_score.FiniteScoreArithmeticTests.test_completed_draw_telescopes_and_bc_matches_mc_and_ppo)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/finite_score_20261106_a969540/source/tests/v5/test_finite_score.py", line 103, in test_completed_draw_telescopes_and_bc_matches_mc_and_ppo
+    self.assertAlmostEqual(sum(r['reward_step'] for r in rows), -1/3-.06)
+AssertionError: -0.06000000000000001 != -0.3933333333333333 within 7 places (0.3333333333333333 difference)
+
+----------------------------------------------------------------------
+Ran 1 test in 0.108s
+
+FAILED (failures=1)
+controlled_reversion_exit=1

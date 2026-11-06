@@ -1,0 +1,15 @@
+source_commit=a9695403d9a18b79e4cab824c49bc1056028a18a
+python=3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]
+platform=Linux-7.0.0-38-generic-x86_64-with-glibc2.39
+torch=2.9.1+cpu
+extension=/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/.extension/_engine_lite.so
+extension_sha256=56dd77140411db987377d6de4ffbf562da4d0e5c76bc16d34780da67e60e5ae4
+rules_directory=/home/tongshu/acceptance/filters_compiled_20261103/data/rules/1.18.8-combat-filtered
+rules_sha256=e6b4f6200b0a8ad58a536b844fff37cfa9e0091bf0a0b702a8982155310f2f17
+feature_rules_sha256=e6b4f6200b0a8ad58a536b844fff37cfa9e0091bf0a0b702a8982155310f2f17
+maps=/home/tongshu/myDev/wesnothLearning/WesnothLearning/rules/1.18.8
+OMP_NUM_THREADS=1
+MKL_NUM_THREADS=1
+OPENBLAS_NUM_THREADS=1
+over_1000_existing=tests/smoke_training_lite_8worker.py:1050
+over_1000_existing=tests/v5/test_pipeline_contract.py:1504

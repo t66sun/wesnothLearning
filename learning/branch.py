@@ -33,13 +33,14 @@ def _atomic_copy(source, destination):
     temporary.replace(destination)
 
 
-def prepare(source, destination, formats, *, seed, reset_optimizer=False, clock=None):
+def prepare(source, destination, formats, *, seed, reset_optimizer=False, clock=None,
+            weights_only=False, checkpoint_name='latest'):
     """Copy each format's latest checkpoint and describe the new lineage."""
     source = Path(source)
     destination = Path(destination)
     records = {}
     for fmt in formats:
-        checkpoint = source / fmt / 'latest.pt'
+        checkpoint = source / fmt / (checkpoint_name+'.pt')
         if not checkpoint.is_file():
             raise ValueError(f'branch source has no latest checkpoint for {fmt}')
         target = destination / fmt / 'latest.pt'
@@ -47,10 +48,13 @@ def prepare(source, destination, formats, *, seed, reset_optimizer=False, clock=
         state = torch.load(target, map_location='cpu', weights_only=False)
         if state.get('format') != fmt:
             raise ValueError(f'branch source checkpoint is not {fmt}')
+        if weights_only and state.get('runner', {}).get('pending_train'):
+            raise ValueError('weights-only initialization requires a complete checkpoint')
         records[fmt] = dict(sha256=_sha256(target), version=state.get('runner', {}).get('version'),
-                            checkpoint_version=state.get('checkpoint_version', 1))
+                            checkpoint_version=state.get('checkpoint_version', 1),
+                            source=str(checkpoint), role=checkpoint_name, task_id=state.get('task_id'))
     return dict(schema=BRANCH_VERSION, created=time.time(), seed=seed,
-                reset_optimizer=bool(reset_optimizer), clock=clock, checkpoints=records)
+                reset_optimizer=bool(reset_optimizer), weights_only=bool(weights_only), clock=clock, checkpoints=records)
 
 
 def fresh_state(fmt, clock, phase):
@@ -61,8 +65,8 @@ def fresh_state(fmt, clock, phase):
 
 def validate_bc_inputs(parent, child):
     """A restarted BC phase consumes the parent's raw supervision on its original split."""
-    for key in ('row_schema', 'batch_contract', 'teacher'):
-        if parent.get(key) != child[key]:
+    for key in ('row_schema', 'batch_contract', 'teacher', 'task_id'):
+        if parent.get(key) != child.get(key):
             raise ValueError(f'BC branch requires matching {key}')
     if ([o['sha256'] for o in parent['opponents']] != [o['sha256'] for o in child['opponents']]
             or parent['config'].get('training_max_turns', 60) != child['config'].get('training_max_turns', 60)):
@@ -71,7 +75,9 @@ def validate_bc_inputs(parent, child):
 
 def adopt(state, branch, clock, phase):
     """Return the child runner state for a copied checkpoint."""
-    if branch.get('restart_bc'):
+    if branch.get('weights_only'):
+        state = fresh_state(state['format'], clock, phase)
+    elif branch.get('restart_bc'):
         if state.get('pending_train') or state.get('pending_validation'):
             raise ValueError('BC branch requires a committed parent boundary')
         initial = fresh_state(state['format'], clock, phase)

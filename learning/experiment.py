@@ -24,11 +24,13 @@ from .ppo import PLAN_VERSION
 from .train import checkpoint, restore_rng, train, imitation_quality
 from .updates import rollout_identity
 from .selection import validate_frozen_selection
+from .tasks import TASK_ID, TASK_TURNS, LEGACY_TASK, reward_config, validate_run
 
 
 def validate_resume(state,fmt,directory):
     """Validate a checkpoint against the run that owns it, parent lineage included."""
-    return validate_checkpoint(state,fmt,resume_pins(directory))
+    task_id = read_json(Path(directory).parent/'manifest.json').get('config', {}).get('task_id')
+    return validate_checkpoint(state,fmt,resume_pins(directory),expected_task=task_id)
 
 
 def read_log(path):
@@ -77,7 +79,7 @@ def default_config(device='cuda', *, engine=None):
         bc_games=bc_games,
         native_bc_games={fmt:0 if engine=='lite' else games for fmt,games in bc_games.items()},bc_batch_games=8,
         bc_accuracy=dict(all=.4,recruit=.6,move=.35,attack=.35),shaping_weight=None,
-        rollout_games=4,training_max_turns=60,minibatch=256,bc_records=2048 if device=='cpu' else 8192,
+        rollout_games=4,task_id=TASK_ID,training_max_turns=TASK_TURNS,minibatch=256,bc_records=2048 if device=='cpu' else 8192,
         bc_validation_records=1024 if device=='cpu' else 4096,epochs=4,learning_rate=3e-4,
         trainer_memory_gb=6.,
         human_data=str(ROOT/'data/datasets/human'))
@@ -98,7 +100,7 @@ def validate_config(config):
     if not config['formats'] or len(set(config['formats']))!=len(config['formats']) or not set(config['formats'])<=set(FORMATS):
         raise ValueError('choose unique formats from duel ffa4 team2v2')
     if config['rollout_games']<4 or config['rollout_games']%4: raise ValueError('rollout games must be a multiple of four')
-    if config.get('training_max_turns',60)<1: raise ValueError('training_max_turns must be positive')
+    validate_run(config)
     for name in ('trainer_threads','calibration_blocks','validation_interval','minibatch','epochs','bc_records','bc_validation_records','bc_batch_games'):
         if config[name]<1: raise ValueError(name+' must be positive')
     if float(config.get('trainer_memory_gb',0))<0: raise ValueError('trainer memory guard must not be negative')
@@ -199,6 +201,7 @@ class FormatExperiment:
     def __init__(self,directory,fmt,manifest,clock,collector,resume=False,branch=False):
         self.directory=Path(directory);self.fmt=fmt;self.manifest=manifest
         self.config=manifest['config'];self.clock=clock;self.collector=collector
+        validate_run(self.config)
         self.directory.mkdir(parents=True,exist_ok=True)
         torch.set_num_threads(self.config['trainer_threads'])
         requested=self.config['device']
@@ -240,10 +243,15 @@ class FormatExperiment:
             inherited={key:loaded.get(key) for key in expected}
             if any(inherited[key]!=value for key,value in expected.items()):
                 # Old weights may still seed a fresh plan, but never continue a run.
-                if not (info and info.get('reset_optimizer') and not info.get('restart_bc')):
+                task_changed = inherited.get('task_id') != expected['task_id']
+                if not (info and info.get('reset_optimizer') and not info.get('restart_bc')
+                        and (not task_changed or info.get('weights_only'))):
                     raise ValueError(f'checkpoint combat profile {inherited!r} does not match {expected!r}; '
                                      'old weights are explicit initialization only')
                 self.state['initialized_from']=inherited
+            if info and info.get('weights_only'):
+                for layer in self.model.value.modules():
+                    if isinstance(layer, torch.nn.Linear): layer.reset_parameters()
         else:
             if branch: raise ValueError('branch source has no latest checkpoint')
             seed=self.config['seed']+FORMATS.index(fmt)*100003
@@ -253,7 +261,7 @@ class FormatExperiment:
             self.state=fresh_state(fmt,clock,self.config.get('phase','auto'))
             self.save()
         from .control import RewardController
-        self.controller=RewardController(self.directory.parent,self.fmt,state=self.state.get('reward_controller'),config=dict(mode=self.config['reward_mode']))
+        self.controller=RewardController(self.directory.parent,self.fmt,state=self.state.get('reward_controller'),config=reward_config(self.config['task_id'],mode=self.config['reward_mode']))
         self.state.setdefault('dagger_shards',[])
         self.state.setdefault('policy_shards',[])
         self.state.setdefault('counters',dict(environment_games=0,collection_batches=0,optimizer_steps=0,unique_families_seen=0,decisions_seen=0,effective_dataset_passes=0.))
@@ -276,9 +284,9 @@ class FormatExperiment:
         """Provenance of the combat engine and teacher this run trains against."""
         if self.config['engine']=='lite':
             from .teachers import identity as teacher_identity
-            return dict(engine='lite',engine_version=ENGINE_VERSION,rng_version=RNG_VERSION,
+            return dict(task_id=self.config.get('task_id',LEGACY_TASK),engine='lite',engine_version=ENGINE_VERSION,rng_version=RNG_VERSION,
                         combat_version=COMBAT_VERSION,**teacher_identity())
-        return dict(engine='native',engine_version='1.18.8',rng_version='native-1.18.8',
+        return dict(task_id=self.config.get('task_id',LEGACY_TASK),engine='native',engine_version='1.18.8',rng_version='native-1.18.8',
                     combat_version='native-1.18.8',teacher='gpt6astra',teacher_profile='native',
                     teacher_source_sha256='native-1.18.8',teacher_parent_sha256=None)
 
@@ -307,8 +315,9 @@ class FormatExperiment:
     def execute(self,jobs,name):
         from .rules_catalog import resolve_dir
         for job in jobs:
+            job['task_id']=self.config['task_id']
             if job.get('meta',{}).get('map_partition')=='train' and not job['meta'].get('opening'):
-                job['max_turns']=self.config.get('training_max_turns',60)
+                job['max_turns']=self.config['training_max_turns']
             job.setdefault('engine',self.config['engine'])
             job['rules_dir']=str(resolve_dir(self.config.get('rules_dir')))
             job.setdefault('reward_config',self.controller.freeze())
@@ -390,16 +399,16 @@ class FormatExperiment:
         if method=='ppo': pool=pool+list(self.state.get('policy_shards',[]))
         pool_seed=self.config['seed']+self.state['version']
         stats={}
-        bc=read_shards(pool,partition='train',limit=self.config['bc_records'],seed=pool_seed,format_name=self.fmt,stats=stats)
+        bc=read_shards(pool,partition='train',limit=self.config['bc_records'],seed=pool_seed,format_name=self.fmt,stats=stats,expected_task=self.config.get('task_id'))
         return pool,bc,stats
 
     def finish_train(self,prepared_bc=None,*,prepared_ppo=None):
         pending=self.state['pending_train'];method=pending['method']
         pool,bc,stats=self.read_bc_batch(method) if prepared_bc is None else prepared_bc
         reads=dict(bc=stats)
-        validation=read_shards(pool,partition='validation',limit=self.config['bc_validation_records'],seed=self.config['seed'],format_name=self.fmt,stats=reads.setdefault('validation',{})) if method=='bc' else []
+        validation=read_shards(pool,partition='validation',limit=self.config['bc_validation_records'],seed=self.config['seed'],format_name=self.fmt,stats=reads.setdefault('validation',{}),expected_task=self.config.get('task_id')) if method=='bc' else []
         if method=='bc': rows=bc+validation
-        else: rows=read_shards(pending['paths'],format_name=self.fmt) if prepared_ppo is None else prepared_ppo
+        else: rows=read_shards(pending['paths'],format_name=self.fmt,expected_task=self.config.get('task_id')) if prepared_ppo is None else prepared_ppo
         if method == 'ppo':
             from .updates import eligible_rows
             eligible_rows(rows)
@@ -659,7 +668,7 @@ class FormatExperiment:
                 self.state['teacher_shards']=sorted(set(self.state['teacher_shards']+original))
                 paths=self.state['teacher_shards']+list(map(str,self.human_paths()))
             prepared_bc=self.read_bc_batch(method) if method=='bc' else None
-            prepared_ppo=read_shards(paths,format_name=self.fmt) if method=='ppo' else None
+            prepared_ppo=read_shards(paths,format_name=self.fmt,expected_task=self.config.get('task_id')) if method=='ppo' else None
             if not (prepared_bc[1] if prepared_bc is not None else prepared_ppo):
                 self.state['batch']+=1;self.save();continue
             self.state['pending_train']=dict(paths=paths,method=method,cursor=dict(epoch=0,step=0),reward_config=self.controller.freeze());self.save()

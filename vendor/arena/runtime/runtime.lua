@@ -91,7 +91,8 @@ function M.finish(reason)
     if reason=='turn_limit' and config.learning then
         for key,training in pairs(config.learning) do
             local side=tonumber(key);local s=M.states[side]
-            if not training.teacher and s and s.module and s.module.bootstrap and s.data then
+            local scored=training.task_id=='official-score-30-v1' and config.max_turns==30
+            if not scored and not training.teacher and s and s.module and s.module.bootstrap and s.data then
                 local ok,observation=pcall(s.module.bootstrap,s.module,s.cfg,s.data,side)
                 if ok then M.emit('BOOTSTRAP',observation)
                 else M.emit('BOOTSTRAP_ERROR',{side=side,error=tostring(observation)}) end
