@@ -58,6 +58,29 @@ class TeacherBatchTests(unittest.TestCase):
                 with self.assertRaises(ValueError):batch(args)
                 execute.assert_not_called()
 
+    def test_league_waits_for_an_eligible_provisional_baseline_win(self):
+        with tempfile.TemporaryDirectory() as temp:
+            args=self.setup_directory(Path(temp));args.opponent='one';args.candidates=['two']
+            previous={str((fmt,h)):dict(candidate='one',opponent='astra',format=fmt,horizon=h,
+                complete=True,blocks=3,distinct_scenarios=3,difference=.1) for fmt in FORMATS for h in (30,100)}
+            with patch('learning.teacher_lab.batch.require_evaluator'),\
+                    patch('learning.teacher_lab.batch.load_panels',return_value=([],[])),\
+                    patch('learning.teacher_lab.batch.compare',return_value=previous),\
+                    patch('learning.teacher_lab.batch.execute',return_value=[]) as execute,\
+                    patch('learning.teacher_lab.batch.report_panel',return_value={}):
+                previous[str(('duel',30))]['blocks']=1
+                with self.assertRaises(ValueError):batch(args)
+                execute.assert_not_called()
+                previous[str(('duel',30))]['blocks']=3
+                batch(args);execute.assert_called_once()
+                jobs=execute.call_args.args[1]
+                self.assertEqual(len(jobs),56)
+                self.assertTrue(all(j['meta']['opponent']=='one' for j in jobs))
+                execute.reset_mock()
+                write_new(args.directory/'selection_source.json',dict(exclusions={'one':{'reason':'query audit'}}))
+                with self.assertRaises(ValueError):batch(args)
+                execute.assert_not_called()
+
 
 if __name__=='__main__':
     unittest.main()

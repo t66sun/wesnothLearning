@@ -7,7 +7,7 @@ from learning.formats import FORMATS
 from learning.teacher_lab.__main__ import candidate, clock
 from learning.teacher_lab.packages import digest, read, require_evaluator
 from learning.teacher_lab.panels import HORIZONS, execute, jobs_for
-from learning.teacher_lab.report import report_panel
+from learning.teacher_lab.report import candidate_cells, compare, load_panels, provisional, report_panel
 
 
 def batch(args):
@@ -17,10 +17,21 @@ def batch(args):
         raise ValueError('exploration deadline expired')
     if args.blocks<1 or args.offset<0 or len(args.candidates)!=len(set(args.candidates)):
         raise ValueError('positive blocks, nonnegative offset and distinct candidates are required')
-    control=manifest['baseline']
+    opponent=getattr(args,'opponent','baseline')
+    control=manifest['baseline'] if opponent=='baseline' else candidate(args.directory,opponent)
     if digest(control['package'])!=control['package_sha256']:
-        raise ValueError('frozen baseline package changed')
+        raise ValueError('frozen opponent package changed')
+    if opponent!='baseline':
+        baseline=manifest['baseline']['name']
+        previous=compare(*load_panels(args.directory,opponent=baseline))
+        release=args.directory/'selection_source.json'
+        excluded=read(release)['exclusions'] if release.exists() else {}
+        if not any(name not in excluded and provisional(candidate_cells(previous,name,baseline))
+                   for name in {row['candidate'] for row in previous.values()}):
+            raise ValueError('version league starts only after an eligible provisional baseline win')
     chosen=[candidate(args.directory,name) for name in args.candidates]
+    if any(row['name']==control['name'] for row in chosen):
+        raise ValueError('a league challenger must differ from its opponent')
     directory=args.directory/'panels'/args.name
     jobs=[job for row in chosen for fmt in args.formats for horizon in HORIZONS
           for job in jobs_for(directory,row,control,fmt,horizon,args.blocks,'train',deadline,
@@ -37,6 +48,7 @@ def main():
     parser.add_argument('--directory',required=True,type=Path)
     parser.add_argument('--name',required=True)
     parser.add_argument('--candidates',required=True,nargs='+')
+    parser.add_argument('--opponent',default='baseline')
     parser.add_argument('--formats',nargs='+',choices=FORMATS,default=FORMATS)
     parser.add_argument('--blocks',type=int,default=1)
     parser.add_argument('--offset',type=int,default=0)
