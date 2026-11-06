@@ -1,0 +1,32 @@
+test_concurrent_worker_seconds_do_not_equal_wall_time (test_diagnostic.AccountingTests.test_concurrent_worker_seconds_do_not_equal_wall_time) ... ok
+test_rejected_step_is_not_a_never_attempted_step (test_diagnostic.AccountingTests.test_rejected_step_is_not_a_never_attempted_step) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.000s
+
+OK
+4aa1bdb3bbe18b0c7b0e85a008f12998c8ca7e9d2809458c456639b6d35a9f33  ../census_recomputed.json
+census.json: OK
+census.py: OK
+host_after.txt: OK
+host_before.txt: OK
+probe.json: OK
+probe.log: OK
+probe.py: OK
+recorded_costs.json: OK
+recorded_costs.py: OK
+REPORT.md: OK
+result_checks.txt: OK
+source_checks.txt: OK
+test_diagnostic.py: OK
+tests_final.txt: OK
+duel uncommitted / inspected: 0.07446930117611071
+team2v2 uncommitted / inspected: 0.051179117809372635
+duel 38 preparation / frozen epoch seconds: 14.16 5.79
+duel 489 preparation / frozen epoch seconds: 28.57 7.69
+duel 939 preparation / frozen epoch seconds: 29.44 9.68
+team2v2 53 preparation / frozen epoch seconds: 38.24 20.39
+team2v2 168 preparation / frozen epoch seconds: 29.58 11.92
+team2v2 283 preparation / frozen epoch seconds: 35.85 22.24
+Existing grandfathered source files: {'tests/smoke_training_lite_8worker.py': 1050, 'tests/v5/test_pipeline_contract.py': 1504}
+Independent accounting, evidence integrity, numeric summary, KL replay and line-limit checks: PASS

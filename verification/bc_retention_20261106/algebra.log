@@ -1,0 +1,11 @@
+test_kl_direction_is_anchor_to_student (test_probe.AnchorObjectiveTests.test_kl_direction_is_anchor_to_student) ... ok
+test_matching_distribution_has_zero_loss_and_gradient (test_probe.AnchorObjectiveTests.test_matching_distribution_has_zero_loss_and_gradient) ... /home/tongshu/acceptance/bc_retention_20261106_7432fae/source/verification/bc_retention_20261106/test_probe.py:19: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:836.)
+  self.assertAlmostEqual(float(loss), 0., places=7)
+ok
+test_soft_target_gradient_and_padding (test_probe.AnchorObjectiveTests.test_soft_target_gradient_and_padding) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.003s
+
+OK
