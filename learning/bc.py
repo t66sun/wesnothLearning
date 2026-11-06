@@ -8,7 +8,7 @@ from .coverage import actor, destination
 from .data import make_bc_sampler
 from .formats import record_format
 from .model import batch
-from .rewards import terminal_reward_key
+from .tasks import value_target
 from .updates import prepare, setup
 
 
@@ -54,7 +54,7 @@ def update(model, optimizer, records, bc_records=None, epochs=4, minibatch=256, 
                     chosen = torch.tensor([r['choice'] for r in rows], device=device)
                     logp = dist.log_prob(chosen)
                     valid = torch.tensor([r.get('value_valid', True) for r in rows], device=device, dtype=torch.bool)
-                    targets = torch.tensor([r.get(terminal_reward_key(r)) or 0. for r in rows], device=device)
+                    targets = torch.tensor([value_target(r) for r in rows], device=device)
                     loss = -logp.mean() + .1 * auxiliary_loss(logits, rows)
                     if valid.any():
                         loss = loss + .5 * (values[valid] - targets[valid]).square().mean()

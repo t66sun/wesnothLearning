@@ -18,6 +18,7 @@ from learning.export import load_model
 from learning.features import schema
 from learning.model import ARCHITECTURE
 from learning.rowpack import ROW_SCHEMA
+from learning.tasks import TASK_ID, FORMULA_ID, reward_config
 from learning.teachers import lineage
 from tests.v5 import helpers
 from tests.v5.test_ppo_plan import _records
@@ -28,7 +29,7 @@ def make_runner(root, mode='frozen_bc_kl', *, resume=False, branch=False, manife
         config = default_config('cpu') | dict(ppo_aux_target=mode, seed=41, epochs=2, minibatch=2,
                                              formats=['duel'], phase='bc', reward_mode='fixed',
                                              human_data=str(root/'human'))
-        manifest = dict(config=config, features=schema(), architecture=ARCHITECTURE, row_schema=ROW_SCHEMA,
+        manifest = dict(config=config, task_id=TASK_ID, features=schema(), architecture=ARCHITECTURE, row_schema=ROW_SCHEMA,
                         teacher=lineage(), opponents=[dict(path='gpt6astra.zip', sha256='fixture')],
                         baseline=dict(path='unused'))
         write_json(root/'manifest.json', manifest)
@@ -51,9 +52,11 @@ def schedule_rows(runner, *, delta=0.):
     for game in ('b', 'c', 'd', 'e', 'g'):
         rows = _records([(game, 2, delta)])
         for row in rows:
-            row.update(split_rule='scenario-v2', scenario_family=game, policy_sha256='fixture-policy')
+            row.update(split_rule='scenario-v2', scenario_family=game, policy_sha256='fixture-policy',
+                       task_id=TASK_ID, reward_config=reward_config(), reward_formula_id=FORMULA_ID)
         path = runner.directory/'data'/(game+'.jsonl.gz')
-        write_shard(path, game, rows, dict(bots=['student', 'astra'], faults=[], winner=1))
+        write_shard(path, game, rows, dict(bots=['student', 'astra'], faults=[], winner=1,
+                    task_id=TASK_ID, task_terminal=True, reason='victory', turns=2))
         paths.append(str(path))
     runner.state.update(policy_shards=paths, stage='ppo', phase='ppo',
         pending_train=dict(method='ppo', paths=paths, cursor=dict(epoch=0, step=0),
@@ -264,17 +267,20 @@ class FrozenBcAnchorTests(unittest.TestCase):
                 self.assertEqual(ppo._digest(resumed.model), ppo._digest(child.model))
             self.assertEqual(sha256(parent.directory/'last_bc.pt'), parent_hash)
 
-    def test_bc_restart_does_not_inherit_the_old_anchor(self):
+    def test_bc_restart_and_weights_only_do_not_inherit_the_old_anchor(self):
         from learning.branch import prepare
         with helpers.temporary_directory() as root:
             parent = make_runner(root/'parent')
             complete_bc(parent)
             ensure_anchor(parent)
-            child = root/'child'
-            prepare(root/'parent', child, ['duel'], seed=5, restart_bc=True)
-            self.assertTrue((child/'duel/latest.pt').is_file())
-            self.assertFalse((child/'duel/frozen_bc.pt').exists())
-            self.assertFalse((child/'duel/last_bc.pt').exists())
+            for mode in ('restart_bc', 'weights_only'):
+                with self.subTest(mode=mode):
+                    child = root/mode
+                    info = prepare(root/'parent', child, ['duel'], seed=5, **{mode: True})
+                    self.assertTrue((child/'duel/latest.pt').is_file())
+                    self.assertFalse((child/'duel/frozen_bc.pt').exists())
+                    self.assertFalse((child/'duel/last_bc.pt').exists())
+                    self.assertNotIn('bc_endpoint', info['checkpoints']['duel'])
 
     def test_resume_rejects_missing_pin_or_changed_mode_and_identity(self):
         with helpers.temporary_directory() as root:

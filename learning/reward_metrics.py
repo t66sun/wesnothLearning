@@ -102,10 +102,11 @@ def _horizon(rows, side, turn):
 
 def _reward_statistics(rows, result, side, job):
     config = job.get('reward_config') or rows[0].get('reward_config')
-    if config is None or result.get('reason') == 'turn_limit':
+    from .tasks import is_truncated
+    if config is None or is_truncated(result, side):
         return None
     frozen = RewardConfig(**config)
-    expected_terminal = terminal_rewards(result)[side]
+    expected_terminal = terminal_rewards(result, frozen.task_id)[side]
     terminal = rows[-1]['terminal_reward'] if rows[-1].get('schema')==6 else expected_terminal
     if terminal!=expected_terminal: raise ValueError('terminal reward differs from game outcome')
     squares = 0.

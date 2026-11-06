@@ -37,9 +37,10 @@ def keeps_reward_diagnostics(meta):
     return meta.get('phase') in EVIDENCE_PHASES
 
 
-def reward(result, side):
+def reward(result, side, task_id=None):
     from .rewards import terminal_rewards
-    return terminal_rewards(result)[side]
+    from .tasks import LEGACY_TASK
+    return terminal_rewards(result, task_id or LEGACY_TASK)[side]
 
 
 @lru_cache(maxsize=1)
@@ -85,6 +86,14 @@ def validate_record(r, format_name=None):
         raise ValueError('sample lacks current-schema provenance')
     from .rewards import RewardConfig
     config=RewardConfig(**r['reward_config'])
+    from .tasks import LEGACY_TASK, TASK_ID
+    if r.get('task_id', LEGACY_TASK) != config.task_id:
+        raise ValueError('sample task differs from frozen reward configuration')
+    if config.task_id == TASK_ID:
+        if r['schema'] != ROW_SCHEMA or r['turn'] > 30:
+            raise ValueError('finite task row has an incompatible schema or decision turn')
+        if r.get('value_valid', True) and (r.get('truncated') or not r.get('reward_raw')):
+            raise ValueError('finite BC value requires a complete outcome and reward potential')
     if config.reward_version!=r['reward_version'] or config.reward_formula_id!=r['reward_formula_id']:
         raise ValueError('sample reward version differs from frozen configuration')
     if r.get('source')=='policy':
@@ -137,23 +146,25 @@ def validate_record(r, format_name=None):
 
 def write_shard(path, game_id, records, result, bootstraps=None, provenance=None):
     from .rewards import row_transition
+    from .tasks import LEGACY_TASK, TASK_ID, is_truncated as task_truncated
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     written=raw_count=0;bootstraps=bootstraps or {}
     excluded='faulted_game' if result.get('faults') else None
     def is_truncated(side):
-        if result.get('reason')!='turn_limit':return False
-        survivors=result.get('survivors')
-        if survivors is None:return True
-        if result.get('teams'):return any(result['teams'][s-1]==result['teams'][side-1] for s in survivors)
-        return side in survivors
+        return task_truncated(result, side)
+    task_id = result.get('task_id', LEGACY_TASK)
     steps, pending = {}, {}
-    outcomes = {side:reward(result,side) for side in range(1,len(result['bots'])+1)} if not excluded else {}
+    outcomes = {side:reward(result,side,task_id) for side in range(1,len(result['bots'])+1)} if not excluded else {}
     def step_value(row, following=None):
         if not row.get('reward_raw') or (following is None and row.get('truncated') and not row.get('bootstrap_raw')):
             return None  # Unsupplied teacher/human reward evidence is explicitly unknown.
         return row_transition(row,following)[0]
     for index,r in enumerate(records):
+        config = r.get('reward_config', (provenance or {}).get('reward_config', {}))
+        if (r.get('task_id', (provenance or {}).get('task_id', LEGACY_TASK)) != task_id
+                or config.get('task_id', LEGACY_TASK) != task_id):
+            raise ValueError('result and row training tasks differ')
         if is_truncated(r['side']) and r.get('source')=='policy' and str(r['side']) not in bootstraps:
             excluded='missing_truncation_bootstrap'
         if not excluded:
@@ -177,11 +188,11 @@ def write_shard(path, game_id, records, result, bootstraps=None, provenance=None
                 r = dict(provenance or {}, **r)
                 family=r.get('game_family', game_id)
                 truncated=is_truncated(r['side'])
-                bootstrap=bootstraps.get(str(r['side']),{})
+                bootstrap=bootstraps.get(str(r['side']),{}) if truncated else {}
                 r.update(game_family=family, split_rule=r.get('split_rule', 'family-seed-v1'))
                 r.pop('reward',None)
                 r = dict(r, schema=ROW_SCHEMA, game_id=game_id, game_family=family, split=record_split(r),
-                         terminal_reward=outcomes[r['side']],reward_step=steps[index],value_valid=r.get('value_valid',True) and not truncated,
+                         terminal_reward=outcomes[r['side']],reward_step=steps[index],value_valid=r.get('value_valid',True) and not truncated and (task_id != TASK_ID or bool(r.get('reward_raw'))),
                          truncated=truncated,bootstrap_value=bootstrap.get('value'),bootstrap_potential=bootstrap.get('potential'),
                          bootstrap_raw=bootstrap.get('reward_raw'),bootstrap_turn=bootstrap.get('turn'),
                          players=len(result['bots']), format=infer_format(result), faults=result['faults'],
@@ -209,7 +220,12 @@ def _shard_identity(path, size, modified):
 def read_shards(paths, partition=None, limit=None, seed=19, format_name=None, **options):
     """Read complete raw prefixes before limiting supervised sequence windows."""
     from .sequences import read_shards as read_sequences
-    return read_sequences(paths, partition=partition, limit=limit, seed=seed, format_name=format_name, **options)
+    expected_task = options.pop('expected_task', None)
+    rows = read_sequences(paths, partition=partition, limit=limit, seed=seed, format_name=format_name, **options)
+    if expected_task is not None:
+        from .tasks import require_rows_task
+        require_rows_task(rows, expected_task)
+    return rows
 
 
 def bc_sample(records, count, rng=None):

@@ -34,6 +34,9 @@ def prepare(model, records, bc_records=None, *, allow_drop=False):
     for r in bc_records or []:
         validate_record(r, model.format_name)
     rules = {r.get('split_rule', 'family-seed-v1') for rows in (records, bc_records or []) for r in rows}
+    from .tasks import LEGACY_TASK
+    if len({r.get('task_id', LEGACY_TASK) for rows in (records, bc_records or []) for r in rows}) > 1:
+        raise ValueError('training batch mixes tasks')
     if len({r['schema'] for rows in (records,bc_records or []) for r in rows})>1:
         raise ValueError('training batch mixes row schemas')
     if len(rules) > 1:

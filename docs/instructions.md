@@ -167,7 +167,7 @@ The KL mode pins `<format>/frozen_bc.pt` and its identity in `state.json`/comple
 
 Long tasks belong in an existing persistent terminal; with tmux, run `tmux new -s wesnoth-v5` first, set up the environment and start command inside, detach with Ctrl-b, d, and reattach with `tmux attach -t wesnoth-v5`. Record the session, main PID, full command, log and experiment directory, and confirm that dropping SSH does not end training. Do not let a short-lived SSH tool request hold the whole long experiment.
 
-For an explicitly bounded new run, `--training-max-turns 30` caps teacher, PPO and DAgger training games at 30 turns (ordinary default 60). The value is frozen in the manifest and scenario identities. Evaluation stays at 30 and opening probes at 5; BC gates and panel sizes are unchanged. Resume retains the original configuration and frozen schedules, so this flag cannot retune an existing run.
+New runs use `official-score-30-v1`: teacher, PPO and DAgger finish the complete 30th round as a scored task terminal. `--training-max-turns` accepts only 30. Gamma is 1 and exploration reward is 0; economy/control remain potential shaping. Evaluation uses 30 and opening probes use an external cut at 5. BC gates and panel sizes retain their existing thresholds. Legacy 60-turn data and manifests cannot resume or mix into this task; use an empty or compatible `--human-data` directory rather than relabelling a historical corpus.
 
 Post-start checks:
 
@@ -201,6 +201,8 @@ Confirm that checkpoints, optimizer, RNG, reward controller and unfinished batch
 ### Running BC, PPO and final evaluation separately
 
 To start a new BC phase from a compatible parent's weights and supervision, run `python -m learning run --run-dir CHILD --branch-from PARENT --branch-restart-bc --branch-reset-optimizer --phase bc` with the parent's formats, engine and training turn limit. The parent must be at a committed boundary. The child uses its own seed and budget, starts calibration, and evaluates its first updated model on the original validation split.
+
+To initialize the new finite task from an old BC actor, use `python -m learning run --run-dir CHILD --branch-from PARENT --branch-weights-only --branch-checkpoint last_bc --phase bc --formats duel --human-data EMPTY_OR_COMPATIBLE_DIRECTORY`, with the parent's engine and rules plus the separately authorized budget/seed. Weights-only initialization accepts a nonempty subset of the parent's formats; ordinary branches require the same format set. Omitting `--branch-checkpoint` selects `latest`. The program records the source path/hash, resets the value head and optimizer, and starts calibration with empty training state and fresh gates. No parent shards or BC qualification are inherited. A new task-qualified BC endpoint is required before ordinary PPO; later branches from that same-task parent can reuse compatible supervision. This command starts work only when separately instructed. Changing the task/cap does not establish an independent validation set for a warm-started actor; audit its prior map/scenario exposure when designing the experiment.
 
 These entries apply to new experiments matching the current schema/sources. Finished schema 4 experiments cannot be resumed directly with schema 5. The default `run` is still the auto flow; for BC only, create the experiment with `--phase bc`; after BC passes or the phase budget ends it is saved as `bc_complete` and PPO/final evaluation never start automatically.
 
@@ -309,23 +311,23 @@ First turn the instruction into: experiment directory, format, fields, target va
 | --- | --- | --- |
 | economy | `--reward-economy` | 0.05–0.20 |
 | control | `--reward-control` | 0.02–0.15 |
-| explore | `--reward-explore` | 0–0.15 |
+| explore | `--reward-explore` | 0 for `official-score-30-v1` |
 | mode | `--reward-mode` | fixed / scheduled / adaptive |
 | entropy coefficient | `--entropy` | non-negative finite |
 | BC auxiliary coefficient | `--bc-aux` | non-negative finite |
 
-Use the existing control queue; never write state/checkpoint/config directly. The variables below must be assigned from a user instruction first; the example changes only the named format's exploration coefficient:
+Use the existing control queue; never write state/checkpoint/config directly. The variables below must be assigned from a user instruction first; the example changes only the named format's economy potential coefficient:
 
 ```bash
 : "${run_dir:?specify an existing experiment}"
 : "${target_format:?specify duel/ffa4/team2v2}"
-: "${target_explore:?fill in the user-specified exploration coefficient}"
+: "${target_economy:?fill in the user-specified economy coefficient}"
 : "${change_reason:?record this user instruction and the reason for the change}"
 test -f "$run_dir/manifest.json" || exit 1
 "$python" -m learning control show --run-dir "$run_dir"
 "$python" -m learning control set \
   --run-dir "$run_dir" --format "$target_format" \
-  --reward-explore "$target_explore" --reason "$change_reason"
+  --reward-economy "$target_economy" --reason "$change_reason"
 ```
 
 The returned command ID only means queued; wait for that format to finish its current batch, then check `control show` pending, actual config and applied sequence, and verify old/new values, reason and the incremented reward_version in events. Games already started keep the old frozen config and only later batches use the new version. One PPO update cannot mix reward versions.

@@ -12,6 +12,7 @@ from learning.common import write_json
 from learning.data import advantages, read_shards, split
 from learning.experiment import FormatExperiment
 from learning.rowpack import pack_line
+from learning.tasks import FORMULA_ID, TASK_ID, reward_config
 from learning.train import restore_rng, train
 from learning.updates import rollout_identity
 from tests import test_validation_cadence as cadence
@@ -50,6 +51,10 @@ class RolloutReadOnceTests(unittest.TestCase):
     def setUp(self):
         self.directory = self.enterContext(helpers.temporary_directory())
         self.rows = _records([('b', 12, 0.)])
+        for row in self.rows:
+            row.update(schema=6, task_id=TASK_ID, reward_config=reward_config(),
+                       reward_formula_id=FORMULA_ID, terminal_reward=1.,
+                       reward_step=row['reward'])
         # An uncovered committed first turn is context for every later target.
         self.rows[0]['choice'] = -1
         self.path = self.directory / 'policy.jsonl.gz'
@@ -83,7 +88,7 @@ class RolloutReadOnceTests(unittest.TestCase):
             self.learn(result, jobs)
         rollout_calls = [call for call in calls if 'stats' not in call[1]]
         self.assertEqual(len(rollout_calls), 1, 'fresh rollout must be read exactly once')
-        self.assertEqual(rollout_calls[0][1], dict(format_name='duel'))
+        self.assertEqual(rollout_calls[0][1], dict(format_name='duel', expected_task=TASK_ID))
         self.assertEqual(len(calls), 2, 'the separate rehearsal read remains unchanged')
         self.assertGreater(len(targets), result.config['bc_records'])
         self.assertEqual(len(targets), 11)
@@ -99,7 +104,7 @@ class RolloutReadOnceTests(unittest.TestCase):
         with patch('learning.experiment.read_shards', wraps=read_shards) as read, \
                 patch('learning.experiment.train') as update:
             self.learn(result, jobs)
-        read.assert_called_once_with(self.paths, format_name='duel')
+        read.assert_called_once_with(self.paths, format_name='duel', expected_task=TASK_ID)
         update.assert_not_called()
         self.assertEqual(result.state['batch'], 1)
         self.assertEqual(result.state['version'], 0)
@@ -221,7 +226,7 @@ class RolloutReadOnceTests(unittest.TestCase):
             resumed.learn()
         full_reads = [call for call in read.call_args_list if 'stats' not in call.kwargs]
         self.assertEqual(len(full_reads), 1)
-        self.assertEqual(full_reads[0].kwargs, dict(format_name='duel'))
+        self.assertEqual(full_reads[0].kwargs, dict(format_name='duel', expected_task=TASK_ID))
         self.assertEqual(ppo._digest(resumed.model), ppo._digest(control.model))
         self.assertEqual(resumed.state['counters'], control.state['counters'])
         self.assertEqual(resumed.state['history'][-1]['cursor'], expected['metrics']['cursor'])
