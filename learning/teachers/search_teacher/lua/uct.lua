@@ -3,7 +3,7 @@ local U={}
 function U.solve(root,model,config,expired,rng)
     local records={};local root_actions=model.actions(root);local root_player=model.player(root)
     local baseline={};for side=1,model.players do baseline[side]=model.evaluate(root,side) end
-    local stats={simulations=0,nodes=0,sampled_combats=0,algorithm='uct',root_visits={}}
+    local stats={simulations=0,nodes=0,sampled_combats=0,algorithm='uct',root_visits={},root_values={}}
     local horizon=config.mc_depth or 8;local scale=(config.mc_scale or 50)*1000
     local function record(node,depth)
         local key=model.key(node)..':'..depth
@@ -51,6 +51,7 @@ function U.solve(root,model,config,expired,rng)
     if root_record then
         for _,arm in ipairs(root_record.arms) do
             stats.root_visits[arm.action.key]=arm.visits
+            if arm.visits>0 then stats.root_values[arm.action.key]=arm.total[root_player]/arm.visits end
             if arm.visits==0 then covered=false end
         end
         if covered then for _,arm in ipairs(root_record.arms) do
