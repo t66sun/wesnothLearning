@@ -184,13 +184,15 @@ def plan(directory, output, *, fmt, blocks, seed, hours):
     jobs = []
     for role in ROLES:
         # The exported weights are frozen even if the source run later advances.
-        model, _ = load_model(roles[role]['path'], fmt)
+        model, state = load_model(roles[role]['path'], fmt)
         if sha256(roles[role]['path']) != roles[role]['checkpoint_sha256']:
             raise ValueError('checkpoint changed during progress planning')
         destination = output/'policies'/role
         name = 'Progress'+role.title()
         export({fmt: model}, destination, name=name, mode='greedy', package=False,
                version=str(roles[role]['version']))
+        torch.save(dict(model=model.state_dict(), features=state['features'],
+                        architecture=state['architecture'], format=fmt), destination/'model.pt')
         policy = str(destination/name)
         role_jobs = evaluation_jobs(output, policy, str(control), fixed, blocks, seed,
             deadline, manifest['baseline']['path'], label=f'progress-{token}-{role}',
