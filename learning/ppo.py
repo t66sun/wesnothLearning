@@ -9,6 +9,7 @@ import torch
 from .data import advantages, make_bc_sampler
 from .model import batch
 from .updates import prepare, setup
+from .bc_anchor import forward_kl, target_mode
 
 PLAN_VERSION = 2
 KL_LIMIT = .02
@@ -46,13 +47,20 @@ def _plan_hash(windows, order):
 
 def update(model, optimizer, records, bc_records=None, epochs=4, minibatch=256, deadline=float('inf'),
            progress=None, on_step=None, shaping_weight=None, entropy=.01, bc_aux=.1,
-           allow_policy_rehearsal=False, plan_seed=0, rehearsal_exclude=None):
+           allow_policy_rehearsal=False, plan_seed=0, rehearsal_exclude=None,
+           ppo_aux_target='historical_action', bc_anchor=None):
     """Run PPO updates over one frozen policy version with BC rehearsal.
 
     Windows are visited once per epoch in a plan derived from ``plan_seed`` and
     the epoch index; no window is sampled twice.  A logical optimizer batch is
     checked for KL as a whole before any parameter changes.
     """
+    target_mode(dict(ppo_aux_target=ppo_aux_target))
+    if ppo_aux_target == 'frozen_bc_kl':
+        if bc_anchor is None or bc_anchor is model or bc_anchor.format_name != model.format_name:
+            raise ValueError('frozen BC requires an independent same-format anchor')
+        if any(parameter.requires_grad for parameter in bc_anchor.parameters()):
+            raise ValueError('frozen BC anchor must have gradients disabled')
     records = prepare(model, records, bc_records if bc_aux > 0 else None)
     if len({r['version'] for r in records}) != 1:
         raise ValueError('PPO batch must use one frozen policy version')
@@ -80,7 +88,8 @@ def update(model, optimizer, records, bc_records=None, epochs=4, minibatch=256, 
     row_index = {id(r): i for i, r in enumerate(records)}
     exclude = rehearsal_exclude or {}
     rehearsal_sampler = make_bc_sampler(bc_records, allow_policy=allow_policy_rehearsal,
-        exclude_teacher_impl=exclude.get('impl'), exclude_teacher_sha=exclude.get('sha256')) if bc_aux > 0 else None
+        exclude_teacher_impl=exclude.get('impl'), exclude_teacher_sha=exclude.get('sha256'),
+        policy_only=ppo_aux_target == 'frozen_bc_kl') if bc_aux > 0 else None
     start = progress or dict(epoch=0, step=0)
     loss_sum = start.get('loss_sum', 0.)
     updates = start.get('updates', 0)
@@ -105,6 +114,7 @@ def update(model, optimizer, records, bc_records=None, epochs=4, minibatch=256, 
         remaining_visits = planned_visits - committed_visits
         scope = 'deferred' if interrupted else 'batch'
         return dict(updates=updates, loss=loss_sum / max(1, updates), approx_kl=kl,
+                    ppo_aux_target=ppo_aux_target, bc_aux=bc_aux,
                     rehearsal_sources=rehearsal_sampler.source_identities if rehearsal_sampler else [],
                     rehearsal_rows_excluded=rehearsal_sampler.rows_excluded if rehearsal_sampler else 0,
                     scope=scope, planned_steps=planned_steps, committed_steps=updates,
@@ -141,6 +151,7 @@ def update(model, optimizer, records, bc_records=None, epochs=4, minibatch=256, 
             batch_rng = random.getstate()
             optimizer.zero_grad()
             history_cache = {}
+            anchor_history_cache = {}
             selected = [windows[index] for index in order[step * sequence_count:(step + 1) * sequence_count]]
             total_value = 0.
             inspected_batch = 0
@@ -173,8 +184,15 @@ def update(model, optimizer, records, bc_records=None, epochs=4, minibatch=256, 
                     loss = -torch.minimum(ratio * a, ratio.clamp(.8, 1.2) * a).mean() + .5 * (values - ret[selected_rows]).square().mean() - entropy * dist.entropy().mean()
                     if rehearsal_sampler is not None:
                         rehearsal = rehearsal_sampler.sample(len(rows))
-                        bc_logits, _ = model(*batch(rehearsal, device, history_cache=history_cache))
-                        loss = loss + bc_aux * torch.nn.functional.cross_entropy(bc_logits, torch.tensor([r['choice'] for r in rehearsal], device=device))
+                        bc_batch = batch(rehearsal, device, history_cache=history_cache)
+                        bc_logits, _ = model(*bc_batch)
+                        if ppo_aux_target == 'frozen_bc_kl':
+                            with torch.no_grad():
+                                anchor_logits, _ = bc_anchor(*batch(rehearsal, device, history_cache=anchor_history_cache))
+                            auxiliary = forward_kl(anchor_logits, bc_logits, bc_batch[4]).mean()
+                        else:
+                            auxiliary = torch.nn.functional.cross_entropy(bc_logits, torch.tensor([r['choice'] for r in rehearsal], device=device))
+                        loss = loss + bc_aux * auxiliary
                     if not torch.isfinite(loss):
                         raise ValueError('nonfinite training loss')
                     weighted = loss * len(rows) / len(window) / len(selected)

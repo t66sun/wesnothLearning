@@ -164,7 +164,7 @@ class Experiment:
             started=time.time();duration=self.config['hours']*3600
             self.clock=dict(started=started,update_deadline=started+duration*10/12,deadline=started+duration)
             records=prepare_branch(source,self.directory,self.config['formats'],seed=self.config['seed'],
-                reset_optimizer=bool(self.config.get('branch_reset_optimizer')),clock=parent_clock,
+                reset_optimizer=bool(self.config.get('branch_reset_optimizer')),clock=parent_clock,restart_bc=restart_bc,
                 weights_only=weights_only,checkpoint_name=checkpoint_name)
             records.update(parent=str(source),parent_manifest_sha256=sha256(source/'manifest.json'),
                 parent_clock=parent_clock)

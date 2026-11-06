@@ -161,6 +161,10 @@ set -o pipefail
 
 实验目录必须由程序创建，不要预先 `mkdir "$run_dir"`。日志放在外面的 `runs/logs/`。省略引擎参数即为 lite；需要仅原版时显式传 `--engine native`，原版教师下限默认等于对应赛制总目标。默认不采原版锚点，最终比较也在 lite 内对 Astra；原版棋力评测另行明确执行。`--bc-games` 修改的是三赛制总目标，原版配额由 `native_bc_games` 控制。
 
+获准比较辅助目标时，在新运行命令中加入 `--ppo-aux-target frozen_bc_kl`；`--ppo-aux-target historical_action` 是默认基线。前者在合格 policy/train 复习状态上使用完整合格 BC 端点的冻结动作分布，后者使用历史采样动作。既有 `bc_aux` 系数仍默认 0.1，并逐批冻结。control 排除、候选、采样配额、历史和 PPO 停止规则共用。比较两个目标时不要同时调整系数或奖励。
+
+KL 模式在 PPO 开始前固定 `<format>/frozen_bc.pt`，并将身份写入 `state.json`/完整检查点。移动或恢复运行时须一并保存该文件。同任务的 BC-only 父运行可通过 `--branch-from PARENT` 在两个新目录中分别建立两种模式：复制的起始检查点必须与合格 `last_bc.pt` 一致，分支记录会固定该端点。缺少合格 BC 的强制 PPO 在 KL 模式下报错。旧任务权重只作明确 actor 初始化时，必须先通过新运行 BC 门禁才可成为锚点。模式不能在恢复时改变；`run --resume ... --ppo-aux-target ...` 会报错。禁止用 selected/latest 替换锚点或编辑 manifest 来改变模式。
+
 长任务放到已有持久终端；有 tmux 时可先 `tmux new -s wesnoth-v5`，在其中执行环境和启动命令，使用 Ctrl-b、d 脱离，之后 `tmux attach -t wesnoth-v5` 接回。记录所用会话、主 PID、完整命令、日志和实验目录，确认断开 SSH 不会结束训练。不要依靠一个短时 SSH 工具请求持有整个长实验。
 
 新运行使用 `official-score-30-v1`：教师、PPO 和 DAgger 将完整第 30 回合作为正式计分终局。`--training-max-turns` 仅接受 30；gamma 为 1，探索奖励为 0，经济/控制保留势函数差分。评估同为 30，开局探针在 5 回合外部截断。BC 门禁和面板阈值保持现有合同。旧 60 回合数据与 manifest 不能恢复或混入本任务；`--human-data` 应指向空目录或兼容语料，不能重标历史数据。
@@ -319,7 +323,7 @@ test -f "$run_dir/manifest.json" || exit 1
 
 ### 8.2 不支持已有 run 直接热改的参数
 
-worker、设备、赛制、总预算、BC 局数/原版锚点数、模型结构/词表、序列窗口、epochs、学习率和 PPO clip 不是当前 control API 的热更新字段。按用户指令调整新实验配置或实现兼容迁移，并更新架构文档；不能把它们塞入 `control set`，也不能以 resume 附加参数声称已经生效。
+worker、设备、赛制、总预算、BC 局数/原版锚点数、模型结构/词表、序列窗口、epochs、学习率、PPO clip 和 `ppo_aux_target` 不是当前 control API 的热更新字段。按用户指令调整新实验配置或实现兼容迁移，并更新架构文档；不能把它们塞入 `control set`，也不能以 resume 附加参数声称已经生效。
 
 特别注意：`learning_rate` 当前用于初始 BC 优化器，进入 PPO 的更新代码会设置 1e-4。若用户要求改变 PPO 学习率，需要修改实际负责该阶段的代码并做最小核验，不能只改初始配置。采样配额同理：`bc_games` 是总有效教师局，`native_bc_games` 是原版目标，`bc_records` 是每次读取的决策上限，三者不能混淆。
 

@@ -1,0 +1,4 @@
+Python: 3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]
+Torch: 2.9.1+cpu
+Rules: /home/tongshu/acceptance/filters_compiled_20261103/data/rules/1.18.8-combat-filtered
+rules.json SHA-256: e6b4f6200b0a8ad58a536b844fff37cfa9e0091bf0a0b702a8982155310f2f17

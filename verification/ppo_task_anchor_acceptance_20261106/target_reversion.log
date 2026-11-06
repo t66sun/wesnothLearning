@@ -1,0 +1,15 @@
+test_real_runner_compares_targets_and_uses_pending_coefficient (tests.v5.test_frozen_bc_anchor.FrozenBcAnchorTests.test_real_runner_compares_targets_and_uses_pending_coefficient) ... FAIL
+
+======================================================================
+FAIL: test_real_runner_compares_targets_and_uses_pending_coefficient (tests.v5.test_frozen_bc_anchor.FrozenBcAnchorTests.test_real_runner_compares_targets_and_uses_pending_coefficient)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/ppo_task_anchor_20261106_65b15bf/source/tests/v5/test_frozen_bc_anchor.py", line 174, in test_real_runner_compares_targets_and_uses_pending_coefficient
+    self.assertNotEqual(results['historical_action'], results['frozen_bc_kl'])
+AssertionError: '143106dbf17efbdb70eab6518c404546ca4bd731906db7ca3bd11351fdc9505b' == '143106dbf17efbdb70eab6518c404546ca4bd731906db7ca3bd11351fdc9505b'
+
+----------------------------------------------------------------------
+Ran 1 test in 2.149s
+
+FAILED (failures=1)
+Expected objective-reversion assertion failed under the finite task; source unchanged.
