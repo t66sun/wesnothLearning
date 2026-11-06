@@ -10,12 +10,4 @@
 - **Evidence:** [Formal acceptance and analysis](../verification/formal_30h_scratch_20261106/REPORT.md). A regression for the diagnosed long-game candidate omissions is not yet written; no repair is included in this report.
 - **Training blocker:** Blocks a claim of three-format default-configuration BC readiness. Duel/team passing BC does not establish improved strength.
 
-## F2. Nomination completeness and outcome reporting
-
-- **Status/reason:** Failed classification: complete 12-block/12-scenario duel and FFA nomination panels with zero faults are labeled incomplete because their strength result is inconclusive.
-- **Minimal Ubuntu inputs/procedure:** Reuse the archived nomination JSONs in `verification/formal_30h_scratch_20261106/metadata.tar.gz`; verify completeness independently of the strength decision. A targeted regression for complete inconclusive versus missing/faulted panels is not yet written.
-- **Pass criteria:** Complete inconclusive panels are reported as complete with an inconclusive outcome; missing or faulty panels remain incomplete; the strength promotion requirement is preserved. No new games are needed for this reporting check.
-- **Evidence:** [Selection analysis](../verification/formal_30h_scratch_20261106/REPORT.md#why-the-newest-model-was-not-selected).
-- **Training blocker:** Not an execution blocker; blocks accurate selection diagnosis. It does not explain away the negative/inconclusive strength results.
-
 These items are plans for the affected behavior only. They do not authorize collection, repair or training.
