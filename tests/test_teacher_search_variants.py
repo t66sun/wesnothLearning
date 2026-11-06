@@ -3,6 +3,24 @@ from tests.test_search_teacher import load_teacher
 
 
 class TeacherVariantTests(unittest.TestCase):
+    def test_leader_advance_accounts_for_extra_visible_followup_exposure(self):
+        lua,_=load_teacher()
+        lua.execute('''
+            leader=unit('leader',1,2,2,40,15);leader.leader=true;leader.moves=2;leader.max_moves=2
+            target=unit('target',2,4,2,5,0)
+            a=unit('a',2,5,2,30,30,2);a.max_moves=1
+            b=unit('b',2,5,3,30,30,2);b.max_moves=1
+            s=board({leader,target,a,b},4);s.ffa=true;s.homes.leader={x=2,y=2}
+            config.depth=1;config.reply_width=0
+            original=actions.generate(s,config,never,true);before=search.choose(s,original,config,never)
+            config.leader_exposure=4
+            cautious=actions.generate(s,config,never,true);after=search.choose(s,cautious,config,never)
+        ''')
+        self.assertEqual(lua.eval('before.kind'),'combat')
+        self.assertEqual(lua.eval('after.kind'),'end_turn')
+        self.assertEqual(lua.eval('s.units.leader.x'),2)
+        self.assertEqual(lua.eval('s.units.leader.hp'),40)
+
     def test_two_enemy_responses_expose_a_fatal_focus_fire(self):
         lua,_=load_teacher()
         lua.execute('''
