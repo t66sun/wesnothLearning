@@ -1,0 +1,14 @@
+test_new_batch_reads_once_without_truncating_tail_or_raw_prefix (tests.v5.test_ppo_rollout_read_once.RolloutReadOnceTests.test_new_batch_reads_once_without_truncating_tail_or_raw_prefix) ... FAIL
+
+======================================================================
+FAIL: test_new_batch_reads_once_without_truncating_tail_or_raw_prefix (tests.v5.test_ppo_rollout_read_once.RolloutReadOnceTests.test_new_batch_reads_once_without_truncating_tail_or_raw_prefix)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/rollout_read_once_20261106_f836c5a/reverted/source/tests/v5/test_ppo_rollout_read_once.py", line 85, in test_new_batch_reads_once_without_truncating_tail_or_raw_prefix
+    self.assertEqual(len(rollout_calls), 1, 'fresh rollout must be read exactly once')
+AssertionError: 2 != 1 : fresh rollout must be read exactly once
+
+----------------------------------------------------------------------
+Ran 1 test in 1.076s
+
+FAILED (failures=1)

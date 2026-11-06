@@ -402,12 +402,13 @@ class FormatExperiment:
         bc=read_shards(pool,partition='train',limit=self.config['bc_records'],seed=pool_seed,format_name=self.fmt,stats=stats,expected_task=self.config.get('task_id'))
         return pool,bc,stats
 
-    def finish_train(self,prepared_bc=None):
+    def finish_train(self,prepared_bc=None,*,prepared_ppo=None):
         pending=self.state['pending_train'];method=pending['method']
         pool,bc,stats=self.read_bc_batch(method) if prepared_bc is None else prepared_bc
         reads=dict(bc=stats)
         validation=read_shards(pool,partition='validation',limit=self.config['bc_validation_records'],seed=self.config['seed'],format_name=self.fmt,stats=reads.setdefault('validation',{}),expected_task=self.config.get('task_id')) if method=='bc' else []
-        rows=bc+validation if method=='bc' else read_shards(pending['paths'],format_name=self.fmt,expected_task=self.config.get('task_id'))
+        if method=='bc': rows=bc+validation
+        else: rows=read_shards(pending['paths'],format_name=self.fmt,expected_task=self.config.get('task_id')) if prepared_ppo is None else prepared_ppo
         if method == 'ppo':
             from .updates import eligible_rows
             eligible_rows(rows)
@@ -667,11 +668,12 @@ class FormatExperiment:
                 self.state['teacher_shards']=sorted(set(self.state['teacher_shards']+original))
                 paths=self.state['teacher_shards']+list(map(str,self.human_paths()))
             prepared_bc=self.read_bc_batch(method) if method=='bc' else None
-            if not (prepared_bc[1] if prepared_bc is not None else read_shards(paths,partition='train',limit=self.config['bc_records'],format_name=self.fmt,expected_task=self.config.get('task_id'))):
+            prepared_ppo=read_shards(paths,format_name=self.fmt,expected_task=self.config.get('task_id')) if method=='ppo' else None
+            if not (prepared_bc[1] if prepared_bc is not None else prepared_ppo):
                 self.state['batch']+=1;self.save();continue
             self.state['pending_train']=dict(paths=paths,method=method,cursor=dict(epoch=0,step=0),reward_config=self.controller.freeze());self.save()
-            finished=self.finish_train(prepared_bc)
-            del prepared_bc
+            finished=self.finish_train(prepared_bc,prepared_ppo=prepared_ppo)
+            del prepared_bc,prepared_ppo
             if not finished: break
 
     def _checkpoint_version(self,path):

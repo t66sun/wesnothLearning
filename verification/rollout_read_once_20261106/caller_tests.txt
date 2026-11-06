@@ -1,0 +1,10 @@
+test_actual_training_read_is_reused_and_resume_reads_fresh (tests.v5.test_bc_preflight_read.BcPreflightReadTests.test_actual_training_read_is_reused_and_resume_reads_fresh) ... ok
+test_empty_actual_batch_skips_without_pending_update (tests.v5.test_bc_preflight_read.BcPreflightReadTests.test_empty_actual_batch_skips_without_pending_update) ... ok
+test_changed_valid_inputs_rejected_before_any_update (tests.v5.test_rollout_content_identity.RolloutContentIdentityTests.test_changed_valid_inputs_rejected_before_any_update) ... ok
+test_hashes_one_buffer_per_target_and_shared_prefix (tests.v5.test_rollout_content_identity.RolloutContentIdentityTests.test_hashes_one_buffer_per_target_and_shared_prefix) ... ok
+test_unchanged_rereads_and_container_forms_match (tests.v5.test_rollout_content_identity.RolloutContentIdentityTests.test_unchanged_rereads_and_container_forms_match) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.852s
+
+OK
