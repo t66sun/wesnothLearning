@@ -5,7 +5,7 @@
 ## S1. 独立搜索教师强度
 
 - **状态/原因：** 独立公开局面 beam 教师已实现；模型契约和短原生入口检查仅为准备期证据，六组强度要求尚未验收。
-- **最小 Ubuntu 输入/流程：** 用 `python -m learning.teacher_remote` 传输已提交源码，运行 `tests.test_search_teacher` 和三赛制原生入口探针，再执行另行授权的独立实验：训练地图探索五小时、验证选拔最多一小时、探索后四小时总额度的剩余部分用于冻结留出核验。版本联赛及选拔工具尚待实现。
+- **最小 Ubuntu 输入/流程：** 用 `python -m learning.teacher_remote` 传输已提交源码，运行 `tests.test_search_teacher`、`tests.test_teacher_budgets`、`tests.test_teacher_remote` 与 `tests.test_teacher_lab`。独立 `learning.teacher_lab` 工具提供版本登记、完整原生准备面板、五小时训练地图探索、最多一小时验证选拔，以及探索后四小时总额度剩余部分的冻结留出核验。实验执行需要明确授权，本计划本身不授予执行权限。
 - **通过标准：** 各赛制/时域有完整配对座位轮换、至少 12 个物理场景、无参赛者故障，六组归一化平均提升均至少 0.10，场景聚类 95% 区间下界均大于零。自然终局、封顶平局、中断及耗时分别报告，到点不降低标准。
 - **证据：** Ubuntu 主机新的 `verification/teacher_search_20261107/` 证据；最终日期报告待完成，既有 Astra 与冻结输入证据不改。
 - **训练阻塞：** 阻塞新教师更强或可接入训练的结论；本任务不更换当前训练教师。

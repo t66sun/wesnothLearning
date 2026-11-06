@@ -329,7 +329,21 @@ worker、设备、赛制、总预算、BC 局数/原版锚点数、模型结构/
 
 每次变更核对实际生效配置后，记录旧值→新值、用户依据、命令/事件 ID、实际生效批次/版本、后续观察与回退方式。默认比较有效采样吞吐、故障率、BC 分项指标和同引擎/同赛制的验证结果，正式强度仍依据原版评测。
 
-## 9. 汇报与交接
+## 9. 独立原生教师实验
+
+此入口不采集训练数据，也不替换当前教师，仅用于明确授权的教师实验。先提交分支，再用 `python -m learning.teacher_remote --command 'COMMAND'` 归档该提交、上传并在新 Ubuntu 目录中复用现有环境执行命令。核对返回的 `SOURCE` 和 `TREE`，保留旧证据目录。
+
+在该归档源码目录中使用 `/home/tongshu/venv/bin/python -m learning.teacher_lab --directory ABSOLUTE_NEW_DIRECTORY` 及以下子命令：
+
+1. `init --source-commit COMMIT --wesnoth EXECUTABLE` 冻结维护版 Astra 源码/包和运行环境身份。使用八个 worker 前检查可用 CPU 与内存。
+2. `register --name VERSION --source-commit COMMIT --description DESCRIPTION [--source TEACHER_DIRECTORY] [--parameters JSON]` 创建不可变候选。通过 `--source` 登记新源码归档，比赛仍从原 `evaluator_root` 执行。
+3. `panel --name UNIQUE_PANEL --candidate VERSION --preflight` 检查三个赛制 30/100 回合的完整流程。准备期可以修复正确性，不能反复按成绩调参。
+4. `start` 一次性记录五小时探索和赛后截止时间。后续 `panel` 仅使用训练地图，先跑一个 block，再以 `--blocks 2 --offset 1` 补两个。六组暂时战胜基线后才可使用 `--opponent VERSION` 进行版本联赛。`status` 报告完整证据和未完成面板。
+5. 五小时后执行 `select`，依据实测吞吐冻结验证与留出设计，每赛制比较最多三个候选，冻结组合包后在既有四小时截止前核验留出集。结果写入 `final.json` 和 `REPORT.md`；未获资格的回退选择不能通过最终验收。
+
+变更或重启命令不会延长时钟。保留失败版本和未完成对局，不根据留出结果调参，不降低 0.10/95%/12 场景门槛，也不在此流程中接入训练。
+
+## 10. 汇报与交接
 
 获准导出交付包后，可用 `export --audit-data DIR --audit-workers N` 让所有赛制共用最多 N 个审计进程，默认一个。各赛制子目录中的全部 `*.jsonl.gz` 分片都会参与校验，同一序列分散在多个文件时会合并处理。
 
