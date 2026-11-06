@@ -5,10 +5,11 @@ function M.choose(state,actions,config,expired)
     assert(not state.ffa,'PVS requires two opposed utilities')
     local root,model=T.create(state,actions,config,expired)
     local champion=actions[1];local cache,preferred={},{}
-    local stats={depth=0,nodes=0,cutoffs=0,researches=0,cache_hits=0,algorithm='pvs'}
+    local stats={depth=0,nodes=0,cutoffs=0,researches=0,tt_hits=0,algorithm='pvs'}
     for depth=1,config.tree_depth or 6 do
         local action,value,work=P.solve(root,model,depth,expired,cache,preferred)
-        for _,key in ipairs{'nodes','cutoffs','researches','cache_hits'} do stats[key]=stats[key]+work[key] end
+        for _,key in ipairs{'nodes','cutoffs','researches'} do stats[key]=stats[key]+work[key] end
+        stats.tt_hits=stats.tt_hits+work.cache_hits
         if not action then break end
         champion=action;stats.depth=depth;stats.value=value/1000
     end

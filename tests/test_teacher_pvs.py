@@ -3,6 +3,20 @@ from tests.test_search_teacher import load_teacher
 
 
 class TeacherPVSTests(unittest.TestCase):
+    def test_bot_keeps_search_and_combat_cache_diagnostics_separate(self):
+        lua,_=load_teacher()
+        lua.execute('''
+            wesnoth.ms_since_init=function() return 0 end
+            public.capture=function() return {format='duel'},{} end
+            actions.generate=function() return {{kind='end_turn',key='end_turn',score=0}},0 end
+            search.choose=function(s,a) return a[1],{nodes=8,depth=2,tt_hits=7,algorithm='pvs'} end
+            combat.cache_stats=function() return 10,17 end
+            data={};bot=wesnoth.require('~add-ons/search_teacher/lua/bot.lua');bot:evaluation({},data)
+        ''')
+        self.assertEqual(lua.eval('data.search.tt_hits'),7)
+        self.assertEqual(lua.eval('data.search.combat_cache_hits'),17)
+        self.assertEqual(lua.eval('data.search.algorithm'),'pvs')
+
     def test_pvs_matches_exhaustive_search_with_repeated_players(self):
         lua,_=load_teacher();lua.globals().pvs=lua.globals().load_module('pvs.lua')
         lua.execute('''

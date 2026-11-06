@@ -26,7 +26,7 @@ function M:evaluation(cfg,data)
     local action,stats=Search.choose(state,legal,settings,expired)
     stats.ms=wesnoth.ms_since_init()-start;stats.predictions=predictions
     stats.model='public-local-v1';data.search=stats
-    stats.cache_entries,stats.cache_hits=C.cache_stats()
+    stats.combat_cache_entries,stats.combat_cache_hits=C.cache_stats()
     stats.expired=stats.ms>=(settings.planning_ms or 1000)
     data.plan=action.kind~='end_turn' and action or nil
     return data.plan and 100000 or 0
