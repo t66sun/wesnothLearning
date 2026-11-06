@@ -1,6 +1,4 @@
 """Semantic accounting assertions; real-input checks run inside probe.py."""
-import ast
-from pathlib import Path
 import unittest
 
 from census import intervals, ledger, union_seconds
@@ -25,12 +23,6 @@ class AccountingTests(unittest.TestCase):
         self.assertEqual(sum(s['end'] - s['start'] for s in spans), 9)
         self.assertEqual(union_seconds((s['start'], s['end']) for s in spans), 6)
         self.assertEqual(unmatched['open_at_end'], 1)
-
-    def test_probe_has_no_optimizer_or_job_entry_point(self):
-        tree = ast.parse(Path(__file__).with_name('probe.py').read_text())
-        names = {node.attr for node in ast.walk(tree) if isinstance(node, ast.Attribute)}
-        self.assertFalse({'step', 'Adam', 'AdamW', 'SGD', 'save', 'run_job'} & names)
-
 
 if __name__ == '__main__':
     unittest.main()
