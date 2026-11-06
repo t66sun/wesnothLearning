@@ -1,0 +1,73 @@
+...........E.E.E.E...
+======================================================================
+ERROR: test_each_panel_block_starts_from_its_own_factions (tests.v5.test_evaluation_design.EvaluationDesignTests.test_each_panel_block_starts_from_its_own_factions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/issue222_nomination_20261106/green/tests/v5/test_evaluation_design.py", line 52, in test_each_panel_block_starts_from_its_own_factions
+    jobs=evaluation_jobs('.', 'policy','baseline',['baseline'],12,19,1000,'unused',
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/acceptance/issue222_nomination_20261106/green/learning/schedule.py", line 99, in evaluation_jobs
+    decorate(job,fmt,scenario['map_index'],phase)
+  File "/home/tongshu/acceptance/issue222_nomination_20261106/green/learning/maps.py", line 127, in decorate
+    board,digest=frozen_map(name)
+                 ^^^^^^^^^^^^^^^^
+  File "/home/tongshu/acceptance/issue222_nomination_20261106/green/learning/maps.py", line 110, in frozen_map
+    if not path.exists(): raise ValueError(f'missing frozen 1.18.8 map: {path}; export it before collecting')
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: missing frozen 1.18.8 map: /home/tongshu/acceptance/issue222_nomination_20261106/green/data/rules/1.18.8/maps/morituri.json; export it before collecting
+
+======================================================================
+ERROR: test_frozen_floors_and_existing_schedule_capacity (tests.v5.test_evaluation_design.EvaluationDesignTests.test_frozen_floors_and_existing_schedule_capacity)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/issue222_nomination_20261106/green/tests/v5/test_evaluation_design.py", line 31, in test_frozen_floors_and_existing_schedule_capacity
+    jobs=evaluation_jobs('.', 'policy','baseline',['baseline'],30,19,1000,'unused',
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/acceptance/issue222_nomination_20261106/green/learning/schedule.py", line 99, in evaluation_jobs
+    decorate(job,fmt,scenario['map_index'],phase)
+  File "/home/tongshu/acceptance/issue222_nomination_20261106/green/learning/maps.py", line 127, in decorate
+    board,digest=frozen_map(name)
+                 ^^^^^^^^^^^^^^^^
+  File "/home/tongshu/acceptance/issue222_nomination_20261106/green/learning/maps.py", line 110, in frozen_map
+    if not path.exists(): raise ValueError(f'missing frozen 1.18.8 map: {path}; export it before collecting')
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: missing frozen 1.18.8 map: /home/tongshu/acceptance/issue222_nomination_20261106/green/data/rules/1.18.8/maps/caves_of_the_basilisk.json; export it before collecting
+
+======================================================================
+ERROR: test_promotion_panel_reaches_the_distinct_floor (tests.v5.test_evaluation_design.EvaluationDesignTests.test_promotion_panel_reaches_the_distinct_floor)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/issue222_nomination_20261106/green/tests/v5/test_evaluation_design.py", line 43, in test_promotion_panel_reaches_the_distinct_floor
+    jobs=evaluation_jobs('.', 'policy','baseline',['baseline'],12,19,1000,'unused',
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/acceptance/issue222_nomination_20261106/green/learning/schedule.py", line 99, in evaluation_jobs
+    decorate(job,fmt,scenario['map_index'],phase)
+  File "/home/tongshu/acceptance/issue222_nomination_20261106/green/learning/maps.py", line 127, in decorate
+    board,digest=frozen_map(name)
+                 ^^^^^^^^^^^^^^^^
+  File "/home/tongshu/acceptance/issue222_nomination_20261106/green/learning/maps.py", line 110, in frozen_map
+    if not path.exists(): raise ValueError(f'missing frozen 1.18.8 map: {path}; export it before collecting')
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: missing frozen 1.18.8 map: /home/tongshu/acceptance/issue222_nomination_20261106/green/data/rules/1.18.8/maps/hamlets.json; export it before collecting
+
+======================================================================
+ERROR: test_teacher_games_reach_the_bc_scenario_floor (tests.v5.test_evaluation_design.EvaluationDesignTests.test_teacher_games_reach_the_bc_scenario_floor)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/issue222_nomination_20261106/green/tests/v5/test_evaluation_design.py", line 62, in test_teacher_games_reach_the_bc_scenario_floor
+    jobs=teacher_jobs('.',['gpt6astra'],['baseline'],'support',0,19,1000,'unused',
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/acceptance/issue222_nomination_20261106/green/learning/schedule.py", line 140, in teacher_jobs
+    decorate(job,fmt,i,'train')
+  File "/home/tongshu/acceptance/issue222_nomination_20261106/green/learning/maps.py", line 127, in decorate
+    board,digest=frozen_map(name)
+                 ^^^^^^^^^^^^^^^^
+  File "/home/tongshu/acceptance/issue222_nomination_20261106/green/learning/maps.py", line 110, in frozen_map
+    if not path.exists(): raise ValueError(f'missing frozen 1.18.8 map: {path}; export it before collecting')
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: missing frozen 1.18.8 map: /home/tongshu/acceptance/issue222_nomination_20261106/green/data/rules/1.18.8/maps/the_freelands.json; export it before collecting
+
+----------------------------------------------------------------------
+Ran 21 tests in 2.369s
+
+FAILED (errors=4)

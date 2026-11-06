@@ -21,7 +21,7 @@ class RevisionTests(unittest.TestCase):
         config=default_config('cpu');validate_config(config)
         self.assertEqual(config['bc_games'],dict(duel=300,ffa4=600,team2v2=400))
         self.assertEqual((config['workers'],config['trainer_threads']),(8,1))
-        self.assertEqual(config['validation_games']['team2v2'],8)
+        self.assertEqual(config['validation_games']['team2v2'],24)
         with self.assertRaises(ValueError):validate_config(config|dict(validation_games=dict(duel=6,ffa4=4,team2v2=4)))
 
     def test_teacher_batches_have_unique_ids_and_baseline_partner(self):
@@ -90,8 +90,8 @@ class RevisionTests(unittest.TestCase):
         all_factions=set()
         for cycle in range(3):
             with patch('learning.maps.frozen_map',return_value=(opening_map(4),'0'*64)):
-                jobs=evaluation_jobs('.', 'same-policy','baseline',['baseline'],1,17,3000000000,'unused',formats=['team2v2'],faction_cycle=cycle)
-            self.assertEqual(len(jobs),8)
+                jobs=evaluation_jobs('.', 'same-policy','baseline',['baseline'],3,17,3000000000,'unused',formats=['team2v2'],faction_cycle=cycle*3)
+            self.assertEqual(len(jobs),24)
             self.assertEqual({j['meta']['policy'] for j in jobs},{'same-policy'})
             self.assertEqual({j['meta']['context'] for j in jobs},{'baseline_partner','self_team'})
             all_factions.update(f for j in jobs for f in j['factions'])

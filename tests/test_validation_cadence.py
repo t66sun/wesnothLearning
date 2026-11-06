@@ -72,7 +72,7 @@ class ValidationCadenceTests(unittest.TestCase):
             self.assertEqual(read_json(Path(temp)/'state.json')['pending_validation'],'bc')
 
     def test_validation_sizes_paired_contexts_and_no_unready_opening(self):
-        for fmt,expected in [('duel',6),('ffa4',4),('team2v2',8)]:
+        for fmt,expected in [('duel',6),('ffa4',12),('team2v2',24)]:
             with tempfile.TemporaryDirectory() as temp:
                 r=self.runner(temp,fmt);seen=[]
                 def execute(jobs,name):
