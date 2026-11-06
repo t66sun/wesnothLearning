@@ -1,0 +1,6 @@
+Tested commit: 65b15bf9faed231dcb8955fa81f32cf14374cdef
+Runtime/test diff from tested commit: empty
+Source line scan (git ls-files *.py *.rs *.lua *.sh):
+1050 tests/smoke_training_lite_8worker.py
+1504 tests/v5/test_pipeline_contract.py
+Only the two unchanged grandfathered files exceed 1000 lines.

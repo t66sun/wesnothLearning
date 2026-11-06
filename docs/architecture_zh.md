@@ -153,6 +153,8 @@ BC 模仿验证在 64 行推理块之间共享本次调用的历史缓存；无�
 
 探索为零且 gamma 为 1 时，完整回报为 `z-phi(start)`，势函数只引入与状态相关的常数，不改变结果偏好；不添加提前获胜奖励或 critic clamp。已有 `turn/30` 观测标识剩余时间。任务身份固定在 config、赛程、奖励配置、数据行和检查点中；旧 `continuation-v1`/`v5-potential-1` 输入仍可只读诊断，但不能用于有限任务训练或恢复，冻结数据和证据不得重标。
 
+有限任务边界已通过 116 项 Ubuntu 检查，覆盖真实 Lite 终局夹具、真实 native Lua finish hook、任务身份/仅权重初始化及 PPO 单次读取接入。还原旧平局零奖励后，完整回报数值断言失败；这不构成新任务训练或棋力验收。[命令、源码身份与限制](../verification/finite_score_20261106/REPORT.md)
+
 冻结 team 全量扫描覆盖已提交训练批的 924 局 / 341,940 个决策。到第 30 回合仍有 71.75% 的对局未结束，36.38% 的决策发生在此后。晚期触顶对局中，58.09% 的决策价值超出该运行 `.15/.10/.10` 系数下保守的完整回报范围 `[-1.25,+1.25]`。报告区分自然终局 MC 校准与截断 bootstrap 自洽性；GAE 拟合或假设有限上限目标均不构成棋力证据。[边界夹具、校准与目标对齐](../verification/team_critic_horizon_20261106/REPORT.md)
 
 `RewardController`（`learning/control.py`）为每个赛制维护只追加的事件链（序号、前序校验和、校验和）。它在匹配地图/阵营分层、带 Astra 参考的完整 12 block 验证窗口上推进，每次只改一个系数且幅度 ≤±10%，并保持在 `economy 0.05–0.20`、`control 0.02–0.15` 之内。有限任务的探索系数始终为零，手动和计划更新同样受约束。自适应提议需两个可比窗口；holdout/final/test 分区永不调奖励；待处理命令在批边界生效。证据由 `learning/reward_metrics.py` 从匹配的验证窗口构建：策略对局与 Astra 参考按相同地图/阵营/队友上下文比较，每个分层至少四个独立对局族，缺失记录进入 `excluded_evidence` 而不是凑成完整块。
@@ -175,7 +177,7 @@ PPO 复习有两个明确目标，在新运行的 `config.ppo_aux_target` 中冻
 
 时钟把 `hours` 的 10/12 留给更新、2/12 留给冻结评估；`final_holdout_hours` 从评估窗口中划出。
 
-可选冻结 BC 目标通过 43 项独立 Ubuntu loss/runner/resume/来源/分支检查，覆盖真实内部导出加载，并验证把 KL 换回历史动作 CE 会使断言失败。任务接口合并验收仍列在 TEST.md。[命令、源码身份与范围](../verification/frozen_bc_anchor_20261106/REPORT.md)
+可选冻结 BC 目标通过 43 项独立 Ubuntu loss/runner/resume/来源/分支检查；与有限任务、完整 rollout 读取集成后通过 88 项联合检查，覆盖真实 runner/export/resume、任务兼容分片，以及 weights-only 初始化或 BC 重启时丢弃旧锚点的分支行为。在有限任务下将 KL 换回历史动作 CE，真实 runner 对照断言按预期失败。[独立证据](../verification/frozen_bc_anchor_20261106/REPORT.md)与[统一验收](../verification/ppo_task_anchor_acceptance_20261106/REPORT.md)证明接线；棋力与能力保持仍需实验判断。
 
 检查点在 `state.json` 旁原子写入；恢复时校验 manifest 哈希、schema、权重与优化器状态，分支运行还接受其继承检查点仍指向的父 manifest 哈希。`--branch-from` 把完整 `latest.pt` 复制成新运行，记录父身份、新时钟与种子，并保留或重置优化器。语料与覆盖门禁只复用该检查点实际保留分片对应的合格祖先教师结果，排除祖先后续采集，并按分片路径去重嵌套谱系。30 项受影响 Ubuntu 检查及真实父运行 40 局只读检查通过（`verification/branch_teacher_evidence_20261102/REPORT.md`）。
 

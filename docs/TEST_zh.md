@@ -2,22 +2,6 @@
 
 > 语言：[English](TEST.md) | 中文
 
-## P1. 冻结 BC 辅助目标
-
-- **状态/原因：** 已实现，43 项独立 Ubuntu 检查通过，等待 #235 任务/分支接口合并后的统一验收。历史动作基线与可选冻结分布目标共用采样和停止规则。
-- **最小 Ubuntu 输入/步骤：** 从已发送的源码提交，使用编译规则/扩展运行 `tests.v5.test_frozen_bc_loss`、`tests.v5.test_frozen_bc_anchor`、复习来源、PPO plan/resume/phase 和 BC 分支重启套件。fixture 使用临时检查点与合成状态行，不授权采集或正式训练。
-- **通过标准：** 正向 KL 方向、匹配 BC 时数值零、有限候选 padding、冻结参数、独立完整历史、等权窗口；真实 runner/export/load/branch/resume 的身份及系数接线；端点缺失/替换在更新前报错；control/no-drop/停止行为不变。
-- **证据：** [独立检查与目标回退断言](../verification/frozen_bc_anchor_20261106/REPORT.md)；实现检查不证明棋力或能力保持。
-- **训练阻塞：** 阻止使用 `frozen_bc_kl`；实际收益留给单独获准、使用 #235 任务的 #227 对照。
-
-## F1. 有限正式积分任务边界
-
-- **状态/原因：** 已实现，等待 Ubuntu 验收。新运行使用 `official-score-30-v1`，完整 30 回合计分终局，gamma 为 1，探索为零。
-- **最小 Ubuntu 输入/流程：** 运送已提交源码归档；执行 `tests.v5.test_finite_score`、`tests.v5.test_finite_score_identity`、受影响的奖励/时域/分支/回合上限套件和源码行数检查。夹具在合成棋盘上使用既有 Rust 扩展及真实 native Lua runtime，不启动语料采集或训练运行。
-- **通过标准：** 正式积分仿射等价、完整第 30 回合、自然终局、提前外部截断、已淘汰队友、BC/PPO 目标、rowpack 传递与旧任务拒绝均通过；针对性撤回行为后断言失败。
-- **证据：** 新输出写入 `verification/finite_score_20261106/`，保留所有失败尝试；测试已编写。
-- **训练阻塞：** 边界验收通过前阻塞新有限任务实验。
-
 ## F2. 有限任务的普通 BC 与 critic 校准
 
 - **状态/原因：** 新任务尚无已训练策略验收。此前 30 回合 BC 证据使用延续任务语义；历史 60 回合正式运行的 FFA 总覆盖仅 88.08%，不得重标。

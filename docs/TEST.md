@@ -2,22 +2,6 @@
 
 > Language: English | [中文](TEST_zh.md)
 
-## P1. Frozen BC auxiliary target
-
-- **Status/reason:** Implemented; 43 standalone Ubuntu checks passed. Acceptance of the combined #235 task/branch interfaces is pending. The historical-action baseline and optional frozen distribution target share sampling and stopping.
-- **Minimal Ubuntu inputs/procedure:** Run `tests.v5.test_frozen_bc_loss`, `tests.v5.test_frozen_bc_anchor`, rehearsal-source, PPO plan/resume/phase and branch restart suites from a shipped commit with the compiled rules/extension. Fixtures use temporary checkpoints and synthetic existing-state rows; no collection or training run is authorized.
-- **Pass criteria:** Forward KL direction and numerical zero at BC, finite padded support, frozen parameters, independent complete histories, equal-window weighting, real runner/export/load/branch/resume identity and coefficient wiring, missing/replaced endpoint failure before updating, and unchanged control/no-drop/stop behavior.
-- **Evidence:** [Standalone checks and target-reversion assertion](../verification/frozen_bc_anchor_20261106/REPORT.md); no strength or retention claim from implementation checks.
-- **Training blocker:** Blocks use of `frozen_bc_kl`; comparison benefits remain for the separately authorized #227 experiment under #235's task.
-
-## F1. Finite official-score task boundaries
-
-- **Status/reason:** Implemented; Ubuntu acceptance pending. New runs use `official-score-30-v1` with true 30-round terminal scoring, gamma 1 and zero exploration.
-- **Minimal Ubuntu inputs/procedure:** Ship a committed source archive; run `tests.v5.test_finite_score`, `tests.v5.test_finite_score_identity`, the reward/horizon/branch/turn-limit affected suites and source-line checks. Fixtures use the existing Rust extension with synthetic boards and the actual native Lua runtime, without collection or training runs.
-- **Pass criteria:** Formal-score affine equivalence, complete round 30, natural terminals, early external cuts, eliminated teammates, BC/PPO targets, rowpack propagation and old-task rejection pass; a targeted reverted behavior fails its assertion.
-- **Evidence:** New output under `verification/finite_score_20261106/`; preserve all failed attempts. Test implementations exist.
-- **Training blocker:** Blocks new finite-task experiments until these boundaries pass.
-
 ## F2. Ordinary BC and critic calibration under the finite task
 
 - **Status/reason:** The new task has no trained-policy acceptance. Earlier 30-turn BC evidence used continuation semantics; the historical 60-turn formal run failed FFA overall coverage at 88.08% and is not relabelled.
