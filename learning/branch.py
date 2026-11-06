@@ -64,9 +64,18 @@ def prepare(source, destination, formats, *, seed, reset_optimizer=False, clock=
             endpoint_path = source / fmt / 'last_bc.pt'
             endpoint = _endpoint(torch.load(endpoint_path, map_location='cpu', weights_only=False), fmt)
             initial = _endpoint(state, fmt)
-            if any(endpoint[key] != initial[key] for key in ('version', 'weights_sha256', 'task_id', 'features', 'architecture', 'manifest_sha256')):
+            if any(endpoint[key] != initial[key] for key in ('version', 'weights_sha256', 'task_id', 'features', 'architecture')):
                 raise ValueError('branch BC endpoint differs from its initial checkpoint')
-            records[fmt]['bc_endpoint'] = dict(sha256=_sha256(endpoint_path), version=endpoint['version'])
+            origin = json.loads((source / 'manifest.json').read_text())
+            teacher = origin.get('teacher')
+            if endpoint['manifest_sha256'] != _sha256(source / 'manifest.json'):
+                from .checkpoints import branch_lineage
+                prior = (branch_lineage(source / fmt) or {}).get('checkpoints', {}).get(fmt, {}).get('bc_endpoint', {})
+                if prior.get('sha256') != _sha256(endpoint_path):
+                    raise ValueError('branch BC endpoint is outside its recorded lineage')
+                teacher = prior.get('teacher_initialization')
+            records[fmt]['bc_endpoint'] = dict(sha256=_sha256(endpoint_path), version=endpoint['version'],
+                manifest_sha256=endpoint['manifest_sha256'], teacher_initialization=teacher)
             _atomic_copy(endpoint_path, destination / fmt / 'last_bc.pt')
     return dict(schema=BRANCH_VERSION, created=time.time(), seed=seed,
                 reset_optimizer=bool(reset_optimizer), clock=clock, checkpoints=records)

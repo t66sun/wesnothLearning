@@ -113,18 +113,20 @@ def ensure_anchor(runner):
         raise ValueError('frozen BC requires a complete qualifying last_bc.pt')
     state = torch.load(source, map_location='cpu', weights_only=False)
     endpoint = _endpoint(state, runner.fmt)
+    teacher = runner.manifest.get('teacher')
     if endpoint['manifest_sha256'] != sha256(runner.directory.parent / 'manifest.json'):
         lineage = branch_lineage(runner.directory) or {}
         inherited = lineage.get('checkpoints', {}).get(runner.fmt, {}).get('bc_endpoint', {})
-        if (endpoint['manifest_sha256'] != lineage.get('parent_manifest_sha256')
+        if (endpoint['manifest_sha256'] != inherited.get('manifest_sha256')
                 or sha256(source) != inherited.get('sha256')):
             raise ValueError('frozen BC endpoint must belong to this run or its pinned BC initialization')
+        teacher = inherited.get('teacher_initialization')
     if endpoint['task_id'] != runner.config.get('task_id'):
         raise ValueError('frozen BC anchor task differs')
     identity = dict(endpoint, path=ANCHOR_FILE, checkpoint_sha256=sha256(source),
                     row_schema=runner.manifest.get('row_schema', ROW_SCHEMA),
                     initialization_lineage=copy.deepcopy(runner.state.get('lineage', [])),
-                    teacher_initialization=copy.deepcopy(runner.manifest.get('teacher')))
+                    teacher_initialization=copy.deepcopy(teacher))
     path = runner.directory / ANCHOR_FILE
     if path.exists():
         if sha256(path) != identity['checkpoint_sha256']:
