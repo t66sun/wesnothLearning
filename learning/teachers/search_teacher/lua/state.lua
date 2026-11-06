@@ -10,16 +10,17 @@ end
 function S.occupancy(s)
     local result={};for id,u in pairs(s.units) do if u.hp>0 then result[G.key(u.x,u.y)]=id end end;return result
 end
-function S.reach(s,u,full)
+function S.reach(s,u,full,expired)
     local occ=S.occupancy(s);local limit=full and u.max_moves or u.moves
     local found={[G.key(u.x,u.y)]={u.x,u.y,limit}};local queue={found[G.key(u.x,u.y)]};local head=1
     while head<=#queue do
+        if expired and expired() then break end
         local p=queue[head];head=head+1
         if p[3]>0 then
             for _,n in ipairs(G.neighbors(p[1],p[2])) do
                 local k=G.key(n[1],n[2]);local terrain=s.terrain[k]
                 local blocker=occ[k] and s.units[occ[k]]
-                local remaining=p[3]-(u.movement[terrain] or 99)
+                local remaining=p[3]-(u.movement[terrain] or 99)*(u.slow and 2 or 1)
                 if terrain and remaining>=0 and (not blocker or not s.enemies[u.side][blocker.side]) then
                     if not u.skirmisher then
                         for _,z in ipairs(G.neighbors(n[1],n[2])) do
@@ -40,6 +41,7 @@ end
 function S.apply(s,a,rng)
     local out=S.clone(s)
     if a.kind=='end_turn' then
+        for _,u in pairs(out.units) do if u.side==out.side then u.slow=false end end
         out.side=out.side%out.players+1
         if out.side==1 then out.turn=out.turn+1 end
         out.lawful_bonus=(out.bonuses or {})[out.turn] or out.lawful_bonus
@@ -47,7 +49,6 @@ function S.apply(s,a,rng)
             u.moves=u.max_moves;u.attacks_left=1
             if out.villages[G.key(u.x,u.y)] then u.hp=math.min(u.max_hp,u.hp+8);u.poison=false
             elseif u.poison then u.hp=math.max(1,u.hp-8) end
-            u.slow=false
         end end
         return out
     end

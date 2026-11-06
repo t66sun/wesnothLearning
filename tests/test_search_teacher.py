@@ -146,6 +146,62 @@ class SearchTeacherTests(unittest.TestCase):
         self.assertEqual(lua.eval("table.concat(visited,',')"), '2,3,4')
         self.assertEqual(lua.eval('reply.side'), 1)
 
+    def test_root_end_turn_does_not_skip_the_first_opponent(self):
+        lua, _ = load_teacher()
+        lua.execute('''
+            s=board({unit('a',1,2,2,20,5)},4);s.ffa=true;visited={}
+            actions.generate=function(s)
+                visited[#visited+1]=s.side
+                return {{kind='end_turn',score=0,key='end_turn'}}
+            end
+            ended=state.apply(s,{kind='end_turn'})
+            reply=search.reply(ended,config,never)
+        ''')
+        self.assertEqual(lua.eval("table.concat(visited,',')"), '2,3,4')
+
+    def test_slow_survives_enemy_turn_start_and_doubles_movement_cost(self):
+        lua, _ = load_teacher()
+        lua.execute('''
+            own=unit('a',1,7,7,20,5);enemy=unit('b',2,2,2,20,5)
+            enemy.max_moves=4;enemy.slow=true;s=board{own,enemy}
+            t=state.apply(s,{kind='end_turn'});r=state.reach(t,t.units.b,false)
+            ended=state.apply(t,{kind='end_turn'})
+        ''')
+        self.assertTrue(lua.eval('t.units.b.slow'))
+        self.assertEqual(lua.eval('r[geometry.key(2,3)][3]'), 2)
+        self.assertFalse(lua.eval('ended.units.b.slow'))
+
+    def test_steadfast_applies_only_to_the_defending_target(self):
+        lua, _ = load_teacher()
+        lua.execute('''
+            a=unit('a',1,2,2,20,10);d=unit('d',2,2,3,20,10)
+            d.steadfast=true;d.resistance.blade=20;s=board{a,d}
+        ''')
+        self.assertEqual(lua.eval('combat.damage(s,a,d,a.weapons[1],true,false)'), 6)
+        self.assertEqual(lua.eval('combat.damage(s,a,d,a.weapons[1],false,false)'), 8)
+
+    def test_soft_expiry_returns_a_plan_without_faulting(self):
+        lua, _ = load_teacher()
+        lua.execute('''
+            now=0;wesnoth.ms_since_init=function() return now end
+            public.capture=function() now=1100;return {format='duel'},{} end
+            actions.generate=function() return {{kind='end_turn',key='end_turn',score=0}},0 end
+            search.choose=function(s,a) return a[1],{nodes=0,depth=0} end
+            data={}
+        ''')
+        bot = lua.execute((SOURCE / 'lua/bot.lua').read_text())
+        self.assertEqual(bot.evaluation(bot, lua.table(), lua.globals().data), 0)
+        self.assertTrue(lua.eval('data.search.expired'))
+
+    def test_reach_obeys_work_deadline(self):
+        lua, _ = load_teacher()
+        lua.execute('''
+            a=unit('a',1,2,2,20,5);a.moves=20;s=board{a};checks=0
+            r=state.reach(s,a,false,function() checks=checks+1;return checks>1 end)
+            size=0;for _ in pairs(r) do size=size+1 end
+        ''')
+        self.assertLessEqual(lua.eval('size'), 7)
+
     def test_ffa_utility_does_not_merge_opponents(self):
         lua, _ = load_teacher()
         lua.execute('''

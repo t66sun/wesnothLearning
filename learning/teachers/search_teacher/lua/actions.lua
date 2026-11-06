@@ -50,7 +50,7 @@ function A.generate(s,config,expired,root)
     local units=ordered(s.units)
     for _,u in ipairs(units) do if u.side==s.side and u.hp>0 and not u.petrified then
         if expired() then break end
-        local reachable=S.reach(s,u,false);local positions={}
+        local reachable=S.reach(s,u,false,expired);local positions={}
         for _,p in pairs(reachable) do positions[#positions+1]=p end
         table.sort(positions,function(a,b) return G.key(a[1],a[2])<G.key(b[1],b[2]) end)
         if u.attacks_left>0 then
@@ -75,6 +75,7 @@ function A.generate(s,config,expired,root)
         if u.moves>0 and not config.attacks_only then
             local before=position(s,u,u.x,u.y);local moves={}
             for _,p in ipairs(positions) do if p[1]~=u.x or p[2]~=u.y then
+                if expired() then break end
                 local score=position(s,u,p[1],p[2])-before
                 moves[#moves+1]={kind='move',id=u.id,x=u.x,y=u.y,tx=p[1],ty=p[2],remaining=0,score=score}
             end end
@@ -89,14 +90,17 @@ function A.generate(s,config,expired,root)
         end end
         local i=1
         while i<=#queue do local p=queue[i];i=i+1
+            if expired() then break end
             for _,n in ipairs(G.neighbors(p[1],p[2])) do local k=G.key(n[1],n[2])
                 if s.castles[k] and not connected[k] then connected[k]=true;queue[#queue+1]=n end
             end
         end
         local army=0;for _,u in ipairs(units) do if u.hp>0 and u.side==s.side then army=army+1 end end
         for _,u in ipairs(s.recruits) do if u.cost<=s.gold[s.side] then
+            if expired() then break end
             local best,score=nil,-math.huge
             for _,p in ipairs(queue) do if not occ[G.key(p[1],p[2])] then
+                if expired() then break end
                 local value=position(s,u,p[1],p[2]);if value>score then best=p;score=value end
             end end
             if best then add{kind='recruit',type=u.type,x=best[1],y=best[2],recruit=u,

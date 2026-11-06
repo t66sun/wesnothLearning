@@ -36,11 +36,12 @@ function P.profile(u,terrain_codes)
     end
     return p
 end
-function P.capture(data,config)
+function P.capture(data,config,expired)
     local side=wesnoth.current.side;local map=wesnoth.current.map
     data.public=data.public or {terrain={},owners={},last_seen={},homes={}}
     local memory=data.public;local codes={};local villages,castles,keeps={},{},{}
     for x=1,map.width do for y=1,map.height do
+        if expired and expired() then return nil end
         local k=G.key(x,y)
         if not wesnoth.sides.is_shrouded(side,x,y) then memory.terrain[k]=map[{x,y}] end
         if memory.terrain[k] then codes[memory.terrain[k]]=true end
@@ -74,6 +75,7 @@ function P.capture(data,config)
     for _,u in ipairs(wesnoth.units.find_on_map{{'filter_vision',{side=side,visible='yes'}}}) do visible[u.id]=u end
     for _,u in ipairs(wesnoth.units.find_on_map{side=side}) do visible[u.id]=u end
     for id,u in pairs(visible) do
+        if expired and expired() then return nil end
         local p=P.profile(u,codes);s.units[id]=p;raw[id]=u
         if u.side==side and u.canrecruit and not memory.homes[id] then memory.homes[id]={x=u.x,y=u.y} end
         if s.enemies[side][u.side] then memory.last_seen[id]={x=u.x,y=u.y,turn=s.turn,side=u.side} end
@@ -85,6 +87,7 @@ function P.capture(data,config)
     end
     s.sightings=memory.last_seen;s.recruits={}
     for _,name in ipairs(wesnoth.sides[side].recruit) do
+        if expired and expired() then return nil end
         if wesnoth.unit_types[name].cost<=s.gold[side] then
             local u=wesnoth.units.create{type=name,side=side,random_traits=false,random_gender=false,
                 generate_name=false,id='search_template_'..name,underlying_id=2147483647}

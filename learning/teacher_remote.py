@@ -21,8 +21,8 @@ def ship(command, *, host='cpuServer', destination=None):
     subprocess.run(['scp', '-q', str(archive), f'{host}:{remote_archive}'], check=True)
     q = shlex.quote
     script = f'''set -eu
-mkdir -p {q(destination)}
-test ! -e {q(destination + '/SOURCE_COMMIT')}
+mkdir -p {q(str(Path(destination).parent).replace(chr(92), '/'))}
+mkdir {q(destination)}
 tar -xf {q(remote_archive)} -C {q(destination)}
 cd {q(destination)}
 printf '%s\\n' {q(commit)} > SOURCE_COMMIT

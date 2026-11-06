@@ -8,7 +8,7 @@ local function better(a,b)
 end
 function M.reply(s,config,expired)
     if s.leaf_only then return s end
-    local out=S.apply(s,{kind='end_turn'})
+    local out=s.side==s.root_side and S.apply(s,{kind='end_turn'}) or s
     local cfg=G.copy(config);cfg.attacks_only=true;cfg.width=config.reply_width or 3
     -- Each seat optimizes its own utility, including in FFA.
     for _=1,s.players-1 do
