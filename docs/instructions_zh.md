@@ -341,6 +341,8 @@ worker、设备、赛制、总预算、BC 局数/原版锚点数、模型结构/
 4. `start` 一次性记录五小时探索和赛后截止时间。后续 `panel` 仅使用训练地图，先跑一个 block，再以 `--blocks 2 --offset 1` 补两个。六组暂时战胜基线后才可使用 `--opponent VERSION` 进行版本联赛。`status` 报告完整证据和未完成面板。
 5. 五小时后执行 `select`，依据实测吞吐冻结验证与留出设计，每赛制比较最多三个候选，冻结组合包后在既有四小时截止前核验留出集。结果写入 `final.json` 和 `REPORT.md`；未获资格的回退选择不能通过最终验收。
 
+正确性审计判定冻结候选不合格时，保留候选及其对局。在探索截止前新建不可变的 `selection_source.json`，记录经审查选拔器的 `evaluator_root`、`source_commit`，原 `base_source_commit`、`baseline_sha256`、不变的 `exploration_end`、`frozen` 时间戳，以及候选名到 `reason`、`evidence` 的 `exclusions` 映射。只有 `select` 从该审查归档执行。选拔器核对身份，在提名及回退中均排除这些版本，并在输出中记录此发布；原 manifest、时钟、计分和验收门槛保持冻结。
+
 变更或重启命令不会延长时钟。保留失败版本和未完成对局，不根据留出结果调参，不降低 0.10/95%/12 场景门槛，也不在此流程中接入训练。
 
 ## 10. 汇报与交接
