@@ -4,8 +4,15 @@ local S={}
 function S.clone(s)
     local out=G.copy(s);out.units={};out.owners=G.copy(s.owners);out.gold=G.copy(s.gold)
     out.adjustment=G.copy(s.adjustment or {})
+    out.defeated=G.copy(s.defeated or {})
     for id,u in pairs(s.units) do out.units[id]=G.copy(u) end
     return out
+end
+local function eliminate(s,unit)
+    if not unit.leader or unit.hp>0 then return end
+    for _,u in pairs(s.units) do if u.side==unit.side and u.leader and u.hp>0 then return end end
+    s.defeated[unit.side]=true;s.gold[unit.side]=0
+    for _,u in pairs(s.units) do if u.side==unit.side then u.hp=0;u.moves=0;u.attacks_left=0 end end
 end
 function S.occupancy(s)
     local result={};for id,u in pairs(s.units) do if u.hp>0 then result[G.key(u.x,u.y)]=id end end;return result
@@ -73,10 +80,12 @@ function S.apply(s,a,rng)
         end
         u.hp=r.ah;d.hp=r.dh;u.slow=r.as==1;d.slow=r.ds==1;u.poison=r.ap==1;d.poison=r.dp==1
         u.attacks_left=0;u.moves=0;out.leaf_only=not f.supported
+        eliminate(out,u);eliminate(out,d)
     end
     return out
 end
 function S.material(s,side)
+    if s.defeated and s.defeated[side] then return 0 end
     local value=s.gold[side] or 0
     local can_recruit=false
     for _,u in pairs(s.units) do

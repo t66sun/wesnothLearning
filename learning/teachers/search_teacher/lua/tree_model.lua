@@ -12,7 +12,9 @@ function T.key(node)
     end
     local villages={};for k in pairs(s.owners) do villages[#villages+1]=k end;table.sort(villages)
     for _,k in ipairs(villages) do rows[#rows+1]=k..'='..s.owners[k] end
-    for side=1,s.players do rows[#rows+1]=(s.gold[side] or 0)..'/'..(s.adjustment[side] or 0) end
+    for side=1,s.players do
+        rows[#rows+1]=(s.gold[side] or 0)..'/'..(s.adjustment[side] or 0)..'/'..flag(s.defeated and s.defeated[side])
+    end
     node.identity=table.concat(rows,';');return node.identity
 end
 function T.create(state,root_actions,config,expired)
