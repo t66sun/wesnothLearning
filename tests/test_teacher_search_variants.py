@@ -30,6 +30,11 @@ class TeacherVariantTests(unittest.TestCase):
         self.assertEqual(lua.eval('after.gold[2]'),50)
         self.assertIsNone(lua.eval('after.defeated[2]'))
 
+    def test_live_state_identity_keeps_the_existing_private_seed(self):
+        lua,_=load_teacher();lua.globals().model=lua.globals().load_module('tree_model.lua')
+        lua.execute("s=board{unit('a',1,2,2,20,5)};identity=model.key{state=s,used=0}")
+        self.assertEqual(lua.eval('identity'),'1;1;0;0;a,1,2,2,20,0,1,0,0;0/0;0/0')
+
     def test_forecast_cache_reuses_distributions_without_stale_context(self):
         lua,_=load_teacher()
         lua.execute('''
