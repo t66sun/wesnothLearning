@@ -97,7 +97,7 @@ function P.capture(data,config,expired)
         if expired and expired() then return nil end
         if wesnoth.unit_types[name].cost<=s.gold[side] then
             local u=wesnoth.units.create{type=name,side=side,random_traits=false,random_gender=false,
-                generate_name=false,id='search_template_'..name,underlying_id=2147483647}
+                generate_name=false,facing='s',id='search_template_'..name,underlying_id=2147483647}
             s.recruits[#s.recruits+1]=P.profile(u,codes)
         end
     end
