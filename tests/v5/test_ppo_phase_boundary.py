@@ -57,7 +57,7 @@ class PpoPhaseBoundaryTests(unittest.TestCase):
         r.controller.boundary = Mock()
         r.execute = Mock(return_value=([], []))
 
-        def finish(prepared_bc=None):
+        def finish(prepared_bc=None,*,prepared_ppo=None):
             steps = next(updates, None)
             self.assertIsNotNone(steps, 'scheduled a rollout after reaching the PPO target')
             r.state['history'].append(dict(batch=r.state['batch'], method='ppo', updates=steps))
