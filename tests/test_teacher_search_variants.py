@@ -3,6 +3,36 @@ from tests.test_search_teacher import load_teacher
 
 
 class TeacherVariantTests(unittest.TestCase):
+    def test_beam_retains_branches_by_completed_enemy_response(self):
+        lua,_=load_teacher()
+        lua.execute('''
+            local safe={kind='combat',key='safe',value=5,reply=5}
+            local bait={kind='combat',key='bait',value=10,reply=-10}
+            local ending={kind='end_turn',key='end',score=0}
+            local continuations={}
+            state.value=function(s) return s.value or 0 end
+            state.apply=function(s,a)
+                return {side=1,root_side=1,value=a.value or s.value,reply=a.reply or s.reply}
+            end
+            search.reply=function(s) return {value=s.reply or s.value or 0} end
+            actions.generate=function(s) return continuations[s.value] or {ending} end
+            local root={side=1,root_side=1,value=0}
+            config.width=1;config.depth=1
+            shallow=search.choose(root,{safe,bait},config,never)
+            config.depth=2;deeper=search.choose(root,{safe,bait},config,never)
+            continuations[0]={safe,bait}
+            extension=search.choose(root,{{kind='combat',key='only',value=0,reply=0}},config,never)
+            config.depth=3;deepest,deep_stats=search.choose(root,{safe,bait},config,never)
+        ''')
+        self.assertEqual(lua.eval('shallow.key'),'safe')
+        self.assertEqual(lua.eval('deeper.key'),'safe')
+        self.assertEqual(lua.eval('deepest.key'),'safe')
+        self.assertEqual(lua.eval('deep_stats.value'),5)
+        self.assertEqual(lua.eval('extension.key'),'only')
+        # The two second-layer responses must both be considered before width pruning.
+        lua.execute("config.depth=2;_,extension_stats=search.choose({side=1,root_side=1,value=0},{{kind='combat',key='only',value=0,reply=0}},config,never)")
+        self.assertEqual(lua.eval('extension_stats.value'),5)
+
     def test_native_profile_keeps_steadfast_out_of_base_resistance(self):
         lua,_=load_teacher()
         lua.execute('''
