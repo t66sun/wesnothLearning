@@ -3,6 +3,22 @@ from tests.test_search_teacher import load_teacher
 
 
 class TeacherVariantTests(unittest.TestCase):
+    def test_healthy_leader_stays_home_but_wounded_leader_can_seek_healing(self):
+        lua,_=load_teacher()
+        lua.execute('''
+            leader=unit('leader',1,2,2,50,8);leader.leader=true;leader.moves=4;leader.max_moves=4
+            s=board{leader};s.homes.leader={x=2,y=2};s.keeps[geometry.key(2,2)]={x=2,y=2}
+            s.villages[geometry.key(4,2)]={x=4,y=2};s.owners[geometry.key(4,2)]=0
+            original=actions.generate(s,config,never,true)
+            s.leader_home_bonus=16;guarded=actions.generate(s,config,never,true)
+            leader.hp=10;wounded=actions.generate(s,config,never,true)
+        ''')
+        self.assertEqual(lua.eval('original[1].kind'),'move')
+        self.assertEqual(lua.eval('guarded[1].kind'),'end_turn')
+        self.assertEqual(lua.eval('wounded[1].kind'),'move')
+        self.assertEqual(lua.eval('wounded[1].tx'),4)
+        self.assertEqual(lua.eval('wounded[1].ty'),2)
+
     def test_leader_death_removes_its_faction_but_keeps_a_team_partner(self):
         lua,_=load_teacher()
         lua.execute('''

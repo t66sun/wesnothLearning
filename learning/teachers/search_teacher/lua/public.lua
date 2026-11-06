@@ -65,7 +65,7 @@ function P.capture(data,config,expired)
         players=#wesnoth.sides,units={},enemies={},gold={[side]=wesnoth.sides[side].gold},
         terrain=G.copy(memory.terrain),owners=G.copy(memory.owners),villages=villages,castles=castles,keeps=keeps,
         adjustment={},bonuses={},homes=memory.homes,village_value=config.village_value or 14,
-        outside_keep_gold=config.outside_keep_gold or 1}
+        outside_keep_gold=config.outside_keep_gold or 1,leader_home_bonus=config.leader_home_bonus or 0}
     s.lawful_bonus=wesnoth.schedule.get_time_of_day(nil).lawful_bonus
     for turn=s.turn,math.min(s.max_turns,s.turn+2) do s.bonuses[turn]=wesnoth.schedule.get_time_of_day(nil,turn).lawful_bonus end
     local allied=0
