@@ -1,0 +1,13 @@
+F
+======================================================================
+FAIL: test_final_report_distinguishes_bc_selected_latest_and_pending_update (tests.v5.test_progress_report.ProgressIdentityTests.test_final_report_distinguishes_bc_selected_latest_and_pending_update)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/issue222_progress_red_20261106/tests/v5/test_progress_report.py", line 29, in test_final_report_distinguishes_bc_selected_latest_and_pending_update
+    self.assertIn('checkpoint_roles', summary)
+AssertionError: 'checkpoint_roles' not found in {'format': 'duel', 'status': 'inconclusive', 'controls': {'astra': {'status': 'inconclusive', 'blocks': 0, 'planned_blocks': 30, 'missing_blocks': 30, 'fault_games': 0, 'distinct_scenarios': 0, 'min_distinct': 12, 'reason': 'inconclusive', 'block_differences': {}, 'difference': None, 'interval95': None, 'policy_score': None, 'control_score': None, 'contexts': {}}}, 'selected_kind': 'champion', 'selection': {'selected_version': 100}, 'pretraining_complete': False, 'bc_games_collected': 0, 'bc_games_required': 300, 'version': 100, 'evaluation_engine': 'lite', 'evaluation_scope': 'lite Astra comparison only; not native Wesnoth playing strength', 'checkpoint': '/home/tongshu/acceptance/issue222_progress_red_20261106/verification/tmpylmxcd6s/selected.pt', 'checkpoint_sha256': '589749ba64a8e1b65a92df5f1a12e520da57d8f7d38be79ed8c6e2217d2f330d', 'parameters': 776178, 'feature_version': 5, 'error': None, 'clock': {'deadline': 100.0, 'update_deadline': 0.0}, 'forced_ppo': None, 'phase_history': [], 'bc_gate': None}
+
+----------------------------------------------------------------------
+Ran 1 test in 0.416s
+
+FAILED (failures=1)

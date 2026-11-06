@@ -1,0 +1,186 @@
+{
+  "scope": "read-only recomputation; zero new games; selected is unmeasured on these cells",
+  "inputs": {
+    "plan.json": "7afe8ff07a1d160720a931ce833f8da806f6429533d5230473ae2d6f5efe1eb6",
+    "summary.json": "6bf9ab246ce1bd566ca073b7e8c21d8d3e5cc407885dcd5acc52ee6661a6025e",
+    "identities.json": "c8ac967fddc671a82d62b7b058a5556a8ef6314f8037fdd537cbaca9ab331d26",
+    "results.jsonl": "3142d5a8d1b68d8139435e18b4b9ba9e2fae15310817440243a307e078a02219"
+  },
+  "formats": {
+    "duel": {
+      "checkpoint_roles": {
+        "bc": {
+          "path": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/duel/last_bc.pt",
+          "checkpoint_sha256": "05908d7f972148ccc7b39b8df0cc00435e2176861654a632de44c379b94953ab",
+          "version": 38,
+          "complete": true,
+          "method": "bc"
+        },
+        "selected": {
+          "path": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/duel/selected.pt",
+          "checkpoint_sha256": "7065ad90650e48c0776ca4c3cb066008c1e151e62d0aeaa6095364c8e244f65b",
+          "version": 100,
+          "complete": true,
+          "method": "ppo"
+        },
+        "latest": {
+          "path": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/duel/last_ppo.pt",
+          "checkpoint_sha256": "e68b50e62d5a6452718f6496d7ff1bc28bc4d966975332e0fdf83cf34fde155b",
+          "version": 940,
+          "complete": true,
+          "method": "ppo"
+        },
+        "pending": null
+      },
+      "jobs_sha256": "ad98271128f548b0219f3a79099ca02b54e6b068763a35ca2961d6dbaecfd57f",
+      "progress": {
+        "selected": {
+          "status": "inconclusive",
+          "complete": false,
+          "planned_blocks": 12,
+          "blocks": 0,
+          "missing_blocks": 12,
+          "fault_games": 0,
+          "distinct_scenarios": 0,
+          "min_distinct": 12,
+          "difference": null,
+          "interval95": null,
+          "scores": {
+            "bc": null,
+            "selected": null
+          },
+          "contexts": {
+            "solo": {
+              "difference": null,
+              "interval95": null
+            }
+          }
+        },
+        "latest": {
+          "status": "inconclusive",
+          "complete": true,
+          "planned_blocks": 12,
+          "blocks": 12,
+          "missing_blocks": 0,
+          "fault_games": 0,
+          "distinct_scenarios": 12,
+          "min_distinct": 12,
+          "difference": -0.08333333333333333,
+          "interval95": [
+            -0.3194444444444445,
+            0.1527777777777778
+          ],
+          "scores": {
+            "bc": 0.5138888888888888,
+            "latest": 0.4305555555555555
+          },
+          "contexts": {
+            "solo": {
+              "difference": -0.08333333333333333,
+              "interval95": [
+                -0.3194444444444445,
+                0.1527777777777778
+              ]
+            }
+          }
+        }
+      }
+    },
+    "team2v2": {
+      "checkpoint_roles": {
+        "bc": {
+          "path": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/team2v2/last_bc.pt",
+          "checkpoint_sha256": "6a2a5c587d95853e8fb4fae7ee5c9cc997f00e2cad6b5a70f2389b6c26b17832",
+          "version": 53,
+          "complete": true,
+          "method": "bc"
+        },
+        "selected": {
+          "path": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/team2v2/selected.pt",
+          "checkpoint_sha256": "02de100f80960c93450e491fc4b72d6094bd4702fcb4bb9efadabcf1ab560993",
+          "version": 100,
+          "complete": true,
+          "method": "ppo"
+        },
+        "latest": {
+          "path": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/team2v2/last_ppo.pt",
+          "checkpoint_sha256": "0aaaf7d197ba72f02138ba2a893c2212b9e3751456d6136f02cfa4417b007a49",
+          "version": 284,
+          "complete": true,
+          "method": "ppo"
+        },
+        "pending": {
+          "path": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch/team2v2/latest.pt",
+          "checkpoint_sha256": "b74e05b08068741e04fa0e4e5eedd648041d427da59d0fc56660d43ffc80ba16",
+          "version": 284,
+          "complete": false,
+          "method": "ppo"
+        }
+      },
+      "jobs_sha256": "da12709fd0051d6706a300d8e60a6d94858c4c441a5d3f9f6d271b9e092dc055",
+      "progress": {
+        "selected": {
+          "status": "inconclusive",
+          "complete": false,
+          "planned_blocks": 12,
+          "blocks": 0,
+          "missing_blocks": 12,
+          "fault_games": 0,
+          "distinct_scenarios": 0,
+          "min_distinct": 12,
+          "difference": null,
+          "interval95": null,
+          "scores": {
+            "bc": null,
+            "selected": null
+          },
+          "contexts": {
+            "astra_partner": {
+              "difference": null,
+              "interval95": null
+            },
+            "self_team": {
+              "difference": null,
+              "interval95": null
+            }
+          }
+        },
+        "latest": {
+          "status": "inconclusive",
+          "complete": true,
+          "planned_blocks": 12,
+          "blocks": 12,
+          "missing_blocks": 0,
+          "fault_games": 0,
+          "distinct_scenarios": 12,
+          "min_distinct": 12,
+          "difference": 0.0173611111111111,
+          "interval95": [
+            -0.06597222222222225,
+            0.09374999999999999
+          ],
+          "scores": {
+            "bc": 0.3090277777777778,
+            "latest": 0.3263888888888889
+          },
+          "contexts": {
+            "astra_partner": {
+              "difference": 0.006944444444444434,
+              "interval95": [
+                -0.08333333333333336,
+                0.09027777777777778
+              ]
+            },
+            "self_team": {
+              "difference": 0.02777777777777778,
+              "interval95": [
+                -0.06944444444444445,
+                0.1388888888888889
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}
