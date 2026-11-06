@@ -21,7 +21,7 @@ class RevisionTests(unittest.TestCase):
         config=default_config('cpu');validate_config(config)
         self.assertEqual(config['bc_games'],dict(duel=300,ffa4=600,team2v2=400))
         self.assertEqual((config['workers'],config['trainer_threads']),(8,1))
-        self.assertEqual(config['validation_games']['team2v2'],8)
+        self.assertEqual(config['validation_games']['team2v2'],24)
         with self.assertRaises(ValueError):validate_config(config|dict(validation_games=dict(duel=6,ffa4=4,team2v2=4)))
 
     def test_teacher_batches_have_unique_ids_and_baseline_partner(self):
