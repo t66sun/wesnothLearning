@@ -779,6 +779,8 @@ class FormatExperiment:
             forced_ppo=self.state.get('forced_ppo'),phase_history=self.state.get('phase_history',[]),
             bc_gate=read_json(self.directory/'bc_gate.json') if (self.directory/'bc_gate.json').exists() else None)
         from .report import write_profile_report
+        from .progress import checkpoint_roles
+        summary['checkpoint_roles']=checkpoint_roles(self.directory)
         write_profile_report(self.directory/'report',summary,self.state['history'])
         self.state['stage']='finished';self.state['status']=summary['status'];self.save();return summary
 
