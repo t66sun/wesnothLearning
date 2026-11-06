@@ -4,8 +4,8 @@ from itertools import permutations
 from math import perm
 import unittest
 
-import params
 from learning.common import ROOT
+import params
 from learning.data import split
 from learning.formats import FORMATS, PLAYERS
 from learning.maps import SPLITS, decorate
