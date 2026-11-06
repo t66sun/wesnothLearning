@@ -3,6 +3,23 @@ from tests.test_search_teacher import load_teacher
 
 
 class TeacherHealingTests(unittest.TestCase):
+    def test_public_profile_distinguishes_curing_from_hitpoint_healing(self):
+        lua,_=load_teacher()
+        lua.execute('''
+            wml={get_child=function(cfg,key) return cfg[key] end}
+            native={id='h',type='Healer',side=1,x=2,y=2,hitpoints=30,max_hitpoints=30,
+                moves=0,max_moves=5,attacks_left=1,cost=20,status={},attacks={},
+                __cfg={abilities={{'heals',{poison='cured'}},{'heals',{value=8,poison='slowed'}},
+                    {'regenerate',{value=4,poison='cured'}}}},
+                resistance_against=function() return 0 end,
+                movement_on=function() return 1 end,defense_on=function() return 40 end}
+            p=public.profile(native,{Gg=true})
+        ''')
+        self.assertEqual(lua.eval('p.healing'),8)
+        self.assertEqual(lua.eval('p.healing_poison'),2)
+        self.assertEqual(lua.eval('p.regenerates'),4)
+        self.assertEqual(lua.eval('p.regeneration_poison'),2)
+
     def test_village_cures_poison_instead_of_healing_on_that_turn(self):
         lua,_=load_teacher()
         lua.execute('''
