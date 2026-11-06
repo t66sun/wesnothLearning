@@ -220,7 +220,8 @@ def bc_sample(records, count, rng=None):
 
 class BCSampler:
     """Reusable pool/source/engine/family index, built once per data refresh."""
-    def __init__(self, records, allow_policy=False, *, exclude_teacher_impl=None, exclude_teacher_sha=None):
+    def __init__(self, records, allow_policy=False, *, exclude_teacher_impl=None, exclude_teacher_sha=None,
+                 policy_only=False):
         from collections import defaultdict
         from .sequences import attach_histories
         rows = list(records)
@@ -241,6 +242,10 @@ class BCSampler:
             if excluded or (exclude_teacher_sha is not None and sha == exclude_teacher_sha):
                 self.rows_excluded += 1
                 continue
+            if policy_only and (row['source'] != 'policy' or row.get('teacher') or row.get('teacher_query')
+                                or row.get('dagger') or row.get('data_pool', row.get('data_role')) == 'dagger'):
+                self.rows_excluded += 1
+                continue
             pool = row.get('data_pool', row.get('data_role'))
             if pool is None:
                 pool = 'dagger' if row.get('dagger') or row.get('teacher_query') else 'original'
@@ -252,6 +257,8 @@ class BCSampler:
             self.pools[pool][row['source']][engine][row['game_family']].append(row)
             identities.add((row['source'], impl or '', sha or ''))
         if not self.pools:
+            if policy_only:
+                raise ValueError('frozen BC requires eligible policy/train rehearsal states distinct from the evaluation control')
             if exclude_teacher_impl is not None or exclude_teacher_sha is not None:
                 raise ValueError('no rehearsal data distinct from the evaluation control')
             raise ValueError('BC requires Astra or compatible human training games')
@@ -284,9 +291,10 @@ class BCSampler:
         return result
 
 
-def make_bc_sampler(records, allow_policy=False, *, exclude_teacher_impl=None, exclude_teacher_sha=None):
+def make_bc_sampler(records, allow_policy=False, *, exclude_teacher_impl=None, exclude_teacher_sha=None,
+                    policy_only=False):
     return BCSampler(records, allow_policy=allow_policy,exclude_teacher_impl=exclude_teacher_impl,
-                     exclude_teacher_sha=exclude_teacher_sha)
+                     exclude_teacher_sha=exclude_teacher_sha,policy_only=policy_only)
 
 
 def advantages(records, gamma=None, lam=None, shaping_weight=None):

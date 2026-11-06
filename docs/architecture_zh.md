@@ -169,7 +169,9 @@ own-turn 时钟使用同一学习方相邻决策的回合差；同回合行动�
 4. **Validation** 每 10 个版本对比教师，使用完整座位轮转。普通面板明确预算单挑 6、FFA 12、团队 24 局：各赛制三个不同场景，团队包含两种队友上下文。连续面板按 block 数推进，遍历完整验证阵容。晋升面板（版本号 %100）需 12 block、≥12 个不同族，并在同一批 block 上重评冠军。配置拒绝不足以满足场景下限的预算，以及超过冻结设计容量的下限。[Ubuntu 预算与阵容证据](../verification/trend_budget_20261106/REPORT.md)
 5. **Selection** 至多用已记录的可比面板从最新完整候选中提名一个对抗 `best.pt`；最终评估在触碰 holdout 地图之前冻结 `selected.pt`，并报告 30 block、≥12 个不同族。
 
-PPO 复习项在排除评测 control 的实现与标签来源哈希后，对合格行计算单动作交叉熵。冻结正式运行的 902 个单挑、231 个组队批次全部仅保留历史策略标签，没有约束冻结 BC 的动作分布。[BC 能力保持调查](../verification/bc_retention_20261106/REPORT.md) 明确了冻结 BC KL 候选、自身策略来源资格与保持诊断；生产中尚未启用该辅助目标。
+PPO 复习有两个明确目标，在新运行的 `config.ppo_aux_target` 中冻结。`historical_action`（默认，旧配置缺少该字段时同样使用）对合格历史动作做交叉熵；`frozen_bc_kl` 只使用合格 policy/train 复习状态，在同一保留合法候选集上计算 `bc_aux * KL(stop_gradient(pi_BC) || pi_current)`。两种模式均保留评测 control 实现/标签哈希排除、场景分区、采样配额和等权窗口/微批次权重。仅将 Astra 标签的 source 改为 policy 不会使其合格。两个模型分别用自己的权重和缓存重放完整原始历史；锚点无梯度，其 value head 不提供蒸馏目标。系数仍来自既有逐批冻结的 `pending_train.reward_config.bc_aux`（默认 0.1），本模式不附带调参。
+
+首次 PPO 导出或采集前，`learning/bc_anchor.py` 将完整且合格的 `last_bc.pt` 复制为 `<format>/frozen_bc.pt`。阶段/检查点状态固定文件与参数哈希、赛制、行 schema、特征/架构、任务、来源 manifest、父运行谱系和教师初始化谱系，不改写 manifest。同任务的 BC 分支只可使用父运行明确固定的完整 BC 端点，且必须与分支起始权重/版本/schema 一致。旧任务 actor 初始化必须获得自己的 BC 结果。恢复及每次更新都校验同一锚点，文件或身份缺失/变化会在更新前报错；可变的 latest/selected/last_bc 角色不能重定向锚点。没有合格 BC 端点时，强制 PPO 也不能使用此模式。[目标定义与冻结梯度证据](../verification/bc_retention_20261106/REPORT.md) 是对照依据；实现测试不能证明保持了分布或提升了棋力。
 
 时钟把 `hours` 的 10/12 留给更新、2/12 留给冻结评估；`final_holdout_hours` 从评估窗口中划出。
 
@@ -240,6 +242,7 @@ PPO 效率诊断区分已提交、被 KL 拒绝和从未执行的工作。冻结
 | epoch / minibatch / micro | 4 / 256 / min(256, CPU 32 或 CUDA 64) |
 | BC 学习率 / PPO 学习率 | 3e-4 / 1e-4 |
 | PPO clip / value / entropy / BC 辅助 / 梯度裁剪 | 0.2 / 0.5 / 0.01 / 0.10 / 0.5 |
+| PPO 辅助目标 | `historical_action`；新运行可选 `frozen_bc_kl` |
 | KL 上限 / 计划版本 | 0.02 / 2 |
 | 奖励模式 / 取值范围 | adaptive / economy 0.05–0.20、control 0.02–0.15、explore 0–0.15 |
 | 共享候选上限 | 36 个动作 + 1 个结束回合（所有阶段） |

@@ -24,6 +24,7 @@ from .ppo import PLAN_VERSION
 from .train import checkpoint, restore_rng, train, imitation_quality
 from .updates import rollout_identity
 from .selection import validate_frozen_selection
+from .bc_anchor import ensure_anchor, restore_anchor, target_mode
 
 
 def validate_resume(state,fmt,directory):
@@ -79,11 +80,12 @@ def default_config(device='cuda', *, engine=None):
         bc_accuracy=dict(all=.4,recruit=.6,move=.35,attack=.35),shaping_weight=None,
         rollout_games=4,training_max_turns=60,minibatch=256,bc_records=2048 if device=='cpu' else 8192,
         bc_validation_records=1024 if device=='cpu' else 4096,epochs=4,learning_rate=3e-4,
-        trainer_memory_gb=6.,
+        trainer_memory_gb=6.,ppo_aux_target='historical_action',
         human_data=str(ROOT/'data/datasets/human'))
 
 
 def validate_config(config):
+    target_mode(config)
     floors=dict(trend=3,promotion=12,final=12,gate=12)
     if set(config.get('min_distinct',{}))!=set(floors) or any(
             not isinstance(config['min_distinct'][key],int) or config['min_distinct'][key]<floor
@@ -252,6 +254,7 @@ class FormatExperiment:
             self.optimizer=torch.optim.Adam(self.model.parameters(),lr=self.config['learning_rate'])
             self.state=fresh_state(fmt,clock,self.config.get('phase','auto'))
             self.save()
+        if loaded is not None: restore_anchor(self,loaded,branch=bool(info))
         from .control import RewardController
         self.controller=RewardController(self.directory.parent,self.fmt,state=self.state.get('reward_controller'),config=dict(mode=self.config['reward_mode']))
         self.state.setdefault('dagger_shards',[])
@@ -270,7 +273,7 @@ class FormatExperiment:
 
     def _write_checkpoint(self,path):
         checkpoint(path,self.model,self.optimizer,runner=copy.deepcopy(self.state),
-            execution=dict(plan_version=PLAN_VERSION),manifest_sha256=sha256(self.directory.parent/'manifest.json'),**self.identity())
+            execution=dict(plan_version=PLAN_VERSION,ppo_aux_target=target_mode(self.config)),manifest_sha256=sha256(self.directory.parent/'manifest.json'),**self.identity())
 
     def identity(self):
         """Provenance of the combat engine and teacher this run trains against."""
@@ -395,6 +398,12 @@ class FormatExperiment:
 
     def finish_train(self,prepared_bc=None):
         pending=self.state['pending_train'];method=pending['method']
+        anchor=ensure_anchor(self) if method=='ppo' else None
+        if method=='ppo':
+            target=dict(mode=target_mode(self.config),anchor_sha256=(self.state.get('frozen_bc_anchor') or {}).get('checkpoint_sha256') if anchor is not None else None)
+            if pending.get('auxiliary_target') is not None and pending['auxiliary_target']!=target:
+                raise ValueError('PPO auxiliary target changed since the checkpoint')
+            pending['auxiliary_target']=target
         pool,bc,stats=self.read_bc_batch(method) if prepared_bc is None else prepared_bc
         reads=dict(bc=stats)
         validation=read_shards(pool,partition='validation',limit=self.config['bc_validation_records'],seed=self.config['seed'],format_name=self.fmt,stats=reads.setdefault('validation',{})) if method=='bc' else []
@@ -418,7 +427,8 @@ class FormatExperiment:
         rehearsal_exclude=dict(impl=control.get('teacher'),sha256=control.get('teacher_source_sha256')) if method=='ppo' else None
         metrics=train(self.model,self.optimizer,rows,method,epochs=self.config['epochs'],minibatch=self.config['minibatch'],
             deadline=self.update_deadline(),progress=pending['cursor'],on_step=progress,bc_records=bc,entropy=frozen['entropy'],bc_aux=frozen['bc_aux'],plan_seed=int(self.config['seed']),
-            rehearsal_exclude=rehearsal_exclude,allow_policy_rehearsal=method=='ppo')
+            rehearsal_exclude=rehearsal_exclude,allow_policy_rehearsal=method=='ppo',
+            ppo_aux_target=target_mode(self.config),bc_anchor=anchor)
         if metrics.get('cursor') is not None: pending['cursor']=metrics['cursor']
         if metrics['interrupted']: self.save();return False
         committed=metrics.get('committed_decisions',metrics.get('decisions_seen',0))
@@ -613,6 +623,7 @@ class FormatExperiment:
             if time.time()>=self.update_deadline(): return
             self.controller.boundary(self.state['batch'],self.state.pop('control_metrics',None))
             method='ppo' if phase=='ppo' or (phase!='bc' and self.state['effective']) else 'bc'
+            if method=='ppo': ensure_anchor(self)
             self.state['stage']=method;index=self.state['batch'];version=self.state['version']
             if method=='bc':
                 evidence=self.teacher_evidence()

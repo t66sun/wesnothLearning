@@ -33,7 +33,7 @@ def _atomic_copy(source, destination):
     temporary.replace(destination)
 
 
-def prepare(source, destination, formats, *, seed, reset_optimizer=False, clock=None):
+def prepare(source, destination, formats, *, seed, reset_optimizer=False, clock=None, restart_bc=False):
     """Copy each format's latest checkpoint and describe the new lineage."""
     source = Path(source)
     destination = Path(destination)
@@ -47,8 +47,27 @@ def prepare(source, destination, formats, *, seed, reset_optimizer=False, clock=
         state = torch.load(target, map_location='cpu', weights_only=False)
         if state.get('format') != fmt:
             raise ValueError(f'branch source checkpoint is not {fmt}')
+        anchor = state.get('runner', {}).get('frozen_bc_anchor')
+        if anchor and not restart_bc:
+            from .bc_anchor import ANCHOR_FILE
+            frozen = source / fmt / ANCHOR_FILE
+            if anchor.get('path') != ANCHOR_FILE or not frozen.is_file() or _sha256(frozen) != anchor.get('checkpoint_sha256'):
+                raise ValueError('branch frozen BC anchor is missing or changed')
+            _atomic_copy(frozen, destination / fmt / ANCHOR_FILE)
         records[fmt] = dict(sha256=_sha256(target), version=state.get('runner', {}).get('version'),
                             checkpoint_version=state.get('checkpoint_version', 1))
+        runner = state.get('runner', {})
+        history = runner.get('history', [])
+        if (not restart_bc and runner.get('effective') and not runner.get('pending_train') and history
+                and history[-1].get('method') == 'bc' and (source / fmt / 'last_bc.pt').is_file()):
+            from .bc_anchor import _endpoint
+            endpoint_path = source / fmt / 'last_bc.pt'
+            endpoint = _endpoint(torch.load(endpoint_path, map_location='cpu', weights_only=False), fmt)
+            initial = _endpoint(state, fmt)
+            if any(endpoint[key] != initial[key] for key in ('version', 'weights_sha256', 'task_id', 'features', 'architecture', 'manifest_sha256')):
+                raise ValueError('branch BC endpoint differs from its initial checkpoint')
+            records[fmt]['bc_endpoint'] = dict(sha256=_sha256(endpoint_path), version=endpoint['version'])
+            _atomic_copy(endpoint_path, destination / fmt / 'last_bc.pt')
     return dict(schema=BRANCH_VERSION, created=time.time(), seed=seed,
                 reset_optimizer=bool(reset_optimizer), clock=clock, checkpoints=records)
 

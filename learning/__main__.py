@@ -24,6 +24,7 @@ def parser():
     run.add_argument('--evaluation-engine',choices=['native','lite'],default=None,help='最终评测引擎，默认跟随 --engine')
     run.add_argument('--rules-dir',help='冻结规则目录，默认 data/rules/1.18.8-combat-filtered；恢复时使用 manifest')
     run.add_argument('--reward-mode',choices=['fixed','scheduled','adaptive'],default='adaptive')
+    run.add_argument('--ppo-aux-target',choices=['historical_action','frozen_bc_kl'],default=None,help='新运行的 PPO 辅助目标：历史动作 CE（默认）或冻结 BC 分布 KL')
     run.add_argument('--phase',choices=['auto','bc'],default=None,help='auto 一键流程；bc 只做 BC，完成后等待显式 PPO/评测指令')
     run.add_argument('--allow-approximate',action=argparse.BooleanOptionalAction,default=None,help='lite 默认接受已记录近似；不允许未支持的训练单位')
     run.add_argument('--trainer-threads',type=int,default=1,help='每个训练器的 CPU 计算线程数（默认 1）')
@@ -132,7 +133,7 @@ def run_config(args):
     directory=bind_rules(args)
     from .experiment import default_config
     names=('hours','workers','device','trainer_threads','seed','final_blocks','formats','human_data','validation_interval',
-           'bc_batch_games','bc_records','bc_validation_records','training_max_turns','shaping_weight','engine','evaluation_engine','reward_mode','allow_approximate','phase','final_holdout_hours')
+           'bc_batch_games','bc_records','bc_validation_records','training_max_turns','shaping_weight','engine','evaluation_engine','reward_mode','allow_approximate','phase','final_holdout_hours','ppo_aux_target')
     config=default_config(args.device,engine=args.engine)|{name:getattr(args,name) for name in names if getattr(args,name) is not None}
     config['rules_dir']=str(directory)
     if args.bc_games is not None:config['bc_games']=dict(zip(FORMATS,args.bc_games))
@@ -149,6 +150,7 @@ def main(argv=None):
         from .manifest import output_path
         if args.command=='run':
             if args.resume and args.phase is not None: raise ValueError('resume keeps the saved phase; use phase --run-dir to change it')
+            if args.resume and args.ppo_aux_target is not None: raise ValueError('resume keeps the frozen PPO auxiliary target; choose the target on a new run')
             if args.resume and args.branch_from: raise ValueError('choose resume or branch, not both')
             if args.branch_from and Path(args.branch_from).resolve()==Path(args.run_dir).resolve(): raise ValueError('branch needs a new run directory')
             from .coordinator import Experiment
