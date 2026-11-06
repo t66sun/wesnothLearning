@@ -1,0 +1,17 @@
+E
+======================================================================
+ERROR: test_explicit_plan_and_execution_keep_the_source_run_read_only (tests.v5.test_progress_report.PairedProgressTests.test_explicit_plan_and_execution_keep_the_source_run_read_only)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/issue222_progress_loader_red_20261106/tests/v5/test_progress_report.py", line 183, in test_explicit_plan_and_execution_keep_the_source_run_read_only
+    loaded = FrozenPolicies(job)
+             ^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/acceptance/issue222_progress_loader_red_20261106/learning/lite_policy.py", line 49, in __init__
+    if not path.is_file(): raise ValueError('lite needs frozen tensor weights beside exported addon: '+str(path))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: lite needs frozen tensor weights beside exported addon: /home/tongshu/acceptance/issue222_progress_loader_red_20261106/verification/tmpsxsa7ab_/progress/policies/bc/model.pt
+
+----------------------------------------------------------------------
+Ran 1 test in 0.658s
+
+FAILED (errors=1)

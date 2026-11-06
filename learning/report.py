@@ -27,6 +27,14 @@ def write_profile_report(directory,summary,history):
     if summary.get('evaluation_engine'):
         lines+=['','Evaluation engine: '+summary['evaluation_engine'],
                 'Evaluation scope: '+summary.get('evaluation_scope','unspecified')]
+    if summary.get('checkpoint_roles'):
+        lines+=['', '| Checkpoint role | Version | Complete | SHA-256 |', '|---|---:|---|---|']
+        for role,row in summary['checkpoint_roles'].items():
+            if row:
+                lines.append(f"| {role} | {row['version']} | {row['complete']} | {row['checkpoint_sha256']} |")
+            else:
+                lines.append(f'| {role} | unavailable | | |')
+        lines+=['', 'The holdout above evaluates selected only. BC and latest need a matched validation progress panel.']
     if history:
         lines+=['','## Trend','', 'Panel sampled every 10 updates.','',
                 '| Batch | Method | Updates | Elapsed hours | Loss |','|---|---|---:|---:|---:|']
