@@ -1,0 +1,18 @@
+E
+======================================================================
+ERROR: test_ppo_scenario_coverage (unittest.loader._FailedTest.test_ppo_scenario_coverage)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_ppo_scenario_coverage
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/unittest/loader.py", line 137, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/acceptance/issue223_20261106_f9b9182/red/tests/v5/test_ppo_scenario_coverage.py", line 7, in <module>
+    import params
+ModuleNotFoundError: No module named 'params'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)
