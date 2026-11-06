@@ -1,0 +1,31 @@
+test_empty_batch_keeps_existing_skip_behavior (tests.v5.test_ppo_rollout_read_once.RolloutReadOnceTests.test_empty_batch_keeps_existing_skip_behavior) ... ok
+test_kl_stop_cursor_is_identical_for_prepared_and_reread_paths (tests.v5.test_ppo_rollout_read_once.RolloutReadOnceTests.test_kl_stop_cursor_is_identical_for_prepared_and_reread_paths) ... ok
+test_new_batch_reads_once_without_truncating_tail_or_raw_prefix (tests.v5.test_ppo_rollout_read_once.RolloutReadOnceTests.test_new_batch_reads_once_without_truncating_tail_or_raw_prefix) ... ok
+test_nontraining_rows_are_rejected_before_identity_or_training (tests.v5.test_ppo_rollout_read_once.RolloutReadOnceTests.test_nontraining_rows_are_rejected_before_identity_or_training) ... ok
+test_pending_resume_rejects_changed_target_or_raw_prefix_content (tests.v5.test_ppo_rollout_read_once.RolloutReadOnceTests.test_pending_resume_rejects_changed_target_or_raw_prefix_content) ... ok
+test_pending_resume_rereads_and_matches_uninterrupted_checkpoint (tests.v5.test_ppo_rollout_read_once.RolloutReadOnceTests.test_pending_resume_rereads_and_matches_uninterrupted_checkpoint) ... ok
+test_prepared_and_reread_paths_have_identical_targets_loss_gradients_and_rng (tests.v5.test_ppo_rollout_read_once.RolloutReadOnceTests.test_prepared_and_reread_paths_have_identical_targets_loss_gradients_and_rng) ... ok
+test_batch_kl_is_window_equal_not_chunk_early_stop (tests.v5.test_ppo_plan.PpoPlanTests.test_batch_kl_is_window_equal_not_chunk_early_stop) ... ok
+test_batch_kl_stop_rejects_before_stepping (tests.v5.test_ppo_plan.PpoPlanTests.test_batch_kl_stop_rejects_before_stepping) ... ok
+test_changed_plan_is_rejected (tests.v5.test_ppo_plan.PpoPlanTests.test_changed_plan_is_rejected) ... ok
+test_deadline_before_batch_changes_nothing (tests.v5.test_ppo_plan.PpoPlanTests.test_deadline_before_batch_changes_nothing) ... ok
+test_each_window_visited_once_per_epoch (tests.v5.test_ppo_plan.PpoPlanTests.test_each_window_visited_once_per_epoch) ... ok
+test_legacy_cursor_is_migrated_at_a_boundary (tests.v5.test_ppo_plan.PpoPlanTests.test_legacy_cursor_is_migrated_at_a_boundary) ... ok
+test_mid_batch_deadline_discards_gradients_and_restores_rng (tests.v5.test_ppo_plan.PpoPlanTests.test_mid_batch_deadline_discards_gradients_and_restores_rng) ... ok
+test_resume_from_saved_boundary_matches_uninterrupted (tests.v5.test_ppo_plan.PpoPlanTests.test_resume_from_saved_boundary_matches_uninterrupted) ... ok
+test_finish_train_settles_resumed_work_once_with_real_checkpoint (tests.v5.test_ppo_resume_counters.PpoResumeCounterTests.test_finish_train_settles_resumed_work_once_with_real_checkpoint) ... ok
+test_learner_totals_survive_deadline_and_repeated_boundary_resume (tests.v5.test_ppo_resume_counters.PpoResumeCounterTests.test_learner_totals_survive_deadline_and_repeated_boundary_resume) ... ok
+test_cli_and_api_pin_only_positive_ppo_batch_counts (tests.v5.test_ppo_phase_boundary.PpoPhaseBoundaryTests.test_cli_and_api_pin_only_positive_ppo_batch_counts) ... ok
+test_next_request_at_a_clean_boundary_needs_another_applied_batch (tests.v5.test_ppo_phase_boundary.PpoPhaseBoundaryTests.test_next_request_at_a_clean_boundary_needs_another_applied_batch) ... ok
+test_resume_counts_only_new_applied_batches_and_finishes_due_validation (tests.v5.test_ppo_phase_boundary.PpoPhaseBoundaryTests.test_resume_counts_only_new_applied_batches_and_finishes_due_validation) ... ok
+test_control_policy_cannot_rehearse (tests.v5.test_rehearsal_source.RehearsalSourceTests.test_control_policy_cannot_rehearse) ... ok
+test_empty_pool_fails_only_when_auxiliary_loss_is_enabled (tests.v5.test_rehearsal_source.RehearsalSourceTests.test_empty_pool_fails_only_when_auxiliary_loss_is_enabled) ... ok
+test_runner_refuses_control_only_pool_before_parameter_change (tests.v5.test_rehearsal_source.RehearsalSourceTests.test_runner_refuses_control_only_pool_before_parameter_change) ... ok
+test_runner_rehearses_ppo_on_its_own_policy_shards (tests.v5.test_rehearsal_source.RehearsalSourceTests.test_runner_rehearses_ppo_on_its_own_policy_shards) ... ok
+test_sha_exclusion_does_not_confuse_environment_with_label_source (tests.v5.test_rehearsal_source.RehearsalSourceTests.test_sha_exclusion_does_not_confuse_environment_with_label_source) ... ok
+test_twenty_updates_report_only_distinct_human_rehearsal (tests.v5.test_rehearsal_source.RehearsalSourceTests.test_twenty_updates_report_only_distinct_human_rehearsal) ... ok
+
+----------------------------------------------------------------------
+Ran 26 tests in 11.599s
+
+OK
