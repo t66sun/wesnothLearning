@@ -24,6 +24,9 @@ def main():
     ):
         result = match.play_game(bots, seed=711, teams=teams, max_turns=args.turns,
                                  timeout=2, first_timeout=20,
+                                 seat_timeouts={side: dict(timeout=2 if bot==teacher else 1,
+                                                          first_timeout=20 if bot==teacher else 10)
+                                                for side, bot in enumerate(bots, 1) if bot!='baseline'},
                                  wesnoth=str(ROOT / '.runtime/install/bin/wesnoth'),
                                  replay_path=str(args.output / (fmt + '.json')))
         print(json.dumps(dict(format=fmt, result=result)), flush=True)

@@ -46,16 +46,33 @@ def _child_env(seed):
     return env
 
 
+def seat_budgets(values, players):
+    """Optional per-contestant limits, also consumed by the external CALL watchdog."""
+    result = {}
+    for side, limits in (values or {}).items():
+        number = int(side)
+        if str(number) != str(side) or not 1 <= number <= players:
+            raise ValueError('invalid time-limit seat')
+        if set(limits) != {'timeout', 'first_timeout'}:
+            raise ValueError('seat limits need timeout and first_timeout')
+        if not all(isinstance(v, (int, float)) and not isinstance(v, bool)
+                   and math.isfinite(v) and 0 < v <= 3600 for v in limits.values()):
+            raise ValueError('invalid seat time limits')
+        result[str(number)] = dict(limits)
+    return result
+
+
 def play_game(bots, seed=1, factions=None, timeout=P.ACTION_TIMEOUT, first_timeout=P.FIRST_TIMEOUT,
               max_turns=P.MAX_TURNS, lenient=False, replay_path=None, fog=True, wesnoth=None,
               visible=False, human_side=0, learning=None, experiment_deadline=None, map_override=None, teams=None,
-              shroud=False,share_view=True,share_maps=True):
+              shroud=False,share_view=True,share_maps=True,seat_timeouts=None):
     n = len(bots)
     teams = team_rules.validate(teams, n)
     if (n not in P.PLAYERS and not (map_override and 2 <= n <= 9)) or not 0 <= seed <= 0xffffffff or max_turns < 1:
         raise ValueError('players must be 2/4/8; seed must be uint32; turns must be positive')
     if not all(math.isfinite(v) and 0 < v <= 3600 for v in (timeout, first_timeout)):
         raise ValueError('invalid time limits')
+    per_seat = seat_budgets(seat_timeouts, n)
     if human_side and (not visible or not 1 <= human_side <= n):
         raise ValueError('human play needs a visible game and a valid side')
     exe = native.find_wesnoth(wesnoth)
@@ -89,6 +106,7 @@ def play_game(bots, seed=1, factions=None, timeout=P.ACTION_TIMEOUT, first_timeo
         (user/'preferences').write_text('save_replays=yes\ndelete_saves=no\nauto_save_max=0\n',encoding='utf-8')
         config = dict(token=token, seed=seed, max_turns=max_turns, timeout=timeout, first_timeout=first_timeout,
                       lenient=lenient, fog=fog,shroud=shroud,share_view=share_view,share_maps=share_maps,max_actions=P.MAX_ACTIONS)
+        if per_seat: config['seat_timeouts'] = per_seat
         if teams: config['teams'] = teams
         if map_override:
             config['map_override'] = map_override

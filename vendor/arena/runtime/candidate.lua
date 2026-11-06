@@ -20,7 +20,8 @@ function M:evaluation(cfg, data)
     s.calls = s.calls + 1
     if s.round ~= wesnoth.current.turn then s.round=wesnoth.current.turn; s.calls=1 end
     local options = judge.options()
-    s.budget = s.first and options.first_timeout or options.timeout
+    local limits = options.seat_timeouts and options.seat_timeouts[tostring(side)] or options
+    s.budget = s.first and limits.first_timeout or limits.timeout
     s.was_first=s.first
     s.started = wesnoth.ms_since_init()
     judge.emit('CALL', {side=side, phase='evaluation', budget=s.budget, first=s.first})
