@@ -27,8 +27,8 @@ class FrozenBcLossTests(unittest.TestCase):
         self.assertGreater(float(hard.grad.norm()), .01)
 
     def test_forward_direction_finite_padding_and_frozen_target(self):
-        anchor = torch.tensor([[0., 2., -torch.inf], [1., -1., 0.]], requires_grad=True)
-        student = torch.tensor([[2., 0., -torch.inf], [0., 2., 1.]], requires_grad=True)
+        anchor = torch.tensor([[0., 3., -torch.inf], [1., -1., 0.]], requires_grad=True)
+        student = torch.tensor([[1., 0., -torch.inf], [0., 2., 1.]], requires_grad=True)
         loss = forward_kl(anchor, student, torch.isfinite(student)).mean()
         expected = torch.distributions.kl_divergence(torch.distributions.Categorical(logits=anchor),
                                                     torch.distributions.Categorical(logits=student)).mean()
@@ -51,6 +51,7 @@ class FrozenBcLossTests(unittest.TestCase):
         hashed = copy.deepcopy(policy)
         for row in hashed:
             row['policy_sha256'] = 'control'
+            row['game_id'] = 'control-policy'
         teacher = _bc()
         for row in teacher:
             row['teacher_source_sha256'] = 'control'
