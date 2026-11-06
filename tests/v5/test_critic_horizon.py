@@ -7,6 +7,7 @@ from learning.data import advantages, write_shard
 from learning.rewards import RewardConfig, row_transition
 from learning.rowpack import unpack_line
 from verification.team_critic_horizon_20261106.probe import Metrics, completed_return_bounds, critic_return_bounds, returns
+from verification.team_critic_horizon_20261106.objective_alignment import prefix_outcome, team_score
 
 
 def row(turn, value, *, gamma=1., lam=.5, outcome=1.):
@@ -123,6 +124,23 @@ class CriticHorizonTests(unittest.TestCase):
         # value -1 even though this particular state's lower return is -.85.
         self.assertLess(-1., realized[0])
         self.assertGreaterEqual(-1., critic_return_bounds(config)[0])
+
+    def test_thirty_turn_prefix_uses_actual_result_turn_not_last_learner_action(self):
+        self.assertEqual(prefix_outcome(dict(reason='victory', turns=30), 1.), 1.)
+        self.assertEqual(prefix_outcome(dict(reason='victory', turns=31), -1.), 0.)
+        self.assertEqual(prefix_outcome(dict(reason='turn_limit', turns=61), 0.), 0.)
+
+    def test_signed_outcome_matches_score_difference_but_not_own_score(self):
+        from learning.evaluate import official_score
+
+        for outcome, winner in ((-1., 2), (0., 0), (1., 1)):
+            result = dict(teams=[1, 2, 1, 2], winning_team=winner)
+            self.assertEqual(team_score(outcome), official_score(result, 1))
+            self.assertEqual(official_score(result, 1) - official_score(result, 2), 3 * outcome)
+        # All draws and a 50/50 win/loss policy have the same signed expectation,
+        # but official own-score expectations differ: 1 versus 1.5.
+        self.assertEqual(team_score(0.), 1.)
+        self.assertEqual((team_score(-1.) + team_score(1.)) / 2, 1.5)
 
 
 if __name__ == '__main__':
