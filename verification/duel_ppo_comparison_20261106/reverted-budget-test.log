@@ -1,0 +1,15 @@
+test_zero_step_batches_count_fresh_and_rejected_work (verification.duel_ppo_comparison_20261106.test_contract.DuelComparisonContractTests.test_zero_step_batches_count_fresh_and_rejected_work) ... FAIL
+
+======================================================================
+FAIL: test_zero_step_batches_count_fresh_and_rejected_work (verification.duel_ppo_comparison_20261106.test_contract.DuelComparisonContractTests.test_zero_step_batches_count_fresh_and_rejected_work)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/duel_comparison_20261106_f06de25/source/verification/duel_ppo_comparison_20261106/test_contract.py", line 23, in test_zero_step_batches_count_fresh_and_rejected_work
+    self.assertEqual(value['fresh_targets'], 11001)
+AssertionError: 5000 != 11001
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (failures=1)
+controlled_reversion_exit=1
