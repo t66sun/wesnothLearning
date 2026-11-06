@@ -113,7 +113,10 @@ function M.generate(obs)
         end
         actions[#actions+1]=a
     end
-    if #missing>0 then S.actions(obs,actions) end
+    -- Existing actions already carry their original actor/geometry inputs.
+    -- In particular, a recruit's detached unit is gone from the cleaned action;
+    -- rebuilding it from board occupancy would erase that actor description.
+    if #missing>0 then S.actions(obs,missing) end
     local properties={}
     for index,a in ipairs(actions) do
         local x,y=a.tx or a.x,a.ty or a.y
