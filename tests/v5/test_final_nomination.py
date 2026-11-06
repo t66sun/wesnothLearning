@@ -123,6 +123,44 @@ class FinalNominationTests(unittest.TestCase):
                 r._select_final()
                 self.assertEqual(len(self.calls), 4)
 
+    def test_complete_inconclusive_panel_is_reused_without_promoting(self):
+        with helpers.temporary_directory() as directory:
+            r = self.runner(directory)
+            execute = r.execute
+            def tied_panel(jobs, name):
+                jobs, results = execute(jobs, name)
+                for job, reply in zip(jobs, results):
+                    if job['meta']['block'] % 2:
+                        reply['result']['winner'] = job['meta']['control_sides'][0]
+                return jobs, results
+            r.execute = tied_panel
+            with patch('learning.experiment.time.time', return_value=1.), patch('learning.maps.frozen_map', return_value=(board(), '0'*64)):
+                first = r._nominate_final(directory/'last_ppo.pt', directory/'best.pt')
+                self.assertEqual(first, dict(choice='champion', reason='astra nomination did not pass'))
+                self.assertEqual(r._nominate_final(directory/'last_ppo.pt', directory/'best.pt'), first)
+            self.assertEqual(len(self.calls), 1)
+            panel_path = directory/'validation/nominate-v000143-astra.json'
+            row = json.loads(panel_path.read_text())['comparison']['duel']
+            self.assertEqual(row['status'], 'inconclusive')
+            self.assertEqual((row['blocks'], row['distinct_scenarios'], row['missing_blocks']), (12, 12, 0))
+
+    def test_missing_or_faulted_nomination_stays_incomplete(self):
+        for fault in (False, True):
+            with self.subTest(fault=fault), helpers.temporary_directory() as directory:
+                r = self.runner(directory)
+                execute = r.execute
+                def incomplete(jobs, name):
+                    jobs, results = execute(jobs, name)
+                    if fault:
+                        results[0]['result']['faults'] = {'timeout': 1}
+                    else:
+                        results.pop()
+                    return jobs, results
+                r.execute = incomplete
+                with patch('learning.experiment.time.time', return_value=1.), patch('learning.maps.frozen_map', return_value=(board(), '0'*64)):
+                    result = r._nominate_final(directory/'last_ppo.pt', directory/'best.pt')
+                self.assertEqual(result, dict(choice='champion', reason='astra nomination panel incomplete'))
+
 
 if __name__ == '__main__':
     torch.set_num_threads(1)
