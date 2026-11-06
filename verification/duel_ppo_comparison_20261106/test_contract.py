@@ -121,6 +121,14 @@ class DuelComparisonContractTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'complete scenario roster'):
             panels.panel_scores(plan, results)
 
+    def test_incomplete_validation_cannot_report_an_observed_experiment(self):
+        report = dict(validation=dict(complete=False), holdout=dict(complete=True))
+        result = contract.completion(True, report, 0)
+        self.assertEqual(result['status'], 'incomplete')
+        self.assertFalse(result['panels_complete'])
+        report['validation']['complete'] = True
+        self.assertEqual(contract.completion(True, report, 0)['status'], 'observed')
+
     def test_crossed_scenario_draw_is_shared_by_all_seeds_and_bc(self):
         bc = dict(s0=.1, s1=.9, s2=.2, s3=.8)
         a = {seed: dict(bc) for seed in (11,12,13)}

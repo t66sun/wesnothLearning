@@ -86,6 +86,13 @@ def aliases(roles):
     return unique, mapping
 
 
+def completion(budgets_complete, panels, exit_code):
+    panels_complete = bool(exit_code == 0 and panels and all(
+        panels.get(partition, {}).get('complete') for partition in ('validation', 'holdout')))
+    return dict(status='observed' if budgets_complete and panels_complete else 'incomplete',
+                budgets_complete=budgets_complete, panels_complete=panels_complete)
+
+
 def crossed_statistics(a, b, bc, scenario_maps, *, seed=202611069, samples=10000):
     """Draw crossed seed/scenario axes; shared BC is evaluated exactly once."""
     seeds, scenes = sorted(a), set(bc)

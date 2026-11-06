@@ -19,7 +19,7 @@ from learning.common import read_json, sha256
 from learning.experiment import bc_effective
 from learning.phases import request_phase
 from verification.duel_ppo_comparison_20261106.audit import initial_audit, shard_boards, write_new
-from verification.duel_ppo_comparison_20261106.contract import HERE, INPUTS, ledger, trainer_main
+from verification.duel_ppo_comparison_20261106.contract import HERE, INPUTS, completion, ledger, trainer_main
 
 
 def configuration(empty_human, seed, hours, mode='historical_action'):
@@ -168,9 +168,8 @@ def run(output):
     panel_path = output/'evaluation/summary.json'
     panels = read_json(panel_path) if panel_path.exists() else None
     budgets = all(cell.get('ledger', {}).get('budget_complete') for cell in cells)
-    complete = bool(panels and panels['holdout']['complete'] and outcome['exit_code'] == 0)
-    write_new(output/'result.json', dict(status='observed' if budgets and complete else 'incomplete',
-        budgets_complete=budgets, panels_complete=complete, cells=cells, evaluation=outcome,
+    write_new(output/'result.json', dict(**completion(budgets, panels, outcome['exit_code']),
+        cells=cells, evaluation=outcome,
         panels=panels, wall_seconds=time.time()-started, hard_deadline=hard))
     print('EXPERIMENT COMPLETE', str(output/'result.json'), flush=True)
 
