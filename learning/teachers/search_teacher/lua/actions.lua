@@ -101,7 +101,10 @@ function A.generate(s,config,expired,root)
                 if s.castles[k] and not connected[k] then connected[k]=true;queue[#queue+1]=n end
             end
         end
-        local army=0;for _,u in ipairs(units) do if u.hp>0 and u.side==s.side then army=army+1 end end
+        local army=0;local composition={}
+        for _,u in ipairs(units) do if u.hp>0 and u.side==s.side then
+            army=army+1;composition[u.type]=(composition[u.type] or 0)+1
+        end end
         for _,u in ipairs(s.recruits) do if u.cost<=s.gold[s.side] then
             if expired() then break end
             local best,score=nil,-math.huge
@@ -109,8 +112,9 @@ function A.generate(s,config,expired,root)
                 if expired() then break end
                 local value=position(s,u,p[1],p[2]);if value>score then best=p;score=value end
             end end
-            if best then add{kind='recruit',type=u.type,x=best[1],y=best[2],recruit=u,
-                score=4+math.log(weights[u.type] or .45)*2+math.max(0,9-army)*1.2+score*.1} end
+            local preference=(config.recruit_bias or 0)*math.log((weights[u.type] or .45)/(1+(composition[u.type] or 0)))
+            if best then add{kind='recruit',type=u.type,x=best[1],y=best[2],recruit=u,preference_bonus=preference,
+                score=4+math.log(weights[u.type] or .45)*2+math.max(0,9-army)*1.2+score*.1+preference} end
         end end
     end
     add{kind='end_turn',score=0}
