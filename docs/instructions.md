@@ -241,6 +241,41 @@ A non-growing BC game count is not necessarily stuck: when the quota is full but
 
 Maintain only the processes and files this task owns. Routine maintenance may resume the same config and keep fault evidence within existing authorization; do not change workers, rewards or gates just because utilisation looks low. When longer supervision is needed, use the user-authorized task scheduling capability instead of unbounded polling within one check.
 
+### Matched BC, selected and latest progress
+
+Final holdout reports evaluate selected only. Their checkpoint-role table also
+identifies the BC endpoint, latest complete checkpoint and any pending update;
+an interrupted update is excluded from latest-complete.
+
+For a separately authorized progress evaluation, use an existing finalized run
+with `last_bc.pt`, frozen `selected.pt`/`selection.json`, and a complete latest
+checkpoint. Keep the source run read-only. Planning below starts no games:
+
+```bash
+"$python" -m learning.progress plan --directory "$run_dir/duel" --format duel \
+  --output verification/progress_NEW --blocks 12 --seed 20261106 --hours 1
+# Explicit execution starts evaluation games, without training or corpus shards.
+"$python" -m learning.progress run --plan verification/progress_NEW/plan.json --workers 8
+```
+
+The example budgets 72 duel games: 12 full blocks for each of BC, selected and
+latest. FFA needs 144 games and team needs 288, including both partner contexts.
+The deadline starts when planning; choose the authorized time budget, and create
+a new plan if it expires. Frozen exports, opponent, rules, evaluator source and
+schedule are checked before execution. The operation creates a new output
+directory and does not rewrite source-run manifests, checkpoints or selection.
+
+`report/summary.json` and `report/REPORT.md` show matched normalized own-score
+changes versus BC. Missing/faulted games and insufficient physical scenes cannot
+establish improvement. A complete interval crossing zero remains inconclusive.
+These are validation-set diagnostics, separate from independent final holdout.
+To recompute from existing replies without games, use a fresh report directory:
+
+```bash
+"$python" -m learning.progress report --plan verification/progress_NEW/plan.json \
+  --results verification/progress_NEW/execution/results.json --output verification/progress_REPORT_NEW
+```
+
 ## 7. Stopping and fault handling
 
 On a stop request, record the latest resumable checkpoint, unfinished batches and the target main process, then send Ctrl-C in its persistent terminal; confirm the coordinator, trainers and this experiment's game subprocesses exit. The current coordinator terminates trainers on KeyboardInterrupt and **offers no graceful pause that saves every in-flight step before exiting**, so only progress already on disk is guaranteed; verify the checkpoint loads afterwards.

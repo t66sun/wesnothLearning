@@ -241,6 +241,28 @@ BC 局数不增长不一定挂住：配额已满而质量未过时会继续学�
 
 只维护本任务拥有的进程和文件。常规维护可以在已有授权内恢复相同配置、保留故障证据；不因看见利用率低就改 worker、奖励或门槛。需要稍后持续看护时使用用户授权的任务调度能力，不在一次检查中无限轮询。
 
+### BC、selected 与 latest 的匹配进步对照
+
+最终留出报告只评测 selected。检查点身份表同时列出 BC 终点、最新完整检查点和未完成更新；中断的更新不计入 latest-complete。
+
+单独获准进行进步评测后，使用已有的终结运行，其内需有 `last_bc.pt`、冻结的 `selected.pt`/`selection.json` 和最新完整检查点。源运行保持只读。以下规划命令不启动对局：
+
+```bash
+"$python" -m learning.progress plan --directory "$run_dir/duel" --format duel \
+  --output verification/progress_NEW --blocks 12 --seed 20261106 --hours 1
+# 显式执行评测对局，不训练，也不生成训练语料分片。
+"$python" -m learning.progress run --plan verification/progress_NEW/plan.json --workers 8
+```
+
+示例预算为 72 局单挑：BC、selected 和 latest 各 12 个完整 block。FFA 需要 144 局，团队需要 288 局并包含两种队友上下文。截止时间从规划时开始计算；使用获准的时间预算，过期后建立新计划。执行前校验冻结导出、对手、规则、评测源码和赛程。操作创建新输出目录，不改写源运行的清单、检查点或选择结果。
+
+`report/summary.json` 和 `report/REPORT.md` 给出相对 BC 的匹配归一化自身积分变化。缺局、故障和物理场景不足不能证明进步；完整但区间跨零仍为 inconclusive。这是验证集诊断，与独立最终留出评测分开。只重算已有结果、不启动游戏时使用新的报告目录：
+
+```bash
+"$python" -m learning.progress report --plan verification/progress_NEW/plan.json \
+  --results verification/progress_NEW/execution/results.json --output verification/progress_REPORT_NEW
+```
+
 ## 7. 停止与故障处理
 
 用户要求停止时，先记录最近可恢复检查点、未完成批次和目标主进程，在所属持久终端发送 Ctrl-C；确认协调器、训练器及本实验游戏子进程退出。当前协调器收到 KeyboardInterrupt 会 terminate 训练器，**没有保证“保存当前每一步后再退出”的优雅暂停命令**，所以只能保证此前已落盘的进度，停止后核对检查点是否可加载。
