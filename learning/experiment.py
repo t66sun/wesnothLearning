@@ -72,7 +72,7 @@ def default_config(device='cuda', *, engine=None):
     bc_games=dict(duel=300,ffa4=600,team2v2=400)
     return dict(hours=12.,workers=8,device=device,trainer_threads=1,seed=20261018,engine=engine,evaluation_engine=engine,reward_mode='adaptive',phase='auto',allow_approximate=engine=='lite',rules_dir=str(resolve_dir()),
         formats=list(FORMATS),calibration_blocks=3,validation_interval=10,
-        validation_games=dict(duel=6,ffa4=4,team2v2=8),final_blocks=30,final_holdout_hours=0.,
+        validation_games=dict(duel=6,ffa4=12,team2v2=24),final_blocks=30,final_holdout_hours=0.,
         min_distinct=dict(trend=3,promotion=12,final=12,gate=12),
         bc_games=bc_games,
         native_bc_games={fmt:0 if engine=='lite' else games for fmt,games in bc_games.items()},bc_batch_games=8,
@@ -106,6 +106,19 @@ def validate_config(config):
         if fmt not in PLAYERS or n<PLAYERS[fmt] or n%PLAYERS[fmt]: raise ValueError('validation games must contain full seat rotations')
     if set(config['validation_games'])!=set(FORMATS): raise ValueError('validation games must cover all formats')
     if config['validation_games']['team2v2']%8:raise ValueError('2v2 validation requires both teammate contexts, eight games per block')
+    from .maps import SPLITS
+    from .schedule import starting_factions
+    for fmt in config['formats']:
+        designs=len(starting_factions(PLAYERS[fmt],fmt))
+        validation_capacity=designs*len(SPLITS[fmt]['validation'])
+        final_capacity=designs*len(SPLITS[fmt]['holdout'])
+        if (config['min_distinct']['trend']>validation_capacity
+                or config['min_distinct']['promotion']>min(12,validation_capacity)
+                or config['min_distinct']['final']>min(config['final_blocks'],final_capacity)):
+            raise ValueError(f'{fmt} distinct scenario floor exceeds evaluation design capacity')
+        games_per_block=PLAYERS[fmt]*(2 if fmt=='team2v2' else 1)
+        if config['validation_games'][fmt]//games_per_block<config['min_distinct']['trend']:
+            raise ValueError(f'{fmt} trend budget cannot fund the declared distinct scenario floor')
     if set(config['bc_games'])!=set(FORMATS) or any(n<1 for n in config['bc_games'].values()):raise ValueError('positive BC game target required per format')
     anchors=config.get('native_bc_games',{})
     if set(anchors)!=set(FORMATS) or any(not isinstance(n,int) or n<0 or n>config['bc_games'][fmt] for fmt,n in anchors.items()):
@@ -463,7 +476,7 @@ class FormatExperiment:
         blocks=12 if promotion else self.config['validation_games'][self.fmt]//(PLAYERS[self.fmt]*(len(contexts) if self.fmt=='team2v2' else 1))
         jobs=evaluation_jobs(self.directory,greedy,control,self.fixed,blocks,
             self.config['seed']+1000000+(0 if promotion else version*101),self.update_deadline(),self.exe,label=f'val{version:06}',formats=[self.fmt],team_contexts=contexts,
-            faction_cycle=0 if promotion else (version//self.config['validation_interval']-1)%3,min_distinct=min_distinct)
+            faction_cycle=0 if promotion else (version//self.config['validation_interval']-1)*blocks,min_distinct=min_distinct)
         for job in jobs:
             job['meta']['phase']='validation'
             job['learning']=dict(support=self.support,sides={str(side):dict(teacher=False,version=f'v{version}') for side in job['meta']['policy_sides']})
@@ -471,7 +484,7 @@ class FormatExperiment:
         comparison=comparisons(jobs,results,min_blocks=blocks,min_distinct=min_distinct,team_contexts=contexts)
         write_json(self.directory/'validation'/f'v{version:06}.json',dict(tier='promotion' if promotion else 'trend',format=self.fmt,
             engine_id=self.config['engine'],seed=self.config['seed']+1000000+(0 if promotion else version*101),blocks=blocks,control=control,
-            contexts=list(contexts),min_distinct=min_distinct,comparison=comparison))
+            contexts=list(contexts),planned_games=len(jobs),min_distinct=min_distinct,comparison=comparison))
         from .reward_metrics import build_control_metrics
         try:
             if self.controller.freeze()['mode']=='adaptive':

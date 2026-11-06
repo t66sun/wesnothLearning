@@ -32,7 +32,7 @@ class ConfigScheduleTests(unittest.TestCase):
         self.assertEqual(config['trainer_threads'], 1)
         self.assertEqual(config['device'], 'cpu')
         self.assertEqual(config['final_blocks'], 30)
-        self.assertEqual(config['validation_games'], dict(duel=6, ffa4=4, team2v2=8))
+        self.assertEqual(config['validation_games'], dict(duel=6, ffa4=12, team2v2=24))
         self.assertEqual(config['engine'], 'lite')
         validate_config(config)
 
