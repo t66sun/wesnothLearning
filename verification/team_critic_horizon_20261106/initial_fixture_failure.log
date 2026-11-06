@@ -1,0 +1,21 @@
+E............
+======================================================================
+ERROR: test_dead_learner_with_living_teammate_still_has_truncated_team_outcome (tests.v5.test_critic_horizon.CriticHorizonTests.test_dead_learner_with_living_teammate_still_has_truncated_team_outcome)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/issue224_20261106_faa39d0/source/tests/v5/test_critic_horizon.py", line 94, in test_dead_learner_with_living_teammate_still_has_truncated_team_outcome
+    write_shard(path, 'team', rows, dict(bots=['a', 'b', 'a', 'b'], teams=[1, 2, 1, 2],
+  File "/home/tongshu/acceptance/issue224_20261106_faa39d0/source/learning/data.py", line 195, in write_shard
+    with IndexedSequenceStore(path.parent/'sequences') as store: store.write(augmented())
+                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/acceptance/issue224_20261106_faa39d0/source/learning/sequences.py", line 159, in write
+    attach_histories([raw])  # retain the original complete-prefix check
+    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/acceptance/issue224_20261106_faa39d0/source/learning/sequences.py", line 72, in attach_histories
+    raise ValueError('sequence suffix requires its complete raw prefix')
+ValueError: sequence suffix requires its complete raw prefix
+
+----------------------------------------------------------------------
+Ran 13 tests in 1.148s
+
+FAILED (errors=1)
