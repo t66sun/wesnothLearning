@@ -1,0 +1,188 @@
+{
+  "source_commit": "38b7a206ce9a7bad4b2c1e1179976505da26d86f",
+  "rules_sha256": "e6b4f6200b0a8ad58a536b844fff37cfa9e0091bf0a0b702a8982155310f2f17",
+  "scope": "schedule construction; no matches or learning",
+  "seed": 19,
+  "max_turns": 60,
+  "note": "Cold refers to the eligibility cache, not the filesystem; one measured cycle per case.",
+  "formats": {
+    "duel": {
+      "balance_cycle_games": 72,
+      "cold_wall_seconds": 0.03114323318004608,
+      "cold_cpu_seconds": 0.03114207699999999,
+      "warm_wall_seconds": 0.025409727822989225,
+      "warm_cpu_seconds": 0.025410143000000024,
+      "cold_cache": {
+        "hits": 68,
+        "misses": 4,
+        "maxsize": 32,
+        "currsize": 4
+      },
+      "warm_cache": {
+        "hits": 140,
+        "misses": 4,
+        "maxsize": 32,
+        "currsize": 4
+      },
+      "maps": {
+        "arena2": {
+          "map_sha256": "654da578da1aa8499f0c1c7f7735c59cfe13737382ebd946d3e021509e998cc4",
+          "eligible_ordered_rosters": 26,
+          "min_stratum_rosters": 3,
+          "max_stratum_rosters": 5
+        },
+        "the_freelands": {
+          "map_sha256": "36e9ccd11e045e27544b5319ee8edfce7c795e27efdc075f53d68eab893dead8",
+          "eligible_ordered_rosters": 25,
+          "min_stratum_rosters": 4,
+          "max_stratum_rosters": 5
+        },
+        "weldyn_channel": {
+          "map_sha256": "e3266941853e6dbb043ea9995238959af711413a8f799acc46af7923e5e8fdc3",
+          "eligible_ordered_rosters": 24,
+          "min_stratum_rosters": 2,
+          "max_stratum_rosters": 5
+        },
+        "sablestone_delta": {
+          "map_sha256": "5f2c6843555ecbe973d2476dbb9dd85e71699f15e7dcb52ad5b8ebf5b0743bbe",
+          "eligible_ordered_rosters": 20,
+          "min_stratum_rosters": 1,
+          "max_stratum_rosters": 5
+        }
+      },
+      "map_counts": {
+        "arena2": 36,
+        "the_freelands": 12,
+        "weldyn_channel": 12,
+        "sablestone_delta": 12
+      },
+      "learner_faction_counts": {
+        "Drakes": 12,
+        "Knalgan Alliance": 12,
+        "Loyalists": 12,
+        "Northerners": 12,
+        "Rebels": 12,
+        "Undead": 12
+      },
+      "distinct_scenarios_in_cycle": 53,
+      "distinct_game_families_in_cycle": 72,
+      "available_eligible_scenarios": 95,
+      "nominal_ordered_rosters_per_map": 30,
+      "all_support_within_balance_cycles": 5
+    },
+    "ffa4": {
+      "balance_cycle_games": 96,
+      "cold_wall_seconds": 0.06254242896102369,
+      "cold_cpu_seconds": 0.06254072100000002,
+      "warm_wall_seconds": 0.036112070083618164,
+      "warm_cpu_seconds": 0.03611230300000001,
+      "cold_cache": {
+        "hits": 93,
+        "misses": 3,
+        "maxsize": 32,
+        "currsize": 3
+      },
+      "warm_cache": {
+        "hits": 189,
+        "misses": 3,
+        "maxsize": 32,
+        "currsize": 3
+      },
+      "maps": {
+        "arena4": {
+          "map_sha256": "a9d30fee2ce0083e56b43230979d43bce0f3c2a596976ea7704d70de15805406",
+          "eligible_ordered_rosters": 303,
+          "min_stratum_rosters": 46,
+          "max_stratum_rosters": 54
+        },
+        "isars_cross": {
+          "map_sha256": "46a2bc39ca9818605cf3a9a489083d789d945ca08d0b9fa26a229857922db8a6",
+          "eligible_ordered_rosters": 290,
+          "min_stratum_rosters": 44,
+          "max_stratum_rosters": 52
+        },
+        "clash": {
+          "map_sha256": "c21f9257647f99ac07b2152d7679f72ebce2ef43bf00cb444f235a35c6ae3e90",
+          "eligible_ordered_rosters": 286,
+          "min_stratum_rosters": 42,
+          "max_stratum_rosters": 52
+        }
+      },
+      "map_counts": {
+        "arena4": 48,
+        "isars_cross": 24,
+        "clash": 24
+      },
+      "learner_faction_counts": {
+        "Drakes": 16,
+        "Northerners": 16,
+        "Loyalists": 16,
+        "Knalgan Alliance": 16,
+        "Rebels": 16,
+        "Undead": 16
+      },
+      "distinct_scenarios_in_cycle": 70,
+      "distinct_game_families_in_cycle": 96,
+      "available_eligible_scenarios": 879,
+      "nominal_ordered_rosters_per_map": 360,
+      "all_support_within_balance_cycles": 54
+    },
+    "team2v2": {
+      "balance_cycle_games": 96,
+      "cold_wall_seconds": 0.06276927515864372,
+      "cold_cpu_seconds": 0.06276660900000003,
+      "warm_wall_seconds": 0.03532717493362725,
+      "warm_cpu_seconds": 0.035327143000000005,
+      "cold_cache": {
+        "hits": 93,
+        "misses": 3,
+        "maxsize": 32,
+        "currsize": 3
+      },
+      "warm_cache": {
+        "hits": 189,
+        "misses": 3,
+        "maxsize": 32,
+        "currsize": 3
+      },
+      "maps": {
+        "arena4": {
+          "map_sha256": "a9d30fee2ce0083e56b43230979d43bce0f3c2a596976ea7704d70de15805406",
+          "eligible_ordered_rosters": 294,
+          "min_stratum_rosters": 44,
+          "max_stratum_rosters": 55
+        },
+        "isars_cross": {
+          "map_sha256": "46a2bc39ca9818605cf3a9a489083d789d945ca08d0b9fa26a229857922db8a6",
+          "eligible_ordered_rosters": 284,
+          "min_stratum_rosters": 41,
+          "max_stratum_rosters": 51
+        },
+        "clash": {
+          "map_sha256": "c21f9257647f99ac07b2152d7679f72ebce2ef43bf00cb444f235a35c6ae3e90",
+          "eligible_ordered_rosters": 290,
+          "min_stratum_rosters": 42,
+          "max_stratum_rosters": 54
+        }
+      },
+      "map_counts": {
+        "arena4": 48,
+        "isars_cross": 24,
+        "clash": 24
+      },
+      "learner_faction_counts": {
+        "Drakes": 16,
+        "Northerners": 16,
+        "Loyalists": 16,
+        "Knalgan Alliance": 16,
+        "Rebels": 16,
+        "Undead": 16
+      },
+      "distinct_scenarios_in_cycle": 69,
+      "distinct_game_families_in_cycle": 96,
+      "available_eligible_scenarios": 868,
+      "nominal_ordered_rosters_per_map": 360,
+      "all_support_within_balance_cycles": 55
+    }
+  }
+}

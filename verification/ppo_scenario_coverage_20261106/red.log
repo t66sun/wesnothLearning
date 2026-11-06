@@ -1,0 +1,77 @@
+FFFFFFFFF
+======================================================================
+FAIL: test_complete_cycles_balance_maps_seats_and_focal_factions (tests.v5.test_ppo_scenario_coverage.PPOScenarioCoverageTests.test_complete_cycles_balance_maps_seats_and_focal_factions) (format='duel', first_batch=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/issue223_20261106_red2/source/tests/v5/test_ppo_scenario_coverage.py", line 39, in test_complete_cycles_balance_maps_seats_and_focal_factions
+    self.assertEqual(actual, expected)
+AssertionError: Count[24 chars]s'): 6, ('the_freelands', 2, 'Northerners'): 6[351 chars]: 6}) != Count[24 chars]s'): 3, ('arena2', 1, 'Knalgan Alliance'): 3, [1717 chars]: 1})
+
+======================================================================
+FAIL: test_complete_cycles_balance_maps_seats_and_focal_factions (tests.v5.test_ppo_scenario_coverage.PPOScenarioCoverageTests.test_complete_cycles_balance_maps_seats_and_focal_factions) (format='duel', first_batch=38)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/issue223_20261106_red2/source/tests/v5/test_ppo_scenario_coverage.py", line 39, in test_complete_cycles_balance_maps_seats_and_focal_factions
+    self.assertEqual(actual, expected)
+AssertionError: Count[14 chars] 1, 'Rebels'): 6, ('weldyn_channel', 2, 'Knalg[361 chars]: 6}) != Count[14 chars] 1, 'Drakes'): 3, ('arena2', 1, 'Knalgan Allia[1727 chars]: 1})
+
+======================================================================
+FAIL: test_complete_cycles_balance_maps_seats_and_focal_factions (tests.v5.test_ppo_scenario_coverage.PPOScenarioCoverageTests.test_complete_cycles_balance_maps_seats_and_focal_factions) (format='duel', first_batch=53)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/issue223_20261106_red2/source/tests/v5/test_ppo_scenario_coverage.py", line 39, in test_complete_cycles_balance_maps_seats_and_focal_factions
+    self.assertEqual(actual, expected)
+AssertionError: Counter({('arena2', 2, 'Undead'): 6, ('weldyn_channel', 1, 'D[365 chars]: 6}) != Counter({('arena2', 1, 'Drakes'): 3, ('arena2', 1, 'Knalgan A[1731 chars]: 1})
+
+======================================================================
+FAIL: test_complete_cycles_balance_maps_seats_and_focal_factions (tests.v5.test_ppo_scenario_coverage.PPOScenarioCoverageTests.test_complete_cycles_balance_maps_seats_and_focal_factions) (format='ffa4', first_batch=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/issue223_20261106_red2/source/tests/v5/test_ppo_scenario_coverage.py", line 39, in test_complete_cycles_balance_maps_seats_and_focal_factions
+    self.assertEqual(actual, expected)
+AssertionError: Count[24 chars]s'): 6, ('arena4', 3, 'Loyalists'): 6, ('arena[977 chars]: 2}) != Count[24 chars]s'): 2, ('arena4', 1, 'Knalgan Alliance'): 2, [2257 chars]: 1})
+
+======================================================================
+FAIL: test_complete_cycles_balance_maps_seats_and_focal_factions (tests.v5.test_ppo_scenario_coverage.PPOScenarioCoverageTests.test_complete_cycles_balance_maps_seats_and_focal_factions) (format='ffa4', first_batch=38)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/issue223_20261106_red2/source/tests/v5/test_ppo_scenario_coverage.py", line 39, in test_complete_cycles_balance_maps_seats_and_focal_factions
+    self.assertEqual(actual, expected)
+AssertionError: Counter({('arena4', 2, 'Knalgan Alliance'): 6, ('arena4', 4, [991 chars]: 2}) != Counter({('arena4', 1, 'Drakes'): 2, ('arena4', 1, 'Knalgan A[2271 chars]: 1})
+
+======================================================================
+FAIL: test_complete_cycles_balance_maps_seats_and_focal_factions (tests.v5.test_ppo_scenario_coverage.PPOScenarioCoverageTests.test_complete_cycles_balance_maps_seats_and_focal_factions) (format='ffa4', first_batch=53)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/issue223_20261106_red2/source/tests/v5/test_ppo_scenario_coverage.py", line 39, in test_complete_cycles_balance_maps_seats_and_focal_factions
+    self.assertEqual(actual, expected)
+AssertionError: Counter({('arena4', 3, 'Loyalists'): 6, ('arena4', 1, 'Drakes[991 chars]: 2}) != Counter({('arena4', 1, 'Drakes'): 2, ('arena4', 1, 'Knalgan A[2271 chars]: 1})
+
+======================================================================
+FAIL: test_complete_cycles_balance_maps_seats_and_focal_factions (tests.v5.test_ppo_scenario_coverage.PPOScenarioCoverageTests.test_complete_cycles_balance_maps_seats_and_focal_factions) (format='team2v2', first_batch=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/issue223_20261106_red2/source/tests/v5/test_ppo_scenario_coverage.py", line 39, in test_complete_cycles_balance_maps_seats_and_focal_factions
+    self.assertEqual(actual, expected)
+AssertionError: Count[14 chars] 1, 'Loyalists'): 8, ('arena4', 4, 'Undead'): [855 chars]: 2}) != Count[14 chars] 1, 'Drakes'): 2, ('arena4', 1, 'Knalgan Allia[2267 chars]: 1})
+
+======================================================================
+FAIL: test_complete_cycles_balance_maps_seats_and_focal_factions (tests.v5.test_ppo_scenario_coverage.PPOScenarioCoverageTests.test_complete_cycles_balance_maps_seats_and_focal_factions) (format='team2v2', first_batch=38)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/issue223_20261106_red2/source/tests/v5/test_ppo_scenario_coverage.py", line 39, in test_complete_cycles_balance_maps_seats_and_focal_factions
+    self.assertEqual(actual, expected)
+AssertionError: Counter({('arena4', 3, 'Rebels'): 8, ('arena4', 2, 'Northerne[859 chars]: 2}) != Counter({('arena4', 1, 'Drakes'): 2, ('arena4', 1, 'Knalgan A[2271 chars]: 1})
+
+======================================================================
+FAIL: test_complete_cycles_balance_maps_seats_and_focal_factions (tests.v5.test_ppo_scenario_coverage.PPOScenarioCoverageTests.test_complete_cycles_balance_maps_seats_and_focal_factions) (format='team2v2', first_batch=53)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/issue223_20261106_red2/source/tests/v5/test_ppo_scenario_coverage.py", line 39, in test_complete_cycles_balance_maps_seats_and_focal_factions
+    self.assertEqual(actual, expected)
+AssertionError: Counter({('arena4', 4, 'Undead'): 8, ('arena4', 3, 'Rebels'):[859 chars]: 2}) != Counter({('arena4', 1, 'Drakes'): 2, ('arena4', 1, 'Knalgan A[2271 chars]: 1})
+
+----------------------------------------------------------------------
+Ran 1 test in 0.157s
+
+FAILED (failures=9)

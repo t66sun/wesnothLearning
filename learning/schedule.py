@@ -144,24 +144,9 @@ def teacher_jobs(directory, teachers, fixed, support, batch_index, seed, deadlin
 
 
 def compose_training_scenario(job,*,max_turns=60):
-    """Select an eligible existing training scenario without changing game roles/RNG."""
-    from .data import split
-    from .maps import SPLITS
-
-    request = job['training_scenario']
-    fmt = job['meta']['format']
-    budget = 2 * len(SPLITS[fmt]['train']) * len(params.FACTIONS)
-    for offset in range(budget):
-        index = request['index'] + offset
-        block = request['faction_block'] + offset
-        job['factions'] = factions(block, len(job['bots']))
-        decorate(job, fmt, index, 'train', max_turns=max_turns)
-        if split(job['scenario_family']) == 'train':
-            job['meta']['eligibility_swap'] = dict(requested_index=request['index'],
-                requested_faction_block=request['faction_block'], selected_index=index,
-                selected_faction_block=block, offset=offset)
-            return job
-    raise ValueError('no eligible scenario in the frozen training design: ' + fmt)
+    """Balance eligible training scenarios without changing game roles or RNG."""
+    from .rollout_scenarios import compose
+    return compose(job,max_turns=max_turns)
 
 
 def rollout_jobs(directory, policy, history, fixed, support, version, batch_index, seed,
@@ -196,8 +181,7 @@ def rollout_jobs(directory, policy, history, fixed, support, version, batch_inde
             job.update(shard=str(Path(directory)/'data'/(ident+'.jsonl.gz')),
                        learning=dict(support=support,sides={str(learner_side):dict(teacher=False,version=version,sampling_seed=job['seed']%2147483646+1)}),
                        meta=dict(format=fmt,phase='ppo',version=version,seat=learner_side,composition=composition))
-            job['training_scenario'] = dict(index=batch_index*games_per_format+game,
-                                            faction_block=batch_index+game)
+            job['training_scenario'] = dict(index=batch_index*games_per_format+game)
             compose_training_scenario(job)
             jobs.append(job)
     # All jobs keep their policy and history paths fixed until the batch completes.
