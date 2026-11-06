@@ -1,8 +1,6 @@
 """BC, selected and latest complete policies are distinct evaluation objects."""
 import shutil
-import copy
 import unittest
-from pathlib import Path
 from unittest.mock import Mock, patch
 
 import torch
@@ -179,6 +177,14 @@ class PairedProgressTests(unittest.TestCase):
             self.assertEqual({j['max_turns'] for j in jobs}, {30})
             self.assertEqual({j['meta']['map_partition'] for j in jobs}, {'validation'})
             self.assertFalse(any(j.get('learning') or j.get('shard') for j in jobs))
+            from learning.lite_policy import FrozenPolicies
+            for role in ROLES:
+                job = next(j for j in jobs if j['meta']['progress_role'] == role)
+                loaded = FrozenPolicies(job)
+                side = job['meta']['policy_sides'][0]
+                self.assertEqual(loaded.models[side].format_name, 'duel')
+                self.assertTrue(all(torch.equal(value.double(), loaded.models[side].state_dict()[key])
+                                    for key, value in model.state_dict().items()))
             def collect(actual, workers, log):
                 self.assertEqual(workers, 2)
                 self.assertEqual(actual, jobs)
