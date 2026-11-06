@@ -19,10 +19,12 @@ def main():
     terrain=[['Gg']*15 for _ in range(15)]
     for x,y in ((2,2),(14,14)): terrain[y-1][x-1]='Kh'
     for x,y in ((2,3),(3,2),(13,14),(14,13)): terrain[y-1][x-1]='Ch'
-    cases=[('control','beam',0,False),('beam','beam',3,False),('pvs','pvs',3,False),
-           ('uct','uct',3,False),('hidden','beam',3,True)]
+    cases=[('control','beam',0,False,False),('beam','beam',3,False,False),('pvs','pvs',3,False,False),
+           ('uct','uct',3,False,False),('hidden','beam',3,True,False),
+           ('combat_control','beam',0,False,True),('hybrid','hybrid',3,False,True),
+           ('hybrid_hidden','hybrid',3,True,True)]
     traces={};results={}
-    for name,algorithm,queries,hidden in cases:
+    for name,algorithm,queries,hidden,combat_fixture in cases:
         folder=output/name;addon=folder/'search_teacher'
         shutil.copytree(ROOT/'learning/teachers/search_teacher',addon)
         (addon/'lua/bot.lua').rename(addon/'lua/implementation.lua')
@@ -31,7 +33,8 @@ def main():
                     tactical_ms=700,planning_ms=1000,cache_combat=True,outside_keep_gold=.1,
                     tree_depth=3,mc_iterations=12,mc_depth=3,mc_width=3,search_seed=9187)
         (addon/'lua/config.lua').write_text('return '+native.lua(config),encoding='utf-8')
-        (addon/'lua/audit_options.lua').write_text('return '+native.lua(dict(queries=queries,hidden_variant=hidden)),encoding='utf-8')
+        (addon/'lua/audit_options.lua').write_text('return '+native.lua(dict(
+            queries=queries,hidden_variant=hidden,combat_fixture=combat_fixture)),encoding='utf-8')
         replay=folder/'audit.json'
         results[name]=match.play_game([str(addon),'baseline'],seed=713,factions=['Loyalists','Northerners'],
             max_turns=1,wesnoth=args.wesnoth,replay_path=replay,experiment_deadline=time.time()+120,
@@ -47,6 +50,10 @@ def main():
             assert traces[name].get(field)==traces['control'].get(field),(name,field)
     assert traces['hidden']['public']==traces['beam']['public'],'hidden information changed public input'
     assert traces['hidden']['plan']==traces['beam']['plan'],'hidden information changed decision'
+    for field in ('draws','successor_id','successor_underlying','public'):
+        assert traces['hybrid'].get(field)==traces['combat_control'].get(field),('hybrid',field)
+    for field in ('public','plan'):
+        assert traces['hybrid_hidden'][field]==traces['hybrid'][field],('hybrid hidden',field)
     summary=dict(source=args.source,native_executable_sha256=sha256(args.wesnoth),
                  entropy_sha256=sha256(match.ENTROPY_SHIM),results=results,traces=traces,passed=True)
     write_json(output/'summary.json',summary)
