@@ -32,7 +32,7 @@ end
 function C.damage(s,a,d,w,offense,charge)
     if not w then return 0 end
     local resistance=d.resistance[w.type] or 0
-    if not offense and d.steadfast and resistance>0 then resistance=math.min(50,2*resistance) end
+    if offense and d.steadfast and resistance>0 then resistance=math.min(50,2*resistance) end
     local multiplier=(charge and 2 or 1)*(w.backstab and offense and flanked(s,a,d) and 2 or 1)
     return math.max(1,math.floor(w.damage*bonus(s,a)*(100-resistance)*multiplier/10000+.5))
 end

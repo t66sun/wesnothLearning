@@ -6,7 +6,10 @@ local config=wesnoth.require '~add-ons/search_teacher/lua/config.lua'
 local M={}
 function M:evaluation(cfg,data)
     local start=wesnoth.ms_since_init()
-    local state,raw=P.capture(data,config)
+    data.plan=nil
+    local function planning_expired() return wesnoth.ms_since_init()-start>=config.planning_ms end
+    local state,raw=P.capture(data,config,planning_expired)
+    if not state then data.search={ms=wesnoth.ms_since_init()-start,depth=0,expired=true};return 0 end
     local settings=config[state.format] or config
     local function expired() return wesnoth.ms_since_init()-start>=(settings.tactical_ms or 700) end
     local actions,predictions=A.generate(state,settings,expired,true)
@@ -20,7 +23,7 @@ function M:evaluation(cfg,data)
     local action,stats=Search.choose(state,legal,settings,expired)
     stats.ms=wesnoth.ms_since_init()-start;stats.predictions=predictions;stats.algorithm=settings.algorithm
     stats.model='public-local-v1';data.search=stats
-    assert(stats.ms<(settings.planning_ms or 1000),'public search planning budget exceeded')
+    stats.expired=stats.ms>=(settings.planning_ms or 1000)
     data.plan=action.kind~='end_turn' and action or nil
     return data.plan and 100000 or 0
 end
