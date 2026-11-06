@@ -34,16 +34,21 @@ function M:execution(cfg,data)
         wesnoth.current.map[{15,15}]='Wo'
         for _=1,7 do mathx.random(1,1000000000) end
     end
-    local before=snapshot();local observed=encode(public.capture({},config));local planned
+    local before=snapshot();local observed=encode(public.capture({},config));local planned;local searches={}
     for _=1,options.queries do
         local memory={};teacher:evaluation({},memory);planned=encode(memory.plan)
+        local search=assert(memory.search,'missing completed search diagnostics')
+        assert(search.algorithm==config.algorithm and search.nodes>0 and search.depth>0,'search did not complete')
+        if config.algorithm=='uct' then assert(search.root_covered and search.simulations>0 and search.sampled_combats>0,'no sampled combat') end
+        searches[#searches+1]={algorithm=search.algorithm,nodes=search.nodes,depth=search.depth,
+            simulations=search.simulations,sampled_combats=search.sampled_combats}
     end
     assert(before==snapshot(),'teacher query mutated the real battlefield')
     local successor=wesnoth.units.create{type='Spearman',side=1,random_traits=false,
         random_gender=false,generate_name=false}
     local draws={};for _=1,16 do draws[#draws+1]=mathx.random(1,1000000000) end
     judge.emit('SEARCH_QUERY_AUDIT',{unchanged=true,public=observed,plan=planned,
-        successor_id=successor.id,successor_underlying=successor.__cfg.underlying_id,draws=draws})
+        successor_id=successor.id,successor_underlying=successor.__cfg.underlying_id,draws=draws,searches=searches})
     data.done=true;judge.finish('turn_limit')
 end
 return M
