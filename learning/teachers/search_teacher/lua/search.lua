@@ -29,7 +29,7 @@ function M.reply(s,config,expired)
     end
     return out
 end
-function M.choose(s,actions,config,expired)
+function M.beam(s,actions,config,expired)
     local fallback=actions[1];local champion=fallback;local best=-math.huge;local visited=0
     local base=S.value(s,s.root_side);local beam={}
     for _,a in ipairs(actions) do
@@ -75,5 +75,13 @@ function M.choose(s,actions,config,expired)
         for i=1,math.min(config.width or 6,#next_beam) do beam[i]=next_beam[i] end
     end
     return champion,{nodes=visited,depth=0,value=best}
+end
+function M.choose(s,actions,config,expired)
+    if config.algorithm=='pvs' and not s.ffa then
+        return wesnoth.require('~add-ons/search_teacher/lua/tree_search.lua').choose(s,actions,config,expired)
+    end
+    local action,stats=M.beam(s,actions,config,expired)
+    stats.algorithm=config.algorithm=='pvs' and 'beam_ffa' or 'beam'
+    return action,stats
 end
 return M
