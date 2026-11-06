@@ -50,9 +50,11 @@ function M.beam(s,actions,config,expired)
             if expired() then return champion,{nodes=visited,depth=depth-1} end
             local reply=M.reply(node.state,config,expired)
             if not reply then return champion,{nodes=visited,depth=depth-1} end
-            completed[#completed+1]={first=node.first,value=S.value(reply,s.root_side)-base+node.bonus,trace=node.trace}
+            node.value=S.value(reply,s.root_side)-base+node.bonus
+            completed[#completed+1]=node
         end
         table.sort(completed,better)
+        beam=completed
         if completed[1] then champion=completed[1].first;best=completed[1].value end
         if depth==(config.depth or 2) then return champion,{nodes=visited,depth=depth,value=best} end
         local next_beam={}
@@ -75,8 +77,8 @@ function M.beam(s,actions,config,expired)
                 end
             end
         end
-        table.sort(next_beam,better);beam={}
-        for i=1,math.min(config.width or 6,#next_beam) do beam[i]=next_beam[i] end
+        -- Score replies before pruning; immediate gains can hide a losing response.
+        beam=next_beam
     end
     return champion,{nodes=visited,depth=0,value=best}
 end
