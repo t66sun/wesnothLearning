@@ -2,6 +2,14 @@
 
 > Language: English | [中文](TEST_zh.md)
 
+## S1. Independent search teacher strength
+
+- **Status/reason:** The independent public-state beam teacher is implemented. Model contracts and short native entry checks are preparation evidence only; the six-cell strength requirement is unaccepted.
+- **Minimal Ubuntu inputs/procedure:** Ship committed source with `python -m learning.teacher_remote`, run `tests.test_search_teacher` and the three-format native entry probe, then use the separately authorized independent experiment: five hours of train-map exploration, up to one hour of validation selection, and the remaining four-hour post-exploration allowance for frozen holdout confirmation. The league and selection runner are still to be implemented.
+- **Pass criteria:** Complete paired seat rotations with at least 12 physical scenarios per format/horizon, zero contestant faults, normalized improvement at least 0.10 and clustered 95% lower bound above zero in all six cells. Report natural finishes, capped draws, interruptions and timing separately. Do not relax the criterion at the deadline.
+- **Evidence:** New `verification/teacher_search_20261107/` evidence on the Ubuntu host; final dated report pending. Existing Astra and frozen input evidence remain unchanged.
+- **Training blocker:** Blocks claims that the new teacher is stronger or ready for training integration; this task does not change the active training teacher.
+
 ## F2. Ordinary BC and critic calibration under the finite task
 
 - **Status/reason:** The new task has no trained-policy acceptance. Earlier 30-turn BC evidence used continuation semantics; the historical 60-turn formal run failed FFA overall coverage at 88.08% and is not relabelled.
