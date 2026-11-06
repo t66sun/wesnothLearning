@@ -83,6 +83,9 @@ function M.beam(s,actions,config,expired)
     return champion,{nodes=visited,depth=0,value=best}
 end
 function M.choose(s,actions,config,expired)
+    if config.algorithm=='hybrid' then
+        return wesnoth.require('~add-ons/search_teacher/lua/hybrid_search.lua').choose(s,actions,config,expired,M.beam)
+    end
     if config.algorithm=='uct' then
         return wesnoth.require('~add-ons/search_teacher/lua/monte_search.lua').choose(s,actions,config,expired)
     end
