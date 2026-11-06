@@ -50,6 +50,8 @@ def _endpoint(state, fmt):
 
 
 def _load(runner, identity):
+    if not {'teacher_initialization', 'initialization_lineage'} <= identity.keys():
+        raise ValueError('frozen BC anchor lineage is missing')
     if identity.get('path') != ANCHOR_FILE:
         raise ValueError('frozen BC anchor path differs')
     path = runner.directory / ANCHOR_FILE
@@ -94,7 +96,7 @@ def restore_anchor(runner, loaded, *, branch=False):
     identity = runner.state.get('frozen_bc_anchor')
     if identity:
         _load(runner, identity)
-    elif (runner.state.get('pending_train', {}) or {}).get('method') == 'ppo' or any(
+    elif runner.state.get('stage') in ('ppo', 'ppo_complete') or (runner.state.get('pending_train', {}) or {}).get('method') == 'ppo' or any(
             entry['method'] == 'ppo' for entry in runner.state.get('history', [])):
         raise ValueError('frozen BC anchor identity is missing from PPO checkpoint')
 

@@ -284,12 +284,17 @@ class FrozenBcAnchorTests(unittest.TestCase):
             schedule_rows(runner)
             runner.save()
             original = torch.load(runner.directory/'latest.pt', weights_only=False)
-            changes = [('pin', 'identity is missing'), ('mode', 'auxiliary target differs'),
+            changes = [('pin', 'identity is missing'), ('empty_ppo', 'identity is missing'),
+                       ('lineage', 'lineage is missing'), ('mode', 'auxiliary target differs'),
                        ('format', 'identity differs')]
             for change, error in changes:
                 saved = copy.deepcopy(original)
-                if change == 'pin':
+                if change in ('pin', 'empty_ppo'):
                     saved['runner'].pop('frozen_bc_anchor')
+                    if change == 'empty_ppo':
+                        saved['runner']['pending_train'] = None
+                elif change == 'lineage':
+                    saved['runner']['frozen_bc_anchor'].pop('teacher_initialization')
                 elif change == 'mode':
                     saved['execution']['ppo_aux_target'] = 'historical_action'
                 else:
