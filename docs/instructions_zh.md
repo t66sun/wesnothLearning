@@ -343,6 +343,8 @@ worker、设备、赛制、总预算、BC 局数/原版锚点数、模型结构/
 
 正确性审计判定冻结候选不合格时，保留候选及其对局。在探索截止前新建不可变的 `selection_source.json`，记录经审查选拔器的 `evaluator_root`、`source_commit`，原 `base_source_commit`、`baseline_sha256`、不变的 `exploration_end`、`frozen` 时间戳，以及候选名到 `reason`、`evidence` 的 `exclusions` 映射。只有 `select` 从该审查归档执行。选拔器核对身份，在提名及回退中均排除这些版本，并在输出中记录此发布；原 manifest、时钟、计分和验收门槛保持冻结。
 
+`python -m learning.teacher_lab.batch --directory EXPERIMENT --name PANEL --candidates A B --blocks 2 --offset 1` 将多个冻结候选放入共用的八 worker 训练面板，对 Astra 使用相同场景和原评分。已有实验的评测器较旧时，将 `PYTHONPATH` 指向原评测器根目录，以绝对路径执行审查归档中的 `learning/teacher_lab/batch.py`；脚本导入冻结的对局/计分模块，并记录自身源码哈希。必须等上一 worker 池结束后启动。
+
 变更或重启命令不会延长时钟。保留失败版本和未完成对局，不根据留出结果调参，不降低 0.10/95%/12 场景门槛，也不在此流程中接入训练。
 
 ## 10. 汇报与交接
