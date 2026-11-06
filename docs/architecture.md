@@ -141,6 +141,8 @@ Architecture id `relational_v5`, one independent model per format (roughly 0.77 
 
 BC imitation validation shares a local history cache across its 64-row inference chunks; all historical scenes may be reused under no-gradient inference while weights are unchanged. Each validation call starts fresh, and gradient-enabled replay retains its eight-turn suffix. A 130-decision/36-turn fixture reduces encoded scenes from 238 to 166 with matching gate metrics; 15 affected Ubuntu cases have passing evidence (`verification/bc_validation_cache_20261102/REPORT.md`). Production wall-clock and RSS changes are unmeasured.
 
+The current spatial representation has two demonstrated bounded losses. A 32×16 fully known terrain pair changes ground-route connectivity inside a board bin while retaining identical complete actor tensors and seven legal candidates. A separate 16×16 pair changes distant hill position; its board tensors differ, but the actual two-convolution/mean-pool encoder has the same boundary-aware patch multiset. Nearby local patches, visible/last-seen entity coordinates and knowledge masks distinguish the compensation controls. A legal move-order fixture confirms that later same-turn observations are omitted from recurrent writes without demonstrating harmful timing loss. Forty raw turns still replay as 32 detached plus eight differentiable GRU steps; this does not limit GAE credit to eight turns. No network change or strength effect is established. [Paired inputs, structural argument and repair scope](../verification/representation_information_20261106/REPORT.md)
+
 ## 7. Rewards and online control
 
 New runs use task `official-score-30-v1` and reward formula `v5-official-score-potential-1` (`learning/tasks.py`, `learning/rewards.py`):
