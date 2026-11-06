@@ -1,5 +1,6 @@
 local G=wesnoth.require '~add-ons/search_teacher/lua/geometry.lua'
 local C=wesnoth.require '~add-ons/search_teacher/lua/combat.lua'
+local H=wesnoth.require '~add-ons/search_teacher/lua/healing.lua'
 local S={}
 function S.clone(s)
     local out=G.copy(s);out.units={};out.owners=G.copy(s.owners);out.gold=G.copy(s.gold)
@@ -54,9 +55,8 @@ function S.apply(s,a,rng)
         out.lawful_bonus=(out.bonuses or {})[out.turn] or out.lawful_bonus
         for _,u in pairs(out.units) do if u.side==out.side and u.hp>0 then
             u.moves=u.max_moves;u.attacks_left=1
-            if out.villages[G.key(u.x,u.y)] then u.hp=math.min(u.max_hp,u.hp+8);u.poison=false
-            elseif u.poison then u.hp=math.max(1,u.hp-8) end
         end end
+        H.start(out)
         return out
     end
     if a.kind=='recruit' then

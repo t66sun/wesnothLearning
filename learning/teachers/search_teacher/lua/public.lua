@@ -1,5 +1,6 @@
 -- The only live-game read boundary. Search modules receive plain public data.
 local G=wesnoth.require '~add-ons/search_teacher/lua/geometry.lua'
+local H=wesnoth.require '~add-ons/search_teacher/lua/healing.lua'
 local P={}
 local damage_types={'blade','pierce','impact','fire','cold','arcane'}
 function P.profile(u,terrain_codes)
@@ -9,6 +10,7 @@ function P.profile(u,terrain_codes)
         xp=u.experience or 0,max_xp=u.max_experience or 999,alignment=u.alignment,
         slow=u.status.slowed or false,poison=u.status.poisoned or false,petrified=u.status.petrified or false,
         unpoisonable=u.status.unpoisonable or false,undrainable=u.status.undrainable or false,
+        unhealable=u.status.unhealable or false,
         resistance={},movement={},defense={},weapons={}}
     for _,kind in ipairs(damage_types) do p.resistance[kind]=u:resistance_against(kind) end
     for code in pairs(terrain_codes) do p.movement[code]=u:movement_on(code);p.defense[code]=u:defense_on(code) end
@@ -29,8 +31,12 @@ function P.profile(u,terrain_codes)
         if kind=='skirmisher' then p.skirmisher=true
         elseif kind=='leadership' then p.leadership=true
         elseif kind=='illuminates' then p.illuminates=true
-        elseif kind=='heals' then p.healing=math.max(p.healing or 0,tonumber(tag[2].value) or 4)
-        elseif kind=='regenerate' then p.regenerates=tonumber(tag[2].value) or 8
+        elseif kind=='heals' then
+            p.healing=math.max(p.healing or 0,tonumber(tag[2].value) or 0)
+            p.healing_poison=math.max(p.healing_poison or 0,H.poison_mode(tag[2].poison))
+        elseif kind=='regenerate' then
+            p.regenerates=math.max(p.regenerates or 0,tonumber(tag[2].value) or 0)
+            p.regeneration_poison=math.max(p.regeneration_poison or 0,H.poison_mode(tag[2].poison))
         elseif kind=='resistance' and tag[2].id=='steadfast' then p.steadfast=true
         elseif kind~='hides' then p.unsupported=true end
     end
