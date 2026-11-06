@@ -40,7 +40,10 @@ local function position(s,u,x,y)
     if not u.leader then value=value-math.min(20,enemy)*.4 end
     local danger=threat(s,u,x,y)
     value=value-danger*(u.leader and .8 or .15)-math.max(0,danger-u.hp+6)*(u.leader and 5 or .8)
-    if u.leader and s.homes[u.id] then value=value-G.distance(here,s.homes[u.id])*.8 end
+    if u.leader and s.homes[u.id] then
+        local distance=G.distance(here,s.homes[u.id]);value=value-distance*.8
+        if distance==0 then value=value+(s.leader_home_bonus or 0)*u.hp/u.max_hp end
+    end
     if u.regenerates then value=value+math.min(u.regenerates,u.max_hp-u.hp)*.3 end
     return value
 end
