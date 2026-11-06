@@ -4,10 +4,10 @@
 
 ## P1. 冻结 BC 辅助目标
 
-- **状态/原因：** 已实现，等待 Ubuntu 检查。历史动作基线与可选冻结分布目标共用采样和停止规则。
+- **状态/原因：** 已实现，43 项独立 Ubuntu 检查通过，等待 #235 任务/分支接口合并后的统一验收。历史动作基线与可选冻结分布目标共用采样和停止规则。
 - **最小 Ubuntu 输入/步骤：** 从已发送的源码提交，使用编译规则/扩展运行 `tests.v5.test_frozen_bc_loss`、`tests.v5.test_frozen_bc_anchor`、复习来源、PPO plan/resume/phase 和 BC 分支重启套件。fixture 使用临时检查点与合成状态行，不授权采集或正式训练。
 - **通过标准：** 正向 KL 方向、匹配 BC 时数值零、有限候选 padding、冻结参数、独立完整历史、等权窗口；真实 runner/export/load/branch/resume 的身份及系数接线；端点缺失/替换在更新前报错；control/no-drop/停止行为不变。
-- **证据：** 执行后写入新 `verification/frozen_bc_anchor_20261106/REPORT.md`；实现检查不证明棋力或能力保持。
+- **证据：** [独立检查与目标回退断言](../verification/frozen_bc_anchor_20261106/REPORT.md)；实现检查不证明棋力或能力保持。
 - **训练阻塞：** 阻止使用 `frozen_bc_kl`；实际收益留给单独获准、使用 #235 任务的 #227 对照。
 
 ## F1. 默认 60 回合下的普通混战 BC 就绪

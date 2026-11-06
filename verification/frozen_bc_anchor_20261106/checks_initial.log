@@ -1,0 +1,75 @@
+test_forward_direction_finite_padding_and_frozen_target (tests.v5.test_frozen_bc_loss.FrozenBcLossTests.test_forward_direction_finite_padding_and_frozen_target) ... FAIL
+test_full_raw_history_is_replayed_by_each_models_own_weights (tests.v5.test_frozen_bc_loss.FrozenBcLossTests.test_full_raw_history_is_replayed_by_each_models_own_weights) ... ok
+test_logical_window_and_micro_weights_are_unchanged (tests.v5.test_frozen_bc_loss.FrozenBcLossTests.test_logical_window_and_micro_weights_are_unchanged) ... ok
+test_matching_distribution_zero_gradient_and_hard_action_difference (tests.v5.test_frozen_bc_loss.FrozenBcLossTests.test_matching_distribution_zero_gradient_and_hard_action_difference) ... ok
+test_new_mode_keeps_no_drop_and_kl_stop_settlement (tests.v5.test_frozen_bc_loss.FrozenBcLossTests.test_new_mode_keeps_no_drop_and_kl_stop_settlement) ... ok
+test_policy_only_pool_filters_before_sampling_and_preserves_control_exclusion (tests.v5.test_frozen_bc_loss.FrozenBcLossTests.test_policy_only_pool_filters_before_sampling_and_preserves_control_exclusion) ... ERROR
+test_real_model_auxiliary_ignores_value_head (tests.v5.test_frozen_bc_loss.FrozenBcLossTests.test_real_model_auxiliary_ignores_value_head) ... ok
+test_bc_restart_does_not_inherit_the_old_anchor (tests.v5.test_frozen_bc_anchor.FrozenBcAnchorTests.test_bc_restart_does_not_inherit_the_old_anchor) ... ok
+test_cli_defaults_and_old_execution_contract_stay_historical (tests.v5.test_frozen_bc_anchor.FrozenBcAnchorTests.test_cli_defaults_and_old_execution_contract_stay_historical) ... resume keeps the frozen PPO auxiliary target; choose the target on a new run
+ok
+test_interrupted_resume_matches_uninterrupted_with_real_shards (tests.v5.test_frozen_bc_anchor.FrozenBcAnchorTests.test_interrupted_resume_matches_uninterrupted_with_real_shards) ... ok
+test_learn_pins_before_export_or_collection_and_force_cannot_invent_bc (tests.v5.test_frozen_bc_anchor.FrozenBcAnchorTests.test_learn_pins_before_export_or_collection_and_force_cannot_invent_bc) ... ok
+test_missing_or_replaced_anchor_fails_before_update_and_on_resume (tests.v5.test_frozen_bc_anchor.FrozenBcAnchorTests.test_missing_or_replaced_anchor_fails_before_update_and_on_resume) ... ok
+test_pin_is_complete_immutable_and_export_is_loadable (tests.v5.test_frozen_bc_anchor.FrozenBcAnchorTests.test_pin_is_complete_immutable_and_export_is_loadable) ... ok
+test_real_runner_compares_targets_and_uses_pending_coefficient (tests.v5.test_frozen_bc_anchor.FrozenBcAnchorTests.test_real_runner_compares_targets_and_uses_pending_coefficient) ... ok
+test_resume_rejects_missing_pin_or_changed_mode_and_identity (tests.v5.test_frozen_bc_anchor.FrozenBcAnchorTests.test_resume_rejects_missing_pin_or_changed_mode_and_identity) ... ok
+test_same_task_bc_parent_branches_share_the_pinned_endpoint (tests.v5.test_frozen_bc_anchor.FrozenBcAnchorTests.test_same_task_bc_parent_branches_share_the_pinned_endpoint) ... ok
+test_unqualified_or_pending_bc_is_rejected (tests.v5.test_frozen_bc_anchor.FrozenBcAnchorTests.test_unqualified_or_pending_bc_is_rejected) ... ok
+test_control_policy_cannot_rehearse (tests.v5.test_rehearsal_source.RehearsalSourceTests.test_control_policy_cannot_rehearse) ... ok
+test_empty_pool_fails_only_when_auxiliary_loss_is_enabled (tests.v5.test_rehearsal_source.RehearsalSourceTests.test_empty_pool_fails_only_when_auxiliary_loss_is_enabled) ... ok
+test_runner_refuses_control_only_pool_before_parameter_change (tests.v5.test_rehearsal_source.RehearsalSourceTests.test_runner_refuses_control_only_pool_before_parameter_change) ... ok
+test_runner_rehearses_ppo_on_its_own_policy_shards (tests.v5.test_rehearsal_source.RehearsalSourceTests.test_runner_rehearses_ppo_on_its_own_policy_shards) ... ok
+test_sha_exclusion_does_not_confuse_environment_with_label_source (tests.v5.test_rehearsal_source.RehearsalSourceTests.test_sha_exclusion_does_not_confuse_environment_with_label_source) ... ok
+test_twenty_updates_report_only_distinct_human_rehearsal (tests.v5.test_rehearsal_source.RehearsalSourceTests.test_twenty_updates_report_only_distinct_human_rehearsal) ... ok
+test_batch_kl_is_window_equal_not_chunk_early_stop (tests.v5.test_ppo_plan.PpoPlanTests.test_batch_kl_is_window_equal_not_chunk_early_stop) ... ok
+test_batch_kl_stop_rejects_before_stepping (tests.v5.test_ppo_plan.PpoPlanTests.test_batch_kl_stop_rejects_before_stepping) ... ok
+test_changed_plan_is_rejected (tests.v5.test_ppo_plan.PpoPlanTests.test_changed_plan_is_rejected) ... ok
+test_deadline_before_batch_changes_nothing (tests.v5.test_ppo_plan.PpoPlanTests.test_deadline_before_batch_changes_nothing) ... ok
+test_each_window_visited_once_per_epoch (tests.v5.test_ppo_plan.PpoPlanTests.test_each_window_visited_once_per_epoch) ... ok
+test_legacy_cursor_is_migrated_at_a_boundary (tests.v5.test_ppo_plan.PpoPlanTests.test_legacy_cursor_is_migrated_at_a_boundary) ... ok
+test_mid_batch_deadline_discards_gradients_and_restores_rng (tests.v5.test_ppo_plan.PpoPlanTests.test_mid_batch_deadline_discards_gradients_and_restores_rng) ... ok
+test_resume_from_saved_boundary_matches_uninterrupted (tests.v5.test_ppo_plan.PpoPlanTests.test_resume_from_saved_boundary_matches_uninterrupted) ... ok
+test_finish_train_settles_resumed_work_once_with_real_checkpoint (tests.v5.test_ppo_resume_counters.PpoResumeCounterTests.test_finish_train_settles_resumed_work_once_with_real_checkpoint) ... ok
+test_learner_totals_survive_deadline_and_repeated_boundary_resume (tests.v5.test_ppo_resume_counters.PpoResumeCounterTests.test_learner_totals_survive_deadline_and_repeated_boundary_resume) ... ok
+test_cli_and_api_pin_only_positive_ppo_batch_counts (tests.v5.test_ppo_phase_boundary.PpoPhaseBoundaryTests.test_cli_and_api_pin_only_positive_ppo_batch_counts) ... ok
+test_next_request_at_a_clean_boundary_needs_another_applied_batch (tests.v5.test_ppo_phase_boundary.PpoPhaseBoundaryTests.test_next_request_at_a_clean_boundary_needs_another_applied_batch) ... ok
+test_resume_counts_only_new_applied_batches_and_finishes_due_validation (tests.v5.test_ppo_phase_boundary.PpoPhaseBoundaryTests.test_resume_counts_only_new_applied_batches_and_finishes_due_validation) ... ok
+test_child_calibrates_trains_and_rechecks_its_own_gate (tests.v5.test_branch_restart_bc.BranchRestartBCTests.test_child_calibrates_trains_and_rechecks_its_own_gate) ... ok
+test_cli_requires_branch_bc_phase_and_new_optimizer (tests.v5.test_branch_restart_bc.BranchRestartBCTests.test_cli_requires_branch_bc_phase_and_new_optimizer) ... --branch-restart-bc requires --branch-from, --phase bc and --branch-reset-optimizer
+--branch-restart-bc requires --branch-from, --phase bc and --branch-reset-optimizer
+--branch-restart-bc requires --branch-from, --phase bc and --branch-reset-optimizer
+ok
+test_rejects_incompatible_supervision_contracts (tests.v5.test_branch_restart_bc.BranchRestartBCTests.test_rejects_incompatible_supervision_contracts) ... ok
+test_fresh_run_keeps_current_log_eligibility (tests.v5.test_branch_teacher_evidence.BranchTeacherEvidenceTests.test_fresh_run_keeps_current_log_eligibility) ... ok
+test_inherited_and_child_games_supply_the_same_corpus_and_coverage (tests.v5.test_branch_teacher_evidence.BranchTeacherEvidenceTests.test_inherited_and_child_games_supply_the_same_corpus_and_coverage) ... ok
+test_later_parent_collection_and_ineligible_results_are_not_inherited (tests.v5.test_branch_teacher_evidence.BranchTeacherEvidenceTests.test_later_parent_collection_and_ineligible_results_are_not_inherited) ... ok
+test_nested_lineage_deduplicates_paths_and_keeps_format_boundaries (tests.v5.test_branch_teacher_evidence.BranchTeacherEvidenceTests.test_nested_lineage_deduplicates_paths_and_keeps_format_boundaries) ... ok
+
+======================================================================
+ERROR: test_policy_only_pool_filters_before_sampling_and_preserves_control_exclusion (tests.v5.test_frozen_bc_loss.FrozenBcLossTests.test_policy_only_pool_filters_before_sampling_and_preserves_control_exclusion)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/frozen_bc_anchor_20261106_40fa944/source/tests/v5/test_frozen_bc_loss.py", line 57, in test_policy_only_pool_filters_before_sampling_and_preserves_control_exclusion
+    sampler = BCSampler(teacher + renamed + hashed + human_rows() + policy, allow_policy=True,
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/acceptance/frozen_bc_anchor_20261106_40fa944/source/learning/data.py", line 229, in __init__
+    rows = attach_histories(rows)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/acceptance/frozen_bc_anchor_20261106_40fa944/source/learning/sequences.py", line 78, in attach_histories
+    raise ValueError('sequence must preserve chronological turn order')
+ValueError: sequence must preserve chronological turn order
+
+======================================================================
+FAIL: test_forward_direction_finite_padding_and_frozen_target (tests.v5.test_frozen_bc_loss.FrozenBcLossTests.test_forward_direction_finite_padding_and_frozen_target)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/frozen_bc_anchor_20261106_40fa944/source/tests/v5/test_frozen_bc_loss.py", line 37, in test_forward_direction_finite_padding_and_frozen_target
+    self.assertNotAlmostEqual(float(loss.detach()), float(reverse.detach()), places=3)
+AssertionError: 1.3368043899536133 == 1.3368043899536133 within 3 places
+
+----------------------------------------------------------------------
+Ran 43 tests in 13.838s
+
+FAILED (failures=1, errors=1)
+Experiment: stage_complete

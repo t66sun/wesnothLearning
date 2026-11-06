@@ -4,10 +4,10 @@
 
 ## P1. Frozen BC auxiliary target
 
-- **Status/reason:** Implemented; Ubuntu checks pending. The historical-action baseline and optional frozen distribution target share sampling and stopping.
+- **Status/reason:** Implemented; 43 standalone Ubuntu checks passed. Acceptance of the combined #235 task/branch interfaces is pending. The historical-action baseline and optional frozen distribution target share sampling and stopping.
 - **Minimal Ubuntu inputs/procedure:** Run `tests.v5.test_frozen_bc_loss`, `tests.v5.test_frozen_bc_anchor`, rehearsal-source, PPO plan/resume/phase and branch restart suites from a shipped commit with the compiled rules/extension. Fixtures use temporary checkpoints and synthetic existing-state rows; no collection or training run is authorized.
 - **Pass criteria:** Forward KL direction and numerical zero at BC, finite padded support, frozen parameters, independent complete histories, equal-window weighting, real runner/export/load/branch/resume identity and coefficient wiring, missing/replaced endpoint failure before updating, and unchanged control/no-drop/stop behavior.
-- **Evidence:** New `verification/frozen_bc_anchor_20261106/REPORT.md` after execution; no strength or retention claim from implementation checks.
+- **Evidence:** [Standalone checks and target-reversion assertion](../verification/frozen_bc_anchor_20261106/REPORT.md); no strength or retention claim from implementation checks.
 - **Training blocker:** Blocks use of `frozen_bc_kl`; comparison benefits remain for the separately authorized #227 experiment under #235's task.
 
 ## F1. Ordinary FFA BC readiness at the default 60-turn cap
