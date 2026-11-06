@@ -4,7 +4,7 @@ from pathlib import Path
 from statistics import mean
 import time
 from learning.formats import FORMATS
-from .packages import compose, digest, read, write_new
+from .packages import compose, digest, read, require_evaluator, write_new
 from .panels import GAMES_PER_BLOCK, HORIZONS, execute, jobs_for
 from .report import candidate_cells, compare, load_panels, rank_key, report_panel, valid
 
@@ -76,6 +76,7 @@ def matched_selection(jobs, results, shortlist):
 
 def select(directory):
     manifest=read(directory/'manifest.json');timer=read(directory/'clock.json')
+    require_evaluator(manifest)
     if time.time()<timer['exploration_end']:
         raise ValueError('five-hour exploration is not finished')
     post=directory/'selection';post.mkdir(parents=True,exist_ok=False)

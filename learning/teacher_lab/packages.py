@@ -1,7 +1,6 @@
 import hashlib
 import json
 from pathlib import Path
-import shutil
 import tempfile
 from learning.common import ROOT
 import addons
@@ -32,6 +31,14 @@ def write_new(path, value):
 
 def read(path):
     return json.loads(Path(path).read_text(encoding='utf-8'))
+
+
+def require_evaluator(manifest):
+    if Path(manifest['evaluator_root']).resolve()!=ROOT.resolve():
+        raise ValueError('run from the frozen evaluator_root; register new candidate source separately')
+    marker=ROOT/'SOURCE_COMMIT'
+    if not marker.is_file() or marker.read_text().strip()!=manifest['source_commit']:
+        raise ValueError('evaluator source commit does not match the shipped archive')
 
 
 def registration(target, name):

@@ -4,7 +4,7 @@ from pathlib import Path
 import time
 from learning.common import ROOT
 from learning.formats import FORMATS
-from .packages import digest, read, stage, write_new
+from .packages import digest, read, require_evaluator, stage, write_new
 from .panels import HORIZONS, execute, jobs_for
 from .report import candidate_cells, compare, load_panels, provisional, rank_key, report_panel
 import match
@@ -24,6 +24,7 @@ def candidate(directory, name):
 
 def init(args):
     directory = args.directory
+    require_evaluator(dict(evaluator_root=str(ROOT),source_commit=args.source_commit))
     directory.mkdir(parents=True, exist_ok=False)
     executable = native.find_wesnoth(args.wesnoth)
     native.check_version(executable)
@@ -83,6 +84,7 @@ def start(args):
 
 def panel(args):
     manifest = read(args.directory / 'manifest.json')
+    require_evaluator(manifest)
     chosen = candidate(args.directory, args.candidate)
     control = manifest['baseline'] if args.opponent=='baseline' else candidate(args.directory, args.opponent)
     if digest(control['package']) != control['package_sha256']:

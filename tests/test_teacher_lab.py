@@ -9,7 +9,7 @@ from lupa import LuaRuntime
 from learning.common import ROOT
 from learning.formats import FORMATS
 from learning.teacher_lab import __main__ as cli
-from learning.teacher_lab.packages import compose, digest, read, stage, write_new
+from learning.teacher_lab.packages import compose, digest, read, require_evaluator, stage, write_new
 from learning.teacher_lab.panels import GAMES_PER_BLOCK, execute, jobs_for, play, timings
 from learning.teacher_lab.report import candidate_cells, compare, provisional, rank_key, score
 from learning.teacher_lab.selection import matched_selection, select
@@ -40,6 +40,15 @@ def outcome(job):
 
 
 class TeacherLabTests(unittest.TestCase):
+    def test_evaluator_rejects_another_archive_or_wrong_commit(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp);(root/'SOURCE_COMMIT').write_text('commit-a\n')
+            manifest=dict(evaluator_root=str(root),source_commit='commit-a')
+            with patch('learning.teacher_lab.packages.ROOT',root):
+                require_evaluator(manifest)
+                with self.assertRaises(ValueError): require_evaluator(dict(manifest,source_commit='commit-b'))
+                with self.assertRaises(ValueError): require_evaluator(dict(manifest,evaluator_root=str(root/'other')))
+
     def test_objectives_and_shared_team_caps(self):
         duel=dict(bots=['a','b'],winner=0,survivors=[1,2],faults={},reason='turn_limit')
         self.assertEqual(score(duel,1,30),1/3)
@@ -176,7 +185,8 @@ class TeacherLabTests(unittest.TestCase):
             with patch('learning.teacher_lab.__main__.time.time',return_value=19000),self.assertRaises(ValueError):
                 cli.register(args)
             self.assertEqual(read(root/'clock.json'),timer)
-            with patch('learning.teacher_lab.selection.time.time',return_value=18000),self.assertRaises(ValueError):
+            with patch('learning.teacher_lab.selection.require_evaluator'),\
+                    patch('learning.teacher_lab.selection.time.time',return_value=18000),self.assertRaises(ValueError):
                 select(root)
 
     def test_selection_matches_common_blocks_and_rejects_faulted_contenders(self):
@@ -216,6 +226,7 @@ class TeacherLabTests(unittest.TestCase):
                     self.assertTrue(all(j['deadline']==21600 for j in jobs))
                 return [outcome(j) for j in jobs]
             with patch('learning.teacher_lab.selection.time.time',return_value=18001),\
+                    patch('learning.teacher_lab.selection.require_evaluator'),\
                     patch('learning.teacher_lab.selection.load_panels',return_value=(train,[outcome(j) for j in train])),\
                     patch('learning.teacher_lab.selection.execute',side_effect=fake_execute):
                 select(root)
