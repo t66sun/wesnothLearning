@@ -78,6 +78,7 @@ function S.apply(s,a,rng)
             out.adjustment[u.side]=(out.adjustment[u.side] or 0)+own
             out.adjustment[d.side]=(out.adjustment[d.side] or 0)+enemy
         end
+        out.adjustment[u.side]=(out.adjustment[u.side] or 0)-(a.exposure_penalty or 0)
         u.hp=r.ah;d.hp=r.dh;u.slow=r.as==1;d.slow=r.ds==1;u.poison=r.ap==1;d.poison=r.dp==1
         u.attacks_left=0;u.moves=0;out.leaf_only=not f.supported
         eliminate(out,u);eliminate(out,d)

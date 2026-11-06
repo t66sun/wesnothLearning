@@ -57,6 +57,8 @@ function A.generate(s,config,expired,root)
         for _,p in pairs(reachable) do positions[#positions+1]=p end
         table.sort(positions,function(a,b) return G.key(a[1],a[2])<G.key(b[1],b[2]) end)
         if u.attacks_left>0 then
+            local exposure_weight=u.leader and (config.leader_exposure or 0) or 0
+            local previous_exposure=exposure_weight>0 and math.max(0,threat(s,u,u.x,u.y)-u.hp*.5) or 0
             for _,e in ipairs(units) do if e.hp>0 and not e.petrified and s.enemies[u.side][e.side] then
                 for _,p in ipairs(G.neighbors(e.x,e.y)) do
                     local r=reachable[G.key(p[1],p[2])]
@@ -65,12 +67,13 @@ function A.generate(s,config,expired,root)
                         local attacker=G.copy(u);attacker.x=p[1];attacker.y=p[2]
                         local f=C.forecast(s,attacker,e,weapon);count=count+1
                         local risk=threat(s,attacker,p[1],p[2])
+                        local exposure=exposure_weight*(math.max(0,risk-f.ah*.5)-previous_exposure)
                         local score=(e.hp-f.dh)*e.cost/e.max_hp+f.kill*(e.cost*.8+(e.leader and 500 or 0))
                             -(u.hp-f.ah)*u.cost/u.max_hp-f.death*(u.cost*.8+(u.leader and 500 or 0))
                             +(not e.slow and f.slow*7 or 0)+(not e.poison and f.poison*8*e.cost/e.max_hp or 0)
                             -math.max(0,risk*(config.risk or .35)-f.ah+6)*u.cost/u.max_hp
                         add{kind='combat',id=u.id,x=u.x,y=u.y,tx=p[1],ty=p[2],remaining=r[3],enemy=e.id,
-                            ex=e.x,ey=e.y,weapon=weapon,score=score}
+                            ex=e.x,ey=e.y,weapon=weapon,score=score-exposure,exposure_penalty=exposure}
                     end end
                 end
             end end
