@@ -22,6 +22,12 @@ local function snapshot()
 end
 function M:evaluation(cfg,data) return data.done and 0 or 100000 end
 function M:execution(cfg,data)
+    local guard=wesnoth.units.create{type='Dwarvish Guardsman',side=2,random_traits=false,
+        random_gender=false,generate_name=false,facing='s',id='audit_guard',underlying_id=2147483647}
+    local profile=public.profile(guard,{Gg=true})
+    assert(guard:resistance_against('blade',true)==20 and guard:resistance_against('blade',false)==40,
+        'unexpected native steadfast contract')
+    assert(profile.resistance.blade==20 and profile.steadfast,'steadfast must not be captured twice')
     wesnoth.units.to_map{type='Spearman',id='audit_actor',side=1,x=3,y=3,random_traits=false}
     wesnoth.units.to_map{type='Orcish Grunt',id='audit_target',side=2,x=3,y=4,random_traits=false}
     wesnoth.units.to_map{type='Orcish Grunt',id='audit_hidden',side=2,x=14,y=13,random_traits=false}
