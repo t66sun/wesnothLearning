@@ -6,7 +6,7 @@ import unittest
 from learning.data import advantages, write_shard
 from learning.rewards import RewardConfig, row_transition
 from learning.rowpack import unpack_line
-from verification.team_critic_horizon_20261106.probe import Metrics, returns
+from verification.team_critic_horizon_20261106.probe import Metrics, completed_return_bounds, critic_return_bounds, returns
 
 
 def row(turn, value, *, gamma=1., lam=.5, outcome=1.):
@@ -113,6 +113,16 @@ class CriticHorizonTests(unittest.TestCase):
         constant.add(2., 1.)
         self.assertIsNone(constant.result()['explained_variance'])
         self.assertEqual(constant.result()['mse'], 1.)
+
+    def test_partial_observation_critic_bound_does_not_use_hidden_state_potential(self):
+        config = RewardConfig().to_dict()
+        self.assertValues(critic_return_bounds(config), [-1.25, 1.25])
+        realized = completed_return_bounds(dict(economy=-1., control=0., explored=0.), config)
+        self.assertValues(realized, [-.85, 1.25])
+        # A view shared with other hidden economy states can correctly have
+        # value -1 even though this particular state's lower return is -.85.
+        self.assertLess(-1., realized[0])
+        self.assertGreaterEqual(-1., critic_return_bounds(config)[0])
 
 
 if __name__ == '__main__':

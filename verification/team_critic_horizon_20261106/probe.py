@@ -89,9 +89,16 @@ def returns(rows, *, cap_terminal=False):
 
 
 def completed_return_bounds(raw, config):
+    """Realized-state interval, not a bound conditioned on partial observation."""
     assert config['gamma'] == 1., 'bounds here require undiscounted potential telescoping'
     phi = config['economy'] * raw['economy'] + config['control'] * raw['control']
     return -1. - phi, 1. - phi + config['explore'] * (1. - raw['explored'])
+
+
+def critic_return_bounds(config):
+    """Conservative support over all hidden states compatible with a legal view."""
+    assert config['gamma'] == 1.
+    return -1. - config['economy'] - config['control'], 1. + config['economy'] + config['explore']
 
 
 def scalar_rows(path):
@@ -146,9 +153,12 @@ def inspect(run):
                 targets['counterfactual_cap_terminal'] = counterfactual
             groups = defaultdict(list)
             outside = 0
+            lo, hi = critic_return_bounds(tail['reward_config'])
             for index, row in enumerate(rows):
-                lo, hi = completed_return_bounds(row['reward_raw'], row['reward_config'])
                 outside += not lo - 1e-9 <= row['value'] <= hi + 1e-9
+                if not truncated:
+                    realized_lo, realized_hi = completed_return_bounds(row['reward_raw'], row['reward_config'])
+                    assert realized_lo - 1e-9 <= observed_or_bootstrapped[index] <= realized_hi + 1e-9
                 following = rows[index + 1] if index + 1 < len(rows) else None
                 max_step_error = max(max_step_error, abs(row_transition(row, following)[0] - row['reward_step']))
                 for name in (f'all/{kind}', f'{phase}/{kind}',
@@ -159,14 +169,13 @@ def inspect(run):
                 cohorts[name]['games'] += 1
                 cohorts[name]['rows'] += len(indices)
                 cohorts[name]['out_of_complete_return_bounds'] += sum(
-                    not completed_return_bounds(rows[i]['reward_raw'], rows[i]['reward_config'])[0] - 1e-9 <=
-                    rows[i]['value'] <= completed_return_bounds(rows[i]['reward_raw'], rows[i]['reward_config'])[1] + 1e-9
+                    not lo - 1e-9 <= rows[i]['value'] <= hi + 1e-9
                     for i in indices)
                 for target, values in targets.items():
                     for index in indices:
                         metrics[name][target]['row_weighted'].add(rows[index]['value'], values[index])
                         metrics[name][target]['game_weighted'].add(rows[index]['value'], values[index], 1. / len(indices))
-            boot_bounds = completed_return_bounds(tail['bootstrap_raw'], tail['reward_config']) if truncated else None
+            boot_bounds = critic_return_bounds(tail['reward_config']) if truncated else None
             game = dict(id=tail['game_id'], batch=entry['batch'], phase=phase, rows=len(rows),
                         scenario_family=tail['scenario_family'], terminal_reward=tail['terminal_reward'],
                         truncated=truncated, last_action_turn=tail['turn'], max_turns=job['max_turns'],
@@ -188,6 +197,7 @@ def inspect(run):
             print(f'{order + 1}/{len(history)} batches; {len(games)} games; {time.monotonic()-started:.1f}s', flush=True)
     assert sum(game['rows'] for game in games) == sum(h['eligible_decisions'] for h in history)
     return dict(scope='all complete team PPO batches; pending batch excluded',
+                value_bounds_scope='global completed-return support across hidden states; not realized-state interval',
                 identities=identities, batches=len(history), games=len(games),
                 decisions=sum(game['rows'] for game in games),
                 counts=dict(Counter('truncated' if game['truncated'] else 'natural' for game in games)),
