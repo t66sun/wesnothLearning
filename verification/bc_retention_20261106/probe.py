@@ -214,6 +214,9 @@ def inspect(root, fmt):
                       policy_weights_sha256=before, source_pool_rows=len(pool),
                       excluded_control_rows=sampler.rows_excluded,
                       rehearsal_identities=sampler.source_identities,
+                      logged_excluded_control_rows=h['rehearsal_rows_excluded'],
+                      rehearsal_log_match=(sampler.rows_excluded == h['rehearsal_rows_excluded']
+                                           and sampler.source_identities == h['rehearsal_sources']),
                       comparison=compare(selected, inference(anchor, selected), inference(model, selected)),
                       gradients=inspect_gradients(model, anchor, rows, replay))
         assert weights_digest(model) == before
