@@ -19,10 +19,28 @@ def estimates(jobs, results):
     return {key: max(1, sorted(values)[math.ceil(.9*len(values))-1]) for key, values in cells.items()}
 
 
-def shortlists(directory, summary, baseline_name):
+def selection_source(directory, manifest, timer):
+    path=directory/'selection_source.json'
+    if not path.exists():
+        require_evaluator(manifest)
+        return manifest,{}
+    release=read(path)
+    if (release['base_source_commit']!=manifest['source_commit'] or
+            release['baseline_sha256']!=manifest['baseline']['package_sha256'] or
+            release['exploration_end']!=timer['exploration_end'] or
+            not timer['started']<=release['frozen']<timer['exploration_end']):
+        raise ValueError('selection source must preserve the frozen experiment and predate exploration end')
+    require_evaluator(release)
+    if any(not detail.get('reason') or not detail.get('evidence') for detail in release['exclusions'].values()):
+        raise ValueError('correctness exclusions need a reason and evidence')
+    return release,release['exclusions']
+
+
+def shortlists(directory, summary, baseline_name, excluded=()):
     registry = {read(p)['name']: read(p) for p in sorted((directory/'candidates').glob('*/candidate.json'))}
+    registry={name:row for name,row in registry.items() if name not in excluded}
     if not registry:
-        raise ValueError('no completed candidate packages')
+        raise ValueError('no eligible completed candidate packages')
     result = {}
     for fmt in FORMATS:
         ranked = []
@@ -76,7 +94,7 @@ def matched_selection(jobs, results, shortlist):
 
 def select(directory):
     manifest=read(directory/'manifest.json');timer=read(directory/'clock.json')
-    require_evaluator(manifest)
+    evaluator,exclusions=selection_source(directory,manifest,timer)
     if time.time()<timer['exploration_end']:
         raise ValueError('five-hour exploration is not finished')
     post=directory/'selection';post.mkdir(parents=True,exist_ok=False)
@@ -85,7 +103,7 @@ def select(directory):
         raise ValueError('frozen baseline changed')
     train_jobs,train_results=load_panels(directory,opponent=baseline['name'])
     train_summary=compare(train_jobs,train_results)
-    shortlist=shortlists(directory,train_summary,baseline['name'])
+    shortlist=shortlists(directory,train_summary,baseline['name'],exclusions)
     costs=estimates(train_jobs,train_results)
     for entries in shortlist.values():
         for row in entries:
@@ -95,7 +113,7 @@ def select(directory):
     block_cost=sum(len(shortlist[fmt])*GAMES_PER_BLOCK[fmt]*costs.get((fmt,h),200*h/30)
                    for fmt in FORMATS for h in HORIZONS)
     blocks=max(1,min(12,int(seconds*manifest['workers']*.85/max(1,block_cost))))
-    write_new(post/'shortlist.json',dict(candidates=shortlist,blocks=blocks,
+    write_new(post/'shortlist.json',dict(candidates=shortlist,blocks=blocks,exclusions=exclusions,evaluator=evaluator,
                                        costs={f'{f}/{h}':v for (f,h),v in costs.items()},frozen=time.time()))
     # Freeze both phases from exploration throughput before seeing validation outcomes.
     holdout=post/'holdout';counts={};holdout_templates={}
@@ -141,9 +159,11 @@ def select(directory):
     summary=report_panel(holdout,jobs,results,min_distinct=manifest['min_distinct'])
     passed=all(qualified.values()) and len(summary)==6 and all(r['passed'] for r in summary.values())
     final=dict(selected=selected,comparison=summary,passed=passed,finished=time.time(),clock=timer,
+               evaluator=evaluator,exclusions=exclusions,
                scope='independent native teacher only; no training integration')
     write_new(directory/'final.json',final)
-    lines=['# Independent teacher result','',f"Source: `{manifest['source_commit']}`.",
+    lines=['# Independent teacher result','',f"Evaluator source: `{evaluator['source_commit']}`.",
+           f"Original experiment source: `{manifest['source_commit']}`. Correctness exclusions: {len(exclusions)}.",
            f"Selected package SHA256: `{selected['package_sha256']}`.",'',
            'Selection and six-cell acceptance: '+('passed.' if passed else 'not achieved; see individual evidence below.'),'',
            '| Format | Turns | Gain | 95% interval | Scenes | Complete | Passed |',
