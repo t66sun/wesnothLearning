@@ -12,7 +12,8 @@ function P.profile(u,terrain_codes)
         unpoisonable=u.status.unpoisonable or false,undrainable=u.status.undrainable or false,
         unhealable=u.status.unhealable or false,
         resistance={},movement={},defense={},weapons={}}
-    for _,kind in ipairs(damage_types) do p.resistance[kind]=u:resistance_against(kind) end
+    -- Native's default is defensive and already includes steadfast.
+    for _,kind in ipairs(damage_types) do p.resistance[kind]=u:resistance_against(kind,true) end
     for code in pairs(terrain_codes) do p.movement[code]=u:movement_on(code);p.defense[code]=u:defense_on(code) end
     for _,a in ipairs(u.attacks) do
         local w={damage=a.damage,number=a.number,type=a.type,range=a.range,

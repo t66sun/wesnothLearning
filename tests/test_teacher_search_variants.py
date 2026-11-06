@@ -3,6 +3,22 @@ from tests.test_search_teacher import load_teacher
 
 
 class TeacherVariantTests(unittest.TestCase):
+    def test_native_profile_keeps_steadfast_out_of_base_resistance(self):
+        lua,_=load_teacher()
+        lua.execute('''
+            wml={get_child=function(cfg,key) return cfg[key] end}
+            native_guard={id='guard',type='guard',side=2,x=2,y=3,hitpoints=42,max_hitpoints=42,
+                moves=4,max_moves=4,attacks_left=1,level=1,cost=19,experience=0,max_experience=42,
+                alignment='neutral',status={},attacks={},__cfg={abilities={{'resistance',{id='steadfast'}}}},
+                resistance_against=function(self,kind,attacker) return attacker and 20 or 40 end,
+                movement_on=function() return 1 end,defense_on=function() return 40 end}
+            guard=public.profile(native_guard,{Gg=true})
+            attacker=unit('attacker',1,2,2,30,10);s=board{attacker,guard}
+        ''')
+        self.assertEqual(lua.eval('guard.resistance.blade'),20)
+        self.assertEqual(lua.eval('combat.damage(s,attacker,guard,attacker.weapons[1],true,false)'),6)
+        self.assertEqual(lua.eval('combat.damage(s,attacker,guard,attacker.weapons[1],false,false)'),8)
+
     def test_recruit_preferences_avoid_always_buying_the_most_expensive_type(self):
         lua,_=load_teacher()
         lua.execute('''
