@@ -35,7 +35,7 @@ export SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy
 printf 'SOURCE=%s\\nTREE=%s\\n' {q(commit)} "$PWD"
 {command}
 '''
-    subprocess.run(['ssh', '-o', 'BatchMode=yes', host, 'bash', '-s'], input=script, text=True, check=True)
+    subprocess.run(['ssh', '-o', 'BatchMode=yes', host, 'bash', '-s'], input=script.encode('utf-8'), check=True)
     return destination
 
 
