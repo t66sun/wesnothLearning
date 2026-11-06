@@ -117,7 +117,9 @@ Lite 可达性与寻路对每个展开的格子只枚举一次六个相邻格。
 
 - `gpt6astra` —— 冻结的按决策查询 Lua 教师（`learning/teachers/`，派生源码；`data/opponents/gpt6astra.zip` 是其血脉，也是每个 manifest 随包冻结的教师）。派生源码适配 `probabilistic_combat_v6` 的攻击评分：slow 价值为被攻击目标伤害估计的 50% 加移动限制，poison 每回合 8 点。其他敌军只参与危险代价，不增加目标的减速收益；减速收益从原版边际概率中排除死亡结果。独立原版/Lite 目标归因对照、三赛制减速案例及致死选武器回归通过（`verification/teacher_slow_attribution_20261103/REPORT.md`、`verification/teacher_surviving_slow_20261103/REPORT.md`）。`teacher_profile` 与 `teacher_source_sha256` 随行式记录、检查点、作业元数据和导出传递，单次运行不会混用不同 profile。
 
-新 manifest 冻结该包并把其血脉记为教师身份，因此教师与 DAgger 行携带同一身份。`LiteHost` 拒绝官方 baseline 座位，只接受 manifest 声明的 `gpt6astra` 来源。
+- `search_teacher` —— 位于 `learning/teachers/search_teacher/` 的独立原生 Lua 参赛包，沿用 CA 与 `data.plan` 接口。公开读取层将可见单位、已探索地形和合法记忆的村庄归属复制到局部模型；短动作链 beam search 统一比较招募、攻击和移动，多方回应使用各自效用。战斗分布、确定性投影和独立搜索随机源不访问实时 forecast 或裁判状态。狂暴、瘟疫、升级及不支持的声明停止深入展开；模型是近似实现，不代表原生规则等价。首版软限时为战术 700ms、总规划 1000ms。固定模型与入口检查不证明强度，独立 30/100 回合实验列于 TEST.md。
+
+新的训练 manifest 仍冻结 Astra 并把其血脉记为教师身份，因此教师与 DAgger 行携带同一身份。`LiteHost` 拒绝官方 baseline 座位，只接受 manifest 声明的 `gpt6astra` 来源。独立搜索教师尚未接入采集、DAgger 或训练导出。
 
 原版教师执行在移动揭露伏击（`status=2005`）后停止旧计划，即使已到达原定格；其他移动错误仍失败。真实原版夹具验证移动已发生、Wose 已可见、后续攻击为零，并有三种策略回归（`verification/teacher_ambush_20261103/REPORT.md`）。冻结对手包不变；维护中的源码修改会自动计算出新的教师身份。
 
