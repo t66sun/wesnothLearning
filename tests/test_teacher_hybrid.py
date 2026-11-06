@@ -49,7 +49,7 @@ class TeacherHybridTests(unittest.TestCase):
         lua.execute('''
             math.random=function() error('real game RNG forbidden') end
             wesnoth.simulate_combat=function() error('live forecast forbidden') end
-            a=unit('a',1,2,2,20,8,3);b=unit('b',2,2,3,20,7,3)
+            a=unit('a',1,2,2,40,20,2);b=unit('b',2,2,3,20,1,1)
             a.defense.Gg=50;b.defense.Gg=50;s=board{a,b}
             config.algorithm='hybrid';config.mc_iterations=48;config.mc_depth=4;config.reply_width=2
             choices=actions.generate(s,config,never,true)
@@ -61,7 +61,7 @@ class TeacherHybridTests(unittest.TestCase):
         self.assertGreater(lua.eval('one.sampled_combats'),0)
         self.assertEqual(lua.eval('first.key'),lua.eval('second.key'))
         self.assertEqual(dict(lua.eval('one.root_visits')),dict(lua.eval('two.root_visits')))
-        self.assertEqual(lua.eval('s.units.a.hp'),20)
+        self.assertEqual(lua.eval('s.units.a.hp'),40)
         self.assertEqual(lua.eval('s.units.b.hp'),20)
 
 
