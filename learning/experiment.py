@@ -667,7 +667,7 @@ class FormatExperiment:
                 self.state['teacher_shards']=sorted(set(self.state['teacher_shards']+original))
                 paths=self.state['teacher_shards']+list(map(str,self.human_paths()))
             prepared_bc=self.read_bc_batch(method) if method=='bc' else None
-            if not (prepared_bc[1] if prepared_bc is not None else read_shards(paths,partition='train',limit=self.config['bc_records'],format_name=self.fmt)):
+            if not (prepared_bc[1] if prepared_bc is not None else read_shards(paths,partition='train',limit=self.config['bc_records'],format_name=self.fmt,expected_task=self.config.get('task_id'))):
                 self.state['batch']+=1;self.save();continue
             self.state['pending_train']=dict(paths=paths,method=method,cursor=dict(epoch=0,step=0),reward_config=self.controller.freeze());self.save()
             finished=self.finish_train(prepared_bc)

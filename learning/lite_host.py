@@ -104,7 +104,7 @@ def play_lite_job(job):
     from .teachers import identity as teacher_identity
     from .lite_policy import FrozenPolicies,game_spec,is_astra
     from .reward_metrics import summarize_game
-    from .tasks import LEGACY_TASK, TASK_ID, TASK_TURNS, bind_result, job_reward
+    from .tasks import TASK_ID, TASK_TURNS, bind_result, job_reward
     job_id = job['id']
     meta = job.get('meta', {})
     record_decisions = keeps_behavior(meta)
