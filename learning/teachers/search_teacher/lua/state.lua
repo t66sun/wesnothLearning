@@ -78,6 +78,11 @@ function S.apply(s,a,rng)
 end
 function S.material(s,side)
     local value=s.gold[side] or 0
+    local can_recruit=false
+    for _,u in pairs(s.units) do
+        if u.side==side and u.hp>0 and u.leader and s.keeps[G.key(u.x,u.y)] then can_recruit=true end
+    end
+    if not can_recruit then value=value*(s.outside_keep_gold or 1) end
     for _,u in pairs(s.units) do if u.side==side then
         if u.hp>0 then
             value=value+u.cost*(.8+u.hp/u.max_hp)+(u.leader and 500+u.hp*1.5 or 0)
