@@ -87,8 +87,7 @@ class CriticHorizonTests(unittest.TestCase):
         rows = helpers.sequence_rows(turns=1, decisions_per_turn=1, format_name='team2v2', source='policy')
         rows = [copy.deepcopy(rows[0])]
         self.assertEqual(rows[0]['side'], 1)
-        rows[0]['turn'] = 51
-        bootstrap = dict(value=.3, turn=61, reward_raw=rows[0]['reward_raw'], potential=0.)
+        bootstrap = dict(value=.3, turn=11, reward_raw=rows[0]['reward_raw'], potential=0.)
         with helpers.temporary_directory() as directory:
             path = directory / 'team.jsonl.gz'
             write_shard(path, 'team', rows, dict(bots=['a', 'b', 'a', 'b'], teams=[1, 2, 1, 2],
