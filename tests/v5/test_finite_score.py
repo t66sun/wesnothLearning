@@ -191,7 +191,9 @@ class FiniteScoreArithmeticTests(unittest.TestCase):
         model.requires_grad_(False)
         output = model.value[-1]
         output.weight.zero_()
-        output.bias.fill_(.75)
+        # Keep the gradient below the production .5 clipping threshold so one
+        # SGD step tests the target exactly, including its potential offset.
+        output.bias.fill_(-.2)
         output.bias.requires_grad_(True)
         optimizer = torch.optim.SGD([output.bias], lr=1.)
         self.assertEqual(train(model, optimizer, rows, 'bc', epochs=1)['updates'], 1)
