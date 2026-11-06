@@ -3,7 +3,9 @@ import argparse
 import gzip
 import json
 from pathlib import Path
+import time
 
+from learning.data import read_shards
 from learning.rowpack import row_meta
 from census import sha256, summary
 
@@ -16,6 +18,12 @@ def inspect(root):
         for entry in (history[0], history[len(history) // 2], history[-1]):
             path = root / fmt / 'schedules' / f"ppo-batch-{entry['batch']:06}.json"
             jobs = json.loads(path.read_text())
+            started_wall, started_cpu = time.perf_counter(), time.process_time()
+            preliminary = read_shards([j['shard'] for j in jobs], partition='train', limit=2048, format_name=fmt)
+            preliminary_read = dict(wall_seconds=time.perf_counter() - started_wall,
+                                    cpu_seconds=time.process_time() - started_cpu,
+                                    returned_rows=len(preliminary))
+            del preliminary
             candidates = []
             raw = queries = labels = 0
             identities = {}
@@ -36,6 +44,7 @@ def inspect(root):
             assert len(candidates) == entry['eligible_decisions']
             result.append(dict(format=fmt, batch=entry['batch'],
                 recorded_learner_candidate_ms=summary(candidates),
+                preliminary_read=preliminary_read,
                 dagger_raw_rows=raw, dagger_queries=queries, dagger_labels=labels,
                 inputs=identities))
     return dict(note='Historical C.generate wall milliseconds for recorded learner decisions only. '
