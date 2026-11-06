@@ -2,11 +2,13 @@ local P=wesnoth.require '~add-ons/search_teacher/lua/public.lua'
 local A=wesnoth.require '~add-ons/search_teacher/lua/actions.lua'
 local Search=wesnoth.require '~add-ons/search_teacher/lua/search.lua'
 local E=wesnoth.require '~add-ons/search_teacher/lua/execute.lua'
+local C=wesnoth.require '~add-ons/search_teacher/lua/combat.lua'
 local config=wesnoth.require '~add-ons/search_teacher/lua/config.lua'
 local M={}
 function M:evaluation(cfg,data)
     local start=wesnoth.ms_since_init()
     data.plan=nil
+    C.reset_cache(config.cache_combat)
     local function planning_expired() return wesnoth.ms_since_init()-start>=config.planning_ms end
     local state,raw=P.capture(data,config,planning_expired)
     if not state then data.search={ms=wesnoth.ms_since_init()-start,depth=0,expired=true};return 0 end
@@ -23,6 +25,7 @@ function M:evaluation(cfg,data)
     local action,stats=Search.choose(state,legal,settings,expired)
     stats.ms=wesnoth.ms_since_init()-start;stats.predictions=predictions;stats.algorithm=settings.algorithm
     stats.model='public-local-v1';data.search=stats
+    stats.cache_entries,stats.cache_hits=C.cache_stats()
     stats.expired=stats.ms>=(settings.planning_ms or 1000)
     data.plan=action.kind~='end_turn' and action or nil
     return data.plan and 100000 or 0

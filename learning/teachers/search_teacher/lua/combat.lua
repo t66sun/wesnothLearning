@@ -1,6 +1,13 @@
 -- Local probability model. It never calls a live-game forecast or RNG.
 local G=wesnoth.require '~add-ons/search_teacher/lua/geometry.lua'
 local C={}
+local cache,cache_size,cache_hits=nil,0,0
+function C.reset_cache(enabled) cache=enabled and {} or nil;cache_size=0;cache_hits=0 end
+function C.cache_stats() return cache_size,cache_hits end
+local function bit(value) return value and 1 or 0 end
+local function specials(w)
+    return w and bit(w.slow)+2*bit(w.poison)+4*bit(w.drains) or 0
+end
 local function adjacent(a,b) return G.distance(a,b)==1 end
 local function ally(s,a,b) return not s.enemies[a][b] end
 local function bonus(s,u)
@@ -90,25 +97,34 @@ function C.forecast(s,a,d,index)
     local dd=counter and C.damage(s,d,a,counter,false,w.charge) or 0
     local ac=C.chance(s,a,d,w,counter,true)
     local dc=counter and C.chance(s,d,a,counter,w,false) or 0
-    local rows={{ah=a.hp,dh=d.hp,as=a.slow and 1 or 0,ds=d.slow and 1 or 0,
-        ap=a.poison and 1 or 0,dp=d.poison and 1 or 0,p=1}}
     local an,dn=w.number,counter and counter.number or 0
     local first=counter and counter.firststrike and not w.firststrike
+    local supported=not (a.unsupported or d.unsupported or w.berserk or w.plague or
+        (counter and (counter.berserk or counter.plague)) or
+        a.xp+8*math.max(1,d.level)>=a.max_xp or d.xp+8*math.max(1,a.level)>=d.max_xp)
+    local key
+    if cache then
+        key=table.concat({a.hp,a.max_hp,d.hp,d.max_hp,bit(a.slow),bit(d.slow),bit(a.poison),bit(d.poison),
+            bit(a.unpoisonable),bit(d.unpoisonable),bit(a.undrainable),bit(d.undrainable),ad,dd,ac,dc,
+            an,dn,bit(first),specials(w),specials(counter),bit(supported)},':')
+        if cache[key] then cache_hits=cache_hits+1;return cache[key] end
+    end
+    local rows={{ah=a.hp,dh=d.hp,as=a.slow and 1 or 0,ds=d.slow and 1 or 0,
+        ap=a.poison and 1 or 0,dp=d.poison and 1 or 0,p=1}}
     for i=1,math.max(an,dn) do
         if first and i<=dn then rows=strike(rows,false,counter,dd,dc,a,d) end
         if i<=an then rows=strike(rows,true,w,ad,ac,a,d) end
         if not first and i<=dn then rows=strike(rows,false,counter,dd,dc,a,d) end
     end
     local f={states=rows,ah=0,dh=0,death=0,kill=0,slow=0,poison=0,own_slow=0,own_poison=0,
-        supported=not (a.unsupported or d.unsupported or w.berserk or w.plague or
-            (counter and (counter.berserk or counter.plague)) or
-            a.xp+8*math.max(1,d.level)>=a.max_xp or d.xp+8*math.max(1,a.level)>=d.max_xp)}
+        supported=supported}
     for _,r in ipairs(rows) do
         f.ah=f.ah+r.p*r.ah;f.dh=f.dh+r.p*r.dh
         f.death=f.death+(r.ah==0 and r.p or 0);f.kill=f.kill+(r.dh==0 and r.p or 0)
         if r.ah>0 then f.own_slow=f.own_slow+r.p*r.as;f.own_poison=f.own_poison+r.p*r.ap end
         if r.dh>0 then f.slow=f.slow+r.p*r.ds;f.poison=f.poison+r.p*r.dp end
     end
+    if cache and cache_size<2048 then cache[key]=f;cache_size=cache_size+1 end
     return f
 end
 function C.outcome(f,rng)

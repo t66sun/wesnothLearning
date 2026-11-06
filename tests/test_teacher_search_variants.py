@@ -3,6 +3,37 @@ from tests.test_search_teacher import load_teacher
 
 
 class TeacherVariantTests(unittest.TestCase):
+    def test_forecast_cache_reuses_distributions_without_stale_context(self):
+        lua,_=load_teacher()
+        lua.execute('''
+            a=unit('a',1,2,2,30,8,3);d=unit('d',2,2,3,30,6,3)
+            a.defense.Gg=50;d.defense.Gg=40;s=board{a,d}
+            combat.reset_cache(true);f=combat.forecast(s,a,d,1);again=combat.forecast(s,a,d,1)
+            reused=f==again;entries,hits=combat.cache_stats()
+            d.slow=true;d.hp=21;a.weapons[1].poison=true
+            changed=combat.forecast(s,a,d,1);different=f~=changed
+            combat.reset_cache(false);plain=combat.forecast(s,a,d,1)
+        ''')
+        self.assertTrue(lua.eval('reused'))
+        self.assertEqual(lua.eval('hits'),1)
+        self.assertEqual(lua.eval('entries'),1)
+        self.assertTrue(lua.eval('different'))
+        for key in ('ah','dh','kill','death','slow','poison','own_slow','own_poison'):
+            self.assertEqual(lua.eval('changed.'+key),lua.eval('plain.'+key))
+
+    def test_cache_keys_include_aura_terrain_and_supported_continuation(self):
+        lua,_=load_teacher()
+        lua.execute('''
+            a=unit('a',1,2,2,30,8,3);d=unit('d',2,2,3,30,6,3)
+            a.alignment='lawful';d.defense.Gg=40;d.defense.Ff=70
+            s=board{a,d};combat.reset_cache(true);old=combat.forecast(s,a,d,1)
+            s.lawful_bonus=25;s.terrain[geometry.key(d.x,d.y)]='Ff';a.xp=a.max_xp-1
+            cached=combat.forecast(s,a,d,1);combat.reset_cache(false);plain=combat.forecast(s,a,d,1)
+        ''')
+        self.assertFalse(lua.eval('cached.supported'))
+        self.assertNotEqual(lua.eval('cached.dh'),lua.eval('old.dh'))
+        self.assertEqual(lua.eval('cached.dh'),lua.eval('plain.dh'))
+
     def test_keep_access_prevents_leaving_an_unrecruited_army_as_gold(self):
         lua,_=load_teacher()
         lua.execute('''
