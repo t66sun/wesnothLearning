@@ -1,0 +1,9 @@
+git diff --check: exit 0
+Implementation, tests and diagnostic unchanged from tested commit f836c5aa827c6c5cc785c822d5f96838cba7182b
+823 lines: learning/experiment.py; Git blob 0d7ac5289653a50764e02b23985bd63e36d48a6a
+258 lines: tests/v5/test_ppo_rollout_read_once.py; Git blob 8a38be1f24c5d57afbee16c2a698ee981bf6c056
+82 lines: tests/v5/test_ppo_phase_boundary.py; Git blob 3fe0dbe9ea9b533e46e2544a9cca7026d6720a87
+120 lines: verification/rollout_read_once_20261106/compare.py; Git blob c2b416c156c86558dcf875fc07200aca09657ffa
+Only the unchanged grandfathered files exceed 1000 lines:
+1050 tests/smoke_training_lite_8worker.py
+1504 tests/v5/test_pipeline_contract.py
