@@ -1,0 +1,14 @@
+Fri Nov  6 05:08:50 AM UTC 2026
+ 13:08:50 up 18 days, 15:34,  6 users,  load average: 0.22, 0.27, 0.27
+    PID COMMAND         %CPU %MEM
+ 633619 sshd             5.0  0.0
+ 308070 wesnoth          0.1  0.2
+ 625049 kworker/6:2-eve  0.0  0.0
+ 620436 kworker/1:0-eve  0.0  0.0
+ 628760 kworker/4:1-cgr  0.0  0.0
+ 630362 kworker/0:0-cgr  0.0  0.0
+ 617174 kworker/2:0-eve  0.0  0.0
+ 631654 kworker/0:1-eve  0.0  0.0
+ 628556 kworker/3:0-eve  0.0  0.0
+ 280553 gnome-shell      0.0  0.5
+ 622915 kworker/5:2-eve  0.0  0.0

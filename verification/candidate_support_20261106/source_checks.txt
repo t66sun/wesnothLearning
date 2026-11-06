@@ -1,0 +1,9 @@
+Measured source: e242038e3bdb687ad6ffc58e832995875d58b6af
+Base: ad7256e838fa941d76d92bf5d56a4683f75b37cd
+Production diff from base (learning, engine_lite, lua, vendor): empty
+Probe/fixtures/audit diff from measured source: empty
+Independent Ubuntu reproduction: all 11 findings and fixtures equal; timing fields excluded.
+Reproduction files: /home/tongshu/acceptance/candidate_support_20261106_initial/root_functional.json and root_functional.log
+Only unchanged grandfathered sources exceed 1000 lines:
+1050 tests/smoke_training_lite_8worker.py
+1504 tests/v5/test_pipeline_contract.py
