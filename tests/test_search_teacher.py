@@ -133,6 +133,19 @@ class SearchTeacherTests(unittest.TestCase):
         ''')
         self.assertTrue(lua.eval('same'))
 
+    def test_reply_visits_every_ffa_seat_after_end_turn(self):
+        lua, _ = load_teacher()
+        lua.execute('''
+            s=board({unit('a',1,2,2,20,5)},4);s.ffa=true;visited={}
+            actions.generate=function(s)
+                visited[#visited+1]=s.side
+                return {{kind='end_turn',score=0,key='end_turn'}}
+            end
+            reply=search.reply(s,config,never)
+        ''')
+        self.assertEqual(lua.eval("table.concat(visited,',')"), '2,3,4')
+        self.assertEqual(lua.eval('reply.side'), 1)
+
     def test_ffa_utility_does_not_merge_opponents(self):
         lua, _ = load_teacher()
         lua.execute('''
@@ -155,6 +168,51 @@ class SearchTeacherTests(unittest.TestCase):
     def test_native_package_registration(self):
         import addons
         self.assertEqual(addons.validate(SOURCE), 'search_teacher')
+
+    def test_public_capture_ignores_hidden_units_terrain_owners_and_rng(self):
+        lua, _ = load_teacher()
+        lua.execute('''
+            wml={get_child=function() return nil end}
+            local function native_unit(id,side,x,y)
+                return {id=id,type='Fighter',side=side,x=x,y=y,hitpoints=30,max_hitpoints=30,
+                    moves=0,max_moves=5,attacks_left=1,level=1,experience=0,max_experience=99,
+                    alignment='neutral',cost=20,status={},__cfg={},
+                    attacks={{damage=6,number=2,type='blade',range='melee',__cfg={}}},
+                    resistance_against=function() return 0 end,
+                    movement_on=function() return 1 end,defense_on=function() return 40 end}
+            end
+            own=native_unit('a',1,2,2);enemy=native_unit('b',2,3,2)
+            hidden_hp=50;hidden_owner=2;hidden_terrain='Wo';hidden_rng=1
+            wesnoth.units={find_on_map=function(filter)
+                if filter.side then assert(filter.side==1);return {own} end
+                assert(filter[1][1]=='filter_vision' and filter[1][2].side==1,'unfiltered query')
+                return {own,enemy}
+            end}
+            wesnoth.current={side=1,turn=1,map=setmetatable({width=7,height=7},{__index=function(_,p)
+                assert(p[1]~=7,'unexplored terrain read');return 'Gg'
+            end})}
+            wesnoth.scenario={turns=30}
+            wesnoth.sides={{gold=0,recruit={}},{}}
+            wesnoth.sides.is_enemy=function(a,b) return a~=b end
+            wesnoth.sides.is_shrouded=function(side,x,y) return x==7 end
+            wesnoth.sides.is_fogged=function(side,x,y) return x>=6 end
+            wesnoth.map={find=function(filter)
+                if filter.gives_income then return {{2,2},{6,2},{7,2}} end
+                return {}
+            end,get_owner=function(p) assert(p[1]<6,'hidden owner read');return 1 end}
+            wesnoth.schedule={get_time_of_day=function() return {lawful_bonus=0} end}
+            math.random=function() error('referee random read') end
+            function inspect()
+                local s=public.capture({},config)
+                local aa=actions.generate(s,config,never,true);local keys={}
+                for _,a in ipairs(aa) do keys[#keys+1]=a.key..':'..a.score end
+                assert(not s.terrain[geometry.key(7,2)] and not s.owners[geometry.key(6,2)])
+                return table.concat(keys,'|')
+            end
+            before=inspect();hidden_hp=1;hidden_owner=1;hidden_terrain='Mm';hidden_rng=999
+            after=inspect()
+        ''')
+        self.assertEqual(lua.eval('before'), lua.eval('after'))
 
     def test_ambush_at_destination_prevents_followup_attack(self):
         lua, _ = load_teacher()
