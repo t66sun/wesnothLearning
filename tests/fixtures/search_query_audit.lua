@@ -31,6 +31,11 @@ function M:execution(cfg,data)
     wesnoth.units.to_map{type='Spearman',id='audit_actor',side=1,x=3,y=3,random_traits=false}
     wesnoth.units.to_map{type='Orcish Grunt',id='audit_target',side=2,x=3,y=4,random_traits=false}
     wesnoth.units.to_map{type='Orcish Grunt',id='audit_hidden',side=2,x=14,y=13,random_traits=false}
+    if options.combat_fixture then
+        wesnoth.sides[1].gold=0
+        wesnoth.units.find_on_map{id='audit_actor'}[1].moves=0
+        wesnoth.units.find_on_map{id='audit_target'}[1].hitpoints=6
+    end
     local seen={}
     for _,u in ipairs(wesnoth.units.find_on_map{{'filter_vision',{side=1,visible='yes'}}}) do seen[u.id]=true end
     assert(seen.audit_target and not seen.audit_hidden,'audit visibility setup failed')
@@ -45,7 +50,9 @@ function M:execution(cfg,data)
         local memory={};teacher:evaluation({},memory);planned=encode(memory.plan)
         local search=assert(memory.search,'missing completed search diagnostics')
         assert(search.algorithm==config.algorithm and search.nodes>0 and search.depth>0,'search did not complete')
-        if config.algorithm=='uct' then assert(search.root_covered and search.simulations>0 and search.sampled_combats>0,'no sampled combat') end
+        if config.algorithm=='uct' or config.algorithm=='hybrid' then
+            assert(search.root_covered and search.simulations>0 and search.sampled_combats>0,'no sampled combat')
+        end
         searches[#searches+1]={algorithm=search.algorithm,nodes=search.nodes,depth=search.depth,
             simulations=search.simulations,sampled_combats=search.sampled_combats}
     end
