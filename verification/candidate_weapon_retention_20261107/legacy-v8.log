@@ -1,0 +1,57 @@
+test_planning_cannot_starve_later_actors_or_combat_features (tests.v5.test_combat_destination_priority.CombatDestinationPriorityTests.test_planning_cannot_starve_later_actors_or_combat_features) ... ERROR
+test_position_or_village_pick_keeps_its_combat_probe_priority (tests.v5.test_combat_destination_priority.CombatDestinationPriorityTests.test_position_or_village_pick_keeps_its_combat_probe_priority) ... ERROR
+test_reachable_safe_retreat_survives_the_proximity_shortlist (tests.v5.test_combat_destination_priority.CombatDestinationPriorityTests.test_reachable_safe_retreat_survives_the_proximity_shortlist) ... ERROR
+test_right_side_actor_sees_nearby_villages_beyond_the_map_prefix (tests.v5.test_combat_destination_priority.CombatDestinationPriorityTests.test_right_side_actor_sees_nearby_villages_beyond_the_map_prefix) ... ERROR
+
+======================================================================
+ERROR: test_planning_cannot_starve_later_actors_or_combat_features (tests.v5.test_combat_destination_priority.CombatDestinationPriorityTests.test_planning_cannot_starve_later_actors_or_combat_features)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/candidate_weapon_red_20261107/tests/v5/test_combat_destination_priority.py", line 32, in test_planning_cannot_starve_later_actors_or_combat_features
+    host.restore(data['snapshot'])
+  File "/home/tongshu/acceptance/candidate_weapon_red_20261107/learning/lite_host.py", line 77, in restore
+    self.adapter.restore(snapshot)
+  File "/home/tongshu/acceptance/candidate_weapon_red_20261107/learning/adapters.py", line 130, in restore
+    self.core.restore(json.dumps(snapshot))
+ValueError: snapshot version mismatch
+
+======================================================================
+ERROR: test_position_or_village_pick_keeps_its_combat_probe_priority (tests.v5.test_combat_destination_priority.CombatDestinationPriorityTests.test_position_or_village_pick_keeps_its_combat_probe_priority)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/candidate_weapon_red_20261107/tests/v5/test_combat_destination_priority.py", line 17, in test_position_or_village_pick_keeps_its_combat_probe_priority
+    host.restore(data['snapshot'])
+  File "/home/tongshu/acceptance/candidate_weapon_red_20261107/learning/lite_host.py", line 77, in restore
+    self.adapter.restore(snapshot)
+  File "/home/tongshu/acceptance/candidate_weapon_red_20261107/learning/adapters.py", line 130, in restore
+    self.core.restore(json.dumps(snapshot))
+ValueError: snapshot version mismatch
+
+======================================================================
+ERROR: test_reachable_safe_retreat_survives_the_proximity_shortlist (tests.v5.test_combat_destination_priority.CombatDestinationPriorityTests.test_reachable_safe_retreat_survives_the_proximity_shortlist)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/candidate_weapon_red_20261107/tests/v5/test_combat_destination_priority.py", line 49, in test_reachable_safe_retreat_survives_the_proximity_shortlist
+    host.restore(data['snapshot'])
+  File "/home/tongshu/acceptance/candidate_weapon_red_20261107/learning/lite_host.py", line 77, in restore
+    self.adapter.restore(snapshot)
+  File "/home/tongshu/acceptance/candidate_weapon_red_20261107/learning/adapters.py", line 130, in restore
+    self.core.restore(json.dumps(snapshot))
+ValueError: snapshot version mismatch
+
+======================================================================
+ERROR: test_right_side_actor_sees_nearby_villages_beyond_the_map_prefix (tests.v5.test_combat_destination_priority.CombatDestinationPriorityTests.test_right_side_actor_sees_nearby_villages_beyond_the_map_prefix)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/candidate_weapon_red_20261107/tests/v5/test_combat_destination_priority.py", line 61, in test_right_side_actor_sees_nearby_villages_beyond_the_map_prefix
+    host.restore(data['snapshot'])
+  File "/home/tongshu/acceptance/candidate_weapon_red_20261107/learning/lite_host.py", line 77, in restore
+    self.adapter.restore(snapshot)
+  File "/home/tongshu/acceptance/candidate_weapon_red_20261107/learning/adapters.py", line 130, in restore
+    self.core.restore(json.dumps(snapshot))
+ValueError: snapshot version mismatch
+
+----------------------------------------------------------------------
+Ran 4 tests in 1.875s
+
+FAILED (errors=4)

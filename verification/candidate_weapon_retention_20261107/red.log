@@ -1,0 +1,17 @@
+test_dominant_ranged_weapon_immediately_occupies_its_group_slot (tests.v5.test_candidate_weapon_retention.CandidateWeaponRetentionTests.test_dominant_ranged_weapon_immediately_occupies_its_group_slot) ... FAIL
+
+======================================================================
+FAIL: test_dominant_ranged_weapon_immediately_occupies_its_group_slot (tests.v5.test_candidate_weapon_retention.CandidateWeaponRetentionTests.test_dominant_ranged_weapon_immediately_occupies_its_group_slot)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/candidate_weapon_red_20261107/tests/v5/test_candidate_weapon_retention.py", line 61, in test_dominant_ranged_weapon_immediately_occupies_its_group_slot
+    self.assertEqual(set(witness(row)), {2})
+AssertionError: Items in the first set but not the second:
+1
+Items in the second set but not the first:
+2
+
+----------------------------------------------------------------------
+Ran 1 test in 0.430s
+
+FAILED (failures=1)

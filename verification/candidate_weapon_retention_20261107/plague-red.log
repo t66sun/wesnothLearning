@@ -1,0 +1,17 @@
+test_damage_dominance_does_not_remove_a_possible_plague_conversion (tests.v5.test_candidate_weapon_retention.CandidateWeaponRetentionTests.test_damage_dominance_does_not_remove_a_possible_plague_conversion) ... FAIL
+
+======================================================================
+FAIL: test_damage_dominance_does_not_remove_a_possible_plague_conversion (tests.v5.test_candidate_weapon_retention.CandidateWeaponRetentionTests.test_damage_dominance_does_not_remove_a_possible_plague_conversion)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/candidate_weapon_plague_red_20261107/tests/v5/test_candidate_weapon_retention.py", line 100, in test_damage_dominance_does_not_remove_a_possible_plague_conversion
+    self.assertEqual(set(witness(row)), {1})
+AssertionError: Items in the first set but not the second:
+2
+Items in the second set but not the first:
+1
+
+----------------------------------------------------------------------
+Ran 1 test in 0.432s
+
+FAILED (failures=1)

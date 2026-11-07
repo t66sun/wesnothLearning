@@ -1,0 +1,261 @@
+{
+  "rules_sha256": "e6b4f6200b0a8ad58a536b844fff37cfa9e0091bf0a0b702a8982155310f2f17",
+  "extension_sha256": "56dd77140411db987377d6de4ffbf562da4d0e5c76bc16d34780da67e60e5ae4",
+  "real_fixture_sha256": "eda37a7b2b943363211df1d3143662c4978ef91054becaae2f5323b8a58742e5",
+  "real_side": 1,
+  "real_turn": 7,
+  "combat_slots": {
+    "measurements": {
+      "v8": [
+        {
+          "decision_ms": 13.043617,
+          "construction_ms": 8,
+          "candidates": 37,
+          "timing": {
+            "attack_probes": 32,
+            "budget": "work-12000-v8",
+            "move_probes": 0,
+            "ms": 8,
+            "paths": 0,
+            "predictions": 28,
+            "reaches": 12,
+            "recruit_probes": 10,
+            "truncated": true,
+            "work": 1980
+          }
+        },
+        {
+          "decision_ms": 13.075502,
+          "construction_ms": 7,
+          "candidates": 37,
+          "timing": {
+            "attack_probes": 32,
+            "budget": "work-12000-v8",
+            "move_probes": 0,
+            "ms": 7,
+            "paths": 0,
+            "predictions": 28,
+            "reaches": 12,
+            "recruit_probes": 10,
+            "truncated": true,
+            "work": 1980
+          }
+        }
+      ],
+      "v9": [
+        {
+          "decision_ms": 13.162082,
+          "construction_ms": 8,
+          "candidates": 37,
+          "timing": {
+            "attack_probes": 32,
+            "budget": "work-12000-v9",
+            "move_probes": 0,
+            "ms": 8,
+            "paths": 0,
+            "prediction_reuses": 4,
+            "predictions": 32,
+            "reaches": 12,
+            "recruit_probes": 10,
+            "truncated": true,
+            "work": 2100
+          }
+        },
+        {
+          "decision_ms": 12.707721,
+          "construction_ms": 8,
+          "candidates": 37,
+          "timing": {
+            "attack_probes": 32,
+            "budget": "work-12000-v9",
+            "move_probes": 0,
+            "ms": 8,
+            "paths": 0,
+            "prediction_reuses": 4,
+            "predictions": 32,
+            "reaches": 12,
+            "recruit_probes": 10,
+            "truncated": true,
+            "work": 2100
+          }
+        }
+      ]
+    },
+    "slot_changes": [
+      [
+        {
+          "kind": "attack",
+          "x": 3,
+          "y": 3,
+          "tx": 3,
+          "ty": 4,
+          "weapon": 1
+        },
+        {
+          "kind": "attack",
+          "x": 3,
+          "y": 3,
+          "tx": 3,
+          "ty": 4,
+          "weapon": 2
+        }
+      ],
+      [
+        {
+          "kind": "attack",
+          "x": 5,
+          "y": 3,
+          "tx": 5,
+          "ty": 4,
+          "weapon": 1
+        },
+        {
+          "kind": "attack",
+          "x": 5,
+          "y": 3,
+          "tx": 5,
+          "ty": 4,
+          "weapon": 2
+        }
+      ],
+      [
+        {
+          "kind": "attack",
+          "x": 7,
+          "y": 3,
+          "tx": 7,
+          "ty": 4,
+          "weapon": 1
+        },
+        {
+          "kind": "attack",
+          "x": 7,
+          "y": 3,
+          "tx": 7,
+          "ty": 4,
+          "weapon": 2
+        }
+      ],
+      [
+        {
+          "kind": "attack",
+          "x": 9,
+          "y": 3,
+          "tx": 9,
+          "ty": 4,
+          "weapon": 1
+        },
+        {
+          "kind": "attack",
+          "x": 9,
+          "y": 3,
+          "tx": 9,
+          "ty": 4,
+          "weapon": 2
+        }
+      ]
+    ]
+  },
+  "real_board": {
+    "measurements": {
+      "v8": [
+        {
+          "decision_ms": 20.858117,
+          "construction_ms": 15,
+          "candidates": 37,
+          "timing": {
+            "attack_probes": 0,
+            "budget": "work-12000-v8",
+            "move_probes": 48,
+            "ms": 15,
+            "paths": 8,
+            "predictions": 28,
+            "reaches": 10,
+            "recruit_probes": 0,
+            "truncated": true,
+            "work": 8016
+          }
+        },
+        {
+          "decision_ms": 20.913645,
+          "construction_ms": 15,
+          "candidates": 37,
+          "timing": {
+            "attack_probes": 0,
+            "budget": "work-12000-v8",
+            "move_probes": 48,
+            "ms": 15,
+            "paths": 8,
+            "predictions": 28,
+            "reaches": 10,
+            "recruit_probes": 0,
+            "truncated": true,
+            "work": 8016
+          }
+        }
+      ],
+      "v9": [
+        {
+          "decision_ms": 20.532025,
+          "construction_ms": 15,
+          "candidates": 37,
+          "timing": {
+            "attack_probes": 0,
+            "budget": "work-12000-v9",
+            "move_probes": 48,
+            "ms": 15,
+            "paths": 8,
+            "prediction_reuses": 4,
+            "predictions": 32,
+            "reaches": 10,
+            "recruit_probes": 0,
+            "truncated": true,
+            "work": 8136
+          }
+        },
+        {
+          "decision_ms": 20.298018,
+          "construction_ms": 15,
+          "candidates": 37,
+          "timing": {
+            "attack_probes": 0,
+            "budget": "work-12000-v9",
+            "move_probes": 48,
+            "ms": 15,
+            "paths": 8,
+            "prediction_reuses": 4,
+            "predictions": 32,
+            "reaches": 10,
+            "recruit_probes": 0,
+            "truncated": true,
+            "work": 8136
+          }
+        }
+      ]
+    },
+    "slot_changes": [
+      [
+        {
+          "kind": "move_attack",
+          "x": 6,
+          "y": 8,
+          "tx": 6,
+          "ty": 10,
+          "ex": 7,
+          "ey": 10,
+          "weapon": 1
+        },
+        {
+          "kind": "move_attack",
+          "x": 6,
+          "y": 8,
+          "tx": 6,
+          "ty": 10,
+          "ex": 7,
+          "ey": 10,
+          "weapon": 2
+        }
+      ]
+    ]
+  }
+}
