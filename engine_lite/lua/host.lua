@@ -240,6 +240,22 @@ local function reward_labels(obs,side)
     raw.economy=labels.economy;raw.explored=labels.explored
     return raw
 end
+local function teacher_proposed(pool,plan)
+    if plan.kind=='end_turn' then return true end
+    for _,a in ipairs(pool or {}) do
+        if a.x==plan.x and a.y==plan.y then
+            if plan.kind=='recruit' and a.kind=='recruit' and a.type==plan.type then return true end
+            if plan.kind=='move' and a.kind=='move' and a.full and a.tx==plan.tx and a.ty==plan.ty then return true end
+            if plan.kind=='combat' and a.weapon==plan.weapon then
+                if plan.x==plan.tx and plan.y==plan.ty then
+                    if a.kind=='attack' and a.tx==plan.ex and a.ty==plan.ey then return true end
+                elseif a.kind=='move_attack' and a.tx==plan.tx and a.ty==plan.ty
+                    and a.ex==plan.ex and a.ey==plan.ey then return true end
+            end
+        end
+    end
+    return false
+end
 function lite_decision(side,teacher,generate_candidates,score_only_astra,score_only_policy)
     refresh(bridge('view',{side=side}))
     local O=require_module('observation.lua');local C=require_module('candidates.lua')
@@ -251,7 +267,7 @@ function lite_decision(side,teacher,generate_candidates,score_only_astra,score_o
         return {teacher_action=astra_plan(teacher_ledger(side,own,memories[side].villages))}
     end
     local obs=O.capture(memories[side],side)
-    local candidates,timing
+    local candidates,timing,pool,coverage_kinds
     if generate_candidates==false then
         -- Unrecorded Astra seats and diagnostic terminal observations need no
         -- candidate search. Teacher planning below remains unchanged.
@@ -260,14 +276,18 @@ function lite_decision(side,teacher,generate_candidates,score_only_astra,score_o
         require_module('spatial.lua').actions(obs,candidates)
         timing={truncated=false,ms=0,predictions=0,work=0}
     else
-        candidates,timing=C.generate(obs)
+        candidates,timing,pool,coverage_kinds=C.generate(obs)
     end
     last_candidates=candidates
     local raw=not score_only_policy and reward_labels(obs,side) or nil
     local ledger=teacher_ledger(side,obs.own,obs.memory.villages)
     local teacher_action=teacher and astra_plan(ledger) or nil
+    local proposed
+    if teacher_action and generate_candidates~=false then proposed=teacher_proposed(pool,teacher_action) end
+    local support=generate_candidates~=false and not score_only_policy and (coverage_kinds or {}) or nil
     return {global=obs.global,opponents=obs.opponents,spatial=obs.spatial,candidates=candidates,timing=timing,
         side=side,turn=view.turn,teacher_action=teacher_action,potential=obs.potential,reward_raw=raw,
+        teacher_proposed=proposed,candidate_support=support,
         engine_id='lite-0.2',approximate=true,combat_version=view.combat_version}
 end
 function lite_execute(action,score_only_astra,policy_memory_write)

@@ -39,7 +39,10 @@ local function retain_weapons(selected,combat,used,dominates,capacity)
             local slots=groups[weapon_group(a)]
             if slots then
                 for _,slot in ipairs(slots) do
-                    if dominates(a,selected[slot]) then selected[slot]=a;break end
+                    if dominates(a,selected[slot]) then
+                        a._coverage_kind='weapon_replacement'
+                        selected[slot]=a;break
+                    end
                 end
                 spare=spare-1
                 if spare==0 then break end

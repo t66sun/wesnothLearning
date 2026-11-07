@@ -11,7 +11,7 @@ import time
 from pathlib import Path
 
 from .adapters import COMBAT_VERSION, ENGINE_VERSION, LiteAdapter, RNG_VERSION, ROOT
-from .coverage import matching
+from .coverage import matching, record_candidate_use, record_teacher_support
 from .rowpack import compact_row
 from .trajectory_buffer import TrajectoryBuffer
 
@@ -198,6 +198,8 @@ def play_lite_job(job):
                                 reward_formula_id=config['reward_formula_id'], game_family=job.get('game_family', job_id),
                                 scenario_family=job.get('scenario_family'), split_rule=job.get('split_rule', 'family-seed-v1'))
                 teacher_plan=decision.pop('teacher_action',None)
+                proposed=decision.pop('teacher_proposed',None)
+                tagged=decision.pop('candidate_support',None)
                 if teacher:
                     action = teacher_candidate(teacher_plan)
                     choice = matching(decision['candidates'], action)
@@ -226,13 +228,20 @@ def play_lite_job(job):
                 if policies and not teacher: policies.commit(current,decision,outcome)
                 if record_decisions: behavior.append(outcome['diagnostics'])
                 if current in learner_sides:
+                    if teacher:
+                        record_teacher_support(records.coverage,'teacher',action,proposed,choice)
+                    elif tagged is not None:
+                        record_candidate_use(records.coverage,tagged,choice)
                     decision = compact_row(decision)
                     records.append(decision)
                     if not teacher and job.get('learning',{}).get('dagger_teacher'):
                         label=dict(decision,source='astra',teacher='gpt6astra',teacher_impl='astra_lite',choice=-1,value_valid=config['task_id']==TASK_ID,data_pool='dagger')
                         if query:
                             query_count[current]=query_count.get(current,0)+1;query_total+=1
-                            wanted=teacher_candidate(teacher_plan);label.update(actual=wanted,intent=wanted,choice=matching(decision['candidates'],wanted),query_only=True)
+                            wanted=teacher_candidate(teacher_plan)
+                            retained=matching(decision['candidates'],wanted)
+                            record_teacher_support(records.coverage,'dagger',wanted,proposed,retained,choice)
+                            label.update(actual=wanted,intent=wanted,choice=retained,query_only=True)
                         dagger.append(label)
             view = outcome['view'];current = view['current_side']
             newly = {s['id'] for s in view['sides'] if s['eliminated']} - defeated
