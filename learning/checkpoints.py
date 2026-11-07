@@ -6,7 +6,7 @@ from pathlib import Path
 
 import torch
 
-from .features import schema
+from .features import mean_board_schema, schema
 from .model import ARCHITECTURE, MEAN_BOARD_ARCHITECTURE, Policy
 
 CHECKPOINT_VERSION = 2
@@ -74,7 +74,7 @@ def validate_checkpoint(state, format_name=None, manifest_sha256=None, *, expect
 
 
 def _validate_checkpoint(state, format_name=None, manifest_sha256=None, *, expected_task=None,
-                         architecture=ARCHITECTURE):
+                         mean_board_actor=False):
     version = state.get('checkpoint_version', 1)
     if expected_task is not None:
         from .tasks import require_task
@@ -83,9 +83,9 @@ def _validate_checkpoint(state, format_name=None, manifest_sha256=None, *, expec
             raise ValueError('checkpoint training task differs; use explicit weights-only initialization')
     if version > CHECKPOINT_VERSION:
         raise ValueError('checkpoint was written by a newer execution format')
-    if state.get('features') != schema():
+    if state.get('features') != (mean_board_schema() if mean_board_actor else schema()):
         raise ValueError('checkpoint feature schema does not match this engine')
-    if state.get('architecture') != architecture:
+    if state.get('architecture') != (MEAN_BOARD_ARCHITECTURE if mean_board_actor else ARCHITECTURE):
         raise ValueError('checkpoint network architecture does not match this engine')
     if format_name is not None and state.get('format') != format_name:
         raise ValueError('checkpoint belongs to a different format')
@@ -102,7 +102,7 @@ def _validate_checkpoint(state, format_name=None, manifest_sha256=None, *, expec
 def checkpoint_model(state, format_name, device, *, actor_initializer=False):
     """Load a policy, allowing the mean-board predecessor for explicit actor initialization."""
     predecessor = actor_initializer and state.get('architecture') == MEAN_BOARD_ARCHITECTURE
-    _validate_checkpoint(state, format_name, architecture=MEAN_BOARD_ARCHITECTURE if predecessor else ARCHITECTURE)
+    _validate_checkpoint(state, format_name, mean_board_actor=predecessor)
     model = Policy(format_name).to(device)
     keys = model.load_state_dict(state['model'], strict=not predecessor)
     if predecessor and (set(keys.missing_keys) != {'board_readout.weight', 'board_readout.bias'}

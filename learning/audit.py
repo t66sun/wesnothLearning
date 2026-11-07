@@ -27,7 +27,8 @@ def _entity_input(entity):
 def _scene_input(row):
     spatial = row['spatial']
     return dict(global_features=row['global'], opponents=row['opponents'],
-                board=spatial['board'], entities=[_entity_input(e) for e in spatial['entities']])
+                board=spatial['board'], width=spatial['width'], height=spatial['height'],
+                entities=[_entity_input(e) for e in spatial['entities']])
 
 
 def _candidate_input(candidate, scene_entities):

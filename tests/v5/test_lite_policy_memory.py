@@ -18,7 +18,7 @@ def row(turn, value=0.0):
     rng = random.Random(turn)
     entity = dict(id='own', type_index=1, features=[rng.random() for _ in ENTITY])
     return dict(turn=turn, **{'global': [value] * len(GLOBAL)}, opponents=[],
-                spatial=dict(board=[[[0.0] * 16 for _ in range(16)] for _ in SPATIAL_CHANNELS],
+                spatial=dict(width=16, height=16, board=[[[0.0] * 16 for _ in range(16)] for _ in SPATIAL_CHANNELS],
                              entities=[entity]),
                 candidates=[dict(features=[rng.random() for _ in ACTION[:-1]] + [1],
                                  actor=entity, local=[0.0] * (19 * len(SPATIAL_CHANNELS)),

@@ -40,7 +40,7 @@ def row(seed, turn, game='a'):
     for candidate in candidates:
         candidate['features'][-1] = 1
     return dict(turn=turn, game_id=game, opponents=[values(len(OPPONENT))],
-                spatial=dict(board=values((len(SPATIAL_CHANNELS), 16, 16)), entities=[entity]),
+                spatial=dict(width=16, height=16, board=values((len(SPATIAL_CHANNELS), 16, 16)), entities=[entity]),
                 candidates=candidates, **{'global': values(len(GLOBAL))})
 
 

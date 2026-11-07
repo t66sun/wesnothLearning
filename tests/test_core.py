@@ -23,7 +23,7 @@ import native
 
 
 def _spatial():
-    return dict(entities=[],board=[[[0.0]*16 for _ in range(16)] for _ in SPATIAL_CHANNELS])
+    return dict(width=16,height=16,entities=[],board=[[[0.0]*16 for _ in range(16)] for _ in SPATIAL_CHANNELS])
 
 def record(players=2, game='g', index=0):
     rng=random.Random(index+players)

@@ -34,7 +34,7 @@ function M.capture(obs)
     local w,h=dims();local mem=obs.memory
     mem.known_terrain=mem.known_terrain or {};mem.last_seen=mem.last_seen or {}
     local tiles,board={},{}
-    for c=1,#schema.spatial_channels do board[c]={};for y=1,16 do board[c][y]={};for x=1,16 do board[c][y][x]=0 end end end
+    for c=1,#schema.spatial_channels do board[c]={};for y=1,h do board[c][y]={};for x=1,w do board[c][y][x]=0 end end end
     for x=1,w do for y=1,h do
         local key=x..','..y
         local visible=not wesnoth.sides.is_fogged(obs.side,x,y) and not wesnoth.sides.is_shrouded(obs.side,x,y)
@@ -48,8 +48,7 @@ function M.capture(obs)
                 enemy and u.hitpoints/100 or 0,terrain:find('%^V') and 1 or 0,terrain:match('^[CK]') and 1 or 0,
                 terrain:match('^[WS]') and 1 or 0,terrains[terrain] or 0}
             tiles[key]={x=x,y=y,terrain=terrain,channels=row,visible=visible,owner=mem.villages[key]}
-            local bx=math.floor((x-1)*16/w)+1;local by=math.floor((y-1)*16/h)+1
-            for c,v in ipairs(row) do board[c][by][bx]=board[c][by][bx]+v/(math.ceil(w/16)*math.ceil(h/16)) end
+            for c,v in ipairs(row) do board[c][y][x]=v end
         end
     end end
     local entities,lookup={},{}
@@ -68,7 +67,7 @@ function M.capture(obs)
         end
     end
     table.sort(entities,function(a,b) if a.leader~=b.leader then return a.leader end;return a.id<b.id end)
-    obs.spatial={board=board,entities=entities};obs.tiles=tiles;obs.entity_lookup=lookup
+    obs.spatial={board=board,width=w,height=h,entities=entities};obs.tiles=tiles;obs.entity_lookup=lookup
     return obs.spatial
 end
 function M.actions(obs,actions)

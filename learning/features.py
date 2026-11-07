@@ -2,10 +2,11 @@
 from pathlib import Path
 import json
 import os
+import numpy as np
 
 from .rules_catalog import load as load_catalog, resolve_dir
 
-VERSION = 5
+VERSION = 7
 RULES_DIR = resolve_dir()
 RULES_PATH = RULES_DIR / 'catalog.json'
 if (RULES_DIR / 'rules.json').exists():
@@ -108,8 +109,8 @@ def _rules_sha256():
     return metadata.get('rules_file_sha256')
 
 
-def schema():
-    return dict(version=VERSION,
+def _schema(version):
+    return dict(version=version,
                 candidate_selection=dict(version='work-12000-v8', combat=28, recruit=6, move=2, actionable=36, end_turn=1),
                 normalization='value / scale, clipped to [-4, 4]; unit_type_index is an unscaled integer',
                 global_features=GLOBAL, opponent_features=OPPONENT, action_features=ACTION,
@@ -120,3 +121,24 @@ def schema():
                 rules_sha256=_rules_sha256(),
                 unknown_alive='known_alive=0, alive_unknown=1; no hidden-unit inference',
                 missing_village_owner='unknown until tile observed; last observed owner retained')
+
+
+def schema():
+    return _schema(VERSION) | dict(spatial_grid='native_cells')
+
+
+def mean_board_schema():
+    """Input identity of the compatible mean-board actor initializer."""
+    return _schema(5)
+
+
+def public_board(spatial, dtype=None):
+    if not isinstance(spatial, dict):
+        raise ValueError('current schema requires a public spatial grid')
+    height, width = spatial.get('height'), spatial.get('width')
+    if type(height) is not int or type(width) is not int or min(height, width) <= 0:
+        raise ValueError('public spatial grid requires positive map dimensions')
+    board = np.asarray(spatial.get('board'), dtype=dtype)
+    if board.shape != (len(SPATIAL_CHANNELS), height, width):
+        raise ValueError('invalid public spatial grid shape')
+    return board

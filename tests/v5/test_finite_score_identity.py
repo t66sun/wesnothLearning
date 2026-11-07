@@ -14,8 +14,10 @@ from learning.common import ROOT, read_json, sha256, write_json
 from learning.coordinator import Experiment
 from learning.experiment import FormatExperiment, default_config
 from learning.export import load_model
+from learning.features import mean_board_schema
 from learning.manifest import verify_frozen
 from learning.maps import scenario_family
+from learning.model import MEAN_BOARD_ARCHITECTURE
 from learning.tasks import LEGACY_TASK, TASK_ID, reward_config
 from tests.v5 import helpers
 
@@ -94,10 +96,11 @@ class FiniteScoreIdentityTests(unittest.TestCase):
             checkpoint(source, model, torch.optim.Adam(model.parameters(), lr=.02), runner=state,
                        manifest_sha256=sha256(parent/'manifest.json'), **old_identity.identity())
             old = torch.load(source, weights_only=False)
-            old['architecture'] = {k: v for k, v in old['architecture'].items() if k != 'spatial_readout'}
+            old['features'] = mean_board_schema()
+            old['architecture'] = MEAN_BOARD_ARCHITECTURE
             old['model'] = {k: v for k, v in old['model'].items() if not k.startswith('board_readout.')}
             torch.save(old, source)
-            with self.assertRaisesRegex(ValueError, 'architecture'):
+            with self.assertRaisesRegex(ValueError, 'schema'):
                 load_model(source, 'duel')
             original = sha256(source)
             def freeze(directory, opponents, wesnoth, requested):

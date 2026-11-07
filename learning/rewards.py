@@ -121,7 +121,8 @@ def transition_reward(now, following, config, *, terminal_reward=0., delta_turn=
 
 
 def terminal_reward_key(row):
-    return 'terminal_reward' if row.get('schema') == 6 else 'reward'
+    from .rowpack import ROW_SCHEMA
+    return 'terminal_reward' if row.get('schema') in (6, ROW_SCHEMA) else 'reward'
 
 
 def row_transition(row, following=None, *, gamma=None):

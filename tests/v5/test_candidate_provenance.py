@@ -1,7 +1,7 @@
 """Candidate-version provenance: current generated pools and captures without timing.
 
 ``learning/lite_host.py`` derives ``candidate_version`` from the decision
-timing: ``schema5-`` plus ``timing.budget`` when the host generated a real
+timing: a feature-schema prefix plus ``timing.budget`` when the host generated a real
 candidate pool, else the frozen ``fixed-20000-v1`` default.  Astra seats the
 job does not collect take the stub path (no ``budget`` key), so their
 derivation uses the legacy fallback even though only learner seats reach the shard.  Human
@@ -30,7 +30,7 @@ from tests.v5.test_pipeline_contract import catalog_patch, frozen_rules, read_gz
 
 def _version(timing):
     """The provenance expression from learning/lite_host.py, applied to a DTO."""
-    return 'schema5-' + timing.get('budget', 'fixed-20000-v1')
+    return f'schema{features.VERSION}-' + timing.get('budget', 'fixed-20000-v1')
 
 
 def _spy(calls):
@@ -99,7 +99,7 @@ class CandidateProvenanceTests(unittest.TestCase):
         value.update(overrides)
         return value
 
-    def test_unrecorded_teacher_uses_fallback_and_collected_rows_are_v5(self):
+    def test_unrecorded_teacher_uses_fallback_and_collected_rows_use_current_schema(self):
         job = self.job()
         calls = []
         with mock.patch.object(LiteHost, 'decision', _spy(calls)):
@@ -110,7 +110,7 @@ class CandidateProvenanceTests(unittest.TestCase):
         self.assertTrue(rows)
         self.assertEqual({row['side'] for row in rows}, {1})
         self.assertEqual({row['candidate_version'] for row in rows},
-                         {'schema5-work-12000-v8'})
+                         {f'schema{features.VERSION}-work-12000-v8'})
         diagnostic = [call for call in calls if not call['teacher'] and not call['generate_candidates']]
         collected = [call for call in calls if call['side'] == 1 and call['generate_candidates']]
         unrecorded = [call for call in calls if call['teacher']]
@@ -124,17 +124,17 @@ class CandidateProvenanceTests(unittest.TestCase):
             self.assertTrue(call['teacher'], call)
             self.assertFalse(call['generate_candidates'], call)
             self.assertNotIn('budget', call['timing'], call)
-            self.assertEqual(_version(call['timing']), 'schema5-fixed-20000-v1')
+            self.assertEqual(_version(call['timing']), f'schema{features.VERSION}-fixed-20000-v1')
         for call in collected:
             self.assertFalse(call['teacher'], call)
             self.assertTrue(call['generate_candidates'], call)
             self.assertEqual(call['timing']['budget'], 'work-12000-v8', call)
-            self.assertEqual(_version(call['timing']), 'schema5-work-12000-v8')
+            self.assertEqual(_version(call['timing']), f'schema{features.VERSION}-work-12000-v8')
 
     def test_human_capture_without_timing_keeps_v1_and_validates(self):
         path, row = _capture(self.directory, 'capture-v1.log')
         rows, coverage = import_capture(path, row)
-        self.assertEqual(rows[0]['candidate_version'], 'schema5-fixed-20000-v1')
+        self.assertEqual(rows[0]['candidate_version'], f'schema{features.VERSION}-fixed-20000-v1')
         helpers.validate(rows[0], 'duel')
         self.assertEqual(coverage['end_turn']['matched'], 1)
 
@@ -143,7 +143,7 @@ class CandidateProvenanceTests(unittest.TestCase):
                              timing={'budget': 'fixed-20000-v3', 'truncated': False,
                                      'ms': 4, 'predictions': 0, 'work': 7})
         rows, _ = import_capture(path, row)
-        self.assertEqual(rows[0]['candidate_version'], 'schema5-fixed-20000-v3')
+        self.assertEqual(rows[0]['candidate_version'], f'schema{features.VERSION}-fixed-20000-v3')
         helpers.validate(rows[0], 'duel')
 
 

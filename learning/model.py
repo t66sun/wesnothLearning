@@ -2,14 +2,15 @@
 import torch
 import numpy as np
 from torch import nn
-from .features import GLOBAL, OPPONENT, ACTION, UNIT_TYPES, ENTITY, GEOMETRY, SPATIAL_CHANNELS
+from .features import GLOBAL, OPPONENT, ACTION, UNIT_TYPES, ENTITY, GEOMETRY, SPATIAL_CHANNELS, public_board
 from .formats import FORMATS
 
 MEAN_BOARD_ARCHITECTURE = dict(id='relational_v5', unit_embedding=16, entity_hidden=64, entity_layers=2,
     heads=4, ffn=128, spatial_size=16, spatial_channels=len(SPATIAL_CHANNELS), conv_channels=16,
     local_hexes=19, local_hidden=32, gru=128, memory_slots=32, memory_hidden=64,
     scorer_hidden=[512,256,128], value_hidden=128, replay_turns=8)
-ARCHITECTURE = MEAN_BOARD_ARCHITECTURE | dict(spatial_readout='mean_xy')
+ARCHITECTURE = {k: v for k, v in MEAN_BOARD_ARCHITECTURE.items() if k != 'spatial_size'} | dict(
+    spatial_readout='mean_xy', spatial_grid='native_cells')
 
 
 class EntityBlock(nn.Module):
@@ -52,9 +53,19 @@ class Policy(nn.Module):
             self.board_readout.weight.zero_()
             self.board_readout.weight[:, :16].copy_(torch.eye(16))
             self.board_readout.bias.zero_()
-        size = ARCHITECTURE['spatial_size']
-        # Public bin centers on [-1, 1], in the same order as the Lua grid.
-        self.register_buffer('board_axis', torch.arange(1-size, size, 2) / size, persistent=False)
+
+    def encode_board(self, board, sizes):
+        height, width = sizes.unbind(-1)
+        rows = torch.arange(board.shape[-2], device=board.device)
+        cols = torch.arange(board.shape[-1], device=board.device)
+        valid = ((rows < height[:, None])[:, :, None] & (cols < width[:, None])[:, None, :])[:, None]
+        # A biased first convolution can create activations beyond a smaller map's edge.
+        h = torch.relu(self.conv1(board)) * valid
+        h = torch.relu(self.conv2(h)) * valid
+        x = ((2 * cols + 1 - width[:, None]).to(h.dtype) / width[:, None])[:, None]
+        y = ((2 * rows + 1 - height[:, None]).to(h.dtype) / height[:, None])[:, None]
+        sums = torch.cat((h.sum((-2, -1)), (h.sum(-2) * x).sum(-1), (h.sum(-1) * y).sum(-1)), dim=-1)
+        return self.board_readout(sums / (height * width)[:, None])
 
     def encode_scene(self,g,opponents,om,p):
         e=self.opponent(opponents)
@@ -64,10 +75,7 @@ class Policy(nn.Module):
         entities=torch.relu(self.entity(torch.cat([p['entities'],self.unit_embedding(p['types'])],-1)))
         for layer in self.entities: entities=layer(entities,p['entity_mask'])
         pool=(entities*p['entity_mask'][...,None]).sum(1)/p['entity_mask'].sum(1,keepdim=True).clamp(min=1)
-        h = torch.relu(self.conv2(torch.relu(self.conv1(p['board']))))
-        board = self.board_readout(torch.cat((h.mean((-1, -2)),
-            (h * self.board_axis).mean((-1, -2)),
-            (h * self.board_axis[:, None]).mean((-1, -2))), dim=-1))
+        board = self.encode_board(p['board'], p['board_sizes'])
         return torch.cat([g,mean,maximum,pool,board],-1),entities
 
     def memory_read(self,h,slots,ages):
@@ -171,13 +179,19 @@ def batch(records,device='cpu',include_history=True,history_cache=None,*,dtype=t
     g=stack([r['global'] for r in records])
     opponents=zeros((b,n,len(OPPONENT))); actions=zeros((b,a,len(ACTION)))
     om=np.zeros((b,n),dtype=bool); am=np.zeros((b,a),dtype=bool)
+    boards = [public_board(r['spatial'], precision) for r in records]
+    sizes = np.asarray([board.shape[-2:] for board in boards], dtype=np.int64)
+    max_height, max_width = sizes.max(0)
     p=dict(entities=zeros((b,128,len(ENTITY))),types=np.zeros((b,128),dtype=np.int64),
-        entity_mask=np.zeros((b,128),dtype=bool),board=stack([r['spatial']['board'] for r in records]),
+        entity_mask=np.zeros((b,128),dtype=bool),board=zeros((b,len(SPATIAL_CHANNELS),max_height,max_width)),
+        board_sizes=sizes,
         local=zeros((b,a,19*len(SPATIAL_CHANNELS))),geometry=zeros((b,a,len(GEOMETRY))))
     for name in ('actors','targets'):
         p[name]=zeros((b,a,len(ENTITY))); p[name+'_types']=np.zeros((b,a),dtype=np.int64)
         p[name+'_indices']=np.full((b,a),-1,dtype=np.int64); p[name+'_present']=zeros((b,a))
     for i,r in enumerate(records):
+        height, width = sizes[i]
+        p['board'][i, :, :height, :width] = boards[i]
         if len(r['opponents']): opponents[i,:len(r['opponents'])]=r['opponents']; om[i,:len(r['opponents'])]=True
         es=r['spatial']['entities']; lookup={e['id']:j for j,e in enumerate(es)}
         if es:

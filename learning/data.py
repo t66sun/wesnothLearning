@@ -4,7 +4,8 @@ import hashlib
 import json
 from pathlib import Path
 from functools import lru_cache
-from .features import VERSION, GLOBAL, OPPONENT, ACTION, UNIT_TYPES, ENTITY, GEOMETRY, SPATIAL_CHANNELS
+import numpy as np
+from .features import VERSION, GLOBAL, OPPONENT, ACTION, UNIT_TYPES, ENTITY, GEOMETRY, SPATIAL_CHANNELS, public_board
 from .formats import infer_format, record_format
 from .rowpack import ROW_SCHEMA, pack_line, row_meta
 
@@ -50,6 +51,17 @@ def _lite_teacher_source():
     return source_digest()
 
 
+def validate_spatial_context(row):
+    board = public_board(row.get('spatial'))
+    if not np.isfinite(board).all():
+        raise ValueError('nonfinite public spatial grid')
+    write = row.get('memory_write')
+    if write is not None:
+        memory_board = public_board(write.get('spatial'))
+        if memory_board.shape != board.shape or not np.isfinite(memory_board).all():
+            raise ValueError('invalid memory write spatial grid')
+
+
 def validate_record(r, format_name=None):
     import math
     if r['schema'] not in (VERSION, ROW_SCHEMA) or len(r['global']) != len(GLOBAL):
@@ -68,11 +80,9 @@ def validate_record(r, format_name=None):
     if not all(math.isfinite(x) for v in vectors for x in v):
         raise ValueError('nonfinite features')
     spatial=r.get('spatial')
-    if not spatial or len(spatial['entities'])>128 or len(spatial['board'])!=len(SPATIAL_CHANNELS):
+    validate_spatial_context(r)
+    if len(spatial['entities'])>128:
         raise ValueError('current schema requires a legal spatial observation')
-    for channel in spatial['board']:
-        if len(channel)!=16 or any(len(row)!=16 or any(not math.isfinite(v) for v in row) for row in channel):
-            raise ValueError('invalid public spatial grid')
     def entity(e):
         if len(e['features'])!=len(ENTITY) or not all(math.isfinite(v) for v in e['features']): raise ValueError('invalid entity features')
         if not isinstance(e['type_index'],int) or not 0<=e['type_index']<len(UNIT_TYPES): raise ValueError('invalid entity identity')

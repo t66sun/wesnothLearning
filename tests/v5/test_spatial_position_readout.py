@@ -4,15 +4,14 @@ from unittest.mock import patch
 
 import torch
 
-from learning.common import ROOT, read_json
 from learning.features import SPATIAL_CHANNELS
 from learning.model import Policy, batch
+from tests.v5.test_spatial_native_grid import FIXTURES
 
 
 def _hill_rows():
-    fixture = ROOT / 'verification/representation_information_20261106/paired_fixtures.json'
-    pair = read_json(fixture)['spatial']['pooling_location']
-    return [pair[side]['actor'] for side in ('left', 'right')]
+    pair = FIXTURES['pairs']()['pooling_location']
+    return [FIXTURES['actor_row'](FIXTURES['capture'](spec)[1]) for spec in pair]
 
 
 def _terrain_model():

@@ -35,7 +35,7 @@ def _memory_row(row):
 
 
 def _validate_raw(row, format_name=None):
-    from .data import validate_record
+    from .data import validate_record, validate_spatial_context
     from .features import VERSION
     from .rowpack import ROW_SCHEMA
     if row.get('choice', -1) >= 0:
@@ -48,6 +48,7 @@ def _validate_raw(row, format_name=None):
             raise ValueError('uncovered raw record lacks current-schema context/provenance')
         if format_name is not None and row['format'] != format_name:
             raise ValueError('cross-format sample rejected')
+        validate_spatial_context(row)
     row.setdefault('split_rule', 'family-seed-v1')
     if row.get('split', record_split(row)) != record_split(row):
         raise ValueError('family crosses partitions')

@@ -15,7 +15,7 @@ import re
 from .common import ROOT, write_json, sha256
 from .features import schema, VERSION
 from .formats import FORMATS
-from .data import split, validate_record
+from .data import split, validate_record, validate_spatial_context
 from .replay_curate import Node, parse_wml, unpack
 import native
 
@@ -138,6 +138,8 @@ def import_capture(path,row):
     if [r['action_index'] for r in samples]!=list(range(proof['expected_actions'])): raise ValueError('missing/reordered native observations')
     rows=[];counts=Counter();matched=Counter()
     for r in samples:
+        if r.get('schema') != VERSION:
+            raise ValueError('native replay capture feature schema differs')
         kind=r['actual']['kind'];counts[kind]+=1
         if r.get('format')!=row['format'] or r.get('source')!='human' or r.get('human_control') is not True: raise ValueError('human/format provenance mismatch')
         r.update(game_id=row['game_id'],game_family=row['family_id'],split=split(row['family_id']),
@@ -152,6 +154,7 @@ def import_capture(path,row):
             architecture_id='relational_v5',candidate_version=r.get('candidate_version',f"schema{r.get('schema')}-"+r.get('timing',{}).get('budget','fixed-20000-v1')),data_pool='original',
             reward_config=config,reward_version=config['reward_version'],reward_formula_id=config['reward_formula_id'])
         if r['choice']>=0: validate_record(r,row['format']);matched[kind]+=1
+        else: validate_spatial_context(r)
         rows.append(r)
     return rows,{k:dict(total=n,matched=matched[k],ratio=matched[k]/n) for k,n in counts.items()}
 

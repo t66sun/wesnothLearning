@@ -13,7 +13,8 @@ import addons
 import native
 
 def lua_parameters(model):
-    layers = dict(architecture_id=ARCHITECTURE['id'],unit_embedding=model.unit_embedding.weight.detach().cpu().tolist())
+    layers = dict(architecture_id=ARCHITECTURE['id'],spatial_grid=ARCHITECTURE['spatial_grid'],
+                  unit_embedding=model.unit_embedding.weight.detach().cpu().tolist())
     for name, group in [('opponent', model.opponent), ('scorer', model.scorer), ('value', model.value)]:
         layers[name] = [dict(weight=l.weight.detach().cpu().tolist(), bias=l.bias.detach().cpu().tolist())
                         for l in group if isinstance(l, torch.nn.Linear)]

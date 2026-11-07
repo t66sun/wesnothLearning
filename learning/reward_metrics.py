@@ -12,7 +12,7 @@ from statistics import mean
 
 from .features import ENTITY, GLOBAL
 from .formats import PLAYERS
-from .rewards import RewardConfig, terminal_rewards, transition_reward
+from .rewards import RewardConfig, terminal_reward_key, terminal_rewards, transition_reward
 
 MIN_REFERENCE_GAMES = 4
 METRICS_VERSION = 'terminal-horizons-v2'
@@ -107,7 +107,7 @@ def _reward_statistics(rows, result, side, job):
         return None
     frozen = RewardConfig(**config)
     expected_terminal = terminal_rewards(result, frozen.task_id)[side]
-    terminal = rows[-1]['terminal_reward'] if rows[-1].get('schema')==6 else expected_terminal
+    terminal = rows[-1]['terminal_reward'] if terminal_reward_key(rows[-1]) == 'terminal_reward' else expected_terminal
     if terminal!=expected_terminal: raise ValueError('terminal reward differs from game outcome')
     squares = 0.
     for index, row in enumerate(rows):

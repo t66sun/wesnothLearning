@@ -11,7 +11,7 @@ from learning import experiment, ppo
 from learning.common import write_json
 from learning.data import advantages, read_shards, split
 from learning.experiment import FormatExperiment
-from learning.rowpack import pack_line
+from learning.rowpack import ROW_SCHEMA, pack_line
 from learning.tasks import FORMULA_ID, TASK_ID, reward_config
 from learning.train import restore_rng, train
 from learning.updates import rollout_identity
@@ -52,7 +52,7 @@ class RolloutReadOnceTests(unittest.TestCase):
         self.directory = self.enterContext(helpers.temporary_directory())
         self.rows = _records([('b', 12, 0.)])
         for row in self.rows:
-            row.update(schema=6, task_id=TASK_ID, reward_config=reward_config(),
+            row.update(schema=ROW_SCHEMA, task_id=TASK_ID, reward_config=reward_config(),
                        reward_formula_id=FORMULA_ID, terminal_reward=1.,
                        reward_step=row['reward'])
         # An uncovered committed first turn is context for every later target.

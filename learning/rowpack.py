@@ -17,7 +17,7 @@ import json
 import numpy as np
 
 VERSION = 2
-ROW_SCHEMA = 6  # Reward-row metadata; policy feature schema remains independent.
+ROW_SCHEMA = 8  # Native public grid with persisted reward-row metadata.
 MARK = 'v'
 BLOCK = '$'
 SHAPE = 's'

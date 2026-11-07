@@ -2,6 +2,8 @@
 import gzip
 import unittest
 
+from learning.features import VERSION
+from learning.rowpack import ROW_SCHEMA
 from tests.v5 import helpers
 
 
@@ -36,7 +38,7 @@ class RewardRowSchemaTests(unittest.TestCase):
         legacy = []
         for row in current:
             human = {k: v for k, v in row.items() if k not in ('terminal_reward', 'reward_step')}
-            human.update(schema=5, source='human', teacher=False, engine_id='native',
+            human.update(schema=VERSION, source='human', teacher=False, engine_id='native',
                          human_control=True, native_version='1.18.8', result_verified=row['value_valid'],
                          reward=1. if row['value_valid'] else None)
             legacy.append(human)
@@ -55,14 +57,14 @@ class RewardRowSchemaTests(unittest.TestCase):
                 # One SGD step on half squared error moves .75 exactly to the valid win.
                 self.assertAlmostEqual(output.bias.item(), 1., places=6)
 
-    def test_schema_five_and_six_gae_are_bit_identical_and_steps_are_audited(self):
+    def test_feature_and_persisted_row_gae_are_bit_identical_and_steps_are_audited(self):
         import struct
         from learning.data import advantages
 
         with helpers.temporary_directory() as directory:
             rows=write_rows(directory,trajectory())
         legacy=[dict({key:value for key,value in row.items() if key not in ('terminal_reward','reward_step')},
-                     schema=5,reward=row['terminal_reward']) for row in rows]
+                     schema=VERSION,reward=row['terminal_reward']) for row in rows]
         old,new=advantages(legacy),advantages(rows)
         for before,after in zip(old,new):
             self.assertEqual(struct.pack('5d',*before),struct.pack('5d',*after))
@@ -82,7 +84,7 @@ class RewardRowSchemaTests(unittest.TestCase):
         self.assertAlmostEqual(sum(row['reward_step'] for row in rows),.175,places=12)
         self.assertAlmostEqual(advantages(rows)[0][-1],.135,places=12)
 
-    def test_legacy_training_and_homogeneous_schema_six_training(self):
+    def test_feature_training_and_homogeneous_persisted_row_training(self):
         import torch
         from learning import ppo
         from learning.updates import prepare
@@ -100,15 +102,22 @@ class RewardRowSchemaTests(unittest.TestCase):
             prepare(model,rows+legacy)
 
     def test_row_reward_is_not_the_terminal_value(self):
+        from learning.reward_metrics import _reward_statistics
+
         with helpers.temporary_directory() as directory:
             rows=write_rows(directory,trajectory())
-        self.assertEqual({row['schema'] for row in rows},{6})
+        self.assertEqual({row['schema'] for row in rows},{ROW_SCHEMA})
         self.assertTrue(all(row['terminal_reward']==1. for row in rows))
         self.assertNotIn('reward',rows[0])
         expected=[.035,.035,.035,.035,.875]
         for row,value in zip(rows,expected):
             self.assertAlmostEqual(row['reward_step'],value,places=12)
         self.assertAlmostEqual(sum(row['reward_step'] for row in rows),1.015,places=12)
+        result = dict(bots=['a', 'b'], winner=1)
+        self.assertIsNotNone(_reward_statistics(rows, result, 1, {}))
+        rows[-1]['terminal_reward'] = -1.
+        with self.assertRaisesRegex(ValueError, 'terminal reward differs'):
+            _reward_statistics(rows, result, 1, {})
 
 
 if __name__=='__main__':

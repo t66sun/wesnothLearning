@@ -28,10 +28,10 @@ local function mlp(x,layers) for i,l in ipairs(layers) do x=linear(x,l,i<#layers
 local function project(w,e)
     local x={};append(x,e.features);append(x,w.unit_embedding[e.type_index+1]);return linear(x,w.entity,true)
 end
-local function conv(x,l)
+local function conv(x,l,height,width)
     local y={}
     for o,channels in ipairs(l.weight) do
-        y[o]={};for r=1,16 do y[o][r]={};for c=1,16 do
+        y[o]={};for r=1,height do y[o][r]={};for c=1,width do
             local v=l.bias[o]
             for k,kernel in ipairs(channels) do for dy=1,3 do for dx=1,3 do
                 local row=x[k][r+dy-2];if row and row[c+dx-2] then v=v+kernel[dy][dx]*row[c+dx-2] end
@@ -41,23 +41,23 @@ local function conv(x,l)
     end
     return y
 end
-local board_axis={}
-for i=1,16 do board_axis[i]=(2*i-17)/16 end
-
-local function board_readout(board,projection)
-    local grid={}
+local function board_readout(board,projection,height,width)
+    local grid,x_axis,y_axis={},{},{}
+    for i=1,width do x_axis[i]=(2*i-1-width)/width end
+    for i=1,height do y_axis[i]=(2*i-1-height)/height end
+    local area=height*width
     for i,rows in ipairs(board) do
         local total,xmoment,ymoment=0,0,0
         for y,row in ipairs(rows) do
             local row_total=0
             for x,v in ipairs(row) do
                 row_total=row_total+v
-                xmoment=xmoment+v*board_axis[x]
+                xmoment=xmoment+v*x_axis[x]
             end
             total=total+row_total
-            ymoment=ymoment+row_total*board_axis[y]
+            ymoment=ymoment+row_total*y_axis[y]
         end
-        grid[i],grid[16+i],grid[32+i]=total/256,xmoment/256,ymoment/256
+        grid[i],grid[16+i],grid[32+i]=total/area,xmoment/area,ymoment/area
     end
     return linear(grid,projection)
 end
@@ -89,8 +89,9 @@ function M.scene(w,g,opponents,spatial)
     end
     local pool=zeros(64)
     for _,e in ipairs(entities) do for j,v in ipairs(e) do pool[j]=pool[j]+v/#entities end end
-    local board=conv(conv(spatial.board,w.conv1),w.conv2)
-    local grid=board_readout(board,w.board_readout)
+    local height,width=spatial.height,spatial.width
+    local board=conv(conv(spatial.board,w.conv1,height,width),w.conv2,height,width)
+    local grid=board_readout(board,w.board_readout,height,width)
     local scene={};append(scene,g);append(scene,mean);append(scene,maximum);append(scene,pool);append(scene,grid)
     return scene,entities,lookup
 end
@@ -105,7 +106,7 @@ local function gru(w,x,h)
     return out
 end
 function M.forward(w,g,opponents,candidates,spatial,memory,turn)
-    assert(w.architecture_id=='relational_v5','incompatible network')
+    assert(w.architecture_id=='relational_v5' and w.spatial_grid=='native_cells','incompatible network')
     local scene,entities,lookup=M.scene(w,g,opponents,spatial)
     local h=memory.hidden or zeros(128);local slots=memory.slots or {};local scores={}
     local context={};append(context,scene);append(context,h)
