@@ -71,6 +71,7 @@ def run_lock(directory):
 def default_config(device='cuda', *, engine=None):
     """Eight shared game workers; each trainer has one thread."""
     from .rules_catalog import resolve_dir
+    from .teachers.registry import DEFAULT_SET
     if engine is None: engine='lite'
     bc_games=dict(duel=300,ffa4=600,team2v2=400)
     return dict(hours=12.,workers=8,device=device,trainer_threads=1,seed=20261018,engine=engine,evaluation_engine=engine,reward_mode='adaptive',phase='auto',allow_approximate=engine=='lite',rules_dir=str(resolve_dir()),
@@ -83,10 +84,12 @@ def default_config(device='cuda', *, engine=None):
         rollout_games=4,task_id=TASK_ID,training_max_turns=TASK_TURNS,minibatch=256,bc_records=2048 if device=='cpu' else 8192,
         bc_validation_records=1024 if device=='cpu' else 4096,epochs=4,learning_rate=3e-4,
         trainer_memory_gb=6.,ppo_aux_target='historical_action',
-        human_data=str(ROOT/'data/datasets/human'))
+        human_data=str(ROOT/'data/datasets/human'),teacher_set=DEFAULT_SET)
 
 
 def validate_config(config):
+    from .teachers.registry import validate_set
+    validate_set(config.get('teacher_set','astra'))
     target_mode(config)
     floors=dict(trend=3,promotion=12,final=12,gate=12)
     if set(config.get('min_distinct',{}))!=set(floors) or any(
@@ -203,6 +206,8 @@ class FormatExperiment:
     def __init__(self,directory,fmt,manifest,clock,collector,resume=False,branch=False):
         self.directory=Path(directory);self.fmt=fmt;self.manifest=manifest
         self.config=manifest['config'];self.clock=clock;self.collector=collector
+        from .teachers.registry import require_runtime
+        require_runtime(self.config.get('teacher_set','astra'))
         validate_run(self.config)
         self.directory.mkdir(parents=True,exist_ok=True)
         torch.set_num_threads(self.config['trainer_threads'])

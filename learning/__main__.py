@@ -24,6 +24,7 @@ def parser():
     run.add_argument('--device',default='cpu',help='cpu / cuda / cuda:0 / auto')
     run.add_argument('--engine',choices=['native','lite'],default=None,help='默认 lite；采样和最终评测均跟随此引擎')
     run.add_argument('--evaluation-engine',choices=['native','lite'],default=None,help='最终评测引擎，默认跟随 --engine')
+    run.add_argument('--teacher-set',choices=['astra','mixed-20261107'],default=None,help='新实验的教师集合；恢复时使用冻结配置')
     run.add_argument('--rules-dir',help='冻结规则目录，默认 data/rules/1.18.8-combat-filtered；恢复时使用 manifest')
     run.add_argument('--reward-mode',choices=['fixed','scheduled','adaptive'],default='adaptive')
     run.add_argument('--ppo-aux-target',choices=['historical_action','frozen_bc_kl'],default=None,help='新运行的 PPO 辅助目标：历史动作 CE（默认）或冻结 BC 分布 KL')
@@ -135,9 +136,11 @@ def run_config(args):
     directory=bind_rules(args)
     from .experiment import default_config
     names=('hours','workers','device','trainer_threads','seed','final_blocks','formats','human_data','validation_interval',
-           'bc_batch_games','bc_records','bc_validation_records','training_max_turns','shaping_weight','engine','evaluation_engine','reward_mode','allow_approximate','phase','final_holdout_hours','ppo_aux_target')
+           'bc_batch_games','bc_records','bc_validation_records','training_max_turns','shaping_weight','engine','evaluation_engine','reward_mode','allow_approximate','phase','final_holdout_hours','ppo_aux_target','teacher_set')
     config=default_config(args.device,engine=args.engine)|{name:getattr(args,name) for name in names if getattr(args,name) is not None}
     config['rules_dir']=str(directory)
+    if args.resume:
+        config['teacher_set']=read_json(Path(args.resume)/'manifest.json')['config'].get('teacher_set','astra')
     if args.bc_games is not None:config['bc_games']=dict(zip(FORMATS,args.bc_games))
     if args.native_bc_games is not None:config['native_bc_games']=dict(zip(FORMATS,args.native_bc_games))
     return config
@@ -153,6 +156,7 @@ def main(argv=None):
         if args.command=='run':
             if args.resume and args.phase is not None: raise ValueError('resume keeps the saved phase; use phase --run-dir to change it')
             if args.resume and args.ppo_aux_target is not None: raise ValueError('resume keeps the frozen PPO auxiliary target; choose the target on a new run')
+            if args.resume and args.teacher_set is not None: raise ValueError('resume keeps the frozen teacher set; choose the teacher on a new run')
             if args.resume and args.branch_from: raise ValueError('choose resume or branch, not both')
             if args.branch_from and Path(args.branch_from).resolve()==Path(args.run_dir).resolve(): raise ValueError('branch needs a new run directory')
             from .coordinator import Experiment

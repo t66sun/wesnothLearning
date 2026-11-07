@@ -57,6 +57,7 @@ def freeze(run_dir, opponents, wesnoth, config):
         raise ValueError('PyTorch 2.9.1 is required; run setup.sh')
     from .rules_catalog import load, resolve_dir
     from .teachers import lineage
+    from .teachers.registry import freeze_set
     rules_dir=resolve_dir(config.get('rules_dir'))
     catalog=load(rules_dir)
     from .tasks import validate_run
@@ -69,6 +70,7 @@ def freeze(run_dir, opponents, wesnoth, config):
         parameters=sum(p.numel() for p in Policy('duel').parameters()),dependencies=versions,
         opponents=refs,baseline=dict(name='baseline',version='1.18.8',path=exe,sha256=sha256(exe)),
         teacher=lineage(),
+        teacher_set=freeze_set(run_dir/'frozen/teachers',config.get('teacher_set','astra')),
         rehearsal_policy=dict(bc='teacher_initialisation',ppo='exclude_evaluation_control'),
         source={folder:tree_hashes(ROOT/folder) for folder in ('learning','lua','vendor/arena','engine_lite','rules','benchmarks')},
         baseline_in_2v2=dict(teacher_partner=True,rollout_partner_fraction=.25,
@@ -82,6 +84,11 @@ def verify_frozen(manifest):
     from .tasks import require_task, validate_run
     require_task(manifest.get('task_id'))
     validate_run(manifest['config'])
+    if manifest.get('teacher_set'):
+        from .teachers.registry import verify_set
+        if manifest['teacher_set']['name'] != manifest['config'].get('teacher_set','astra'):
+            raise ValueError('teacher set differs from frozen configuration')
+        verify_set(manifest['teacher_set'])
     if manifest['task_id'] != manifest['config']['task_id']:
         raise ValueError('manifest training task differs from configuration')
     if manifest.get('batch_contract') != BATCH_CONTRACT:
