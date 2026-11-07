@@ -276,7 +276,7 @@ function lite_decision(side,teacher,generate_candidates,score_only_astra,score_o
         require_module('spatial.lua').actions(obs,candidates)
         timing={truncated=false,ms=0,predictions=0,work=0}
     else
-        candidates,timing,pool,coverage_kinds=C.generate(obs)
+        candidates,timing,pool,coverage_kinds=C.generate(obs,not score_only_policy)
     end
     last_candidates=candidates
     local raw=not score_only_policy and reward_labels(obs,side) or nil

@@ -261,7 +261,7 @@ local function features(obs,a,u,target,enemies,villages,friends)
     if target then score=score+2 end
     return O.normalize(f,schema.action_features),score
 end
-function M.generate(obs)
+function M.generate(obs,collect_support)
     local started=wesnoth.ms_since_init()
     local work,cut=0,false
     local calls={reach=0,path=0,recruit_probe=0,attack_probe=0,move_probe=0,predict=0}
@@ -359,7 +359,7 @@ function M.generate(obs)
         for slot=1,8 do
             local p
             if interleave and slot%2==0 then p,back=next_legal(low,back) end
-            local coverage_kind=p and 'low_exposure_recruit' or nil
+            local coverage_kind=collect_support and p and 'low_exposure_recruit' or nil
             if not p then p,front=next_legal(castles,front) end
             if not p then break end
             -- Explicit detached identity prevents probes consuming native unit IDs.
@@ -615,7 +615,7 @@ function M.generate(obs)
         return better
     end
     local capacity=math.min(WORK.predictions,(WORK.total-work)//COST.predict)
-    for _,a in ipairs(Selection.select(pool,dominates,capacity)) do actions[#actions+1]=a end
+    for _,a in ipairs(Selection.select(pool,dominates,capacity,collect_support)) do actions[#actions+1]=a end
     if #pool>#actions-1 then cut=true end
     S.actions(obs,actions)
     -- Features for the retained set are mandatory and bounded by the entity caps;
@@ -644,7 +644,8 @@ function M.generate(obs)
         a._unit=nil;a._enemy=nil;a._serial=nil;a._home=nil;a._primary_move=nil;a.priority=nil
         a._tactical=nil;a._gain=nil;a._risk=nil;a._risk_delta=nil;a._home_distance=nil;a._support=nil
     end
-    return actions,report(),pool,coverage_kinds
+    if collect_support then return actions,report(),pool,coverage_kinds end
+    return actions,report()
 end
 function M.diagnostics(obs,a,candidates)
     local moves=0;for _,u in ipairs(obs.own) do moves=moves+u.moves end
