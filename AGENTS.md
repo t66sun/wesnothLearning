@@ -58,8 +58,6 @@ Not maintained docs: `vendor/`, `data/references/`, `verification/`, `data/rules
 
 Read `docs/architecture.md` before architecture, parameter or status changes; maintain it and report decision conflicts. Read `docs/instructions.md` before training operations or tuning.
 
-Ubuntu is the acceptance environment; Windows is reference. Run affected minimal checks, reuse valid evidence; collect/train only when asked. Minimal acceptance never bypasses BC/PPO gates or proves convergence or strength.
-
 ## TEST.md
 
 Keep implemented changes awaiting acceptance, ordered toward training. Each item states status/reason, minimal Ubuntu inputs/procedure, pass criteria, evidence path and training blocker. Identify unwritten tests; share fixtures/runs.
