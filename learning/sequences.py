@@ -48,6 +48,9 @@ def _validate_raw(row, format_name=None):
             raise ValueError('uncovered raw record lacks current-schema context/provenance')
         if format_name is not None and row['format'] != format_name:
             raise ValueError('cross-format sample rejected')
+        if row.get('source') == 'teacher' or (row.get('source') == 'astra' and row.get('teacher_contract')):
+            from .teachers.provenance import validate_identity
+            validate_identity(row, row['format'])
     row.setdefault('split_rule', 'family-seed-v1')
     if row.get('split', record_split(row)) != record_split(row):
         raise ValueError('family crosses partitions')
@@ -158,8 +161,11 @@ class IndexedSequenceStore:
                 if key not in groups:
                     attach_histories([raw])  # retain the original complete-prefix check
                     groups[key] = dict(compressor=zlib.compressobj(), chunks=[], count=0,
-                                       decisions=0, turns=set(), last_turn=row['turn'], partition=partition)
+                                       decisions=0, turns=set(), last_turn=row['turn'], partition=partition,
+                                       teacher=(row.get('teacher'), row.get('teacher_source_sha256'), row.get('teacher_package_sha256')))
                 group = groups[key]
+                if row.get('source') == 'teacher' and group['teacher'] != (row.get('teacher'), row.get('teacher_source_sha256'), row.get('teacher_package_sha256')):
+                    raise ValueError('sequence mixes teacher execution identities')
                 if group['partition'] != partition:
                     raise ValueError('family crosses partitions')
                 if row['turn'] < group['last_turn']:
