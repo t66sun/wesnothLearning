@@ -126,8 +126,11 @@ class ScoreAstraTests(unittest.TestCase):
         labels = [row for row in pipeline.read_gzip(dagger_path) if row.get('query_only')]
         self.assertTrue(labels)
         self.assertLessEqual(len(labels),32)
+        self.assertTrue(any(len(row['candidates'])>1 and row['choice']>=0 for row in labels))
         for row in labels:
-            self.assertGreater(len(row['candidates']),1)
+            # A fully generated set can contain only end_turn after all units
+            # have acted. The independent query preserves that exact set.
+            self.assertGreaterEqual(len(row['candidates']),1)
             self.assertEqual(row['candidate_version'],version)
 
 
