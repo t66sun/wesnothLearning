@@ -39,7 +39,7 @@ def prepare(output,started=None):
         student='fixed seeded untrained policy; sample mode; no optimizer',
         gate='each backend/format: four BC and four PPO/DAgger; full focal-seat coverage; '+
              'all complete, no faults/hard timeouts, correct identities/labels, nonzero valid DAgger, '+
-             'BC action coverage >=90% overall and >=80% recruit/move/attack with nonzero counts')
+             'action coverage is diagnostic only; excluded from activation by user instruction')
     students={};supports={}
     for index,fmt in enumerate(FORMATS):
         torch.manual_seed(SEED+index)
@@ -183,7 +183,7 @@ def summarize(output,manifest,jobs,results,finished):
                 per_game_p95_query_ms={r['id']:r.get('teacher_queries',{}).get('p95_ms',0) for r in records},
                 valid_supervision=valid,valid_supervision_per_hour=valid/max(finished-manifest['started'],1e-9)*3600,
                 faults=faults,errors=errors,audits=audits,
-                passed=not faults and not errors and gate['passed'] and valid_queries>0 and stored_queries>0 and len(audits)==8)
+                passed=not faults and not errors and valid_queries>0 and stored_queries>0 and len(audits)==8)
     summary=dict(source_commit=manifest['source_commit'],seconds=finished-manifest['started'],games=len(results),
                  cells=cells,passed=finished<=manifest['deadline'] and all(c['passed'] for c in cells.values()),
                  scope='integration only; no BC qualification, optimizer, corpus promotion or strength claim')

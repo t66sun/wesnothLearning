@@ -4,7 +4,7 @@
 
 运行契约和当前参数见[架构文档](architecture_zh.md)。待验收事项见[验收清单](TEST_zh.md)。
 
-**当前路线：**新实验接受 `--teacher-set astra` 或 `--teacher-set mixed-20261107`。混合集合在 BC、DAgger、PPO 教师席、评测和奖励参照中使用冻结交付的单挑/团队策略，FFA 保留维护版 Astra。有界面板因 Native BC 采集失败及 Lite 单挑/团队覆盖不足未通过，默认仍为 Astra，见[结果及限制](../verification/teacher_integration_20261107/panel/REPORT.md)。Lite 仍是默认采集/评测后端，官方 baseline 仅走 Native。resume 读取冻结 manifest 并拒绝覆盖教师；切换须新建实验，可选 `--branch-weights-only --phase bc` 仅继承兼容的 actor 权重并重新取得 BC 资格。本说明不授权启动训练。
+**当前路线：**新实验默认使用 `--teacher-set mixed-20261107`；全 Astra 使用 `--teacher-set astra`。混合集合在 BC、DAgger、PPO 教师席、评测和奖励参照中使用冻结交付的单挑/团队策略，FFA 保留维护版 Astra。48 项 Ubuntu 接入任务全部通过；覆盖率保留为诊断数据，不作为启用门禁，见[启用结果](../verification/teacher_integration_20261107/activation/REPORT.md)。Lite 仍是默认采集/评测后端，官方 baseline 仅走 Native。resume 读取冻结 manifest 并拒绝覆盖教师；切换须新建实验，可选 `--branch-weights-only --phase bc` 仅继承兼容的 actor 权重并重新取得 BC 资格。本说明不授权启动训练。
 
 当前 lite 战斗/教师 profile 为 `probabilistic_combat_v6`，RNG 为 `splitmix64-rejection-v1`。构建匹配扩展后才能使用。旧 expected_damage_v1/v2、probabilistic_combat_v1/v2/v3/v4/v5 运行须使用原源码/构建；不得重写冻结数据、快照或检查点身份。旧权重须走既有显式初始化/重置优化器流程，并重新验收。
 
@@ -73,7 +73,7 @@ sha256sum .runtime/entropy.so
 
 `python tests/ship_teacher_integration.py LABEL -- bash tests/build_teacher_host.sh /home/tongshu/venv/bin/python -m unittest tests.test_teacher_integration_panel -v` 将当前提交归档、上传到新的 Ubuntu 目录，记录源码/命令/退出状态，并运行不含对局的设计检查。脚本复用既有规则、游戏安装与隔离扩展缓存。
 
-仅在获得新采样授权后，将 unittest 命令替换为 `-m tests.acceptance_teacher_integration --output NEW_ABSOLUTE_DIRECTORY`。它固定执行 48 任务、8 workers、最多一小时，不创建优化器，并拒绝已有输出目录。已记录失败面板不会被该命令重试；新运行须有新的授权预算和目录。
+已获授权的验收采样可将 unittest 命令替换为 `-m tests.acceptance_teacher_integration --output NEW_ABSOLUTE_DIRECTORY`。它固定执行 48 任务、8 workers、最多一小时，不创建优化器，并拒绝已有输出目录。验收依据任务完成、故障、教师身份和实际落盘 DAgger 标签；动作覆盖率仅作诊断。
 
 ### 干净 Ubuntu 24.04 训练归档包
 
