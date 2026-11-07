@@ -59,6 +59,11 @@ def bc_endpoint(parent):
     return dict(endpoint=endpoint, gate=gate)
 
 
+def bc_gate(parent):
+    path = parent/'duel/bc_gate.json'
+    return read_json(path) if path.exists() else None
+
+
 def worker_identity(contract):
     import _engine_lite
     if ROOT.resolve() != Path(contract['source']).resolve():
@@ -95,8 +100,18 @@ def stage(request):
         config = configuration(request['empty_human'], INPUTS['bc_seed'], (deadline-time.time())/3600)
         config.update(branch_weights_only=True, branch_checkpoint='last_bc')
         root = Path(request['parent'])
-        coordinator.Experiment(root, config=config, branch_from=initializer).run()
-        result = bc_endpoint(root)
+        summary = coordinator.Experiment(root, config=config, branch_from=initializer).run()
+        report = summary['formats']['duel']
+        if (summary['status'] != 'stage_complete' or report['status'] != 'stage_complete' or
+                report['phase'] != 'bc' or report.get('error')):
+            raise StageFailed(f'BC trainer failed in {root}')
+        if report['pretraining_complete'] is True:
+            result = dict(status='qualified', summary=summary, **bc_endpoint(root))
+        else:
+            gate = bc_gate(root)
+            if report['pretraining_complete'] is not False or bc_effective(gate or {}):
+                raise StageFailed(f'inconsistent BC qualification evidence in {root}')
+            result = dict(status='unqualified', reason='gate_not_qualified', gate=gate, summary=summary)
     elif name == 'ppo':
         arm.start_arm(Path(request['run']), Path(request['parent']), request['empty_human'],
                       request['endpoint'], seed=request['seed'], rollout_games=request['rollout_games'],
@@ -155,7 +170,8 @@ def run_stage(output, label, contract, stage_name, deadline, **options):
                    exit_code=code, timed_out=timed_out)
     write_new(output/f'{label}-exit.json', outcome)
     print(label, json.dumps(outcome), flush=True)
-    if code and not (stage_name == 'ppo' and timed_out):
+    bc_deadline = stage_name == 'bc' and timed_out and code in (-signal.SIGTERM, -signal.SIGKILL)
+    if code and not (bc_deadline or (stage_name == 'ppo' and timed_out)):
         raise StageFailed(f'{label} failed; see {label}.log')
     return result, outcome
 
@@ -209,17 +225,28 @@ def check_launch(launch):
 
 
 def qualification(output, launch, run_name, deadline, empty_human):
-    qualified = {}
+    records = {}
     for contract_name in ('b', 'c'):
         contract = launch['contracts'][contract_name]
         parent = Path(contract['source'])/'runs'/run_name/'bc'
-        result, _ = run_stage(output, f'bc-{contract_name}', contract, 'bc',
-                              min(deadline, time.time()+INPUTS['seconds']['bc_per_contract']),
-                              parent=str(parent), initializer=launch['actor_initializer'],
-                              initializer_sha256=INPUTS['actor_initializer_sha256'],
-                              empty_human=str(empty_human))
-        qualified[contract_name] = dict(read_json(result)['result'], parent=str(parent))
-    return qualified
+        result, outcome = run_stage(output, f'bc-{contract_name}', contract, 'bc',
+                                    min(deadline, time.time()+INPUTS['seconds']['bc_per_contract']),
+                                    parent=str(parent), initializer=launch['actor_initializer'],
+                                    initializer_sha256=INPUTS['actor_initializer_sha256'],
+                                    empty_human=str(empty_human))
+        if outcome['timed_out']:
+            summary_path = parent/'summary.json'
+            summary = read_json(summary_path) if summary_path.exists() else None
+            if (parent/'duel/trainer_error.log').exists() or (summary and summary['status'] != 'stage_complete'):
+                raise StageFailed(f'BC trainer failed before the deadline in {parent}')
+            record = dict(status='unqualified', reason='deadline', gate=bc_gate(parent), summary=summary)
+        else:
+            record = read_json(result)['result']
+            if record['status'] not in ('qualified', 'unqualified'):
+                raise StageFailed(f'unexpected BC qualification outcome in {parent}')
+        records[contract_name] = dict(record, parent=str(parent), stage=outcome)
+        write_new(output/f'bc-{contract_name}-qualification.json', records[contract_name])
+    return records
 
 
 def check_first_online(base, large):
@@ -243,6 +270,8 @@ def check_first_online(base, large):
 
 def panel_requests(cells, parents, partition, board):
     for name in CONTRACTS:
+        if name not in parents:
+            continue
         contract_cells = [cell for cell in cells if cell['contract'] == name]
         bc_name = name+'/bc'
         parent = parents[name]['parent']
@@ -260,13 +289,13 @@ def panel_requests(cells, parents, partition, board):
                          roles=roles, full=full, small=small, partition=partition, board=board)
 
 
-def evaluate(output, launch, parents, cells, partition, board, deadline):
+def evaluate(output, launch, parents, cells, partition, board, deadline, shortfalls):
     reports = []
     for name, request in panel_requests(cells, parents, partition, board):
         result, _ = run_stage(output, f'{partition}-{name}', launch['contracts'][name], partition,
                               deadline, **request)
         reports.append(read_json(result/'summary.json'))
-    return panels.summarize(reports, partition)
+    return panels.summarize(reports, partition, shortfalls)
 
 
 def run(output, launch_path):
@@ -282,6 +311,7 @@ def run(output, launch_path):
               source_manifest_sha256=sha256(launch_path), inputs_sha256=sha256(HERE/'inputs.json'),
               protocol_sha256=sha256(HERE/'PROTOCOL.md')))
     cells = []
+    shortfalls = {}
     try:
         check_launch(launch)
         board = freeze_board(output/'frozen', launch)
@@ -294,14 +324,19 @@ def run(output, launch_path):
             result, _ = run_stage(output, f'preflight-{name}', contract, 'preflight', preflight, **options)
             if name == 'base':
                 parents[name] = dict(read_json(result)['result']['bc'], parent=launch['base_bc_parent'])
-        parents.update(qualification(output, launch, output.name, training_end, empty_human))
+        bc = qualification(output, launch, output.name, training_end, empty_human)
+        parents.update({name: record for name, record in bc.items() if record['status'] == 'qualified'})
+        shortfalls = {name: record['reason'] for name, record in bc.items() if record['status'] == 'unqualified'}
+        active_routes = [route for route in panels.ROUTES if cell_contract(route) in parents]
         for route, seed in INPUTS['cell_order']:
+            source_name = cell_contract(route)
+            if source_name not in parents:
+                continue
             now = time.time()
             deadline = now + INPUTS['seconds']['ppo_hard']
             if deadline > training_end:
                 raise StageFailed('the next PPO cell cannot receive its full frozen wall budget')
             name = f'{route}-{seed}'
-            source_name = cell_contract(route)
             contract = launch['contracts'][source_name]
             parent = parents[source_name]
             root = Path(contract['source'])/'runs'/output.name/name
@@ -323,25 +358,27 @@ def run(output, launch_path):
                     write_new(output/f'first-online-a8-{seed}.json', check_first_online(pair['base'], pair['a']))
         write_new(output/'cells.json', cells)
         validation_end = min(lite_end-seconds['holdout']-seconds['report'], time.time()+seconds['validation'])
-        validation = evaluate(output, launch, parents, cells, 'validation', board, validation_end)
+        validation = evaluate(output, launch, parents, cells, 'validation', board, validation_end, shortfalls)
         write_new(output/'validation.json', validation)
-        if any(value['wall']['status'] != 'observed' for value in validation['contrasts'].values()):
+        if any(validation['contrasts'][route]['wall']['status'] != 'observed' for route in active_routes):
             raise StageFailed('the equal-wall validation panel is incomplete')
         chosen = panels.deployment_choice(validation)
         write_new(output/'deployment.json', dict(route=chosen, validation_sha256=sha256(output/'validation.json'),
                   endpoint='wall', native_seed=INPUTS['seeds'][1], frozen_before_holdout=True))
         holdout_end = min(lite_end-seconds['report'], time.time()+seconds['holdout'])
-        holdout = evaluate(output, launch, parents, cells, 'holdout', board, holdout_end)
+        holdout = evaluate(output, launch, parents, cells, 'holdout', board, holdout_end, shortfalls)
         write_new(output/'holdout.json', holdout)
-        for name, contract in launch['contracts'].items():
-            run_stage(output, f'mc-{name}', contract, 'mc', lite_end,
+        for name in parents:
+            run_stage(output, f'mc-{name}', launch['contracts'][name], 'mc', lite_end,
                       cells=[cell for cell in cells if cell['contract'] == name])
-        complete = all(value['wall']['status'] == 'observed' for value in holdout['contrasts'].values())
-        result = dict(status='observed' if complete else 'incomplete_holdout', deployment_candidate=chosen,
+        complete = all(holdout['contrasts'][route]['wall']['status'] == 'observed' for route in active_routes)
+        status = 'incomplete_bc' if shortfalls else 'observed'
+        result = dict(status=status if complete else 'incomplete_holdout', deployment_candidate=chosen,
                       validation=validation, holdout=holdout)
     except StageFailed as failure:
         result = dict(status='incomplete', reason=str(failure), completed_cells=len(cells))
-    write_new(output/'result.json', dict(result, wall_seconds=time.time()-started, hard_deadline=hard))
+    write_new(output/'result.json', dict(result, bc_shortfalls=shortfalls,
+              wall_seconds=time.time()-started, hard_deadline=hard))
     return result['status'] == 'observed'
 
 

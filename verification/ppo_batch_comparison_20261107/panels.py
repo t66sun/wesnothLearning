@@ -158,13 +158,18 @@ def comparison(rows, route, endpoint):
                    for name, (stats, key) in fields.items()})
 
 
-def summarize(reports, partition):
+def summarize(reports, partition, shortfalls=None):
+    def score(rows, route, endpoint):
+        if shortfalls and route in shortfalls:
+            return dict(status='bc_unqualified', reason=shortfalls[route], matched_seeds=[])
+        return comparison(rows, route, endpoint)
+
     full = paired_rows(reports, 'full')
-    contrasts = {route: {'wall': comparison(full, route, 'wall')} for route in ROUTES}
+    contrasts = {route: {'wall': score(full, route, 'wall')} for route in ROUTES}
     if partition == 'validation':
         small = paired_rows(reports, 'small')
         for route, values in contrasts.items():
-            values.update({key: comparison(rows, route, key) for key, rows in
+            values.update({key: score(rows, route, key) for key, rows in
                            [('10000', small), ('30000', full), ('selected', full)]})
     return dict(contrasts=contrasts, actual_games=sum(report['actual_games'] for report in reports),
                 missing=full['missing'])
