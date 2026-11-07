@@ -63,14 +63,27 @@ class LiteHost:
             raise RuntimeError('rebuild engine_lite for teacher-host-v1')
         self.teacher_specs = {int(side): spec for side,spec in (teacher_specs or {}).items()}
         self.query_spec = query_spec
+        self.validate_teachers(game_spec)
         specs = list(self.teacher_specs.values()) + ([query_spec] if query_spec else [])
         self.modules = host_modules(teacher_path, teacher_specs=specs)
         self.adapter.configure_host(self.modules)
         self.calls, self.queries = {}, {}
 
     def reset(self, game_spec):
+        self.validate_teachers(game_spec)
         self.adapter.reset(game_spec)
         self.calls, self.queries = {}, {}
+
+    def validate_teachers(self, game_spec):
+        from .formats import infer_format
+        from .teachers.registry import describe
+        teams=[side['team'] for side in game_spec['sides']]
+        fmt=infer_format(dict(bots=teams,teams=teams if len(set(teams))<len(teams) else None))
+        for side in self.teacher_specs:
+            if side<1 or side>len(teams): raise ValueError('teacher seat is outside the game')
+        for spec in [*self.teacher_specs.values(),*([self.query_spec] if self.query_spec else [])]:
+            if spec['format']!=fmt or spec!=describe(spec['package'],fmt):
+                raise ValueError('Lite teacher descriptor differs from the actual game or frozen package')
 
     def begin_call(self, side, limits=None):
         limits = self.teacher_specs.get(side) or limits or dict(timeout=1,first_timeout=10)
@@ -112,6 +125,7 @@ class LiteHost:
         return dict(self.adapter.snapshot(),teacher_calls=dict(self.calls),teacher_queries=dict(self.queries))
 
     def restore(self, snapshot):
+        self.validate_teachers(snapshot['game']['spec'])
         self.end_call(False)
         self.adapter.restore(snapshot)
         self.calls={int(k):v for k,v in snapshot.get('teacher_calls',{}).items()}

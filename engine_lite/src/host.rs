@@ -10,6 +10,7 @@ pub fn create(game:Arc<Mutex<Game>>)->mlua::Result<Lua> {
     lua.globals().set("__clock_ms",lua.create_function(move |_,()|Ok(started.elapsed().as_millis() as u64))?)?;
     lua.globals().set("__bridge",lua.create_function(move |lua,(op,arg):(String,LuaValue)| {
         crate::host_deadline::check(lua)?;
+        let _deadline=crate::host_deadline::native_scope(lua);
         let a:Value=lua.from_value(arg)?;
         let mut g=game.lock().map_err(|e|mlua::Error::external(e.to_string()))?;
         let side=lua.app_data_ref::<Cell<usize>>().unwrap().get();
@@ -27,7 +28,7 @@ pub fn create(game:Arc<Mutex<Game>>)->mlua::Result<Lua> {
                 let mut u=public.iter().find(|u|u.id==id).cloned().ok_or_else(||mlua::Error::external("unit is not visible"))?;
                 let max_moves=u.max_moves(&g.rules);
                 u.moves=if op=="path" {(g.spec.terrain.len() as u32).saturating_mul(100)} else {a["moves"].as_u64().unwrap_or(u.moves as u64).min(max_moves as u64) as u32};
-                let (dist,prev)=g.reach_with_public(&u,side,&public);
+                let (dist,prev)=g.reach_with_public(&u,side,&public).map_err(mlua::Error::external)?;
                 if op=="reach" {
                     json!(dist.into_iter().enumerate().filter(|(_,d)|*d<=u.moves).map(|(p,d)|json!([p,u.moves-d])).collect::<Vec<_>>())
                 } else {

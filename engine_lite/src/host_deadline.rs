@@ -4,6 +4,22 @@ use std::{cell::Cell, time::{Duration, Instant}};
 #[derive(Clone, Copy, Default)]
 struct Limits { deadline: Option<Instant>, read_only: bool }
 
+thread_local! { static NATIVE_DEADLINE: Cell<Option<Instant>> = const { Cell::new(None) }; }
+pub struct NativeScope(Option<Instant>);
+impl Drop for NativeScope {
+    fn drop(&mut self) { NATIVE_DEADLINE.with(|slot| slot.set(self.0)); }
+}
+pub fn native_scope(lua: &Lua) -> NativeScope {
+    let deadline=lua.app_data_ref::<Cell<Limits>>().unwrap().get().deadline;
+    NativeScope(NATIVE_DEADLINE.with(|slot| slot.replace(deadline)))
+}
+pub fn native_check() -> std::result::Result<(),String> {
+    if NATIVE_DEADLINE.with(|slot|slot.get().is_some_and(|d|Instant::now()>d)) {
+        return Err("Lua hard deadline exceeded inside native operation".into());
+    }
+    Ok(())
+}
+
 pub fn install(lua: &Lua) {
     lua.set_app_data(Cell::new(Limits::default()));
     lua.set_hook(HookTriggers::new().every_nth_instruction(1000), |lua, _| {

@@ -117,20 +117,60 @@ end}
 
     def test_hard_query_deadline_interrupts_lua_and_restores_student_budget(self):
         core,_,_=self.core(extra={FIXTURE:'return {evaluation=function() while true do end end}'})
-        before=json.loads(core.snapshot())['game']
-        core.begin_call(.5)
+        saved=core.snapshot();before=json.loads(saved)['game']
+        core.begin_call(.04)
         started=time.perf_counter()
         with self.assertRaisesRegex(ValueError,'hard deadline'):
-            core.teacher_query(1,FIXTURE,.03)
+            core.teacher_query(1,FIXTURE,.12)
         self.assertLess(time.perf_counter()-started,1)
+        # Query exceeds the student's entire allowance; its paused remainder
+        # must still permit execution after the failed label is discarded.
+        result=json.loads(core.execute_candidate(json.dumps({'kind':'end_turn'})))
+        self.assertTrue(result['committed'])
         core.end_call()
-        self.assertEqual(json.loads(core.snapshot())['game'],before)
+        core.restore(saved)
         core.begin_call(.001)
         time.sleep(.005)
         with self.assertRaisesRegex(ValueError,'hard deadline'):
             core.execute_candidate(json.dumps({'kind':'end_turn'}))
         core.end_call(False)
         self.assertEqual(json.loads(core.snapshot())['game'],before)
+
+    def test_a_single_native_forecast_is_interrupted_inside_probability_propagation(self):
+        rules=helpers.rules()
+        for unit in rules['units'].values():
+            unit['hp']=10000
+            for weapon in unit['weapons']:
+                weapon.update(damage=1,strikes=100,specials=['berserk','poison','slow'])
+        state=helpers.spec(fog=False)
+        for unit in state['units']:unit['hp']=10000
+        core,_,_=self.core(spec=state,rules=rules,extra={FIXTURE: '''
+return {evaluation=function()
+    local a=wesnoth.units.find_on_map{id='p1'}[1]
+    local d=wesnoth.units.find_on_map{id='e1'}[1]
+    wesnoth.simulate_combat(a,1,d)
+end}
+'''})
+        before=json.loads(core.snapshot())['game']
+        started=time.perf_counter()
+        with self.assertRaisesRegex(ValueError,'inside native operation'):
+            core.teacher_query(1,FIXTURE,.08)
+        self.assertLess(time.perf_counter()-started,1)
+        self.assertEqual(json.loads(core.snapshot())['game'],before)
+        # The callback-scoped deadline cannot leak into later, untimed APIs.
+        self.assertTrue(json.loads(core.legal_actions(1)))
+
+    def test_wrong_format_entry_budget_and_reset_are_rejected(self):
+        core,state,teacher=self.core()
+        before=core.snapshot()
+        host=self.wrapped(core,state,query=teacher)
+        host.validate_teachers(state)
+        for key,value in [('format','team2v2'),('entry',teacher['entry'].replace('/duel/','/team2v2/')),('timeout',999)]:
+            host.query_spec=dict(teacher,**{key:value})
+            with self.assertRaisesRegex(ValueError,'descriptor differs'):host.validate_teachers(state)
+        host.query_spec=teacher
+        with self.assertRaisesRegex(ValueError,'descriptor differs'):host.reset(helpers.spec(sides=4))
+        self.assertEqual(core.snapshot(),before)
 
     def test_query_cannot_execute_and_failure_does_not_poison_later_execution(self):
         core,_,_=self.core(extra={FIXTURE: '''
