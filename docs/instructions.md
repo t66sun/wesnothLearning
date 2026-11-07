@@ -4,7 +4,7 @@
 
 See the [architecture](architecture.md) for runtime contracts and parameters, and the [acceptance list](TEST.md) for pending checks.
 
-**Current route:** new experiments accept `--teacher-set astra` or `--teacher-set mixed-20261107`. The mixed set uses the frozen delivered duel/team strategies and maintained Astra for FFA across BC, DAgger, PPO teacher seats, evaluation and reward references. The default remains Astra pending the bounded integration panel. Lite remains the default collection/evaluation backend; official baseline remains Native-only. Resume reads the frozen manifest and rejects teacher overrides. To change teachers, create a new experiment; optional `--branch-weights-only --phase bc` inherits only compatible actor weights and must earn new BC qualification. This documentation does not authorize a training run.
+**Current route:** new experiments accept `--teacher-set astra` or `--teacher-set mixed-20261107`. The mixed set uses the frozen delivered duel/team strategies and maintained Astra for FFA across BC, DAgger, PPO teacher seats, evaluation and reward references. The default remains Astra because the bounded panel failed Native BC collection and Lite duel/team coverage; see [recorded limits](../verification/teacher_integration_20261107/panel/REPORT.md). Lite remains the default collection/evaluation backend; official baseline remains Native-only. Resume reads the frozen manifest and rejects teacher overrides. To change teachers, create a new experiment; optional `--branch-weights-only --phase bc` inherits only compatible actor weights and must earn new BC qualification. This documentation does not authorize a training run.
 
 Current lite combat/teacher profile is `probabilistic_combat_v6`, RNG `splitmix64-rejection-v1`. Rebuild the matching extension. Resume expected_damage_v1/v2 and probabilistic_combat_v1/v2/v3/v4/v5 runs with their original source/build; never relabel frozen data, snapshots or checkpoints. Old weights require the existing explicit initialization/reset-optimizer route and new-rule acceptance.
 
@@ -68,6 +68,12 @@ sha256sum .runtime/entropy.so
 ```
 
 Rebuild `_engine_lite` in the matching virtual environment when its Rust or embedded Lua changes. Rust embeds `engine_lite/lua/host.lua` through `include_str!`.
+
+### Teacher integration checks
+
+`python tests/ship_teacher_integration.py LABEL -- bash tests/build_teacher_host.sh /home/tongshu/venv/bin/python -m unittest tests.test_teacher_integration_panel -v` archives the current commit, uploads/extracts a fresh Ubuntu tree, records source/command/exit status and runs the design check without games. The helper reuses the existing rules, game installation and isolated extension cache.
+
+Only after explicit new sampling authorization, replace the unittest command with `-m tests.acceptance_teacher_integration --output NEW_ABSOLUTE_DIRECTORY`. It freezes and executes exactly 48 tasks, eight workers, one hour maximum, without an optimizer. Existing output directories are rejected. The recorded failed panel is never retried by this command; a new run requires a new authorized budget and directory.
 
 ### Clean Ubuntu 24.04 training bundle
 

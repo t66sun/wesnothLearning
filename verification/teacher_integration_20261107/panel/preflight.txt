@@ -1,0 +1,17 @@
+Sat Nov  7 08:01:49 AM UTC 2026
+ 16:01:49 up 19 days, 18:27,  6 users,  load average: 0.55, 0.25, 0.13
+               total        used        free      shared  buff/cache   available
+Mem:           15827        1876         873          12       13426       13950
+Swap:           4095        2012        2083
+    PID %CPU %MEM COMMAND
+ 709396  4.7  0.0 sshd: tongshu [priv]
+ 308070  0.1  0.2 /home/tongshu/myDev/wesnothLearning/WesnothLearning/.runtime/install/bin/wesnoth --debug --debug-lua --noaddons --with-replay --load /home/tongshu/curated_bc_20261031/src/data/datasets/human/capture/game_0361/game_0361.cfg --userdata-dir /home/tongshu/curated_bc_20261031/src/data/datasets/human/capture/game_0361/userdata --userconfig-dir /home/tongshu/curated_bc_20261031/src/data/datasets/human/capture/game_0361/config --usercache-dir /home/tongshu/curated_bc_20261031/src/data/datasets/human/capture/game_0361/cache --nosound --exit-at-end --log-info=replay
+ 707252  0.0  0.0 [kworker/2:2-events]
+ 697157  0.0  0.0 [kworker/0:1-events]
+ 707200  0.0  0.0 [kworker/6:0-events]
+ 695780  0.0  0.0 [kworker/1:2-events]
+ 704823  0.0  0.0 [kworker/4:0-memcg]
+ 280553  0.0  0.5 /usr/bin/gnome-shell
+ 708230  0.0  0.0 [kworker/4:1-events]
+ 700491  0.0  0.0 [kworker/3:2-cgroup_release]
+    898  0.0  0.2 /usr/lib/polkit-1/polkitd --no-debug

@@ -8,15 +8,15 @@
 - **最小 Ubuntu 输入/流程：** 源码不变时复用已记录的 67 项正确性检查和八场景原生查询审计。后续强度改进需要另行授权，用 `python -m learning.teacher_remote` 传输已提交源码，在新日期目录中冻结验证/留出设计并完成原生座位轮换。既有留出结果和选中策略保持不可变。正确性测试已经编写；剩余缺口是 FFA 强度证据。
 - **通过标准：** 各赛制/时域有完整配对座位轮换、至少 12 个物理场景、无参赛者故障，六组归一化平均提升均至少 0.10，场景聚类 95% 区间下界均大于零。自然终局、封顶平局、中断及耗时分别报告，到点不降低标准。
 - **证据：** [完整实验与交付](../verification/teacher_search_20261107/REPORT.md)：五小时探索、84 局验证、524 局留出核验、选中包身份、耗时及保留的失败记录。当前独立交付位于 `delivery/search_teacher_20261107/`。
-- **训练阻塞：** 阻塞整体六组强度达标声明及自动接入训练。单挑/2v2 验收仅覆盖报告中的地图、场景和不等动作预算；当前 Astra 教师不变。
+- **训练阻塞：** 阻塞整体六组强度达标声明及将新 FFA 策略视为已验收升级。混合集合保留 FFA Astra；其默认启用由 T1 独立约束。单挑/2v2 强度验收范围保持原报告不变。
 
-## T1. 混合教师接入
+## T1. 混合教师默认启用
 
-- **状态/原因：** 教师选择/数据接口与 Native/Lite 固定执行/查询检查已在 Ubuntu 通过。实验角色接线及回归已完成；显式混合集合已可运行，固定 48 局有界采样验收待完成，默认仍为 Astra。
-- **最小 Ubuntu 输入/流程：** 将提交源码传至新的 `teacher_integration_20261107` 源码目录，执行 `tests.test_teacher_set` 及受影响回归。后续补查询纯度/预算/宿主/数据测试，并执行已授权的 48 局、8 workers、train 地图面板（每赛制/后端各 4 局 BC 和 4 局 PPO/DAgger，上限一小时，不运行优化器）。
-- **通过标准：** 策略、角色及来源正确冻结；查询无副作用、执行合法、调用有界；预定面板完整且无故障；总体覆盖 >=90%，招募/移动/攻击各 >=80% 且分母非零。未命中标签保留原始历史。缺失检查或覆盖失败阻止默认启用，不追加局数、不降低门槛。
-- **证据：** [教师集合契约](../verification/teacher_integration_20261107/contract/REPORT.md)、[数据来源与导出](../verification/teacher_integration_20261107/provenance/REPORT.md)、[Native 执行/查询夹具](../verification/teacher_integration_20261107/native/REPORT.md)、[Lite 宿主与采集夹具](../verification/teacher_integration_20261107/lite/REPORT.md)。[角色回归](../verification/teacher_integration_20261107/roles/REPORT.md)。48 局面板尚待执行。
-- **训练阻塞：** 阻止启用混合默认值。本项验收不证明 BC 资格、学生棋力或 Lite/原生规则等价。
+- **状态/原因：** Native/Lite 接入代码和固定契约已实现。一次性 48 任务 Ubuntu 面板返回 36 个正常完成和 12 个基础设施错误。Native BC 因验收脚本支持插件命名空间错误失败；脚本已修复且无对局断言通过，但未重跑任何对局。Lite 单挑/团队总覆盖率为 77.41%/68.77%，FFA 以 91.84% 通过。默认仍为 Astra，混合运行须显式选择。
+- **最小 Ubuntu 输入/流程：** 复用已验收契约及修正后的 `tests.test_teacher_integration_panel` 设计测试。后续采样须另行授权，以 `tests/ship_teacher_integration.py` 传至新日期目录；原 48 任务及结果保持不可变。不自动加赛，不修改冻结策略/候选或降低覆盖门槛；兼容性改动须另定范围。
+- **通过标准：** 预定 48 任务全部完成，无故障/硬超时；教师身份/来源和 DAgger 对应历史正确；实际落盘有效查询非零；BC 总覆盖 >=90%，招募/移动/攻击各 >=80% 且分母非零。固定测试已编写，修正后的完整 Native 采样与混合默认启用仍未验收。
+- **证据：** [有界面板、失败、覆盖和吞吐](../verification/teacher_integration_20261107/panel/REPORT.md)、[角色回归](../verification/teacher_integration_20261107/roles/REPORT.md)、[Native 夹具](../verification/teacher_integration_20261107/native/REPORT.md)、[Lite 夹具](../verification/teacher_integration_20261107/lite/REPORT.md)。
+- **训练阻塞：** 阻止混合默认值；本次测试与面板不授予 BC 资格、学生棋力、正式训练权限或 Lite/原生等价声明。
 
 ## F2. 有限任务剩余就绪与 critic 校准
 

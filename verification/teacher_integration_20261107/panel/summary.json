@@ -1,0 +1,768 @@
+{
+  "source_commit": "1a87e9d883813a355b316edb0a53cb086b90622d",
+  "seconds": 485.5563340187073,
+  "games": 48,
+  "cells": {
+    "native/duel": {
+      "completed": 4,
+      "planned": 8,
+      "coverage": {
+        "passed": false,
+        "actions": {
+          "all": {
+            "matched": 0,
+            "total": 0,
+            "ratio": 0
+          },
+          "recruit": {
+            "matched": 0,
+            "total": 0,
+            "ratio": 0
+          },
+          "move": {
+            "matched": 0,
+            "total": 0,
+            "ratio": 0
+          },
+          "attack": {
+            "matched": 0,
+            "total": 0,
+            "ratio": 0
+          }
+        },
+        "reasons": {}
+      },
+      "miss_reasons": {},
+      "queries": 42,
+      "valid_queries": 39,
+      "query_seconds": 5.021,
+      "max_query_ms": 707,
+      "per_game_p95_query_ms": {
+        "native-rollout-00000-duel-g0": 671,
+        "native-rollout-00000-duel-g2": 174,
+        "native-rollout-00000-duel-g1": 707,
+        "native-rollout-00000-duel-g3": 428,
+        "native-teacher-00000-duel-t0": 0,
+        "native-teacher-00002-duel-t0": 0,
+        "native-teacher-00001-duel-t0": 0,
+        "native-teacher-00003-duel-t0": 0
+      },
+      "valid_supervision": 39,
+      "valid_supervision_per_hour": 289.1528544957478,
+      "faults": [
+        {
+          "id": "native-teacher-00000-duel-t0",
+          "status": "infrastructure_error",
+          "error": "uncaught native scripting/configuration error; inspect /home/tongshu/myDev/wesnothLearning/verification/teacher_integration_20261107/panel_20261107T0802/native/duel/replays/native-teacher-00000-duel-t0.log",
+          "faults": null
+        },
+        {
+          "id": "native-teacher-00002-duel-t0",
+          "status": "infrastructure_error",
+          "error": "uncaught native scripting/configuration error; inspect /home/tongshu/myDev/wesnothLearning/verification/teacher_integration_20261107/panel_20261107T0802/native/duel/replays/native-teacher-00002-duel-t0.log",
+          "faults": null
+        },
+        {
+          "id": "native-teacher-00001-duel-t0",
+          "status": "infrastructure_error",
+          "error": "uncaught native scripting/configuration error; inspect /home/tongshu/myDev/wesnothLearning/verification/teacher_integration_20261107/panel_20261107T0802/native/duel/replays/native-teacher-00001-duel-t0.log",
+          "faults": null
+        },
+        {
+          "id": "native-teacher-00003-duel-t0",
+          "status": "infrastructure_error",
+          "error": "uncaught native scripting/configuration error; inspect /home/tongshu/myDev/wesnothLearning/verification/teacher_integration_20261107/panel_20261107T0802/native/duel/replays/native-teacher-00003-duel-t0.log",
+          "faults": null
+        }
+      ],
+      "errors": [],
+      "audits": {
+        "native-rollout-00000-duel-g0": {
+          "rows": 28,
+          "valid": 28,
+          "unmatched": 1,
+          "dagger_rows": 28,
+          "dagger_valid": 5,
+          "dagger_queries": 6,
+          "errors": []
+        },
+        "native-rollout-00000-duel-g2": {
+          "rows": 112,
+          "valid": 112,
+          "unmatched": 1,
+          "dagger_rows": 112,
+          "dagger_valid": 27,
+          "dagger_queries": 28,
+          "errors": []
+        },
+        "native-rollout-00000-duel-g1": {
+          "rows": 26,
+          "valid": 26,
+          "unmatched": 1,
+          "dagger_rows": 26,
+          "dagger_valid": 5,
+          "dagger_queries": 6,
+          "errors": []
+        },
+        "native-rollout-00000-duel-g3": {
+          "rows": 12,
+          "valid": 12,
+          "unmatched": 0,
+          "dagger_rows": 12,
+          "dagger_valid": 2,
+          "dagger_queries": 2,
+          "errors": []
+        }
+      },
+      "passed": false
+    },
+    "native/ffa4": {
+      "completed": 4,
+      "planned": 8,
+      "coverage": {
+        "passed": false,
+        "actions": {
+          "all": {
+            "matched": 0,
+            "total": 0,
+            "ratio": 0
+          },
+          "recruit": {
+            "matched": 0,
+            "total": 0,
+            "ratio": 0
+          },
+          "move": {
+            "matched": 0,
+            "total": 0,
+            "ratio": 0
+          },
+          "attack": {
+            "matched": 0,
+            "total": 0,
+            "ratio": 0
+          }
+        },
+        "reasons": {}
+      },
+      "miss_reasons": {},
+      "queries": 54,
+      "valid_queries": 53,
+      "query_seconds": 0.5459999999999999,
+      "max_query_ms": 43,
+      "per_game_p95_query_ms": {
+        "native-rollout-00000-ffa4-g0": 14,
+        "native-rollout-00000-ffa4-g3": 7,
+        "native-rollout-00000-ffa4-g2": 43,
+        "native-rollout-00000-ffa4-g1": 32,
+        "native-teacher-00000-ffa4-t0": 0,
+        "native-teacher-00003-ffa4-t0": 0,
+        "native-teacher-00002-ffa4-t0": 0,
+        "native-teacher-00001-ffa4-t0": 0
+      },
+      "valid_supervision": 53,
+      "valid_supervision_per_hour": 392.951315083965,
+      "faults": [
+        {
+          "id": "native-teacher-00000-ffa4-t0",
+          "status": "infrastructure_error",
+          "error": "uncaught native scripting/configuration error; inspect /home/tongshu/myDev/wesnothLearning/verification/teacher_integration_20261107/panel_20261107T0802/native/ffa4/replays/native-teacher-00000-ffa4-t0.log",
+          "faults": null
+        },
+        {
+          "id": "native-teacher-00003-ffa4-t0",
+          "status": "infrastructure_error",
+          "error": "uncaught native scripting/configuration error; inspect /home/tongshu/myDev/wesnothLearning/verification/teacher_integration_20261107/panel_20261107T0802/native/ffa4/replays/native-teacher-00003-ffa4-t0.log",
+          "faults": null
+        },
+        {
+          "id": "native-teacher-00002-ffa4-t0",
+          "status": "infrastructure_error",
+          "error": "uncaught native scripting/configuration error; inspect /home/tongshu/myDev/wesnothLearning/verification/teacher_integration_20261107/panel_20261107T0802/native/ffa4/replays/native-teacher-00002-ffa4-t0.log",
+          "faults": null
+        },
+        {
+          "id": "native-teacher-00001-ffa4-t0",
+          "status": "infrastructure_error",
+          "error": "uncaught native scripting/configuration error; inspect /home/tongshu/myDev/wesnothLearning/verification/teacher_integration_20261107/panel_20261107T0802/native/ffa4/replays/native-teacher-00001-ffa4-t0.log",
+          "faults": null
+        }
+      ],
+      "errors": [],
+      "audits": {
+        "native-rollout-00000-ffa4-g0": {
+          "rows": 48,
+          "valid": 48,
+          "unmatched": 0,
+          "dagger_rows": 48,
+          "dagger_valid": 12,
+          "dagger_queries": 12,
+          "errors": []
+        },
+        "native-rollout-00000-ffa4-g3": {
+          "rows": 22,
+          "valid": 22,
+          "unmatched": 0,
+          "dagger_rows": 22,
+          "dagger_valid": 5,
+          "dagger_queries": 5,
+          "errors": []
+        },
+        "native-rollout-00000-ffa4-g2": {
+          "rows": 42,
+          "valid": 42,
+          "unmatched": 1,
+          "dagger_rows": 42,
+          "dagger_valid": 9,
+          "dagger_queries": 10,
+          "errors": []
+        },
+        "native-rollout-00000-ffa4-g1": {
+          "rows": 116,
+          "valid": 116,
+          "unmatched": 0,
+          "dagger_rows": 116,
+          "dagger_valid": 27,
+          "dagger_queries": 27,
+          "errors": []
+        }
+      },
+      "passed": false
+    },
+    "native/team2v2": {
+      "completed": 4,
+      "planned": 8,
+      "coverage": {
+        "passed": false,
+        "actions": {
+          "all": {
+            "matched": 0,
+            "total": 0,
+            "ratio": 0
+          },
+          "recruit": {
+            "matched": 0,
+            "total": 0,
+            "ratio": 0
+          },
+          "move": {
+            "matched": 0,
+            "total": 0,
+            "ratio": 0
+          },
+          "attack": {
+            "matched": 0,
+            "total": 0,
+            "ratio": 0
+          }
+        },
+        "reasons": {}
+      },
+      "miss_reasons": {},
+      "queries": 50,
+      "valid_queries": 42,
+      "query_seconds": 22.682,
+      "max_query_ms": 720,
+      "per_game_p95_query_ms": {
+        "native-rollout-00000-team2v2-g0": 700,
+        "native-rollout-00000-team2v2-g3": 700,
+        "native-rollout-00000-team2v2-g2": 720,
+        "native-rollout-00000-team2v2-g1": 712,
+        "native-teacher-00000-team2v2-t0": 0,
+        "native-teacher-00003-team2v2-t0": 0,
+        "native-teacher-00002-team2v2-t0": 0,
+        "native-teacher-00001-team2v2-t0": 0
+      },
+      "valid_supervision": 42,
+      "valid_supervision_per_hour": 311.3953817646515,
+      "faults": [
+        {
+          "id": "native-teacher-00000-team2v2-t0",
+          "status": "infrastructure_error",
+          "error": "uncaught native scripting/configuration error; inspect /home/tongshu/myDev/wesnothLearning/verification/teacher_integration_20261107/panel_20261107T0802/native/team2v2/replays/native-teacher-00000-team2v2-t0.log",
+          "faults": null
+        },
+        {
+          "id": "native-teacher-00003-team2v2-t0",
+          "status": "infrastructure_error",
+          "error": "uncaught native scripting/configuration error; inspect /home/tongshu/myDev/wesnothLearning/verification/teacher_integration_20261107/panel_20261107T0802/native/team2v2/replays/native-teacher-00003-team2v2-t0.log",
+          "faults": null
+        },
+        {
+          "id": "native-teacher-00002-team2v2-t0",
+          "status": "infrastructure_error",
+          "error": "uncaught native scripting/configuration error; inspect /home/tongshu/myDev/wesnothLearning/verification/teacher_integration_20261107/panel_20261107T0802/native/team2v2/replays/native-teacher-00002-team2v2-t0.log",
+          "faults": null
+        },
+        {
+          "id": "native-teacher-00001-team2v2-t0",
+          "status": "infrastructure_error",
+          "error": "uncaught native scripting/configuration error; inspect /home/tongshu/myDev/wesnothLearning/verification/teacher_integration_20261107/panel_20261107T0802/native/team2v2/replays/native-teacher-00001-team2v2-t0.log",
+          "faults": null
+        }
+      ],
+      "errors": [],
+      "audits": {
+        "native-rollout-00000-team2v2-g0": {
+          "rows": 19,
+          "valid": 19,
+          "unmatched": 0,
+          "dagger_rows": 19,
+          "dagger_valid": 4,
+          "dagger_queries": 4,
+          "errors": []
+        },
+        "native-rollout-00000-team2v2-g3": {
+          "rows": 79,
+          "valid": 79,
+          "unmatched": 3,
+          "dagger_rows": 79,
+          "dagger_valid": 16,
+          "dagger_queries": 19,
+          "errors": []
+        },
+        "native-rollout-00000-team2v2-g2": {
+          "rows": 36,
+          "valid": 36,
+          "unmatched": 1,
+          "dagger_rows": 36,
+          "dagger_valid": 7,
+          "dagger_queries": 8,
+          "errors": []
+        },
+        "native-rollout-00000-team2v2-g1": {
+          "rows": 76,
+          "valid": 76,
+          "unmatched": 4,
+          "dagger_rows": 76,
+          "dagger_valid": 15,
+          "dagger_queries": 19,
+          "errors": []
+        }
+      },
+      "passed": false
+    },
+    "lite/duel": {
+      "completed": 8,
+      "planned": 8,
+      "coverage": {
+        "passed": false,
+        "actions": {
+          "all": {
+            "matched": 305,
+            "total": 394,
+            "ratio": 0.7741116751269036
+          },
+          "recruit": {
+            "matched": 25,
+            "total": 42,
+            "ratio": 0.5952380952380952
+          },
+          "move": {
+            "matched": 140,
+            "total": 199,
+            "ratio": 0.7035175879396985
+          },
+          "attack": {
+            "matched": 93,
+            "total": 106,
+            "ratio": 0.8773584905660378
+          }
+        },
+        "reasons": {
+          "attack:actor_absent": 1,
+          "attack:destination_absent": 10,
+          "attack:weapon_absent": 2,
+          "move:destination_absent": 59,
+          "move_attack:destination_absent": 10,
+          "move_attack:weapon_absent": 2,
+          "recruit:slot_absent": 8,
+          "recruit:type_absent": 9
+        }
+      },
+      "miss_reasons": {
+        "move_attack:weapon_absent": 2,
+        "attack:weapon_absent": 2,
+        "move_attack:destination_absent": 10,
+        "attack:destination_absent": 10,
+        "move:destination_absent": 59,
+        "recruit:slot_absent": 8,
+        "recruit:type_absent": 9,
+        "attack:actor_absent": 1
+      },
+      "queries": 45,
+      "valid_queries": 41,
+      "query_seconds": 7.304025771096349,
+      "max_query_ms": 607.9477439634502,
+      "per_game_p95_query_ms": {
+        "lite-rollout-00000-duel-g0": 427.8580790851265,
+        "lite-rollout-00000-duel-g2": 577.7556111570448,
+        "lite-rollout-00000-duel-g1": 103.23457699269056,
+        "lite-rollout-00000-duel-g3": 32.843338092789054,
+        "lite-teacher-00000-duel-t0": 0,
+        "lite-teacher-00002-duel-t0": 0,
+        "lite-teacher-00001-duel-t0": 0,
+        "lite-teacher-00003-duel-t0": 0
+      },
+      "valid_supervision": 346,
+      "valid_supervision_per_hour": 2565.3048116802242,
+      "faults": [],
+      "errors": [],
+      "audits": {
+        "lite-rollout-00000-duel-g0": {
+          "rows": 18,
+          "valid": 18,
+          "unmatched": 2,
+          "dagger_rows": 18,
+          "dagger_valid": 2,
+          "dagger_queries": 4,
+          "errors": []
+        },
+        "lite-rollout-00000-duel-g2": {
+          "rows": 220,
+          "valid": 220,
+          "unmatched": 2,
+          "dagger_rows": 220,
+          "dagger_valid": 30,
+          "dagger_queries": 32,
+          "errors": []
+        },
+        "lite-rollout-00000-duel-g1": {
+          "rows": 25,
+          "valid": 25,
+          "unmatched": 0,
+          "dagger_rows": 25,
+          "dagger_valid": 6,
+          "dagger_queries": 6,
+          "errors": []
+        },
+        "lite-rollout-00000-duel-g3": {
+          "rows": 13,
+          "valid": 13,
+          "unmatched": 0,
+          "dagger_rows": 13,
+          "dagger_valid": 3,
+          "dagger_queries": 3,
+          "errors": []
+        },
+        "lite-teacher-00000-duel-t0": {
+          "rows": 62,
+          "valid": 44,
+          "unmatched": 18,
+          "dagger_rows": 0,
+          "dagger_valid": 0,
+          "dagger_queries": 0,
+          "errors": []
+        },
+        "lite-teacher-00002-duel-t0": {
+          "rows": 43,
+          "valid": 38,
+          "unmatched": 5,
+          "dagger_rows": 0,
+          "dagger_valid": 0,
+          "dagger_queries": 0,
+          "errors": []
+        },
+        "lite-teacher-00001-duel-t0": {
+          "rows": 133,
+          "valid": 106,
+          "unmatched": 27,
+          "dagger_rows": 0,
+          "dagger_valid": 0,
+          "dagger_queries": 0,
+          "errors": []
+        },
+        "lite-teacher-00003-duel-t0": {
+          "rows": 156,
+          "valid": 117,
+          "unmatched": 39,
+          "dagger_rows": 0,
+          "dagger_valid": 0,
+          "dagger_queries": 0,
+          "errors": []
+        }
+      },
+      "passed": false
+    },
+    "lite/ffa4": {
+      "completed": 8,
+      "planned": 8,
+      "coverage": {
+        "passed": true,
+        "actions": {
+          "all": {
+            "matched": 630,
+            "total": 686,
+            "ratio": 0.9183673469387755
+          },
+          "recruit": {
+            "matched": 50,
+            "total": 62,
+            "ratio": 0.8064516129032258
+          },
+          "move": {
+            "matched": 216,
+            "total": 231,
+            "ratio": 0.935064935064935
+          },
+          "attack": {
+            "matched": 246,
+            "total": 275,
+            "ratio": 0.8945454545454545
+          }
+        },
+        "reasons": {
+          "attack:actor_absent": 1,
+          "attack:destination_absent": 25,
+          "attack:kind_absent": 1,
+          "attack:weapon_absent": 2,
+          "move:destination_absent": 15,
+          "move_attack:destination_absent": 25,
+          "move_attack:weapon_absent": 2,
+          "recruit:slot_absent": 8,
+          "recruit:type_absent": 4
+        }
+      },
+      "miss_reasons": {
+        "move:destination_absent": 15,
+        "move_attack:weapon_absent": 2,
+        "attack:weapon_absent": 2,
+        "move_attack:destination_absent": 25,
+        "attack:destination_absent": 25,
+        "recruit:type_absent": 4,
+        "recruit:slot_absent": 8,
+        "attack:actor_absent": 1,
+        "attack:kind_absent": 1
+      },
+      "queries": 102,
+      "valid_queries": 98,
+      "query_seconds": 0.835573147283867,
+      "max_query_ms": 29.423690866678953,
+      "per_game_p95_query_ms": {
+        "lite-rollout-00000-ffa4-g0": 16.931429971009493,
+        "lite-rollout-00000-ffa4-g3": 13.771735830232501,
+        "lite-rollout-00000-ffa4-g2": 20.483532920479774,
+        "lite-rollout-00000-ffa4-g1": 25.711213937029243,
+        "lite-teacher-00000-ffa4-t0": 0,
+        "lite-teacher-00003-ffa4-t0": 0,
+        "lite-teacher-00002-ffa4-t0": 0,
+        "lite-teacher-00001-ffa4-t0": 0
+      },
+      "valid_supervision": 728,
+      "valid_supervision_per_hour": 5397.519950587293,
+      "faults": [],
+      "errors": [],
+      "audits": {
+        "lite-rollout-00000-ffa4-g0": {
+          "rows": 136,
+          "valid": 136,
+          "unmatched": 3,
+          "dagger_rows": 136,
+          "dagger_valid": 29,
+          "dagger_queries": 32,
+          "errors": []
+        },
+        "lite-rollout-00000-ffa4-g3": {
+          "rows": 66,
+          "valid": 66,
+          "unmatched": 0,
+          "dagger_rows": 66,
+          "dagger_valid": 16,
+          "dagger_queries": 16,
+          "errors": []
+        },
+        "lite-rollout-00000-ffa4-g2": {
+          "rows": 100,
+          "valid": 100,
+          "unmatched": 1,
+          "dagger_rows": 100,
+          "dagger_valid": 24,
+          "dagger_queries": 25,
+          "errors": []
+        },
+        "lite-rollout-00000-ffa4-g1": {
+          "rows": 116,
+          "valid": 116,
+          "unmatched": 0,
+          "dagger_rows": 116,
+          "dagger_valid": 29,
+          "dagger_queries": 29,
+          "errors": []
+        },
+        "lite-teacher-00000-ffa4-t0": {
+          "rows": 121,
+          "valid": 114,
+          "unmatched": 7,
+          "dagger_rows": 0,
+          "dagger_valid": 0,
+          "dagger_queries": 0,
+          "errors": []
+        },
+        "lite-teacher-00003-ffa4-t0": {
+          "rows": 162,
+          "valid": 158,
+          "unmatched": 4,
+          "dagger_rows": 0,
+          "dagger_valid": 0,
+          "dagger_queries": 0,
+          "errors": []
+        },
+        "lite-teacher-00002-ffa4-t0": {
+          "rows": 194,
+          "valid": 167,
+          "unmatched": 27,
+          "dagger_rows": 0,
+          "dagger_valid": 0,
+          "dagger_queries": 0,
+          "errors": []
+        },
+        "lite-teacher-00001-ffa4-t0": {
+          "rows": 209,
+          "valid": 191,
+          "unmatched": 18,
+          "dagger_rows": 0,
+          "dagger_valid": 0,
+          "dagger_queries": 0,
+          "errors": []
+        }
+      },
+      "passed": true
+    },
+    "lite/team2v2": {
+      "completed": 8,
+      "planned": 8,
+      "coverage": {
+        "passed": false,
+        "actions": {
+          "all": {
+            "matched": 240,
+            "total": 349,
+            "ratio": 0.6876790830945558
+          },
+          "recruit": {
+            "matched": 37,
+            "total": 41,
+            "ratio": 0.9024390243902439
+          },
+          "move": {
+            "matched": 74,
+            "total": 174,
+            "ratio": 0.42528735632183906
+          },
+          "attack": {
+            "matched": 77,
+            "total": 82,
+            "ratio": 0.9390243902439024
+          }
+        },
+        "reasons": {
+          "attack:destination_absent": 5,
+          "move:destination_absent": 100,
+          "move_attack:destination_absent": 5,
+          "recruit:slot_absent": 4
+        }
+      },
+      "miss_reasons": {
+        "move:destination_absent": 100,
+        "move_attack:destination_absent": 5,
+        "attack:destination_absent": 5,
+        "recruit:slot_absent": 4
+      },
+      "queries": 40,
+      "valid_queries": 39,
+      "query_seconds": 14.89510563085787,
+      "max_query_ms": 702.0414711441845,
+      "per_game_p95_query_ms": {
+        "lite-rollout-00000-team2v2-g0": 701.250126119703,
+        "lite-rollout-00000-team2v2-g3": 618.4492278844118,
+        "lite-rollout-00000-team2v2-g2": 701.5216390136629,
+        "lite-rollout-00000-team2v2-g1": 702.0414711441845,
+        "lite-teacher-00000-team2v2-t0": 0,
+        "lite-teacher-00003-team2v2-t0": 0,
+        "lite-teacher-00002-team2v2-t0": 0,
+        "lite-teacher-00001-team2v2-t0": 0
+      },
+      "valid_supervision": 279,
+      "valid_supervision_per_hour": 2068.555036008042,
+      "faults": [],
+      "errors": [],
+      "audits": {
+        "lite-rollout-00000-team2v2-g0": {
+          "rows": 39,
+          "valid": 39,
+          "unmatched": 1,
+          "dagger_rows": 39,
+          "dagger_valid": 8,
+          "dagger_queries": 9,
+          "errors": []
+        },
+        "lite-rollout-00000-team2v2-g3": {
+          "rows": 71,
+          "valid": 71,
+          "unmatched": 0,
+          "dagger_rows": 71,
+          "dagger_valid": 17,
+          "dagger_queries": 17,
+          "errors": []
+        },
+        "lite-rollout-00000-team2v2-g2": {
+          "rows": 28,
+          "valid": 28,
+          "unmatched": 0,
+          "dagger_rows": 28,
+          "dagger_valid": 7,
+          "dagger_queries": 7,
+          "errors": []
+        },
+        "lite-rollout-00000-team2v2-g1": {
+          "rows": 29,
+          "valid": 29,
+          "unmatched": 0,
+          "dagger_rows": 29,
+          "dagger_valid": 7,
+          "dagger_queries": 7,
+          "errors": []
+        },
+        "lite-teacher-00000-team2v2-t0": {
+          "rows": 39,
+          "valid": 28,
+          "unmatched": 11,
+          "dagger_rows": 0,
+          "dagger_valid": 0,
+          "dagger_queries": 0,
+          "errors": []
+        },
+        "lite-teacher-00003-team2v2-t0": {
+          "rows": 125,
+          "valid": 88,
+          "unmatched": 37,
+          "dagger_rows": 0,
+          "dagger_valid": 0,
+          "dagger_queries": 0,
+          "errors": []
+        },
+        "lite-teacher-00002-team2v2-t0": {
+          "rows": 67,
+          "valid": 50,
+          "unmatched": 17,
+          "dagger_rows": 0,
+          "dagger_valid": 0,
+          "dagger_queries": 0,
+          "errors": []
+        },
+        "lite-teacher-00001-team2v2-t0": {
+          "rows": 118,
+          "valid": 74,
+          "unmatched": 44,
+          "dagger_rows": 0,
+          "dagger_valid": 0,
+          "dagger_queries": 0,
+          "errors": []
+        }
+      },
+      "passed": false
+    }
+  },
+  "passed": false,
+  "scope": "integration only; no BC qualification, optimizer, corpus promotion or strength claim"
+}
