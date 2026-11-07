@@ -36,6 +36,12 @@ class TeacherIntegrationPanelTests(unittest.TestCase):
             for path in (ppo['shard'],ppo['shard'].replace('.jsonl.gz','.dagger.jsonl.gz')):
                 with gzip.open(path,'wt'):pass
             self.assertIn('empty student or teacher shard',audit_rows(ppo)['errors'])
+            from tests.v5.test_teacher_provenance import teacher_row
+            import json
+            bc=next(j for j in jobs if j['engine']=='lite' and j['format']=='duel' and j['meta']['phase']=='teacher')
+            row=teacher_row();row.update(game_id=bc['id'],task_id=bc['task_id'],side=bc['meta']['seat'],source='policy')
+            with gzip.open(bc['shard'],'wt') as stream:stream.write(json.dumps(row)+'\n')
+            self.assertIn('teacher row is in the wrong source category',audit_rows(bc)['errors'])
             records=[dict(id=j['id'],status='complete',meta=j['meta'],result=dict(faults=[]),
                 coverage=dict(total=100,matched=100,kinds={k:dict(total=10,matched=10) for k in ('recruit','move','attack')}),
                 teacher_queries=dict(valid=1,queries=1) if j['meta']['phase']=='ppo' else {}) for j in jobs]
