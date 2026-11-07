@@ -3,7 +3,7 @@ import json
 import shutil
 import torch
 from .common import ROOT, write_json, sha256
-from .checkpoints import validate_checkpoint
+from .checkpoints import checkpoint_model
 from .features import schema
 from .model import Policy,ARCHITECTURE
 from .formats import FORMATS
@@ -13,12 +13,12 @@ import addons
 import native
 
 def lua_parameters(model):
-    layers = dict(architecture_id='relational_v5',unit_embedding=model.unit_embedding.weight.detach().cpu().tolist())
+    layers = dict(architecture_id=ARCHITECTURE['id'],unit_embedding=model.unit_embedding.weight.detach().cpu().tolist())
     for name, group in [('opponent', model.opponent), ('scorer', model.scorer), ('value', model.value)]:
         layers[name] = [dict(weight=l.weight.detach().cpu().tolist(), bias=l.bias.detach().cpu().tolist())
                         for l in group if isinstance(l, torch.nn.Linear)]
     def linear(layer): return dict(weight=layer.weight.detach().cpu().tolist(),bias=layer.bias.detach().cpu().tolist())
-    for name in ('entity','conv1','conv2','local','summary','memory_query','memory_key','memory_value'):
+    for name in ('entity','conv1','conv2','board_readout','local','summary','memory_query','memory_key','memory_value'):
         layers[name]=linear(getattr(model,name))
     layers['entities']=[{name:linear(getattr(block,name)) for name in ('q','k','v','out','ff1','ff2')} for block in model.entities]
     layers['gru']={name:param.detach().cpu().tolist() for name,param in model.gru.named_parameters()}
@@ -82,10 +82,8 @@ def export(models, destination, name='NeuralArena', mode='greedy', version='untr
 
 
 def load_model(checkpoint, format_name, device='cpu'):
-    state = validate_checkpoint(torch.load(checkpoint, map_location=device, weights_only=False), format_name)
-    model = Policy(format_name).to(device)
-    model.load_state_dict(state['model'])
-    return model, state
+    state = torch.load(checkpoint, map_location=device, weights_only=False)
+    return checkpoint_model(state, format_name, device), state
 
 
 def export_checkpoints(checkpoints, destination, name='NeuralArena', evaluation=None, audit_records=None, *,

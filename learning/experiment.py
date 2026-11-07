@@ -17,9 +17,9 @@ from .evaluate import comparisons, choose_controls, selection_key, overall_statu
 from .export import export, load_model, write_config
 from .features import schema
 from .formats import FORMATS, PLAYERS
-from .model import Policy
+from .model import ARCHITECTURE, Policy
 from .schedule import calibration_jobs, teacher_jobs, rollout_jobs, evaluation_jobs, freeze_schedule
-from .checkpoints import inherited_checkpoint, validate_checkpoint, resume_pins, EXECUTION_VERSION
+from .checkpoints import checkpoint_model, inherited_checkpoint, validate_checkpoint, resume_pins, EXECUTION_VERSION
 from .ppo import PLAN_VERSION
 from .train import checkpoint, restore_rng, train, imitation_quality
 from .updates import rollout_identity
@@ -214,7 +214,7 @@ class FormatExperiment:
         self.exe=manifest['baseline']['path']
         info=None;loaded=None
         if (resume or branch) and (self.directory/'latest.pt').exists():
-            self.model,loaded=load_model(self.directory/'latest.pt',fmt,self.device)
+            loaded=torch.load(self.directory/'latest.pt',map_location=self.device,weights_only=False)
             lineage=inherited_checkpoint(self.directory,loaded)
             if branch or lineage:
                 if lineage is None: raise ValueError('branch run has no branch.json')
@@ -222,11 +222,12 @@ class FormatExperiment:
                 record=info['checkpoints'][fmt]
                 if sha256(self.directory/'latest.pt')!=record['sha256']:
                     raise ValueError('branch checkpoint changed after it was copied')
-                validate_checkpoint(loaded,fmt,None)
                 if loaded.get('manifest_sha256')!=info['parent_manifest_sha256']:
                     raise ValueError('branch checkpoint belongs to a different parent manifest')
             else:
                 validate_resume(loaded,fmt,self.directory)
+            self.model=checkpoint_model(loaded,fmt,self.device,
+                actor_initializer=bool(info and info.get('weights_only')))
         if loaded is not None:
             self.optimizer=torch.optim.Adam(self.model.parameters(),lr=self.config['learning_rate'])
             if not (info and info['reset_optimizer']):
@@ -297,19 +298,20 @@ class FormatExperiment:
         destination=self.directory/'policies'/folder;addon=destination/name
         if addon.exists():
             # Internal exports are not SDK submissions (export(package=False)).
-            # Check their frozen schema and weights without imposing the SDK's
+            # Check their frozen schema, architecture and weights without imposing the SDK's
             # 16 MiB submission limit during resume.
             metadata=read_json(destination/'export.json')
             weights=metadata.get('models',{}).get(model.format_name,{})
             if metadata.get('features')!=json.loads(json.dumps(schema())) or not (addon/'lua/bot.lua').is_file():
                 raise ValueError('internal policy export schema or entry differs')
+            if metadata.get('architecture')!=ARCHITECTURE:
+                raise ValueError('internal policy export architecture differs')
             if sha256(addon/'lua'/f'weights_{model.format_name}.lua')!=weights.get('sha256'):
                 raise ValueError('internal policy export weights differ')
             write_config(addon, mode, version or folder, [model.format_name])
         else: export(model,destination,name=name,mode=mode,version=version or folder,package=False,identity=self.identity())
         tensor_path=destination/'model.pt'
         if not tensor_path.exists():
-            from .model import ARCHITECTURE
             temporary=tensor_path.with_suffix('.tmp')
             torch.save(dict(model={k:v.detach().cpu() for k,v in model.state_dict().items()},features=schema(),architecture=ARCHITECTURE,format=model.format_name),temporary)
             temporary.replace(tensor_path)

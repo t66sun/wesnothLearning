@@ -41,6 +41,27 @@ local function conv(x,l)
     end
     return y
 end
+local board_axis={}
+for i=1,16 do board_axis[i]=(2*i-17)/16 end
+
+local function board_readout(board,projection)
+    local grid={}
+    for i,rows in ipairs(board) do
+        local total,xmoment,ymoment=0,0,0
+        for y,row in ipairs(rows) do
+            local row_total=0
+            for x,v in ipairs(row) do
+                row_total=row_total+v
+                xmoment=xmoment+v*board_axis[x]
+            end
+            total=total+row_total
+            ymoment=ymoment+row_total*board_axis[y]
+        end
+        grid[i],grid[16+i],grid[32+i]=total/256,xmoment/256,ymoment/256
+    end
+    return linear(grid,projection)
+end
+
 function M.scene(w,g,opponents,spatial)
     local mean,maximum=zeros(16),zeros(16)
     for _,o in ipairs(opponents) do local e=linear(o,w.opponent[1],true)
@@ -68,8 +89,8 @@ function M.scene(w,g,opponents,spatial)
     end
     local pool=zeros(64)
     for _,e in ipairs(entities) do for j,v in ipairs(e) do pool[j]=pool[j]+v/#entities end end
-    local board=conv(conv(spatial.board,w.conv1),w.conv2);local grid=zeros(16)
-    for i,rows in ipairs(board) do for _,row in ipairs(rows) do for _,v in ipairs(row) do grid[i]=grid[i]+v/256 end end end
+    local board=conv(conv(spatial.board,w.conv1),w.conv2)
+    local grid=board_readout(board,w.board_readout)
     local scene={};append(scene,g);append(scene,mean);append(scene,maximum);append(scene,pool);append(scene,grid)
     return scene,entities,lookup
 end

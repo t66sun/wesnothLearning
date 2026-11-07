@@ -112,6 +112,13 @@ class FailureBoundaryTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,'16 MiB'):
                 addons.validate(addon)
             self.assertEqual(FormatExperiment.ensure_export(runner,model,'support','LearningSupport'),str(addon))
+            metadata_path = addon.parent/'export.json'
+            metadata = read_json(metadata_path)
+            old_architecture = {k: v for k, v in metadata['architecture'].items() if k != 'spatial_readout'}
+            write_json(metadata_path, metadata | dict(architecture=old_architecture))
+            with self.assertRaisesRegex(ValueError, 'architecture differs'):
+                FormatExperiment.ensure_export(runner,model,'support','LearningSupport')
+            write_json(metadata_path, metadata)
             with (addon/'lua/weights_duel.lua').open('a') as stream: stream.write('--changed\n')
             with self.assertRaisesRegex(ValueError,'weights differ'):
                 FormatExperiment.ensure_export(runner,model,'support','LearningSupport')

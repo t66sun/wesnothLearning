@@ -5,10 +5,11 @@ from torch import nn
 from .features import GLOBAL, OPPONENT, ACTION, UNIT_TYPES, ENTITY, GEOMETRY, SPATIAL_CHANNELS
 from .formats import FORMATS
 
-ARCHITECTURE = dict(id='relational_v5', unit_embedding=16, entity_hidden=64, entity_layers=2,
+MEAN_BOARD_ARCHITECTURE = dict(id='relational_v5', unit_embedding=16, entity_hidden=64, entity_layers=2,
     heads=4, ffn=128, spatial_size=16, spatial_channels=len(SPATIAL_CHANNELS), conv_channels=16,
     local_hexes=19, local_hidden=32, gru=128, memory_slots=32, memory_hidden=64,
     scorer_hidden=[512,256,128], value_hidden=128, replay_turns=8)
+ARCHITECTURE = MEAN_BOARD_ARCHITECTURE | dict(spatial_readout='mean_xy')
 
 
 class EntityBlock(nn.Module):
@@ -46,6 +47,14 @@ class Policy(nn.Module):
         self.scorer=nn.Sequential(nn.Linear(context+len(ACTION)-1+16+128+32+len(GEOMETRY),512),nn.ReLU(),
             nn.Linear(512,256),nn.ReLU(),nn.Linear(256,128),nn.ReLU(),nn.Linear(128,1))
         self.value=nn.Sequential(nn.Linear(context,128),nn.ReLU(),nn.Linear(128,1))
+        self.board_readout = nn.Linear(48, 16)
+        with torch.no_grad():
+            self.board_readout.weight.zero_()
+            self.board_readout.weight[:, :16].copy_(torch.eye(16))
+            self.board_readout.bias.zero_()
+        size = ARCHITECTURE['spatial_size']
+        # Public bin centers on [-1, 1], in the same order as the Lua grid.
+        self.register_buffer('board_axis', torch.arange(1-size, size, 2) / size, persistent=False)
 
     def encode_scene(self,g,opponents,om,p):
         e=self.opponent(opponents)
@@ -55,7 +64,10 @@ class Policy(nn.Module):
         entities=torch.relu(self.entity(torch.cat([p['entities'],self.unit_embedding(p['types'])],-1)))
         for layer in self.entities: entities=layer(entities,p['entity_mask'])
         pool=(entities*p['entity_mask'][...,None]).sum(1)/p['entity_mask'].sum(1,keepdim=True).clamp(min=1)
-        board=torch.relu(self.conv2(torch.relu(self.conv1(p['board'])))).mean((-1,-2))
+        h = torch.relu(self.conv2(torch.relu(self.conv1(p['board']))))
+        board = self.board_readout(torch.cat((h.mean((-1, -2)),
+            (h * self.board_axis).mean((-1, -2)),
+            (h * self.board_axis[:, None]).mean((-1, -2))), dim=-1))
         return torch.cat([g,mean,maximum,pool,board],-1),entities
 
     def memory_read(self,h,slots,ages):

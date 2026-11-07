@@ -13,6 +13,7 @@ from learning.checkpoints import checkpoint, validate_checkpoint
 from learning.common import ROOT, read_json, sha256, write_json
 from learning.coordinator import Experiment
 from learning.experiment import FormatExperiment, default_config
+from learning.export import load_model
 from learning.manifest import verify_frozen
 from learning.maps import scenario_family
 from learning.tasks import LEGACY_TASK, TASK_ID, reward_config
@@ -92,6 +93,12 @@ class FiniteScoreIdentityTests(unittest.TestCase):
             source = parent/'duel/last_bc.pt'
             checkpoint(source, model, torch.optim.Adam(model.parameters(), lr=.02), runner=state,
                        manifest_sha256=sha256(parent/'manifest.json'), **old_identity.identity())
+            old = torch.load(source, weights_only=False)
+            old['architecture'] = {k: v for k, v in old['architecture'].items() if k != 'spatial_readout'}
+            old['model'] = {k: v for k, v in old['model'].items() if not k.startswith('board_readout.')}
+            torch.save(old, source)
+            with self.assertRaisesRegex(ValueError, 'architecture'):
+                load_model(source, 'duel')
             original = sha256(source)
             def freeze(directory, opponents, wesnoth, requested):
                 manifest = old_manifest | dict(config=requested, task_id=TASK_ID)
@@ -108,10 +115,14 @@ class FiniteScoreIdentityTests(unittest.TestCase):
             self.assertEqual(branch['checkpoints']['duel']['sha256'], original)
             collector = mock.Mock(side_effect=AssertionError('fixture must not collect'))
             with mock.patch.object(FormatExperiment, 'ensure_export', return_value='unused'):
-                runner = FormatExperiment(child/'duel', 'duel', run.manifest, run.clock, collector, branch=True)
+                # Recover a child interrupted after copying the pinned initializer.
+                runner = FormatExperiment(child/'duel', 'duel', run.manifest, run.clock, collector, resume=True)
                 for key, tensor in model.state_dict().items():
                     if not key.startswith('value.'):
                         self.assertTrue(torch.equal(tensor, runner.model.state_dict()[key]), key)
+                expected_readout = torch.cat((torch.eye(16), torch.zeros(16, 32)), dim=1)
+                torch.testing.assert_close(runner.model.board_readout.weight, expected_readout, rtol=0, atol=0)
+                self.assertTrue(torch.equal(runner.model.board_readout.bias, torch.zeros(16)))
                 self.assertNotEqual(runner.model.value[-1].bias.item(), 123.)
                 self.assertEqual(runner.optimizer.state_dict()['state'], {})
                 self.assertEqual(runner.state['stage'], 'calibration')

@@ -7,7 +7,7 @@ from pathlib import Path
 import torch
 
 from .features import schema
-from .model import ARCHITECTURE
+from .model import ARCHITECTURE, MEAN_BOARD_ARCHITECTURE, Policy
 
 CHECKPOINT_VERSION = 2
 EXECUTION_VERSION = 2
@@ -70,6 +70,11 @@ def resume_pins(directory):
 
 def validate_checkpoint(state, format_name=None, manifest_sha256=None, *, expected_task=None):
     """Reject a checkpoint that this execution cannot resume exactly."""
+    return _validate_checkpoint(state, format_name, manifest_sha256, expected_task=expected_task)
+
+
+def _validate_checkpoint(state, format_name=None, manifest_sha256=None, *, expected_task=None,
+                         architecture=ARCHITECTURE):
     version = state.get('checkpoint_version', 1)
     if expected_task is not None:
         from .tasks import require_task
@@ -80,7 +85,7 @@ def validate_checkpoint(state, format_name=None, manifest_sha256=None, *, expect
         raise ValueError('checkpoint was written by a newer execution format')
     if state.get('features') != schema():
         raise ValueError('checkpoint feature schema does not match this engine')
-    if state.get('architecture') != ARCHITECTURE:
+    if state.get('architecture') != architecture:
         raise ValueError('checkpoint network architecture does not match this engine')
     if format_name is not None and state.get('format') != format_name:
         raise ValueError('checkpoint belongs to a different format')
@@ -92,3 +97,15 @@ def validate_checkpoint(state, format_name=None, manifest_sha256=None, *, expect
         if state.get('manifest_sha256') not in accepted:
             raise ValueError('manifest changed')
     return state
+
+
+def checkpoint_model(state, format_name, device, *, actor_initializer=False):
+    """Load a policy, allowing the mean-board predecessor for explicit actor initialization."""
+    predecessor = actor_initializer and state.get('architecture') == MEAN_BOARD_ARCHITECTURE
+    _validate_checkpoint(state, format_name, architecture=MEAN_BOARD_ARCHITECTURE if predecessor else ARCHITECTURE)
+    model = Policy(format_name).to(device)
+    keys = model.load_state_dict(state['model'], strict=not predecessor)
+    if predecessor and (set(keys.missing_keys) != {'board_readout.weight', 'board_readout.bias'}
+                        or keys.unexpected_keys):
+        raise ValueError('predecessor checkpoint must contain exactly the mean-board parameters')
+    return model
