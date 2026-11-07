@@ -1,0 +1,13 @@
+Read-only post-run metadata probe; no training, game or file mutation.
+The probe incorrectly addressed <cell>-ledger.json['history']; the correct
+record is cells.json[<cell>]['ledger']['history']. Subsequent field reading
+used the recorded cells.json structure. This is not an experiment failure.
+
+Captured stderr:
+Traceback (most recent call last):
+  File "<stdin>", line 14, in <module>
+KeyError: 'history'
+
+Values printed before the field error:
+MC_PHASE first_ppo_bc_behavior {'trajectories': 11, 'decisions': 751, 'bias': 0.3122718984715878, 'mse': 0.5807183721212649}
+MC_PHASE late_ppo_behavior {'trajectories': 24, 'decisions': 2182, 'bias': -0.24398747355255238, 'mse': 0.7287851894369928}

@@ -1,0 +1,15 @@
+test_crossed_scenario_draw_is_shared_by_all_seeds_and_bc (verification.duel_ppo_comparison_20261106.test_contract.DuelComparisonContractTests.test_crossed_scenario_draw_is_shared_by_all_seeds_and_bc) ... ok
+test_equal_weight_roles_share_physical_results (verification.duel_ppo_comparison_20261106.test_contract.DuelComparisonContractTests.test_equal_weight_roles_share_physical_results) ... ok
+test_fixed_opponent_adapter_preserves_current_learner (verification.duel_ppo_comparison_20261106.test_contract.DuelComparisonContractTests.test_fixed_opponent_adapter_preserves_current_learner) ... ok
+test_incomplete_or_unmatched_panels_cannot_become_a_complete_comparison (verification.duel_ppo_comparison_20261106.test_contract.DuelComparisonContractTests.test_incomplete_or_unmatched_panels_cannot_become_a_complete_comparison) ... ok
+test_incomplete_validation_cannot_report_an_observed_experiment (verification.duel_ppo_comparison_20261106.test_contract.DuelComparisonContractTests.test_incomplete_validation_cannot_report_an_observed_experiment) ... ok
+test_inferior_to_a_and_noninferior_to_bc_are_both_reported (verification.duel_ppo_comparison_20261106.test_contract.DuelComparisonContractTests.test_inferior_to_a_and_noninferior_to_bc_are_both_reported) ... ok
+test_mc_deduplicates_identical_behavior_and_never_uses_teacher_returns (verification.duel_ppo_comparison_20261106.test_contract.DuelComparisonContractTests.test_mc_deduplicates_identical_behavior_and_never_uses_teacher_returns) ... ok
+test_pending_training_and_validation_keep_hard_settlement_deadline (verification.duel_ppo_comparison_20261106.test_contract.DuelComparisonContractTests.test_pending_training_and_validation_keep_hard_settlement_deadline) ... ok
+test_real_learn_boundary_keeps_whole_batches_and_admits_no_next_batch (verification.duel_ppo_comparison_20261106.test_contract.DuelComparisonContractTests.test_real_learn_boundary_keeps_whole_batches_and_admits_no_next_batch) ... ok
+test_zero_step_batches_count_fresh_and_rejected_work (verification.duel_ppo_comparison_20261106.test_contract.DuelComparisonContractTests.test_zero_step_batches_count_fresh_and_rejected_work) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.023s
+
+OK

@@ -1,0 +1,671 @@
+{
+  "status": "observed",
+  "scope": "complete MC versus the recorded on-policy behavior value; training-time diagnostic, not final-checkpoint calibration; no teacher continuation targets",
+  "unique_trajectories": 35,
+  "aliased_trajectories": 13,
+  "trajectories": {
+    "6c5bf6d94f05dfe7ec122b88bcb301eaaf6f9efece003f30351fe0d01744d9ed": {
+      "aliases": [
+        {
+          "cell": "a1",
+          "phase": "first_ppo_bc_behavior",
+          "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/a1/duel/data/rollout-00038-duel-g0.jsonl.gz",
+          "version": "v38",
+          "behavior_weights_sha256": "d9d694f04d4179a5c65bbc29307a8e425a245d650d47f55a36ec04abeb206801"
+        },
+        {
+          "cell": "b1",
+          "phase": "first_ppo_bc_behavior",
+          "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/b1/duel/data/rollout-00038-duel-g0.jsonl.gz",
+          "version": "v38",
+          "behavior_weights_sha256": "d9d694f04d4179a5c65bbc29307a8e425a245d650d47f55a36ec04abeb206801"
+        }
+      ],
+      "scenario": "ed42fda8749dffc7b3249cf5b3bc0ec9842930e9e7a7b1b07b21aa5a82c79b89",
+      "decisions": 65,
+      "bias": -0.7494187185350754,
+      "mse": 0.6339467203259449,
+      "explained_variance": -552.2602689607256
+    },
+    "72851e203d2dc32ce948a434c9ade9143cfe4afd2a94abc753f9057a779db6d2": {
+      "aliases": [
+        {
+          "cell": "a1",
+          "phase": "first_ppo_bc_behavior",
+          "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/a1/duel/data/rollout-00038-duel-g1.jsonl.gz",
+          "version": "v38",
+          "behavior_weights_sha256": "d9d694f04d4179a5c65bbc29307a8e425a245d650d47f55a36ec04abeb206801"
+        },
+        {
+          "cell": "b1",
+          "phase": "first_ppo_bc_behavior",
+          "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/b1/duel/data/rollout-00038-duel-g1.jsonl.gz",
+          "version": "v38",
+          "behavior_weights_sha256": "d9d694f04d4179a5c65bbc29307a8e425a245d650d47f55a36ec04abeb206801"
+        }
+      ],
+      "scenario": "e8fc4beccb37dbdbe4d30239ddb955092dd927b55063341f1bd3d18a70015dee",
+      "decisions": 129,
+      "bias": -0.10864835144873827,
+      "mse": 0.014534277619747179,
+      "explained_variance": -4.713234296100786
+    },
+    "d830663c387a643f0865c0424dfa155f2d218ffec52b4fc04946aaa4ea077925": {
+      "aliases": [
+        {
+          "cell": "a1",
+          "phase": "first_ppo_bc_behavior",
+          "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/a1/duel/data/rollout-00038-duel-g2.jsonl.gz",
+          "version": "v38",
+          "behavior_weights_sha256": "d9d694f04d4179a5c65bbc29307a8e425a245d650d47f55a36ec04abeb206801"
+        },
+        {
+          "cell": "b1",
+          "phase": "first_ppo_bc_behavior",
+          "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/b1/duel/data/rollout-00038-duel-g2.jsonl.gz",
+          "version": "v38",
+          "behavior_weights_sha256": "d9d694f04d4179a5c65bbc29307a8e425a245d650d47f55a36ec04abeb206801"
+        },
+        {
+          "cell": "a3",
+          "phase": "first_ppo_bc_behavior",
+          "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/a3/duel/data/rollout-00038-duel-g2.jsonl.gz",
+          "version": "v38",
+          "behavior_weights_sha256": "d9d694f04d4179a5c65bbc29307a8e425a245d650d47f55a36ec04abeb206801"
+        },
+        {
+          "cell": "b3",
+          "phase": "first_ppo_bc_behavior",
+          "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/b3/duel/data/rollout-00038-duel-g2.jsonl.gz",
+          "version": "v38",
+          "behavior_weights_sha256": "d9d694f04d4179a5c65bbc29307a8e425a245d650d47f55a36ec04abeb206801"
+        }
+      ],
+      "scenario": "fbe7db6fad81163aa9732df8c19daafe745b9f37384a1d229eb94431bc443c40",
+      "decisions": 12,
+      "bias": 0.7492348586920278,
+      "mse": 0.8291256996768998,
+      "explained_variance": -116.21806204761567
+    },
+    "b332e9fdcbd1be0e7f5af1e07cadf9dfc96b1574f4f17ef5e4cc6f0a40b89a3a": {
+      "aliases": [
+        {
+          "cell": "a1",
+          "phase": "first_ppo_bc_behavior",
+          "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/a1/duel/data/rollout-00038-duel-g3.jsonl.gz",
+          "version": "v38",
+          "behavior_weights_sha256": "d9d694f04d4179a5c65bbc29307a8e425a245d650d47f55a36ec04abeb206801"
+        },
+        {
+          "cell": "b1",
+          "phase": "first_ppo_bc_behavior",
+          "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/b1/duel/data/rollout-00038-duel-g3.jsonl.gz",
+          "version": "v38",
+          "behavior_weights_sha256": "d9d694f04d4179a5c65bbc29307a8e425a245d650d47f55a36ec04abeb206801"
+        }
+      ],
+      "scenario": "624f522b673d71ba25b19d6c56253595b2e81df11c4cdecf497faeb84c5e20b2",
+      "decisions": 76,
+      "bias": 1.1871329800662012,
+      "mse": 1.5903845785333186,
+      "explained_variance": -244.83716181756526
+    },
+    "7d29a4b4785d3f90b2cc5378658b49942660c2c25f6e4390c34c126b72656abf": {
+      "aliases": [
+        {
+          "cell": "a1",
+          "phase": "late_ppo_behavior",
+          "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/a1/duel/data/rollout-00063-duel-g0.jsonl.gz",
+          "version": "v63",
+          "behavior_weights_sha256": "1c1990ee89f899a94170ba26bfa67997026a18dc9d14a10fee8dd4b1f50bab2a"
+        }
+      ],
+      "scenario": "1db95ec7279554bf7e5ed15651dee187c1bc9ba71c5f488473a483fb84250a56",
+      "decisions": 40,
+      "bias": 0.505474111116965,
+      "mse": 0.28185797958496783,
+      "explained_variance": -56.08603006542575
+    },
+    "e96dcd957856d6ded9ef887457222754a1a47c5254e3fd6b7de1523d46b8d39a": {
+      "aliases": [
+        {
+          "cell": "a1",
+          "phase": "late_ppo_behavior",
+          "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/a1/duel/data/rollout-00063-duel-g1.jsonl.gz",
+          "version": "v63",
+          "behavior_weights_sha256": "1c1990ee89f899a94170ba26bfa67997026a18dc9d14a10fee8dd4b1f50bab2a"
+        }
+      ],
+      "scenario": "126036a60fc7f98f2acc1fc195f8e88989a1c6f753d94a78e0c39cd6e5021c3e",
+      "decisions": 113,
+      "bias": 0.5111637547582517,
+      "mse": 0.2800375713720568,
+      "explained_variance": -28.59740995246669
+    },
+    "4994cc5078a059ae86d5073f616e4aa68b970aff25cd1d48ab91bdbd8cbe22b3": {
+      "aliases": [
+        {
+          "cell": "a1",
+          "phase": "late_ppo_behavior",
+          "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/a1/duel/data/rollout-00063-duel-g2.jsonl.gz",
+          "version": "v63",
+          "behavior_weights_sha256": "1c1990ee89f899a94170ba26bfa67997026a18dc9d14a10fee8dd4b1f50bab2a"
+        }
+      ],
+      "scenario": "f4e0c9285b9667fa4a0b59d88a3bf7c50df3cdc998c3148a544348862c34146c",
+      "decisions": 121,
+      "bias": -0.4903932521928851,
+      "mse": 0.2450712204858538,
+      "explained_variance": -8.249341970022293
+    },
+    "ab7f96afdce349e80835d5e8de007b3ab8f799cdade7c8d2c0fdb40d483d43aa": {
+      "aliases": [
+        {
+          "cell": "a1",
+          "phase": "late_ppo_behavior",
+          "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/a1/duel/data/rollout-00063-duel-g3.jsonl.gz",
+          "version": "v63",
+          "behavior_weights_sha256": "1c1990ee89f899a94170ba26bfa67997026a18dc9d14a10fee8dd4b1f50bab2a"
+        }
+      ],
+      "scenario": "f8466874b99777e8f1cdb58729c07fd1f12d1432ff41e7984b803a35ee861ad8",
+      "decisions": 42,
+      "bias": -1.0798083154954647,
+      "mse": 1.2801958653800396,
+      "explained_variance": -447.1445098203199
+    },
+    "c106fd41921aa951a8d0cee14af90ee7cf65d89d124fb20235368d7a0bf84409": {
+      "aliases": [
+        {
+          "cell": "b1",
+          "phase": "late_ppo_behavior",
+          "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/b1/duel/data/rollout-00065-duel-g0.jsonl.gz",
+          "version": "v65",
+          "behavior_weights_sha256": "97c0f9a08c5ddbceef87789659882b27e225b98a65dcc925aab8ed295742068a"
+        }
+      ],
+      "scenario": "5758d278d1f381fb6815a1cf9c97f58f9f7a37b223f9cce218712ddae3782b8c",
+      "decisions": 41,
+      "bias": 0.685282635125989,
+      "mse": 0.6744405248884108,
+      "explained_variance": -198.26677337282317
+    },
+    "bbb9658731004bf4658e3b1abf624351e0ca62f266a49badad6d3e56f6ed1b0b": {
+      "aliases": [
+        {
+          "cell": "b1",
+          "phase": "late_ppo_behavior",
+          "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/b1/duel/data/rollout-00065-duel-g1.jsonl.gz",
+          "version": "v65",
+          "behavior_weights_sha256": "97c0f9a08c5ddbceef87789659882b27e225b98a65dcc925aab8ed295742068a"
+        }
+      ],
+      "scenario": "10841c42a0b746ea2a528083bced78f6fd676fe589a29f66a15930b7161a064c",
+      "decisions": 82,
+      "bias": 0.13963391431672478,
+      "mse": 0.04948111357676256,
+      "explained_variance": -10.188652503156334
+    },
+    "c56803494adac45fe91af7db629b141476323df06332cb900e68e0aa79458b52": {
+      "aliases": [
+        {
+          "cell": "b1",
+          "phase": "late_ppo_behavior",
+          "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/b1/duel/data/rollout-00065-duel-g2.jsonl.gz",
+          "version": "v65",
+          "behavior_weights_sha256": "97c0f9a08c5ddbceef87789659882b27e225b98a65dcc925aab8ed295742068a"
+        }
+      ],
+      "scenario": "446d9e55d4ce25b7cfa33502980d4fa40fdd41faaeff2d6eff853d86ffee5fe1",
+      "decisions": 125,
+      "bias": -1.3948429711432713,
+      "mse": 1.9646520396404943,
+      "explained_variance": -29.405996322328654
+    },
+    "d79095ae7fa0aa2406515de5c3c092571fdbf8788243a227a444cee0089ff4a9": {
+      "aliases": [
+        {
+          "cell": "b1",
+          "phase": "late_ppo_behavior",
+          "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/b1/duel/data/rollout-00065-duel-g3.jsonl.gz",
+          "version": "v65",
+          "behavior_weights_sha256": "97c0f9a08c5ddbceef87789659882b27e225b98a65dcc925aab8ed295742068a"
+        }
+      ],
+      "scenario": "c052b9bdee5fc68fe691e9c466b33075eac0bb01603819997795c3c1e1e3781f",
+      "decisions": 113,
+      "bias": 1.0936660961725087,
+      "mse": 1.5890588777304486,
+      "explained_variance": -305.8973678992057
+    },
+    "cf5033b321c0d43b7bdcfcb899e987cae70b4298c12299430a0e77eaa63418e2": {
+      "aliases": [
+        {
+          "cell": "b2",
+          "phase": "first_ppo_bc_behavior",
+          "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/b2/duel/data/rollout-00038-duel-g0.jsonl.gz",
+          "version": "v38",
+          "behavior_weights_sha256": "d9d694f04d4179a5c65bbc29307a8e425a245d650d47f55a36ec04abeb206801"
+        },
+        {
+          "cell": "a2",
+          "phase": "first_ppo_bc_behavior",
+          "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/a2/duel/data/rollout-00038-duel-g0.jsonl.gz",
+          "version": "v38",
+          "behavior_weights_sha256": "d9d694f04d4179a5c65bbc29307a8e425a245d650d47f55a36ec04abeb206801"
+        }
+      ],
+      "scenario": "ed42fda8749dffc7b3249cf5b3bc0ec9842930e9e7a7b1b07b21aa5a82c79b89",
+      "decisions": 42,
+      "bias": 0.8503887594864677,
+      "mse": 0.8354289221163108,
+      "explained_variance": -87.8855319003929
+    },
+    "71c25854ccd7f0618c8547959ea784219285c97f772e6fc67fb4a9ce4b3ee6dd": {
+      "aliases": [
+        {
+          "cell": "b2",
+          "phase": "first_ppo_bc_behavior",
+          "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/b2/duel/data/rollout-00038-duel-g1.jsonl.gz",
+          "version": "v38",
+          "behavior_weights_sha256": "d9d694f04d4179a5c65bbc29307a8e425a245d650d47f55a36ec04abeb206801"
+        },
+        {
+          "cell": "a2",
+          "phase": "first_ppo_bc_behavior",
+          "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/a2/duel/data/rollout-00038-duel-g1.jsonl.gz",
+          "version": "v38",
+          "behavior_weights_sha256": "d9d694f04d4179a5c65bbc29307a8e425a245d650d47f55a36ec04abeb206801"
+        }
+      ],
+      "scenario": "e8fc4beccb37dbdbe4d30239ddb955092dd927b55063341f1bd3d18a70015dee",
+      "decisions": 129,
+      "bias": -0.11458506405848705,
+      "mse": 0.015293520659168508,
+      "explained_variance": -5.522486529768756
+    },
+    "96482f2f79abd3a83e6e09a5d4a9ccef9a6818769f563739127f14d95e9e6f81": {
+      "aliases": [
+        {
+          "cell": "b2",
+          "phase": "first_ppo_bc_behavior",
+          "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/b2/duel/data/rollout-00038-duel-g2.jsonl.gz",
+          "version": "v38",
+          "behavior_weights_sha256": "d9d694f04d4179a5c65bbc29307a8e425a245d650d47f55a36ec04abeb206801"
+        },
+        {
+          "cell": "a2",
+          "phase": "first_ppo_bc_behavior",
+          "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/a2/duel/data/rollout-00038-duel-g2.jsonl.gz",
+          "version": "v38",
+          "behavior_weights_sha256": "d9d694f04d4179a5c65bbc29307a8e425a245d650d47f55a36ec04abeb206801"
+        }
+      ],
+      "scenario": "fbe7db6fad81163aa9732df8c19daafe745b9f37384a1d229eb94431bc443c40",
+      "decisions": 12,
+      "bias": 0.7492028086529297,
+      "mse": 0.8291294631889127,
+      "explained_variance": -116.41832806607681
+    },
+    "3a24b76cc30f34da4b7e4157e3ad529a6e9374bc819fe5d3ccb37b8e73a8d578": {
+      "aliases": [
+        {
+          "cell": "b2",
+          "phase": "first_ppo_bc_behavior",
+          "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/b2/duel/data/rollout-00038-duel-g3.jsonl.gz",
+          "version": "v38",
+          "behavior_weights_sha256": "d9d694f04d4179a5c65bbc29307a8e425a245d650d47f55a36ec04abeb206801"
+        },
+        {
+          "cell": "a2",
+          "phase": "first_ppo_bc_behavior",
+          "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/a2/duel/data/rollout-00038-duel-g3.jsonl.gz",
+          "version": "v38",
+          "behavior_weights_sha256": "d9d694f04d4179a5c65bbc29307a8e425a245d650d47f55a36ec04abeb206801"
+        }
+      ],
+      "scenario": "624f522b673d71ba25b19d6c56253595b2e81df11c4cdecf497faeb84c5e20b2",
+      "decisions": 78,
+      "bias": 0.9571912071452943,
+      "mse": 1.0558845840404085,
+      "explained_variance": -265.05408333683096
+    },
+    "a3fddb0e1a696a30552d991fb007d1271c7fd9f2d445a783dd73870299443fbe": {
+      "aliases": [
+        {
+          "cell": "b2",
+          "phase": "late_ppo_behavior",
+          "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/b2/duel/data/rollout-00064-duel-g0.jsonl.gz",
+          "version": "v64",
+          "behavior_weights_sha256": "f30e78bc28cfc31955b2b4a0c0f8650158f4e3d1d665d252bf33f33bb8f7116c"
+        }
+      ],
+      "scenario": "c9c9dc35a9540eac925090ed160499353b0087e668cdafc4a125d3b94c9dee65",
+      "decisions": 14,
+      "bias": 0.8657366902226401,
+      "mse": 0.976398058148903,
+      "explained_variance": -95.42786391325313
+    },
+    "55c49a05eac07310ee8decd01ab7ee40935d1dc24aad4d872233629d81e63b20": {
+      "aliases": [
+        {
+          "cell": "b2",
+          "phase": "late_ppo_behavior",
+          "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/b2/duel/data/rollout-00064-duel-g1.jsonl.gz",
+          "version": "v64",
+          "behavior_weights_sha256": "f30e78bc28cfc31955b2b4a0c0f8650158f4e3d1d665d252bf33f33bb8f7116c"
+        }
+      ],
+      "scenario": "774a94ba55d18d80f78d1e250b3d178c56c214aaccbf689c5cae2b4c7361ab3d",
+      "decisions": 48,
+      "bias": 0.7107834826999444,
+      "mse": 0.6606192376186836,
+      "explained_variance": -313.0577487573807
+    },
+    "e56b04644ac00ad8965a08044ae6a638d7821c22abae0d43855123a27da51146": {
+      "aliases": [
+        {
+          "cell": "b2",
+          "phase": "late_ppo_behavior",
+          "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/b2/duel/data/rollout-00064-duel-g2.jsonl.gz",
+          "version": "v64",
+          "behavior_weights_sha256": "f30e78bc28cfc31955b2b4a0c0f8650158f4e3d1d665d252bf33f33bb8f7116c"
+        }
+      ],
+      "scenario": "6215fc752028f59daef179aeae6dc8b92a6b9d9d85538eebdade708ce97bd262",
+      "decisions": 83,
+      "bias": 0.8624311765062432,
+      "mse": 1.0426183971705927,
+      "explained_variance": -187.85074254455492
+    },
+    "f09a48bf48ef3cd3f4df244437dc873e11c490aaee036e6cbf568094c1e42578": {
+      "aliases": [
+        {
+          "cell": "b2",
+          "phase": "late_ppo_behavior",
+          "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/b2/duel/data/rollout-00064-duel-g3.jsonl.gz",
+          "version": "v64",
+          "behavior_weights_sha256": "f30e78bc28cfc31955b2b4a0c0f8650158f4e3d1d665d252bf33f33bb8f7116c"
+        }
+      ],
+      "scenario": "2c66fb732d07b32c919c3d16f7b0764d03acb5e8a66d47267b5040e3a18a4e9e",
+      "decisions": 105,
+      "bias": 0.06548233574073224,
+      "mse": 0.01929606530906874,
+      "explained_variance": -8.138875974482879
+    },
+    "3652799b022c04378f6e8f79526f030ec1b397ae3d8290e519cc8a11268b5275": {
+      "aliases": [
+        {
+          "cell": "a2",
+          "phase": "late_ppo_behavior",
+          "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/a2/duel/data/rollout-00062-duel-g0.jsonl.gz",
+          "version": "v62",
+          "behavior_weights_sha256": "0d309a87132c4841ea17e09794925c04df4cfe33e810c8ca50fb1fe1af798dce"
+        }
+      ],
+      "scenario": "624f522b673d71ba25b19d6c56253595b2e81df11c4cdecf497faeb84c5e20b2",
+      "decisions": 81,
+      "bias": -0.988727323100137,
+      "mse": 1.0426655353976007,
+      "explained_variance": -52.11956229921686
+    },
+    "deb42ae3a4bb6fc74a6c692ee0d0ab212c0363dee1254cd8dc2132ef2c5abae9": {
+      "aliases": [
+        {
+          "cell": "a2",
+          "phase": "late_ppo_behavior",
+          "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/a2/duel/data/rollout-00062-duel-g1.jsonl.gz",
+          "version": "v62",
+          "behavior_weights_sha256": "0d309a87132c4841ea17e09794925c04df4cfe33e810c8ca50fb1fe1af798dce"
+        }
+      ],
+      "scenario": "10841c42a0b746ea2a528083bced78f6fd676fe589a29f66a15930b7161a064c",
+      "decisions": 322,
+      "bias": -0.4106705825649262,
+      "mse": 0.18893529454660415,
+      "explained_variance": -90.24404900232145
+    },
+    "04f369270f7f74454ee935997263cdcd876b21b716f68735c02d60ae8b1f0398": {
+      "aliases": [
+        {
+          "cell": "a2",
+          "phase": "late_ppo_behavior",
+          "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/a2/duel/data/rollout-00062-duel-g2.jsonl.gz",
+          "version": "v62",
+          "behavior_weights_sha256": "0d309a87132c4841ea17e09794925c04df4cfe33e810c8ca50fb1fe1af798dce"
+        }
+      ],
+      "scenario": "01d024fe82d15c7689180384abd6fdfb998533e14f4d4b9913f1f24410e775ec",
+      "decisions": 215,
+      "bias": -1.0761186362300421,
+      "mse": 1.4775507556052896,
+      "explained_variance": -209.5277936401618
+    },
+    "dcbcac9bebbffe81407ee1dccb691305d18564efab960ab7f9eb6e1771fbecce": {
+      "aliases": [
+        {
+          "cell": "a2",
+          "phase": "late_ppo_behavior",
+          "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/a2/duel/data/rollout-00062-duel-g3.jsonl.gz",
+          "version": "v62",
+          "behavior_weights_sha256": "0d309a87132c4841ea17e09794925c04df4cfe33e810c8ca50fb1fe1af798dce"
+        }
+      ],
+      "scenario": "624f522b673d71ba25b19d6c56253595b2e81df11c4cdecf497faeb84c5e20b2",
+      "decisions": 45,
+      "bias": -1.3182372023872164,
+      "mse": 1.8305101944102882,
+      "explained_variance": -222.47536657816138
+    },
+    "bee4e6e81b61c512e7b465af988f100f9889bcb6c4ed112e4cd5730015109c75": {
+      "aliases": [
+        {
+          "cell": "a3",
+          "phase": "first_ppo_bc_behavior",
+          "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/a3/duel/data/rollout-00038-duel-g0.jsonl.gz",
+          "version": "v38",
+          "behavior_weights_sha256": "d9d694f04d4179a5c65bbc29307a8e425a245d650d47f55a36ec04abeb206801"
+        },
+        {
+          "cell": "b3",
+          "phase": "first_ppo_bc_behavior",
+          "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/b3/duel/data/rollout-00038-duel-g0.jsonl.gz",
+          "version": "v38",
+          "behavior_weights_sha256": "d9d694f04d4179a5c65bbc29307a8e425a245d650d47f55a36ec04abeb206801"
+        }
+      ],
+      "scenario": "ed42fda8749dffc7b3249cf5b3bc0ec9842930e9e7a7b1b07b21aa5a82c79b89",
+      "decisions": 48,
+      "bias": 1.0291238768620075,
+      "mse": 1.099674634815944,
+      "explained_variance": -153.99293142072267
+    },
+    "9ff294c7cc45fef1a8c6392b1e970c51b26176fba5f50284fbd9ec0e7a0bc328": {
+      "aliases": [
+        {
+          "cell": "a3",
+          "phase": "first_ppo_bc_behavior",
+          "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/a3/duel/data/rollout-00038-duel-g1.jsonl.gz",
+          "version": "v38",
+          "behavior_weights_sha256": "d9d694f04d4179a5c65bbc29307a8e425a245d650d47f55a36ec04abeb206801"
+        },
+        {
+          "cell": "b3",
+          "phase": "first_ppo_bc_behavior",
+          "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/b3/duel/data/rollout-00038-duel-g1.jsonl.gz",
+          "version": "v38",
+          "behavior_weights_sha256": "d9d694f04d4179a5c65bbc29307a8e425a245d650d47f55a36ec04abeb206801"
+        }
+      ],
+      "scenario": "e8fc4beccb37dbdbe4d30239ddb955092dd927b55063341f1bd3d18a70015dee",
+      "decisions": 110,
+      "bias": -0.1231032205789112,
+      "mse": 0.01720029324617223,
+      "explained_variance": -5.61366563267075
+    },
+    "1bfef4c3912b646b67f95da783e994c33c054fafd41d7bb5ebb04ccb7bb79edb": {
+      "aliases": [
+        {
+          "cell": "a3",
+          "phase": "first_ppo_bc_behavior",
+          "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/a3/duel/data/rollout-00038-duel-g3.jsonl.gz",
+          "version": "v38",
+          "behavior_weights_sha256": "d9d694f04d4179a5c65bbc29307a8e425a245d650d47f55a36ec04abeb206801"
+        },
+        {
+          "cell": "b3",
+          "phase": "first_ppo_bc_behavior",
+          "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/b3/duel/data/rollout-00038-duel-g3.jsonl.gz",
+          "version": "v38",
+          "behavior_weights_sha256": "d9d694f04d4179a5c65bbc29307a8e425a245d650d47f55a36ec04abeb206801"
+        }
+      ],
+      "scenario": "624f522b673d71ba25b19d6c56253595b2e81df11c4cdecf497faeb84c5e20b2",
+      "decisions": 50,
+      "bias": 1.151766613654858,
+      "mse": 1.563469154574004,
+      "explained_variance": -373.82958021621533
+    },
+    "a22525cb574fdaafee3e5ae4cc4f2645fdf398290562e4b7c1c53bcb452b5ddb": {
+      "aliases": [
+        {
+          "cell": "a3",
+          "phase": "late_ppo_behavior",
+          "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/a3/duel/data/rollout-00064-duel-g0.jsonl.gz",
+          "version": "v64",
+          "behavior_weights_sha256": "a3f34eb5bab194672056f0793ba8f2089c8676668559f86859e9ff8dc35df7df"
+        }
+      ],
+      "scenario": "c9c9dc35a9540eac925090ed160499353b0087e668cdafc4a125d3b94c9dee65",
+      "decisions": 13,
+      "bias": 1.2331416724139137,
+      "mse": 1.7221027235777306,
+      "explained_variance": -113.25327581929933
+    },
+    "cab975e27b88b93e92ac6d92dad66ffd263a76465f90561a72418139d44b2328": {
+      "aliases": [
+        {
+          "cell": "a3",
+          "phase": "late_ppo_behavior",
+          "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/a3/duel/data/rollout-00064-duel-g1.jsonl.gz",
+          "version": "v64",
+          "behavior_weights_sha256": "a3f34eb5bab194672056f0793ba8f2089c8676668559f86859e9ff8dc35df7df"
+        }
+      ],
+      "scenario": "774a94ba55d18d80f78d1e250b3d178c56c214aaccbf689c5cae2b4c7361ab3d",
+      "decisions": 61,
+      "bias": 0.7418341162863215,
+      "mse": 0.6562670900422148,
+      "explained_variance": -168.00393187253573
+    },
+    "d86430ad471a313fb54468293b6a4d0ad330f8ce2c19089f6136a1caa99768ea": {
+      "aliases": [
+        {
+          "cell": "a3",
+          "phase": "late_ppo_behavior",
+          "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/a3/duel/data/rollout-00064-duel-g2.jsonl.gz",
+          "version": "v64",
+          "behavior_weights_sha256": "a3f34eb5bab194672056f0793ba8f2089c8676668559f86859e9ff8dc35df7df"
+        }
+      ],
+      "scenario": "6215fc752028f59daef179aeae6dc8b92a6b9d9d85538eebdade708ce97bd262",
+      "decisions": 77,
+      "bias": -0.24966740857261252,
+      "mse": 0.12213674566979293,
+      "explained_variance": -70.3668101232306
+    },
+    "2e5687384aefb0bbb25d2ec21cc092fe32496a6cc8ce855a989dd98d2e387a32": {
+      "aliases": [
+        {
+          "cell": "a3",
+          "phase": "late_ppo_behavior",
+          "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/a3/duel/data/rollout-00064-duel-g3.jsonl.gz",
+          "version": "v64",
+          "behavior_weights_sha256": "a3f34eb5bab194672056f0793ba8f2089c8676668559f86859e9ff8dc35df7df"
+        }
+      ],
+      "scenario": "2c66fb732d07b32c919c3d16f7b0764d03acb5e8a66d47267b5040e3a18a4e9e",
+      "decisions": 65,
+      "bias": 0.10314438441473632,
+      "mse": 0.03117782945186686,
+      "explained_variance": -9.608334739782615
+    },
+    "60554dd6b8aa124df1ac4545e69d4dee8099c7bde8f88e9c1000080cae266baf": {
+      "aliases": [
+        {
+          "cell": "b3",
+          "phase": "late_ppo_behavior",
+          "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/b3/duel/data/rollout-00063-duel-g0.jsonl.gz",
+          "version": "v63",
+          "behavior_weights_sha256": "dc17e9be5cfb9c76018a3cf32eca8c58db2e3118b15d0be346577d15b5956312"
+        }
+      ],
+      "scenario": "1db95ec7279554bf7e5ed15651dee187c1bc9ba71c5f488473a483fb84250a56",
+      "decisions": 43,
+      "bias": 0.3178305669536264,
+      "mse": 0.13709194720480772,
+      "explained_variance": -53.119203422336234
+    },
+    "12e4e92399b0fe762b48eed017fe07c75a6f455e2a9da85b4caa67b680de439f": {
+      "aliases": [
+        {
+          "cell": "b3",
+          "phase": "late_ppo_behavior",
+          "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/b3/duel/data/rollout-00063-duel-g1.jsonl.gz",
+          "version": "v63",
+          "behavior_weights_sha256": "dc17e9be5cfb9c76018a3cf32eca8c58db2e3118b15d0be346577d15b5956312"
+        }
+      ],
+      "scenario": "126036a60fc7f98f2acc1fc195f8e88989a1c6f753d94a78e0c39cd6e5021c3e",
+      "decisions": 156,
+      "bias": -1.184373127852492,
+      "mse": 1.491369863890773,
+      "explained_variance": -199.82646977821216
+    },
+    "fb34ad0859b7d24038ce469e9b2611d8844581d26bd57efa34d478deacf4f81c": {
+      "aliases": [
+        {
+          "cell": "b3",
+          "phase": "late_ppo_behavior",
+          "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/b3/duel/data/rollout-00063-duel-g2.jsonl.gz",
+          "version": "v63",
+          "behavior_weights_sha256": "dc17e9be5cfb9c76018a3cf32eca8c58db2e3118b15d0be346577d15b5956312"
+        }
+      ],
+      "scenario": "f4e0c9285b9667fa4a0b59d88a3bf7c50df3cdc998c3148a544348862c34146c",
+      "decisions": 137,
+      "bias": -0.10102708667757303,
+      "mse": 0.036150750781516784,
+      "explained_variance": -53.797034858040945
+    },
+    "9e1402da82deeb36ded1cb40eda628e5b9accfa0bfe624cbc640a34436f707b0": {
+      "aliases": [
+        {
+          "cell": "b3",
+          "phase": "late_ppo_behavior",
+          "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/b3/duel/data/rollout-00063-duel-g3.jsonl.gz",
+          "version": "v63",
+          "behavior_weights_sha256": "dc17e9be5cfb9c76018a3cf32eca8c58db2e3118b15d0be346577d15b5956312"
+        }
+      ],
+      "scenario": "f8466874b99777e8f1cdb58729c07fd1f12d1432ff41e7984b803a35ee861ad8",
+      "decisions": 40,
+      "bias": 0.5010021312721409,
+      "mse": 0.2595006891233489,
+      "explained_variance": -33.77406401243899
+    }
+  },
+  "external_cuts": [],
+  "missing": [],
+  "pooled_unique_trajectories": {
+    "decisions": 2933,
+    "bias": -0.1015562466892284,
+    "mse": 0.6908724107789254,
+    "explained_variance": 0.19757007546981364
+  },
+  "scenario_mean_bias_interval95": [
+    -0.2044824815746492,
+    0.4308687332265134
+  ]
+}

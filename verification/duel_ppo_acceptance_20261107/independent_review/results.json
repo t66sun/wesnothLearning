@@ -1,0 +1,341 @@
+{
+  "execution_source": "43325b33696de4db8ee546e1c6bedb7230a73b37",
+  "wall_seconds": 14490.052711486816,
+  "budgets": {
+    "a1": {
+      "fresh": 10054,
+      "overshoot": 54,
+      "batches": 26,
+      "committed_steps": 122,
+      "rejected_steps": 25,
+      "never_attempted_steps": 109,
+      "scenes": 60,
+      "games": 104,
+      "wall_seconds": 1511.2759292125702
+    },
+    "b1": {
+      "fresh": 10313,
+      "overshoot": 313,
+      "batches": 28,
+      "committed_steps": 132,
+      "rejected_steps": 27,
+      "never_attempted_steps": 117,
+      "scenes": 63,
+      "games": 112,
+      "wall_seconds": 1655.2006883621216
+    },
+    "b2": {
+      "fresh": 10083,
+      "overshoot": 83,
+      "batches": 27,
+      "committed_steps": 117,
+      "rejected_steps": 26,
+      "never_attempted_steps": 109,
+      "scenes": 62,
+      "games": 108,
+      "wall_seconds": 1621.9209320545197
+    },
+    "a2": {
+      "fresh": 10201,
+      "overshoot": 201,
+      "batches": 25,
+      "committed_steps": 113,
+      "rejected_steps": 25,
+      "never_attempted_steps": 118,
+      "scenes": 58,
+      "games": 100,
+      "wall_seconds": 1499.8237957954407
+    },
+    "a3": {
+      "fresh": 10142,
+      "overshoot": 142,
+      "batches": 27,
+      "committed_steps": 118,
+      "rejected_steps": 27,
+      "never_attempted_steps": 107,
+      "scenes": 62,
+      "games": 108,
+      "wall_seconds": 1539.3598222732544
+    },
+    "b3": {
+      "fresh": 10150,
+      "overshoot": 150,
+      "batches": 26,
+      "committed_steps": 114,
+      "rejected_steps": 26,
+      "never_attempted_steps": 112,
+      "scenes": 60,
+      "games": 104,
+      "wall_seconds": 1581.9546377658844
+    }
+  },
+  "validation": {
+    "games": 210,
+    "unique_policies": 7,
+    "scenes": 15,
+    "maps": [
+      "hamlets"
+    ],
+    "boundaries": {
+      "natural_finish": 186,
+      "completed_round_30": 24
+    },
+    "differences": {
+      "b_minus_a": -0.05555555555555558,
+      "a_minus_bc": 0.11851851851851852,
+      "b_minus_bc": 0.06296296296296294
+    },
+    "interval95": {
+      "b_minus_a": [
+        -0.1962962962962963,
+        0.09629629629629632
+      ],
+      "a_minus_bc": [
+        -0.07777777777777783,
+        0.30000000000000004
+      ],
+      "b_minus_bc": [
+        -0.1111111111111111,
+        0.24444444444444446
+      ]
+    },
+    "per_seed": {
+      "202611061": {
+        "b_minus_a": 5.551115123125783e-17,
+        "a_minus_bc": 0.08888888888888885,
+        "b_minus_bc": 0.0888888888888889
+      },
+      "202611062": {
+        "b_minus_a": -0.04444444444444445,
+        "a_minus_bc": 0.14444444444444443,
+        "b_minus_bc": 0.09999999999999998
+      },
+      "202611063": {
+        "b_minus_a": -0.12222222222222218,
+        "a_minus_bc": 0.12222222222222218,
+        "b_minus_bc": 0.0
+      }
+    },
+    "role_scores": {
+      "bc": 0.3888888888888889,
+      "a1/selected": 0.47777777777777775,
+      "a1/latest": 0.47777777777777775,
+      "b1/selected": 0.4777777777777778,
+      "b1/latest": 0.4777777777777778,
+      "b2/selected": 0.4888888888888889,
+      "b2/latest": 0.4888888888888889,
+      "a2/selected": 0.5333333333333333,
+      "a2/latest": 0.5333333333333333,
+      "a3/selected": 0.5111111111111111,
+      "a3/latest": 0.5111111111111111,
+      "b3/selected": 0.3888888888888889,
+      "b3/latest": 0.3888888888888889
+    },
+    "role_outcomes": {
+      "bc": {
+        "win": 10,
+        "draw": 5,
+        "loss": 15
+      },
+      "a1/selected": {
+        "win": 13,
+        "draw": 4,
+        "loss": 13
+      },
+      "a1/latest": {
+        "win": 13,
+        "draw": 4,
+        "loss": 13
+      },
+      "b1/selected": {
+        "win": 14,
+        "draw": 1,
+        "loss": 15
+      },
+      "b1/latest": {
+        "win": 14,
+        "draw": 1,
+        "loss": 15
+      },
+      "b2/selected": {
+        "win": 14,
+        "draw": 2,
+        "loss": 14
+      },
+      "b2/latest": {
+        "win": 14,
+        "draw": 2,
+        "loss": 14
+      },
+      "a2/selected": {
+        "win": 15,
+        "draw": 3,
+        "loss": 12
+      },
+      "a2/latest": {
+        "win": 15,
+        "draw": 3,
+        "loss": 12
+      },
+      "a3/selected": {
+        "win": 14,
+        "draw": 4,
+        "loss": 12
+      },
+      "a3/latest": {
+        "win": 14,
+        "draw": 4,
+        "loss": 12
+      },
+      "b3/selected": {
+        "win": 10,
+        "draw": 5,
+        "loss": 15
+      },
+      "b3/latest": {
+        "win": 10,
+        "draw": 5,
+        "loss": 15
+      }
+    }
+  },
+  "holdout": {
+    "games": 420,
+    "unique_policies": 7,
+    "scenes": 30,
+    "maps": [
+      "caves_of_the_basilisk",
+      "ruined_passage"
+    ],
+    "boundaries": {
+      "natural_finish": 333,
+      "completed_round_30": 87
+    },
+    "differences": {
+      "b_minus_a": -0.025925925925925908,
+      "a_minus_bc": 0.04259259259259257,
+      "b_minus_bc": 0.016666666666666663
+    },
+    "interval95": {
+      "b_minus_a": [
+        -0.14629629629629626,
+        0.07777777777777772
+      ],
+      "a_minus_bc": [
+        -0.05555555555555558,
+        0.1518518518518518
+      ],
+      "b_minus_bc": [
+        -0.06666666666666665,
+        0.1111111111111111
+      ]
+    },
+    "per_seed": {
+      "202611061": {
+        "b_minus_a": -0.12777777777777777,
+        "a_minus_bc": 0.10555555555555551,
+        "b_minus_bc": -0.022222222222222254
+      },
+      "202611062": {
+        "b_minus_a": 0.016666666666666607,
+        "a_minus_bc": 0.033333333333333326,
+        "b_minus_bc": 0.04999999999999993
+      },
+      "202611063": {
+        "b_minus_a": 0.03333333333333338,
+        "a_minus_bc": -0.011111111111111127,
+        "b_minus_bc": 0.022222222222222254
+      }
+    },
+    "role_scores": {
+      "bc": 0.37222222222222223,
+      "a1/selected": 0.47777777777777775,
+      "a1/latest": 0.47777777777777775,
+      "b1/selected": 0.35,
+      "b1/latest": 0.35,
+      "b2/selected": 0.42222222222222217,
+      "b2/latest": 0.42222222222222217,
+      "a2/selected": 0.40555555555555556,
+      "a2/latest": 0.40555555555555556,
+      "a3/selected": 0.3611111111111111,
+      "a3/latest": 0.3611111111111111,
+      "b3/selected": 0.3944444444444445,
+      "b3/latest": 0.3944444444444445
+    },
+    "role_outcomes": {
+      "bc": {
+        "win": 17,
+        "draw": 16,
+        "loss": 27
+      },
+      "a1/selected": {
+        "win": 25,
+        "draw": 11,
+        "loss": 24
+      },
+      "a1/latest": {
+        "win": 25,
+        "draw": 11,
+        "loss": 24
+      },
+      "b1/selected": {
+        "win": 17,
+        "draw": 12,
+        "loss": 31
+      },
+      "b1/latest": {
+        "win": 17,
+        "draw": 12,
+        "loss": 31
+      },
+      "b2/selected": {
+        "win": 22,
+        "draw": 10,
+        "loss": 28
+      },
+      "b2/latest": {
+        "win": 22,
+        "draw": 10,
+        "loss": 28
+      },
+      "a2/selected": {
+        "win": 21,
+        "draw": 10,
+        "loss": 29
+      },
+      "a2/latest": {
+        "win": 21,
+        "draw": 10,
+        "loss": 29
+      },
+      "a3/selected": {
+        "win": 16,
+        "draw": 17,
+        "loss": 27
+      },
+      "a3/latest": {
+        "win": 16,
+        "draw": 17,
+        "loss": 27
+      },
+      "b3/selected": {
+        "win": 20,
+        "draw": 11,
+        "loss": 29
+      },
+      "b3/latest": {
+        "win": 20,
+        "draw": 11,
+        "loss": 29
+      }
+    }
+  },
+  "mc": {
+    "unique_trajectories": 35,
+    "alias_count": 13,
+    "decisions": 2933,
+    "bias": -0.10155624668922844,
+    "mse": 0.6908724107789254,
+    "explained_variance": 0.19757007546981364
+  }
+}

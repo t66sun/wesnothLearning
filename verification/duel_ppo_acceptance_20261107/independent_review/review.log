@@ -1,0 +1,3 @@
+validation {"b_minus_a": -0.05555555555555558, "a_minus_bc": 0.11851851851851852, "b_minus_bc": 0.06296296296296294}
+holdout {"b_minus_a": -0.025925925925925908, "a_minus_bc": 0.04259259259259257, "b_minus_bc": 0.016666666666666663}
+PASS: identities, budgets, 630 game scores, crossed intervals and complete MC returns

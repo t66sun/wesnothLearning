@@ -1,0 +1,80 @@
+{
+  "bc": {
+    "path": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/bc/duel/last_bc.pt",
+    "checkpoint_sha256": "8fc61bbb0be5c2ad8d2ec5b56760ce3dbfa08eed008c490e9b2233624ea91ebe",
+    "version": 38,
+    "weights_sha256": "d9d694f04d4179a5c65bbc29307a8e425a245d650d47f55a36ec04abeb206801"
+  },
+  "a1/selected": {
+    "path": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/a1/duel/selected.pt",
+    "checkpoint_sha256": "ee7e5984de0b4bba9a97b071de3ad24b2f8f44c1760ea85ff82e1d5ba83b8b39",
+    "version": 64,
+    "weights_sha256": "cae867b045ab05702cda6ab457f3cb24295c03899816b37b36c4f4192ab13d60"
+  },
+  "a1/latest": {
+    "path": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/a1/duel/last_ppo.pt",
+    "checkpoint_sha256": "ee7e5984de0b4bba9a97b071de3ad24b2f8f44c1760ea85ff82e1d5ba83b8b39",
+    "version": 64,
+    "weights_sha256": "cae867b045ab05702cda6ab457f3cb24295c03899816b37b36c4f4192ab13d60"
+  },
+  "b1/selected": {
+    "path": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/b1/duel/selected.pt",
+    "checkpoint_sha256": "aca304474844f6768d965adba5a46923ca2e5c3ff7f5e24f1e5c4803d139a579",
+    "version": 66,
+    "weights_sha256": "4eea5c6168e68fc174c871aa0ca1ccf6280e5cc823c986b0ff89fd138c9e13a7"
+  },
+  "b1/latest": {
+    "path": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/b1/duel/last_ppo.pt",
+    "checkpoint_sha256": "aca304474844f6768d965adba5a46923ca2e5c3ff7f5e24f1e5c4803d139a579",
+    "version": 66,
+    "weights_sha256": "4eea5c6168e68fc174c871aa0ca1ccf6280e5cc823c986b0ff89fd138c9e13a7"
+  },
+  "b2/selected": {
+    "path": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/b2/duel/selected.pt",
+    "checkpoint_sha256": "d73ff59bb8067b463f11ae305d25f45b65ed0442706c0259c2d04f8b3ad8dc4d",
+    "version": 65,
+    "weights_sha256": "23462c89adb040088275ffdb1943ff02c23c1bfffd4f712d2225f8543bf75d2b"
+  },
+  "b2/latest": {
+    "path": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/b2/duel/last_ppo.pt",
+    "checkpoint_sha256": "d73ff59bb8067b463f11ae305d25f45b65ed0442706c0259c2d04f8b3ad8dc4d",
+    "version": 65,
+    "weights_sha256": "23462c89adb040088275ffdb1943ff02c23c1bfffd4f712d2225f8543bf75d2b"
+  },
+  "a2/selected": {
+    "path": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/a2/duel/selected.pt",
+    "checkpoint_sha256": "164565b425905d387ca572c8f56b6d9d7a21703489a8b6922bb731986d65c495",
+    "version": 63,
+    "weights_sha256": "be3ed339d3468957cac5caf49c20684af1426443f47c322fe3643b0a548b7b3c"
+  },
+  "a2/latest": {
+    "path": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/a2/duel/last_ppo.pt",
+    "checkpoint_sha256": "164565b425905d387ca572c8f56b6d9d7a21703489a8b6922bb731986d65c495",
+    "version": 63,
+    "weights_sha256": "be3ed339d3468957cac5caf49c20684af1426443f47c322fe3643b0a548b7b3c"
+  },
+  "a3/selected": {
+    "path": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/a3/duel/selected.pt",
+    "checkpoint_sha256": "644cb299e07c2f16e71f5a443c55aafb0804b0654adf14a1323996ffe151645d",
+    "version": 65,
+    "weights_sha256": "453d7da5cb8f0e7244a033ebefa7dddcfca5efbaead6ca47593335b0ac91d971"
+  },
+  "a3/latest": {
+    "path": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/a3/duel/last_ppo.pt",
+    "checkpoint_sha256": "644cb299e07c2f16e71f5a443c55aafb0804b0654adf14a1323996ffe151645d",
+    "version": 65,
+    "weights_sha256": "453d7da5cb8f0e7244a033ebefa7dddcfca5efbaead6ca47593335b0ac91d971"
+  },
+  "b3/selected": {
+    "path": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/b3/duel/selected.pt",
+    "checkpoint_sha256": "0b6cf9e5958f84184201f8b9ae6873d432250e8f0b10c820f575eacd19a26494",
+    "version": 64,
+    "weights_sha256": "72c4357fbcfaf86bb5624f8a7e96d4760af511bae67ec42a66f889194c8215e1"
+  },
+  "b3/latest": {
+    "path": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/b3/duel/last_ppo.pt",
+    "checkpoint_sha256": "0b6cf9e5958f84184201f8b9ae6873d432250e8f0b10c820f575eacd19a26494",
+    "version": 64,
+    "weights_sha256": "72c4357fbcfaf86bb5624f8a7e96d4760af511bae67ec42a66f889194c8215e1"
+  }
+}
