@@ -559,6 +559,18 @@ function M.generate(obs)
     local function dominates(a,b)
         local ours,theirs=compare_forecast(a)
         local other_ours,other_theirs=compare_forecast(b)
+        -- These effects are absent from the shared HP/slow/poison summary.
+        -- A possible plague conversion or disabling hit is a reason to keep
+        -- the incumbent when comparing immediate forecast outcomes alone.
+        for _,child in ipairs(b._unit.attacks[b.weapon].__cfg or {}) do
+            if child[1]=='specials' then
+                for _,special in ipairs(child[2]) do
+                    local name=special[2].id or special[1]
+                    if name=='petrifies' or name=='stun' or
+                        (name=='plague' and (other_theirs.hp_chance[0] or 0)>1e-9) then return false end
+                end
+            end
+        end
         -- A weapon may trade damage for slow or poison. Replace a slot only
         -- on strict public forecast dominance across these outcomes.
         local margins={
