@@ -73,6 +73,22 @@ class TeacherSetTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, 'weights-only'):
                     require_same_teachers(altered, child, ('ffa4',))
 
+    def test_package_bytes_ignore_zip_platform_defaults(self):
+        import zipfile
+        from learning.teachers import archive_bytes
+        original = zipfile.ZipInfo
+        def platform(system):
+            class Entry(original):
+                def __init__(self, *args, **kwargs):
+                    super().__init__(*args, **kwargs)
+                    self.create_system = system
+            return Entry
+        outputs = []
+        for system in (0, 3):
+            with patch('learning.teachers.zipfile.ZipInfo', platform(system)):
+                outputs.append(archive_bytes())
+        self.assertEqual(*outputs)
+
     def test_branch_rejects_same_set_with_changed_source_before_copying_state(self):
         from learning.common import write_json
         from learning.coordinator import Experiment

@@ -92,13 +92,17 @@ def export_checkpoints(checkpoints, destination, name='NeuralArena', evaluation=
                        audit_paths=None, audit_workers=1):
     if set(checkpoints)!=set(FORMATS): raise ValueError('provide duel, ffa4 and team2v2 checkpoints')
     models={};versions={};errors={};identities={}
+    from .teachers.provenance import ENGINE_FIELDS, TEACHER_FIELDS, validate_identity
     for fmt,path in checkpoints.items():
         models[fmt],state=load_model(path,fmt)
-        identity={key:state.get(key) for key in ('engine','engine_version','rng_version','combat_version',
-                                                   'teacher','teacher_profile','teacher_source_sha256')}
+        keys = ENGINE_FIELDS + (TEACHER_FIELDS if state.get('teacher_contract') else
+                               ('teacher','teacher_profile','teacher_source_sha256'))
+        identity={key:state.get(key) for key in keys}
         if not all(identity.values()):
             raise ValueError('checkpoint lacks combat or teacher profile identity; old weights are explicit initialization only: '+fmt)
-        if identity['engine']=='lite':
+        if state.get('teacher_contract'):
+            expected=validate_identity(identity,fmt)
+        elif identity['engine']=='lite':
             from .adapters import ENGINE_VERSION, RNG_VERSION, COMBAT_VERSION
             from .teachers import identity as teacher_identity
             expected=dict(engine='lite',engine_version=ENGINE_VERSION,rng_version=RNG_VERSION,
@@ -109,7 +113,7 @@ def export_checkpoints(checkpoints, destination, name='NeuralArena', evaluation=
                           teacher_source_sha256='native-1.18.8')
         else:
             raise ValueError('unsupported checkpoint engine identity: '+fmt)
-        if identity!=expected or (identities and identity!=next(iter(identities.values()))):
+        if identity!=expected or (identities and any(identity[key]!=next(iter(identities.values()))[key] for key in ENGINE_FIELDS)):
             raise ValueError('checkpoint combat or teacher identity differs: '+fmt)
         identities[fmt]=identity
         if state.get('runner',{}).get('version',0)<=0 and state.get('metrics',{}).get('updates',0)<=0:
@@ -125,5 +129,7 @@ def export_checkpoints(checkpoints, destination, name='NeuralArena', evaluation=
     manifest=json.loads((Path(destination)/'export.json').read_text(encoding='utf-8'))
     for fmt,error in errors.items():
         manifest['models'][fmt].update(identities[fmt], python_lua_max_error=error)
+    manifest['teacher_identities']={fmt:{key:value for key,value in identity.items() if key not in ENGINE_FIELDS}
+                                    for fmt,identity in identities.items()}
     write_json(Path(destination)/'export.json',manifest)
     return addon

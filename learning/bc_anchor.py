@@ -30,6 +30,7 @@ def weights_sha256(state):
 
 
 def _endpoint(state, fmt):
+    from .teachers.provenance import metadata as teacher_metadata
     validate_checkpoint(state, fmt)
     runner = state.get('runner', {})
     history = runner.get('history', [])
@@ -43,8 +44,7 @@ def _endpoint(state, fmt):
                 manifest_sha256=state['manifest_sha256'], version=runner['version'],
                 task_id=state.get('task_id'),
                 weights_sha256=weights_sha256(state['model']),
-                teacher={key: state.get(key) for key in ('teacher', 'teacher_profile',
-                         'teacher_source_sha256', 'teacher_parent_sha256')},
+                teacher=teacher_metadata(state),
                 parent_lineage=copy.deepcopy(runner.get('lineage', [])),
                 parent_branch=copy.deepcopy(runner.get('branch')))
 
