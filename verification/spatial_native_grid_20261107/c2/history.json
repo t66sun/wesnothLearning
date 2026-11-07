@@ -1,0 +1,87 @@
+{
+  "case": "history",
+  "width": 32,
+  "height": 16,
+  "map_sha256": null,
+  "candidates": 1,
+  "entities": 5,
+  "history": 40,
+  "persisted_rows": 41,
+  "packed_row_bytes": 30906,
+  "packed_prefix_row_bytes": 105156,
+  "gzip_shard_bytes": 137732,
+  "architecture": {
+    "id": "relational_v5",
+    "unit_embedding": 16,
+    "entity_hidden": 64,
+    "entity_layers": 2,
+    "heads": 4,
+    "ffn": 128,
+    "spatial_channels": 9,
+    "conv_channels": 16,
+    "local_hexes": 19,
+    "local_hidden": 32,
+    "gru": 128,
+    "memory_slots": 32,
+    "memory_hidden": 64,
+    "scorer_hidden": [
+      512,
+      256,
+      128
+    ],
+    "value_hidden": 128,
+    "replay_turns": 8,
+    "spatial_readout": "mean_xy",
+    "spatial_grid": "native_cells"
+  },
+  "feature_schema": 7,
+  "initializer": {
+    "checkpoint_sha256": "05908d7f972148ccc7b39b8df0cc00435e2176861654a632de44c379b94953ab",
+    "manifest_sha256": "6de9d81858c71c41de505db2c445bae5229fa8587db7a6d3d66d2ebc3eab3c88",
+    "common_actor_sha256": "a2e7404d33e24bc47030734516b05d3c18dc26273c819ff7ecc60431f1c4da98",
+    "reset_value_sha256": "f6f87f880073b8630a3d2f0c1d1d8ad504080fbe3a23b291a2404b6bd69bf73f"
+  },
+  "rules_sha256": "e6b4f6200b0a8ad58a536b844fff37cfa9e0091bf0a0b702a8982155310f2f17",
+  "read_ms": [
+    16.953561920672655,
+    16.756395809352398
+  ],
+  "lite_ms": [
+    3.7236728239804506,
+    3.6284630186855793
+  ],
+  "lua_ms": [
+    72.1975660417229,
+    72.66047294251621
+  ],
+  "training": [
+    {
+      "forward_ms": 35.29047593474388,
+      "backward_ms": 11.083575896918774,
+      "total_ms": 46.374051831662655
+    },
+    {
+      "forward_ms": 33.79650600254536,
+      "backward_ms": 11.176306055858731,
+      "total_ms": 44.97281205840409
+    }
+  ],
+  "decision": {
+    "choice": 0,
+    "log_probability": 0.0,
+    "value": 0.03393204301239908
+  },
+  "peak_rss_kib": 431724,
+  "parity": {
+    "rows": 44,
+    "replay_prefix": 40,
+    "max_error": 2.1316282072803006e-14,
+    "old_shard_sha256": "8c06bd724362b3777723a4200d02d1310836f3d56cbcd3c65e24118878eeee1d",
+    "raw_shards": {
+      "history.jsonl.gz": "b69b392368e8bb4bb715fdf559ef4b9f11a787af53d0f72ae4cf5067c3576798",
+      "combat_slots.jsonl.gz": "fd2cec9f116c38d96f7285a8176ebb9ef6c9c3f9103b8a471f2e245e175195fc",
+      "route_open.jsonl.gz": "da1900277ab539054c2394e428732c3cdf65af0fdc6210f97135e80a0cf89184",
+      "route_closed.jsonl.gz": "70decc0798b7ebeff33a450a7adaeaf8094707b74d7a23a051398169618013d5"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+test_padding_keeps_valid_convolution_readout_and_gradients (tests.v5.test_spatial_native_grid.NativeSpatialGridTests.test_padding_keeps_valid_convolution_readout_and_gradients) ... FAIL
+
+======================================================================
+FAIL: test_padding_keeps_valid_convolution_readout_and_gradients (tests.v5.test_spatial_native_grid.NativeSpatialGridTests.test_padding_keeps_valid_convolution_readout_and_gradients)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/spatial_native_grid_20261107_22202ec/source/tests/v5/test_spatial_native_grid.py", line 116, in test_padding_keeps_valid_convolution_readout_and_gradients
+    torch.testing.assert_close(evaluate([small]), evaluate([small, big]), rtol=1e-10, atol=1e-11)
+  File "/home/tongshu/venv/lib/python3.12/site-packages/torch/testing/_comparison.py", line 1589, in assert_close
+    raise error_metas[0].to_error(msg)
+AssertionError: Tensor-likes are not close!
+
+Mismatched elements: 208 / 768 (27.1%)
+Greatest absolute difference: 0.23562374429223737 at index (0, 5, 7) (up to 1e-11 allowed)
+Greatest relative difference: 0.39992753165808775 at index (0, 5, 7) (up to 1e-10 allowed)
+
+The failure occurred for item [0]
+
+----------------------------------------------------------------------
+Ran 1 test in 0.063s
+
+FAILED (failures=1)

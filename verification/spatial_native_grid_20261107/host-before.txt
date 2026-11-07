@@ -1,0 +1,25 @@
+Sat Nov  7 03:02:42 PM UTC 2026
+server
+ 23:02:42 up 20 days,  1:28,  6 users,  load average: 0.12, 0.11, 0.04
+               total        used        free      shared  buff/cache   available
+Mem:           15827        1809         771          12       13595       14017
+Swap:           4095        2012        2083
+Architecture:                            x86_64
+CPU op-mode(s):                          32-bit, 64-bit
+Address sizes:                           39 bits physical, 48 bits virtual
+Byte Order:                              Little Endian
+CPU(s):                                  8
+On-line CPU(s) list:                     0-7
+Vendor ID:                               GenuineIntel
+Model name:                              13th Gen Intel(R) Core(TM) i3-13100F
+CPU family:                              6
+Model:                                   191
+Thread(s) per core:                      2
+Core(s) per socket:                      4
+Socket(s):                               1
+Stepping:                                5
+CPU(s) scaling MHz:                      30%
+CPU max MHz:                             4500.0000
+CPU min MHz:                             800.0000
+BogoMIPS:                                6835.20
+56dd77140411db987377d6de4ffbf562da4d0e5c76bc16d34780da67e60e5ae4  /home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/.extension/_engine_lite.so

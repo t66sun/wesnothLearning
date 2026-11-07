@@ -1,0 +1,75 @@
+{
+  "case": "history",
+  "width": 32,
+  "height": 16,
+  "map_sha256": null,
+  "candidates": 1,
+  "entities": 5,
+  "history": 40,
+  "persisted_rows": 41,
+  "packed_row_bytes": 18415,
+  "packed_prefix_row_bytes": 80511,
+  "gzip_shard_bytes": 122306,
+  "architecture": {
+    "id": "relational_v5",
+    "unit_embedding": 16,
+    "entity_hidden": 64,
+    "entity_layers": 2,
+    "heads": 4,
+    "ffn": 128,
+    "spatial_size": 16,
+    "spatial_channels": 9,
+    "conv_channels": 16,
+    "local_hexes": 19,
+    "local_hidden": 32,
+    "gru": 128,
+    "memory_slots": 32,
+    "memory_hidden": 64,
+    "scorer_hidden": [
+      512,
+      256,
+      128
+    ],
+    "value_hidden": 128,
+    "replay_turns": 8,
+    "spatial_readout": "mean_xy"
+  },
+  "feature_schema": 5,
+  "initializer": {
+    "checkpoint_sha256": "05908d7f972148ccc7b39b8df0cc00435e2176861654a632de44c379b94953ab",
+    "manifest_sha256": "6de9d81858c71c41de505db2c445bae5229fa8587db7a6d3d66d2ebc3eab3c88",
+    "common_actor_sha256": "a2e7404d33e24bc47030734516b05d3c18dc26273c819ff7ecc60431f1c4da98",
+    "reset_value_sha256": "f6f87f880073b8630a3d2f0c1d1d8ad504080fbe3a23b291a2404b6bd69bf73f"
+  },
+  "rules_sha256": "e6b4f6200b0a8ad58a536b844fff37cfa9e0091bf0a0b702a8982155310f2f17",
+  "read_ms": [
+    14.36401205137372,
+    14.24986612983048
+  ],
+  "lite_ms": [
+    3.4202958922833204,
+    3.3714219462126493
+  ],
+  "lua_ms": [
+    41.88584187068045,
+    41.83536488562822
+  ],
+  "training": [
+    {
+      "forward_ms": 32.94795099645853,
+      "backward_ms": 10.733849136158824,
+      "total_ms": 43.681800132617354
+    },
+    {
+      "forward_ms": 32.824869034811854,
+      "backward_ms": 10.981567902490497,
+      "total_ms": 43.80643693730235
+    }
+  ],
+  "decision": {
+    "choice": 0,
+    "log_probability": 0.0,
+    "value": 0.03326427547008799
+  },
+  "peak_rss_kib": 434176
+}

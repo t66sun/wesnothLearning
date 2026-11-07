@@ -1,0 +1,14 @@
+test_public_terrain_cells_recover_route_connectivity (tests.v5.test_spatial_native_grid.NativeSpatialGridTests.test_public_terrain_cells_recover_route_connectivity) ... FAIL
+
+======================================================================
+FAIL: test_public_terrain_cells_recover_route_connectivity (tests.v5.test_spatial_native_grid.NativeSpatialGridTests.test_public_terrain_cells_recover_route_connectivity)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/spatial_native_grid_20261107_6c3ad47/source/tests/v5/test_spatial_native_grid.py", line 46, in test_public_terrain_cells_recover_route_connectivity
+    self.assertTrue(left['spatial']['board'] != right['spatial']['board'],
+AssertionError: False is not true : the two public routes produced the same board input
+
+----------------------------------------------------------------------
+Ran 1 test in 0.026s
+
+FAILED (failures=1)
