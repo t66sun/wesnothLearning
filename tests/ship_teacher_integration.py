@@ -56,4 +56,3 @@ printf '%s\\n' "$result" > {q(report+'/exit_code')}
 exit "$result"
 '''
 subprocess.run(['ssh', '-o', 'BatchMode=yes', 'cpuServer', 'bash', '-s'], input=script.encode(), check=True)
-
