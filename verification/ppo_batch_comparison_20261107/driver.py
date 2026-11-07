@@ -290,12 +290,16 @@ def panel_requests(cells, parents, partition, board):
 
 
 def evaluate(output, launch, parents, cells, partition, board, deadline, shortfalls):
-    reports = []
+    reports = {}
     for name, request in panel_requests(cells, parents, partition, board):
         result, _ = run_stage(output, f'{partition}-{name}', launch['contracts'][name], partition,
                               deadline, **request)
-        reports.append(read_json(result/'summary.json'))
-    return panels.summarize(reports, partition, shortfalls)
+        reports[name] = read_json(result/'summary.json')
+    summary = panels.summarize(reports.values(), partition, shortfalls)
+    if partition == 'holdout':
+        summary['learner_decision_timing'] = {name: report['learner_decision_timing']
+                                              for name, report in reports.items()}
+    return summary
 
 
 def run(output, launch_path):

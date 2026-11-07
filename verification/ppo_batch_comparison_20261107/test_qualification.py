@@ -59,7 +59,8 @@ class QualificationTests(unittest.TestCase):
                 view = dict(design=[('scene', 17, 0, (1,))], scenario_maps={'scene': 'map'}, missing=[])
                 full = dict(view, roles={role: {'scene': .5} for role in options['full']})
                 small = dict(view, roles={role: {'scene': .5} for role in options['small']})
-                write_json(result/'summary.json', dict(full=full, small=small, actual_games=0))
+                write_json(result/'summary.json', dict(full=full, small=small, actual_games=0,
+                                                      learner_decision_timing={}))
             return result, outcome
 
         output = root/'output'
