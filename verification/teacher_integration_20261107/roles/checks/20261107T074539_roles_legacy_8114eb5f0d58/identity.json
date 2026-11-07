@@ -1,0 +1,1 @@
+{"source_commit": "8114eb5f0d589ddd51b5489dd5159d7027e4e6ce", "source_tree": "/home/tongshu/myDev/wesnothLearning/verification/teacher_integration_20261107/sources/20261107T074539_roles_legacy_8114eb5f0d58", "command": ["bash", "tests/build_teacher_host.sh", "/home/tongshu/venv/bin/python", "-m", "unittest", "tests.v5.test_branch_restart_bc", "-v"], "label": "roles_legacy"}
