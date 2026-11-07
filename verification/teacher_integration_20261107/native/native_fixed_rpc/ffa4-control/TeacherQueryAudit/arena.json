@@ -1,0 +1,5 @@
+{
+  "schema": 2,
+  "id": "TeacherQueryAudit",
+  "entry": "lua/bot.lua"
+}

@@ -1,0 +1,495 @@
+{
+  "schema": 2,
+  "rules_version": "wesnoth-1.18.8-native-v2",
+  "result": {
+    "bots": [
+      "TeacherQueryAudit",
+      "baseline",
+      "baseline",
+      "baseline"
+    ],
+    "seed": 713,
+    "turns": 1,
+    "winner": 0,
+    "survivors": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "reason": "turn_limit",
+    "faults": {},
+    "rank_points": {
+      "1": 1.5,
+      "2": 1.5,
+      "3": 1.5,
+      "4": 1.5
+    },
+    "eliminated": {},
+    "seconds": 1.1951,
+    "actions": 1,
+    "factions": [
+      "Loyalists",
+      "Northerners",
+      "Rebels",
+      "Drakes"
+    ],
+    "spawns": [
+      [
+        2,
+        2
+      ],
+      [
+        14,
+        14
+      ],
+      [
+        2,
+        14
+      ],
+      [
+        14,
+        2
+      ]
+    ],
+    "lenient": false,
+    "native_replay": "/home/tongshu/myDev/wesnothLearning/verification/teacher_integration_20261107/native_fixed_rpc/team2v2-hidden/audit.replay.gz",
+    "rules_version": "wesnoth-1.18.8-native-v2",
+    "teams": [
+      1,
+      2,
+      1,
+      2
+    ],
+    "winning_team": 0,
+    "winners": []
+  },
+  "map": {
+    "width": 15,
+    "height": 15,
+    "terrain": [
+      [
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg"
+      ],
+      [
+        "Ch",
+        "Kh",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Ch",
+        "Kh",
+        "Gg"
+      ],
+      [
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg"
+      ],
+      [
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg"
+      ],
+      [
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg"
+      ],
+      [
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg"
+      ],
+      [
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg"
+      ],
+      [
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg"
+      ],
+      [
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg"
+      ],
+      [
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg"
+      ],
+      [
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg"
+      ],
+      [
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg"
+      ],
+      [
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg"
+      ],
+      [
+        "Ch",
+        "Kh",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Ch",
+        "Kh",
+        "Gg"
+      ],
+      [
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg",
+        "Gg"
+      ]
+    ],
+    "starts": [
+      [
+        2,
+        2
+      ],
+      [
+        14,
+        14
+      ],
+      [
+        2,
+        14
+      ],
+      [
+        14,
+        2
+      ]
+    ]
+  },
+  "frames": [
+    {
+      "gold": [
+        100,
+        100,
+        100,
+        100
+      ],
+      "side": 1,
+      "turn": 1,
+      "units": [
+        {
+          "hp": 55,
+          "id": "Drake Flare-4",
+          "max_hp": 55,
+          "moves": 5,
+          "side": 4,
+          "type": "Drake Flare",
+          "x": 14,
+          "xp": 0,
+          "y": 2
+        },
+        {
+          "hp": 47,
+          "id": "Elvish Captain-3",
+          "max_hp": 47,
+          "moves": 5,
+          "side": 3,
+          "type": "Elvish Captain",
+          "x": 2,
+          "xp": 0,
+          "y": 14
+        },
+        {
+          "hp": 40,
+          "id": "Lieutenant-1",
+          "max_hp": 40,
+          "moves": 6,
+          "side": 1,
+          "type": "Lieutenant",
+          "x": 2,
+          "xp": 0,
+          "y": 2
+        },
+        {
+          "hp": 58,
+          "id": "Orcish Warrior-2",
+          "max_hp": 58,
+          "moves": 5,
+          "side": 2,
+          "type": "Orcish Warrior",
+          "x": 14,
+          "xp": 0,
+          "y": 14
+        }
+      ],
+      "villages": {}
+    },
+    {
+      "gold": [
+        100,
+        100,
+        100,
+        100
+      ],
+      "side": 1,
+      "turn": 1,
+      "units": [
+        {
+          "hp": 55,
+          "id": "Drake Flare-4",
+          "max_hp": 55,
+          "moves": 5,
+          "side": 4,
+          "type": "Drake Flare",
+          "x": 14,
+          "xp": 0,
+          "y": 2
+        },
+        {
+          "hp": 47,
+          "id": "Elvish Captain-3",
+          "max_hp": 47,
+          "moves": 5,
+          "side": 3,
+          "type": "Elvish Captain",
+          "x": 2,
+          "xp": 0,
+          "y": 14
+        },
+        {
+          "hp": 40,
+          "id": "Lieutenant-1",
+          "max_hp": 40,
+          "moves": 6,
+          "side": 1,
+          "type": "Lieutenant",
+          "x": 2,
+          "xp": 0,
+          "y": 2
+        },
+        {
+          "hp": 58,
+          "id": "Orcish Warrior-2",
+          "max_hp": 58,
+          "moves": 5,
+          "side": 2,
+          "type": "Orcish Warrior",
+          "x": 14,
+          "xp": 0,
+          "y": 14
+        },
+        {
+          "hp": 36,
+          "id": "audit_actor",
+          "max_hp": 36,
+          "moves": 0,
+          "side": 1,
+          "type": "Spearman",
+          "x": 3,
+          "xp": 0,
+          "y": 3
+        },
+        {
+          "hp": 1,
+          "id": "audit_hidden",
+          "max_hp": 38,
+          "moves": 5,
+          "side": 2,
+          "type": "Orcish Grunt",
+          "x": 14,
+          "xp": 0,
+          "y": 13
+        },
+        {
+          "hp": 6,
+          "id": "audit_target",
+          "max_hp": 38,
+          "moves": 5,
+          "side": 2,
+          "type": "Orcish Grunt",
+          "x": 3,
+          "xp": 0,
+          "y": 4
+        }
+      ],
+      "villages": {}
+    }
+  ]
+}

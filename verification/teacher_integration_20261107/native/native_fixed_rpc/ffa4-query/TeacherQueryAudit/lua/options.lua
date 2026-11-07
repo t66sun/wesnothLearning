@@ -1,0 +1,1 @@
+return {["queries"]=2,["hidden"]=false,["hang"]=false}

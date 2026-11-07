@@ -12,10 +12,10 @@
 
 ## T1. Mixed teacher integration
 
-- **Status/reason:** Teacher-set selection passed 24 Ubuntu checks; data provenance, unchanged sampling and mixed-format export interfaces passed 25 affected checks. Native/Lite runtime stamping, role wiring and bounded sampling acceptance remain pending; the mixed runtime is rejected and the default remains Astra.
+- **Status/reason:** Teacher selection/data interfaces and Native fixed execution/query checks pass on Ubuntu. Lite host support, experiment-wide role wiring and bounded sampling acceptance remain pending; experiment startup still rejects the mixed set and the default remains Astra.
 - **Minimal Ubuntu inputs/procedure:** Ship committed source to a new `teacher_integration_20261107` source directory. Run `tests.test_teacher_set` and affected regressions. Subsequent integration adds query purity/budget/host/data tests and the explicitly authorized 48-game, eight-worker train-map panel (four BC and four PPO/DAgger jobs per format/backend, one hour maximum, no optimizer).
 - **Pass criteria:** Correct pinned strategies, roles and provenance; query purity, legal execution and bounded calls; complete fault-free panel; total coverage >=90% and recruit/move/attack each >=80% with nonempty denominators. Keep skipped labels as raw history. Missing checks or failed coverage block default activation; no extra games or lowered gates.
-- **Evidence:** [Teacher-set contract and paired failure diagnosis](../verification/teacher_integration_20261107/contract/REPORT.md), [data provenance and export checks](../verification/teacher_integration_20261107/provenance/REPORT.md). Native/Lite runtime and panel acceptance tests are not written yet.
+- **Evidence:** [Teacher-set contract](../verification/teacher_integration_20261107/contract/REPORT.md), [data provenance/export](../verification/teacher_integration_20261107/provenance/REPORT.md), [Native execution/query fixtures](../verification/teacher_integration_20261107/native/REPORT.md). Lite and panel acceptance tests are not written yet.
 - **Training blocker:** Blocks enabling the mixed default. This acceptance does not establish BC qualification, student strength or Lite/native rule equivalence.
 
 ## F2. Remaining finite-task readiness and critic calibration
