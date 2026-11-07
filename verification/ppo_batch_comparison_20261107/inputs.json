@@ -1,0 +1,44 @@
+{
+  "base_source": "07db85b8ba4def9bfebc7b42fe4c7bec0c4fd1b0",
+  "task_id": "official-score-30-v1",
+  "bc_seed": 202611060,
+  "seeds": [202611071, 202611072, 202611073],
+  "cell_order": [
+    ["base", 202611071], ["a", 202611071], ["b", 202611071], ["c", 202611071],
+    ["c", 202611072], ["b", 202611072], ["a", 202611072], ["base", 202611072],
+    ["a", 202611073], ["base", 202611073], ["c", 202611073], ["b", 202611073]
+  ],
+  "fresh_endpoints": [10000, 30000],
+  "seconds": {"bc_per_contract": 9000, "ppo_admission": 5100, "ppo_hard": 5400},
+  "validation_seed": 202611077,
+  "holdout_seed": 202611078,
+  "bootstrap_seed": 202611079,
+  "bootstrap_samples": 10000,
+  "small_validation_blocks": 6,
+  "workers": 8,
+  "trainer_threads": 1,
+  "bc_games": 300,
+  "rules_sha256": "e6b4f6200b0a8ad58a536b844fff37cfa9e0091bf0a0b702a8982155310f2f17",
+  "astra": {
+    "teacher": "gpt6astra",
+    "teacher_profile": "probabilistic_combat_v6",
+    "teacher_source_sha256": "d64e1178c0a8af9b1b10e2626f03e7cb8ed70a5a368d3c38860d40723a903eb5",
+    "teacher_parent_sha256": "2a216c96081990621dc15772e9de1bf40e4f5f451223fe52e5b20625464dc933"
+  },
+  "base_bc": {
+    "checkpoint_sha256": "8fc61bbb0be5c2ad8d2ec5b56760ce3dbfa08eed008c490e9b2233624ea91ebe",
+    "weights_sha256": "d9d694f04d4179a5c65bbc29307a8e425a245d650d47f55a36ec04abeb206801",
+    "manifest_sha256": "bb9915fd2ed1e3d2375c4732b604a5a1d2b3ebb8441bc2976c3b4d74ad76dd48",
+    "gate_sha256": "9cf9239a19c4d5713fe9158df43de618572474016f37e85c017b4a41700744c1"
+  },
+  "actor_initializer_sha256": "05908d7f972148ccc7b39b8df0cc00435e2176861654a632de44c379b94953ab",
+  "holdout": {
+    "name": "silverhead_crossing",
+    "file": "2p_Silverhead_Crossing.map",
+    "source_sha256": "1cb14347604bc283a13b628f344b72cdbf5082ed6c43edcaccdec7ae1f8b6d58",
+    "board_sha256": "50046e67a3d0a8bff1f6e91a5446049c193a469e9481d911da81d2837017f299",
+    "width": 29,
+    "height": 30,
+    "starts": [[4, 11], [24, 14]]
+  }
+}
