@@ -117,9 +117,11 @@ impl LiteEngine {
     }
     #[pyo3(signature=(action_json,score_only_astra=false,policy_memory_write=None))]
     fn execute_candidate(&mut self,action_json:&str,score_only_astra:bool,policy_memory_write:Option<bool>)->PyResult<String>{
+        host_deadline::check(&self.lua).map_err(error)?;
         let a:Value=decode(action_json)?;
         let f:Function=self.lua.globals().get("lite_execute").map_err(error)?;
         let result:mlua::Value=f.call((self.lua.to_value(&a).map_err(error)?,score_only_astra,policy_memory_write)).map_err(error)?;
+        host_deadline::check(&self.lua).map_err(error)?;
         let value:Value=self.lua.from_value(result).map_err(error)?;encode(&value)
     }
 }
