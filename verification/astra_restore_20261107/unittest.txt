@@ -1,0 +1,16 @@
+test_cli_binds_rules_before_features_and_restores_resume (tests.v5.test_lite_default.LiteDefaultTests.test_cli_binds_rules_before_features_and_restores_resume) ... ok
+test_cli_native_quota_override_and_bounds (tests.v5.test_lite_default.LiteDefaultTests.test_cli_native_quota_override_and_bounds) ... ok
+test_cli_omitted_defaults_match_program_api (tests.v5.test_lite_default.LiteDefaultTests.test_cli_omitted_defaults_match_program_api) ... ok
+test_default_quota_and_explicit_native (tests.v5.test_lite_default.LiteDefaultTests.test_default_quota_and_explicit_native) ... ok
+test_lite_final_evaluation_has_only_astra_controls (tests.v5.test_lite_default.LiteDefaultTests.test_lite_final_evaluation_has_only_astra_controls) ... ok
+test_native_anchor_and_lite_jobs_share_frozen_rules (tests.v5.test_lite_default.LiteDefaultTests.test_native_anchor_and_lite_jobs_share_frozen_rules) ... ok
+test_new_experiment_freezes_only_astra (tests.v5.test_lite_default.LiteDefaultTests.test_new_experiment_freezes_only_astra) ... ok
+test_partial_batch_truncates_quota_and_failed_games_do_not_count (tests.v5.test_lite_default.LiteDefaultTests.test_partial_batch_truncates_quota_and_failed_games_do_not_count) ... ok
+test_resume_keeps_frozen_targets_workers_and_deadline (tests.v5.test_lite_default.LiteDefaultTests.test_resume_keeps_frozen_targets_workers_and_deadline) ... ok
+test_adapter_reset_reuses_configured_host_once (tests.v5.test_teacher_state_reuse.TeacherStateReuseTests.test_adapter_reset_reuses_configured_host_once) ... ok
+test_teacher_query_survives_json_snapshot_round_trip (tests.v5.test_teacher_state_reuse.TeacherStateReuseTests.test_teacher_query_survives_json_snapshot_round_trip) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 1.224s
+
+OK

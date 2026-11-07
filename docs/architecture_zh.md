@@ -117,7 +117,7 @@ Lite 可达性与寻路对每个展开的格子只枚举一次六个相邻格。
 
 - `gpt6astra` —— 冻结的按决策查询 Lua 教师（`learning/teachers/`，派生源码；`data/opponents/gpt6astra.zip` 是其血脉，也是每个 manifest 随包冻结的教师）。派生源码适配 `probabilistic_combat_v6` 的攻击评分：slow 价值为被攻击目标伤害估计的 50% 加移动限制，poison 每回合 8 点。其他敌军只参与危险代价，不增加目标的减速收益；减速收益从原版边际概率中排除死亡结果。独立原版/Lite 目标归因对照、三赛制减速案例及致死选武器回归通过（`verification/teacher_slow_attribution_20261103/REPORT.md`、`verification/teacher_surviving_slow_20261103/REPORT.md`）。`teacher_profile` 与 `teacher_source_sha256` 随行式记录、检查点、作业元数据和导出传递，单次运行不会混用不同 profile。
 
-新实验在教师采集、DAgger、PPO 教师席、评测及奖励参照中使用维护版 Astra。Lite 接受维护版 Astra 源码，官方 baseline 仍仅走 Native。已停用的实验教师代码、测试、交付包及证据保存在本地被忽略的 `archive/` 目录中。
+新实验在教师采集、DAgger、PPO 教师席、评测及奖励参照中使用维护版 Astra。Lite 接受维护版 Astra 源码，官方 baseline 仍仅走 Native。已停用的实验教师代码、测试、交付包及证据保存在本地被忽略的 `archive/` 目录中。[Astra 恢复检查](../verification/astra_restore_20261107/REPORT.md)
 
 原版教师执行在移动揭露伏击（`status=2005`）后停止旧计划，即使已到达原定格；其他移动错误仍失败。真实原版夹具验证移动已发生、Wose 已可见、后续攻击为零，并有三种策略回归（`verification/teacher_ambush_20261103/REPORT.md`）。冻结对手包不变；维护中的源码修改会自动计算出新的教师身份。
 
