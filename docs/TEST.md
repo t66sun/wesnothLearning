@@ -12,10 +12,10 @@
 
 ## T1. Mixed teacher integration
 
-- **Status/reason:** Versioned teacher-set selection and frozen per-format role descriptors are implemented. Native/Lite execution, row/export propagation and bounded sampling acceptance are pending; the mixed runtime is rejected and the default remains Astra.
+- **Status/reason:** Versioned teacher-set selection and frozen per-format role descriptors pass 24 Ubuntu checks. Native/Lite execution, row/export propagation and bounded sampling acceptance are pending; the mixed runtime is rejected and the default remains Astra.
 - **Minimal Ubuntu inputs/procedure:** Ship committed source to a new `teacher_integration_20261107` source directory. Run `tests.test_teacher_set` and affected regressions. Subsequent integration adds query purity/budget/host/data tests and the explicitly authorized 48-game, eight-worker train-map panel (four BC and four PPO/DAgger jobs per format/backend, one hour maximum, no optimizer).
 - **Pass criteria:** Correct pinned strategies, roles and provenance; query purity, legal execution and bounded calls; complete fault-free panel; total coverage >=90% and recruit/move/attack each >=80% with nonempty denominators. Keep skipped labels as raw history. Missing checks or failed coverage block default activation; no extra games or lowered gates.
-- **Evidence:** New immutable reports under `verification/teacher_integration_20261107/`. Runtime/data acceptance tests beyond the teacher-set contract are not written yet.
+- **Evidence:** [Teacher-set contract and paired failure diagnosis](../verification/teacher_integration_20261107/contract/REPORT.md). Runtime/data acceptance tests beyond the teacher-set contract are not written yet.
 - **Training blocker:** Blocks enabling the mixed default. This acceptance does not establish BC qualification, student strength or Lite/native rule equivalence.
 
 ## F2. Remaining finite-task readiness and critic calibration
