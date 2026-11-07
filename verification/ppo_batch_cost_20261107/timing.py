@@ -24,7 +24,7 @@ def namespace_added_games(rows, added_cells):
     # game_id and side, while raw histories were attached by sequence_key.
     for row in rows:
         if row['game_family'] in added_cells:
-            row['game_id'] = f"{added_cells[row['game_family']]}/{row['game_id']}"
+            row['game_id'] = row['game_id']  # removed: f"{added_cells[row['game_family']]}/{row['game_id']}"
 
 
 def measure(model, sample, config, corpus, version):
