@@ -4,7 +4,7 @@
 
 运行契约和当前参数见[架构文档](architecture_zh.md)。待验收事项见[验收清单](TEST_zh.md)。
 
-**当前路线：**新实验接受 `--teacher-set astra` 或 `--teacher-set mixed-20261107`。混合集合在 BC、DAgger、PPO 教师席、评测和奖励参照中使用冻结交付的单挑/团队策略，FFA 保留维护版 Astra。有界接入面板通过前默认仍为 Astra。Lite 仍是默认采集/评测后端，官方 baseline 仅走 Native。resume 读取冻结 manifest 并拒绝覆盖教师；切换须新建实验，可选 `--branch-weights-only --phase bc` 仅继承兼容的 actor 权重并重新取得 BC 资格。本说明不授权启动训练。
+**当前路线：**新实验接受 `--teacher-set astra` 或 `--teacher-set mixed-20261107`。混合集合在 BC、DAgger、PPO 教师席、评测和奖励参照中使用冻结交付的单挑/团队策略，FFA 保留维护版 Astra。有界面板因 Native BC 采集失败及 Lite 单挑/团队覆盖不足未通过，默认仍为 Astra，见[结果及限制](../verification/teacher_integration_20261107/panel/REPORT.md)。Lite 仍是默认采集/评测后端，官方 baseline 仅走 Native。resume 读取冻结 manifest 并拒绝覆盖教师；切换须新建实验，可选 `--branch-weights-only --phase bc` 仅继承兼容的 actor 权重并重新取得 BC 资格。本说明不授权启动训练。
 
 当前 lite 战斗/教师 profile 为 `probabilistic_combat_v6`，RNG 为 `splitmix64-rejection-v1`。构建匹配扩展后才能使用。旧 expected_damage_v1/v2、probabilistic_combat_v1/v2/v3/v4/v5 运行须使用原源码/构建；不得重写冻结数据、快照或检查点身份。旧权重须走既有显式初始化/重置优化器流程，并重新验收。
 
@@ -68,6 +68,12 @@ sha256sum .runtime/entropy.so
 ```
 
 在匹配的虚拟环境中重新构建 `_engine_lite`。Rust 通过 `include_str!` 嵌入 `engine_lite/lua/host.lua`，修改这个 Lua 文件也需要重建扩展。
+
+### 教师接入检查
+
+`python tests/ship_teacher_integration.py LABEL -- bash tests/build_teacher_host.sh /home/tongshu/venv/bin/python -m unittest tests.test_teacher_integration_panel -v` 将当前提交归档、上传到新的 Ubuntu 目录，记录源码/命令/退出状态，并运行不含对局的设计检查。脚本复用既有规则、游戏安装与隔离扩展缓存。
+
+仅在获得新采样授权后，将 unittest 命令替换为 `-m tests.acceptance_teacher_integration --output NEW_ABSOLUTE_DIRECTORY`。它固定执行 48 任务、8 workers、最多一小时，不创建优化器，并拒绝已有输出目录。已记录失败面板不会被该命令重试；新运行须有新的授权预算和目录。
 
 ### 干净 Ubuntu 24.04 训练归档包
 
@@ -161,7 +167,7 @@ set -o pipefail
   2>&1 | tee "runs/logs/${run_dir##*/}.log"
 ```
 
-实验目录必须由程序创建，不要预先 `mkdir "$run_dir"`。日志放在外面的 `runs/logs/`。省略引擎参数即为 lite；需要仅原版时显式传 `--engine native`，原版教师下限默认等于对应赛制总目标。默认不采原版锚点，最终比较也在 lite 内对 Astra；原版棋力评测另行明确执行。`--bc-games` 修改的是三赛制总目标，原版配额由 `native_bc_games` 控制。
+实验目录必须由程序创建，不要预先 `mkdir "$run_dir"`。日志放在外面的 `runs/logs/`。省略引擎参数即为 lite；需要仅原版时显式传 `--engine native`，原版教师下限默认等于对应赛制总目标。默认不采原版锚点，最终比较也在 lite 内对冻结的评测角色；原版棋力评测另行明确执行。`--bc-games` 修改的是三赛制总目标，原版配额由 `native_bc_games` 控制。
 
 获准比较辅助目标时，在新运行命令中加入 `--ppo-aux-target frozen_bc_kl`；`--ppo-aux-target historical_action` 是默认基线。前者在合格 policy/train 复习状态上使用完整合格 BC 端点的冻结动作分布，后者使用历史采样动作。既有 `bc_aux` 系数仍默认 0.1，并逐批冻结。control 排除、候选、采样配额、历史和 PPO 停止规则共用。比较两个目标时不要同时调整系数或奖励。
 

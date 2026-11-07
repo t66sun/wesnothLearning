@@ -1,0 +1,40 @@
+{
+  "statuses": {
+    "complete": 36,
+    "infrastructure_error": 12
+  },
+  "queries": 333,
+  "valid_queries": 312,
+  "valid_supervision": 1487,
+  "query_errors": 0,
+  "fault_games": 12,
+  "hard_timeouts": 0,
+  "metric_snapshots": 23,
+  "metric_errors": 22,
+  "query_timing": {
+    "native/duel": {
+      "count": 0,
+      "p95_ms": null
+    },
+    "native/ffa4": {
+      "count": 0,
+      "p95_ms": null
+    },
+    "native/team2v2": {
+      "count": 0,
+      "p95_ms": null
+    },
+    "lite/duel": {
+      "count": 0,
+      "p95_ms": null
+    },
+    "lite/ffa4": {
+      "count": 0,
+      "p95_ms": null
+    },
+    "lite/team2v2": {
+      "count": 0,
+      "p95_ms": null
+    }
+  }
+}
