@@ -28,7 +28,7 @@ class TacticalInputTests(unittest.TestCase):
         primary = [a for a in moves if a['features'][index['move_primary']] == 1]
         self.assertEqual(len(primary), len({a['actor']['id'] for a in moves}))
         self.assertTrue(all(a['full'] for a in primary))
-        self.assertEqual(timing['budget'], 'work-12000-v8')
+        self.assertEqual(timing['budget'], 'work-12000-v9')
         self.assertLessEqual(len(actions), 37)
         self.assertLessEqual(timing['predictions'], 36)
         for _, a in actions.items():

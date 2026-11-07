@@ -71,7 +71,7 @@ class CandidateBudgetTests(unittest.TestCase):
         rows, timing = modules['candidates.lua'].generate(obs)
         self.assertEqual(rows[1]['kind'], 'end_turn')
         self.assertLessEqual(len(rows), 37)
-        self.assertEqual(timing['budget'], 'work-12000-v8')
+        self.assertEqual(timing['budget'], 'work-12000-v9')
         self.assertLessEqual(timing['work'], 12000)
         self.assertLessEqual(timing['reaches'], 28)
         self.assertLessEqual(timing['paths'], 8)

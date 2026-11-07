@@ -11,7 +11,7 @@ for i,field in ipairs(schema.action_features) do feature_index[field[1]]=i end
 -- Generation is cut by charged work and per-stage call caps, never by a clock,
 -- so the same state always yields the same candidate set.
 local WORK={
-    version='work-12000-v8',
+    version='work-12000-v9',
     total=12000,          -- charged search work per decision
     entities=16,          -- enemies/villages/friends scanned by scoring
     threat_enemies=12,    -- enemies expanded into the threat map
@@ -24,7 +24,7 @@ local WORK={
     recruit_probes=192,   -- ai.check_recruit calls
     attack_probes=32,     -- ai.check_attack calls
     move_probes=48,       -- ai.check_move calls
-    predictions=36,       -- combat forecasts, one per retained combat candidate
+    predictions=36,       -- combat forecasts for retention and features combined
 }
 local COST={reach=40,path=20,probe=2,predict=30}
 local function owner_kind(obs,p)
@@ -279,9 +279,10 @@ function M.generate(obs)
         for i=1,limit do out[i]=list[i] end
         return out
     end
-    local predictions=0
+    local prediction_reuses=0
     local function report()
-        return {truncated=cut,ms=wesnoth.ms_since_init()-started,predictions=predictions,work=work,budget=WORK.version,
+        return {truncated=cut,ms=wesnoth.ms_since_init()-started,predictions=calls.predict,
+            prediction_reuses=prediction_reuses,work=work,budget=WORK.version,
             reaches=calls.reach,paths=calls.path,recruit_probes=calls.recruit_probe,
             attack_probes=calls.attack_probe,move_probes=calls.move_probe}
     end
@@ -544,23 +545,59 @@ function M.generate(obs)
         end
         if denied then break end
     end
-    for _,a in ipairs(Selection.select(pool)) do actions[#actions+1]=a end
+    local function predict(a)
+        if not allow('predict',WORK.predictions,COST.predict) then return end
+        local clone=a._unit:clone()
+        if a.kind=='move_attack' then clone.x=a.tx;clone.y=a.ty end
+        return wesnoth.simulate_combat(clone,a.weapon,a._enemy)
+    end
+    local forecasts={}
+    local function compare_forecast(a)
+        if not forecasts[a] then forecasts[a]={predict(a)} end
+        return table.unpack(forecasts[a])
+    end
+    local function dominates(a,b)
+        local ours,theirs=compare_forecast(a)
+        local other_ours,other_theirs=compare_forecast(b)
+        -- A weapon may trade damage for slow or poison. Replace a slot only
+        -- on strict public forecast dominance across these outcomes.
+        local margins={
+            ours.average_hp-other_ours.average_hp,
+            other_theirs.average_hp-theirs.average_hp,
+            (other_ours.hp_chance[0] or 0)-(ours.hp_chance[0] or 0),
+            (theirs.hp_chance[0] or 0)-(other_theirs.hp_chance[0] or 0),
+            (other_ours.slowed or 0)-(ours.slowed or 0),
+            (theirs.slowed or 0)-(other_theirs.slowed or 0),
+            (other_ours.poisoned or 0)-(ours.poisoned or 0),
+            (theirs.poisoned or 0)-(other_theirs.poisoned or 0),
+        }
+        local better=false
+        for _,margin in ipairs(margins) do
+            if margin < -1e-9 then return false end
+            if margin > 1e-9 then better=true end
+        end
+        return better
+    end
+    local capacity=math.min(WORK.predictions,(WORK.total-work)//COST.predict)
+    for _,a in ipairs(Selection.select(pool,dominates,capacity)) do actions[#actions+1]=a end
     if #pool>#actions-1 then cut=true end
     S.actions(obs,actions)
     -- Features for the retained set are mandatory and bounded by the entity caps;
     -- only combat forecasts are charged as optional search work.
     for _,a in ipairs(actions) do
         if a._unit then a.features,a.rule=features(obs,a,a._unit,a._enemy,enemies,unit_villages[a._unit.id] or villages,friends) end
-        if a._enemy and allow('predict',WORK.predictions,COST.predict) then
-            local clone=a._unit:clone()
-            if a.kind=='move_attack' then clone.x=a.tx;clone.y=a.ty end
-            local ours,theirs=wesnoth.simulate_combat(clone,a.weapon,a._enemy)
+        local ours,theirs
+        if forecasts[a] then
+            ours,theirs=table.unpack(forecasts[a]);prediction_reuses=prediction_reuses+1
+        elseif a._enemy then
+            ours,theirs=predict(a)
+        end
+        if ours then
             a.features[15]=math.max(-4,math.min(4,(a._enemy.hitpoints-theirs.average_hp)/50))
-            a.features[16]=math.max(-4,math.min(4,(clone.hitpoints-ours.average_hp)/50))
+            a.features[16]=math.max(-4,math.min(4,(a._unit.hitpoints-ours.average_hp)/50))
             a.features[17]=theirs.hp_chance[0] or 0; a.features[18]=ours.hp_chance[0] or 0
             a.features[24]=1
             a.rule=a.rule+a.features[15]*5-a.features[16]*6+a.features[17]*8-a.features[18]*10
-            predictions=predictions+1
         end
         a._unit=nil;a._enemy=nil;a._serial=nil;a._home=nil;a._primary_move=nil;a.priority=nil
         a._tactical=nil;a._gain=nil;a._risk=nil;a._risk_delta=nil;a._home_distance=nil;a._support=nil

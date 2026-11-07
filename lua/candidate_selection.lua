@@ -16,7 +16,38 @@ end
 local function group(a)
     return a.kind=='recruit' and a.type or tostring(a.x)..','..tostring(a.y)
 end
-function M.select(pool)
+local function weapon_group(a)
+    return a.x..','..a.y..':'..a.tx..','..a.ty..':'..(a.ex or '')..','..(a.ey or '')
+end
+local function retain_weapons(selected,combat,used,dominates,capacity)
+    local count=0
+    for _,a in ipairs(selected) do if class(a)=='combat' then count=count+1 end end
+    -- Reserve one forecast per retained combat slot. Each excluded challenger
+    -- spends one spare call regardless of whether it wins the comparison.
+    local spare=capacity-count
+    if spare<=0 or count==0 or count==#combat then return end
+    local groups={}
+    for slot,a in ipairs(selected) do
+        if class(a)=='combat' then
+            local key=weapon_group(a)
+            local slots=groups[key] or {}
+            slots[#slots+1]=slot;groups[key]=slots
+        end
+    end
+    for _,a in ipairs(combat) do
+        if not used[a] then
+            local slots=groups[weapon_group(a)]
+            if slots then
+                for _,slot in ipairs(slots) do
+                    if dominates(a,selected[slot]) then selected[slot]=a;break end
+                end
+                spare=spare-1
+                if spare==0 then break end
+            end
+        end
+    end
+end
+function M.select(pool,dominates,capacity)
     local ranked={};local seen={}
     for _,a in ipairs(pool) do ranked[#ranked+1]=a end
     table.sort(ranked,function(a,b)
@@ -34,7 +65,7 @@ function M.select(pool)
     end
     local selected={};local used={}
     local function take(a)
-        selected[#selected+1]=a;used[identity(a)]=true
+        selected[#selected+1]=a;used[a]=true
     end
     -- Primary full moves are already budgeted/probed once per actor. Preserve
     -- them when more combat landings become available instead of losing actors
@@ -50,7 +81,7 @@ function M.select(pool)
             local groups={};local added=false
             for _,a in ipairs(bucket) do
                 local key=group(a)
-                if not used[identity(a)] and not groups[key] and count<limit and #selected<36 then
+                if not used[a] and not groups[key] and count<limit and #selected<36 then
                     take(a);groups[key]=true;count=count+1;added=true
                 end
             end
@@ -59,8 +90,9 @@ function M.select(pool)
     end
     for _,a in ipairs(unique) do
         if #selected>=36 then break end
-        if not used[identity(a)] then take(a) end
+        if not used[a] then take(a) end
     end
+    if dominates then retain_weapons(selected,classes.combat,used,dominates,capacity) end
     return selected
 end
 return M
