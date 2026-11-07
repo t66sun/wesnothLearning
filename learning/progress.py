@@ -64,7 +64,7 @@ def paired_progress(jobs, results, fmt, blocks, *, min_distinct=12):
     planned = {role: {} for role in ROLES}
     contexts = ('solo',) if fmt != 'team2v2' else tuple(sorted({j['meta']['context'] for j in jobs}))
     if fmt == 'team2v2' and set(contexts) not in (
-            {'astra_partner', 'self_team'}, {'baseline_partner', 'self_team'}):
+            {'astra_partner', 'self_team'}, {'teacher_partner','self_team'}, {'baseline_partner', 'self_team'}):
         raise ValueError('progress requires both teammate contexts')
     expected = {(b, c, r) for b in range(blocks) for c in contexts for r in range(PLAYERS[fmt])}
     for job in jobs:
@@ -168,15 +168,28 @@ def plan(directory, output, *, fmt, blocks, seed, hours):
     rules = resolve_dir(manifest['rules']['directory'])
     if load(rules)['rules_file_sha256'] != manifest['rules']['rules_sha256']:
         raise ValueError('progress frozen rules identity changed')
-    opponent = manifest['opponents'][0]
+    from .teachers.registry import role as teacher_role, describe
+    teacher=teacher_role(manifest,fmt,'evaluation')
+    opponent = dict(path=teacher['package'],sha256=teacher['package_sha256']) if teacher else manifest['opponents'][0]
     if sha256(opponent['path']) != opponent['sha256']:
         raise ValueError('progress frozen opponent changed')
     output.mkdir(parents=True, exist_ok=False)
     control = output/'opponents'/Path(opponent['path']).name
     control.parent.mkdir()
     shutil.copyfile(opponent['path'], control)
+    if teacher:
+        import copy
+        from types import SimpleNamespace
+        from .teachers import roles as routed
+        manifest=copy.deepcopy(manifest)
+        for name in manifest['teacher_set']['formats'][fmt]:
+            original=manifest['teacher_set']['formats'][fmt][name]
+            target=control.parent/Path(original['package']).name
+            if not target.exists():shutil.copyfile(original['package'],target)
+            manifest['teacher_set']['formats'][fmt][name]=describe(target,fmt)
+        routing=SimpleNamespace(manifest=manifest,fmt=fmt,config=manifest['config'])
     fixed = [str(control)] + (['baseline'] if engine == 'native' else [])
-    contexts = ('baseline_partner', 'self_team') if engine == 'native' else ('astra_partner', 'self_team')
+    contexts = ('baseline_partner', 'self_team') if engine == 'native' else ('teacher_partner' if teacher else 'astra_partner', 'self_team')
     deadline = time.time()+hours*3600
     identity = dict(roles=roles, seed=seed, blocks=blocks, engine=engine,
                     rules_sha256=manifest['rules']['rules_sha256'], control_sha256=opponent['sha256'])
@@ -189,8 +202,12 @@ def plan(directory, output, *, fmt, blocks, seed, hours):
             raise ValueError('checkpoint changed during progress planning')
         destination = output/'policies'/role
         name = 'Progress'+role.title()
+        from .teachers.provenance import ENGINE_FIELDS, TEACHER_FIELDS
+        checkpoint_identity={key:state[key] for key in ENGINE_FIELDS+TEACHER_FIELDS if key in state}
+        if teacher and len(checkpoint_identity)!=len(ENGINE_FIELDS+TEACHER_FIELDS):
+            raise ValueError('progress checkpoint lacks frozen teacher identity')
         export({fmt: model}, destination, name=name, mode='greedy', package=False,
-               version=str(roles[role]['version']))
+               version=str(roles[role]['version']),identity=checkpoint_identity if teacher else None)
         torch.save(dict(model=model.state_dict(), features=state['features'],
                         architecture=state['architecture'], format=fmt), destination/'model.pt')
         policy = str(destination/name)
@@ -200,6 +217,8 @@ def plan(directory, output, *, fmt, blocks, seed, hours):
         for job in role_jobs:
             job.update(engine=engine, rules_dir=str(rules), allow_approximate=manifest['config'].get('allow_approximate', False))
             job['meta'].update(progress_role=role, engine_id=engine, rules_sha256=identity['rules_sha256'])
+            if teacher:
+                job['task_id']=manifest['task_id'];routed.bind_job(routing,job)
             bind_scenario(job)
         jobs.extend(role_jobs)
     jobs.sort(key=lambda job: (*_cell(job), job['meta']['progress_role']))
@@ -209,7 +228,7 @@ def plan(directory, output, *, fmt, blocks, seed, hours):
     record = dict(schema=1, format=fmt, checkpoint_roles=roles, input_manifest_sha256=sha256(manifest_path),
         engine=engine, rules_dir=str(rules), rules_sha256=identity['rules_sha256'],
         budget=dict(blocks_per_role=blocks, min_distinct=12, games=len(jobs), hours=hours, deadline=deadline),
-        seed=seed, schedule_sha256=sha256(schedule),
+        seed=seed, schedule_sha256=sha256(schedule),teacher_roles=routed.identities(routing,engine) if teacher else {},
         artifacts={folder: tree_hashes(output/folder) for folder in ('policies', 'opponents')},
         evaluator_source={folder: tree_hashes(ROOT/folder) for folder in ('learning', 'lua', 'engine_lite', 'vendor/arena')})
     write_json(output/'plan.json', record)
@@ -231,6 +250,7 @@ def write_report(plan_path, results_path, output):
     results = read_json(results_path) if results_path.suffix == '.json' else [
         json.loads(line) for line in results_path.read_text(encoding='utf-8').splitlines() if line.strip()]
     report = dict(format=record['format'], checkpoint_roles=record['checkpoint_roles'],
+        teacher_roles=record.get('teacher_roles',{}),
         budget=record['budget'], plan_sha256=sha256(plan_path), results_sha256=sha256(results_path),
         scope='paired normalized own score on validation maps; independent of final holdout and selection',
         progress=paired_progress(jobs, results, record['format'], record['budget']['blocks_per_role']))

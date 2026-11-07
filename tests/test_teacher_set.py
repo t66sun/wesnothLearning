@@ -163,10 +163,10 @@ class TeacherSetTests(unittest.TestCase):
             start.assert_not_called()
         with self.assertRaises(ValueError): validate_set('unknown')
 
-    def test_incomplete_runtime_cannot_silently_run_astra(self):
+    def test_explicit_mixed_runtime_is_available_before_default_activation(self):
         require_runtime('astra')
-        with self.assertRaisesRegex(ValueError, 'integration is pending'):
-            require_runtime('mixed-20261107')
+        require_runtime('mixed-20261107')
+        self.assertEqual(DEFAULT_SET,'astra')
 
 
 if __name__ == '__main__':

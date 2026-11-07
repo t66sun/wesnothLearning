@@ -6,11 +6,12 @@ import zlib
 
 from .coverage import reason
 from .rowpack import compact_row
+from .teachers.provenance import TEACHER_FIELDS
 
 
 def _metric_view(row):
     view = {key: row[key] for key in ('side', 'turn', 'decision', 'global', 'global_features',
-            'reward_raw', 'reward_after', 'reward_config', 'source', 'teacher', 'format', 'rules_version', 'metric_event') if key in row}
+            'reward_raw', 'reward_after', 'reward_config', 'source', 'teacher', 'format', 'rules_version', 'metric_event',*TEACHER_FIELDS) if key in row}
     if 'spatial' in row:
         view['spatial'] = {'entities': row['spatial']['entities']}
     if row.get('memory_write'):

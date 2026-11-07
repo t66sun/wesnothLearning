@@ -1,0 +1,59 @@
+🐍 Found CPython 3.12 at /usr/bin/python3
+🔗 Found pyo3 bindings
+📡 Using build options features from pyproject.toml
+   Compiling wesnoth-learning-lite v0.1.0 (/home/tongshu/myDev/wesnothLearning/verification/teacher_integration_20261107/sources/20261107T074514_roles_fixes_54f645159e45/engine_lite)
+    Finished `release` profile [optimized] target(s) in 3.36s
+📦 Built wheel for CPython 3.12 to .runtime/teacher_wheels/wesnoth_learning_lite-0.1.0-cp312-cp312-manylinux_2_34_x86_64.whl
+Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simple
+Processing ./.runtime/teacher_wheels/wesnoth_learning_lite-0.1.0-cp312-cp312-manylinux_2_34_x86_64.whl
+Installing collected packages: wesnoth-learning-lite
+Successfully installed wesnoth-learning-lite-0.1.0
+HOST teacher-host-v1 /home/tongshu/myDev/wesnothLearning/verification/teacher_integration_20261107/sources/20261107T074514_roles_fixes_54f645159e45/.runtime/teacher_host/_engine_lite/__init__.py
+test_actual_roles_budgets_and_teacher_labels_for_six_cells (tests.v5.test_teacher_role_routing.TeacherRoleRoutingTests.test_actual_roles_budgets_and_teacher_labels_for_six_cells) ... ok
+test_backend_identity_change_requires_weights_only (tests.v5.test_teacher_role_routing.TeacherRoleRoutingTests.test_backend_identity_change_requires_weights_only) ... ok
+test_controller_equations_equal_with_new_reference_labels (tests.v5.test_teacher_role_routing.TeacherRoleRoutingTests.test_controller_equations_equal_with_new_reference_labels) ... ok
+test_evaluation_and_reference_read_their_own_roles (tests.v5.test_teacher_role_routing.TeacherRoleRoutingTests.test_evaluation_and_reference_read_their_own_roles) ... ok
+test_modern_calibration_cannot_reuse_astra_or_other_task_backend_rules (tests.v5.test_teacher_role_routing.TeacherRoleRoutingTests.test_modern_calibration_cannot_reuse_astra_or_other_task_backend_rules) ... ok
+test_ppo_pool_and_teammate_cycle_preserved (tests.v5.test_teacher_role_routing.TeacherRoleRoutingTests.test_ppo_pool_and_teammate_cycle_preserved) ... ok
+test_quota_requires_current_teacher_complete_original_games (tests.v5.test_teacher_role_routing.TeacherRoleRoutingTests.test_quota_requires_current_teacher_complete_original_games) ... ok
+test_teacher_faction_cycle_still_covers_all_six_factions (tests.v5.test_teacher_role_routing.TeacherRoleRoutingTests.test_teacher_faction_cycle_still_covers_all_six_factions) ... ok
+test_base_job_format_contract (tests.v5.test_pipeline_schedule.ConfigScheduleTests.test_base_job_format_contract) ... ok
+test_calibration_schedule_pairs_fixed_opponents (tests.v5.test_pipeline_schedule.ConfigScheduleTests.test_calibration_schedule_pairs_fixed_opponents) ... ok
+test_configuration_constraints (tests.v5.test_pipeline_schedule.ConfigScheduleTests.test_configuration_constraints) ... ok
+test_coverage_gate_thresholds (tests.v5.test_pipeline_schedule.ConfigScheduleTests.test_coverage_gate_thresholds) ... ok
+test_cpu_defaults (tests.v5.test_pipeline_schedule.ConfigScheduleTests.test_cpu_defaults) ... ok
+test_cuda_default_global_workers_is_eight (tests.v5.test_pipeline_schedule.ConfigScheduleTests.test_cuda_default_global_workers_is_eight) ... ok
+test_evaluation_schedule_is_deterministic_and_format_aware (tests.v5.test_pipeline_schedule.ConfigScheduleTests.test_evaluation_schedule_is_deterministic_and_format_aware) ... ok
+test_freeze_schedule_is_write_once (tests.v5.test_pipeline_schedule.ConfigScheduleTests.test_freeze_schedule_is_write_once) ... ok
+test_lite_experiment_rewrites_baseline_jobs (tests.v5.test_pipeline_schedule.ConfigScheduleTests.test_lite_experiment_rewrites_baseline_jobs) ... ok
+test_lite_schedule_contains_no_baseline_bots (tests.v5.test_pipeline_schedule.ConfigScheduleTests.test_lite_schedule_contains_no_baseline_bots) ... ok
+test_lite_selected_for_complete_accepted_catalog (tests.v5.test_pipeline_schedule.ConfigScheduleTests.test_lite_selected_for_complete_accepted_catalog) ... ok
+test_missing_catalog_does_not_silently_switch_default_engine (tests.v5.test_pipeline_schedule.ConfigScheduleTests.test_missing_catalog_does_not_silently_switch_default_engine) ... ok
+test_opening_gate_needs_two_complete_games (tests.v5.test_pipeline_schedule.ConfigScheduleTests.test_opening_gate_needs_two_complete_games) ... ok
+test_pending_catalog_does_not_silently_switch_default_engine (tests.v5.test_pipeline_schedule.ConfigScheduleTests.test_pending_catalog_does_not_silently_switch_default_engine) ... ok
+test_teacher_and_rollout_schedules (tests.v5.test_pipeline_schedule.ConfigScheduleTests.test_teacher_and_rollout_schedules) ... ok
+test_child_calibrates_trains_and_rechecks_its_own_gate (tests.v5.test_branch_restart_bc.BranchRestartBCTests.test_child_calibrates_trains_and_rechecks_its_own_gate) ... FAIL
+test_cli_requires_branch_bc_phase_and_new_optimizer (tests.v5.test_branch_restart_bc.BranchRestartBCTests.test_cli_requires_branch_bc_phase_and_new_optimizer) ... --branch-restart-bc requires --branch-from, --phase bc and --branch-reset-optimizer
+--branch-restart-bc requires --branch-from, --phase bc and --branch-reset-optimizer
+--branch-restart-bc requires --branch-from, --phase bc and --branch-reset-optimizer
+ok
+test_rejects_incompatible_supervision_contracts (tests.v5.test_branch_restart_bc.BranchRestartBCTests.test_rejects_incompatible_supervision_contracts) ... ok
+
+======================================================================
+FAIL: test_child_calibrates_trains_and_rechecks_its_own_gate (tests.v5.test_branch_restart_bc.BranchRestartBCTests.test_child_calibrates_trains_and_rechecks_its_own_gate)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/verification/teacher_integration_20261107/sources/20261107T074514_roles_fixes_54f645159e45/tests/v5/test_branch_restart_bc.py", line 115, in test_child_calibrates_trains_and_rechecks_its_own_gate
+    self.assertEqual(read_json(child/'duel/controls.json')['calibration'], 'single fixed Astra')
+AssertionError: 'single fixed teacher' != 'single fixed Astra'
+- single fixed teacher
+?               ^ ----
++ single fixed Astra
+?              ++ ^
+
+
+----------------------------------------------------------------------
+Ran 26 tests in 0.922s
+
+FAILED (failures=1)
+Experiment: stage_complete

@@ -13,6 +13,7 @@ from statistics import mean
 from .features import ENTITY, GLOBAL
 from .formats import PLAYERS
 from .rewards import RewardConfig, terminal_rewards, transition_reward
+from .teachers.provenance import TEACHER_FIELDS, is_teacher
 
 MIN_REFERENCE_GAMES = 4
 METRICS_VERSION = 'terminal-horizons-v2'
@@ -148,7 +149,7 @@ def summarize_game(records, result, job, snapshots=()):
             # Diagnostic-only observations have no action, post-action memory or
             # bootstrap value. They must never become supervised/on-policy rows.
             row = {k: snapshot[k] for k in ('side','turn','global','spatial','reward_raw',
-                   'source','teacher','format','rules_version','metric_event') if k in snapshot}
+                   'source','teacher','format','rules_version','metric_event',*TEACHER_FIELDS) if k in snapshot}
             groups[side].append((int(row['turn']), -1 if event=='initial' else float('inf'), row))
     diagnostics = []
     factions = result.get('factions') or job.get('factions', [])
@@ -165,6 +166,10 @@ def summarize_game(records, result, job, snapshots=()):
                           map_partition=meta.get('map_partition'), context=meta.get('context', 'baseline_partner' if job.get('teams') else 'solo'),
                           faction=factions[side - 1] if len(factions) >= side else None,
                           source=source, teacher=teacher, faults=result.get('faults', []), horizons=horizons)
+        if meta.get('reference_teacher'):
+            diagnostic.update(reference_teacher=meta['reference_teacher'],task_id=job['task_id'],
+                              rules_sha256=job['rules_sha256'])
+            if is_teacher(first):diagnostic.update({key:first.get(key) for key in TEACHER_FIELDS})
         missing = [f'turn{turn}' for turn in HORIZONS if horizons[str(turn)] is None]
         for name in ('format', 'map', 'map_sha256', 'map_partition', 'faction', 'rules_version'):
             if diagnostic[name] is None:
@@ -185,7 +190,18 @@ def summarize_game(records, result, job, snapshots=()):
 
 
 def _stratum(row):
-    return tuple(row.get(name) for name in ('format', 'engine_id', 'rules_version', 'map', 'map_sha256', 'faction', 'context','metrics_version'))
+    return tuple(row.get(name) for name in ('format', 'engine_id', 'rules_version', 'map', 'map_sha256', 'faction', 'context','metrics_version','task_id','rules_sha256')) + (reference_key(row.get('reference_teacher')),)
+
+
+def reference_key(identity):
+    return json.dumps(identity,sort_keys=True,separators=(',',':')) if identity else None
+
+
+def reference_matches(row, expected=None):
+    if row.get('map_partition')!='validation' or not is_teacher(row):return False
+    if expected is None:return row.get('source')=='astra' and row.get('teacher')=='gpt6astra' and not row.get('teacher_contract')
+    return (row.get('reference_teacher')==expected and
+            all(row.get(key)==expected.get(key) for key in TEACHER_FIELDS))
 
 
 def _diagnostics(evidence):
@@ -210,10 +226,10 @@ def _official_score(result, side):
 
 
 def build_control_metrics(validation_jobs, validation_results, teacher_evidence, comparison):
-    """Build new complete rotation blocks using genuine, matched Astra games.
+    """Build new complete rotation blocks using matched frozen teacher games.
 
     `teacher_evidence` contains completed sampler results with reward_diagnostics
-    from dedicated validation-map Astra reference games. Four independent game
+    from dedicated validation-map teacher reference games. Four independent game
     families per exact map/faction/engine/rules/context stratum are required.
     No training-map or final-holdout fallback exists. Call with newly finished
     panels; the controller additionally deduplicates globally unique block IDs.
@@ -223,7 +239,7 @@ def build_control_metrics(validation_jobs, validation_results, teacher_evidence,
     """
     references = defaultdict(dict)
     for row in _diagnostics(teacher_evidence):
-        if row.get('source') != 'astra' or row.get('teacher') != 'gpt6astra' or row.get('map_partition') != 'validation':
+        if not reference_matches(row,row.get('reference_teacher')):
             continue
         references[_stratum(row)][row['game_family']] = row
     lookup = {row['id']: row for row in validation_results}
@@ -266,11 +282,13 @@ def build_control_metrics(validation_jobs, validation_results, teacher_evidence,
                 key = _stratum(row)
                 reference = list(references.get(key, {}).values())
                 if len(reference) < MIN_REFERENCE_GAMES:
-                    missing.append(dict(job=job['id'], side=side, reason='insufficient exact Astra calibration',
+                    label='teacher' if row.get('reference_teacher') else 'Astra'
+                    missing.append(dict(job=job['id'], side=side, reason=f'insufficient exact {label} calibration',
                                         stratum=list(key), reference_families=len(reference)))
                     continue
                 values = {name: float(row[name]) for name in ('coverage5', 'coverage10', 'control', 'leader_survival', 'loss')}
-                values.update({f'astra_{name}': mean(float(ref[name]) for ref in reference) for name in values})
+                prefix='teacher' if row.get('reference_teacher') else 'astra'
+                values.update({f'{prefix}_{name}': mean(float(ref[name]) for ref in reference) for name in values})
                 calibrated[(row['map'], row['faction'])].append(values)
                 if row.get('reward_statistics'):
                     local_statistics.append(row['reward_statistics'])
@@ -286,11 +304,15 @@ def build_control_metrics(validation_jobs, validation_results, teacher_evidence,
         # opponents, engines and repeated panel labels/block indices.
         frozen = dict(group=group, jobs=[dict(id=job['id'], policy=job['meta'].get('policy'),
                                               family=job.get('game_family'), seed=job.get('seed'),
-                                              map_sha256=job['meta'].get('map_sha256'))
+                                              map_sha256=job['meta'].get('map_sha256'),
+                                              **(dict(reference_teacher=job['meta']['reference_teacher'],
+                                                      task_id=job.get('task_id'),rules_sha256=job.get('rules_sha256'))
+                                                 if job['meta'].get('reference_teacher') else {}))
                                           for job in sorted(jobs, key=lambda job: job['id'])])
         identity = hashlib.sha256(json.dumps(frozen, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
         score = mean(scores)
         blocks.append(dict(id=identity, format=fmt, engine_id=engine, label=label, control=opponent,
+                           reference_teacher=jobs[0]['meta'].get('reference_teacher'),
                            block=block_index, complete=True, faults=[], partition='validation', strata=strata,
                            fixed_score=score if engine != 'native' else None,
                            native_score=score if engine == 'native' else None,

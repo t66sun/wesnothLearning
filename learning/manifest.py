@@ -57,7 +57,7 @@ def freeze(run_dir, opponents, wesnoth, config):
         raise ValueError('PyTorch 2.9.1 is required; run setup.sh')
     from .rules_catalog import load, resolve_dir
     from .teachers import lineage
-    from .teachers.registry import freeze_set
+    from .teachers.registry import freeze_set, execution_matrix
     rules_dir=resolve_dir(config.get('rules_dir'))
     catalog=load(rules_dir)
     from .tasks import validate_run
@@ -76,6 +76,7 @@ def freeze(run_dir, opponents, wesnoth, config):
         baseline_in_2v2=dict(teacher_partner=True,rollout_partner_fraction=.25,
                              opponent_pool=True,control_candidate=True,
                              evaluation_contexts=['baseline_partner','self_team']))
+    manifest['teacher_executions']=execution_matrix(manifest['teacher_set'])
     write_json(run_dir/'manifest.json',manifest)
     return manifest,teachers
 
@@ -85,10 +86,12 @@ def verify_frozen(manifest):
     require_task(manifest.get('task_id'))
     validate_run(manifest['config'])
     if manifest.get('teacher_set'):
-        from .teachers.registry import verify_set
+        from .teachers.registry import verify_set, execution_matrix
         if manifest['teacher_set']['name'] != manifest['config'].get('teacher_set','astra'):
             raise ValueError('teacher set differs from frozen configuration')
         verify_set(manifest['teacher_set'])
+        if manifest.get('teacher_executions') and manifest['teacher_executions']!=execution_matrix(manifest['teacher_set']):
+            raise ValueError('frozen teacher execution backend changed')
     if manifest['task_id'] != manifest['config']['task_id']:
         raise ValueError('manifest training task differs from configuration')
     if manifest.get('batch_contract') != BATCH_CONTRACT:

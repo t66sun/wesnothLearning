@@ -170,8 +170,8 @@ class ConfigScheduleTests(unittest.TestCase):
         self.assertIsNone(duel['teams'])
 
     def test_teacher_and_rollout_schedules(self):
-        with self.assertRaisesRegex(ValueError, 'only Astra may provide teacher actions'):
-            schedule.teacher_jobs(self.directory, ['/x/other.zip'], ['astra'], {}, 1, 1,
+        with self.assertRaisesRegex(ValueError, 'one supervision teacher'):
+            schedule.teacher_jobs(self.directory, ['/x/first.zip','/x/second.zip'], ['astra'], {}, 1, 1,
                                   time.time() + 10, None, formats=('duel',))
         with mock.patch.object(maps, 'frozen_map',
                                lambda name: (copy.deepcopy(self.board), 'sha-' + name)):
@@ -206,7 +206,8 @@ class ConfigScheduleTests(unittest.TestCase):
     def test_lite_experiment_rewrites_baseline_jobs(self):
         experiment = FormatExperiment.__new__(FormatExperiment)
         experiment.directory = self.directory
-        experiment.config = dict(engine='lite', allow_approximate=False)
+        from learning.tasks import TASK_ID
+        experiment.config = dict(engine='lite', allow_approximate=False,task_id=TASK_ID)
         experiment.teachers = ['/x/gpt6astra.zip']
         experiment.controller = SimpleNamespace(freeze=lambda: helpers.config())
         collected = []

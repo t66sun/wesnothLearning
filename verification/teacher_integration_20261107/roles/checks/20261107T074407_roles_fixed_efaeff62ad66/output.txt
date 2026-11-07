@@ -1,0 +1,208 @@
+🐍 Found CPython 3.12 at /usr/bin/python3
+🔗 Found pyo3 bindings
+📡 Using build options features from pyproject.toml
+   Compiling wesnoth-learning-lite v0.1.0 (/home/tongshu/myDev/wesnothLearning/verification/teacher_integration_20261107/sources/20261107T074407_roles_fixed_efaeff62ad66/engine_lite)
+    Finished `release` profile [optimized] target(s) in 3.36s
+📦 Built wheel for CPython 3.12 to .runtime/teacher_wheels/wesnoth_learning_lite-0.1.0-cp312-cp312-manylinux_2_34_x86_64.whl
+Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simple
+Processing ./.runtime/teacher_wheels/wesnoth_learning_lite-0.1.0-cp312-cp312-manylinux_2_34_x86_64.whl
+Installing collected packages: wesnoth-learning-lite
+Successfully installed wesnoth-learning-lite-0.1.0
+HOST teacher-host-v1 /home/tongshu/myDev/wesnothLearning/verification/teacher_integration_20261107/sources/20261107T074407_roles_fixed_efaeff62ad66/.runtime/teacher_host/_engine_lite/__init__.py
+test_actual_roles_budgets_and_teacher_labels_for_six_cells (tests.v5.test_teacher_role_routing.TeacherRoleRoutingTests.test_actual_roles_budgets_and_teacher_labels_for_six_cells) ... FAIL
+test_backend_identity_change_requires_weights_only (tests.v5.test_teacher_role_routing.TeacherRoleRoutingTests.test_backend_identity_change_requires_weights_only) ... ok
+test_controller_equations_equal_with_new_reference_labels (tests.v5.test_teacher_role_routing.TeacherRoleRoutingTests.test_controller_equations_equal_with_new_reference_labels) ... ok
+test_evaluation_and_reference_read_their_own_roles (tests.v5.test_teacher_role_routing.TeacherRoleRoutingTests.test_evaluation_and_reference_read_their_own_roles) ... ERROR
+test_modern_calibration_cannot_reuse_astra_or_other_task_backend_rules (tests.v5.test_teacher_role_routing.TeacherRoleRoutingTests.test_modern_calibration_cannot_reuse_astra_or_other_task_backend_rules) ... ok
+test_ppo_pool_and_teammate_cycle_preserved (tests.v5.test_teacher_role_routing.TeacherRoleRoutingTests.test_ppo_pool_and_teammate_cycle_preserved) ... ok
+test_quota_requires_current_teacher_complete_original_games (tests.v5.test_teacher_role_routing.TeacherRoleRoutingTests.test_quota_requires_current_teacher_complete_original_games) ... ok
+test_teacher_faction_cycle_still_covers_six_factions_per_seat (tests.v5.test_teacher_role_routing.TeacherRoleRoutingTests.test_teacher_faction_cycle_still_covers_six_factions_per_seat) ... FAIL
+test_astra_set_and_build_are_reproducible (tests.test_teacher_set.TeacherSetTests.test_astra_set_and_build_are_reproducible) ... ok
+test_backend_and_strategy_identities_are_distinct (tests.test_teacher_set.TeacherSetTests.test_backend_and_strategy_identities_are_distinct) ... ok
+test_branch_rejects_same_set_with_changed_source_before_copying_state (tests.test_teacher_set.TeacherSetTests.test_branch_rejects_same_set_with_changed_source_before_copying_state) ... ok
+test_cli_selects_set_and_rejects_resume_override (tests.test_teacher_set.TeacherSetTests.test_cli_selects_set_and_rejects_resume_override) ... resume keeps the frozen teacher set; choose the teacher on a new run
+ok
+test_corrupt_package_descriptor_and_role_fail_closed (tests.test_teacher_set.TeacherSetTests.test_corrupt_package_descriptor_and_role_fail_closed) ... ok
+test_explicit_mixed_runtime_is_available_before_default_activation (tests.test_teacher_set.TeacherSetTests.test_explicit_mixed_runtime_is_available_before_default_activation) ... ok
+test_mixed_roles_pin_original_strategies (tests.test_teacher_set.TeacherSetTests.test_mixed_roles_pin_original_strategies) ... ok
+test_package_bytes_ignore_source_extraction_times (tests.test_teacher_set.TeacherSetTests.test_package_bytes_ignore_source_extraction_times) ... ok
+test_package_bytes_ignore_zip_platform_defaults (tests.test_teacher_set.TeacherSetTests.test_package_bytes_ignore_zip_platform_defaults) ... ok
+test_role_and_module_loading_preserve_namespaces (tests.test_teacher_set.TeacherSetTests.test_role_and_module_loading_preserve_namespaces) ... ok
+test_same_named_set_cannot_inherit_different_teacher_supervision (tests.test_teacher_set.TeacherSetTests.test_same_named_set_cannot_inherit_different_teacher_supervision) ... ok
+test_archive_carries_the_operating_guide_instead_of_the_retired_bundle_page (tests.test_bundle.BundleTests.test_archive_carries_the_operating_guide_instead_of_the_retired_bundle_page) ... ok
+test_build_produces_installable_archive (tests.test_bundle.BundleTests.test_build_produces_installable_archive) ... ok
+test_build_rejects_inconsistent_rule_counts (tests.test_bundle.BundleTests.test_build_rejects_inconsistent_rule_counts) ... ok
+test_build_rejects_rule_source_hash_mismatch (tests.test_bundle.BundleTests.test_build_rejects_rule_source_hash_mismatch) ... ok
+test_cli_help_exposes_both_commands (tests.test_bundle.BundleTests.test_cli_help_exposes_both_commands) ... ok
+test_local_state_and_reference_data_are_excluded (tests.test_bundle.BundleTests.test_local_state_and_reference_data_are_excluded) ... ok
+test_modes_are_fixed_for_extraction (tests.test_bundle.BundleTests.test_modes_are_fixed_for_extraction) ... ok
+test_require_wheel_rejects_archive_without_wheel (tests.test_bundle.BundleTests.test_require_wheel_rejects_archive_without_wheel) ... ok
+test_same_created_at_reproduces_bytes (tests.test_bundle.BundleTests.test_same_created_at_reproduces_bytes) ... ok
+test_verifier_rejects_forbidden_path (tests.test_bundle.BundleTests.test_verifier_rejects_forbidden_path) ... ok
+test_verifier_rejects_missing_required_path (tests.test_bundle.BundleTests.test_verifier_rejects_missing_required_path) ... ok
+test_verifier_rejects_rule_count_mismatch (tests.test_bundle.BundleTests.test_verifier_rejects_rule_count_mismatch) ... ok
+test_verifier_rejects_rule_hash_mismatch (tests.test_bundle.BundleTests.test_verifier_rejects_rule_hash_mismatch) ... ok
+test_verifier_rejects_tampered_file (tests.test_bundle.BundleTests.test_verifier_rejects_tampered_file) ... ok
+test_verifier_rejects_unsafe_or_duplicate_members (tests.test_bundle.BundleTests.test_verifier_rejects_unsafe_or_duplicate_members) ... ok
+test_verifier_reports_absent_archive (tests.test_bundle.BundleTests.test_verifier_reports_absent_archive) ... ok
+test_wheel_is_copied_only_when_manylinux_x86_64 (tests.test_bundle.BundleTests.test_wheel_is_copied_only_when_manylinux_x86_64) ... ok
+test_all_formats_and_backends_validate_actual_teacher_identity (tests.v5.test_teacher_provenance.TeacherProvenanceTests.test_all_formats_and_backends_validate_actual_teacher_identity) ... ok
+test_bc_anchor_pins_and_checks_versioned_teacher_identity (tests.v5.test_teacher_provenance.TeacherProvenanceTests.test_bc_anchor_pins_and_checks_versioned_teacher_identity) ... ok
+test_bounded_read_keeps_bucket_order_and_odd_remainder (tests.v5.test_teacher_provenance.TeacherProvenanceTests.test_bounded_read_keeps_bucket_order_and_odd_remainder) ... ok
+test_corrupt_uncovered_identity_and_mixed_sequence_are_rejected (tests.v5.test_teacher_provenance.TeacherProvenanceTests.test_corrupt_uncovered_identity_and_mixed_sequence_are_rejected) ... ok
+test_legacy_rows_stay_readable_but_do_not_count_as_new_supervision (tests.v5.test_teacher_provenance.TeacherProvenanceTests.test_legacy_rows_stay_readable_but_do_not_count_as_new_supervision) ... ok
+test_mixed_checkpoint_export_keeps_each_formats_identity (tests.v5.test_teacher_provenance.TeacherProvenanceTests.test_mixed_checkpoint_export_keeps_each_formats_identity) ... ok
+test_new_evaluation_control_is_excluded_from_ppo_rehearsal (tests.v5.test_teacher_provenance.TeacherProvenanceTests.test_new_evaluation_control_is_excluded_from_ppo_rehearsal) ... ok
+test_new_teacher_uses_the_existing_sampler_distribution_and_rng (tests.v5.test_teacher_provenance.TeacherProvenanceTests.test_new_teacher_uses_the_existing_sampler_distribution_and_rng) ... ok
+test_uncovered_actions_remain_history_but_never_labels (tests.v5.test_teacher_provenance.TeacherProvenanceTests.test_uncovered_actions_remain_history_but_never_labels) ... ok
+test_base_job_format_contract (tests.v5.test_pipeline_schedule.ConfigScheduleTests.test_base_job_format_contract) ... ok
+test_calibration_schedule_pairs_fixed_opponents (tests.v5.test_pipeline_schedule.ConfigScheduleTests.test_calibration_schedule_pairs_fixed_opponents) ... ok
+test_configuration_constraints (tests.v5.test_pipeline_schedule.ConfigScheduleTests.test_configuration_constraints) ... ok
+test_coverage_gate_thresholds (tests.v5.test_pipeline_schedule.ConfigScheduleTests.test_coverage_gate_thresholds) ... ok
+test_cpu_defaults (tests.v5.test_pipeline_schedule.ConfigScheduleTests.test_cpu_defaults) ... ok
+test_cuda_default_global_workers_is_eight (tests.v5.test_pipeline_schedule.ConfigScheduleTests.test_cuda_default_global_workers_is_eight) ... ok
+test_evaluation_schedule_is_deterministic_and_format_aware (tests.v5.test_pipeline_schedule.ConfigScheduleTests.test_evaluation_schedule_is_deterministic_and_format_aware) ... ok
+test_freeze_schedule_is_write_once (tests.v5.test_pipeline_schedule.ConfigScheduleTests.test_freeze_schedule_is_write_once) ... ok
+test_lite_experiment_rewrites_baseline_jobs (tests.v5.test_pipeline_schedule.ConfigScheduleTests.test_lite_experiment_rewrites_baseline_jobs) ... ERROR
+test_lite_schedule_contains_no_baseline_bots (tests.v5.test_pipeline_schedule.ConfigScheduleTests.test_lite_schedule_contains_no_baseline_bots) ... ok
+test_lite_selected_for_complete_accepted_catalog (tests.v5.test_pipeline_schedule.ConfigScheduleTests.test_lite_selected_for_complete_accepted_catalog) ... ok
+test_missing_catalog_does_not_silently_switch_default_engine (tests.v5.test_pipeline_schedule.ConfigScheduleTests.test_missing_catalog_does_not_silently_switch_default_engine) ... ok
+test_opening_gate_needs_two_complete_games (tests.v5.test_pipeline_schedule.ConfigScheduleTests.test_opening_gate_needs_two_complete_games) ... ok
+test_pending_catalog_does_not_silently_switch_default_engine (tests.v5.test_pipeline_schedule.ConfigScheduleTests.test_pending_catalog_does_not_silently_switch_default_engine) ... ok
+test_teacher_and_rollout_schedules (tests.v5.test_pipeline_schedule.ConfigScheduleTests.test_teacher_and_rollout_schedules) ... ok
+test_fresh_run_keeps_current_log_eligibility (tests.v5.test_branch_teacher_evidence.BranchTeacherEvidenceTests.test_fresh_run_keeps_current_log_eligibility) ... ok
+test_inherited_and_child_games_supply_the_same_corpus_and_coverage (tests.v5.test_branch_teacher_evidence.BranchTeacherEvidenceTests.test_inherited_and_child_games_supply_the_same_corpus_and_coverage) ... ok
+test_later_parent_collection_and_ineligible_results_are_not_inherited (tests.v5.test_branch_teacher_evidence.BranchTeacherEvidenceTests.test_later_parent_collection_and_ineligible_results_are_not_inherited) ... ok
+test_nested_lineage_deduplicates_paths_and_keeps_format_boundaries (tests.v5.test_branch_teacher_evidence.BranchTeacherEvidenceTests.test_nested_lineage_deduplicates_paths_and_keeps_format_boundaries) ... ok
+test_internal_export_resume_keeps_weights_integrity_without_sdk_size_cap (tests.v5.test_training_failure_fixes.FailureBoundaryTests.test_internal_export_resume_keeps_weights_integrity_without_sdk_size_cap) ... ok
+test_opening_probe_is_recorded_but_never_blocks_ppo (tests.v5.test_training_failure_fixes.FailureBoundaryTests.test_opening_probe_is_recorded_but_never_blocks_ppo) ... ok
+test_training_error_is_failed_without_final_holdout (tests.v5.test_training_failure_fixes.FailureBoundaryTests.test_training_error_is_failed_without_final_holdout) ... ok
+test_underfilled_promotion_never_selects_best (tests.v5.test_training_failure_fixes.FailureBoundaryTests.test_underfilled_promotion_never_selects_best) ... ok
+test_v100_metric_error_keeps_opening_and_records_error (tests.v5.test_training_failure_fixes.FailureBoundaryTests.test_v100_metric_error_keeps_opening_and_records_error) ... ok
+test_opponents_actions_cannot_pass_students_opening (tests.v5.test_training_failure_fixes.OpeningAndFeatureTests.test_opponents_actions_cannot_pass_students_opening) ... ok
+test_repeated_move_uses_named_feature_not_primary (tests.v5.test_training_failure_fixes.OpeningAndFeatureTests.test_repeated_move_uses_named_feature_not_primary) ... ok
+test_auto_uses_next_sampling_method_after_bc_gate (tests.v5.test_training_failure_fixes.PhaseEntryTests.test_auto_uses_next_sampling_method_after_bc_gate) ... ok
+test_bc_only_stops_without_ppo_or_final_and_can_resume_as_ppo (tests.v5.test_training_failure_fixes.PhaseEntryTests.test_bc_only_stops_without_ppo_or_final_and_can_resume_as_ppo) ... ok
+test_cli_phase_entry_is_separate_from_reward_controls (tests.v5.test_training_failure_fixes.PhaseEntryTests.test_cli_phase_entry_is_separate_from_reward_controls) ... ok
+test_forced_phase_is_explicit_preserves_gates_and_original_clock (tests.v5.test_training_failure_fixes.PhaseEntryTests.test_forced_phase_is_explicit_preserves_gates_and_original_clock) ... ok
+test_resumed_pending_batch_keeps_method_before_new_phase (tests.v5.test_training_failure_fixes.PhaseEntryTests.test_resumed_pending_batch_keeps_method_before_new_phase) ... ok
+test_bounded_calls_reach_every_panel_stratum_without_reused_ids (tests.v5.test_training_failure_fixes.ReferencePlanningTests.test_bounded_calls_reach_every_panel_stratum_without_reused_ids) ... ok
+test_failed_slot_uses_new_attempt_not_success_count (tests.v5.test_training_failure_fixes.ReferencePlanningTests.test_failed_slot_uses_new_attempt_not_success_count) ... ok
+test_metric_fault_freezes_adaptive_until_valid_metrics (tests.v5.test_training_failure_fixes.ReferencePlanningTests.test_metric_fault_freezes_adaptive_until_valid_metrics) ... ok
+test_budget_or_fault_is_not_a_terminal_observation (tests.v5.test_training_failure_fixes.TerminalHorizonTests.test_budget_or_fault_is_not_a_terminal_observation) ... ok
+test_early_terminal_snapshot_preserves_real_winner_and_loser (tests.v5.test_training_failure_fixes.TerminalHorizonTests.test_early_terminal_snapshot_preserves_real_winner_and_loser) ... ok
+test_real_lite_early_elimination_before_first_own_turn (tests.v5.test_training_failure_fixes.TerminalHorizonTests.test_real_lite_early_elimination_before_first_own_turn) ... ok
+test_collector_survives_dead_or_advanced_native_handle (tests.test_validation_cadence.ValidationCadenceTests.test_collector_survives_dead_or_advanced_native_handle) ... ok
+test_only_ordinary_validation_jobs_request_reward_diagnostics (tests.test_validation_cadence.ValidationCadenceTests.test_only_ordinary_validation_jobs_request_reward_diagnostics) ... ok
+test_reduced_team_validation_does_not_weaken_formal_evaluation (tests.test_validation_cadence.ValidationCadenceTests.test_reduced_team_validation_does_not_weaken_formal_evaluation) ... ok
+test_tenth_update_and_checkpointed_pending_validation (tests.test_validation_cadence.ValidationCadenceTests.test_tenth_update_and_checkpointed_pending_validation) ... ok
+test_validation_sizes_paired_contexts_and_no_unready_opening (tests.test_validation_cadence.ValidationCadenceTests.test_validation_sizes_paired_contexts_and_no_unready_opening) ... ok
+test_all_formats_compare_normalized_own_points_on_matched_blocks (tests.v5.test_progress_report.PairedProgressTests.test_all_formats_compare_normalized_own_points_on_matched_blocks) ... ok
+test_complete_inconclusive_is_separate_from_missing_or_faulted (tests.v5.test_progress_report.PairedProgressTests.test_complete_inconclusive_is_separate_from_missing_or_faulted) ... ok
+test_different_seeds_on_one_scene_do_not_meet_the_scenario_floor (tests.v5.test_progress_report.PairedProgressTests.test_different_seeds_on_one_scene_do_not_meet_the_scenario_floor) ... ok
+test_explicit_plan_and_execution_keep_the_source_run_read_only (tests.v5.test_progress_report.PairedProgressTests.test_explicit_plan_and_execution_keep_the_source_run_read_only) ... ok
+test_regression_uses_its_own_negative_paired_interval (tests.v5.test_progress_report.PairedProgressTests.test_regression_uses_its_own_negative_paired_interval) ... ok
+test_scenario_cluster_weights_do_not_follow_repeated_seed_count (tests.v5.test_progress_report.PairedProgressTests.test_scenario_cluster_weights_do_not_follow_repeated_seed_count) ... ok
+test_unmatched_seed_opponent_or_holdout_cannot_claim_progress (tests.v5.test_progress_report.PairedProgressTests.test_unmatched_seed_opponent_or_holdout_cannot_claim_progress) ... ok
+test_final_report_distinguishes_bc_selected_latest_and_pending_update (tests.v5.test_progress_report.ProgressIdentityTests.test_final_report_distinguishes_bc_selected_latest_and_pending_update) ... ok
+test_last_best_selected_keep_identity_and_finished_bookkeeping (tests.v5.test_checkpoint_export_identity.CheckpointExportIdentityTests.test_last_best_selected_keep_identity_and_finished_bookkeeping) ... ok
+test_child_calibrates_trains_and_rechecks_its_own_gate (tests.v5.test_branch_restart_bc.BranchRestartBCTests.test_child_calibrates_trains_and_rechecks_its_own_gate) ... ERROR
+test_cli_requires_branch_bc_phase_and_new_optimizer (tests.v5.test_branch_restart_bc.BranchRestartBCTests.test_cli_requires_branch_bc_phase_and_new_optimizer) ... --branch-restart-bc requires --branch-from, --phase bc and --branch-reset-optimizer
+--branch-restart-bc requires --branch-from, --phase bc and --branch-reset-optimizer
+--branch-restart-bc requires --branch-from, --phase bc and --branch-reset-optimizer
+ok
+test_rejects_incompatible_supervision_contracts (tests.v5.test_branch_restart_bc.BranchRestartBCTests.test_rejects_incompatible_supervision_contracts) ... ok
+test_bc_restart_and_weights_only_do_not_inherit_the_old_anchor (tests.v5.test_frozen_bc_anchor.FrozenBcAnchorTests.test_bc_restart_and_weights_only_do_not_inherit_the_old_anchor) ... ok
+test_cli_defaults_and_old_execution_contract_stay_historical (tests.v5.test_frozen_bc_anchor.FrozenBcAnchorTests.test_cli_defaults_and_old_execution_contract_stay_historical) ... Experiment: stage_complete
+resume keeps the frozen PPO auxiliary target; choose the target on a new run
+ok
+test_interrupted_resume_matches_uninterrupted_with_real_shards (tests.v5.test_frozen_bc_anchor.FrozenBcAnchorTests.test_interrupted_resume_matches_uninterrupted_with_real_shards) ... ok
+test_learn_pins_before_export_or_collection_and_force_cannot_invent_bc (tests.v5.test_frozen_bc_anchor.FrozenBcAnchorTests.test_learn_pins_before_export_or_collection_and_force_cannot_invent_bc) ... ok
+test_missing_or_replaced_anchor_fails_before_update_and_on_resume (tests.v5.test_frozen_bc_anchor.FrozenBcAnchorTests.test_missing_or_replaced_anchor_fails_before_update_and_on_resume) ... ok
+test_pin_is_complete_immutable_and_export_is_loadable (tests.v5.test_frozen_bc_anchor.FrozenBcAnchorTests.test_pin_is_complete_immutable_and_export_is_loadable) ... ok
+test_real_runner_compares_targets_and_uses_pending_coefficient (tests.v5.test_frozen_bc_anchor.FrozenBcAnchorTests.test_real_runner_compares_targets_and_uses_pending_coefficient) ... ok
+test_resume_rejects_missing_pin_or_changed_mode_and_identity (tests.v5.test_frozen_bc_anchor.FrozenBcAnchorTests.test_resume_rejects_missing_pin_or_changed_mode_and_identity) ... ok
+test_same_task_bc_parent_branches_share_the_pinned_endpoint (tests.v5.test_frozen_bc_anchor.FrozenBcAnchorTests.test_same_task_bc_parent_branches_share_the_pinned_endpoint) ... ok
+test_unqualified_or_pending_bc_is_rejected (tests.v5.test_frozen_bc_anchor.FrozenBcAnchorTests.test_unqualified_or_pending_bc_is_rejected) ... ok
+test_build_control_metrics_full_rotation_block (tests.v5.test_pipeline_contract.RewardMetricsTests.test_build_control_metrics_full_rotation_block) ... ok
+test_build_control_metrics_keeps_native_score (tests.v5.test_pipeline_contract.RewardMetricsTests.test_build_control_metrics_keeps_native_score) ... ok
+test_build_control_metrics_rejects_faulted_results (tests.v5.test_pipeline_contract.RewardMetricsTests.test_build_control_metrics_rejects_faulted_results) ... ok
+test_build_control_metrics_rejects_incomplete_rotations (tests.v5.test_pipeline_contract.RewardMetricsTests.test_build_control_metrics_rejects_incomplete_rotations) ... ok
+test_build_control_metrics_rejects_mismatched_strata (tests.v5.test_pipeline_contract.RewardMetricsTests.test_build_control_metrics_rejects_mismatched_strata) ... ok
+test_build_control_metrics_rejects_wrong_partition (tests.v5.test_pipeline_contract.RewardMetricsTests.test_build_control_metrics_rejects_wrong_partition) ... ok
+test_build_control_metrics_requires_four_reference_families (tests.v5.test_pipeline_contract.RewardMetricsTests.test_build_control_metrics_requires_four_reference_families) ... ok
+test_build_control_metrics_requires_map_sha (tests.v5.test_pipeline_contract.RewardMetricsTests.test_build_control_metrics_requires_map_sha) ... ok
+test_summarize_game_horizons_and_reward_statistics (tests.v5.test_pipeline_contract.RewardMetricsTests.test_summarize_game_horizons_and_reward_statistics) ... ok
+test_summarize_game_rejects_a_step_that_disagrees_with_its_transition (tests.v5.test_pipeline_contract.RewardMetricsTests.test_summarize_game_rejects_a_step_that_disagrees_with_its_transition) ... ok
+test_summarize_game_reports_missing_horizons_and_provenance (tests.v5.test_pipeline_contract.RewardMetricsTests.test_summarize_game_reports_missing_horizons_and_provenance) ... ok
+
+======================================================================
+ERROR: test_evaluation_and_reference_read_their_own_roles (tests.v5.test_teacher_role_routing.TeacherRoleRoutingTests.test_evaluation_and_reference_read_their_own_roles)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/verification/teacher_integration_20261107/sources/20261107T074407_roles_fixed_efaeff62ad66/tests/v5/test_teacher_role_routing.py", line 94, in test_evaluation_and_reference_read_their_own_roles
+    runner.validate_model('bc')
+  File "/home/tongshu/myDev/wesnothLearning/verification/teacher_integration_20261107/sources/20261107T074407_roles_fixed_efaeff62ad66/learning/experiment.py", line 563, in validate_model
+    gate=read_json(self.directory/'bc_gate.json') if method=='bc' else None
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/verification/teacher_integration_20261107/sources/20261107T074407_roles_fixed_efaeff62ad66/learning/common.py", line 31, in read_json
+    return json.loads(Path(path).read_text(encoding='utf-8'))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 1029, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 1015, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/tongshu/myDev/wesnothLearning/verification/teacher_integration_20261107/sources/20261107T074407_roles_fixed_efaeff62ad66/tmp/tmpnx1fqfm3/duel/bc_gate.json'
+
+======================================================================
+ERROR: test_lite_experiment_rewrites_baseline_jobs (tests.v5.test_pipeline_schedule.ConfigScheduleTests.test_lite_experiment_rewrites_baseline_jobs)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/verification/teacher_integration_20261107/sources/20261107T074407_roles_fixed_efaeff62ad66/tests/v5/test_pipeline_schedule.py", line 216, in test_lite_experiment_rewrites_baseline_jobs
+    returned, results = experiment.execute(jobs, 'unit')
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/verification/teacher_integration_20261107/sources/20261107T074407_roles_fixed_efaeff62ad66/learning/experiment.py", line 332, in execute
+    job['task_id']=self.config['task_id']
+                   ~~~~~~~~~~~^^^^^^^^^^^
+KeyError: 'task_id'
+
+======================================================================
+ERROR: test_child_calibrates_trains_and_rechecks_its_own_gate (tests.v5.test_branch_restart_bc.BranchRestartBCTests.test_child_calibrates_trains_and_rechecks_its_own_gate)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/verification/teacher_integration_20261107/sources/20261107T074407_roles_fixed_efaeff62ad66/tests/v5/test_branch_restart_bc.py", line 87, in test_child_calibrates_trains_and_rechecks_its_own_gate
+    manifest_sha256=sha256(parent/'manifest.json'), **identity.identity())
+                                                      ^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/verification/teacher_integration_20261107/sources/20261107T074407_roles_fixed_efaeff62ad66/learning/experiment.py", line 297, in identity
+    resolved=teacher_roles.identity(self)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/verification/teacher_integration_20261107/sources/20261107T074407_roles_fixed_efaeff62ad66/learning/teachers/roles.py", line 16, in identity
+    spec=descriptor(runner,name)
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/myDev/wesnothLearning/verification/teacher_integration_20261107/sources/20261107T074407_roles_fixed_efaeff62ad66/learning/teachers/roles.py", line 7, in descriptor
+    return role(getattr(runner,'manifest',{}),runner.fmt,name)
+                                              ^^^^^^^^^^
+AttributeError: 'FormatExperiment' object has no attribute 'fmt'
+
+======================================================================
+FAIL: test_actual_roles_budgets_and_teacher_labels_for_six_cells (tests.v5.test_teacher_role_routing.TeacherRoleRoutingTests.test_actual_roles_budgets_and_teacher_labels_for_six_cells)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/verification/teacher_integration_20261107/sources/20261107T074407_roles_fixed_efaeff62ad66/tests/v5/test_teacher_role_routing.py", line 55, in test_actual_roles_budgets_and_teacher_labels_for_six_cells
+    self.assertEqual(job['max_turns'],30)
+AssertionError: 60 != 30
+
+======================================================================
+FAIL: test_teacher_faction_cycle_still_covers_six_factions_per_seat (tests.v5.test_teacher_role_routing.TeacherRoleRoutingTests.test_teacher_faction_cycle_still_covers_six_factions_per_seat)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/verification/teacher_integration_20261107/sources/20261107T074407_roles_fixed_efaeff62ad66/tests/v5/test_teacher_role_routing.py", line 83, in test_teacher_faction_cycle_still_covers_six_factions_per_seat
+    self.assertTrue(all(values==set(params.FACTIONS) for values in seen.values()),seen)
+AssertionError: False is not true : {1: {'Northerners', 'Knalgan Alliance', 'Loyalists', 'Rebels', 'Drakes'}, 2: {'Northerners', 'Knalgan Alliance', 'Loyalists', 'Rebels', 'Undead'}}
+
+----------------------------------------------------------------------
+Ran 120 tests in 15.779s
+
+FAILED (failures=2, errors=3)

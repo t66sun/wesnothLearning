@@ -4,7 +4,7 @@
 
 运行契约和当前参数见[架构文档](architecture_zh.md)。待验收事项见[验收清单](TEST_zh.md)。
 
-**当前路线：**每个 manifest 冻结唯一的自定义教师包 `gpt6astra` 及其血脉，因此教师对局、DAgger 纠正与导出一致携带同一身份。lite 是默认引擎，也是默认评估引擎；新 run 采集 lite Astra 教师对局（`native_bc_games` 为 0），最终对照同样为 lite Astra，官方 baseline 席位仍仅走 native。能力与限制见 architecture.md §4–§5。
+**当前路线：**新实验接受 `--teacher-set astra` 或 `--teacher-set mixed-20261107`。混合集合在 BC、DAgger、PPO 教师席、评测和奖励参照中使用冻结交付的单挑/团队策略，FFA 保留维护版 Astra。有界接入面板通过前默认仍为 Astra。Lite 仍是默认采集/评测后端，官方 baseline 仅走 Native。resume 读取冻结 manifest 并拒绝覆盖教师；切换须新建实验，可选 `--branch-weights-only --phase bc` 仅继承兼容的 actor 权重并重新取得 BC 资格。本说明不授权启动训练。
 
 当前 lite 战斗/教师 profile 为 `probabilistic_combat_v6`，RNG 为 `splitmix64-rejection-v1`。构建匹配扩展后才能使用。旧 expected_damage_v1/v2、probabilistic_combat_v1/v2/v3/v4/v5 运行须使用原源码/构建；不得重写冻结数据、快照或检查点身份。旧权重须走既有显式初始化/重置优化器流程，并重新验收。
 
@@ -73,7 +73,7 @@ sha256sum .runtime/entropy.so
 
 `python -m learning bundle --output PATH` 生成、`python -m learning verify-bundle PATH` 校验的归档包，是干净 Ubuntu 24.04 `x86_64` 机器接收本项目的方式。它是上文服务器环境的替代方案而非替代品，现有服务器目录及其说明保持不变。
 
-归档包含源码树、冻结的 `1.18.8-combat-filtered` 规则、精选人类对局、数据集输入，以及 `data/opponents/` 下的对手包（即冻结的 `gpt6astra.zip`，由 `BUNDLE_MANIFEST.json` 的 `data.opponents` 列出，校验器要求至少一个）。它排除 `.git`、虚拟环境、缓存、`.runtime/`、`runs/`、`verification/`、`delivery/`、`tmp/`、`data/rules/1.18.8`、`data/humanData`、`data/references`、编译产物后缀、Cargo `target/` 与 `AGENTS.md`，因此不记录任何运行、棋力结果或交付决定。`docs/instructions.md` 及其镜像为必需成员：缺少它们时构建器拒绝产出归档。
+归档包含源码树、冻结的 `1.18.8-combat-filtered` 规则、精选人类对局、数据集输入，以及 `data/opponents/` 下的对手包（即冻结的 `gpt6astra.zip`，由 `BUNDLE_MANIFEST.json` 的 `data.opponents` 列出，校验器要求至少一个）。它额外原样包含 `delivery/search_teacher_20261107/manifest.json` 与 `selected_teacher.zip`，并核对哈希，其余交付输出仍排除。它排除 `.git`、虚拟环境、缓存、`.runtime/`、`runs/`、`verification/`、其余 `delivery/` 文件、`tmp/`、`data/rules/1.18.8`、`data/humanData`、`data/references`、编译产物后缀、Cargo `target/` 与 `AGENTS.md`，因此不包含训练运行或模型交付，冻结教师 manifest 保留原选拔身份。`docs/instructions.md` 及其镜像为必需成员：缺少它们时构建器拒绝产出归档。
 
 ```bash
 python -m learning bundle --output dist/WesnothLearning-training.tar.gz \
@@ -101,7 +101,7 @@ tar -xzf WesnothLearning-training.tar.gz && cd WesnothLearning
 
 ## 3. 启动前核对实际可运行范围
 
-新实验默认 lite，规则默认 `data/rules/1.18.8-combat-filtered`（587 单位、438 地形）。启动门禁核验实际六阵营的 158 单位闭包，接受已记录近似，拒绝未支持类型及缺失引用；整包语义/性能标志仍保留原值。新 manifest 冻结唯一的自定义教师包（`gpt6astra`）及其血脉；评估引擎跟随采样引擎，除非用 `--evaluation-engine` 覆盖。能力与限制见 architecture.md §4–§5。
+新实验默认 lite，规则默认 `data/rules/1.18.8-combat-filtered`（587 单位、438 地形）。启动门禁核验实际六阵营的 158 单位闭包，接受已记录近似，拒绝未支持类型及缺失引用；整包语义/性能标志仍保留原值。新 manifest 按赛制冻结所选教师角色及执行包/后端身份；评估引擎跟随采样引擎，除非用 `--evaluation-engine` 覆盖。能力与限制见 architecture.md §4–§5。
 
 通常使用默认目录即可。采集输入已于 2026-10-24 迁入 `data/`；早于该迁移的检出仍把 `rules/`、`datasets/`、`humanData*`、`opponents/`、`references/` 放在根目录，须先移入 `data/`，否则默认路径无法解析。需要用户指定其他冻结包时，传入：
 
