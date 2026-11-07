@@ -214,7 +214,7 @@ class FormatExperiment:
         self.exe=manifest['baseline']['path']
         info=None;loaded=None
         if (resume or branch) and (self.directory/'latest.pt').exists():
-            self.model,loaded=load_model(self.directory/'latest.pt',fmt,self.device)
+            loaded=torch.load(self.directory/'latest.pt',map_location=self.device,weights_only=False)
             lineage=inherited_checkpoint(self.directory,loaded)
             if branch or lineage:
                 if lineage is None: raise ValueError('branch run has no branch.json')
@@ -222,11 +222,15 @@ class FormatExperiment:
                 record=info['checkpoints'][fmt]
                 if sha256(self.directory/'latest.pt')!=record['sha256']:
                     raise ValueError('branch checkpoint changed after it was copied')
-                validate_checkpoint(loaded,fmt,None)
                 if loaded.get('manifest_sha256')!=info['parent_manifest_sha256']:
                     raise ValueError('branch checkpoint belongs to a different parent manifest')
+                actor_initializer=(info.get('weights_only') and info.get('reset_optimizer')
+                    and self.config.get('branch_weights_only') and self.config.get('phase')=='bc')
+                validate_checkpoint(loaded,fmt,actor_initializer=actor_initializer)
             else:
                 validate_resume(loaded,fmt,self.directory)
+            self.model=Policy(fmt).to(self.device)
+            self.model.load_state_dict(loaded['model'],strict=True)
         if loaded is not None:
             self.optimizer=torch.optim.Adam(self.model.parameters(),lr=self.config['learning_rate'])
             if not (info and info['reset_optimizer']):

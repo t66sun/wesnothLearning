@@ -68,8 +68,9 @@ def resume_pins(directory):
     return pins
 
 
-def validate_checkpoint(state, format_name=None, manifest_sha256=None, *, expected_task=None):
-    """Reject a checkpoint that this execution cannot resume exactly."""
+def validate_checkpoint(state, format_name=None, manifest_sha256=None, *, expected_task=None,
+                        actor_initializer=False):
+    """Check checkpoint identity. Only a verified actor branch may use a predecessor schema."""
     version = state.get('checkpoint_version', 1)
     if expected_task is not None:
         from .tasks import require_task
@@ -78,8 +79,13 @@ def validate_checkpoint(state, format_name=None, manifest_sha256=None, *, expect
             raise ValueError('checkpoint training task differs; use explicit weights-only initialization')
     if version > CHECKPOINT_VERSION:
         raise ValueError('checkpoint was written by a newer execution format')
-    if state.get('features') != schema():
-        raise ValueError('checkpoint feature schema does not match this engine')
+    features = schema()
+    if state.get('features') != features:
+        selection = features['candidate_selection']
+        predecessor = dict(features, candidate_selection=dict(selection, version='work-12000-v8'))
+        if (not actor_initializer or selection['version'] != 'work-12000-v10'
+                or state.get('features') != predecessor):
+            raise ValueError('checkpoint feature schema does not match this engine')
     if state.get('architecture') != ARCHITECTURE:
         raise ValueError('checkpoint network architecture does not match this engine')
     if format_name is not None and state.get('format') != format_name:
