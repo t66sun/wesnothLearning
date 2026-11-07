@@ -842,7 +842,7 @@ class FormatExperiment:
                 return self.final_evaluation()
             if self.state['stage']=='calibration':
                 if len(self.fixed)==1:
-                    write_json(self.directory/'controls.json',dict(controls={self.fmt:teacher_roles.package(self,'evaluation')},calibration='single fixed teacher',teacher_roles=teacher_roles.identities(self)))
+                    write_json(self.directory/'controls.json',dict(controls={self.fmt:teacher_roles.package(self,'evaluation')},calibration='single fixed teacher' if teacher_roles.descriptor(self) else 'single fixed Astra',teacher_roles=teacher_roles.identities(self)))
                     self.state['stage']='bc';self.save()
             if self.state['stage']=='calibration':
                 evaluation_fixed=teacher_roles.fixed(self,name='evaluation')
