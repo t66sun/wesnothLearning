@@ -201,8 +201,6 @@ def check_launch(launch):
         raise ValueError('the #271 arm binds the original #227 rules directory')
     if (EVIDENCE_ROOT.parent/'SOURCE_COMMIT').read_text().strip() != launch['evidence_commit']:
         raise ValueError('evidence driver source differs from the frozen launch')
-    if contracts['c']['bc_initializer_source_sha256'] != INPUTS['actor_initializer_sha256']:
-        raise ValueError('C transfer must record the common historical actor initializer')
     for contract in contracts.values():
         if sha256(contract['archive']) != contract['archive_sha256']:
             raise ValueError(f"source archive hash differs for {contract['commit']}")
@@ -215,18 +213,16 @@ def qualification(output, launch, run_name, deadline, empty_human):
     for contract_name in ('b', 'c'):
         contract = launch['contracts'][contract_name]
         parent = Path(contract['source'])/'runs'/run_name/'bc'
-        initializer = launch['actor_initializer'] if contract_name == 'b' else contract['bc_initializer']
-        initializer_sha = (INPUTS['actor_initializer_sha256'] if contract_name == 'b' else
-                           contract['bc_initializer_sha256'])
         result, _ = run_stage(output, f'bc-{contract_name}', contract, 'bc',
                               min(deadline, time.time()+INPUTS['seconds']['bc_per_contract']),
-                              parent=str(parent), initializer=initializer,
-                              initializer_sha256=initializer_sha, empty_human=str(empty_human))
+                              parent=str(parent), initializer=launch['actor_initializer'],
+                              initializer_sha256=INPUTS['actor_initializer_sha256'],
+                              empty_human=str(empty_human))
         qualified[contract_name] = dict(read_json(result)['result'], parent=str(parent))
     return qualified
 
 
-def check_first_online(cells):
+def check_first_online(base, large):
     def jobs(cell, batches):
         run = Path(cell['run'])/'duel/schedules'
         return [job for row in cell['ledger']['history'][:batches]
@@ -237,17 +233,12 @@ def check_first_online(cells):
         return (job['training_scenario']['index'], job['scenario_family'], job['game_family'],
                 job['seed'], meta['seat'], job['factions'], job['learning']['sides'][str(meta['seat'])]['sampling_seed'])
 
-    integration = {}
-    lookup = {(cell['route'], cell['seed']): cell for cell in cells}
-    for seed in INPUTS['seeds']:
-        first_eight = jobs(lookup['a', seed], 1)
-        paired_four = jobs(lookup['base', seed], 2)
-        if (len(first_eight) != 8 or len(paired_four) != 8 or
-                len({job['meta']['version'] for job in first_eight}) != 1 or
-                list(map(physical, first_eight)) != list(map(physical, paired_four))):
-            raise StageFailed(f'first real 8-game update does not match the fixed four-game stream for {seed}')
-        integration[str(seed)] = lookup['a', seed]['ledger']['first_online_batch']
-    return integration
+    first_eight, paired_four = jobs(large, 1), jobs(base, 2)
+    if (len(first_eight) != 8 or len(paired_four) != 8 or
+            len({job['meta']['version'] for job in first_eight}) != 1 or
+            list(map(physical, first_eight)) != list(map(physical, paired_four))):
+        raise StageFailed(f"first real 8-game update does not match the fixed four-game stream for {large['seed']}")
+    return large['ledger']['first_online_batch']
 
 
 def panel_requests(cells, parents, partition, board):
@@ -318,14 +309,19 @@ def run(output, launch_path):
                                    run=str(root), parent=parent['parent'], empty_human=str(empty_human),
                                    endpoint=parent['endpoint'], seed=seed, rollout_games=8 if route=='a' else 4,
                                    admission=now+INPUTS['seconds']['ppo_admission'])
-            cell = dict(arm.summarize(root, outcome), name=name, contract=source_name,
+            if not (root/'budget.json').exists():
+                raise StageFailed(f'{name} did not initialize before its wall deadline')
+            cell = dict(arm.summarize(root, Path(parent['parent']), outcome), name=name, contract=source_name,
                         route=route, seed=seed, stage=outcome, run=str(root))
             write_new(output/f'{name}-ledger.json', cell)
             cells.append(cell)
             if cell['ledger']['error'] or not cell['ledger']['settled_batches']:
                 raise StageFailed(f'{name} did not settle a valid PPO batch')
+            if route in ('base', 'a'):
+                pair = {item['route']: item for item in cells if item['seed'] == seed}
+                if 'base' in pair and 'a' in pair:
+                    write_new(output/f'first-online-a8-{seed}.json', check_first_online(pair['base'], pair['a']))
         write_new(output/'cells.json', cells)
-        write_new(output/'first-online-a8.json', check_first_online(cells))
         validation_end = min(lite_end-seconds['holdout']-seconds['report'], time.time()+seconds['validation'])
         validation = evaluate(output, launch, parents, cells, 'validation', board, validation_end)
         write_new(output/'validation.json', validation)

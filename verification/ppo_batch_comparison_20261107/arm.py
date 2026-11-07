@@ -34,6 +34,7 @@ def preserve_boundary(directory, state, budget, finished_at):
         if previous < threshold <= fresh:
             os.link(latest, endpoints / f'fresh-{threshold}.pt')
     next_wall = endpoints / 'wall.next'
+    next_wall.unlink(missing_ok=True)
     os.link(latest, next_wall)
     next_wall.replace(endpoints / 'wall.pt')
 
@@ -47,7 +48,7 @@ class WallExperiment(paired.PairedExperiment):
             finished = time.monotonic()
             self._collection_finished = finished
             if name.startswith(('ppo-batch-', 'validation-')):
-                write_new(self.directory / 'times' / f'{name}.json',
+                write_new(self.directory / 'times' / f'{name}-{time.time_ns()}.json',
                           dict(phase='rollout' if name.startswith('ppo-') else 'validation',
                                wall_seconds=finished-started))
 
@@ -90,7 +91,7 @@ class WallExperiment(paired.PairedExperiment):
             preserve_boundary(self.directory, self.state, budget, finished_at)
         if before_update is not None:
             prepared_from = getattr(self, '_collection_finished', started)
-            write_new(self.directory / 'times' / f'update-{batch:06}.json',
+            write_new(self.directory / 'times' / f'update-{batch:06}-{time.time_ns()}.json',
                       dict(phase='update', settled=settled, finished_at=finished_at,
                            preparation_seconds=before_update-prepared_from+inner_preparation,
                            training_seconds=training_seconds-inner_preparation))
@@ -123,12 +124,12 @@ def endpoint_record(path, budget):
     return record, state
 
 
-def summarize(root, outcome):
+def summarize(root, parent, outcome):
     directory = root / 'duel'
     budget = read_json(root / 'budget.json')
     state = read_json(directory / 'state.json')
     wall = directory / 'endpoints' / 'wall.pt'
-    final, complete_state = endpoint_record(wall if wall.exists() else directory/'last_bc.pt', budget)
+    final, complete_state = endpoint_record(wall if wall.exists() else parent/'duel/last_bc.pt', budget)
     entries = complete_state['history'][budget['history_start']:]
     value = ledger(complete_state, dict(budget, fresh_targets=float('inf')))
     del value['overshoot'], value['budget_complete']
