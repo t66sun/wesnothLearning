@@ -38,13 +38,20 @@ def panel(root, partition, cells):
     assert len(by_id) == len(records) == len(jobs)
     assert set(by_id) == {job['id'] for job in jobs}
     seats, designs, maps, outcomes = defaultdict(dict), defaultdict(dict), {}, Counter()
+    boundaries = Counter()
     for job in jobs:
         row = by_id[job['id']]
         meta, game = job['meta'], row['result']
         assert row['status'] == 'complete' and not game['faults']
         assert job['max_turns'] == 30 and job['task_id'] == 'official-score-30-v1'
         assert game['task_id'] == job['task_id'] and game['task_terminal']
-        assert not row['truncated'] and not game['truncated']
+        assert not row['truncated']
+        if game['reason'] == 'turn_limit':
+            assert game['truncated'] and game['turns'] == 31 and game['winner'] == 0
+            boundaries['completed_round_30'] += 1
+        else:
+            assert game['reason'] == 'victory' and not game['truncated'] and game['turns'] <= 30
+            boundaries['natural_finish'] += 1
         assert game['bots'] == job['bots'] and game['factions'] == job['factions']
         assert len(job['bots']) == 2 and game['winner'] in (0, 1, 2)
         scene, key, rotation = job['scenario_family'], meta['weights_sha256'], meta['rotation']
@@ -103,6 +110,7 @@ def panel(root, partition, cells):
             for key, value in scores([seed], groups).items():
                 close(value, observed['per_seed'][str(seed)][key])
     return dict(games=len(jobs), unique_policies=len(designs), scenes=len(maps), maps=sorted(groups),
+                boundaries=dict(boundaries),
                 differences=point, interval95=intervals,
                 per_seed={str(seed): scores([seed], groups) for seed in seeds},
                 role_scores={name: mean(mean(rows[scene] for scene in scenes)
