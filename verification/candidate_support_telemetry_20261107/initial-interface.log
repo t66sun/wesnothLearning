@@ -1,0 +1,55 @@
+test_gate_sums_reasons_and_keeps_its_verdict (tests.v5.test_coverage_reasons.CoverageReasonTests.test_gate_sums_reasons_and_keeps_its_verdict) ... ok
+test_matched_rows_are_never_counted_as_misses (tests.v5.test_coverage_reasons.CoverageReasonTests.test_matched_rows_are_never_counted_as_misses) ... ok
+test_proposal_support_and_policy_use_on_frozen_public_boards (tests.v5.test_coverage_reasons.CoverageReasonTests.test_proposal_support_and_policy_use_on_frozen_public_boards) ... ok
+test_reasons_account_for_every_miss_of_a_kind (tests.v5.test_coverage_reasons.CoverageReasonTests.test_reasons_account_for_every_miss_of_a_kind) ... ok
+test_actor_and_destination_read_stationary_actions (tests.v5.test_coverage_reasons.IntentContractTests.test_actor_and_destination_read_stationary_actions) ... ok
+test_attack_and_move_attack_are_distinct_intents (tests.v5.test_coverage_reasons.IntentContractTests.test_attack_and_move_attack_are_distinct_intents) ... ok
+test_matching_requires_the_whole_field_set (tests.v5.test_coverage_reasons.IntentContractTests.test_matching_requires_the_whole_field_set) ... ok
+test_reason_ignores_candidates_of_another_kind (tests.v5.test_coverage_reasons.IntentContractTests.test_reason_ignores_candidates_of_another_kind) ... ok
+test_reason_names_the_first_lost_stage (tests.v5.test_coverage_reasons.IntentContractTests.test_reason_names_the_first_lost_stage) ... ok
+test_human_capture_with_v3_budget_imports_as_v3 (tests.v5.test_candidate_provenance.CandidateProvenanceTests.test_human_capture_with_v3_budget_imports_as_v3) ... ok
+test_human_capture_without_timing_keeps_v1_and_validates (tests.v5.test_candidate_provenance.CandidateProvenanceTests.test_human_capture_without_timing_keeps_v1_and_validates) ... ok
+test_unrecorded_teacher_uses_fallback_and_collected_rows_are_v5 (tests.v5.test_candidate_provenance.CandidateProvenanceTests.test_unrecorded_teacher_uses_fallback_and_collected_rows_are_v5) ... ok
+test_damage_dominance_does_not_remove_a_possible_plague_conversion (tests.v5.test_candidate_weapon_retention.CandidateWeaponRetentionTests.test_damage_dominance_does_not_remove_a_possible_plague_conversion) ... ok
+test_damage_dominance_does_not_remove_a_slow_tradeoff (tests.v5.test_candidate_weapon_retention.CandidateWeaponRetentionTests.test_damage_dominance_does_not_remove_a_slow_tradeoff) ... ok
+test_dominant_ranged_weapon_immediately_occupies_its_group_slot (tests.v5.test_candidate_weapon_retention.CandidateWeaponRetentionTests.test_dominant_ranged_weapon_immediately_occupies_its_group_slot) ... ok
+test_all_exposed_keeps_the_nearest_legal_recruits (tests.v5.test_candidate_recruit_positions.CandidateRecruitPositionsTests.test_all_exposed_keeps_the_nearest_legal_recruits) ... ok
+test_front_and_low_exposure_survive_the_final_slot_cap (tests.v5.test_candidate_recruit_positions.CandidateRecruitPositionsTests.test_front_and_low_exposure_survive_the_final_slot_cap) ... ok
+test_frozen_hidden_deltas_cannot_change_recruit_options (tests.v5.test_candidate_recruit_positions.CandidateRecruitPositionsTests.test_frozen_hidden_deltas_cannot_change_recruit_options) ... ok
+test_incomplete_public_threat_map_preserves_original_order (tests.v5.test_candidate_recruit_positions.CandidateRecruitPositionsTests.test_incomplete_public_threat_map_preserves_original_order) ... ok
+test_public_low_exposure_pair_is_retained_and_executes (tests.v5.test_candidate_recruit_positions.CandidateRecruitPositionsTests.test_public_low_exposure_pair_is_retained_and_executes) ... ok
+test_hidden_leadership_cannot_change_hypothetical_forecast_or_normal_candidates (tests.v5.test_forecast_public_context.ForecastPublicContextTests.test_hidden_leadership_cannot_change_hypothetical_forecast_or_normal_candidates) ... ok
+test_previously_public_ffa_flanker_reconceals_after_rogue_moves (tests.v5.test_forecast_public_context.ForecastPublicContextTests.test_previously_public_ffa_flanker_reconceals_after_rogue_moves) ... ok
+test_score_only_preserves_observations_and_every_consumed_write (tests.v5.test_lite_score_policy.ScorePolicyTests.test_score_only_preserves_observations_and_every_consumed_write) ... ok
+test_gain_is_relative_to_the_same_actors_origin (tests.v5.test_tactical_inputs.TacticalInputTests.test_gain_is_relative_to_the_same_actors_origin) ... ERROR
+test_inputs_are_generated_before_teacher_query_and_do_not_consume_rng (tests.v5.test_tactical_inputs.TacticalInputTests.test_inputs_are_generated_before_teacher_query_and_do_not_consume_rng) ... ok
+test_old_supervised_and_uncovered_records_cannot_be_silently_relabelled (tests.v5.test_tactical_inputs.TacticalInputTests.test_old_supervised_and_uncovered_records_cannot_be_silently_relabelled) ... ok
+test_public_move_score_reaches_student (tests.v5.test_tactical_inputs.TacticalInputTests.test_public_move_score_reaches_student) ... ERROR
+test_relative_round_is_encoded_without_absolute_side_ids (tests.v5.test_tactical_inputs.TacticalInputTests.test_relative_round_is_encoded_without_absolute_side_ids) ... ok
+test_schema_width_is_identical_in_collected_and_exported_lua (tests.v5.test_tactical_inputs.TacticalInputTests.test_schema_width_is_identical_in_collected_and_exported_lua) ... ok
+
+======================================================================
+ERROR: test_gain_is_relative_to_the_same_actors_origin (tests.v5.test_tactical_inputs.TacticalInputTests.test_gain_is_relative_to_the_same_actors_origin)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/candidate_support_telemetry_green_20261107/tests/v5/test_tactical_inputs.py", line 49, in test_gain_is_relative_to_the_same_actors_origin
+    actions, _ = modules['candidates.lua'].generate(obs)
+    ^^^^^^^^^^
+ValueError: too many values to unpack (expected 2)
+
+======================================================================
+ERROR: test_public_move_score_reaches_student (tests.v5.test_tactical_inputs.TacticalInputTests.test_public_move_score_reaches_student)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/candidate_support_telemetry_green_20261107/tests/v5/test_tactical_inputs.py", line 24, in test_public_move_score_reaches_student
+    _, _, _, actions, timing = self.capture()
+                               ^^^^^^^^^^^^^^
+  File "/home/tongshu/acceptance/candidate_support_telemetry_green_20261107/tests/v5/test_tactical_inputs.py", line 16, in capture
+    actions, timing = modules['candidates.lua'].generate(obs)
+    ^^^^^^^^^^^^^^^
+ValueError: too many values to unpack (expected 2)
+
+----------------------------------------------------------------------
+Ran 29 tests in 7.325s
+
+FAILED (errors=2)

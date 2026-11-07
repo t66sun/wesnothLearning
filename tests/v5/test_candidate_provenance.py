@@ -120,6 +120,8 @@ class CandidateProvenanceTests(unittest.TestCase):
         self.assertEqual(len(calls), len(collected)+len(unrecorded)+len(diagnostic))
         self.assertTrue(all(call['side']==1 and 'budget' not in call['timing'] for call in diagnostic))
         self.assertTrue(all('metric_event' not in row for row in rows))
+        self.assertTrue(all('teacher_proposed' not in row and 'candidate_support' not in row for row in rows))
+        self.assertEqual(outcome['coverage']['candidate_use']['decisions'], len(rows))
         for call in unrecorded:
             self.assertTrue(call['teacher'], call)
             self.assertFalse(call['generate_candidates'], call)

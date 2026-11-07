@@ -38,7 +38,7 @@ def destination(candidate):
 
 
 def reason(candidates, action):
-    """Why an unmatched intent is absent: the first retention stage that lost it.
+    """Describe an unmatched intent using the final candidate set.
 
     Only candidates of the intent's own kind are considered, so a kind that was
     generated but filtered by the class quota still reports the finer cause.
@@ -64,3 +64,30 @@ def reason(candidates, action):
             return 'enemy_absent'
         return 'weapon_absent'
     return 'mode_absent'
+
+
+def record_teacher_support(coverage, source, action, proposed, retained, selected=None):
+    """Count the fate of one actual teacher intent. A missing observation stays unknown."""
+    if proposed is None:
+        return
+    if retained < 0:
+        stage = 'truncated' if proposed else 'not_proposed'
+    elif selected is None:
+        stage = 'retained'
+    else:
+        stage = 'selected' if retained == selected else 'retained_not_selected'
+    counts = coverage.setdefault('teacher_support', {})
+    key = f"{source}:{action['kind']}:{stage}"
+    counts[key] = counts.get(key, 0) + 1
+
+
+def record_candidate_use(coverage, tagged, choice):
+    """Count learner decisions offering and choosing each changed candidate class."""
+    use = coverage.setdefault('candidate_use', dict(decisions=0, offered={}, selected={}))
+    use['decisions'] += 1
+    for kind in {kind for _, kind in tagged}:
+        use['offered'][kind] = use['offered'].get(kind, 0) + 1
+    for index, kind in tagged:
+        if index == choice + 1:
+            use['selected'][kind] = use['selected'].get(kind, 0) + 1
+            break

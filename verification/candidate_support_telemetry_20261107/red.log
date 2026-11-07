@@ -1,0 +1,14 @@
+test_proposal_support_and_policy_use_on_frozen_public_boards (tests.v5.test_coverage_reasons.CoverageReasonTests.test_proposal_support_and_policy_use_on_frozen_public_boards) ... FAIL
+
+======================================================================
+FAIL: test_proposal_support_and_policy_use_on_frozen_public_boards (tests.v5.test_coverage_reasons.CoverageReasonTests.test_proposal_support_and_policy_use_on_frozen_public_boards)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/candidate_support_telemetry_red_20261107/tests/v5/test_coverage_reasons.py", line 100, in test_proposal_support_and_policy_use_on_frozen_public_boards
+    self.assertIs(row.get('teacher_proposed'), proposed)
+AssertionError: None is not True
+
+----------------------------------------------------------------------
+Ran 1 test in 0.349s
+
+FAILED (failures=1)

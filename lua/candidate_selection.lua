@@ -19,7 +19,7 @@ end
 local function weapon_group(a)
     return a.x..','..a.y..':'..a.tx..','..a.ty..':'..(a.ex or '')..','..(a.ey or '')
 end
-local function retain_weapons(selected,combat,used,dominates,capacity)
+local function retain_weapons(selected,combat,used,dominates,capacity,collect_support)
     local count=0
     for _,a in ipairs(selected) do if class(a)=='combat' then count=count+1 end end
     -- Reserve one forecast per retained combat slot. Each excluded challenger
@@ -39,7 +39,10 @@ local function retain_weapons(selected,combat,used,dominates,capacity)
             local slots=groups[weapon_group(a)]
             if slots then
                 for _,slot in ipairs(slots) do
-                    if dominates(a,selected[slot]) then selected[slot]=a;break end
+                    if dominates(a,selected[slot]) then
+                        if collect_support then a._coverage_kind='weapon_replacement' end
+                        selected[slot]=a;break
+                    end
                 end
                 spare=spare-1
                 if spare==0 then break end
@@ -47,7 +50,7 @@ local function retain_weapons(selected,combat,used,dominates,capacity)
         end
     end
 end
-function M.select(pool,dominates,capacity)
+function M.select(pool,dominates,capacity,collect_support)
     local ranked={};local seen={}
     for _,a in ipairs(pool) do ranked[#ranked+1]=a end
     table.sort(ranked,function(a,b)
@@ -92,7 +95,7 @@ function M.select(pool,dominates,capacity)
         if #selected>=36 then break end
         if not used[a] then take(a) end
     end
-    if dominates then retain_weapons(selected,classes.combat,used,dominates,capacity) end
+    if dominates then retain_weapons(selected,classes.combat,used,dominates,capacity,collect_support) end
     return selected
 end
 return M
