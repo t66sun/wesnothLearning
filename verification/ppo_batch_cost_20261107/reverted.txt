@@ -1,0 +1,23 @@
+test_cross_run_job_ids_keep_distinct_ppo_targets (__main__.BatchCostTest.test_cross_run_job_ids_keep_distinct_ppo_targets) ... FAIL
+
+======================================================================
+FAIL: test_cross_run_job_ids_keep_distinct_ppo_targets (__main__.BatchCostTest.test_cross_run_job_ids_keep_distinct_ppo_targets)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/ppo_batch_cost_20261107_24fe25c/reverted/verification/ppo_batch_cost_20261107/test_diagnostic.py", line 13, in test_cross_run_job_ids_keep_distinct_ppo_targets
+    self.assertEqual([_target_key(row) for row in rows], [
+AssertionError: Lists differ: [('rollout-00038-duel-g0', 1, 1, 0), ('rollout-00038-duel-g0', 1, 1, 0)] != [('rollout-00038-duel-g0', 1, 1, 0), ('a2/rollout-00038-duel-g0', 1, 1, 0)]
+
+First differing element 1:
+('rollout-00038-duel-g0', 1, 1, 0)
+('a2/rollout-00038-duel-g0', 1, 1, 0)
+
+- [('rollout-00038-duel-g0', 1, 1, 0), ('rollout-00038-duel-g0', 1, 1, 0)]
++ [('rollout-00038-duel-g0', 1, 1, 0), ('a2/rollout-00038-duel-g0', 1, 1, 0)]
+?                                        +++
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (failures=1)
