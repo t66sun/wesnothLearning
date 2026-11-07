@@ -1,0 +1,38 @@
+ignore_width f16a9e6f9d40035ea696594b25f7183529263eb5
+cca8d6033e5ef703437c58e8a351980e1d3708bf16cc4d2eaa37ae8fdf2ca7f0  /home/tongshu/acceptance/ppo_batch_contract_20261107_347100f/ppo_a2_271_ignore_width.tar
+test_eight_complete_trajectories_match_after_pending_train_resume (verification.ppo_batch_contract_20261107.test_contract.BatchContractTests.test_eight_complete_trajectories_match_after_pending_train_resume) ... FAIL
+
+======================================================================
+FAIL: test_eight_complete_trajectories_match_after_pending_train_resume (verification.ppo_batch_contract_20261107.test_contract.BatchContractTests.test_eight_complete_trajectories_match_after_pending_train_resume)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/ppo_batch_contract_20261107_347100f/revert-ignore_width/verification/ppo_batch_contract_20261107/test_contract.py", line 124, in test_eight_complete_trajectories_match_after_pending_train_resume
+    result.learn()
+  File "/home/tongshu/acceptance/ppo_batch_contract_20261107_347100f/revert-ignore_width/verification/ppo_batch_contract_20261107/driver.py", line 52, in learn
+    super().learn()
+  File "/home/tongshu/acceptance/ppo_batch_contract_20261107_347100f/revert-ignore_width/learning/experiment.py", line 666, in learn
+    jobs,results=self.execute(jobs,f'{method}-batch-{index:06}')
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/acceptance/ppo_batch_contract_20261107_347100f/revert-ignore_width/verification/ppo_batch_contract_20261107/driver.py", line 59, in execute
+    jobs, results = super().execute(jobs, name)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/acceptance/ppo_batch_contract_20261107_347100f/revert-ignore_width/learning/experiment.py", line 360, in execute
+    if pending: self.collector(pending,log)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/mock.py", line 1134, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/mock.py", line 1138, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/mock.py", line 1199, in _execute_mock_call
+    result = effect(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/acceptance/ppo_batch_contract_20261107_347100f/revert-ignore_width/verification/ppo_batch_contract_20261107/test_contract.py", line 72, in collect_fixture
+    self.assertEqual(len(jobs), 8)
+AssertionError: 4 != 8
+
+----------------------------------------------------------------------
+Ran 1 test in 0.398s
+
+FAILED (failures=1)

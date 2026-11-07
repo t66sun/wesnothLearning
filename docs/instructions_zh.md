@@ -224,6 +224,8 @@ test -f "$run_dir/manifest.json" || exit 1
 
 若要在截止前停在已提交边界，可为 `phase ppo` 加上 `--ppo-batches N`。每种目标赛制各自提交 N 个新调度且至少执行一步优化器更新的 PPO 批次，完成到期验证后结束阶段。请求生效时已有的待提交批次按原计划完成，不计入本次目标。每次新请求独立计数，阶段截止时间仍可提前结束训练。
 
+固定 Astra 的有界单挑对照通过 `start_arm` 创建运行，选定 `rollout_games=4` 或 `8`。预算记录首个 PPO 批号、停止接纳新批次的时间及结算截止时间。用 `resume_arm` 从同一运行目录恢复已保存阶段，沿用原预算。按等墙钟时间对照时省略 `fresh_targets`。[驱动与 Ubuntu 验证](../verification/ppo_batch_contract_20261107/REPORT.md)
+
 对已有实验一次读取足够的状态；首次检查或实际异常才扩大范围。先确认 manifest 存在，再查看控制器，避免对不存在的实验路径创建控制目录。
 
 ```bash

@@ -1,0 +1,83 @@
+partial_batch 3b7fd083ba7038f7c0ad2587c0d41d0fc6e8e025
+9af19e0fa4b12c1040a69815128fd8a5665a6fda28a94fae183112732360ca63  /home/tongshu/acceptance/ppo_batch_contract_20261107_347100f/ppo_a2_271_partial_batch.tar
+test_incomplete_batch_keeps_previous_complete_checkpoint (verification.ppo_batch_contract_20261107.test_contract.BatchContractTests.test_incomplete_batch_keeps_previous_complete_checkpoint) ...
+  test_incomplete_batch_keeps_previous_complete_checkpoint (verification.ppo_batch_contract_20261107.test_contract.BatchContractTests.test_incomplete_batch_keeps_previous_complete_checkpoint) (status='budget') ... FAIL
+  test_incomplete_batch_keeps_previous_complete_checkpoint (verification.ppo_batch_contract_20261107.test_contract.BatchContractTests.test_incomplete_batch_keeps_previous_complete_checkpoint) (status='missing') ... FAIL
+  test_incomplete_batch_keeps_previous_complete_checkpoint (verification.ppo_batch_contract_20261107.test_contract.BatchContractTests.test_incomplete_batch_keeps_previous_complete_checkpoint) (status='ineligible') ... FAIL
+
+======================================================================
+FAIL: test_incomplete_batch_keeps_previous_complete_checkpoint (verification.ppo_batch_contract_20261107.test_contract.BatchContractTests.test_incomplete_batch_keeps_previous_complete_checkpoint) (status='budget')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/ppo_batch_contract_20261107_347100f/revert-partial_batch/verification/ppo_batch_contract_20261107/test_contract.py", line 171, in test_incomplete_batch_keeps_previous_complete_checkpoin
+    result.learn()
+  File "/home/tongshu/acceptance/ppo_batch_contract_20261107_347100f/revert-partial_batch/verification/ppo_batch_contract_20261107/driver.py", line 51, in learn
+    super().learn()
+  File "/home/tongshu/acceptance/ppo_batch_contract_20261107_347100f/revert-partial_batch/learning/experiment.py", line 686, in learn
+    finished=self.finish_train(prepared_bc,prepared_ppo=prepared_ppo)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/acceptance/ppo_batch_contract_20261107_347100f/revert-partial_batch/learning/experiment.py", line 438, in finish_train
+    metrics=train(self.model,self.optimizer,rows,method,epochs=self.config['epochs'],minibatch=self.config['minibatch'],
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/mock.py", line 1134, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/mock.py", line 1138, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/mock.py", line 1193, in _execute_mock_call
+    raise effec
+AssertionError: partial batch entered PPO
+
+======================================================================
+FAIL: test_incomplete_batch_keeps_previous_complete_checkpoint (verification.ppo_batch_contract_20261107.test_contract.BatchContractTests.test_incomplete_batch_keeps_previous_complete_checkpoint) (status='missing')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/ppo_batch_contract_20261107_347100f/revert-partial_batch/verification/ppo_batch_contract_20261107/test_contract.py", line 176, in test_incomplete_batch_keeps_previous_complete_checkpoin
+    result.learn()
+  File "/home/tongshu/acceptance/ppo_batch_contract_20261107_347100f/revert-partial_batch/verification/ppo_batch_contract_20261107/driver.py", line 51, in learn
+    super().learn()
+  File "/home/tongshu/acceptance/ppo_batch_contract_20261107_347100f/revert-partial_batch/learning/experiment.py", line 686, in learn
+    finished=self.finish_train(prepared_bc,prepared_ppo=prepared_ppo)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/acceptance/ppo_batch_contract_20261107_347100f/revert-partial_batch/learning/experiment.py", line 438, in finish_train
+    metrics=train(self.model,self.optimizer,rows,method,epochs=self.config['epochs'],minibatch=self.config['minibatch'],
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/mock.py", line 1134, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/mock.py", line 1138, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/mock.py", line 1193, in _execute_mock_call
+    raise effec
+AssertionError: partial batch entered PPO
+
+======================================================================
+FAIL: test_incomplete_batch_keeps_previous_complete_checkpoint (verification.ppo_batch_contract_20261107.test_contract.BatchContractTests.test_incomplete_batch_keeps_previous_complete_checkpoint) (status='ineligible')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/ppo_batch_contract_20261107_347100f/revert-partial_batch/verification/ppo_batch_contract_20261107/test_contract.py", line 176, in test_incomplete_batch_keeps_previous_complete_checkpoin
+    result.learn()
+  File "/home/tongshu/acceptance/ppo_batch_contract_20261107_347100f/revert-partial_batch/verification/ppo_batch_contract_20261107/driver.py", line 51, in learn
+    super().learn()
+  File "/home/tongshu/acceptance/ppo_batch_contract_20261107_347100f/revert-partial_batch/learning/experiment.py", line 686, in learn
+    finished=self.finish_train(prepared_bc,prepared_ppo=prepared_ppo)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/acceptance/ppo_batch_contract_20261107_347100f/revert-partial_batch/learning/experiment.py", line 438, in finish_train
+    metrics=train(self.model,self.optimizer,rows,method,epochs=self.config['epochs'],minibatch=self.config['minibatch'],
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/mock.py", line 1134, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/mock.py", line 1138, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/mock.py", line 1193, in _execute_mock_call
+    raise effec
+AssertionError: partial batch entered PPO
+
+----------------------------------------------------------------------
+Ran 1 test in 1.632s
+
+FAILED (failures=3)

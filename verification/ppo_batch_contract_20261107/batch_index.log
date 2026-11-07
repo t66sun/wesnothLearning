@@ -1,0 +1,23 @@
+batch_index 48d89a20dc10adcbff944870410bb8ade6dc80aa
+38dfaa266eccbb127bcf8f8cc1ef83aedfd4b1e550461fd433186ad998f23ee2  /home/tongshu/acceptance/ppo_batch_contract_20261107_347100f/ppo_a2_271_batch_index.tar
+test_same_ordinal_stream_with_different_boundaries (verification.ppo_batch_contract_20261107.test_contract.BatchContractTests.test_same_ordinal_stream_with_different_boundaries) ... FAIL
+
+======================================================================
+FAIL: test_same_ordinal_stream_with_different_boundaries (verification.ppo_batch_contract_20261107.test_contract.BatchContractTests.test_same_ordinal_stream_with_different_boundaries)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/ppo_batch_contract_20261107_347100f/revert-batch_index/verification/ppo_batch_contract_20261107/test_contract.py", line 51, in test_same_ordinal_stream_with_different_boundaries
+    self.assertEqual([j['training_scenario']['index'] for j in large], list(range(8)))
+AssertionError: Lists differ: [424, 425, 426, 427, 428, 429, 430, 431] != [0, 1, 2, 3, 4, 5, 6, 7]
+
+First differing element 0:
+424
+0
+
+- [424, 425, 426, 427, 428, 429, 430, 431]
++ [0, 1, 2, 3, 4, 5, 6, 7]
+
+----------------------------------------------------------------------
+Ran 1 test in 0.018s
+
+FAILED (failures=1)
