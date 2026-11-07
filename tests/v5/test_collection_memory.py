@@ -154,9 +154,6 @@ class CollectionMemoryTests(unittest.TestCase):
 
     def test_index_streams_rows_with_identical_legacy_payload(self):
         rows = helpers.sequence_rows(turns=3, decisions_per_turn=3)
-        # Production raw rows already carry this partition contract. Otherwise
-        # validation inserts the historical default before encoding the index.
-        for row in rows: row['split_rule']='family-seed-v1'
         expected = json.dumps([sequences._raw(r) for r in rows], separators=(',', ':'), allow_nan=False).encode()
         original = json.dumps
 

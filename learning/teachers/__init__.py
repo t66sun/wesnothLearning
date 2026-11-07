@@ -7,7 +7,6 @@ Astra seats, records its lineage, and can rebuild a deployable archive.
 from __future__ import annotations
 
 import hashlib
-import io
 import zipfile
 from pathlib import Path
 
@@ -50,23 +49,12 @@ def lineage():
     return dict(identity(), teacher_parent_sha256=parent_digest())
 
 
-def archive_bytes():
-    """Canonical executable bytes, independent of checkout file timestamps."""
-    buffer = io.BytesIO()
-    with zipfile.ZipFile(buffer, 'w', zipfile.ZIP_DEFLATED) as archive:
-        for path in sorted(SOURCE.rglob('*')):
-            if path.is_file():
-                entry = zipfile.ZipInfo('gpt6astra/' + path.relative_to(SOURCE).as_posix())
-                entry.create_system = 3
-                entry.compress_type = zipfile.ZIP_DEFLATED
-                entry.external_attr = 0o100644 << 16
-                archive.writestr(entry, path.read_bytes())
-    return buffer.getvalue()
-
-
 def build(target):
     """Write the derived add-on archive for a native or external deployment."""
     target = Path(target)
     target.parent.mkdir(parents=True, exist_ok=True)
-    target.write_bytes(archive_bytes())
+    with zipfile.ZipFile(target, 'w', zipfile.ZIP_DEFLATED) as archive:
+        for path in sorted(SOURCE.rglob('*')):
+            if path.is_file():
+                archive.write(path, 'gpt6astra/' + path.relative_to(SOURCE).as_posix())
     return target

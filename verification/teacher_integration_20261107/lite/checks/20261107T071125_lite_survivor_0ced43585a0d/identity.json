@@ -1,1 +1,0 @@
-{"source_commit": "0ced43585a0ddaf0e5fc911b13e008783d96a19f", "source_tree": "/home/tongshu/myDev/wesnothLearning/verification/teacher_integration_20261107/sources/20261107T071125_lite_survivor_0ced43585a0d", "command": ["bash", "tests/build_teacher_host.sh", "/home/tongshu/venv/bin/python", "-m", "unittest", "tests.v5.test_lite_score_astra", "-v"], "label": "lite_survivor"}

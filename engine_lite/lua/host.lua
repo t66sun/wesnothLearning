@@ -33,13 +33,7 @@ local methods={}
 function methods:clone() return copy(self) end
 function methods:defense_on(terrain) return 100-assert(rules.units[self.type].defense[terrain],'missing frozen defense '..terrain) end
 function methods:movement_on(terrain) return assert(rules.units[self.type].movement[terrain],'missing frozen movement '..terrain) end
-function methods:resistance_against(kind,attacking)
-    local t=rules.units[self.type];local value=damage_resist(t,kind)
-    if not attacking and value>0 and value<50 then
-        for _,ability in ipairs(t.abilities) do if ability=='steadfast' then return math.min(50,value*2) end end
-    end
-    return value
-end
+function methods:resistance_against(kind) return damage_resist(rules.units[self.type],kind) end
 local function convert(u,existing)
     local t=assert(rules.units[u.unit_type]);local o=existing or {}
     o.id=u.id;o.type=u.unit_type;o.side=u.side;o.x,o.y=coords(u.pos)
@@ -53,19 +47,11 @@ local function convert(u,existing)
     for wi,w in ipairs(t.weapons) do
         local specials={};for _,s in ipairs(w.specials) do specials[#specials+1]={s,{id=s}} end
         o.attacks[#o.attacks+1]={name=w.id,damage=u.resolved_weapon_damage and u.resolved_weapon_damage[wi] or w.damage,
-            number=w.strikes,type=w.damage_type,range=w.range,accuracy=w.accuracy,parry=w.parry,
-            attack_weight=w.attack_weight,defense_weight=w.defense_weight,__cfg={{'specials',specials}}}
+            number=w.strikes,type=w.damage_type,range=w.range,__cfg={{'specials',specials}}}
     end
     local abilities={};for _,a in ipairs(t.abilities) do
-        local tag,fields=a,{id=a}
-        if a=='healing' or a=='curing' then
-            tag='heals';fields.value=t.healing_amount;fields.poison=t.healing_poison
-            if a=='curing' and t.curing_unfiltered then fields.poison='cured' end
-        elseif a=='regenerates' then
-            tag='regenerate';fields.value=t.regeneration_amount;fields.poison=t.regeneration_poison
-        elseif a=='steadfast' then tag='resistance'
-        elseif a=='illuminates' then fields.value=t.illumination end
-        abilities[#abilities+1]={tag,fields}
+        local tag=(a=='healing' or a=='curing') and 'heals' or a
+        abilities[#abilities+1]={tag,{id=a}}
     end
     o.__cfg={{'abilities',abilities}};return setmetatable(o,{__index=methods})
 end
@@ -101,7 +87,6 @@ local function adjacent(x,y)
     local i=0;return function() i=i+1;if valid[i] then return valid[i][1],valid[i][2] end end
 end
 wesnoth={current={map={}},sides={},units={},unit_types={},paths={atomic_path=true},map={},schedule={}}
-wesnoth.scenario=bridge('scenario',{})
 function wesnoth.ms_since_init() return clock() end
 for id,t in pairs(rules.units) do
     wesnoth.unit_types[id]={id=id,cost=t.cost,hitpoints=t.hp,movement=t.moves,level=t.level,
@@ -127,12 +112,9 @@ end
 function wesnoth.units.get(x,y) return native_at(x,y) end
 function wesnoth.units.clone(u) return u:clone() end
 function wesnoth.units.create(cfg)
-    local t=assert(rules.units[cfg.type]);local detached=cfg.x==nil and cfg.y==nil
-    local p=detached and 0 or assert(position(cfg.x,cfg.y))
-    local unit=convert{id=cfg.id or 'detached_probe',unit_type=cfg.type,side=cfg.side,pos=p,
+    local t=assert(rules.units[cfg.type]);local p=assert(position(cfg.x,cfg.y))
+    return convert{id=cfg.id or 'detached_probe',unit_type=cfg.type,side=cfg.side,pos=p,
         hp=t.hp,moves=t.moves,xp=0,attacks_left=1,leader=cfg.canrecruit or false,status={}}
-    if detached then unit.x=nil;unit.y=nil end
-    return unit
 end
 function wesnoth.map.distance_between(x,y,tx,ty)
     local dq=tx-x
@@ -179,11 +161,7 @@ function wesnoth.paths.find_path(u,x,y,options)
     local path={};for _,p in ipairs(result.path) do path[#path+1]=loc(p) end
     return path,result.cost
 end
-function wesnoth.schedule.get_time_of_day(_,turn)
-    turn=turn or view.turn
-    assert(type(turn)=='number' and turn>=1 and turn%1==0,'invalid schedule turn')
-    return {lawful_bonus=rules.lawful_bonus[(turn-1)%#rules.lawful_bonus+1]}
-end
+function wesnoth.schedule.get_time_of_day() return {lawful_bonus=rules.lawful_bonus[(view.turn-1)%#rules.lawful_bonus+1]} end
 function wesnoth.simulate_combat(u,weapon,target)
     -- Public HP/status probability distributions; never sample referee RNG.
     local result=rpc('forecast',{attacker=u.id,target=target.id,weapon=weapon-1,pos=position(u)})
@@ -200,14 +178,9 @@ function helper.get_attackable_enemies()
 end
 local function require_module(path)
     if path=='ai/lua/ai_helper.lua' then return helper end
-    local name=path
-    -- Old callers supply common basenames / Astra aliases. Explicit add-on
-    -- modules always retain the full path, including their format namespace.
-    if not sources[name] then
-        local basename=path:match('([^/]+)$')
-        if path:find('~add-ons/gpt6astra/',1,true) then name='astra/'..basename
-        elseif not path:find('~add-ons/',1,true) or path:find('~add-ons/@ADDON@/',1,true) then name=basename end
-    end
+    local name=path:match('([^/]+)$')
+    -- Preserve Astra's own module names separately from common bot.lua.
+    if path:find('gpt6astra',1,true) then name='astra/'..name end
     if modules[name] then return modules[name] end
     local source=assert(sources[name],'unimplemented host module '..path)
     local result=assert(load(source,'@'..name,'t',_ENV))();modules[name]=result;return result
@@ -240,38 +213,25 @@ function ai.move_full(u,p) u=assert(to_unit(u));return perform{kind='move',unit=
 function ai.recruit(name,p) return perform{kind='recruit',unit_type=name,to=assert(position(p))} end
 function ai.attack(u,e,weapon) u,e=assert(to_unit(u)),assert(to_unit(e));return perform{kind='attack',unit=u.id,target=e.id,weapon=weapon-1} end
 
-local function teacher_ledger(side,obs)
-    teacher_memories[side]=teacher_memories[side] or {}
+local function teacher_ledger(side,own,villages)
+    teacher_memories[side]=teacher_memories[side] or {owners={},home={}}
     local ledger=teacher_memories[side]
-    require_module('teacher_memory.lua').observe(ledger,obs)
+    for _,u in ipairs(own) do if not ledger.home[u.id] then ledger.home[u.id]={u.x,u.y} end end
+    -- Astra indexes remembered villages by x*1000+y, not observation's "x,y".
+    ledger.owners={}
+    for key,owner in pairs(villages) do
+        local x,y=key:match('^(%d+),(%d+)$')
+        if x then ledger.owners[tonumber(x)*1000+tonumber(y)]=owner end
+    end
     return ledger
 end
-local function public_observation(side)
-    local obs={side=side,own={},occupied={},tiles={},memory={villages={}}}
-    for _,u in ipairs(units) do
-        obs.occupied[u.x..','..u.y]=u
-        if u.side==side then obs.own[#obs.own+1]=u end
-    end
-    for index,terrain in ipairs(view.terrain) do if type(terrain)=='string' then
-        local x,y=coords(index-1)
-        obs.tiles[x..','..y]={terrain=terrain,visible=view.visible[index] and view.explored[index]}
-    end end
-    for p,record in pairs(view.villages) do
-        local x,y=coords(tonumber(p));obs.memory.villages[x..','..y]=record[1]
-    end
-    return obs
-end
-local function teacher_plan(ledger,entry)
+local function astra_plan(ledger)
     local strategy=#view.sides==2 and 'duel' or #view.sides==4 and 'four' or nil
     assert(strategy,'Astra host supports two/four player games')
-    local teacher=require_module(entry or '~add-ons/gpt6astra/lua/'..strategy..'.lua')
+    local astra=require_module('~add-ons/gpt6astra/lua/'..strategy..'.lua')
     local probe=copy(ledger)
-    teacher:evaluation({},probe)
+    astra:evaluation({},probe)
     return copy(probe.plan) or {kind='end_turn'}
-end
-function lite_teacher_query(side,entry)
-    refresh(bridge('view',{side=side}))
-    return {teacher_action=teacher_plan(teacher_ledger(side,public_observation(side)),entry)}
 end
 local function reward_labels(obs,side)
     local labels=rpc('reward_labels')
@@ -280,7 +240,7 @@ local function reward_labels(obs,side)
     raw.economy=labels.economy;raw.explored=labels.explored
     return raw
 end
-function lite_decision(side,teacher,generate_candidates,score_only_astra,score_only_policy,teacher_entry)
+function lite_decision(side,teacher,generate_candidates,score_only_astra,score_only_policy)
     refresh(bridge('view',{side=side}))
     local O=require_module('observation.lua');local C=require_module('candidates.lua')
     memories[side]=memories[side] or {}
@@ -288,7 +248,7 @@ function lite_decision(side,teacher,generate_candidates,score_only_astra,score_o
         assert(teacher and generate_candidates==false,'only an unrecorded Astra seat can omit policy inputs')
         O.villages(memories[side],side)
         local own=wesnoth.units.find_on_map {side=side}
-        return {teacher_action=teacher_plan(teacher_ledger(side,public_observation(side)),teacher_entry)}
+        return {teacher_action=astra_plan(teacher_ledger(side,own,memories[side].villages))}
     end
     local obs=O.capture(memories[side],side)
     local candidates,timing
@@ -304,8 +264,8 @@ function lite_decision(side,teacher,generate_candidates,score_only_astra,score_o
     end
     last_candidates=candidates
     local raw=not score_only_policy and reward_labels(obs,side) or nil
-    local ledger=teacher_ledger(side,obs)
-    local teacher_action=teacher and teacher_plan(ledger,teacher_entry) or nil
+    local ledger=teacher_ledger(side,obs.own,obs.memory.villages)
+    local teacher_action=teacher and astra_plan(ledger) or nil
     return {global=obs.global,opponents=obs.opponents,spatial=obs.spatial,candidates=candidates,timing=timing,
         side=side,turn=view.turn,teacher_action=teacher_action,potential=obs.potential,reward_raw=raw,
         engine_id='lite-0.2',approximate=true,combat_version=view.combat_version}
@@ -331,7 +291,6 @@ function lite_execute(action,score_only_astra,policy_memory_write)
     local execution
     if action.kind=='end_turn' then perform{kind='end_turn'};execution={changed=true} else execution=C.execute(action) end
     local changed=execution and execution.changed or false
-    teacher_ledger(side,public_observation(side))
     if score_only_astra then
         -- A move can reveal a village that is hidden again before the next decision.
         O.villages(memories[side],side)
@@ -363,10 +322,6 @@ function lite_snapshot()
     for side,memory in pairs(teacher_memories) do
         local m={};for k,v in pairs(memory) do m[k]=v end
         m.owners=string_keys(memory.owners or {});teachers[tostring(side)]=m
-        if memory.public then
-            m.public=copy(memory.public)
-            m.public.terrain=string_keys(memory.public.terrain);m.public.owners=string_keys(memory.public.owners)
-        end
     end
     return {memory=saved,teacher_memory=teachers,
         exploration=_G.__wesnoth_learning_exploration_v5 or {}}
@@ -386,10 +341,6 @@ function lite_restore(saved)
     for s,m in pairs(saved.teacher_memory or {}) do
         local owners={};for key,owner in pairs(m.owners or {}) do owners[tonumber(key) or key]=owner end
         m.owners=owners;teacher_memories[tonumber(s) or s]=m
-        if m.public then for _,name in ipairs {'terrain','owners'} do
-            local values={};for key,value in pairs(m.public[name] or {}) do values[tonumber(key) or key]=value end
-            m.public[name]=values
-        end end
     end
     local scopes=_G.__wesnoth_learning_exploration_v5 or {};_G.__wesnoth_learning_exploration_v5=scopes
     for k in pairs(scopes) do scopes[k]=nil end

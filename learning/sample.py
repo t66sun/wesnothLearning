@@ -39,9 +39,6 @@ def opening_map(players):
 
 
 def play_job(job):
-    from .teachers.runtime import prepare_job, dagger_rows, query_metrics
-    from .teachers.registry import execution_identity
-    job = prepare_job(job, job.get('engine','native'))
     global _priority_set
     if not _priority_set:
         os.environ['OMP_NUM_THREADS']='1';os.environ['MKL_NUM_THREADS']='1';os.environ['OPENBLAS_NUM_THREADS']='1'
@@ -67,7 +64,6 @@ def play_job(job):
             max_turns=job.get('max_turns',30), wesnoth=job['wesnoth'], replay_path=output,
             learning=learning, experiment_deadline=job['deadline'],
             timeout=job.get('timeout',1), first_timeout=job.get('first_timeout',10),
-            seat_timeouts=job.get('seat_timeouts'),seat_entries=job.get('seat_entries'),
             teams=job.get('teams'),fog=job.get('fog',True),shroud=job.get('shroud',False),
             share_view=job.get('share_view',True),share_maps=job.get('share_maps',True),
             map_override=job.get('map_override') or (compatible_map(len(job['bots'])) if len(job['bots']) not in (2,4,8) else None))
@@ -115,9 +111,13 @@ def play_job(job):
             r.setdefault('candidate_version',f"schema{r.get('schema')}-"+r['timing'].get('budget','fixed-20000-v1'))
         written=write_shard(job['shard'],job['id'],records,result,bootstraps,provenance)
         if job.get('learning',{}).get('dagger_teacher'):
-            spec=job['learning'].get('dagger_spec')
-            identity=execution_identity(spec,'native') if spec else dict(teacher='gpt6astra')
-            dagger=dagger_rows(records,identity,value_valid=reward_config.get('task_id')==TASK_ID)
+            dagger=[]
+            for row in records:
+                label=row.get('dagger') or {}
+                context={k:v for k,v in row.items() if k!='dagger'}
+                context.update(choice=-1,source='astra',teacher='gpt6astra',data_pool='dagger',value_valid=reward_config.get('task_id')==TASK_ID)
+                if not label.get('error') and label.get('choice',-1)>=0: context.update(label)
+                dagger.append(context)
             dagger_path=Path(job['shard']).with_name(Path(job['shard']).name.replace('.jsonl.gz','.dagger.jsonl.gz'))
             write_shard(dagger_path,job['id'],dagger,result,bootstraps,dict(provenance,data_pool='dagger'))
     meta=job.get('meta',{})
@@ -131,7 +131,7 @@ def play_job(job):
         training_eligible=not result.get('faults') and (written is None or bool(written['written'])),training_shard=written,
         coverage=dict(total=len(eligible),matched=sum(r['choice']>=0 for r in eligible),
                       all_actions=len(records),all_matched=matched,kinds=coverage,reasons=reasons),
-        truncated=sum(r['timing']['truncated'] for r in records),teacher_queries=query_metrics(records))
+        truncated=sum(r['timing']['truncated'] for r in records))
 
 
 def collect(jobs, workers, log_path):

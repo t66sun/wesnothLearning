@@ -4,11 +4,9 @@
 
 运行契约和当前参数见[架构文档](architecture_zh.md)。待验收事项见[验收清单](TEST_zh.md)。
 
-**当前路线：**新实验默认使用 `--teacher-set mixed-20261107`；全 Astra 使用 `--teacher-set astra`。混合集合在 BC、DAgger、PPO 教师席、评测和奖励参照中使用冻结交付的单挑/团队策略，FFA 保留维护版 Astra。48 项 Ubuntu 接入任务全部通过；覆盖率保留为诊断数据，不作为启用门禁，见[启用结果](../verification/teacher_integration_20261107/activation/REPORT.md)。Lite 仍是默认采集/评测后端，官方 baseline 仅走 Native。resume 读取冻结 manifest 并拒绝覆盖教师；切换须新建实验，可选 `--branch-weights-only --phase bc` 仅继承兼容的 actor 权重并重新取得 BC 资格。本说明不授权启动训练。
+**当前路线：**每个 manifest 冻结唯一的自定义教师包 `gpt6astra` 及其血脉，因此教师对局、DAgger 纠正与导出一致携带同一身份。lite 是默认引擎，也是默认评估引擎；新 run 采集 lite Astra 教师对局（`native_bc_games` 为 0），最终对照同样为 lite Astra，官方 baseline 席位仍仅走 native。能力与限制见 architecture.md §4–§5。
 
 当前 lite 战斗/教师 profile 为 `probabilistic_combat_v6`，RNG 为 `splitmix64-rejection-v1`。构建匹配扩展后才能使用。旧 expected_damage_v1/v2、probabilistic_combat_v1/v2/v3/v4/v5 运行须使用原源码/构建；不得重写冻结数据、快照或检查点身份。旧权重须走既有显式初始化/重置优化器流程，并重新验收。
-
-当前 Lite 教师桥接还要求 `HOST_VERSION=teacher-host-v1`。在归档后的 Ubuntu 源码目录执行 `bash tests/build_teacher_host.sh /home/tongshu/venv/bin/python -m unittest tests.v5.test_search_teacher_host -v`，构建隔离的 release 扩展并运行固定宿主检查。使用该隔离构建时，须把其 `.runtime/teacher_host` 放在 `PYTHONPATH` 首位。这些检查不启动语料采集或训练。
 
 当前编译规则包可按 `verification/weapon_filters_20261103/REPORT.md` 中的步骤从既有不可变捕获生成；使用新输出目录并保留旧包。
 ## 1. 接手时先确定任务
@@ -69,17 +67,11 @@ sha256sum .runtime/entropy.so
 
 在匹配的虚拟环境中重新构建 `_engine_lite`。Rust 通过 `include_str!` 嵌入 `engine_lite/lua/host.lua`，修改这个 Lua 文件也需要重建扩展。
 
-### 教师接入检查
-
-`python tests/ship_teacher_integration.py LABEL -- bash tests/build_teacher_host.sh /home/tongshu/venv/bin/python -m unittest tests.test_teacher_integration_panel -v` 将当前提交归档、上传到新的 Ubuntu 目录，记录源码/命令/退出状态，并运行不含对局的设计检查。脚本复用既有规则、游戏安装与隔离扩展缓存。
-
-已获授权的验收采样可将 unittest 命令替换为 `-m tests.acceptance_teacher_integration --output NEW_ABSOLUTE_DIRECTORY`。它固定执行 48 任务、8 workers、最多一小时，不创建优化器，并拒绝已有输出目录。验收依据任务完成、故障、教师身份和实际落盘 DAgger 标签；动作覆盖率仅作诊断。
-
 ### 干净 Ubuntu 24.04 训练归档包
 
 `python -m learning bundle --output PATH` 生成、`python -m learning verify-bundle PATH` 校验的归档包，是干净 Ubuntu 24.04 `x86_64` 机器接收本项目的方式。它是上文服务器环境的替代方案而非替代品，现有服务器目录及其说明保持不变。
 
-归档包含源码树、冻结的 `1.18.8-combat-filtered` 规则、精选人类对局、数据集输入，以及 `data/opponents/` 下的对手包（即冻结的 `gpt6astra.zip`，由 `BUNDLE_MANIFEST.json` 的 `data.opponents` 列出，校验器要求至少一个）。它额外原样包含 `delivery/search_teacher_20261107/manifest.json` 与 `selected_teacher.zip`，并核对哈希，其余交付输出仍排除。它排除 `.git`、虚拟环境、缓存、`.runtime/`、`runs/`、`verification/`、其余 `delivery/` 文件、`tmp/`、`data/rules/1.18.8`、`data/humanData`、`data/references`、编译产物后缀、Cargo `target/` 与 `AGENTS.md`，因此不包含训练运行或模型交付，冻结教师 manifest 保留原选拔身份。`docs/instructions.md` 及其镜像为必需成员：缺少它们时构建器拒绝产出归档。
+归档包含源码树、冻结的 `1.18.8-combat-filtered` 规则、精选人类对局、数据集输入，以及 `data/opponents/` 下的对手包（即冻结的 `gpt6astra.zip`，由 `BUNDLE_MANIFEST.json` 的 `data.opponents` 列出，校验器要求至少一个）。它排除 `.git`、虚拟环境、缓存、`.runtime/`、`runs/`、`verification/`、`delivery/`、`tmp/`、`data/rules/1.18.8`、`data/humanData`、`data/references`、编译产物后缀、Cargo `target/` 与 `AGENTS.md`，因此不记录任何运行、棋力结果或交付决定。`docs/instructions.md` 及其镜像为必需成员：缺少它们时构建器拒绝产出归档。
 
 ```bash
 python -m learning bundle --output dist/WesnothLearning-training.tar.gz \
@@ -107,7 +99,7 @@ tar -xzf WesnothLearning-training.tar.gz && cd WesnothLearning
 
 ## 3. 启动前核对实际可运行范围
 
-新实验默认 lite，规则默认 `data/rules/1.18.8-combat-filtered`（587 单位、438 地形）。启动门禁核验实际六阵营的 158 单位闭包，接受已记录近似，拒绝未支持类型及缺失引用；整包语义/性能标志仍保留原值。新 manifest 按赛制冻结所选教师角色及执行包/后端身份；评估引擎跟随采样引擎，除非用 `--evaluation-engine` 覆盖。能力与限制见 architecture.md §4–§5。
+新实验默认 lite，规则默认 `data/rules/1.18.8-combat-filtered`（587 单位、438 地形）。启动门禁核验实际六阵营的 158 单位闭包，接受已记录近似，拒绝未支持类型及缺失引用；整包语义/性能标志仍保留原值。新 manifest 冻结唯一的自定义教师包（`gpt6astra`）及其血脉；评估引擎跟随采样引擎，除非用 `--evaluation-engine` 覆盖。能力与限制见 architecture.md §4–§5。
 
 通常使用默认目录即可。采集输入已于 2026-10-24 迁入 `data/`；早于该迁移的检出仍把 `rules/`、`datasets/`、`humanData*`、`opponents/`、`references/` 放在根目录，须先移入 `data/`，否则默认路径无法解析。需要用户指定其他冻结包时，传入：
 
@@ -167,7 +159,7 @@ set -o pipefail
   2>&1 | tee "runs/logs/${run_dir##*/}.log"
 ```
 
-实验目录必须由程序创建，不要预先 `mkdir "$run_dir"`。日志放在外面的 `runs/logs/`。省略引擎参数即为 lite；需要仅原版时显式传 `--engine native`，原版教师下限默认等于对应赛制总目标。默认不采原版锚点，最终比较也在 lite 内对冻结的评测角色；原版棋力评测另行明确执行。`--bc-games` 修改的是三赛制总目标，原版配额由 `native_bc_games` 控制。
+实验目录必须由程序创建，不要预先 `mkdir "$run_dir"`。日志放在外面的 `runs/logs/`。省略引擎参数即为 lite；需要仅原版时显式传 `--engine native`，原版教师下限默认等于对应赛制总目标。默认不采原版锚点，最终比较也在 lite 内对 Astra；原版棋力评测另行明确执行。`--bc-games` 修改的是三赛制总目标，原版配额由 `native_bc_games` 控制。
 
 获准比较辅助目标时，在新运行命令中加入 `--ppo-aux-target frozen_bc_kl`；`--ppo-aux-target historical_action` 是默认基线。前者在合格 policy/train 复习状态上使用完整合格 BC 端点的冻结动作分布，后者使用历史采样动作。既有 `bc_aux` 系数仍默认 0.1，并逐批冻结。control 排除、候选、采样配额、历史和 PPO 停止规则共用。比较两个目标时不要同时调整系数或奖励。
 
@@ -337,27 +329,7 @@ worker、设备、赛制、总预算、BC 局数/原版锚点数、模型结构/
 
 每次变更核对实际生效配置后，记录旧值→新值、用户依据、命令/事件 ID、实际生效批次/版本、后续观察与回退方式。默认比较有效采样吞吐、故障率、BC 分项指标和同引擎/同赛制的验证结果，正式强度仍依据原版评测。
 
-## 9. 独立原生教师实验
-
-此入口不采集训练数据，也不替换当前教师，仅用于明确授权的教师实验。先提交分支，再用 `python -m learning.teacher_remote --command 'COMMAND'` 归档该提交、上传并在新 Ubuntu 目录中复用现有环境执行命令。核对返回的 `SOURCE` 和 `TREE`，保留旧证据目录。
-
-在该归档源码目录中使用 `/home/tongshu/venv/bin/python -m learning.teacher_lab --directory ABSOLUTE_NEW_DIRECTORY` 及以下子命令：
-
-1. `init --source-commit COMMIT --wesnoth EXECUTABLE` 冻结维护版 Astra 源码/包和运行环境身份。使用八个 worker 前检查可用 CPU 与内存。
-2. `register --name VERSION --source-commit COMMIT --description DESCRIPTION [--source TEACHER_DIRECTORY] [--parameters JSON]` 创建不可变候选。通过 `--source` 登记新源码归档，比赛仍从原 `evaluator_root` 执行。
-3. `panel --name UNIQUE_PANEL --candidate VERSION --preflight` 检查三个赛制 30/100 回合的完整流程。准备期可以修复正确性，不能反复按成绩调参。
-4. `start` 一次性记录五小时探索和赛后截止时间。后续 `panel` 仅使用训练地图，先跑一个 block，再以 `--blocks 2 --offset 1` 补两个。六组暂时战胜基线后才可使用 `--opponent VERSION` 进行版本联赛。`status` 报告完整证据和未完成面板。
-5. 五小时后执行 `select`，依据实测吞吐冻结验证与留出设计，每赛制比较最多三个候选，冻结组合包后在既有四小时截止前核验留出集。结果写入 `final.json` 和 `REPORT.md`；未获资格的回退选择不能通过最终验收。
-
-正确性审计判定冻结候选不合格时，保留候选及其对局。在探索截止前新建不可变的 `selection_source.json`，记录经审查选拔器的 `evaluator_root`、`source_commit`，原 `base_source_commit`、`baseline_sha256`、不变的 `exploration_end`、`frozen` 时间戳，以及候选名到 `reason`、`evidence` 的 `exclusions` 映射。只有 `select` 从该审查归档执行。选拔器核对身份，在提名及回退中均排除这些版本，并在输出中记录此发布；原 manifest、时钟、计分和验收门槛保持冻结。
-
-`python -m learning.teacher_lab.batch --directory EXPERIMENT --name PANEL --candidates A B --blocks 2 --offset 1` 将多个冻结候选放入共用的八 worker 训练面板，对 Astra 使用相同场景和原评分。已有实验的评测器较旧时，将 `PYTHONPATH` 指向原评测器根目录，以绝对路径执行审查归档中的 `learning/teacher_lab/batch.py`；脚本导入冻结的对局/计分模块，并记录自身源码哈希。必须等上一 worker 池结束后启动。
-
-加上 `--opponent VERSION` 可共用 worker 进行版本联赛。必须已有正确性合格的候选在六组、至少三个物理场景上取得暂时基线胜出；被排除的候选不能解锁联赛。挑战者必须不同于指定的冻结对手。仍使用原时钟、座位轮换、计分和对手记录中的动作预算。
-
-变更或重启命令不会延长时钟。保留失败版本和未完成对局，不根据留出结果调参，不降低 0.10/95%/12 场景门槛，也不在此流程中接入训练。
-
-## 10. 汇报与交接
+## 9. 汇报与交接
 
 获准导出交付包后，可用 `export --audit-data DIR --audit-workers N` 让所有赛制共用最多 N 个审计进程，默认一个。各赛制子目录中的全部 `*.jsonl.gz` 分片都会参与校验，同一序列分散在多个文件时会合并处理。
 

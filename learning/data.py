@@ -102,12 +102,9 @@ def validate_record(r, format_name=None):
         if not 0<=raw['explored']<=1: raise ValueError('invalid cumulative exploration')
     fmt=record_format(r)
     if format_name is not None and fmt != format_name: raise ValueError('cross-format sample rejected')
-    if r.get('source') not in ('astra', 'teacher', 'human', 'policy'): raise ValueError('unknown data source')
+    if r.get('source') not in ('astra', 'human', 'policy'): raise ValueError('unknown data source')
     if r.get('faults'): raise ValueError('faulted games cannot provide training samples')
-    if r['source']=='teacher' or (r['source']=='astra' and r.get('teacher_contract')):
-        from .teachers.provenance import validate_identity
-        validate_identity(r,fmt)
-    elif r['source']=='astra':
+    if r['source']=='astra':
         from .adapters import ENGINE_VERSION, RNG_VERSION, COMBAT_VERSION
         from .teachers import PROFILE as TEACHER_PROFILE
         engine=r['engine_id']
@@ -200,7 +197,7 @@ def write_shard(path, game_id, records, result, bootstraps=None, provenance=None
                          bootstrap_raw=bootstrap.get('reward_raw'),bootstrap_turn=bootstrap.get('turn'),
                          players=len(result['bots']), format=infer_format(result), faults=result['faults'],
                          faction=result.get('factions',[None]*len(result['bots']))[r['side']-1])
-                r.setdefault('source', ('teacher' if r.get('teacher_contract') else 'astra') if r.get('teacher') else 'policy')
+                r.setdefault('source', 'astra' if r.get('teacher') else 'policy')
                 if r.get('choice',-1)>=0: validate_record(r);written+=1
                 f.write(pack_line(r) + '\n')
                 raw_count += 1
@@ -224,14 +221,10 @@ def read_shards(paths, partition=None, limit=None, seed=19, format_name=None, **
     """Read complete raw prefixes before limiting supervised sequence windows."""
     from .sequences import read_shards as read_sequences
     expected_task = options.pop('expected_task', None)
-    expected_teachers = options.pop('expected_teachers', None)
     rows = read_sequences(paths, partition=partition, limit=limit, seed=seed, format_name=format_name, **options)
     if expected_task is not None:
         from .tasks import require_rows_task
         require_rows_task(rows, expected_task)
-    if expected_teachers is not None:
-        from .teachers.provenance import require_rows_teacher
-        require_rows_teacher(rows, expected_teachers)
     return rows
 
 
@@ -247,7 +240,6 @@ class BCSampler:
                  policy_only=False):
         from collections import defaultdict
         from .sequences import attach_histories
-        from .teachers.provenance import is_teacher, sampler_source
         rows = list(records)
         if not all('_history' in r for r in rows):
             rows = attach_histories(rows)
@@ -256,10 +248,9 @@ class BCSampler:
         self.rows_excluded = 0
         identities = set()
         for row in rows:
-            source = sampler_source(row)
-            if row.get('split') != 'train' or source not in sources or row.get('choice', -1) < 0 or row.get('faults'):
+            if row.get('split') != 'train' or row.get('source') not in sources or row.get('choice', -1) < 0 or row.get('faults'):
                 continue
-            teacher_label = is_teacher(row)
+            teacher_label = row['source'] not in ('human', 'policy')
             impl = (row.get('teacher') or row.get('teacher_impl')) if teacher_label else None
             sha = row.get('teacher_source_sha256') if teacher_label else row.get('policy_sha256')
             excluded = (teacher_label and exclude_teacher_impl is not None and
@@ -279,14 +270,14 @@ class BCSampler:
             engine = row.get('engine_id', row.get('engine'))
             if engine is None:
                 raise ValueError('BC requires explicit native/lite engine provenance')
-            self.pools[pool][source][engine][row['game_family']].append(row)
+            self.pools[pool][row['source']][engine][row['game_family']].append(row)
             identities.add((row['source'], impl or '', sha or ''))
         if not self.pools:
             if policy_only:
                 raise ValueError('frozen BC requires eligible policy/train rehearsal states distinct from the evaluation control')
             if exclude_teacher_impl is not None or exclude_teacher_sha is not None:
                 raise ValueError('no rehearsal data distinct from the evaluation control')
-            raise ValueError('BC requires teacher or compatible human training games')
+            raise ValueError('BC requires Astra or compatible human training games')
         self.source_identities = [dict(source=source,teacher_impl=impl or None,sha256=sha or None)
                                   for source,impl,sha in sorted(identities)]
         # Freeze all selection keys once. Minibatches only index these lists.

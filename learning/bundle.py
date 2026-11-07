@@ -32,8 +32,6 @@ SUMS_NAME = 'SHA256SUMS'
 TORCH = '2.9.1'
 SOURCE_ROOTS = ('learning', 'lua', 'engine_lite', 'vendor', 'tests', 'benchmarks', 'docs')
 SOURCE_FILES = ('README.md', 'LICENSE', 'requirements.txt', 'setup.sh', 'run.sh', 'train.sh', '.gitattributes')
-TEACHER_FILES = ('delivery/search_teacher_20261107/manifest.json',
-                 'delivery/search_teacher_20261107/selected_teacher.zip')
 DATA_PATHS = (RULES_DIR, 'data/humanData_curated', 'data/opponents', 'data/datasets')
 EXCLUDE_PARTS = frozenset({'.git', '.venv', '__pycache__', '.cache', '.runtime', 'runs', 'verification', 'delivery',
                            'tmp', '.ssh', '.codegraph', '.pi', 'target', '.pytest_cache', '.mypy_cache', '.ruff_cache'})
@@ -52,7 +50,7 @@ REQUIRED_PATHS = (
     RULES_DIR + '/coverage.json', RULES_DIR + '/catalog.json',
     'data/opponents/gpt6astra.zip', HUMAN_CURATED, 'data/datasets/human/import.json',
     'docs/instructions.md', 'docs/instructions_zh.md',
-) + TEACHER_FILES
+)
 SUM_LINE = re.compile(r'^([0-9a-f]{64}) [ *](.+)$')
 
 
@@ -66,8 +64,6 @@ def _hexdigest(path):
 
 def _excluded(relative):
     text = relative.as_posix()
-    if text in TEACHER_FILES:
-        return False
     if text in EXCLUDE_FILES:
         return True
     if any(text == prefix or text.startswith(prefix + '/') for prefix in EXCLUDE_PREFIXES):
@@ -174,7 +170,7 @@ def _wheel(wheel):
 def _payload(root, wheel=None):
     root = Path(root)
     entries = {}
-    for name in SOURCE_FILES + TEACHER_FILES:
+    for name in SOURCE_FILES:
         path = root / name
         if not path.is_file():
             raise ValueError('missing source file: ' + name)
@@ -491,8 +487,7 @@ def verify_bundle(archive, require_wheel=False):
                     continue
                 seen.add(name)
                 relative = name[len(ARCHIVE_ROOT):].lstrip('/')
-                teacher_parent=member.isdir() and any(p.startswith(relative+'/') for p in TEACHER_FILES)
-                if relative and _excluded(Path(relative)) and not teacher_parent:
+                if relative and _excluded(Path(relative)):
                     errors.append('forbidden member: ' + member.name)
                     continue
                 if member.isdir():

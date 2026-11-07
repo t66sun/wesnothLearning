@@ -28,6 +28,7 @@ verification/
 delivery/
 .ops/
 releases/
+/archive/
 *.log
 
 # Machine-local state, never source

@@ -71,11 +71,7 @@ def prepare(source, destination, formats, *, seed, reset_optimizer=False, clock=
             if any(endpoint[key] != initial[key] for key in ('version', 'weights_sha256', 'task_id', 'features', 'architecture')):
                 raise ValueError('branch BC endpoint differs from its initial checkpoint')
             origin = json.loads((source / 'manifest.json').read_text())
-            from .teachers.registry import role, execution_identity
-            from .teachers.provenance import engine_identity
-            spec=role(origin,fmt)
-            engine=origin['config'].get('engine','native')
-            teacher = dict(engine_identity(engine),**execution_identity(spec,engine)) if spec else origin.get('teacher')
+            teacher = origin.get('teacher')
             if endpoint['manifest_sha256'] != _sha256(source / 'manifest.json'):
                 from .checkpoints import branch_lineage
                 prior = (branch_lineage(source / fmt) or {}).get('checkpoints', {}).get(fmt, {}).get('bc_endpoint', {})

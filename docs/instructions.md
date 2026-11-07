@@ -4,11 +4,9 @@
 
 See the [architecture](architecture.md) for runtime contracts and parameters, and the [acceptance list](TEST.md) for pending checks.
 
-**Current route:** new experiments default to `--teacher-set mixed-20261107`; use `--teacher-set astra` for all Astra. The mixed set uses the frozen delivered duel/team strategies and maintained Astra for FFA across BC, DAgger, PPO teacher seats, evaluation and reward references. All 48 Ubuntu integration tasks passed; coverage is recorded as a diagnostic, not an activation gate. See [activation results](../verification/teacher_integration_20261107/activation/REPORT.md). Lite remains the default collection/evaluation backend; official baseline remains Native-only. Resume reads the frozen manifest and rejects teacher overrides. To change teachers, create a new experiment; optional `--branch-weights-only --phase bc` inherits only compatible actor weights and must earn new BC qualification. This documentation does not authorize a training run.
+**Current route:** every manifest freezes the sole custom teacher package `gpt6astra` and its lineage, so teacher games, DAgger corrections and exports carry one identity. Lite is the default engine and the default evaluation engine, so a fresh run collects lite Astra teacher games (`native_bc_games` 0) and its final comparison is lite Astra; official-baseline seats stay native-only. Capabilities and limits are in architecture.md §4–§5.
 
 Current lite combat/teacher profile is `probabilistic_combat_v6`, RNG `splitmix64-rejection-v1`. Rebuild the matching extension. Resume expected_damage_v1/v2 and probabilistic_combat_v1/v2/v3/v4/v5 runs with their original source/build; never relabel frozen data, snapshots or checkpoints. Old weights require the existing explicit initialization/reset-optimizer route and new-rule acceptance.
-
-The current Lite teacher bridge additionally requires `HOST_VERSION=teacher-host-v1`. On an archived Ubuntu checkout, `bash tests/build_teacher_host.sh /home/tongshu/venv/bin/python -m unittest tests.v5.test_search_teacher_host -v` builds an isolated release extension and runs the fixed host checks. Its `.runtime/teacher_host` directory must lead `PYTHONPATH` when using that isolated build. These checks do not start collection or training.
 
 The current compiled package can be provisioned from the immutable prior captures using the recipe in `verification/weapon_filters_20261103/REPORT.md`; use a new output directory and keep old packages unchanged.
 ## 1. Determine the task first
@@ -69,17 +67,11 @@ sha256sum .runtime/entropy.so
 
 Rebuild `_engine_lite` in the matching virtual environment when its Rust or embedded Lua changes. Rust embeds `engine_lite/lua/host.lua` through `include_str!`.
 
-### Teacher integration checks
-
-`python tests/ship_teacher_integration.py LABEL -- bash tests/build_teacher_host.sh /home/tongshu/venv/bin/python -m unittest tests.test_teacher_integration_panel -v` archives the current commit, uploads/extracts a fresh Ubuntu tree, records source/command/exit status and runs the design check without games. The helper reuses the existing rules, game installation and isolated extension cache.
-
-For authorized acceptance sampling, replace the unittest command with `-m tests.acceptance_teacher_integration --output NEW_ABSOLUTE_DIRECTORY`. It freezes and executes exactly 48 tasks, eight workers, one hour maximum, without an optimizer. Existing output directories are rejected. Completion, faults, teacher identities and actual stored DAgger labels determine acceptance; action coverage remains diagnostic.
-
 ### Clean Ubuntu 24.04 training bundle
 
 An archive from `python -m learning bundle --output PATH`, checked by `python -m learning verify-bundle PATH`, is how a clean Ubuntu 24.04 `x86_64` machine receives this project. It is an alternative to the server environment above, never a replacement, so keep the existing server directory untouched.
 
-The archive carries the source tree, the frozen `1.18.8-combat-filtered` rules, curated human games, dataset inputs and the opponent packages kept under `data/opponents/` (the frozen `gpt6astra.zip`), which `BUNDLE_MANIFEST.json` lists under `data.opponents`; the verifier requires at least one. It includes exactly `delivery/search_teacher_20261107/manifest.json` and `selected_teacher.zip` for the mixed teacher runtime, byte-identically and hash-checked. All other delivery outputs are excluded. It excludes `.git`, virtual environments, caches, `.runtime/`, `runs/`, `verification/`, other `delivery/` files, `tmp/`, `data/rules/1.18.8`, `data/humanData`, `data/references`, compiled suffixes, Cargo `target/` and `AGENTS.md`, so it carries no training run or model delivery; the frozen teacher manifest retains its original selection identity. `docs/instructions.md` and its mirror are required members: the builder refuses an archive without them.
+The archive carries the source tree, the frozen `1.18.8-combat-filtered` rules, curated human games, dataset inputs and the opponent packages kept under `data/opponents/` (the frozen `gpt6astra.zip`), which `BUNDLE_MANIFEST.json` lists under `data.opponents`; the verifier requires at least one. It excludes `.git`, virtual environments, caches, `.runtime/`, `runs/`, `verification/`, `delivery/`, `tmp/`, `data/rules/1.18.8`, `data/humanData`, `data/references`, compiled suffixes, Cargo `target/` and `AGENTS.md`, so it records no run, strength result or delivery decision. `docs/instructions.md` and its mirror are required members: the builder refuses an archive without them.
 
 ```bash
 python -m learning bundle --output dist/WesnothLearning-training.tar.gz \
@@ -107,7 +99,7 @@ The reference workstation verified the archive layout and scripts. Extraction, i
 
 ## 3. Verify the actually runnable scope before starting
 
-New experiments use lite by default, with rules defaulting to `data/rules/1.18.8-combat-filtered` (587 units, 438 terrains). The startup gate verifies the actual 158-unit closure of the six factions, accepts recorded approximations and rejects unsupported types and missing references; whole-package semantics/performance flags keep their original values. A fresh manifest freezes the chosen per-format teacher roles and their executable/backend identities; the evaluation engine follows the sampling engine unless `--evaluation-engine` overrides it. Capabilities and limits are in architecture.md §4–§5.
+New experiments use lite by default, with rules defaulting to `data/rules/1.18.8-combat-filtered` (587 units, 438 terrains). The startup gate verifies the actual 158-unit closure of the six factions, accepts recorded approximations and rejects unsupported types and missing references; whole-package semantics/performance flags keep their original values. A fresh manifest freezes the sole custom teacher package (`gpt6astra`) and its lineage; the evaluation engine follows the sampling engine unless `--evaluation-engine` overrides it. Capabilities and limits are in architecture.md §4–§5.
 
 The default directory is usually enough. Captured inputs moved under `data/` on 2026-10-24, so a checkout predating that move keeps `rules/`, `datasets/`, `humanData*`, `opponents/` and `references/` at the root: move them into `data/` before running, or the defaults no longer resolve. When the user specifies another frozen package, pass it:
 
@@ -167,7 +159,7 @@ set -o pipefail
   2>&1 | tee "runs/logs/${run_dir##*/}.log"
 ```
 
-The experiment directory must be created by the program; do not `mkdir "$run_dir"` beforehand. Logs go to `runs/logs/` outside it. Omitting engine parameters means lite; pass `--engine native` explicitly for native-only, where the native teacher floor defaults to the matching total target. Native anchors are not collected by default and the final comparison is also lite-only against the frozen evaluation role; native play-strength evaluation runs separately and explicitly. `--bc-games` sets the three-format total target while the native quota is controlled by `native_bc_games`.
+The experiment directory must be created by the program; do not `mkdir "$run_dir"` beforehand. Logs go to `runs/logs/` outside it. Omitting engine parameters means lite; pass `--engine native` explicitly for native-only, where the native teacher floor defaults to the matching total target. Native anchors are not collected by default and the final comparison is also lite-only against Astra; native play-strength evaluation runs separately and explicitly. `--bc-games` sets the three-format total target while the native quota is controlled by `native_bc_games`.
 
 For an authorized auxiliary-target comparison, add `--ppo-aux-target frozen_bc_kl` to the new run command; `--ppo-aux-target historical_action` is the default baseline. The first uses the complete, qualifying BC endpoint's frozen action distribution on eligible policy/train rehearsal states; the second uses historical sampled actions. The existing `bc_aux` coefficient remains 0.1 by default and is frozen per batch. Control exclusions, candidates, sampling quotas, history and PPO stopping remain shared. Do not combine target selection with coefficient or reward tuning when comparing the targets.
 
@@ -350,27 +342,7 @@ In particular: `learning_rate` currently initializes the BC optimizer while the 
 
 After each change, verify the actually effective config, then record old→new, user basis, command/event ID, effective batch/version, follow-up observations and rollback. Compare by default on valid sampling throughput, fault rate, BC sub-scores and same-engine/same-format validation; formal strength still rests on native evaluation.
 
-## 9. Independent native teacher experiments
-
-This route does not collect training data or replace the active teacher. Use it only for an explicitly authorized teacher experiment. Commit the branch, then `python -m learning.teacher_remote --command 'COMMAND'` archives that commit, uploads it and executes the command in a fresh Ubuntu tree using the existing environment. Read its `SOURCE` and `TREE` output; preserve old evidence directories.
-
-From that archived tree, use `/home/tongshu/venv/bin/python -m learning.teacher_lab --directory ABSOLUTE_NEW_DIRECTORY` with these subcommands:
-
-1. `init --source-commit COMMIT --wesnoth EXECUTABLE` freezes the maintained Astra source/package and runtime identities. Check available CPU/memory before using its eight workers.
-2. `register --name VERSION --source-commit COMMIT --description DESCRIPTION [--source TEACHER_DIRECTORY] [--parameters JSON]` creates an immutable candidate. New source archives may be registered through `--source`; keep executing matches from the original `evaluator_root`.
-3. `panel --name UNIQUE_PANEL --candidate VERSION --preflight` checks complete 30/100-turn flows across all three formats. Preparation may repair correctness but must not repeatedly tune against scores.
-4. `start` records the five-hour exploration and post-phase deadlines once. Subsequent `panel` calls use only train maps. Begin with one block, then two more using `--blocks 2 --offset 1`. `--opponent VERSION` enables version leagues only after a provisional six-cell baseline win. `status` reports complete evidence and unfinished panels.
-5. After five hours, `select` freezes validation and holdout designs from measured throughput, compares at most three candidates per format, freezes the composite package and runs holdout until the existing four-hour deadline. It writes `final.json` and `REPORT.md`; unqualified fallback selection cannot pass final acceptance.
-
-If a correctness audit disqualifies frozen candidates, preserve them and their matches. Before exploration ends, write a new immutable `selection_source.json` containing the reviewed selector's `evaluator_root` and `source_commit`, the original `base_source_commit`, `baseline_sha256`, unchanged `exploration_end`, `frozen` timestamp, and an `exclusions` map from candidate names to `reason` and `evidence`. Run only `select` from that reviewed archive. The selector validates these identities, excludes those versions from both nomination and fallback, and records the release in its output; the original manifest, clock, scores and acceptance thresholds stay fixed.
-
-`python -m learning.teacher_lab.batch --directory EXPERIMENT --name PANEL --candidates A B --blocks 2 --offset 1` runs several frozen challengers against Astra in one shared eight-worker train panel, with matched scenes and unchanged scoring. For an older frozen evaluator, set `PYTHONPATH` to its root and execute the reviewed archive's `learning/teacher_lab/batch.py` by absolute path; the helper imports the frozen match/score modules and records its own source hash. Start it after the previous worker pool has finished.
-
-Add `--opponent VERSION` for a shared version-league panel. This requires a correctness-eligible provisional baseline winner across all six cells and at least three physical scenes; excluded candidates cannot unlock the league. Challengers must differ from the named frozen opponent. The existing clock, rotations, scoring and recorded opponent budgets still apply.
-
-Changing or restarting commands does not renew the clock. Keep failed versions and incomplete games. Do not tune from holdout, lower the 0.10/95%/12-scenario gate, or integrate the resulting teacher into training as part of this route.
-
-## 10. Reporting and handover
+## 9. Reporting and handover
 
 For an authorized delivery export, `export --audit-data DIR --audit-workers N` shares up to N processes across all formats. The default is one. Each format's subdirectory supplies all of its `*.jsonl.gz` shards, including any sequence fragments stored in different files.
 

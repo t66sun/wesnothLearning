@@ -80,13 +80,13 @@ pub(super) fn strike(rules:&Rules,a:&mut Unit,d:&mut Unit,w:&Weapon,
 pub(super) fn kill_xp(level:u32)->u32 {if level==0 {4}else{8*level}}
 
 pub fn resolve_seeded(rules:&Rules,a:&mut Unit,d:&mut Unit,weapon:usize,
-    at:&str,dt:&str,turn:u32,modifiers:&Modifiers,rng:&mut u64)->Result<Resolution,String> {
+    at:&str,dt:&str,turn:u32,modifiers:&Modifiers,rng:&mut u64)->Resolution {
     let aw=resolved_weapon(rules,a,weapon);
     let mut choices=rules.units[&d.unit_type].weapons.iter().enumerate()
         .filter(|(_,w)|w.range==aw.range && w.defense_weight>0.).map(|(i,_)|i);
     let first=choices.next();
     let counter=if choices.next().is_none(){first}else{
-        crate::combat_probability::select(rules,a,d,weapon,at,dt,turn,modifiers)?.0
+        crate::combat_probability::select(rules,a,d,weapon,at,dt,turn,modifiers).0
     };
     resolve_with_counter(rules,a,d,&aw,counter,at,dt,turn,modifiers,&mut || roll_percent(rng))
 }
@@ -106,13 +106,13 @@ pub fn roll_percent(state:&mut u64)->u32 {
 #[cfg(test)]
 fn resolve(rules:&Rules,a:&mut Unit,d:&mut Unit,weapon:usize,
     at:&str,dt:&str,turn:u32,modifiers:&Modifiers)->Resolution {
-    let (counter,_)=crate::combat_probability::select(rules,a,d,weapon,at,dt,turn,modifiers).unwrap();
+    let (counter,_)=crate::combat_probability::select(rules,a,d,weapon,at,dt,turn,modifiers);
     let aw=resolved_weapon(rules,a,weapon);
-    resolve_with_counter(rules,a,d,&aw,counter,at,dt,turn,modifiers,&mut || 0).unwrap()
+    resolve_with_counter(rules,a,d,&aw,counter,at,dt,turn,modifiers,&mut || 0)
 }
 
 fn resolve_with_counter(rules:&Rules,a:&mut Unit,d:&mut Unit,aw:&Weapon,counter:Option<usize>,
-               attacker_terrain:&str,defender_terrain:&str,turn:u32,modifiers:&Modifiers,roll:&mut impl FnMut()->u32)->Result<Resolution,String> {
+               attacker_terrain:&str,defender_terrain:&str,turn:u32,modifiers:&Modifiers,roll:&mut impl FnMut()->u32)->Resolution {
     let dw=counter.map(|i|resolved_weapon(rules,d,i));
     let charge=aw.specials.contains("charge");
     let berserk=aw.specials.contains("berserk") || dw.as_ref().is_some_and(|w|w.specials.contains("berserk"));
@@ -129,7 +129,6 @@ fn resolve_with_counter(rules:&Rules,a:&mut Unit,d:&mut Unit,aw:&Weapon,counter:
             (modifiers.defender_firststrike && aw.range=="melee"));
         let first=defender_first && !attacker_first;
         for n in 0..an.max(dn) {
-            crate::host_deadline::native_check()?;
             for defense in if first {[true,false]} else {[false,true]} {
                 if a.hp<=0 || d.hp<=0 || a.status.contains("petrified") || d.status.contains("petrified") { break; }
                 if defense && n<dn { log.push(strike(rules,d,a,dw.as_ref().unwrap(),Some(&aw),attacker_terrain,turn,charge,false,modifiers,roll())); }
@@ -143,7 +142,7 @@ fn resolve_with_counter(rules:&Rules,a:&mut Unit,d:&mut Unit,aw:&Weapon,counter:
     if a.hp>0 {a.xp+=if d.hp<=0 {kill_xp(dl)} else {dl};}
     if d.hp>0 {d.xp+=if a.hp<=0 {kill_xp(al)} else {al};}
     a.moves=0;a.attacks_left=a.attacks_left.saturating_sub(1);a.acted=true;
-    Ok(Resolution{strikes:log,defender_weapon:counter})
+    Resolution{strikes:log,defender_weapon:counter}
 }
 
 #[cfg(test)]

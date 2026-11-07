@@ -1,1 +1,0 @@
-{"source_commit": "14d3d150e592303ef356eccecce80c12498a9ffd", "source_tree": "/home/tongshu/myDev/wesnothLearning/verification/teacher_integration_20261107/sources/20261107T075722_panel_design_14d3d150e592", "command": ["bash", "tests/build_teacher_host.sh", "/home/tongshu/venv/bin/python", "-m", "unittest", "tests.test_teacher_integration_panel", "-v"], "label": "panel_design"}

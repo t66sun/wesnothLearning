@@ -56,9 +56,7 @@ local function metric_snapshot(side, event)
         local snapshot=S.memory_observation(obs)
         snapshot.side=side;snapshot.metric_event=event
         snapshot.reward_raw=W.capture(obs,memory,true)
-        snapshot.source=training.teacher_identity and 'teacher' or training.teacher and 'astra' or 'policy'
-        snapshot.teacher=training.teacher or false
-        for key,value in pairs(training.teacher_identity or {}) do snapshot[key]=value end
+        snapshot.source=training.teacher and 'astra' or 'policy';snapshot.teacher=training.teacher or false
         snapshot.rules_version=schema.rules_sha256
         return snapshot
     end)
