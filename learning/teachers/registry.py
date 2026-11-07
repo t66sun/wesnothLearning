@@ -144,6 +144,27 @@ def verify_set(contract):
                 raise ValueError('frozen teacher descriptor changed: ' + fmt)
 
 
+def require_same_teachers(parent, child, formats):
+    """A same-name set can change executable bytes; raw supervision cannot follow."""
+    before, after = parent.get('teacher_set'), child.get('teacher_set')
+    if before is None and after is None:
+        same = parent.get('teacher') == child.get('teacher')
+    elif before is None:
+        legacy = parent.get('teacher', {})
+        same = all((spec['teacher'], spec['profile'], spec['source_sha256']) ==
+                   (legacy.get('teacher'), legacy.get('teacher_profile'), legacy.get('teacher_source_sha256'))
+                   for fmt in formats for spec in after['formats'][fmt].values())
+    elif after is None:
+        same = False
+    else:
+        def portable(spec):
+            return {key: value for key, value in spec.items() if key != 'package'}
+        same = all(portable(before['formats'][fmt][name]) == portable(after['formats'][fmt][name])
+                   for fmt in formats for name in ROLES)
+    if not same:
+        raise ValueError('teacher execution identity changed; use explicit weights-only initialization')
+
+
 @lru_cache(maxsize=2)
 def adapter_digest(engine):
     paths = (['learning/lite_host.py', 'engine_lite/src/lib.rs', 'engine_lite/src/host.rs',

@@ -164,6 +164,9 @@ class Experiment:
                 parent.get('baseline',{}).get('path') or wesnoth,self.config)
             if self.manifest['rules']!=parent['rules']:
                 raise ValueError('branch rules differ from the parent')
+            if not weights_only:
+                from .teachers.registry import require_same_teachers
+                require_same_teachers(parent,self.manifest,self.config['formats'])
             if restart_bc: validate_bc_inputs(parent,self.manifest)
             started=time.time();duration=self.config['hours']*3600
             self.clock=dict(started=started,update_deadline=started+duration*10/12,deadline=started+duration)

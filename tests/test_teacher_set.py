@@ -1,5 +1,7 @@
 """Frozen teacher selection: no games, sampling or optimizer work."""
 import copy
+import os
+import shutil
 import tempfile
 import unittest
 from pathlib import Path
@@ -8,7 +10,7 @@ from unittest.mock import patch
 from learning.teachers import build
 from learning.teachers.registry import (
     DEFAULT_SET, ROLES, SELECTED_SHA256, describe, execution_identity,
-    freeze_set, module_sources, role, validate_set, verify_set, require_runtime,
+    freeze_set, module_sources, role, validate_set, verify_set, require_runtime, require_same_teachers,
 )
 
 
@@ -44,6 +46,55 @@ class TeacherSetTests(unittest.TestCase):
                 self.assertEqual(first['package_sha256'], second['package_sha256'])
                 self.assertEqual(first['source_sha256'], second['source_sha256'])
             verify_set(a)
+
+    def test_package_bytes_ignore_source_extraction_times(self):
+        from learning.teachers import SOURCE
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            outputs = []
+            for index, timestamp in enumerate((946684800, 1704067200)):
+                source = root/str(index)
+                shutil.copytree(SOURCE, source)
+                for path in source.rglob('*'):
+                    if path.is_file(): os.utime(path, (timestamp, timestamp))
+                with patch('learning.teachers.SOURCE', source):
+                    outputs.append(build(root/f'{index}.zip').read_bytes())
+            self.assertEqual(*outputs)
+
+    def test_same_named_set_cannot_inherit_different_teacher_supervision(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            parent = {'teacher_set': freeze_set(root/'parent', 'mixed-20261107')}
+            child = {'teacher_set': freeze_set(root/'child', 'mixed-20261107')}
+            require_same_teachers(parent, child, ('duel', 'ffa4', 'team2v2'))
+            for key in ('source_sha256', 'package_sha256', 'parameters'):
+                altered = copy.deepcopy(parent)
+                altered['teacher_set']['formats']['ffa4']['supervision'][key] = 'different'
+                with self.assertRaisesRegex(ValueError, 'weights-only'):
+                    require_same_teachers(altered, child, ('ffa4',))
+
+    def test_branch_rejects_same_set_with_changed_source_before_copying_state(self):
+        from learning.common import write_json
+        from learning.coordinator import Experiment
+        from learning.experiment import default_config
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            parent, child = root/'parent', root/'child'
+            parent.mkdir()
+            config = default_config('cpu')
+            contract = freeze_set(root/'teachers', 'astra')
+            original = dict(config=config, task_id=config['task_id'], teacher_set=contract,
+                            rules={'identity': 'same'}, baseline={'path': 'unused'})
+            write_json(parent/'manifest.json', original)
+            write_json(parent/'clock.json', {})
+            changed = copy.deepcopy(original)
+            changed['teacher_set']['formats']['duel']['supervision']['source_sha256'] = 'changed'
+            with patch('learning.coordinator.output_path', side_effect=Path), \
+                 patch('learning.coordinator.freeze', return_value=(changed, [])), \
+                 patch('learning.coordinator.prepare_branch') as inherit:
+                with self.assertRaisesRegex(ValueError, 'teacher execution identity changed'):
+                    Experiment(child, config=config | {'branch_reset_optimizer': True}, branch_from=parent)
+                inherit.assert_not_called()
 
     def test_role_and_module_loading_preserve_namespaces(self):
         with tempfile.TemporaryDirectory() as temporary:

@@ -89,7 +89,7 @@ class LiteDefaultTests(unittest.TestCase):
                 native_bc_games=dict.fromkeys(FORMATS, 0),
                 rules_dir=str((ROOT / 'data/rules/1.18.8-training').resolve()))
             from learning.updates import BATCH_CONTRACT
-            write_json(run / 'manifest.json', dict(config=frozen, opponents=[], batch_contract=BATCH_CONTRACT,
+            write_json(run / 'manifest.json', dict(config=frozen, task_id=frozen['task_id'], opponents=[], batch_contract=BATCH_CONTRACT,
                 baseline=dict(path=str(baseline), sha256=sha256(baseline)), source={}))
             clock = dict(started=1000., update_deadline=2000., deadline=3000.)
             write_json(run / 'clock.json', clock)
@@ -254,12 +254,12 @@ else:
             self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
     def test_native_anchor_and_lite_jobs_share_frozen_rules(self):
-        from learning.experiment import FormatExperiment
+        from learning.experiment import FormatExperiment, default_config
         rules = str((ROOT / 'data/rules/1.18.8-training').resolve())
         with tempfile.TemporaryDirectory() as temporary:
             runner = object.__new__(FormatExperiment)
             runner.directory = Path(temporary)
-            runner.config = dict(engine='lite', rules_dir=rules, allow_approximate=True)
+            runner.config = default_config('cpu') | dict(rules_dir=rules)
             runner.controller = SimpleNamespace(freeze=lambda: {'reward_version': 1})
             runner.teachers = ['gpt6astra']
             captured = []
