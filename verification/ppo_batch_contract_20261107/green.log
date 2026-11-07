@@ -1,0 +1,21 @@
+source 347100fbb36429ad95c77c091ab2e7c17e80f07f
+batch_index 48d89a20dc10adcbff944870410bb8ade6dc80aa
+ignore_width f16a9e6f9d40035ea696594b25f7183529263eb5
+partial_batch 3b7fd083ba7038f7c0ad2587c0d41d0fc6e8e025
+1ed45ddc80fdacbbdb29760c0a26aff10f67065d2c47038bf701b23e7d2defff  /home/tongshu/acceptance/ppo_batch_contract_20261107_347100f/ppo_a2_271_green.tar
+e6b4f6200b0a8ad58a536b844fff37cfa9e0091bf0a0b702a8982155310f2f17  /home/tongshu/acceptance/filters_compiled_20261103/data/rules/1.18.8-combat-filtered/rules.json
+36e9ccd11e045e27544b5319ee8edfce7c795e27efdc075f53d68eab893dead8  /home/tongshu/myDev/wesnothLearning/WesnothLearning/rules/1.18.8/maps/the_freelands.json
+e3266941853e6dbb043ea9995238959af711413a8f799acc46af7923e5e8fdc3  /home/tongshu/myDev/wesnothLearning/WesnothLearning/rules/1.18.8/maps/weldyn_channel.json
+5f2c6843555ecbe973d2476dbb9dd85e71699f15e7dcb52ad5b8ebf5b0743bbe  /home/tongshu/myDev/wesnothLearning/WesnothLearning/rules/1.18.8/maps/sablestone_delta.json
+test_eight_complete_trajectories_match_after_pending_train_resume (verification.ppo_batch_contract_20261107.test_contract.BatchContractTests.test_eight_complete_trajectories_match_after_pending_train_resume) ... ok
+test_incomplete_batch_keeps_previous_complete_checkpoint (verification.ppo_batch_contract_20261107.test_contract.BatchContractTests.test_incomplete_batch_keeps_previous_complete_checkpoint) ... ok
+test_same_ordinal_stream_with_different_boundaries (verification.ppo_batch_contract_20261107.test_contract.BatchContractTests.test_same_ordinal_stream_with_different_boundaries) ... ok
+test_zero_step_batches_count_fresh_and_rejected_work (verification.duel_ppo_comparison_20261106.test_contract.DuelComparisonContractTests.test_zero_step_batches_count_fresh_and_rejected_work) ... ok
+test_pending_training_and_validation_keep_hard_settlement_deadline (verification.duel_ppo_comparison_20261106.test_contract.DuelComparisonContractTests.test_pending_training_and_validation_keep_hard_settlement_deadline) ... ok
+test_real_learn_boundary_keeps_whole_batches_and_admits_no_next_batch (verification.duel_ppo_comparison_20261106.test_contract.DuelComparisonContractTests.test_real_learn_boundary_keeps_whole_batches_and_admits_no_next_batch) ... ok
+test_complete_cycles_balance_maps_seats_and_focal_factions (tests.v5.test_ppo_scenario_coverage.PPOScenarioCoverageTests.test_complete_cycles_balance_maps_seats_and_focal_factions) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 3.655s
+
+OK

@@ -224,6 +224,8 @@ The normal/forced PPO commands above are alternatives. The command writes a phas
 
 For a committed stop before the deadline, add `--ppo-batches N` to `phase ppo`. Each requested format finishes after N newly scheduled PPO batches have applied at least one optimizer step and any due validation has run. A resumed batch already pending at the request boundary finishes under its existing plan and falls outside this count. Each new request starts its own count. The phase deadline can end training earlier.
 
+The bounded fixed-Astra duel comparison chooses `rollout_games=4` or `8` when `start_arm` creates the run. Its budget records the first PPO batch index and the admission and settlement deadlines. Use `resume_arm` with the same run directory to continue the saved stage within that budget. Omit `fresh_targets` for a wall-clock comparison. [Driver and Ubuntu contract](../verification/ppo_batch_contract_20261107/REPORT.md)
+
 Read enough state for an existing experiment in one pass; widen the scope only on the first check or a real anomaly. Confirm the manifest exists before looking at the controller so no control directory is created for a nonexistent experiment path.
 
 ```bash
