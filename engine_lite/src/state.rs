@@ -28,13 +28,14 @@ impl Clone for VisionFootprints {
     }
 }
 
-fn vision_tiles(spec: &GameSpec, kind: &UnitType, origin: usize) -> Vec<usize> {
+fn vision_tiles(spec: &GameSpec, kind: &UnitType, origin: usize) -> Result<Vec<usize>,String> {
     let mut tiles = Vec::new();
     let mut dist = vec![u32::MAX; spec.terrain.len()];
     let mut queue = BinaryHeap::new();
     dist[origin] = 0;
     queue.push((Reverse(0u32), origin));
     while let Some((Reverse(d), p)) = queue.pop() {
+        crate::host_deadline::native_check()?;
         if d != dist[p] { continue; }
         tiles.push(p);
         for q in neighbors(p, spec.width, spec.height) {
@@ -46,7 +47,7 @@ fn vision_tiles(spec: &GameSpec, kind: &UnitType, origin: usize) -> Vec<usize> {
             }
         }
     }
-    tiles
+    Ok(tiles)
 }
 
 #[derive(Clone,Serialize,Deserialize)]
@@ -115,7 +116,7 @@ impl Game {
             knowledge:vec![Knowledge{visible:vec![false;n],explored:vec![false;n],terrain:vec![None;n],..Knowledge::default()};count],
             combat_rng:spec.seed,spec,turn:1,current:1,revision:0,next_id:1,finished:false,truncated:false,winner:None,
             exploration_seen:BTreeMap::new(),exploration_earned:BTreeMap::new(),vision:VisionFootprints::default()};
-        g.update_visibility();g.update_exploration(true);Ok(g)
+        g.update_visibility()?;g.update_exploration(true);Ok(g)
     }
     pub fn adjacent(&self,p:usize)->Vec<usize>{
         #[cfg(test)]
@@ -167,10 +168,11 @@ impl Game {
         }
         public
     }
-    pub fn update_visibility(&mut self) {
+    pub fn update_visibility(&mut self) -> Result<(),String> {
         let n=self.spec.terrain.len();let count=self.sides.len();let mut raw=vec![vec![false;n];count];
         self.vision.slots.resize_with(self.units.len(), || None);
         for (u, slot) in self.units.iter().zip(&mut self.vision.slots) {
+            crate::host_deadline::native_check()?;
             if u.hp <= 0 { *slot = None; continue; }
             // Within a game the map and rules are fixed. Unit type and origin
             // determine this search; side, status and memory are applied below.
@@ -179,7 +181,7 @@ impl Game {
                 _ => {
                     #[cfg(test)] { self.vision.searches += 1; }
                     slot.insert(UnitVision { unit_type: u.unit_type.clone(), origin: u.pos,
-                        tiles: vision_tiles(&self.spec, &self.rules.units[&u.unit_type], u.pos) })
+                        tiles: vision_tiles(&self.spec, &self.rules.units[&u.unit_type], u.pos)? })
                 }
             };
             for &p in &footprint.tiles { raw[u.side-1][p] = true; }
@@ -194,6 +196,7 @@ impl Game {
                 }
             }
             for p in 0..n {
+                crate::host_deadline::native_check()?;
                 explored[p]|=seen[p] || !self.sides[i].shroud;
                 let visible=explored[p] && (seen[p] || !self.sides[i].fog);
                 self.knowledge[i].explored[p]=explored[p];self.knowledge[i].visible[p]=visible;
@@ -212,6 +215,7 @@ impl Game {
                 self.knowledge[i].enemies.insert(u.id.clone(),SeenUnit{unit:Some(u),turn:self.turn});
             }
         }
+        Ok(())
     }
     #[cfg(test)]
     pub(crate) fn vision_searches(&self) -> usize { self.vision.searches }
@@ -232,18 +236,19 @@ impl Game {
     }
     /// Public-information Dijkstra. Unknown terrain uses an explicit optimistic
     /// cost of one; execution stops when newly revealed terrain blocks the intent.
-    pub fn reach(&self,u:&Unit,s:usize)->(Vec<u32>,Vec<usize>) {
+    pub fn reach(&self,u:&Unit,s:usize)->Result<(Vec<u32>,Vec<usize>),String> {
         self.reach_with_public(u, s, &self.public_units(s))
     }
-    pub(crate) fn reach_with_public(&self,u:&Unit,s:usize,public:&[Unit])->(Vec<u32>,Vec<usize>) {
+    pub(crate) fn reach_with_public(&self,u:&Unit,s:usize,public:&[Unit])->Result<(Vec<u32>,Vec<usize>),String> {
         let n=self.spec.terrain.len();let mut dist=vec![u32::MAX;n];let mut prev=vec![usize::MAX;n];
         let t=&self.rules.units[&u.unit_type];
         let occupied:BTreeMap<usize,&Unit>=public.iter().map(|x|(x.pos,x)).collect();
         let zoc:BTreeSet<usize>=public.iter().filter(|e|self.enemy(e.side,u.side) && self.rules.units[&e.unit_type].level>0 && !e.status.contains("petrified") && !e.status.contains("stunned"))
             .flat_map(|e|self.adjacent(e.pos)).collect();
         let mut queue=BinaryHeap::new();dist[u.pos]=0;prev[u.pos]=u.pos;queue.push((Reverse(0),u.pos));
-        if u.status.contains("petrified") {return (dist,prev);}
+        if u.status.contains("petrified") {return Ok((dist,prev));}
         while let Some((Reverse(d),p))=queue.pop() {
+            crate::host_deadline::native_check()?;
             if d!=dist[p] || p!=u.pos && zoc.contains(&p) && !self.skirmisher_at(u,p,public) {continue;}
             let mut next=self.adjacent(p);
             let local_count=next.len();
@@ -262,14 +267,15 @@ impl Game {
                 if nd<=u.moves && nd<dist[q] {dist[q]=nd;prev[q]=p;queue.push((Reverse(nd),q));}
             }
         }
-        (dist,prev)
+        Ok((dist,prev))
     }
-    fn castle_slots(&self,s:usize)->BTreeSet<usize> {
+    fn castle_slots(&self,s:usize)->Result<BTreeSet<usize>,String> {
         let mut result=BTreeSet::new();let k=&self.knowledge[s-1];
         for u in self.units.iter().filter(|u|u.hp>0 && u.side==s && u.leader) {
             if !self.rules.terrains[&self.spec.terrain[u.pos]].keep {continue;}
             let mut todo=vec![u.pos];let mut seen=BTreeSet::new();
             while let Some(p)=todo.pop() {
+                crate::host_deadline::native_check()?;
                 if !seen.insert(p){continue;}
                 if k.terrain[p].as_ref().is_some_and(|t|self.rules.terrains[t].castle || self.rules.terrains[t].keep) {
                     result.insert(p);todo.extend(self.adjacent(p));
@@ -277,7 +283,7 @@ impl Game {
             }
         }
         let occupied:BTreeSet<usize>=self.public_units(s).iter().map(|u|u.pos).collect();
-        result.retain(|p|!occupied.contains(p));result
+        result.retain(|p|!occupied.contains(p));Ok(result)
     }
     pub fn legal_actions(&self,s:usize)->Result<Vec<Action>,String> {
         self.side_check(s)?;
@@ -285,7 +291,7 @@ impl Game {
         let public=self.public_units(s);let occupied:BTreeSet<usize>=public.iter().map(|u|u.pos).collect();
         let mut actions=vec![Action::EndTurn];
         for u in public.iter().filter(|u|u.side==s && !u.status.contains("petrified")) {
-            if u.moves>0 {let (d,_)=self.reach_with_public(u,s,&public);
+            if u.moves>0 {let (d,_)=self.reach_with_public(u,s,&public)?;
                 for (p,&cost) in d.iter().enumerate(){if p!=u.pos && cost<=u.moves && !occupied.contains(&p){
                     actions.push(Action::Move{unit:u.id.clone(),to:p,full:false});
                 }}
@@ -298,7 +304,7 @@ impl Game {
         }
         for name in &self.sides[s-1].recruit {
             let t=&self.rules.units[name];
-            if t.cost<=self.sides[s-1].gold {for p in self.castle_slots(s) {actions.push(Action::Recruit{unit_type:name.clone(),to:p});}}
+            if t.cost<=self.sides[s-1].gold {for p in self.castle_slots(s)? {actions.push(Action::Recruit{unit_type:name.clone(),to:p});}}
         }
         Ok(actions)
     }
@@ -311,7 +317,7 @@ impl Game {
         match action.clone() {
             Action::EndTurn=>self.end_turn(),
             Action::Move{unit,to,full}=>{
-                let i=self.unit(&unit).ok_or("unit missing")?;let u=self.units[i].clone();let (_,prev)=self.reach(&u,self.current);
+                let i=self.unit(&unit).ok_or("unit missing")?;let u=self.units[i].clone();let (_,prev)=self.reach(&u,self.current)?;
                 let mut path=vec![];let mut p=to;
                 while p!=u.pos {path.push(p);p=prev[p];if p==usize::MAX{return Err("broken public path".into());}}
                 path.reverse();
@@ -333,7 +339,7 @@ impl Game {
                     if !occupied && self.rules.terrains[&self.spec.terrain[p]].village && self.village_owner[p]!=self.current {
                         self.village_owner[p]=self.current;self.units[i].moves=0;
                     }
-                    self.update_visibility();
+                    self.update_visibility()?;
                     let visible=self.public_units(self.current);
                     let skirmisher=self.skirmisher_at(&self.units[i],p,&visible);
                     let contact=visible.iter().any(|e|self.enemy(self.current,e.side) && !seen.contains(&e.id));
@@ -368,7 +374,7 @@ impl Game {
                 let modifiers=self.combat_modifiers(&a,&d,&self.units);
                 let attacking=self.rules.units[&a.unit_type].weapons[weapon].clone();
                 let outcome=combat::resolve_seeded(&self.rules,&mut a,&mut d,weapon,
-                    &self.spec.terrain[apos],&self.spec.terrain[dpos],self.turn,&modifiers,&mut self.combat_rng);
+                    &self.spec.terrain[apos],&self.spec.terrain[dpos],self.turn,&modifiers,&mut self.combat_rng)?;
                 let counter=outcome.defender_weapon.map(|i|&self.rules.units[&d.unit_type].weapons[i]);
                 strikes=outcome.strikes;
                 // This is the standard core feeding death rule, not a WML event
@@ -393,7 +399,7 @@ impl Game {
                 self.units[ai]=a;self.units[di]=d;self.advance(ai);self.advance(di);
             }
         }
-        self.revision+=1;self.check_victory();self.update_visibility();self.update_exploration(false);
+        self.revision+=1;self.check_victory();self.update_visibility()?;self.update_exploration(false);
         Ok(json!({"intent":action,"actual_pos":actual,"interrupted":interrupted,"strikes":strikes,
             "turn":self.turn,"current_side":self.current,"finished":self.finished,"truncated":self.truncated,"winner":self.winner}))
     }
@@ -550,8 +556,8 @@ impl Game {
         let at=self.knowledge[s-1].terrain[a.pos].as_ref().ok_or("unknown attacker terrain")?;
         let dt=self.knowledge[s-1].terrain[d.pos].as_ref().ok_or("unknown defender terrain")?;
         let modifiers=self.combat_modifiers(a,d,public);
-        let (_,distribution)=crate::combat_probability::select(&self.rules,a,d,weapon,at,dt,self.turn,&modifiers);
-        Ok(distribution.json())
+        let (_,distribution)=crate::combat_probability::select(&self.rules,a,d,weapon,at,dt,self.turn,&modifiers)?;
+        distribution.json()
     }
 
     fn combat_modifiers(&self,a:&Unit,d:&Unit,context:&[Unit])->combat::Modifiers {

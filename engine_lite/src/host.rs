@@ -5,9 +5,12 @@ use std::{cell::Cell,sync::{Arc,Mutex},time::Instant};
 
 pub fn create(game:Arc<Mutex<Game>>)->mlua::Result<Lua> {
     let lua=Lua::new();let started=Instant::now();
+    crate::host_deadline::install(&lua);
     lua.set_app_data(Cell::new(1usize));
     lua.globals().set("__clock_ms",lua.create_function(move |_,()|Ok(started.elapsed().as_millis() as u64))?)?;
     lua.globals().set("__bridge",lua.create_function(move |lua,(op,arg):(String,LuaValue)| {
+        crate::host_deadline::check(lua)?;
+        let _deadline=crate::host_deadline::native_scope(lua);
         let a:Value=lua.from_value(arg)?;
         let mut g=game.lock().map_err(|e|mlua::Error::external(e.to_string()))?;
         let side=lua.app_data_ref::<Cell<usize>>().unwrap().get();
@@ -17,6 +20,7 @@ pub fn create(game:Arc<Mutex<Game>>)->mlua::Result<Lua> {
             "view"=>g.observe(side).map_err(mlua::Error::external)?,
             "reward_labels"=>g.reward_labels(side),
             "rules"=>json!({"units":g.rules.units,"terrains":g.rules.terrains,"lawful_bonus":g.rules.lawful_bonus}),
+            "scenario"=>json!({"turns":g.spec.max_turns}),
             "legal"=>json!(g.legal_actions(side).map_err(mlua::Error::external)?),
             "reach"|"path"=>{
                 let id=a["id"].as_str().ok_or_else(||mlua::Error::external("missing visible unit ID"))?;
@@ -24,7 +28,7 @@ pub fn create(game:Arc<Mutex<Game>>)->mlua::Result<Lua> {
                 let mut u=public.iter().find(|u|u.id==id).cloned().ok_or_else(||mlua::Error::external("unit is not visible"))?;
                 let max_moves=u.max_moves(&g.rules);
                 u.moves=if op=="path" {(g.spec.terrain.len() as u32).saturating_mul(100)} else {a["moves"].as_u64().unwrap_or(u.moves as u64).min(max_moves as u64) as u32};
-                let (dist,prev)=g.reach_with_public(&u,side,&public);
+                let (dist,prev)=g.reach_with_public(&u,side,&public).map_err(mlua::Error::external)?;
                 if op=="reach" {
                     json!(dist.into_iter().enumerate().filter(|(_,d)|*d<=u.moves).map(|(p,d)|json!([p,u.moves-d])).collect::<Vec<_>>())
                 } else {
@@ -40,6 +44,7 @@ pub fn create(game:Arc<Mutex<Game>>)->mlua::Result<Lua> {
                 g.forecast_landing(side,attacker,target,a["weapon"].as_u64().unwrap_or(0) as usize,pos).map_err(mlua::Error::external)?
             },
             "step"=>{
+                crate::host_deadline::writable(lua)?;
                 if side!=g.current{return Err(mlua::Error::external("cannot act for another side"));}
                 let action:Action=serde_json::from_value(a["action"].clone()).map_err(mlua::Error::external)?;
                 let result=g.step(action).map_err(mlua::Error::external)?;
@@ -47,7 +52,10 @@ pub fn create(game:Arc<Mutex<Game>>)->mlua::Result<Lua> {
             },
             _=>return Err(mlua::Error::external(format!("unknown host operation {op}"))),
         };
-        lua.to_value(&result)
+        crate::host_deadline::check(lua)?;
+        let value=lua.to_value(&result)?;
+        crate::host_deadline::check(lua)?;
+        Ok(value)
     })?)?;
     Ok(lua)
 }

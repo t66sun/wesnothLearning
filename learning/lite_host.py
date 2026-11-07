@@ -36,34 +36,85 @@ def _lua(value):
     return '{' + ','.join(_lua(v) for v in value) + '}'
 
 
-def host_modules(teacher_path=None):
+def host_modules(teacher_path=None, *, teacher_specs=()):
     from .features import schema
     from .teachers import lua_modules
     modules = {name: (ROOT / 'lua' / name).read_text(encoding='utf-8')
-               for name in ('observation.lua', 'candidate_selection.lua', 'candidates.lua', 'spatial.lua', 'routing.lua', 'rewards.lua')}
+               for name in ('observation.lua', 'candidate_selection.lua', 'candidates.lua', 'spatial.lua', 'routing.lua', 'rewards.lua', 'teacher_memory.lua')}
     modules['features.lua'] = 'return ' + _lua(schema())
     # The frozen archive remains lineage only; the host runs the maintained
     # derived source adapted to the current probabilistic combat profile.
     modules.update(lua_modules())
+    from .teachers.registry import module_sources
+    for spec in teacher_specs:
+        modules.update(module_sources(spec))
     return modules
 
 
 class LiteHost:
-    def __init__(self, game_spec, rules_dir=None, *, require_accepted=True, teacher_path=None):
+    def __init__(self, game_spec, rules_dir=None, *, require_accepted=True, teacher_path=None,
+                 teacher_specs=None, query_spec=None):
         self.adapter = LiteAdapter(game_spec, rules_dir, require_accepted=require_accepted)
         from .features import schema
         if schema()['rules_sha256'] != self.adapter.rules_sha256:
             raise ValueError('shared feature vocabulary is frozen from another rules catalog')
-        self.modules = host_modules(teacher_path)
+        import _engine_lite
+        if getattr(_engine_lite, 'HOST_VERSION', None) != 'teacher-host-v1':
+            raise RuntimeError('rebuild engine_lite for teacher-host-v1')
+        self.teacher_specs = {int(side): spec for side,spec in (teacher_specs or {}).items()}
+        self.query_spec = query_spec
+        self.validate_teachers(game_spec)
+        specs = list(self.teacher_specs.values()) + ([query_spec] if query_spec else [])
+        self.modules = host_modules(teacher_path, teacher_specs=specs)
         self.adapter.configure_host(self.modules)
+        self.calls, self.queries = {}, {}
 
     def reset(self, game_spec):
+        self.validate_teachers(game_spec)
         self.adapter.reset(game_spec)
+        self.calls, self.queries = {}, {}
+
+    def validate_teachers(self, game_spec):
+        from .formats import infer_format
+        from .teachers.registry import describe
+        teams=[side['team'] for side in game_spec['sides']]
+        fmt=infer_format(dict(bots=teams,teams=teams if len(set(teams))<len(teams) else None))
+        for side in self.teacher_specs:
+            if side<1 or side>len(teams): raise ValueError('teacher seat is outside the game')
+        for spec in [*self.teacher_specs.values(),*([self.query_spec] if self.query_spec else [])]:
+            if spec['format']!=fmt or spec!=describe(spec['package'],fmt):
+                raise ValueError('Lite teacher descriptor differs from the actual game or frozen package')
+
+    def begin_call(self, side, limits=None):
+        limits = self.teacher_specs.get(side) or limits or dict(timeout=1,first_timeout=10)
+        budget = limits['first_timeout'] if not self.calls.get(side) else limits['timeout']
+        self.calls[side] = self.calls.get(side,0)+1
+        self.adapter.core.begin_call(budget)
+        return budget
+
+    def end_call(self, enforce=True):
+        self.adapter.core.end_call(enforce)
+
+    def query_teacher(self, side):
+        spec = self.query_spec
+        strategy = 'duel' if len(self.adapter.spec['sides'])==2 else 'four'
+        entry = spec['entry'] if spec else f'~add-ons/gpt6astra/lua/{strategy}.lua'
+        first = not self.queries.get(side)
+        self.queries[side] = self.queries.get(side,0)+1
+        budget = spec['first_timeout' if first else 'timeout'] if spec else (10 if first else 1)
+        started = time.perf_counter()
+        try:
+            result = json.loads(self.adapter.core.teacher_query(side,entry,budget))
+        except ValueError as exc:
+            result = dict(error=str(exc),choice=-1)
+        return dict(result,query_ms=(time.perf_counter()-started)*1000,query_budget=budget,
+                    first_query=first,query_only=True)
 
     def decision(self, side, *, teacher=False, generate_candidates=True, score_only_astra=False, score_only_policy=False):
-        if score_only_astra: return self.adapter.score_astra_decision(side)
+        entry = self.teacher_specs.get(side,{}).get('entry')
+        if score_only_astra: return self.adapter.score_astra_decision(side,entry)
         if score_only_policy: return self.adapter.score_policy_decision(side)
-        return self.adapter.decision(side, teacher=teacher, generate_candidates=generate_candidates)
+        return self.adapter.decision(side, teacher=teacher, generate_candidates=generate_candidates,teacher_entry=entry)
 
     def execute(self, action, *, score_only_astra=False, policy_memory_write=None):
         if score_only_astra: return self.adapter.score_astra_execute(action)
@@ -71,10 +122,14 @@ class LiteHost:
         return self.adapter.execute_candidate(action)
 
     def snapshot(self):
-        return self.adapter.snapshot()
+        return dict(self.adapter.snapshot(),teacher_calls=dict(self.calls),teacher_queries=dict(self.queries))
 
     def restore(self, snapshot):
+        self.validate_teachers(snapshot['game']['spec'])
+        self.end_call(False)
         self.adapter.restore(snapshot)
+        self.calls={int(k):v for k,v in snapshot.get('teacher_calls',{}).items()}
+        self.queries={int(k):v for k,v in snapshot.get('teacher_queries',{}).items()}
 
 
 def teacher_candidate(plan):
@@ -105,10 +160,15 @@ def play_lite_job(job):
     from .lite_policy import FrozenPolicies,game_spec,is_astra
     from .reward_metrics import summarize_game
     from .tasks import TASK_ID, TASK_TURNS, bind_result, job_reward
+    from .teachers.runtime import prepare_job, resolve_job, dagger_rows, query_metrics
+    from .teachers.registry import execution_identity
+    job = prepare_job(job,'lite')
+    teacher_seats, query_spec = resolve_job(job,'lite')
     job_id = job['id']
     meta = job.get('meta', {})
     record_decisions = keeps_behavior(meta)
     records, dagger = TrajectoryBuffer(), TrajectoryBuffer()
+    host=None;query_records=[]
     try:
         config = job_reward(job)
         if time.time() >= job.get('deadline', float('inf')):
@@ -127,7 +187,10 @@ def play_lite_job(job):
                              if isinstance(p, (str, Path)) and is_astra(p)
                              and Path(p).suffix == '.zip'), None)
         host = LiteHost(job['game_spec'], job.get('rules_dir'),
-                        require_accepted=job.get('require_accepted', True), teacher_path=teacher_path)
+                        require_accepted=job.get('require_accepted', True), teacher_path=teacher_path,
+                        teacher_specs=teacher_seats,query_spec=query_spec)
+        def teacher_seat(side):
+            return str(side) in teacher_seats or bool(policies is not None and is_astra(bots[side-1]))
         teacher_profile=teacher_identity()['teacher_profile']
         behavior, bootstraps, metric_snapshots = [], {}, []
         config = RewardConfig(**config).to_dict()
@@ -146,11 +209,13 @@ def play_lite_job(job):
         def metric_snapshot(side,event):
             row=host.decision(side,teacher=False,generate_candidates=False)
             snapshot={k:row[k] for k in ('side','turn','global','spatial','reward_raw')}
-            snapshot.update(metric_event=event,source='astra' if is_astra(bots[side-1]) else 'policy',
-                            teacher='gpt6astra' if is_astra(bots[side-1]) else False,
+            spec=teacher_seats.get(str(side))
+            snapshot.update(metric_event=event,source=('teacher' if spec else 'astra') if teacher_seat(side) else 'policy',
+                            teacher=spec['teacher'] if spec else ('gpt6astra' if teacher_seat(side) else False),
                             rules_version=host.adapter.catalog['rules_version'],
                             engine_version=ENGINE_VERSION, combat_version=COMBAT_VERSION,
                             teacher_profile=teacher_profile)
+            if spec: snapshot.update(execution_identity(spec,'lite'))
             metric_snapshots.append(snapshot)
         for side in sorted(learner_sides):
             metric_snapshot(side,'initial')
@@ -165,7 +230,9 @@ def play_lite_job(job):
             if decision_count >= job.get('max_decisions', 100000):
                 raise RuntimeError('lite decision budget exhausted; no progress/teacher loop must be diagnosed')
             decision_count += 1
-            teacher=is_astra(bots[current-1]) if policies else False
+            teacher=teacher_seat(current)
+            host.begin_call(current,job.get('seat_timeouts',{}).get(str(current)) or
+                            dict(timeout=job.get('timeout',1),first_timeout=job.get('first_timeout',10)))
             if score_only_astra and teacher and current not in learner_sides:
                 plan = host.decision(current, teacher=True, generate_candidates=False, score_only_astra=True)
                 outcome = host.execute(teacher_candidate(plan['teacher_action']), score_only_astra=True)
@@ -178,8 +245,11 @@ def play_lite_job(job):
                 if final_student:
                     decision = host.decision(current, teacher=False, score_only_policy=True)
                 else:
-                    decision = host.decision(current, teacher=teacher or bool(query),
+                    decision = host.decision(current, teacher=teacher,
                                              generate_candidates=not teacher or current in learner_sides)
+                query_label=host.query_teacher(current) if query else None
+                if query:
+                    query_count[current]=query_count.get(current,0)+1;query_total+=1
                 training=learning.get(str(current),{})
                 decision.update(schema=schema()['version'], format=job.get('format', job.get('meta', {}).get('format')),
                                 source='astra' if teacher else 'policy', engine_id='lite',
@@ -203,6 +273,9 @@ def play_lite_job(job):
                     choice = matching(decision['candidates'], action)
                     decision.update(choice=choice, log_probability=0., value=0., teacher='gpt6astra',
                                     actual=action, intent=action, representable=True)
+                    spec=teacher_seats.get(str(current))
+                    if spec:
+                        decision.update(execution_identity(spec,'lite'),source='teacher',teacher_impl=spec['teacher'])
                 else:
                     # Judge scalars supervise value/reward only. The actor receives
                     # exactly the public common Lua observation and candidates.
@@ -214,6 +287,12 @@ def play_lite_job(job):
                     action = decision['candidates'][choice]
                     decision.update(choice=choice, log_probability=float(selected['log_probability']),
                                     value=float(selected['value']), actual=action, intent=action)
+                if query_label is not None:
+                    plan=query_label.pop('teacher_action',None)
+                    if not query_label.get('error'):
+                        wanted=teacher_candidate(plan)
+                        query_label.update(actual=wanted,intent=wanted,choice=matching(decision['candidates'],wanted))
+                    query_records.append(dict(dagger=query_label))
                 if final_student:
                     outcome = host.execute(action, policy_memory_write=policies.needs_memory_write(current,decision['turn']))
                 else:
@@ -229,11 +308,9 @@ def play_lite_job(job):
                     decision = compact_row(decision)
                     records.append(decision)
                     if not teacher and job.get('learning',{}).get('dagger_teacher'):
-                        label=dict(decision,source='astra',teacher='gpt6astra',teacher_impl='astra_lite',choice=-1,value_valid=config['task_id']==TASK_ID,data_pool='dagger')
-                        if query:
-                            query_count[current]=query_count.get(current,0)+1;query_total+=1
-                            wanted=teacher_candidate(teacher_plan);label.update(actual=wanted,intent=wanted,choice=matching(decision['candidates'],wanted),query_only=True)
-                        dagger.append(label)
+                        identity=execution_identity(query_spec,'lite') if query_spec else dict(teacher='gpt6astra',teacher_impl='astra_lite')
+                        dagger.append(dagger_rows([dict(decision,dagger=query_label)],identity,value_valid=config['task_id']==TASK_ID)[0])
+            host.end_call()
             view = outcome['view'];current = view['current_side']
             newly = {s['id'] for s in view['sides'] if s['eliminated']} - defeated
             if newly:
@@ -244,13 +321,13 @@ def play_lite_job(job):
             if view['finished']:
                 break
         scored_cap = config['task_id'] == TASK_ID and job['game_spec']['max_turns'] == TASK_TURNS
-        if view['truncated'] and not scored_cap and any(not is_astra(bots[side-1]) for side in learner_sides):
+        if view['truncated'] and not scored_cap and any(not teacher_seat(side) for side in learner_sides):
             # Never replace missing truncation values with zero or a teacher score.
             bootstrap_policy = job.get('bootstrap_policy')
             if bootstrap_policy is None and policies is None:
                 raise RuntimeError('truncated policy game requires a frozen bootstrap_policy callback')
             for side in learner_sides:
-                if is_astra(bots[side-1]): continue
+                if teacher_seat(side): continue
                 decision = host.decision(side, teacher=False)
                 actor_input = {k: v for k, v in decision.items() if k not in ('reward_raw', 'reward_after', 'teacher_action')}
                 bootstraps[str(side)] = dict(side=side, value=policies.choose(actor_input,side,bootstrap=True) if policies else float(bootstrap_policy(actor_input)),
@@ -282,9 +359,12 @@ def play_lite_job(job):
             evidence['behavior'] = behavior
         return dict(id=job_id, status='complete', engine='lite', result=result, coverage=coverage, **evidence,
                     training_eligible=written is None or bool(written['written']), training_shard=written,
-                    meta=meta, truncated=records.truncated)
+                    meta=meta, truncated=records.truncated,teacher_queries=query_metrics(query_records))
     except (RuntimeError, ValueError, ImportError, OSError, KeyError) as exc:
-        return dict(id=job_id, status='infrastructure_error', engine='lite', error=str(exc))
+        return dict(id=job_id, status='infrastructure_error', engine='lite', error=str(exc),
+                    failure_kind='action_timeout' if 'hard deadline' in str(exc) else 'execution',
+                    teacher_queries=query_metrics(query_records))
     finally:
+        if host is not None: host.end_call(False)
         records.close()
         dagger.close()

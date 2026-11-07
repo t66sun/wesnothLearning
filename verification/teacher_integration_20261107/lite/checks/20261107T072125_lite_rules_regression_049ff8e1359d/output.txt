@@ -1,0 +1,53 @@
+🐍 Found CPython 3.12 at /usr/bin/python3
+🔗 Found pyo3 bindings
+📡 Using build options features from pyproject.toml
+    Finished `release` profile [optimized] target(s) in 0.03s
+📦 Built wheel for CPython 3.12 to .runtime/teacher_wheels/wesnoth_learning_lite-0.1.0-cp312-cp312-manylinux_2_34_x86_64.whl
+Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simple
+Processing ./.runtime/teacher_wheels/wesnoth_learning_lite-0.1.0-cp312-cp312-manylinux_2_34_x86_64.whl
+Installing collected packages: wesnoth-learning-lite
+Successfully installed wesnoth-learning-lite-0.1.0
+HOST teacher-host-v1 /home/tongshu/myDev/wesnothLearning/verification/teacher_integration_20261107/sources/20261107T072125_lite_rules_regression_049ff8e1359d/.runtime/teacher_host/_engine_lite/__init__.py
+test_advancement_cannot_invent_poison (tests.v5.test_combat_probability.CombatProbabilityTests.test_advancement_cannot_invent_poison) ... ok
+test_combat_experience_heals_forecast_and_execution (tests.v5.test_combat_probability.CombatProbabilityTests.test_combat_experience_heals_forecast_and_execution) ... ok
+test_conditional_advancement_uses_kill_probability (tests.v5.test_combat_probability.CombatProbabilityTests.test_conditional_advancement_uses_kill_probability) ... ok
+test_conditional_poison_uses_native_marginal_estimate (tests.v5.test_combat_probability.CombatProbabilityTests.test_conditional_poison_uses_native_marginal_estimate) ... ok
+test_fatal_debuffs_remain_in_native_prediction (tests.v5.test_combat_probability.CombatProbabilityTests.test_fatal_debuffs_remain_in_native_prediction) ... ok
+test_old_probability_profile_is_rejected (tests.v5.test_combat_probability.CombatProbabilityTests.test_old_probability_profile_is_rejected) ... ok
+test_zero_level_kill_awards_four_experience (tests.v5.test_combat_probability.CombatProbabilityTests.test_zero_level_kill_awards_four_experience) ... ok
+test_drain_immunity_blocks_healing_in_forecast_and_execution (tests.v5.test_combat_immunity.CombatImmunityTests.test_drain_immunity_blocks_healing_in_forecast_and_execution) ... ok
+test_plague_immunity_blocks_conversion_in_both_directions (tests.v5.test_combat_immunity.CombatImmunityTests.test_plague_immunity_blocks_conversion_in_both_directions) ... ok
+test_poison_immunity_blocks_nonfatal_and_fatal_forecasts_and_execution (tests.v5.test_combat_immunity.CombatImmunityTests.test_poison_immunity_blocks_nonfatal_and_fatal_forecasts_and_execution) ... ok
+test_hidden_leadership_cannot_change_hypothetical_forecast_or_normal_candidates (tests.v5.test_forecast_public_context.ForecastPublicContextTests.test_hidden_leadership_cannot_change_hypothetical_forecast_or_normal_candidates) ... ok
+test_previously_public_ffa_flanker_reconceals_after_rogue_moves (tests.v5.test_forecast_public_context.ForecastPublicContextTests.test_previously_public_ffa_flanker_reconceals_after_rogue_moves) ... ok
+test_collector_spools_complete_rows_without_retaining_their_arrays (tests.v5.test_collection_memory.CollectionMemoryTests.test_collector_spools_complete_rows_without_retaining_their_arrays) ... ok
+test_compaction_preserves_precision_labels_and_container_types (tests.v5.test_collection_memory.CollectionMemoryTests.test_compaction_preserves_precision_labels_and_container_types) ... ok
+test_index_streams_rows_with_identical_legacy_payload (tests.v5.test_collection_memory.CollectionMemoryTests.test_index_streams_rows_with_identical_legacy_payload) ... FAIL
+test_missing_metric_vector_stays_missing_after_numpy_support (tests.v5.test_collection_memory.CollectionMemoryTests.test_missing_metric_vector_stays_missing_after_numpy_support) ... ok
+test_projected_metric_rows_preserve_turn_five_and_ten_diagnostics (tests.v5.test_collection_memory.CollectionMemoryTests.test_projected_metric_rows_preserve_turn_five_and_ten_diagnostics) ... ok
+test_real_collector_compacts_before_write_without_changing_output (tests.v5.test_collection_memory.CollectionMemoryTests.test_real_collector_compacts_before_write_without_changing_output) ... ok
+test_sequence_writer_releases_prior_rows_while_consuming_generator (tests.v5.test_collection_memory.CollectionMemoryTests.test_sequence_writer_releases_prior_rows_while_consuming_generator) ... ok
+test_shard_writer_does_not_rebuild_an_entire_raw_row_list (tests.v5.test_collection_memory.CollectionMemoryTests.test_shard_writer_does_not_rebuild_an_entire_raw_row_list) ... ok
+test_memory_cache_is_separate_for_sides_and_new_jobs (tests.v5.test_lite_policy_memory.FrozenMemoryTests.test_memory_cache_is_separate_for_sides_and_new_jobs) ... ok
+test_real_policy_parity_and_one_replay_until_history_or_turn_changes (tests.v5.test_lite_policy_memory.FrozenMemoryTests.test_real_policy_parity_and_one_replay_until_history_or_turn_changes) ... ok
+test_gate_sums_reasons_and_keeps_its_verdict (tests.v5.test_coverage_reasons.CoverageReasonTests.test_gate_sums_reasons_and_keeps_its_verdict) ... ok
+test_matched_rows_are_never_counted_as_misses (tests.v5.test_coverage_reasons.CoverageReasonTests.test_matched_rows_are_never_counted_as_misses) ... ok
+test_reasons_account_for_every_miss_of_a_kind (tests.v5.test_coverage_reasons.CoverageReasonTests.test_reasons_account_for_every_miss_of_a_kind) ... ok
+test_actor_and_destination_read_stationary_actions (tests.v5.test_coverage_reasons.IntentContractTests.test_actor_and_destination_read_stationary_actions) ... ok
+test_attack_and_move_attack_are_distinct_intents (tests.v5.test_coverage_reasons.IntentContractTests.test_attack_and_move_attack_are_distinct_intents) ... ok
+test_matching_requires_the_whole_field_set (tests.v5.test_coverage_reasons.IntentContractTests.test_matching_requires_the_whole_field_set) ... ok
+test_reason_ignores_candidates_of_another_kind (tests.v5.test_coverage_reasons.IntentContractTests.test_reason_ignores_candidates_of_another_kind) ... ok
+test_reason_names_the_first_lost_stage (tests.v5.test_coverage_reasons.IntentContractTests.test_reason_names_the_first_lost_stage) ... ok
+
+======================================================================
+FAIL: test_index_streams_rows_with_identical_legacy_payload (tests.v5.test_collection_memory.CollectionMemoryTests.test_index_streams_rows_with_identical_legacy_payload)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/verification/teacher_integration_20261107/sources/20261107T072125_lite_rules_regression_049ff8e1359d/tests/v5/test_collection_memory.py", line 169, in test_index_streams_rows_with_identical_legacy_payload
+    self.assertEqual(zlib.decompress(payload), expected)
+AssertionError: b'[{"[85091 chars]on":0,"split_rule":"family-seed-v1"},{"approxi[680250 chars]1"}]' != b'[{"[85091 chars]on":0},{"approximate":true,"candidates":[{"fea[679980 chars]:2}]'
+
+----------------------------------------------------------------------
+Ran 30 tests in 4.492s
+
+FAILED (failures=1)

@@ -3,6 +3,7 @@ mod combat;
 mod combat_probability;
 mod state;
 mod host;
+mod host_deadline;
 #[cfg(test)] mod engine_tests;
 
 use mlua::{Lua,LuaSerdeExt,Function};
@@ -95,19 +96,32 @@ impl LiteEngine {
         self.modules=decode(modules_json)?;
         self.install_host()
     }
-    #[pyo3(signature=(side,teacher=false,generate_candidates=true,score_only_astra=false,score_only_policy=false))]
-    fn decision(&mut self,side:usize,teacher:bool,generate_candidates:bool,score_only_astra:bool,score_only_policy:bool)->PyResult<String>{
+    #[pyo3(signature=(side,teacher=false,generate_candidates=true,score_only_astra=false,score_only_policy=false,teacher_entry=None))]
+    fn decision(&mut self,side:usize,teacher:bool,generate_candidates:bool,score_only_astra:bool,score_only_policy:bool,teacher_entry:Option<&str>)->PyResult<String>{
         self.game.lock().map_err(error)?.side_check(side).map_err(error)?;
         host::set_side(&self.lua,side);
         let f:Function=self.lua.globals().get("lite_decision").map_err(error)?;
-        let result:mlua::Value=f.call((side,teacher,generate_candidates,score_only_astra,score_only_policy)).map_err(error)?;
+        let result:mlua::Value=host_deadline::planning(&self.lua,||
+            f.call((side,teacher,generate_candidates,score_only_astra,score_only_policy,teacher_entry))).map_err(error)?;
+        let value:Value=self.lua.from_value(result).map_err(error)?;encode(&value)
+    }
+    fn begin_call(&self,seconds:f64)->PyResult<()> {host_deadline::begin(&self.lua,seconds).map_err(error)}
+    #[pyo3(signature=(enforce=true))]
+    fn end_call(&self,enforce:bool)->PyResult<()> {host_deadline::finish(&self.lua,enforce).map_err(error)}
+    fn teacher_query(&mut self,side:usize,entry:&str,seconds:f64)->PyResult<String> {
+        self.game.lock().map_err(error)?.side_check(side).map_err(error)?;
+        host::set_side(&self.lua,side);
+        let f:Function=self.lua.globals().get("lite_teacher_query").map_err(error)?;
+        let result:mlua::Value=host_deadline::query(&self.lua,seconds,||f.call((side,entry))).map_err(error)?;
         let value:Value=self.lua.from_value(result).map_err(error)?;encode(&value)
     }
     #[pyo3(signature=(action_json,score_only_astra=false,policy_memory_write=None))]
     fn execute_candidate(&mut self,action_json:&str,score_only_astra:bool,policy_memory_write:Option<bool>)->PyResult<String>{
+        host_deadline::check(&self.lua).map_err(error)?;
         let a:Value=decode(action_json)?;
         let f:Function=self.lua.globals().get("lite_execute").map_err(error)?;
         let result:mlua::Value=f.call((self.lua.to_value(&a).map_err(error)?,score_only_astra,policy_memory_write)).map_err(error)?;
+        host_deadline::check(&self.lua).map_err(error)?;
         let value:Value=self.lua.from_value(result).map_err(error)?;encode(&value)
     }
 }
@@ -115,5 +129,5 @@ impl LiteEngine {
 #[pymodule]
 fn _engine_lite(m:&Bound<'_,PyModule>)->PyResult<()> {
     m.add_class::<LiteEngine>()?;m.add("ENGINE_VERSION",ENGINE_VERSION)?;m.add("RNG_VERSION",RNG_VERSION)?;
-    m.add("COMBAT_VERSION",COMBAT_VERSION)?;Ok(())
+    m.add("COMBAT_VERSION",COMBAT_VERSION)?;m.add("HOST_VERSION","teacher-host-v1")?;Ok(())
 }

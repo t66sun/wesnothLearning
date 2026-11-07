@@ -124,7 +124,7 @@ fn reach_expands_local_neighbors_once_and_charges_adjacent_village_terrain() {
     kind.movement.insert(PLAIN.into(), 2);
     g.knowledge[0].villages = BTreeMap::from([(0,(1,1)), (1,(1,1)), (8,(1,1))]);
     NEIGHBOR_CALLS.with(|n| n.set(0));
-    let (distance, predecessor) = g.reach(&walker, 1);
+    let (distance, predecessor) = g.reach(&walker, 1).unwrap();
     assert_eq!((distance[1], predecessor[1]), (2,0)); // adjacent owned village
     assert_eq!((distance[8], predecessor[8]), (1,0)); // remote owned village
     let reached = distance.iter().filter(|&&d| d != u32::MAX).count();
@@ -155,7 +155,7 @@ fn terrain_vision_reuses_only_unchanged_origins_and_types() {
                 "replace" => state.units[0].hp = 1,
                 _ => (),
             }
-            state.update_visibility();
+            state.update_visibility().unwrap();
         }
         searches += usize::from(matches!(change, "move" | "advance" | "replace"));
         assert_eq!(game.vision_searches(), searches, "{change}");
@@ -194,12 +194,12 @@ fn slow_doubles_movement_cost_until_the_side_boundary() {
     let i=g.unit("u1").unwrap();
     g.units[i].status.insert("slowed".into());
     let u=g.units[i].clone();
-    let (dist,_)=g.reach(&u,1);
+    let (dist,_)=g.reach(&u,1).unwrap();
     assert_eq!(dist[1],2);
     g.end_turn();
     assert!(!g.units[i].status.contains("slowed"));
     let u=g.units[i].clone();
-    let (dist,_)=g.reach(&u,1);
+    let (dist,_)=g.reach(&u,1).unwrap();
     assert_eq!(dist[1],1);
 }
 

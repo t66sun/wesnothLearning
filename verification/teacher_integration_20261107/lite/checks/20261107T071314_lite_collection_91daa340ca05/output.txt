@@ -1,0 +1,52 @@
+🐍 Found CPython 3.12 at /usr/bin/python3
+🔗 Found pyo3 bindings
+📡 Using build options features from pyproject.toml
+   Compiling wesnoth-learning-lite v0.1.0 (/home/tongshu/myDev/wesnothLearning/verification/teacher_integration_20261107/sources/20261107T071314_lite_collection_91daa340ca05/engine_lite)
+    Finished `release` profile [optimized] target(s) in 3.38s
+📦 Built wheel for CPython 3.12 to .runtime/teacher_wheels/wesnoth_learning_lite-0.1.0-cp312-cp312-manylinux_2_34_x86_64.whl
+Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simple
+Processing ./.runtime/teacher_wheels/wesnoth_learning_lite-0.1.0-cp312-cp312-manylinux_2_34_x86_64.whl
+Installing collected packages: wesnoth-learning-lite
+Successfully installed wesnoth-learning-lite-0.1.0
+HOST teacher-host-v1 /home/tongshu/myDev/wesnothLearning/verification/teacher_integration_20261107/sources/20261107T071314_lite_collection_91daa340ca05/.runtime/teacher_host/_engine_lite/__init__.py
+test_frozen_teacher_collection_records_actual_identity_for_each_format (tests.v5.test_lite_teacher_collection.LiteTeacherCollectionTests.test_frozen_teacher_collection_records_actual_identity_for_each_format) ... ok
+test_student_history_and_nonzero_queries_retain_the_selected_teacher (tests.v5.test_lite_teacher_collection.LiteTeacherCollectionTests.test_student_history_and_nonzero_queries_retain_the_selected_teacher) ... ok
+test_learning_and_opening_keep_full_records (tests.v5.test_lite_score_astra.ScoreAstraTests.test_learning_and_opening_keep_full_records) ... ok
+test_query_and_bootstrap_decisions_get_full_candidates (tests.v5.test_lite_score_astra.ScoreAstraTests.test_query_and_bootstrap_decisions_get_full_candidates) ... FAIL
+test_reference_records_only_its_teacher_and_opening_keeps_every_seat (tests.v5.test_lite_score_astra.ScoreAstraTests.test_reference_records_only_its_teacher_and_opening_keeps_every_seat) ... ok
+test_score_only_reproduces_full_plans_ledger_and_transitions (tests.v5.test_lite_score_astra.ScoreAstraTests.test_score_only_reproduces_full_plans_ledger_and_transitions) ... ok
+test_public_policy (unittest.loader._FailedTest.test_public_policy) ... ERROR
+test_memory_cache_is_separate_for_sides_and_new_jobs (tests.v5.test_lite_policy_memory.FrozenMemoryTests.test_memory_cache_is_separate_for_sides_and_new_jobs) ... ok
+test_real_policy_parity_and_one_replay_until_history_or_turn_changes (tests.v5.test_lite_policy_memory.FrozenMemoryTests.test_real_policy_parity_and_one_replay_until_history_or_turn_changes) ... ok
+test_gate_sums_reasons_and_keeps_its_verdict (tests.v5.test_coverage_reasons.CoverageReasonTests.test_gate_sums_reasons_and_keeps_its_verdict) ... ok
+test_matched_rows_are_never_counted_as_misses (tests.v5.test_coverage_reasons.CoverageReasonTests.test_matched_rows_are_never_counted_as_misses) ... ok
+test_reasons_account_for_every_miss_of_a_kind (tests.v5.test_coverage_reasons.CoverageReasonTests.test_reasons_account_for_every_miss_of_a_kind) ... ok
+test_actor_and_destination_read_stationary_actions (tests.v5.test_coverage_reasons.IntentContractTests.test_actor_and_destination_read_stationary_actions) ... ok
+test_attack_and_move_attack_are_distinct_intents (tests.v5.test_coverage_reasons.IntentContractTests.test_attack_and_move_attack_are_distinct_intents) ... ok
+test_matching_requires_the_whole_field_set (tests.v5.test_coverage_reasons.IntentContractTests.test_matching_requires_the_whole_field_set) ... ok
+test_reason_ignores_candidates_of_another_kind (tests.v5.test_coverage_reasons.IntentContractTests.test_reason_ignores_candidates_of_another_kind) ... ok
+test_reason_names_the_first_lost_stage (tests.v5.test_coverage_reasons.IntentContractTests.test_reason_names_the_first_lost_stage) ... ok
+
+======================================================================
+ERROR: test_public_policy (unittest.loader._FailedTest.test_public_policy)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_public_policy
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/unittest/loader.py", line 137, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'tests.v5.test_public_policy'
+
+
+======================================================================
+FAIL: test_query_and_bootstrap_decisions_get_full_candidates (tests.v5.test_lite_score_astra.ScoreAstraTests.test_query_and_bootstrap_decisions_get_full_candidates)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/verification/teacher_integration_20261107/sources/20261107T071314_lite_collection_91daa340ca05/tests/v5/test_lite_score_astra.py", line 129, in test_query_and_bootstrap_decisions_get_full_candidates
+    self.assertTrue(any(len(row['candidates'])>1 and row['choice']>=0 for row in labels))
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 17 tests in 4.901s
+
+FAILED (failures=1, errors=1)
