@@ -18,6 +18,8 @@ from verification.duel_ppo_comparison_20261106.audit import board_digest, write_
 from verification.duel_ppo_comparison_20261106.contract import aliases, crossed_statistics
 from verification.duel_ppo_comparison_20261106.panels import panel_scores, role
 
+from . import decision_timing
+
 INPUTS = read_json(Path(__file__).with_name('inputs.json'))
 ROUTES = ('a', 'b', 'c')
 
@@ -106,7 +108,8 @@ def execute(output, request, deadline):
                     [job for job in planned if job['meta']['block'] < INPUTS['small_validation_blocks']])
     jobs.sort(key=lambda job: (job['meta']['block'], job['meta']['rotation'], job['meta']['weights_sha256']))
     write_new(output/'plan.json', dict(partition=partition, roles=roles, aliases=mapping, jobs=jobs))
-    results = collect(jobs, INPUTS['workers'], output/'results.jsonl')
+    collect_panel = decision_timing.collect if partition == 'holdout' else collect
+    results = collect_panel(jobs, INPUTS['workers'], output/'results.jsonl')
     write_new(output/'results.json', results)
     report = dict(full=panel_view(jobs, full, mapping, len(roster(partition)), results))
     if small:
@@ -114,6 +117,8 @@ def execute(output, request, deadline):
     report['planned_games'] = len(jobs)
     report['actual_games'] = sum(row['status'] == 'complete' and not row['result'].get('faults')
                                  for row in results)
+    if partition == 'holdout':
+        report['learner_decision_timing'] = decision_timing.summarize(jobs, results, mapping)
     write_new(output/'summary.json', report)
 
 
