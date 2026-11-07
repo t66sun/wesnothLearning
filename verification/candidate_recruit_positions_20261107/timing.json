@@ -1,0 +1,549 @@
+{
+  "rules_sha256": "e6b4f6200b0a8ad58a536b844fff37cfa9e0091bf0a0b702a8982155310f2f17",
+  "extension_sha256": "56dd77140411db987377d6de4ffbf562da4d0e5c76bc16d34780da67e60e5ae4",
+  "recruit_positions": {
+    "measurements": {
+      "v9": [
+        {
+          "decision_ms": 4.522811,
+          "construction_ms": 3,
+          "candidates": 17,
+          "timing": {
+            "attack_probes": 0,
+            "budget": "work-12000-v9",
+            "move_probes": 0,
+            "ms": 3,
+            "paths": 0,
+            "prediction_reuses": 0,
+            "predictions": 0,
+            "reaches": 2,
+            "recruit_probes": 16,
+            "truncated": false,
+            "work": 248
+          }
+        },
+        {
+          "decision_ms": 4.214217,
+          "construction_ms": 2,
+          "candidates": 17,
+          "timing": {
+            "attack_probes": 0,
+            "budget": "work-12000-v9",
+            "move_probes": 0,
+            "ms": 2,
+            "paths": 0,
+            "prediction_reuses": 0,
+            "predictions": 0,
+            "reaches": 2,
+            "recruit_probes": 16,
+            "truncated": false,
+            "work": 248
+          }
+        }
+      ],
+      "v10": [
+        {
+          "decision_ms": 4.030722,
+          "construction_ms": 2,
+          "candidates": 17,
+          "timing": {
+            "attack_probes": 0,
+            "budget": "work-12000-v10",
+            "move_probes": 0,
+            "ms": 2,
+            "paths": 0,
+            "prediction_reuses": 0,
+            "predictions": 0,
+            "reaches": 2,
+            "recruit_probes": 16,
+            "truncated": false,
+            "work": 248
+          }
+        },
+        {
+          "decision_ms": 4.000706,
+          "construction_ms": 2,
+          "candidates": 17,
+          "timing": {
+            "attack_probes": 0,
+            "budget": "work-12000-v10",
+            "move_probes": 0,
+            "ms": 2,
+            "paths": 0,
+            "prediction_reuses": 0,
+            "predictions": 0,
+            "reaches": 2,
+            "recruit_probes": 16,
+            "truncated": false,
+            "work": 248
+          }
+        }
+      ]
+    },
+    "v9_recruits": [
+      [
+        "Mage",
+        6,
+        2
+      ],
+      [
+        "Spearman",
+        6,
+        2
+      ],
+      [
+        "Mage",
+        6,
+        3
+      ],
+      [
+        "Spearman",
+        6,
+        3
+      ],
+      [
+        "Mage",
+        6,
+        4
+      ],
+      [
+        "Spearman",
+        6,
+        4
+      ],
+      [
+        "Mage",
+        6,
+        5
+      ],
+      [
+        "Spearman",
+        6,
+        5
+      ],
+      [
+        "Mage",
+        6,
+        6
+      ],
+      [
+        "Spearman",
+        6,
+        6
+      ],
+      [
+        "Mage",
+        5,
+        2
+      ],
+      [
+        "Spearman",
+        5,
+        2
+      ],
+      [
+        "Mage",
+        5,
+        3
+      ],
+      [
+        "Spearman",
+        5,
+        3
+      ],
+      [
+        "Mage",
+        5,
+        4
+      ],
+      [
+        "Spearman",
+        5,
+        4
+      ]
+    ],
+    "v10_recruits": [
+      [
+        "Mage",
+        6,
+        2
+      ],
+      [
+        "Spearman",
+        6,
+        2
+      ],
+      [
+        "Mage",
+        4,
+        2
+      ],
+      [
+        "Spearman",
+        4,
+        2
+      ],
+      [
+        "Mage",
+        6,
+        3
+      ],
+      [
+        "Spearman",
+        6,
+        3
+      ],
+      [
+        "Mage",
+        4,
+        3
+      ],
+      [
+        "Spearman",
+        4,
+        3
+      ],
+      [
+        "Mage",
+        6,
+        4
+      ],
+      [
+        "Spearman",
+        6,
+        4
+      ],
+      [
+        "Mage",
+        4,
+        4
+      ],
+      [
+        "Spearman",
+        4,
+        4
+      ],
+      [
+        "Mage",
+        6,
+        5
+      ],
+      [
+        "Spearman",
+        6,
+        5
+      ],
+      [
+        "Mage",
+        4,
+        5
+      ],
+      [
+        "Spearman",
+        4,
+        5
+      ]
+    ],
+    "added": [
+      [
+        "Mage",
+        4,
+        2
+      ],
+      [
+        "Mage",
+        4,
+        3
+      ],
+      [
+        "Mage",
+        4,
+        4
+      ],
+      [
+        "Mage",
+        4,
+        5
+      ],
+      [
+        "Spearman",
+        4,
+        2
+      ],
+      [
+        "Spearman",
+        4,
+        3
+      ],
+      [
+        "Spearman",
+        4,
+        4
+      ],
+      [
+        "Spearman",
+        4,
+        5
+      ]
+    ],
+    "removed": [
+      [
+        "Mage",
+        5,
+        2
+      ],
+      [
+        "Mage",
+        5,
+        3
+      ],
+      [
+        "Mage",
+        5,
+        4
+      ],
+      [
+        "Mage",
+        6,
+        6
+      ],
+      [
+        "Spearman",
+        5,
+        2
+      ],
+      [
+        "Spearman",
+        5,
+        3
+      ],
+      [
+        "Spearman",
+        5,
+        4
+      ],
+      [
+        "Spearman",
+        6,
+        6
+      ]
+    ],
+    "nonrecruits_equal": true,
+    "low_pairs_before": 0,
+    "low_pairs_after": 12,
+    "executed_pair": [
+      [
+        "Spearman",
+        4,
+        2
+      ],
+      [
+        "Mage",
+        4,
+        3
+      ]
+    ],
+    "preserved_frontline": [
+      [
+        "Mage",
+        6,
+        2
+      ],
+      [
+        "Mage",
+        6,
+        3
+      ],
+      [
+        "Mage",
+        6,
+        4
+      ],
+      [
+        "Mage",
+        6,
+        5
+      ],
+      [
+        "Spearman",
+        6,
+        2
+      ],
+      [
+        "Spearman",
+        6,
+        3
+      ],
+      [
+        "Spearman",
+        6,
+        4
+      ],
+      [
+        "Spearman",
+        6,
+        5
+      ]
+    ]
+  },
+  "recorded_turn": {
+    "measurements": {
+      "v9": [
+        {
+          "decision_ms": 17.649897,
+          "construction_ms": 11,
+          "candidates": 37,
+          "timing": {
+            "attack_probes": 0,
+            "budget": "work-12000-v9",
+            "move_probes": 48,
+            "ms": 11,
+            "paths": 8,
+            "prediction_reuses": 0,
+            "predictions": 0,
+            "reaches": 6,
+            "recruit_probes": 168,
+            "truncated": true,
+            "work": 5606
+          }
+        },
+        {
+          "decision_ms": 17.574033,
+          "construction_ms": 11,
+          "candidates": 37,
+          "timing": {
+            "attack_probes": 0,
+            "budget": "work-12000-v9",
+            "move_probes": 48,
+            "ms": 11,
+            "paths": 8,
+            "prediction_reuses": 0,
+            "predictions": 0,
+            "reaches": 6,
+            "recruit_probes": 168,
+            "truncated": true,
+            "work": 5606
+          }
+        }
+      ],
+      "v10": [
+        {
+          "decision_ms": 17.566783,
+          "construction_ms": 12,
+          "candidates": 37,
+          "timing": {
+            "attack_probes": 0,
+            "budget": "work-12000-v10",
+            "move_probes": 48,
+            "ms": 12,
+            "paths": 8,
+            "prediction_reuses": 0,
+            "predictions": 0,
+            "reaches": 6,
+            "recruit_probes": 168,
+            "truncated": true,
+            "work": 5606
+          }
+        },
+        {
+          "decision_ms": 17.592075,
+          "construction_ms": 12,
+          "candidates": 37,
+          "timing": {
+            "attack_probes": 0,
+            "budget": "work-12000-v10",
+            "move_probes": 48,
+            "ms": 12,
+            "paths": 8,
+            "prediction_reuses": 0,
+            "predictions": 0,
+            "reaches": 6,
+            "recruit_probes": 168,
+            "truncated": true,
+            "work": 5606
+          }
+        }
+      ]
+    },
+    "v9_recruits": [
+      [
+        "Goblin Spearman",
+        24,
+        12
+      ],
+      [
+        "Naga Fighter",
+        24,
+        12
+      ],
+      [
+        "Orcish Archer",
+        24,
+        12
+      ],
+      [
+        "Orcish Assassin",
+        24,
+        12
+      ],
+      [
+        "Orcish Grunt",
+        24,
+        12
+      ],
+      [
+        "Troll Whelp",
+        24,
+        12
+      ],
+      [
+        "Wolf Rider",
+        24,
+        12
+      ]
+    ],
+    "v10_recruits": [
+      [
+        "Goblin Spearman",
+        24,
+        12
+      ],
+      [
+        "Naga Fighter",
+        24,
+        12
+      ],
+      [
+        "Orcish Archer",
+        24,
+        12
+      ],
+      [
+        "Orcish Assassin",
+        24,
+        12
+      ],
+      [
+        "Orcish Grunt",
+        24,
+        12
+      ],
+      [
+        "Troll Whelp",
+        24,
+        12
+      ],
+      [
+        "Wolf Rider",
+        24,
+        12
+      ]
+    ],
+    "added": [],
+    "removed": [],
+    "nonrecruits_equal": true,
+    "side": 4,
+    "turn": 2,
+    "fixture_sha256": "bcb11734bbf631dadf6e9b3481fb5e91e69f9bb6b26cd933ee0953c48e933bf9"
+  }
+}

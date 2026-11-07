@@ -1,0 +1,14 @@
+test_public_low_exposure_pair_is_retained_and_executes (tests.v5.test_candidate_recruit_positions.CandidateRecruitPositionsTests.test_public_low_exposure_pair_is_retained_and_executes) ... FAIL
+
+======================================================================
+FAIL: test_public_low_exposure_pair_is_retained_and_executes (tests.v5.test_candidate_recruit_positions.CandidateRecruitPositionsTests.test_public_low_exposure_pair_is_retained_and_executes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/candidate_recruit_red_20261107/tests/v5/test_candidate_recruit_positions.py", line 50, in test_public_low_exposure_pair_is_retained_and_executes
+    self.assertTrue(pairs, sorted(recruits))
+AssertionError: [] is not true : [('Mage', 5, 2), ('Mage', 5, 3), ('Mage', 5, 4), ('Mage', 6, 2), ('Mage', 6, 3), ('Mage', 6, 4), ('Mage', 6, 5), ('Mage', 6, 6), ('Spearman', 5, 2), ('Spearman', 5, 3), ('Spearman', 5, 4), ('Spearman', 6, 2), ('Spearman', 6, 3), ('Spearman', 6, 4), ('Spearman', 6, 5), ('Spearman', 6, 6)]
+
+----------------------------------------------------------------------
+Ran 1 test in 0.355s
+
+FAILED (failures=1)
