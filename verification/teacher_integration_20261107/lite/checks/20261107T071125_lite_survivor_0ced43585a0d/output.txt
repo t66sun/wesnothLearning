@@ -1,0 +1,28 @@
+🐍 Found CPython 3.12 at /usr/bin/python3
+🔗 Found pyo3 bindings
+📡 Using build options features from pyproject.toml
+   Compiling wesnoth-learning-lite v0.1.0 (/home/tongshu/myDev/wesnothLearning/verification/teacher_integration_20261107/sources/20261107T071125_lite_survivor_0ced43585a0d/engine_lite)
+    Finished `release` profile [optimized] target(s) in 3.34s
+📦 Built wheel for CPython 3.12 to .runtime/teacher_wheels/wesnoth_learning_lite-0.1.0-cp312-cp312-manylinux_2_34_x86_64.whl
+Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simple
+Processing ./.runtime/teacher_wheels/wesnoth_learning_lite-0.1.0-cp312-cp312-manylinux_2_34_x86_64.whl
+Installing collected packages: wesnoth-learning-lite
+Successfully installed wesnoth-learning-lite-0.1.0
+HOST teacher-host-v1 /home/tongshu/myDev/wesnothLearning/verification/teacher_integration_20261107/sources/20261107T071125_lite_survivor_0ced43585a0d/.runtime/teacher_host/_engine_lite/__init__.py
+test_learning_and_opening_keep_full_records (tests.v5.test_lite_score_astra.ScoreAstraTests.test_learning_and_opening_keep_full_records) ... ok
+test_query_and_bootstrap_decisions_get_full_candidates (tests.v5.test_lite_score_astra.ScoreAstraTests.test_query_and_bootstrap_decisions_get_full_candidates) ... FAIL
+test_reference_records_only_its_teacher_and_opening_keeps_every_seat (tests.v5.test_lite_score_astra.ScoreAstraTests.test_reference_records_only_its_teacher_and_opening_keeps_every_seat) ... ok
+test_score_only_reproduces_full_plans_ledger_and_transitions (tests.v5.test_lite_score_astra.ScoreAstraTests.test_score_only_reproduces_full_plans_ledger_and_transitions) ... ok
+
+======================================================================
+FAIL: test_query_and_bootstrap_decisions_get_full_candidates (tests.v5.test_lite_score_astra.ScoreAstraTests.test_query_and_bootstrap_decisions_get_full_candidates)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/myDev/wesnothLearning/verification/teacher_integration_20261107/sources/20261107T071125_lite_survivor_0ced43585a0d/tests/v5/test_lite_score_astra.py", line 130, in test_query_and_bootstrap_decisions_get_full_candidates
+    self.assertGreater(len(row['candidates']),1)
+AssertionError: 1 not greater than 1
+
+----------------------------------------------------------------------
+Ran 4 tests in 1.001s
+
+FAILED (failures=1)

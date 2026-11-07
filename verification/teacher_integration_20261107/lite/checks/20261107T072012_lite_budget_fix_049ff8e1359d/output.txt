@@ -1,0 +1,30 @@
+🐍 Found CPython 3.12 at /usr/bin/python3
+🔗 Found pyo3 bindings
+📡 Using build options features from pyproject.toml
+   Compiling wesnoth-learning-lite v0.1.0 (/home/tongshu/myDev/wesnothLearning/verification/teacher_integration_20261107/sources/20261107T072012_lite_budget_fix_049ff8e1359d/engine_lite)
+    Finished `release` profile [optimized] target(s) in 3.35s
+📦 Built wheel for CPython 3.12 to .runtime/teacher_wheels/wesnoth_learning_lite-0.1.0-cp312-cp312-manylinux_2_34_x86_64.whl
+Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simple
+Processing ./.runtime/teacher_wheels/wesnoth_learning_lite-0.1.0-cp312-cp312-manylinux_2_34_x86_64.whl
+Installing collected packages: wesnoth-learning-lite
+Successfully installed wesnoth-learning-lite-0.1.0
+HOST teacher-host-v1 /home/tongshu/myDev/wesnothLearning/verification/teacher_integration_20261107/sources/20261107T072012_lite_budget_fix_049ff8e1359d/.runtime/teacher_host/_engine_lite/__init__.py
+test_a_single_native_forecast_is_interrupted_inside_probability_propagation (tests.v5.test_search_teacher_host.SearchTeacherHostTests.test_a_single_native_forecast_is_interrupted_inside_probability_propagation) ... ok
+test_first_query_is_independent_and_snapshot_restores_call_counts (tests.v5.test_search_teacher_host.SearchTeacherHostTests.test_first_query_is_independent_and_snapshot_restores_call_counts) ... ok
+test_frozen_strategies_plan_execute_and_restore_on_all_formats (tests.v5.test_search_teacher_host.SearchTeacherHostTests.test_frozen_strategies_plan_execute_and_restore_on_all_formats) ... ok
+test_full_paths_isolate_same_named_modules_and_selected_configs (tests.v5.test_search_teacher_host.SearchTeacherHostTests.test_full_paths_isolate_same_named_modules_and_selected_configs) ... ok
+test_hard_query_deadline_interrupts_lua_and_restores_student_budget (tests.v5.test_search_teacher_host.SearchTeacherHostTests.test_hard_query_deadline_interrupts_lua_and_restores_student_budget) ... ok
+test_public_memory_is_separate_for_two_team_seats (tests.v5.test_search_teacher_host.SearchTeacherHostTests.test_public_memory_is_separate_for_two_team_seats) ... ok
+test_query_cannot_execute_and_failure_does_not_poison_later_execution (tests.v5.test_search_teacher_host.SearchTeacherHostTests.test_query_cannot_execute_and_failure_does_not_poison_later_execution) ... ok
+test_templates_schedule_and_supported_ability_fields (tests.v5.test_search_teacher_host.SearchTeacherHostTests.test_templates_schedule_and_supported_ability_fields) ... ok
+test_unknown_terrain_hidden_unit_and_referee_rng_do_not_change_decision (tests.v5.test_search_teacher_host.SearchTeacherHostTests.test_unknown_terrain_hidden_unit_and_referee_rng_do_not_change_decision) ... ok
+test_wrong_format_entry_budget_and_reset_are_rejected (tests.v5.test_search_teacher_host.SearchTeacherHostTests.test_wrong_format_entry_budget_and_reset_are_rejected) ... ok
+test_learning_and_opening_keep_full_records (tests.v5.test_lite_score_astra.ScoreAstraTests.test_learning_and_opening_keep_full_records) ... ok
+test_query_and_bootstrap_decisions_get_full_candidates (tests.v5.test_lite_score_astra.ScoreAstraTests.test_query_and_bootstrap_decisions_get_full_candidates) ... ok
+test_reference_records_only_its_teacher_and_opening_keeps_every_seat (tests.v5.test_lite_score_astra.ScoreAstraTests.test_reference_records_only_its_teacher_and_opening_keeps_every_seat) ... ok
+test_score_only_reproduces_full_plans_ledger_and_transitions (tests.v5.test_lite_score_astra.ScoreAstraTests.test_score_only_reproduces_full_plans_ledger_and_transitions) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 3.246s
+
+OK

@@ -8,6 +8,8 @@
 
 当前 lite 战斗/教师 profile 为 `probabilistic_combat_v6`，RNG 为 `splitmix64-rejection-v1`。构建匹配扩展后才能使用。旧 expected_damage_v1/v2、probabilistic_combat_v1/v2/v3/v4/v5 运行须使用原源码/构建；不得重写冻结数据、快照或检查点身份。旧权重须走既有显式初始化/重置优化器流程，并重新验收。
 
+当前 Lite 教师桥接还要求 `HOST_VERSION=teacher-host-v1`。在归档后的 Ubuntu 源码目录执行 `bash tests/build_teacher_host.sh /home/tongshu/venv/bin/python -m unittest tests.v5.test_search_teacher_host -v`，构建隔离的 release 扩展并运行固定宿主检查。使用该隔离构建时，须把其 `.runtime/teacher_host` 放在 `PYTHONPATH` 首位。这些检查不启动语料采集或训练。
+
 当前编译规则包可按 `verification/weapon_filters_20261103/REPORT.md` 中的步骤从既有不可变捕获生成；使用新输出目录并保留旧包。
 ## 1. 接手时先确定任务
 

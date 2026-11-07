@@ -8,6 +8,8 @@ See the [architecture](architecture.md) for runtime contracts and parameters, an
 
 Current lite combat/teacher profile is `probabilistic_combat_v6`, RNG `splitmix64-rejection-v1`. Rebuild the matching extension. Resume expected_damage_v1/v2 and probabilistic_combat_v1/v2/v3/v4/v5 runs with their original source/build; never relabel frozen data, snapshots or checkpoints. Old weights require the existing explicit initialization/reset-optimizer route and new-rule acceptance.
 
+The current Lite teacher bridge additionally requires `HOST_VERSION=teacher-host-v1`. On an archived Ubuntu checkout, `bash tests/build_teacher_host.sh /home/tongshu/venv/bin/python -m unittest tests.v5.test_search_teacher_host -v` builds an isolated release extension and runs the fixed host checks. Its `.runtime/teacher_host` directory must lead `PYTHONPATH` when using that isolated build. These checks do not start collection or training.
+
 The current compiled package can be provisioned from the immutable prior captures using the recipe in `verification/weapon_filters_20261103/REPORT.md`; use a new output directory and keep old packages unchanged.
 ## 1. Determine the task first
 
