@@ -163,10 +163,12 @@ class TeacherSetTests(unittest.TestCase):
             start.assert_not_called()
         with self.assertRaises(ValueError): validate_set('unknown')
 
-    def test_explicit_mixed_runtime_is_available_before_default_activation(self):
+    def test_new_experiments_default_to_mixed_teachers(self):
+        from learning.experiment import default_config
         require_runtime('astra')
         require_runtime('mixed-20261107')
-        self.assertEqual(DEFAULT_SET,'astra')
+        self.assertEqual(DEFAULT_SET,'mixed-20261107')
+        self.assertEqual(default_config('cpu')['teacher_set'],'mixed-20261107')
 
 
 if __name__ == '__main__':

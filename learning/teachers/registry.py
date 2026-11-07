@@ -15,8 +15,7 @@ from . import build, lineage, source_digest
 
 CONTRACT_VERSION = 1
 SETS = ('astra', 'mixed-20261107')
-# Activation follows the bounded integration acceptance panel.
-DEFAULT_SET = 'astra'
+DEFAULT_SET = 'mixed-20261107'
 RUNTIME_SETS = SETS
 ROLES = ('supervision', 'opponent', 'evaluation', 'reward_reference')
 DELIVERY = ROOT / 'delivery/search_teacher_20261107'
