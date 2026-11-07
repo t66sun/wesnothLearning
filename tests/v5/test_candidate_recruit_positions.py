@@ -72,8 +72,9 @@ class CandidateRecruitPositionsTests(unittest.TestCase):
         row = json.loads(engine(self.rules, spec).decision(1))
         self.assertEqual(len(row['candidates']), 37)
         recruits = recruit_intents(row)
-        self.assertTrue(low_pairs(recruits, self.low), sorted(recruits))
-        self.assertTrue({('Spearman', 6, 2), ('Mage', 6, 2)} <= recruits.keys())
+        for kind in ('Spearman', 'Mage'):
+            self.assertIn((kind, 6, 2), recruits)
+            self.assertTrue(any(key[0] == kind for key in recruits.keys() & self.low), sorted(recruits))
 
     def test_all_exposed_keeps_the_nearest_legal_recruits(self):
         spec = copy.deepcopy(self.spec)
