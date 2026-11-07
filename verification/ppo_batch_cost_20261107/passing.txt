@@ -1,0 +1,6 @@
+test_cross_run_job_ids_keep_distinct_ppo_targets (__main__.BatchCostTest.test_cross_run_job_ids_keep_distinct_ppo_targets) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
