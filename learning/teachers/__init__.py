@@ -57,6 +57,7 @@ def archive_bytes():
         for path in sorted(SOURCE.rglob('*')):
             if path.is_file():
                 entry = zipfile.ZipInfo('gpt6astra/' + path.relative_to(SOURCE).as_posix())
+                entry.create_system = 3
                 entry.compress_type = zipfile.ZIP_DEFLATED
                 entry.external_attr = 0o100644 << 16
                 archive.writestr(entry, path.read_bytes())

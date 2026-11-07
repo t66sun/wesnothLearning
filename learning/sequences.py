@@ -593,6 +593,7 @@ def read_shards(paths, partition=None, limit=None, seed=19, format_name=None, tu
     keeps the historical semantics and decodes everything.
     """
     from .data import _shard_identity
+    from .teachers.provenance import sampler_source
     if limit is not None and limit < 1:
         raise ValueError('record limit must be positive')
     indexed = defaultdict(lambda: defaultdict(list))
@@ -607,7 +608,8 @@ def read_shards(paths, partition=None, limit=None, seed=19, format_name=None, tu
             continue
         if format_name is not None and fmt != format_name:
             raise ValueError('cross-format sample rejected')
-        indexed[(fmt, source, part, engine)][family].append((path, stat))
+        bucket_source = sampler_source({'source': source})
+        indexed[(fmt, bucket_source, part, engine)][family].append((path, stat))
     if limit is None:
         return _read_all(indexed, partition, format_name, turns, seed, stats)
     return _read_bounded(indexed, partition, format_name, turns, limit, seed,

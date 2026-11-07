@@ -33,7 +33,7 @@ def engine_identity(engine):
 
 
 @lru_cache(maxsize=12)
-def expected_identity(teacher, fmt, engine):
+def _expected_identity(teacher, fmt, engine):
     from . import archive_bytes, identity
     if teacher == 'selected_teacher':
         spec = describe(DELIVERY/'selected_teacher.zip', fmt)
@@ -45,6 +45,10 @@ def expected_identity(teacher, fmt, engine):
     else:
         raise ValueError('unknown teacher identity')
     return dict(engine_identity(engine), **execution_identity(spec, engine))
+
+
+def expected_identity(teacher, fmt, engine):
+    return dict(_expected_identity(teacher, fmt, engine))
 
 
 def validate_identity(value, fmt):

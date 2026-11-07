@@ -64,6 +64,54 @@ class TeacherProvenanceTests(unittest.TestCase):
             BCSampler([row], allow_policy=True, exclude_teacher_sha=row['teacher_source_sha256'])
         self.assertEqual(BCSampler([row]).sample(1)[0]['teacher'], 'selected_teacher')
 
+    def test_bounded_read_keeps_bucket_order_and_odd_remainder(self):
+        base = helpers.synthetic_decision_row()
+        with helpers.temporary_directory() as directory:
+            paths = [[], []]
+            for modern in (0, 1):
+                for source in ('astra', 'human'):
+                    for family in ('b', 'c', 'd'):
+                        rows = []
+                        for decision in range(4):
+                            row = copy.deepcopy(base)
+                            row.update(source=source, game_family=family, decision=decision,
+                                       human_control=True, native_version='1.18.8', result_verified=True,
+                                       token=f'{source}/{family}/{decision}')
+                            if modern and source == 'astra':
+                                row.update(expected_identity('selected_teacher', 'duel', 'lite'), source='teacher')
+                            rows.append(row)
+                        path = directory/str(modern)/(source+family+'.jsonl.gz')
+                        write_shard(path, source+family, rows, dict(bots=['fixture']*2, faults=[], winner=1))
+                        paths[modern].append(path)
+            before = read_shards(paths[0], limit=7, seed=51, format_name='duel')
+            after = read_shards(paths[1], limit=7, seed=51, format_name='duel')
+            self.assertEqual(len(before), 7)
+            self.assertEqual([r['token'] for r in before], [r['token'] for r in after])
+            self.assertEqual(sum(r['source'] == 'teacher' for r in after),
+                             sum(r['source'] == 'astra' for r in before))
+
+    def test_bc_anchor_pins_and_checks_versioned_teacher_identity(self):
+        import torch
+        from learning.bc_anchor import ensure_anchor, restore_anchor
+        from tests.v5.test_frozen_bc_anchor import make_runner, complete_bc
+        with helpers.temporary_directory() as directory:
+            runner = make_runner(directory)
+            complete_bc(runner)
+            path = runner.directory/'last_bc.pt'
+            state = torch.load(path, weights_only=False)
+            state.update(expected_identity('selected_teacher', 'duel', 'lite'))
+            torch.save(state, path)
+            ensure_anchor(runner)
+            identity = copy.deepcopy(runner.state['frozen_bc_anchor'])
+            for key in ('teacher_contract', 'teacher_package_sha256', 'teacher_adapter_sha256'):
+                self.assertEqual(identity['teacher'][key], state[key])
+            for key in ('teacher_package_sha256', 'teacher_adapter_sha256'):
+                runner._bc_anchor = None
+                runner.state['frozen_bc_anchor'] = copy.deepcopy(identity)
+                runner.state['frozen_bc_anchor']['teacher'][key] = 'wrong'
+                with self.assertRaisesRegex(ValueError, 'anchor identity differs'):
+                    restore_anchor(runner, {'execution': {'ppo_aux_target': 'frozen_bc_kl'}})
+
     def test_uncovered_actions_remain_history_but_never_labels(self):
         row = teacher_row()
         missing = copy.deepcopy(row)
