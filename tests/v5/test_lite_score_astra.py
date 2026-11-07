@@ -18,8 +18,13 @@ class ScoreAstraTests(unittest.TestCase):
 
     def replay(self, job):
         plans, outcomes, compact = [], [], []
-        self.calls = []
+        self.calls = [];self.queries=[]
         decide, execute = LiteHost.decision, LiteHost.execute
+        query=LiteHost.query_teacher
+
+        def capture_query(host, side):
+            self.queries.append(dict(side=side,student=self.calls[-1]))
+            return query(host,side)
 
         def capture_plan(host, side, **options):
             row = decide(host, side, **options)
@@ -41,7 +46,7 @@ class ScoreAstraTests(unittest.TestCase):
             return value
 
         with pipeline.catalog_patch(self.rules), patch.object(LiteHost, 'decision', capture_plan), \
-                patch.object(LiteHost, 'execute', capture_outcome):
+                patch.object(LiteHost, 'execute', capture_outcome), patch.object(LiteHost,'query_teacher',capture_query):
             result = play_lite_job(job)
         self.assertEqual(result['status'], 'complete', result.get('error'))
         self.assertFalse(result['result']['faults'])
@@ -96,10 +101,10 @@ class ScoreAstraTests(unittest.TestCase):
         _, _, result, _ = self.replay(job)
         self.assertTrue(result['result']['truncated'])
         self.assertEqual({c['side'] for c in self.calls if c['compact']}, {2,3,4})
-        queries = [c for c in self.calls if c['side']==1 and c['teacher']]
+        queries = [c['student'] for c in self.queries if c['side']==1]
         self.assertTrue(queries)
         self.assertLessEqual(len(queries),32)
-        self.assertTrue(all(c['generate'] and c['budget'] and not c['compact'] for c in queries))
+        self.assertTrue(all(c['generate'] and c['budget'] and not c['compact'] and not c['teacher'] for c in queries))
         bootstrap = [c for c in self.calls if c['kwargs']==['teacher']]
         self.assertEqual(len(bootstrap),1)
         self.assertIs(self.calls[-1],bootstrap[0])

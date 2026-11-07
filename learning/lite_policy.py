@@ -41,10 +41,12 @@ class FrozenPolicies:
         self.format=job.get('format') or job.get('meta',{}).get('format') or infer_format(dict(bots=job['bots'],teams=job.get('teams')))
         from .export import load_model
         from .common import sha256
+        from .teachers.runtime import resolve_job
+        teacher_seats,_ = resolve_job(job,'lite')
         for side,bot in enumerate(job['bots'],1):
             self.rng[side]=random.Random(job['seed']+side*100003)
             self.histories[side]=[]
-            if is_astra(bot): continue
+            if str(side) in teacher_seats or is_astra(bot): continue
             addon=Path(bot);path=addon.parent/'model.pt'
             if not path.is_file(): raise ValueError('lite needs frozen tensor weights beside exported addon: '+str(path))
             key=(str(path.resolve()),sha256(path),self.format)

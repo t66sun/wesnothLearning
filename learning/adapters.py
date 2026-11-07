@@ -138,11 +138,11 @@ class LiteAdapter:
         self.modules=modules
         self.core.configure_host(json.dumps(modules))
 
-    def decision(self, side, *, teacher=False, generate_candidates=True):
-        return json.loads(self.core.decision(side, teacher, generate_candidates))
+    def decision(self, side, *, teacher=False, generate_candidates=True, teacher_entry=None):
+        return json.loads(self.core.decision(side, teacher, generate_candidates, teacher_entry=teacher_entry))
 
-    def score_astra_decision(self, side):
-        return json.loads(self.core.decision(side, True, False, True))
+    def score_astra_decision(self, side, teacher_entry=None):
+        return json.loads(self.core.decision(side, True, False, True, teacher_entry=teacher_entry))
 
     def score_policy_decision(self, side):
         return json.loads(self.core.decision(side, score_only_policy=True))

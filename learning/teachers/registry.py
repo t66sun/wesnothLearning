@@ -167,7 +167,8 @@ def require_same_teachers(parent, child, formats):
 
 @lru_cache(maxsize=2)
 def adapter_digest(engine):
-    paths = (['learning/lite_host.py', 'engine_lite/src/lib.rs', 'engine_lite/src/host.rs',
+    paths = (['learning/lite_host.py', 'learning/adapters.py', 'learning/lite_policy.py',
+              'engine_lite/src/lib.rs', 'engine_lite/src/host.rs', 'engine_lite/src/host_deadline.rs',
               'engine_lite/lua/host.lua'] if engine == 'lite' else
              ['learning/sample.py', 'learning/collector.lua', 'lua/teacher.lua',
               'learning/native_transport.py', 'learning/native_rpc.lua',
