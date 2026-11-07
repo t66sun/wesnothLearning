@@ -4,11 +4,11 @@
 
 ## S1. Independent search teacher strength
 
-- **Status/reason:** The independent public-state beam teacher is implemented. Model contracts and short native entry checks are preparation evidence only; the six-cell strength requirement is unaccepted.
-- **Minimal Ubuntu inputs/procedure:** Ship committed source with `python -m learning.teacher_remote`; run `tests.test_search_teacher`, `tests.test_teacher_budgets`, `tests.test_teacher_remote` and `tests.test_teacher_lab`. The independent `learning.teacher_lab` runner provides package registration, complete native preflight panels, five-hour train-map exploration, up to one hour of validation selection and the remaining four-hour post-exploration allowance for frozen holdout confirmation. Experiment execution requires explicit authorization; this plan does not grant it.
+- **Status/reason:** Beam, PVS, UCT and hybrid search are implemented. The bounded experiment completed all 524 holdout games without faults. Duel and 2v2 passed both horizons; FFA gains were +0.0389 / +0.1083 for 30 / 100 turns, with both 95% intervals crossing zero. The overall six-cell strength requirement remains unaccepted.
+- **Minimal Ubuntu inputs/procedure:** Reuse the recorded 67 correctness checks and eight-case native query audit for unchanged source. Further strength work requires separate authorization, committed source shipped with `python -m learning.teacher_remote`, and a new dated experiment with frozen validation/holdout designs and complete native seat rotations. Existing holdout results and selected strategies remain immutable. Correctness tests are written; the remaining gap is FFA strength evidence.
 - **Pass criteria:** Complete paired seat rotations with at least 12 physical scenarios per format/horizon, zero contestant faults, normalized improvement at least 0.10 and clustered 95% lower bound above zero in all six cells. Report natural finishes, capped draws, interruptions and timing separately. Do not relax the criterion at the deadline.
-- **Evidence:** New `verification/teacher_search_20261107/` evidence on the Ubuntu host; final dated report pending. Existing Astra and frozen input evidence remain unchanged.
-- **Training blocker:** Blocks claims that the new teacher is stronger or ready for training integration; this task does not change the active training teacher.
+- **Evidence:** [Completed experiment and delivery](../verification/teacher_search_20261107/REPORT.md): five-hour exploration, 84-game validation, 524-game holdout, selected package identities, timing and preserved failures. The current independent delivery is in `delivery/search_teacher_20261107/`.
+- **Training blocker:** Blocks an overall six-cell strength claim and automatic training integration. Duel/2v2 acceptance is limited to the reported maps, scenes and unequal action budgets; the active Astra teacher is unchanged.
 
 ## F2. Ordinary BC and critic calibration under the finite task
 

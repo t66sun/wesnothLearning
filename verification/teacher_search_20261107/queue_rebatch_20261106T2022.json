@@ -1,0 +1,41 @@
+{
+  "time": 1793996575.9181275,
+  "dormant_launchers": [
+    {
+      "pid": 659063,
+      "child": 670379,
+      "child_command": "sleep 2",
+      "unstarted_panels": [
+        "clean_exposure_ffa_first"
+      ]
+    },
+    {
+      "pid": 660186,
+      "child": 670380,
+      "child_command": "sleep 2",
+      "unstarted_panels": [
+        "clean_diverse_first"
+      ]
+    },
+    {
+      "pid": 663092,
+      "child": 670381,
+      "child_command": "sleep 2",
+      "unstarted_panels": [
+        "clean_resist_first",
+        "clean_pruned_first"
+      ]
+    },
+    {
+      "pid": 667952,
+      "child": 670378,
+      "child_command": "sleep 2",
+      "unstarted_panels": [
+        "fortified_first"
+      ]
+    }
+  ],
+  "active_launcher_untouched": 658198,
+  "replacement": "corrected_combined_first",
+  "reason": "Share one eight-worker pool for six unstarted candidates; preserve all package identities, existing matches and fixed deadlines."
+}

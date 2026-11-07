@@ -1,0 +1,36 @@
+{
+  "baseline": {
+    "first_timeout": 10,
+    "name": "fixed_astra",
+    "package": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107/experiment_v2/fixed_astra.zip",
+    "package_sha256": "f19cf216870a82b934321225d4b6ef7f3c258d490dbdaa2d5f728d80f8c732e5",
+    "parameters": null,
+    "source_commit": "2da826c1d5ac4ffe1e282fc1ad02131f9fb25f34",
+    "source_sha256": "dffbfe9946234a73e0af7b1bdeda3625fd9284bc5788f8e30a7f22df83b4b844",
+    "timeout": 1
+  },
+  "confidence": 0.95,
+  "created": 1793986847.4676602,
+  "entropy_sha256": "f12d763303445aa437de06d0dba129dc923e3d81fd1fc82d72b8e331916480cf",
+  "evaluator_root": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107/sources/20261106T173535_2da826c1d5ac",
+  "executable": "/home/tongshu/myDev/wesnothLearning/WesnothLearning/.runtime/install/bin/wesnoth",
+  "executable_sha256": "33f64aa3f5ee40228bd44e357b3f4d784121d4392ff774d6c059c7defa3e5fcf",
+  "exploration_seconds": 18000,
+  "formats": [
+    "duel",
+    "ffa4",
+    "team2v2"
+  ],
+  "horizons": [
+    30,
+    100
+  ],
+  "improvement": 0.1,
+  "min_distinct": 12,
+  "native_capture_sha256": "c769a4d62cd95ed96028cd8931e7030883547b12ec5972f194ef9272741a9021",
+  "post_seconds": 14400,
+  "schema": 1,
+  "selection_seconds": 3600,
+  "source_commit": "2da826c1d5ac4ffe1e282fc1ad02131f9fb25f34",
+  "workers": 8
+}

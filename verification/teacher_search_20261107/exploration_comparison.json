@@ -1,0 +1,4252 @@
+{
+  "beam_cached|fixed_astra|duel|100": {
+    "blocks": 3,
+    "candidate": "beam_cached",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 0.6666666666666666,
+    "distinct_scenarios": 3,
+    "elimination_rate": 0.16666666666666666,
+    "fault_games": 0,
+    "format": "duel",
+    "horizon": 100,
+    "interval95": [
+      0.0,
+      1.0
+    ],
+    "mean_action_ms": 231.28240252897788,
+    "natural_win_rate": 0.8333333333333334,
+    "observed": 6,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 6,
+    "planned_blocks": 3,
+    "reasons": {
+      "last_leader": 6
+    },
+    "statuses": {
+      "complete": 6
+    }
+  },
+  "beam_cached|fixed_astra|duel|30": {
+    "blocks": 3,
+    "candidate": "beam_cached",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 0.6666666666666666,
+    "distinct_scenarios": 3,
+    "elimination_rate": 0.16666666666666666,
+    "fault_games": 0,
+    "format": "duel",
+    "horizon": 30,
+    "interval95": [
+      0.0,
+      1.0
+    ],
+    "mean_action_ms": 240.16899892357372,
+    "natural_win_rate": 0.8333333333333334,
+    "observed": 6,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 6,
+    "planned_blocks": 3,
+    "reasons": {
+      "last_leader": 6
+    },
+    "statuses": {
+      "complete": 6
+    }
+  },
+  "beam_cached|fixed_astra|ffa4|100": {
+    "blocks": 1,
+    "candidate": "beam_cached",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": -0.25,
+    "distinct_scenarios": 1,
+    "elimination_rate": 1,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 100,
+    "interval95": [
+      -0.25,
+      -0.25
+    ],
+    "mean_action_ms": 255.68439716312056,
+    "natural_win_rate": 0,
+    "observed": 4,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 4
+    },
+    "statuses": {
+      "complete": 4
+    }
+  },
+  "beam_cached|fixed_astra|ffa4|30": {
+    "blocks": 1,
+    "candidate": "beam_cached",
+    "cap_rate": 0.25,
+    "complete": true,
+    "difference": -0.5416666666666666,
+    "distinct_scenarios": 1,
+    "elimination_rate": 1,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 30,
+    "interval95": [
+      -0.5416666666666666,
+      -0.5416666666666666
+    ],
+    "mean_action_ms": 259.0833333333333,
+    "natural_win_rate": 0,
+    "observed": 4,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 3,
+      "turn_limit": 1
+    },
+    "statuses": {
+      "complete": 4
+    }
+  },
+  "beam_cached|fixed_astra|team2v2|100": {
+    "blocks": 3,
+    "candidate": "beam_cached",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 0.5833333333333334,
+    "distinct_scenarios": 3,
+    "elimination_rate": 0.20833333333333334,
+    "fault_games": 0,
+    "format": "team2v2",
+    "horizon": 100,
+    "interval95": [
+      0.25,
+      0.75
+    ],
+    "mean_action_ms": 479.09414654113795,
+    "natural_win_rate": 0.7916666666666666,
+    "observed": 24,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 24,
+    "planned_blocks": 3,
+    "reasons": {
+      "last_team": 24
+    },
+    "statuses": {
+      "complete": 24
+    }
+  },
+  "beam_cached|fixed_astra|team2v2|30": {
+    "blocks": 3,
+    "candidate": "beam_cached",
+    "cap_rate": 0.25,
+    "complete": true,
+    "difference": 0.3333333333333333,
+    "distinct_scenarios": 3,
+    "elimination_rate": 0.22916666666666666,
+    "fault_games": 0,
+    "format": "team2v2",
+    "horizon": 30,
+    "interval95": [
+      0.25,
+      0.5
+    ],
+    "mean_action_ms": 474.30696460610017,
+    "natural_win_rate": 0.5416666666666666,
+    "observed": 24,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 24,
+    "planned_blocks": 3,
+    "reasons": {
+      "last_team": 18,
+      "turn_limit": 6
+    },
+    "statuses": {
+      "complete": 24
+    }
+  },
+  "beam_deep|fixed_astra|duel|100": {
+    "blocks": 1,
+    "candidate": "beam_deep",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 1.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0,
+    "fault_games": 0,
+    "format": "duel",
+    "horizon": 100,
+    "interval95": [
+      1.0,
+      1.0
+    ],
+    "mean_action_ms": 353.72005988023955,
+    "natural_win_rate": 1,
+    "observed": 2,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 2,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 2
+    },
+    "statuses": {
+      "complete": 2
+    }
+  },
+  "beam_deep|fixed_astra|duel|30": {
+    "blocks": 1,
+    "candidate": "beam_deep",
+    "cap_rate": 0.5,
+    "complete": true,
+    "difference": 0.5,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0,
+    "fault_games": 0,
+    "format": "duel",
+    "horizon": 30,
+    "interval95": [
+      0.5,
+      0.5
+    ],
+    "mean_action_ms": 300.4686567164179,
+    "natural_win_rate": 0.5,
+    "observed": 2,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 2,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 1,
+      "turn_limit": 1
+    },
+    "statuses": {
+      "complete": 2
+    }
+  },
+  "beam_deep|fixed_astra|ffa4|100": {
+    "blocks": 1,
+    "candidate": "beam_deep",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": -0.25,
+    "distinct_scenarios": 1,
+    "elimination_rate": 1,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 100,
+    "interval95": [
+      -0.25,
+      -0.25
+    ],
+    "mean_action_ms": 299.60633484162895,
+    "natural_win_rate": 0,
+    "observed": 4,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 4
+    },
+    "statuses": {
+      "complete": 4
+    }
+  },
+  "beam_deep|fixed_astra|ffa4|30": {
+    "blocks": 1,
+    "candidate": "beam_deep",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": -0.29166666666666663,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.75,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 30,
+    "interval95": [
+      -0.29166666666666663,
+      -0.29166666666666663
+    ],
+    "mean_action_ms": 452.8778280542986,
+    "natural_win_rate": 0.25,
+    "observed": 4,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 4
+    },
+    "statuses": {
+      "complete": 4
+    }
+  },
+  "beam_deep|fixed_astra|team2v2|100": {
+    "blocks": 1,
+    "candidate": "beam_deep",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 0.75,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.125,
+    "fault_games": 0,
+    "format": "team2v2",
+    "horizon": 100,
+    "interval95": [
+      0.75,
+      0.75
+    ],
+    "mean_action_ms": 525.1963035564268,
+    "natural_win_rate": 0.875,
+    "observed": 8,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 8,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_team": 8
+    },
+    "statuses": {
+      "complete": 8
+    }
+  },
+  "beam_deep|fixed_astra|team2v2|30": {
+    "blocks": 1,
+    "candidate": "beam_deep",
+    "cap_rate": 0.25,
+    "complete": true,
+    "difference": 0.75,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.125,
+    "fault_games": 0,
+    "format": "team2v2",
+    "horizon": 30,
+    "interval95": [
+      0.75,
+      0.75
+    ],
+    "mean_action_ms": 566.5750206100577,
+    "natural_win_rate": 0.75,
+    "observed": 8,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 8,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_team": 6,
+      "turn_limit": 2
+    },
+    "statuses": {
+      "complete": 8
+    }
+  },
+  "beam_economy|fixed_astra|duel|100": {
+    "blocks": 3,
+    "candidate": "beam_economy",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 0.3333333333333333,
+    "distinct_scenarios": 3,
+    "elimination_rate": 0.3333333333333333,
+    "fault_games": 0,
+    "format": "duel",
+    "horizon": 100,
+    "interval95": [
+      0.0,
+      1.0
+    ],
+    "mean_action_ms": 312.17945945945945,
+    "natural_win_rate": 0.6666666666666666,
+    "observed": 6,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 6,
+    "planned_blocks": 3,
+    "reasons": {
+      "last_leader": 6
+    },
+    "statuses": {
+      "complete": 6
+    }
+  },
+  "beam_economy|fixed_astra|duel|30": {
+    "blocks": 3,
+    "candidate": "beam_economy",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 0.6666666666666666,
+    "distinct_scenarios": 3,
+    "elimination_rate": 0.16666666666666666,
+    "fault_games": 0,
+    "format": "duel",
+    "horizon": 30,
+    "interval95": [
+      0.0,
+      1.0
+    ],
+    "mean_action_ms": 359.54554554554556,
+    "natural_win_rate": 0.8333333333333334,
+    "observed": 6,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 6,
+    "planned_blocks": 3,
+    "reasons": {
+      "last_leader": 6
+    },
+    "statuses": {
+      "complete": 6
+    }
+  },
+  "beam_economy|fixed_astra|ffa4|100": {
+    "blocks": 3,
+    "candidate": "beam_economy",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 0.0,
+    "distinct_scenarios": 3,
+    "elimination_rate": 0.8333333333333334,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 100,
+    "interval95": [
+      -0.25,
+      0.25
+    ],
+    "mean_action_ms": 415.5053475935829,
+    "natural_win_rate": 0.16666666666666666,
+    "observed": 12,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 12,
+    "planned_blocks": 3,
+    "reasons": {
+      "last_leader": 12
+    },
+    "statuses": {
+      "complete": 12
+    }
+  },
+  "beam_economy|fixed_astra|ffa4|30": {
+    "blocks": 3,
+    "candidate": "beam_economy",
+    "cap_rate": 0.16666666666666666,
+    "complete": true,
+    "difference": -0.2222222222222222,
+    "distinct_scenarios": 3,
+    "elimination_rate": 0.75,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 30,
+    "interval95": [
+      -0.3333333333333333,
+      -0.08333333333333334
+    ],
+    "mean_action_ms": 443.73068745570515,
+    "natural_win_rate": 0.08333333333333333,
+    "observed": 12,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 12,
+    "planned_blocks": 3,
+    "reasons": {
+      "last_leader": 10,
+      "turn_limit": 2
+    },
+    "statuses": {
+      "complete": 12
+    }
+  },
+  "beam_economy|fixed_astra|team2v2|100": {
+    "blocks": 3,
+    "candidate": "beam_economy",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 0.5,
+    "distinct_scenarios": 3,
+    "elimination_rate": 0.25,
+    "fault_games": 0,
+    "format": "team2v2",
+    "horizon": 100,
+    "interval95": [
+      0.25,
+      0.75
+    ],
+    "mean_action_ms": 513.5684359336847,
+    "natural_win_rate": 0.75,
+    "observed": 24,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 24,
+    "planned_blocks": 3,
+    "reasons": {
+      "last_team": 24
+    },
+    "statuses": {
+      "complete": 24
+    }
+  },
+  "beam_economy|fixed_astra|team2v2|30": {
+    "blocks": 3,
+    "candidate": "beam_economy",
+    "cap_rate": 0.25,
+    "complete": true,
+    "difference": 0.5,
+    "distinct_scenarios": 3,
+    "elimination_rate": 0.14583333333333334,
+    "fault_games": 0,
+    "format": "team2v2",
+    "horizon": 30,
+    "interval95": [
+      0.25,
+      0.75
+    ],
+    "mean_action_ms": 534.5664206642066,
+    "natural_win_rate": 0.625,
+    "observed": 24,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 24,
+    "planned_blocks": 3,
+    "reasons": {
+      "last_team": 18,
+      "turn_limit": 6
+    },
+    "statuses": {
+      "complete": 24
+    }
+  },
+  "beam_elimination|fixed_astra|ffa4|100": {
+    "blocks": 1,
+    "candidate": "beam_elimination",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 0.25,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.75,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 100,
+    "interval95": [
+      0.25,
+      0.25
+    ],
+    "mean_action_ms": 201.82720588235293,
+    "natural_win_rate": 0.25,
+    "observed": 4,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 4
+    },
+    "statuses": {
+      "complete": 4
+    }
+  },
+  "beam_elimination|fixed_astra|ffa4|30": {
+    "blocks": 1,
+    "candidate": "beam_elimination",
+    "cap_rate": 0.25,
+    "complete": true,
+    "difference": -0.5416666666666666,
+    "distinct_scenarios": 1,
+    "elimination_rate": 1,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 30,
+    "interval95": [
+      -0.5416666666666666,
+      -0.5416666666666666
+    ],
+    "mean_action_ms": 229.03985507246378,
+    "natural_win_rate": 0,
+    "observed": 4,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 3,
+      "turn_limit": 1
+    },
+    "statuses": {
+      "complete": 4
+    }
+  },
+  "beam_guarded|fixed_astra|ffa4|100": {
+    "blocks": 1,
+    "candidate": "beam_guarded",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": -0.5,
+    "distinct_scenarios": 1,
+    "elimination_rate": 1,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 100,
+    "interval95": [
+      -0.5,
+      -0.5
+    ],
+    "mean_action_ms": 212.37943262411346,
+    "natural_win_rate": 0,
+    "observed": 4,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 4
+    },
+    "statuses": {
+      "complete": 4
+    }
+  },
+  "beam_guarded|fixed_astra|ffa4|30": {
+    "blocks": 1,
+    "candidate": "beam_guarded",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": -0.0833333333333333,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.5,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 30,
+    "interval95": [
+      -0.0833333333333333,
+      -0.0833333333333333
+    ],
+    "mean_action_ms": 363.0642317380353,
+    "natural_win_rate": 0.5,
+    "observed": 4,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 4
+    },
+    "statuses": {
+      "complete": 4
+    }
+  },
+  "beam_healing|fixed_astra|ffa4|100": {
+    "blocks": 1,
+    "candidate": "beam_healing",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": -0.25,
+    "distinct_scenarios": 1,
+    "elimination_rate": 1,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 100,
+    "interval95": [
+      -0.25,
+      -0.25
+    ],
+    "mean_action_ms": 193.34680134680136,
+    "natural_win_rate": 0,
+    "observed": 4,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 4
+    },
+    "statuses": {
+      "complete": 4
+    }
+  },
+  "beam_healing|fixed_astra|ffa4|30": {
+    "blocks": 1,
+    "candidate": "beam_healing",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": -0.41666666666666663,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.75,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 30,
+    "interval95": [
+      -0.41666666666666663,
+      -0.41666666666666663
+    ],
+    "mean_action_ms": 310.02100840336135,
+    "natural_win_rate": 0.25,
+    "observed": 4,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 4
+    },
+    "statuses": {
+      "complete": 4
+    }
+  },
+  "beam_reply2|fixed_astra|ffa4|100": {
+    "blocks": 1,
+    "candidate": "beam_reply2",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": -0.25,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.75,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 100,
+    "interval95": [
+      -0.25,
+      -0.25
+    ],
+    "mean_action_ms": 376.9202772963605,
+    "natural_win_rate": 0.25,
+    "observed": 4,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 4
+    },
+    "statuses": {
+      "complete": 4
+    }
+  },
+  "beam_reply2|fixed_astra|ffa4|30": {
+    "blocks": 1,
+    "candidate": "beam_reply2",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": -0.08333333333333329,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.5,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 30,
+    "interval95": [
+      -0.08333333333333329,
+      -0.08333333333333329
+    ],
+    "mean_action_ms": 460.9028901734104,
+    "natural_win_rate": 0.5,
+    "observed": 4,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 4
+    },
+    "statuses": {
+      "complete": 4
+    }
+  },
+  "beam_v0|fixed_astra|duel|100": {
+    "blocks": 1,
+    "candidate": "beam_v0",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": -1.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 1,
+    "fault_games": 0,
+    "format": "duel",
+    "horizon": 100,
+    "interval95": [
+      -1.0,
+      -1.0
+    ],
+    "mean_action_ms": 66.71875,
+    "natural_win_rate": 0,
+    "observed": 2,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 2,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 2
+    },
+    "statuses": {
+      "complete": 2
+    }
+  },
+  "beam_v0|fixed_astra|duel|30": {
+    "blocks": 1,
+    "candidate": "beam_v0",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": -1.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 1,
+    "fault_games": 0,
+    "format": "duel",
+    "horizon": 30,
+    "interval95": [
+      -1.0,
+      -1.0
+    ],
+    "mean_action_ms": 57.0,
+    "natural_win_rate": 0,
+    "observed": 2,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 2,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 2
+    },
+    "statuses": {
+      "complete": 2
+    }
+  },
+  "beam_v0|fixed_astra|ffa4|100": {
+    "blocks": 1,
+    "candidate": "beam_v0",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": -0.25,
+    "distinct_scenarios": 1,
+    "elimination_rate": 1,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 100,
+    "interval95": [
+      -0.25,
+      -0.25
+    ],
+    "mean_action_ms": 37.39,
+    "natural_win_rate": 0,
+    "observed": 4,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 4
+    },
+    "statuses": {
+      "complete": 4
+    }
+  },
+  "beam_v0|fixed_astra|ffa4|30": {
+    "blocks": 1,
+    "candidate": "beam_v0",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": -0.625,
+    "distinct_scenarios": 1,
+    "elimination_rate": 1,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 30,
+    "interval95": [
+      -0.625,
+      -0.625
+    ],
+    "mean_action_ms": 41.40816326530612,
+    "natural_win_rate": 0,
+    "observed": 4,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 4
+    },
+    "statuses": {
+      "complete": 4
+    }
+  },
+  "beam_v0|fixed_astra|team2v2|100": {
+    "blocks": 1,
+    "candidate": "beam_v0",
+    "cap_rate": 0.25,
+    "complete": true,
+    "difference": 0.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.375,
+    "fault_games": 0,
+    "format": "team2v2",
+    "horizon": 100,
+    "interval95": [
+      0.0,
+      0.0
+    ],
+    "mean_action_ms": 364.98339559983395,
+    "natural_win_rate": 0.375,
+    "observed": 8,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 8,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_team": 6,
+      "turn_limit": 2
+    },
+    "statuses": {
+      "complete": 8
+    }
+  },
+  "beam_v0|fixed_astra|team2v2|30": {
+    "blocks": 1,
+    "candidate": "beam_v0",
+    "cap_rate": 0.625,
+    "complete": true,
+    "difference": 0.125,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.3125,
+    "fault_games": 0,
+    "format": "team2v2",
+    "horizon": 30,
+    "interval95": [
+      0.125,
+      0.125
+    ],
+    "mean_action_ms": 512.8427529626254,
+    "natural_win_rate": 0.25,
+    "observed": 8,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 8,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_team": 3,
+      "turn_limit": 5
+    },
+    "statuses": {
+      "complete": 8
+    }
+  },
+  "clean_beam|fixed_astra|duel|100": {
+    "blocks": 1,
+    "candidate": "clean_beam",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 1.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0,
+    "fault_games": 0,
+    "format": "duel",
+    "horizon": 100,
+    "interval95": [
+      1.0,
+      1.0
+    ],
+    "mean_action_ms": 274.3199195171026,
+    "natural_win_rate": 1,
+    "observed": 2,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 2,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 2
+    },
+    "statuses": {
+      "complete": 2
+    }
+  },
+  "clean_beam|fixed_astra|duel|30": {
+    "blocks": 1,
+    "candidate": "clean_beam",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 1.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0,
+    "fault_games": 0,
+    "format": "duel",
+    "horizon": 30,
+    "interval95": [
+      1.0,
+      1.0
+    ],
+    "mean_action_ms": 288.81142857142856,
+    "natural_win_rate": 1,
+    "observed": 2,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 2,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 2
+    },
+    "statuses": {
+      "complete": 2
+    }
+  },
+  "clean_beam|fixed_astra|ffa4|100": {
+    "blocks": 1,
+    "candidate": "clean_beam",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 0.25,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.75,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 100,
+    "interval95": [
+      0.25,
+      0.25
+    ],
+    "mean_action_ms": 425.7859116022099,
+    "natural_win_rate": 0.25,
+    "observed": 4,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 4
+    },
+    "statuses": {
+      "complete": 4
+    }
+  },
+  "clean_beam|fixed_astra|ffa4|30": {
+    "blocks": 1,
+    "candidate": "clean_beam",
+    "cap_rate": 0.25,
+    "complete": true,
+    "difference": -0.375,
+    "distinct_scenarios": 1,
+    "elimination_rate": 1,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 30,
+    "interval95": [
+      -0.375,
+      -0.375
+    ],
+    "mean_action_ms": 230.08988764044943,
+    "natural_win_rate": 0,
+    "observed": 4,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 3,
+      "turn_limit": 1
+    },
+    "statuses": {
+      "complete": 4
+    }
+  },
+  "clean_beam|fixed_astra|team2v2|100": {
+    "blocks": 1,
+    "candidate": "clean_beam",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 0.25,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.4375,
+    "fault_games": 0,
+    "format": "team2v2",
+    "horizon": 100,
+    "interval95": [
+      0.25,
+      0.25
+    ],
+    "mean_action_ms": 508.23591889282267,
+    "natural_win_rate": 0.625,
+    "observed": 8,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 8,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_team": 8
+    },
+    "statuses": {
+      "complete": 8
+    }
+  },
+  "clean_beam|fixed_astra|team2v2|30": {
+    "blocks": 1,
+    "candidate": "clean_beam",
+    "cap_rate": 0.5,
+    "complete": true,
+    "difference": 0.5,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0,
+    "fault_games": 0,
+    "format": "team2v2",
+    "horizon": 30,
+    "interval95": [
+      0.5,
+      0.5
+    ],
+    "mean_action_ms": 529.8550171690194,
+    "natural_win_rate": 0.5,
+    "observed": 8,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 8,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_team": 4,
+      "turn_limit": 4
+    },
+    "statuses": {
+      "complete": 8
+    }
+  },
+  "clean_diverse|fixed_astra|duel|100": {
+    "blocks": 1,
+    "candidate": "clean_diverse",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 0.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.5,
+    "fault_games": 0,
+    "format": "duel",
+    "horizon": 100,
+    "interval95": [
+      0.0,
+      0.0
+    ],
+    "mean_action_ms": 255.26817042606515,
+    "natural_win_rate": 0.5,
+    "observed": 2,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 2,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 2
+    },
+    "statuses": {
+      "complete": 2
+    }
+  },
+  "clean_diverse|fixed_astra|duel|30": {
+    "blocks": 1,
+    "candidate": "clean_diverse",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 1.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0,
+    "fault_games": 0,
+    "format": "duel",
+    "horizon": 30,
+    "interval95": [
+      1.0,
+      1.0
+    ],
+    "mean_action_ms": 252.02593659942363,
+    "natural_win_rate": 1,
+    "observed": 2,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 2,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 2
+    },
+    "statuses": {
+      "complete": 2
+    }
+  },
+  "clean_diverse|fixed_astra|ffa4|100": {
+    "blocks": 1,
+    "candidate": "clean_diverse",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": -0.5,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.75,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 100,
+    "interval95": [
+      -0.5,
+      -0.5
+    ],
+    "mean_action_ms": 377.7655571635311,
+    "natural_win_rate": 0.25,
+    "observed": 4,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 4
+    },
+    "statuses": {
+      "complete": 4
+    }
+  },
+  "clean_diverse|fixed_astra|ffa4|30": {
+    "blocks": 1,
+    "candidate": "clean_diverse",
+    "cap_rate": 0.75,
+    "complete": true,
+    "difference": -0.5416666666666666,
+    "distinct_scenarios": 1,
+    "elimination_rate": 1,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 30,
+    "interval95": [
+      -0.5416666666666666,
+      -0.5416666666666666
+    ],
+    "mean_action_ms": 281.869918699187,
+    "natural_win_rate": 0,
+    "observed": 4,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 1,
+      "turn_limit": 3
+    },
+    "statuses": {
+      "complete": 4
+    }
+  },
+  "clean_diverse|fixed_astra|team2v2|100": {
+    "blocks": 1,
+    "candidate": "clean_diverse",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 0.5,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.25,
+    "fault_games": 0,
+    "format": "team2v2",
+    "horizon": 100,
+    "interval95": [
+      0.5,
+      0.5
+    ],
+    "mean_action_ms": 509.6680932001902,
+    "natural_win_rate": 0.75,
+    "observed": 8,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 8,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_team": 8
+    },
+    "statuses": {
+      "complete": 8
+    }
+  },
+  "clean_diverse|fixed_astra|team2v2|30": {
+    "blocks": 1,
+    "candidate": "clean_diverse",
+    "cap_rate": 0.25,
+    "complete": true,
+    "difference": 0.5,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.25,
+    "fault_games": 0,
+    "format": "team2v2",
+    "horizon": 30,
+    "interval95": [
+      0.5,
+      0.5
+    ],
+    "mean_action_ms": 497.605980317941,
+    "natural_win_rate": 0.625,
+    "observed": 8,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 8,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_team": 6,
+      "turn_limit": 2
+    },
+    "statuses": {
+      "complete": 8
+    }
+  },
+  "clean_exposure|fixed_astra|duel|100": {
+    "blocks": 1,
+    "candidate": "clean_exposure",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 0.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.5,
+    "fault_games": 0,
+    "format": "duel",
+    "horizon": 100,
+    "interval95": [
+      0.0,
+      0.0
+    ],
+    "mean_action_ms": 246.30803571428572,
+    "natural_win_rate": 0.5,
+    "observed": 2,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 2,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 2
+    },
+    "statuses": {
+      "complete": 2
+    }
+  },
+  "clean_exposure|fixed_astra|duel|30": {
+    "blocks": 1,
+    "candidate": "clean_exposure",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": -1.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 1,
+    "fault_games": 0,
+    "format": "duel",
+    "horizon": 30,
+    "interval95": [
+      -1.0,
+      -1.0
+    ],
+    "mean_action_ms": 246.88825214899714,
+    "natural_win_rate": 0,
+    "observed": 2,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 2,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 2
+    },
+    "statuses": {
+      "complete": 2
+    }
+  },
+  "clean_exposure|fixed_astra|ffa4|100": {
+    "blocks": 1,
+    "candidate": "clean_exposure",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": -0.75,
+    "distinct_scenarios": 1,
+    "elimination_rate": 1,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 100,
+    "interval95": [
+      -0.75,
+      -0.75
+    ],
+    "mean_action_ms": 285.7371428571429,
+    "natural_win_rate": 0,
+    "observed": 4,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 4
+    },
+    "statuses": {
+      "complete": 4
+    }
+  },
+  "clean_exposure|fixed_astra|ffa4|30": {
+    "blocks": 1,
+    "candidate": "clean_exposure",
+    "cap_rate": 0.25,
+    "complete": true,
+    "difference": -0.20833333333333331,
+    "distinct_scenarios": 1,
+    "elimination_rate": 1,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 30,
+    "interval95": [
+      -0.20833333333333331,
+      -0.20833333333333331
+    ],
+    "mean_action_ms": 296.6017191977077,
+    "natural_win_rate": 0,
+    "observed": 4,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 3,
+      "turn_limit": 1
+    },
+    "statuses": {
+      "complete": 4
+    }
+  },
+  "clean_exposure|fixed_astra|team2v2|100": {
+    "blocks": 1,
+    "candidate": "clean_exposure",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 0.75,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.125,
+    "fault_games": 0,
+    "format": "team2v2",
+    "horizon": 100,
+    "interval95": [
+      0.75,
+      0.75
+    ],
+    "mean_action_ms": 524.2802197802198,
+    "natural_win_rate": 0.875,
+    "observed": 8,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 8,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_team": 8
+    },
+    "statuses": {
+      "complete": 8
+    }
+  },
+  "clean_exposure|fixed_astra|team2v2|30": {
+    "blocks": 1,
+    "candidate": "clean_exposure",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 1.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0,
+    "fault_games": 0,
+    "format": "team2v2",
+    "horizon": 30,
+    "interval95": [
+      1.0,
+      1.0
+    ],
+    "mean_action_ms": 534.6364922206507,
+    "natural_win_rate": 1,
+    "observed": 8,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 8,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_team": 8
+    },
+    "statuses": {
+      "complete": 8
+    }
+  },
+  "clean_fortified_pruned|fixed_astra|duel|100": {
+    "blocks": 1,
+    "candidate": "clean_fortified_pruned",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 1.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0,
+    "fault_games": 0,
+    "format": "duel",
+    "horizon": 100,
+    "interval95": [
+      1.0,
+      1.0
+    ],
+    "mean_action_ms": 338.75232198142413,
+    "natural_win_rate": 1,
+    "observed": 2,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 2,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 2
+    },
+    "statuses": {
+      "complete": 2
+    }
+  },
+  "clean_fortified_pruned|fixed_astra|duel|30": {
+    "blocks": 1,
+    "candidate": "clean_fortified_pruned",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 1.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0,
+    "fault_games": 0,
+    "format": "duel",
+    "horizon": 30,
+    "interval95": [
+      1.0,
+      1.0
+    ],
+    "mean_action_ms": 432.9270072992701,
+    "natural_win_rate": 1,
+    "observed": 2,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 2,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 2
+    },
+    "statuses": {
+      "complete": 2
+    }
+  },
+  "clean_fortified_pruned|fixed_astra|ffa4|100": {
+    "blocks": 1,
+    "candidate": "clean_fortified_pruned",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 0.5,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.25,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 100,
+    "interval95": [
+      0.5,
+      0.5
+    ],
+    "mean_action_ms": 589.7525632262474,
+    "natural_win_rate": 0.75,
+    "observed": 4,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 4
+    },
+    "statuses": {
+      "complete": 4
+    }
+  },
+  "clean_fortified_pruned|fixed_astra|ffa4|30": {
+    "blocks": 1,
+    "candidate": "clean_fortified_pruned",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": -0.08333333333333331,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.5,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 30,
+    "interval95": [
+      -0.08333333333333331,
+      -0.08333333333333331
+    ],
+    "mean_action_ms": 571.5794473229706,
+    "natural_win_rate": 0.5,
+    "observed": 4,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 4
+    },
+    "statuses": {
+      "complete": 4
+    }
+  },
+  "clean_fortified_pruned|fixed_astra|team2v2|100": {
+    "blocks": 1,
+    "candidate": "clean_fortified_pruned",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 1.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0,
+    "fault_games": 0,
+    "format": "team2v2",
+    "horizon": 100,
+    "interval95": [
+      1.0,
+      1.0
+    ],
+    "mean_action_ms": 593.8850706376479,
+    "natural_win_rate": 1,
+    "observed": 8,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 8,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_team": 8
+    },
+    "statuses": {
+      "complete": 8
+    }
+  },
+  "clean_fortified_pruned|fixed_astra|team2v2|30": {
+    "blocks": 1,
+    "candidate": "clean_fortified_pruned",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 1.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0,
+    "fault_games": 0,
+    "format": "team2v2",
+    "horizon": 30,
+    "interval95": [
+      1.0,
+      1.0
+    ],
+    "mean_action_ms": 589.4486649116209,
+    "natural_win_rate": 1,
+    "observed": 8,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 8,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_team": 8
+    },
+    "statuses": {
+      "complete": 8
+    }
+  },
+  "clean_fortified_pvs|clean_fortified|duel|100": {
+    "blocks": 1,
+    "candidate": "clean_fortified_pvs",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 0.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.5,
+    "fault_games": 0,
+    "format": "duel",
+    "horizon": 100,
+    "interval95": [
+      0.0,
+      0.0
+    ],
+    "mean_action_ms": 663.0152671755725,
+    "natural_win_rate": 0.5,
+    "observed": 2,
+    "opponent": "clean_fortified",
+    "passed": false,
+    "planned": 2,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 2
+    },
+    "statuses": {
+      "complete": 2
+    }
+  },
+  "clean_fortified_pvs|clean_fortified|duel|30": {
+    "blocks": 1,
+    "candidate": "clean_fortified_pvs",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 0.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.5,
+    "fault_games": 0,
+    "format": "duel",
+    "horizon": 30,
+    "interval95": [
+      0.0,
+      0.0
+    ],
+    "mean_action_ms": 657.7235772357724,
+    "natural_win_rate": 0.5,
+    "observed": 2,
+    "opponent": "clean_fortified",
+    "passed": false,
+    "planned": 2,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 2
+    },
+    "statuses": {
+      "complete": 2
+    }
+  },
+  "clean_fortified_pvs|clean_fortified|ffa4|100": {
+    "blocks": 0,
+    "candidate": "clean_fortified_pvs",
+    "cap_rate": 0,
+    "complete": false,
+    "difference": null,
+    "distinct_scenarios": 0,
+    "elimination_rate": 0.5,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 100,
+    "interval95": null,
+    "mean_action_ms": 629.7601351351351,
+    "natural_win_rate": 0.5,
+    "observed": 4,
+    "opponent": "clean_fortified",
+    "passed": false,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 2
+    },
+    "statuses": {
+      "budget_interrupted": 2,
+      "complete": 2
+    }
+  },
+  "clean_fortified_pvs|clean_fortified|ffa4|30": {
+    "blocks": 0,
+    "candidate": "clean_fortified_pvs",
+    "cap_rate": 0,
+    "complete": false,
+    "difference": null,
+    "distinct_scenarios": 0,
+    "elimination_rate": 0,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 30,
+    "interval95": null,
+    "mean_action_ms": 616.4528,
+    "natural_win_rate": 1,
+    "observed": 4,
+    "opponent": "clean_fortified",
+    "passed": false,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 2
+    },
+    "statuses": {
+      "budget_interrupted": 2,
+      "complete": 2
+    }
+  },
+  "clean_fortified_pvs|clean_fortified|team2v2|100": {
+    "blocks": 0,
+    "candidate": "clean_fortified_pvs",
+    "cap_rate": 0,
+    "complete": false,
+    "difference": null,
+    "distinct_scenarios": 0,
+    "elimination_rate": 0.5,
+    "fault_games": 0,
+    "format": "team2v2",
+    "horizon": 100,
+    "interval95": null,
+    "mean_action_ms": 633.695054945055,
+    "natural_win_rate": 0.5,
+    "observed": 8,
+    "opponent": "clean_fortified",
+    "passed": false,
+    "planned": 8,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_team": 2
+    },
+    "statuses": {
+      "budget_interrupted": 6,
+      "complete": 2
+    }
+  },
+  "clean_fortified_pvs|clean_fortified|team2v2|30": {
+    "blocks": 0,
+    "candidate": "clean_fortified_pvs",
+    "cap_rate": 0,
+    "complete": false,
+    "difference": null,
+    "distinct_scenarios": 0,
+    "elimination_rate": 0.3333333333333333,
+    "fault_games": 0,
+    "format": "team2v2",
+    "horizon": 30,
+    "interval95": null,
+    "mean_action_ms": 657.2370088719898,
+    "natural_win_rate": 0.6666666666666666,
+    "observed": 8,
+    "opponent": "clean_fortified",
+    "passed": false,
+    "planned": 8,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_team": 3
+    },
+    "statuses": {
+      "budget_interrupted": 5,
+      "complete": 3
+    }
+  },
+  "clean_fortified_pvs|fixed_astra|duel|100": {
+    "blocks": 1,
+    "candidate": "clean_fortified_pvs",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 0.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.5,
+    "fault_games": 0,
+    "format": "duel",
+    "horizon": 100,
+    "interval95": [
+      0.0,
+      0.0
+    ],
+    "mean_action_ms": 603.935294117647,
+    "natural_win_rate": 0.5,
+    "observed": 2,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 2,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 2
+    },
+    "statuses": {
+      "complete": 2
+    }
+  },
+  "clean_fortified_pvs|fixed_astra|duel|30": {
+    "blocks": 1,
+    "candidate": "clean_fortified_pvs",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 0.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.5,
+    "fault_games": 0,
+    "format": "duel",
+    "horizon": 30,
+    "interval95": [
+      0.0,
+      0.0
+    ],
+    "mean_action_ms": 642.3430656934306,
+    "natural_win_rate": 0.5,
+    "observed": 2,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 2,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 2
+    },
+    "statuses": {
+      "complete": 2
+    }
+  },
+  "clean_fortified_pvs|fixed_astra|ffa4|100": {
+    "blocks": 1,
+    "candidate": "clean_fortified_pvs",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 0.25,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.5,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 100,
+    "interval95": [
+      0.25,
+      0.25
+    ],
+    "mean_action_ms": 535.656888888889,
+    "natural_win_rate": 0.5,
+    "observed": 4,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 4
+    },
+    "statuses": {
+      "complete": 4
+    }
+  },
+  "clean_fortified_pvs|fixed_astra|ffa4|30": {
+    "blocks": 1,
+    "candidate": "clean_fortified_pvs",
+    "cap_rate": 0.25,
+    "complete": true,
+    "difference": 0.25,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.25,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 30,
+    "interval95": [
+      0.25,
+      0.25
+    ],
+    "mean_action_ms": 582.5248573757132,
+    "natural_win_rate": 0.5,
+    "observed": 4,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 3,
+      "turn_limit": 1
+    },
+    "statuses": {
+      "complete": 4
+    }
+  },
+  "clean_fortified_pvs|fixed_astra|team2v2|100": {
+    "blocks": 1,
+    "candidate": "clean_fortified_pvs",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 1.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0,
+    "fault_games": 0,
+    "format": "team2v2",
+    "horizon": 100,
+    "interval95": [
+      1.0,
+      1.0
+    ],
+    "mean_action_ms": 662.8786187652598,
+    "natural_win_rate": 1,
+    "observed": 8,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 8,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_team": 8
+    },
+    "statuses": {
+      "complete": 8
+    }
+  },
+  "clean_fortified_pvs|fixed_astra|team2v2|30": {
+    "blocks": 1,
+    "candidate": "clean_fortified_pvs",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 1.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0,
+    "fault_games": 0,
+    "format": "team2v2",
+    "horizon": 30,
+    "interval95": [
+      1.0,
+      1.0
+    ],
+    "mean_action_ms": 658.0558103975535,
+    "natural_win_rate": 1,
+    "observed": 8,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 8,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_team": 8
+    },
+    "statuses": {
+      "complete": 8
+    }
+  },
+  "clean_fortified|fixed_astra|duel|100": {
+    "blocks": 3,
+    "candidate": "clean_fortified",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 0.3333333333333333,
+    "distinct_scenarios": 3,
+    "elimination_rate": 0.3333333333333333,
+    "fault_games": 0,
+    "format": "duel",
+    "horizon": 100,
+    "interval95": [
+      0.0,
+      1.0
+    ],
+    "mean_action_ms": 238.96164772727272,
+    "natural_win_rate": 0.6666666666666666,
+    "observed": 6,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 6,
+    "planned_blocks": 3,
+    "reasons": {
+      "last_leader": 6
+    },
+    "statuses": {
+      "complete": 6
+    }
+  },
+  "clean_fortified|fixed_astra|duel|30": {
+    "blocks": 3,
+    "candidate": "clean_fortified",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 0.6666666666666666,
+    "distinct_scenarios": 3,
+    "elimination_rate": 0.16666666666666666,
+    "fault_games": 0,
+    "format": "duel",
+    "horizon": 30,
+    "interval95": [
+      0.0,
+      1.0
+    ],
+    "mean_action_ms": 235.12709030100334,
+    "natural_win_rate": 0.8333333333333334,
+    "observed": 6,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 6,
+    "planned_blocks": 3,
+    "reasons": {
+      "last_leader": 6
+    },
+    "statuses": {
+      "complete": 6
+    }
+  },
+  "clean_fortified|fixed_astra|ffa4|100": {
+    "blocks": 3,
+    "candidate": "clean_fortified",
+    "cap_rate": 0.08333333333333333,
+    "complete": true,
+    "difference": 0.3333333333333333,
+    "distinct_scenarios": 3,
+    "elimination_rate": 0.4166666666666667,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 100,
+    "interval95": [
+      0.0,
+      0.75
+    ],
+    "mean_action_ms": 406.86800754242614,
+    "natural_win_rate": 0.5,
+    "observed": 12,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 12,
+    "planned_blocks": 3,
+    "reasons": {
+      "last_leader": 11,
+      "turn_limit": 1
+    },
+    "statuses": {
+      "complete": 12
+    }
+  },
+  "clean_fortified|fixed_astra|ffa4|30": {
+    "blocks": 3,
+    "candidate": "clean_fortified",
+    "cap_rate": 0.25,
+    "complete": true,
+    "difference": 0.13888888888888892,
+    "distinct_scenarios": 3,
+    "elimination_rate": 0.25,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 30,
+    "interval95": [
+      0.08333333333333334,
+      0.1666666666666667
+    ],
+    "mean_action_ms": 415.8183624801272,
+    "natural_win_rate": 0.5,
+    "observed": 12,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 12,
+    "planned_blocks": 3,
+    "reasons": {
+      "last_leader": 9,
+      "turn_limit": 3
+    },
+    "statuses": {
+      "complete": 12
+    }
+  },
+  "clean_fortified|fixed_astra|team2v2|100": {
+    "blocks": 3,
+    "candidate": "clean_fortified",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 0.9166666666666666,
+    "distinct_scenarios": 3,
+    "elimination_rate": 0.041666666666666664,
+    "fault_games": 0,
+    "format": "team2v2",
+    "horizon": 100,
+    "interval95": [
+      0.75,
+      1.0
+    ],
+    "mean_action_ms": 511.8016653016653,
+    "natural_win_rate": 0.9583333333333334,
+    "observed": 24,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 24,
+    "planned_blocks": 3,
+    "reasons": {
+      "last_team": 24
+    },
+    "statuses": {
+      "complete": 24
+    }
+  },
+  "clean_fortified|fixed_astra|team2v2|30": {
+    "blocks": 3,
+    "candidate": "clean_fortified",
+    "cap_rate": 0.041666666666666664,
+    "complete": true,
+    "difference": 0.7916666666666666,
+    "distinct_scenarios": 3,
+    "elimination_rate": 0.08333333333333333,
+    "fault_games": 0,
+    "format": "team2v2",
+    "horizon": 30,
+    "interval95": [
+      0.5,
+      1.0
+    ],
+    "mean_action_ms": 539.5233595800524,
+    "natural_win_rate": 0.875,
+    "observed": 24,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 24,
+    "planned_blocks": 3,
+    "reasons": {
+      "last_team": 23,
+      "turn_limit": 1
+    },
+    "statuses": {
+      "complete": 24
+    }
+  },
+  "clean_guard|fixed_astra|ffa4|100": {
+    "blocks": 1,
+    "candidate": "clean_guard",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": -0.25,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.75,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 100,
+    "interval95": [
+      -0.25,
+      -0.25
+    ],
+    "mean_action_ms": 262.94462025316454,
+    "natural_win_rate": 0.25,
+    "observed": 4,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 4
+    },
+    "statuses": {
+      "complete": 4
+    }
+  },
+  "clean_guard|fixed_astra|ffa4|30": {
+    "blocks": 1,
+    "candidate": "clean_guard",
+    "cap_rate": 0.25,
+    "complete": true,
+    "difference": -0.25,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.75,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 30,
+    "interval95": [
+      -0.25,
+      -0.25
+    ],
+    "mean_action_ms": 249.3240997229917,
+    "natural_win_rate": 0.25,
+    "observed": 4,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 3,
+      "turn_limit": 1
+    },
+    "statuses": {
+      "complete": 4
+    }
+  },
+  "clean_hybrid|clean_fortified|duel|100": {
+    "blocks": 1,
+    "candidate": "clean_hybrid",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 0.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.5,
+    "fault_games": 0,
+    "format": "duel",
+    "horizon": 100,
+    "interval95": [
+      0.0,
+      0.0
+    ],
+    "mean_action_ms": 497.4344569288389,
+    "natural_win_rate": 0.5,
+    "observed": 2,
+    "opponent": "clean_fortified",
+    "passed": false,
+    "planned": 2,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 2
+    },
+    "statuses": {
+      "complete": 2
+    }
+  },
+  "clean_hybrid|clean_fortified|duel|30": {
+    "blocks": 1,
+    "candidate": "clean_hybrid",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 0.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.5,
+    "fault_games": 0,
+    "format": "duel",
+    "horizon": 30,
+    "interval95": [
+      0.0,
+      0.0
+    ],
+    "mean_action_ms": 404.5987261146497,
+    "natural_win_rate": 0.5,
+    "observed": 2,
+    "opponent": "clean_fortified",
+    "passed": false,
+    "planned": 2,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 2
+    },
+    "statuses": {
+      "complete": 2
+    }
+  },
+  "clean_hybrid|clean_fortified|ffa4|100": {
+    "blocks": 0,
+    "candidate": "clean_hybrid",
+    "cap_rate": 0,
+    "complete": false,
+    "difference": null,
+    "distinct_scenarios": 0,
+    "elimination_rate": 0,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 100,
+    "interval95": null,
+    "mean_action_ms": 648.9744136460554,
+    "natural_win_rate": 1,
+    "observed": 4,
+    "opponent": "clean_fortified",
+    "passed": false,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 1
+    },
+    "statuses": {
+      "budget_interrupted": 3,
+      "complete": 1
+    }
+  },
+  "clean_hybrid|clean_fortified|ffa4|30": {
+    "blocks": 0,
+    "candidate": "clean_hybrid",
+    "cap_rate": 0,
+    "complete": false,
+    "difference": null,
+    "distinct_scenarios": 0,
+    "elimination_rate": 0.5,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 30,
+    "interval95": null,
+    "mean_action_ms": 619.2543252595156,
+    "natural_win_rate": 0.5,
+    "observed": 4,
+    "opponent": "clean_fortified",
+    "passed": false,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 2
+    },
+    "statuses": {
+      "budget_interrupted": 2,
+      "complete": 2
+    }
+  },
+  "clean_hybrid|clean_fortified|team2v2|100": {
+    "blocks": 0,
+    "candidate": "clean_hybrid",
+    "cap_rate": 0,
+    "complete": false,
+    "difference": null,
+    "distinct_scenarios": 0,
+    "elimination_rate": 0.5,
+    "fault_games": 0,
+    "format": "team2v2",
+    "horizon": 100,
+    "interval95": null,
+    "mean_action_ms": 589.9727126805778,
+    "natural_win_rate": 0.5,
+    "observed": 8,
+    "opponent": "clean_fortified",
+    "passed": false,
+    "planned": 8,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_team": 2
+    },
+    "statuses": {
+      "budget_interrupted": 6,
+      "complete": 2
+    }
+  },
+  "clean_hybrid|clean_fortified|team2v2|30": {
+    "blocks": 0,
+    "candidate": "clean_hybrid",
+    "cap_rate": 0,
+    "complete": false,
+    "difference": null,
+    "distinct_scenarios": 0,
+    "elimination_rate": 0.3333333333333333,
+    "fault_games": 0,
+    "format": "team2v2",
+    "horizon": 30,
+    "interval95": null,
+    "mean_action_ms": 563.426336375489,
+    "natural_win_rate": 0.6666666666666666,
+    "observed": 8,
+    "opponent": "clean_fortified",
+    "passed": false,
+    "planned": 8,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_team": 3
+    },
+    "statuses": {
+      "budget_interrupted": 5,
+      "complete": 3
+    }
+  },
+  "clean_hybrid|fixed_astra|duel|100": {
+    "blocks": 1,
+    "candidate": "clean_hybrid",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 1.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0,
+    "fault_games": 0,
+    "format": "duel",
+    "horizon": 100,
+    "interval95": [
+      1.0,
+      1.0
+    ],
+    "mean_action_ms": 474.64130434782606,
+    "natural_win_rate": 1,
+    "observed": 2,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 2,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 2
+    },
+    "statuses": {
+      "complete": 2
+    }
+  },
+  "clean_hybrid|fixed_astra|duel|30": {
+    "blocks": 1,
+    "candidate": "clean_hybrid",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 0.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.5,
+    "fault_games": 0,
+    "format": "duel",
+    "horizon": 30,
+    "interval95": [
+      0.0,
+      0.0
+    ],
+    "mean_action_ms": 436.2572062084257,
+    "natural_win_rate": 0.5,
+    "observed": 2,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 2,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 2
+    },
+    "statuses": {
+      "complete": 2
+    }
+  },
+  "clean_hybrid|fixed_astra|ffa4|100": {
+    "blocks": 1,
+    "candidate": "clean_hybrid",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 0.25,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.5,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 100,
+    "interval95": [
+      0.25,
+      0.25
+    ],
+    "mean_action_ms": 565.9487704918033,
+    "natural_win_rate": 0.5,
+    "observed": 4,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 4
+    },
+    "statuses": {
+      "complete": 4
+    }
+  },
+  "clean_hybrid|fixed_astra|ffa4|30": {
+    "blocks": 1,
+    "candidate": "clean_hybrid",
+    "cap_rate": 0.25,
+    "complete": true,
+    "difference": 0.08333333333333334,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.5,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 30,
+    "interval95": [
+      0.08333333333333334,
+      0.08333333333333334
+    ],
+    "mean_action_ms": 540.9820828667413,
+    "natural_win_rate": 0.25,
+    "observed": 4,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 3,
+      "turn_limit": 1
+    },
+    "statuses": {
+      "complete": 4
+    }
+  },
+  "clean_hybrid|fixed_astra|team2v2|100": {
+    "blocks": 1,
+    "candidate": "clean_hybrid",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 1.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0,
+    "fault_games": 0,
+    "format": "team2v2",
+    "horizon": 100,
+    "interval95": [
+      1.0,
+      1.0
+    ],
+    "mean_action_ms": 595.655230125523,
+    "natural_win_rate": 1,
+    "observed": 8,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 8,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_team": 8
+    },
+    "statuses": {
+      "complete": 8
+    }
+  },
+  "clean_hybrid|fixed_astra|team2v2|30": {
+    "blocks": 1,
+    "candidate": "clean_hybrid",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 1.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0,
+    "fault_games": 0,
+    "format": "team2v2",
+    "horizon": 30,
+    "interval95": [
+      1.0,
+      1.0
+    ],
+    "mean_action_ms": 577.329585110508,
+    "natural_win_rate": 1,
+    "observed": 8,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 8,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_team": 8
+    },
+    "statuses": {
+      "complete": 8
+    }
+  },
+  "clean_pruned|fixed_astra|duel|100": {
+    "blocks": 1,
+    "candidate": "clean_pruned",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": -1.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 1,
+    "fault_games": 0,
+    "format": "duel",
+    "horizon": 100,
+    "interval95": [
+      -1.0,
+      -1.0
+    ],
+    "mean_action_ms": 380.1544401544402,
+    "natural_win_rate": 0,
+    "observed": 2,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 2,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 2
+    },
+    "statuses": {
+      "complete": 2
+    }
+  },
+  "clean_pruned|fixed_astra|duel|30": {
+    "blocks": 1,
+    "candidate": "clean_pruned",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 0.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.5,
+    "fault_games": 0,
+    "format": "duel",
+    "horizon": 30,
+    "interval95": [
+      0.0,
+      0.0
+    ],
+    "mean_action_ms": 404.2289156626506,
+    "natural_win_rate": 0.5,
+    "observed": 2,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 2,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 2
+    },
+    "statuses": {
+      "complete": 2
+    }
+  },
+  "clean_pruned|fixed_astra|ffa4|100": {
+    "blocks": 1,
+    "candidate": "clean_pruned",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": -0.5,
+    "distinct_scenarios": 1,
+    "elimination_rate": 1,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 100,
+    "interval95": [
+      -0.5,
+      -0.5
+    ],
+    "mean_action_ms": 269.072202166065,
+    "natural_win_rate": 0,
+    "observed": 4,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 4
+    },
+    "statuses": {
+      "complete": 4
+    }
+  },
+  "clean_pruned|fixed_astra|ffa4|30": {
+    "blocks": 1,
+    "candidate": "clean_pruned",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": -0.5,
+    "distinct_scenarios": 1,
+    "elimination_rate": 1,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 30,
+    "interval95": [
+      -0.5,
+      -0.5
+    ],
+    "mean_action_ms": 303.6171003717472,
+    "natural_win_rate": 0,
+    "observed": 4,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 4
+    },
+    "statuses": {
+      "complete": 4
+    }
+  },
+  "clean_pruned|fixed_astra|team2v2|100": {
+    "blocks": 1,
+    "candidate": "clean_pruned",
+    "cap_rate": 0.125,
+    "complete": true,
+    "difference": 0.125,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.375,
+    "fault_games": 0,
+    "format": "team2v2",
+    "horizon": 100,
+    "interval95": [
+      0.125,
+      0.125
+    ],
+    "mean_action_ms": 541.840099626401,
+    "natural_win_rate": 0.5,
+    "observed": 8,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 8,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_team": 7,
+      "turn_limit": 1
+    },
+    "statuses": {
+      "complete": 8
+    }
+  },
+  "clean_pruned|fixed_astra|team2v2|30": {
+    "blocks": 1,
+    "candidate": "clean_pruned",
+    "cap_rate": 0.375,
+    "complete": true,
+    "difference": 0.375,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.125,
+    "fault_games": 0,
+    "format": "team2v2",
+    "horizon": 30,
+    "interval95": [
+      0.375,
+      0.375
+    ],
+    "mean_action_ms": 561.484593837535,
+    "natural_win_rate": 0.5,
+    "observed": 8,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 8,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_team": 5,
+      "turn_limit": 3
+    },
+    "statuses": {
+      "complete": 8
+    }
+  },
+  "clean_pvs180|fixed_astra|duel|100": {
+    "blocks": 1,
+    "candidate": "clean_pvs180",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 1.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0,
+    "fault_games": 0,
+    "format": "duel",
+    "horizon": 100,
+    "interval95": [
+      1.0,
+      1.0
+    ],
+    "mean_action_ms": 636.1342281879195,
+    "natural_win_rate": 1,
+    "observed": 2,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 2,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 2
+    },
+    "statuses": {
+      "complete": 2
+    }
+  },
+  "clean_pvs180|fixed_astra|duel|30": {
+    "blocks": 1,
+    "candidate": "clean_pvs180",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 1.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0,
+    "fault_games": 0,
+    "format": "duel",
+    "horizon": 30,
+    "interval95": [
+      1.0,
+      1.0
+    ],
+    "mean_action_ms": 651.8857142857142,
+    "natural_win_rate": 1,
+    "observed": 2,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 2,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 2
+    },
+    "statuses": {
+      "complete": 2
+    }
+  },
+  "clean_pvs180|fixed_astra|team2v2|100": {
+    "blocks": 1,
+    "candidate": "clean_pvs180",
+    "cap_rate": 0.25,
+    "complete": true,
+    "difference": 0.5,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.125,
+    "fault_games": 0,
+    "format": "team2v2",
+    "horizon": 100,
+    "interval95": [
+      0.5,
+      0.5
+    ],
+    "mean_action_ms": 536.3230769230769,
+    "natural_win_rate": 0.625,
+    "observed": 8,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 8,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_team": 6,
+      "turn_limit": 2
+    },
+    "statuses": {
+      "complete": 8
+    }
+  },
+  "clean_pvs180|fixed_astra|team2v2|30": {
+    "blocks": 1,
+    "candidate": "clean_pvs180",
+    "cap_rate": 0.125,
+    "complete": true,
+    "difference": 0.875,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0,
+    "fault_games": 0,
+    "format": "team2v2",
+    "horizon": 30,
+    "interval95": [
+      0.875,
+      0.875
+    ],
+    "mean_action_ms": 646.7140672782874,
+    "natural_win_rate": 0.875,
+    "observed": 8,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 8,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_team": 7,
+      "turn_limit": 1
+    },
+    "statuses": {
+      "complete": 8
+    }
+  },
+  "clean_pvs|clean_fortified|duel|100": {
+    "blocks": 1,
+    "candidate": "clean_pvs",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": -1.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 1,
+    "fault_games": 0,
+    "format": "duel",
+    "horizon": 100,
+    "interval95": [
+      -1.0,
+      -1.0
+    ],
+    "mean_action_ms": 649.9206349206349,
+    "natural_win_rate": 0,
+    "observed": 2,
+    "opponent": "clean_fortified",
+    "passed": false,
+    "planned": 2,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 2
+    },
+    "statuses": {
+      "complete": 2
+    }
+  },
+  "clean_pvs|clean_fortified|duel|30": {
+    "blocks": 1,
+    "candidate": "clean_pvs",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 0.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.5,
+    "fault_games": 0,
+    "format": "duel",
+    "horizon": 30,
+    "interval95": [
+      0.0,
+      0.0
+    ],
+    "mean_action_ms": 631.860119047619,
+    "natural_win_rate": 0.5,
+    "observed": 2,
+    "opponent": "clean_fortified",
+    "passed": false,
+    "planned": 2,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 2
+    },
+    "statuses": {
+      "complete": 2
+    }
+  },
+  "clean_pvs|clean_fortified|ffa4|100": {
+    "blocks": 0,
+    "candidate": "clean_pvs",
+    "cap_rate": 0,
+    "complete": false,
+    "difference": null,
+    "distinct_scenarios": 0,
+    "elimination_rate": 1,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 100,
+    "interval95": null,
+    "mean_action_ms": 288.9387755102041,
+    "natural_win_rate": 0,
+    "observed": 4,
+    "opponent": "clean_fortified",
+    "passed": false,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 2
+    },
+    "statuses": {
+      "budget_interrupted": 2,
+      "complete": 2
+    }
+  },
+  "clean_pvs|clean_fortified|ffa4|30": {
+    "blocks": 0,
+    "candidate": "clean_pvs",
+    "cap_rate": 0,
+    "complete": false,
+    "difference": null,
+    "distinct_scenarios": 0,
+    "elimination_rate": 1,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 30,
+    "interval95": null,
+    "mean_action_ms": 436.5494071146245,
+    "natural_win_rate": 0,
+    "observed": 4,
+    "opponent": "clean_fortified",
+    "passed": false,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 2
+    },
+    "statuses": {
+      "budget_interrupted": 2,
+      "complete": 2
+    }
+  },
+  "clean_pvs|clean_fortified|team2v2|100": {
+    "blocks": 0,
+    "candidate": "clean_pvs",
+    "cap_rate": 0,
+    "complete": false,
+    "difference": null,
+    "distinct_scenarios": 0,
+    "elimination_rate": 1,
+    "fault_games": 0,
+    "format": "team2v2",
+    "horizon": 100,
+    "interval95": null,
+    "mean_action_ms": 640.6018376722818,
+    "natural_win_rate": 0,
+    "observed": 8,
+    "opponent": "clean_fortified",
+    "passed": false,
+    "planned": 8,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_team": 2
+    },
+    "statuses": {
+      "budget_interrupted": 6,
+      "complete": 2
+    }
+  },
+  "clean_pvs|clean_fortified|team2v2|30": {
+    "blocks": 0,
+    "candidate": "clean_pvs",
+    "cap_rate": 0.5,
+    "complete": false,
+    "difference": null,
+    "distinct_scenarios": 0,
+    "elimination_rate": 0.5,
+    "fault_games": 0,
+    "format": "team2v2",
+    "horizon": 30,
+    "interval95": null,
+    "mean_action_ms": 642.8883248730964,
+    "natural_win_rate": 0,
+    "observed": 8,
+    "opponent": "clean_fortified",
+    "passed": false,
+    "planned": 8,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_team": 1,
+      "turn_limit": 1
+    },
+    "statuses": {
+      "budget_interrupted": 6,
+      "complete": 2
+    }
+  },
+  "clean_pvs|fixed_astra|duel|100": {
+    "blocks": 1,
+    "candidate": "clean_pvs",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 1.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0,
+    "fault_games": 0,
+    "format": "duel",
+    "horizon": 100,
+    "interval95": [
+      1.0,
+      1.0
+    ],
+    "mean_action_ms": 636.1610738255033,
+    "natural_win_rate": 1,
+    "observed": 2,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 2,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 2
+    },
+    "statuses": {
+      "complete": 2
+    }
+  },
+  "clean_pvs|fixed_astra|duel|30": {
+    "blocks": 1,
+    "candidate": "clean_pvs",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 1.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0,
+    "fault_games": 0,
+    "format": "duel",
+    "horizon": 30,
+    "interval95": [
+      1.0,
+      1.0
+    ],
+    "mean_action_ms": 631.3804713804714,
+    "natural_win_rate": 1,
+    "observed": 2,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 2,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 2
+    },
+    "statuses": {
+      "complete": 2
+    }
+  },
+  "clean_pvs|fixed_astra|team2v2|100": {
+    "blocks": 1,
+    "candidate": "clean_pvs",
+    "cap_rate": 0.25,
+    "complete": true,
+    "difference": 0.5,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.125,
+    "fault_games": 0,
+    "format": "team2v2",
+    "horizon": 100,
+    "interval95": [
+      0.5,
+      0.5
+    ],
+    "mean_action_ms": 528.4100775193798,
+    "natural_win_rate": 0.625,
+    "observed": 8,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 8,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_team": 6,
+      "turn_limit": 2
+    },
+    "statuses": {
+      "complete": 8
+    }
+  },
+  "clean_pvs|fixed_astra|team2v2|30": {
+    "blocks": 1,
+    "candidate": "clean_pvs",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 1.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0,
+    "fault_games": 0,
+    "format": "team2v2",
+    "horizon": 30,
+    "interval95": [
+      1.0,
+      1.0
+    ],
+    "mean_action_ms": 636.1128640776699,
+    "natural_win_rate": 1,
+    "observed": 8,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 8,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_team": 8
+    },
+    "statuses": {
+      "complete": 8
+    }
+  },
+  "clean_reply2|fixed_astra|ffa4|100": {
+    "blocks": 1,
+    "candidate": "clean_reply2",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 0.25,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.5,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 100,
+    "interval95": [
+      0.25,
+      0.25
+    ],
+    "mean_action_ms": 293.5072463768116,
+    "natural_win_rate": 0.5,
+    "observed": 4,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 4
+    },
+    "statuses": {
+      "complete": 4
+    }
+  },
+  "clean_reply2|fixed_astra|ffa4|30": {
+    "blocks": 1,
+    "candidate": "clean_reply2",
+    "cap_rate": 0.25,
+    "complete": true,
+    "difference": -0.3333333333333333,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.75,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 30,
+    "interval95": [
+      -0.3333333333333333,
+      -0.3333333333333333
+    ],
+    "mean_action_ms": 369.0273224043716,
+    "natural_win_rate": 0.25,
+    "observed": 4,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 3,
+      "turn_limit": 1
+    },
+    "statuses": {
+      "complete": 4
+    }
+  },
+  "clean_resist|fixed_astra|duel|100": {
+    "blocks": 1,
+    "candidate": "clean_resist",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 0.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.5,
+    "fault_games": 0,
+    "format": "duel",
+    "horizon": 100,
+    "interval95": [
+      0.0,
+      0.0
+    ],
+    "mean_action_ms": 272.7921478060046,
+    "natural_win_rate": 0.5,
+    "observed": 2,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 2,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 2
+    },
+    "statuses": {
+      "complete": 2
+    }
+  },
+  "clean_resist|fixed_astra|duel|30": {
+    "blocks": 1,
+    "candidate": "clean_resist",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 1.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0,
+    "fault_games": 0,
+    "format": "duel",
+    "horizon": 30,
+    "interval95": [
+      1.0,
+      1.0
+    ],
+    "mean_action_ms": 237.81931464174454,
+    "natural_win_rate": 1,
+    "observed": 2,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 2,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 2
+    },
+    "statuses": {
+      "complete": 2
+    }
+  },
+  "clean_resist|fixed_astra|ffa4|100": {
+    "blocks": 1,
+    "candidate": "clean_resist",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 0.25,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.75,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 100,
+    "interval95": [
+      0.25,
+      0.25
+    ],
+    "mean_action_ms": 450.24347826086955,
+    "natural_win_rate": 0.25,
+    "observed": 4,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 4
+    },
+    "statuses": {
+      "complete": 4
+    }
+  },
+  "clean_resist|fixed_astra|ffa4|30": {
+    "blocks": 1,
+    "candidate": "clean_resist",
+    "cap_rate": 0.25,
+    "complete": true,
+    "difference": -0.375,
+    "distinct_scenarios": 1,
+    "elimination_rate": 1,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 30,
+    "interval95": [
+      -0.375,
+      -0.375
+    ],
+    "mean_action_ms": 230.26765799256506,
+    "natural_win_rate": 0,
+    "observed": 4,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 3,
+      "turn_limit": 1
+    },
+    "statuses": {
+      "complete": 4
+    }
+  },
+  "clean_resist|fixed_astra|team2v2|100": {
+    "blocks": 1,
+    "candidate": "clean_resist",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 0.75,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.1875,
+    "fault_games": 0,
+    "format": "team2v2",
+    "horizon": 100,
+    "interval95": [
+      0.75,
+      0.75
+    ],
+    "mean_action_ms": 525.4942460902921,
+    "natural_win_rate": 0.875,
+    "observed": 8,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 8,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_team": 8
+    },
+    "statuses": {
+      "complete": 8
+    }
+  },
+  "clean_resist|fixed_astra|team2v2|30": {
+    "blocks": 1,
+    "candidate": "clean_resist",
+    "cap_rate": 0.25,
+    "complete": true,
+    "difference": 0.5,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.125,
+    "fault_games": 0,
+    "format": "team2v2",
+    "horizon": 30,
+    "interval95": [
+      0.5,
+      0.5
+    ],
+    "mean_action_ms": 510.4649250120948,
+    "natural_win_rate": 0.625,
+    "observed": 8,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 8,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_team": 6,
+      "turn_limit": 2
+    },
+    "statuses": {
+      "complete": 8
+    }
+  },
+  "clean_uct|fixed_astra|duel|100": {
+    "blocks": 1,
+    "candidate": "clean_uct",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": -1.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 1,
+    "fault_games": 0,
+    "format": "duel",
+    "horizon": 100,
+    "interval95": [
+      -1.0,
+      -1.0
+    ],
+    "mean_action_ms": 622.525641025641,
+    "natural_win_rate": 0,
+    "observed": 2,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 2,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 2
+    },
+    "statuses": {
+      "complete": 2
+    }
+  },
+  "clean_uct|fixed_astra|duel|30": {
+    "blocks": 1,
+    "candidate": "clean_uct",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 0.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.5,
+    "fault_games": 0,
+    "format": "duel",
+    "horizon": 30,
+    "interval95": [
+      0.0,
+      0.0
+    ],
+    "mean_action_ms": 603.9691516709512,
+    "natural_win_rate": 0.5,
+    "observed": 2,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 2,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 2
+    },
+    "statuses": {
+      "complete": 2
+    }
+  },
+  "clean_uct|fixed_astra|ffa4|100": {
+    "blocks": 1,
+    "candidate": "clean_uct",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 0.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 1,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 100,
+    "interval95": [
+      0.0,
+      0.0
+    ],
+    "mean_action_ms": 413.16494845360825,
+    "natural_win_rate": 0,
+    "observed": 4,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 4
+    },
+    "statuses": {
+      "complete": 4
+    }
+  },
+  "clean_uct|fixed_astra|ffa4|30": {
+    "blocks": 1,
+    "candidate": "clean_uct",
+    "cap_rate": 0.25,
+    "complete": true,
+    "difference": -0.08333333333333333,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.75,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 30,
+    "interval95": [
+      -0.08333333333333333,
+      -0.08333333333333333
+    ],
+    "mean_action_ms": 583.5357967667436,
+    "natural_win_rate": 0,
+    "observed": 4,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 3,
+      "turn_limit": 1
+    },
+    "statuses": {
+      "complete": 4
+    }
+  },
+  "clean_uct|fixed_astra|team2v2|100": {
+    "blocks": 1,
+    "candidate": "clean_uct",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 0.75,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.125,
+    "fault_games": 0,
+    "format": "team2v2",
+    "horizon": 100,
+    "interval95": [
+      0.75,
+      0.75
+    ],
+    "mean_action_ms": 622.1496282527881,
+    "natural_win_rate": 0.875,
+    "observed": 8,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 8,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_team": 8
+    },
+    "statuses": {
+      "complete": 8
+    }
+  },
+  "clean_uct|fixed_astra|team2v2|30": {
+    "blocks": 1,
+    "candidate": "clean_uct",
+    "cap_rate": 0.375,
+    "complete": true,
+    "difference": 0.625,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0,
+    "fault_games": 0,
+    "format": "team2v2",
+    "horizon": 30,
+    "interval95": [
+      0.625,
+      0.625
+    ],
+    "mean_action_ms": 625.5130946018172,
+    "natural_win_rate": 0.625,
+    "observed": 8,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 8,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_team": 5,
+      "turn_limit": 3
+    },
+    "statuses": {
+      "complete": 8
+    }
+  },
+  "pvs_reserved|fixed_astra|duel|100": {
+    "blocks": 1,
+    "candidate": "pvs_reserved",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 1.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0,
+    "fault_games": 0,
+    "format": "duel",
+    "horizon": 100,
+    "interval95": [
+      1.0,
+      1.0
+    ],
+    "mean_action_ms": 636.2438478747204,
+    "natural_win_rate": 1,
+    "observed": 2,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 2,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 2
+    },
+    "statuses": {
+      "complete": 2
+    }
+  },
+  "pvs_reserved|fixed_astra|duel|30": {
+    "blocks": 1,
+    "candidate": "pvs_reserved",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 1.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0,
+    "fault_games": 0,
+    "format": "duel",
+    "horizon": 30,
+    "interval95": [
+      1.0,
+      1.0
+    ],
+    "mean_action_ms": 641.2321428571429,
+    "natural_win_rate": 1,
+    "observed": 2,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 2,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 2
+    },
+    "statuses": {
+      "complete": 2
+    }
+  },
+  "pvs_reserved|fixed_astra|team2v2|100": {
+    "blocks": 1,
+    "candidate": "pvs_reserved",
+    "cap_rate": 0.25,
+    "complete": true,
+    "difference": 0.5,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.1875,
+    "fault_games": 0,
+    "format": "team2v2",
+    "horizon": 100,
+    "interval95": [
+      0.5,
+      0.5
+    ],
+    "mean_action_ms": 505.994944023113,
+    "natural_win_rate": 0.625,
+    "observed": 8,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 8,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_team": 6,
+      "turn_limit": 2
+    },
+    "statuses": {
+      "complete": 8
+    }
+  },
+  "pvs_reserved|fixed_astra|team2v2|30": {
+    "blocks": 1,
+    "candidate": "pvs_reserved",
+    "cap_rate": 0.25,
+    "complete": true,
+    "difference": 0.75,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0,
+    "fault_games": 0,
+    "format": "team2v2",
+    "horizon": 30,
+    "interval95": [
+      0.75,
+      0.75
+    ],
+    "mean_action_ms": 641.6074544012688,
+    "natural_win_rate": 0.75,
+    "observed": 8,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 8,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_team": 6,
+      "turn_limit": 2
+    },
+    "statuses": {
+      "complete": 8
+    }
+  },
+  "pvs_v1|fixed_astra|duel|100": {
+    "blocks": 1,
+    "candidate": "pvs_v1",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 1.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0,
+    "fault_games": 0,
+    "format": "duel",
+    "horizon": 100,
+    "interval95": [
+      1.0,
+      1.0
+    ],
+    "mean_action_ms": 649.1322505800464,
+    "natural_win_rate": 1,
+    "observed": 2,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 2,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 2
+    },
+    "statuses": {
+      "complete": 2
+    }
+  },
+  "pvs_v1|fixed_astra|duel|30": {
+    "blocks": 1,
+    "candidate": "pvs_v1",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 1.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0,
+    "fault_games": 0,
+    "format": "duel",
+    "horizon": 30,
+    "interval95": [
+      1.0,
+      1.0
+    ],
+    "mean_action_ms": 654.4455128205128,
+    "natural_win_rate": 1,
+    "observed": 2,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 2,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 2
+    },
+    "statuses": {
+      "complete": 2
+    }
+  },
+  "pvs_v1|fixed_astra|ffa4|100": {
+    "blocks": 1,
+    "candidate": "pvs_v1",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": -0.25,
+    "distinct_scenarios": 1,
+    "elimination_rate": 1,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 100,
+    "interval95": [
+      -0.25,
+      -0.25
+    ],
+    "mean_action_ms": 257.5496453900709,
+    "natural_win_rate": 0,
+    "observed": 4,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 4
+    },
+    "statuses": {
+      "complete": 4
+    }
+  },
+  "pvs_v1|fixed_astra|ffa4|30": {
+    "blocks": 1,
+    "candidate": "pvs_v1",
+    "cap_rate": 0.25,
+    "complete": true,
+    "difference": -0.5416666666666666,
+    "distinct_scenarios": 1,
+    "elimination_rate": 1,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 30,
+    "interval95": [
+      -0.5416666666666666,
+      -0.5416666666666666
+    ],
+    "mean_action_ms": 259.90671641791045,
+    "natural_win_rate": 0,
+    "observed": 4,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 3,
+      "turn_limit": 1
+    },
+    "statuses": {
+      "complete": 4
+    }
+  },
+  "pvs_v1|fixed_astra|team2v2|100": {
+    "blocks": 1,
+    "candidate": "pvs_v1",
+    "cap_rate": 0.125,
+    "complete": true,
+    "difference": 0.625,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.125,
+    "fault_games": 0,
+    "format": "team2v2",
+    "horizon": 100,
+    "interval95": [
+      0.625,
+      0.625
+    ],
+    "mean_action_ms": 559.0742447516641,
+    "natural_win_rate": 0.75,
+    "observed": 8,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 8,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_team": 7,
+      "turn_limit": 1
+    },
+    "statuses": {
+      "complete": 8
+    }
+  },
+  "pvs_v1|fixed_astra|team2v2|30": {
+    "blocks": 1,
+    "candidate": "pvs_v1",
+    "cap_rate": 0.375,
+    "complete": true,
+    "difference": 0.625,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0,
+    "fault_games": 0,
+    "format": "team2v2",
+    "horizon": 30,
+    "interval95": [
+      0.625,
+      0.625
+    ],
+    "mean_action_ms": 638.607098638052,
+    "natural_win_rate": 0.625,
+    "observed": 8,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 8,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_team": 5,
+      "turn_limit": 3
+    },
+    "statuses": {
+      "complete": 8
+    }
+  },
+  "uct_elimination|fixed_astra|ffa4|100": {
+    "blocks": 1,
+    "candidate": "uct_elimination",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": -0.5,
+    "distinct_scenarios": 1,
+    "elimination_rate": 1,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 100,
+    "interval95": [
+      -0.5,
+      -0.5
+    ],
+    "mean_action_ms": 553.5878220140515,
+    "natural_win_rate": 0,
+    "observed": 4,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 4
+    },
+    "statuses": {
+      "complete": 4
+    }
+  },
+  "uct_elimination|fixed_astra|ffa4|30": {
+    "blocks": 1,
+    "candidate": "uct_elimination",
+    "cap_rate": 0.25,
+    "complete": true,
+    "difference": -0.2916666666666667,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.75,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 30,
+    "interval95": [
+      -0.2916666666666667,
+      -0.2916666666666667
+    ],
+    "mean_action_ms": 532.1228070175439,
+    "natural_win_rate": 0,
+    "observed": 4,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 3,
+      "turn_limit": 1
+    },
+    "statuses": {
+      "complete": 4
+    }
+  },
+  "uct_narrow|fixed_astra|duel|100": {
+    "blocks": 1,
+    "candidate": "uct_narrow",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": -1.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 1,
+    "fault_games": 0,
+    "format": "duel",
+    "horizon": 100,
+    "interval95": [
+      -1.0,
+      -1.0
+    ],
+    "mean_action_ms": 556.0660792951542,
+    "natural_win_rate": 0,
+    "observed": 2,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 2,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 2
+    },
+    "statuses": {
+      "complete": 2
+    }
+  },
+  "uct_narrow|fixed_astra|duel|30": {
+    "blocks": 1,
+    "candidate": "uct_narrow",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": -1.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 1,
+    "fault_games": 0,
+    "format": "duel",
+    "horizon": 30,
+    "interval95": [
+      -1.0,
+      -1.0
+    ],
+    "mean_action_ms": 541.5368421052632,
+    "natural_win_rate": 0,
+    "observed": 2,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 2,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 2
+    },
+    "statuses": {
+      "complete": 2
+    }
+  },
+  "uct_narrow|fixed_astra|ffa4|100": {
+    "blocks": 1,
+    "candidate": "uct_narrow",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 0.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 1,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 100,
+    "interval95": [
+      0.0,
+      0.0
+    ],
+    "mean_action_ms": 382.88317757009344,
+    "natural_win_rate": 0,
+    "observed": 4,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 4
+    },
+    "statuses": {
+      "complete": 4
+    }
+  },
+  "uct_narrow|fixed_astra|ffa4|30": {
+    "blocks": 1,
+    "candidate": "uct_narrow",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": -0.375,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.75,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 30,
+    "interval95": [
+      -0.375,
+      -0.375
+    ],
+    "mean_action_ms": 506.1194539249147,
+    "natural_win_rate": 0.25,
+    "observed": 4,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 4
+    },
+    "statuses": {
+      "complete": 4
+    }
+  },
+  "uct_narrow|fixed_astra|team2v2|100": {
+    "blocks": 1,
+    "candidate": "uct_narrow",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 0.5,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.25,
+    "fault_games": 0,
+    "format": "team2v2",
+    "horizon": 100,
+    "interval95": [
+      0.5,
+      0.5
+    ],
+    "mean_action_ms": 616.849517490953,
+    "natural_win_rate": 0.75,
+    "observed": 8,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 8,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_team": 8
+    },
+    "statuses": {
+      "complete": 8
+    }
+  },
+  "uct_narrow|fixed_astra|team2v2|30": {
+    "blocks": 1,
+    "candidate": "uct_narrow",
+    "cap_rate": 0.5,
+    "complete": true,
+    "difference": 0.25,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.25,
+    "fault_games": 0,
+    "format": "team2v2",
+    "horizon": 30,
+    "interval95": [
+      0.25,
+      0.25
+    ],
+    "mean_action_ms": 606.7316535433071,
+    "natural_win_rate": 0.375,
+    "observed": 8,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 8,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_team": 4,
+      "turn_limit": 4
+    },
+    "statuses": {
+      "complete": 8
+    }
+  },
+  "uct_v1|fixed_astra|duel|100": {
+    "blocks": 1,
+    "candidate": "uct_v1",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": -1.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 1,
+    "fault_games": 0,
+    "format": "duel",
+    "horizon": 100,
+    "interval95": [
+      -1.0,
+      -1.0
+    ],
+    "mean_action_ms": 565.238683127572,
+    "natural_win_rate": 0,
+    "observed": 2,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 2,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 2
+    },
+    "statuses": {
+      "complete": 2
+    }
+  },
+  "uct_v1|fixed_astra|duel|30": {
+    "blocks": 1,
+    "candidate": "uct_v1",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": 0.0,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.5,
+    "fault_games": 0,
+    "format": "duel",
+    "horizon": 30,
+    "interval95": [
+      0.0,
+      0.0
+    ],
+    "mean_action_ms": 632.7370517928287,
+    "natural_win_rate": 0.5,
+    "observed": 2,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 2,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 2
+    },
+    "statuses": {
+      "complete": 2
+    }
+  },
+  "uct_v1|fixed_astra|ffa4|100": {
+    "blocks": 1,
+    "candidate": "uct_v1",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": -0.25,
+    "distinct_scenarios": 1,
+    "elimination_rate": 1,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 100,
+    "interval95": [
+      -0.25,
+      -0.25
+    ],
+    "mean_action_ms": 404.0735930735931,
+    "natural_win_rate": 0,
+    "observed": 4,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 4
+    },
+    "statuses": {
+      "complete": 4
+    }
+  },
+  "uct_v1|fixed_astra|ffa4|30": {
+    "blocks": 1,
+    "candidate": "uct_v1",
+    "cap_rate": 0,
+    "complete": true,
+    "difference": -0.5833333333333334,
+    "distinct_scenarios": 1,
+    "elimination_rate": 1,
+    "fault_games": 0,
+    "format": "ffa4",
+    "horizon": 30,
+    "interval95": [
+      -0.5833333333333334,
+      -0.5833333333333334
+    ],
+    "mean_action_ms": 487.255230125523,
+    "natural_win_rate": 0,
+    "observed": 4,
+    "opponent": "fixed_astra",
+    "passed": false,
+    "planned": 4,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_leader": 4
+    },
+    "statuses": {
+      "complete": 4
+    }
+  },
+  "uct_v1|fixed_astra|team2v2|100": {
+    "blocks": 1,
+    "candidate": "uct_v1",
+    "cap_rate": 0.125,
+    "complete": true,
+    "difference": 0.125,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.5,
+    "fault_games": 0,
+    "format": "team2v2",
+    "horizon": 100,
+    "interval95": [
+      0.125,
+      0.125
+    ],
+    "mean_action_ms": 589.9366895499619,
+    "natural_win_rate": 0.5,
+    "observed": 8,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 8,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_team": 7,
+      "turn_limit": 1
+    },
+    "statuses": {
+      "complete": 8
+    }
+  },
+  "uct_v1|fixed_astra|team2v2|30": {
+    "blocks": 1,
+    "candidate": "uct_v1",
+    "cap_rate": 0.5,
+    "complete": true,
+    "difference": 0.5,
+    "distinct_scenarios": 1,
+    "elimination_rate": 0.125,
+    "fault_games": 0,
+    "format": "team2v2",
+    "horizon": 30,
+    "interval95": [
+      0.5,
+      0.5
+    ],
+    "mean_action_ms": 633.6378125,
+    "natural_win_rate": 0.5,
+    "observed": 8,
+    "opponent": "fixed_astra",
+    "passed": true,
+    "planned": 8,
+    "planned_blocks": 1,
+    "reasons": {
+      "last_team": 4,
+      "turn_limit": 4
+    },
+    "statuses": {
+      "complete": 8
+    }
+  }
+}
