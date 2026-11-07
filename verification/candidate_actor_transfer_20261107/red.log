@@ -1,0 +1,23 @@
+test_old_bc_actor_initializes_fresh_task_without_inheriting_training_state (tests.v5.test_finite_score_identity.FiniteScoreIdentityTests.test_old_bc_actor_initializes_fresh_task_without_inheriting_training_state) ... ERROR
+
+======================================================================
+ERROR: test_old_bc_actor_initializes_fresh_task_without_inheriting_training_state (tests.v5.test_finite_score_identity.FiniteScoreIdentityTests.test_old_bc_actor_initializes_fresh_task_without_inheriting_training_state)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/candidate_actor_red_20261107/tests/v5/test_finite_score_identity.py", line 119, in test_old_bc_actor_initializes_fresh_task_without_inheriting_training_state
+    runner = FormatExperiment(child/'duel', 'duel', run.manifest, run.clock, collector, resume=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/acceptance/candidate_actor_red_20261107/learning/experiment.py", line 217, in __init__
+    self.model,loaded=load_model(self.directory/'latest.pt',fmt,self.device)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/acceptance/candidate_actor_red_20261107/learning/export.py", line 85, in load_model
+    state = validate_checkpoint(torch.load(checkpoint, map_location=device, weights_only=False), format_name)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/acceptance/candidate_actor_red_20261107/learning/checkpoints.py", line 82, in validate_checkpoint
+    raise ValueError('checkpoint feature schema does not match this engine')
+ValueError: checkpoint feature schema does not match this engine
+
+----------------------------------------------------------------------
+Ran 1 test in 0.397s
+
+FAILED (errors=1)

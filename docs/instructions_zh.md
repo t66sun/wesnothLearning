@@ -202,7 +202,7 @@ test -f "$run_dir/manifest.json" || exit 1
 
 要使用兼容父运行的权重和监督语料开始新的 BC 阶段，可运行 `python -m learning run --run-dir CHILD --branch-from PARENT --branch-restart-bc --branch-reset-optimizer --phase bc`，传入与父运行一致的赛制、引擎和训练回合上限。父运行须处在已提交的批次边界。子运行使用自己的种子和预算，从校准开始，以原验证分区评估首次更新的模型。
 
-以旧 BC actor 初始化新有限任务时，使用 `python -m learning run --run-dir CHILD --branch-from PARENT --branch-weights-only --branch-checkpoint last_bc --phase bc --formats duel --human-data EMPTY_OR_COMPATIBLE_DIRECTORY`，保留父运行的引擎和规则，并传入另行授权的预算和种子。仅权重初始化允许父运行赛制的非空子集，普通分支仍要求完整相同赛制集合。省略 `--branch-checkpoint` 则选择 `latest`。程序记录来源路径/哈希，重置价值头和优化器，从空训练状态、全新门禁与校准开始，不继承父语料和 BC 资格。普通 PPO 前需取得新任务的合格 BC 端点；后续同任务分支可复用兼容监督语料。仅在另行指令授权后启动。任务/回合上限变化不构成 warm-start actor 的独立验证集，实验设计需审计其历史地图/场景暴露。
+以旧 BC actor 初始化新有限任务时，使用 `python -m learning run --run-dir CHILD --branch-from PARENT --branch-weights-only --branch-checkpoint last_bc --phase bc --formats duel --human-data EMPTY_OR_COMPATIBLE_DIRECTORY`，保留父运行的引擎和规则，并传入另行授权的预算和种子。仅权重初始化允许父运行赛制的非空子集，普通分支仍要求完整相同赛制集合。省略 `--branch-checkpoint` 则选择 `latest`。程序记录来源路径/哈希，重置价值头和优化器，从空训练状态、全新门禁与校准开始，不继承父语料和 BC 资格。普通 PPO 前需取得新任务的合格 BC 端点；后续同任务分支可复用兼容监督语料。仅在另行指令授权后启动。任务/回合上限变化不构成 warm-start actor 的独立验证集，实验设计需审计其历史地图/场景暴露。 当架构和其余特征字段完全一致时，同一显式流程可用固定身份的 v8 actor 初始化 v10。
 
 以下入口用于与当前 schema/源码匹配的新实验。旧 schema 4 的已结束实验不能用 schema 5 直接恢复。默认 `run` 仍是 auto 一键流程；只做 BC 时创建实验加 `--phase bc`，BC 达标或阶段预算结束后保存为 `bc_complete`，不自动开始 PPO/最终评测。
 

@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/candidate_actor_green_20261107/verification/candidate_actor_transfer_20261107/startup.py", line 70, in <module>
+    main()
+  File "/home/tongshu/acceptance/candidate_actor_green_20261107/verification/candidate_actor_transfer_20261107/startup.py", line 38, in main
+    experiment = Experiment(args.child, config=config, branch_from=parent)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/acceptance/candidate_actor_green_20261107/learning/coordinator.py", line 120, in __init__
+    self.directory=output_path(directory);self.resume=resume;self.branch_from=branch_from
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/acceptance/candidate_actor_green_20261107/learning/manifest.py", line 19, in output_path
+    raise ValueError('output must be inside WesnothLearning: '+str(path))
+ValueError: output must be inside WesnothLearning: /home/tongshu/acceptance/candidate_actor_startup_child_20261107
