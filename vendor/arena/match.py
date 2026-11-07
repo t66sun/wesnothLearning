@@ -16,6 +16,7 @@ import addons
 import native
 import params as P
 import teams as team_rules
+from query_clock import QueryClock
 
 
 def rank_points(players, survivors, eliminated, faults):
@@ -65,7 +66,7 @@ def seat_budgets(values, players):
 def play_game(bots, seed=1, factions=None, timeout=P.ACTION_TIMEOUT, first_timeout=P.FIRST_TIMEOUT,
               max_turns=P.MAX_TURNS, lenient=False, replay_path=None, fog=True, wesnoth=None,
               visible=False, human_side=0, learning=None, experiment_deadline=None, map_override=None, teams=None,
-              shroud=False,share_view=True,share_maps=True,seat_timeouts=None):
+              shroud=False,share_view=True,share_maps=True,seat_timeouts=None,seat_entries=None):
     n = len(bots)
     teams = team_rules.validate(teams, n)
     if (n not in P.PLAYERS and not (map_override and 2 <= n <= 9)) or not 0 <= seed <= 0xffffffff or max_turns < 1:
@@ -96,6 +97,7 @@ def play_game(bots, seed=1, factions=None, timeout=P.ACTION_TIMEOUT, first_timeo
     turn = 0
     calls = 0
     active = None
+    query_clock = QueryClock()
     deadline = started + P.STARTUP_TIMEOUT
     result = None
     with ExitStack() as stack:
@@ -119,11 +121,15 @@ def play_game(bots, seed=1, factions=None, timeout=P.ACTION_TIMEOUT, first_timeo
             if teacher:
                 teacher_addon=stack.enter_context(addons.open_addon(teacher))
                 teacher_id=addons.validate(teacher_addon)
-                if teacher_id!='gpt6astra': raise ValueError('DAgger teacher must be frozen Astra')
+                spec=learning.get('dagger_spec')
+                if spec:
+                    if spec['teacher']!=teacher_id or not spec['entry'].startswith('~add-ons/'+teacher_id+'/lua/'):
+                        raise ValueError('DAgger teacher entry differs from installed package')
+                elif teacher_id!='gpt6astra': raise ValueError('DAgger teacher requires a frozen descriptor')
                 shutil.copytree(teacher_addon,addondir/teacher_id,dirs_exist_ok=True)
                 preinstalled[str(Path(teacher).resolve())]=teacher_id
                 for item in config['learning'].values():
-                    if not item.get('teacher'): item['dagger_entry']='~add-ons/gpt6astra/lua/bot.lua'
+                    if not item.get('teacher'): item['dagger_entry']=spec['entry'] if spec else '~add-ons/gpt6astra/lua/bot.lua'
         (runtime/'_main.cfg').write_text(native.scenario(config,factions,human_side), encoding='utf-8')
         command = [exe,'--userdata-dir',str(user),'--usercache-dir',str(user/'cache'),
             '--multiplayer','--scenario=arena_native','--era=era_default',
@@ -150,7 +156,10 @@ def play_game(bots, seed=1, factions=None, timeout=P.ACTION_TIMEOUT, first_timeo
                 name = copied[key]
                 labels.append(name)
                 cfg = runtime/f'side{s}.cfg'
-                cfg.write_text(native.contestant_ai(f'~add-ons/{name}/lua/bot.lua',s),encoding='utf-8')
+                entry=(seat_entries or {}).get(str(s),f'~add-ons/{name}/lua/bot.lua')
+                if not entry.startswith(f'~add-ons/{name}/lua/'):
+                    raise ValueError('teacher entry differs from contestant package')
+                cfg.write_text(native.contestant_ai(entry,s),encoding='utf-8')
                 command += ['--controller',f'{s}:ai','--ai-config',f'{s}:~add-ons/arena_runtime/side{s}.cfg']
             command += ['--side',f'{s}:{factions[s-1]}','--parm',f'{s}:type:{P.LEADERS[P.FACTIONS.index(factions[s-1])]}']
         messages = queue.Queue(maxsize=4096)
@@ -212,7 +221,14 @@ def play_game(bots, seed=1, factions=None, timeout=P.ACTION_TIMEOUT, first_timeo
                         deadline=now+(86400 if side==human_side else P.OFFICIAL_TIMEOUT)
                     elif kind=='CALL':
                         side=event['side'];active='candidate evaluation/execution';calls+=1
+                        query_clock = QueryClock()
                         deadline=now+float(event['budget'])
+                    elif kind=='QUERY':
+                        deadline=query_clock.begin(deadline,now,float(event['budget']))
+                        active='teacher query'
+                    elif kind=='QUERY_RETURN':
+                        deadline=query_clock.end(deadline,now)
+                        active='candidate evaluation/execution'
                     elif kind=='RETURN':
                         active=None;deadline=now+P.OFFICIAL_TIMEOUT
                     elif kind=='FAULT': faults[event['side']]=event['reason']

@@ -24,6 +24,13 @@ function M:evaluation(cfg, data)
     s.budget = s.first and limits.first_timeout or limits.timeout
     s.was_first=s.first
     s.started = wesnoth.ms_since_init()
+    data.teacher_query_ms=0
+    data.teacher_query_begin=function(budget,first)
+        judge.emit('QUERY',{side=side,budget=budget,first=first})
+    end
+    data.teacher_query_end=function(elapsed)
+        judge.emit('QUERY_RETURN',{side=side,elapsed_ms=elapsed})
+    end
     judge.emit('CALL', {side=side, phase='evaluation', budget=s.budget, first=s.first})
     local ok, score = pcall(function()
         if s.calls > options.max_actions then error('candidate-action limit exceeded') end
@@ -48,11 +55,11 @@ function M:evaluation(cfg, data)
         return score
     end)
     s.first = false
-    if wesnoth.ms_since_init()-s.started > s.budget*1000 then return fail(s,'candidate evaluation timeout') end
+    if wesnoth.ms_since_init()-s.started-(data.teacher_query_ms or 0) > s.budget*1000 then return fail(s,'candidate evaluation timeout') end
     if not ok then return fail(s,score) end
     if type(score)~='number' or score~=score or score<0 or score>1000000 then return fail(s,'evaluation score must be finite and in [0,1000000]') end
     if score==0 then judge.emit('RETURN', {side=side, phase='evaluation', score=score,
-        elapsed_ms=wesnoth.ms_since_init()-s.started,budget=s.budget,first=s.was_first}) end
+        elapsed_ms=wesnoth.ms_since_init()-s.started,query_ms=data.teacher_query_ms,budget=s.budget,first=s.was_first}) end
     return score
 end
 
@@ -88,10 +95,10 @@ function M:execution(cfg, data)
         end
         for name,original in pairs(originals) do ai[name]=original end
         if not ok then s.error=tostring(message) end
-        if wesnoth.ms_since_init()-s.started > s.budget*1000 then s.error='candidate-action timeout' end
+        if wesnoth.ms_since_init()-s.started-(data.teacher_query_ms or 0) > s.budget*1000 then s.error='candidate-action timeout' end
     end
     judge.emit('RETURN', {side=side, phase='execution',elapsed_ms=wesnoth.ms_since_init()-s.started,
-        budget=s.budget,first=s.was_first})
+        query_ms=data.teacher_query_ms,budget=s.budget,first=s.was_first})
     if s.error then
         s.disabled=true
         judge.disqualify(side,s.error)

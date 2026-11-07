@@ -1,0 +1,19 @@
+test_frozen_duel_query_leaves_public_battle_state_unchanged (tests.test_native_teacher_query_rpc.NativeTeacherQueryRpcTests.test_frozen_duel_query_leaves_public_battle_state_unchanged) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 1.151s
+
+OK
+{"case": "duel-control", "faults": {}, "seconds": 1.0987}
+{"case": "duel-query", "faults": {}, "seconds": 1.1344}
+{"case": "duel-hidden", "faults": {}, "seconds": 1.1327}
+{"case": "duel-collector", "rows": 6, "coverage": {"total": 6, "matched": 5, "all_actions": 6, "all_matched": 5, "kinds": {"recruit": {"total": 5, "matched": 4}, "move": {"total": 0, "matched": 0}, "attack": {"total": 0, "matched": 0}, "end_turn": {"total": 1, "matched": 1}}, "reasons": {"recruit:slot_absent": 1}}}
+{"case": "ffa4-control", "faults": {}, "seconds": 1.0962}
+{"case": "ffa4-query", "faults": {}, "seconds": 1.0954}
+{"case": "ffa4-hidden", "faults": {}, "seconds": 1.0962}
+{"case": "ffa4-collector", "rows": 8, "coverage": {"total": 8, "matched": 8, "all_actions": 8, "all_matched": 8, "kinds": {"recruit": {"total": 6, "matched": 6}, "move": {"total": 1, "matched": 1}, "attack": {"total": 0, "matched": 0}, "end_turn": {"total": 1, "matched": 1}}, "reasons": {}}}
+{"case": "team2v2-control", "faults": {}, "seconds": 1.1058}
+{"case": "team2v2-query", "faults": {}, "seconds": 1.194}
+{"case": "team2v2-hidden", "faults": {}, "seconds": 1.1951}
+{"case": "team2v2-collector", "rows": 6, "coverage": {"total": 6, "matched": 6, "all_actions": 6, "all_matched": 6, "kinds": {"recruit": {"total": 5, "matched": 5}, "move": {"total": 0, "matched": 0}, "attack": {"total": 0, "matched": 0}, "end_turn": {"total": 1, "matched": 1}}, "reasons": {}}}
+{"case": "watchdog", "expected_fault": {"1": "watchdog timeout: teacher query"}}

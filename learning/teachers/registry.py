@@ -170,7 +170,9 @@ def adapter_digest(engine):
     paths = (['learning/lite_host.py', 'engine_lite/src/lib.rs', 'engine_lite/src/host.rs',
               'engine_lite/lua/host.lua'] if engine == 'lite' else
              ['learning/sample.py', 'learning/collector.lua', 'lua/teacher.lua',
-              'vendor/arena/match.py', 'vendor/arena/runtime/candidate.lua'])
+              'learning/native_transport.py', 'learning/native_rpc.lua',
+              'vendor/arena/match.py', 'vendor/arena/runtime/candidate.lua', 'vendor/arena/query_clock.py'])
+    paths = [*paths, 'learning/teachers/runtime.py', 'lua/teacher_memory.lua']
     digest = hashlib.sha256()
     for name in paths:
         path = ROOT / name

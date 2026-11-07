@@ -137,6 +137,14 @@ class NativeTransport:
             self.spec = copy.deepcopy(game_spec)
             if not 0 <= int(self.spec.get('seed', 1)) <= 0xffffffff or int(self.spec.get('max_turns', 30)) < 1:
                 raise ValueError('native seed must be uint32 and turn limit positive')
+            teacher_spec = self.spec.get('teacher_spec')
+            if teacher_spec:
+                from .teachers.registry import describe, module_sources
+                from .formats import infer_format
+                teams = [s.get('team', s['id']) for s in self.spec['sides']]
+                fmt = infer_format(dict(bots=self.spec['sides'], teams=teams if len(set(teams)) < len(teams) else None))
+                if teacher_spec != describe(teacher_spec['package'], fmt):
+                    raise ValueError('native query teacher differs from frozen descriptor')
             self.commands = []
             self.serial = 0
             self.result = None
@@ -159,6 +167,11 @@ class NativeTransport:
             for name, source in host_modules().items():
                 if name.startswith('astra/'):
                     (astra_dir / name.split('/', 1)[1]).write_bytes(source.encode('utf-8'))
+            if teacher_spec:
+                for name, source in module_sources(teacher_spec).items():
+                    target = addondir/name.removeprefix('~add-ons/')
+                    target.parent.mkdir(parents=True, exist_ok=True)
+                    target.write_bytes(source.encode('utf-8'))
             if self.spec.get('differential_probe'):
                 shutil.copyfile(ROOT / 'engine_lite/lua/differential_probe.lua', addon / 'differential_probe.lua')
             for source in (ROOT / 'lua').glob('*.lua'):
@@ -198,9 +211,11 @@ location="~add-ons/LearningNativeRPC/native_rpc.lua"
 ''', encoding='utf-8')
                 command += ['--controller', f'{number}:ai', '--ai-config', f'{number}:~add-ons/LearningNativeRPC/side{number}.cfg']
             source_files = [Path(__file__), Path(__file__).with_name('native_rpc.lua'), ROOT / 'data/opponents/gpt6astra.zip', *sorted((ROOT / 'lua').glob('*.lua'))]
+            if teacher_spec:
+                source_files.append(Path(teacher_spec['package']))
             if self.spec.get('differential_probe'):
                 source_files.append(ROOT / 'engine_lite/lua/differential_probe.lua')
-            self.source_hash = _hash({str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
+            self.source_hash = _hash({str(p.relative_to(ROOT)) if p.is_relative_to(ROOT) else p.name: hashlib.sha256(p.read_bytes()).hexdigest()
                 for p in source_files})
             self.executable_hash = hashlib.sha256(Path(self.executable).read_bytes()).hexdigest()
             try:
@@ -278,8 +293,19 @@ location="~add-ons/LearningNativeRPC/native_rpc.lua"
             temporary.write_text('return ' + native.lua(command) + '\n', encoding='utf-8')
             temporary.replace(self.command_path)
             deadline = time.monotonic() + self.timeout
+            from query_clock import QueryClock
+            query_clock = QueryClock()
             try:
                 response = self._receive(deadline)
+                while response.get('kind') in ('QUERY', 'QUERY_RETURN'):
+                    if response.get('id') != self.serial:
+                        raise NativeTransportError('native query sequence mismatch')
+                    now = time.monotonic()
+                    if response['kind'] == 'QUERY':
+                        deadline = query_clock.begin(deadline, now, response['payload']['budget'])
+                    else:
+                        deadline = query_clock.end(deadline, now)
+                    response = self._receive(deadline)
                 if response['kind'] == 'RESULT':
                     raise NativeTransportError('native game ended before the requested operation completed')
                 if response.get('id') != self.serial or response['kind'] not in ('OBS', 'ACTIONS', 'DECISION', 'OUTCOME'):

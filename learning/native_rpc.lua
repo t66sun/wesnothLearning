@@ -4,6 +4,7 @@ local O=wesnoth.require '~add-ons/LearningNativeRPC/lua/observation.lua'
 local C=wesnoth.require '~add-ons/LearningNativeRPC/lua/candidates.lua'
 local S=wesnoth.require '~add-ons/LearningNativeRPC/lua/spatial.lua'
 local W=wesnoth.require '~add-ons/LearningNativeRPC/lua/rewards.lua'
+local T=wesnoth.require '~add-ons/LearningNativeRPC/lua/teacher.lua'
 local judge=wesnoth.require '~add-ons/arena_runtime/runtime.lua'
 local session=rawget(_G,'__learning_native_rpc')
 if not session then session=wesnoth.dofile '~add-ons/LearningNativeRPC/session.lua';rawset(_G,'__learning_native_rpc',session) end
@@ -86,23 +87,19 @@ local function candidates(side)
 end
 local function teacher(obs,requested)
     session.teacher_memories=session.teacher_memories or {}
-    local ledger=session.teacher_memories[obs.side] or {owners={},home={}}
-    session.teacher_memories[obs.side]=ledger
-    for _,u in ipairs(obs.own) do if not ledger.home[u.id] then ledger.home[u.id]={u.x,u.y} end end
-    for key,owner in pairs(obs.memory.villages or {}) do
-        local x,y=key:match('^(%d+),(%d+)$')
-        if x then ledger.owners[tonumber(x)*1000+tonumber(y)]=owner end
-    end
+    local data=session.teacher_memories[obs.side] or {}
+    session.teacher_memories[obs.side]=data
+    T.observe(data,obs)
     if not requested then return nil end
     local strategy=#wesnoth.sides==2 and 'duel' or #wesnoth.sides==4 and 'four' or nil
-    assert(strategy,'Astra native host supports two/four player games')
-    local astra=wesnoth.require('~add-ons/gpt6astra/lua/'..strategy..'.lua')
-    local probe=copy(ledger)
-    local started=wesnoth.ms_since_init()
-    local ok,reason=pcall(astra.evaluation,astra,{},probe)
-    local elapsed=wesnoth.ms_since_init()-started
-    if not ok then return nil,tostring(reason),elapsed end
-    return copy(probe.plan or {kind='end_turn'}),nil,elapsed
+    assert(strategy,'native teacher host supports two/four player games')
+    local spec=session.spec.teacher_spec
+    local training={dagger_entry=spec and spec.entry or '~add-ons/gpt6astra/lua/'..strategy..'.lua',
+        dagger_timeout=spec and spec.timeout or 1,dagger_first_timeout=spec and spec.first_timeout or 10}
+    data.teacher_query_begin=function(budget,first) emit('QUERY',{budget=budget,first=first}) end
+    data.teacher_query_end=function(elapsed) emit('QUERY_RETURN',{elapsed_ms=elapsed}) end
+    local plan,result=T.plan(data,training)
+    return plan,result.error,result.query_ms
 end
 local function primitive(candidate,obs)
     if candidate.kind=='end_turn' then return {kind='end_turn'} end
