@@ -42,6 +42,7 @@ data/                captured inputs, provisioned rather than authored
 runs/<run>/          per-run manifests, per-format training state and control events
 verification/        dated evidence at fixed paths; excluded from the source package
 delivery/            explicitly exported model packages and manifests
+archive/             archived miscellaneous files; agents should ignore its contents
 tmp/                 scratch space; nothing here is evidence
 ```
 
