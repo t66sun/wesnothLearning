@@ -1,4 +1,4 @@
-"""A coverage miss names the retention stage that lost the teacher's intent.
+"""Coverage reports the final-set miss and, when observed, proposal support.
 
 The gate folds two failures into one verdict today: whether the intent survived
 candidate retention and whether the policy ranked what it did receive.  These
@@ -67,6 +67,58 @@ class IntentContractTests(unittest.TestCase):
 
 
 class CoverageReasonTests(unittest.TestCase):
+    def test_proposal_support_and_policy_use_on_frozen_public_boards(self):
+        import json
+
+        from _engine_lite import LiteEngine
+        from learning.lite_host import _lua, host_modules, teacher_candidate
+        from learning.rules_catalog import resolve_dir
+        from tests.v5.test_candidate_recruit_positions import recruitment_case
+        from tests.v5.test_candidate_weapon_retention import combat_slots
+
+        rules_text = (resolve_dir() / 'rules.json').read_text()
+        rules = json.loads(rules_text)
+        combat = combat_slots(rules)
+        recruits = recruitment_case(rules)
+        melee = dict(kind='combat', x=9, y=3, tx=9, ty=3, ex=9, ey=4, weapon=1)
+        ranged = dict(melee, weapon=2)
+        unproposed = dict(kind='recruit', type='Mage', x=2, y=2)
+        lower = dict(unproposed, x=4)
+        observations = []
+        for spec, plan, proposed, retained, take_teacher in (
+                (combat, melee, True, False, False),
+                (combat, ranged, True, True, False),
+                (recruits, unproposed, False, False, False),
+                (recruits, lower, True, True, True)):
+            modules = host_modules()
+            # Query a fixed legal Astra-shaped intent on the ordinary host path.
+            modules['astra/duel.lua'] = 'return {evaluation=function(self, cfg, data) data.plan=' + _lua(plan) + ' end}'
+            game = LiteEngine(rules_text, json.dumps(spec))
+            game.configure_host(json.dumps(modules))
+            row = json.loads(game.decision(1, teacher=True))
+            self.assertEqual(row['teacher_action'], plan)
+            self.assertIs(row.get('teacher_proposed'), proposed)
+            self.assertNotIn('teacher_proposed', json.loads(game.decision(1, teacher=True, generate_candidates=False)))
+            action = teacher_candidate(plan)
+            index = matching(row['candidates'], action)
+            self.assertEqual(index >= 0, retained)
+            self.assertNotIn('_coverage_kind', row['candidates'][max(0, index)])
+            choice = index if take_teacher else 0
+            observations.append((action, proposed, index, choice, row['candidate_support']))
+
+        from learning.coverage import record_candidate_use, record_teacher_support
+        counts = {}
+        for action, proposed, index, choice, tagged in observations:
+            record_teacher_support(counts, 'dagger', action, proposed, index, choice)
+            record_candidate_use(counts, tagged, choice)
+        self.assertEqual(counts['teacher_support'], {
+            'dagger:attack:truncated': 1, 'dagger:attack:retained_not_selected': 1,
+            'dagger:recruit:not_proposed': 1, 'dagger:recruit:selected': 1})
+        self.assertEqual(counts['candidate_use'], dict(decisions=4,
+            offered=dict(weapon_replacement=2, low_exposure_recruit=2), selected=dict(low_exposure_recruit=1)))
+        self.assertEqual(coverage_gate([{'coverage': counts}, {'coverage': {'total': 3}}])['teacher_support'],
+                         counts['teacher_support'])
+
     def _buffer(self):
         buffer = TrajectoryBuffer()
         buffer.append(dict(choice=0, candidates=[dict(RECRUIT)], actual=dict(RECRUIT)))
