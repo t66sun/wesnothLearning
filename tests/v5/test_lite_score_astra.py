@@ -97,9 +97,15 @@ class ScoreAstraTests(unittest.TestCase):
     def test_query_and_bootstrap_decisions_get_full_candidates(self):
         job = self.fixture.four_seat_job(id='query-bootstrap', bootstrap_policy=lambda row: 0.5,
             learning=dict(sides={'1':{}},version='v5-test',dagger_teacher='data/opponents/gpt6astra.zip'))
+        # This case tests a surviving learner's external cut. Elimination has
+        # its own terminal target and must never acquire a bootstrap value.
+        for unit in job['game_spec']['units']:
+            if unit['side']==1 and unit['leader']:
+                unit.update(hp=1000,resolved_max_hp=1000)
         job['meta']['phase'] = 'ppo'
         _, _, result, _ = self.replay(job)
         self.assertTrue(result['result']['truncated'])
+        self.assertIn(1,result['result']['survivors'])
         self.assertEqual({c['side'] for c in self.calls if c['compact']}, {2,3,4})
         queries = [c['student'] for c in self.queries if c['side']==1]
         self.assertTrue(queries)
