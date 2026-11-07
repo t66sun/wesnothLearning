@@ -21,6 +21,7 @@ evidence = f'{base}/verification/teacher_integration_20261107'
 tree = f'{evidence}/sources/{name}'
 report = f'{evidence}/checks/{name}'
 archive = ROOT/'.ops/teacher_integration'/f'{name}.tar'
+archive.parent.mkdir(parents=True,exist_ok=True)
 paths = subprocess.check_output(['git', 'ls-tree', '--name-only', '-z', commit], cwd=ROOT).decode().split('\0')
 paths = [path for path in paths if path and path != 'verification']
 subprocess.run(['git', 'archive', '--format=tar', f'--output={archive}', commit, '--', *paths], cwd=ROOT, check=True)

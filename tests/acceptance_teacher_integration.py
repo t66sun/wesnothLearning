@@ -96,17 +96,21 @@ def validate_design(jobs):
 
 
 def audit_rows(job):
-    from learning.rowpack import unpack_line
+    from learning.rowpack import unpack_line,plain_row
+    from hashlib import sha256 as digest
     from learning.teachers.registry import execution_identity
     from learning.teachers.provenance import validate_identity
     from learning.data import validate_record
     from learning.coverage import matching
-    result=dict(rows=0,valid=0,unmatched=0,dagger_rows=0,dagger_valid=0,errors=[])
+    result=dict(rows=0,valid=0,unmatched=0,dagger_rows=0,dagger_valid=0,dagger_queries=0,errors=[])
     path=Path(job['shard'])
     is_bc=job['meta']['phase']=='teacher'
     files=[(path,is_bc,False)]
     if not is_bc:files.append((path.with_name(path.name.replace('.jsonl.gz','.dagger.jsonl.gz')),True,True))
     expected=execution_identity(job['teacher_roles']['supervision'],job['engine'])
+    history=[]
+    context_keys=('game_id','game_family','scenario_family','side','turn','decision','task_id',
+                  'global','opponents','spatial','candidates','memory_write')
     for source,teacher,dagger in files:
         if not source.exists():
             result['errors'].append('missing shard '+str(source));continue
@@ -115,7 +119,16 @@ def audit_rows(job):
                 row=unpack_line(line)[0];choice=row.get('choice',-1)
                 key='dagger_rows' if dagger else 'rows';result[key]+=1
                 try:
+                    if row.get('game_id')!=job['id'] or row.get('task_id')!=TASK_ID or row.get('side')!=job['meta']['seat']:
+                        raise ValueError('row differs from its frozen task or focal seat')
+                    public=digest(json.dumps(plain_row({k:row.get(k) for k in context_keys}),sort_keys=True).encode()).hexdigest()
+                    if dagger:
+                        if result[key]>len(history) or history[result[key]-1]!=public:
+                            raise ValueError('DAgger public history differs from student history')
+                        if row.get('teacher_query'):result['dagger_queries']+=1
+                    else:history.append(public)
                     if teacher:
+                        if row.get('source')!='teacher':raise ValueError('teacher row is in the wrong source category')
                         validate_identity(row,job['format'])
                         if any(row.get(k)!=v for k,v in expected.items()):raise ValueError('wrong teacher')
                     elif row.get('source')!='policy' or row.get('teacher_contract'):
@@ -132,6 +145,7 @@ def audit_rows(job):
                 except (ValueError,KeyError,IndexError) as exc:
                     result['errors'].append(str(exc))
     if not is_bc and result['rows']!=result['dagger_rows']:result['errors'].append('DAgger history length differs')
+    if not result['rows']:result['errors'].append('empty student or teacher shard')
     return result
 
 
@@ -148,8 +162,14 @@ def summarize(output,manifest,jobs,results,finished):
                     for r in records if r['status']!='complete' or r.get('result',{}).get('faults')]
             queries=[r.get('teacher_queries',{}) for r in records]
             errors=[e for a in audits.values() for e in a['errors']]+[e for q in queries for e in q.get('errors',[])]
+            for j in planned:
+                if j['meta']['phase']!='ppo' or j['id'] not in audits:continue
+                audit=audits[j['id']];query=lookup[j['id']].get('teacher_queries',{})
+                if audit['dagger_valid']!=query.get('valid',0) or audit['dagger_queries']!=query.get('queries',0):
+                    errors.append(j['id']+': stored DAgger labels differ from query statistics')
             query_count=sum(q.get('queries',0) for q in queries)
             valid_queries=sum(q.get('valid',0) for q in queries)
+            stored_queries=sum(a['dagger_valid'] for a in audits.values())
             gate=coverage_gate(bc)
             valid=sum(a['valid'] for j in planned if j['meta']['phase']=='teacher' for a in [audits.get(j['id'],dict(valid=0))])
             valid+=sum(a['dagger_valid'] for a in audits.values())
@@ -160,7 +180,7 @@ def summarize(output,manifest,jobs,results,finished):
                 per_game_p95_query_ms={r['id']:r.get('teacher_queries',{}).get('p95_ms',0) for r in records},
                 valid_supervision=valid,valid_supervision_per_hour=valid/max(finished-manifest['started'],1e-9)*3600,
                 faults=faults,errors=errors,audits=audits,
-                passed=not faults and not errors and gate['passed'] and valid_queries>0 and len(audits)==8)
+                passed=not faults and not errors and gate['passed'] and valid_queries>0 and stored_queries>0 and len(audits)==8)
     summary=dict(source_commit=manifest['source_commit'],seconds=finished-manifest['started'],games=len(results),
                  cells=cells,passed=finished<=manifest['deadline'] and all(c['passed'] for c in cells.values()),
                  scope='integration only; no BC qualification, optimizer, corpus promotion or strength claim')

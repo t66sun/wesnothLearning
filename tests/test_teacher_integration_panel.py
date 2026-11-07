@@ -6,7 +6,7 @@ import unittest
 from unittest.mock import patch
 
 from learning.common import read_json
-from tests.acceptance_teacher_integration import prepare,validate_design,summarize
+from tests.acceptance_teacher_integration import prepare,validate_design,summarize,audit_rows
 
 
 class TeacherIntegrationPanelTests(unittest.TestCase):
@@ -29,6 +29,21 @@ class TeacherIntegrationPanelTests(unittest.TestCase):
             report=summarize(output,manifest,jobs,[],200.)
             self.assertFalse(report['passed'])
             self.assertTrue(all(cell['completed']==0 and not cell['passed'] for cell in report['cells'].values()))
+            for j in jobs:
+                Path(j['shard']).parent.mkdir(parents=True,exist_ok=True)
+            import gzip
+            ppo=next(j for j in jobs if j['meta']['phase']=='ppo')
+            for path in (ppo['shard'],ppo['shard'].replace('.jsonl.gz','.dagger.jsonl.gz')):
+                with gzip.open(path,'wt'):pass
+            self.assertIn('empty student or teacher shard',audit_rows(ppo)['errors'])
+            records=[dict(id=j['id'],status='complete',meta=j['meta'],result=dict(faults=[]),
+                coverage=dict(total=100,matched=100,kinds={k:dict(total=10,matched=10) for k in ('recruit','move','attack')}),
+                teacher_queries=dict(valid=1,queries=1) if j['meta']['phase']=='ppo' else {}) for j in jobs]
+            missing=dict(rows=1,valid=1,unmatched=0,dagger_rows=1,dagger_valid=0,dagger_queries=1,errors=[])
+            with patch('tests.acceptance_teacher_integration.audit_rows',return_value=missing):
+                report=summarize(output,manifest,jobs,records,200.)
+            self.assertFalse(report['passed'])
+            self.assertTrue(all(any('stored DAgger labels' in e for e in cell['errors']) for cell in report['cells'].values()))
             with self.assertRaises(FileExistsError):prepare(output)
 
 
