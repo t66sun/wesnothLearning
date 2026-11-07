@@ -40,20 +40,22 @@ def prepare(output,started=None):
         gate='each backend/format: four BC and four PPO/DAgger; full focal-seat coverage; '+
              'all complete, no faults/hard timeouts, correct identities/labels, nonzero valid DAgger, '+
              'BC action coverage >=90% overall and >=80% recruit/move/attack with nonzero counts')
-    students={}
+    students={};supports={}
     for index,fmt in enumerate(FORMATS):
         torch.manual_seed(SEED+index)
         model=Policy(fmt).eval();destination=output/'students'/fmt
         addon=export(model,destination,name='TestStudent'+fmt,mode='sample',package=False,version='fixed-test')
         torch.save(dict(model=model.state_dict(),features=schema(),architecture=ARCHITECTURE,format=fmt),destination/'model.pt')
         students[fmt]=str(addon)
+        supports[fmt]=str(export(model,output/'support'/fmt,name='LearningSupport',
+                                 package=False,version='fixed-test-support'))
     jobs=[]
     for engine in ('native','lite'):
         for fmt in FORMATS:
             runner=FormatExperiment.__new__(FormatExperiment)
             runner.fmt=fmt;runner.directory=output/engine/fmt
             runner.config=default_config(engine=engine);runner.config['allow_approximate']=True
-            runner.manifest=manifest;runner.support=students[fmt]
+            runner.manifest=manifest;runner.support=supports[fmt]
             runner.exe=str(ROOT/'.runtime/install/bin/wesnoth')
             runner.teachers=[roles.package(runner)];runner.native_fixed=roles.fixed(runner,'native');runner.fixed=roles.fixed(runner)
             from learning.tasks import reward_config
@@ -75,7 +77,8 @@ def prepare(output,started=None):
     jobs.sort(key=lambda j:(j['meta']['phase'],j['meta']['seat'],j['engine'],j['format'],j['id']))
     validate_design(jobs)
     write_json(output/'jobs.json',jobs)
-    manifest.update(schedule_sha256=sha256(output/'jobs.json'),students=tree_hashes(output/'students'))
+    manifest.update(schedule_sha256=sha256(output/'jobs.json'),students=tree_hashes(output/'students'),
+                    support=tree_hashes(output/'support'))
     write_json(output/'manifest.json',manifest)
     return manifest,jobs
 

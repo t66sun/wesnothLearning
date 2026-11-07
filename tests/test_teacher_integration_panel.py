@@ -19,6 +19,10 @@ class TeacherIntegrationPanelTests(unittest.TestCase):
             self.assertEqual(manifest['workers'],8)
             self.assertEqual(read_json(output/'jobs.json'),jobs)
             for job in jobs:
+                support=Path(job['learning']['support'])
+                self.assertEqual(support.name,'LearningSupport')
+                for module in (support/'lua').glob('*.lua'):
+                    self.assertNotIn('~add-ons/TestStudent',module.read_text(),module.name)
                 self.assertEqual(job['meta']['teacher_roles']['supervision']['teacher'],
                                  'gpt6astra' if job['format']=='ffa4' else 'selected_teacher')
                 self.assertEqual(job['reward_config']['explore'],0.)
