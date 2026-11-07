@@ -53,7 +53,8 @@ class NativeTeacherIntegrationTests(unittest.TestCase):
             contract = freeze_set(Path(directory)/'teachers', 'mixed-20261107')
             for fmt, roles in contract['formats'].items():
                 spec = roles['supervision']
-                job = dict(format=fmt, bots=[spec['package'], 'student', 'baseline'], teacher_roles=roles,
+                job = dict(format=fmt, bots=[spec['package'], 'student']+(['baseline']*2 if fmt!='duel' else []),
+                           teams=[1,2,1,2] if fmt=='team2v2' else None,teacher_roles=roles,
                            learning=dict(dagger_teacher=spec['package'], sides={'1': {'teacher': True}, '2': {'teacher': False}}))
                 prepared = prepare_job(job, 'native')
                 self.assertEqual(prepared['seat_timeouts'], {'1': {k: spec[k] for k in ('timeout', 'first_timeout')}})
@@ -67,6 +68,9 @@ class NativeTeacherIntegrationTests(unittest.TestCase):
                 wrong = copy.deepcopy(job)
                 wrong['learning']['dagger_teacher'] = 'another.zip'
                 with self.assertRaisesRegex(ValueError, 'supervision'): prepare_job(wrong, 'native')
+                wrong = copy.deepcopy(job)
+                wrong['format'] = 'ffa4' if fmt == 'duel' else 'duel'
+                with self.assertRaisesRegex(ValueError, 'actual seats'): prepare_job(wrong, 'native')
 
     def test_late_first_query_gets_its_own_budget_and_loading_is_included(self):
         lua = query_runtime()
@@ -93,6 +97,8 @@ class NativeTeacherIntegrationTests(unittest.TestCase):
     def test_public_memory_is_per_seat_and_retains_only_legal_history(self):
         lua = query_runtime()
         lua.execute('''
+            obs.memory.last_seen={transient={x=4,y=4,side=2,turn=1}}
+            obs.tiles['4,4']={terrain='Gg',visible=false}
             teacher.observe(data,obs)
             other={};teacher.observe(other,{side=2,own={},occupied={},memory={villages={}},tiles={}})
             obs.occupied['3,2']=nil;obs.tiles['3,2'].visible=false
@@ -104,6 +110,7 @@ class NativeTeacherIntegrationTests(unittest.TestCase):
         self.assertEqual(lua.eval('data.teacher_ledger.public.terrain[2002]'), 'Kh')
         self.assertIsNone(lua.eval('other.teacher_ledger.public.terrain[2002]'))
         self.assertIsNone(lua.eval('data.teacher_ledger.public.terrain[9009]'))
+        self.assertEqual(lua.eval('data.teacher_ledger.public.last_seen.transient.x'), 4)
 
     def test_candidate_clock_excludes_query_time_but_keeps_student_execution(self):
         lua = query_runtime()

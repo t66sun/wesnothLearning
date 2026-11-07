@@ -9,6 +9,9 @@ def resolve_job(job, engine):
     roles = job.get('teacher_roles')
     if roles is None:
         return {}, None
+    from ..formats import infer_format
+    if job['format'] != infer_format(job):
+        raise ValueError('job teacher format differs from the actual seats')
     if set(roles) != set(ROLES):
         raise ValueError('job teacher roles are incomplete')
     packages = {}

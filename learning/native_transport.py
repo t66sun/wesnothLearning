@@ -137,6 +137,14 @@ class NativeTransport:
             self.spec = copy.deepcopy(game_spec)
             if not 0 <= int(self.spec.get('seed', 1)) <= 0xffffffff or int(self.spec.get('max_turns', 30)) < 1:
                 raise ValueError('native seed must be uint32 and turn limit positive')
+            teacher_spec = self.spec.get('teacher_spec')
+            if teacher_spec:
+                from .teachers.registry import describe, module_sources
+                from .formats import infer_format
+                teams = [s.get('team', s['id']) for s in self.spec['sides']]
+                fmt = infer_format(dict(bots=self.spec['sides'], teams=teams if len(set(teams)) < len(teams) else None))
+                if teacher_spec != describe(teacher_spec['package'], fmt):
+                    raise ValueError('native query teacher differs from frozen descriptor')
             self.commands = []
             self.serial = 0
             self.result = None
@@ -159,11 +167,7 @@ class NativeTransport:
             for name, source in host_modules().items():
                 if name.startswith('astra/'):
                     (astra_dir / name.split('/', 1)[1]).write_bytes(source.encode('utf-8'))
-            teacher_spec = self.spec.get('teacher_spec')
             if teacher_spec:
-                from .teachers.registry import describe, module_sources
-                if teacher_spec != describe(teacher_spec['package'], teacher_spec['format']):
-                    raise ValueError('native query teacher differs from frozen descriptor')
                 for name, source in module_sources(teacher_spec).items():
                     target = addondir/name.removeprefix('~add-ons/')
                     target.parent.mkdir(parents=True, exist_ok=True)

@@ -60,7 +60,7 @@ def main():
             name = fmt+'-'+case
             folder = args.output/name
             bot = audit_bot(folder, queries, hidden)
-            job = prepare_job(dict(format=fmt, bots=[bot]+['baseline']*(players-1), teacher_roles=roles,
+            job = prepare_job(dict(format=fmt, bots=[bot]+['baseline']*(players-1), teams=teams,teacher_roles=roles,
                          learning=dict(support=shared, dagger_teacher=spec['package'], sides={'1': {'teacher': False}})), 'native')
             result = match.play_game(job['bots'], seed=713, teams=teams,
                         factions=['Loyalists', 'Northerners', 'Rebels', 'Drakes'][:players],

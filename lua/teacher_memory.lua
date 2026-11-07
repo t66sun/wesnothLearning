@@ -17,6 +17,11 @@ function M.observe(data,obs)
         if not data.home[u.id] then data.home[u.id]={u.x,u.y} end
         if u.canrecruit and not public.homes[u.id] then public.homes[u.id]={x=u.x,y=u.y} end
     end
+    -- Student execution also captures a legal post-action observation. Preserve
+    -- those sightings if they are hidden again before the next teacher query.
+    for id,seen in pairs(obs.memory.last_seen or {}) do
+        public.last_seen[id]={x=seen.x,y=seen.y,turn=seen.turn,side=seen.side}
+    end
     local visible={}
     for _,u in pairs(obs.occupied) do
         visible[u.id]=true
