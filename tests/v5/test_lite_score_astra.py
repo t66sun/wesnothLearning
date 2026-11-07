@@ -18,16 +18,17 @@ class ScoreAstraTests(unittest.TestCase):
 
     def replay(self, job):
         plans, outcomes, compact = [], [], []
-        self.calls = [];self.queries=[]
+        self.calls = [];self.queries=[];self.last_candidate_count=0
         decide, execute = LiteHost.decision, LiteHost.execute
         query=LiteHost.query_teacher
 
         def capture_query(host, side):
-            self.queries.append(dict(side=side,student=self.calls[-1]))
+            self.queries.append(dict(side=side,student=self.calls[-1],candidate_count=self.last_candidate_count))
             return query(host,side)
 
         def capture_plan(host, side, **options):
             row = decide(host, side, **options)
+            self.last_candidate_count=len(row.get('candidates',[]))
             self.calls.append(dict(side=side, teacher=options.get('teacher',False),
                                    generate=options.get('generate_candidates',True),
                                    compact=set(row)=={'teacher_action'}, budget='budget' in row.get('timing',{}),
@@ -126,7 +127,9 @@ class ScoreAstraTests(unittest.TestCase):
         labels = [row for row in pipeline.read_gzip(dagger_path) if row.get('query_only')]
         self.assertTrue(labels)
         self.assertLessEqual(len(labels),32)
-        self.assertTrue(any(len(row['candidates'])>1 and row['choice']>=0 for row in labels))
+        self.assertEqual([len(row['candidates']) for row in labels],
+                         [query['candidate_count'] for query in self.queries if query['side']==1])
+        self.assertTrue(any(row['choice']>=0 for row in labels))
         for row in labels:
             # A fully generated set can contain only end_turn after all units
             # have acted. The independent query preserves that exact set.
