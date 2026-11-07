@@ -1,0 +1,133 @@
+{
+  "architecture": {
+    "id": "relational_v5",
+    "unit_embedding": 16,
+    "entity_hidden": 64,
+    "entity_layers": 2,
+    "heads": 4,
+    "ffn": 128,
+    "spatial_size": 16,
+    "spatial_channels": 9,
+    "conv_channels": 16,
+    "local_hexes": 19,
+    "local_hidden": 32,
+    "gru": 128,
+    "memory_slots": 32,
+    "memory_hidden": 64,
+    "scorer_hidden": [
+      512,
+      256,
+      128
+    ],
+    "value_hidden": 128,
+    "replay_turns": 8
+  },
+  "initializer": {
+    "checkpoint_sha256": "05908d7f972148ccc7b39b8df0cc00435e2176861654a632de44c379b94953ab",
+    "manifest_sha256": "6de9d81858c71c41de505db2c445bae5229fa8587db7a6d3d66d2ebc3eab3c88",
+    "common_actor_sha256": "a2e7404d33e24bc47030734516b05d3c18dc26273c819ff7ecc60431f1c4da98",
+    "reset_value_sha256": "f6f87f880073b8630a3d2f0c1d1d8ad504080fbe3a23b291a2404b6bd69bf73f"
+  },
+  "parameters": 776178,
+  "rules_sha256": "e6b4f6200b0a8ad58a536b844fff37cfa9e0091bf0a0b702a8982155310f2f17",
+  "teacher": "2a216c96081990621dc15772e9de1bf40e4f5f451223fe52e5b20625464dc933",
+  "short_fixture_sha256": "c3d5b3dbbde3433b13d62e03d444efd37bb941e2e63fc4bc4f1c7cc252f015ae",
+  "shard": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/a3/duel/data/rollout-00050-duel-g2.jsonl.gz",
+  "shard_sha256": "8c06bd724362b3777723a4200d02d1310836f3d56cbcd3c65e24118878eeee1d",
+  "torch_version": "2.9.1+cpu",
+  "timings": {
+    "recruit_positions": {
+      "candidates": 17,
+      "entities": 3,
+      "turn": 1,
+      "history": 0,
+      "lite_ms": [
+        6.636003032326698,
+        6.426570005714893
+      ],
+      "lua_ms": [
+        67.54878209903836,
+        67.56595312617719
+      ],
+      "training": [
+        {
+          "forward_ms": 2.343808999285102,
+          "backward_ms": 2.2986880503594875,
+          "total_ms": 4.642497049644589
+        },
+        {
+          "forward_ms": 2.2318819537758827,
+          "backward_ms": 2.2604980040341616,
+          "total_ms": 4.492379957810044
+        }
+      ],
+      "decision": {
+        "choice": 12,
+        "log_probability": -0.19855223481200363,
+        "value": 0.025343015888548995
+      }
+    },
+    "combat_slots": {
+      "candidates": 37,
+      "entities": 33,
+      "turn": 1,
+      "history": 0,
+      "lite_ms": [
+        15.474765095859766,
+        15.297129983082414
+      ],
+      "lua_ms": [
+        134.64304502122104,
+        134.76596912369132
+      ],
+      "training": [
+        {
+          "forward_ms": 2.8142351657152176,
+          "backward_ms": 2.577488776296377,
+          "total_ms": 5.391723942011595
+        },
+        {
+          "forward_ms": 2.838615095242858,
+          "backward_ms": 2.5301699060946703,
+          "total_ms": 5.368785001337528
+        }
+      ],
+      "decision": {
+        "choice": 2,
+        "log_probability": -0.6720441000618624,
+        "value": 0.009324086076025986
+      }
+    },
+    "recorded_long": {
+      "candidates": 37,
+      "entities": 18,
+      "turn": 20,
+      "history": 19,
+      "lite_ms": [
+        4.7695760149508715,
+        4.793947096914053
+      ],
+      "lua_ms": [
+        121.02081906050444,
+        120.85290998220444
+      ],
+      "training": [
+        {
+          "forward_ms": 19.536064006388187,
+          "backward_ms": 12.070792028680444,
+          "total_ms": 31.60685603506863
+        },
+        {
+          "forward_ms": 19.524678122252226,
+          "backward_ms": 10.972220916301012,
+          "total_ms": 30.496899038553238
+        }
+      ],
+      "decision": {
+        "choice": 23,
+        "log_probability": -0.3734959321677804,
+        "value": 0.033686027808918856
+      }
+    }
+  }
+}
