@@ -30,7 +30,6 @@ def weights_sha256(state):
 
 
 def _endpoint(state, fmt):
-    from .teachers.provenance import metadata as teacher_metadata
     validate_checkpoint(state, fmt)
     runner = state.get('runner', {})
     history = runner.get('history', [])
@@ -44,7 +43,8 @@ def _endpoint(state, fmt):
                 manifest_sha256=state['manifest_sha256'], version=runner['version'],
                 task_id=state.get('task_id'),
                 weights_sha256=weights_sha256(state['model']),
-                teacher=teacher_metadata(state),
+                teacher={key: state.get(key) for key in ('teacher', 'teacher_profile',
+                         'teacher_source_sha256', 'teacher_parent_sha256')},
                 parent_lineage=copy.deepcopy(runner.get('lineage', [])),
                 parent_branch=copy.deepcopy(runner.get('branch')))
 
@@ -115,8 +115,7 @@ def ensure_anchor(runner):
         raise ValueError('frozen BC requires a complete qualifying last_bc.pt')
     state = torch.load(source, map_location='cpu', weights_only=False)
     endpoint = _endpoint(state, runner.fmt)
-    from .teachers.roles import identity as teacher_identity
-    teacher = teacher_identity(runner) or runner.manifest.get('teacher')
+    teacher = runner.manifest.get('teacher')
     if endpoint['manifest_sha256'] != sha256(runner.directory.parent / 'manifest.json'):
         lineage = branch_lineage(runner.directory) or {}
         inherited = lineage.get('checkpoints', {}).get(runner.fmt, {}).get('bc_endpoint', {})

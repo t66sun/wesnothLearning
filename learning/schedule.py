@@ -77,8 +77,8 @@ def evaluation_jobs(directory, policy, control, fixed, blocks, seed, deadline, w
                 if fmt=='team2v2':
                     partner=('baseline' if context=='baseline_partner' and 'baseline' in fixed
                              else next((p for p in fixed if p!='baseline'),None))
-                    if context in ('astra_partner','teacher_partner') and partner is None: raise ValueError('teacher partner missing')
-                    external=context in ('baseline_partner','astra_partner','teacher_partner')
+                    if context=='astra_partner' and partner is None: raise ValueError('Astra partner missing')
+                    external=context in ('baseline_partner','astra_partner')
                     seats=[policy,control,partner,partner] if external else [policy,control,policy,control]
                     roles=['policy','control','partner','partner'] if external else ['policy','control','policy','control']
                 else:
@@ -118,7 +118,7 @@ def calibration_jobs(directory, fixed, blocks, seed, deadline, wesnoth, formats=
 def teacher_jobs(directory, teachers, fixed, support, batch_index, seed, deadline, wesnoth, formats=FORMATS,count=1,index_stride=None):
     jobs=[]
     rng=random.Random(seed+batch_index)
-    if len(teachers)!=1: raise ValueError('one supervision teacher is required per format')
+    if len(teachers)!=1 or Path(teachers[0]).stem!='gpt6astra': raise ValueError('only Astra may provide teacher actions')
     for fmt in formats:
         n=PLAYERS[fmt]
         for game in range(count):

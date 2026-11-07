@@ -120,7 +120,7 @@ class _ParityAudit:
                 policy_result = self.measure(policy)
                 results.append(policy_result)
             for source, rows in sources.items():
-                if (policy and source in ('astra','teacher') and all(r.get('data_pool') == 'dagger' for r in rows)
+                if (policy and source == 'astra' and all(r.get('data_pool') == 'dagger' for r in rows)
                         and _same_inputs(policy, rows)):
                     results.append(policy_result)
                 else:

@@ -1,1 +1,0 @@
-{"source_commit": "fbd9ffffb68ec7993d988b0761bc0a5c362e85e4", "source_tree": "/home/tongshu/myDev/wesnothLearning/verification/teacher_integration_20261107/sources/20261107T080020_panel_audit_fbd9ffffb68e", "command": ["bash", "tests/build_teacher_host.sh", "/home/tongshu/venv/bin/python", "-m", "unittest", "tests.test_teacher_integration_panel", "-v"], "label": "panel_audit"}

@@ -271,7 +271,7 @@ class RewardController:
 
     @staticmethod
     def _window(blocks):
-        # Match each map/faction to its own frozen reference, then give strata
+        # Match each map/faction to its own Astra reference, then give strata
         # equal weight. Sampling a large easy map cannot dominate this panel.
         strata = {}
         for block in blocks:
@@ -283,15 +283,15 @@ class RewardController:
         low_explore, met_explore, low_control, safe = [], [], [], []
         for rows in strata.values():
             def average(name):
-                values = [float(row[name] if name in row else row[name.replace('teacher_','astra_',1)]) for row in rows]
+                values = [float(row[name]) for row in rows]
                 if not all(math.isfinite(v) for v in values):
                     raise ValueError('nonfinite controller metric')
                 return sum(values) / len(values)
-            ratios = [average(f'coverage{turn}') / max(1e-9, average(f'teacher_coverage{turn}')) for turn in (5, 10)]
+            ratios = [average(f'coverage{turn}') / max(1e-9, average(f'astra_coverage{turn}')) for turn in (5, 10)]
             low_explore.append(all(ratio < .9 for ratio in ratios))
             met_explore.append(all(ratio >= .9 for ratio in ratios))
-            low_control.append(average('control') < .8 * average('teacher_control'))
-            safe.append(average('leader_survival') >= average('teacher_leader_survival') and average('loss') <= average('teacher_loss'))
+            low_control.append(average('control') < .8 * average('astra_control'))
+            safe.append(average('leader_survival') >= average('astra_leader_survival') and average('loss') <= average('astra_loss'))
         def score(name):
             values = [float(block[name]) for block in blocks if block.get(name) is not None]
             if not all(math.isfinite(v) for v in values):
@@ -308,7 +308,7 @@ class RewardController:
             blocks, self.blocks = self.blocks[:12], self.blocks[12:]
             window = self._window(blocks)
             if window is None:
-                return {}, 'missing teacher calibration'
+                return {}, 'missing Astra calibration'
             self.windows.append(window)
             self.windows = self.windows[-3:]
         if len(self.windows) < 2:
@@ -320,13 +320,13 @@ class RewardController:
         changes, reasons = {}, []
         if all(w['low_explore'] and w['safe'] for w in (previous, window)):
             changes['explore'] = self.config.explore * 1.1
-            reasons.append('coverage below 90% teacher without survival/loss regression')
+            reasons.append('coverage below 90% Astra without survival/loss regression')
         elif len(self.windows) >= 3 and all(w['met_explore'] for w in self.windows):
             changes['explore'] = self.config.explore * .9
             reasons.append('coverage maintained across three windows')
         if all(w['low_control'] for w in (previous, window)):
             changes['control'] = self.config.control * 1.1
-            reasons.append('control below 80% teacher in two windows')
+            reasons.append('control below 80% Astra in two windows')
         # Two successive score declines need three windows (each >=12 blocks).
         if self.control_previous is not None and len(self.windows) == 3:
             for name in ('fixed_score', 'native_score'):

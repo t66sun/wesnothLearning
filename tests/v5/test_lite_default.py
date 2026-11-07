@@ -14,6 +14,20 @@ from learning.formats import FORMATS
 
 
 class LiteDefaultTests(unittest.TestCase):
+    def test_new_experiment_freezes_only_astra(self):
+        from learning.experiment import default_config
+        from learning.manifest import freeze
+        with tempfile.TemporaryDirectory() as temporary:
+            directory = Path(temporary)
+            baseline = directory / 'wesnoth'
+            baseline.write_bytes(b'fixture')
+            with mock.patch('learning.manifest.native.find_wesnoth', return_value=str(baseline)):
+                manifest, teachers = freeze(directory / 'run', ROOT / 'data/opponents',
+                                            str(baseline), default_config('cpu'))
+            self.assertEqual([Path(path).stem for path in teachers], ['gpt6astra'])
+            self.assertEqual(manifest['teacher']['teacher'], 'gpt6astra')
+            self.assertNotIn('teacher_set', manifest)
+
     def test_default_quota_and_explicit_native(self):
         from learning.experiment import default_config
         for device in ('cpu', 'cuda'):
