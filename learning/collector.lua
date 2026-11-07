@@ -1,5 +1,5 @@
--- Training-only Astra instrumentation. One label per completed native macro action.
--- Astra walks a planned path one hex at a time; those implementation steps are
+-- Training-only teacher instrumentation. One label per completed native macro action.
+-- Teachers walk a planned path one hex at a time; those implementation steps are
 -- collected as one move intent. Candidate generation never sees the teacher plan.
 local O=wesnoth.require '~add-ons/LearningSupport/lua/observation.lua'
 local C=wesnoth.require '~add-ons/LearningSupport/lua/candidates.lua'
@@ -19,10 +19,12 @@ local function record(data,training)
     for i,u in ipairs(obs.own) do own[i]={moves=u.moves,x=u.x,y=u.y,canrecruit=u.canrecruit} end
     for key,u in pairs(obs.occupied) do occupied[key]={id=u.id} end
     obs.own=own;obs.occupied=occupied
-    return {schema=schema.version,global=obs.global,opponents=obs.opponents,spatial=obs.spatial,candidates=candidates,
+    local row={schema=schema.version,global=obs.global,opponents=obs.opponents,spatial=obs.spatial,candidates=candidates,
         choice=-1,log_probability=0,value=0,version=training.version,
         side=wesnoth.current.side,turn=wesnoth.current.turn,timing=timing,teacher=training.teacher,
-        source='astra',format=R.select(data.collector_memory),reward_raw=W.capture(obs,data.collector_memory,true)},obs
+        source=training.teacher_identity and 'teacher' or 'astra',format=R.select(data.collector_memory),reward_raw=W.capture(obs,data.collector_memory,true)}
+    for key,value in pairs(training.teacher_identity or {}) do row[key]=value end
+    return row,obs
 end
 local function loc(v) return v.x or v[1],v.y or v[2] end
 local function match(r,a)
