@@ -91,6 +91,21 @@ class CandidateWeaponRetentionTests(unittest.TestCase):
         self.assertLess(witness(row)[1]['features'][14], 17.1072 / 50)
         self.assertGreater(witness(row)[1]['features'][15], 0)
 
+    def test_damage_dominance_does_not_remove_a_possible_plague_conversion(self):
+        spec = copy.deepcopy(self.spec)
+        next(u for u in spec['units'] if u['id'] == 'archer-04').update(unit_type='Necromancer', hp=48)
+        next(u for u in spec['units'] if u['id'] == 'target-04')['hp'] = 9
+        game = engine(self.rules, spec, audit=True)
+        row = json.loads(game.decision(1))
+        self.assertEqual(set(witness(row)), {1})
+        calls = {c['weapon'] for c in row['timing']['test_calls'] if c['actor'] == 'archer-04'}
+        self.assertTrue({1, 2} <= calls)
+        staff, ranged = (json.loads(game.forecast(1, 'archer-04', 'target-04', weapon)) for weapon in (0, 1))
+        self.assertGreater(staff['defender']['hp_chance']['0'], 0)
+        self.assertGreater(ranged['defender']['hp_chance']['0'], staff['defender']['hp_chance']['0'])
+        self.assertLess(ranged['defender']['average_hp'], staff['defender']['average_hp'])
+        self.assertGreater(ranged['attacker']['average_hp'], staff['attacker']['average_hp'])
+
 
 if __name__ == '__main__':
     unittest.main()

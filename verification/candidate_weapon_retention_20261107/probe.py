@@ -19,8 +19,8 @@ def digest(path):
 
 
 def real_position(path):
-    with gzip.open(path, 'rt') as stream:
-        recorded = json.load(stream)
+    raw = path.read_bytes()
+    recorded = json.loads(gzip.decompress(raw) if path.suffix == '.gz' else raw)
     game = recorded['snapshot']['game']
     # A fresh current-profile game starts from the recorded live units and board.
     # The older expected-damage snapshot itself keeps its original identity.
@@ -64,8 +64,9 @@ def paired(rules, spec, side, turn, baseline):
 
     before, after = (final[name] for name in ('v8', 'v9'))
     changes = [(intent(a), intent(b)) for a, b in zip(before['candidates'], after['candidates']) if intent(a) != intent(b)]
-    assert all(a['kind'] in ('attack', 'move_attack') and a.pop('weapon') != b.pop('weapon') and a == b
-               for a, b in [(dict(a), dict(b)) for a, b in changes]), changes
+    for old, new in changes:
+        assert old['kind'] in ('attack', 'move_attack') and old['weapon'] != new['weapon'], changes
+        assert {k: v for k, v in old.items() if k != 'weapon'} == {k: v for k, v in new.items() if k != 'weapon'}, changes
     a, b = before['timing'], after['timing']
     assert b['work'] - a['work'] == (b['predictions'] - a['predictions']) * 30
     return dict(measurements=measures, slot_changes=changes)
@@ -96,20 +97,22 @@ def native_parity(rules, spec, wesnoth):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--baseline', type=Path, required=True)
-    parser.add_argument('--real-board', type=Path, required=True)
-    parser.add_argument('--wesnoth', type=Path, required=True)
+    parser.add_argument('--baseline', type=Path)
+    parser.add_argument('--real-board', type=Path)
+    parser.add_argument('--wesnoth', type=Path)
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
     path = resolve_dir() / 'rules.json'
     rules = json.loads(path.read_text())
     spec = combat_slots(rules)
-    archived, side, turn = real_position(args.real_board)
-    result = dict(rules_sha256=digest(path), extension_sha256=digest(_engine_lite.__file__),
-                  real_fixture_sha256=digest(args.real_board), real_side=side, real_turn=turn)
-    result['combat_slots'] = paired(rules, spec, 1, 1, args.baseline)
-    result['real_turn'] = dict(turn=turn, **paired(rules, archived, side, turn, args.baseline))
-    result['native_parity'] = native_parity(rules, spec, args.wesnoth)
+    result = dict(rules_sha256=digest(path), extension_sha256=digest(_engine_lite.__file__))
+    if args.wesnoth:
+        result['native_parity'] = native_parity(rules, spec, args.wesnoth)
+    else:
+        archived, side, turn = real_position(args.real_board)
+        result.update(real_fixture_sha256=digest(args.real_board), real_side=side, real_turn=turn,
+                      combat_slots=paired(rules, spec, 1, 1, args.baseline),
+                      real_board=paired(rules, archived, side, turn, args.baseline))
     with args.output.open('x') as stream:
         json.dump(result, stream, indent=2)
         stream.write('\n')
