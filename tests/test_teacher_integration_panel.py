@@ -54,6 +54,14 @@ class TeacherIntegrationPanelTests(unittest.TestCase):
                 report=summarize(output,manifest,jobs,records,200.)
             self.assertFalse(report['passed'])
             self.assertTrue(all(any('stored DAgger labels' in e for e in cell['errors']) for cell in report['cells'].values()))
+            for r in records:r['coverage']['matched']=50
+            def stored(job):
+                queried=job['meta']['phase']=='ppo'
+                return dict(missing,dagger_valid=int(queried),dagger_queries=int(queried))
+            with patch('tests.acceptance_teacher_integration.audit_rows',side_effect=stored):
+                report=summarize(output,manifest,jobs,records,200.)
+            self.assertTrue(report['passed'])
+            self.assertTrue(all(not cell['coverage']['passed'] for cell in report['cells'].values()))
             with self.assertRaises(FileExistsError):prepare(output)
 
 
