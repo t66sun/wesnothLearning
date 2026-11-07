@@ -1,0 +1,1 @@
+{"source_commit": "5dd440d274a5e57610372eac08d553342af338ca", "source_tree": "/home/tongshu/myDev/wesnothLearning/verification/teacher_integration_20261107/sources/20261107T060203_baseline_5dd440d274a5", "command": ["/home/tongshu/venv/bin/python", "-m", "unittest", "tests.v5.test_lite_default", "tests.v5.test_training_turn_limit", "-v"], "label": "baseline"}
