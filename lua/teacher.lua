@@ -67,6 +67,7 @@ function M.query(data,obs,candidates,scores,training)
     for key,value in pairs(training.dagger_identity or {teacher='gpt6astra',teacher_impl='astra_native'}) do result[key]=value end
     result.actual=actual;result.intent=actual;result.choice=choice
     result.source=result.teacher_contract and 'teacher' or 'astra'
+    if result.teacher_contract then result.teacher_impl=result.teacher end
     result.data_role='dagger';result.entropy=entropy;result.representable=true
     return result
 end

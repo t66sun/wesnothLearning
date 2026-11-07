@@ -105,6 +105,32 @@ class NativeTeacherIntegrationTests(unittest.TestCase):
         self.assertIsNone(lua.eval('other.teacher_ledger.public.terrain[2002]'))
         self.assertIsNone(lua.eval('data.teacher_ledger.public.terrain[9009]'))
 
+    def test_candidate_clock_excludes_query_time_but_keeps_student_execution(self):
+        lua = query_runtime()
+        lua.execute('''
+            events={};plan_ms=1500
+            local teacher_loader=wesnoth.dofile
+            local student={evaluation=function(self,cfg,data)
+                now=now+400;label=teacher.query(data,obs,candidates,scores,data.training)
+                return 100
+            end,execution=function() now=now+300 end}
+            wesnoth.dofile=function(entry) if entry=='student' then return student end;return teacher_loader(entry) end
+            judge={states={},done=function() return false end,check=function() end,
+                options=function() return {timeout=1,first_timeout=10,max_actions=100,learning={['1']=training}} end,
+                disqualify=function(side,reason) fault=reason end,
+                emit=function(kind,row) events[#events+1]={kind=kind,row=row} end}
+            wesnoth.require=function(path) if path:find('runtime.lua',1,true) then return judge end;return memory_module end
+        ''')
+        lua.globals().candidate = lua.execute((ROOT/'vendor/arena/runtime/candidate.lua').read_text())
+        lua.execute('''
+            for _=1,4 do candidate:evaluation({entry='student'},data);candidate:execution({},data) end
+        ''')
+        self.assertIsNone(lua.eval('fault'))
+        self.assertEqual(lua.eval('label.query_budget'), 20)
+        self.assertEqual(lua.eval('events[#events].row.budget'), 1)
+        self.assertEqual(lua.eval('events[#events].row.elapsed_ms'), 2200)
+        self.assertEqual(lua.eval('events[#events].row.query_ms'), 1500)
+
     def test_query_failures_are_invalid_without_fallback_and_restore_guards(self):
         for failure in ('load_failure', 'fail_action', 'fail_rng', 'timeout'):
             lua = query_runtime()
@@ -136,6 +162,7 @@ class NativeTeacherIntegrationTests(unittest.TestCase):
         self.assertEqual(rows[0]['actual'], actual)
         self.assertEqual([r['choice'] for r in rows], [-1]*3)
         self.assertEqual({r['teacher'] for r in rows}, {'selected_teacher'})
+        self.assertEqual({r['teacher_impl'] for r in rows}, {'selected_teacher'})
         self.assertEqual(rows[1]['teacher_query']['error'], 'teacher query timeout')
         metrics = query_metrics(records)
         self.assertEqual((metrics['queries'], metrics['valid'], metrics['unmatched']), (2, 0, 1))

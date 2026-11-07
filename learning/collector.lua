@@ -24,6 +24,7 @@ local function record(data,training)
         side=wesnoth.current.side,turn=wesnoth.current.turn,timing=timing,teacher=training.teacher,
         source=training.teacher_identity and 'teacher' or 'astra',format=R.select(data.collector_memory),reward_raw=W.capture(obs,data.collector_memory,true)}
     for key,value in pairs(training.teacher_identity or {}) do row[key]=value end
+    if training.teacher_identity then row.teacher_impl=training.teacher end
     return row,obs
 end
 local function loc(v) return v.x or v[1],v.y or v[2] end

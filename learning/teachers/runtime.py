@@ -66,6 +66,8 @@ def dagger_rows(records, identity, *, value_valid=False):
         context = {k: v for k, v in row.items() if k != 'dagger'}
         context.update(identity, choice=-1, source='teacher' if identity.get('teacher_contract') else 'astra',
                        data_pool='dagger', value_valid=value_valid)
+        if identity.get('teacher_contract'):
+            context['teacher_impl'] = identity['teacher']
         if label:
             context['teacher_query'] = {k: v for k, v in label.items() if k not in ('actual', 'intent')}
         if not label.get('error') and label.get('actual'):
