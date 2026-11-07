@@ -48,8 +48,9 @@ def prepare_job(job, engine):
             if str(side) not in seats:
                 raise ValueError('supervised seat has no frozen teacher package')
             spec = seats[str(side)]
-            if spec != job['teacher_roles']['supervision']:
-                raise ValueError('supervised seat differs from supervision role')
+            role='reward_reference' if job.get('meta',{}).get('phase')=='reward_reference' else 'supervision'
+            if spec != job['teacher_roles'][role]:
+                raise ValueError('supervised seat differs from '+role+' role')
             training.update(teacher=spec['teacher'], teacher_identity=execution_identity(spec, engine))
     if query:
         result['learning']['dagger_spec'] = query

@@ -170,8 +170,8 @@ class ConfigScheduleTests(unittest.TestCase):
         self.assertIsNone(duel['teams'])
 
     def test_teacher_and_rollout_schedules(self):
-        with self.assertRaisesRegex(ValueError, 'only Astra may provide teacher actions'):
-            schedule.teacher_jobs(self.directory, ['/x/other.zip'], ['astra'], {}, 1, 1,
+        with self.assertRaisesRegex(ValueError, 'one supervision teacher'):
+            schedule.teacher_jobs(self.directory, ['/x/first.zip','/x/second.zip'], ['astra'], {}, 1, 1,
                                   time.time() + 10, None, formats=('duel',))
         with mock.patch.object(maps, 'frozen_map',
                                lambda name: (copy.deepcopy(self.board), 'sha-' + name)):

@@ -17,7 +17,7 @@ CONTRACT_VERSION = 1
 SETS = ('astra', 'mixed-20261107')
 # Activation follows the bounded integration acceptance panel.
 DEFAULT_SET = 'astra'
-RUNTIME_SETS = ('astra',)
+RUNTIME_SETS = SETS
 ROLES = ('supervision', 'opponent', 'evaluation', 'reward_reference')
 DELIVERY = ROOT / 'delivery/search_teacher_20261107'
 SELECTED_SHA256 = '6b461de4e99303321b0119a7b88babd575c2d786500b28da4cb45d3c2bdabdb3'
@@ -161,6 +161,9 @@ def require_same_teachers(parent, child, formats):
             return {key: value for key, value in spec.items() if key != 'package'}
         same = all(portable(before['formats'][fmt][name]) == portable(after['formats'][fmt][name])
                    for fmt in formats for name in ROLES)
+    old_execution,new_execution=parent.get('teacher_executions'),child.get('teacher_executions')
+    if same and (old_execution is not None or new_execution is not None):
+        same=bool(old_execution and new_execution) and all(old_execution[fmt]==new_execution[fmt] for fmt in formats)
     if not same:
         raise ValueError('teacher execution identity changed; use explicit weights-only initialization')
 
@@ -171,7 +174,7 @@ def adapter_digest(engine):
               'engine_lite/src/lib.rs', 'engine_lite/src/host.rs', 'engine_lite/src/host_deadline.rs',
               'engine_lite/src/state.rs', 'engine_lite/src/combat_probability.rs', 'engine_lite/src/combat.rs',
               'engine_lite/lua/host.lua'] if engine == 'lite' else
-             ['learning/sample.py', 'learning/collector.lua', 'lua/teacher.lua',
+             ['learning/sample.py', 'learning/collector.lua', 'lua/teacher.lua', 'vendor/arena/runtime/runtime.lua',
               'learning/native_transport.py', 'learning/native_rpc.lua',
               'vendor/arena/match.py', 'vendor/arena/runtime/candidate.lua', 'vendor/arena/query_clock.py'])
     paths = [*paths, 'learning/teachers/runtime.py', 'lua/teacher_memory.lua']
@@ -189,6 +192,11 @@ def execution_identity(spec, engine):
                 teacher_profile=spec['profile'], teacher_source_sha256=spec['source_sha256'],
                 teacher_package_sha256=spec['package_sha256'], teacher_strategy=spec['strategy'],
                 teacher_adapter_sha256=adapter_digest(engine), teacher_backend=engine)
+
+
+def execution_matrix(contract):
+    return {fmt:{name:{engine:execution_identity(spec,engine) for engine in ('native','lite')}
+                 for name,spec in roles.items()} for fmt,roles in contract['formats'].items()}
 
 
 def module_sources(spec):

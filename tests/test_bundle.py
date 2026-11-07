@@ -183,6 +183,10 @@ class BundleTests(unittest.TestCase):
         self.build()
         members = _members(self.base / 'bundle.tar.gz')
         for name in members:
+            if name in {ARCHIVE_ROOT+'/delivery', ARCHIVE_ROOT+'/delivery/search_teacher_20261107',
+                        ARCHIVE_ROOT+'/delivery/search_teacher_20261107/manifest.json',
+                        ARCHIVE_ROOT+'/delivery/search_teacher_20261107/selected_teacher.zip'}:
+                continue
             for token in ('__pycache__', '/runs/', '/verification/', '/delivery/', '/tmp/', '/.venv/', '/.cache/',
                           'data/references', 'data/humanData/', 'data/rules/1.18.8/', 'AGENTS.md', '/target/'):
                 self.assertNotIn(token, name)

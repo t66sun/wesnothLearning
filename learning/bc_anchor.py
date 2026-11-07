@@ -115,7 +115,8 @@ def ensure_anchor(runner):
         raise ValueError('frozen BC requires a complete qualifying last_bc.pt')
     state = torch.load(source, map_location='cpu', weights_only=False)
     endpoint = _endpoint(state, runner.fmt)
-    teacher = runner.manifest.get('teacher')
+    from .teachers.roles import identity as teacher_identity
+    teacher = teacher_identity(runner) or runner.manifest.get('teacher')
     if endpoint['manifest_sha256'] != sha256(runner.directory.parent / 'manifest.json'):
         lineage = branch_lineage(runner.directory) or {}
         inherited = lineage.get('checkpoints', {}).get(runner.fmt, {}).get('bc_endpoint', {})

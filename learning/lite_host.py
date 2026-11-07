@@ -260,7 +260,7 @@ def play_lite_job(job):
                                 architecture_id='relational_v5', candidate_version=f"schema{schema()['version']}-"+decision['timing'].get('budget','fixed-20000-v1'),
                                 engine='lite', engine_version=ENGINE_VERSION,
                                 teacher_impl='astra_lite' if teacher else None,
-                                teammate_context=job.get('meta',{}).get('context','astra_partner' if job.get('teams') else 'solo'),
+                                teammate_context=job.get('meta',{}).get('context',('teacher_partner' if job.get('teacher_roles') else 'astra_partner') if job.get('teams') else 'solo'),
                                 data_pool=job.get('data_pool', 'original'),
                                 reward_config=config, reward_version=config['reward_version'],
                                 task_id=config['task_id'],
