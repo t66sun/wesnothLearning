@@ -4,7 +4,9 @@ from .provenance import engine_identity, TEACHER_FIELDS
 
 
 def descriptor(runner, name='supervision'):
-    return role(getattr(runner,'manifest',{}),runner.fmt,name)
+    manifest=getattr(runner,'manifest',{})
+    if not manifest.get('teacher_set'):return None
+    return role(manifest,runner.fmt,name)
 
 
 def package(runner, name='supervision'):

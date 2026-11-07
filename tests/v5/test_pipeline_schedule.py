@@ -206,7 +206,8 @@ class ConfigScheduleTests(unittest.TestCase):
     def test_lite_experiment_rewrites_baseline_jobs(self):
         experiment = FormatExperiment.__new__(FormatExperiment)
         experiment.directory = self.directory
-        experiment.config = dict(engine='lite', allow_approximate=False)
+        from learning.tasks import TASK_ID
+        experiment.config = dict(engine='lite', allow_approximate=False,task_id=TASK_ID)
         experiment.teachers = ['/x/gpt6astra.zip']
         experiment.controller = SimpleNamespace(freeze=lambda: helpers.config())
         collected = []
