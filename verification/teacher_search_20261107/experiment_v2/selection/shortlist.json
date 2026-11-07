@@ -1,0 +1,429 @@
+{
+  "blocks": 1,
+  "candidates": {
+    "duel": [
+      {
+        "description": "Consolidated visible local model with native query purity fix; cached beam, no home bonus, one enemy response.",
+        "first_timeout": 20,
+        "name": "clean_beam",
+        "package": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107/experiment_v2/candidates/clean_beam/clean_beam.zip",
+        "package_sha256": "4e669c4c232edd2d13e33bf0b17938eb23bb791ff5ae15bfede836f9416da33a",
+        "parameters": {
+          "algorithm": "beam",
+          "cache_combat": true,
+          "depth": 2,
+          "outside_keep_gold": 0.1,
+          "planning_ms": 1000,
+          "position_weight": 0.8,
+          "reply_width": 3,
+          "risk": 0.35,
+          "root_width": 18,
+          "tactical_ms": 700,
+          "village_value": 14,
+          "width": 6
+        },
+        "registered": 1793992113.2455015,
+        "source_commit": "348fc78de9979e3ffad14539bef5087fd7027cd5",
+        "source_sha256": "5236e235f19ad3887514ba3f13a15c7903907111bfcfa0df8e71d951316ca172",
+        "timeout": 2
+      },
+      {
+        "description": "Same fortified composition configuration; only continuation pruning changes to completed enemy-response values.",
+        "first_timeout": 20,
+        "name": "clean_fortified_pruned",
+        "package": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107/experiment_v2/candidates/clean_fortified_pruned/clean_fortified_pruned.zip",
+        "package_sha256": "186959abb9c2a2a70ab4337cfca612aaf9d033564b3ffb2b39499c82edcf921d",
+        "parameters": {
+          "algorithm": "beam",
+          "cache_combat": true,
+          "depth": 2,
+          "leader_exposure": 4,
+          "leader_home_bonus": 16,
+          "outside_keep_gold": 0.1,
+          "planning_ms": 1000,
+          "position_weight": 0.8,
+          "recruit_bias": 4,
+          "reply_width": 3,
+          "risk": 0.35,
+          "root_width": 18,
+          "tactical_ms": 700,
+          "village_value": 14,
+          "width": 6
+        },
+        "registered": 1793995694.9102345,
+        "source_commit": "50c5035ce61be1a5becebd7a0a9ccdc01b8fe737",
+        "source_sha256": "e13aa75a9d52cd3ac9744ebfe67ac51a341f4c860b52cb00f99f52f0597bdf03",
+        "timeout": 2
+      },
+      {
+        "description": "Clean local model with iterative PVS for duel/team.",
+        "first_timeout": 20,
+        "name": "clean_pvs",
+        "package": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107/experiment_v2/candidates/clean_pvs/clean_pvs.zip",
+        "package_sha256": "19512bc8d5b540140d7c176a59f156315237629e9df62f476682c66ddb42a450",
+        "parameters": {
+          "algorithm": "pvs",
+          "cache_combat": true,
+          "depth": 2,
+          "outside_keep_gold": 0.1,
+          "planning_ms": 1000,
+          "position_weight": 0.8,
+          "reply_width": 3,
+          "risk": 0.35,
+          "root_width": 18,
+          "tactical_ms": 700,
+          "tree_depth": 6,
+          "village_value": 14,
+          "width": 6
+        },
+        "registered": 1793992113.2811263,
+        "source_commit": "348fc78de9979e3ffad14539bef5087fd7027cd5",
+        "source_sha256": "5236e235f19ad3887514ba3f13a15c7903907111bfcfa0df8e71d951316ca172",
+        "timeout": 2
+      }
+    ],
+    "ffa4": [
+      {
+        "description": "Apply deterministic iterative PVS to the fortified composition configuration; FFA retains independent-utility beam responses.",
+        "first_timeout": 20,
+        "name": "clean_fortified_pvs",
+        "package": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107/experiment_v2/candidates/clean_fortified_pvs/clean_fortified_pvs.zip",
+        "package_sha256": "e24be5ce1e3b0d2b3b228655136ad2d89277e6c36adbeac3d4e7690c752da48b",
+        "parameters": {
+          "algorithm": "pvs",
+          "cache_combat": true,
+          "depth": 2,
+          "leader_exposure": 4,
+          "leader_home_bonus": 16,
+          "outside_keep_gold": 0.1,
+          "planning_ms": 1000,
+          "position_weight": 0.8,
+          "recruit_bias": 4,
+          "reply_width": 3,
+          "risk": 0.35,
+          "root_width": 18,
+          "tactical_ms": 700,
+          "tree_depth": 6,
+          "village_value": 14,
+          "width": 6
+        },
+        "registered": 1793998610.7067907,
+        "source_commit": "3b3178233ab1ea9a53a5913ec27646c181dd9bca",
+        "source_sha256": "f8e7e3a09229087b90dec8be9c795b91e80b1b60755075a24736143fad6b3eb1",
+        "timeout": 2
+      },
+      {
+        "description": "Combine home retention 16, incremental leader exposure 4 and recruit composition 4 after clean FFA replays show costly homogeneous armies and leaders abandoning recruitment.",
+        "first_timeout": 20,
+        "name": "clean_fortified",
+        "package": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107/experiment_v2/candidates/clean_fortified/clean_fortified.zip",
+        "package_sha256": "966f521657c702a37edca578615667637bdef15a589b0f8e92a01b24c54a4233",
+        "parameters": {
+          "algorithm": "beam",
+          "cache_combat": true,
+          "depth": 2,
+          "leader_exposure": 4,
+          "leader_home_bonus": 16,
+          "outside_keep_gold": 0.1,
+          "planning_ms": 1000,
+          "position_weight": 0.8,
+          "recruit_bias": 4,
+          "reply_width": 3,
+          "risk": 0.35,
+          "root_width": 18,
+          "tactical_ms": 700,
+          "village_value": 14,
+          "width": 6
+        },
+        "registered": 1793995694.9034874,
+        "source_commit": "2c0c2cd10f0cbd7ec71dfac03851a18db12fc93f",
+        "source_sha256": "fb713b1a458741df2f7a7bbab6ee245e431523d82fa896133b34a16f04b7725d",
+        "timeout": 2
+      },
+      {
+        "description": "Keep fortified response-aware beam strategy, then refine combat only with private Monte Carlo in remaining time. Pure UCT loses both opening duel long games; inspect strategic choices without assuming the replay hypothesis is established.",
+        "first_timeout": 20,
+        "name": "clean_hybrid",
+        "package": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107/experiment_v2/candidates/clean_hybrid/clean_hybrid.zip",
+        "package_sha256": "e30313a4dac9e3c44b2b0f80651103d13a97ff876e4bfa8cc94278a0db077260",
+        "parameters": {
+          "algorithm": "hybrid",
+          "cache_combat": true,
+          "depth": 2,
+          "hybrid_margin": 0.02,
+          "hybrid_min_visits": 3,
+          "leader_exposure": 4,
+          "leader_home_bonus": 16,
+          "mc_depth": 4,
+          "mc_iterations": 64,
+          "mc_scale": 50,
+          "mc_width": 4,
+          "outside_keep_gold": 0.1,
+          "planning_ms": 1000,
+          "position_weight": 0.8,
+          "recruit_bias": 4,
+          "reply_width": 3,
+          "risk": 0.35,
+          "root_width": 18,
+          "search_seed": 9187,
+          "tactical_ms": 700,
+          "ucb": 0.7,
+          "village_value": 14,
+          "width": 6
+        },
+        "registered": 1793998276.27956,
+        "source_commit": "3b3178233ab1ea9a53a5913ec27646c181dd9bca",
+        "source_sha256": "f8e7e3a09229087b90dec8be9c795b91e80b1b60755075a24736143fad6b3eb1",
+        "timeout": 2
+      }
+    ],
+    "team2v2": [
+      {
+        "description": "Keep fortified response-aware beam strategy, then refine combat only with private Monte Carlo in remaining time. Pure UCT loses both opening duel long games; inspect strategic choices without assuming the replay hypothesis is established.",
+        "first_timeout": 20,
+        "name": "clean_hybrid",
+        "package": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107/experiment_v2/candidates/clean_hybrid/clean_hybrid.zip",
+        "package_sha256": "e30313a4dac9e3c44b2b0f80651103d13a97ff876e4bfa8cc94278a0db077260",
+        "parameters": {
+          "algorithm": "hybrid",
+          "cache_combat": true,
+          "depth": 2,
+          "hybrid_margin": 0.02,
+          "hybrid_min_visits": 3,
+          "leader_exposure": 4,
+          "leader_home_bonus": 16,
+          "mc_depth": 4,
+          "mc_iterations": 64,
+          "mc_scale": 50,
+          "mc_width": 4,
+          "outside_keep_gold": 0.1,
+          "planning_ms": 1000,
+          "position_weight": 0.8,
+          "recruit_bias": 4,
+          "reply_width": 3,
+          "risk": 0.35,
+          "root_width": 18,
+          "search_seed": 9187,
+          "tactical_ms": 700,
+          "ucb": 0.7,
+          "village_value": 14,
+          "width": 6
+        },
+        "registered": 1793998276.27956,
+        "source_commit": "3b3178233ab1ea9a53a5913ec27646c181dd9bca",
+        "source_sha256": "f8e7e3a09229087b90dec8be9c795b91e80b1b60755075a24736143fad6b3eb1",
+        "timeout": 2
+      },
+      {
+        "description": "Same fortified composition configuration; only continuation pruning changes to completed enemy-response values.",
+        "first_timeout": 20,
+        "name": "clean_fortified_pruned",
+        "package": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107/experiment_v2/candidates/clean_fortified_pruned/clean_fortified_pruned.zip",
+        "package_sha256": "186959abb9c2a2a70ab4337cfca612aaf9d033564b3ffb2b39499c82edcf921d",
+        "parameters": {
+          "algorithm": "beam",
+          "cache_combat": true,
+          "depth": 2,
+          "leader_exposure": 4,
+          "leader_home_bonus": 16,
+          "outside_keep_gold": 0.1,
+          "planning_ms": 1000,
+          "position_weight": 0.8,
+          "recruit_bias": 4,
+          "reply_width": 3,
+          "risk": 0.35,
+          "root_width": 18,
+          "tactical_ms": 700,
+          "village_value": 14,
+          "width": 6
+        },
+        "registered": 1793995694.9102345,
+        "source_commit": "50c5035ce61be1a5becebd7a0a9ccdc01b8fe737",
+        "source_sha256": "e13aa75a9d52cd3ac9744ebfe67ac51a341f4c860b52cb00f99f52f0597bdf03",
+        "timeout": 2
+      },
+      {
+        "description": "Apply deterministic iterative PVS to the fortified composition configuration; FFA retains independent-utility beam responses.",
+        "first_timeout": 20,
+        "name": "clean_fortified_pvs",
+        "package": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107/experiment_v2/candidates/clean_fortified_pvs/clean_fortified_pvs.zip",
+        "package_sha256": "e24be5ce1e3b0d2b3b228655136ad2d89277e6c36adbeac3d4e7690c752da48b",
+        "parameters": {
+          "algorithm": "pvs",
+          "cache_combat": true,
+          "depth": 2,
+          "leader_exposure": 4,
+          "leader_home_bonus": 16,
+          "outside_keep_gold": 0.1,
+          "planning_ms": 1000,
+          "position_weight": 0.8,
+          "recruit_bias": 4,
+          "reply_width": 3,
+          "risk": 0.35,
+          "root_width": 18,
+          "tactical_ms": 700,
+          "tree_depth": 6,
+          "village_value": 14,
+          "width": 6
+        },
+        "registered": 1793998610.7067907,
+        "source_commit": "3b3178233ab1ea9a53a5913ec27646c181dd9bca",
+        "source_sha256": "f8e7e3a09229087b90dec8be9c795b91e80b1b60755075a24736143fad6b3eb1",
+        "timeout": 2
+      }
+    ]
+  },
+  "costs": {
+    "duel/100": 135.5249,
+    "duel/30": 119.6181,
+    "ffa4/100": 157.7846,
+    "ffa4/30": 188.7234,
+    "team2v2/100": 362.6949,
+    "team2v2/30": 330.0295
+  },
+  "evaluator": {
+    "base_source_commit": "2da826c1d5ac4ffe1e282fc1ad02131f9fb25f34",
+    "baseline_sha256": "f19cf216870a82b934321225d4b6ef7f3c258d490dbdaa2d5f728d80f8c732e5",
+    "corrected_native_audit": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107/query_audit_v3/summary.json",
+    "evaluator_root": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107/sources/20261106T190845_35d8f04a582f",
+    "exclusions": {
+      "beam_cached": {
+        "evidence": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107/query_audit_v1",
+        "package_sha256": "4f94ebb935103026c3d5e9afbacbfe430111160a68281e8a89ad99ac42222c7f",
+        "reason": "Recruit templates consume native default RNG for cosmetic facing; failed native query purity comparison."
+      },
+      "beam_deep": {
+        "evidence": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107/query_audit_v1",
+        "package_sha256": "3fefde9cd166987e6b3f717f8db5cf5734400a6bbefabc20670655b0f2c053da",
+        "reason": "Recruit templates consume native default RNG for cosmetic facing; failed native query purity comparison."
+      },
+      "beam_economy": {
+        "evidence": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107/query_audit_v1",
+        "package_sha256": "c1a2c3ab34bfd85e8da6e74d8f7e6216da06006d872b989f7a4c81c9e3ea28c0",
+        "reason": "Recruit templates consume native default RNG for cosmetic facing; failed native query purity comparison."
+      },
+      "beam_elimination": {
+        "evidence": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107/query_audit_v1",
+        "package_sha256": "33592e4bbd8cfee1b3bc76f7005f58a45514e90591016c11157f38a5a8e863b9",
+        "reason": "Recruit templates consume native default RNG for cosmetic facing; failed native query purity comparison."
+      },
+      "beam_guarded": {
+        "evidence": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107/query_audit_v1",
+        "package_sha256": "ff5229a86dfadf7097b0c64359baf0644031a4de443e4287755eb4f163ee3176",
+        "reason": "Recruit templates consume native default RNG for cosmetic facing; failed native query purity comparison."
+      },
+      "beam_healing": {
+        "evidence": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107/query_audit_v1",
+        "package_sha256": "8d74c2fcad5f3cd03e5d820a11527f6a384d2bd4dc6f7870b3bf296fe00d4c4e",
+        "reason": "Recruit templates consume native default RNG for cosmetic facing; failed native query purity comparison."
+      },
+      "beam_reply2": {
+        "evidence": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107/query_audit_v1",
+        "package_sha256": "3d5d08502561b8653f6511041f0e9f6cc62ec0001f6b0e896185a83abc1a6c9b",
+        "reason": "Recruit templates consume native default RNG for cosmetic facing; failed native query purity comparison."
+      },
+      "beam_v0": {
+        "evidence": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107/query_audit_v1",
+        "package_sha256": "c2d9158c768d8884ceb627df58b1145a1d323debda23ee664595a5939a81a8e5",
+        "reason": "Recruit templates consume native default RNG for cosmetic facing; failed native query purity comparison."
+      },
+      "pvs_reserved": {
+        "evidence": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107/query_audit_v1",
+        "package_sha256": "013c1a463b323118569b1fd92a68d3c206c9514a90f5eb33664e44460b967ce5",
+        "reason": "Recruit templates consume native default RNG for cosmetic facing; failed native query purity comparison."
+      },
+      "pvs_v1": {
+        "evidence": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107/query_audit_v1",
+        "package_sha256": "a6f2a3d108c25506340d55d1b71fe209d4f4cac9805df40809b435e223061c7f",
+        "reason": "Recruit templates consume native default RNG for cosmetic facing; failed native query purity comparison."
+      },
+      "uct_elimination": {
+        "evidence": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107/query_audit_v1",
+        "package_sha256": "99f50be601938c510b649074bc4ddf14d80bdcfbd02d603cb2a6093150da8617",
+        "reason": "Recruit templates consume native default RNG for cosmetic facing; failed native query purity comparison."
+      },
+      "uct_narrow": {
+        "evidence": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107/query_audit_v1",
+        "package_sha256": "0b0569b71cdc275e61bead6821e849bd694b49d495beedd68c18b323eac6382d",
+        "reason": "Recruit templates consume native default RNG for cosmetic facing; failed native query purity comparison."
+      },
+      "uct_v1": {
+        "evidence": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107/query_audit_v1",
+        "package_sha256": "91aef5de53c612ebcaacfd9e5ff7e0eb91559392523ee02b71488c115f41bf80",
+        "reason": "Recruit templates consume native default RNG for cosmetic facing; failed native query purity comparison."
+      }
+    },
+    "exploration_end": 1794005257.096521,
+    "frozen": 1793992351.2034123,
+    "schema": 1,
+    "source_commit": "35d8f04a582fd4537d3d65945c2de44915a8bb56"
+  },
+  "exclusions": {
+    "beam_cached": {
+      "evidence": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107/query_audit_v1",
+      "package_sha256": "4f94ebb935103026c3d5e9afbacbfe430111160a68281e8a89ad99ac42222c7f",
+      "reason": "Recruit templates consume native default RNG for cosmetic facing; failed native query purity comparison."
+    },
+    "beam_deep": {
+      "evidence": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107/query_audit_v1",
+      "package_sha256": "3fefde9cd166987e6b3f717f8db5cf5734400a6bbefabc20670655b0f2c053da",
+      "reason": "Recruit templates consume native default RNG for cosmetic facing; failed native query purity comparison."
+    },
+    "beam_economy": {
+      "evidence": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107/query_audit_v1",
+      "package_sha256": "c1a2c3ab34bfd85e8da6e74d8f7e6216da06006d872b989f7a4c81c9e3ea28c0",
+      "reason": "Recruit templates consume native default RNG for cosmetic facing; failed native query purity comparison."
+    },
+    "beam_elimination": {
+      "evidence": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107/query_audit_v1",
+      "package_sha256": "33592e4bbd8cfee1b3bc76f7005f58a45514e90591016c11157f38a5a8e863b9",
+      "reason": "Recruit templates consume native default RNG for cosmetic facing; failed native query purity comparison."
+    },
+    "beam_guarded": {
+      "evidence": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107/query_audit_v1",
+      "package_sha256": "ff5229a86dfadf7097b0c64359baf0644031a4de443e4287755eb4f163ee3176",
+      "reason": "Recruit templates consume native default RNG for cosmetic facing; failed native query purity comparison."
+    },
+    "beam_healing": {
+      "evidence": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107/query_audit_v1",
+      "package_sha256": "8d74c2fcad5f3cd03e5d820a11527f6a384d2bd4dc6f7870b3bf296fe00d4c4e",
+      "reason": "Recruit templates consume native default RNG for cosmetic facing; failed native query purity comparison."
+    },
+    "beam_reply2": {
+      "evidence": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107/query_audit_v1",
+      "package_sha256": "3d5d08502561b8653f6511041f0e9f6cc62ec0001f6b0e896185a83abc1a6c9b",
+      "reason": "Recruit templates consume native default RNG for cosmetic facing; failed native query purity comparison."
+    },
+    "beam_v0": {
+      "evidence": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107/query_audit_v1",
+      "package_sha256": "c2d9158c768d8884ceb627df58b1145a1d323debda23ee664595a5939a81a8e5",
+      "reason": "Recruit templates consume native default RNG for cosmetic facing; failed native query purity comparison."
+    },
+    "pvs_reserved": {
+      "evidence": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107/query_audit_v1",
+      "package_sha256": "013c1a463b323118569b1fd92a68d3c206c9514a90f5eb33664e44460b967ce5",
+      "reason": "Recruit templates consume native default RNG for cosmetic facing; failed native query purity comparison."
+    },
+    "pvs_v1": {
+      "evidence": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107/query_audit_v1",
+      "package_sha256": "a6f2a3d108c25506340d55d1b71fe209d4f4cac9805df40809b435e223061c7f",
+      "reason": "Recruit templates consume native default RNG for cosmetic facing; failed native query purity comparison."
+    },
+    "uct_elimination": {
+      "evidence": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107/query_audit_v1",
+      "package_sha256": "99f50be601938c510b649074bc4ddf14d80bdcfbd02d603cb2a6093150da8617",
+      "reason": "Recruit templates consume native default RNG for cosmetic facing; failed native query purity comparison."
+    },
+    "uct_narrow": {
+      "evidence": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107/query_audit_v1",
+      "package_sha256": "0b0569b71cdc275e61bead6821e849bd694b49d495beedd68c18b323eac6382d",
+      "reason": "Recruit templates consume native default RNG for cosmetic facing; failed native query purity comparison."
+    },
+    "uct_v1": {
+      "evidence": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107/query_audit_v1",
+      "package_sha256": "91aef5de53c612ebcaacfd9e5ff7e0eb91559392523ee02b71488c115f41bf80",
+      "reason": "Recruit templates consume native default RNG for cosmetic facing; failed native query purity comparison."
+    }
+  },
+  "frozen": 1794005261.2618563
+}

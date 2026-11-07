@@ -1,0 +1,669 @@
+[
+  {
+    "fault_games": 0,
+    "finished": 1794003704.8920515,
+    "name": "advanced_search_first",
+    "plan": {
+      "created": 1794002345.6043208,
+      "deadline": 1794005257.096521,
+      "games": 56,
+      "metadata": {
+        "candidates": {
+          "clean_fortified_pvs": "e24be5ce1e3b0d2b3b228655136ad2d89277e6c36adbeac3d4e7690c752da48b",
+          "clean_hybrid": "e30313a4dac9e3c44b2b0f80651103d13a97ff876e4bfa8cc94278a0db077260"
+        },
+        "control_sha256": "f19cf216870a82b934321225d4b6ef7f3c258d490dbdaa2d5f728d80f8c732e5",
+        "partition": "train",
+        "runner_sha256": "253fecd6286ff051fedbc9e26bd02a10994620f10a242badc7b0b9b65d0773b7",
+        "source_commit": "2da826c1d5ac4ffe1e282fc1ad02131f9fb25f34"
+      },
+      "schedule_sha256": "5ea2d10770f42871f2b0f4e4c01592d451bc96ad45ddc8b78bbcfe24d07d9899",
+      "workers": 8
+    },
+    "started_jobs": 56,
+    "statuses": {
+      "complete": 56
+    },
+    "unstarted_budget_jobs": 0,
+    "valid_games": 56
+  },
+  {
+    "fault_games": 0,
+    "finished": 1794005257.1556482,
+    "name": "advanced_version_league",
+    "plan": {
+      "created": 1794003707.3572354,
+      "deadline": 1794005257.096521,
+      "games": 84,
+      "metadata": {
+        "candidates": {
+          "clean_fortified_pvs": "e24be5ce1e3b0d2b3b228655136ad2d89277e6c36adbeac3d4e7690c752da48b",
+          "clean_hybrid": "e30313a4dac9e3c44b2b0f80651103d13a97ff876e4bfa8cc94278a0db077260",
+          "clean_pvs": "19512bc8d5b540140d7c176a59f156315237629e9df62f476682c66ddb42a450"
+        },
+        "control_sha256": "966f521657c702a37edca578615667637bdef15a589b0f8e92a01b24c54a4233",
+        "partition": "train",
+        "runner_sha256": "253fecd6286ff051fedbc9e26bd02a10994620f10a242badc7b0b9b65d0773b7",
+        "source_commit": "2da826c1d5ac4ffe1e282fc1ad02131f9fb25f34"
+      },
+      "schedule_sha256": "1bdf1b511da83fdc347eb3883c1fa5d15f12ef5b28b2160d5389cb45cc7e5b8b",
+      "workers": 8
+    },
+    "started_jobs": 45,
+    "statuses": {
+      "budget_interrupted": 47,
+      "complete": 37
+    },
+    "unstarted_budget_jobs": 39,
+    "valid_games": 37
+  },
+  {
+    "fault_games": 0,
+    "finished": 1793994343.9469094,
+    "name": "beam_deep_first",
+    "plan": {
+      "created": 1793993721.243804,
+      "deadline": 1794005257.096521,
+      "games": 28,
+      "metadata": {
+        "candidate_sha256": "3fefde9cd166987e6b3f717f8db5cf5734400a6bbefabc20670655b0f2c053da",
+        "control_sha256": "f19cf216870a82b934321225d4b6ef7f3c258d490dbdaa2d5f728d80f8c732e5",
+        "partition": "train",
+        "preflight": false,
+        "source_commit": "2da826c1d5ac4ffe1e282fc1ad02131f9fb25f34"
+      },
+      "schedule_sha256": "3261e2657830ac219cbdc5ed72b443ef6adcf2cdabfdffb1dba86e6c3173c534",
+      "workers": 8
+    },
+    "started_jobs": 28,
+    "statuses": {
+      "complete": 28
+    },
+    "unstarted_budget_jobs": 0,
+    "valid_games": 28
+  },
+  {
+    "fault_games": 0,
+    "finished": 1793991318.8359907,
+    "name": "beam_elimination_ffa_first",
+    "plan": {
+      "created": 1793991287.5192442,
+      "deadline": 1794005257.096521,
+      "games": 8,
+      "metadata": {
+        "candidate_sha256": "33592e4bbd8cfee1b3bc76f7005f58a45514e90591016c11157f38a5a8e863b9",
+        "control_sha256": "f19cf216870a82b934321225d4b6ef7f3c258d490dbdaa2d5f728d80f8c732e5",
+        "partition": "train",
+        "preflight": false,
+        "source_commit": "2da826c1d5ac4ffe1e282fc1ad02131f9fb25f34"
+      },
+      "schedule_sha256": "dffc1ff16d507d7e25fd4e44c43b84dcb9c4ea79a36f3ecf435de293a13b73c7",
+      "workers": 8
+    },
+    "started_jobs": 8,
+    "statuses": {
+      "complete": 8
+    },
+    "unstarted_budget_jobs": 0,
+    "valid_games": 8
+  },
+  {
+    "fault_games": 0,
+    "finished": 1793991458.4341366,
+    "name": "beam_guarded_ffa_first",
+    "plan": {
+      "created": 1793991318.980242,
+      "deadline": 1794005257.096521,
+      "games": 8,
+      "metadata": {
+        "candidate_sha256": "ff5229a86dfadf7097b0c64359baf0644031a4de443e4287755eb4f163ee3176",
+        "control_sha256": "f19cf216870a82b934321225d4b6ef7f3c258d490dbdaa2d5f728d80f8c732e5",
+        "partition": "train",
+        "preflight": false,
+        "source_commit": "2da826c1d5ac4ffe1e282fc1ad02131f9fb25f34"
+      },
+      "schedule_sha256": "d5fa70a8673aa5dfc07ce47a6140c1a061ac4380f3d9ea5425326b8e5463e4e4",
+      "workers": 8
+    },
+    "started_jobs": 8,
+    "statuses": {
+      "complete": 8
+    },
+    "unstarted_budget_jobs": 0,
+    "valid_games": 8
+  },
+  {
+    "fault_games": 0,
+    "finished": 1793992461.1041152,
+    "name": "beam_healing_ffa_first",
+    "plan": {
+      "created": 1793992352.5763474,
+      "deadline": 1794005257.096521,
+      "games": 8,
+      "metadata": {
+        "candidate_sha256": "8d74c2fcad5f3cd03e5d820a11527f6a384d2bd4dc6f7870b3bf296fe00d4c4e",
+        "control_sha256": "f19cf216870a82b934321225d4b6ef7f3c258d490dbdaa2d5f728d80f8c732e5",
+        "partition": "train",
+        "preflight": false,
+        "source_commit": "2da826c1d5ac4ffe1e282fc1ad02131f9fb25f34"
+      },
+      "schedule_sha256": "7f53cdf7a92003035b1571084a9f856f3ef3c7cf63d4fb8558dd3fd58cd6ec7d",
+      "workers": 8
+    },
+    "started_jobs": 8,
+    "statuses": {
+      "complete": 8
+    },
+    "unstarted_budget_jobs": 0,
+    "valid_games": 8
+  },
+  {
+    "fault_games": 0,
+    "finished": 1793992672.2910645,
+    "name": "beam_reply2_ffa_first",
+    "plan": {
+      "created": 1793992461.2412045,
+      "deadline": 1794005257.096521,
+      "games": 8,
+      "metadata": {
+        "candidate_sha256": "3d5d08502561b8653f6511041f0e9f6cc62ec0001f6b0e896185a83abc1a6c9b",
+        "control_sha256": "f19cf216870a82b934321225d4b6ef7f3c258d490dbdaa2d5f728d80f8c732e5",
+        "partition": "train",
+        "preflight": false,
+        "source_commit": "2da826c1d5ac4ffe1e282fc1ad02131f9fb25f34"
+      },
+      "schedule_sha256": "1555113072a034bb89dcd7ff19b206e846e056fbea7189e2adfd44a78b6c9c93",
+      "workers": 8
+    },
+    "started_jobs": 8,
+    "statuses": {
+      "complete": 8
+    },
+    "unstarted_budget_jobs": 0,
+    "valid_games": 8
+  },
+  {
+    "fault_games": 0,
+    "finished": 1793992351.9942155,
+    "name": "cached_expand",
+    "plan": {
+      "created": 1793991699.5918465,
+      "deadline": 1794005257.096521,
+      "games": 40,
+      "metadata": {
+        "candidate_sha256": "4f94ebb935103026c3d5e9afbacbfe430111160a68281e8a89ad99ac42222c7f",
+        "control_sha256": "f19cf216870a82b934321225d4b6ef7f3c258d490dbdaa2d5f728d80f8c732e5",
+        "partition": "train",
+        "preflight": false,
+        "source_commit": "2da826c1d5ac4ffe1e282fc1ad02131f9fb25f34"
+      },
+      "schedule_sha256": "0eaf8d9245c792681a4e71c9fd90774bfa78c5ece7d9cf4309f279e60331265a",
+      "workers": 8
+    },
+    "started_jobs": 40,
+    "statuses": {
+      "complete": 40
+    },
+    "unstarted_budget_jobs": 0,
+    "valid_games": 40
+  },
+  {
+    "fault_games": 0,
+    "finished": 1793988993.6461258,
+    "name": "cached_first",
+    "plan": {
+      "created": 1793988373.4584894,
+      "deadline": 1794005257.096521,
+      "games": 28,
+      "metadata": {
+        "candidate_sha256": "4f94ebb935103026c3d5e9afbacbfe430111160a68281e8a89ad99ac42222c7f",
+        "control_sha256": "f19cf216870a82b934321225d4b6ef7f3c258d490dbdaa2d5f728d80f8c732e5",
+        "partition": "train",
+        "preflight": false,
+        "source_commit": "2da826c1d5ac4ffe1e282fc1ad02131f9fb25f34"
+      },
+      "schedule_sha256": "14403946a106031e4a96e706612f8f911effa0a278395898bc8a38d3d8969ae6",
+      "workers": 8
+    },
+    "started_jobs": 28,
+    "statuses": {
+      "complete": 28
+    },
+    "unstarted_budget_jobs": 0,
+    "valid_games": 28
+  },
+  {
+    "fault_games": 0,
+    "finished": 1793995626.389034,
+    "name": "clean_beam_first",
+    "plan": {
+      "created": 1793995090.5844543,
+      "deadline": 1794005257.096521,
+      "games": 28,
+      "metadata": {
+        "candidate_sha256": "4e669c4c232edd2d13e33bf0b17938eb23bb791ff5ae15bfede836f9416da33a",
+        "control_sha256": "f19cf216870a82b934321225d4b6ef7f3c258d490dbdaa2d5f728d80f8c732e5",
+        "partition": "train",
+        "preflight": false,
+        "source_commit": "2da826c1d5ac4ffe1e282fc1ad02131f9fb25f34"
+      },
+      "schedule_sha256": "85173393f4ad24d449c4ca85265b2355159e4f9a4b09c1b6fc6928ebcbbbd9e5",
+      "workers": 8
+    },
+    "started_jobs": 28,
+    "statuses": {
+      "complete": 28
+    },
+    "unstarted_budget_jobs": 0,
+    "valid_games": 28
+  },
+  {
+    "fault_games": 0,
+    "finished": 1793995721.3531928,
+    "name": "clean_guard_ffa_first",
+    "plan": {
+      "created": 1793995626.5953307,
+      "deadline": 1794005257.096521,
+      "games": 8,
+      "metadata": {
+        "candidate_sha256": "cf805506e0a735c68f3cf8f4ef3ec909984b5cc82ac84f004ce21f00b0caa352",
+        "control_sha256": "f19cf216870a82b934321225d4b6ef7f3c258d490dbdaa2d5f728d80f8c732e5",
+        "partition": "train",
+        "preflight": false,
+        "source_commit": "2da826c1d5ac4ffe1e282fc1ad02131f9fb25f34"
+      },
+      "schedule_sha256": "337103bf411f986a3d25c4f717169917b69dd25220d3a7e24f15ae0d43327d34",
+      "workers": 8
+    },
+    "started_jobs": 8,
+    "statuses": {
+      "complete": 8
+    },
+    "unstarted_budget_jobs": 0,
+    "valid_games": 8
+  },
+  {
+    "fault_games": 0,
+    "finished": 1793997171.8595536,
+    "name": "clean_pvs180_first",
+    "plan": {
+      "created": 1793996434.7471585,
+      "deadline": 1794005257.096521,
+      "games": 20,
+      "metadata": {
+        "candidate_sha256": "9a46e827943ff590a26330c0c1f0493bc9e37e5bdd7dd01fa6727b7e5920fcc1",
+        "control_sha256": "f19cf216870a82b934321225d4b6ef7f3c258d490dbdaa2d5f728d80f8c732e5",
+        "partition": "train",
+        "preflight": false,
+        "source_commit": "2da826c1d5ac4ffe1e282fc1ad02131f9fb25f34"
+      },
+      "schedule_sha256": "4c3c5aa726da18c01bed67fa4de46c281bc89d4a4100498ccadcb507e7c5f3eb",
+      "workers": 8
+    },
+    "started_jobs": 20,
+    "statuses": {
+      "complete": 20
+    },
+    "unstarted_budget_jobs": 0,
+    "valid_games": 20
+  },
+  {
+    "fault_games": 0,
+    "finished": 1793996434.568574,
+    "name": "clean_pvs_first",
+    "plan": {
+      "created": 1793995878.1243992,
+      "deadline": 1794005257.096521,
+      "games": 20,
+      "metadata": {
+        "candidate_sha256": "19512bc8d5b540140d7c176a59f156315237629e9df62f476682c66ddb42a450",
+        "control_sha256": "f19cf216870a82b934321225d4b6ef7f3c258d490dbdaa2d5f728d80f8c732e5",
+        "partition": "train",
+        "preflight": false,
+        "source_commit": "2da826c1d5ac4ffe1e282fc1ad02131f9fb25f34"
+      },
+      "schedule_sha256": "726f6cf93b68e47968df960918fbde2b83a2a34b0aaa5a78dfda9f18f044072b",
+      "workers": 8
+    },
+    "started_jobs": 20,
+    "statuses": {
+      "complete": 20
+    },
+    "unstarted_budget_jobs": 0,
+    "valid_games": 20
+  },
+  {
+    "fault_games": 0,
+    "finished": 1793995877.9720893,
+    "name": "clean_reply2_ffa_first",
+    "plan": {
+      "created": 1793995721.496539,
+      "deadline": 1794005257.096521,
+      "games": 8,
+      "metadata": {
+        "candidate_sha256": "aa09711747e9fc18c58ad37b38b94e1082cffae480fdf4daa8e72f139ee27114",
+        "control_sha256": "f19cf216870a82b934321225d4b6ef7f3c258d490dbdaa2d5f728d80f8c732e5",
+        "partition": "train",
+        "preflight": false,
+        "source_commit": "2da826c1d5ac4ffe1e282fc1ad02131f9fb25f34"
+      },
+      "schedule_sha256": "d0e424a708c670f72bd20c2a6093e6af251fb172d6d714c8f6ed9b48c4897dac",
+      "workers": 8
+    },
+    "started_jobs": 8,
+    "statuses": {
+      "complete": 8
+    },
+    "unstarted_budget_jobs": 0,
+    "valid_games": 8
+  },
+  {
+    "fault_games": 0,
+    "finished": 1793998208.2498207,
+    "name": "clean_uct_first",
+    "plan": {
+      "created": 1793997172.0422697,
+      "deadline": 1794005257.096521,
+      "games": 28,
+      "metadata": {
+        "candidate_sha256": "808a57bd04c0e450a167082e7d25ef6026efed46feff883a9ab2188b6b7c772d",
+        "control_sha256": "f19cf216870a82b934321225d4b6ef7f3c258d490dbdaa2d5f728d80f8c732e5",
+        "partition": "train",
+        "preflight": false,
+        "source_commit": "2da826c1d5ac4ffe1e282fc1ad02131f9fb25f34"
+      },
+      "schedule_sha256": "52c5cb12d17ee8f147c45540703feb8d9e85a5811488774e2f41f455754238f7",
+      "workers": 8
+    },
+    "started_jobs": 28,
+    "statuses": {
+      "complete": 28
+    },
+    "unstarted_budget_jobs": 0,
+    "valid_games": 28
+  },
+  {
+    "fault_games": 0,
+    "finished": 1794001388.1229143,
+    "name": "corrected_combined_first",
+    "plan": {
+      "created": 1793998209.555316,
+      "deadline": 1794005257.096521,
+      "games": 168,
+      "metadata": {
+        "candidates": {
+          "clean_diverse": "85482a8b3ae53a9550d54f3f7fb69257a1f0ee8d2ab28f829e7b017e5013d052",
+          "clean_exposure": "ecca83b9891aabb009cf7589b1ca81d1af95061550416bb32dfc3cc54c4a8901",
+          "clean_fortified": "966f521657c702a37edca578615667637bdef15a589b0f8e92a01b24c54a4233",
+          "clean_fortified_pruned": "186959abb9c2a2a70ab4337cfca612aaf9d033564b3ffb2b39499c82edcf921d",
+          "clean_pruned": "93fff103302b76db6fcd991057a389701ef2ef743fc26da85386fb2c7f15dca5",
+          "clean_resist": "2709cbf8dca5792da8987ed76d8f4f2dd569cc6f6dca8c7a90149542e4351bb2"
+        },
+        "control_sha256": "f19cf216870a82b934321225d4b6ef7f3c258d490dbdaa2d5f728d80f8c732e5",
+        "partition": "train",
+        "runner_sha256": "e36f1f45088070699f5d18aeba6ca62172f9c43ad7bda144a5f750615db1f1c2",
+        "source_commit": "2da826c1d5ac4ffe1e282fc1ad02131f9fb25f34"
+      },
+      "schedule_sha256": "0ed041a2f77af9cbd5f1572ac07d832c05a55abe88581728310a3828534b08d2",
+      "workers": 8
+    },
+    "started_jobs": 168,
+    "statuses": {
+      "complete": 168
+    },
+    "unstarted_budget_jobs": 0,
+    "valid_games": 168
+  },
+  {
+    "fault_games": 0,
+    "finished": 1793990537.3307343,
+    "name": "economy_expand",
+    "plan": {
+      "created": 1793989568.7039819,
+      "deadline": 1794005257.096521,
+      "games": 56,
+      "metadata": {
+        "candidate_sha256": "c1a2c3ab34bfd85e8da6e74d8f7e6216da06006d872b989f7a4c81c9e3ea28c0",
+        "control_sha256": "f19cf216870a82b934321225d4b6ef7f3c258d490dbdaa2d5f728d80f8c732e5",
+        "partition": "train",
+        "preflight": false,
+        "source_commit": "2da826c1d5ac4ffe1e282fc1ad02131f9fb25f34"
+      },
+      "schedule_sha256": "046748dbf80f82968119538914f8016fd594dd2d807c00fc1a993113108b078c",
+      "workers": 8
+    },
+    "started_jobs": 56,
+    "statuses": {
+      "complete": 56
+    },
+    "unstarted_budget_jobs": 0,
+    "valid_games": 56
+  },
+  {
+    "fault_games": 0,
+    "finished": 1793988372.7657354,
+    "name": "economy_first",
+    "plan": {
+      "created": 1793987759.3826394,
+      "deadline": 1794005257.096521,
+      "games": 28,
+      "metadata": {
+        "candidate_sha256": "c1a2c3ab34bfd85e8da6e74d8f7e6216da06006d872b989f7a4c81c9e3ea28c0",
+        "control_sha256": "f19cf216870a82b934321225d4b6ef7f3c258d490dbdaa2d5f728d80f8c732e5",
+        "partition": "train",
+        "preflight": false,
+        "source_commit": "2da826c1d5ac4ffe1e282fc1ad02131f9fb25f34"
+      },
+      "schedule_sha256": "a320a2ba5b901460cb51a359dc5f275356f3d0a4ea80168e1db6a5e89b37fc73",
+      "workers": 8
+    },
+    "started_jobs": 28,
+    "statuses": {
+      "complete": 28
+    },
+    "unstarted_budget_jobs": 0,
+    "valid_games": 28
+  },
+  {
+    "fault_games": 0,
+    "finished": 1794002343.2255502,
+    "name": "expanded_contender",
+    "plan": {
+      "created": 1794001390.8593776,
+      "deadline": 1794005257.096521,
+      "games": 56,
+      "metadata": {
+        "candidates": {
+          "clean_fortified": "966f521657c702a37edca578615667637bdef15a589b0f8e92a01b24c54a4233"
+        },
+        "control_sha256": "f19cf216870a82b934321225d4b6ef7f3c258d490dbdaa2d5f728d80f8c732e5",
+        "partition": "train",
+        "runner_sha256": "e36f1f45088070699f5d18aeba6ca62172f9c43ad7bda144a5f750615db1f1c2",
+        "source_commit": "2da826c1d5ac4ffe1e282fc1ad02131f9fb25f34"
+      },
+      "schedule_sha256": "d4486134cd5dbb95f6d42bd9e5967cb4b3d6e7d1048159bd6567d51e5445eac6",
+      "workers": 8
+    },
+    "started_jobs": 56,
+    "statuses": {
+      "complete": 56
+    },
+    "unstarted_budget_jobs": 0,
+    "valid_games": 56
+  },
+  {
+    "fault_games": 0,
+    "finished": 1793987758.3078253,
+    "name": "initial_v0",
+    "plan": {
+      "created": 1793987257.1825013,
+      "deadline": 1794005257.096521,
+      "games": 28,
+      "metadata": {
+        "candidate_sha256": "c2d9158c768d8884ceb627df58b1145a1d323debda23ee664595a5939a81a8e5",
+        "control_sha256": "f19cf216870a82b934321225d4b6ef7f3c258d490dbdaa2d5f728d80f8c732e5",
+        "partition": "train",
+        "preflight": false,
+        "source_commit": "2da826c1d5ac4ffe1e282fc1ad02131f9fb25f34"
+      },
+      "schedule_sha256": "68122fcf02c3b4ee0a25261089a1cbd7ee68bb2ea20ed3bced70ba7b0f83ac4a",
+      "workers": 8
+    },
+    "started_jobs": 28,
+    "statuses": {
+      "complete": 28
+    },
+    "unstarted_budget_jobs": 0,
+    "valid_games": 28
+  },
+  {
+    "fault_games": 0,
+    "finished": 1793987256.8975942,
+    "name": "preflight_v0",
+    "plan": {
+      "created": 1793986847.6378706,
+      "deadline": 1793988647.6259847,
+      "games": 28,
+      "metadata": {
+        "candidate_sha256": "c2d9158c768d8884ceb627df58b1145a1d323debda23ee664595a5939a81a8e5",
+        "control_sha256": "f19cf216870a82b934321225d4b6ef7f3c258d490dbdaa2d5f728d80f8c732e5",
+        "partition": "train",
+        "preflight": true,
+        "source_commit": "2da826c1d5ac4ffe1e282fc1ad02131f9fb25f34"
+      },
+      "schedule_sha256": "4ae98847563383f8f44cd7ba4b596414faafceaf4e13e21b980bfd5f1c031da8",
+      "workers": 8
+    },
+    "started_jobs": 28,
+    "statuses": {
+      "complete": 28
+    },
+    "unstarted_budget_jobs": 0,
+    "valid_games": 28
+  },
+  {
+    "fault_games": 0,
+    "finished": 1793989568.474914,
+    "name": "pvs_first",
+    "plan": {
+      "created": 1793988994.5265818,
+      "deadline": 1794005257.096521,
+      "games": 28,
+      "metadata": {
+        "candidate_sha256": "a6f2a3d108c25506340d55d1b71fe209d4f4cac9805df40809b435e223061c7f",
+        "control_sha256": "f19cf216870a82b934321225d4b6ef7f3c258d490dbdaa2d5f728d80f8c732e5",
+        "partition": "train",
+        "preflight": false,
+        "source_commit": "2da826c1d5ac4ffe1e282fc1ad02131f9fb25f34"
+      },
+      "schedule_sha256": "6da08d9fe9dc31d20a3d3c6c8cb8b4f607d8456a846542c049520255d132eef1",
+      "workers": 8
+    },
+    "started_jobs": 28,
+    "statuses": {
+      "complete": 28
+    },
+    "unstarted_budget_jobs": 0,
+    "valid_games": 28
+  },
+  {
+    "fault_games": 0,
+    "finished": 1793993721.0688303,
+    "name": "pvs_reserved_first",
+    "plan": {
+      "created": 1793992672.4354577,
+      "deadline": 1794005257.096521,
+      "games": 20,
+      "metadata": {
+        "candidate_sha256": "013c1a463b323118569b1fd92a68d3c206c9514a90f5eb33664e44460b967ce5",
+        "control_sha256": "f19cf216870a82b934321225d4b6ef7f3c258d490dbdaa2d5f728d80f8c732e5",
+        "partition": "train",
+        "preflight": false,
+        "source_commit": "2da826c1d5ac4ffe1e282fc1ad02131f9fb25f34"
+      },
+      "schedule_sha256": "6878f3ad5d9135b9087d220396ea2ca224b1d79177f8c3667a63dc6b1841ffd2",
+      "workers": 8
+    },
+    "started_jobs": 20,
+    "statuses": {
+      "complete": 20
+    },
+    "unstarted_budget_jobs": 0,
+    "valid_games": 20
+  },
+  {
+    "fault_games": 0,
+    "finished": 1793991699.4347312,
+    "name": "uct_elimination_ffa_first",
+    "plan": {
+      "created": 1793991458.5716734,
+      "deadline": 1794005257.096521,
+      "games": 8,
+      "metadata": {
+        "candidate_sha256": "99f50be601938c510b649074bc4ddf14d80bdcfbd02d603cb2a6093150da8617",
+        "control_sha256": "f19cf216870a82b934321225d4b6ef7f3c258d490dbdaa2d5f728d80f8c732e5",
+        "partition": "train",
+        "preflight": false,
+        "source_commit": "2da826c1d5ac4ffe1e282fc1ad02131f9fb25f34"
+      },
+      "schedule_sha256": "cb77ae2340d1db6fa7fe52e714eda72ae7b158459ad6544280ac7ce231904275",
+      "workers": 8
+    },
+    "started_jobs": 8,
+    "statuses": {
+      "complete": 8
+    },
+    "unstarted_budget_jobs": 0,
+    "valid_games": 8
+  },
+  {
+    "fault_games": 0,
+    "finished": 1793991285.908593,
+    "name": "uct_first",
+    "plan": {
+      "created": 1793990538.2084682,
+      "deadline": 1794005257.096521,
+      "games": 28,
+      "metadata": {
+        "candidate_sha256": "91aef5de53c612ebcaacfd9e5ff7e0eb91559392523ee02b71488c115f41bf80",
+        "control_sha256": "f19cf216870a82b934321225d4b6ef7f3c258d490dbdaa2d5f728d80f8c732e5",
+        "partition": "train",
+        "preflight": false,
+        "source_commit": "2da826c1d5ac4ffe1e282fc1ad02131f9fb25f34"
+      },
+      "schedule_sha256": "3870ae53fd52b9e3b595a863213dc2e1c1d52fca5d035c76c2a36361244bf579",
+      "workers": 8
+    },
+    "started_jobs": 28,
+    "statuses": {
+      "complete": 28
+    },
+    "unstarted_budget_jobs": 0,
+    "valid_games": 28
+  },
+  {
+    "fault_games": 0,
+    "finished": 1793995088.8271778,
+    "name": "uct_narrow_first",
+    "plan": {
+      "created": 1793994344.1625292,
+      "deadline": 1794005257.096521,
+      "games": 28,
+      "metadata": {
+        "candidate_sha256": "0b0569b71cdc275e61bead6821e849bd694b49d495beedd68c18b323eac6382d",
+        "control_sha256": "f19cf216870a82b934321225d4b6ef7f3c258d490dbdaa2d5f728d80f8c732e5",
+        "partition": "train",
+        "preflight": false,
+        "source_commit": "2da826c1d5ac4ffe1e282fc1ad02131f9fb25f34"
+      },
+      "schedule_sha256": "d63b9fdd8fa86a8beb68a3dfc30af4fe2c103d75425fefebb363b653cbd1db1e",
+      "workers": 8
+    },
+    "started_jobs": 28,
+    "statuses": {
+      "complete": 28
+    },
+    "unstarted_budget_jobs": 0,
+    "valid_games": 28
+  }
+]

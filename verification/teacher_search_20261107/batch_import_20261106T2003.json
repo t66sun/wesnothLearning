@@ -1,0 +1,13 @@
+{
+  "frozen_evaluator": "2da826c1d5ac4ffe1e282fc1ad02131f9fb25f34",
+  "helper_sha256": "e36f1f45088070699f5d18aeba6ca62172f9c43ad7bda144a5f750615db1f1c2",
+  "helper_source": "5c8421a05ff4af55ec86f3108bac4e2eafa70ca8",
+  "imports": {
+    "candidate": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107/sources/20261106T173535_2da826c1d5ac/learning/teacher_lab/__main__.py",
+    "clock": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107/sources/20261106T173535_2da826c1d5ac/learning/teacher_lab/__main__.py",
+    "execute": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107/sources/20261106T173535_2da826c1d5ac/learning/teacher_lab/panels.py",
+    "jobs_for": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107/sources/20261106T173535_2da826c1d5ac/learning/teacher_lab/panels.py",
+    "report_panel": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107/sources/20261106T173535_2da826c1d5ac/learning/teacher_lab/report.py"
+  },
+  "passed": true
+}

@@ -1,0 +1,11 @@
+{
+  "created": 1794012802.9553638,
+  "evaluator_source": "35d8f04a582fd4537d3d65945c2de44915a8bb56",
+  "note": "Copied evidence retains its original absolute source paths.",
+  "passed": false,
+  "raw_archive": "raw_evidence.tar.gz",
+  "raw_archive_scope": "Evidence root excluding sources and export",
+  "selected_package_sha256": "6b461de4e99303321b0119a7b88babd575c2d786500b28da4cb45d3c2bdabdb3",
+  "source_host": "cpuServer",
+  "source_root": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107"
+}
