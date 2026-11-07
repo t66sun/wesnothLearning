@@ -1,0 +1,261 @@
+{
+  "wall_seconds": 1206.341959953308,
+  "validation": {
+    "partition": "validation",
+    "blocks": 15,
+    "distinct_policies": 7,
+    "complete": true,
+    "missing": [],
+    "aliases": {
+      "bc": "d9d694f04d4179a5c65bbc29307a8e425a245d650d47f55a36ec04abeb206801",
+      "a1/selected": "cae867b045ab05702cda6ab457f3cb24295c03899816b37b36c4f4192ab13d60",
+      "a1/latest": "cae867b045ab05702cda6ab457f3cb24295c03899816b37b36c4f4192ab13d60",
+      "b1/selected": "4eea5c6168e68fc174c871aa0ca1ccf6280e5cc823c986b0ff89fd138c9e13a7",
+      "b1/latest": "4eea5c6168e68fc174c871aa0ca1ccf6280e5cc823c986b0ff89fd138c9e13a7",
+      "b2/selected": "23462c89adb040088275ffdb1943ff02c23c1bfffd4f712d2225f8543bf75d2b",
+      "b2/latest": "23462c89adb040088275ffdb1943ff02c23c1bfffd4f712d2225f8543bf75d2b",
+      "a2/selected": "be3ed339d3468957cac5caf49c20684af1426443f47c322fe3643b0a548b7b3c",
+      "a2/latest": "be3ed339d3468957cac5caf49c20684af1426443f47c322fe3643b0a548b7b3c",
+      "a3/selected": "453d7da5cb8f0e7244a033ebefa7dddcfca5efbaead6ca47593335b0ac91d971",
+      "a3/latest": "453d7da5cb8f0e7244a033ebefa7dddcfca5efbaead6ca47593335b0ac91d971",
+      "b3/selected": "72c4357fbcfaf86bb5624f8a7e96d4760af511bae67ec42a66f889194c8215e1",
+      "b3/latest": "72c4357fbcfaf86bb5624f8a7e96d4760af511bae67ec42a66f889194c8215e1"
+    },
+    "latest": {
+      "differences": {
+        "b_minus_a": -0.05555555555555558,
+        "a_minus_bc": 0.11851851851851852,
+        "b_minus_bc": 0.06296296296296294
+      },
+      "interval95": {
+        "b_minus_a": [
+          -0.1962962962962963,
+          0.09629629629629632
+        ],
+        "a_minus_bc": [
+          -0.07777777777777783,
+          0.30000000000000004
+        ],
+        "b_minus_bc": [
+          -0.1111111111111111,
+          0.24444444444444446
+        ]
+      },
+      "per_seed": {
+        "202611061": {
+          "b_minus_a": 5.551115123125783e-17,
+          "a_minus_bc": 0.08888888888888885,
+          "b_minus_bc": 0.0888888888888889
+        },
+        "202611062": {
+          "b_minus_a": -0.04444444444444445,
+          "a_minus_bc": 0.14444444444444443,
+          "b_minus_bc": 0.09999999999999998
+        },
+        "202611063": {
+          "b_minus_a": -0.12222222222222218,
+          "a_minus_bc": 0.12222222222222218,
+          "b_minus_bc": 0.0
+        }
+      },
+      "training_seeds": 3,
+      "scenarios": 15,
+      "maps": 1,
+      "bootstrap": {
+        "method": "paired crossed seed/scenario, scenarios stratified by map",
+        "samples": 10000,
+        "seed": 202611069
+      },
+      "predicates": {
+        "superior_to_a": false,
+        "inferior_to_a": false,
+        "superior_to_bc": false,
+        "noninferior_to_bc_margin_05": false,
+        "degraded_beyond_bc_margin_05": false
+      }
+    },
+    "selected": {
+      "differences": {
+        "b_minus_a": -0.05555555555555558,
+        "a_minus_bc": 0.11851851851851852,
+        "b_minus_bc": 0.06296296296296294
+      },
+      "interval95": {
+        "b_minus_a": [
+          -0.1962962962962963,
+          0.09629629629629632
+        ],
+        "a_minus_bc": [
+          -0.07777777777777783,
+          0.30000000000000004
+        ],
+        "b_minus_bc": [
+          -0.1111111111111111,
+          0.24444444444444446
+        ]
+      },
+      "per_seed": {
+        "202611061": {
+          "b_minus_a": 5.551115123125783e-17,
+          "a_minus_bc": 0.08888888888888885,
+          "b_minus_bc": 0.0888888888888889
+        },
+        "202611062": {
+          "b_minus_a": -0.04444444444444445,
+          "a_minus_bc": 0.14444444444444443,
+          "b_minus_bc": 0.09999999999999998
+        },
+        "202611063": {
+          "b_minus_a": -0.12222222222222218,
+          "a_minus_bc": 0.12222222222222218,
+          "b_minus_bc": 0.0
+        }
+      },
+      "training_seeds": 3,
+      "scenarios": 15,
+      "maps": 1,
+      "bootstrap": {
+        "method": "paired crossed seed/scenario, scenarios stratified by map",
+        "samples": 10000,
+        "seed": 202611069
+      },
+      "predicates": {
+        "superior_to_a": false,
+        "inferior_to_a": false,
+        "superior_to_bc": false,
+        "noninferior_to_bc_margin_05": false,
+        "degraded_beyond_bc_margin_05": false
+      }
+    },
+    "status": "observed"
+  },
+  "holdout": {
+    "partition": "holdout",
+    "blocks": 30,
+    "distinct_policies": 7,
+    "complete": true,
+    "missing": [],
+    "aliases": {
+      "bc": "d9d694f04d4179a5c65bbc29307a8e425a245d650d47f55a36ec04abeb206801",
+      "a1/selected": "cae867b045ab05702cda6ab457f3cb24295c03899816b37b36c4f4192ab13d60",
+      "a1/latest": "cae867b045ab05702cda6ab457f3cb24295c03899816b37b36c4f4192ab13d60",
+      "b1/selected": "4eea5c6168e68fc174c871aa0ca1ccf6280e5cc823c986b0ff89fd138c9e13a7",
+      "b1/latest": "4eea5c6168e68fc174c871aa0ca1ccf6280e5cc823c986b0ff89fd138c9e13a7",
+      "b2/selected": "23462c89adb040088275ffdb1943ff02c23c1bfffd4f712d2225f8543bf75d2b",
+      "b2/latest": "23462c89adb040088275ffdb1943ff02c23c1bfffd4f712d2225f8543bf75d2b",
+      "a2/selected": "be3ed339d3468957cac5caf49c20684af1426443f47c322fe3643b0a548b7b3c",
+      "a2/latest": "be3ed339d3468957cac5caf49c20684af1426443f47c322fe3643b0a548b7b3c",
+      "a3/selected": "453d7da5cb8f0e7244a033ebefa7dddcfca5efbaead6ca47593335b0ac91d971",
+      "a3/latest": "453d7da5cb8f0e7244a033ebefa7dddcfca5efbaead6ca47593335b0ac91d971",
+      "b3/selected": "72c4357fbcfaf86bb5624f8a7e96d4760af511bae67ec42a66f889194c8215e1",
+      "b3/latest": "72c4357fbcfaf86bb5624f8a7e96d4760af511bae67ec42a66f889194c8215e1"
+    },
+    "latest": {
+      "differences": {
+        "b_minus_a": -0.025925925925925908,
+        "a_minus_bc": 0.04259259259259257,
+        "b_minus_bc": 0.016666666666666663
+      },
+      "interval95": {
+        "b_minus_a": [
+          -0.14629629629629626,
+          0.07777777777777772
+        ],
+        "a_minus_bc": [
+          -0.05555555555555558,
+          0.1518518518518518
+        ],
+        "b_minus_bc": [
+          -0.06666666666666665,
+          0.1111111111111111
+        ]
+      },
+      "per_seed": {
+        "202611061": {
+          "b_minus_a": -0.12777777777777777,
+          "a_minus_bc": 0.10555555555555551,
+          "b_minus_bc": -0.022222222222222254
+        },
+        "202611062": {
+          "b_minus_a": 0.016666666666666607,
+          "a_minus_bc": 0.033333333333333326,
+          "b_minus_bc": 0.04999999999999993
+        },
+        "202611063": {
+          "b_minus_a": 0.03333333333333338,
+          "a_minus_bc": -0.011111111111111127,
+          "b_minus_bc": 0.022222222222222254
+        }
+      },
+      "training_seeds": 3,
+      "scenarios": 30,
+      "maps": 2,
+      "bootstrap": {
+        "method": "paired crossed seed/scenario, scenarios stratified by map",
+        "samples": 10000,
+        "seed": 202611069
+      },
+      "predicates": {
+        "superior_to_a": false,
+        "inferior_to_a": false,
+        "superior_to_bc": false,
+        "noninferior_to_bc_margin_05": false,
+        "degraded_beyond_bc_margin_05": false
+      }
+    },
+    "selected": {
+      "differences": {
+        "b_minus_a": -0.025925925925925908,
+        "a_minus_bc": 0.04259259259259257,
+        "b_minus_bc": 0.016666666666666663
+      },
+      "interval95": {
+        "b_minus_a": [
+          -0.14629629629629626,
+          0.07777777777777772
+        ],
+        "a_minus_bc": [
+          -0.05555555555555558,
+          0.1518518518518518
+        ],
+        "b_minus_bc": [
+          -0.06666666666666665,
+          0.1111111111111111
+        ]
+      },
+      "per_seed": {
+        "202611061": {
+          "b_minus_a": -0.12777777777777777,
+          "a_minus_bc": 0.10555555555555551,
+          "b_minus_bc": -0.022222222222222254
+        },
+        "202611062": {
+          "b_minus_a": 0.016666666666666607,
+          "a_minus_bc": 0.033333333333333326,
+          "b_minus_bc": 0.04999999999999993
+        },
+        "202611063": {
+          "b_minus_a": 0.03333333333333338,
+          "a_minus_bc": -0.011111111111111127,
+          "b_minus_bc": 0.022222222222222254
+        }
+      },
+      "training_seeds": 3,
+      "scenarios": 30,
+      "maps": 2,
+      "bootstrap": {
+        "method": "paired crossed seed/scenario, scenarios stratified by map",
+        "samples": 10000,
+        "seed": 202611069
+      },
+      "predicates": {
+        "superior_to_a": false,
+        "inferior_to_a": false,
+        "superior_to_bc": false,
+        "noninferior_to_bc_margin_05": false,
+        "degraded_beyond_bc_margin_05": false
+      }
+    },
+    "status": "observed"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "started": 1793957605.0605342,
+  "hard_deadline": 1793986405.0605342,
+  "pid": 636943,
+  "command": [
+    "verification/duel_ppo_comparison_20261106/driver.py",
+    "run",
+    "--output",
+    "runs/duel_ppo_comparison_20261106"
+  ],
+  "source_commit": "43325b33696de4db8ee546e1c6bedb7230a73b37",
+  "protocol_sha256": "a81988b01f57d9002dcc97132eb7f410a67dcacb71f5f2c38bac8f15f077bc7e",
+  "inputs_sha256": "564ba623db85f7e9e754fed95b3a6c4d54df06cb82771c3028f912c781539797"
+}

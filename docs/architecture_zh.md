@@ -177,7 +177,7 @@ BC 模仿验证在 64 行推理块之间共享本次调用的历史缓存；无�
 
 探索为零且 gamma 为 1 时，完整回报为 `z-phi(start)`，势函数只引入与状态相关的常数，不改变结果偏好；不添加提前获胜奖励或 critic clamp。已有 `turn/30` 观测标识剩余时间。任务身份固定在 config、赛程、奖励配置、数据行和检查点中；旧 `continuation-v1`/`v5-potential-1` 输入仍可只读诊断，但不能用于有限任务训练或恢复，冻结数据和证据不得重标。
 
-有限任务边界已通过 116 项 Ubuntu 检查，覆盖真实 Lite 终局夹具、真实 native Lua finish hook、任务身份/仅权重初始化及 PPO 单次读取接入。还原旧平局零奖励后，完整回报数值断言失败；这不构成新任务训练或棋力验收。[命令、源码身份与限制](../verification/finite_score_20261106/REPORT.md)
+有限任务边界已通过 116 项 Ubuntu 检查，覆盖真实 Lite 终局夹具、真实 native Lua finish hook、任务身份/仅权重初始化及 PPO 单次读取接入。还原旧平局零奖励后，完整回报数值断言失败。这些检查证明边界接线；下文的独立有界单挑实验提供训练证据。[命令、源码身份与限制](../verification/finite_score_20261106/REPORT.md)
 
 冻结 team 全量扫描覆盖已提交训练批的 924 局 / 341,940 个决策。到第 30 回合仍有 71.75% 的对局未结束，36.38% 的决策发生在此后。晚期触顶对局中，58.09% 的决策价值超出该运行 `.15/.10/.10` 系数下保守的完整回报范围 `[-1.25,+1.25]`。报告区分自然终局 MC 校准与截断 bootstrap 自洽性；GAE 拟合或假设有限上限目标均不构成棋力证据。[边界夹具、校准与目标对齐](../verification/team_critic_horizon_20261106/REPORT.md)
 
@@ -201,7 +201,7 @@ PPO 复习有两个明确目标，在新运行的 `config.ppo_aux_target` 中冻
 
 时钟把 `hours` 的 10/12 留给更新、2/12 留给冻结评估；`final_holdout_hours` 从评估窗口中划出。
 
-可选冻结 BC 目标通过 43 项独立 Ubuntu loss/runner/resume/来源/分支检查；与有限任务、完整 rollout 读取集成后通过 88 项联合检查，覆盖真实 runner/export/resume、任务兼容分片，以及 weights-only 初始化或 BC 重启时丢弃旧锚点的分支行为。在有限任务下将 KL 换回历史动作 CE，真实 runner 对照断言按预期失败。[独立证据](../verification/frozen_bc_anchor_20261106/REPORT.md)与[统一验收](../verification/ppo_task_anchor_acceptance_20261106/REPORT.md)证明接线；棋力与能力保持仍需实验判断。
+可选冻结 BC 目标通过 43 项独立 Ubuntu loss/runner/resume/来源/分支检查；与有限任务、完整 rollout 读取集成后通过 88 项联合检查，覆盖真实 runner/export/resume、任务兼容分片，以及 weights-only 初始化或 BC 重启时丢弃旧锚点的分支行为。在有限任务下将 KL 换回历史动作 CE，真实 runner 对照断言按预期失败。[独立证据](../verification/frozen_bc_anchor_20261106/REPORT.md)与[统一验收](../verification/ppo_task_anchor_acceptance_20261106/REPORT.md)证明接线。基于生产版本 `eadad5d` 的预注册固定 Astra 单挑对照在 4 小时 1 分 30 秒内完成三对种子，每组至少 10,000 个新鲜决策。完整 420 局独立留出中，KL 相对历史动作得分差为 −2.59 个百分点（交叉 95% 区间 [−14.63,+7.78]）；两种 PPO 均未显著优于共享 BC，KL 相对 BC 的 −5 个百分点非劣标准也未建立。每组 selected 与 latest 相同。这一不确定结果不改变默认目标，也不证明收敛、原版棋力或一般分布保持。[协议、预算、得分与独立复算](../verification/duel_ppo_acceptance_20261107/REPORT.md)
 
 检查点在 `state.json` 旁原子写入；恢复时校验 manifest 哈希、schema、权重与优化器状态，分支运行还接受其继承检查点仍指向的父 manifest 哈希。`--branch-from` 把完整 `latest.pt` 复制成新运行，记录父身份、新时钟与种子，并保留或重置优化器。语料与覆盖门禁只复用该检查点实际保留分片对应的合格祖先教师结果，排除祖先后续采集，并按分片路径去重嵌套谱系。30 项受影响 Ubuntu 检查及真实父运行 40 局只读检查通过（`verification/branch_teacher_evidence_20261102/REPORT.md`）。
 
@@ -295,6 +295,6 @@ PPO 效率诊断区分已提交、被 KL 拒绝和从未执行的工作。冻结
 - 原版对局可由其种子复现：`match.play_game` 把种子写入场景，`runtime.lua` 据此调用 `math.randomseed(seed)`，并预载 `setup.sh` 构建的 `.runtime/entropy.so` 与 `ARENA_ENTROPY_SEED`，使 Wesnoth 的默认与逐动作 C++ RNG 从按种子生成的流取值，而不再读取操作系统熵。种子 20261017 的同一场 stock 对局运行两次产生完全相同的决定性事件流（`verification/native_seed_20261031/REPORT.md`）。不同种子的对局仍然不同；跨种子的原版比较只使用记录到的计数，不声称 lite 与原版相等。
 - 共享候选的来源与数值一致性证据见 `verification/candidate_budget_20261031_exact37/REPORT.md`；`work-12000-v8` 的 45 项受影响 Ubuntu 检查通过，见 `verification/bc_root_20261101/REPORT.md`。当前同种子原版耗时通过，见 `verification/native_inference_20261102/REPORT_seeded.md`：六组成对对局、零故障，评分 p95 为 122/133/114 ms，保持 37 候选与 12,000 工作量。仅排除耗时、规范化各方独立审计批次的顺序后，完整事件内容一致。未优化基线在空闲主机也通过；整组成对面板耗时降低 44.9%。
 - L1 选中的 duel v12 策略完成 120 局原版终评，零故障。两组对照均取得 30/30 个完整轮转块，覆盖 30 个不同场景。该策略对 Astra、baseline 的正式分差分别为 −1.00、−0.65，两项棋力比较均为 `not_passed`。[选中检查点终评](../verification/selected_final_20261103/REPORT.md)
-- 三个赛制已通过普通 BC 就绪验收，配置为 v6 教师、v8 候选、30 回合、每赛制 48 局教师目标，普通阶段耗时 69 分 10 秒。单挑/混战/组队覆盖率为 90.29%/90.64%/93.22%，留出招募命中率为 64.18%/61.33%/62.82%，均超过 60% 下限。语料、覆盖、模仿和场景设计门槛全部通过，单挑按普通停滞刷新规则补采。[普通 BC 报告](../verification/bc_ordinary_v6_20261103/REPORT.md)
+- 有限任务单挑 BC 就绪已在生产版本 `eadad5d` 上验收：明确使用旧 BC actor 初始化，重置 critic、优化器、语料和门禁后，在 64.32 分钟内以 300 局新教师对局、32 个场景族和 90.5854% 总覆盖率通过资格门槛。旧、新优化布局均与最终留出不重叠；回合上限哈希变化不使内部 BC 验证分区独立于初始化暴露。完整 MC 诊断覆盖首次及晚期 PPO 行为的 35 条去重轨迹、2,933 个决策（合并 MSE 0.69087、解释方差 0.19757），不构成最终检查点校准或 critic 质量通过。FFA/team 有限任务就绪仍未验收。[有界单挑证据与限制](../verification/duel_ppo_acceptance_20261107/REPORT.md) 此前三赛制 30 回合 BC 就绪采用延续任务语义，仍限于原有每赛制 48 局目标及门禁。[历史普通 BC 报告](../verification/bc_ordinary_v6_20261103/REPORT.md)
 - 单挑减速收益按攻击者移动前的防御估算，同一目标在不同攻击落点使用相同的状态价值。其他敌军威胁和落点防御按拟选格计算。b0025 原版实盘与 Lite 回归已验收此修复。[固定棋盘证据](../verification/duel_slow_landing_20261103/REPORT.md)
 - 默认 60 回合的三赛制正式训练尚未全部通过：从零开始的 30 小时预算运行正常结束，但混战覆盖率最终仅 88.08%，始终未进入 PPO；单挑/组队分别完成 902/231 个 PPO 批次。三个赛制均选中 v100，完整 Lite 终评中单挑结果不确定，混战/组队显著落后于冻结 Astra 对手。完整但不显著的提名面板保留其统计结论，该运行的最新候选没有最终留出评测。[正式训练验收与分析](../verification/formal_30h_scratch_20261106/REPORT.md) PPO 审计确认单挑/组队仅覆盖 6/7 个场景族，教师排除后辅助复习全部来自历史策略；组队 32.33% 的 rollout 对局需要在回合上限处自举价值。在已有验证场景上新增 120 局 BC 锚点评估后，最新 PPO 相对 BC 的归一化得分变化为单挑 −8.33 个百分点、组队 +1.74 个百分点，95% 区间均跨零；同策略队友的协作在 BC 时就已偏弱。收敛、PPO 收益与原版棋力仍未证实。[PPO 架构审计与证据](../verification/ppo_architecture_audit_20261106/REPORT.md)

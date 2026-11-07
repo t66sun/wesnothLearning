@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/duel_ppo_review_20261107_3dc36bd/source/verification/duel_ppo_acceptance_20261107/independent_review.py", line 248, in <module>
+    main()
+  File "/home/tongshu/acceptance/duel_ppo_review_20261107_3dc36bd/source/verification/duel_ppo_acceptance_20261107/independent_review.py", line 238, in main
+    output[partition] = panel(root, partition, cells)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/acceptance/duel_ppo_review_20261107_3dc36bd/source/verification/duel_ppo_acceptance_20261107/independent_review.py", line 47, in panel
+    assert not row['truncated'] and not game['truncated']
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

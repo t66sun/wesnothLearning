@@ -1,0 +1,34 @@
+{
+  "production_commit": "eadad5de2f47cd9f7a1299f8212e833146eb7797",
+  "parent": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/runs/formal_30h_scratch",
+  "parent_manifest_sha256": "6de9d81858c71c41de505db2c445bae5229fa8587db7a6d3d66d2ebc3eab3c88",
+  "parent_bc_sha256": "05908d7f972148ccc7b39b8df0cc00435e2176861654a632de44c379b94953ab",
+  "parent_bc_version": 38,
+  "rules_dir": "/home/tongshu/acceptance/filters_compiled_20261103/data/rules/1.18.8-combat-filtered",
+  "rules_sha256": "e6b4f6200b0a8ad58a536b844fff37cfa9e0091bf0a0b702a8982155310f2f17",
+  "opponent_sha256": "2a216c96081990621dc15772e9de1bf40e4f5f451223fe52e5b20625464dc933",
+  "extension_sha256": "56dd77140411db987377d6de4ffbf562da4d0e5c76bc16d34780da67e60e5ae4",
+  "model_architecture": "relational_v5",
+  "task_id": "official-score-30-v1",
+  "bc_seed": 202611060,
+  "seeds": [202611061, 202611062, 202611063],
+  "cell_order": [["historical_action", 202611061], ["frozen_bc_kl", 202611061], ["frozen_bc_kl", 202611062], ["historical_action", 202611062], ["historical_action", 202611063], ["frozen_bc_kl", 202611063]],
+  "validation_seed": 202611067,
+  "holdout_seed": 202611068,
+  "analysis_seed": 202611069,
+  "bootstrap_samples": 10000,
+  "fresh_targets": 10000,
+  "workers": 8,
+  "trainer_threads": 1,
+  "seconds": {"total": 28800, "preflight": 900, "bc": 9000, "cell_admission": 1800, "cell_hard": 2100, "evaluation": 5400, "selection_validation": 1800, "report": 900},
+  "old_bc_boards": {
+    "arena2": "6a74ee56216bfeeff68b1b22ca5af2bf08500682cbd0c13ba741948d6c45711c",
+    "the_freelands": "f4a0aa04cfad87b05bcbdb72dc6e469a547454178e6a34e335e45a8eb3fbb810",
+    "weldyn_channel": "e14d55816d6b3241036cdb9d9685f37195522c585adf542c04e0137240a771fa",
+    "sablestone_delta": "4c28c8c86d729d54745cef26c4b075892f3291fe0394e15d924ef6f16d28f428"
+  },
+  "holdout_boards": {
+    "caves_of_the_basilisk": {"file_sha256": "eaf9152df3fe7ad5cb9cbdd322d5a03a98961f3ff01dc2a8d9889a939ae9c804", "board_sha256": "740418012fda0310ee776386a9f41ba09ecc8a265624c9a81a16fb62e2e1a726"},
+    "ruined_passage": {"file_sha256": "d403316b6800b826b71d1973f43bcd7f12d5599ccfdcd0a62387868aefca5fe0", "board_sha256": "77759faea204e0a3adb07f0697406428f15a3754a40fcd57488772ee869ba7ad"}
+  }
+}

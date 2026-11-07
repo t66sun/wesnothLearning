@@ -1,0 +1,9 @@
+bc {"started": 1793957605.2765932, "finished": 1793961464.3646057, "wall_seconds": 3859.0880126953125, "exit_code": 0, "timed_out": false}
+a1 {"started": 1793961464.4235103, "finished": 1793962975.699439, "wall_seconds": 1511.2759292125702, "exit_code": 0, "timed_out": false}
+b1 {"started": 1793962975.7443993, "finished": 1793964630.9450836, "wall_seconds": 1655.2006883621216, "exit_code": 0, "timed_out": false}
+b2 {"started": 1793964631.0346456, "finished": 1793966252.9555771, "wall_seconds": 1621.9209320545197, "exit_code": 0, "timed_out": false}
+a2 {"started": 1793966253.0084658, "finished": 1793967752.8322613, "wall_seconds": 1499.8237957954407, "exit_code": 0, "timed_out": false}
+a3 {"started": 1793967752.874533, "finished": 1793969292.234355, "wall_seconds": 1539.3598222732544, "exit_code": 0, "timed_out": false}
+b3 {"started": 1793969292.2781165, "finished": 1793970874.232754, "wall_seconds": 1581.9546377658844, "exit_code": 0, "timed_out": false}
+evaluation {"started": 1793970874.2846527, "finished": 1793972081.7027998, "wall_seconds": 1207.4181473255157, "exit_code": 0, "timed_out": false}
+EXPERIMENT COMPLETE /home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/result.json
