@@ -13,6 +13,7 @@ from learning.checkpoints import checkpoint, validate_checkpoint
 from learning.common import ROOT, read_json, sha256, write_json
 from learning.coordinator import Experiment
 from learning.experiment import FormatExperiment, default_config
+from learning.features import schema
 from learning.manifest import verify_frozen
 from learning.maps import scenario_family
 from learning.tasks import LEGACY_TASK, TASK_ID, reward_config
@@ -90,8 +91,14 @@ class FiniteScoreIdentityTests(unittest.TestCase):
             old_identity = object.__new__(FormatExperiment)
             old_identity.config = old_config
             source = parent/'duel/last_bc.pt'
-            checkpoint(source, model, torch.optim.Adam(model.parameters(), lr=.02), runner=state,
-                       manifest_sha256=sha256(parent/'manifest.json'), **old_identity.identity())
+            features = schema()
+            prior = dict(features, candidate_selection=dict(features['candidate_selection'], version='work-12000-v8'))
+            with mock.patch('learning.checkpoints.schema', return_value=prior):
+                checkpoint(source, model, torch.optim.Adam(model.parameters(), lr=.02), runner=state,
+                           manifest_sha256=sha256(parent/'manifest.json'), **old_identity.identity())
+            old = torch.load(source, map_location='cpu', weights_only=False)
+            with self.assertRaisesRegex(ValueError, 'feature schema'):
+                validate_checkpoint(old, 'duel')
             original = sha256(source)
             def freeze(directory, opponents, wesnoth, requested):
                 manifest = old_manifest | dict(config=requested, task_id=TASK_ID)
@@ -108,7 +115,8 @@ class FiniteScoreIdentityTests(unittest.TestCase):
             self.assertEqual(branch['checkpoints']['duel']['sha256'], original)
             collector = mock.Mock(side_effect=AssertionError('fixture must not collect'))
             with mock.patch.object(FormatExperiment, 'ensure_export', return_value='unused'):
-                runner = FormatExperiment(child/'duel', 'duel', run.manifest, run.clock, collector, branch=True)
+                # The process may restart after the parent file was copied but before the first child save.
+                runner = FormatExperiment(child/'duel', 'duel', run.manifest, run.clock, collector, resume=True)
                 for key, tensor in model.state_dict().items():
                     if not key.startswith('value.'):
                         self.assertTrue(torch.equal(tensor, runner.model.state_dict()[key]), key)
@@ -123,6 +131,8 @@ class FiniteScoreIdentityTests(unittest.TestCase):
                 self.assertEqual(runner.controller.freeze()['task_id'], TASK_ID)
                 self.assertEqual(runner.controller.freeze()['explore'], 0.)
                 self.assertEqual(runner.state['initialized_from']['task_id'], LEGACY_TASK)
+                saved = torch.load(child/'duel/latest.pt', map_location='cpu', weights_only=False)
+                self.assertEqual(saved['features'], features)
                 before = copy.deepcopy(runner.model.state_dict())
                 resumed = FormatExperiment(child/'duel', 'duel', run.manifest, run.clock, collector, resume=True)
                 self.assertTrue(all(torch.equal(value, resumed.model.state_dict()[key]) for key,value in before.items()))
