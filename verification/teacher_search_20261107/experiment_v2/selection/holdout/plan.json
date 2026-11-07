@@ -1,0 +1,11 @@
+{
+  "created": 1794006939.587197,
+  "deadline": 1794019657.096521,
+  "games": 524,
+  "metadata": {
+    "partition": "holdout",
+    "selected_sha256": "6b461de4e99303321b0119a7b88babd575c2d786500b28da4cb45d3c2bdabdb3"
+  },
+  "schedule_sha256": "f36650d808db1dc18e10fbb0fcab7b64348ee4aba9324e9b289d9b650617fb67",
+  "workers": 8
+}

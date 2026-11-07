@@ -342,7 +342,27 @@ In particular: `learning_rate` currently initializes the BC optimizer while the 
 
 After each change, verify the actually effective config, then record old→new, user basis, command/event ID, effective batch/version, follow-up observations and rollback. Compare by default on valid sampling throughput, fault rate, BC sub-scores and same-engine/same-format validation; formal strength still rests on native evaluation.
 
-## 9. Reporting and handover
+## 9. Independent native teacher experiments
+
+This route does not collect training data or replace the active teacher. Use it only for an explicitly authorized teacher experiment. Commit the branch, then `python -m learning.teacher_remote --command 'COMMAND'` archives that commit, uploads it and executes the command in a fresh Ubuntu tree using the existing environment. Read its `SOURCE` and `TREE` output; preserve old evidence directories.
+
+From that archived tree, use `/home/tongshu/venv/bin/python -m learning.teacher_lab --directory ABSOLUTE_NEW_DIRECTORY` with these subcommands:
+
+1. `init --source-commit COMMIT --wesnoth EXECUTABLE` freezes the maintained Astra source/package and runtime identities. Check available CPU/memory before using its eight workers.
+2. `register --name VERSION --source-commit COMMIT --description DESCRIPTION [--source TEACHER_DIRECTORY] [--parameters JSON]` creates an immutable candidate. New source archives may be registered through `--source`; keep executing matches from the original `evaluator_root`.
+3. `panel --name UNIQUE_PANEL --candidate VERSION --preflight` checks complete 30/100-turn flows across all three formats. Preparation may repair correctness but must not repeatedly tune against scores.
+4. `start` records the five-hour exploration and post-phase deadlines once. Subsequent `panel` calls use only train maps. Begin with one block, then two more using `--blocks 2 --offset 1`. `--opponent VERSION` enables version leagues only after a provisional six-cell baseline win. `status` reports complete evidence and unfinished panels.
+5. After five hours, `select` freezes validation and holdout designs from measured throughput, compares at most three candidates per format, freezes the composite package and runs holdout until the existing four-hour deadline. It writes `final.json` and `REPORT.md`; unqualified fallback selection cannot pass final acceptance.
+
+If a correctness audit disqualifies frozen candidates, preserve them and their matches. Before exploration ends, write a new immutable `selection_source.json` containing the reviewed selector's `evaluator_root` and `source_commit`, the original `base_source_commit`, `baseline_sha256`, unchanged `exploration_end`, `frozen` timestamp, and an `exclusions` map from candidate names to `reason` and `evidence`. Run only `select` from that reviewed archive. The selector validates these identities, excludes those versions from both nomination and fallback, and records the release in its output; the original manifest, clock, scores and acceptance thresholds stay fixed.
+
+`python -m learning.teacher_lab.batch --directory EXPERIMENT --name PANEL --candidates A B --blocks 2 --offset 1` runs several frozen challengers against Astra in one shared eight-worker train panel, with matched scenes and unchanged scoring. For an older frozen evaluator, set `PYTHONPATH` to its root and execute the reviewed archive's `learning/teacher_lab/batch.py` by absolute path; the helper imports the frozen match/score modules and records its own source hash. Start it after the previous worker pool has finished.
+
+Add `--opponent VERSION` for a shared version-league panel. This requires a correctness-eligible provisional baseline winner across all six cells and at least three physical scenes; excluded candidates cannot unlock the league. Challengers must differ from the named frozen opponent. The existing clock, rotations, scoring and recorded opponent budgets still apply.
+
+Changing or restarting commands does not renew the clock. Keep failed versions and incomplete games. Do not tune from holdout, lower the 0.10/95%/12-scenario gate, or integrate the resulting teacher into training as part of this route.
+
+## 10. Reporting and handover
 
 For an authorized delivery export, `export --audit-data DIR --audit-workers N` shares up to N processes across all formats. The default is one. Each format's subdirectory supplies all of its `*.jsonl.gz` shards, including any sequence fragments stored in different files.
 

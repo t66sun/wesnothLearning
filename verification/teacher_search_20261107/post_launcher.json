@@ -1,0 +1,8 @@
+{
+  "clock_sha256": "332640700e4681eceb6675c84ddc838edbaeec9fdd0de1b1c7b1b4cd2ef1f628",
+  "created": 1793999505.6357837,
+  "exploration_end": 1794005257.096521,
+  "final_end": 1794019657.096521,
+  "selection_end": 1794008857.096521,
+  "source_commit": "35d8f04a582fd4537d3d65945c2de44915a8bb56"
+}

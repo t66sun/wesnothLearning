@@ -1,0 +1,100 @@
+{
+  "spatial": {
+    "resampling_connectivity": {
+      "actor_equal": true,
+      "differing_tensors": []
+    },
+    "pooling_location": {
+      "actor_equal": false,
+      "differing_tensors": [
+        "board"
+      ]
+    },
+    "local_patch_compensation": {
+      "actor_equal": false,
+      "differing_tensors": [
+        "local"
+      ]
+    },
+    "entity_compensation": {
+      "actor_equal": false,
+      "differing_tensors": [
+        "opponents",
+        "entities"
+      ]
+    },
+    "hidden_truth_control": {
+      "actor_equal": true,
+      "differing_tensors": []
+    },
+    "knowledge_mask_compensation": {
+      "actor_equal": false,
+      "differing_tensors": [
+        "board",
+        "local"
+      ]
+    }
+  },
+  "history": {
+    "within_turn": {
+      "first_write_equal": true,
+      "later_public_state_differs": true,
+      "final_actor_differences": {},
+      "retained_histories_equal": true,
+      "retained_turns": [
+        1
+      ],
+      "scope": "Order of two independent legal own moves is omitted; harmful future consequence is not demonstrated."
+    },
+    "history_scope": {
+      "raw_prefix_turns": 40,
+      "gru_steps_with_grad": 8,
+      "gru_steps_without_grad": 32,
+      "cached_raw_scenes": 40,
+      "summary_slot_limit": 32,
+      "differentiable_suffix": 8,
+      "first_raw_turn_present": true
+    },
+    "reward_credit": {
+      "turns": 12,
+      "gamma": 1.0,
+      "gae_lambda": 0.95,
+      "first_advantage": 0.5688000922764596,
+      "explanation": "Zero intermediate rewards/values, terminal reward 1: credit propagates beyond eight own turns."
+    },
+    "last_seen_compensation": {
+      "board_equal": true,
+      "tensor_differences": {
+        "entities": {
+          "count": 1,
+          "first_indices": [
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          "max_abs": 0.125
+        }
+      },
+      "previous_visible_positions": [
+        [
+          6,
+          4
+        ],
+        [
+          7,
+          4
+        ]
+      ],
+      "current_visible_enemies": 0,
+      "explanation": "Previously observed enemy location and age remain in entity inputs after it becomes fogged."
+    }
+  },
+  "terrain_scalar": {
+    "vocabulary_size": 439,
+    "unique_float32_scalars": 439,
+    "minimum_adjacent_difference": 0.0022830963134765625,
+    "classification": "Individual declared terrain IDs remain distinguishable; aggregation and ordinal bias are separate."
+  }
+}

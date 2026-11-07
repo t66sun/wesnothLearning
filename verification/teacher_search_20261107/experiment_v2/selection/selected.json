@@ -1,0 +1,108 @@
+{
+  "basis": {
+    "duel": "matched_validation",
+    "ffa4": "matched_validation",
+    "team2v2": "matched_validation"
+  },
+  "choices": {
+    "duel": "clean_fortified_pruned",
+    "ffa4": "clean_fortified",
+    "team2v2": "clean_fortified_pvs"
+  },
+  "frozen": 1794006939.5054896,
+  "name": "selected_teacher",
+  "package": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107/experiment_v2/selection/selected_teacher.zip",
+  "package_sha256": "6b461de4e99303321b0119a7b88babd575c2d786500b28da4cb45d3c2bdabdb3",
+  "qualified": {
+    "duel": true,
+    "ffa4": true,
+    "team2v2": true
+  },
+  "source_candidates": {
+    "duel": {
+      "description": "Same fortified composition configuration; only continuation pruning changes to completed enemy-response values.",
+      "first_timeout": 20,
+      "name": "clean_fortified_pruned",
+      "package": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107/experiment_v2/candidates/clean_fortified_pruned/clean_fortified_pruned.zip",
+      "package_sha256": "186959abb9c2a2a70ab4337cfca612aaf9d033564b3ffb2b39499c82edcf921d",
+      "parameters": {
+        "algorithm": "beam",
+        "cache_combat": true,
+        "depth": 2,
+        "leader_exposure": 4,
+        "leader_home_bonus": 16,
+        "outside_keep_gold": 0.1,
+        "planning_ms": 1000,
+        "position_weight": 0.8,
+        "recruit_bias": 4,
+        "reply_width": 3,
+        "risk": 0.35,
+        "root_width": 18,
+        "tactical_ms": 700,
+        "village_value": 14,
+        "width": 6
+      },
+      "registered": 1793995694.9102345,
+      "source_commit": "50c5035ce61be1a5becebd7a0a9ccdc01b8fe737",
+      "source_sha256": "e13aa75a9d52cd3ac9744ebfe67ac51a341f4c860b52cb00f99f52f0597bdf03",
+      "timeout": 2
+    },
+    "ffa4": {
+      "description": "Combine home retention 16, incremental leader exposure 4 and recruit composition 4 after clean FFA replays show costly homogeneous armies and leaders abandoning recruitment.",
+      "first_timeout": 20,
+      "name": "clean_fortified",
+      "package": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107/experiment_v2/candidates/clean_fortified/clean_fortified.zip",
+      "package_sha256": "966f521657c702a37edca578615667637bdef15a589b0f8e92a01b24c54a4233",
+      "parameters": {
+        "algorithm": "beam",
+        "cache_combat": true,
+        "depth": 2,
+        "leader_exposure": 4,
+        "leader_home_bonus": 16,
+        "outside_keep_gold": 0.1,
+        "planning_ms": 1000,
+        "position_weight": 0.8,
+        "recruit_bias": 4,
+        "reply_width": 3,
+        "risk": 0.35,
+        "root_width": 18,
+        "tactical_ms": 700,
+        "village_value": 14,
+        "width": 6
+      },
+      "registered": 1793995694.9034874,
+      "source_commit": "2c0c2cd10f0cbd7ec71dfac03851a18db12fc93f",
+      "source_sha256": "fb713b1a458741df2f7a7bbab6ee245e431523d82fa896133b34a16f04b7725d",
+      "timeout": 2
+    },
+    "team2v2": {
+      "description": "Apply deterministic iterative PVS to the fortified composition configuration; FFA retains independent-utility beam responses.",
+      "first_timeout": 20,
+      "name": "clean_fortified_pvs",
+      "package": "/home/tongshu/myDev/wesnothLearning/verification/teacher_search_20261107/experiment_v2/candidates/clean_fortified_pvs/clean_fortified_pvs.zip",
+      "package_sha256": "e24be5ce1e3b0d2b3b228655136ad2d89277e6c36adbeac3d4e7690c752da48b",
+      "parameters": {
+        "algorithm": "pvs",
+        "cache_combat": true,
+        "depth": 2,
+        "leader_exposure": 4,
+        "leader_home_bonus": 16,
+        "outside_keep_gold": 0.1,
+        "planning_ms": 1000,
+        "position_weight": 0.8,
+        "recruit_bias": 4,
+        "reply_width": 3,
+        "risk": 0.35,
+        "root_width": 18,
+        "tactical_ms": 700,
+        "tree_depth": 6,
+        "village_value": 14,
+        "width": 6
+      },
+      "registered": 1793998610.7067907,
+      "source_commit": "3b3178233ab1ea9a53a5913ec27646c181dd9bca",
+      "source_sha256": "f8e7e3a09229087b90dec8be9c795b91e80b1b60755075a24736143fad6b3eb1",
+      "timeout": 2
+    }
+  }
+}

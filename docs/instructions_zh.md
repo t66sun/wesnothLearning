@@ -329,7 +329,27 @@ worker、设备、赛制、总预算、BC 局数/原版锚点数、模型结构/
 
 每次变更核对实际生效配置后，记录旧值→新值、用户依据、命令/事件 ID、实际生效批次/版本、后续观察与回退方式。默认比较有效采样吞吐、故障率、BC 分项指标和同引擎/同赛制的验证结果，正式强度仍依据原版评测。
 
-## 9. 汇报与交接
+## 9. 独立原生教师实验
+
+此入口不采集训练数据，也不替换当前教师，仅用于明确授权的教师实验。先提交分支，再用 `python -m learning.teacher_remote --command 'COMMAND'` 归档该提交、上传并在新 Ubuntu 目录中复用现有环境执行命令。核对返回的 `SOURCE` 和 `TREE`，保留旧证据目录。
+
+在该归档源码目录中使用 `/home/tongshu/venv/bin/python -m learning.teacher_lab --directory ABSOLUTE_NEW_DIRECTORY` 及以下子命令：
+
+1. `init --source-commit COMMIT --wesnoth EXECUTABLE` 冻结维护版 Astra 源码/包和运行环境身份。使用八个 worker 前检查可用 CPU 与内存。
+2. `register --name VERSION --source-commit COMMIT --description DESCRIPTION [--source TEACHER_DIRECTORY] [--parameters JSON]` 创建不可变候选。通过 `--source` 登记新源码归档，比赛仍从原 `evaluator_root` 执行。
+3. `panel --name UNIQUE_PANEL --candidate VERSION --preflight` 检查三个赛制 30/100 回合的完整流程。准备期可以修复正确性，不能反复按成绩调参。
+4. `start` 一次性记录五小时探索和赛后截止时间。后续 `panel` 仅使用训练地图，先跑一个 block，再以 `--blocks 2 --offset 1` 补两个。六组暂时战胜基线后才可使用 `--opponent VERSION` 进行版本联赛。`status` 报告完整证据和未完成面板。
+5. 五小时后执行 `select`，依据实测吞吐冻结验证与留出设计，每赛制比较最多三个候选，冻结组合包后在既有四小时截止前核验留出集。结果写入 `final.json` 和 `REPORT.md`；未获资格的回退选择不能通过最终验收。
+
+正确性审计判定冻结候选不合格时，保留候选及其对局。在探索截止前新建不可变的 `selection_source.json`，记录经审查选拔器的 `evaluator_root`、`source_commit`，原 `base_source_commit`、`baseline_sha256`、不变的 `exploration_end`、`frozen` 时间戳，以及候选名到 `reason`、`evidence` 的 `exclusions` 映射。只有 `select` 从该审查归档执行。选拔器核对身份，在提名及回退中均排除这些版本，并在输出中记录此发布；原 manifest、时钟、计分和验收门槛保持冻结。
+
+`python -m learning.teacher_lab.batch --directory EXPERIMENT --name PANEL --candidates A B --blocks 2 --offset 1` 将多个冻结候选放入共用的八 worker 训练面板，对 Astra 使用相同场景和原评分。已有实验的评测器较旧时，将 `PYTHONPATH` 指向原评测器根目录，以绝对路径执行审查归档中的 `learning/teacher_lab/batch.py`；脚本导入冻结的对局/计分模块，并记录自身源码哈希。必须等上一 worker 池结束后启动。
+
+加上 `--opponent VERSION` 可共用 worker 进行版本联赛。必须已有正确性合格的候选在六组、至少三个物理场景上取得暂时基线胜出；被排除的候选不能解锁联赛。挑战者必须不同于指定的冻结对手。仍使用原时钟、座位轮换、计分和对手记录中的动作预算。
+
+变更或重启命令不会延长时钟。保留失败版本和未完成对局，不根据留出结果调参，不降低 0.10/95%/12 场景门槛，也不在此流程中接入训练。
+
+## 10. 汇报与交接
 
 获准导出交付包后，可用 `export --audit-data DIR --audit-workers N` 让所有赛制共用最多 N 个审计进程，默认一个。各赛制子目录中的全部 `*.jsonl.gz` 分片都会参与校验，同一序列分散在多个文件时会合并处理。
 
