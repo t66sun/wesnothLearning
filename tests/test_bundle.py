@@ -202,6 +202,21 @@ class BundleTests(unittest.TestCase):
         self.assertNotIn(ARCHIVE_ROOT + '/docs/bundle.md', members)
         self.assertNotIn(ARCHIVE_ROOT + '/docs/bundle_zh.md', members)
 
+    def test_frozen_selected_teacher_is_shipped_byte_identically_and_required(self):
+        paths=('delivery/search_teacher_20261107/manifest.json',
+               'delivery/search_teacher_20261107/selected_teacher.zip')
+        _write(self.root,{paths[0]:b'{"frozen":"fixture"}',paths[1]:b'PK-frozen-teacher-bytes'})
+        self.build()
+        members=_members(self.base/'bundle.tar.gz')
+        for i,path in enumerate(paths):
+            member=ARCHIVE_ROOT+'/'+path
+            self.assertEqual(members[member][1],(self.root/path).read_bytes())
+            target=self.base/f'missing-teacher-{i}.tar.gz'
+            _retar(self.base/'bundle.tar.gz',target,drop=(member,))
+            report=verify_bundle(target)
+            self.assertFalse(report['ok'])
+            self.assertIn(path,' '.join(report['errors']))
+
     def test_build_rejects_inconsistent_rule_counts(self):
         path = self.root / CATALOG
         summary = json.loads(path.read_text(encoding='utf-8'))

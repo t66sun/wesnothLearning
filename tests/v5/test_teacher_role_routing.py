@@ -145,5 +145,34 @@ class TeacherRoleRoutingTests(unittest.TestCase):
         modern['strata']=[{k.replace('astra_','teacher_'):v for k,v in row.items()} for row in old['strata']]
         self.assertEqual(RewardController._window([old]),RewardController._window([modern]))
 
+    def test_progress_exports_json_identity_and_loads_frozen_control(self):
+        import torch
+        from learning.common import write_json,read_json,sha256
+        from learning.train import checkpoint
+        from learning.progress import plan
+        from learning.rules_catalog import load,resolve_dir
+        from learning.lite_policy import FrozenPolicies
+        from tests.v5 import helpers
+        runner=self.runner();source=runner.directory
+        model=helpers.model(format_name='duel');optimizer=torch.optim.Adam(model.parameters())
+        for name in ('last_bc.pt','selected.pt','last_ppo.pt'):
+            checkpoint(source/name,model,optimizer,runner=dict(version=1,pending_train=None),**roles.identity(runner))
+        write_json(source/'selection.json',dict(selected_sha256=sha256(source/'selected.pt')))
+        rules=resolve_dir()
+        manifest=runner.manifest|dict(config=runner.config,task_id=TASK_ID,
+            rules=dict(directory=str(rules),rules_sha256=load(rules)['rules_file_sha256']),baseline=dict(path='unused'))
+        write_json(source.parent/'manifest.json',manifest)
+        output=self.root.parent/(self.root.name+'-progress')
+        import shutil
+        self.addCleanup(lambda:shutil.rmtree(output,ignore_errors=True))
+        record=plan(source,output,fmt='duel',blocks=12,seed=19,hours=1)
+        self.assertEqual(record['teacher_roles']['evaluation']['teacher'],'selected_teacher')
+        export=read_json(output/'policies/bc/export.json')
+        self.assertEqual(export['identity'],roles.identity(runner))
+        job=read_json(output/'jobs.json')[0]
+        self.assertIn('selected_teacher.zip',job['meta']['control'])
+        policies=FrozenPolicies(prepare_job(job,'lite'))
+        self.assertEqual(len(policies.models),1)
+
 
 if __name__=='__main__':unittest.main()
