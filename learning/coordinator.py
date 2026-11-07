@@ -132,6 +132,8 @@ class Experiment:
         if resume:
             self.manifest=read_json(self.directory/'manifest.json')
             self.config=self.manifest['config']
+            if requested.get('teacher_set',self.config.get('teacher_set','astra')) != self.config.get('teacher_set','astra'):
+                raise ValueError('resume cannot change the frozen teacher set')
             from .features import select_rules
             select_rules(self.config.get('rules_dir',ROOT/'data/rules/1.18.8'))
             verify_frozen(self.manifest)
@@ -144,6 +146,8 @@ class Experiment:
                 raise ValueError('branch training task differs; use --branch-weights-only for a new run')
             self.config=default_config(requested.get('device','cuda'),engine=requested.get('engine'))|requested
             validate_config(self.config)
+            if not weights_only and self.config.get('teacher_set','astra') != parent['config'].get('teacher_set','astra'):
+                raise ValueError('changing teachers requires explicit weights-only initialization')
             from .features import select_rules
             from .rules_catalog import load, resolve_dir
             self.config['rules_dir']=str(resolve_dir(self.config.get('rules_dir')))

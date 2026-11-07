@@ -56,5 +56,8 @@ def build(target):
     with zipfile.ZipFile(target, 'w', zipfile.ZIP_DEFLATED) as archive:
         for path in sorted(SOURCE.rglob('*')):
             if path.is_file():
-                archive.write(path, 'gpt6astra/' + path.relative_to(SOURCE).as_posix())
+                entry = zipfile.ZipInfo('gpt6astra/' + path.relative_to(SOURCE).as_posix())
+                entry.compress_type = zipfile.ZIP_DEFLATED
+                entry.external_attr = 0o100644 << 16
+                archive.writestr(entry, path.read_bytes())
     return target
