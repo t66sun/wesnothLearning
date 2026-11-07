@@ -56,7 +56,7 @@ flowchart LR
 - `Experiment`（`learning/coordinator.py`）冻结 `manifest.json` 与 `clock.json`，然后为每个请求赛制启动一个训练器进程。`FormatExperiment`（`learning/experiment.py`）只拥有一个赛制的模型、优化器、奖励控制器、RNG 流与历史。
 - 训练器把作业批提交给 broker。broker 用一个固定大小的 worker 池（`ProcessPoolExecutor`，spawn）服务全部赛制，将超过截止时间的作业标为 `budget_interrupted`，把每个结果写入 `<run>/<format>/jobs.jsonl`，每个日志首次打开时只修掉一条被中断的不完整尾行，其后结果直接追加、不再重读，再把整批返回给所属训练器。
 - worker 通过 `sample.play_job` 运行一局：lite 对局由 `LiteHost` 在进程内完成；原版对局由 arena 对局运行器驱动一个常驻 Wesnoth 进程（独立 user/add-on 目录，文件式 Lua RPC，见 `native_transport`）。
-- Lite 最终评测为 Astra 席位启用仅计分路径。教师、PPO、DAgger、普通验证及奖励参考对局中，无需记录轨迹的固定 Astra 席位也使用该路径。它记录公开观察到的村庄归属和单位初始位置，调用相同的教师决策逻辑和共用的 Lua 执行器。学习席位、DAgger 查询及奖励时点快照保留完整观察。开局探针收集所有席位的动作诊断。[混合验证对照](../verification/lite_unrecorded_astra_20261104/REPORT.md)
+- Lite 最终评测为冻结教师席位启用仅计分路径。教师、PPO、DAgger、普通验证及奖励参考对局中，无需记录轨迹的固定教师席位也使用该路径。它记录公开观察到的村庄归属和单位初始位置，调用相同的教师决策逻辑和共用的 Lua 执行器。学习席位、DAgger 查询及奖励时点快照保留完整观察。开局探针收集所有席位的动作诊断。[混合验证对照](../verification/lite_unrecorded_astra_20261104/REPORT.md)
 - 最终评测中的学生席位生成完整的合法观察和候选集，每次行动后都更新可见信息。每个席位每回合首次成功执行动作时请求神经网络记忆行。需要奖励标签或开局诊断的对局仍计算这些数据。[同局学生验证对照](../verification/lite_score_policy_20261104/REPORT.md)
 - Lite Lua 宿主通过有符号轴向位移计算六角距离。在固定的 2v2 验证对局中，单 worker 耗时从 23.27 秒降至 21.96 秒，全部 1,031 个动作及裁判事件均相同。[Worker 性能记录](../verification/lite_lua_cost_20261104/REPORT.md)
 - worker 异常返回 `infrastructure_error` 并使所属批失败；训练器退出码被记录，任何赛制都不会重试其他赛制的对局。
@@ -103,7 +103,7 @@ Lite 可达性与寻路对每个展开的格子只枚举一次六个相邻格。
 
 行是训练契约：schema 6，由 `rowpack` v2 编码（JSON 元数据加每行一个 base64 float32 块），装在 gzip JSONL shard 中。每行携带任务/引擎/规则/RNG/战斗/候选/奖励身份、奖励公式、场景族、split 规则、对局族、教师身份与来源（`astra`、`teacher`、`human`、`policy`）。`data.validate_record` 拒绝不一致的出处、宽度、有限性、意图字段或奖励配置，训练读取要求匹配冻结任务身份。已知有限任务结果时，BC 价值监督使用 `terminal_reward - economy*reward_raw.economy - control*reward_raw.control`，与 PPO 完整回报相同；外部截断的 `value_valid=false`。历史 schema 5/6 数据仍可按原奖励语义用于只读诊断。
 
-版本化教师行固定执行包、赛制策略、源码、后端适配及教师契约身份。它们共用现有教师采样类别，教师/人类和原始/DAgger 比例不变。未覆盖意图保留原始历史并校验教师身份，不生成替代标签。训练读取可按后端要求冻结教师；导出分别校验各赛制教师，并继续要求一致的引擎/战斗身份。这些数据接口先于混合运行启用。
+版本化教师行固定执行包、赛制策略、源码、后端适配及教师契约身份。它们共用现有教师采样类别，教师/人类和原始/DAgger 比例不变。未覆盖意图保留原始历史并校验教师身份，不生成替代标签。训练读取可按后端要求冻结教师；导出分别校验各赛制教师，并继续要求一致的引擎/战斗身份。实验读取入口执行这些身份检查。
 
 有界 shard 读取会先考虑每个来源桶规划的首批对局族，再按行配额决定停止，避免一个长对局提前排除池中其他对局；额外族仅用于补足缺口。原有压缩/保留字节预算继续约束准入，完整原始前缀仍被保留。同一冻结批次、同样 2048 行上限下，FFA/团战读入族数由 22/9 增至 30/14；这不证明模仿质量。证据：`verification/bc_admission_20261102/REPORT.md`。
 
@@ -121,7 +121,7 @@ Lite 可达性与寻路对每个展开的格子只枚举一次六个相邻格。
 
 - `search_teacher` —— 位于 `learning/teachers/search_teacher/` 的独立原生 Lua 参赛包，沿用 CA 与 `data.plan` 接口。公开读取层将可见单位、已探索地形和合法记忆的村庄归属复制到局部模型；短动作链 beam search 统一比较招募、攻击和移动，多方回应使用各自效用。战斗分布、确定性投影和独立搜索随机源不访问实时 forecast 或裁判状态。狂暴、瘟疫、升级及不支持的声明停止深入展开；模型是近似实现，不代表原生规则等价。首版软限时为战术 700ms、总规划 1000ms。固定模型与入口检查不证明强度，独立 30/100 回合实验列于 TEST.md。
 
-新的训练 manifest 记录版本化教师集合，按赛制分别声明监督、对手、评测及奖励参照。当前默认仍为 `astra`。分阶段接入的 `mixed-20261107` 固定交付包中的单挑/团队策略，FFA 使用维护版 Astra；各描述包含执行包/源码哈希、入口、参数和预算。维护版 Astra 打包可复现，原始归档仅作血脉。版本化 Native 和 Lite 作业已为教师席和 DAgger 查询加载对应入口；实验全部角色启用及采样验收仍待完成，因此实验运行入口仍拒绝混合集合。`LiteHost` 仍拒绝官方 baseline 座位。
+新训练 manifest 按赛制冻结版本化教师集合，并分别声明监督、固定对手、评测和奖励参照，包含 Native/Lite 适配身份。`--teacher-set mixed-20261107` 选择原样交付的单挑 `clean_fortified_pruned`、2v2 `clean_fortified_pvs`，FFA 保留维护版 Astra。显式混合运行已可用；固定 48 局接入面板通过前默认仍为 `astra`。各消费者读取对应角色，官方 baseline 仍仅走 Native。PPO 构成、队友轮换、候选张量、奖励公式及采样比例不变。BC 额度只计当前冻结教师的完整原始对局，DAgger 标签不能代替游戏额度。奖励校准缓存绑定教师、后端、规则和任务；新记录使用 `teacher_partner` 与准确教师参照字段，旧报告保留原身份。更换集合或后端适配须新建实验并显式仅继承权重，重置语料、资格、优化器和奖励校准；resume 拒绝覆盖教师集合。[角色回归证据](../verification/teacher_integration_20261107/roles/REPORT.md)。
 
 Lite 要求 `HOST_VERSION=teacher-host-v1`。Lua 加载器以完整模块路径缓存，提供公开的未来昼夜、无坐标招募模板，并投影已捕获的治疗、再生、steadfast 和武器字段。各席公共记忆随快照保存，重置时清空。查询使用记忆副本，禁止执行动作，暂停学生剩余预算，并独立计算首次查询。Lua hook 和 Rust 可达性、视野、战斗及概率循环中的检查中断过期调用。构造、重置和恢复时，教师描述均与实际赛制核对。固定宿主、采集和规则回归已在 Ubuntu 通过；交付包未改，原生棋力证据不证明 Lite 棋力。[Lite 接入证据](../verification/teacher_integration_20261107/lite/REPORT.md)。
 
@@ -295,7 +295,7 @@ PPO 效率诊断区分已提交、被 KL 拒绝和从未执行的工作。冻结
 - lite 规则是近似的（587 单位中 467 个），且明确未经原版语义验收；整包性能未验收。
 - 两个后端都采用随机战斗，但随机流不同。固定局面的概率一致不代表完整跨引擎等价。
 - 概率战斗的致命状态、条件/必然升级和零级经验已有固定原版对照与自动回归证据，见 `verification/combat_boundaries_20261102/REPORT.md`；首次随机战斗改造证据保留在 `verification/probabilistic_combat_20261102/REPORT.md`。完整原版语义仍待验收。
-- DAgger 只属于 Astra：冻结教师能回答按决策查询，每条纠正行都携带该身份。
+- DAgger 查询所属赛制及后端的冻结监督教师，每条纠正行携带该身份。
 - 官方 baseline 仅限原版；lite 运行无法对它评估。
 - 整理后的录像语料（`data/replays_curated/`，1,076 局标准时代对局）仍只是暂存：只有记录于 1.18.8 的 197 局能进入 BC。大厅归档以其 `[scenario]` 块作为起始块，因为 1.18.8 自行展开场景并合并已记录的 RNG；缺少 `[carryover_sides_start].random_seed` 的大厅归档按 `missing_initial_rng` 跳过。录像标记只能放在动作之前以及末尾各一次，因为在同步上下文内遇到的 `[custom_command]` 会被回放机拒绝。已准备三局、由官方 1.18.8 实际播放并导入 84 条 BC 行（`verification/curated_bc_20261031/REPORT.md`）；不声明更大范围的语料播放。
 - 原版对局可由其种子复现：`match.play_game` 把种子写入场景，`runtime.lua` 据此调用 `math.randomseed(seed)`，并预载 `setup.sh` 构建的 `.runtime/entropy.so` 与 `ARENA_ENTROPY_SEED`，使 Wesnoth 的默认与逐动作 C++ RNG 从按种子生成的流取值，而不再读取操作系统熵。种子 20261017 的同一场 stock 对局运行两次产生完全相同的决定性事件流（`verification/native_seed_20261031/REPORT.md`）。不同种子的对局仍然不同；跨种子的原版比较只使用记录到的计数，不声称 lite 与原版相等。
