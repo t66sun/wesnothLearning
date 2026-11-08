@@ -1,0 +1,45 @@
+test_branch_rollout_targets_and_pending_resume (tests.v5.test_ppo_gae_lambda.FrozenGaeTests.test_branch_rollout_targets_and_pending_resume) ... FAIL
+
+======================================================================
+FAIL: test_branch_rollout_targets_and_pending_resume (tests.v5.test_ppo_gae_lambda.FrozenGaeTests.test_branch_rollout_targets_and_pending_resume)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/ppo305_20261108_eb0df02_reverted_PFKRw4/tests/v5/test_ppo_gae_lambda.py", line 148, in test_branch_rollout_targets_and_pending_resume
+    runner.learn()
+  File "/home/tongshu/acceptance/ppo305_20261108_eb0df02_reverted_PFKRw4/verification/ppo_batch_contract_20261107/driver.py", line 51, in learn
+    super().learn()
+  File "/home/tongshu/acceptance/ppo305_20261108_eb0df02_reverted_PFKRw4/learning/experiment.py", line 695, in learn
+    finished=self.finish_train(prepared_bc,prepared_ppo=prepared_ppo)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/acceptance/ppo305_20261108_eb0df02_reverted_PFKRw4/learning/experiment.py", line 447, in finish_train
+    metrics=train(self.model,self.optimizer,rows,method,epochs=self.config['epochs'],minibatch=self.config['minibatch'],
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/acceptance/ppo305_20261108_eb0df02_reverted_PFKRw4/tests/v5/test_ppo_gae_lambda.py", line 136, in train
+    return runner_train(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/acceptance/ppo305_20261108_eb0df02_reverted_PFKRw4/learning/train.py", line 21, in train
+    return ppo.update(model, optimizer, records, bc_records=bc_records, epochs=epochs, minibatch=minibatch,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/acceptance/ppo305_20261108_eb0df02_reverted_PFKRw4/learning/ppo.py", line 77, in update
+    adv, ret = advantages(records, shaping_weight=shaping_weight)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/mock.py", line 1134, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/mock.py", line 1138, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/mock.py", line 1199, in _execute_mock_call
+    result = effect(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tongshu/acceptance/ppo305_20261108_eb0df02_reverted_PFKRw4/tests/v5/test_ppo_gae_lambda.py", line 112, in targets
+    self.assertEqual({row['reward_config']['gae_lambda'] for row in rows}, {lam})
+AssertionError: Items in the first set but not the second:
+0.95
+Items in the second set but not the first:
+1.0
+
+----------------------------------------------------------------------
+Ran 1 test in 2.633s
+
+FAILED (failures=1)

@@ -255,6 +255,7 @@ The bounded runner requires a new successful PPO batch before and after restarti
 | BC learning rate / PPO learning rate | 3e-4 / 1e-4 |
 | PPO clip / value / entropy / BC aux / grad clip | 0.2 / 0.5 / 0.01 / 0.10 / 0.5 |
 | PPO auxiliary target | `historical_action`; optional `frozen_bc_kl` on a new run |
+| PPO GAE λ | 0.95 by default; new runs freeze `config.gae_lambda` |
 | KL limit / plan version | 0.02 / 2 |
 | reward mode / ranges | adaptive / economy 0.05–0.20, control 0.02–0.15, explore 0; gamma 1 |
 | shared candidate limit | 36 actions + 1 end-turn (all phases) |

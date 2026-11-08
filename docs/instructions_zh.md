@@ -169,6 +169,8 @@ KL 模式在 PPO 开始前固定 `<format>/frozen_bc.pt`，并将身份写入 `s
 
 新运行使用 `official-score-30-v1`：教师、PPO 和 DAgger 将完整第 30 回合作为正式计分终局。`--training-max-turns` 仅接受 30；gamma 为 1，探索奖励为 0，经济/控制保留势函数差分。评估同为 30，开局探针在 5 回合外部截断。BC 门禁和面板阈值保持现有合同。旧 60 回合数据与 manifest 不能恢复或混入本任务；`--human-data` 应指向空目录或兼容语料，不能重标历史数据。
 
+新运行或 BC 分支可设 `run --gae-lambda 1.0`，使到达任务终局的 PPO 轨迹使用完整成形回报。默认值为 0.95。分支保留父样本，并在新调度和轨迹中记录自己的 λ。恢复沿用保存的 λ 和原预算。[Ubuntu 配置与恢复验收](../verification/ppo_gae_lambda_20261108/REPORT.md)
+
 启动后的完成检查：
 
 - `manifest.json` 的 `config` 与指令相符，规则/架构/词表及引擎绑定正确。
