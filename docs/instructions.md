@@ -180,6 +180,8 @@ This guide does not prescribe a default pre-flight rerun of 277 tests, the 30-bl
 
 Use `--final-holdout-hours H` to reserve H hours of the final evaluation budget (default 0, `0 <= H < hours/6`). Nomination stops H hours before the total deadline and retains the champion if incomplete. Holdout keeps the original deadline, and resume uses the frozen configuration.
 
+Set `run --gae-lambda 1.0` on a new run or BC branch to use complete shaped returns for task-terminal PPO trajectories. The default is 0.95. A branch keeps the parent samples and records its own λ in new schedules and trajectories. Resume uses the saved value and budget. [Ubuntu configuration and recovery checks](../verification/ppo_gae_lambda_20261108/REPORT.md)
+
 ## 5. Resuming existing training
 
 Inspect the original experiment's manifest, clock, latest checkpoint and error records first, confirm no active main process in the same directory, then run against matching sources, environment and rules:

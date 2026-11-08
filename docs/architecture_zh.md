@@ -255,6 +255,7 @@ PPO 效率诊断区分已提交、被 KL 拒绝和从未执行的工作。30 回
 | BC 学习率 / PPO 学习率 | 3e-4 / 1e-4 |
 | PPO clip / value / entropy / BC 辅助 / 梯度裁剪 | 0.2 / 0.5 / 0.01 / 0.10 / 0.5 |
 | PPO 辅助目标 | `historical_action`；新运行可选 `frozen_bc_kl` |
+| PPO GAE λ | 默认 0.95；新运行冻结 `config.gae_lambda` |
 | KL 上限 / 计划版本 | 0.02 / 2 |
 | 奖励模式 / 取值范围 | adaptive / economy 0.05–0.20、control 0.02–0.15、explore 0；gamma 1 |
 | 共享候选上限 | 36 个动作 + 1 个结束回合（所有阶段） |
