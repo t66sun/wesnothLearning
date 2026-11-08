@@ -32,14 +32,17 @@ from verification.ppo_batch_contract_20261107 import driver as paired
 PARENT = Path('/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/'
               'duel_ppo_comparison_20261106/runs/bc')
 ASSETS = Path('/home/tongshu/myDev/wesnothLearning/WesnothLearning')
-MAPS = ASSETS/'.runtime/install/share/wesnoth/data/multiplayer/maps'
+WESNOTH_DATA = ASSETS/'.runtime/install/share/wesnoth/data'
 CATALOG = ASSETS/'rules/1.18.8/catalog.json'
 RULES = Path(paired.configuration('', 0, 1)['rules_dir'])
 BASE = panels.INPUTS['base_bc']
 SEEDS = (202611081, 202611082, 202611083)
 ORDER = ((1., SEEDS[0]), (.95, SEEDS[0]), (.95, SEEDS[1]), (1., SEEDS[1]),
          (1., SEEDS[2]), (.95, SEEDS[2]))
-HOLDOUT = {'den_of_onis': '2p_Den_of_Onis.map', 'fallenstar_lake': '2p_Fallenstar_Lake.map'}
+HOLDOUT = {
+    'road_to_weldyn': 'campaigns/Delfadors_Memoirs/maps/03_The_Road_to_Weldyn.map',
+    'summer_of_storms': 'campaigns/The_Rise_Of_Wesnoth/maps/01_A_Summer_of_Storms.map',
+}
 SECONDS = dict(preparation=1800, cell=14400, admission=14100, ppo=86400,
                validation=3600, holdout=12600, report=3600, total=108000)
 MIN_FREE = 55 * 1024**3
@@ -76,17 +79,19 @@ def prepare(output, commit, archive, started):
     for audit in (endpoint['exposure'], identity['exposure']):
         exposed.update(digest for boards in audit['boards'].values() for digest in boards)
 
-    known_terrain = set(read_json(RULES/'rules.json')['terrains'])
+    terrains = read_json(RULES/'rules.json')['terrains']
     holdout = {}
     for name, filename in HOLDOUT.items():
-        path = freeze_map(MAPS/filename, name, output=output/'boards', catalog=CATALOG)
+        path = freeze_map(WESNOTH_DATA/filename, name, output=output/'boards', catalog=CATALOG)
         data = read_json(path)
         board = data['board']
         digest = board_digest(board)
         if digest in exposed or len(board['starts']) != 2:
             raise ValueError(f'{name} repeats an exposed board or lacks two starts')
-        if {cell for row in board['terrain'] for cell in row} - known_terrain:
+        if {cell for row in board['terrain'] for cell in row} - terrains.keys():
             raise ValueError(f'{name} has terrain outside the frozen rule catalog')
+        if not all(terrains[board['terrain'][y-1][x-1]]['keep'] for x, y in board['starts']):
+            raise ValueError(f'{name} does not put both duel seats on keeps')
         exposed.add(digest)
         holdout[name] = dict(path=str(path), source_sha256=data['source_sha256'], board_sha256=digest,
                              file_sha256=sha256(path), width=board['width'], height=board['height'],
