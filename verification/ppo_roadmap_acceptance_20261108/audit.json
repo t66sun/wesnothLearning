@@ -1,0 +1,322 @@
+{
+  "launch_sha256": "35691d7b2e21c73a5cfee79aa97da0f39c75841811999076d4b46c8ee8c7dd49",
+  "driver_seconds": 73592.17851257324,
+  "prep_seconds": 52.653,
+  "stage_seconds": {
+    "preflight-base": 1.0157456398010254,
+    "preflight-b": 0.9660027027130127,
+    "preflight-c": 0.9658660888671875,
+    "bc-b": 3444.398574590683,
+    "bc-c": 3959.082632780075,
+    "base-202611071": 5151.527966737747,
+    "a-202611071": 5147.722455501556,
+    "b-202611071": 5140.953407526016,
+    "c-202611071": 5127.355578184128,
+    "c-202611072": 5178.755058765411,
+    "b-202611072": 5103.354974746704,
+    "a-202611072": 5124.786587715149,
+    "base-202611072": 5120.90087723732,
+    "a-202611073": 5156.706281900406,
+    "base-202611073": 5122.0669865608215,
+    "c-202611073": 5173.113797903061,
+    "b-202611073": 5122.535893917084,
+    "validation-base": 1482.240650653839,
+    "validation-b": 771.4180881977081,
+    "validation-c": 803.3628304004669,
+    "holdout-base": 627.2185122966766,
+    "holdout-b": 355.352659702301,
+    "holdout-c": 385.51072692871094,
+    "mc-base": 35.451087474823,
+    "mc-b": 13.293035745620728,
+    "mc-c": 15.099982023239136
+  },
+  "ppo": {
+    "base-202611071": {
+      "games": 328,
+      "fresh": 33463,
+      "batches": 82,
+      "tail_updates": 1,
+      "last_finish_slack_seconds": 265.8260176181793,
+      "board_sha256": [
+        "4c28c8c86d729d54745cef26c4b075892f3291fe0394e15d924ef6f16d28f428",
+        "6a74ee56216bfeeff68b1b22ca5af2bf08500682cbd0c13ba741948d6c45711c",
+        "e14d55816d6b3241036cdb9d9685f37195522c585adf542c04e0137240a771fa",
+        "f4a0aa04cfad87b05bcbdb72dc6e469a547454178e6a34e335e45a8eb3fbb810"
+      ],
+      "stage_seconds": 5151.527966737747
+    },
+    "a-202611071": {
+      "games": 544,
+      "fresh": 54492,
+      "batches": 68,
+      "tail_updates": 1,
+      "last_finish_slack_seconds": 253.46954703330994,
+      "board_sha256": [
+        "4c28c8c86d729d54745cef26c4b075892f3291fe0394e15d924ef6f16d28f428",
+        "6a74ee56216bfeeff68b1b22ca5af2bf08500682cbd0c13ba741948d6c45711c",
+        "e14d55816d6b3241036cdb9d9685f37195522c585adf542c04e0137240a771fa",
+        "f4a0aa04cfad87b05bcbdb72dc6e469a547454178e6a34e335e45a8eb3fbb810"
+      ],
+      "stage_seconds": 5147.722455501556
+    },
+    "b-202611071": {
+      "games": 336,
+      "fresh": 33600,
+      "batches": 84,
+      "tail_updates": 1,
+      "last_finish_slack_seconds": 260.2157254219055,
+      "board_sha256": [
+        "4c28c8c86d729d54745cef26c4b075892f3291fe0394e15d924ef6f16d28f428",
+        "6a74ee56216bfeeff68b1b22ca5af2bf08500682cbd0c13ba741948d6c45711c",
+        "e14d55816d6b3241036cdb9d9685f37195522c585adf542c04e0137240a771fa",
+        "f4a0aa04cfad87b05bcbdb72dc6e469a547454178e6a34e335e45a8eb3fbb810"
+      ],
+      "stage_seconds": 5140.953407526016
+    },
+    "c-202611071": {
+      "games": 320,
+      "fresh": 33127,
+      "batches": 80,
+      "tail_updates": 1,
+      "last_finish_slack_seconds": 277.00804805755615,
+      "board_sha256": [
+        "4c28c8c86d729d54745cef26c4b075892f3291fe0394e15d924ef6f16d28f428",
+        "6a74ee56216bfeeff68b1b22ca5af2bf08500682cbd0c13ba741948d6c45711c",
+        "e14d55816d6b3241036cdb9d9685f37195522c585adf542c04e0137240a771fa",
+        "f4a0aa04cfad87b05bcbdb72dc6e469a547454178e6a34e335e45a8eb3fbb810"
+      ],
+      "stage_seconds": 5127.355578184128
+    },
+    "c-202611072": {
+      "games": 324,
+      "fresh": 33799,
+      "batches": 81,
+      "tail_updates": 1,
+      "last_finish_slack_seconds": 222.44427847862244,
+      "board_sha256": [
+        "4c28c8c86d729d54745cef26c4b075892f3291fe0394e15d924ef6f16d28f428",
+        "6a74ee56216bfeeff68b1b22ca5af2bf08500682cbd0c13ba741948d6c45711c",
+        "e14d55816d6b3241036cdb9d9685f37195522c585adf542c04e0137240a771fa",
+        "f4a0aa04cfad87b05bcbdb72dc6e469a547454178e6a34e335e45a8eb3fbb810"
+      ],
+      "stage_seconds": 5178.755058765411
+    },
+    "b-202611072": {
+      "games": 336,
+      "fresh": 33818,
+      "batches": 84,
+      "tail_updates": 1,
+      "last_finish_slack_seconds": 297.8350841999054,
+      "board_sha256": [
+        "4c28c8c86d729d54745cef26c4b075892f3291fe0394e15d924ef6f16d28f428",
+        "6a74ee56216bfeeff68b1b22ca5af2bf08500682cbd0c13ba741948d6c45711c",
+        "e14d55816d6b3241036cdb9d9685f37195522c585adf542c04e0137240a771fa",
+        "f4a0aa04cfad87b05bcbdb72dc6e469a547454178e6a34e335e45a8eb3fbb810"
+      ],
+      "stage_seconds": 5103.354974746704
+    },
+    "a-202611072": {
+      "games": 544,
+      "fresh": 53225,
+      "batches": 68,
+      "tail_updates": 1,
+      "last_finish_slack_seconds": 276.39056396484375,
+      "board_sha256": [
+        "4c28c8c86d729d54745cef26c4b075892f3291fe0394e15d924ef6f16d28f428",
+        "6a74ee56216bfeeff68b1b22ca5af2bf08500682cbd0c13ba741948d6c45711c",
+        "e14d55816d6b3241036cdb9d9685f37195522c585adf542c04e0137240a771fa",
+        "f4a0aa04cfad87b05bcbdb72dc6e469a547454178e6a34e335e45a8eb3fbb810"
+      ],
+      "stage_seconds": 5124.786587715149
+    },
+    "base-202611072": {
+      "games": 328,
+      "fresh": 33828,
+      "batches": 82,
+      "tail_updates": 1,
+      "last_finish_slack_seconds": 295.4089102745056,
+      "board_sha256": [
+        "4c28c8c86d729d54745cef26c4b075892f3291fe0394e15d924ef6f16d28f428",
+        "6a74ee56216bfeeff68b1b22ca5af2bf08500682cbd0c13ba741948d6c45711c",
+        "e14d55816d6b3241036cdb9d9685f37195522c585adf542c04e0137240a771fa",
+        "f4a0aa04cfad87b05bcbdb72dc6e469a547454178e6a34e335e45a8eb3fbb810"
+      ],
+      "stage_seconds": 5120.90087723732
+    },
+    "a-202611073": {
+      "games": 528,
+      "fresh": 54285,
+      "batches": 66,
+      "tail_updates": 1,
+      "last_finish_slack_seconds": 244.49575304985046,
+      "board_sha256": [
+        "4c28c8c86d729d54745cef26c4b075892f3291fe0394e15d924ef6f16d28f428",
+        "6a74ee56216bfeeff68b1b22ca5af2bf08500682cbd0c13ba741948d6c45711c",
+        "e14d55816d6b3241036cdb9d9685f37195522c585adf542c04e0137240a771fa",
+        "f4a0aa04cfad87b05bcbdb72dc6e469a547454178e6a34e335e45a8eb3fbb810"
+      ],
+      "stage_seconds": 5156.706281900406
+    },
+    "base-202611073": {
+      "games": 344,
+      "fresh": 32630,
+      "batches": 86,
+      "tail_updates": 1,
+      "last_finish_slack_seconds": 279.1467316150665,
+      "board_sha256": [
+        "4c28c8c86d729d54745cef26c4b075892f3291fe0394e15d924ef6f16d28f428",
+        "6a74ee56216bfeeff68b1b22ca5af2bf08500682cbd0c13ba741948d6c45711c",
+        "e14d55816d6b3241036cdb9d9685f37195522c585adf542c04e0137240a771fa",
+        "f4a0aa04cfad87b05bcbdb72dc6e469a547454178e6a34e335e45a8eb3fbb810"
+      ],
+      "stage_seconds": 5122.0669865608215
+    },
+    "c-202611073": {
+      "games": 324,
+      "fresh": 33330,
+      "batches": 81,
+      "tail_updates": 1,
+      "last_finish_slack_seconds": 228.1068992614746,
+      "board_sha256": [
+        "4c28c8c86d729d54745cef26c4b075892f3291fe0394e15d924ef6f16d28f428",
+        "6a74ee56216bfeeff68b1b22ca5af2bf08500682cbd0c13ba741948d6c45711c",
+        "e14d55816d6b3241036cdb9d9685f37195522c585adf542c04e0137240a771fa",
+        "f4a0aa04cfad87b05bcbdb72dc6e469a547454178e6a34e335e45a8eb3fbb810"
+      ],
+      "stage_seconds": 5173.113797903061
+    },
+    "b-202611073": {
+      "games": 344,
+      "fresh": 33203,
+      "batches": 86,
+      "tail_updates": 1,
+      "last_finish_slack_seconds": 278.651398897171,
+      "board_sha256": [
+        "4c28c8c86d729d54745cef26c4b075892f3291fe0394e15d924ef6f16d28f428",
+        "6a74ee56216bfeeff68b1b22ca5af2bf08500682cbd0c13ba741948d6c45711c",
+        "e14d55816d6b3241036cdb9d9685f37195522c585adf542c04e0137240a771fa",
+        "f4a0aa04cfad87b05bcbdb72dc6e469a547454178e6a34e335e45a8eb3fbb810"
+      ],
+      "stage_seconds": 5122.535893917084
+    }
+  },
+  "common_stream_games": {
+    "a-202611071": 328,
+    "b-202611071": 328,
+    "c-202611071": 320,
+    "a-202611072": 328,
+    "b-202611072": 328,
+    "c-202611072": 324,
+    "a-202611073": 344,
+    "b-202611073": 344,
+    "c-202611073": 324
+  },
+  "bc": {
+    "base": {
+      "teacher_games": 300,
+      "weights_sha256": "d9d694f04d4179a5c65bbc29307a8e425a245d650d47f55a36ec04abeb206801",
+      "exposure": {
+        "shards": 304,
+        "matched": 304,
+        "boards": {
+          "arena2": [
+            "6a74ee56216bfeeff68b1b22ca5af2bf08500682cbd0c13ba741948d6c45711c"
+          ],
+          "the_freelands": [
+            "f4a0aa04cfad87b05bcbdb72dc6e469a547454178e6a34e335e45a8eb3fbb810"
+          ],
+          "weldyn_channel": [
+            "e14d55816d6b3241036cdb9d9685f37195522c585adf542c04e0137240a771fa"
+          ],
+          "sablestone_delta": [
+            "4c28c8c86d729d54745cef26c4b075892f3291fe0394e15d924ef6f16d28f428"
+          ]
+        },
+        "partitions": {
+          "train": 304
+        },
+        "holdout_overlap": []
+      },
+      "coverage": {
+        "matched": 29693,
+        "total": 32779,
+        "ratio": 0.9058543579730925
+      }
+    },
+    "b": {
+      "teacher_games": 300,
+      "weights_sha256": "0426b08758dd683cc3299d6c354987b2db2dda53fe353d8c54723723e695dc33",
+      "exposure": {
+        "shards": 308,
+        "matched": 308,
+        "boards": {
+          "arena2": [
+            "6a74ee56216bfeeff68b1b22ca5af2bf08500682cbd0c13ba741948d6c45711c"
+          ],
+          "the_freelands": [
+            "f4a0aa04cfad87b05bcbdb72dc6e469a547454178e6a34e335e45a8eb3fbb810"
+          ],
+          "weldyn_channel": [
+            "e14d55816d6b3241036cdb9d9685f37195522c585adf542c04e0137240a771fa"
+          ],
+          "sablestone_delta": [
+            "4c28c8c86d729d54745cef26c4b075892f3291fe0394e15d924ef6f16d28f428"
+          ]
+        },
+        "partitions": {
+          "train": 308
+        },
+        "holdout_overlap": []
+      },
+      "coverage": {
+        "matched": 29812,
+        "total": 32779,
+        "ratio": 0.9094847310778242
+      }
+    },
+    "c": {
+      "teacher_games": 300,
+      "weights_sha256": "b69187abae59aab63d8f7cf9cc75d3b202434845f2044ccabeb97ae30793e550",
+      "exposure": {
+        "shards": 304,
+        "matched": 304,
+        "boards": {
+          "arena2": [
+            "6a74ee56216bfeeff68b1b22ca5af2bf08500682cbd0c13ba741948d6c45711c"
+          ],
+          "the_freelands": [
+            "f4a0aa04cfad87b05bcbdb72dc6e469a547454178e6a34e335e45a8eb3fbb810"
+          ],
+          "weldyn_channel": [
+            "e14d55816d6b3241036cdb9d9685f37195522c585adf542c04e0137240a771fa"
+          ],
+          "sablestone_delta": [
+            "4c28c8c86d729d54745cef26c4b075892f3291fe0394e15d924ef6f16d28f428"
+          ]
+        },
+        "partitions": {
+          "train": 304
+        },
+        "holdout_overlap": []
+      },
+      "coverage": {
+        "matched": 29693,
+        "total": 32779,
+        "ratio": 0.9058543579730925
+      }
+    }
+  },
+  "games": {
+    "validation": {
+      "base": 642,
+      "b": 336,
+      "c": 336
+    },
+    "holdout": {
+      "base": 420,
+      "b": 240,
+      "c": 240
+    }
+  },
+  "deployment_candidate": null
+}
