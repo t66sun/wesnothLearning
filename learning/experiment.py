@@ -25,6 +25,7 @@ from .train import checkpoint, restore_rng, train, imitation_quality
 from .updates import rollout_identity
 from .selection import validate_frozen_selection
 from .bc_anchor import ensure_anchor, restore_anchor, target_mode
+from .rewards import RewardConfig
 from .tasks import TASK_ID, TASK_TURNS, LEGACY_TASK, reward_config, validate_run
 
 
@@ -79,7 +80,7 @@ def default_config(device='cuda', *, engine=None):
         min_distinct=dict(trend=3,promotion=12,final=12,gate=12),
         bc_games=bc_games,
         native_bc_games={fmt:0 if engine=='lite' else games for fmt,games in bc_games.items()},bc_batch_games=8,
-        bc_accuracy=dict(all=.4,recruit=.6,move=.35,attack=.35),shaping_weight=None,
+        bc_accuracy=dict(all=.4,recruit=.6,move=.35,attack=.35),shaping_weight=None,gae_lambda=RewardConfig.gae_lambda,
         rollout_games=4,task_id=TASK_ID,training_max_turns=TASK_TURNS,minibatch=256,bc_records=2048 if device=='cpu' else 8192,
         bc_validation_records=1024 if device=='cpu' else 4096,epochs=4,learning_rate=3e-4,
         trainer_memory_gb=6.,ppo_aux_target='historical_action',
@@ -88,6 +89,7 @@ def default_config(device='cuda', *, engine=None):
 
 def validate_config(config):
     target_mode(config)
+    reward_config(gae_lambda=config.get('gae_lambda', RewardConfig.gae_lambda))
     floors=dict(trend=3,promotion=12,final=12,gate=12)
     if set(config.get('min_distinct',{}))!=set(floors) or any(
             not isinstance(config['min_distinct'][key],int) or config['min_distinct'][key]<floor
@@ -264,7 +266,14 @@ class FormatExperiment:
             self.save()
         if loaded is not None: restore_anchor(self,loaded,branch=bool(info))
         from .control import RewardController
-        self.controller=RewardController(self.directory.parent,self.fmt,state=self.state.get('reward_controller'),config=reward_config(self.config['task_id'],mode=self.config['reward_mode']))
+        frozen_reward = reward_config(self.config['task_id'], mode=self.config['reward_mode'],
+                                      gae_lambda=self.config.get('gae_lambda', RewardConfig.gae_lambda))
+        controller_state = self.state.get('reward_controller')
+        if info and controller_state and controller_state.get('config'):
+            # Branches keep inherited reward settings but choose their own GAE lambda.
+            controller_state['config']['gae_lambda'] = frozen_reward['gae_lambda']
+        self.controller = RewardController(self.directory.parent, self.fmt, state=controller_state,
+                                           config=frozen_reward)
         self.state.setdefault('dagger_shards',[])
         self.state.setdefault('policy_shards',[])
         self.state.setdefault('counters',dict(environment_games=0,collection_batches=0,optimizer_steps=0,unique_families_seen=0,decisions_seen=0,effective_dataset_passes=0.))
