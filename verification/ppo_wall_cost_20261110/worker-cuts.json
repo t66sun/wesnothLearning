@@ -1,0 +1,257 @@
+{
+  "baseline": {
+    "id": "rollout-00000-duel-g1",
+    "timings": {
+      "worker_policy_sha": {
+        "wall_seconds": 0.0018402570858597755,
+        "cpu_seconds": 0.001841733000000012,
+        "calls": 1
+      },
+      "worker_schema_rules": {
+        "wall_seconds": 0.06480420799925923,
+        "cpu_seconds": 0.06489141700001921,
+        "calls": 555
+      },
+      "worker_policy_load": {
+        "wall_seconds": 0.009488613111898303,
+        "cpu_seconds": 0.009487394000000204,
+        "calls": 1
+      },
+      "worker_rules_provenance": {
+        "wall_seconds": 4.016817547380924e-05,
+        "cpu_seconds": 4.0305000000184776e-05,
+        "calls": 2
+      },
+      "worker_rules_catalog": {
+        "wall_seconds": 0.007012572139501572,
+        "cpu_seconds": 0.0070133310000000115,
+        "calls": 1
+      },
+      "worker_lua_modules": {
+        "wall_seconds": 0.0016637069638818502,
+        "cpu_seconds": 0.0016640180000000449,
+        "calls": 1
+      },
+      "worker_host": {
+        "wall_seconds": 0.2807522069197148,
+        "cpu_seconds": 0.28073668499999993,
+        "calls": 1
+      },
+      "worker_decision": {
+        "wall_seconds": 6.470185269601643,
+        "cpu_seconds": 6.468799871000001,
+        "calls": 481
+      },
+      "worker_execution": {
+        "wall_seconds": 4.984677367145196,
+        "cpu_seconds": 4.984598989000009,
+        "calls": 479
+      },
+      "worker_policy_inference": {
+        "wall_seconds": 1.034255410777405,
+        "cpu_seconds": 1.0345944010000077,
+        "calls": 276
+      },
+      "worker_buffer_append": {
+        "wall_seconds": 0.8361146340612322,
+        "cpu_seconds": 0.8186314389999914,
+        "calls": 552
+      },
+      "worker_pack_line": {
+        "wall_seconds": 0.7256464259698987,
+        "cpu_seconds": 0.7256910310000073,
+        "calls": 552
+      },
+      "worker_sequence_index": {
+        "wall_seconds": 6.671186306746677,
+        "cpu_seconds": 6.625412959000002,
+        "calls": 2
+      },
+      "worker_shard_settlement": {
+        "wall_seconds": 7.129029388073832,
+        "cpu_seconds": 7.059505441999999,
+        "calls": 2
+      },
+      "worker_total": {
+        "wall_seconds": 22.26465378701687,
+        "cpu_seconds": 22.174767304,
+        "calls": 1
+      }
+    },
+    "shards": {
+      "rollout-00000-duel-g1.jsonl.gz": "6318e4612a409174ee00c4059756a5839667bf4299982c8b196ab57aa6e9a47b",
+      "rollout-00000-duel-g1.dagger.jsonl.gz": "774f4a942997127d47feed42409360b1e353763fa6251177b79bd851bf7724e1"
+    },
+    "index_payload_bytes": 5321335
+  },
+  "spool": {
+    "id": "rollout-00000-duel-g1",
+    "timings": {
+      "worker_policy_sha": {
+        "wall_seconds": 0.0018280448857694864,
+        "cpu_seconds": 0.0018289970000004985,
+        "calls": 1
+      },
+      "worker_policy_load": {
+        "wall_seconds": 0.002027754904702306,
+        "cpu_seconds": 0.0020265879999996628,
+        "calls": 1
+      },
+      "worker_rules_provenance": {
+        "wall_seconds": 3.9874110370874405e-05,
+        "cpu_seconds": 4.010099999618433e-05,
+        "calls": 2
+      },
+      "worker_rules_catalog": {
+        "wall_seconds": 0.002482929965481162,
+        "cpu_seconds": 0.002483626000000072,
+        "calls": 1
+      },
+      "worker_schema_rules": {
+        "wall_seconds": 0.06469872617162764,
+        "cpu_seconds": 0.06479778099998867,
+        "calls": 554
+      },
+      "worker_lua_modules": {
+        "wall_seconds": 0.0015586619265377522,
+        "cpu_seconds": 0.0015588310000005379,
+        "calls": 1
+      },
+      "worker_host": {
+        "wall_seconds": 0.2653690578881651,
+        "cpu_seconds": 0.2653087859999985,
+        "calls": 1
+      },
+      "worker_decision": {
+        "wall_seconds": 6.511579555692151,
+        "cpu_seconds": 6.509836229999994,
+        "calls": 481
+      },
+      "worker_execution": {
+        "wall_seconds": 5.0026993355713785,
+        "cpu_seconds": 5.002435098999978,
+        "calls": 479
+      },
+      "worker_policy_inference": {
+        "wall_seconds": 1.0212484360672534,
+        "cpu_seconds": 1.021580345999979,
+        "calls": 276
+      },
+      "worker_buffer_append": {
+        "wall_seconds": 0.5450957615394145,
+        "cpu_seconds": 0.5265337679999753,
+        "calls": 552
+      },
+      "worker_pack_line": {
+        "wall_seconds": 0.7306833306793123,
+        "cpu_seconds": 0.7307132270000096,
+        "calls": 552
+      },
+      "worker_sequence_index": {
+        "wall_seconds": 6.567259488860145,
+        "cpu_seconds": 6.520005893000004,
+        "calls": 2
+      },
+      "worker_shard_settlement": {
+        "wall_seconds": 6.882726587122306,
+        "cpu_seconds": 6.813092193999999,
+        "calls": 2
+      },
+      "worker_total": {
+        "wall_seconds": 21.786795878084376,
+        "cpu_seconds": 21.695132866999998,
+        "calls": 1
+      }
+    },
+    "shards": {
+      "rollout-00000-duel-g1.jsonl.gz": "6318e4612a409174ee00c4059756a5839667bf4299982c8b196ab57aa6e9a47b",
+      "rollout-00000-duel-g1.dagger.jsonl.gz": "774f4a942997127d47feed42409360b1e353763fa6251177b79bd851bf7724e1"
+    },
+    "index_payload_bytes": 5321328
+  },
+  "index": {
+    "id": "rollout-00000-duel-g1",
+    "timings": {
+      "worker_policy_sha": {
+        "wall_seconds": 0.0018287510611116886,
+        "cpu_seconds": 0.0018296789999965313,
+        "calls": 1
+      },
+      "worker_policy_load": {
+        "wall_seconds": 0.002022539032623172,
+        "cpu_seconds": 0.0020207690000049183,
+        "calls": 1
+      },
+      "worker_rules_provenance": {
+        "wall_seconds": 4.053791053593159e-05,
+        "cpu_seconds": 4.0605999998888365e-05,
+        "calls": 2
+      },
+      "worker_rules_catalog": {
+        "wall_seconds": 0.0020663749892264605,
+        "cpu_seconds": 0.0020671120000059773,
+        "calls": 1
+      },
+      "worker_schema_rules": {
+        "wall_seconds": 0.0649037011899054,
+        "cpu_seconds": 0.06499043499997725,
+        "calls": 554
+      },
+      "worker_lua_modules": {
+        "wall_seconds": 0.0015059339348226786,
+        "cpu_seconds": 0.0015060929999961559,
+        "calls": 1
+      },
+      "worker_host": {
+        "wall_seconds": 0.260638213949278,
+        "cpu_seconds": 0.2606204349999999,
+        "calls": 1
+      },
+      "worker_decision": {
+        "wall_seconds": 6.496371709275991,
+        "cpu_seconds": 6.496013597000022,
+        "calls": 481
+      },
+      "worker_execution": {
+        "wall_seconds": 4.99068763689138,
+        "cpu_seconds": 4.989488910000041,
+        "calls": 479
+      },
+      "worker_policy_inference": {
+        "wall_seconds": 1.0221535700839013,
+        "cpu_seconds": 1.022541855,
+        "calls": 276
+      },
+      "worker_buffer_append": {
+        "wall_seconds": 0.810944517608732,
+        "cpu_seconds": 0.7940242759998952,
+        "calls": 552
+      },
+      "worker_pack_line": {
+        "wall_seconds": 0.7868916327133775,
+        "cpu_seconds": 0.7869596309999594,
+        "calls": 552
+      },
+      "worker_sequence_index": {
+        "wall_seconds": 6.34067656006664,
+        "cpu_seconds": 6.270968570000008,
+        "calls": 2
+      },
+      "worker_shard_settlement": {
+        "wall_seconds": 6.788321109954268,
+        "cpu_seconds": 6.695312861000005,
+        "calls": 2
+      },
+      "worker_total": {
+        "wall_seconds": 21.89646210288629,
+        "cpu_seconds": 21.783468981000006,
+        "calls": 1
+      }
+    },
+    "shards": {
+      "rollout-00000-duel-g1.jsonl.gz": "6318e4612a409174ee00c4059756a5839667bf4299982c8b196ab57aa6e9a47b",
+      "rollout-00000-duel-g1.dagger.jsonl.gz": "774f4a942997127d47feed42409360b1e353763fa6251177b79bd851bf7724e1"
+    },
+    "index_payload_bytes": 8656880
+  }
+}
