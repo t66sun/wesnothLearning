@@ -1,0 +1,554 @@
+{
+  "source": {
+    "source": "/home/tongshu/acceptance/ppo306_20261108_Miwoyq/source",
+    "commit": "68fbf6b0b087b196526c674f28baffbfae3eb8c4",
+    "archive": "/home/tongshu/acceptance/ppo306-68fbf6b0b087b196526c674f28baffbfae3eb8c4.tar.gz",
+    "archive_sha256": "240009bf8a55096203d548d4ee349c2e34d574927ff2325c30ef08ef4aef69d2",
+    "extension": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/.extension/_engine_lite.so",
+    "extension_sha256": "56dd77140411db987377d6de4ffbf562da4d0e5c76bc16d34780da67e60e5ae4"
+  },
+  "started": 1794143381.6339705,
+  "finished": 1794230530.266812,
+  "budgets": {
+    "preparation": 1800,
+    "cell": 14400,
+    "admission": 14100,
+    "ppo": 86400,
+    "validation": 3600,
+    "holdout": 12600,
+    "report": 3600,
+    "total": 108000
+  },
+  "actual_seconds": {
+    "preparation": 329.6339704990387,
+    "ppo": 84759.21075320244,
+    "total": 87478.2668120861,
+    "validation": 334.9898397922516,
+    "holdout": 2042.9797084331512,
+    "report": 11.369074943708256,
+    "unassigned": 0.08346521551720798
+  },
+  "cells": {
+    "lambda-1.0-202611081": {
+      "committed_steps": 1264,
+      "inspected_decisions": 267367,
+      "committed_decisions": 234856,
+      "settled_batches": 182,
+      "fresh_targets": 147441,
+      "rejected_steps": 182,
+      "rejected_decision_visits": 32511,
+      "fresh_per_hour": 37589.17704173215,
+      "games": 1456,
+      "endpoint": {
+        "path": "/home/tongshu/acceptance/ppo306_20261108_Miwoyq/source/runs/ppo306/cells/lambda-1.0-202611081/duel/wall.pt",
+        "checkpoint_sha256": "b287eaf0e3ddd7b28e0797addfae1e7c72a392d304c7a039132649a9dfac4dde",
+        "version": 220,
+        "weights_sha256": "9897098a73a44e7c2a3c8d5f1e98c3b59d344708fee289f5bb1ad29e040bce27"
+      },
+      "first": {
+        "gae_lambda": 1.0,
+        "rows": 1052,
+        "complete_returns_checked": true,
+        "games": 8,
+        "committed_steps": 3,
+        "kl_stopped": true,
+        "settled_at": 1794143453.0079532,
+        "schedule_sha256": "ca3152f3abd5e9b302c067edac40415bfdd4d99d6dbb359aa195e2c21ee7dedd",
+        "versions": [
+          "v38"
+        ]
+      },
+      "wall_seconds": 14120.756073236465
+    },
+    "lambda-0.95-202611081": {
+      "committed_steps": 1237,
+      "inspected_decisions": 262559,
+      "committed_decisions": 229860,
+      "settled_batches": 183,
+      "fresh_targets": 146912,
+      "rejected_steps": 183,
+      "rejected_decision_visits": 32699,
+      "fresh_per_hour": 37459.81344973874,
+      "games": 1464,
+      "endpoint": {
+        "path": "/home/tongshu/acceptance/ppo306_20261108_Miwoyq/source/runs/ppo306/cells/lambda-0.95-202611081/duel/wall.pt",
+        "checkpoint_sha256": "a00d02fc88523ec82a424ce5eb6436a1133013e7f18a56838ddb3ef4745f4a05",
+        "version": 221,
+        "weights_sha256": "f402b1f41ab255891953aad9595c44422cf53cd9cc4989d6ab0f25b70646af39"
+      },
+      "first": {
+        "gae_lambda": 0.95,
+        "rows": 1052,
+        "complete_returns_checked": false,
+        "games": 8,
+        "committed_steps": 3,
+        "kl_stopped": true,
+        "settled_at": 1794157574.7761197,
+        "schedule_sha256": "7e4aa73e953e8507251247d1e49eacc2b79c3ffe513052c3e9c3fbea180098b2",
+        "versions": [
+          "v38"
+        ]
+      },
+      "wall_seconds": 14118.682163476944
+    },
+    "lambda-0.95-202611082": {
+      "committed_steps": 1256,
+      "inspected_decisions": 264922,
+      "committed_decisions": 232774,
+      "settled_batches": 182,
+      "fresh_targets": 147193,
+      "rejected_steps": 181,
+      "rejected_decision_visits": 32148,
+      "fresh_per_hour": 37508.18115614232,
+      "games": 1456,
+      "endpoint": {
+        "path": "/home/tongshu/acceptance/ppo306_20261108_Miwoyq/source/runs/ppo306/cells/lambda-0.95-202611082/duel/wall.pt",
+        "checkpoint_sha256": "3e6e8efea9da962cd1096b95db30edae14f8522a4c59402e92d5597a06c03a5c",
+        "version": 220,
+        "weights_sha256": "8624b615a187741d951a7febfc7c17d7d621faf7ac6c7d8cbb8b47e0f9459c69"
+      },
+      "first": {
+        "gae_lambda": 0.95,
+        "rows": 897,
+        "complete_returns_checked": false,
+        "games": 8,
+        "committed_steps": 2,
+        "kl_stopped": true,
+        "settled_at": 1794171679.9207773,
+        "schedule_sha256": "d6003414a29a8a897678230231c3cac45090e7635103f7d17d11d0f2f3e4efd0",
+        "versions": [
+          "v38"
+        ]
+      },
+      "wall_seconds": 14127.445897579193
+    },
+    "lambda-1.0-202611082": {
+      "committed_steps": 1232,
+      "inspected_decisions": 257601,
+      "committed_decisions": 224025,
+      "settled_batches": 187,
+      "fresh_targets": 147922,
+      "rejected_steps": 187,
+      "rejected_decision_visits": 33576,
+      "fresh_per_hour": 37729.39882417864,
+      "games": 1496,
+      "endpoint": {
+        "path": "/home/tongshu/acceptance/ppo306_20261108_Miwoyq/source/runs/ppo306/cells/lambda-1.0-202611082/duel/wall.pt",
+        "checkpoint_sha256": "6c33749c9563de8c0d4578019d21b8e06bfd590c3f1dbf60da514b9d30710808",
+        "version": 225,
+        "weights_sha256": "aa240c1ad91802af9f3ba3384cfd41a1aaf478a0580e6afa6913acdac770bf96"
+      },
+      "first": {
+        "gae_lambda": 1.0,
+        "rows": 897,
+        "complete_returns_checked": true,
+        "games": 8,
+        "committed_steps": 2,
+        "kl_stopped": true,
+        "settled_at": 1794185807.840599,
+        "schedule_sha256": "23e7567681b1b14cdc638c6e1c6ec303531d88e1f92f8c981662ade0f627bc62",
+        "versions": [
+          "v38"
+        ]
+      },
+      "wall_seconds": 14114.171351671219
+    },
+    "lambda-1.0-202611083": {
+      "committed_steps": 1267,
+      "inspected_decisions": 266581,
+      "committed_decisions": 234164,
+      "settled_batches": 182,
+      "fresh_targets": 146261,
+      "rejected_steps": 182,
+      "rejected_decision_visits": 32417,
+      "fresh_per_hour": 37239.54776810378,
+      "games": 1456,
+      "endpoint": {
+        "path": "/home/tongshu/acceptance/ppo306_20261108_Miwoyq/source/runs/ppo306/cells/lambda-1.0-202611083/duel/wall.pt",
+        "checkpoint_sha256": "c362bcc99d4bf5519f1b6d04e9336ba39695cf154625c5e951a321e6878fd15d",
+        "version": 220,
+        "weights_sha256": "45a901f5982309011d54d2ee1e26e0d79fc0b82343852dc1f3c9c3865f20a5fc"
+      },
+      "first": {
+        "gae_lambda": 1.0,
+        "rows": 1144,
+        "complete_returns_checked": true,
+        "games": 8,
+        "committed_steps": 5,
+        "kl_stopped": true,
+        "settled_at": 1794199948.4850051,
+        "schedule_sha256": "dee47cada47adcd3a87188f94e9fd7c0d6d7e3c514b461c694694d2b8570cd5d",
+        "versions": [
+          "v38"
+        ]
+      },
+      "wall_seconds": 14139.258706331253
+    },
+    "lambda-0.95-202611083": {
+      "committed_steps": 1218,
+      "inspected_decisions": 266180,
+      "committed_decisions": 234271,
+      "settled_batches": 181,
+      "fresh_targets": 149719,
+      "rejected_steps": 181,
+      "rejected_decision_visits": 31909,
+      "fresh_per_hour": 38120.96634826858,
+      "games": 1448,
+      "endpoint": {
+        "path": "/home/tongshu/acceptance/ppo306_20261108_Miwoyq/source/runs/ppo306/cells/lambda-0.95-202611083/duel/wall.pt",
+        "checkpoint_sha256": "1001f23625924cb96a2a9c9e27cda37a7832d9f0b7b9b8f799c019dc261c728f",
+        "version": 219,
+        "weights_sha256": "ba0097088d1732f9acdcbba0b558583ededfd969df21d7773524238c935790c5"
+      },
+      "first": {
+        "gae_lambda": 0.95,
+        "rows": 1144,
+        "complete_returns_checked": false,
+        "games": 8,
+        "committed_steps": 5,
+        "kl_stopped": true,
+        "settled_at": 1794214088.3672633,
+        "schedule_sha256": "c345b237b48018a71376b9a3559f563eb60cf74ae0f8267dec8777ef627205fd",
+        "versions": [
+          "v38"
+        ]
+      },
+      "wall_seconds": 14138.896560907364
+    }
+  },
+  "training_pairs": {
+    "202611081": {
+      "paired_games": 1456,
+      "baseline_games": 1464,
+      "terminal_return_games": 1456
+    },
+    "202611082": {
+      "paired_games": 1456,
+      "baseline_games": 1456,
+      "terminal_return_games": 1496
+    },
+    "202611083": {
+      "paired_games": 1448,
+      "baseline_games": 1448,
+      "terminal_return_games": 1456
+    }
+  },
+  "report": {
+    "status": "observed",
+    "overall": {
+      "differences": {
+        "b_minus_a": -0.051851851851851816,
+        "a_minus_bc": 0.021296296296296313,
+        "b_minus_bc": -0.030555555555555503
+      },
+      "interval95": {
+        "b_minus_a": [
+          -0.10277777777777775,
+          5.551115123125783e-17
+        ],
+        "a_minus_bc": [
+          -0.02777777777777779,
+          0.07037037037037042
+        ],
+        "b_minus_bc": [
+          -0.0712962962962963,
+          0.008333333333333304
+        ]
+      },
+      "per_seed": {
+        "202611081": {
+          "b_minus_a": -0.01944444444444443,
+          "a_minus_bc": -0.008333333333333304,
+          "b_minus_bc": -0.027777777777777735
+        },
+        "202611082": {
+          "b_minus_a": -0.05277777777777776,
+          "a_minus_bc": 0.016666666666666663,
+          "b_minus_bc": -0.036111111111111094
+        },
+        "202611083": {
+          "b_minus_a": -0.08333333333333331,
+          "a_minus_bc": 0.05555555555555558,
+          "b_minus_bc": -0.027777777777777735
+        }
+      },
+      "training_seeds": 3,
+      "scenarios": 60,
+      "maps": 2,
+      "bootstrap": {
+        "method": "paired crossed seed/scenario, scenarios stratified by map",
+        "samples": 10000,
+        "seed": 202611079
+      },
+      "predicates": {
+        "superior_to_a": false,
+        "inferior_to_a": false,
+        "superior_to_bc": false,
+        "noninferior_to_bc_margin_05": false,
+        "degraded_beyond_bc_margin_05": false
+      }
+    },
+    "per_map": {
+      "road_to_weldyn": {
+        "differences": {
+          "b_minus_a": -0.04814814814814816,
+          "a_minus_bc": -0.03518518518518515,
+          "b_minus_bc": -0.08333333333333331
+        },
+        "interval95": {
+          "b_minus_a": [
+            -0.1111111111111111,
+            0.011111111111111072
+          ],
+          "a_minus_bc": [
+            -0.0944444444444445,
+            0.022222222222222254
+          ],
+          "b_minus_bc": [
+            -0.13888888888888884,
+            -0.03703703703703709
+          ]
+        },
+        "per_seed": {
+          "202611081": {
+            "b_minus_a": -0.03888888888888892,
+            "a_minus_bc": -0.0444444444444444,
+            "b_minus_bc": -0.08333333333333331
+          },
+          "202611082": {
+            "b_minus_a": -0.0222222222222222,
+            "a_minus_bc": -0.04999999999999999,
+            "b_minus_bc": -0.07222222222222219
+          },
+          "202611083": {
+            "b_minus_a": -0.08333333333333331,
+            "a_minus_bc": -0.011111111111111072,
+            "b_minus_bc": -0.09444444444444439
+          }
+        },
+        "training_seeds": 3,
+        "scenarios": 30,
+        "maps": 1,
+        "bootstrap": {
+          "method": "paired crossed seed/scenario, scenarios stratified by map",
+          "samples": 10000,
+          "seed": 202611079
+        },
+        "predicates": {
+          "superior_to_a": false,
+          "inferior_to_a": false,
+          "superior_to_bc": false,
+          "noninferior_to_bc_margin_05": false,
+          "degraded_beyond_bc_margin_05": false
+        }
+      },
+      "summer_of_storms": {
+        "differences": {
+          "b_minus_a": -0.05555555555555558,
+          "a_minus_bc": 0.07777777777777778,
+          "b_minus_bc": 0.0222222222222222
+        },
+        "interval95": {
+          "b_minus_a": [
+            -0.1333333333333333,
+            0.027777777777777735
+          ],
+          "a_minus_bc": [
+            0.011111111111111127,
+            0.15000000000000002
+          ],
+          "b_minus_bc": [
+            -0.04259259259259257,
+            0.08333333333333337
+          ]
+        },
+        "per_seed": {
+          "202611081": {
+            "b_minus_a": 0.0,
+            "a_minus_bc": 0.02777777777777779,
+            "b_minus_bc": 0.02777777777777779
+          },
+          "202611082": {
+            "b_minus_a": -0.08333333333333331,
+            "a_minus_bc": 0.08333333333333331,
+            "b_minus_bc": 0.0
+          },
+          "202611083": {
+            "b_minus_a": -0.08333333333333337,
+            "a_minus_bc": 0.12222222222222223,
+            "b_minus_bc": 0.03888888888888886
+          }
+        },
+        "training_seeds": 3,
+        "scenarios": 30,
+        "maps": 1,
+        "bootstrap": {
+          "method": "paired crossed seed/scenario, scenarios stratified by map",
+          "samples": 10000,
+          "seed": 202611079
+        },
+        "predicates": {
+          "superior_to_a": false,
+          "inferior_to_a": false,
+          "superior_to_bc": false,
+          "noninferior_to_bc_margin_05": true,
+          "degraded_beyond_bc_margin_05": false
+        }
+      }
+    },
+    "games": {
+      "road_to_weldyn": {
+        "planned": 420,
+        "actual": 420,
+        "missing": []
+      },
+      "summer_of_storms": {
+        "planned": 420,
+        "actual": 420,
+        "missing": []
+      }
+    },
+    "candidate": false,
+    "validation": {
+      "status": "observed",
+      "overall": {
+        "differences": {
+          "b_minus_a": -0.011111111111111127,
+          "a_minus_bc": 0.011111111111111127,
+          "b_minus_bc": 0.0
+        },
+        "interval95": {
+          "b_minus_a": [
+            -0.17777777777777776,
+            0.16666666666666669
+          ],
+          "a_minus_bc": [
+            -0.15925925925925932,
+            0.1703703703703704
+          ],
+          "b_minus_bc": [
+            -0.16666666666666663,
+            0.1740740740740741
+          ]
+        },
+        "per_seed": {
+          "202611081": {
+            "b_minus_a": -0.0444444444444444,
+            "a_minus_bc": 0.033333333333333326,
+            "b_minus_bc": -0.011111111111111072
+          },
+          "202611082": {
+            "b_minus_a": 0.1111111111111111,
+            "a_minus_bc": -0.011111111111111127,
+            "b_minus_bc": 0.09999999999999998
+          },
+          "202611083": {
+            "b_minus_a": -0.09999999999999998,
+            "a_minus_bc": 0.011111111111111127,
+            "b_minus_bc": -0.08888888888888885
+          }
+        },
+        "training_seeds": 3,
+        "scenarios": 15,
+        "maps": 1,
+        "bootstrap": {
+          "method": "paired crossed seed/scenario, scenarios stratified by map",
+          "samples": 10000,
+          "seed": 202611079
+        },
+        "predicates": {
+          "superior_to_a": false,
+          "inferior_to_a": false,
+          "superior_to_bc": false,
+          "noninferior_to_bc_margin_05": false,
+          "degraded_beyond_bc_margin_05": false
+        }
+      },
+      "per_map": {
+        "hamlets": {
+          "differences": {
+            "b_minus_a": -0.011111111111111127,
+            "a_minus_bc": 0.011111111111111127,
+            "b_minus_bc": 0.0
+          },
+          "interval95": {
+            "b_minus_a": [
+              -0.17777777777777776,
+              0.16666666666666669
+            ],
+            "a_minus_bc": [
+              -0.15925925925925932,
+              0.1703703703703704
+            ],
+            "b_minus_bc": [
+              -0.16666666666666663,
+              0.1740740740740741
+            ]
+          },
+          "per_seed": {
+            "202611081": {
+              "b_minus_a": -0.0444444444444444,
+              "a_minus_bc": 0.033333333333333326,
+              "b_minus_bc": -0.011111111111111072
+            },
+            "202611082": {
+              "b_minus_a": 0.1111111111111111,
+              "a_minus_bc": -0.011111111111111127,
+              "b_minus_bc": 0.09999999999999998
+            },
+            "202611083": {
+              "b_minus_a": -0.09999999999999998,
+              "a_minus_bc": 0.011111111111111127,
+              "b_minus_bc": -0.08888888888888885
+            }
+          },
+          "training_seeds": 3,
+          "scenarios": 15,
+          "maps": 1,
+          "bootstrap": {
+            "method": "paired crossed seed/scenario, scenarios stratified by map",
+            "samples": 10000,
+            "seed": 202611079
+          },
+          "predicates": {
+            "superior_to_a": false,
+            "inferior_to_a": false,
+            "superior_to_bc": false,
+            "noninferior_to_bc_margin_05": false,
+            "degraded_beyond_bc_margin_05": false
+          }
+        }
+      },
+      "games": {
+        "hamlets": {
+          "planned": 210,
+          "actual": 210,
+          "missing": []
+        }
+      },
+      "candidate": false
+    }
+  },
+  "normalized_scores": {
+    "road_to_weldyn": {
+      "bc": 0.5111111111111111,
+      "lambda-0.95": 0.4759259259259259,
+      "lambda-1.0": 0.42777777777777776
+    },
+    "summer_of_storms": {
+      "bc": 0.34444444444444444,
+      "lambda-0.95": 0.4222222222222222,
+      "lambda-1.0": 0.36666666666666664
+    },
+    "overall": {
+      "bc": 0.42777777777777776,
+      "lambda-0.95": 0.44907407407407407,
+      "lambda-1.0": 0.3972222222222222
+    }
+  },
+  "archive": {
+    "sha256": "4b5f56f6dab9b788f886abf029877d8244ca9cc092ff1ca8af6bb606cb0730f9",
+    "files": 1347,
+    "bytes": 8413863
+  }
+}
