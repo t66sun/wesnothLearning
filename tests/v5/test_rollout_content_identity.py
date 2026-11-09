@@ -4,6 +4,8 @@ import hashlib
 import unittest
 from unittest.mock import Mock, patch
 
+import numpy as np
+
 from learning.data import validate_record
 from learning.rowpack import compact_row, pack_line, unpack_line
 from learning.updates import rollout_identity
@@ -66,6 +68,25 @@ class RolloutContentIdentityTests(unittest.TestCase):
                         with self.assertRaisesRegex(ValueError,'scheduled rollout changed'):
                             r.finish_train()
                         train.assert_not_called()
+
+    def test_vector_identity_binds_values_and_vector_positions(self):
+        row = _records([('b', 2, 0.)])[-1]
+        digest = rollout_identity([row], version=3)
+        self.assertTrue(digest.startswith('v3:'))
+        self.assertEqual(digest, rollout_identity(compact_row(copy.deepcopy([row])), version=3))
+        for name, changed in self.changes(row):
+            with self.subTest(field=name):
+                self.assertNotEqual(digest, rollout_identity([changed], version=3))
+        left = dict(row, extra=[[-0.0, 0.25], None])
+        right = dict(row, extra=[None, [-0.0, 0.25]])
+        self.assertNotEqual(rollout_identity([left], version=3), rollout_identity([right], version=3))
+        left = dict(row, extra=[[True], [-0.0, 0.25], None])
+        equivalent = dict(row, extra=[np.array([True]), [-0.0, 0.25], None])
+        moved = dict(row, extra=[np.array([True]), None, [-0.0, 0.25]])
+        self.assertEqual(rollout_identity([left], version=3), rollout_identity([equivalent], version=3))
+        self.assertNotEqual(rollout_identity([left], version=3), rollout_identity([moved], version=3))
+        with self.assertRaises(ValueError):
+            rollout_identity([dict(row, extra=[float('inf')])], version=3)
 
     def test_unchanged_rereads_and_container_forms_match(self):
         rows=_records([('b',2,0.),('c',3,0.)])

@@ -80,7 +80,9 @@ class RolloutReadOnceTests(unittest.TestCase):
 
         def update(model, optimizer, rows, method, **kwargs):
             targets.extend(rows)
-            self.assertEqual(result.state['pending_train']['identity']['train'], rollout_identity(complete))
+            identity = result.state['pending_train']['identity']['train']
+            self.assertTrue(identity.startswith('v3:'))
+            self.assertEqual(identity, rollout_identity(complete, version=3))
             return train(model, optimizer, rows, method, **kwargs)
 
         with patch('learning.experiment.read_shards', side_effect=read), \

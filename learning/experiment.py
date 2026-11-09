@@ -430,9 +430,14 @@ class FormatExperiment:
         if method == 'ppo':
             from .updates import eligible_rows
             eligible_rows(rows)
-        identity=dict(train=rollout_identity(rows))
-        if method=='ppo': identity['bc']=rollout_identity(bc)
-        if pending.get('identity') is not None and pending['identity']!=identity:
+        saved_identity=pending.get('identity')
+        version=2
+        if method=='ppo' and (saved_identity is None or
+                (isinstance(saved_identity, dict) and str(saved_identity.get('train', '')).startswith('v3:'))):
+            version=3
+        identity=dict(train=rollout_identity(rows,version=version))
+        if method=='ppo': identity['bc']=rollout_identity(bc,version=version)
+        if saved_identity is not None and saved_identity!=identity:
             raise ValueError('scheduled rollout changed since the checkpoint')
         pending['identity']=identity
         self.save()
