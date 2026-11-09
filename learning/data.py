@@ -2,8 +2,12 @@
 import gzip
 import hashlib
 import json
-from pathlib import Path
+import math
 from functools import lru_cache
+from pathlib import Path
+
+import numpy as np
+
 from .features import VERSION, GLOBAL, OPPONENT, ACTION, UNIT_TYPES, ENTITY, GEOMETRY, SPATIAL_CHANNELS
 from .formats import infer_format, record_format
 from .rowpack import ROW_SCHEMA, pack_line, row_meta
@@ -50,8 +54,21 @@ def _lite_teacher_source():
     return source_digest()
 
 
+def _finite_vector(values):
+    if type(values) is np.ndarray and values.ndim == 1 and values.dtype.kind in 'fiu' and values.dtype.itemsize <= 8:
+        return np.isfinite(values).all()
+    return all(math.isfinite(value) for value in values)
+
+
+def _valid_board(board):
+    if type(board) is np.ndarray and board.ndim == 3 and board.dtype.kind in 'fiu' and board.dtype.itemsize <= 8:
+        return board.shape[1:] == (16, 16) and np.isfinite(board).all()
+    return all(len(channel) == 16 and
+               all(len(row) == 16 and _finite_vector(row) for row in channel)
+               for channel in board)
+
+
 def validate_record(r, format_name=None):
-    import math
     if r['schema'] not in (VERSION, ROW_SCHEMA) or len(r['global']) != len(GLOBAL):
         raise ValueError('feature schema mismatch')
     if r['schema'] == ROW_SCHEMA:
@@ -65,21 +82,20 @@ def validate_record(r, format_name=None):
     vectors = [r['global']] + list(r['opponents']) + [c['features'] for c in r['candidates']]
     if any(len(v) != len(OPPONENT) for v in r['opponents']) or any(len(c['features']) != len(ACTION) for c in r['candidates']):
         raise ValueError('feature width mismatch')
-    if not all(math.isfinite(x) for v in vectors for x in v):
+    if not all(_finite_vector(v) for v in vectors):
         raise ValueError('nonfinite features')
     spatial=r.get('spatial')
     if not spatial or len(spatial['entities'])>128 or len(spatial['board'])!=len(SPATIAL_CHANNELS):
         raise ValueError('current schema requires a legal spatial observation')
-    for channel in spatial['board']:
-        if len(channel)!=16 or any(len(row)!=16 or any(not math.isfinite(v) for v in row) for row in channel):
-            raise ValueError('invalid public spatial grid')
+    if not _valid_board(spatial['board']):
+        raise ValueError('invalid public spatial grid')
     def entity(e):
-        if len(e['features'])!=len(ENTITY) or not all(math.isfinite(v) for v in e['features']): raise ValueError('invalid entity features')
+        if len(e['features'])!=len(ENTITY) or not _finite_vector(e['features']): raise ValueError('invalid entity features')
         if not isinstance(e['type_index'],int) or not 0<=e['type_index']<len(UNIT_TYPES): raise ValueError('invalid entity identity')
     for e in spatial['entities']: entity(e)
     for c in r['candidates']:
         if len(c.get('geometry',[]))!=len(GEOMETRY) or len(c.get('local',[]))!=19*len(SPATIAL_CHANNELS): raise ValueError('missing action geometry/neighborhood')
-        if not all(math.isfinite(v) for part in (c.get('geometry', ()), c.get('local', ())) for v in part): raise ValueError('nonfinite action context')
+        if not (_finite_vector(c['geometry']) and _finite_vector(c['local'])): raise ValueError('nonfinite action context')
         for key in ('actor','target'):
             if c.get(key): entity(c[key])
     if r.get('architecture_id')!='relational_v5' or not all(r.get(k) is not None for k in ('engine_id','rules_version','rng_version','combat_version','candidate_version','reward_version','reward_formula_id')):
