@@ -1,0 +1,609 @@
+{
+  "preparation": [
+    {
+      "batch": 38,
+      "version": 38,
+      "stats": {
+        "requested": 2048,
+        "rows": 2048,
+        "families": 41,
+        "selected": 260,
+        "families_decoded": 41,
+        "families_selected": 260,
+        "families_admitted": 41,
+        "families_retained": 41,
+        "windows": 52,
+        "sources": {
+          "astra": 1024,
+          "policy": 1024
+        },
+        "engines": {
+          "lite": 2048
+        },
+        "kinds": {
+          "recruit": 339,
+          "end_turn": 219,
+          "move": 844,
+          "attack": 142,
+          "move_attack": 504
+        },
+        "gz_bytes": 50337865,
+        "retained_bytes": 268664692,
+        "deficit": 0,
+        "stop_reason": "window_limit"
+      },
+      "timings": {
+        "rollout_read": {
+          "wall_seconds": 1.9719600640237331,
+          "cpu_seconds": 1.971689329,
+          "calls": 1
+        },
+        "rehearsal_read": {
+          "wall_seconds": 9.043073158012703,
+          "cpu_seconds": 9.041109786,
+          "calls": 1
+        },
+        "eligibility": {
+          "wall_seconds": 0.00022725481539964676,
+          "cpu_seconds": 0.00022753100000016957,
+          "calls": 1
+        },
+        "rollout_identity": {
+          "wall_seconds": 3.021510733058676,
+          "cpu_seconds": 3.0212605870000004,
+          "calls": 1
+        },
+        "rehearsal_identity": {
+          "wall_seconds": 5.612356978002936,
+          "cpu_seconds": 5.610826142999999,
+          "calls": 1
+        },
+        "prepare_validation": {
+          "wall_seconds": 3.0566374650225043,
+          "cpu_seconds": 3.056384398999999,
+          "calls": 1
+        },
+        "window_setup": {
+          "wall_seconds": 0.0011767679825425148,
+          "cpu_seconds": 0.0011771129999971208,
+          "calls": 1
+        }
+      },
+      "instrumentation": {
+        "estimate": {
+          "wall_seconds": 0.05415216344408691,
+          "cpu_seconds": 0.05417218099999577,
+          "calls": 41
+        }
+      },
+      "rehearsal_sha256": "45f8ec5fd97b72d4d36a9ef119728ceb3e9cd7e797e5eb479910401fe07efd8a",
+      "rollout_sha256": "aebbb21df6ea9a1b61b4be4ca487461d19e9177c309a08aa9d042734e606b3b8",
+      "schedule_sha256": "7e4aa73e953e8507251247d1e49eacc2b79c3ffe513052c3e9c3fbea180098b2",
+      "peak_rss_kib": 848112,
+      "details": {
+        "unpack": {
+          "wall_seconds": 3.490381537936628,
+          "cpu_seconds": 3.4903676150000646,
+          "calls": 6121
+        },
+        "data_validation": {
+          "wall_seconds": 5.819147540954873,
+          "cpu_seconds": 5.819188866000012,
+          "calls": 5760
+        },
+        "prepare_validation": {
+          "wall_seconds": 3.047216922743246,
+          "cpu_seconds": 3.0472452610000857,
+          "calls": 3100
+        }
+      }
+    },
+    {
+      "batch": 129,
+      "version": 129,
+      "stats": {
+        "requested": 2048,
+        "rows": 2048,
+        "families": 108,
+        "selected": 1716,
+        "families_decoded": 108,
+        "families_selected": 1716,
+        "families_admitted": 108,
+        "families_retained": 108,
+        "windows": 154,
+        "sources": {
+          "astra": 1024,
+          "policy": 1024
+        },
+        "engines": {
+          "lite": 2048
+        },
+        "kinds": {
+          "recruit": 419,
+          "move": 730,
+          "move_attack": 464,
+          "end_turn": 313,
+          "attack": 122
+        },
+        "gz_bytes": 100659119,
+        "retained_bytes": 276951912,
+        "deficit": 0,
+        "stop_reason": "window_limit"
+      },
+      "timings": {
+        "rollout_read": {
+          "wall_seconds": 1.2351576189976186,
+          "cpu_seconds": 1.2350318500000022,
+          "calls": 1
+        },
+        "rehearsal_read": {
+          "wall_seconds": 15.678368688095361,
+          "cpu_seconds": 15.674713802,
+          "calls": 1
+        },
+        "eligibility": {
+          "wall_seconds": 0.00015662005171179771,
+          "cpu_seconds": 0.0001567540000024792,
+          "calls": 1
+        },
+        "rollout_identity": {
+          "wall_seconds": 1.9160305259283632,
+          "cpu_seconds": 1.915872720000003,
+          "calls": 1
+        },
+        "rehearsal_identity": {
+          "wall_seconds": 5.3434498640708625,
+          "cpu_seconds": 5.342982334999995,
+          "calls": 1
+        },
+        "prepare_validation": {
+          "wall_seconds": 2.5882799772080034,
+          "cpu_seconds": 2.5880676879999953,
+          "calls": 1
+        },
+        "window_setup": {
+          "wall_seconds": 0.000820948975160718,
+          "cpu_seconds": 0.0008216570000030288,
+          "calls": 1
+        }
+      },
+      "instrumentation": {
+        "estimate": {
+          "wall_seconds": 0.08823548862710595,
+          "cpu_seconds": 0.08827995799996202,
+          "calls": 108
+        }
+      },
+      "rehearsal_sha256": "0625680d0445e9e7797b7689f0d71019e8797138904a4ce704cf471611a328bc",
+      "rollout_sha256": "ec267c36fd88e722ae546e5c6da750f3a51d77a8b9101a30556b028bb2876032",
+      "schedule_sha256": "dbc280c682107f6e4e2c3b390c343c9c5a39846589e47aa96b161cb515b11a5b",
+      "peak_rss_kib": 848112,
+      "details": {
+        "unpack": {
+          "wall_seconds": 6.282334010116756,
+          "cpu_seconds": 6.283160186000313,
+          "calls": 11282
+        },
+        "data_validation": {
+          "wall_seconds": 7.260526967700571,
+          "cpu_seconds": 7.259664584999879,
+          "calls": 7360
+        },
+        "prepare_validation": {
+          "wall_seconds": 2.5795499228406698,
+          "cpu_seconds": 2.579592714999933,
+          "calls": 2760
+        }
+      }
+    },
+    {
+      "batch": 220,
+      "version": 220,
+      "stats": {
+        "requested": 2048,
+        "rows": 2048,
+        "families": 109,
+        "selected": 3172,
+        "families_decoded": 109,
+        "families_selected": 3172,
+        "families_admitted": 109,
+        "families_retained": 109,
+        "windows": 153,
+        "sources": {
+          "astra": 1024,
+          "policy": 1024
+        },
+        "engines": {
+          "lite": 2048
+        },
+        "kinds": {
+          "recruit": 415,
+          "move": 713,
+          "attack": 105,
+          "move_attack": 477,
+          "end_turn": 338
+        },
+        "gz_bytes": 100654304,
+        "retained_bytes": 276159120,
+        "deficit": 0,
+        "stop_reason": "window_limit"
+      },
+      "timings": {
+        "rollout_read": {
+          "wall_seconds": 1.2189604558516294,
+          "cpu_seconds": 1.2188645690000044,
+          "calls": 1
+        },
+        "rehearsal_read": {
+          "wall_seconds": 15.829656505025923,
+          "cpu_seconds": 15.82703429,
+          "calls": 1
+        },
+        "eligibility": {
+          "wall_seconds": 0.00016121193766593933,
+          "cpu_seconds": 0.0001613259999970751,
+          "calls": 1
+        },
+        "rollout_identity": {
+          "wall_seconds": 1.8740645840298384,
+          "cpu_seconds": 1.8738872250000043,
+          "calls": 1
+        },
+        "rehearsal_identity": {
+          "wall_seconds": 5.324701017001644,
+          "cpu_seconds": 5.323183239999992,
+          "calls": 1
+        },
+        "prepare_validation": {
+          "wall_seconds": 2.5887196159455925,
+          "cpu_seconds": 2.5885339910000056,
+          "calls": 1
+        },
+        "window_setup": {
+          "wall_seconds": 0.0008328640833497047,
+          "cpu_seconds": 0.0008332299999977977,
+          "calls": 1
+        }
+      },
+      "instrumentation": {
+        "estimate": {
+          "wall_seconds": 0.08812417206354439,
+          "cpu_seconds": 0.08814881099998217,
+          "calls": 109
+        }
+      },
+      "rehearsal_sha256": "76e57c8541752944e91298d792f0e5a99009a3f193005ab6c762a3917724f0fb",
+      "rollout_sha256": "0c3524f5a81f058324bf4cf70baf8846fcaa793d737682065cf84eb87bf3eff0",
+      "schedule_sha256": "37c3b7007269166fd94cb1062cd4349cc642d0d0e1a3788ab89a79ef1152947c",
+      "peak_rss_kib": 848112,
+      "details": {
+        "unpack": {
+          "wall_seconds": 6.277141118887812,
+          "cpu_seconds": 6.278059132000465,
+          "calls": 11313
+        },
+        "data_validation": {
+          "wall_seconds": 7.320911653339863,
+          "cpu_seconds": 7.321098351000188,
+          "calls": 7428
+        },
+        "prepare_validation": {
+          "wall_seconds": 2.5798240781296045,
+          "cpu_seconds": 2.5798828159999516,
+          "calls": 2764
+        }
+      }
+    }
+  ],
+  "boundary": {
+    "fresh_sample_export": {
+      "wall_seconds": 0.11968659609556198,
+      "cpu_seconds": 0.11968229299999678,
+      "calls": 3
+    },
+    "fresh_greedy_export": {
+      "wall_seconds": 0.11467437003739178,
+      "cpu_seconds": 0.11467620899999531,
+      "calls": 3
+    },
+    "resumed_export_check": {
+      "wall_seconds": 0.00896829692646861,
+      "cpu_seconds": 0.008971102999993263,
+      "calls": 3
+    },
+    "write_checkpoint_payload": {
+      "wall_seconds": 0.0409306597430259,
+      "cpu_seconds": 0.04092497099999548,
+      "calls": 3
+    },
+    "write_checkpoint_state": {
+      "wall_seconds": 0.03428691788576543,
+      "cpu_seconds": 0.03428275199999575,
+      "calls": 3
+    },
+    "read_job_log": {
+      "wall_seconds": 0.061198867158964276,
+      "cpu_seconds": 0.06120303999999521,
+      "calls": 3
+    },
+    "compose_training_scenario": {
+      "wall_seconds": 0.011581576894968748,
+      "cpu_seconds": 0.011574246999941806,
+      "calls": 24
+    }
+  },
+  "worker": [
+    {
+      "id": "rollout-00000-duel-g0",
+      "timings": {
+        "worker_policy_sha": {
+          "wall_seconds": 0.0018420049455016851,
+          "cpu_seconds": 0.0018428590000070244,
+          "calls": 1
+        },
+        "worker_schema_rules": {
+          "wall_seconds": 0.008132558083161712,
+          "cpu_seconds": 0.008143463999900291,
+          "calls": 75
+        },
+        "worker_policy_load": {
+          "wall_seconds": 0.00852763606235385,
+          "cpu_seconds": 0.008517522000005329,
+          "calls": 1
+        },
+        "worker_rules_provenance": {
+          "wall_seconds": 3.985711373388767e-05,
+          "cpu_seconds": 4.002800000080242e-05,
+          "calls": 2
+        },
+        "worker_rules_catalog": {
+          "wall_seconds": 0.007082466967403889,
+          "cpu_seconds": 0.007083284999993111,
+          "calls": 1
+        },
+        "worker_lua_modules": {
+          "wall_seconds": 0.0015349651221185923,
+          "cpu_seconds": 0.0015352579999898808,
+          "calls": 1
+        },
+        "worker_host": {
+          "wall_seconds": 0.2661414931062609,
+          "cpu_seconds": 0.26612619799999493,
+          "calls": 1
+        },
+        "worker_decision": {
+          "wall_seconds": 0.5458486210554838,
+          "cpu_seconds": 0.5458099899999809,
+          "calls": 75
+        },
+        "worker_policy_inference": {
+          "wall_seconds": 0.13020141306333244,
+          "cpu_seconds": 0.1302484310000409,
+          "calls": 36
+        },
+        "worker_execution": {
+          "wall_seconds": 0.2185589261353016,
+          "cpu_seconds": 0.21856880800002898,
+          "calls": 73
+        },
+        "worker_buffer_append": {
+          "wall_seconds": 0.08974875067360699,
+          "cpu_seconds": 0.08976297499998509,
+          "calls": 72
+        },
+        "worker_pack_line": {
+          "wall_seconds": 0.08426859718747437,
+          "cpu_seconds": 0.08428161299995907,
+          "calls": 72
+        },
+        "worker_sequence_index": {
+          "wall_seconds": 0.7352697481401265,
+          "cpu_seconds": 0.7042688710000107,
+          "calls": 2
+        },
+        "worker_shard_settlement": {
+          "wall_seconds": 0.8080600739922374,
+          "cpu_seconds": 0.7509162419999882,
+          "calls": 2
+        },
+        "worker_total": {
+          "wall_seconds": 2.3068248329218477,
+          "cpu_seconds": 2.2495197960000013,
+          "calls": 1
+        }
+      },
+      "shards": {
+        "rollout-00000-duel-g0.jsonl.gz": "276285356dc1f493118492a64cc4dce9fa7bf77658f2698e2eb1fd5103765b21",
+        "rollout-00000-duel-g0.dagger.jsonl.gz": "b0769c85b6abe50d23d2010e99e5e0e3a2e97adf2b12e25a9aa7bf61af520606"
+      }
+    },
+    {
+      "id": "rollout-00000-duel-g1",
+      "timings": {
+        "worker_policy_sha": {
+          "wall_seconds": 0.0018326891586184502,
+          "cpu_seconds": 0.0018335580000012897,
+          "calls": 1
+        },
+        "worker_policy_load": {
+          "wall_seconds": 0.0020311910193413496,
+          "cpu_seconds": 0.002030109000003222,
+          "calls": 1
+        },
+        "worker_rules_provenance": {
+          "wall_seconds": 3.950204700231552e-05,
+          "cpu_seconds": 3.970499999184085e-05,
+          "calls": 2
+        },
+        "worker_rules_catalog": {
+          "wall_seconds": 0.0021202419884502888,
+          "cpu_seconds": 0.0021208910000041215,
+          "calls": 1
+        },
+        "worker_schema_rules": {
+          "wall_seconds": 0.0653564149979502,
+          "cpu_seconds": 0.06545551799995053,
+          "calls": 554
+        },
+        "worker_lua_modules": {
+          "wall_seconds": 0.0015281050000339746,
+          "cpu_seconds": 0.0015282459999923503,
+          "calls": 1
+        },
+        "worker_host": {
+          "wall_seconds": 0.2602609731256962,
+          "cpu_seconds": 0.2602139170000015,
+          "calls": 1
+        },
+        "worker_decision": {
+          "wall_seconds": 6.5005638145376,
+          "cpu_seconds": 6.499177634000105,
+          "calls": 481
+        },
+        "worker_execution": {
+          "wall_seconds": 5.040818767622113,
+          "cpu_seconds": 5.039736966999655,
+          "calls": 479
+        },
+        "worker_policy_inference": {
+          "wall_seconds": 1.02387101133354,
+          "cpu_seconds": 1.0241814330001233,
+          "calls": 276
+        },
+        "worker_buffer_append": {
+          "wall_seconds": 0.8432470457628369,
+          "cpu_seconds": 0.8319708170002542,
+          "calls": 552
+        },
+        "worker_pack_line": {
+          "wall_seconds": 0.821687308838591,
+          "cpu_seconds": 0.8217267999999791,
+          "calls": 552
+        },
+        "worker_sequence_index": {
+          "wall_seconds": 6.759258461883292,
+          "cpu_seconds": 6.69641489,
+          "calls": 2
+        },
+        "worker_shard_settlement": {
+          "wall_seconds": 7.220554515952244,
+          "cpu_seconds": 7.128219739000002,
+          "calls": 2
+        },
+        "worker_total": {
+          "wall_seconds": 22.432473813882098,
+          "cpu_seconds": 22.325087464000006,
+          "calls": 1
+        }
+      },
+      "shards": {
+        "rollout-00000-duel-g1.jsonl.gz": "6318e4612a409174ee00c4059756a5839667bf4299982c8b196ab57aa6e9a47b",
+        "rollout-00000-duel-g1.dagger.jsonl.gz": "774f4a942997127d47feed42409360b1e353763fa6251177b79bd851bf7724e1"
+      }
+    },
+    {
+      "id": "rollout-00364-duel-g0",
+      "timings": {
+        "worker_policy_sha": {
+          "wall_seconds": 0.01240376103669405,
+          "cpu_seconds": 0.0023222789999977067,
+          "calls": 1
+        },
+        "worker_schema_rules": {
+          "wall_seconds": 0.056382900569587946,
+          "cpu_seconds": 0.05646542100019758,
+          "calls": 493
+        },
+        "worker_policy_load": {
+          "wall_seconds": 0.020062755094841123,
+          "cpu_seconds": 0.00989264499999365,
+          "calls": 1
+        },
+        "worker_rules_provenance": {
+          "wall_seconds": 3.757607191801071e-05,
+          "cpu_seconds": 3.781599998831098e-05,
+          "calls": 2
+        },
+        "worker_rules_catalog": {
+          "wall_seconds": 0.002120811026543379,
+          "cpu_seconds": 0.0021213860000131035,
+          "calls": 1
+        },
+        "worker_lua_modules": {
+          "wall_seconds": 0.0015205061063170433,
+          "cpu_seconds": 0.0015206729999874824,
+          "calls": 1
+        },
+        "worker_host": {
+          "wall_seconds": 0.26297422405332327,
+          "cpu_seconds": 0.26294570000000306,
+          "calls": 1
+        },
+        "worker_decision": {
+          "wall_seconds": 4.558920670999214,
+          "cpu_seconds": 4.5586452080000015,
+          "calls": 378
+        },
+        "worker_policy_inference": {
+          "wall_seconds": 0.8961014717351645,
+          "cpu_seconds": 0.8963787220000938,
+          "calls": 245
+        },
+        "worker_execution": {
+          "wall_seconds": 2.8750490020029247,
+          "cpu_seconds": 2.8750655030002576,
+          "calls": 376
+        },
+        "worker_buffer_append": {
+          "wall_seconds": 0.7035043288487941,
+          "cpu_seconds": 0.6909737290001061,
+          "calls": 490
+        },
+        "worker_pack_line": {
+          "wall_seconds": 0.7046482437290251,
+          "cpu_seconds": 0.7047149860000133,
+          "calls": 490
+        },
+        "worker_sequence_index": {
+          "wall_seconds": 5.822735077235848,
+          "cpu_seconds": 5.778583857000001,
+          "calls": 2
+        },
+        "worker_shard_settlement": {
+          "wall_seconds": 6.267331692855805,
+          "cpu_seconds": 6.199610225000001,
+          "calls": 2
+        },
+        "worker_total": {
+          "wall_seconds": 16.89900125004351,
+          "cpu_seconds": 16.807325606999996,
+          "calls": 1
+        }
+      },
+      "shards": {
+        "rollout-00364-duel-g0.jsonl.gz": "e2858c6a58a17dca02abe14df4e7bdbf7732cffd6d7e703216913acecab9094b",
+        "rollout-00364-duel-g0.dagger.jsonl.gz": "fca7b6c746e04376ad8f96b48f5e36e7c5314879334a73182685865bc7e758ad"
+      }
+    }
+  ],
+  "recorded": {
+    "lambda-0.95-202611081": {
+      "recorded_wall": 14116.475185394287,
+      "collection_wall": 3927.099358558655,
+      "batches": 183,
+      "jobs": 1464
+    },
+    "lambda-0.95-202611082": {
+      "recorded_wall": 14101.023628234863,
+      "collection_wall": 3896.0403242111206,
+      "batches": 182,
+      "jobs": 1456
+    },
+    "lambda-0.95-202611083": {
+      "recorded_wall": 14136.671704053879,
+      "collection_wall": 4012.4081258773804,
+      "batches": 181,
+      "jobs": 1448
+    }
+  }
+}
