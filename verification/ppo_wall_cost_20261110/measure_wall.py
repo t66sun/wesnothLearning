@@ -141,9 +141,59 @@ def history_clock(cell, history):
                 collection_wall=collection, batches=len(history), jobs=covered)
 
 
+def sequence_rows(path, job_id):
+    import sqlite3
+    import zlib
+    with sqlite3.connect(f'{path.as_uri()}?mode=ro', uri=True) as store:
+        rows = store.execute('SELECT * FROM sequences WHERE game_id=? ORDER BY id', (job_id,))
+        checked = []
+        for row in rows:
+            payload = json.loads(zlib.decompress(row[-1]))
+            for record in payload:
+                if 'timing' in record:
+                    record['timing'].pop('ms', None)
+            digest = sha256(json.dumps(payload, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
+            checked.append((row[:-1], digest, len(row[-1])))
+        return checked
+
+
+def worker_cuts(root, output):
+    from types import SimpleNamespace
+    import zlib
+    from learning import trajectory_buffer
+
+    cell = root / 'cells/lambda-0.95-202611081'
+    job = read(cell / 'duel/schedules/ppo-batch-000038.json')[1]
+    expected = {row['id']: row for row in read_log(cell / 'duel/jobs.jsonl')}[job['id']]
+    original_index = Path(job['shard']).parent / 'sequences/sequences.sqlite3'
+    pinned = sequence_rows(original_index, job['id'])
+    assert pinned
+    records = {}
+    for name in ('baseline', 'spool', 'index'):
+        directory = output / name
+        directory.mkdir()
+        with ExitStack() as stack:
+            if name == 'spool':
+                stack.enter_context(patch.object(trajectory_buffer, 'zlib', SimpleNamespace(
+                    compress=lambda data, **_: data, decompress=lambda data: data)))
+            if name == 'index':
+                stack.enter_context(patch.object(sequences, 'zlib', SimpleNamespace(
+                    compressobj=lambda: zlib.compressobj(1), decompress=zlib.decompress)))
+            result = game(job, expected, directory)
+        db = directory / job['id'] / 'sequences/sequences.sqlite3'
+        rows = sequence_rows(db, job['id'])
+        assert [row[:2] for row in rows] == [row[:2] for row in pinned]
+        result['index_payload_bytes'] = sum(row[2] for row in rows)
+        records[name] = result
+    (output / 'worker-cuts.json').write_text(json.dumps(records, indent=2) + '\n')
+
+
+
 def main():
-    root, output = map(Path, sys.argv[1:])
+    root, output = map(Path, sys.argv[1:3])
     output.mkdir()
+    if sys.argv[3:] == ['worker-cuts']:
+        return worker_cuts(root, output)
     cells = root / 'cells'
     cell = cells / 'lambda-0.95-202611081'
     manifest = read(cell / 'manifest.json')
