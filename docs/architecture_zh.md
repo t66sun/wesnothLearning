@@ -193,7 +193,7 @@ PPO 复习有两个明确目标，在新运行的 `config.ppo_aux_target` 中冻
 
 PPO 效率诊断区分已提交、被 KL 拒绝和从未执行的工作。30 回合计分单挑对照的 636 条新对局记录提供 60,943 个决策和 1,317 个窗口，KL 拒绝占已检查决策访问的 16.92%。CPU 配对探针使用同一 BC、同一 Astra 对手和固定复习池，将独立轨迹由 4 条增至 8 条，每局准备耗时由 3.09 秒降至 1.72 秒，而每批准备加一个固定权重 epoch 的耗时由 16.95 秒增至 22.83 秒。固定 Astra 的单挑实验将同一全局对局序号流分为 4 局或 8 局批次。每批使用一个冻结策略版本，全部对局均提供合格轨迹后才进入 PPO。Ubuntu 测试验证了场景和种子配对、截止时排除不完整批次，以及八条轨迹更新的精确检查点恢复。三种子正式 Lite 单挑对照中，8 局批次每 PPO 小时获得的新鲜合格决策增加了 61.8%。批次、候选支持和空间编码三条路线的等墙钟得分区间均跨过零。默认采用 4 局批次和基线候选、特征契约。[有限任务成本](../verification/ppo_batch_cost_20261107/REPORT.md)、[4/8 局批次契约](../verification/ppo_batch_contract_20261107/REPORT.md)、[历史 60 回合任务的成本和策略移动](../verification/ppo_efficiency_20261106/REPORT.md)、[正式等墙钟对照](../verification/ppo_roadmap_acceptance_20261108/REPORT.md)。
 
-新 PPO 批次只完整读取一次 rollout，并将全部行交给训练准备；`bc_records` 不限制当前策略轨迹。恢复 pending 更新时仍从冻结 shard 重读并比较原有内容身份，包括原始循环历史前缀。真正的空批次仍跳过，非空批次中的任何非训练行都会触发 no-drop 拒绝。BC 与复习池读取、内容哈希、验证、窗口计划及 KL 结算保持原有契约。[runner 回归与冻结输入的配对准备成本](../verification/rollout_read_once_20261106/REPORT.md)
+新 PPO 批次只完整读取一次 rollout，并将全部行交给训练准备。`bc_records` 只限制单独的复习池。空批次跳过训练，非空批次含有任何非训练行都会触发 no-drop 拒绝。打包后的数值行用向量检查有限性，沿用现有形状和来源要求。新 pending PPO 批次使用 v3 内容身份，摘要覆盖规范化的浮点向量字节与 JSON 元数据。恢复时重读冻结分片和原始循环历史前缀，并按保存的版本校验；已有 v2 身份沿用原校验。逐局私有轨迹缓冲存储未压缩的 pickle，再逐行送入原有 gzip 分片与 SQLite 写入器。三对 8 局 Lite 单挑 CPU 运行中，这三项改动使同工作量墙钟减少 17.48%，对局、更新、模型和 Adam 状态一致。[rollout 读取与恢复契约](../verification/rollout_read_once_20261106/REPORT.md) · [配对墙钟验收](../verification/ppo_wall_acceptance_20261110/REPORT.md)
 
 ## 9. 评估与选择
 
