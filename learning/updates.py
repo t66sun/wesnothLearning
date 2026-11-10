@@ -5,6 +5,10 @@ size. Objectives, sampling and stopping live in ``bc.py`` and ``ppo.py``.
 """
 import hashlib
 import json
+from itertools import count
+import struct
+
+import numpy as np
 
 from .data import validate_record
 from .sequences import attach_histories, training_windows
@@ -59,24 +63,60 @@ def setup(model, records, minibatch):
     return device, windows, sequence_count, micro, steps
 
 
-def rollout_identity(rows):
+def _vector_content_hash(payload, encoder):
+    """Hash canonical JSON metadata and the float vectors it references."""
+    vectors = hashlib.sha256()
+    positions = count()
+
+    def replace(value):
+        position = next(positions)
+        if isinstance(value, dict):
+            return {key: replace(value[key]) for key in sorted(value)}
+        if isinstance(value, np.ndarray):
+            if value.ndim > 1:
+                return [replace(part) for part in value]
+            if value.ndim == 1 and value.size and value.dtype.kind == 'f' and value.dtype.itemsize <= 8:
+                vector = np.ascontiguousarray(value, dtype='<f8')
+                if not np.isfinite(vector).all():
+                    raise ValueError('Out of range float values are not JSON compliant')
+                # Preorder position binds a vector even when its JSON placeholder
+                # is beside an ordinary null. The length frames each byte block.
+                vectors.update(struct.pack('>QQ', position, vector.size))
+                vectors.update(memoryview(vector).cast('B'))
+                return None
+            value = value.tolist()
+        if isinstance(value, (list, tuple)):
+            return [replace(part) for part in value]
+        return value
+
+    metadata = encoder.encode(replace(payload)).encode()
+    return hashlib.sha256(metadata + b'\0' + vectors.digest()).hexdigest()
+
+
+def rollout_identity(rows, *, version=2):
     """Bind target identity, training content and legal raw recurrent prefixes.
 
     Hash one row at a time; shared prefix slots are hashed once per call. Numeric
     vector lists and arrays use the existing float64 compaction convention.
+    Version 2 remains available for saved pending batches.
     """
+    if version not in (2, 3):
+        raise ValueError('unknown rollout identity version')
     from .rowpack import compact_row
     encoder = json.JSONEncoder(sort_keys=True, separators=(',', ':'), allow_nan=False,
                                default=lambda value: value.tolist())
     def content_hash(payload):
-        return hashlib.sha256(encoder.encode(compact_row(payload)).encode()).hexdigest()
+        compact = compact_row(payload)
+        if version == 3:
+            return _vector_content_hash(compact, encoder)
+        return hashlib.sha256(encoder.encode(compact).encode()).hexdigest()
 
     ordered = sorted(rows, key=lambda r: (str(r.get('format')), str(r.get('source')),
         str(r.get('engine_id')), str(r.get('game_family')), str(r.get('game_id')),
         str(r.get('side')), int(r['turn']), int(r.get('decision', r.get('action_index', 0)))))
     if not all('_history' in row for row in ordered):
         ordered = attach_histories(ordered)
-    digest = hashlib.sha256(b'rollout-content-v2\n')
+    digest = hashlib.sha256(f'rollout-content-v{version}\n'.encode())
     prefixes = {}
     for row in ordered:
         if row.get('choice', -1) < 0:
@@ -90,4 +130,4 @@ def rollout_identity(rows):
         payload['_history'] = history
         digest.update(content_hash(payload).encode())
         digest.update(b'\n')
-    return digest.hexdigest()
+    return 'v3:' + digest.hexdigest() if version == 3 else digest.hexdigest()
