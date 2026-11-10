@@ -2,7 +2,6 @@
 import pickle
 import struct
 import tempfile
-import zlib
 
 from .coverage import reason
 from .rowpack import compact_row
@@ -32,7 +31,7 @@ class TrajectoryBuffer:
 
     def append(self, row):
         compact = compact_row(row)
-        payload = zlib.compress(pickle.dumps(compact, protocol=5), level=1)
+        payload = pickle.dumps(compact, protocol=5)
         self.file.seek(0, 2)
         self.file.write(struct.pack('<I', len(payload)))
         self.file.write(payload)
@@ -62,7 +61,7 @@ class TrajectoryBuffer:
             size = struct.unpack('<I', self.file.read(4))[0]
             payload = self.file.read(size)
             offset = self.file.tell()
-            yield pickle.loads(zlib.decompress(payload))
+            yield pickle.loads(payload)
 
     def metric_rows(self):
         for row in self:
