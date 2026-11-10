@@ -74,6 +74,19 @@ class CollectionMemoryTests(unittest.TestCase):
             self.assertNotIn('board', metrics[0]['spatial'])
             self.assertEqual(rowpack.plain_row(metrics[0]['spatial']['entities']), original['spatial']['entities'])
 
+    def test_private_spool_stores_the_pickle_without_compressing_it(self):
+        import pickle
+        import struct
+        from learning.trajectory_buffer import TrajectoryBuffer
+
+        row = rowpack.compact_row(helpers.synthetic_decision_row())
+        with TrajectoryBuffer() as buffer:
+            buffer.append(row)
+            buffer.file.seek(0)
+            size, = struct.unpack('<I', buffer.file.read(4))
+            payload = buffer.file.read(size)
+            self.assertEqual(rowpack.plain_row(pickle.loads(payload)), rowpack.plain_row(row))
+
     def test_missing_metric_vector_stays_missing_after_numpy_support(self):
         from learning.reward_metrics import _field
         self.assertIsNone(_field({'global': None, 'global_features': None}, 'own_units'))
