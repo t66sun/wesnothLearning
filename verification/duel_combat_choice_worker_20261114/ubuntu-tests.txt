@@ -1,0 +1,43 @@
+test_move_attack_matches_landing_target_and_weapon (tests.v5.test_lite_combat_choice.CombatChoiceTests.test_move_attack_matches_landing_target_and_weapon) ... ok
+test_unchanged_decisions_preserve_observation_and_memory (tests.v5.test_lite_combat_choice.CombatChoiceTests.test_unchanged_decisions_preserve_observation_and_memory) ... ok
+test_uses_the_exact_live_astra_combat_choice (tests.v5.test_lite_combat_choice.CombatChoiceTests.test_uses_the_exact_live_astra_combat_choice) ... ok
+test_score_only_preserves_observations_and_every_consumed_write (tests.v5.test_lite_score_policy.ScorePolicyTests.test_score_only_preserves_observations_and_every_consumed_write) ... ok
+test_learning_and_opening_keep_full_records (tests.v5.test_lite_score_astra.ScoreAstraTests.test_learning_and_opening_keep_full_records) ... ok
+test_query_and_bootstrap_decisions_get_full_candidates (tests.v5.test_lite_score_astra.ScoreAstraTests.test_query_and_bootstrap_decisions_get_full_candidates) ... FAIL
+test_reference_records_only_its_teacher_and_opening_keeps_every_seat (tests.v5.test_lite_score_astra.ScoreAstraTests.test_reference_records_only_its_teacher_and_opening_keeps_every_seat) ... ok
+test_score_only_reproduces_full_plans_ledger_and_transitions (tests.v5.test_lite_score_astra.ScoreAstraTests.test_score_only_reproduces_full_plans_ledger_and_transitions) ... ok
+test_adapter_reset_reuses_configured_host_once (tests.v5.test_teacher_state_reuse.TeacherStateReuseTests.test_adapter_reset_reuses_configured_host_once) ... ok
+test_teacher_query_survives_json_snapshot_round_trip (tests.v5.test_teacher_state_reuse.TeacherStateReuseTests.test_teacher_query_survives_json_snapshot_round_trip) ... ok
+test_bc_optimizer_supervises_the_same_shaped_value_target (tests.v5.test_finite_score.FiniteScoreArithmeticTests.test_bc_optimizer_supervises_the_same_shaped_value_target) ... ok
+test_cap_29_lite_round_30_is_still_external (tests.v5.test_finite_score.FiniteScoreArithmeticTests.test_cap_29_lite_round_30_is_still_external) ... ok
+test_completed_draw_telescopes_and_bc_matches_mc_and_ppo (tests.v5.test_finite_score.FiniteScoreArithmeticTests.test_completed_draw_telescopes_and_bc_matches_mc_and_ppo) ... ok
+test_early_external_cut_retains_potential_and_bootstrap (tests.v5.test_finite_score.FiniteScoreArithmeticTests.test_early_external_cut_retains_potential_and_bootstrap) ... ok
+test_eliminated_side_keeps_team_external_bootstrap_then_scores_final (tests.v5.test_finite_score.FiniteScoreArithmeticTests.test_eliminated_side_keeps_team_external_bootstrap_then_scores_final) ... ok
+test_ffa_uses_fixed_own_rank_scale_not_per_game_centering (tests.v5.test_finite_score.FiniteScoreArithmeticTests.test_ffa_uses_fixed_own_rank_scale_not_per_game_centering) ... ok
+test_legacy_configuration_is_never_implicitly_relabelled (tests.v5.test_finite_score.FiniteScoreArithmeticTests.test_legacy_configuration_is_never_implicitly_relabelled) ... ok
+test_natural_wins_and_losses_clear_endpoint_potential (tests.v5.test_finite_score.FiniteScoreArithmeticTests.test_natural_wins_and_losses_clear_endpoint_potential) ... ok
+test_new_config_rejects_discount_and_exploration_changes (tests.v5.test_finite_score.FiniteScoreArithmeticTests.test_new_config_rejects_discount_and_exploration_changes) ... ok
+test_own_official_points_have_one_positive_affine_normalization (tests.v5.test_finite_score.FiniteScoreArithmeticTests.test_own_official_points_have_one_positive_affine_normalization) ... ok
+test_raw_rowpack_and_training_reader_preserve_task_and_reject_old_data (tests.v5.test_finite_score.FiniteScoreArithmeticTests.test_raw_rowpack_and_training_reader_preserve_task_and_reject_old_data) ... ok
+test_same_turn_actions_and_multiturn_gap_keep_own_turn_lambda_clock (tests.v5.test_finite_score.FiniteScoreArithmeticTests.test_same_turn_actions_and_multiturn_gap_keep_own_turn_lambda_clock) ... ok
+test_team_outcome_includes_the_previously_eliminated_teammate (tests.v5.test_finite_score.FiniteScoreArithmeticTests.test_team_outcome_includes_the_previously_eliminated_teammate) ... ok
+test_complete_round_30_scores_both_sides_without_bootstrap (tests.v5.test_finite_score.FiniteScoreEngineTests.test_complete_round_30_scores_both_sides_without_bootstrap) ... ok
+test_dagger_queries_share_finite_outcome_and_value_valid (tests.v5.test_finite_score.FiniteScoreEngineTests.test_dagger_queries_share_finite_outcome_and_value_valid) ... ok
+test_early_eliminated_teammate_receives_final_draw (tests.v5.test_finite_score.FiniteScoreEngineTests.test_early_eliminated_teammate_receives_final_draw) ... ok
+test_native_event_ingestion_keeps_scored_and_external_boundary_identity (tests.v5.test_finite_score.FiniteScoreEngineTests.test_native_event_ingestion_keeps_scored_and_external_boundary_identity) ... ok
+test_native_runtime_suppresses_only_finite_scored_cap_bootstrap (tests.v5.test_finite_score.FiniteScoreEngineTests.test_native_runtime_suppresses_only_finite_scored_cap_bootstrap) ... ok
+test_real_external_cut_still_queries_and_records_bootstrap (tests.v5.test_finite_score.FiniteScoreEngineTests.test_real_external_cut_still_queries_and_records_bootstrap) ... ok
+test_real_natural_terminal_scores_without_tail_bootstrap (tests.v5.test_finite_score.FiniteScoreEngineTests.test_real_natural_terminal_scores_without_tail_bootstrap) ... ok
+
+======================================================================
+FAIL: test_query_and_bootstrap_decisions_get_full_candidates (tests.v5.test_lite_score_astra.ScoreAstraTests.test_query_and_bootstrap_decisions_get_full_candidates)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/duel-combat-20261114-vtMYiL/source/tests/v5/test_lite_score_astra.py", line 112, in test_query_and_bootstrap_decisions_get_full_candidates
+    self.assertTrue(any(row.get('bootstrap_value') is not None for row in rows))
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 30 tests in 8.304s
+
+FAILED (failures=1)

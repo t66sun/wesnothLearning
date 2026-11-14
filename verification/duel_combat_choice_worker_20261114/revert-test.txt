@@ -1,0 +1,23 @@
+FF
+======================================================================
+FAIL: test_uses_the_exact_live_astra_combat_choice (tests.v5.test_lite_combat_choice.CombatChoiceTests.test_uses_the_exact_live_astra_combat_choice) (seat=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/duel-combat-20261114-vtMYiL/reverted/tests/v5/test_lite_combat_choice.py", line 112, in test_uses_the_exact_live_astra_combat_choice
+    self.assertEqual(trace[0][0], candidates[index])
+AssertionError: {'act[583 chars]3}, 'features': [0.0, 0.0, 0.0, 1.0, 0.0, 1.0,[2172 chars]': 3} != {'act[583 chars]3}, 'ex': 5, 'ey': 3, 'features': [0.0, 0.0, 0[2280 chars]': 3}
+Diff is 14343 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_uses_the_exact_live_astra_combat_choice (tests.v5.test_lite_combat_choice.CombatChoiceTests.test_uses_the_exact_live_astra_combat_choice) (seat=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/duel-combat-20261114-vtMYiL/reverted/tests/v5/test_lite_combat_choice.py", line 112, in test_uses_the_exact_live_astra_combat_choice
+    self.assertEqual(trace[0][0], candidates[index])
+AssertionError: {'act[583 chars]3}, 'features': [0.0, 0.0, 0.0, 1.0, 0.0, 1.0,[2172 chars]': 3} != {'act[583 chars]3}, 'ex': 5, 'ey': 3, 'features': [0.0, 0.0, 0[2280 chars]': 3}
+Diff is 14343 characters long. Set self.maxDiff to None to see it.
+
+----------------------------------------------------------------------
+Ran 1 test in 0.519s
+
+FAILED (failures=2)

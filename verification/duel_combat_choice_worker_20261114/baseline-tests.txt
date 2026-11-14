@@ -1,0 +1,13 @@
+F
+======================================================================
+FAIL: test_query_and_bootstrap_decisions_get_full_candidates (tests.v5.test_lite_score_astra.ScoreAstraTests.test_query_and_bootstrap_decisions_get_full_candidates)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/duel-combat-20261114-4vjzJI/baseline/tests/v5/test_lite_score_astra.py", line 112, in test_query_and_bootstrap_decisions_get_full_candidates
+    self.assertTrue(any(row.get('bootstrap_value') is not None for row in rows))
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 1 test in 0.286s
+
+FAILED (failures=1)

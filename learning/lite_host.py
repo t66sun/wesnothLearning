@@ -92,6 +92,29 @@ def teacher_candidate(plan):
     raise ValueError(f'unsupported Astra intent {kind}')
 
 
+COMBAT_ACTIONS = ('attack', 'move_attack')
+
+
+def _combat_choice(host, side, candidates, choice, route, counts):
+    if candidates[choice]['kind'] not in COMBAT_ACTIONS:
+        return choice
+    counts['combat'] += 1
+    if route == 'greedy':
+        return choice
+    counts['queries'] += 1
+    probe = host.decision(side, teacher=True, generate_candidates=False, score_only_astra=True)
+    intent = teacher_candidate(probe['teacher_action'])
+    if intent['kind'] not in COMBAT_ACTIONS:
+        counts['astra_noncombat'] += 1
+        return choice
+    match = matching(candidates, intent)
+    if match < 0:
+        counts['absent'] += 1
+        return choice
+    counts['same' if match == choice else 'changed'] += 1
+    return match
+
+
 def play_lite_job(job):
     """Play one accepted-lite Astra or explicit policy job; never fallback native.
 
@@ -143,6 +166,15 @@ def play_lite_job(job):
         if learner_sides and (meta.get('phase') in ('teacher','ppo','dagger_refresh') or keeps_reward_diagnostics(meta)):
             score_only_astra = not record_decisions
         score_only_policy = job.get('score_only_policy') and policies is not None and not collecting
+        combat_route = job.get('combat_choice')
+        if combat_route is not None:
+            if (combat_route not in ('greedy', 'astra') or not score_only_policy or not score_only_astra
+                    or len(bots) != 2 or len(policies.modes) != 1 or any(policies.modes.values())
+                    or policies.format != 'duel' or config['task_id'] != TASK_ID
+                    or job['game_spec']['max_turns'] != TASK_TURNS):
+                raise ValueError('combat choice requires a greedy score-only finite-task Lite duel against Astra')
+            combat_counts = dict.fromkeys(('combat', 'queries', 'astra_noncombat', 'absent', 'same', 'changed'), 0)
+            combat_started = time.monotonic()
         def metric_snapshot(side,event):
             row=host.decision(side,teacher=False,generate_candidates=False)
             snapshot={k:row[k] for k in ('side','turn','global','spatial','reward_raw')}
@@ -211,6 +243,8 @@ def play_lite_job(job):
                     choice = int(selected['choice'])
                     if not 0 <= choice < len(decision['candidates']):
                         raise ValueError('policy returned an invalid candidate index')
+                    if combat_route is not None:
+                        choice = _combat_choice(host, current, decision['candidates'], choice, combat_route, combat_counts)
                     action = decision['candidates'][choice]
                     decision.update(choice=choice, log_probability=float(selected['log_probability']),
                                     value=float(selected['value']), actual=action, intent=action)
@@ -276,6 +310,9 @@ def play_lite_job(job):
             path=Path(job['shard']);write_shard(path.with_name(path.name.replace('.jsonl.gz','.dagger.jsonl.gz')),job_id,dagger,result,bootstraps)
         coverage = records.coverage
         evidence = {}
+        if combat_route is not None:
+            evidence['combat_choice'] = combat_counts
+            evidence['combat_worker_seconds'] = time.monotonic() - combat_started
         if keeps_reward_diagnostics(meta):
             evidence['reward_diagnostics'] = summarize_game(records.metric_rows(), result, job, snapshots=metric_snapshots)
         if keeps_behavior(meta):

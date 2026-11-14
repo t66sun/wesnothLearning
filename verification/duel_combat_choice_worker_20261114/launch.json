@@ -1,0 +1,36 @@
+{
+  "commit": "c6aeba9c04cd4bd9559f56ec2a0c33685c731c15",
+  "archive": "/home/tongshu/acceptance/duel-combat-20261114-vtMYiL/source.tar",
+  "archive_sha256": "eb7021f15c7fbb7e61e2dff85ca587e17c470882ca0838645bd7d896f7bbe12f",
+  "inputs_sha256": "4a2028e91c2b5355e4eb2aa1132c0deebf22d9b6019a2920b714bc2a305962be",
+  "schedule_sha256": "7923fe2217d8b72f8c79fb5a5946987fd0c5a392b2882d2b510f04974216ec23",
+  "policy_files": {
+    "FrozenV38/LICENSE": "aeee0e57f016bc95fea3c20dd6a2168493c4134ba5ae481217467613a1953e30",
+    "FrozenV38/README.md": "78cade1d299852c1640b071667529b99b6c5b7b352cf00f13c9f5dd9d3c528f3",
+    "FrozenV38/_main.cfg": "eee0377ae6dc03b6444949bd94e53010abb2113c45d8a89bd145723fa91e6331",
+    "FrozenV38/ai.cfg": "a98f95ee729151de5bfcb9613f1c8e4b00464e433f313ca604ccedc6253a7077",
+    "FrozenV38/arena.json": "4b94c501ed6adad103229254eb2ebb7ab09724aa22d4873fd1f11b61717e7aff",
+    "FrozenV38/lua/bot.lua": "4517822818184ce42934c01fac361bbb69b1a45439065f1413b2d8decc0f704e",
+    "FrozenV38/lua/candidate_selection.lua": "6f9c3cb71ac50e1a9e6569ace657feb51e47793d18ea7608a6bc989d3aaaf289",
+    "FrozenV38/lua/candidates.lua": "8b18d97c8cbcfaef37461d9eb8f37e473b491c5f31fdda588710a00a9d0b79f4",
+    "FrozenV38/lua/config.lua": "345acf5c395dddfd7d44f3727b4e4211fa8db07540e962500c3234b6998e52c8",
+    "FrozenV38/lua/features.lua": "2edb30cb0ab2b93a744f10bbde74bef025cedafaa807e8bf26256ba47770a70f",
+    "FrozenV38/lua/network.lua": "f22edc658c0b2179dbac0d4ba7c159c53eb3f289ce3cbedff1e8cb98b3c4d87e",
+    "FrozenV38/lua/observation.lua": "ff63640c74b2aaeefffbcdaa4b14179e082712128a22c760e969c45415f22226",
+    "FrozenV38/lua/relational.lua": "43a352c6a0989fac6d63f39539b068876e9094939ef08a6e943e7856c12d93a2",
+    "FrozenV38/lua/rewards.lua": "c8618d69da6463fe7c67b93fa0289ae3d9bfc32df7f6ca6aaabda06d6a688f33",
+    "FrozenV38/lua/routing.lua": "f15321b0af0f9a7bdc0679b715ee50bfac8f7c68d82c01b2b604d222aa7566b2",
+    "FrozenV38/lua/spatial.lua": "0f5bf09ee14d1db8dbd80143c0af4b10afdeacd0c062f9b084e80f4fe061cfba",
+    "FrozenV38/lua/teacher.lua": "abe5d8ce0957e1067dc5d63e6c815d30b5948f9e7ca07123079006d1d7a124e4",
+    "FrozenV38/lua/weights_duel.lua": "ab6ef2f5e17d9c738e30053936e5a1bd84de380bf4ab16332d913c134f5aed2a",
+    "export.json": "9b81bdf89c6610b3e8ff1cf8fb8d816d1dbf90455e2e45a9aed920e9c735f5ab",
+    "model.pt": "8fc61bbb0be5c2ad8d2ec5b56760ce3dbfa08eed008c490e9b2233624ea91ebe"
+  },
+  "settings": {
+    "prepare": 600,
+    "games": 2700,
+    "audit": 300,
+    "total": 3600
+  },
+  "preparation_seconds": 0.47803981928154826
+}
