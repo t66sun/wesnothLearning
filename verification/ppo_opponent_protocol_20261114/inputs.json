@@ -1,0 +1,111 @@
+{
+  "production_commit": "18925e5b08004868e9666c0e6819cb3ac90f9b3d",
+  "seeds": [
+    202611141,
+    202611142,
+    202611143
+  ],
+  "order": [
+    [
+      "astra",
+      202611141
+    ],
+    [
+      "mixed",
+      202611141
+    ],
+    [
+      "mixed",
+      202611142
+    ],
+    [
+      "astra",
+      202611142
+    ],
+    [
+      "astra",
+      202611143
+    ],
+    [
+      "mixed",
+      202611143
+    ]
+  ],
+  "batch_games": 8,
+  "bc_slots": [
+    [
+      0,
+      1
+    ],
+    [
+      6,
+      7
+    ],
+    [
+      1,
+      5
+    ],
+    [
+      2,
+      4
+    ],
+    [
+      2,
+      3
+    ],
+    [
+      2,
+      4
+    ],
+    [
+      5,
+      6
+    ],
+    [
+      5,
+      6
+    ],
+    [
+      4,
+      5
+    ]
+  ],
+  "gae_lambda": 0.95,
+  "seconds": {
+    "prepare": 900,
+    "cell": 5400,
+    "admission": 5100,
+    "ppo": 32400,
+    "validation": 1800,
+    "holdout": 5400,
+    "audit": 2700,
+    "total": 43200
+  },
+  "min_free_bytes": 32212254720,
+  "evaluation": {
+    "validation_seed": 202611077,
+    "holdout_seed": 202611078,
+    "bootstrap_seed": 202611149,
+    "bootstrap_samples": 10000,
+    "validation_blocks": 15,
+    "holdout_blocks_per_map": 30,
+    "minimum_vs_astra": 0.08,
+    "minimum_vs_bc": 0.05
+  },
+  "holdout": {
+    "ur_thorodor": {
+      "native_file": "campaigns/Delfadors_Memoirs/maps/08_Ur-Thorodor.map",
+      "source_sha256": "750695b85c2c26ae6b8769046922d3eafdac86a6624f9a59b758f84d4727587d",
+      "file_sha256": "ad53e1429a774e628395cfc183af70b9907598aac6c34232330b41af617304df",
+      "board_sha256": "82ec08e3de336b17d6dbd675f4881d200f8b1f038a71cd74c736bd738f5d0fb0",
+      "villages": 10
+    },
+    "face_of_the_enemy": {
+      "native_file": "campaigns/Delfadors_Memoirs/maps/22_Face_of_the_Enemy.map",
+      "source_sha256": "4b2b073e165fbfebbe2f608fcbc6934bb1fea221dee617c7b64b890037970570",
+      "file_sha256": "d26a2b5c75c4094abdca5fd4b66d18359cfcb92a85ec937b5d60bf2b5119e6ed",
+      "board_sha256": "a96922ecdc99c034aa5da32118b1af87de866285bfb3672fefa5b688e2239689",
+      "villages": 0
+    }
+  }
+}
