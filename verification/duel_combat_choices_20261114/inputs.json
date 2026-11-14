@@ -1,0 +1,1520 @@
+{
+  "source_commit": "9422df4c27bd2c79bdc249e0b4d6c538a586e666",
+  "source_archive_sha256": "6fe5253d630f1d53d217f7d982ab07e1539af39726c27cf32c60de107fc293d2",
+  "task_id": "official-score-30-v1",
+  "rules_sha256": "e6b4f6200b0a8ad58a536b844fff37cfa9e0091bf0a0b702a8982155310f2f17",
+  "astra": {
+    "teacher": "gpt6astra",
+    "teacher_profile": "probabilistic_combat_v6",
+    "teacher_source_sha256": "d64e1178c0a8af9b1b10e2626f03e7cb8ed70a5a368d3c38860d40723a903eb5",
+    "teacher_parent_sha256": "2a216c96081990621dc15772e9de1bf40e4f5f451223fe52e5b20625464dc933"
+  },
+  "checkpoint": {
+    "checkpoint_sha256": "8fc61bbb0be5c2ad8d2ec5b56760ce3dbfa08eed008c490e9b2233624ea91ebe",
+    "weights_sha256": "d9d694f04d4179a5c65bbc29307a8e425a245d650d47f55a36ec04abeb206801",
+    "manifest_sha256": "bb9915fd2ed1e3d2375c4732b604a5a1d2b3ebb8441bc2976c3b4d74ad76dd48",
+    "gate_sha256": "9cf9239a19c4d5713fe9158df43de618572474016f37e85c017b4a41700744c1"
+  },
+  "extension_sha256": "56dd77140411db987377d6de4ffbf562da4d0e5c76bc16d34780da67e60e5ae4",
+  "opportunity_sha256": "37d9696f4473af130e5fe7f37369e229e081bd0bc8695c9df4b7ccae9af2d944",
+  "workers": 8,
+  "seconds": {
+    "prepare": 600,
+    "games": 2700,
+    "audit": 300,
+    "total": 3600
+  },
+  "bootstrap_seed": 2026111459,
+  "bootstrap_samples": 10000,
+  "minimum_gain": 0.05,
+  "maps": {
+    "fallenstar_lake": {
+      "asset": "multiplayer/maps/2p_Fallenstar_Lake.map",
+      "source_sha256": "6c420e3fb85c03dc5d9e480b9f52ee1ac8a28f04dad3e096f096e0e14128ec68",
+      "source_board_sha256": "9d59d58cae071d8084cd367cf416bc95f2614f3319466d3341d3fe20d94bf67d",
+      "board_sha256": "2f9037f75f58c917343aa4cbc82ba48d27d7a8120b1244893012773da307180d",
+      "file_sha256": "2e483ebd29d113a497ac32e44fd9d2e7f110f890737dd1ee07598c1564be3276",
+      "villages": 20,
+      "terrain_edits": [
+        {
+          "x": 6,
+          "y": 8,
+          "original": "Mm^Vhh",
+          "derived": "Hh^Vhh"
+        },
+        {
+          "x": 36,
+          "y": 8,
+          "original": "Mm^Vhh",
+          "derived": "Hh^Vhh"
+        }
+      ],
+      "seed": 2026111451
+    },
+    "sullas_ruins": {
+      "asset": "multiplayer/maps/2p_Sullas_Ruins.map",
+      "source_sha256": "5fb5813e4550f088bfd606bab76fbd78651d3eaf6b8de7e72782ac6557c39ef1",
+      "source_board_sha256": "3d4aceb2fe345da5064a2e9c3c1781ad3ab87fde53b931fcd0a340a74e748b35",
+      "board_sha256": "47e311d38e3630d29cff7e8f05e75d1e23720819083c3c1ca7fe6d98529cd958",
+      "file_sha256": "2f09945af51be3c433f52dd8cbab103731666f5eb84c7c280e7ebd9457d45123",
+      "villages": 16,
+      "terrain_edits": [
+        {
+          "x": 17,
+          "y": 3,
+          "original": "Mm^Vhh",
+          "derived": "Hh^Vhh"
+        },
+        {
+          "x": 21,
+          "y": 28,
+          "original": "Mm^Vhh",
+          "derived": "Hh^Vhh"
+        }
+      ],
+      "seed": 2026111452
+    }
+  },
+  "slots": [
+    {
+      "map": "fallenstar_lake",
+      "block": 0,
+      "rotation": 0,
+      "scenario": "708e8b486274e02fbf5c4c9c02a40fe3219d849aa7d62b1f77b4601ca23e6ccd",
+      "seed": 2575543814,
+      "factions": [
+        "Drakes",
+        "Knalgan Alliance"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 0,
+      "rotation": 1,
+      "scenario": "708e8b486274e02fbf5c4c9c02a40fe3219d849aa7d62b1f77b4601ca23e6ccd",
+      "seed": 2575543814,
+      "factions": [
+        "Drakes",
+        "Knalgan Alliance"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 1,
+      "rotation": 0,
+      "scenario": "23f724c59c89f1ca51689e7b6709ce0e8c9918aa894b35a9a26c8ec7ff88eedb",
+      "seed": 371976281,
+      "factions": [
+        "Drakes",
+        "Loyalists"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 1,
+      "rotation": 1,
+      "scenario": "23f724c59c89f1ca51689e7b6709ce0e8c9918aa894b35a9a26c8ec7ff88eedb",
+      "seed": 371976281,
+      "factions": [
+        "Drakes",
+        "Loyalists"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 2,
+      "rotation": 0,
+      "scenario": "a37562ad9c89560535a8c7468b060cb19d0b64ad03a830765b884a196af95b45",
+      "seed": 1462722593,
+      "factions": [
+        "Drakes",
+        "Northerners"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 2,
+      "rotation": 1,
+      "scenario": "a37562ad9c89560535a8c7468b060cb19d0b64ad03a830765b884a196af95b45",
+      "seed": 1462722593,
+      "factions": [
+        "Drakes",
+        "Northerners"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 3,
+      "rotation": 0,
+      "scenario": "984ac72b7806dbfe235f37f4d9d0fb212ee2696e3caa47e25aa8af18d039ba07",
+      "seed": 1491819254,
+      "factions": [
+        "Drakes",
+        "Rebels"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 3,
+      "rotation": 1,
+      "scenario": "984ac72b7806dbfe235f37f4d9d0fb212ee2696e3caa47e25aa8af18d039ba07",
+      "seed": 1491819254,
+      "factions": [
+        "Drakes",
+        "Rebels"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 4,
+      "rotation": 0,
+      "scenario": "1eed1ab89741a9f79462c49e1d7c51f0957b187b7b055a601f8d738d8ec7a89b",
+      "seed": 1405849150,
+      "factions": [
+        "Drakes",
+        "Undead"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 4,
+      "rotation": 1,
+      "scenario": "1eed1ab89741a9f79462c49e1d7c51f0957b187b7b055a601f8d738d8ec7a89b",
+      "seed": 1405849150,
+      "factions": [
+        "Drakes",
+        "Undead"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 5,
+      "rotation": 0,
+      "scenario": "a3650677821ee2fdcfff1af619f7b00ce2e948941bcd3d5e8cea0fe1e0473cf4",
+      "seed": 2452468021,
+      "factions": [
+        "Knalgan Alliance",
+        "Drakes"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 5,
+      "rotation": 1,
+      "scenario": "a3650677821ee2fdcfff1af619f7b00ce2e948941bcd3d5e8cea0fe1e0473cf4",
+      "seed": 2452468021,
+      "factions": [
+        "Knalgan Alliance",
+        "Drakes"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 6,
+      "rotation": 0,
+      "scenario": "f38efe5355947e0b90a3d430cc11a556fd05b103b2f5123307d5fe0e83cab241",
+      "seed": 1759873726,
+      "factions": [
+        "Knalgan Alliance",
+        "Loyalists"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 6,
+      "rotation": 1,
+      "scenario": "f38efe5355947e0b90a3d430cc11a556fd05b103b2f5123307d5fe0e83cab241",
+      "seed": 1759873726,
+      "factions": [
+        "Knalgan Alliance",
+        "Loyalists"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 7,
+      "rotation": 0,
+      "scenario": "6d9f8d5eaeab4c4e2ae54f9bc97ad1346da3d1ea00342846c00ad2e8e5cb4ea0",
+      "seed": 499317704,
+      "factions": [
+        "Knalgan Alliance",
+        "Northerners"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 7,
+      "rotation": 1,
+      "scenario": "6d9f8d5eaeab4c4e2ae54f9bc97ad1346da3d1ea00342846c00ad2e8e5cb4ea0",
+      "seed": 499317704,
+      "factions": [
+        "Knalgan Alliance",
+        "Northerners"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 8,
+      "rotation": 0,
+      "scenario": "6afa654075754f5c0cb45f770a6734e43c8b6c7098ff2b17b5b621e5c14a5a6f",
+      "seed": 316767784,
+      "factions": [
+        "Knalgan Alliance",
+        "Rebels"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 8,
+      "rotation": 1,
+      "scenario": "6afa654075754f5c0cb45f770a6734e43c8b6c7098ff2b17b5b621e5c14a5a6f",
+      "seed": 316767784,
+      "factions": [
+        "Knalgan Alliance",
+        "Rebels"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 9,
+      "rotation": 0,
+      "scenario": "0c8e7f37378a7019aa2dcdcd528a926b02a39bb0c7e3d315ccb4597f43cd24f7",
+      "seed": 3457116883,
+      "factions": [
+        "Knalgan Alliance",
+        "Undead"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 9,
+      "rotation": 1,
+      "scenario": "0c8e7f37378a7019aa2dcdcd528a926b02a39bb0c7e3d315ccb4597f43cd24f7",
+      "seed": 3457116883,
+      "factions": [
+        "Knalgan Alliance",
+        "Undead"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 10,
+      "rotation": 0,
+      "scenario": "a65db227d8cfb0aaf1a74a790bd1a773d52b8fc172f501c6d557eee15e7bf49d",
+      "seed": 1297542768,
+      "factions": [
+        "Loyalists",
+        "Drakes"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 10,
+      "rotation": 1,
+      "scenario": "a65db227d8cfb0aaf1a74a790bd1a773d52b8fc172f501c6d557eee15e7bf49d",
+      "seed": 1297542768,
+      "factions": [
+        "Loyalists",
+        "Drakes"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 11,
+      "rotation": 0,
+      "scenario": "65029e9ff9bfe11dee22ef4d3815bb12cd7c08f195b98ef55fe70fb1f4dcb381",
+      "seed": 3579880831,
+      "factions": [
+        "Loyalists",
+        "Knalgan Alliance"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 11,
+      "rotation": 1,
+      "scenario": "65029e9ff9bfe11dee22ef4d3815bb12cd7c08f195b98ef55fe70fb1f4dcb381",
+      "seed": 3579880831,
+      "factions": [
+        "Loyalists",
+        "Knalgan Alliance"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 12,
+      "rotation": 0,
+      "scenario": "532e73c4f0961cbed8ecaf3b85f703a13413aef8f3cbaea44f8ee9378e2a8e69",
+      "seed": 3407427977,
+      "factions": [
+        "Loyalists",
+        "Northerners"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 12,
+      "rotation": 1,
+      "scenario": "532e73c4f0961cbed8ecaf3b85f703a13413aef8f3cbaea44f8ee9378e2a8e69",
+      "seed": 3407427977,
+      "factions": [
+        "Loyalists",
+        "Northerners"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 13,
+      "rotation": 0,
+      "scenario": "d547feb10c89db10663ef2074439ef3fc61ccea492f13b69d5d640c98a8662ff",
+      "seed": 737932885,
+      "factions": [
+        "Loyalists",
+        "Rebels"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 13,
+      "rotation": 1,
+      "scenario": "d547feb10c89db10663ef2074439ef3fc61ccea492f13b69d5d640c98a8662ff",
+      "seed": 737932885,
+      "factions": [
+        "Loyalists",
+        "Rebels"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 14,
+      "rotation": 0,
+      "scenario": "5d12b5817f2c75b446a67e72ad9721b9dad8778a35b13e425d5a62f70265e688",
+      "seed": 2342499799,
+      "factions": [
+        "Loyalists",
+        "Undead"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 14,
+      "rotation": 1,
+      "scenario": "5d12b5817f2c75b446a67e72ad9721b9dad8778a35b13e425d5a62f70265e688",
+      "seed": 2342499799,
+      "factions": [
+        "Loyalists",
+        "Undead"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 15,
+      "rotation": 0,
+      "scenario": "fdb8d96a4788d1a28ac3c9ae02249eed1962622472be3260ff965bc6b3a31b7f",
+      "seed": 1195832435,
+      "factions": [
+        "Northerners",
+        "Drakes"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 15,
+      "rotation": 1,
+      "scenario": "fdb8d96a4788d1a28ac3c9ae02249eed1962622472be3260ff965bc6b3a31b7f",
+      "seed": 1195832435,
+      "factions": [
+        "Northerners",
+        "Drakes"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 16,
+      "rotation": 0,
+      "scenario": "9f43ffa6733caf96a8abd8cbff15ca8e9874a3618d871d668c1b0484fe2adcbf",
+      "seed": 3245717007,
+      "factions": [
+        "Northerners",
+        "Knalgan Alliance"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 16,
+      "rotation": 1,
+      "scenario": "9f43ffa6733caf96a8abd8cbff15ca8e9874a3618d871d668c1b0484fe2adcbf",
+      "seed": 3245717007,
+      "factions": [
+        "Northerners",
+        "Knalgan Alliance"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 17,
+      "rotation": 0,
+      "scenario": "d0e1685fbb0c0e8360cf62ab7ac8c7fa4c5fc5860eff0e60c136d81d45f6d2cd",
+      "seed": 2738665925,
+      "factions": [
+        "Northerners",
+        "Loyalists"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 17,
+      "rotation": 1,
+      "scenario": "d0e1685fbb0c0e8360cf62ab7ac8c7fa4c5fc5860eff0e60c136d81d45f6d2cd",
+      "seed": 2738665925,
+      "factions": [
+        "Northerners",
+        "Loyalists"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 18,
+      "rotation": 0,
+      "scenario": "edb125309836535d6d122da28af6fd5e4d26f2aca30c92d52a4271d5456487bf",
+      "seed": 4198385559,
+      "factions": [
+        "Northerners",
+        "Rebels"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 18,
+      "rotation": 1,
+      "scenario": "edb125309836535d6d122da28af6fd5e4d26f2aca30c92d52a4271d5456487bf",
+      "seed": 4198385559,
+      "factions": [
+        "Northerners",
+        "Rebels"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 19,
+      "rotation": 0,
+      "scenario": "37a24c9b2bca54716dca59779041d689500a8cac5ccbcd7a665331e919f57ef2",
+      "seed": 3703838678,
+      "factions": [
+        "Northerners",
+        "Undead"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 19,
+      "rotation": 1,
+      "scenario": "37a24c9b2bca54716dca59779041d689500a8cac5ccbcd7a665331e919f57ef2",
+      "seed": 3703838678,
+      "factions": [
+        "Northerners",
+        "Undead"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 20,
+      "rotation": 0,
+      "scenario": "6dc72f02168f663c006b42b2e9575914501d5b5e6a9bba9b1e46c2b96a1b53a6",
+      "seed": 1316650552,
+      "factions": [
+        "Rebels",
+        "Drakes"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 20,
+      "rotation": 1,
+      "scenario": "6dc72f02168f663c006b42b2e9575914501d5b5e6a9bba9b1e46c2b96a1b53a6",
+      "seed": 1316650552,
+      "factions": [
+        "Rebels",
+        "Drakes"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 21,
+      "rotation": 0,
+      "scenario": "49d142eef2b27a31b98edabf25e7b584dd0522d68d084c874b44227c48667c3d",
+      "seed": 1389899339,
+      "factions": [
+        "Rebels",
+        "Knalgan Alliance"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 21,
+      "rotation": 1,
+      "scenario": "49d142eef2b27a31b98edabf25e7b584dd0522d68d084c874b44227c48667c3d",
+      "seed": 1389899339,
+      "factions": [
+        "Rebels",
+        "Knalgan Alliance"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 22,
+      "rotation": 0,
+      "scenario": "054c422bb563577987e8533172c627b7a9cc8595d01842319cda718e3f493c3b",
+      "seed": 3181992495,
+      "factions": [
+        "Rebels",
+        "Loyalists"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 22,
+      "rotation": 1,
+      "scenario": "054c422bb563577987e8533172c627b7a9cc8595d01842319cda718e3f493c3b",
+      "seed": 3181992495,
+      "factions": [
+        "Rebels",
+        "Loyalists"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 23,
+      "rotation": 0,
+      "scenario": "9d8a032434532f1b50db1cd191c8f8ef4f59795bf814f61278fc3a7460ff18ae",
+      "seed": 1701579247,
+      "factions": [
+        "Rebels",
+        "Northerners"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 23,
+      "rotation": 1,
+      "scenario": "9d8a032434532f1b50db1cd191c8f8ef4f59795bf814f61278fc3a7460ff18ae",
+      "seed": 1701579247,
+      "factions": [
+        "Rebels",
+        "Northerners"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 24,
+      "rotation": 0,
+      "scenario": "909533773889e64fb946a5e3c7de2751ea40597fd0dcacdf8b65aeb6a840d2bf",
+      "seed": 2923832768,
+      "factions": [
+        "Rebels",
+        "Undead"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 24,
+      "rotation": 1,
+      "scenario": "909533773889e64fb946a5e3c7de2751ea40597fd0dcacdf8b65aeb6a840d2bf",
+      "seed": 2923832768,
+      "factions": [
+        "Rebels",
+        "Undead"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 25,
+      "rotation": 0,
+      "scenario": "a92a47c1e046d9c05cef04e355d8c9f43844148d964f227a3fcc8dff5176afc7",
+      "seed": 1637780116,
+      "factions": [
+        "Undead",
+        "Drakes"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 25,
+      "rotation": 1,
+      "scenario": "a92a47c1e046d9c05cef04e355d8c9f43844148d964f227a3fcc8dff5176afc7",
+      "seed": 1637780116,
+      "factions": [
+        "Undead",
+        "Drakes"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 26,
+      "rotation": 0,
+      "scenario": "c20d41d5636b9efe6b0742515d429d83e164c62bbab4fac738c41fa8645bae0e",
+      "seed": 2061684951,
+      "factions": [
+        "Undead",
+        "Knalgan Alliance"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 26,
+      "rotation": 1,
+      "scenario": "c20d41d5636b9efe6b0742515d429d83e164c62bbab4fac738c41fa8645bae0e",
+      "seed": 2061684951,
+      "factions": [
+        "Undead",
+        "Knalgan Alliance"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 27,
+      "rotation": 0,
+      "scenario": "98a012443187ad0e065d7fd18aaaba8c5ac8a5127829df6da8b465d80d58c039",
+      "seed": 2400656389,
+      "factions": [
+        "Undead",
+        "Loyalists"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 27,
+      "rotation": 1,
+      "scenario": "98a012443187ad0e065d7fd18aaaba8c5ac8a5127829df6da8b465d80d58c039",
+      "seed": 2400656389,
+      "factions": [
+        "Undead",
+        "Loyalists"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 28,
+      "rotation": 0,
+      "scenario": "294148d2615df17d3725e1754b5953de862533d692888f792a118dcb43307e1a",
+      "seed": 2829255908,
+      "factions": [
+        "Undead",
+        "Northerners"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 28,
+      "rotation": 1,
+      "scenario": "294148d2615df17d3725e1754b5953de862533d692888f792a118dcb43307e1a",
+      "seed": 2829255908,
+      "factions": [
+        "Undead",
+        "Northerners"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 29,
+      "rotation": 0,
+      "scenario": "13e17143bebbc52c1cc6f9177c13fc4e019cc8c0f301bc56ad9d3c407deb253c",
+      "seed": 102281063,
+      "factions": [
+        "Undead",
+        "Rebels"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "fallenstar_lake",
+      "block": 29,
+      "rotation": 1,
+      "scenario": "13e17143bebbc52c1cc6f9177c13fc4e019cc8c0f301bc56ad9d3c407deb253c",
+      "seed": 102281063,
+      "factions": [
+        "Undead",
+        "Rebels"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 0,
+      "rotation": 0,
+      "scenario": "fa8a9c5c10da22afa84a755f8a391f20467e047dbc8939abb05790c5e6493d42",
+      "seed": 2586836971,
+      "factions": [
+        "Drakes",
+        "Knalgan Alliance"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 0,
+      "rotation": 1,
+      "scenario": "fa8a9c5c10da22afa84a755f8a391f20467e047dbc8939abb05790c5e6493d42",
+      "seed": 2586836971,
+      "factions": [
+        "Drakes",
+        "Knalgan Alliance"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 1,
+      "rotation": 0,
+      "scenario": "c2679e1a577a64b07d583ec4aa7a1d7ec816c7def0de856708a09bb5645d9368",
+      "seed": 427832338,
+      "factions": [
+        "Drakes",
+        "Loyalists"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 1,
+      "rotation": 1,
+      "scenario": "c2679e1a577a64b07d583ec4aa7a1d7ec816c7def0de856708a09bb5645d9368",
+      "seed": 427832338,
+      "factions": [
+        "Drakes",
+        "Loyalists"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 2,
+      "rotation": 0,
+      "scenario": "4539fe38af6476d425a3eedeab42d6584087ce9a40b05ad303f086efb208a880",
+      "seed": 2379022094,
+      "factions": [
+        "Drakes",
+        "Northerners"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 2,
+      "rotation": 1,
+      "scenario": "4539fe38af6476d425a3eedeab42d6584087ce9a40b05ad303f086efb208a880",
+      "seed": 2379022094,
+      "factions": [
+        "Drakes",
+        "Northerners"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 3,
+      "rotation": 0,
+      "scenario": "d50b003953209c8fa59b45fe8ed62a6cb6a812244bedbde7fa9cf013593ec793",
+      "seed": 2102350790,
+      "factions": [
+        "Drakes",
+        "Rebels"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 3,
+      "rotation": 1,
+      "scenario": "d50b003953209c8fa59b45fe8ed62a6cb6a812244bedbde7fa9cf013593ec793",
+      "seed": 2102350790,
+      "factions": [
+        "Drakes",
+        "Rebels"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 4,
+      "rotation": 0,
+      "scenario": "7d5355d78a8986c1566ee09a1b889ee6bb4fc0af8d51e1b8602d48ef9bac3a24",
+      "seed": 4034986017,
+      "factions": [
+        "Drakes",
+        "Undead"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 4,
+      "rotation": 1,
+      "scenario": "7d5355d78a8986c1566ee09a1b889ee6bb4fc0af8d51e1b8602d48ef9bac3a24",
+      "seed": 4034986017,
+      "factions": [
+        "Drakes",
+        "Undead"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 5,
+      "rotation": 0,
+      "scenario": "26cf5d2ac3ddaf8144444bed8de82e5de4be7d0881a9573dfdbb08f2489831a4",
+      "seed": 4201673697,
+      "factions": [
+        "Knalgan Alliance",
+        "Drakes"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 5,
+      "rotation": 1,
+      "scenario": "26cf5d2ac3ddaf8144444bed8de82e5de4be7d0881a9573dfdbb08f2489831a4",
+      "seed": 4201673697,
+      "factions": [
+        "Knalgan Alliance",
+        "Drakes"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 6,
+      "rotation": 0,
+      "scenario": "cb7e58de8cb209bd0b8fd4205651fb2f933189d855145b4ff2162d6c8b12beb4",
+      "seed": 832453356,
+      "factions": [
+        "Knalgan Alliance",
+        "Loyalists"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 6,
+      "rotation": 1,
+      "scenario": "cb7e58de8cb209bd0b8fd4205651fb2f933189d855145b4ff2162d6c8b12beb4",
+      "seed": 832453356,
+      "factions": [
+        "Knalgan Alliance",
+        "Loyalists"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 7,
+      "rotation": 0,
+      "scenario": "199f435dcf7a9cdaa05417eac3e39a067e0031ec4856c3dcdc51220d759bb018",
+      "seed": 1573500106,
+      "factions": [
+        "Knalgan Alliance",
+        "Northerners"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 7,
+      "rotation": 1,
+      "scenario": "199f435dcf7a9cdaa05417eac3e39a067e0031ec4856c3dcdc51220d759bb018",
+      "seed": 1573500106,
+      "factions": [
+        "Knalgan Alliance",
+        "Northerners"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 8,
+      "rotation": 0,
+      "scenario": "e24bfb21dd9d0a96485de04f6fe1dcf689a6540acfb8db0f87b6d1ba3db924f1",
+      "seed": 1679267170,
+      "factions": [
+        "Knalgan Alliance",
+        "Rebels"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 8,
+      "rotation": 1,
+      "scenario": "e24bfb21dd9d0a96485de04f6fe1dcf689a6540acfb8db0f87b6d1ba3db924f1",
+      "seed": 1679267170,
+      "factions": [
+        "Knalgan Alliance",
+        "Rebels"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 9,
+      "rotation": 0,
+      "scenario": "9e1dc23f7b88c2d603e5df4edc53c5e9deb3498c598bb20a437dee3547748b8f",
+      "seed": 2453778426,
+      "factions": [
+        "Knalgan Alliance",
+        "Undead"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 9,
+      "rotation": 1,
+      "scenario": "9e1dc23f7b88c2d603e5df4edc53c5e9deb3498c598bb20a437dee3547748b8f",
+      "seed": 2453778426,
+      "factions": [
+        "Knalgan Alliance",
+        "Undead"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 10,
+      "rotation": 0,
+      "scenario": "ec7cbfbbb0a3cf0484f1d046aadb0249353f6d11cfddc29f0f2c415dba5c3f93",
+      "seed": 4199646224,
+      "factions": [
+        "Loyalists",
+        "Drakes"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 10,
+      "rotation": 1,
+      "scenario": "ec7cbfbbb0a3cf0484f1d046aadb0249353f6d11cfddc29f0f2c415dba5c3f93",
+      "seed": 4199646224,
+      "factions": [
+        "Loyalists",
+        "Drakes"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 11,
+      "rotation": 0,
+      "scenario": "d55144a503849d2c6bcc5936695de68c25403c0a7b8f748ef1af656ac0c7aec4",
+      "seed": 3178970892,
+      "factions": [
+        "Loyalists",
+        "Knalgan Alliance"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 11,
+      "rotation": 1,
+      "scenario": "d55144a503849d2c6bcc5936695de68c25403c0a7b8f748ef1af656ac0c7aec4",
+      "seed": 3178970892,
+      "factions": [
+        "Loyalists",
+        "Knalgan Alliance"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 12,
+      "rotation": 0,
+      "scenario": "252fd1620b3dc80c84bf9a9f1e16ada52b369526d52ca9259822df3f54698378",
+      "seed": 1309535753,
+      "factions": [
+        "Loyalists",
+        "Northerners"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 12,
+      "rotation": 1,
+      "scenario": "252fd1620b3dc80c84bf9a9f1e16ada52b369526d52ca9259822df3f54698378",
+      "seed": 1309535753,
+      "factions": [
+        "Loyalists",
+        "Northerners"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 13,
+      "rotation": 0,
+      "scenario": "3eb629ad320483cbdb9467b0ffbf38c0b911a104639e741ca9ea6640bde8b204",
+      "seed": 3744526522,
+      "factions": [
+        "Loyalists",
+        "Rebels"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 13,
+      "rotation": 1,
+      "scenario": "3eb629ad320483cbdb9467b0ffbf38c0b911a104639e741ca9ea6640bde8b204",
+      "seed": 3744526522,
+      "factions": [
+        "Loyalists",
+        "Rebels"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 14,
+      "rotation": 0,
+      "scenario": "0be49743d88bf2f2024a1674d6e7de264698bfbdd9b6ac62ffefc27da245049a",
+      "seed": 1519836971,
+      "factions": [
+        "Loyalists",
+        "Undead"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 14,
+      "rotation": 1,
+      "scenario": "0be49743d88bf2f2024a1674d6e7de264698bfbdd9b6ac62ffefc27da245049a",
+      "seed": 1519836971,
+      "factions": [
+        "Loyalists",
+        "Undead"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 15,
+      "rotation": 0,
+      "scenario": "e1a5ffa8a0a38a082da22504b81faaaf6973ccc6b15c66bd73617a93be336019",
+      "seed": 2490126510,
+      "factions": [
+        "Northerners",
+        "Drakes"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 15,
+      "rotation": 1,
+      "scenario": "e1a5ffa8a0a38a082da22504b81faaaf6973ccc6b15c66bd73617a93be336019",
+      "seed": 2490126510,
+      "factions": [
+        "Northerners",
+        "Drakes"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 16,
+      "rotation": 0,
+      "scenario": "20e58ce16bfac527fe00d79428c933e6625be951d053bd5061d5437f38324b00",
+      "seed": 3616525344,
+      "factions": [
+        "Northerners",
+        "Knalgan Alliance"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 16,
+      "rotation": 1,
+      "scenario": "20e58ce16bfac527fe00d79428c933e6625be951d053bd5061d5437f38324b00",
+      "seed": 3616525344,
+      "factions": [
+        "Northerners",
+        "Knalgan Alliance"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 17,
+      "rotation": 0,
+      "scenario": "0d77c2c9c61a32f21b1000058d80842071e587a132ae812dae436f6d53f8b8a2",
+      "seed": 3485893282,
+      "factions": [
+        "Northerners",
+        "Loyalists"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 17,
+      "rotation": 1,
+      "scenario": "0d77c2c9c61a32f21b1000058d80842071e587a132ae812dae436f6d53f8b8a2",
+      "seed": 3485893282,
+      "factions": [
+        "Northerners",
+        "Loyalists"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 18,
+      "rotation": 0,
+      "scenario": "e49f98321a05b02bb00565e09a8c0aa654fadd97f46c9a883e0f4c80c033df9d",
+      "seed": 3518467249,
+      "factions": [
+        "Northerners",
+        "Rebels"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 18,
+      "rotation": 1,
+      "scenario": "e49f98321a05b02bb00565e09a8c0aa654fadd97f46c9a883e0f4c80c033df9d",
+      "seed": 3518467249,
+      "factions": [
+        "Northerners",
+        "Rebels"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 19,
+      "rotation": 0,
+      "scenario": "f8aa3fe1e4c8b3595da656ea6f63c38759b15f6d01727d01d6ccb33be86b8352",
+      "seed": 318583891,
+      "factions": [
+        "Northerners",
+        "Undead"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 19,
+      "rotation": 1,
+      "scenario": "f8aa3fe1e4c8b3595da656ea6f63c38759b15f6d01727d01d6ccb33be86b8352",
+      "seed": 318583891,
+      "factions": [
+        "Northerners",
+        "Undead"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 20,
+      "rotation": 0,
+      "scenario": "51ba9cc1f8086597f39f8c7a6a59bae66c381a7ed27e85b6cb326daa349a769c",
+      "seed": 537532290,
+      "factions": [
+        "Rebels",
+        "Drakes"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 20,
+      "rotation": 1,
+      "scenario": "51ba9cc1f8086597f39f8c7a6a59bae66c381a7ed27e85b6cb326daa349a769c",
+      "seed": 537532290,
+      "factions": [
+        "Rebels",
+        "Drakes"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 21,
+      "rotation": 0,
+      "scenario": "0523770779bf127bcd65044d74713fc9f7d97767bf4c0cac82312aa4a64273fd",
+      "seed": 3655840638,
+      "factions": [
+        "Rebels",
+        "Knalgan Alliance"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 21,
+      "rotation": 1,
+      "scenario": "0523770779bf127bcd65044d74713fc9f7d97767bf4c0cac82312aa4a64273fd",
+      "seed": 3655840638,
+      "factions": [
+        "Rebels",
+        "Knalgan Alliance"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 22,
+      "rotation": 0,
+      "scenario": "10c5d7e8f41e8df0210dad55c94d1bed7a6ea720cffaa84b5f4ba3a6268ed2fa",
+      "seed": 1922117363,
+      "factions": [
+        "Rebels",
+        "Loyalists"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 22,
+      "rotation": 1,
+      "scenario": "10c5d7e8f41e8df0210dad55c94d1bed7a6ea720cffaa84b5f4ba3a6268ed2fa",
+      "seed": 1922117363,
+      "factions": [
+        "Rebels",
+        "Loyalists"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 23,
+      "rotation": 0,
+      "scenario": "bb0f60d74961cb05ef2c3043d53b94b174ffb36df011cb1c6a1d98cbe9860778",
+      "seed": 2952847936,
+      "factions": [
+        "Rebels",
+        "Northerners"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 23,
+      "rotation": 1,
+      "scenario": "bb0f60d74961cb05ef2c3043d53b94b174ffb36df011cb1c6a1d98cbe9860778",
+      "seed": 2952847936,
+      "factions": [
+        "Rebels",
+        "Northerners"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 24,
+      "rotation": 0,
+      "scenario": "9103661ef087d596accc94ed545a3124132276863b97f1205542a77992edb7ca",
+      "seed": 3502211264,
+      "factions": [
+        "Rebels",
+        "Undead"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 24,
+      "rotation": 1,
+      "scenario": "9103661ef087d596accc94ed545a3124132276863b97f1205542a77992edb7ca",
+      "seed": 3502211264,
+      "factions": [
+        "Rebels",
+        "Undead"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 25,
+      "rotation": 0,
+      "scenario": "6212382d306af4fb5617e415fe59452250c49f01c18c144395c816adc98b6b23",
+      "seed": 317447368,
+      "factions": [
+        "Undead",
+        "Drakes"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 25,
+      "rotation": 1,
+      "scenario": "6212382d306af4fb5617e415fe59452250c49f01c18c144395c816adc98b6b23",
+      "seed": 317447368,
+      "factions": [
+        "Undead",
+        "Drakes"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 26,
+      "rotation": 0,
+      "scenario": "4064e16d8a15ad285918ac94675c1582ea4bca9f6bd753fac711ac4789787332",
+      "seed": 2794519695,
+      "factions": [
+        "Undead",
+        "Knalgan Alliance"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 26,
+      "rotation": 1,
+      "scenario": "4064e16d8a15ad285918ac94675c1582ea4bca9f6bd753fac711ac4789787332",
+      "seed": 2794519695,
+      "factions": [
+        "Undead",
+        "Knalgan Alliance"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 27,
+      "rotation": 0,
+      "scenario": "064dd33ab03ca51d67bba9f7421a31f72266dc99c157017e1b44e7dc96fe2e50",
+      "seed": 4194112646,
+      "factions": [
+        "Undead",
+        "Loyalists"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 27,
+      "rotation": 1,
+      "scenario": "064dd33ab03ca51d67bba9f7421a31f72266dc99c157017e1b44e7dc96fe2e50",
+      "seed": 4194112646,
+      "factions": [
+        "Undead",
+        "Loyalists"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 28,
+      "rotation": 0,
+      "scenario": "ad7f689b3525d21561e99f5dbff6d63e22fc23ca9de852d800a2fe396d1ec08d",
+      "seed": 4015969306,
+      "factions": [
+        "Undead",
+        "Northerners"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 28,
+      "rotation": 1,
+      "scenario": "ad7f689b3525d21561e99f5dbff6d63e22fc23ca9de852d800a2fe396d1ec08d",
+      "seed": 4015969306,
+      "factions": [
+        "Undead",
+        "Northerners"
+      ],
+      "learner_seat": 2
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 29,
+      "rotation": 0,
+      "scenario": "ecaebad514bd230d9a7e1506643ca24fa05b4f40594fa093b03e7788bd696077",
+      "seed": 435366487,
+      "factions": [
+        "Undead",
+        "Rebels"
+      ],
+      "learner_seat": 1
+    },
+    {
+      "map": "sullas_ruins",
+      "block": 29,
+      "rotation": 1,
+      "scenario": "ecaebad514bd230d9a7e1506643ca24fa05b4f40594fa093b03e7788bd696077",
+      "seed": 435366487,
+      "factions": [
+        "Undead",
+        "Rebels"
+      ],
+      "learner_seat": 2
+    }
+  ]
+}
