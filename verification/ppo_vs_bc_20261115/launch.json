@@ -1,0 +1,266 @@
+{
+  "issue": 349,
+  "adapter": {
+    "commit": "d935d5c5e2a50b49e3b2e9a7e3f6a35ea7a0275a",
+    "archive": "/home/tongshu/acceptance/ppo-v38-20261115-8dIsba/adapter.tar",
+    "archive_sha256": "61d016db1317736de9ff3600b6aa084089da9e02c48c7d13abf432419a7eb608"
+  },
+  "runtime": {
+    "source": {
+      "source": "/home/tongshu/acceptance/ppo306_20261108_Miwoyq/source",
+      "commit": "68fbf6b0b087b196526c674f28baffbfae3eb8c4",
+      "archive": "/home/tongshu/acceptance/ppo306-68fbf6b0b087b196526c674f28baffbfae3eb8c4.tar.gz",
+      "archive_sha256": "240009bf8a55096203d548d4ee349c2e34d574927ff2325c30ef08ef4aef69d2",
+      "extension": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/.extension/_engine_lite.so",
+      "extension_sha256": "56dd77140411db987377d6de4ffbf562da4d0e5c76bc16d34780da67e60e5ae4"
+    },
+    "rules": {
+      "path": "/home/tongshu/acceptance/filters_compiled_20261103/data/rules/1.18.8-combat-filtered",
+      "sha256": "e6b4f6200b0a8ad58a536b844fff37cfa9e0091bf0a0b702a8982155310f2f17"
+    },
+    "astra": {
+      "path": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/bc/frozen/opponents/gpt6astra.zip",
+      "teacher": "gpt6astra",
+      "teacher_profile": "probabilistic_combat_v6",
+      "teacher_source_sha256": "d64e1178c0a8af9b1b10e2626f03e7cb8ed70a5a368d3c38860d40723a903eb5",
+      "teacher_parent_sha256": "2a216c96081990621dc15772e9de1bf40e4f5f451223fe52e5b20625464dc933"
+    },
+    "source_files": 146
+  },
+  "boards": {
+    "fallenstar_lake": {
+      "path": "/home/tongshu/acceptance/ppo-v38-20261115-8dIsba/adapter/verification/duel_combat_choices_20261114/boards/fallenstar_lake.json",
+      "native_asset": "multiplayer/maps/2p_Fallenstar_Lake.map",
+      "file_sha256": "2e483ebd29d113a497ac32e44fd9d2e7f110f890737dd1ee07598c1564be3276",
+      "board_sha256": "2f9037f75f58c917343aa4cbc82ba48d27d7a8120b1244893012773da307180d",
+      "width": 41,
+      "height": 22,
+      "starts": [
+        [
+          2,
+          7
+        ],
+        [
+          40,
+          7
+        ]
+      ],
+      "villages": 20,
+      "edits": [
+        {
+          "x": 6,
+          "y": 8,
+          "original": "Mm^Vhh",
+          "derived": "Hh^Vhh"
+        },
+        {
+          "x": 36,
+          "y": 8,
+          "original": "Mm^Vhh",
+          "derived": "Hh^Vhh"
+        }
+      ]
+    },
+    "sullas_ruins": {
+      "path": "/home/tongshu/acceptance/ppo-v38-20261115-8dIsba/adapter/verification/duel_combat_choices_20261114/boards/sullas_ruins.json",
+      "native_asset": "multiplayer/maps/2p_Sullas_Ruins.map",
+      "file_sha256": "2f09945af51be3c433f52dd8cbab103731666f5eb84c7c280e7ebd9457d45123",
+      "board_sha256": "47e311d38e3630d29cff7e8f05e75d1e23720819083c3c1ca7fe6d98529cd958",
+      "width": 35,
+      "height": 30,
+      "starts": [
+        [
+          19,
+          28
+        ],
+        [
+          18,
+          3
+        ]
+      ],
+      "villages": 16,
+      "edits": [
+        {
+          "x": 17,
+          "y": 3,
+          "original": "Mm^Vhh",
+          "derived": "Hh^Vhh"
+        },
+        {
+          "x": 21,
+          "y": 28,
+          "original": "Mm^Vhh",
+          "derived": "Hh^Vhh"
+        }
+      ]
+    },
+    "ur_thorodor": {
+      "path": "/home/tongshu/acceptance/ppo-v38-20261115-8dIsba/adapter/verification/ppo_opponent_protocol_20261114/boards/ur_thorodor.json",
+      "native_asset": "campaigns/Delfadors_Memoirs/maps/08_Ur-Thorodor.map",
+      "file_sha256": "ad53e1429a774e628395cfc183af70b9907598aac6c34232330b41af617304df",
+      "board_sha256": "82ec08e3de336b17d6dbd675f4881d200f8b1f038a71cd74c736bd738f5d0fb0",
+      "width": 38,
+      "height": 23,
+      "starts": [
+        [
+          10,
+          20
+        ],
+        [
+          23,
+          11
+        ]
+      ],
+      "villages": 10,
+      "edits": []
+    }
+  },
+  "policies": {
+    "bc": {
+      "folder": "/home/tongshu/acceptance/ppo-v38-20261115-8dIsba/formal/policies/bc",
+      "addon": "/home/tongshu/acceptance/ppo-v38-20261115-8dIsba/formal/policies/bc/DuelComparison",
+      "files": {
+        "DuelComparison/LICENSE": "aeee0e57f016bc95fea3c20dd6a2168493c4134ba5ae481217467613a1953e30",
+        "DuelComparison/README.md": "78cade1d299852c1640b071667529b99b6c5b7b352cf00f13c9f5dd9d3c528f3",
+        "DuelComparison/_main.cfg": "f5c9c6ae8bf0ff7dca711d27ddf79654140bbe8b4da06c240a6f6438517214d9",
+        "DuelComparison/ai.cfg": "24548dfc5e69fa95060f0e8b07cacbb1462a8ec7163a6cf49dfde985756f46c0",
+        "DuelComparison/arena.json": "2ed6a1f253d67e88cfb001bda0f117b181631e0ef582ee2116d8c5ed248c534d",
+        "DuelComparison/lua/bot.lua": "f8271426268b80f6107dcfb1671e83f58ac70aef83868a2f7acb4070ad839adc",
+        "DuelComparison/lua/candidate_selection.lua": "6f9c3cb71ac50e1a9e6569ace657feb51e47793d18ea7608a6bc989d3aaaf289",
+        "DuelComparison/lua/candidates.lua": "834d0d2cd143d253193e92f338617b895a403a5cb01687a07f0d239a49871728",
+        "DuelComparison/lua/config.lua": "894b1439a5ae0166ae245a7205808c20759d899eb7ca9422fe6c7dbffbb47459",
+        "DuelComparison/lua/features.lua": "2edb30cb0ab2b93a744f10bbde74bef025cedafaa807e8bf26256ba47770a70f",
+        "DuelComparison/lua/network.lua": "b11abcbf87aeece501aab82d33fda6016af2eff54dcba8570c0d289a3917133e",
+        "DuelComparison/lua/observation.lua": "b6b52e6398241776a9959e778969e19000e7e8aff61705c13a1ad47b640276a7",
+        "DuelComparison/lua/relational.lua": "43a352c6a0989fac6d63f39539b068876e9094939ef08a6e943e7856c12d93a2",
+        "DuelComparison/lua/rewards.lua": "c8618d69da6463fe7c67b93fa0289ae3d9bfc32df7f6ca6aaabda06d6a688f33",
+        "DuelComparison/lua/routing.lua": "f15321b0af0f9a7bdc0679b715ee50bfac8f7c68d82c01b2b604d222aa7566b2",
+        "DuelComparison/lua/spatial.lua": "21190f3882907fbed1e9f66a4ec0644dd266a500d8d70f0f68f94039f4313900",
+        "DuelComparison/lua/teacher.lua": "abe5d8ce0957e1067dc5d63e6c815d30b5948f9e7ca07123079006d1d7a124e4",
+        "DuelComparison/lua/weights_duel.lua": "ab6ef2f5e17d9c738e30053936e5a1bd84de380bf4ab16332d913c134f5aed2a",
+        "export.json": "7a0e572199557613bede0c6165a7e9ed30d6d627acd6bf3a6084986b375c8d70",
+        "model.pt": "9aa12532c95eda4e1cee50222728dbd669344ff1a3a5edc20ae8e541504e0342"
+      }
+    },
+    "lambda-0.95-202611081": {
+      "folder": "/home/tongshu/acceptance/ppo-v38-20261115-8dIsba/formal/policies/lambda-0.95-202611081",
+      "addon": "/home/tongshu/acceptance/ppo-v38-20261115-8dIsba/formal/policies/lambda-0.95-202611081/DuelComparison",
+      "files": {
+        "DuelComparison/LICENSE": "aeee0e57f016bc95fea3c20dd6a2168493c4134ba5ae481217467613a1953e30",
+        "DuelComparison/README.md": "78cade1d299852c1640b071667529b99b6c5b7b352cf00f13c9f5dd9d3c528f3",
+        "DuelComparison/_main.cfg": "f5c9c6ae8bf0ff7dca711d27ddf79654140bbe8b4da06c240a6f6438517214d9",
+        "DuelComparison/ai.cfg": "24548dfc5e69fa95060f0e8b07cacbb1462a8ec7163a6cf49dfde985756f46c0",
+        "DuelComparison/arena.json": "2ed6a1f253d67e88cfb001bda0f117b181631e0ef582ee2116d8c5ed248c534d",
+        "DuelComparison/lua/bot.lua": "f8271426268b80f6107dcfb1671e83f58ac70aef83868a2f7acb4070ad839adc",
+        "DuelComparison/lua/candidate_selection.lua": "6f9c3cb71ac50e1a9e6569ace657feb51e47793d18ea7608a6bc989d3aaaf289",
+        "DuelComparison/lua/candidates.lua": "834d0d2cd143d253193e92f338617b895a403a5cb01687a07f0d239a49871728",
+        "DuelComparison/lua/config.lua": "130cc71e6713fda3c0bbf02de2994d4b1a0ede629c6f6a07656039d5c446a4cb",
+        "DuelComparison/lua/features.lua": "2edb30cb0ab2b93a744f10bbde74bef025cedafaa807e8bf26256ba47770a70f",
+        "DuelComparison/lua/network.lua": "b11abcbf87aeece501aab82d33fda6016af2eff54dcba8570c0d289a3917133e",
+        "DuelComparison/lua/observation.lua": "b6b52e6398241776a9959e778969e19000e7e8aff61705c13a1ad47b640276a7",
+        "DuelComparison/lua/relational.lua": "43a352c6a0989fac6d63f39539b068876e9094939ef08a6e943e7856c12d93a2",
+        "DuelComparison/lua/rewards.lua": "c8618d69da6463fe7c67b93fa0289ae3d9bfc32df7f6ca6aaabda06d6a688f33",
+        "DuelComparison/lua/routing.lua": "f15321b0af0f9a7bdc0679b715ee50bfac8f7c68d82c01b2b604d222aa7566b2",
+        "DuelComparison/lua/spatial.lua": "21190f3882907fbed1e9f66a4ec0644dd266a500d8d70f0f68f94039f4313900",
+        "DuelComparison/lua/teacher.lua": "abe5d8ce0957e1067dc5d63e6c815d30b5948f9e7ca07123079006d1d7a124e4",
+        "DuelComparison/lua/weights_duel.lua": "33f6624516dd1682152e3fe8024075c43747fed28ea7b39e9c80e29c356b1c0a",
+        "export.json": "781cdf98b19c3d096b72ea4245cba6d2460958121590103a273ca72cf5191d70",
+        "model.pt": "6a2f2bc096c8f19909e5f93e0472663f331d5d1431494baeb8098bfd49baf811"
+      }
+    },
+    "lambda-0.95-202611082": {
+      "folder": "/home/tongshu/acceptance/ppo-v38-20261115-8dIsba/formal/policies/lambda-0.95-202611082",
+      "addon": "/home/tongshu/acceptance/ppo-v38-20261115-8dIsba/formal/policies/lambda-0.95-202611082/DuelComparison",
+      "files": {
+        "DuelComparison/LICENSE": "aeee0e57f016bc95fea3c20dd6a2168493c4134ba5ae481217467613a1953e30",
+        "DuelComparison/README.md": "78cade1d299852c1640b071667529b99b6c5b7b352cf00f13c9f5dd9d3c528f3",
+        "DuelComparison/_main.cfg": "f5c9c6ae8bf0ff7dca711d27ddf79654140bbe8b4da06c240a6f6438517214d9",
+        "DuelComparison/ai.cfg": "24548dfc5e69fa95060f0e8b07cacbb1462a8ec7163a6cf49dfde985756f46c0",
+        "DuelComparison/arena.json": "2ed6a1f253d67e88cfb001bda0f117b181631e0ef582ee2116d8c5ed248c534d",
+        "DuelComparison/lua/bot.lua": "f8271426268b80f6107dcfb1671e83f58ac70aef83868a2f7acb4070ad839adc",
+        "DuelComparison/lua/candidate_selection.lua": "6f9c3cb71ac50e1a9e6569ace657feb51e47793d18ea7608a6bc989d3aaaf289",
+        "DuelComparison/lua/candidates.lua": "834d0d2cd143d253193e92f338617b895a403a5cb01687a07f0d239a49871728",
+        "DuelComparison/lua/config.lua": "737c30a2609e9e5c1579fae37041c775266491980721211ab8f3429dce51ea2a",
+        "DuelComparison/lua/features.lua": "2edb30cb0ab2b93a744f10bbde74bef025cedafaa807e8bf26256ba47770a70f",
+        "DuelComparison/lua/network.lua": "b11abcbf87aeece501aab82d33fda6016af2eff54dcba8570c0d289a3917133e",
+        "DuelComparison/lua/observation.lua": "b6b52e6398241776a9959e778969e19000e7e8aff61705c13a1ad47b640276a7",
+        "DuelComparison/lua/relational.lua": "43a352c6a0989fac6d63f39539b068876e9094939ef08a6e943e7856c12d93a2",
+        "DuelComparison/lua/rewards.lua": "c8618d69da6463fe7c67b93fa0289ae3d9bfc32df7f6ca6aaabda06d6a688f33",
+        "DuelComparison/lua/routing.lua": "f15321b0af0f9a7bdc0679b715ee50bfac8f7c68d82c01b2b604d222aa7566b2",
+        "DuelComparison/lua/spatial.lua": "21190f3882907fbed1e9f66a4ec0644dd266a500d8d70f0f68f94039f4313900",
+        "DuelComparison/lua/teacher.lua": "abe5d8ce0957e1067dc5d63e6c815d30b5948f9e7ca07123079006d1d7a124e4",
+        "DuelComparison/lua/weights_duel.lua": "f2cfe0bba6bffbde40eec51e28a21ac6cfb4ca51627955cab3fc85ce1eccf4ad",
+        "export.json": "fd4b2e7af18cacee5e51188e4236f0689650457a20755fbcb6f4e3c8b653ce45",
+        "model.pt": "eda6b23ecb5927da0358ea4b1e90f53ba2632ea0a7753d4ddb3c038ad5eda5b1"
+      }
+    },
+    "lambda-0.95-202611083": {
+      "folder": "/home/tongshu/acceptance/ppo-v38-20261115-8dIsba/formal/policies/lambda-0.95-202611083",
+      "addon": "/home/tongshu/acceptance/ppo-v38-20261115-8dIsba/formal/policies/lambda-0.95-202611083/DuelComparison",
+      "files": {
+        "DuelComparison/LICENSE": "aeee0e57f016bc95fea3c20dd6a2168493c4134ba5ae481217467613a1953e30",
+        "DuelComparison/README.md": "78cade1d299852c1640b071667529b99b6c5b7b352cf00f13c9f5dd9d3c528f3",
+        "DuelComparison/_main.cfg": "f5c9c6ae8bf0ff7dca711d27ddf79654140bbe8b4da06c240a6f6438517214d9",
+        "DuelComparison/ai.cfg": "24548dfc5e69fa95060f0e8b07cacbb1462a8ec7163a6cf49dfde985756f46c0",
+        "DuelComparison/arena.json": "2ed6a1f253d67e88cfb001bda0f117b181631e0ef582ee2116d8c5ed248c534d",
+        "DuelComparison/lua/bot.lua": "f8271426268b80f6107dcfb1671e83f58ac70aef83868a2f7acb4070ad839adc",
+        "DuelComparison/lua/candidate_selection.lua": "6f9c3cb71ac50e1a9e6569ace657feb51e47793d18ea7608a6bc989d3aaaf289",
+        "DuelComparison/lua/candidates.lua": "834d0d2cd143d253193e92f338617b895a403a5cb01687a07f0d239a49871728",
+        "DuelComparison/lua/config.lua": "2a8d01df4d583e44717ac26e6c17b837193df8de0d3d04a6b08746aef0a94f81",
+        "DuelComparison/lua/features.lua": "2edb30cb0ab2b93a744f10bbde74bef025cedafaa807e8bf26256ba47770a70f",
+        "DuelComparison/lua/network.lua": "b11abcbf87aeece501aab82d33fda6016af2eff54dcba8570c0d289a3917133e",
+        "DuelComparison/lua/observation.lua": "b6b52e6398241776a9959e778969e19000e7e8aff61705c13a1ad47b640276a7",
+        "DuelComparison/lua/relational.lua": "43a352c6a0989fac6d63f39539b068876e9094939ef08a6e943e7856c12d93a2",
+        "DuelComparison/lua/rewards.lua": "c8618d69da6463fe7c67b93fa0289ae3d9bfc32df7f6ca6aaabda06d6a688f33",
+        "DuelComparison/lua/routing.lua": "f15321b0af0f9a7bdc0679b715ee50bfac8f7c68d82c01b2b604d222aa7566b2",
+        "DuelComparison/lua/spatial.lua": "21190f3882907fbed1e9f66a4ec0644dd266a500d8d70f0f68f94039f4313900",
+        "DuelComparison/lua/teacher.lua": "abe5d8ce0957e1067dc5d63e6c815d30b5948f9e7ca07123079006d1d7a124e4",
+        "DuelComparison/lua/weights_duel.lua": "7826b8a91c3958f7e48910bdb5d3dbed3942df9f8c3fad77a29f8cdffc51900e",
+        "export.json": "9ceadbcc67b1a72261f666cf4949f5a83064e039479283d4367b72a55f8f901a",
+        "model.pt": "518018ca89985641a21186607d41b77a4627267adb1a93ea2ea369ae3b7f8f0d"
+      }
+    }
+  },
+  "roles": {
+    "bc": {
+      "path": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/bc/duel/last_bc.pt",
+      "version": 38,
+      "checkpoint_sha256": "8fc61bbb0be5c2ad8d2ec5b56760ce3dbfa08eed008c490e9b2233624ea91ebe",
+      "weights_sha256": "d9d694f04d4179a5c65bbc29307a8e425a245d650d47f55a36ec04abeb206801"
+    },
+    "lambda-0.95-202611081": {
+      "path": "/home/tongshu/acceptance/ppo306_20261108_Miwoyq/source/runs/ppo306/cells/lambda-0.95-202611081/duel/wall.pt",
+      "checkpoint_sha256": "a00d02fc88523ec82a424ce5eb6436a1133013e7f18a56838ddb3ef4745f4a05",
+      "version": 221,
+      "weights_sha256": "f402b1f41ab255891953aad9595c44422cf53cd9cc4989d6ab0f25b70646af39"
+    },
+    "lambda-0.95-202611082": {
+      "path": "/home/tongshu/acceptance/ppo306_20261108_Miwoyq/source/runs/ppo306/cells/lambda-0.95-202611082/duel/wall.pt",
+      "checkpoint_sha256": "3e6e8efea9da962cd1096b95db30edae14f8522a4c59402e92d5597a06c03a5c",
+      "version": 220,
+      "weights_sha256": "8624b615a187741d951a7febfc7c17d7d621faf7ac6c7d8cbb8b47e0f9459c69"
+    },
+    "lambda-0.95-202611083": {
+      "path": "/home/tongshu/acceptance/ppo306_20261108_Miwoyq/source/runs/ppo306/cells/lambda-0.95-202611083/duel/wall.pt",
+      "checkpoint_sha256": "1001f23625924cb96a2a9c9e27cda37a7832d9f0b7b9b8f799c019dc261c728f",
+      "version": 219,
+      "weights_sha256": "ba0097088d1732f9acdcbba0b558583ededfd969df21d7773524238c935790c5"
+    }
+  },
+  "task": "official-score-30-v1",
+  "games": 720,
+  "paired_slots": 180,
+  "workers": 8,
+  "seconds": {
+    "preflight": 900,
+    "panel": 5400,
+    "audit": 900,
+    "total": 7200
+  },
+  "bootstrap_seed": 2026111699,
+  "bootstrap_samples": 10000,
+  "minimum_gain_pp": 5,
+  "interval_lower_bound": 0,
+  "schedule_sha256": "ebd3b3c16273f98919a1688e5e38168eb2c123821ebc1e2456625612d7549fe0",
+  "lineage_sha256": "79b84fd9322e4e804b4e05f81f4f7cdbaffa78b47e5f1b4e24aeffd8b326233b"
+}

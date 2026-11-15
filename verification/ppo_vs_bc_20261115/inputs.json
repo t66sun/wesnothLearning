@@ -1,0 +1,99 @@
+{
+  "old_launch": "/home/tongshu/acceptance/ppo306_20261108_Miwoyq/source/runs/ppo306/launch.json",
+  "old_launch_sha256": "5ac6d19cab756ce8dade4c739c5f2127e86bb9ea34cec033934625fbd03bf02c",
+  "parent_manifest_sha256": "bb9915fd2ed1e3d2375c4732b604a5a1d2b3ebb8441bc2976c3b4d74ad76dd48",
+  "gate_sha256": "9cf9239a19c4d5713fe9158df43de618572474016f37e85c017b4a41700744c1",
+  "roles": {
+    "bc": {
+      "path": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/bc/duel/last_bc.pt",
+      "version": 38,
+      "checkpoint_sha256": "8fc61bbb0be5c2ad8d2ec5b56760ce3dbfa08eed008c490e9b2233624ea91ebe",
+      "weights_sha256": "d9d694f04d4179a5c65bbc29307a8e425a245d650d47f55a36ec04abeb206801"
+    },
+    "lambda-0.95-202611081": {
+      "path": "/home/tongshu/acceptance/ppo306_20261108_Miwoyq/source/runs/ppo306/cells/lambda-0.95-202611081/duel/wall.pt",
+      "checkpoint_sha256": "a00d02fc88523ec82a424ce5eb6436a1133013e7f18a56838ddb3ef4745f4a05",
+      "version": 221,
+      "weights_sha256": "f402b1f41ab255891953aad9595c44422cf53cd9cc4989d6ab0f25b70646af39"
+    },
+    "lambda-0.95-202611082": {
+      "path": "/home/tongshu/acceptance/ppo306_20261108_Miwoyq/source/runs/ppo306/cells/lambda-0.95-202611082/duel/wall.pt",
+      "checkpoint_sha256": "3e6e8efea9da962cd1096b95db30edae14f8522a4c59402e92d5597a06c03a5c",
+      "version": 220,
+      "weights_sha256": "8624b615a187741d951a7febfc7c17d7d621faf7ac6c7d8cbb8b47e0f9459c69"
+    },
+    "lambda-0.95-202611083": {
+      "path": "/home/tongshu/acceptance/ppo306_20261108_Miwoyq/source/runs/ppo306/cells/lambda-0.95-202611083/duel/wall.pt",
+      "checkpoint_sha256": "1001f23625924cb96a2a9c9e27cda37a7832d9f0b7b9b8f799c019dc261c728f",
+      "version": 219,
+      "weights_sha256": "ba0097088d1732f9acdcbba0b558583ededfd969df21d7773524238c935790c5"
+    }
+  },
+  "boards": {
+    "fallenstar_lake": {
+      "asset": "multiplayer/maps/2p_Fallenstar_Lake.map",
+      "source_sha256": "6c420e3fb85c03dc5d9e480b9f52ee1ac8a28f04dad3e096f096e0e14128ec68",
+      "source_board_sha256": "9d59d58cae071d8084cd367cf416bc95f2614f3319466d3341d3fe20d94bf67d",
+      "board_sha256": "2f9037f75f58c917343aa4cbc82ba48d27d7a8120b1244893012773da307180d",
+      "file_sha256": "2e483ebd29d113a497ac32e44fd9d2e7f110f890737dd1ee07598c1564be3276",
+      "villages": 20,
+      "terrain_edits": [
+        {
+          "x": 6,
+          "y": 8,
+          "original": "Mm^Vhh",
+          "derived": "Hh^Vhh"
+        },
+        {
+          "x": 36,
+          "y": 8,
+          "original": "Mm^Vhh",
+          "derived": "Hh^Vhh"
+        }
+      ],
+      "path": "verification/duel_combat_choices_20261114/boards/fallenstar_lake.json"
+    },
+    "sullas_ruins": {
+      "asset": "multiplayer/maps/2p_Sullas_Ruins.map",
+      "source_sha256": "5fb5813e4550f088bfd606bab76fbd78651d3eaf6b8de7e72782ac6557c39ef1",
+      "source_board_sha256": "3d4aceb2fe345da5064a2e9c3c1781ad3ab87fde53b931fcd0a340a74e748b35",
+      "board_sha256": "47e311d38e3630d29cff7e8f05e75d1e23720819083c3c1ca7fe6d98529cd958",
+      "file_sha256": "2f09945af51be3c433f52dd8cbab103731666f5eb84c7c280e7ebd9457d45123",
+      "villages": 16,
+      "terrain_edits": [
+        {
+          "x": 17,
+          "y": 3,
+          "original": "Mm^Vhh",
+          "derived": "Hh^Vhh"
+        },
+        {
+          "x": 21,
+          "y": 28,
+          "original": "Mm^Vhh",
+          "derived": "Hh^Vhh"
+        }
+      ],
+      "path": "verification/duel_combat_choices_20261114/boards/sullas_ruins.json"
+    },
+    "ur_thorodor": {
+      "native_file": "campaigns/Delfadors_Memoirs/maps/08_Ur-Thorodor.map",
+      "source_sha256": "750695b85c2c26ae6b8769046922d3eafdac86a6624f9a59b758f84d4727587d",
+      "file_sha256": "ad53e1429a774e628395cfc183af70b9907598aac6c34232330b41af617304df",
+      "board_sha256": "82ec08e3de336b17d6dbd675f4881d200f8b1f038a71cd74c736bd738f5d0fb0",
+      "villages": 10,
+      "path": "verification/ppo_opponent_protocol_20261114/boards/ur_thorodor.json"
+    }
+  },
+  "seed": 2026111600,
+  "bootstrap_seed": 2026111699,
+  "bootstrap_samples": 10000,
+  "workers": 8,
+  "seconds": {
+    "preflight": 900,
+    "panel": 5400,
+    "audit": 900,
+    "total": 7200
+  },
+  "minimum_gain_pp": 5
+}
