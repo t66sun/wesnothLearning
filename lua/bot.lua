@@ -32,8 +32,7 @@ function M:evaluation(cfg,data)
     data.plan=candidates[choice]
     data.learning_record={schema=schema.version,global=obs.global,opponents=obs.opponents,spatial=obs.spatial,candidates=candidates,
         choice=choice-1,log_probability=logp,value=value,version=config.version,
-        side=wesnoth.current.side,turn=wesnoth.current.turn,timing=timing,teacher=false,source='policy',format=fmt,
-        diagnostics=C.diagnostics(obs,data.plan,candidates)}
+        side=wesnoth.current.side,turn=wesnoth.current.turn,timing=timing,teacher=false,source='policy',format=fmt}
     data.learning_record.potential=obs.potential
     data.learning_record.reward_raw=raw
     data.learning_record.committed=false
@@ -67,7 +66,6 @@ function M:execution(cfg,data)
     end
     data.learning_record.committed=true
     data.learning_record.reward_after=W.capture(post,data.memory,data.training~=nil)
-    C.outcome(data.plan,data.learning_record and data.learning_record.diagnostics)
 end
 function M:bootstrap(cfg,data,side)
     local function copy(v) if type(v)~='table' then return v end;local out={};for k,x in pairs(v) do out[k]=copy(x) end;return out end

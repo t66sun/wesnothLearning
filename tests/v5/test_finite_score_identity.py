@@ -43,7 +43,7 @@ class FiniteScoreIdentityTests(unittest.TestCase):
             validate_checkpoint(dict(old, task_id=TASK_ID), 'duel', expected_task=TASK_ID)
 
     def test_task_identity_preserves_physical_scenario_partitions(self):
-        from learning.sample import opening_map
+        from tests.v5.helpers import opening_map
         job = dict(bots=['a','b'], factions=['Rebels','Loyalists'], map_override=opening_map(2),
                    max_turns=30, meta=dict(format='duel'))
         legacy = scenario_family(job)

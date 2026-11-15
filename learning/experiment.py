@@ -164,29 +164,12 @@ def coverage_gate(results):
 
 
 def bc_effective(gate):
-    """BC evidence that gates PPO: corpus, coverage, imitation and design.
-
-    The opening probe is recorded in the same file as evidence, but it never
-    blocks: it is a four-game behaviour spot check, not a quality measure.
-    """
+    """BC evidence that gates PPO."""
     return bool((gate.get('imitation') or {}).get('effective')
                 and (gate.get('coverage') or {}).get('passed')
                 and (gate.get('corpus') or {}).get('passed')
                 and gate.get('distinct_scenarios', 0) >= gate.get('min_distinct', 1)
                 and not gate.get('missing_scenario_rows'))
-
-
-def opening_gate(results):
-    checks=[]
-    for r in results:
-        if r.get('status')!='complete' or not r.get('behavior'): continue
-        seat=r.get('meta',{}).get('seat')
-        rows=[d for d in r['behavior'] if seat is not None and d.get('side')==seat]
-        ended=[d for d in rows if d.get('end_turn')]
-        checks.append(dict(left_castle=any(d.get('left_castle') for d in rows),
-            village=any(d.get('village_captured') for d in rows),
-            reasonable_end=any(d.get('usable_moves') is not None and d['usable_moves']<=4 for d in ended)))
-    return dict(passed=len(checks)>=2 and all(all(c.values()) for c in checks),games=checks)
 
 
 def human_coverage(directory,fmt):
@@ -328,7 +311,7 @@ class FormatExperiment:
         from .rules_catalog import resolve_dir
         for job in jobs:
             job['task_id']=self.config['task_id']
-            if job.get('meta',{}).get('map_partition')=='train' and not job['meta'].get('opening'):
+            if job.get('meta',{}).get('map_partition')=='train':
                 job['max_turns']=self.config['training_max_turns']
             job.setdefault('engine',self.config['engine'])
             job['rules_dir']=str(resolve_dir(self.config.get('rules_dir')))
@@ -486,8 +469,7 @@ class FormatExperiment:
             corpus=dict(games=len(evidence),required=self.config['bc_games'][self.fmt],passed=len(evidence)>=self.config['bc_games'][self.fmt])
             from .evaluate import gate_design
             design=gate_design(rows,self.config['min_distinct']['gate'])
-            gate=dict(imitation=quality,coverage=coverage,corpus=corpus,
-                opening=dict(passed=False,blocking=False),**design)
+            gate=dict(imitation=quality,coverage=coverage,corpus=corpus,**design)
             gate['passed']=bc_effective(gate)
             gate['status']='passed' if gate['passed'] else (
                 'insufficient_design' if design['status']=='insufficient_design' else 'not_passed')
@@ -528,7 +510,7 @@ class FormatExperiment:
             metrics['status']='complete' if len(metrics['validation_blocks'])>=blocks else 'inconclusive'
             self.state.pop('control_metrics_error',None)
         except Exception as exc:
-            # Optional reward diagnostics must not skip BC/opening checks.
+            # Optional reward diagnostics must not interrupt validation.
             # Preserve the fault; never turn failed metrics into passing evidence.
             error_path=self.directory/'validation'/f'control-v{version:06}.error.log'
             error_path.parent.mkdir(parents=True,exist_ok=True)
@@ -565,28 +547,6 @@ class FormatExperiment:
             # it every validation so a later weaker BC batch cannot leave a stale
             # `effective` behind.
             self.state['effective']=bc_effective(gate)
-        if method=='bc' and self.state['effective'] and time.time()<self.update_deadline():
-            from .sample import opening_map
-            probes=rollout_jobs(self.directory,greedy,[greedy],self.fixed,self.support,f'v{version}',0,
-                self.config['seed']+900000,self.update_deadline(),self.exe,4,current=greedy,formats=[self.fmt])
-            for j in probes:
-                j['id']='opening-'+str(version)+'-'+j['id'];j['max_turns']=5
-                j.pop('training_scenario', None)
-                j['meta'].pop('eligibility_swap', None)
-                focal=j['meta']['seat']
-                j['bots']=[greedy if i==focal else 'baseline' for i in range(1,len(j['bots'])+1)]
-                j['map_override']=opening_map(len(j['bots']))
-                map_hash=hashlib.sha256(json.dumps(j['map_override'],sort_keys=True,separators=(',',':')).encode()).hexdigest()
-                # The opening gate is the only reader of per-decision diagnostics,
-                # so this is the only batch that keeps them on its job records.
-                j['meta'].update(map='opening_probe',map_sha256=map_hash,opening=True)
-                family=dict(format=self.fmt,map=map_hash,seed=j['seed'],factions=j['factions'],teams=j.get('teams'))
-                j['game_family']=hashlib.sha256(json.dumps(family,sort_keys=True,separators=(',',':')).encode()).hexdigest()
-                j['output']=str(self.directory/'replays'/(j['id']+'.json'));j.pop('shard',None)
-            _,opening=self.execute(probes,f'opening-{version:06}')
-            gate['opening']=dict(opening_gate(opening),blocking=False)
-            gate['passed']=self.state['effective'];gate['status']='passed' if gate['passed'] else 'not_passed'
-            write_json(self.directory/'bc_gate.json',gate)
         self.state['snapshots'].append(greedy);self.state['pending_validation']=None;self.save()
         if save_method_best: self._write_checkpoint(self.directory/f'best_{method}.pt')
         if save_best: self._write_checkpoint(self.directory/'best.pt')

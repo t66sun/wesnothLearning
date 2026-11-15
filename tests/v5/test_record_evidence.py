@@ -10,14 +10,12 @@ class RecordEvidenceTests(unittest.TestCase):
         self.fixture.setUp()
         self.addCleanup(self.fixture.doCleanups)
 
-    def play(self, phase, opening=False):
-        game_id = 'opening' if opening else phase
+    def play(self, phase):
+        game_id = phase
         job = self.fixture.job(id=game_id, shard=str(self.fixture.directory / 'shards' / (game_id + '.jsonl.gz')),
                                bots=['p', 'p'], policy=lambda row: dict(choice=0, log_probability=0., value=0.),
                                bootstrap_policy=lambda row: 0.)
         job['meta'].update(phase=phase)
-        if opening:
-            job['meta']['opening'] = True
         with pipeline.catalog_patch(self.fixture.rules_dir):
             outcome = pipeline.play_lite_job(job)
         self.assertEqual(outcome['status'], 'complete', outcome.get('error'))
@@ -30,13 +28,10 @@ class RecordEvidenceTests(unittest.TestCase):
             self.assertNotIn('behavior', outcome, phase)
             self.assertGreater(outcome['coverage']['total'], 0, phase)
 
-    def test_validation_and_opening_rows_keep_what_their_reader_reads(self):
+    def test_validation_keeps_reward_diagnostics(self):
         validation = self.play('validation')
         self.assertEqual(len(validation['reward_diagnostics']), 2)
         self.assertNotIn('behavior', validation)
-        opening = self.play('ppo', opening=True)
-        self.assertTrue(opening['behavior'])
-        self.assertNotIn('reward_diagnostics', opening)
 
 
 if __name__ == '__main__':

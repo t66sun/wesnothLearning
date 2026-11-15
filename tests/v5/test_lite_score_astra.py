@@ -56,38 +56,33 @@ class ScoreAstraTests(unittest.TestCase):
         self.assertFalse(any(full[3]))
         self.assertTrue(all(fast[3]))
 
-    def test_learning_and_opening_keep_full_records(self):
-        for kind in ('learning', 'opening', 'reward_reference'):
+    def test_learning_and_reference_keep_full_records(self):
+        for kind in ('learning', 'reward_reference'):
             with self.subTest(kind=kind):
                 job = dict(self.job, score_only_astra=True)
                 if kind != 'learning':
                     job.pop('learning')
                     job.pop('shard')
-                    job['meta'] = dict(job['meta'], phase=kind, opening=kind == 'opening')
+                    job['meta'] = dict(job['meta'], phase=kind)
                 _, _, result, compact = self.replay(job)
                 self.assertFalse(any(compact))
                 if kind == 'learning':
                     self.assertGreater(result['training_shard']['written'], 0)
-                elif kind == 'opening':
-                    self.assertTrue(result['behavior'])
                 else:
                     self.assertIn('reward_diagnostics', result)
 
-    def test_reference_records_only_its_teacher_and_opening_keeps_every_seat(self):
-        for opening in (False, True):
-            with self.subTest(opening=opening):
-                job = self.fixture.job(learning={'sides': {'1': {'teacher':'gpt6astra'}}})
-                job.pop('shard')
-                job['meta'].update(phase='reward_reference', opening=opening)
-                _, _, result, _ = self.replay(job)
-                self.assertEqual({c['side'] for c in self.calls if c['teacher'] and c['compact']},
-                                 set() if opening else {2})
-                learner = [c for c in self.calls if c['side']==1]
-                self.assertFalse(any(c['compact'] for c in learner))
-                self.assertTrue(any(c['teacher'] and c['generate'] for c in learner))
-                self.assertTrue(any(not c['teacher'] and not c['generate'] for c in learner))
-                self.assertEqual([m['side'] for m in result['reward_diagnostics']], [1])
-                self.assertEqual(bool(result.get('behavior')), opening)
+    def test_reference_records_only_its_teacher(self):
+        job = self.fixture.job(learning={'sides': {'1': {'teacher':'gpt6astra'}}})
+        job.pop('shard')
+        job['meta']['phase'] = 'reward_reference'
+        _, _, result, _ = self.replay(job)
+        self.assertEqual({c['side'] for c in self.calls if c['teacher'] and c['compact']}, {2})
+        learner = [c for c in self.calls if c['side']==1]
+        self.assertFalse(any(c['compact'] for c in learner))
+        self.assertTrue(any(c['teacher'] and c['generate'] for c in learner))
+        self.assertTrue(any(not c['teacher'] and not c['generate'] for c in learner))
+        self.assertEqual([m['side'] for m in result['reward_diagnostics']], [1])
+        self.assertNotIn('behavior', result)
 
     def test_query_and_bootstrap_decisions_get_full_candidates(self):
         job = self.fixture.four_seat_job(id='query-bootstrap', bootstrap_policy=lambda row: 0.5,

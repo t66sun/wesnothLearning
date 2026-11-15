@@ -5,7 +5,7 @@ __bridge=nil; __clock_ms=nil
 local sources=assert(__module_sources)
 local rules=bridge('rules',{})
 local modules, memories, teacher_memories = {}, {}, {}
-local view, units, by_id, legal, last_candidates
+local view, units, by_id, legal
 local function copy(t)
     if type(t)~='table' then return t end
     local o={};for k,v in pairs(t) do o[k]=copy(v) end
@@ -262,7 +262,6 @@ function lite_decision(side,teacher,generate_candidates,score_only_astra,score_o
     else
         candidates,timing=C.generate(obs)
     end
-    last_candidates=candidates
     local raw=not score_only_policy and reward_labels(obs,side) or nil
     local ledger=teacher_ledger(side,obs.own,obs.memory.villages)
     local teacher_action=teacher and astra_plan(ledger) or nil
@@ -273,7 +272,7 @@ end
 function lite_execute(action,score_only_astra,policy_memory_write)
     local side=view.side;events={}
     local O=require_module('observation.lua');local C=require_module('candidates.lua')
-    local obs,prior,diagnostics
+    local obs,prior
     if policy_memory_write~=nil then
         -- The decision already captured this public state. Only an end-turn
         -- first write needs its pre-action scene in canonical memory order.
@@ -286,7 +285,6 @@ function lite_execute(action,score_only_astra,policy_memory_write)
         local schema=require_module('features.lua')
         if not action.features then action.features=O.normalize({[action.kind]=1},schema.action_features) end
         prior=require_module('spatial.lua').memory_observation(obs)
-        diagnostics=C.diagnostics(obs,action,last_candidates)
     end
     local execution
     if action.kind=='end_turn' then perform{kind='end_turn'};execution={changed=true} else execution=C.execute(action) end
@@ -297,7 +295,6 @@ function lite_execute(action,score_only_astra,policy_memory_write)
         return {events=events,view=view,committed=changed}
     end
     if not execution or execution.changed then C.remember(obs,action) end
-    C.outcome(action,diagnostics)
     -- Every execution observes the resulting visibility, even when this turn's
     -- neural write already committed. Later decisions read those sightings.
     local post=O.capture(memories[side] or {},side)
@@ -306,7 +303,7 @@ function lite_execute(action,score_only_astra,policy_memory_write)
     if policy_memory_write==nil or (changed and policy_memory_write) then
         write=action.kind=='end_turn' and prior or require_module('spatial.lua').memory_observation(post)
     end
-    return {events=events,diagnostics=diagnostics,view=view,reward_after=raw,execution=execution,committed=changed,memory_write=changed and write or nil}
+    return {events=events,view=view,reward_after=raw,execution=execution,committed=changed,memory_write=changed and write or nil}
 end
 local function string_keys(map)
     local out={};for k,v in pairs(map) do out[tostring(k)]=v end;return out

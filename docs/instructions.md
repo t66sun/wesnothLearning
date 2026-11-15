@@ -167,7 +167,7 @@ The KL mode pins `<format>/frozen_bc.pt` and its identity in `state.json`/comple
 
 Long tasks belong in an existing persistent terminal; with tmux, run `tmux new -s wesnoth-v5` first, set up the environment and start command inside, detach with Ctrl-b, d, and reattach with `tmux attach -t wesnoth-v5`. Record the session, main PID, full command, log and experiment directory, and confirm that dropping SSH does not end training. Do not let a short-lived SSH tool request hold the whole long experiment.
 
-New runs use `official-score-30-v1`: teacher, PPO and DAgger finish the complete 30th round as a scored task terminal. `--training-max-turns` accepts only 30. Gamma is 1 and exploration reward is 0; economy/control remain potential shaping. Evaluation uses 30 and opening probes use an external cut at 5. BC gates and panel sizes retain their existing thresholds. Legacy 60-turn data and manifests cannot resume or mix into this task; use an empty or compatible `--human-data` directory rather than relabelling a historical corpus.
+New runs use `official-score-30-v1`: teacher, PPO and DAgger finish the complete 30th round as a scored task terminal. `--training-max-turns` accepts only 30. Gamma is 1 and exploration reward is 0; economy/control remain potential shaping. Evaluation also uses 30 rounds. Legacy 60-turn data and manifests cannot resume or mix into this task; use an empty or compatible `--human-data` directory rather than relabelling a historical corpus.
 
 Post-start checks:
 
@@ -241,7 +241,7 @@ test -f "$run_dir/manifest.json" || exit 1
 | `manifest.json`, `clock.json` | Actual config, source/opponent/vocabulary identity, update and final deadlines |
 | `<format>/state.json` | stage, batch, version, effective, counters, pending_train/pending_validation, error; read only needed fields since history may be large |
 | `<format>/jobs.jsonl` | Recent task status, faults, training_eligible, teacher coverage, engine and phase; count valid games rather than file lines |
-| `<format>/bc_gate.json` | Whether corpus size, imitation quality, candidate coverage and scenario design each pass; the opening probe is recorded with `blocking: false` |
+| `<format>/bc_gate.json` | Whether corpus size, imitation quality, candidate coverage and scenario design each pass |
 | `<format>/validation/*.json` | Distinguish trend/promotion, native/lite and teammate context; a small-panel win is not final strength |
 | `<format>/latest.pt`, `last_bc.pt`, `last_ppo.pt` | Whether the checkpoint updated and matches state and current phase; best/selected are selection results, not a substitute for latest when restoring |
 | `control/*.json`, `control/events.jsonl` | Current config, pending commands, applied sequence, reward_version, last_error, metrics_error (adaptive is frozen when non-empty) |

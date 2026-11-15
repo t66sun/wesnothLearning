@@ -11,7 +11,7 @@ from types import SimpleNamespace
 from unittest import mock
 
 from learning import maps, schedule
-from learning.experiment import FormatExperiment, coverage_gate, default_config, opening_gate, validate_config
+from learning.experiment import FormatExperiment, coverage_gate, default_config, validate_config
 from learning.formats import FORMATS, PLAYERS
 from tests.v5.test_pipeline_contract import catalog_patch, frozen_rules, helpers
 
@@ -93,18 +93,6 @@ class ConfigScheduleTests(unittest.TestCase):
         self.assertFalse(coverage_gate([ineligible])['passed'])
         empty = dict(base, coverage=dict(total=0, matched=0, kinds={}))
         self.assertFalse(coverage_gate([empty])['passed'])
-
-    def test_opening_gate_needs_two_complete_games(self):
-        def completed():
-            return dict(status='complete', meta=dict(seat=1), result=dict(faults=[]), behavior=[
-                dict(side=1,left_castle=True, village_captured=True, end_turn=True,
-                     remaining_moves=2,usable_moves=2)])
-        self.assertTrue(opening_gate([completed(), completed()])['passed'])
-        self.assertFalse(opening_gate([completed()])['passed'])
-        broken = completed()
-        broken['behavior'] = [dict(side=1,left_castle=False, village_captured=True,
-                                   end_turn=True, remaining_moves=2,usable_moves=2)]
-        self.assertFalse(opening_gate([completed(), broken])['passed'])
 
     def _evaluation(self, **kwargs):
         with mock.patch.object(maps, 'frozen_map',
