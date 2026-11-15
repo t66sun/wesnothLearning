@@ -195,6 +195,8 @@ PPO 效率诊断区分已提交、被 KL 拒绝和从未执行的工作。30 回
 
 新 PPO 批次只完整读取一次 rollout，并将全部行交给训练准备。`bc_records` 只限制单独的复习池。空批次跳过训练，非空批次含有任何非训练行都会触发 no-drop 拒绝。打包后的数值行用向量检查有限性，沿用现有形状和来源要求。新 pending PPO 批次使用 v3 内容身份，摘要覆盖规范化的浮点向量字节与 JSON 元数据。恢复时重读冻结分片和原始循环历史前缀，并按保存的版本校验；已有 v2 身份沿用原校验。逐局私有轨迹缓冲存储未压缩的 pickle，再逐行送入原有 gzip 分片与 SQLite 写入器。三对 8 局 Lite 单挑 CPU 运行中，这三项改动使同工作量墙钟减少 17.48%，对局、更新、模型和 Adam 状态一致。[rollout 读取与恢复契约](../verification/rollout_read_once_20261106/REPORT.md) · [配对墙钟验收](../verification/ppo_wall_acceptance_20261110/REPORT.md)
 
+正式 Lite 单挑对照中，八局批次的 6 Astra 加 2 冻结贪心 BC 配方在 840 局配对留出中，比纯 Astra PPO 和共享 BC 均高 0.93 个百分点，两条 95% 区间均跨零。其中一张地图全是平局。混合对手配方未达棋力验收门槛。[配对得分与预算](../verification/ppo_opponent_acceptance_20261115/REPORT.md)
+
 ## 9. 评估与选择
 
 `learning/evaluate.py` 按官方结果给对局计分（2 人/队伍胜 3、平 1、负 0；ffa4 为名次点除以 3），并在完整轮转 block 上按赛制比较策略与控制方。差值按场景族聚类做 cluster bootstrap（5,000 次重采样，2.5/97.5 分位），因此重复的相同布局无法夸大证据。

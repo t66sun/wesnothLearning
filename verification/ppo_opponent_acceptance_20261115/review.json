@@ -1,0 +1,496 @@
+{
+  "started": 1794654805.7358716,
+  "finished": 1794686741.891847,
+  "total_seconds": 31936.155975341797,
+  "ppo_seconds": 30897.649389743805,
+  "stage_seconds": {
+    "validation": 322.7558603286743,
+    "holdout": 707.1814131736755,
+    "audit": 6.172836780548096,
+    "grace_after_audit": 1.5848290920257568
+  },
+  "cells": {
+    "astra-202611141": {
+      "planned_steps": 1448,
+      "committed_steps": 485,
+      "inspected_decisions": 104563,
+      "committed_decisions": 89781,
+      "settled_batches": 82,
+      "fresh_targets": 64541,
+      "rejected_steps": 82,
+      "rejected_decision_visits": 14782,
+      "never_attempted_steps": 881,
+      "pending_train": null,
+      "pending_validation": "ppo",
+      "endpoint": {
+        "path": "/home/tongshu/acceptance/ppo322-formal-20261114-wGKDQ4/source/runs/ppo322/cells/astra-202611141/duel/wall.pt",
+        "checkpoint_sha256": "6c427b8a9ff07b217fcc3c2ec79829111394f9036e9be3a22001c197aa3e6a6a",
+        "version": 120,
+        "weights_sha256": "30ac9e53b00fc15bcf8a38634146ad1a28cc6ebadfd3d722122a4b1ffef10943"
+      },
+      "opponents": {
+        "astra": 656
+      },
+      "learner_decisions": {
+        "astra": 64541
+      },
+      "interruptions": 0,
+      "wall_seconds": 5161.069623470306
+    },
+    "mixed-202611141": {
+      "planned_steps": 1372,
+      "committed_steps": 483,
+      "inspected_decisions": 105139,
+      "committed_decisions": 91438,
+      "settled_batches": 77,
+      "fresh_targets": 62962,
+      "rejected_steps": 77,
+      "rejected_decision_visits": 13701,
+      "never_attempted_steps": 812,
+      "pending_train": null,
+      "pending_validation": null,
+      "endpoint": {
+        "path": "/home/tongshu/acceptance/ppo322-formal-20261114-wGKDQ4/source/runs/ppo322/cells/mixed-202611141/duel/wall.pt",
+        "checkpoint_sha256": "1bf41716b738ba9e459c6bf58ef6c10350e027aaed28da340e30dba9ce488fd0",
+        "version": 115,
+        "weights_sha256": "b19feb809f4cc4a3c0b4ac104d78566ccbec3469ab20bb9bd19c18c93caf362b"
+      },
+      "opponents": {
+        "frozen_bc": 154,
+        "astra": 462
+      },
+      "learner_decisions": {
+        "frozen_bc": 14623,
+        "astra": 48339
+      },
+      "interruptions": 0,
+      "wall_seconds": 5181.0705444812775
+    },
+    "mixed-202611142": {
+      "planned_steps": 1376,
+      "committed_steps": 475,
+      "inspected_decisions": 101960,
+      "committed_decisions": 87414,
+      "settled_batches": 78,
+      "fresh_targets": 61762,
+      "rejected_steps": 78,
+      "rejected_decision_visits": 14546,
+      "never_attempted_steps": 823,
+      "pending_train": null,
+      "pending_validation": null,
+      "endpoint": {
+        "path": "/home/tongshu/acceptance/ppo322-formal-20261114-wGKDQ4/source/runs/ppo322/cells/mixed-202611142/duel/wall.pt",
+        "checkpoint_sha256": "775d4aaa35ed24cd5298086fd43b81c3b06341cdd6cd4186c6e2edd45567b862",
+        "version": 116,
+        "weights_sha256": "fc8792bbe4093829d6213d9572650f5011451762c0e796594742061f1f75ff71"
+      },
+      "opponents": {
+        "frozen_bc": 156,
+        "astra": 468
+      },
+      "learner_decisions": {
+        "frozen_bc": 14317,
+        "astra": 47445
+      },
+      "interruptions": 0,
+      "wall_seconds": 5165.094656467438
+    },
+    "astra-202611142": {
+      "planned_steps": 1444,
+      "committed_steps": 473,
+      "inspected_decisions": 102400,
+      "committed_decisions": 87494,
+      "settled_batches": 80,
+      "fresh_targets": 64704,
+      "rejected_steps": 80,
+      "rejected_decision_visits": 14906,
+      "never_attempted_steps": 891,
+      "pending_train": null,
+      "pending_validation": null,
+      "endpoint": {
+        "path": "/home/tongshu/acceptance/ppo322-formal-20261114-wGKDQ4/source/runs/ppo322/cells/astra-202611142/duel/wall.pt",
+        "checkpoint_sha256": "08e257c011a44196adb55ede675cde23663b5b89c13c41b0b96b63cd7019a1ea",
+        "version": 118,
+        "weights_sha256": "e805118b2c883cab810d415d41fcc2caf42476f28bd7e0d64b53260a30a62245"
+      },
+      "opponents": {
+        "astra": 640
+      },
+      "learner_decisions": {
+        "astra": 64704
+      },
+      "interruptions": 0,
+      "wall_seconds": 5113.628840208054
+    },
+    "astra-202611143": {
+      "planned_steps": 1460,
+      "committed_steps": 494,
+      "inspected_decisions": 103442,
+      "committed_decisions": 89233,
+      "settled_batches": 82,
+      "fresh_targets": 64523,
+      "rejected_steps": 82,
+      "rejected_decision_visits": 14209,
+      "never_attempted_steps": 884,
+      "pending_train": null,
+      "pending_validation": "ppo",
+      "endpoint": {
+        "path": "/home/tongshu/acceptance/ppo322-formal-20261114-wGKDQ4/source/runs/ppo322/cells/astra-202611143/duel/wall.pt",
+        "checkpoint_sha256": "05292ddd203a40747cf7ade48fd4f48df42d66a4152f5690553db4362bdc6b7d",
+        "version": 120,
+        "weights_sha256": "ea5fe4ce8b69e9dc82a274c36f5ee503b0a43cff8cb2fa0e7e4c5fa657c47e10"
+      },
+      "opponents": {
+        "astra": 656
+      },
+      "learner_decisions": {
+        "astra": 64523
+      },
+      "interruptions": 0,
+      "wall_seconds": 5105.336998462677
+    },
+    "mixed-202611143": {
+      "planned_steps": 1428,
+      "committed_steps": 501,
+      "inspected_decisions": 105110,
+      "committed_decisions": 90692,
+      "settled_batches": 79,
+      "fresh_targets": 62621,
+      "rejected_steps": 79,
+      "rejected_decision_visits": 14418,
+      "never_attempted_steps": 848,
+      "pending_train": null,
+      "pending_validation": null,
+      "endpoint": {
+        "path": "/home/tongshu/acceptance/ppo322-formal-20261114-wGKDQ4/source/runs/ppo322/cells/mixed-202611143/duel/wall.pt",
+        "checkpoint_sha256": "beacda985bcf462e73dfdb881af34fc02ac251aa2ccaca3e49f917abf070665d",
+        "version": 117,
+        "weights_sha256": "ea058ab20723f7cd79ac09c05319c0eb2f62d52f1a8b0aff9570574b1a36d032"
+      },
+      "opponents": {
+        "frozen_bc": 158,
+        "astra": 474
+      },
+      "learner_decisions": {
+        "frozen_bc": 14474,
+        "astra": 48147
+      },
+      "interruptions": 0,
+      "wall_seconds": 5171.448726654053
+    }
+  },
+  "pairs": {
+    "202611141": {
+      "astra_games": 656,
+      "mixed_games": 616,
+      "common_games": 616
+    },
+    "202611142": {
+      "astra_games": 640,
+      "mixed_games": 624,
+      "common_games": 624
+    },
+    "202611143": {
+      "astra_games": 656,
+      "mixed_games": 632,
+      "common_games": 632
+    }
+  },
+  "panels": {
+    "ur_thorodor": {
+      "games": 420,
+      "complete": true,
+      "wins_draws_losses": {
+        "win": 179,
+        "loss": 194,
+        "draw": 47
+      }
+    },
+    "face_of_the_enemy": {
+      "games": 420,
+      "complete": true,
+      "wins_draws_losses": {
+        "draw": 420
+      }
+    },
+    "hamlets": {
+      "games": 210,
+      "complete": true,
+      "wins_draws_losses": {
+        "loss": 89,
+        "win": 89,
+        "draw": 32
+      }
+    }
+  },
+  "scores": {
+    "overall": {
+      "differences": {
+        "b_minus_a": 0.0092592592592593,
+        "a_minus_bc": 0.0,
+        "b_minus_bc": 0.0092592592592593
+      },
+      "interval95": {
+        "b_minus_a": [
+          -0.04722222222222222,
+          0.06944444444444442
+        ],
+        "a_minus_bc": [
+          -0.051851851851851816,
+          0.050925925925925986
+        ],
+        "b_minus_bc": [
+          -0.05833333333333335,
+          0.07222222222222219
+        ]
+      },
+      "per_seed": {
+        "202611141": {
+          "b_minus_a": 0.03611111111111115,
+          "a_minus_bc": 0.0,
+          "b_minus_bc": 0.03611111111111115
+        },
+        "202611142": {
+          "b_minus_a": 0.011111111111111072,
+          "a_minus_bc": 0.005555555555555591,
+          "b_minus_bc": 0.016666666666666663
+        },
+        "202611143": {
+          "b_minus_a": -0.019444444444444375,
+          "a_minus_bc": -0.005555555555555591,
+          "b_minus_bc": -0.024999999999999967
+        }
+      },
+      "training_seeds": 3,
+      "scenarios": 60,
+      "maps": 2,
+      "bootstrap": {
+        "method": "paired crossed seed/scenario, scenarios stratified by map",
+        "samples": 10000,
+        "seed": 202611149
+      },
+      "predicates": {
+        "superior_to_a": false,
+        "inferior_to_a": false,
+        "superior_to_bc": false,
+        "noninferior_to_bc_margin_05": false,
+        "degraded_beyond_bc_margin_05": false
+      },
+      "score_means": {
+        "astra-202611141": 0.39444444444444443,
+        "astra-202611142": 0.4,
+        "astra-202611143": 0.38888888888888884,
+        "bc": 0.39444444444444443,
+        "mixed-202611141": 0.4305555555555556,
+        "mixed-202611142": 0.4111111111111111,
+        "mixed-202611143": 0.36944444444444446
+      },
+      "pass": false
+    },
+    "per_map": {
+      "ur_thorodor": {
+        "differences": {
+          "b_minus_a": 0.018518518518518545,
+          "a_minus_bc": 0.0,
+          "b_minus_bc": 0.018518518518518545
+        },
+        "interval95": {
+          "b_minus_a": [
+            -0.09444444444444439,
+            0.13518518518518524
+          ],
+          "a_minus_bc": [
+            -0.10185185185185192,
+            0.1018518518518518
+          ],
+          "b_minus_bc": [
+            -0.11296296296296299,
+            0.1425925925925926
+          ]
+        },
+        "per_seed": {
+          "202611141": {
+            "b_minus_a": 0.07222222222222224,
+            "a_minus_bc": 0.0,
+            "b_minus_bc": 0.07222222222222224
+          },
+          "202611142": {
+            "b_minus_a": 0.0222222222222222,
+            "a_minus_bc": 0.011111111111111127,
+            "b_minus_bc": 0.033333333333333326
+          },
+          "202611143": {
+            "b_minus_a": -0.03888888888888886,
+            "a_minus_bc": -0.011111111111111127,
+            "b_minus_bc": -0.04999999999999999
+          }
+        },
+        "training_seeds": 3,
+        "scenarios": 30,
+        "maps": 1,
+        "bootstrap": {
+          "method": "paired crossed seed/scenario, scenarios stratified by map",
+          "samples": 10000,
+          "seed": 202611149
+        },
+        "predicates": {
+          "superior_to_a": false,
+          "inferior_to_a": false,
+          "superior_to_bc": false,
+          "noninferior_to_bc_margin_05": false,
+          "degraded_beyond_bc_margin_05": false
+        },
+        "score_means": {
+          "astra-202611141": 0.45555555555555555,
+          "astra-202611142": 0.4666666666666667,
+          "astra-202611143": 0.4444444444444444,
+          "bc": 0.45555555555555555,
+          "mixed-202611141": 0.5277777777777778,
+          "mixed-202611142": 0.4888888888888889,
+          "mixed-202611143": 0.40555555555555556
+        },
+        "pass": false
+      },
+      "face_of_the_enemy": {
+        "differences": {
+          "b_minus_a": 0.0,
+          "a_minus_bc": 0.0,
+          "b_minus_bc": 0.0
+        },
+        "interval95": {
+          "b_minus_a": [
+            0.0,
+            0.0
+          ],
+          "a_minus_bc": [
+            0.0,
+            0.0
+          ],
+          "b_minus_bc": [
+            0.0,
+            0.0
+          ]
+        },
+        "per_seed": {
+          "202611141": {
+            "b_minus_a": 0.0,
+            "a_minus_bc": 0.0,
+            "b_minus_bc": 0.0
+          },
+          "202611142": {
+            "b_minus_a": 0.0,
+            "a_minus_bc": 0.0,
+            "b_minus_bc": 0.0
+          },
+          "202611143": {
+            "b_minus_a": 0.0,
+            "a_minus_bc": 0.0,
+            "b_minus_bc": 0.0
+          }
+        },
+        "training_seeds": 3,
+        "scenarios": 30,
+        "maps": 1,
+        "bootstrap": {
+          "method": "paired crossed seed/scenario, scenarios stratified by map",
+          "samples": 10000,
+          "seed": 202611149
+        },
+        "predicates": {
+          "superior_to_a": false,
+          "inferior_to_a": false,
+          "superior_to_bc": false,
+          "noninferior_to_bc_margin_05": true,
+          "degraded_beyond_bc_margin_05": false
+        },
+        "score_means": {
+          "astra-202611141": 0.3333333333333333,
+          "astra-202611142": 0.3333333333333333,
+          "astra-202611143": 0.3333333333333333,
+          "bc": 0.3333333333333333,
+          "mixed-202611141": 0.3333333333333333,
+          "mixed-202611142": 0.3333333333333333,
+          "mixed-202611143": 0.3333333333333333
+        },
+        "pass": false
+      }
+    },
+    "validation": {
+      "differences": {
+        "b_minus_a": -0.08148148148148149,
+        "a_minus_bc": 0.11481481481481481,
+        "b_minus_bc": 0.033333333333333326
+      },
+      "interval95": {
+        "b_minus_a": [
+          -0.2407407407407407,
+          0.06666666666666665
+        ],
+        "a_minus_bc": [
+          -0.059259259259259234,
+          0.27037037037037037
+        ],
+        "b_minus_bc": [
+          -0.1296296296296296,
+          0.20740740740740743
+        ]
+      },
+      "per_seed": {
+        "202611141": {
+          "b_minus_a": -0.11111111111111105,
+          "a_minus_bc": 0.09999999999999998,
+          "b_minus_bc": -0.011111111111111072
+        },
+        "202611142": {
+          "b_minus_a": -0.10000000000000003,
+          "a_minus_bc": 0.1444444444444445,
+          "b_minus_bc": 0.04444444444444445
+        },
+        "202611143": {
+          "b_minus_a": -0.033333333333333326,
+          "a_minus_bc": 0.09999999999999998,
+          "b_minus_bc": 0.06666666666666665
+        }
+      },
+      "training_seeds": 3,
+      "scenarios": 15,
+      "maps": 1,
+      "bootstrap": {
+        "method": "paired crossed seed/scenario, scenarios stratified by map",
+        "samples": 10000,
+        "seed": 202611149
+      },
+      "predicates": {
+        "superior_to_a": false,
+        "inferior_to_a": false,
+        "superior_to_bc": false,
+        "noninferior_to_bc_margin_05": false,
+        "degraded_beyond_bc_margin_05": false
+      },
+      "score_means": {
+        "astra-202611141": 0.5111111111111111,
+        "astra-202611142": 0.5555555555555556,
+        "astra-202611143": 0.5111111111111111,
+        "bc": 0.4111111111111111,
+        "mixed-202611141": 0.4,
+        "mixed-202611142": 0.45555555555555555,
+        "mixed-202611143": 0.47777777777777775
+      },
+      "pass": false
+    }
+  },
+  "archive": {
+    "path": "/home/tongshu/acceptance/ppo322-formal-20261114-wGKDQ4/source/runs/ppo322/raw-metadata.tar.gz",
+    "sha256": "e80b9c59f321dc4b11770f84c48b498ad6156066ac7776da4373ece2721e2454",
+    "bytes": 16771975
+  },
+  "source": {
+    "source": "/home/tongshu/acceptance/ppo322-formal-20261114-wGKDQ4/source",
+    "commit": "23029d7b1d092f73a3cc616bfe5672920417a803",
+    "archive": "/home/tongshu/acceptance/ppo322-formal-20261114-wGKDQ4/source.tar",
+    "archive_sha256": "381aafd334e1edcdef11bf4a9765d65f930b977a06e4585d9b000cda0712f09f",
+    "extension": "/home/tongshu/acceptance/immutable_forecast_20261104/green/.extension/_engine_lite.so",
+    "extension_sha256": "56dd77140411db987377d6de4ffbf562da4d0e5c76bc16d34780da67e60e5ae4"
+  },
+  "launch_sha256": "835a2f973a9f80eea0360079c8109125dea086e5b6c2e9ac360352a428020a60"
+}
