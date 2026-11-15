@@ -1,0 +1,1186 @@
+{
+  "batches": {
+    "astra-202611141": {
+      "v38": {
+        "batch": 38,
+        "version": "v38",
+        "model": {
+          "file_sha256": "323d9da46be9f9e0a1d655fdc2d13535fd2d1b06705f741dbbc805113a42bf4b",
+          "weights_sha256": "d9d694f04d4179a5c65bbc29307a8e425a245d650d47f55a36ec04abeb206801",
+          "version": null,
+          "optimizer": false
+        },
+        "schedule_sha256": "919fc4b702bd92bc8c5b10a2bb56464f7e1171e343c1a48be07b1d8ca60d3076",
+        "shards": {
+          "rollout-00000-duel-g0.jsonl.gz": "5d69baf79095640e1102424795c30903a5bae49a390ff578842c9358fd761f75",
+          "rollout-00000-duel-g1.jsonl.gz": "0d20e1d88dc2e67cf598134b50242314f38e69d3cef0ef942606eace73d1494b",
+          "rollout-00000-duel-g2.jsonl.gz": "3aac1f73c83f22ea86467d2d1132852353a9b896db0ad7ae3ca1e94e73ad588a",
+          "rollout-00000-duel-g3.jsonl.gz": "b101af40c19f25a8fb427f79ecfbd0db5fca349f0cb7862d6c3d17d1a8ed5af6",
+          "rollout-00001-duel-g0.jsonl.gz": "9f7b95a46eae262d048238a6f9a4ae8dccde57179a17eda1a95ea25bc091e309",
+          "rollout-00001-duel-g1.jsonl.gz": "a6b0ffafdcfafd0dd8527d9b2d0ffb4d34e83f86ebb900bf6f4d0f1ed91e9aa8",
+          "rollout-00001-duel-g2.jsonl.gz": "a0dad0dd9bd9ea8369111f58a87188362669c8a387a0102c6b4ceabeb340687d",
+          "rollout-00001-duel-g3.jsonl.gz": "97ca085bbde2dc1cbf27b532ec9c2aff43f67546011ed32b6478f6d6d7369070"
+        },
+        "rows": 1061,
+        "replayed": 128,
+        "map_counts": {
+          "arena2": 4,
+          "the_freelands": 2,
+          "weldyn_channel": 2
+        },
+        "score": {
+          "0": 6,
+          "3": 2
+        },
+        "diagnostic": {
+          "logp": {
+            "max": 5.164880929053872e-06,
+            "p95": 2.3495291971037417e-06
+          },
+          "value": {
+            "max": 1.666487774443226e-07,
+            "p95": 1.312101876038696e-07
+          },
+          "ratio": {
+            "max": 5.164867591056499e-06,
+            "p95": 2.3495319572131024e-06
+          },
+          "control_candidate_swap": 133.23490670808798,
+          "control_drop_prefix": 0.2738439005160718,
+          "sampled_matches_own_argmax": 108,
+          "argmax_differs_from_v38": 0,
+          "mean_entropy": 0.42914887878807256,
+          "mean_v38_entropy_same_rows": 0.42914887878807256,
+          "mean_top2_probability_margin": 0.7247271529631689
+        },
+        "critic": {
+          "games": 8,
+          "rows": 1061,
+          "mean_bias": 0.7115967613896291,
+          "mse": 1.1183360056617029,
+          "explained_variance": 0.1259350395576766,
+          "equal_game_bias": 0.5831727209206156,
+          "mse_minus_loo_game_constant": -0.12205271104560939,
+          "mse_gap_ci": [
+            -1.4267858646174523,
+            1.1519315644450496
+          ]
+        },
+        "clock": {
+          "potential_coordinate_error": {
+            "max": 9.992007221626409e-16,
+            "p95": 7.771561172376096e-16
+          },
+          "mc_telescopes": true,
+          "centered_sign_agreement_vs_mc": 0.9660697455230914,
+          "own_turns": 127,
+          "twelve_plus_action_turns": 22,
+          "twelve_plus_rows": 300,
+          "equal_window_absolute_advantage_mass": 0.3439189701288516,
+          "equal_turn_absolute_advantage_mass": 0.25023765769014117
+        },
+        "gradients": null,
+        "actual_stock_last_batch": null
+      },
+      "late_behavior": {
+        "batch": 119,
+        "version": "v119",
+        "model": {
+          "file_sha256": "44b5d83c7468af1e03a81cc1cff76fc1f190a3badf83fb6512f6264bc659f32c",
+          "weights_sha256": "d5ded95a7ee3390e2df45370fcda9b7761513ebab9574673563f0a6b4cfe6209",
+          "version": null,
+          "optimizer": false
+        },
+        "schedule_sha256": "81104c81faf1b988b640e97d1a18e826f3da7003a307755d8d645bf1588ec5e0",
+        "shards": {
+          "rollout-00162-duel-g0.jsonl.gz": "e684b9e52f793259068746b0550a83698a739963f21cb5beb31c08abdde5836f",
+          "rollout-00162-duel-g1.jsonl.gz": "f615a2c3db7fb8973a2e6ae9bf20f5907741625f63d2036a66f5f36acbec3b5c",
+          "rollout-00162-duel-g2.jsonl.gz": "c8beee0b5f0acbcd37161683d68498230b006b8c9c8342755a55ee5f42b5ef6d",
+          "rollout-00162-duel-g3.jsonl.gz": "c98ce18041a92d34f9b20cd796d9b096d13f03bb5be0b2fd72ba5742c625a258",
+          "rollout-00163-duel-g0.jsonl.gz": "2e0a98b284e05de50a04a9a3b6cbb76559ddc1390919e08a982345c5fbedd06a",
+          "rollout-00163-duel-g1.jsonl.gz": "9b59c9f371f496cfd715dcc932052aa28423c89c4dac8740eb64fbc32e69fd02",
+          "rollout-00163-duel-g2.jsonl.gz": "6a5193169a2b72a0c8f6bdc0deb28fb472a820292d12f79338c3bf7076111c1b",
+          "rollout-00163-duel-g3.jsonl.gz": "49c4dce187338ad1e5d4af4f94f7104609e5be5efac0f9d0b67d5071f6b59c5e"
+        },
+        "rows": 1172,
+        "replayed": 128,
+        "map_counts": {
+          "arena2": 4,
+          "the_freelands": 2,
+          "weldyn_channel": 2
+        },
+        "score": {
+          "0": 4,
+          "3": 4
+        },
+        "diagnostic": {
+          "logp": {
+            "max": 4.44489472639642e-06,
+            "p95": 2.6262256290765507e-06
+          },
+          "value": {
+            "max": 2.435257111521594e-07,
+            "p95": 1.600539030754966e-07
+          },
+          "ratio": {
+            "max": 4.444904605049871e-06,
+            "p95": 2.6262221805017916e-06
+          },
+          "control_candidate_swap": 105.83638494874256,
+          "control_drop_prefix": 0.0002971332295435263,
+          "sampled_matches_own_argmax": 97,
+          "argmax_differs_from_v38": 29,
+          "mean_entropy": 0.6969886331147828,
+          "mean_v38_entropy_same_rows": 0.43469108370393006,
+          "mean_top2_probability_margin": 0.6204195002792403
+        },
+        "critic": {
+          "games": 8,
+          "rows": 1172,
+          "mean_bias": -0.1872308516313788,
+          "mse": 0.7146436691819792,
+          "explained_variance": 0.27207880316609623,
+          "equal_game_bias": -0.029665460803695722,
+          "mse_minus_loo_game_constant": -0.6862640823313414,
+          "mse_gap_ci": [
+            -1.0799601284399687,
+            -0.22527944760417934
+          ]
+        },
+        "clock": {
+          "potential_coordinate_error": {
+            "max": 6.661338147750939e-16,
+            "p95": 5.551115123125783e-16
+          },
+          "mc_telescopes": true,
+          "centered_sign_agreement_vs_mc": 0.9547781569965871,
+          "own_turns": 134,
+          "twelve_plus_action_turns": 23,
+          "twelve_plus_rows": 391,
+          "equal_window_absolute_advantage_mass": 0.1373322667956705,
+          "equal_turn_absolute_advantage_mass": 0.10645552343151163
+        },
+        "gradients": {
+          "loss_order": [
+            "actor",
+            "value",
+            "entropy",
+            "historical_action"
+          ],
+          "groups": {
+            "unit_embedding": {
+              "weighted_norm": [
+                0.3506227433681488,
+                0.01837320253252983,
+                0.0031530677806586027,
+                0.057167164981365204
+              ],
+              "cosine_to_actor": [
+                1.0000002441854465,
+                -0.016701846772018525,
+                0.7732118677856918,
+                2.7580574309327497e-17
+              ]
+            },
+            "entity": {
+              "weighted_norm": [
+                3.311410665512085,
+                0.40480899810791016,
+                0.02479960396885872,
+                0.7280437350273132
+              ],
+              "cosine_to_actor": [
+                1.0000001880274207,
+                -0.10641334107466477,
+                0.6852406690990291,
+                -0.014899507569306992
+              ]
+            },
+            "entities": {
+              "weighted_norm": [
+                0.6686681509017944,
+                0.2707594037055969,
+                0.004381740931421518,
+                0.35434290766716003
+              ],
+              "cosine_to_actor": [
+                1.0000023199204136,
+                0.17445895109360773,
+                0.022337271920794193,
+                0.24824813948096336
+              ]
+            },
+            "opponent": {
+              "weighted_norm": [
+                0.6436848044395447,
+                0.27901628613471985,
+                0.0034985248930752277,
+                0.2571674585342407
+              ],
+              "cosine_to_actor": [
+                0.9999999936974572,
+                -0.17223336946771484,
+                0.8994157333777191,
+                0.42196495704541825
+              ]
+            },
+            "conv1": {
+              "weighted_norm": [
+                0.579716682434082,
+                0.7250234484672546,
+                0.0030375707428902388,
+                0.0769694522023201
+              ],
+              "cosine_to_actor": [
+                0.9999999105610071,
+                -0.9910492300669295,
+                0.9908870342299295,
+                0.9101443437869308
+              ]
+            },
+            "conv2": {
+              "weighted_norm": [
+                0.3252074420452118,
+                0.30383291840553284,
+                0.0014303495408967137,
+                0.04233180359005928
+              ],
+              "cosine_to_actor": [
+                1.0000002215109995,
+                -0.7834684716751746,
+                0.7927546809162227,
+                0.602034338368448
+              ]
+            },
+            "local": {
+              "weighted_norm": [
+                7.523140907287598,
+                0.0,
+                0.05040394142270088,
+                0.5399038791656494
+              ],
+              "cosine_to_actor": [
+                1.0000004631390647,
+                null,
+                0.8270475566967816,
+                -0.13436920456018825
+              ]
+            },
+            "gru": {
+              "weighted_norm": [
+                1.233677625656128,
+                0.36715859174728394,
+                0.006962284445762634,
+                0.26403895020484924
+              ],
+              "cosine_to_actor": [
+                1.0000020449278975,
+                -0.26893969467629475,
+                0.723713736072688,
+                0.22033799105000404
+              ]
+            },
+            "summary": {
+              "weighted_norm": [
+                0.7014593482017517,
+                0.10171006619930267,
+                0.0037899550516158342,
+                0.09722308069467545
+              ],
+              "cosine_to_actor": [
+                1.0000001344143532,
+                -0.4534261261383498,
+                0.811952759490732,
+                0.529977059137718
+              ]
+            },
+            "memory_query": {
+              "weighted_norm": [
+                4.809577148989774e-05,
+                2.191902240156196e-05,
+                3.5994812606077176e-06,
+                0.002123454352840781
+              ],
+              "cosine_to_actor": [
+                1.00000007409312,
+                -0.9859828155726907,
+                1.0000001362929054,
+                -0.05368187019216071
+              ]
+            },
+            "memory_key": {
+              "weighted_norm": [
+                2.3979562683962286e-05,
+                7.171132892835885e-06,
+                1.794952709133213e-06,
+                0.0009721645619720221
+              ],
+              "cosine_to_actor": [
+                0.9999998938162227,
+                -0.6090670470647082,
+                0.9999999983070946,
+                0.4739141570513456
+              ]
+            },
+            "memory_value": {
+              "weighted_norm": [
+                0.5014855861663818,
+                0.07137268781661987,
+                0.0026773337740451097,
+                0.0798850730061531
+              ],
+              "cosine_to_actor": [
+                0.999999875156074,
+                -0.38294682570948596,
+                0.7055951224576353,
+                0.2555808876245545
+              ]
+            },
+            "scorer": {
+              "weighted_norm": [
+                14.152080535888672,
+                0.0,
+                0.10660433769226074,
+                1.9935251474380493
+              ],
+              "cosine_to_actor": [
+                1.0000406266885664,
+                null,
+                0.6525140041340806,
+                -0.06190586146126657
+              ]
+            },
+            "value": {
+              "weighted_norm": [
+                0.0,
+                0.7085252404212952,
+                0.0,
+                0.0
+              ],
+              "cosine_to_actor": [
+                null,
+                null,
+                null,
+                null
+              ]
+            }
+          },
+          "rehearsal": "first behavior batch policy rows; fixed micro-window probe"
+        },
+        "actual_stock_last_batch": {
+          "post_checkpoint": {
+            "file_sha256": "6c427b8a9ff07b217fcc3c2ec79829111394f9036e9be3a22001c197aa3e6a6a",
+            "weights_sha256": "30ac9e53b00fc15bcf8a38634146ad1a28cc6ebadfd3d722122a4b1ffef10943",
+            "version": 120,
+            "optimizer": true
+          },
+          "rows": 128,
+          "mean_forward_kl": 0.012101712102661288,
+          "max_forward_kl": 0.22959427261170812,
+          "greedy_action_changes": 7,
+          "outside_clip_band": 8,
+          "material_rows": 115,
+          "advantage_ratio_direction_agreement": 0.6260869565217392
+        }
+      }
+    },
+    "astra-202611142": {
+      "v38": {
+        "batch": 38,
+        "version": "v38",
+        "model": {
+          "file_sha256": "323d9da46be9f9e0a1d655fdc2d13535fd2d1b06705f741dbbc805113a42bf4b",
+          "weights_sha256": "d9d694f04d4179a5c65bbc29307a8e425a245d650d47f55a36ec04abeb206801",
+          "version": null,
+          "optimizer": false
+        },
+        "schedule_sha256": "b6f23dce7497cf278790c4604982757768883f6df5afe9592c4471fd877d6caf",
+        "shards": {
+          "rollout-00000-duel-g0.jsonl.gz": "805558817bb11d7da59b0addc9303ea69ea15bcd8fc6a6b20983a7cf586a35ee",
+          "rollout-00000-duel-g1.jsonl.gz": "82f3e0bf5be4b3314d09b100e14087ea4b03e3db472e32fd41bd542b1390c99e",
+          "rollout-00000-duel-g2.jsonl.gz": "e93d159dc8a062c8aac681cdd40c0b9796320b13c7eb5ec46fa8ff1cd69bfcee",
+          "rollout-00000-duel-g3.jsonl.gz": "0394b3aeb6467a67bb1d318e4667c8a877470db2ab48b9669952070c97aef94d",
+          "rollout-00001-duel-g0.jsonl.gz": "d5d403cdb1d28ba3f9ef1c0536fc50681e2a656792eb4dd1597ade108c56225b",
+          "rollout-00001-duel-g1.jsonl.gz": "577b6056dd20b4c8dbf3970af75134161668b53e762e8b9ec8d99c3c89ad1d7a",
+          "rollout-00001-duel-g2.jsonl.gz": "048cba8fd8a0aae4eae69a632d74e70dcde73988e74daee94cec73546cdba884",
+          "rollout-00001-duel-g3.jsonl.gz": "3d8f8a686cb3e4b4f881d5dd9356a02ee019ce4a2f89962b29de9e6dd043c6e4"
+        },
+        "rows": 909,
+        "replayed": 128,
+        "map_counts": {
+          "arena2": 4,
+          "the_freelands": 2,
+          "weldyn_channel": 2
+        },
+        "score": {
+          "0": 5,
+          "3": 2,
+          "1": 1
+        },
+        "diagnostic": {
+          "logp": {
+            "max": 7.415924066389579e-06,
+            "p95": 3.138380811716114e-06
+          },
+          "value": {
+            "max": 1.613565117075666e-07,
+            "p95": 1.1907962038648634e-07
+          },
+          "ratio": {
+            "max": 7.415896568496727e-06,
+            "p95": 3.138385736400906e-06
+          },
+          "control_candidate_swap": 133.23490670808798,
+          "control_drop_prefix": 0.033770104122438645,
+          "sampled_matches_own_argmax": 109,
+          "argmax_differs_from_v38": 0,
+          "mean_entropy": 0.41931903291600153,
+          "mean_v38_entropy_same_rows": 0.41931903291600153,
+          "mean_top2_probability_margin": 0.7436402356252074
+        },
+        "critic": {
+          "games": 8,
+          "rows": 909,
+          "mean_bias": 0.4184240317246491,
+          "mse": 0.577182724935093,
+          "explained_variance": 0.46726730267296535,
+          "equal_game_bias": 0.5498189996907275,
+          "mse_minus_loo_game_constant": -0.14009031632642371,
+          "mse_gap_ci": [
+            -1.2777959386888456,
+            0.9800059230529703
+          ]
+        },
+        "clock": {
+          "potential_coordinate_error": {
+            "max": 6.106226635438361e-16,
+            "p95": 4.440892098500626e-16
+          },
+          "mc_telescopes": true,
+          "centered_sign_agreement_vs_mc": 0.9262926292629263,
+          "own_turns": 116,
+          "twelve_plus_action_turns": 24,
+          "twelve_plus_rows": 330,
+          "equal_window_absolute_advantage_mass": 0.2183923490605432,
+          "equal_turn_absolute_advantage_mass": 0.1991044295565619
+        },
+        "gradients": null,
+        "actual_stock_last_batch": null
+      },
+      "late_behavior": {
+        "batch": 117,
+        "version": "v117",
+        "model": {
+          "file_sha256": "0eec45f1aeeb7194e600962e4d19fbeb44ea47d4326dd77fe3c3b96eb8b58d1a",
+          "weights_sha256": "26ff9dcce1c3c137555856825c3139db7270a98f607b6bf9feb1f6f0897aec1e",
+          "version": null,
+          "optimizer": false
+        },
+        "schedule_sha256": "b561fbdeb15f117ebcc1d86e61b508d2efde35aa60d678a926df00170e537fbb",
+        "shards": {
+          "rollout-00158-duel-g0.jsonl.gz": "7cc08442318fe3ae4eece96cfab507342e51c2e10667ad51616c4e72e4dd5d32",
+          "rollout-00158-duel-g1.jsonl.gz": "66973ae70e11d248a1101048d94104b37dba4c3a415b95b64b0bd2dcf6957920",
+          "rollout-00158-duel-g2.jsonl.gz": "f599a19b80f15a83121f7b5aad950ef74583fe0fbc116740b0d3763e7fd5f931",
+          "rollout-00158-duel-g3.jsonl.gz": "5974df504729c4199de65d3b6b1e054c0c271abfe466481664a70b33f5e7a181",
+          "rollout-00159-duel-g0.jsonl.gz": "9b2657d479a6d4d8f1e1ebe8d134918b881affd7d94811bf76dba2141fcfbe8e",
+          "rollout-00159-duel-g1.jsonl.gz": "7a8a7ce42ab37cad19b45017cf5330a12f1a4632168908f1225c0fdf4e8b7636",
+          "rollout-00159-duel-g2.jsonl.gz": "4ea74153d1318bcb7207922fe835255cc72891af062a82d260a9c76803c0b0cb",
+          "rollout-00159-duel-g3.jsonl.gz": "53ff0d2879531b891f008153de82e5e60c6abe85ab583f4e9e9f7e4d046eafb9"
+        },
+        "rows": 704,
+        "replayed": 128,
+        "map_counts": {
+          "arena2": 4,
+          "weldyn_channel": 2,
+          "sablestone_delta": 1,
+          "the_freelands": 1
+        },
+        "score": {
+          "0": 7,
+          "3": 1
+        },
+        "diagnostic": {
+          "logp": {
+            "max": 4.659506756876652e-06,
+            "p95": 2.7216510627425805e-06
+          },
+          "value": {
+            "max": 1.6114066991868015e-07,
+            "p95": 1.2985506221696586e-07
+          },
+          "ratio": {
+            "max": 4.6595176124153426e-06,
+            "p95": 2.7216547664465907e-06
+          },
+          "control_candidate_swap": 98.93020045794948,
+          "control_drop_prefix": 0.5598795964728935,
+          "sampled_matches_own_argmax": 92,
+          "argmax_differs_from_v38": 21,
+          "mean_entropy": 0.6299319911012453,
+          "mean_v38_entropy_same_rows": 0.4096779217803564,
+          "mean_top2_probability_margin": 0.6506151946960017
+        },
+        "critic": {
+          "games": 8,
+          "rows": 704,
+          "mean_bias": 0.43366426175341916,
+          "mse": 0.6906053089804925,
+          "explained_variance": 0.18939279286599808,
+          "equal_game_bias": 0.4830152165784812,
+          "mse_minus_loo_game_constant": 0.10204971966676012,
+          "mse_gap_ci": [
+            -0.9973033383810881,
+            0.8817363092280854
+          ]
+        },
+        "clock": {
+          "potential_coordinate_error": {
+            "max": 8.881784197001252e-16,
+            "p95": 4.440892098500626e-16
+          },
+          "mc_telescopes": true,
+          "centered_sign_agreement_vs_mc": 0.890625,
+          "own_turns": 112,
+          "twelve_plus_action_turns": 7,
+          "twelve_plus_rows": 90,
+          "equal_window_absolute_advantage_mass": 0.08257402026456673,
+          "equal_turn_absolute_advantage_mass": 0.060885172451674345
+        },
+        "gradients": {
+          "loss_order": [
+            "actor",
+            "value",
+            "entropy",
+            "historical_action"
+          ],
+          "groups": {
+            "unit_embedding": {
+              "weighted_norm": [
+                0.6467912197113037,
+                0.135515034198761,
+                0.002255906816571951,
+                0.03344903886318207
+              ],
+              "cosine_to_actor": [
+                0.9999999597123196,
+                -0.16054416219528422,
+                -0.39833651641894946,
+                0.001029557060233228
+              ]
+            },
+            "entity": {
+              "weighted_norm": [
+                5.558800220489502,
+                3.4972705841064453,
+                0.021228162571787834,
+                0.49841421842575073
+              ],
+              "cosine_to_actor": [
+                1.0000001569137644,
+                -0.2902048481887837,
+                -0.6433568161604999,
+                -0.013935277373835677
+              ]
+            },
+            "entities": {
+              "weighted_norm": [
+                1.5074185132980347,
+                1.9403847455978394,
+                0.010876824147999287,
+                0.2122969776391983
+              ],
+              "cosine_to_actor": [
+                1.0000030080754811,
+                -0.6328245403713352,
+                -0.11651648570247607,
+                0.19669336250380265
+              ]
+            },
+            "opponent": {
+              "weighted_norm": [
+                0.4108167886734009,
+                0.9645504951477051,
+                0.0036446773447096348,
+                0.10827808827161789
+              ],
+              "cosine_to_actor": [
+                0.9999999918013085,
+                -0.5628514516220451,
+                0.03960244085503999,
+                0.051188921095608346
+              ]
+            },
+            "conv1": {
+              "weighted_norm": [
+                1.395145058631897,
+                2.9147140979766846,
+                0.004798573441803455,
+                0.10565344989299774
+              ],
+              "cosine_to_actor": [
+                1.000000058592385,
+                -0.99817112301618,
+                -0.9931965450576915,
+                0.9800086104239043
+              ]
+            },
+            "conv2": {
+              "weighted_norm": [
+                0.5452752709388733,
+                1.0779088735580444,
+                0.00180349824950099,
+                0.048806603997945786
+              ],
+              "cosine_to_actor": [
+                1.000000044328182,
+                -0.9510401980179606,
+                -0.8529747959201892,
+                0.7767212586425293
+              ]
+            },
+            "local": {
+              "weighted_norm": [
+                4.92863130569458,
+                0.0,
+                0.051336631178855896,
+                0.5505082607269287
+              ],
+              "cosine_to_actor": [
+                1.0000006316137395,
+                null,
+                0.635165421295997,
+                -0.16064337497980458
+              ]
+            },
+            "gru": {
+              "weighted_norm": [
+                0.886122465133667,
+                1.341045618057251,
+                0.006944851018488407,
+                0.1820577085018158
+              ],
+              "cosine_to_actor": [
+                1.0000095268319296,
+                -0.07914864321092603,
+                0.2617183820675325,
+                -0.18823957116543213
+              ]
+            },
+            "summary": {
+              "weighted_norm": [
+                0.477144330739975,
+                0.3438068628311157,
+                0.004233047366142273,
+                0.06170184910297394
+              ],
+              "cosine_to_actor": [
+                0.9999998405000268,
+                -0.2885806279091289,
+                0.34627605449805043,
+                0.25958302309555203
+              ]
+            },
+            "memory_query": {
+              "weighted_norm": [
+                0.0008542436989955604,
+                2.297248283866793e-05,
+                1.3177400433050934e-05,
+                0.0032916925847530365
+              ],
+              "cosine_to_actor": [
+                0.9999999738068703,
+                -0.6316750716032661,
+                0.9999996692640768,
+                0.11340794207252129
+              ]
+            },
+            "memory_key": {
+              "weighted_norm": [
+                0.0003616078174673021,
+                2.8636404749704525e-05,
+                5.566930667555425e-06,
+                0.0006361292325891554
+              ],
+              "cosine_to_actor": [
+                0.9999999974789345,
+                0.5640808808235246,
+                0.9999981652996806,
+                0.3668965540424717
+              ]
+            },
+            "memory_value": {
+              "weighted_norm": [
+                0.332120418548584,
+                0.23613813519477844,
+                0.0028520305640995502,
+                0.0489475317299366
+              ],
+              "cosine_to_actor": [
+                0.9999998941441537,
+                -0.21301064469473807,
+                0.09974343081839748,
+                0.03816020908488648
+              ]
+            },
+            "scorer": {
+              "weighted_norm": [
+                27.88176727294922,
+                0.0,
+                0.09898437559604645,
+                1.6637126207351685
+              ],
+              "cosine_to_actor": [
+                1.0000398034191111,
+                null,
+                -0.11459985230662072,
+                -0.0908656571491141
+              ]
+            },
+            "value": {
+              "weighted_norm": [
+                0.0,
+                1.659591794013977,
+                0.0,
+                0.0
+              ],
+              "cosine_to_actor": [
+                null,
+                null,
+                null,
+                null
+              ]
+            }
+          },
+          "rehearsal": "first behavior batch policy rows; fixed micro-window probe"
+        },
+        "actual_stock_last_batch": {
+          "post_checkpoint": {
+            "file_sha256": "08e257c011a44196adb55ede675cde23663b5b89c13c41b0b96b63cd7019a1ea",
+            "weights_sha256": "e805118b2c883cab810d415d41fcc2caf42476f28bd7e0d64b53260a30a62245",
+            "version": 118,
+            "optimizer": true
+          },
+          "rows": 128,
+          "mean_forward_kl": 0.02943143445759373,
+          "max_forward_kl": 1.9877088959140785,
+          "greedy_action_changes": 8,
+          "outside_clip_band": 19,
+          "material_rows": 103,
+          "advantage_ratio_direction_agreement": 0.6019417475728155
+        }
+      }
+    },
+    "astra-202611143": {
+      "v38": {
+        "batch": 38,
+        "version": "v38",
+        "model": {
+          "file_sha256": "323d9da46be9f9e0a1d655fdc2d13535fd2d1b06705f741dbbc805113a42bf4b",
+          "weights_sha256": "d9d694f04d4179a5c65bbc29307a8e425a245d650d47f55a36ec04abeb206801",
+          "version": null,
+          "optimizer": false
+        },
+        "schedule_sha256": "d275eafc6cfdc4e4119f21b57d025cd9aa6b0eef2ca7c0437157b3b81c16def6",
+        "shards": {
+          "rollout-00000-duel-g0.jsonl.gz": "726169892656766789a33533a1473e4d41b4103cc2a8c9d095e61fe6c47825de",
+          "rollout-00000-duel-g1.jsonl.gz": "644f4c20eb453379804c0544c43fddea1432147e3e15764b588ed9543780cbd0",
+          "rollout-00000-duel-g2.jsonl.gz": "d6deecbc8dd605e865e31a000e53891fddd6ec04add9c6799901e1e3542be2d6",
+          "rollout-00000-duel-g3.jsonl.gz": "45e35080d2ad938a3d42d5368efc898f6cdd5c41b8bab7de9aeeae9ead4c7814",
+          "rollout-00001-duel-g0.jsonl.gz": "f53eeab45c88eafef77fa55aa576c4ab3efd9c0ed340e0f847bd3a2c13604d44",
+          "rollout-00001-duel-g1.jsonl.gz": "b9f737785615bc322d31905c0c0bce838b38718f432739bc24d06ab44f5dcb33",
+          "rollout-00001-duel-g2.jsonl.gz": "f0f99a71a0f6eeb73b59abd292671c90eafb328e290c6df8da53a1fddf1bcea9",
+          "rollout-00001-duel-g3.jsonl.gz": "9473dda027c6fcb06db657fe3e9f73d95ef8c9b9b8d0fca8ed9748284df2bdaa"
+        },
+        "rows": 946,
+        "replayed": 128,
+        "map_counts": {
+          "arena2": 4,
+          "the_freelands": 2,
+          "weldyn_channel": 2
+        },
+        "score": {
+          "0": 4,
+          "3": 4
+        },
+        "diagnostic": {
+          "logp": {
+            "max": 6.380311645015624e-06,
+            "p95": 2.5556036902917717e-06
+          },
+          "value": {
+            "max": 2.4334738502052033e-07,
+            "p95": 1.4580224216853566e-07
+          },
+          "ratio": {
+            "max": 6.3803319991784235e-06,
+            "p95": 2.555606955834122e-06
+          },
+          "control_candidate_swap": 133.23490670808798,
+          "control_drop_prefix": 0.13301578095652516,
+          "sampled_matches_own_argmax": 111,
+          "argmax_differs_from_v38": 0,
+          "mean_entropy": 0.4560220228201471,
+          "mean_v38_entropy_same_rows": 0.4560220228201471,
+          "mean_top2_probability_margin": 0.7048281938768923
+        },
+        "critic": {
+          "games": 8,
+          "rows": 946,
+          "mean_bias": 0.02251361137486397,
+          "mse": 0.1615233347051478,
+          "explained_variance": 0.832508581616701,
+          "equal_game_bias": 0.1597758692755097,
+          "mse_minus_loo_game_constant": -1.0244432707338198,
+          "mse_gap_ci": [
+            -1.218885347571874,
+            -0.6990370095673918
+          ]
+        },
+        "clock": {
+          "potential_coordinate_error": {
+            "max": 6.661338147750939e-16,
+            "p95": 4.440892098500626e-16
+          },
+          "mc_telescopes": true,
+          "centered_sign_agreement_vs_mc": 0.9756871035940803,
+          "own_turns": 107,
+          "twelve_plus_action_turns": 25,
+          "twelve_plus_rows": 375,
+          "equal_window_absolute_advantage_mass": 0.20684114170505194,
+          "equal_turn_absolute_advantage_mass": 0.15413727621528397
+        },
+        "gradients": null,
+        "actual_stock_last_batch": null
+      },
+      "late_behavior": {
+        "batch": 119,
+        "version": "v119",
+        "model": {
+          "file_sha256": "7a774915a6d82af6dd385598afd8c5d527663062099d947b932a562b2588b49d",
+          "weights_sha256": "d4bce39ceb08452ec59568cd41dc7e081f58679448ecf8331c3fb18424661df3",
+          "version": null,
+          "optimizer": false
+        },
+        "schedule_sha256": "b6d81e6f74aafc700316b28702b1d010713a65812d0fbc79a23146296308c994",
+        "shards": {
+          "rollout-00162-duel-g0.jsonl.gz": "f1c58d8e7287f34b3a8c0ee129389f6b2e49bba4e37d7a52fe2a097a47fa61ee",
+          "rollout-00162-duel-g1.jsonl.gz": "c770b462123170a20e09f3f1ad16abd99a59f1fe464a2fee18f235ce7c6b41ce",
+          "rollout-00162-duel-g2.jsonl.gz": "6224bee1714beffdb21d915000b7b6ed5616d31b184c59950030d55e8ba2e235",
+          "rollout-00162-duel-g3.jsonl.gz": "644cd1e34081e3d3d2841ebc04f75dadd5f139fa67f07eea8c6dcb1b0b2f6133",
+          "rollout-00163-duel-g0.jsonl.gz": "442860c30e1d112afc45bcb4d85169f9627648083868867d9d531c267a8b84c6",
+          "rollout-00163-duel-g1.jsonl.gz": "201a31a35191032306ca663f828bb11039318263f70d1ea9bc47c12386f891f0",
+          "rollout-00163-duel-g2.jsonl.gz": "499648bd901c6779facf4e0ee3e5a6524855ee163fcc228ebd72aeb9204947bd",
+          "rollout-00163-duel-g3.jsonl.gz": "264acf2729a4154cb3654c3c337a9e6100d160f9adc84dba2e751d8e384d7f7d"
+        },
+        "rows": 789,
+        "replayed": 128,
+        "map_counts": {
+          "arena2": 4,
+          "the_freelands": 2,
+          "weldyn_channel": 2
+        },
+        "score": {
+          "0": 7,
+          "3": 1
+        },
+        "diagnostic": {
+          "logp": {
+            "max": 6.210799766037667e-06,
+            "p95": 2.1280573917481505e-06
+          },
+          "value": {
+            "max": 1.7027515353262856e-07,
+            "p95": 1.2514942504537885e-07
+          },
+          "ratio": {
+            "max": 6.210819053054095e-06,
+            "p95": 2.128059656048009e-06
+          },
+          "control_candidate_swap": 104.42372435150043,
+          "control_drop_prefix": 16.827995623458808,
+          "sampled_matches_own_argmax": 110,
+          "argmax_differs_from_v38": 22,
+          "mean_entropy": 0.6033757873336404,
+          "mean_v38_entropy_same_rows": 0.3981890376359261,
+          "mean_top2_probability_margin": 0.6453293533995748
+        },
+        "critic": {
+          "games": 8,
+          "rows": 789,
+          "mean_bias": 0.4772610759375403,
+          "mse": 0.5742563090467362,
+          "explained_variance": 0.47627734160934443,
+          "equal_game_bias": 0.5822559330565957,
+          "mse_minus_loo_game_constant": 0.1009003768045477,
+          "mse_gap_ci": [
+            -1.206291428259131,
+            1.0513781987288047
+          ]
+        },
+        "clock": {
+          "potential_coordinate_error": {
+            "max": 1.7763568394002505e-15,
+            "p95": 1.4432899320127035e-15
+          },
+          "mc_telescopes": true,
+          "centered_sign_agreement_vs_mc": 0.944233206590621,
+          "own_turns": 96,
+          "twelve_plus_action_turns": 17,
+          "twelve_plus_rows": 220,
+          "equal_window_absolute_advantage_mass": 0.21231217791305954,
+          "equal_turn_absolute_advantage_mass": 0.22142635839776947
+        },
+        "gradients": {
+          "loss_order": [
+            "actor",
+            "value",
+            "entropy",
+            "historical_action"
+          ],
+          "groups": {
+            "unit_embedding": {
+              "weighted_norm": [
+                0.05454398691654205,
+                0.016633346676826477,
+                0.002232781844213605,
+                0.03798747435212135
+              ],
+              "cosine_to_actor": [
+                1.0000000423261153,
+                0.037214146467298134,
+                0.548020531906305,
+                0.029294519155291698
+              ]
+            },
+            "entity": {
+              "weighted_norm": [
+                0.4798921048641205,
+                0.4290728271007538,
+                0.018897192552685738,
+                0.5832418203353882
+              ],
+              "cosine_to_actor": [
+                0.9999998087575878,
+                -0.07831873541968888,
+                0.4900937308807924,
+                0.028604714595123936
+              ]
+            },
+            "entities": {
+              "weighted_norm": [
+                0.10379257053136826,
+                0.2957032322883606,
+                0.004505686927586794,
+                0.3288094103336334
+              ],
+              "cosine_to_actor": [
+                1.0000023494234436,
+                0.12975245644949482,
+                0.6408174712644414,
+                0.08857084210969852
+              ]
+            },
+            "opponent": {
+              "weighted_norm": [
+                0.08125833421945572,
+                0.36373040080070496,
+                0.003646578174084425,
+                0.15069814026355743
+              ],
+              "cosine_to_actor": [
+                0.9999999274197819,
+                -0.4330940871816235,
+                0.8923434929031663,
+                0.47173484505868274
+              ]
+            },
+            "conv1": {
+              "weighted_norm": [
+                0.09782148897647858,
+                0.9230160713195801,
+                0.004178969655185938,
+                0.03810959309339523
+              ],
+              "cosine_to_actor": [
+                1.0000001515998034,
+                0.9958161183732847,
+                0.9971147918064063,
+                0.6961012906484259
+              ]
+            },
+            "conv2": {
+              "weighted_norm": [
+                0.047750070691108704,
+                0.38152623176574707,
+                0.0020265274215489626,
+                0.03184221312403679
+              ],
+              "cosine_to_actor": [
+                1.0000000137156098,
+                0.8730635110649205,
+                0.9519437568052624,
+                0.2721258465876216
+              ]
+            },
+            "local": {
+              "weighted_norm": [
+                0.7406646013259888,
+                0.0,
+                0.04727991297841072,
+                0.7583025693893433
+              ],
+              "cosine_to_actor": [
+                0.9999998773526396,
+                null,
+                0.6532526184811247,
+                0.4951305991044366
+              ]
+            },
+            "gru": {
+              "weighted_norm": [
+                0.12087757885456085,
+                0.4744718670845032,
+                0.005505210720002651,
+                0.20006532967090607
+              ],
+              "cosine_to_actor": [
+                1.0000078685823333,
+                0.2149722303565882,
+                0.6741336035496633,
+                0.30526252060695414
+              ]
+            },
+            "summary": {
+              "weighted_norm": [
+                0.07662682235240936,
+                0.11799773573875427,
+                0.0025195018388330936,
+                0.0765482634305954
+              ],
+              "cosine_to_actor": [
+                1.0000002295982178,
+                0.16802182556856243,
+                0.3393675990136276,
+                0.23212138543280258
+              ]
+            },
+            "memory_query": {
+              "weighted_norm": [
+                0.00010870260302908719,
+                8.915756916394457e-05,
+                3.6038620692124823e-06,
+                0.0015438235132023692
+              ],
+              "cosine_to_actor": [
+                1.0000000433702874,
+                0.9977644538154741,
+                -0.9984985408680097,
+                -0.6184446305711327
+              ]
+            },
+            "memory_key": {
+              "weighted_norm": [
+                5.4721138440072536e-05,
+                5.55776096007321e-05,
+                2.2773460841563065e-06,
+                0.0021743490360677242
+              ],
+              "cosine_to_actor": [
+                1.000000207646197,
+                0.9835759444346646,
+                -0.990360618003197,
+                0.19288204565976547
+              ]
+            },
+            "memory_value": {
+              "weighted_norm": [
+                0.0533231645822525,
+                0.08654055744409561,
+                0.002291087293997407,
+                0.06461779028177261
+              ],
+              "cosine_to_actor": [
+                0.9999998607994023,
+                0.19781432340506394,
+                0.5312372302157705,
+                0.1750474888123274
+              ]
+            },
+            "scorer": {
+              "weighted_norm": [
+                2.0094377994537354,
+                0.0,
+                0.09069148451089859,
+                1.459059238433838
+              ],
+              "cosine_to_actor": [
+                1.0000483235776354,
+                null,
+                0.48087165679900956,
+                0.00973736656255802
+              ]
+            },
+            "value": {
+              "weighted_norm": [
+                0.0,
+                0.9059097766876221,
+                0.0,
+                0.0
+              ],
+              "cosine_to_actor": [
+                null,
+                null,
+                null,
+                null
+              ]
+            }
+          },
+          "rehearsal": "first behavior batch policy rows; fixed micro-window probe"
+        },
+        "actual_stock_last_batch": {
+          "post_checkpoint": {
+            "file_sha256": "05292ddd203a40747cf7ade48fd4f48df42d66a4152f5690553db4362bdc6b7d",
+            "weights_sha256": "ea5fe4ce8b69e9dc82a274c36f5ee503b0a43cff8cb2fa0e7e4c5fa657c47e10",
+            "version": 120,
+            "optimizer": true
+          },
+          "rows": 128,
+          "mean_forward_kl": 0.009055281532933656,
+          "max_forward_kl": 0.23008651544222036,
+          "greedy_action_changes": 4,
+          "outside_clip_band": 8,
+          "material_rows": 114,
+          "advantage_ratio_direction_agreement": 0.5
+        }
+      }
+    }
+  },
+  "pooled_v38": {
+    "games": 24,
+    "rows": 2916,
+    "mean_bias": 0.39665620200024826,
+    "mse": 0.6392368565171934,
+    "explained_variance": 0.46285935239821685,
+    "equal_game_bias": 0.4309225299622842,
+    "mse_minus_loo_game_constant": -0.30240378657490113,
+    "mse_gap_ci": [
+      -0.8094836689965743,
+      0.23965851409085118
+    ]
+  },
+  "pooled_late_behavior": {
+    "games": 24,
+    "rows": 2665,
+    "mean_bias": 0.17351747507585383,
+    "mse": 0.6667304861693888,
+    "explained_variance": 0.33044996291649653,
+    "equal_game_bias": 0.34520189627712705,
+    "mse_minus_loo_game_constant": -0.1614132920216288,
+    "mse_gap_ci": [
+      -0.627436970336016,
+      0.2812639347612901
+    ]
+  },
+  "games_started": 0,
+  "optimizer_updates": 0
+}
