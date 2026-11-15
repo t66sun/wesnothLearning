@@ -57,6 +57,14 @@ export SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy
 
 原版应为 1.18.8，项目冻结入口要求 PyTorch 2.9.1。CPU 服务器默认全局 8 个游戏 worker、每训练器 1 线程，三个训练器共享这 8 个 worker。Windows 只作参考，不安排 Windows 全量验收。CPU 服务器没有 `git` 也没有 `gh`，且 `sudo -n` 需要密码，因此改动以 `git archive` 压缩包送达并解压到新的按日期命名的目录，验收在该解压副本上进行，而不在长期保留的检出目录上。
 
+常规验收从待测提交打包源码、测试和 Git 中的输入。若某项检查需要历史脚本或夹具，把对应的 `verification/<name>` 路径加入命令。服务器解压到新的日期目录，并指定检查使用的冻结规则路径。
+
+```sh
+git archive --format=tar --output=source.tar COMMIT -- \
+  AGENTS.md .gitattributes LICENSE README.md docs engine_lite learning lua \
+  tests vendor benchmarks requirements.txt setup.sh run.sh train.sh data
+```
+
 新源码归档不包含已编译的运行依赖。同种子原版比较前，在解压目录编译已有随机流库并记录哈希。缺少它时，`match._child_env` 省略预加载，仅传入 `--rng-seed` 不能固定逐动作随机流。
 
 ```sh
@@ -199,6 +207,8 @@ test -f "$run_dir/manifest.json" || exit 1
 `run.lock` 是文件锁，文件存在不等于正在运行；遇到 `already running` 先确认持锁进程，不通过删除锁文件启动第二个同目录实验。
 
 ## 6. 日常维护与进度判断
+
+构建缓存和临时文件可以重建。保有对应归档或提交时可清理旧源码解压副本。清理退役实验的中间产物前，核对当前运行、语料和交付是否引用它们。需要恢复的运行须保留检查点、manifest、赛程及其引用的分片和策略。已结束的评估保留日期归档中的结论和原始计分回执。
 
 ### 分开运行 BC、PPO 和最终评测
 

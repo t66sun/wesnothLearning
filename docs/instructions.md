@@ -57,6 +57,14 @@ A quick self-check verifies only the environment and identity, without launching
 
 Native should be 1.18.8 and the project frozen entry requires PyTorch 2.9.1. The CPU server defaults to 8 global game workers with 1 thread per trainer, and the three trainers share those 8 workers. Windows is reference only; no full Windows acceptance is planned. The CPU server has no `git` and no `gh`, and `sudo -n` needs a password, so changes reach it as `git archive` tarballs extracted into a fresh dated directory, and acceptance runs from that extraction rather than from a long-lived checkout.
 
+For a routine check, archive the source, tests and tracked inputs from the commit under test. Include a specific `verification/<name>` path when that check imports its archived code or fixtures. This keeps unrelated evidence out of the transfer. Extract under a fresh dated directory on cpuServer and supply the frozen rule paths the check uses.
+
+```sh
+git archive --format=tar --output=source.tar COMMIT -- \
+  AGENTS.md .gitattributes LICENSE README.md docs engine_lite learning lua \
+  tests vendor benchmarks requirements.txt setup.sh run.sh train.sh data
+```
+
 Fresh source archives lack compiled runtime files. Before paired native comparisons, build the existing entropy shim in the extracted tree and record its hash. Without it, `match._child_env` omits preloading and `--rng-seed` alone cannot pin native action RNG.
 
 ```sh
@@ -199,6 +207,8 @@ Confirm that checkpoints, optimizer, RNG, reward controller and unfinished batch
 `run.lock` is a file lock; an existing file does not mean it is running. On `already running`, identify the lock holder first and never start a second process in the same directory by deleting the lock file.
 
 ## 6. Daily maintenance and progress judgement
+
+Build caches and scratch can be regenerated. Remove old Git extractions when the matching archive or commit remains available. Retire intermediate training files after checking that no current run, corpus or delivery uses them. A run you intend to resume needs its checkpoint, manifests, schedules, and referenced shards and policies. Keep the dated decision record and raw scored replies for completed evaluations.
 
 ### Running BC, PPO and final evaluation separately
 

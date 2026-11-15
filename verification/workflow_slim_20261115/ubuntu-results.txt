@@ -1,0 +1,133 @@
+Ubuntu focused command
+/home/tongshu/venv/bin/python -m unittest -v tests.test_validation_cadence tests.test_experiment tests.test_lua_contracts tests.v5.test_lite_combat_choice tests.v5.test_lite_score_policy tests.v5.test_final_nomination tests.v5.test_record_evidence tests.v5.test_finite_score tests.v5.test_training_failure_fixes.FailureBoundaryTests
+test_champion_panel_requires_a_candidate_that_can_improve_a_record (tests.test_validation_cadence.ValidationCadenceTests.test_champion_panel_requires_a_candidate_that_can_improve_a_record) ... ok
+test_collector_survives_dead_or_advanced_native_handle (tests.test_validation_cadence.ValidationCadenceTests.test_collector_survives_dead_or_advanced_native_handle) ... ok
+test_only_ordinary_validation_jobs_request_reward_diagnostics (tests.test_validation_cadence.ValidationCadenceTests.test_only_ordinary_validation_jobs_request_reward_diagnostics) ... ok
+test_reduced_team_validation_does_not_weaken_formal_evaluation (tests.test_validation_cadence.ValidationCadenceTests.test_reduced_team_validation_does_not_weaken_formal_evaluation) ... ok
+test_tenth_update_and_checkpointed_pending_validation (tests.test_validation_cadence.ValidationCadenceTests.test_tenth_update_and_checkpointed_pending_validation) ... ok
+test_validation_sizes_and_paired_contexts (tests.test_validation_cadence.ValidationCadenceTests.test_validation_sizes_and_paired_contexts) ... ok
+test_collect_repairs_the_batch_log_tail (tests.test_experiment.ExperimentTests.test_collect_repairs_the_batch_log_tail) ... ok
+test_execute_retries_infrastructure_errors_and_discards_their_shards (tests.test_experiment.ExperimentTests.test_execute_retries_infrastructure_errors_and_discards_their_shards) ... ok
+test_gates_fail_without_evidence (tests.test_experiment.ExperimentTests.test_gates_fail_without_evidence) ... ok
+test_resume_and_format_isolation (tests.test_experiment.ExperimentTests.test_resume_and_format_isolation) ... ok
+test_scheduler_repairs_each_log_once (tests.test_experiment.ExperimentTests.test_scheduler_repairs_each_log_once) ... ok
+test_scheduler_round_robin_and_global_process_limit (tests.test_experiment.ExperimentTests.test_scheduler_round_robin_and_global_process_limit) ... ok
+test_simultaneous_run_rejected (tests.test_experiment.ExperimentTests.test_simultaneous_run_rejected) ... ok
+test_tail_repair_drops_only_the_unterminated_line (tests.test_experiment.ExperimentTests.test_tail_repair_drops_only_the_unterminated_line) ... ok
+test_all_action_kinds_and_visible_team_support (tests.test_lua_contracts.LuaContractTests.test_all_action_kinds_and_visible_team_support) ... ok
+test_ambush_reobserves_and_illegal_move_still_fails (tests.test_lua_contracts.LuaContractTests.test_ambush_reobserves_and_illegal_move_still_fails) ... ok
+test_deployed_bot_scores_every_shared_candidate (tests.test_lua_contracts.LuaContractTests.test_deployed_bot_scores_every_shared_candidate) ... ok
+test_far_village_hop_and_unit_identity_survive_selection (tests.test_lua_contracts.LuaContractTests.test_far_village_hop_and_unit_identity_survive_selection) ... ok
+test_hidden_units_and_village_ownership_do_not_change_features (tests.test_lua_contracts.LuaContractTests.test_hidden_units_and_village_ownership_do_not_change_features) ... ok
+test_no_leader_keeps_end_turn (tests.test_lua_contracts.LuaContractTests.test_no_leader_keeps_end_turn) ... ok
+test_opening_route_cached_after_elimination_and_lazy_weights (tests.test_lua_contracts.LuaContractTests.test_opening_route_cached_after_elimination_and_lazy_weights) ... ok
+test_replay_observer_queries_the_side_ai_instead_of_a_global (tests.test_lua_contracts.LuaContractTests.test_replay_observer_queries_the_side_ai_instead_of_a_global) ... ok
+test_teacher_path_steps_are_one_intent_and_noops_are_not_labels (tests.test_lua_contracts.LuaContractTests.test_teacher_path_steps_are_one_intent_and_noops_are_not_labels) ... ok
+test_team_continues_after_one_leader_dies_and_ends_after_enemy_team (tests.test_lua_contracts.LuaContractTests.test_team_continues_after_one_leader_dies_and_ends_after_enemy_team) ... ok
+test_team_fault_forfeits_the_team (tests.test_lua_contracts.LuaContractTests.test_team_fault_forfeits_the_team) ... ok
+test_time_limit_observation_reads_current_schedule (tests.test_lua_contracts.LuaContractTests.test_time_limit_observation_reads_current_schedule) ... ok
+test_archived_routes_do_not_run_as_ordinary_greedy_jobs (tests.v5.test_lite_combat_choice.RetiredCombatChoiceTests.test_archived_routes_do_not_run_as_ordinary_greedy_jobs) ... ok
+test_score_only_preserves_observations_and_every_consumed_write (tests.v5.test_lite_score_policy.ScorePolicyTests.test_score_only_preserves_observations_and_every_consumed_write) ... ok
+test_complete_inconclusive_panel_is_reused_without_promoting (tests.v5.test_final_nomination.FinalNominationTests.test_complete_inconclusive_panel_is_reused_without_promoting) ... ok
+test_complete_nomination_reuses_only_exact_checkpoint_identity (tests.v5.test_final_nomination.FinalNominationTests.test_complete_nomination_reuses_only_exact_checkpoint_identity) ... ok
+test_missing_or_faulted_nomination_stays_incomplete (tests.v5.test_final_nomination.FinalNominationTests.test_missing_or_faulted_nomination_stays_incomplete) ... ok
+test_no_time_or_underfilled_panel_keeps_champion (tests.v5.test_final_nomination.FinalNominationTests.test_no_time_or_underfilled_panel_keeps_champion) ... ok
+test_offcycle_candidate_runs_full_panels_and_freezes_once (tests.v5.test_final_nomination.FinalNominationTests.test_offcycle_candidate_runs_full_panels_and_freezes_once) ... ok
+test_repeated_final_entry_reuses_frozen_hash_and_completed_holdout (tests.v5.test_final_nomination.FinalNominationTests.test_repeated_final_entry_reuses_frozen_hash_and_completed_holdout) ... ok
+test_training_phases_keep_no_per_decision_evidence (tests.v5.test_record_evidence.RecordEvidenceTests.test_training_phases_keep_no_per_decision_evidence) ... ok
+test_validation_keeps_reward_diagnostics (tests.v5.test_record_evidence.RecordEvidenceTests.test_validation_keeps_reward_diagnostics) ... ok
+test_bc_optimizer_supervises_the_same_shaped_value_target (tests.v5.test_finite_score.FiniteScoreArithmeticTests.test_bc_optimizer_supervises_the_same_shaped_value_target) ... ok
+test_cap_29_lite_round_30_is_still_external (tests.v5.test_finite_score.FiniteScoreArithmeticTests.test_cap_29_lite_round_30_is_still_external) ... ok
+test_completed_draw_telescopes_and_bc_matches_mc_and_ppo (tests.v5.test_finite_score.FiniteScoreArithmeticTests.test_completed_draw_telescopes_and_bc_matches_mc_and_ppo) ... ok
+test_early_external_cut_retains_potential_and_bootstrap (tests.v5.test_finite_score.FiniteScoreArithmeticTests.test_early_external_cut_retains_potential_and_bootstrap) ... ok
+test_eliminated_side_keeps_team_external_bootstrap_then_scores_final (tests.v5.test_finite_score.FiniteScoreArithmeticTests.test_eliminated_side_keeps_team_external_bootstrap_then_scores_final) ... ok
+test_ffa_uses_fixed_own_rank_scale_not_per_game_centering (tests.v5.test_finite_score.FiniteScoreArithmeticTests.test_ffa_uses_fixed_own_rank_scale_not_per_game_centering) ... ok
+test_legacy_configuration_is_never_implicitly_relabelled (tests.v5.test_finite_score.FiniteScoreArithmeticTests.test_legacy_configuration_is_never_implicitly_relabelled) ... ok
+test_natural_wins_and_losses_clear_endpoint_potential (tests.v5.test_finite_score.FiniteScoreArithmeticTests.test_natural_wins_and_losses_clear_endpoint_potential) ... ok
+test_new_config_rejects_discount_and_exploration_changes (tests.v5.test_finite_score.FiniteScoreArithmeticTests.test_new_config_rejects_discount_and_exploration_changes) ... ok
+test_own_official_points_have_one_positive_affine_normalization (tests.v5.test_finite_score.FiniteScoreArithmeticTests.test_own_official_points_have_one_positive_affine_normalization) ... ok
+test_raw_rowpack_and_training_reader_preserve_task_and_reject_old_data (tests.v5.test_finite_score.FiniteScoreArithmeticTests.test_raw_rowpack_and_training_reader_preserve_task_and_reject_old_data) ... ok
+test_same_turn_actions_and_multiturn_gap_keep_own_turn_lambda_clock (tests.v5.test_finite_score.FiniteScoreArithmeticTests.test_same_turn_actions_and_multiturn_gap_keep_own_turn_lambda_clock) ... ok
+test_team_outcome_includes_the_previously_eliminated_teammate (tests.v5.test_finite_score.FiniteScoreArithmeticTests.test_team_outcome_includes_the_previously_eliminated_teammate) ... ok
+test_complete_round_30_scores_both_sides_without_bootstrap (tests.v5.test_finite_score.FiniteScoreEngineTests.test_complete_round_30_scores_both_sides_without_bootstrap) ... ok
+test_dagger_queries_share_finite_outcome_and_value_valid (tests.v5.test_finite_score.FiniteScoreEngineTests.test_dagger_queries_share_finite_outcome_and_value_valid) ... ok
+test_early_eliminated_teammate_receives_final_draw (tests.v5.test_finite_score.FiniteScoreEngineTests.test_early_eliminated_teammate_receives_final_draw) ... ok
+test_native_event_ingestion_keeps_scored_and_external_boundary_identity (tests.v5.test_finite_score.FiniteScoreEngineTests.test_native_event_ingestion_keeps_scored_and_external_boundary_identity) ... ok
+test_native_runtime_suppresses_only_finite_scored_cap_bootstrap (tests.v5.test_finite_score.FiniteScoreEngineTests.test_native_runtime_suppresses_only_finite_scored_cap_bootstrap) ... ok
+test_real_external_cut_still_queries_and_records_bootstrap (tests.v5.test_finite_score.FiniteScoreEngineTests.test_real_external_cut_still_queries_and_records_bootstrap) ... ok
+test_real_natural_terminal_scores_without_tail_bootstrap (tests.v5.test_finite_score.FiniteScoreEngineTests.test_real_natural_terminal_scores_without_tail_bootstrap) ... ok
+test_internal_export_resume_keeps_weights_integrity_without_sdk_size_cap (tests.v5.test_training_failure_fixes.FailureBoundaryTests.test_internal_export_resume_keeps_weights_integrity_without_sdk_size_cap) ... ok
+test_training_error_is_failed_without_final_holdout (tests.v5.test_training_failure_fixes.FailureBoundaryTests.test_training_error_is_failed_without_final_holdout) ... ok
+test_underfilled_promotion_never_selects_best (tests.v5.test_training_failure_fixes.FailureBoundaryTests.test_underfilled_promotion_never_selects_best) ... ok
+test_v100_metric_error_preserves_bc_gate_and_records_error (tests.v5.test_training_failure_fixes.FailureBoundaryTests.test_v100_metric_error_preserves_bc_gate_and_records_error) ... ok
+
+----------------------------------------------------------------------
+Ran 60 tests in 14.932s
+
+OK
+
+Expected assertion failures on old behavior
+
+opening-before.txt
+FAIL: test_v100_metric_error_preserves_bc_gate_and_records_error (<run_path>.FailureBoundaryTests.test_v100_metric_error_preserves_bc_gate_and_records_error) (fmt='duel')
+AssertionError: Lists differ: ['validation-000100', 'opening-000100'] != ['validation-000100']
+FAIL: test_v100_metric_error_preserves_bc_gate_and_records_error (<run_path>.FailureBoundaryTests.test_v100_metric_error_preserves_bc_gate_and_records_error) (fmt='ffa4')
+AssertionError: Lists differ: ['validation-000100', 'opening-000100'] != ['validation-000100']
+FAIL: test_v100_metric_error_preserves_bc_gate_and_records_error (<run_path>.FailureBoundaryTests.test_v100_metric_error_preserves_bc_gate_and_records_error) (fmt='team2v2')
+AssertionError: Lists differ: ['validation-000100', 'opening-000100'] != ['validation-000100']
+Ran 1 test in 0.112s
+FAILED (failures=3)
+
+promotion-before.txt
+FAIL: test_champion_panel_requires_a_candidate_that_can_improve_a_record (<run_path>.ValidationCadenceTests.test_champion_panel_requires_a_candidate_that_can_improve_a_record) (case='incomplete')
+AssertionError: Lists differ: ['validation-000100', 'champion-000100'] != ['validation-000100']
+FAIL: test_champion_panel_requires_a_candidate_that_can_improve_a_record (<run_path>.ValidationCadenceTests.test_champion_panel_requires_a_candidate_that_can_improve_a_record) (case='below_record')
+AssertionError: Lists differ: ['validation-000100', 'champion-000100'] != ['validation-000100']
+Ran 1 test in 0.367s
+FAILED (failures=2)
+
+combat-before.txt
+FAIL: test_archived_routes_do_not_run_as_ordinary_greedy_jobs (<run_path>.RetiredCombatChoiceTests.test_archived_routes_do_not_run_as_ordinary_greedy_jobs) (route='greedy')
+AssertionError: {'id'[20 chars]s': 'budget_interrupted', 'engine': 'lite'} != {'id'[20 chars]s': 'infrastructure_error', 'engine': 'lite', [62 chars]rce'}
+FAIL: test_archived_routes_do_not_run_as_ordinary_greedy_jobs (<run_path>.RetiredCombatChoiceTests.test_archived_routes_do_not_run_as_ordinary_greedy_jobs) (route='astra')
+AssertionError: {'id'[20 chars]s': 'budget_interrupted', 'engine': 'lite'} != {'id'[20 chars]s': 'infrastructure_error', 'engine': 'lite', [62 chars]rce'}
+Ran 1 test in 0.088s
+FAILED (failures=2)
+
+Broader command
+/home/tongshu/venv/bin/python -m unittest -v tests.test_experiment tests.test_schedule tests.test_training_revision tests.test_validation_cadence tests.test_lua_contracts tests.v5.test_checkpoint_export_identity tests.v5.test_finite_score_identity tests.v5.test_final_nomination tests.v5.test_lite_default tests.v5.test_lite_score_astra tests.v5.test_lite_score_policy tests.v5.test_pipeline_schedule tests.v5.test_record_evidence tests.v5.test_teacher_strength_acceptance tests.v5.test_training_failure_fixes tests.v5.test_training_turn_limit tests.v5.test_collection_memory tests.v5.test_finite_score
+
+/home/tongshu/acceptance/workflow-baseline-20261115-qvaUd4/tests-clean.txt
+ERROR: test_lite_experiment_rewrites_baseline_jobs (tests.v5.test_pipeline_schedule.ConfigScheduleTests.test_lite_experiment_rewrites_baseline_jobs)
+ERROR: test_bounded_calls_reach_every_panel_stratum_without_reused_ids (tests.v5.test_training_failure_fixes.ReferencePlanningTests.test_bounded_calls_reach_every_panel_stratum_without_reused_ids) (fmt='duel')
+ERROR: test_bounded_calls_reach_every_panel_stratum_without_reused_ids (tests.v5.test_training_failure_fixes.ReferencePlanningTests.test_bounded_calls_reach_every_panel_stratum_without_reused_ids) (fmt='ffa4')
+ERROR: test_bounded_calls_reach_every_panel_stratum_without_reused_ids (tests.v5.test_training_failure_fixes.ReferencePlanningTests.test_bounded_calls_reach_every_panel_stratum_without_reused_ids) (fmt='team2v2')
+ERROR: test_failed_slot_uses_new_attempt_not_success_count (tests.v5.test_training_failure_fixes.ReferencePlanningTests.test_failed_slot_uses_new_attempt_not_success_count)
+FAIL: test_query_and_bootstrap_decisions_get_full_candidates (tests.v5.test_lite_score_astra.ScoreAstraTests.test_query_and_bootstrap_decisions_get_full_candidates)
+FAIL: test_index_streams_rows_with_identical_legacy_payload (tests.v5.test_collection_memory.CollectionMemoryTests.test_index_streams_rows_with_identical_legacy_payload)
+Ran 148 tests in 31.350s
+FAILED (failures=2, errors=5)
+
+/home/tongshu/acceptance/retire-bc-probe-20261115-uIzpi7/tests-provisioned.txt
+ERROR: test_lite_experiment_rewrites_baseline_jobs (tests.v5.test_pipeline_schedule.ConfigScheduleTests.test_lite_experiment_rewrites_baseline_jobs)
+ERROR: test_bounded_calls_reach_every_panel_stratum_without_reused_ids (tests.v5.test_training_failure_fixes.ReferencePlanningTests.test_bounded_calls_reach_every_panel_stratum_without_reused_ids) (fmt='duel')
+ERROR: test_bounded_calls_reach_every_panel_stratum_without_reused_ids (tests.v5.test_training_failure_fixes.ReferencePlanningTests.test_bounded_calls_reach_every_panel_stratum_without_reused_ids) (fmt='ffa4')
+ERROR: test_bounded_calls_reach_every_panel_stratum_without_reused_ids (tests.v5.test_training_failure_fixes.ReferencePlanningTests.test_bounded_calls_reach_every_panel_stratum_without_reused_ids) (fmt='team2v2')
+ERROR: test_failed_slot_uses_new_attempt_not_success_count (tests.v5.test_training_failure_fixes.ReferencePlanningTests.test_failed_slot_uses_new_attempt_not_success_count)
+FAIL: test_query_and_bootstrap_decisions_get_full_candidates (tests.v5.test_lite_score_astra.ScoreAstraTests.test_query_and_bootstrap_decisions_get_full_candidates)
+FAIL: test_index_streams_rows_with_identical_legacy_payload (tests.v5.test_collection_memory.CollectionMemoryTests.test_index_streams_rows_with_identical_legacy_payload)
+Ran 145 tests in 30.811s
+FAILED (failures=2, errors=5)
+
+/home/tongshu/acceptance/workflow-slim-20261115-6iLl4s/broad.txt
+ERROR: test_lite_experiment_rewrites_baseline_jobs (tests.v5.test_pipeline_schedule.ConfigScheduleTests.test_lite_experiment_rewrites_baseline_jobs)
+ERROR: test_bounded_calls_reach_every_panel_stratum_without_reused_ids (tests.v5.test_training_failure_fixes.ReferencePlanningTests.test_bounded_calls_reach_every_panel_stratum_without_reused_ids) (fmt='duel')
+ERROR: test_bounded_calls_reach_every_panel_stratum_without_reused_ids (tests.v5.test_training_failure_fixes.ReferencePlanningTests.test_bounded_calls_reach_every_panel_stratum_without_reused_ids) (fmt='ffa4')
+ERROR: test_bounded_calls_reach_every_panel_stratum_without_reused_ids (tests.v5.test_training_failure_fixes.ReferencePlanningTests.test_bounded_calls_reach_every_panel_stratum_without_reused_ids) (fmt='team2v2')
+ERROR: test_failed_slot_uses_new_attempt_not_success_count (tests.v5.test_training_failure_fixes.ReferencePlanningTests.test_failed_slot_uses_new_attempt_not_success_count)
+FAIL: test_query_and_bootstrap_decisions_get_full_candidates (tests.v5.test_lite_score_astra.ScoreAstraTests.test_query_and_bootstrap_decisions_get_full_candidates)
+FAIL: test_index_streams_rows_with_identical_legacy_payload (tests.v5.test_collection_memory.CollectionMemoryTests.test_index_streams_rows_with_identical_legacy_payload)
+Ran 147 tests in 30.751s
+FAILED (failures=2, errors=5)
+
+Final comparison also includes tests.v5.test_lite_combat_choice.
