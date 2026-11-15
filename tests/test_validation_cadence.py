@@ -41,7 +41,9 @@ class ValidationCadenceTests(unittest.TestCase):
             self.assertIsNotNone(row)
             self.assertEqual(row['outcome']['alive'],advanced)
             self.assertGreaterEqual(row['choice'],0)
-            self.assertEqual(row['diagnostics']['remaining_moves'],8)
+            self.assertTrue(row['committed'])
+            self.assertIsNotNone(row['memory_write'])
+            self.assertIsNone(row['diagnostics'])
 
     def runner(self,root,fmt='duel'):
         r=FormatExperiment.__new__(FormatExperiment)
@@ -71,7 +73,7 @@ class ValidationCadenceTests(unittest.TestCase):
                     self.assertEqual(r.state['pending_validation'],'bc' if i==10 else None)
             self.assertEqual(read_json(Path(temp)/'state.json')['pending_validation'],'bc')
 
-    def test_validation_sizes_paired_contexts_and_no_unready_opening(self):
+    def test_validation_sizes_and_paired_contexts(self):
         for fmt,expected in [('duel',6),('ffa4',12),('team2v2',24)]:
             with tempfile.TemporaryDirectory() as temp:
                 r=self.runner(temp,fmt);seen=[]
@@ -79,21 +81,21 @@ class ValidationCadenceTests(unittest.TestCase):
                     seen.append(jobs)
                     return jobs,[]
                 r.execute=execute
-                write_json(Path(temp)/'bc_gate.json',dict(imitation=dict(effective=False),coverage=dict(passed=True),opening=dict(passed=False)))
-                from learning.sample import opening_map
+                write_json(Path(temp)/'bc_gate.json',dict(imitation=dict(effective=False),coverage=dict(passed=True)))
+                from tests.v5.helpers import opening_map
                 with patch('learning.maps.frozen_map',return_value=(opening_map(4),'0'*64)):
                     for version in (10,20):
                         r.state.update(version=version,batch=version,pending_validation='bc')
                         r.validate_model('bc')
                     self.assertEqual(len(seen[-1]),expected)
                     self.assertEqual(r.state['batch'],version)
-                self.assertEqual(len(seen),2,'unready BC must not launch opening probes')
+                self.assertEqual(len(seen),2)
                 if fmt=='team2v2':
                     self.assertEqual({j['meta']['context'] for j in seen[0]},{'baseline_partner','self_team'})
                     self.assertEqual({j['meta']['context'] for j in seen[1]},{'baseline_partner','self_team'})
 
     def test_reduced_team_validation_does_not_weaken_formal_evaluation(self):
-        from learning.sample import opening_map
+        from tests.v5.helpers import opening_map
         with patch('learning.maps.frozen_map',return_value=(opening_map(4),'0'*64)):
             jobs=evaluation_jobs('.', 'policy','baseline',['baseline'],1,19,3000000000,'unused',formats=['team2v2'],team_contexts=('baseline_partner',))
         results=[dict(id=j['id'],status='complete',result=dict(bots=j['bots'],teams=j['teams'],winning_team=j['teams'][j['meta']['policy_sides'][0]-1],faults={})) for j in jobs]
@@ -107,7 +109,7 @@ class ValidationCadenceTests(unittest.TestCase):
 
     def test_only_ordinary_validation_jobs_request_reward_diagnostics(self):
         from learning.data import keeps_reward_diagnostics
-        from learning.sample import opening_map
+        from tests.v5.helpers import opening_map
         with tempfile.TemporaryDirectory() as temp:
             r = self.runner(temp)
             requested = {}

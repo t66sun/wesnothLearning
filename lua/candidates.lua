@@ -567,30 +567,6 @@ function M.generate(obs)
     end
     return actions,report()
 end
-function M.diagnostics(obs,a,candidates)
-    local moves=0;for _,u in ipairs(obs.own) do moves=moves+u.moves end
-    local usable
-    if a.kind=='end_turn' and candidates then
-        -- Reuse generated legal destinations; no extra pathfinding. A leader
-        -- holding the keep, or an immobile blocked unit, is not an idle scout.
-        local mobile={};usable=0
-        for _,candidate in ipairs(candidates) do
-            if candidate.kind=='move' or candidate.kind=='move_attack' then mobile[candidate.x..','..candidate.y]=true end
-        end
-        for _,u in ipairs(obs.own) do
-            if not u.canrecruit and u.x and mobile[u.x..','..u.y] then usable=usable+u.moves end
-        end
-    end
-    local d={side=obs.side,end_turn=a.kind=='end_turn',remaining_moves=moves,usable_moves=usable,
-        recruit_type=a.kind=='recruit' and a.type or nil,
-        repeated_move=not not (a.features and (a.features[feature_index.repeated_move] or 0)~=0),turn=wesnoth.current.turn}
-    if a.kind=='move' or a.kind=='move_attack' then
-        local terrain=wesnoth.current.map[{a.tx,a.ty}]
-        d.left_castle=not string.match(terrain,'^[CK]')
-        for _,p in ipairs(obs.villages) do if p[1]==a.tx and p[2]==a.ty then d.village_target=owner_kind(obs,p) end end
-    end
-    return d
-end
 function M.remember(obs,a)
     if a.kind=='end_turn' then obs.memory.end_turns=(obs.memory.end_turns or 0)+1 end
     if a.kind=='move' or a.kind=='move_attack' then
@@ -605,13 +581,6 @@ function M.remember(obs,a)
             if previous and previous~=0 then obs.memory.repeated_moves=(obs.memory.repeated_moves or 0)+1 end
         end
     end
-end
-function M.outcome(a,diagnostics)
-    if not diagnostics or not diagnostics.village_target then return end
-    local u=wesnoth.units.get(a.tx,a.ty)
-    diagnostics.village_captured=u and u.side==wesnoth.current.side
-        and wesnoth.map.get_owner({a.tx,a.ty})==wesnoth.current.side
-        and diagnostics.village_target~='own' and diagnostics.village_target~='ally' or false
 end
 function M.execute(a)
     if a.kind=='end_turn' then return {changed=true} end

@@ -13,7 +13,7 @@ from learning.data import split
 from learning.experiment import FormatExperiment, default_config, validate_config
 from learning.formats import FORMATS, PLAYERS
 from learning.maps import scenario_family
-from learning.sample import opening_map
+from tests.v5.helpers import opening_map
 from learning.schedule import teacher_jobs, rollout_jobs, evaluation_jobs
 from learning.updates import BATCH_CONTRACT
 from learning.tasks import TASK_ID
@@ -106,15 +106,15 @@ class TrainingTurnLimitTests(unittest.TestCase):
             resumed = Experiment(directory, config=requested, resume=True)
             self.assertEqual(resumed.config['training_max_turns'], 30)
 
-    def test_opening_probe_keeps_its_five_turn_limit(self):
+    def test_explicit_evaluation_keeps_its_short_turn_limit(self):
         with tempfile.TemporaryDirectory() as tmp, \
              mock.patch('learning.maps.frozen_map', return_value=(opening_map(2), '0'*64)):
             experiment = runner(tmp, default_config('cpu'))
             probe = jobs(tmp, 'duel')[-1]
             probe.pop('training_scenario')
             probe['max_turns'] = 5
-            probe['meta']['opening'] = True
-            scheduled, _ = experiment.execute([probe], 'opening')
+            probe['meta']['map_partition'] = 'validation'
+            scheduled, _ = experiment.execute([probe], 'short-evaluation')
             self.assertEqual(scheduled[0]['max_turns'], 5)
             self.assertEqual(scheduled[0]['scenario_family'], scenario_family(scheduled[0]))
 

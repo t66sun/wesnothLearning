@@ -7,7 +7,7 @@ import os
 import time
 from .common import ROOT, repair_tail, write_json
 from .coverage import reason
-from .data import keeps_behavior, keeps_reward_diagnostics, write_shard
+from .data import keeps_reward_diagnostics, write_shard
 import match
 _priority_set=False
 
@@ -25,17 +25,6 @@ def compatible_map(players):
             terrain[y+dy-1][x+dx-1] = 'Ch'
         terrain[7][x-1] = 'Gg^Vh'
     return dict(terrain=terrain, starts=starts, width=width, height=height)
-
-
-def opening_map(players):
-    """Fixed safe probe: own neutral village four hexes away, distant opponents."""
-    width,height=128*players+10,11
-    terrain=[['Gg']*width for _ in range(height)];starts=[]
-    for i in range(players):
-        x,y=5+128*i,6;starts.append([x,y]);terrain[y-1][x-1]='Kh'
-        for dx,dy in ((-1,0),(1,0),(0,-1),(0,1)): terrain[y+dy-1][x+dx-1]='Ch'
-        terrain[y-1][x+3]='Gg^Vh'
-    return dict(terrain=terrain,starts=starts,width=width,height=height)
 
 
 def play_job(job):
@@ -125,8 +114,6 @@ def play_job(job):
     if keeps_reward_diagnostics(meta):
         from .reward_metrics import summarize_game
         evidence['reward_diagnostics']=summarize_game(records,result,job,snapshots=metric_snapshots)
-    if keeps_behavior(meta):
-        evidence['behavior']=[r['diagnostics'] for r in records if r.get('diagnostics')]
     return dict(id=job['id'],status='complete',result=result,meta=meta,**evidence,
         training_eligible=not result.get('faults') and (written is None or bool(written['written'])),training_shard=written,
         coverage=dict(total=len(eligible),matched=sum(r['choice']>=0 for r in eligible),

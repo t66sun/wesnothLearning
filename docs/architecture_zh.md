@@ -56,8 +56,8 @@ flowchart LR
 - `Experiment`（`learning/coordinator.py`）冻结 `manifest.json` 与 `clock.json`，然后为每个请求赛制启动一个训练器进程。`FormatExperiment`（`learning/experiment.py`）只拥有一个赛制的模型、优化器、奖励控制器、RNG 流与历史。
 - 训练器把作业批提交给 broker。broker 用一个固定大小的 worker 池（`ProcessPoolExecutor`，spawn）服务全部赛制，将超过截止时间的作业标为 `budget_interrupted`，把每个结果写入 `<run>/<format>/jobs.jsonl`，每个日志首次打开时只修掉一条被中断的不完整尾行，其后结果直接追加、不再重读，再把整批返回给所属训练器。
 - worker 通过 `sample.play_job` 运行一局：lite 对局由 `LiteHost` 在进程内完成；原版对局由 arena 对局运行器驱动一个常驻 Wesnoth 进程（独立 user/add-on 目录，文件式 Lua RPC，见 `native_transport`）。
-- Lite 最终评测为 Astra 席位启用仅计分路径。教师、PPO、DAgger、普通验证及奖励参考对局中，无需记录轨迹的固定 Astra 席位也使用该路径。它记录公开观察到的村庄归属和单位初始位置，调用相同的教师决策逻辑和共用的 Lua 执行器。学习席位、DAgger 查询及奖励时点快照保留完整观察。开局探针收集所有席位的动作诊断。[混合验证对照](../verification/lite_unrecorded_astra_20261104/REPORT.md)
-- 最终评测中的学生席位生成完整的合法观察和候选集，每次行动后都更新可见信息。每个席位每回合首次成功执行动作时请求神经网络记忆行。需要奖励标签或开局诊断的对局仍计算这些数据。[同局学生验证对照](../verification/lite_score_policy_20261104/REPORT.md)
+- Lite 最终评测为 Astra 席位启用仅计分路径。教师、PPO、DAgger、普通验证及奖励参考对局中，无需记录轨迹的固定 Astra 席位也使用该路径。它记录公开观察到的村庄归属和单位初始位置，调用相同的教师决策逻辑和共用的 Lua 执行器。学习席位、DAgger 查询及奖励时点快照保留完整观察。[混合验证对照](../verification/lite_unrecorded_astra_20261104/REPORT.md)
+- 最终评测中的学生席位生成完整的合法观察和候选集，每次行动后都更新可见信息。每个席位每回合首次成功执行动作时请求神经网络记忆行。训练记录保留学习使用的奖励标签。[同局学生验证对照](../verification/lite_score_policy_20261104/REPORT.md)
 - Lite Lua 宿主通过有符号轴向位移计算六角距离。在固定的 2v2 验证对局中，单 worker 耗时从 23.27 秒降至 21.96 秒，全部 1,031 个动作及裁判事件均相同。[Worker 性能记录](../verification/lite_lua_cost_20261104/REPORT.md)
 - worker 异常返回 `infrastructure_error` 并使所属批失败；训练器退出码被记录，任何赛制都不会重试其他赛制的对局。
 
@@ -111,7 +111,7 @@ Lite 可达性与寻路对每个展开的格子只枚举一次六个相邻格。
 
 行动者输入永不含裁判真相：奖励标量、教师动作、未观察单位、未探索地形与 RNG 状态在策略看到决策之前被剥离。
 
-单局日志记录覆盖率、可用性、截断状态和分片身份。开局探针额外记录 `behavior`，供 BC 开局检查使用。普通 BC 和 PPO 验证对局标记为 `meta.phase=validation`，匹配的参照对局标记为 `meta.phase=reward_reference`。采集器据此将策略和参照对局的分时点观测结果写入 `reward_diagnostics`，供奖励控制器读取。
+单局日志记录覆盖率、可用性、截断状态和分片身份。普通 BC 和 PPO 验证对局标记为 `meta.phase=validation`，匹配的参照对局标记为 `meta.phase=reward_reference`。采集器据此将策略和参照对局的分时点观测结果写入 `reward_diagnostics`，供奖励控制器读取。
 
 教师能力是声明的，不是假设的：
 
@@ -172,7 +172,7 @@ BC 模仿验证在 64 行推理块之间共享本次调用的历史缓存；无�
 阶段按序执行：`calibration` → `bc` → `ppo` → `final`。
 
 1. **Calibration** 在验证地图上采集三个 block 的固定参考对局，写入 `controls.json` 并转入 BC。只有单一固定参考时跳过采集。
-2. **BC** 按来源/引擎/族配额采样教师行，训练等权序列窗口，报告 loss、相对均匀分布的 CE 与逐类准确率。门禁把两种失败分开：每个覆盖缺失都按原因码计数（`kind_absent`、`actor_absent`、`destination_absent`、`enemy_absent`、`weapon_absent`、`mode_absent`、`type_absent`、`slot_absent`），每类原因之和等于该类 `total − matched`；留存下来的行按类别报告精确、同类、同单位、同落点与标签排名分桶的拟合情况。门禁：总覆盖 ≥90% 且每类 ≥80%；模仿有效（每类 ≥32 样本、CE < 均匀分布的 85%、准确率达阈值）；语料/审计检查；至少 12 个不同场景族。这四项全过才进入 PPO，否则只能用 `--phase ppo --force <reason>`，且保持 `effective = false`。四局开局探针记入 `bc_gate.json` 作为证据（`blocking: false`），但不参与门禁：它是行为抽查，不是质量度量。`effective` 在每个 BC 批次与每次验证时都从已存门禁重新计算。 窗口按来源/引擎/局面族配额有放回抽样，每个窗口只有一个抽样名额，长度不影响被抽中概率；指标区分窗口访问次数、唯一窗口数和重复访问，游标保留已访问索引。
+2. **BC** 按来源/引擎/族配额采样教师行，训练等权序列窗口，报告 loss、相对均匀分布的 CE 与逐类准确率。门禁把两种失败分开：每个覆盖缺失都按原因码计数（`kind_absent`、`actor_absent`、`destination_absent`、`enemy_absent`、`weapon_absent`、`mode_absent`、`type_absent`、`slot_absent`），每类原因之和等于该类 `total − matched`；留存下来的行按类别报告精确、同类、同单位、同落点与标签排名分桶的拟合情况。门禁：总覆盖 ≥90% 且每类 ≥80%；模仿有效（每类 ≥32 样本、CE < 均匀分布的 85%、准确率达阈值）；语料/审计检查；至少 12 个不同场景族。这四项全过才进入 PPO，否则只能用 `--phase ppo --force <reason>`，且保持 `effective = false`。`effective` 在每个 BC 批次与每次验证时都从已存门禁重新计算。 窗口按来源/引擎/局面族配额有放回抽样，每个窗口只有一个抽样名额，长度不影响被抽中概率；指标区分窗口访问次数、唯一窗口数和重复访问，游标保留已访问索引。
 3. **PPO** 训练刚为当前策略快照采集的那一批（同一奖励/引擎/教师身份的 rollout shard），原教师、DAgger、人类与历史策略行作为独立复习池读取，然后执行评测 control 排除。`map-seat-faction-v1` 调度在 72 局单挑或 96 局四人赛中平衡训练地图、学习方座位与阵营，保留 50% 合成竞技场，其余平均分给原版训练地图。每个分层轮转所有合格的不同阵营有序组合；资格仅依赖冻结的公开场景身份、规则和回合上限，与种子、策略身份无关。[Ubuntu 覆盖与调度开销证据](../verification/ppo_scenario_coverage_20261106/REPORT.md)。批准备执行 `scenario-v2/no-drop-v1` 契约：先分区再提交身份，任何被排除行都会报错而不是被丢弃。更新使用确定性的逐 epoch 窗口计划、逻辑批 KL（拒绝阈值 0.02，在优化器步进前检查）与逐步计数器，使恢复的边界能复现未中断的未来。显式请求 `phase ppo --ppo-batches N` 将每种赛制的独立目标写入检查点。新调度的批次至少提交一步优化器更新才计数，训练器完成到期验证后停在目标边界。
 4. **Validation** 每 10 个版本对比教师，使用完整座位轮转。普通面板明确预算单挑 6、FFA 12、团队 24 局：各赛制三个不同场景，团队包含两种队友上下文。连续面板按 block 数推进，遍历完整验证阵容。晋升面板（版本号 %100）需 12 block、≥12 个不同族，并在同一批 block 上重评冠军。配置拒绝不足以满足场景下限的预算，以及超过冻结设计容量的下限。[Ubuntu 预算与阵容证据](../verification/trend_budget_20261106/REPORT.md)
 5. **Selection** 至多用已记录的可比面板从最新完整候选中提名一个对抗 `best.pt`；最终评估在触碰 holdout 地图之前冻结 `selected.pt`，并报告 30 block、≥12 个不同族。
@@ -238,7 +238,7 @@ PPO 效率诊断区分已提交、被 KL 拒绝和从未执行的工作。30 回
 
 基准工作负载由 `benchmarks/contract.json` 固定：成对的 native/lite manifest、冷启动与常驻热态、等量工作与端到端两种模式，每组 30 个完整轮转块。验收要求主机、CPU 配额和 `work_signature` 完全一致，CPU 统计包含协调进程的整棵进程树，内存用 PSS（绝不以 RSS 代替），且 wall 与 CPU 都至少达到 native 的 5 倍；缺产物、故障或工作量不等一律保持 `inconclusive`。
 
-训练任务在场景准入与赛程冻结前绑定固定的 `training_max_turns=30` 和任务身份。评估同为 30；开局探针保留五回合的外部截断。旧 60 回合赛程与 manifest 只能用原源码恢复，不能作为本任务继续运行；此前回合上限接线证据保留原范围（`verification/training_turn_limit_20261102/REPORT.md`）。
+训练任务在场景准入与赛程冻结前绑定固定的 `training_max_turns=30` 和任务身份。评估同为 30。旧 60 回合赛程与 manifest 只能用原源码恢复，不能作为本任务继续运行；此前回合上限接线证据保留原范围（`verification/training_turn_limit_20261102/REPORT.md`）。
 
 有界运行器要求各赛制在停机前和恢复后分别提交一个新的 PPO 批次，完成到期的中期验证轮换，并在留出评测前冻结选模。Ubuntu 源码 `3b6bc06` 从已验收的 BC 输入重新训练，完成全部 18 局中期验证，在 864 秒内部截止内用 851.87 秒完成了 420/420 局终评。90 个区组均完整，零故障。三个选定的 v3 检查点已导出，Python 与 Lua 的最大绝对误差为 7.11×10⁻¹⁴。整链用时 28 分 44 秒，正常退出。[完整有界回环及验收范围](../verification/bounded_public_final_20261104/REPORT.md)
 
@@ -265,7 +265,7 @@ PPO 效率诊断区分已提交、被 KL 拒绝和从未执行的工作。30 回
 | KL 上限 / 计划版本 | 0.02 / 2 |
 | 奖励模式 / 取值范围 | adaptive / economy 0.05–0.20、control 0.02–0.15、explore 0；gamma 1 |
 | 共享候选上限 | 36 个动作 + 1 个结束回合（所有阶段） |
-| 任务 / 回合上限 | `official-score-30-v1`；训练/校准/面板 30；开局诊断 5 |
+| 任务 / 回合上限 | `official-score-30-v1`；训练/校准/面板 30 |
 | shard 预算 | 压缩 96 MiB，保留估计 768 MiB |
 | final holdout 小时 | 0 |
 

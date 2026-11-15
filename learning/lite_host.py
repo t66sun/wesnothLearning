@@ -122,7 +122,7 @@ def play_lite_job(job):
     unsupported in lite. No hidden true state enters Astra or policy callbacks.
     """
     from .features import schema
-    from .data import keeps_behavior, keeps_reward_diagnostics, write_shard
+    from .data import keeps_reward_diagnostics, write_shard
     from .rewards import RewardConfig
     from .teachers import identity as teacher_identity
     from .lite_policy import FrozenPolicies,game_spec,is_astra
@@ -130,7 +130,6 @@ def play_lite_job(job):
     from .tasks import TASK_ID, TASK_TURNS, bind_result, job_reward
     job_id = job['id']
     meta = job.get('meta', {})
-    record_decisions = keeps_behavior(meta)
     records, dagger = TrajectoryBuffer(), TrajectoryBuffer()
     try:
         config = job_reward(job)
@@ -152,19 +151,18 @@ def play_lite_job(job):
         host = LiteHost(job['game_spec'], job.get('rules_dir'),
                         require_accepted=job.get('require_accepted', True), teacher_path=teacher_path)
         teacher_profile=teacher_identity()['teacher_profile']
-        behavior, bootstraps, metric_snapshots = [], {}, []
+        bootstraps, metric_snapshots = {}, []
         config = RewardConfig(**config).to_dict()
         rank_points, defeated = {}, set()
         decision_count = 0
         current = 1
         learning=job.get('learning',{}).get('sides',{})
         learner_sides=set(map(int,learning)) if learning else set(job.get('learner_sides',[]))
-        collecting = job.get('learning') or job.get('shard') or learner_sides or record_decisions or keeps_reward_diagnostics(meta)
+        collecting = job.get('learning') or job.get('shard') or learner_sides or keeps_reward_diagnostics(meta)
         score_only_astra = job.get('score_only_astra') and not collecting
         # Trajectories, DAgger and horizon snapshots only consume learner seats.
-        # The opening probe is the one consumer of every seat's action diagnostics.
         if learner_sides and (meta.get('phase') in ('teacher','ppo','dagger_refresh') or keeps_reward_diagnostics(meta)):
-            score_only_astra = not record_decisions
+            score_only_astra = True
         score_only_policy = job.get('score_only_policy') and policies is not None and not collecting
         combat_route = job.get('combat_choice')
         if combat_route is not None:
@@ -253,12 +251,10 @@ def play_lite_job(job):
                 else:
                     outcome = host.execute(action)
                     decision['outcome'] = outcome['events']
-                    decision['diagnostics'] = outcome['diagnostics']
                     decision['reward_after'] = outcome['reward_after']
                     decision['committed']=outcome['committed']
                     if outcome.get('memory_write'): decision['memory_write']=dict(outcome['memory_write'],turn=decision['turn'])
                 if policies and not teacher: policies.commit(current,decision,outcome)
-                if record_decisions: behavior.append(outcome['diagnostics'])
                 if current in learner_sides:
                     decision = compact_row(decision)
                     records.append(decision)
@@ -315,8 +311,6 @@ def play_lite_job(job):
             evidence['combat_worker_seconds'] = time.monotonic() - combat_started
         if keeps_reward_diagnostics(meta):
             evidence['reward_diagnostics'] = summarize_game(records.metric_rows(), result, job, snapshots=metric_snapshots)
-        if keeps_behavior(meta):
-            evidence['behavior'] = behavior
         return dict(id=job_id, status='complete', engine='lite', result=result, coverage=coverage, **evidence,
                     training_eligible=written is None or bool(written['written']), training_shard=written,
                     meta=meta, truncated=records.truncated)

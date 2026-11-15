@@ -10,7 +10,7 @@ from unittest.mock import patch
 import torch
 from learning.common import ROOT, TAIL_CHUNK, repair_tail, write_json, read_json
 from learning.formats import FORMATS
-from learning.experiment import FormatExperiment, default_config, run_lock, coverage_gate, opening_gate, human_coverage
+from learning.experiment import FormatExperiment, default_config, run_lock, coverage_gate, human_coverage
 from learning.coordinator import FairScheduler, broker, Experiment
 from learning import coordinator
 from learning.export import load_model
@@ -149,7 +149,7 @@ class ExperimentTests(unittest.TestCase):
                 self.assertEqual(len((root/'duel/jobs.jsonl').read_text().splitlines()),3)
 
     def test_gates_fail_without_evidence(self):
-        self.assertFalse(coverage_gate([])['passed']);self.assertFalse(opening_gate([])['passed'])
+        self.assertFalse(coverage_gate([])['passed'])
         c=dict(total=100,matched=90,kinds={k:dict(total=10,matched=8) for k in ('recruit','move','attack')})
         self.assertTrue(coverage_gate([dict(coverage=c)])['passed'])
         c['kinds']['move']['matched']=7

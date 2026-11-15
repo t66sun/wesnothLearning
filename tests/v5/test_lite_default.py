@@ -193,7 +193,7 @@ class LiteDefaultTests(unittest.TestCase):
     def test_lite_final_evaluation_has_only_astra_controls(self):
         import torch
         from learning.experiment import FormatExperiment, default_config
-        from learning.sample import opening_map
+        from tests.v5.helpers import opening_map
         with tempfile.TemporaryDirectory() as temporary:
             runner = object.__new__(FormatExperiment)
             runner.directory = Path(temporary)

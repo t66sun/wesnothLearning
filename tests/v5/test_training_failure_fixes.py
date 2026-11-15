@@ -7,7 +7,6 @@ from pathlib import Path
 from unittest.mock import Mock, patch
 
 from learning.common import read_json, write_json
-from learning.experiment import opening_gate
 from learning.reward_metrics import summarize_game
 from learning.reward_metrics import METRICS_VERSION
 from learning.features import ACTION, GLOBAL, ENTITY
@@ -134,7 +133,7 @@ class FailureBoundaryTests(unittest.TestCase):
             # errors.log only duplicated it.
             self.assertFalse((Path(temp)/'errors.log').exists())
 
-    def test_v100_metric_error_keeps_opening_and_records_error(self):
+    def test_v100_metric_error_preserves_bc_gate_and_records_error(self):
         for fmt in ('duel', 'ffa4', 'team2v2'):
             with self.subTest(fmt=fmt), tempfile.TemporaryDirectory() as temp:
                 runner = cadence.ValidationCadenceTests().runner(temp, fmt)
@@ -147,49 +146,18 @@ class FailureBoundaryTests(unittest.TestCase):
                 calls = []
                 def execute(jobs, name):
                     calls.append(name)
-                    if name.startswith('opening-'):
-                        return jobs, [dict(status='complete', meta=j['meta'], behavior=[
-                            dict(side=j['meta']['seat'], left_castle=True, village_captured=True,
-                                 end_turn=True, usable_moves=0, remaining_moves=6)]) for j in jobs]
                     return jobs, []
                 runner.execute = execute
                 with patch('learning.reward_metrics.build_control_metrics', side_effect=KeyError('astra_coverage5')):
                     runner.validate_model('bc')
                 runner.collect_reward_references.assert_called_once()
-                self.assertIn('opening-000100', calls)
+                self.assertEqual(calls, ['validation-000100'])
                 self.assertIsNone(runner.state['pending_validation'])
                 self.assertTrue(runner.state['effective'])
                 metrics = read_json(Path(temp)/'validation/control-v000100.json')
                 self.assertEqual(metrics['status'], 'error')
                 self.assertEqual(metrics['validation_blocks'], [])
                 self.assertIn('astra_coverage5', metrics['error'])
-
-
-    def test_opening_probe_is_recorded_but_never_blocks_ppo(self):
-        from unittest.mock import patch as patch_object
-        with tempfile.TemporaryDirectory() as temp:
-            runner=cadence.ValidationCadenceTests().runner(temp)
-            runner.state.update(version=100,pending_validation='bc')
-            runner.controller.freeze=lambda: dict(mode='adaptive')
-            runner.collect_reward_references=Mock()
-            write_json(Path(temp)/'bc_gate.json',dict(imitation=dict(effective=True),
-                coverage=dict(passed=True),corpus=dict(passed=True),
-                distinct_scenarios=12,min_distinct=12,missing_scenario_rows=0))
-            def execute(jobs,name):
-                if name.startswith('opening-'):
-                    return jobs,[dict(status='complete',meta=j['meta'],behavior=[
-                        dict(side=j['meta']['seat'],left_castle=False,village_captured=False,
-                             end_turn=True,usable_moves=9,remaining_moves=1)]) for j in jobs]
-                return jobs,[]
-            runner.execute=execute
-            with patch_object('learning.reward_metrics.build_control_metrics',
-                              return_value=dict(partition='validation',validation_blocks=[],excluded_evidence=[])):
-                runner.validate_model('bc')
-            gate=read_json(Path(temp)/'bc_gate.json')
-            self.assertTrue(runner.state['effective'])
-            self.assertTrue(gate['passed'])
-            self.assertFalse(gate['opening']['passed'])
-            self.assertFalse(gate['opening']['blocking'])
 
 
 class PhaseEntryTests(unittest.TestCase):
@@ -290,18 +258,7 @@ class PhaseEntryTests(unittest.TestCase):
         self.assertEqual(parser().parse_args(['run','--phase','bc']).phase,'bc')
 
 
-class OpeningAndFeatureTests(unittest.TestCase):
-    def test_opponents_actions_cannot_pass_students_opening(self):
-        opponent = dict(side=2, left_castle=True, village_captured=True,
-                        end_turn=True, usable_moves=0, remaining_moves=0)
-        student = dict(side=1, end_turn=True, usable_moves=15, remaining_moves=15)
-        games = [dict(status='complete', meta=dict(seat=1), behavior=[opponent, student]) for _ in range(2)]
-        self.assertFalse(opening_gate(games)['passed'])
-        for game in games:
-            game['behavior'].append(dict(side=1, left_castle=True, village_captured=True,
-                                        end_turn=True, usable_moves=0, remaining_moves=6))
-        self.assertTrue(opening_gate(games)['passed'])
-
+class MoveMemoryTests(unittest.TestCase):
     def test_repeated_move_uses_named_feature_not_primary(self):
         lua, modules = initialize()
         obs = modules['observation.lua'].capture(lua.table(), 1)
@@ -312,9 +269,7 @@ class OpeningAndFeatureTests(unittest.TestCase):
             action['features'][indices['repeated_move']] = repeated
             action['features'][indices['move_primary']] = primary
             obs['memory']['repeated_moves'] = 0
-            diagnostic = modules['candidates.lua'].diagnostics(obs, action)
             modules['candidates.lua'].remember(obs, action)
-            self.assertEqual(diagnostic['repeated_move'], bool(repeated))
             self.assertEqual(obs['memory']['repeated_moves'], repeated)
 
 

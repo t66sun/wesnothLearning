@@ -167,7 +167,7 @@ KL 模式在 PPO 开始前固定 `<format>/frozen_bc.pt`，并将身份写入 `s
 
 长任务放到已有持久终端；有 tmux 时可先 `tmux new -s wesnoth-v5`，在其中执行环境和启动命令，使用 Ctrl-b、d 脱离，之后 `tmux attach -t wesnoth-v5` 接回。记录所用会话、主 PID、完整命令、日志和实验目录，确认断开 SSH 不会结束训练。不要依靠一个短时 SSH 工具请求持有整个长实验。
 
-新运行使用 `official-score-30-v1`：教师、PPO 和 DAgger 将完整第 30 回合作为正式计分终局。`--training-max-turns` 仅接受 30；gamma 为 1，探索奖励为 0，经济/控制保留势函数差分。评估同为 30，开局探针在 5 回合外部截断。BC 门禁和面板阈值保持现有合同。旧 60 回合数据与 manifest 不能恢复或混入本任务；`--human-data` 应指向空目录或兼容语料，不能重标历史数据。
+新运行使用 `official-score-30-v1`：教师、PPO 和 DAgger 将完整第 30 回合作为正式计分终局。`--training-max-turns` 仅接受 30；gamma 为 1，探索奖励为 0，经济/控制保留势函数差分。评估同为 30 回合。旧 60 回合数据与 manifest 不能恢复或混入本任务；`--human-data` 应指向空目录或兼容语料，不能重标历史数据。
 
 新运行或 BC 分支可设 `run --gae-lambda 1.0`，使到达任务终局的 PPO 轨迹使用完整成形回报。默认值为 0.95。分支保留父样本，并在新调度和轨迹中记录自己的 λ。恢复沿用保存的 λ 和原预算。[Ubuntu 配置与恢复验收](../verification/ppo_gae_lambda_20261108/REPORT.md)
 
@@ -241,7 +241,7 @@ test -f "$run_dir/manifest.json" || exit 1
 | `manifest.json`、`clock.json` | 实际配置、源码/对手/词表身份、更新和最终截止时间 |
 | `<format>/state.json` | stage、batch、version、effective、counters、pending_train/pending_validation、error；只取需要的字段，history 可能很大 |
 | `<format>/jobs.jsonl` | 最近任务的 status、faults、training_eligible、教师覆盖、引擎和阶段；统计有效局而非单看文件行数 |
-| `<format>/bc_gate.json` | 语料数量、模仿质量、候选覆盖、场景设计分别是否通过；开局探针记录为 `blocking: false` |
+| `<format>/bc_gate.json` | 语料数量、模仿质量、候选覆盖、场景设计分别是否通过 |
 | `<format>/validation/*.json` | 区分 trend/promotion、native/lite 和队友上下文；一次小面板胜利不等于最终棋力 |
 | `<format>/latest.pt`、`last_bc.pt`、`last_ppo.pt` | 检查点是否更新、是否匹配状态与当前阶段；best/selected 是选模结果，不能当 latest 恢复状态的替身 |
 | `control/*.json`、`control/events.jsonl` | 当前配置、pending 命令、已应用序号、reward_version、last_error、metrics_error（非空时 adaptive 冻结） |

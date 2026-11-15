@@ -36,7 +36,7 @@ class ScheduleTests(unittest.TestCase):
 
     def test_official_ai_in_all_team_roles(self):
         fixed=['gpt6astra.zip','baseline']
-        from learning.sample import opening_map
+        from tests.v5.helpers import opening_map
         with patch('learning.maps.frozen_map',return_value=(opening_map(4),'0'*64)):
             jobs=rollout_jobs(ROOT/'tmp','learner',['history'],fixed,'support','v1',0,19,1000,'wesnoth')
         enemy_roles=[];team_jobs=[]
@@ -52,7 +52,7 @@ class ScheduleTests(unittest.TestCase):
             if j['meta']['format']=='team2v2':
                 side=j['meta']['seat'];allied=[s for s in range(1,5) if s!=side and j['teams'][s-1]==j['teams'][side-1]]
                 self.assertEqual(j['bots'][allied[0]-1],'baseline')
-        from learning.sample import opening_map
+        from tests.v5.helpers import opening_map
         with patch('learning.maps.frozen_map',return_value=(opening_map(4),'0'*64)):
             evals=evaluation_jobs(ROOT/'tmp','learner','baseline',fixed,1,1,1000,'wesnoth')
         self.assertEqual({j['meta']['context'] for j in evals if j['meta']['format']=='team2v2'},{'baseline_partner','self_team'})
@@ -64,8 +64,8 @@ class ScheduleTests(unittest.TestCase):
             with self.assertRaises(ValueError): freeze_schedule(p,[dict(id='b')])
 
     def test_two_controls_are_never_merged_and_opening_fixture_is_safe(self):
-        from learning.sample import opening_map
-        from learning.sample import opening_map
+        from tests.v5.helpers import opening_map
+        from tests.v5.helpers import opening_map
         with patch('learning.maps.frozen_map',return_value=(opening_map(4),'0'*64)):
             a=evaluation_jobs(ROOT/'tmp','policy','gpt6astra.zip',['baseline'],1,1,1000,'unused',formats=['duel'],label='astra')
             b=evaluation_jobs(ROOT/'tmp','policy','baseline',['baseline'],1,1,1000,'unused',formats=['duel'],label='baseline')
@@ -80,7 +80,7 @@ class ScheduleTests(unittest.TestCase):
             self.assertEqual(board['terrain'][y-1][x+3],'Gg^Vh')
 
     def test_block_bootstrap_and_incomplete_blocks(self):
-        from learning.sample import opening_map
+        from tests.v5.helpers import opening_map
         repeated={fmt:[dict(map_index=0,faction_block=0)] for fmt in FORMATS}
         with patch('learning.maps.frozen_map',return_value=(opening_map(4),'0'*64)):
             jobs=evaluation_jobs(ROOT/'tmp','a','b',['baseline'],30,123,1000,'wesnoth',

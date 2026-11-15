@@ -8,7 +8,7 @@ from learning.experiment import default_config,validate_config,coverage_gate
 from learning.schedule import teacher_jobs,evaluation_jobs
 from learning.evaluate import comparisons,selection_key
 from learning.train import imitation_quality
-from learning.sample import opening_map
+from tests.v5.helpers import opening_map
 from tests.test_core import record
 import tests.test_validation_cadence as cadence_fixtures
 

@@ -71,6 +71,17 @@ def rules():
                                   keep=t.endswith('^Kh'), healing=0) for t in TERRAINS})
 
 
+def opening_map(players):
+    """Wide fixture with independent starting villages."""
+    width,height=128*players+10,11
+    terrain=[['Gg']*width for _ in range(height)];starts=[]
+    for i in range(players):
+        x,y=5+128*i,6;starts.append([x,y]);terrain[y-1][x-1]='Kh'
+        for dx,dy in ((-1,0),(1,0),(0,-1),(0,1)): terrain[y+dy-1][x+dx-1]='Ch'
+        terrain[y-1][x+3]='Gg^Vh'
+    return dict(terrain=terrain,starts=starts,width=width,height=height)
+
+
 def terrain_grid(width=WIDTH, height=HEIGHT):
     grid = ['Gg'] * (width * height)
 

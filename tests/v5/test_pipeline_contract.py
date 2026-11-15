@@ -34,7 +34,7 @@ from learning import reward_metrics, schedule
 from learning.adapters import LiteAdapter, NativeAdapter, create_adapter
 from learning.control import RewardController, queue_control, show_control
 from learning.data import write_shard
-from learning.experiment import FormatExperiment, coverage_gate, default_config, opening_gate, validate_config
+from learning.experiment import FormatExperiment, coverage_gate, default_config, validate_config
 from learning.formats import FORMATS, PLAYERS
 from learning.lite_host import LiteHost, play_lite_job
 from learning.rowpack import unpack_line

@@ -12,7 +12,7 @@ import unittest
 from unittest.mock import patch
 
 from learning.common import write_json
-from learning.sample import opening_map
+from tests.v5.helpers import opening_map
 from learning.schedule import evaluation_jobs
 from tests import acceptance_teacher_strength as acceptance
 

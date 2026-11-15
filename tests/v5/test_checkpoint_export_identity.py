@@ -8,7 +8,7 @@ import torch
 from learning.common import read_json, write_json
 from learning.experiment import FormatExperiment
 from learning.export import export_checkpoints
-from learning.sample import opening_map
+from tests.v5.helpers import opening_map
 from tests import test_validation_cadence as cadence
 from tests.v5 import helpers
 
