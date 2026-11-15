@@ -3,7 +3,10 @@ from pathlib import Path
 from unittest.mock import patch
 import unittest
 
+import torch
+
 from learning.lite_host import LiteHost, play_lite_job
+from learning.tasks import TASK_ID, reward_config
 from tests.v5 import test_pipeline_contract as pipeline
 
 
@@ -84,12 +87,24 @@ class ScoreAstraTests(unittest.TestCase):
         self.assertEqual([m['side'] for m in result['reward_diagnostics']], [1])
         self.assertNotIn('behavior', result)
 
-    def test_query_and_bootstrap_decisions_get_full_candidates(self):
-        job = self.fixture.four_seat_job(id='query-bootstrap', bootstrap_policy=lambda row: 0.5,
-            learning=dict(sides={'1':{}},version='v5-test',dagger_teacher='data/opponents/gpt6astra.zip'))
+    def query_job(self):
+        with torch.random.fork_rng(devices=[]):
+            torch.manual_seed(0)
+            job = self.fixture.four_seat_job(
+                id='query-bootstrap', task_id=TASK_ID, reward_config=reward_config(),
+                learning=dict(sides={'1': {}}, version='v5-test', dagger_teacher='data/opponents/gpt6astra.zip'))
         job['meta']['phase'] = 'ppo'
+        return job
+
+    def test_query_and_bootstrap_decisions_get_full_candidates(self):
+        job = self.query_job()
+        # Give the learner room to act through the external cut.
+        spec = job['game_spec']
+        spec['units'][0]['pos'] = spec['width'] + 3
         _, _, result, _ = self.replay(job)
         self.assertTrue(result['result']['truncated'])
+        self.assertFalse(result['result']['task_terminal'])
+        self.assertIn(1, result['result']['survivors'])
         self.assertEqual({c['side'] for c in self.calls if c['compact']}, {2,3,4})
         queries = [c for c in self.calls if c['side']==1 and c['teacher']]
         self.assertTrue(queries)
@@ -104,7 +119,7 @@ class ScoreAstraTests(unittest.TestCase):
         features = pipeline.features.schema()
         version = f"schema{features['version']}-{features['candidate_selection']['version']}"
         self.assertTrue(all(row['candidate_version']==version for row in rows))
-        self.assertTrue(any(row.get('bootstrap_value') is not None for row in rows))
+        self.assertTrue(all(row['truncated'] and row['bootstrap_value'] is not None for row in rows))
         path = Path(job['shard'])
         dagger_path = path.with_name(path.name.replace('.jsonl.gz','.dagger.jsonl.gz'))
         labels = [row for row in pipeline.read_gzip(dagger_path) if row.get('query_only')]
@@ -113,6 +128,18 @@ class ScoreAstraTests(unittest.TestCase):
         for row in labels:
             self.assertGreater(len(row['candidates']),1)
             self.assertEqual(row['candidate_version'],version)
+
+
+    def test_eliminated_solo_learner_does_not_query_bootstrap_at_turn_cap(self):
+        job = self.query_job()
+        _, _, result, _ = self.replay(job)
+        self.assertEqual(result['result']['reason'], 'turn_limit')
+        self.assertFalse(result['result']['task_terminal'])
+        self.assertNotIn(1, result['result']['survivors'])
+        rows = pipeline.read_gzip(job['shard'])
+        self.assertTrue(rows)
+        self.assertTrue(all(not row['truncated'] and row['bootstrap_value'] is None for row in rows))
+        self.assertFalse([call for call in self.calls if call['kwargs'] == ['teacher']])
 
 
 if __name__ == '__main__':
