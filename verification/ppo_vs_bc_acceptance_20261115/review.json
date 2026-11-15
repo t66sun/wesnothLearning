@@ -1,0 +1,23 @@
+{
+  "verdict": "inconclusive",
+  "games": 720,
+  "paired_slots": 180,
+  "raw_points_by_role": {
+    "lambda-0.95-202611082": 227,
+    "lambda-0.95-202611081": 194,
+    "bc": 224,
+    "lambda-0.95-202611083": 255
+  },
+  "point": 0.0024691358024691358,
+  "interval95": [
+    -0.07839506172839507,
+    0.08395061728395062
+  ],
+  "archive_sha256": "e79feb67e29ffea3b9f96846991ed6ae56eae8c2b127a9215bc84a711e2f56b1",
+  "archive_bytes": 2489983,
+  "results_sha256": "c2305a8a30c48f4be85680454098aca99755e2b2bf91e2bc414d55bc12044cdd",
+  "audit_sha256": "69f5834dee3773a509f15903c53ff752e334cbb94156bbf5c53983bd77d5681d",
+  "started": 1794731788.327132,
+  "finished": 1794733260.3471994,
+  "wall_seconds": 1472.0200674533844
+}

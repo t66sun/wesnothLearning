@@ -187,6 +187,8 @@ PPO 复习有两个明确目标，在新运行的 `config.ppo_aux_target` 中冻
 
 可选冻结 BC 目标通过 43 项独立 Ubuntu loss/runner/resume/来源/分支检查；与有限任务、完整 rollout 读取集成后通过 88 项联合检查，覆盖真实 runner/export/resume、任务兼容分片，以及 weights-only 初始化或 BC 重启时丢弃旧锚点的分支行为。在有限任务下将 KL 换回历史动作 CE，真实 runner 对照断言按预期失败。[独立证据](../verification/frozen_bc_anchor_20261106/REPORT.md)与[统一验收](../verification/ppo_task_anchor_acceptance_20261106/REPORT.md)证明接线。基于生产版本 `eadad5d` 的预注册固定 Astra 单挑对照在 4 小时 1 分 30 秒内完成三对种子，每组至少 10,000 个新鲜决策。完整 420 局独立留出中，KL 相对历史动作得分差为 −2.59 个百分点（交叉 95% 区间 [−14.63,+7.78]）；两种 PPO 均未显著优于共享 BC，KL 相对 BC 的 −5 个百分点非劣标准也未建立。每组 selected 与 latest 相同。这一不确定结果不改变默认目标，也不证明收敛、原版棋力或一般分布保持。[协议、预算、得分与独立复算](../verification/duel_ppo_acceptance_20261107/REPORT.md)
 
+在 Fallenstar Lake、Sulla’s Ruins 和 Ur-Thorodor 的 720 局配对 Lite 单挑中，三个固定 Astra、历史动作复习且 λ=0.95 的归档 PPO 端点比合格 v38 BC 平均高 0.25 个百分点，交叉配对 95% 区间为 [−7.84, +8.40] 个百分点。对这些检查点与地图，+5 个百分点的有效增益结论仍不确定。[冻结面板与原始证据](../verification/ppo_vs_bc_acceptance_20261115/REPORT.md)
+
 检查点在 `state.json` 旁原子写入；恢复时校验 manifest 哈希、schema、权重与优化器状态，分支运行还接受其继承检查点仍指向的父 manifest 哈希。`--branch-from` 把完整 `latest.pt` 复制成新运行，记录父身份、新时钟与种子，并保留或重置优化器。语料与覆盖门禁只复用该检查点实际保留分片对应的合格祖先教师结果，排除祖先后续采集，并按分片路径去重嵌套谱系。30 项受影响 Ubuntu 检查及真实父运行 40 局只读检查通过（`verification/branch_teacher_evidence_20261102/REPORT.md`）。
 
 带 `--branch-restart-bc` 的分支使用兼容父权重、原教师和 DAgger 分片路径及谱系，从校准阶段开始。Adam、计数器、阶段状态、奖励控制和选模状态重新初始化。各赛制在子运行完成 BC 更新后重新计算常规门禁。复用数据沿用原有场景族分区，包括参与父检查点选取的验证场景族。[Ubuntu 验证和 v6 输入标识](../verification/bc_branch_restart_20261104/REPORT.md)
