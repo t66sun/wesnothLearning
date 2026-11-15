@@ -1,0 +1,9 @@
+{
+  "games": 96,
+  "game_spec_checks": 96,
+  "confirmation_reserve_boards": 3,
+  "games_started": 0,
+  "launch_sha256": "b0e68cff203e2d2b315a9aa4aaf782fb2587d9dc1acc1b28224b8756a2a67699",
+  "schedule_sha256": "01cefdc3f431ba576e2788371a69bf344e115a044238327048b9929aad0436c8",
+  "confirmation_reserve_sha256": "57043fb6c9de3a68d14d36c5ce315927cab5741a31de2e319a0faf06d6e1dbb4"
+}
