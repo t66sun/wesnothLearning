@@ -1,0 +1,14 @@
+test_eliminated_solo_learner_does_not_query_bootstrap_at_turn_cap (<run_path>.ScoreAstraTests.test_eliminated_solo_learner_does_not_query_bootstrap_at_turn_cap) ... FAIL
+
+======================================================================
+FAIL: test_eliminated_solo_learner_does_not_query_bootstrap_at_turn_cap (<run_path>.ScoreAstraTests.test_eliminated_solo_learner_does_not_query_bootstrap_at_turn_cap)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/duel-resume-20261115-PHX3gu/source/tests/v5/test_lite_score_astra.py", line 142, in test_eliminated_solo_learner_does_not_query_bootstrap_at_turn_cap
+    self.assertFalse([call for call in self.calls if call['kwargs'] == ['teacher']])
+AssertionError: [{'side': 1, 'teacher': False, 'generate': True, 'compact': False, 'budget': True, 'kwargs': ['teacher']}] is not false
+
+----------------------------------------------------------------------
+Ran 1 test in 0.269s
+
+FAILED (failures=1)

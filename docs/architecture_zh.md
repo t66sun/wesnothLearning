@@ -153,7 +153,7 @@ BC 模仿验证在 64 行推理块之间共享本次调用的历史缓存；无�
 - 经济势函数：金币 + 军队造价·HP 比例 + 20·村庄，按队伍平均，并用 `200 + Σ|potential|` 归一化；
 - 逐行转移：仅任务结束时应用 `z`，加上 `phi(next)-phi(now)`；初始 `phi=.15*economy+.10*control`，gamma 固定为 1，探索系数固定为 0。
 
-教师、DAgger 和 PPO 在完整第 30 回合后或自然胜负时结束任务。两种边界均应用正式结果、清零终点势函数并禁止 bootstrap；队友共享结果，包括此前已被淘汰的学习方。早于任务完成的真正外部采样截断仍保留终点势函数及必需的 critic bootstrap。Native 报告完成的第 30 回合；Lite 推进到第 31 回合后停止，没有执行第 31 回合，实际采样上限将它与第 29 回合后的截断区分。own-turn 时钟仍使用同一方相邻决策的回合差：同回合行动 `delta_turn=0`，跨多回合时 GAE 使用 `lambda**delta_turn`。
+教师、DAgger 和 PPO 在完整第 30 回合后或自然胜负时结束任务。两种边界均应用正式结果、清零终点势函数并禁止 bootstrap；队友共享结果，包括此前已被淘汰的学习方。早于任务完成的真正外部采样截断仍保留终点势函数及必需的 critic bootstrap。Lite 按轨迹终止判定决定是否调用 critic，已出局且无队友的学习席不再请求 bootstrap。Native 报告完成的第 30 回合；Lite 推进到第 31 回合后停止，没有执行第 31 回合，实际采样上限将它与第 29 回合后的截断区分。own-turn 时钟仍使用同一方相邻决策的回合差：同回合行动 `delta_turn=0`，跨多回合时 GAE 使用 `lambda**delta_turn`。[Ubuntu 单挑训练与续跑验收](../verification/duel_training_resume_20261115/REPORT.md)
 
 探索为零且 gamma 为 1 时，完整回报为 `z-phi(start)`，势函数只引入与状态相关的常数，不改变结果偏好；不添加提前获胜奖励或 critic clamp。已有 `turn/30` 观测标识剩余时间。任务身份固定在 config、赛程、奖励配置、数据行和检查点中；旧 `continuation-v1`/`v5-potential-1` 输入仍可只读诊断，但不能用于有限任务训练或恢复，冻结数据和证据不得重标。
 
