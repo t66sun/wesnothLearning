@@ -180,7 +180,7 @@ def inspect_batch(duel, entry, outcomes, anchor, later):
     alt['candidates'][s['choice']],alt['candidates'][0 if s['choice'] else 1]=(alt['candidates'][0 if s['choice'] else 1],
                                                                                 alt['candidates'][s['choice']])
     scramble=abs(forward(model,[alt])['logp'][0]-s['log_probability'])
-    t=max((r for r in selected if r.get('_history')),key=lambda r:len(r['_history']))
+    t=max((r for r in selected if r.get('_history') and len(r['candidates'])>1),key=lambda r:len(r['_history']))
     drop=abs(forward(model,[dict(t,_history=[])])['logp'][0]-t['log_probability'])
     adv,ret=advantages(rows)
     clock=reward_and_clock(rows,adv,ret)
