@@ -5,6 +5,7 @@ from copy import deepcopy
 import gzip
 import hashlib
 import json
+import math
 import multiprocessing
 import re
 from pathlib import Path
@@ -17,6 +18,8 @@ import torch
 
 from learning import lite_host, lite_policy
 from learning.common import read_json, sha256
+from learning.coverage import FIELDS as ACTION_FIELDS
+from learning.tasks import TASK_ID
 from learning.features import GLOBAL
 from learning.rowpack import compact_row, pack_line, plain_row, unpack_line
 from verification.duel_ppo_comparison_20261106.audit import write_new
@@ -120,7 +123,7 @@ def choose_probes(jobs):
     return probes
 
 
-def run_worker(job, expected, probe, deadline, traces):
+def run_worker(job, expected, probe, deadline, traces, alternate=None):
     rows = archive_rows(job)
     boundary = probe['boundary']
     seat = probe['side']
@@ -128,9 +131,9 @@ def run_worker(job, expected, probe, deadline, traces):
     assert fingerprint(rows[boundary]) == probe['public_sha256']
     history, precisions = archive_history(rows[:boundary])
 
-    def play(start):
+    def play(start, force=None):
         state = dict(cursor=boundary if start is not None else 0, max_logp_error=0.,
-                     first_decision=None, saved=None)
+                     first_decision=None, saved=None, applied=None)
         traced = lite_host.LiteHost
         frozen = lite_policy.FrozenPolicies
 
@@ -145,6 +148,8 @@ def run_worker(job, expected, probe, deadline, traces):
 
             def choose(self, row, side, bootstrap=False):
                 assert side == seat and not bootstrap
+                if force is not None and state['applied'] is not None:
+                    return super().choose(row, side)
                 index = state['cursor']
                 assert index < len(rows), f'Extra learner decision {index}'
                 target = rows[index]
@@ -163,6 +168,14 @@ def run_worker(job, expected, probe, deadline, traces):
                 state['max_logp_error'] = max(delta, state['max_logp_error'])
                 state['first_decision'] = current if state['first_decision'] is None else state['first_decision']
                 state['cursor'] += 1
+                if force is not None:
+                    assert index == boundary
+                    action = row['candidates'][force]
+                    intent = public_intent(action)
+                    assert intent == probe['alternative_intent']
+                    assert intent != public_intent(row['candidates'][selection['choice']])
+                    state['applied'] = intent
+                    return dict(selection, choice=force, log_probability=math.log(probe['ppo_probability_alternative']))
                 return selection
 
         class ObservedHost(traced):
@@ -198,14 +211,24 @@ def run_worker(job, expected, probe, deadline, traces):
 
         bound = {k: v for k, v in job.items() if k != 'shard'}
         bound['deadline'] = deadline
-        kind = 'baseline' if start is None else 'identical'
+        kind = 'alternate' if force is not None else 'baseline' if start is None else 'identical'
         with traces.open('a', encoding='utf-8') as out:
             out.write(json.dumps(dict(stage=kind, state='started')) + '\n')
         with patch.object(lite_host, 'LiteHost', ObservedHost), patch.object(lite_policy, 'FrozenPolicies', ObservedPolicy):
             answer = lite_host.play_lite_job(bound)
         assert answer['status'] == 'complete', answer.get('error', answer['status'])
-        assert answer['result'] == expected and not answer['result']['faults']
-        assert state['cursor'] == len(rows)
+        official = answer['result']
+        assert not official['faults'] and official['task_terminal'] and official['task_id'] == TASK_ID
+        assert official['winner'] in (0, 1, 2)
+        for key in ('engine_id', 'rng_version', 'combat_version', 'bots', 'factions'):
+            assert official[key] == expected[key], key
+        if official['reason'] == 'turn_limit':
+            assert official['winner'] == 0 and official['turns'] == 31
+        if force is None:
+            assert official == expected and state['cursor'] == len(rows)
+        else:
+            assert state['applied'] is not None and state['cursor'] == boundary + 1
+        state['outcome'] = official
         with traces.open('a', encoding='utf-8') as out:
             out.write(json.dumps(dict(stage=kind, state='complete')) + '\n')
         return state
@@ -214,9 +237,19 @@ def run_worker(job, expected, probe, deadline, traces):
     assert baseline['saved'] is not None
     control = play(baseline['saved'])
     assert control['first_decision'] == probe['public_sha256']
-    return dict(**probe, outcome=expected, baseline_checked=len(rows),
-                identical_checked=len(rows) - boundary,
-                logp_error=max(baseline['max_logp_error'], control['max_logp_error']))
+    result = dict(**probe, outcome=expected, baseline_checked=len(rows),
+                  identical_checked=len(rows) - boundary,
+                  logp_error=max(baseline['max_logp_error'], control['max_logp_error']))
+    if alternate is not None:
+        varied = play(baseline['saved'], alternate)
+        assert varied['first_decision'] == probe['public_sha256']
+        result['alternate_outcome'] = varied['outcome']
+    return result
+
+
+def public_intent(action):
+    k = action['kind']
+    return dict(kind=k, **{key: action.get(key) for key in ACTION_FIELDS[k]})
 
 
 def check_storage(prior, old, jobs):
