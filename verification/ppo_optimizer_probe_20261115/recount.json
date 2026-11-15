@@ -1,0 +1,391 @@
+{
+  "manifest_sha256": "36b2cdbb84b1df705d677a2a1dbeca343d7f92b39b7f5ea837454d0939bffad2",
+  "result_sha256": "871237bc2cd9e813dcace6c43c5b2252d8d848214c212bc45150fd1dff626fdf",
+  "rows": {
+    "bc": {
+      "stock": {
+        "accepted_steps": 4,
+        "planned_steps": 24,
+        "committed_visits": 884,
+        "rejected_visits": 371,
+        "unattempted_visits": 4117,
+        "distinct_targets": 884,
+        "untouched_targets": 459,
+        "rejected_step_windows": 4,
+        "effective_passes": 0.6582278481012658,
+        "stopped": true,
+        "examined_gate_statistic": 0.022062694787777188,
+        "holdback_kl": 0.01182888843756057,
+        "holdback_mc_projection": 0.004428673704911868,
+        "committed_strata": {
+          "turn_band": {
+            "01-05": 319,
+            "06-15": 438,
+            "16-30": 127
+          },
+          "action": {
+            "recruit": 128,
+            "end_turn": 101,
+            "move": 351,
+            "move_attack": 230,
+            "attack": 74
+          }
+        },
+        "rejected_strata": {
+          "turn_band": {
+            "06-15": 326,
+            "16-30": 45
+          },
+          "action": {
+            "move_attack": 97,
+            "attack": 37,
+            "move": 175,
+            "end_turn": 31,
+            "recruit": 31
+          }
+        },
+        "untouched_strata": {
+          "turn_band": {
+            "06-15": 364,
+            "16-30": 95
+          },
+          "action": {
+            "recruit": 37,
+            "attack": 54,
+            "move_attack": 136,
+            "move": 184,
+            "end_turn": 48
+          }
+        }
+      },
+      "comparison": {
+        "accepted_steps": 6,
+        "planned_steps": 24,
+        "committed_visits": 1343,
+        "rejected_visits": 221,
+        "unattempted_visits": 3808,
+        "distinct_targets": 1343,
+        "untouched_targets": 0,
+        "rejected_step_windows": 4,
+        "effective_passes": 1.0,
+        "stopped": true,
+        "examined_gate_statistic": 0.033197286881659474,
+        "holdback_kl": 0.005157402537732143,
+        "holdback_mc_projection": 0.0027120756508999043,
+        "committed_strata": {
+          "turn_band": {
+            "01-05": 319,
+            "06-15": 802,
+            "16-30": 222
+          },
+          "action": {
+            "recruit": 165,
+            "end_turn": 149,
+            "move": 535,
+            "move_attack": 366,
+            "attack": 128
+          }
+        },
+        "rejected_strata": {
+          "turn_band": {
+            "16-30": 54,
+            "06-15": 127,
+            "01-05": 40
+          },
+          "action": {
+            "recruit": 21,
+            "move_attack": 53,
+            "move": 102,
+            "end_turn": 20,
+            "attack": 25
+          }
+        },
+        "untouched_strata": {}
+      }
+    },
+    "lambda-0.95-202611081": {
+      "stock": {
+        "accepted_steps": 10,
+        "planned_steps": 28,
+        "committed_visits": 2405,
+        "rejected_visits": 388,
+        "unattempted_visits": 4163,
+        "distinct_targets": 1739,
+        "untouched_targets": 0,
+        "rejected_step_windows": 4,
+        "effective_passes": 1.3829787234042554,
+        "stopped": true,
+        "examined_gate_statistic": 0.02137934034149252,
+        "holdback_kl": 0.008311871849342258,
+        "holdback_mc_projection": -0.022383831851513637,
+        "committed_strata": {
+          "turn_band": {
+            "01-05": 550,
+            "06-15": 1067,
+            "16-30": 788
+          },
+          "action": {
+            "recruit": 312,
+            "end_turn": 242,
+            "move": 977,
+            "move_attack": 651,
+            "attack": 223
+          }
+        },
+        "rejected_strata": {
+          "turn_band": {
+            "01-05": 81,
+            "06-15": 269,
+            "16-30": 38
+          },
+          "action": {
+            "recruit": 45,
+            "end_turn": 32,
+            "move": 180,
+            "move_attack": 105,
+            "attack": 26
+          }
+        },
+        "untouched_strata": {}
+      },
+      "comparison": {
+        "accepted_steps": 26,
+        "planned_steps": 28,
+        "committed_visits": 6655,
+        "rejected_visits": 217,
+        "unattempted_visits": 84,
+        "distinct_targets": 1739,
+        "untouched_targets": 0,
+        "rejected_step_windows": 4,
+        "effective_passes": 3.82691201840138,
+        "stopped": true,
+        "examined_gate_statistic": 0.027749036188598437,
+        "holdback_kl": 0.007630170922816983,
+        "holdback_mc_projection": -0.018292541315840287,
+        "committed_strata": {
+          "turn_band": {
+            "01-05": 1259,
+            "06-15": 3085,
+            "16-30": 2311
+          },
+          "action": {
+            "recruit": 832,
+            "end_turn": 646,
+            "move": 2746,
+            "move_attack": 1832,
+            "attack": 599
+          }
+        },
+        "rejected_strata": {
+          "turn_band": {
+            "01-05": 81,
+            "06-15": 122,
+            "16-30": 14
+          },
+          "action": {
+            "recruit": 32,
+            "end_turn": 26,
+            "move": 80,
+            "move_attack": 61,
+            "attack": 18
+          }
+        },
+        "untouched_strata": {}
+      }
+    },
+    "lambda-0.95-202611082": {
+      "stock": {
+        "accepted_steps": 8,
+        "planned_steps": 24,
+        "committed_visits": 2231,
+        "rejected_visits": 196,
+        "unattempted_visits": 4169,
+        "distinct_targets": 1649,
+        "untouched_targets": 0,
+        "rejected_step_windows": 4,
+        "effective_passes": 1.3529411764705883,
+        "stopped": true,
+        "examined_gate_statistic": 0.09125058113047552,
+        "holdback_kl": 0.006875726557765351,
+        "holdback_mc_projection": -0.005686878748565948,
+        "committed_strata": {
+          "turn_band": {
+            "01-05": 476,
+            "06-15": 1186,
+            "16-30": 569
+          },
+          "action": {
+            "recruit": 266,
+            "move": 1063,
+            "end_turn": 199,
+            "move_attack": 558,
+            "attack": 145
+          }
+        },
+        "rejected_strata": {
+          "turn_band": {
+            "01-05": 39,
+            "06-15": 32,
+            "16-30": 125
+          },
+          "action": {
+            "recruit": 27,
+            "move": 99,
+            "end_turn": 14,
+            "move_attack": 45,
+            "attack": 11
+          }
+        },
+        "untouched_strata": {}
+      },
+      "comparison": {
+        "accepted_steps": 8,
+        "planned_steps": 24,
+        "committed_visits": 2231,
+        "rejected_visits": 196,
+        "unattempted_visits": 4169,
+        "distinct_targets": 1649,
+        "untouched_targets": 0,
+        "rejected_step_windows": 4,
+        "effective_passes": 1.3529411764705883,
+        "stopped": true,
+        "examined_gate_statistic": 0.03112192455236044,
+        "holdback_kl": 0.0022504685327778625,
+        "holdback_mc_projection": -0.0031555999320228485,
+        "committed_strata": {
+          "turn_band": {
+            "01-05": 476,
+            "06-15": 1186,
+            "16-30": 569
+          },
+          "action": {
+            "recruit": 266,
+            "move": 1063,
+            "end_turn": 199,
+            "move_attack": 558,
+            "attack": 145
+          }
+        },
+        "rejected_strata": {
+          "turn_band": {
+            "01-05": 39,
+            "06-15": 32,
+            "16-30": 125
+          },
+          "action": {
+            "recruit": 27,
+            "move": 99,
+            "end_turn": 14,
+            "move_attack": 45,
+            "attack": 11
+          }
+        },
+        "untouched_strata": {}
+      }
+    },
+    "lambda-0.95-202611083": {
+      "stock": {
+        "accepted_steps": 12,
+        "planned_steps": 28,
+        "committed_visits": 3167,
+        "rejected_visits": 314,
+        "unattempted_visits": 3679,
+        "distinct_targets": 1790,
+        "untouched_targets": 0,
+        "rejected_step_windows": 4,
+        "effective_passes": 1.7692737430167598,
+        "stopped": true,
+        "examined_gate_statistic": 0.025188054604606845,
+        "holdback_kl": 0.010944355161150034,
+        "holdback_mc_projection": -0.029739359284900988,
+        "committed_strata": {
+          "turn_band": {
+            "16-30": 1109,
+            "06-15": 1434,
+            "01-05": 624
+          },
+          "action": {
+            "recruit": 396,
+            "move_attack": 967,
+            "move": 1265,
+            "end_turn": 312,
+            "attack": 227
+          }
+        },
+        "rejected_strata": {
+          "turn_band": {
+            "06-15": 171,
+            "16-30": 105,
+            "01-05": 38
+          },
+          "action": {
+            "attack": 27,
+            "move_attack": 95,
+            "move": 130,
+            "end_turn": 28,
+            "recruit": 34
+          }
+        },
+        "untouched_strata": {}
+      },
+      "comparison": {
+        "accepted_steps": 18,
+        "planned_steps": 28,
+        "committed_visits": 4732,
+        "rejected_visits": 285,
+        "unattempted_visits": 2143,
+        "distinct_targets": 1790,
+        "untouched_targets": 0,
+        "rejected_step_windows": 4,
+        "effective_passes": 2.6435754189944136,
+        "stopped": true,
+        "examined_gate_statistic": 0.022955823889382013,
+        "holdback_kl": 0.007572487659730367,
+        "holdback_mc_projection": -0.0259682051152249,
+        "committed_strata": {
+          "turn_band": {
+            "16-30": 1583,
+            "06-15": 2242,
+            "01-05": 907
+          },
+          "action": {
+            "recruit": 587,
+            "move_attack": 1444,
+            "move": 1890,
+            "end_turn": 466,
+            "attack": 345
+          }
+        },
+        "rejected_strata": {
+          "turn_band": {
+            "06-15": 99,
+            "16-30": 138,
+            "01-05": 48
+          },
+          "action": {
+            "recruit": 34,
+            "move_attack": 76,
+            "move": 132,
+            "attack": 20,
+            "end_turn": 23
+          }
+        },
+        "untouched_strata": {}
+      }
+    }
+  },
+  "trigger_roles": [
+    "bc",
+    "lambda-0.95-202611081",
+    "lambda-0.95-202611082",
+    "lambda-0.95-202611083"
+  ],
+  "comparison_triggered": true,
+  "eligible_ppo_copies": [
+    "lambda-0.95-202611081",
+    "lambda-0.95-202611083"
+  ],
+  "followup_warranted": true,
+  "wall_seconds": 498.2714490890503,
+  "new_games": 0
+}

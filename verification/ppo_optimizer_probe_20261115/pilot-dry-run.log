@@ -1,0 +1,3 @@
+All 160 unique rollout slots match the actual production binding.
+Both rate overrides alter only Adam lr in the no-update control.
+No games or optimizer updates started.

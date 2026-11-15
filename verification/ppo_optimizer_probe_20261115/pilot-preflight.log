@@ -1,0 +1,8 @@
+{
+  "sha256": "7f3c9274f4642b0be6dd6b94ab14e08af424dc379401ef4cee010d1ab911cbaa",
+  "train_slots_per_seed": 80,
+  "paired_score_slots": 64,
+  "planned_games": 664,
+  "games_started": 0,
+  "optimizer_updates": 0
+}
