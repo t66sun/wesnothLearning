@@ -1,0 +1,19 @@
+F
+======================================================================
+FAIL: test_treatment_sends_learner_rows_into_actor_step_and_greedy_reload (tests.v5.test_duel_learner_state.ArchivedLearnerTests.test_treatment_sends_learner_rows_into_actor_step_and_greedy_reload)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/tongshu/acceptance/duel-learner-state-20261115-79lhGH/revert/tests/v5/test_duel_learner_state.py", line 92, in test_treatment_sends_learner_rows_into_actor_step_and_greedy_reload
+    self.assertEqual(learner_refs[48:], [('learner', (2, i)) for i in range(16)])
+AssertionError: Lists differ: [('learner', (1, 0)), ('learner', (1, 1)), ('learner', [282 chars]15))] != [('learner', (2, 0)), ('learner', (2, 1)), ('learner', [282 chars]15))]
+
+First differing element 0:
+('learner', (1, 0))
+('learner', (2, 0))
+
+Diff is 1388 characters long. Set self.maxDiff to None to see it.
+
+----------------------------------------------------------------------
+Ran 1 test in 0.081s
+
+FAILED (failures=1)
