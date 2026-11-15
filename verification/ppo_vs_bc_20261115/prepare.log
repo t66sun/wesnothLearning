@@ -1,0 +1,8 @@
+{
+  "launch": "/home/tongshu/acceptance/ppo-v38-20261115-8dIsba/formal/launch.json",
+  "launch_sha256": "3ff17a173aa6af898aead3564d8d466e5ffa7dcdec9481125c01e47130c7da50",
+  "schedule_sha256": "ebd3b3c16273f98919a1688e5e38168eb2c123821ebc1e2456625612d7549fe0",
+  "jobs": 720,
+  "paired_slots": 180,
+  "lineage_sha256": "79b84fd9322e4e804b4e05f81f4f7cdbaffa78b47e5f1b4e24aeffd8b326233b"
+}

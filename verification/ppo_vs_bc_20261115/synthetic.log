@@ -1,0 +1,9 @@
+test_full_integer_recount (__main__.PanelTests.test_full_integer_recount) ... ok
+test_missing_or_mispaired_reply_is_rejected (__main__.PanelTests.test_missing_or_mispaired_reply_is_rejected) ... ok
+test_seed_mismatch_is_rejected_before_scoring (__main__.PanelTests.test_seed_mismatch_is_rejected_before_scoring) ... ok
+test_strict_useful_gain_threshold (__main__.PanelTests.test_strict_useful_gain_threshold) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.145s
+
+OK
