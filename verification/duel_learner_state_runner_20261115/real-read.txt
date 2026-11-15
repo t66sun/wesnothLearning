@@ -1,0 +1,3 @@
+{"seed": "202611151", "prepared": 5120, "learner_with_history": 1024, "seconds": 41.55482125468552}
+{"seed": "202611152", "prepared": 5120, "learner_with_history": 1024, "seconds": 41.03260773420334}
+{"seed": "202611153", "prepared": 5120, "learner_with_history": 1024, "seconds": 40.71855257079005}
