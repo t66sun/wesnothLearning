@@ -1,0 +1,493 @@
+{
+  "status": "complete",
+  "games": {
+    "matrix": 192,
+    "reused": 72,
+    "new": 120,
+    "new_astra": 24,
+    "new_v38": 96
+  },
+  "scores": {
+    "the_freelands/astra/bc": {
+      "losses": 3,
+      "turn_cap": 1,
+      "points": 7,
+      "wins": 2,
+      "draws": 1
+    },
+    "the_freelands/astra/lambda-0.95-202611081": {
+      "wins": 3,
+      "turn_cap": 0,
+      "points": 9,
+      "losses": 3
+    },
+    "the_freelands/astra/lambda-0.95-202611082": {
+      "wins": 3,
+      "turn_cap": 1,
+      "points": 10,
+      "losses": 2,
+      "draws": 1
+    },
+    "the_freelands/astra/lambda-0.95-202611083": {
+      "wins": 3,
+      "turn_cap": 0,
+      "points": 9,
+      "losses": 3
+    },
+    "the_freelands/v38/bc": {
+      "wins": 3,
+      "turn_cap": 0,
+      "points": 9,
+      "losses": 3
+    },
+    "the_freelands/v38/lambda-0.95-202611081": {
+      "losses": 2,
+      "turn_cap": 0,
+      "points": 12,
+      "wins": 4
+    },
+    "the_freelands/v38/lambda-0.95-202611082": {
+      "wins": 3,
+      "turn_cap": 1,
+      "points": 10,
+      "draws": 1,
+      "losses": 2
+    },
+    "the_freelands/v38/lambda-0.95-202611083": {
+      "wins": 1,
+      "turn_cap": 0,
+      "points": 3,
+      "losses": 5
+    },
+    "weldyn_channel/astra/bc": {
+      "losses": 4,
+      "turn_cap": 0,
+      "points": 6,
+      "wins": 2
+    },
+    "weldyn_channel/astra/lambda-0.95-202611081": {
+      "wins": 4,
+      "turn_cap": 0,
+      "points": 12,
+      "losses": 2
+    },
+    "weldyn_channel/astra/lambda-0.95-202611082": {
+      "losses": 3,
+      "turn_cap": 1,
+      "points": 7,
+      "wins": 2,
+      "draws": 1
+    },
+    "weldyn_channel/astra/lambda-0.95-202611083": {
+      "draws": 1,
+      "turn_cap": 1,
+      "points": 10,
+      "wins": 3,
+      "losses": 2
+    },
+    "weldyn_channel/v38/bc": {
+      "wins": 3,
+      "turn_cap": 0,
+      "points": 9,
+      "losses": 3
+    },
+    "weldyn_channel/v38/lambda-0.95-202611081": {
+      "losses": 3,
+      "turn_cap": 0,
+      "points": 9,
+      "wins": 3
+    },
+    "weldyn_channel/v38/lambda-0.95-202611082": {
+      "losses": 3,
+      "turn_cap": 0,
+      "points": 9,
+      "wins": 3
+    },
+    "weldyn_channel/v38/lambda-0.95-202611083": {
+      "wins": 5,
+      "turn_cap": 0,
+      "points": 15,
+      "losses": 1
+    },
+    "fallenstar_lake/astra/bc": {
+      "wins": 2,
+      "turn_cap": 1,
+      "points": 7,
+      "losses": 3,
+      "draws": 1
+    },
+    "fallenstar_lake/astra/lambda-0.95-202611081": {
+      "draws": 4,
+      "turn_cap": 4,
+      "points": 7,
+      "losses": 1,
+      "wins": 1
+    },
+    "fallenstar_lake/astra/lambda-0.95-202611082": {
+      "wins": 1,
+      "turn_cap": 4,
+      "points": 7,
+      "draws": 4,
+      "losses": 1
+    },
+    "fallenstar_lake/astra/lambda-0.95-202611083": {
+      "wins": 2,
+      "turn_cap": 2,
+      "points": 8,
+      "losses": 2,
+      "draws": 2
+    },
+    "fallenstar_lake/v38/bc": {
+      "draws": 6,
+      "turn_cap": 6,
+      "points": 6
+    },
+    "fallenstar_lake/v38/lambda-0.95-202611081": {
+      "wins": 3,
+      "turn_cap": 2,
+      "points": 11,
+      "draws": 2,
+      "losses": 1
+    },
+    "fallenstar_lake/v38/lambda-0.95-202611082": {
+      "wins": 3,
+      "turn_cap": 3,
+      "points": 12,
+      "draws": 3
+    },
+    "fallenstar_lake/v38/lambda-0.95-202611083": {
+      "wins": 3,
+      "turn_cap": 2,
+      "points": 11,
+      "losses": 1,
+      "draws": 2
+    },
+    "sullas_ruins/astra/bc": {
+      "wins": 3,
+      "turn_cap": 2,
+      "points": 11,
+      "draws": 2,
+      "losses": 1
+    },
+    "sullas_ruins/astra/lambda-0.95-202611081": {
+      "draws": 3,
+      "turn_cap": 3,
+      "points": 6,
+      "losses": 2,
+      "wins": 1
+    },
+    "sullas_ruins/astra/lambda-0.95-202611082": {
+      "draws": 3,
+      "turn_cap": 3,
+      "points": 9,
+      "wins": 2,
+      "losses": 1
+    },
+    "sullas_ruins/astra/lambda-0.95-202611083": {
+      "wins": 4,
+      "turn_cap": 1,
+      "points": 13,
+      "draws": 1,
+      "losses": 1
+    },
+    "sullas_ruins/v38/bc": {
+      "draws": 4,
+      "turn_cap": 4,
+      "points": 7,
+      "losses": 1,
+      "wins": 1
+    },
+    "sullas_ruins/v38/lambda-0.95-202611081": {
+      "losses": 3,
+      "turn_cap": 1,
+      "points": 7,
+      "draws": 1,
+      "wins": 2
+    },
+    "sullas_ruins/v38/lambda-0.95-202611082": {
+      "losses": 3,
+      "turn_cap": 2,
+      "points": 5,
+      "draws": 2,
+      "wins": 1
+    },
+    "sullas_ruins/v38/lambda-0.95-202611083": {
+      "draws": 2,
+      "turn_cap": 2,
+      "points": 8,
+      "losses": 2,
+      "wins": 2
+    }
+  },
+  "inference": {
+    "the_freelands/astra": {
+      "point": 0.12962962962962962,
+      "interval95": [
+        -0.22222222222222224,
+        0.4444444444444444
+      ],
+      "per_history": {
+        "lambda-0.95-202611081": 0.1111111111111111,
+        "lambda-0.95-202611082": 0.16666666666666666,
+        "lambda-0.95-202611083": 0.1111111111111111
+      }
+    },
+    "the_freelands/v38": {
+      "point": -0.037037037037037035,
+      "interval95": [
+        -0.42592592592592593,
+        0.2777777777777778
+      ],
+      "per_history": {
+        "lambda-0.95-202611081": 0.16666666666666666,
+        "lambda-0.95-202611082": 0.05555555555555555,
+        "lambda-0.95-202611083": -0.3333333333333333
+      }
+    },
+    "weldyn_channel/astra": {
+      "point": 0.2037037037037037,
+      "interval95": [
+        -0.18518518518518517,
+        0.6666666666666666
+      ],
+      "per_history": {
+        "lambda-0.95-202611081": 0.3333333333333333,
+        "lambda-0.95-202611082": 0.05555555555555555,
+        "lambda-0.95-202611083": 0.2222222222222222
+      }
+    },
+    "weldyn_channel/v38": {
+      "point": 0.1111111111111111,
+      "interval95": [
+        0.0,
+        0.3333333333333333
+      ],
+      "per_history": {
+        "lambda-0.95-202611081": 0.0,
+        "lambda-0.95-202611082": 0.0,
+        "lambda-0.95-202611083": 0.3333333333333333
+      }
+    },
+    "fallenstar_lake/astra": {
+      "point": 0.01851851851851852,
+      "interval95": [
+        -0.2037037037037037,
+        0.2777777777777778
+      ],
+      "per_history": {
+        "lambda-0.95-202611081": 0.0,
+        "lambda-0.95-202611082": 0.0,
+        "lambda-0.95-202611083": 0.05555555555555556
+      }
+    },
+    "fallenstar_lake/v38": {
+      "point": 0.2962962962962963,
+      "interval95": [
+        0.037037037037037035,
+        0.5555555555555556
+      ],
+      "per_history": {
+        "lambda-0.95-202611081": 0.2777777777777778,
+        "lambda-0.95-202611082": 0.3333333333333333,
+        "lambda-0.95-202611083": 0.2777777777777778
+      }
+    },
+    "sullas_ruins/astra": {
+      "point": -0.09259259259259259,
+      "interval95": [
+        -0.4074074074074074,
+        0.25925925925925924
+      ],
+      "per_history": {
+        "lambda-0.95-202611081": -0.2777777777777778,
+        "lambda-0.95-202611082": -0.1111111111111111,
+        "lambda-0.95-202611083": 0.1111111111111111
+      }
+    },
+    "sullas_ruins/v38": {
+      "point": -0.018518518518518514,
+      "interval95": [
+        -0.2222222222222222,
+        0.2037037037037037
+      ],
+      "per_history": {
+        "lambda-0.95-202611081": 9.25185853854297e-18,
+        "lambda-0.95-202611082": -0.1111111111111111,
+        "lambda-0.95-202611083": 0.05555555555555555
+      }
+    },
+    "seen/astra": {
+      "point": 0.16666666666666666,
+      "interval95": [
+        -0.1111111111111111,
+        0.4629629629629629
+      ],
+      "per_history": {
+        "lambda-0.95-202611081": 0.2222222222222222,
+        "lambda-0.95-202611082": 0.1111111111111111,
+        "lambda-0.95-202611083": 0.16666666666666666
+      }
+    },
+    "prior_holdout/astra": {
+      "point": -0.037037037037037035,
+      "interval95": [
+        -0.24074074074074073,
+        0.19444444444444445
+      ],
+      "per_history": {
+        "lambda-0.95-202611081": -0.1388888888888889,
+        "lambda-0.95-202611082": -0.05555555555555555,
+        "lambda-0.95-202611083": 0.08333333333333333
+      }
+    },
+    "transfer/astra": {
+      "point": -0.2037037037037037,
+      "interval95": [
+        -0.5925925925925926,
+        0.1388888888888889
+      ],
+      "per_history": {
+        "lambda-0.95-202611081": -0.3611111111111111,
+        "lambda-0.95-202611082": -0.16666666666666666,
+        "lambda-0.95-202611083": -0.08333333333333333
+      }
+    },
+    "seen/v38": {
+      "point": 0.037037037037037035,
+      "interval95": [
+        -0.12037037037037038,
+        0.16666666666666666
+      ],
+      "per_history": {
+        "lambda-0.95-202611081": 0.08333333333333333,
+        "lambda-0.95-202611082": 0.027777777777777776,
+        "lambda-0.95-202611083": 0.0
+      }
+    },
+    "prior_holdout/v38": {
+      "point": 0.1388888888888889,
+      "interval95": [
+        -0.027777777777777776,
+        0.3055555555555555
+      ],
+      "per_history": {
+        "lambda-0.95-202611081": 0.1388888888888889,
+        "lambda-0.95-202611082": 0.1111111111111111,
+        "lambda-0.95-202611083": 0.16666666666666669
+      }
+    },
+    "transfer/v38": {
+      "point": 0.10185185185185186,
+      "interval95": [
+        -0.11111111111111113,
+        0.3055555555555556
+      ],
+      "per_history": {
+        "lambda-0.95-202611081": 0.055555555555555566,
+        "lambda-0.95-202611082": 0.08333333333333333,
+        "lambda-0.95-202611083": 0.16666666666666669
+      }
+    },
+    "opponent/the_freelands": {
+      "point": -0.16666666666666666,
+      "interval95": [
+        -0.537037037037037,
+        0.31481481481481477
+      ],
+      "per_history": {
+        "lambda-0.95-202611081": 0.05555555555555555,
+        "lambda-0.95-202611082": -0.1111111111111111,
+        "lambda-0.95-202611083": -0.4444444444444444
+      }
+    },
+    "opponent/weldyn_channel": {
+      "point": -0.09259259259259259,
+      "interval95": [
+        -0.5740740740740741,
+        0.2777777777777778
+      ],
+      "per_history": {
+        "lambda-0.95-202611081": -0.3333333333333333,
+        "lambda-0.95-202611082": -0.05555555555555555,
+        "lambda-0.95-202611083": 0.1111111111111111
+      }
+    },
+    "opponent/fallenstar_lake": {
+      "point": 0.27777777777777773,
+      "interval95": [
+        -0.16666666666666669,
+        0.6666666666666667
+      ],
+      "per_history": {
+        "lambda-0.95-202611081": 0.2777777777777778,
+        "lambda-0.95-202611082": 0.3333333333333333,
+        "lambda-0.95-202611083": 0.22222222222222224
+      }
+    },
+    "opponent/sullas_ruins": {
+      "point": 0.07407407407407407,
+      "interval95": [
+        -0.35185185185185186,
+        0.4444444444444444
+      ],
+      "per_history": {
+        "lambda-0.95-202611081": 0.2777777777777778,
+        "lambda-0.95-202611082": 0.0,
+        "lambda-0.95-202611083": -0.05555555555555555
+      }
+    },
+    "opponent/seen": {
+      "point": -0.12962962962962962,
+      "interval95": [
+        -0.4166666666666667,
+        0.1388888888888889
+      ],
+      "per_history": {
+        "lambda-0.95-202611081": -0.1388888888888889,
+        "lambda-0.95-202611082": -0.08333333333333333,
+        "lambda-0.95-202611083": -0.16666666666666666
+      }
+    },
+    "opponent/prior_holdout": {
+      "point": 0.17592592592592593,
+      "interval95": [
+        -0.12962962962962962,
+        0.4537037037037037
+      ],
+      "per_history": {
+        "lambda-0.95-202611081": 0.2777777777777778,
+        "lambda-0.95-202611082": 0.16666666666666666,
+        "lambda-0.95-202611083": 0.08333333333333336
+      }
+    },
+    "opponent/all": {
+      "point": 0.02314814814814814,
+      "interval95": [
+        -0.17592592592592593,
+        0.22685185185185186
+      ],
+      "per_history": {
+        "lambda-0.95-202611081": 0.06944444444444445,
+        "lambda-0.95-202611082": 0.041666666666666664,
+        "lambda-0.95-202611083": -0.04166666666666666
+      }
+    },
+    "transfer_x_opponent": {
+      "point": 0.3055555555555556,
+      "interval95": [
+        -0.08333333333333334,
+        0.7222222222222222
+      ],
+      "per_history": {
+        "lambda-0.95-202611081": 0.4166666666666667,
+        "lambda-0.95-202611082": 0.25,
+        "lambda-0.95-202611083": 0.25
+      }
+    }
+  },
+  "launch_sha256": "e54e4009326b583e872705c27b3b18db7ef579a7d0e05f1abb017fb74810ef76",
+  "new_replies_sha256": "c8b6143b40fdf05ec75f85905b09b61c10082c3cc0d60e41168442bdbf15bf98",
+  "collection_seconds": 593.624269247055,
+  "optimizer_updates": 0,
+  "wall_seconds": 595.4854602813721
+}

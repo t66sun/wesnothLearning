@@ -1,0 +1,16 @@
+{
+  "launch_sha256": "e54e4009326b583e872705c27b3b18db7ef579a7d0e05f1abb017fb74810ef76",
+  "schedule_sha256": "bddd570d8e7934b78fdd37feb470514bd650e647ff97bb0814339f15c3107814",
+  "exposure_sha256": "cb113a51dcb16d30a0778cdb8d2baea08214454e67c83a02125ca14aa0957879",
+  "games": {
+    "matrix": 192,
+    "reused": 72,
+    "new": 120,
+    "new_astra": 24,
+    "new_v38": 96
+  },
+  "model_path_pairs": 16,
+  "games_started": 0,
+  "optimizer_updates": 0,
+  "preflight_seconds": 3.0491715939715505
+}
