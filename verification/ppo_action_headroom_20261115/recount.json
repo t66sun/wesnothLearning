@@ -1,0 +1,142 @@
+{
+  "launch_sha256": "868aaea15d6a97381d9112a29e3acaaae9a828afc38fb26ffef230175a602403",
+  "result_sha256": "288f12b22081a333a9ec7890f38911bd6d77907d7b67ac9160ac671a0985fb14",
+  "exit_code": 0,
+  "completed_set": true,
+  "counts": {
+    "baseline:started": 17,
+    "baseline:complete": 17,
+    "identical:started": 17,
+    "identical:complete": 17,
+    "alternate:started": 17,
+    "alternate:complete": 17
+  },
+  "contrast": {
+    "point": -0.058823529411764705,
+    "interval95": [
+      -0.2549019607843137,
+      0.11764705882352941
+    ],
+    "direction": {
+      "improvement": 1,
+      "tie": 13,
+      "decline": 3
+    },
+    "original_wdl": [
+      8,
+      4,
+      5
+    ],
+    "alternate_wdl": [
+      7,
+      4,
+      6
+    ]
+  },
+  "wall_seconds": 241.4235577583313,
+  "optimizer_updates": 0,
+  "results": {
+    "weldyn_channel-lambda-0.95-202611081-8-2": {
+      "status": "complete",
+      "original": 0,
+      "alternate": 3,
+      "delta": 3
+    },
+    "fallenstar_lake-lambda-0.95-202611082-8-2": {
+      "status": "complete",
+      "original": 1,
+      "alternate": 1,
+      "delta": 0
+    },
+    "the_freelands-lambda-0.95-202611081-0-2": {
+      "status": "complete",
+      "original": 3,
+      "alternate": 0,
+      "delta": -3
+    },
+    "fallenstar_lake-lambda-0.95-202611083-24-1": {
+      "status": "complete",
+      "original": 0,
+      "alternate": 0,
+      "delta": 0
+    },
+    "fallenstar_lake-lambda-0.95-202611083-24-2": {
+      "status": "complete",
+      "original": 1,
+      "alternate": 1,
+      "delta": 0
+    },
+    "the_freelands-lambda-0.95-202611082-8-1": {
+      "status": "complete",
+      "original": 3,
+      "alternate": 3,
+      "delta": 0
+    },
+    "the_freelands-lambda-0.95-202611083-0-2": {
+      "status": "complete",
+      "original": 3,
+      "alternate": 3,
+      "delta": 0
+    },
+    "the_freelands-lambda-0.95-202611082-0-1": {
+      "status": "complete",
+      "original": 3,
+      "alternate": 3,
+      "delta": 0
+    },
+    "weldyn_channel-lambda-0.95-202611082-24-2": {
+      "status": "complete",
+      "original": 3,
+      "alternate": 3,
+      "delta": 0
+    },
+    "fallenstar_lake-lambda-0.95-202611081-8-1": {
+      "status": "complete",
+      "original": 1,
+      "alternate": 1,
+      "delta": 0
+    },
+    "fallenstar_lake-lambda-0.95-202611081-0-1": {
+      "status": "complete",
+      "original": 3,
+      "alternate": 1,
+      "delta": -2
+    },
+    "weldyn_channel-lambda-0.95-202611082-16-2": {
+      "status": "complete",
+      "original": 0,
+      "alternate": 0,
+      "delta": 0
+    },
+    "the_freelands-lambda-0.95-202611081-8-2": {
+      "status": "complete",
+      "original": 3,
+      "alternate": 3,
+      "delta": 0
+    },
+    "fallenstar_lake-lambda-0.95-202611081-16-2": {
+      "status": "complete",
+      "original": 0,
+      "alternate": 0,
+      "delta": 0
+    },
+    "fallenstar_lake-lambda-0.95-202611083-8-2": {
+      "status": "complete",
+      "original": 3,
+      "alternate": 3,
+      "delta": 0
+    },
+    "the_freelands-lambda-0.95-202611081-24-2": {
+      "status": "complete",
+      "original": 1,
+      "alternate": 0,
+      "delta": -1
+    },
+    "fallenstar_lake-lambda-0.95-202611083-16-2": {
+      "status": "complete",
+      "original": 0,
+      "alternate": 0,
+      "delta": 0
+    }
+  }
+}

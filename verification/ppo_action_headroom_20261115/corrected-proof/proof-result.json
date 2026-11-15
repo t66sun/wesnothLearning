@@ -1,0 +1,298 @@
+{
+  "pass_gate": true,
+  "results": {
+    "weldyn_channel-lambda-0.95-202611081-0-2": {
+      "status": "complete",
+      "game_id": "weldyn_channel-lambda-0.95-202611081-0-2",
+      "boundary": 32,
+      "decision": 67,
+      "turn": 5,
+      "side": 2,
+      "original_choice": 11,
+      "candidate_count": 37,
+      "role": "lambda-0.95-202611081",
+      "layout": "weldyn_channel",
+      "public_sha256": "804923222d9babd797fa3b316cd610d60603778750d18c030acac629e50c733d",
+      "history_sha256": "0156ae06015a3b0b0b22ff139745ba7a6c3d748597763d8e6eaeea9c0c1116c8",
+      "outcome": {
+        "engine_id": "lite-0.2",
+        "rng_version": "splitmix64-rejection-v1",
+        "combat_version": "probabilistic_combat_v6",
+        "winner": 1,
+        "winning_team": "1",
+        "truncated": false,
+        "reason": "victory",
+        "survivors": [
+          1
+        ],
+        "bots": [
+          "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/bc/frozen/opponents/gpt6astra.zip",
+          "/home/tongshu/acceptance/ppo-diagnosis-20261115-Z8O0k3/capture/policies/lambda-0.95-202611081/DiagnosticPolicy"
+        ],
+        "factions": [
+          "Drakes",
+          "Knalgan Alliance"
+        ],
+        "teams": null,
+        "turns": 17,
+        "faults": [],
+        "rank_points": {
+          "2": 0.0,
+          "1": 1.0
+        },
+        "approximate": true,
+        "task_id": "official-score-30-v1",
+        "task_terminal": true
+      },
+      "baseline_checked": 131,
+      "identical_checked": 99,
+      "logp_error": 0.0
+    },
+    "weldyn_channel-lambda-0.95-202611082-0-1": {
+      "status": "complete",
+      "game_id": "weldyn_channel-lambda-0.95-202611082-0-1",
+      "boundary": 71,
+      "decision": 149,
+      "turn": 10,
+      "side": 1,
+      "original_choice": 5,
+      "candidate_count": 37,
+      "role": "lambda-0.95-202611082",
+      "layout": "weldyn_channel",
+      "public_sha256": "1a2025e1632c56a5fbfaea6784fb48e2f2c47797a871964b055929bdf347f872",
+      "history_sha256": "b4eb9c99524aaa2f40ab1979cc45d105ed71080d78f5670ed02276449b8edfd5",
+      "outcome": {
+        "engine_id": "lite-0.2",
+        "rng_version": "splitmix64-rejection-v1",
+        "combat_version": "probabilistic_combat_v6",
+        "winner": 2,
+        "winning_team": "2",
+        "truncated": false,
+        "reason": "victory",
+        "survivors": [
+          2
+        ],
+        "bots": [
+          "/home/tongshu/acceptance/ppo-diagnosis-20261115-Z8O0k3/capture/policies/lambda-0.95-202611082/DiagnosticPolicy",
+          "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/bc/frozen/opponents/gpt6astra.zip"
+        ],
+        "factions": [
+          "Drakes",
+          "Knalgan Alliance"
+        ],
+        "teams": null,
+        "turns": 28,
+        "faults": [],
+        "rank_points": {
+          "1": 0.0,
+          "2": 1.0
+        },
+        "approximate": true,
+        "task_id": "official-score-30-v1",
+        "task_terminal": true
+      },
+      "baseline_checked": 143,
+      "identical_checked": 72,
+      "logp_error": 0.0
+    },
+    "the_freelands-lambda-0.95-202611081-0-1": {
+      "status": "complete",
+      "game_id": "the_freelands-lambda-0.95-202611081-0-1",
+      "boundary": 49,
+      "decision": 89,
+      "turn": 6,
+      "side": 1,
+      "original_choice": 0,
+      "candidate_count": 1,
+      "role": "lambda-0.95-202611081",
+      "layout": "the_freelands",
+      "public_sha256": "1e9aac3a2b4b14a178d80437989e59e502d4ceef2f2b5baf57f725069c22f177",
+      "history_sha256": "3a69ea73bebdaa8bd958f8605e7a96e9d519d0d79b9e3034ee03898bc0391649",
+      "outcome": {
+        "engine_id": "lite-0.2",
+        "rng_version": "splitmix64-rejection-v1",
+        "combat_version": "probabilistic_combat_v6",
+        "winner": 2,
+        "winning_team": "2",
+        "truncated": false,
+        "reason": "victory",
+        "survivors": [
+          2
+        ],
+        "bots": [
+          "/home/tongshu/acceptance/ppo-diagnosis-20261115-Z8O0k3/capture/policies/lambda-0.95-202611081/DiagnosticPolicy",
+          "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/bc/frozen/opponents/gpt6astra.zip"
+        ],
+        "factions": [
+          "Drakes",
+          "Knalgan Alliance"
+        ],
+        "teams": null,
+        "turns": 26,
+        "faults": [],
+        "rank_points": {
+          "1": 0.0,
+          "2": 1.0
+        },
+        "approximate": true,
+        "task_id": "official-score-30-v1",
+        "task_terminal": true
+      },
+      "baseline_checked": 199,
+      "identical_checked": 150,
+      "logp_error": 0.0
+    },
+    "fallenstar_lake-lambda-0.95-202611082-0-2": {
+      "status": "complete",
+      "game_id": "fallenstar_lake-lambda-0.95-202611082-0-2",
+      "boundary": 103,
+      "decision": 217,
+      "turn": 12,
+      "side": 2,
+      "original_choice": 7,
+      "candidate_count": 37,
+      "role": "lambda-0.95-202611082",
+      "layout": "fallenstar_lake",
+      "public_sha256": "87cbd279b64606f3a0eb9b478b4100ccd0c7fec5fc6b30449bc243b14ba6b384",
+      "history_sha256": "d1be7483f146cd7d9a7cce9a24e60992f772498c97d631cb89b50a1ce11c2163",
+      "outcome": {
+        "engine_id": "lite-0.2",
+        "rng_version": "splitmix64-rejection-v1",
+        "combat_version": "probabilistic_combat_v6",
+        "winner": 1,
+        "winning_team": "1",
+        "truncated": false,
+        "reason": "victory",
+        "survivors": [
+          1
+        ],
+        "bots": [
+          "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/bc/frozen/opponents/gpt6astra.zip",
+          "/home/tongshu/acceptance/ppo-diagnosis-20261115-Z8O0k3/capture/policies/lambda-0.95-202611082/DiagnosticPolicy"
+        ],
+        "factions": [
+          "Drakes",
+          "Knalgan Alliance"
+        ],
+        "teams": null,
+        "turns": 27,
+        "faults": [],
+        "rank_points": {
+          "2": 0.0,
+          "1": 1.0
+        },
+        "approximate": true,
+        "task_id": "official-score-30-v1",
+        "task_terminal": true
+      },
+      "baseline_checked": 206,
+      "identical_checked": 103,
+      "logp_error": 0.0
+    },
+    "the_freelands-lambda-0.95-202611083-0-2": {
+      "status": "complete",
+      "game_id": "the_freelands-lambda-0.95-202611083-0-2",
+      "boundary": 150,
+      "decision": 278,
+      "turn": 16,
+      "side": 2,
+      "original_choice": 24,
+      "candidate_count": 37,
+      "role": "lambda-0.95-202611083",
+      "layout": "the_freelands",
+      "public_sha256": "5214cc0c74627fbdd104d4143928305919b445d64ffe3e21f11683902bfe2f9b",
+      "history_sha256": "1f80a106b0bc68323d6acca72325ced4be2858071e85111eee1c9a19231fafec",
+      "outcome": {
+        "engine_id": "lite-0.2",
+        "rng_version": "splitmix64-rejection-v1",
+        "combat_version": "probabilistic_combat_v6",
+        "winner": 2,
+        "winning_team": "2",
+        "truncated": false,
+        "reason": "victory",
+        "survivors": [
+          2
+        ],
+        "bots": [
+          "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/bc/frozen/opponents/gpt6astra.zip",
+          "/home/tongshu/acceptance/ppo-diagnosis-20261115-Z8O0k3/capture/policies/lambda-0.95-202611083/DiagnosticPolicy"
+        ],
+        "factions": [
+          "Drakes",
+          "Knalgan Alliance"
+        ],
+        "teams": null,
+        "turns": 20,
+        "faults": [],
+        "rank_points": {
+          "1": 0.0,
+          "2": 1.0
+        },
+        "approximate": true,
+        "task_id": "official-score-30-v1",
+        "task_terminal": true
+      },
+      "baseline_checked": 201,
+      "identical_checked": 51,
+      "logp_error": 0.0
+    },
+    "fallenstar_lake-lambda-0.95-202611083-0-1": {
+      "status": "complete",
+      "game_id": "fallenstar_lake-lambda-0.95-202611083-0-1",
+      "boundary": 262,
+      "decision": 504,
+      "turn": 24,
+      "side": 1,
+      "original_choice": 3,
+      "candidate_count": 37,
+      "role": "lambda-0.95-202611083",
+      "layout": "fallenstar_lake",
+      "public_sha256": "80b1073382cb5cbf9d25a745b9ec936c8ce5ec5a2b5bb5c3be7223312841b361",
+      "history_sha256": "365cb91e74d159fd05728f53668cc9e387d740d2257107cd528ae293633b8989",
+      "outcome": {
+        "engine_id": "lite-0.2",
+        "rng_version": "splitmix64-rejection-v1",
+        "combat_version": "probabilistic_combat_v6",
+        "winner": 0,
+        "winning_team": 0,
+        "truncated": true,
+        "reason": "turn_limit",
+        "survivors": [
+          1,
+          2
+        ],
+        "bots": [
+          "/home/tongshu/acceptance/ppo-diagnosis-20261115-Z8O0k3/capture/policies/lambda-0.95-202611083/DiagnosticPolicy",
+          "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/bc/frozen/opponents/gpt6astra.zip"
+        ],
+        "factions": [
+          "Drakes",
+          "Knalgan Alliance"
+        ],
+        "teams": null,
+        "turns": 31,
+        "faults": [],
+        "rank_points": {
+          "1": 0.5,
+          "2": 0.5
+        },
+        "approximate": true,
+        "task_id": "official-score-30-v1",
+        "task_terminal": true
+      },
+      "baseline_checked": 350,
+      "identical_checked": 88,
+      "logp_error": 0.0
+    }
+  },
+  "counts": {
+    "baseline:started": 6,
+    "baseline:complete": 6,
+    "identical:started": 6,
+    "identical:complete": 6
+  },
+  "launch_sha256": "4d66d5e357d84821abd239816c7577c0bc4bca94876c4ef819502d34253d4a26",
+  "wall_s": 61.65050792694092,
+  "optimizer_updates": 0,
+  "alternates": 0
+}

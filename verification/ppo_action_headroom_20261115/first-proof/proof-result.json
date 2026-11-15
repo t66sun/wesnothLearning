@@ -1,0 +1,36 @@
+{
+  "pass_gate": false,
+  "results": {
+    "weldyn_channel-lambda-0.95-202611082-0-1": {
+      "status": "failed",
+      "error": "AssertionError: Public observation and candidate order at learner decision 6"
+    },
+    "the_freelands-lambda-0.95-202611081-0-1": {
+      "status": "failed",
+      "error": "AssertionError: Public observation and candidate order at learner decision 6"
+    },
+    "fallenstar_lake-lambda-0.95-202611083-0-1": {
+      "status": "failed",
+      "error": "AssertionError: Public observation and candidate order at learner decision 6"
+    },
+    "the_freelands-lambda-0.95-202611083-0-2": {
+      "status": "failed",
+      "error": "AssertionError: Public observation and candidate order at learner decision 65"
+    },
+    "weldyn_channel-lambda-0.95-202611081-0-2": {
+      "status": "failed",
+      "error": "AssertionError: Public observation and candidate order at learner decision 101"
+    },
+    "fallenstar_lake-lambda-0.95-202611082-0-2": {
+      "status": "failed",
+      "error": "AssertionError: Public observation and candidate order at learner decision 165"
+    }
+  },
+  "counts": {
+    "baseline:started": 6
+  },
+  "launch_sha256": "bc7c7c2d028f51e15c570a730433d5a2b9abee17f6d2490ea37d8466e7d3c781",
+  "wall_s": 15.437230110168457,
+  "optimizer_updates": 0,
+  "alternates": 0
+}

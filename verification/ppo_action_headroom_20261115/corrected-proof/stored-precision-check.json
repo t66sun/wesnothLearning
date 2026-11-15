@@ -1,0 +1,65 @@
+{
+  "cases": [
+    {
+      "game": "the_freelands-lambda-0.95-202611081-0-1",
+      "learner_index": 6,
+      "actual_decision": 7,
+      "turn": 1,
+      "live_formula": 0.03333333333333333,
+      "stored_float": 0.03333333507180214,
+      "original_hash_equal": false,
+      "stored_precision_hash_equal": true
+    },
+    {
+      "game": "weldyn_channel-lambda-0.95-202611081-0-2",
+      "learner_index": 101,
+      "actual_decision": 197,
+      "turn": 12,
+      "live_formula": 0.4,
+      "stored_float": 0.4000000059604645,
+      "original_hash_equal": false,
+      "stored_precision_hash_equal": true
+    },
+    {
+      "game": "weldyn_channel-lambda-0.95-202611082-0-1",
+      "learner_index": 6,
+      "actual_decision": 7,
+      "turn": 1,
+      "live_formula": 0.03333333333333333,
+      "stored_float": 0.03333333507180214,
+      "original_hash_equal": false,
+      "stored_precision_hash_equal": true
+    },
+    {
+      "game": "fallenstar_lake-lambda-0.95-202611082-0-2",
+      "learner_index": 165,
+      "actual_decision": 376,
+      "turn": 19,
+      "live_formula": 0.6333333333333333,
+      "stored_float": 0.6333333253860474,
+      "original_hash_equal": false,
+      "stored_precision_hash_equal": true
+    },
+    {
+      "game": "fallenstar_lake-lambda-0.95-202611083-0-1",
+      "learner_index": 6,
+      "actual_decision": 7,
+      "turn": 1,
+      "live_formula": 0.03333333333333333,
+      "stored_float": 0.03333333507180214,
+      "original_hash_equal": false,
+      "stored_precision_hash_equal": true
+    },
+    {
+      "game": "the_freelands-lambda-0.95-202611083-0-2",
+      "learner_index": 65,
+      "actual_decision": 130,
+      "turn": 8,
+      "live_formula": 0.26666666666666666,
+      "stored_float": 0.2666666805744171,
+      "original_hash_equal": false,
+      "stored_precision_hash_equal": true
+    }
+  ],
+  "games_started": 0
+}
