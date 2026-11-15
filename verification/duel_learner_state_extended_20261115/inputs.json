@@ -1,0 +1,2269 @@
+{
+  "source_commit": "0503bfc91e03d64b61ad41d1d917fdfa481e7d12",
+  "source_archive_sha256": "21a91e0d0f0a9a6fde983f599ef7722742d89c1dd82fbb5cef5b3c97013c6e49",
+  "corpus_sha256": "f7e3544ed07826a7350375f6bc00a1b1e3f14f1858121e9bc07859103713744e",
+  "audit_sha256": "3f3530e97a88b62a95c7a2993f0a5aeebb805013026935540bb1bea4de0ff149",
+  "environment": {
+    "source": "/home/tongshu/acceptance/duel-learner-state-20261115-Wt2pkM/source",
+    "commit": "ca5fac76bf91bae34a6e6b01bbc1e8c18b45096d",
+    "extension": "/home/tongshu/acceptance/immutable_forecast_20261104/green/.extension/_engine_lite.so",
+    "extension_sha256": "56dd77140411db987377d6de4ffbf562da4d0e5c76bc16d34780da67e60e5ae4",
+    "teacher": {
+      "teacher": "gpt6astra",
+      "teacher_profile": "probabilistic_combat_v6",
+      "teacher_source_sha256": "d64e1178c0a8af9b1b10e2626f03e7cb8ed70a5a368d3c38860d40723a903eb5",
+      "teacher_parent_sha256": "2a216c96081990621dc15772e9de1bf40e4f5f451223fe52e5b20625464dc933"
+    },
+    "candidate_version": "schema5-work-12000-v8"
+  },
+  "checkpoint": {
+    "checkpoint_sha256": "8fc61bbb0be5c2ad8d2ec5b56760ce3dbfa08eed008c490e9b2233624ea91ebe",
+    "weights_sha256": "d9d694f04d4179a5c65bbc29307a8e425a245d650d47f55a36ec04abeb206801",
+    "manifest_sha256": "bb9915fd2ed1e3d2375c4732b604a5a1d2b3ebb8441bc2976c3b4d74ad76dd48",
+    "gate_sha256": "9cf9239a19c4d5713fe9158df43de618572474016f37e85c017b4a41700744c1"
+  },
+  "task": "official-score-30-v1",
+  "rules_sha256": "e6b4f6200b0a8ad58a536b844fff37cfa9e0091bf0a0b702a8982155310f2f17",
+  "maps": {
+    "road_to_weldyn": {
+      "asset": "campaigns/Delfadors_Memoirs/maps/03_The_Road_to_Weldyn.map",
+      "seed": 2026111551,
+      "source_sha256": "405cbf70d2aaa5ae7bc78006218433aab1dc3c24a36f3a658bf8c51540d5e2de",
+      "file_sha256": "5ae33752e466f18975664545e9af7810b5246a223ce4a6cbcc41b7096fa1df1a",
+      "board_sha256": "a0712d09f18da79296c9df4d1e62b0bb01af3607eb0cb0371747c6b859bad451",
+      "villages": 13
+    },
+    "summer_of_storms": {
+      "asset": "campaigns/The_Rise_Of_Wesnoth/maps/01_A_Summer_of_Storms.map",
+      "seed": 2026111552,
+      "source_sha256": "ef612420c821dec8c77166a55320524de5a9b33dcdb5efb118b2ee020e8a3a06",
+      "file_sha256": "a38492c72066c6738f559b5311a1481f1f17df3cdddc1d93cf2b85a111851301",
+      "board_sha256": "bb5972c96d25081eafb56c6f171e57dd35b170fe0d2caa6e6e5d4e007d9ee403",
+      "villages": 24
+    },
+    "ur_thorodor": {
+      "asset": "campaigns/Delfadors_Memoirs/maps/08_Ur-Thorodor.map",
+      "seed": 2026111553,
+      "source_sha256": "750695b85c2c26ae6b8769046922d3eafdac86a6624f9a59b758f84d4727587d",
+      "file_sha256": "ad53e1429a774e628395cfc183af70b9907598aac6c34232330b41af617304df",
+      "board_sha256": "82ec08e3de336b17d6dbd675f4881d200f8b1f038a71cd74c736bd738f5d0fb0",
+      "villages": 10
+    }
+  },
+  "order": [
+    [
+      "teacher",
+      202611151
+    ],
+    [
+      "learner",
+      202611151
+    ],
+    [
+      "learner",
+      202611152
+    ],
+    [
+      "teacher",
+      202611152
+    ],
+    [
+      "teacher",
+      202611153
+    ],
+    [
+      "learner",
+      202611153
+    ]
+  ],
+  "steps": 64,
+  "shared_per_step": 48,
+  "swapped_per_step": 16,
+  "learning_rate": 0.0003,
+  "max_grad_norm": 0.5,
+  "marginal_weight": 0.1,
+  "trainer_threads": 1,
+  "workers": 8,
+  "limits": {
+    "preflight": 600,
+    "cell": 1200,
+    "games": 5400,
+    "audit": 1200,
+    "total": 14400
+  },
+  "bootstrap_seed": 2026111559,
+  "bootstrap_samples": 10000,
+  "minimum_gain": 0.05,
+  "exposure": {
+    "files": 1359,
+    "board_sha256": [
+      "4c28c8c86d729d54745cef26c4b075892f3291fe0394e15d924ef6f16d28f428",
+      "6a74ee56216bfeeff68b1b22ca5af2bf08500682cbd0c13ba741948d6c45711c",
+      "93285380185b1612f64c296374c2ef3b91217c9b6438aa0d10c3bf300ffe15c1",
+      "e14d55816d6b3241036cdb9d9685f37195522c585adf542c04e0137240a771fa",
+      "f4a0aa04cfad87b05bcbdb72dc6e469a547454178e6a34e335e45a8eb3fbb810"
+    ]
+  },
+  "slots": [
+    {
+      "map": "road_to_weldyn",
+      "block": 0,
+      "rotation": 0,
+      "scenario": "64c7acc758dd4e2eed2f67af2d0860dadb788bee26069a1b6c612ced611e1a5e",
+      "seed": 1877506654,
+      "seat": 1,
+      "factions": [
+        "Drakes",
+        "Knalgan Alliance"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 0,
+      "rotation": 1,
+      "scenario": "64c7acc758dd4e2eed2f67af2d0860dadb788bee26069a1b6c612ced611e1a5e",
+      "seed": 1877506654,
+      "seat": 2,
+      "factions": [
+        "Drakes",
+        "Knalgan Alliance"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 1,
+      "rotation": 0,
+      "scenario": "9e07bf13d14f9ca78cff9dd5975fb4cc2ec25fac6292896f645de103adcc61f2",
+      "seed": 2484950059,
+      "seat": 1,
+      "factions": [
+        "Drakes",
+        "Loyalists"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 1,
+      "rotation": 1,
+      "scenario": "9e07bf13d14f9ca78cff9dd5975fb4cc2ec25fac6292896f645de103adcc61f2",
+      "seed": 2484950059,
+      "seat": 2,
+      "factions": [
+        "Drakes",
+        "Loyalists"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 2,
+      "rotation": 0,
+      "scenario": "ccc281c741e841a9074ea5189f953f3b6ca9c6b8d02513e0efddc849357474af",
+      "seed": 356117006,
+      "seat": 1,
+      "factions": [
+        "Drakes",
+        "Northerners"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 2,
+      "rotation": 1,
+      "scenario": "ccc281c741e841a9074ea5189f953f3b6ca9c6b8d02513e0efddc849357474af",
+      "seed": 356117006,
+      "seat": 2,
+      "factions": [
+        "Drakes",
+        "Northerners"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 3,
+      "rotation": 0,
+      "scenario": "b7a369df87ecee3492d20d636bdcc78be5d8bc6599146b85b4b1eece4f704136",
+      "seed": 3395386973,
+      "seat": 1,
+      "factions": [
+        "Drakes",
+        "Rebels"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 3,
+      "rotation": 1,
+      "scenario": "b7a369df87ecee3492d20d636bdcc78be5d8bc6599146b85b4b1eece4f704136",
+      "seed": 3395386973,
+      "seat": 2,
+      "factions": [
+        "Drakes",
+        "Rebels"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 4,
+      "rotation": 0,
+      "scenario": "7f86ed6981c165624d2618d01838d98f8fcb1489cb70c66322a7fa8859939246",
+      "seed": 1546250849,
+      "seat": 1,
+      "factions": [
+        "Drakes",
+        "Undead"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 4,
+      "rotation": 1,
+      "scenario": "7f86ed6981c165624d2618d01838d98f8fcb1489cb70c66322a7fa8859939246",
+      "seed": 1546250849,
+      "seat": 2,
+      "factions": [
+        "Drakes",
+        "Undead"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 5,
+      "rotation": 0,
+      "scenario": "10d10a472d0f148ec5779544e450a50232eca6a0b8f0a9eb0de63518b8cf22d0",
+      "seed": 143971969,
+      "seat": 1,
+      "factions": [
+        "Knalgan Alliance",
+        "Drakes"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 5,
+      "rotation": 1,
+      "scenario": "10d10a472d0f148ec5779544e450a50232eca6a0b8f0a9eb0de63518b8cf22d0",
+      "seed": 143971969,
+      "seat": 2,
+      "factions": [
+        "Knalgan Alliance",
+        "Drakes"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 6,
+      "rotation": 0,
+      "scenario": "0fe121e76d699b7665e5f13a674658bc6596187aa2c5f439a6520226e6b3820b",
+      "seed": 2021016511,
+      "seat": 1,
+      "factions": [
+        "Knalgan Alliance",
+        "Loyalists"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 6,
+      "rotation": 1,
+      "scenario": "0fe121e76d699b7665e5f13a674658bc6596187aa2c5f439a6520226e6b3820b",
+      "seed": 2021016511,
+      "seat": 2,
+      "factions": [
+        "Knalgan Alliance",
+        "Loyalists"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 7,
+      "rotation": 0,
+      "scenario": "d23a7a4824cc115d9ec44b3f4f1c3cbdefeaf48b4d8693cb044fdadb2012c25c",
+      "seed": 3646522108,
+      "seat": 1,
+      "factions": [
+        "Knalgan Alliance",
+        "Northerners"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 7,
+      "rotation": 1,
+      "scenario": "d23a7a4824cc115d9ec44b3f4f1c3cbdefeaf48b4d8693cb044fdadb2012c25c",
+      "seed": 3646522108,
+      "seat": 2,
+      "factions": [
+        "Knalgan Alliance",
+        "Northerners"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 8,
+      "rotation": 0,
+      "scenario": "ea8d4caeddaa3ae0425725a42ed980c9184357180f4f5e44327af3a6d80a9e7e",
+      "seed": 801280714,
+      "seat": 1,
+      "factions": [
+        "Knalgan Alliance",
+        "Rebels"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 8,
+      "rotation": 1,
+      "scenario": "ea8d4caeddaa3ae0425725a42ed980c9184357180f4f5e44327af3a6d80a9e7e",
+      "seed": 801280714,
+      "seat": 2,
+      "factions": [
+        "Knalgan Alliance",
+        "Rebels"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 9,
+      "rotation": 0,
+      "scenario": "fc8d57abfda9ab769c7ba6c07a98b11d3e2ced876e85abf98edc2c15f694f28c",
+      "seed": 3096364114,
+      "seat": 1,
+      "factions": [
+        "Knalgan Alliance",
+        "Undead"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 9,
+      "rotation": 1,
+      "scenario": "fc8d57abfda9ab769c7ba6c07a98b11d3e2ced876e85abf98edc2c15f694f28c",
+      "seed": 3096364114,
+      "seat": 2,
+      "factions": [
+        "Knalgan Alliance",
+        "Undead"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 10,
+      "rotation": 0,
+      "scenario": "d68c421899d48a2ede5aade24b649ee07db95f948b63c4367bca59b23e7ac7b4",
+      "seed": 2017181740,
+      "seat": 1,
+      "factions": [
+        "Loyalists",
+        "Drakes"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 10,
+      "rotation": 1,
+      "scenario": "d68c421899d48a2ede5aade24b649ee07db95f948b63c4367bca59b23e7ac7b4",
+      "seed": 2017181740,
+      "seat": 2,
+      "factions": [
+        "Loyalists",
+        "Drakes"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 11,
+      "rotation": 0,
+      "scenario": "26018156e1991aee80ec9158837f339187c7c1062c23a6fd8de9ff65b10a3b38",
+      "seed": 1151665309,
+      "seat": 1,
+      "factions": [
+        "Loyalists",
+        "Knalgan Alliance"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 11,
+      "rotation": 1,
+      "scenario": "26018156e1991aee80ec9158837f339187c7c1062c23a6fd8de9ff65b10a3b38",
+      "seed": 1151665309,
+      "seat": 2,
+      "factions": [
+        "Loyalists",
+        "Knalgan Alliance"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 12,
+      "rotation": 0,
+      "scenario": "1e0493520788e8fe5b6d050682480b78a8c646fb7793f180195250c7078ef2a0",
+      "seed": 929015564,
+      "seat": 1,
+      "factions": [
+        "Loyalists",
+        "Northerners"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 12,
+      "rotation": 1,
+      "scenario": "1e0493520788e8fe5b6d050682480b78a8c646fb7793f180195250c7078ef2a0",
+      "seed": 929015564,
+      "seat": 2,
+      "factions": [
+        "Loyalists",
+        "Northerners"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 13,
+      "rotation": 0,
+      "scenario": "5cee52d26d8c15d32383310fc9e50738b0dc8a2dd32fdc0d568d8b0080c0bfbc",
+      "seed": 3659084579,
+      "seat": 1,
+      "factions": [
+        "Loyalists",
+        "Rebels"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 13,
+      "rotation": 1,
+      "scenario": "5cee52d26d8c15d32383310fc9e50738b0dc8a2dd32fdc0d568d8b0080c0bfbc",
+      "seed": 3659084579,
+      "seat": 2,
+      "factions": [
+        "Loyalists",
+        "Rebels"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 14,
+      "rotation": 0,
+      "scenario": "f4a4a9dba1d484fdd896d4c652719c01e2e17291cb05a5033477a8ea5fb1aa6a",
+      "seed": 3942379628,
+      "seat": 1,
+      "factions": [
+        "Loyalists",
+        "Undead"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 14,
+      "rotation": 1,
+      "scenario": "f4a4a9dba1d484fdd896d4c652719c01e2e17291cb05a5033477a8ea5fb1aa6a",
+      "seed": 3942379628,
+      "seat": 2,
+      "factions": [
+        "Loyalists",
+        "Undead"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 15,
+      "rotation": 0,
+      "scenario": "fb7797e799e0aa499dcfe2746eb9851df4f19d7ab2f206626eb7c6793966c91f",
+      "seed": 91779878,
+      "seat": 1,
+      "factions": [
+        "Northerners",
+        "Drakes"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 15,
+      "rotation": 1,
+      "scenario": "fb7797e799e0aa499dcfe2746eb9851df4f19d7ab2f206626eb7c6793966c91f",
+      "seed": 91779878,
+      "seat": 2,
+      "factions": [
+        "Northerners",
+        "Drakes"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 16,
+      "rotation": 0,
+      "scenario": "a27eb3b36ad910185bc47e5766305796d681322dffaf8cc451ff38c8015f812a",
+      "seed": 2191362356,
+      "seat": 1,
+      "factions": [
+        "Northerners",
+        "Knalgan Alliance"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 16,
+      "rotation": 1,
+      "scenario": "a27eb3b36ad910185bc47e5766305796d681322dffaf8cc451ff38c8015f812a",
+      "seed": 2191362356,
+      "seat": 2,
+      "factions": [
+        "Northerners",
+        "Knalgan Alliance"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 17,
+      "rotation": 0,
+      "scenario": "77fd71d2e6d1886365a89ae37c29500fe6a06851f938e1f5f82682f38e0aacd0",
+      "seed": 1707172750,
+      "seat": 1,
+      "factions": [
+        "Northerners",
+        "Loyalists"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 17,
+      "rotation": 1,
+      "scenario": "77fd71d2e6d1886365a89ae37c29500fe6a06851f938e1f5f82682f38e0aacd0",
+      "seed": 1707172750,
+      "seat": 2,
+      "factions": [
+        "Northerners",
+        "Loyalists"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 18,
+      "rotation": 0,
+      "scenario": "49ea4902e721771d3e26f10d757217ba56e2a195ad1bf09689885ff71e651096",
+      "seed": 151212249,
+      "seat": 1,
+      "factions": [
+        "Northerners",
+        "Rebels"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 18,
+      "rotation": 1,
+      "scenario": "49ea4902e721771d3e26f10d757217ba56e2a195ad1bf09689885ff71e651096",
+      "seed": 151212249,
+      "seat": 2,
+      "factions": [
+        "Northerners",
+        "Rebels"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 19,
+      "rotation": 0,
+      "scenario": "e07b97a727a89c99231ea4cbb0f576cc49e6af05e94b387d852d0208fcc23d34",
+      "seed": 1520587204,
+      "seat": 1,
+      "factions": [
+        "Northerners",
+        "Undead"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 19,
+      "rotation": 1,
+      "scenario": "e07b97a727a89c99231ea4cbb0f576cc49e6af05e94b387d852d0208fcc23d34",
+      "seed": 1520587204,
+      "seat": 2,
+      "factions": [
+        "Northerners",
+        "Undead"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 20,
+      "rotation": 0,
+      "scenario": "11b07cbf52c960cd604fd1b94381b84887825b28320c65878368a3133f71b96f",
+      "seed": 3041019989,
+      "seat": 1,
+      "factions": [
+        "Rebels",
+        "Drakes"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 20,
+      "rotation": 1,
+      "scenario": "11b07cbf52c960cd604fd1b94381b84887825b28320c65878368a3133f71b96f",
+      "seed": 3041019989,
+      "seat": 2,
+      "factions": [
+        "Rebels",
+        "Drakes"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 21,
+      "rotation": 0,
+      "scenario": "0ec11d0972bf81095a28dfb531523ee2f40532f3ae79e6483ad5a43bcb89ee1a",
+      "seed": 2571317480,
+      "seat": 1,
+      "factions": [
+        "Rebels",
+        "Knalgan Alliance"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 21,
+      "rotation": 1,
+      "scenario": "0ec11d0972bf81095a28dfb531523ee2f40532f3ae79e6483ad5a43bcb89ee1a",
+      "seed": 2571317480,
+      "seat": 2,
+      "factions": [
+        "Rebels",
+        "Knalgan Alliance"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 22,
+      "rotation": 0,
+      "scenario": "a0182f8192bedb4b9c626b6cba3b4e0aa0b17c1f4b5a2ff4cf5ba26cdb652be1",
+      "seed": 3857107212,
+      "seat": 1,
+      "factions": [
+        "Rebels",
+        "Loyalists"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 22,
+      "rotation": 1,
+      "scenario": "a0182f8192bedb4b9c626b6cba3b4e0aa0b17c1f4b5a2ff4cf5ba26cdb652be1",
+      "seed": 3857107212,
+      "seat": 2,
+      "factions": [
+        "Rebels",
+        "Loyalists"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 23,
+      "rotation": 0,
+      "scenario": "3209a086604919ccc96deb500cb88e1c761dd148fdfbde95d6ae7d68ad6a27ac",
+      "seed": 2591792963,
+      "seat": 1,
+      "factions": [
+        "Rebels",
+        "Northerners"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 23,
+      "rotation": 1,
+      "scenario": "3209a086604919ccc96deb500cb88e1c761dd148fdfbde95d6ae7d68ad6a27ac",
+      "seed": 2591792963,
+      "seat": 2,
+      "factions": [
+        "Rebels",
+        "Northerners"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 24,
+      "rotation": 0,
+      "scenario": "28df654749b6b98047ce45b2a50c6116736db3bdf5066e7d28aed2bfbbcd7583",
+      "seed": 2447791656,
+      "seat": 1,
+      "factions": [
+        "Rebels",
+        "Undead"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 24,
+      "rotation": 1,
+      "scenario": "28df654749b6b98047ce45b2a50c6116736db3bdf5066e7d28aed2bfbbcd7583",
+      "seed": 2447791656,
+      "seat": 2,
+      "factions": [
+        "Rebels",
+        "Undead"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 25,
+      "rotation": 0,
+      "scenario": "1a4540426802e0016fbd1255e452734dd4eb36ed80af8afc7b08365675e408cb",
+      "seed": 861221596,
+      "seat": 1,
+      "factions": [
+        "Undead",
+        "Drakes"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 25,
+      "rotation": 1,
+      "scenario": "1a4540426802e0016fbd1255e452734dd4eb36ed80af8afc7b08365675e408cb",
+      "seed": 861221596,
+      "seat": 2,
+      "factions": [
+        "Undead",
+        "Drakes"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 26,
+      "rotation": 0,
+      "scenario": "2df94bae05988692c8e312ae42a7cdd23930af97f55736be28478543bba2dee7",
+      "seed": 3209831708,
+      "seat": 1,
+      "factions": [
+        "Undead",
+        "Knalgan Alliance"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 26,
+      "rotation": 1,
+      "scenario": "2df94bae05988692c8e312ae42a7cdd23930af97f55736be28478543bba2dee7",
+      "seed": 3209831708,
+      "seat": 2,
+      "factions": [
+        "Undead",
+        "Knalgan Alliance"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 27,
+      "rotation": 0,
+      "scenario": "50b172571c64d67308522b4f8508809a7a8456c677767a7c4609ebc2f63d72f9",
+      "seed": 3876219812,
+      "seat": 1,
+      "factions": [
+        "Undead",
+        "Loyalists"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 27,
+      "rotation": 1,
+      "scenario": "50b172571c64d67308522b4f8508809a7a8456c677767a7c4609ebc2f63d72f9",
+      "seed": 3876219812,
+      "seat": 2,
+      "factions": [
+        "Undead",
+        "Loyalists"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 28,
+      "rotation": 0,
+      "scenario": "175cec23c2f2f2f9c37080c72fa84a942582c2147bbf3d50b78f6dd234d0a34b",
+      "seed": 3427329328,
+      "seat": 1,
+      "factions": [
+        "Undead",
+        "Northerners"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 28,
+      "rotation": 1,
+      "scenario": "175cec23c2f2f2f9c37080c72fa84a942582c2147bbf3d50b78f6dd234d0a34b",
+      "seed": 3427329328,
+      "seat": 2,
+      "factions": [
+        "Undead",
+        "Northerners"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 29,
+      "rotation": 0,
+      "scenario": "ffc1e84c89d076e864269b69cb49b8db80198eab613f4389ac61159b0e030a65",
+      "seed": 572854169,
+      "seat": 1,
+      "factions": [
+        "Undead",
+        "Rebels"
+      ]
+    },
+    {
+      "map": "road_to_weldyn",
+      "block": 29,
+      "rotation": 1,
+      "scenario": "ffc1e84c89d076e864269b69cb49b8db80198eab613f4389ac61159b0e030a65",
+      "seed": 572854169,
+      "seat": 2,
+      "factions": [
+        "Undead",
+        "Rebels"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 0,
+      "rotation": 0,
+      "scenario": "017ee92f5bb7014eab2100e99f700203dc6d2a06b2754345f514ce17f6c44708",
+      "seed": 2268011362,
+      "seat": 1,
+      "factions": [
+        "Drakes",
+        "Knalgan Alliance"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 0,
+      "rotation": 1,
+      "scenario": "017ee92f5bb7014eab2100e99f700203dc6d2a06b2754345f514ce17f6c44708",
+      "seed": 2268011362,
+      "seat": 2,
+      "factions": [
+        "Drakes",
+        "Knalgan Alliance"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 1,
+      "rotation": 0,
+      "scenario": "04b28276233d7ca0a68d546041a1260700d6be89f2c8fcb78ad2acb0f83d06aa",
+      "seed": 1824137068,
+      "seat": 1,
+      "factions": [
+        "Drakes",
+        "Loyalists"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 1,
+      "rotation": 1,
+      "scenario": "04b28276233d7ca0a68d546041a1260700d6be89f2c8fcb78ad2acb0f83d06aa",
+      "seed": 1824137068,
+      "seat": 2,
+      "factions": [
+        "Drakes",
+        "Loyalists"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 2,
+      "rotation": 0,
+      "scenario": "93e148eb1c08223e8c64df93842670ae13e2872a261f2ba5e7ed4bb1ebddbd00",
+      "seed": 1631871121,
+      "seat": 1,
+      "factions": [
+        "Drakes",
+        "Northerners"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 2,
+      "rotation": 1,
+      "scenario": "93e148eb1c08223e8c64df93842670ae13e2872a261f2ba5e7ed4bb1ebddbd00",
+      "seed": 1631871121,
+      "seat": 2,
+      "factions": [
+        "Drakes",
+        "Northerners"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 3,
+      "rotation": 0,
+      "scenario": "5e837a5482db8639a3e96c41f0e1dfb20bf47e41b14217322541ef20bc9a967b",
+      "seed": 2734745791,
+      "seat": 1,
+      "factions": [
+        "Drakes",
+        "Rebels"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 3,
+      "rotation": 1,
+      "scenario": "5e837a5482db8639a3e96c41f0e1dfb20bf47e41b14217322541ef20bc9a967b",
+      "seed": 2734745791,
+      "seat": 2,
+      "factions": [
+        "Drakes",
+        "Rebels"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 4,
+      "rotation": 0,
+      "scenario": "41277a20e6c0ca67080c5f8987fb5131aebfe513d544287c6825a3e14aaa6d2d",
+      "seed": 178337080,
+      "seat": 1,
+      "factions": [
+        "Drakes",
+        "Undead"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 4,
+      "rotation": 1,
+      "scenario": "41277a20e6c0ca67080c5f8987fb5131aebfe513d544287c6825a3e14aaa6d2d",
+      "seed": 178337080,
+      "seat": 2,
+      "factions": [
+        "Drakes",
+        "Undead"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 5,
+      "rotation": 0,
+      "scenario": "fddc5c5e7c38cbc7e33e1394c339a5413c381d83e99329a7e338a87648383e5f",
+      "seed": 799317585,
+      "seat": 1,
+      "factions": [
+        "Knalgan Alliance",
+        "Drakes"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 5,
+      "rotation": 1,
+      "scenario": "fddc5c5e7c38cbc7e33e1394c339a5413c381d83e99329a7e338a87648383e5f",
+      "seed": 799317585,
+      "seat": 2,
+      "factions": [
+        "Knalgan Alliance",
+        "Drakes"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 6,
+      "rotation": 0,
+      "scenario": "e4f2120a27017efa83408ef5b19ff4bb93800b24a246254f549faa7192fec809",
+      "seed": 1389459651,
+      "seat": 1,
+      "factions": [
+        "Knalgan Alliance",
+        "Loyalists"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 6,
+      "rotation": 1,
+      "scenario": "e4f2120a27017efa83408ef5b19ff4bb93800b24a246254f549faa7192fec809",
+      "seed": 1389459651,
+      "seat": 2,
+      "factions": [
+        "Knalgan Alliance",
+        "Loyalists"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 7,
+      "rotation": 0,
+      "scenario": "fc8bee221c12a0e35787b480d2b4d1c82eff2ccd750fb3fa070fb224b492b3ad",
+      "seed": 1168014317,
+      "seat": 1,
+      "factions": [
+        "Knalgan Alliance",
+        "Northerners"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 7,
+      "rotation": 1,
+      "scenario": "fc8bee221c12a0e35787b480d2b4d1c82eff2ccd750fb3fa070fb224b492b3ad",
+      "seed": 1168014317,
+      "seat": 2,
+      "factions": [
+        "Knalgan Alliance",
+        "Northerners"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 8,
+      "rotation": 0,
+      "scenario": "6fc4c31077a00b99d14e25c8e6021023b79971c67d410e99d87a20d97690909c",
+      "seed": 510320758,
+      "seat": 1,
+      "factions": [
+        "Knalgan Alliance",
+        "Rebels"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 8,
+      "rotation": 1,
+      "scenario": "6fc4c31077a00b99d14e25c8e6021023b79971c67d410e99d87a20d97690909c",
+      "seed": 510320758,
+      "seat": 2,
+      "factions": [
+        "Knalgan Alliance",
+        "Rebels"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 9,
+      "rotation": 0,
+      "scenario": "39640aaa481d56c4f57f9f5ec9aff0607742cb30aaca3aa5b48b055d1c2f3a93",
+      "seed": 1305344295,
+      "seat": 1,
+      "factions": [
+        "Knalgan Alliance",
+        "Undead"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 9,
+      "rotation": 1,
+      "scenario": "39640aaa481d56c4f57f9f5ec9aff0607742cb30aaca3aa5b48b055d1c2f3a93",
+      "seed": 1305344295,
+      "seat": 2,
+      "factions": [
+        "Knalgan Alliance",
+        "Undead"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 10,
+      "rotation": 0,
+      "scenario": "ee0448716476f95269a30b7d0b43dbd09003693c1651ea40b03355ef56630d22",
+      "seed": 892803871,
+      "seat": 1,
+      "factions": [
+        "Loyalists",
+        "Drakes"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 10,
+      "rotation": 1,
+      "scenario": "ee0448716476f95269a30b7d0b43dbd09003693c1651ea40b03355ef56630d22",
+      "seed": 892803871,
+      "seat": 2,
+      "factions": [
+        "Loyalists",
+        "Drakes"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 11,
+      "rotation": 0,
+      "scenario": "1f38aae62ea377dbf3f5b6444cb7be969df87610f92bd91605aac0e71d097e40",
+      "seed": 3751116509,
+      "seat": 1,
+      "factions": [
+        "Loyalists",
+        "Knalgan Alliance"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 11,
+      "rotation": 1,
+      "scenario": "1f38aae62ea377dbf3f5b6444cb7be969df87610f92bd91605aac0e71d097e40",
+      "seed": 3751116509,
+      "seat": 2,
+      "factions": [
+        "Loyalists",
+        "Knalgan Alliance"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 12,
+      "rotation": 0,
+      "scenario": "b408f722d52d08e4ff377209aea0af6104159919f5105c2dc82533715f0be26e",
+      "seed": 2758603497,
+      "seat": 1,
+      "factions": [
+        "Loyalists",
+        "Northerners"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 12,
+      "rotation": 1,
+      "scenario": "b408f722d52d08e4ff377209aea0af6104159919f5105c2dc82533715f0be26e",
+      "seed": 2758603497,
+      "seat": 2,
+      "factions": [
+        "Loyalists",
+        "Northerners"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 13,
+      "rotation": 0,
+      "scenario": "e9160a29ad55720038f6e8214b1f2325b7f9b98719253e5e219ef5dc8688f573",
+      "seed": 4039721864,
+      "seat": 1,
+      "factions": [
+        "Loyalists",
+        "Rebels"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 13,
+      "rotation": 1,
+      "scenario": "e9160a29ad55720038f6e8214b1f2325b7f9b98719253e5e219ef5dc8688f573",
+      "seed": 4039721864,
+      "seat": 2,
+      "factions": [
+        "Loyalists",
+        "Rebels"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 14,
+      "rotation": 0,
+      "scenario": "1d4cc4c72b12f9e83d31e6f36f789cf80aaaac2b22f940be25933a514dd59a1b",
+      "seed": 3048975069,
+      "seat": 1,
+      "factions": [
+        "Loyalists",
+        "Undead"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 14,
+      "rotation": 1,
+      "scenario": "1d4cc4c72b12f9e83d31e6f36f789cf80aaaac2b22f940be25933a514dd59a1b",
+      "seed": 3048975069,
+      "seat": 2,
+      "factions": [
+        "Loyalists",
+        "Undead"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 15,
+      "rotation": 0,
+      "scenario": "5b7a85faf69d1f55071ee741ce7b43e4cc542911b09645105440cae7fe0d2917",
+      "seed": 2506989197,
+      "seat": 1,
+      "factions": [
+        "Northerners",
+        "Drakes"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 15,
+      "rotation": 1,
+      "scenario": "5b7a85faf69d1f55071ee741ce7b43e4cc542911b09645105440cae7fe0d2917",
+      "seed": 2506989197,
+      "seat": 2,
+      "factions": [
+        "Northerners",
+        "Drakes"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 16,
+      "rotation": 0,
+      "scenario": "5044c81a4198e6282ec26042dabedb7c26d699faea6eee6b3b435c0ec8471258",
+      "seed": 2092480641,
+      "seat": 1,
+      "factions": [
+        "Northerners",
+        "Knalgan Alliance"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 16,
+      "rotation": 1,
+      "scenario": "5044c81a4198e6282ec26042dabedb7c26d699faea6eee6b3b435c0ec8471258",
+      "seed": 2092480641,
+      "seat": 2,
+      "factions": [
+        "Northerners",
+        "Knalgan Alliance"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 17,
+      "rotation": 0,
+      "scenario": "b7a361529ade18f2c320b3c13cd822dffdc529f449c0b87135d228e014493d63",
+      "seed": 1865233732,
+      "seat": 1,
+      "factions": [
+        "Northerners",
+        "Loyalists"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 17,
+      "rotation": 1,
+      "scenario": "b7a361529ade18f2c320b3c13cd822dffdc529f449c0b87135d228e014493d63",
+      "seed": 1865233732,
+      "seat": 2,
+      "factions": [
+        "Northerners",
+        "Loyalists"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 18,
+      "rotation": 0,
+      "scenario": "16562fb93ffb892becd390cb400d7be963af5b86036b4aa9b12135719baf8b10",
+      "seed": 2236883427,
+      "seat": 1,
+      "factions": [
+        "Northerners",
+        "Rebels"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 18,
+      "rotation": 1,
+      "scenario": "16562fb93ffb892becd390cb400d7be963af5b86036b4aa9b12135719baf8b10",
+      "seed": 2236883427,
+      "seat": 2,
+      "factions": [
+        "Northerners",
+        "Rebels"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 19,
+      "rotation": 0,
+      "scenario": "8fbf28d2a0fdb889aebfc85a3ca49f4969774721365f9a3c4119c299527f6ef8",
+      "seed": 1080398607,
+      "seat": 1,
+      "factions": [
+        "Northerners",
+        "Undead"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 19,
+      "rotation": 1,
+      "scenario": "8fbf28d2a0fdb889aebfc85a3ca49f4969774721365f9a3c4119c299527f6ef8",
+      "seed": 1080398607,
+      "seat": 2,
+      "factions": [
+        "Northerners",
+        "Undead"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 20,
+      "rotation": 0,
+      "scenario": "6954ed9420513111d7503bc5a4a48351cb5f162ba1e315ddbfa2ef4be21b621f",
+      "seed": 3271581536,
+      "seat": 1,
+      "factions": [
+        "Rebels",
+        "Drakes"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 20,
+      "rotation": 1,
+      "scenario": "6954ed9420513111d7503bc5a4a48351cb5f162ba1e315ddbfa2ef4be21b621f",
+      "seed": 3271581536,
+      "seat": 2,
+      "factions": [
+        "Rebels",
+        "Drakes"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 21,
+      "rotation": 0,
+      "scenario": "0d9b8878ba927c08519c2055cefd091ec12d7afbabe6833b6a151f2ec6c1791f",
+      "seed": 2765151117,
+      "seat": 1,
+      "factions": [
+        "Rebels",
+        "Knalgan Alliance"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 21,
+      "rotation": 1,
+      "scenario": "0d9b8878ba927c08519c2055cefd091ec12d7afbabe6833b6a151f2ec6c1791f",
+      "seed": 2765151117,
+      "seat": 2,
+      "factions": [
+        "Rebels",
+        "Knalgan Alliance"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 22,
+      "rotation": 0,
+      "scenario": "d79a8bacec9a533624f54ee64673fe208ee60d61fa3e166c96b15d250dac87bb",
+      "seed": 3659273158,
+      "seat": 1,
+      "factions": [
+        "Rebels",
+        "Loyalists"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 22,
+      "rotation": 1,
+      "scenario": "d79a8bacec9a533624f54ee64673fe208ee60d61fa3e166c96b15d250dac87bb",
+      "seed": 3659273158,
+      "seat": 2,
+      "factions": [
+        "Rebels",
+        "Loyalists"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 23,
+      "rotation": 0,
+      "scenario": "fe8ca40901aeeb29cdc13b96b1e5ee6709d1e220496d07b3ace18c86a659a0f0",
+      "seed": 2065427993,
+      "seat": 1,
+      "factions": [
+        "Rebels",
+        "Northerners"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 23,
+      "rotation": 1,
+      "scenario": "fe8ca40901aeeb29cdc13b96b1e5ee6709d1e220496d07b3ace18c86a659a0f0",
+      "seed": 2065427993,
+      "seat": 2,
+      "factions": [
+        "Rebels",
+        "Northerners"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 24,
+      "rotation": 0,
+      "scenario": "2bd3cae082d8943201f7a15860df294b676f9f7351b3581d550323133aaa4bff",
+      "seed": 2395319720,
+      "seat": 1,
+      "factions": [
+        "Rebels",
+        "Undead"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 24,
+      "rotation": 1,
+      "scenario": "2bd3cae082d8943201f7a15860df294b676f9f7351b3581d550323133aaa4bff",
+      "seed": 2395319720,
+      "seat": 2,
+      "factions": [
+        "Rebels",
+        "Undead"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 25,
+      "rotation": 0,
+      "scenario": "aac5248569e24bbff62075c4180a5dde73733364db54b0a28811cc0b187c8163",
+      "seed": 1040809928,
+      "seat": 1,
+      "factions": [
+        "Undead",
+        "Drakes"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 25,
+      "rotation": 1,
+      "scenario": "aac5248569e24bbff62075c4180a5dde73733364db54b0a28811cc0b187c8163",
+      "seed": 1040809928,
+      "seat": 2,
+      "factions": [
+        "Undead",
+        "Drakes"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 26,
+      "rotation": 0,
+      "scenario": "3dcb7254ce936f72ef6a6bcbeb8e550206d8e4c69ec07c2dfef27e4dff0dd8a4",
+      "seed": 3007978502,
+      "seat": 1,
+      "factions": [
+        "Undead",
+        "Knalgan Alliance"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 26,
+      "rotation": 1,
+      "scenario": "3dcb7254ce936f72ef6a6bcbeb8e550206d8e4c69ec07c2dfef27e4dff0dd8a4",
+      "seed": 3007978502,
+      "seat": 2,
+      "factions": [
+        "Undead",
+        "Knalgan Alliance"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 27,
+      "rotation": 0,
+      "scenario": "b0f38d9e6c470723cecbc6bd3d94da6545f609f59df72e8ad1f4058885c0a041",
+      "seed": 2014539111,
+      "seat": 1,
+      "factions": [
+        "Undead",
+        "Loyalists"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 27,
+      "rotation": 1,
+      "scenario": "b0f38d9e6c470723cecbc6bd3d94da6545f609f59df72e8ad1f4058885c0a041",
+      "seed": 2014539111,
+      "seat": 2,
+      "factions": [
+        "Undead",
+        "Loyalists"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 28,
+      "rotation": 0,
+      "scenario": "bc5e40d3d850b94a5cb464c585616958d2e6d4ad5ba10458c0ae98fa88f140c9",
+      "seed": 4203020824,
+      "seat": 1,
+      "factions": [
+        "Undead",
+        "Northerners"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 28,
+      "rotation": 1,
+      "scenario": "bc5e40d3d850b94a5cb464c585616958d2e6d4ad5ba10458c0ae98fa88f140c9",
+      "seed": 4203020824,
+      "seat": 2,
+      "factions": [
+        "Undead",
+        "Northerners"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 29,
+      "rotation": 0,
+      "scenario": "b5bb85b1c97e5347bf36a56e0533fe48f044f7bacd74206940065b313e68077b",
+      "seed": 1056821681,
+      "seat": 1,
+      "factions": [
+        "Undead",
+        "Rebels"
+      ]
+    },
+    {
+      "map": "summer_of_storms",
+      "block": 29,
+      "rotation": 1,
+      "scenario": "b5bb85b1c97e5347bf36a56e0533fe48f044f7bacd74206940065b313e68077b",
+      "seed": 1056821681,
+      "seat": 2,
+      "factions": [
+        "Undead",
+        "Rebels"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 0,
+      "rotation": 0,
+      "scenario": "583a61a793a71996581b4b84e4a9b842c8af7bc5c9a495feabe9e2ed499175c0",
+      "seed": 65142751,
+      "seat": 1,
+      "factions": [
+        "Drakes",
+        "Knalgan Alliance"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 0,
+      "rotation": 1,
+      "scenario": "583a61a793a71996581b4b84e4a9b842c8af7bc5c9a495feabe9e2ed499175c0",
+      "seed": 65142751,
+      "seat": 2,
+      "factions": [
+        "Drakes",
+        "Knalgan Alliance"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 1,
+      "rotation": 0,
+      "scenario": "4e85bd2e5971c921faabc8fa6cf91602dee3b33ac40d44f90126e9d81bedbd47",
+      "seed": 1376404303,
+      "seat": 1,
+      "factions": [
+        "Drakes",
+        "Loyalists"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 1,
+      "rotation": 1,
+      "scenario": "4e85bd2e5971c921faabc8fa6cf91602dee3b33ac40d44f90126e9d81bedbd47",
+      "seed": 1376404303,
+      "seat": 2,
+      "factions": [
+        "Drakes",
+        "Loyalists"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 2,
+      "rotation": 0,
+      "scenario": "7e04737002134452225eef4056f38d6926dcf46e641de9e1e6fa3377b1759811",
+      "seed": 1160016373,
+      "seat": 1,
+      "factions": [
+        "Drakes",
+        "Northerners"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 2,
+      "rotation": 1,
+      "scenario": "7e04737002134452225eef4056f38d6926dcf46e641de9e1e6fa3377b1759811",
+      "seed": 1160016373,
+      "seat": 2,
+      "factions": [
+        "Drakes",
+        "Northerners"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 3,
+      "rotation": 0,
+      "scenario": "d6971e31ab779b20e50d4f7fad290577bde82dc699b267cfaa0a74441c0e39c9",
+      "seed": 1877676865,
+      "seat": 1,
+      "factions": [
+        "Drakes",
+        "Rebels"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 3,
+      "rotation": 1,
+      "scenario": "d6971e31ab779b20e50d4f7fad290577bde82dc699b267cfaa0a74441c0e39c9",
+      "seed": 1877676865,
+      "seat": 2,
+      "factions": [
+        "Drakes",
+        "Rebels"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 4,
+      "rotation": 0,
+      "scenario": "fc1a0ed9f929701397cfab4a9d13fe4a9c8164906104533d69c8328c6719b4a5",
+      "seed": 296830014,
+      "seat": 1,
+      "factions": [
+        "Drakes",
+        "Undead"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 4,
+      "rotation": 1,
+      "scenario": "fc1a0ed9f929701397cfab4a9d13fe4a9c8164906104533d69c8328c6719b4a5",
+      "seed": 296830014,
+      "seat": 2,
+      "factions": [
+        "Drakes",
+        "Undead"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 5,
+      "rotation": 0,
+      "scenario": "81fe278a30bf6d2e32e50d5a2c00dba7029ad65d168d62c3d4b30f057927ae76",
+      "seed": 3258178433,
+      "seat": 1,
+      "factions": [
+        "Knalgan Alliance",
+        "Drakes"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 5,
+      "rotation": 1,
+      "scenario": "81fe278a30bf6d2e32e50d5a2c00dba7029ad65d168d62c3d4b30f057927ae76",
+      "seed": 3258178433,
+      "seat": 2,
+      "factions": [
+        "Knalgan Alliance",
+        "Drakes"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 6,
+      "rotation": 0,
+      "scenario": "26f9787fc30bbbfaec91aa2e9409df21b92604cf3959379743fdcc745d0460d4",
+      "seed": 3122200274,
+      "seat": 1,
+      "factions": [
+        "Knalgan Alliance",
+        "Loyalists"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 6,
+      "rotation": 1,
+      "scenario": "26f9787fc30bbbfaec91aa2e9409df21b92604cf3959379743fdcc745d0460d4",
+      "seed": 3122200274,
+      "seat": 2,
+      "factions": [
+        "Knalgan Alliance",
+        "Loyalists"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 7,
+      "rotation": 0,
+      "scenario": "baec6710c640cf4739f9a084f68037674a1786210453dea493fffbf49abbbd57",
+      "seed": 1223993947,
+      "seat": 1,
+      "factions": [
+        "Knalgan Alliance",
+        "Northerners"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 7,
+      "rotation": 1,
+      "scenario": "baec6710c640cf4739f9a084f68037674a1786210453dea493fffbf49abbbd57",
+      "seed": 1223993947,
+      "seat": 2,
+      "factions": [
+        "Knalgan Alliance",
+        "Northerners"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 8,
+      "rotation": 0,
+      "scenario": "b127cc7b7b7b1d4c018f3402042e310faf79de4cebe62e85cf74a6103bc016df",
+      "seed": 3275686805,
+      "seat": 1,
+      "factions": [
+        "Knalgan Alliance",
+        "Rebels"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 8,
+      "rotation": 1,
+      "scenario": "b127cc7b7b7b1d4c018f3402042e310faf79de4cebe62e85cf74a6103bc016df",
+      "seed": 3275686805,
+      "seat": 2,
+      "factions": [
+        "Knalgan Alliance",
+        "Rebels"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 9,
+      "rotation": 0,
+      "scenario": "e90cac4f272ba8949583ed3e894b7af8e43d45a5a60436a9400ac4b452f1c797",
+      "seed": 1130487725,
+      "seat": 1,
+      "factions": [
+        "Knalgan Alliance",
+        "Undead"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 9,
+      "rotation": 1,
+      "scenario": "e90cac4f272ba8949583ed3e894b7af8e43d45a5a60436a9400ac4b452f1c797",
+      "seed": 1130487725,
+      "seat": 2,
+      "factions": [
+        "Knalgan Alliance",
+        "Undead"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 10,
+      "rotation": 0,
+      "scenario": "ed8d7e204b1aa862cc8c04d15bb0e59b9cd72c32415b1dd5e6251b3e5083fce8",
+      "seed": 1096473038,
+      "seat": 1,
+      "factions": [
+        "Loyalists",
+        "Drakes"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 10,
+      "rotation": 1,
+      "scenario": "ed8d7e204b1aa862cc8c04d15bb0e59b9cd72c32415b1dd5e6251b3e5083fce8",
+      "seed": 1096473038,
+      "seat": 2,
+      "factions": [
+        "Loyalists",
+        "Drakes"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 11,
+      "rotation": 0,
+      "scenario": "de199eed2bce5f1cf646ceb92320bf27fbf56c6f0d8521484c537f14e5eaf08f",
+      "seed": 67927841,
+      "seat": 1,
+      "factions": [
+        "Loyalists",
+        "Knalgan Alliance"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 11,
+      "rotation": 1,
+      "scenario": "de199eed2bce5f1cf646ceb92320bf27fbf56c6f0d8521484c537f14e5eaf08f",
+      "seed": 67927841,
+      "seat": 2,
+      "factions": [
+        "Loyalists",
+        "Knalgan Alliance"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 12,
+      "rotation": 0,
+      "scenario": "3316726961e20adfb6e41059ce9500b66cdd8cd50c8aae12284ffe37a77ef9f9",
+      "seed": 956991423,
+      "seat": 1,
+      "factions": [
+        "Loyalists",
+        "Northerners"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 12,
+      "rotation": 1,
+      "scenario": "3316726961e20adfb6e41059ce9500b66cdd8cd50c8aae12284ffe37a77ef9f9",
+      "seed": 956991423,
+      "seat": 2,
+      "factions": [
+        "Loyalists",
+        "Northerners"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 13,
+      "rotation": 0,
+      "scenario": "f06bddd1341543c2221a739f9c1e21dc036f81656dcc426fae0574320feca68c",
+      "seed": 1146092160,
+      "seat": 1,
+      "factions": [
+        "Loyalists",
+        "Rebels"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 13,
+      "rotation": 1,
+      "scenario": "f06bddd1341543c2221a739f9c1e21dc036f81656dcc426fae0574320feca68c",
+      "seed": 1146092160,
+      "seat": 2,
+      "factions": [
+        "Loyalists",
+        "Rebels"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 14,
+      "rotation": 0,
+      "scenario": "6c0c7bcebf48be28ddd262988a487e1c33e96c9b6e61e99009976558b14f0b8a",
+      "seed": 2658966174,
+      "seat": 1,
+      "factions": [
+        "Loyalists",
+        "Undead"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 14,
+      "rotation": 1,
+      "scenario": "6c0c7bcebf48be28ddd262988a487e1c33e96c9b6e61e99009976558b14f0b8a",
+      "seed": 2658966174,
+      "seat": 2,
+      "factions": [
+        "Loyalists",
+        "Undead"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 15,
+      "rotation": 0,
+      "scenario": "93aa6ad3693c57344b81d44b855ca1eec648db682cd1577b2ff585ac92a6410f",
+      "seed": 2600832982,
+      "seat": 1,
+      "factions": [
+        "Northerners",
+        "Drakes"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 15,
+      "rotation": 1,
+      "scenario": "93aa6ad3693c57344b81d44b855ca1eec648db682cd1577b2ff585ac92a6410f",
+      "seed": 2600832982,
+      "seat": 2,
+      "factions": [
+        "Northerners",
+        "Drakes"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 16,
+      "rotation": 0,
+      "scenario": "1feac64443456dbcf362ccd54e35cc6e97a86a1780ef0a058ec2e9afadf2b483",
+      "seed": 4237689571,
+      "seat": 1,
+      "factions": [
+        "Northerners",
+        "Knalgan Alliance"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 16,
+      "rotation": 1,
+      "scenario": "1feac64443456dbcf362ccd54e35cc6e97a86a1780ef0a058ec2e9afadf2b483",
+      "seed": 4237689571,
+      "seat": 2,
+      "factions": [
+        "Northerners",
+        "Knalgan Alliance"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 17,
+      "rotation": 0,
+      "scenario": "57dcbad98b3fac3c4f7dfb0aa19bbcd38715f2fae50e284d74c128fe4af65ead",
+      "seed": 403841740,
+      "seat": 1,
+      "factions": [
+        "Northerners",
+        "Loyalists"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 17,
+      "rotation": 1,
+      "scenario": "57dcbad98b3fac3c4f7dfb0aa19bbcd38715f2fae50e284d74c128fe4af65ead",
+      "seed": 403841740,
+      "seat": 2,
+      "factions": [
+        "Northerners",
+        "Loyalists"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 18,
+      "rotation": 0,
+      "scenario": "6bb3eaa0d43192bd615e7aa813eb6a8594bc20067102094f2801fbf066fd3da0",
+      "seed": 1462767723,
+      "seat": 1,
+      "factions": [
+        "Northerners",
+        "Rebels"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 18,
+      "rotation": 1,
+      "scenario": "6bb3eaa0d43192bd615e7aa813eb6a8594bc20067102094f2801fbf066fd3da0",
+      "seed": 1462767723,
+      "seat": 2,
+      "factions": [
+        "Northerners",
+        "Rebels"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 19,
+      "rotation": 0,
+      "scenario": "9ab4375a748094157deeafc8715301a6c2a3fdbc48632121d31513b1071838fc",
+      "seed": 2180455027,
+      "seat": 1,
+      "factions": [
+        "Northerners",
+        "Undead"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 19,
+      "rotation": 1,
+      "scenario": "9ab4375a748094157deeafc8715301a6c2a3fdbc48632121d31513b1071838fc",
+      "seed": 2180455027,
+      "seat": 2,
+      "factions": [
+        "Northerners",
+        "Undead"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 20,
+      "rotation": 0,
+      "scenario": "ffa8bd91182d94319ebcb3242500e698f385e98700fa4de566b3466db2ad04b3",
+      "seed": 3996781291,
+      "seat": 1,
+      "factions": [
+        "Rebels",
+        "Drakes"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 20,
+      "rotation": 1,
+      "scenario": "ffa8bd91182d94319ebcb3242500e698f385e98700fa4de566b3466db2ad04b3",
+      "seed": 3996781291,
+      "seat": 2,
+      "factions": [
+        "Rebels",
+        "Drakes"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 21,
+      "rotation": 0,
+      "scenario": "5c43319875a80a8250134ae376927dc0092dfd4f2f22c79ed08f3abc2a53bce9",
+      "seed": 3504185810,
+      "seat": 1,
+      "factions": [
+        "Rebels",
+        "Knalgan Alliance"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 21,
+      "rotation": 1,
+      "scenario": "5c43319875a80a8250134ae376927dc0092dfd4f2f22c79ed08f3abc2a53bce9",
+      "seed": 3504185810,
+      "seat": 2,
+      "factions": [
+        "Rebels",
+        "Knalgan Alliance"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 22,
+      "rotation": 0,
+      "scenario": "4cf607bc64ded4d87f5f6e0b1726b3896ef0590658d7437c095ffb35de8dbeb9",
+      "seed": 2552641316,
+      "seat": 1,
+      "factions": [
+        "Rebels",
+        "Loyalists"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 22,
+      "rotation": 1,
+      "scenario": "4cf607bc64ded4d87f5f6e0b1726b3896ef0590658d7437c095ffb35de8dbeb9",
+      "seed": 2552641316,
+      "seat": 2,
+      "factions": [
+        "Rebels",
+        "Loyalists"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 23,
+      "rotation": 0,
+      "scenario": "3dfd47d9e7af0daecca6d5daf23b306bc099a89806ffd4569e648b072836519f",
+      "seed": 3098793298,
+      "seat": 1,
+      "factions": [
+        "Rebels",
+        "Northerners"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 23,
+      "rotation": 1,
+      "scenario": "3dfd47d9e7af0daecca6d5daf23b306bc099a89806ffd4569e648b072836519f",
+      "seed": 3098793298,
+      "seat": 2,
+      "factions": [
+        "Rebels",
+        "Northerners"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 24,
+      "rotation": 0,
+      "scenario": "e757bcf16b4b5fc34eacb1c51416df910969c547a94ae0397b48a5674ae474ac",
+      "seed": 297792692,
+      "seat": 1,
+      "factions": [
+        "Rebels",
+        "Undead"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 24,
+      "rotation": 1,
+      "scenario": "e757bcf16b4b5fc34eacb1c51416df910969c547a94ae0397b48a5674ae474ac",
+      "seed": 297792692,
+      "seat": 2,
+      "factions": [
+        "Rebels",
+        "Undead"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 25,
+      "rotation": 0,
+      "scenario": "85640b4fc7ac2ff10c44e5ce77c5c61ac5c726d9dbdfca8c4d059ab09b004d5e",
+      "seed": 3684728671,
+      "seat": 1,
+      "factions": [
+        "Undead",
+        "Drakes"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 25,
+      "rotation": 1,
+      "scenario": "85640b4fc7ac2ff10c44e5ce77c5c61ac5c726d9dbdfca8c4d059ab09b004d5e",
+      "seed": 3684728671,
+      "seat": 2,
+      "factions": [
+        "Undead",
+        "Drakes"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 26,
+      "rotation": 0,
+      "scenario": "0c5405c8185a1580583d93680509e0ce58a4be6266fac1580aa099be86857a29",
+      "seed": 2452864060,
+      "seat": 1,
+      "factions": [
+        "Undead",
+        "Knalgan Alliance"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 26,
+      "rotation": 1,
+      "scenario": "0c5405c8185a1580583d93680509e0ce58a4be6266fac1580aa099be86857a29",
+      "seed": 2452864060,
+      "seat": 2,
+      "factions": [
+        "Undead",
+        "Knalgan Alliance"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 27,
+      "rotation": 0,
+      "scenario": "ba0efb74fec927a68e9bb8dee1e42f2c022708fa8168d7a66831ca195b7578fd",
+      "seed": 1464872930,
+      "seat": 1,
+      "factions": [
+        "Undead",
+        "Loyalists"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 27,
+      "rotation": 1,
+      "scenario": "ba0efb74fec927a68e9bb8dee1e42f2c022708fa8168d7a66831ca195b7578fd",
+      "seed": 1464872930,
+      "seat": 2,
+      "factions": [
+        "Undead",
+        "Loyalists"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 28,
+      "rotation": 0,
+      "scenario": "f65c60c830bd0f95ccd59f76b57a77490ce9610085b0ca7eefc64b49d60857b7",
+      "seed": 2615411497,
+      "seat": 1,
+      "factions": [
+        "Undead",
+        "Northerners"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 28,
+      "rotation": 1,
+      "scenario": "f65c60c830bd0f95ccd59f76b57a77490ce9610085b0ca7eefc64b49d60857b7",
+      "seed": 2615411497,
+      "seat": 2,
+      "factions": [
+        "Undead",
+        "Northerners"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 29,
+      "rotation": 0,
+      "scenario": "c0c02568e409df2b3531ce18135773aba4dd9c846a2c71f964b6dfe468a9bd10",
+      "seed": 3883380691,
+      "seat": 1,
+      "factions": [
+        "Undead",
+        "Rebels"
+      ]
+    },
+    {
+      "map": "ur_thorodor",
+      "block": 29,
+      "rotation": 1,
+      "scenario": "c0c02568e409df2b3531ce18135773aba4dd9c846a2c71f964b6dfe468a9bd10",
+      "seed": 3883380691,
+      "seat": 2,
+      "factions": [
+        "Undead",
+        "Rebels"
+      ]
+    }
+  ]
+}
