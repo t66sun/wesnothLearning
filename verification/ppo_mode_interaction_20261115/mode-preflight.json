@@ -1,0 +1,17 @@
+{
+  "launch_sha256": "d50730235e9627d15c2eb11240ba6bd40a4b0c4d678cba8fecccbc1067c4aba5",
+  "schedule_sha256": "ea7a2468b53f6d78df1090fc7dc5a1a2d90b7e84c7cd13f183dc63d2ea9fe3ea",
+  "archived_panels": 16,
+  "archived_panel_jobs": 5984,
+  "games_in_matrix": 288,
+  "reused_games": 96,
+  "new_greedy": 144,
+  "new_sample": 48,
+  "verified_sample_choice_replays": 4,
+  "first_choice_logp_max_error": 4.44228629437049e-08,
+  "tested_interaction": 1.0,
+  "no_game_preflight": true,
+  "games_started": 0,
+  "optimizer_updates": 0,
+  "wall_seconds": 4.834799409843981
+}

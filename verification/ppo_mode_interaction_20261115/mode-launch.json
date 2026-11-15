@@ -1,0 +1,198 @@
+{
+  "issue": 359,
+  "runtime": {
+    "source": {
+      "source": "/home/tongshu/acceptance/ppo306_20261108_Miwoyq/source",
+      "commit": "68fbf6b0b087b196526c674f28baffbfae3eb8c4",
+      "archive": "/home/tongshu/acceptance/ppo306-68fbf6b0b087b196526c674f28baffbfae3eb8c4.tar.gz",
+      "archive_sha256": "240009bf8a55096203d548d4ee349c2e34d574927ff2325c30ef08ef4aef69d2",
+      "extension": "/home/tongshu/myDev/wesnothLearning/formal_30h_scratch_20261104_2041/source/.extension/_engine_lite.so",
+      "extension_sha256": "56dd77140411db987377d6de4ffbf562da4d0e5c76bc16d34780da67e60e5ae4"
+    },
+    "rules": {
+      "path": "/home/tongshu/acceptance/filters_compiled_20261103/data/rules/1.18.8-combat-filtered",
+      "sha256": "e6b4f6200b0a8ad58a536b844fff37cfa9e0091bf0a0b702a8982155310f2f17"
+    },
+    "astra": {
+      "path": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/bc/frozen/opponents/gpt6astra.zip",
+      "teacher": "gpt6astra",
+      "teacher_profile": "probabilistic_combat_v6",
+      "teacher_source_sha256": "d64e1178c0a8af9b1b10e2626f03e7cb8ed70a5a368d3c38860d40723a903eb5",
+      "teacher_parent_sha256": "2a216c96081990621dc15772e9de1bf40e4f5f451223fe52e5b20625464dc933"
+    },
+    "source_files": 146
+  },
+  "roles": {
+    "bc": {
+      "path": "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/runs/bc/duel/last_bc.pt",
+      "version": 38,
+      "checkpoint_sha256": "8fc61bbb0be5c2ad8d2ec5b56760ce3dbfa08eed008c490e9b2233624ea91ebe",
+      "weights_sha256": "d9d694f04d4179a5c65bbc29307a8e425a245d650d47f55a36ec04abeb206801"
+    },
+    "lambda-0.95-202611081": {
+      "path": "/home/tongshu/acceptance/ppo306_20261108_Miwoyq/source/runs/ppo306/cells/lambda-0.95-202611081/duel/wall.pt",
+      "checkpoint_sha256": "a00d02fc88523ec82a424ce5eb6436a1133013e7f18a56838ddb3ef4745f4a05",
+      "version": 221,
+      "weights_sha256": "f402b1f41ab255891953aad9595c44422cf53cd9cc4989d6ab0f25b70646af39"
+    },
+    "lambda-0.95-202611082": {
+      "path": "/home/tongshu/acceptance/ppo306_20261108_Miwoyq/source/runs/ppo306/cells/lambda-0.95-202611082/duel/wall.pt",
+      "checkpoint_sha256": "3e6e8efea9da962cd1096b95db30edae14f8522a4c59402e92d5597a06c03a5c",
+      "version": 220,
+      "weights_sha256": "8624b615a187741d951a7febfc7c17d7d621faf7ac6c7d8cbb8b47e0f9459c69"
+    },
+    "lambda-0.95-202611083": {
+      "path": "/home/tongshu/acceptance/ppo306_20261108_Miwoyq/source/runs/ppo306/cells/lambda-0.95-202611083/duel/wall.pt",
+      "checkpoint_sha256": "1001f23625924cb96a2a9c9e27cda37a7832d9f0b7b9b8f799c019dc261c728f",
+      "version": 219,
+      "weights_sha256": "ba0097088d1732f9acdcbba0b558583ededfd969df21d7773524238c935790c5"
+    }
+  },
+  "layouts": {
+    "the_freelands": "f4a0aa04cfad87b05bcbdb72dc6e469a547454178e6a34e335e45a8eb3fbb810",
+    "weldyn_channel": "e14d55816d6b3241036cdb9d9685f37195522c585adf542c04e0137240a771fa",
+    "fallenstar_lake": "2f9037f75f58c917343aa4cbc82ba48d27d7a8120b1244893012773da307180d"
+  },
+  "capture_root": "/home/tongshu/acceptance/ppo-diagnosis-20261115-Z8O0k3/capture",
+  "reused": {
+    "archive_sha256": "8a21da31be20c4c087aa78d35baa51c06049420a393f63fa18c55cfa72163e3a",
+    "replies_sha256": "bd5abdfe8e8d9cc1b08a2e26125e25b7c33d7ebaf4339e862438b827f30ff063",
+    "physical_games": 96
+  },
+  "greedy_policies": {
+    "bc": {
+      "folder": "/home/tongshu/acceptance/ppo-mode-interaction-20261115-sgUXX6/freeze/greedy/bc",
+      "addon": "/home/tongshu/acceptance/ppo-mode-interaction-20261115-sgUXX6/freeze/greedy/bc/DiagnosticPolicy",
+      "files": {
+        "DiagnosticPolicy/LICENSE": "aeee0e57f016bc95fea3c20dd6a2168493c4134ba5ae481217467613a1953e30",
+        "DiagnosticPolicy/README.md": "78cade1d299852c1640b071667529b99b6c5b7b352cf00f13c9f5dd9d3c528f3",
+        "DiagnosticPolicy/_main.cfg": "074d58b39e06988ff1c917b1ee0bbf1e9cfd95235361a520626b4ad32222ea49",
+        "DiagnosticPolicy/ai.cfg": "dc100efc4acfd39ccaab6bf3d198368db7faf0955f2becb41e29a83f3fd8452a",
+        "DiagnosticPolicy/arena.json": "4662234f0a35be5aee070b15995d3a83ecb334a90ed28ca09a1448ceddf3dc1c",
+        "DiagnosticPolicy/lua/bot.lua": "70d18d2ee14c16d1f95e48f1c92960aeabf24bde9126188fad7bf817950d9886",
+        "DiagnosticPolicy/lua/candidate_selection.lua": "6f9c3cb71ac50e1a9e6569ace657feb51e47793d18ea7608a6bc989d3aaaf289",
+        "DiagnosticPolicy/lua/candidates.lua": "0eee87fd416a74912866d483b247ea8c05133bdb907154ca83055cf9aeda2b19",
+        "DiagnosticPolicy/lua/config.lua": "345acf5c395dddfd7d44f3727b4e4211fa8db07540e962500c3234b6998e52c8",
+        "DiagnosticPolicy/lua/features.lua": "2edb30cb0ab2b93a744f10bbde74bef025cedafaa807e8bf26256ba47770a70f",
+        "DiagnosticPolicy/lua/network.lua": "5d1b5887343f66e2f8549cfe9ad9297cc97720b03cd645d5879f97c9452dddf2",
+        "DiagnosticPolicy/lua/observation.lua": "83c8274f8774b65484b47bd28c288bb876c6f372e0bb2c676d3c9c4e8a755b9e",
+        "DiagnosticPolicy/lua/relational.lua": "43a352c6a0989fac6d63f39539b068876e9094939ef08a6e943e7856c12d93a2",
+        "DiagnosticPolicy/lua/rewards.lua": "c8618d69da6463fe7c67b93fa0289ae3d9bfc32df7f6ca6aaabda06d6a688f33",
+        "DiagnosticPolicy/lua/routing.lua": "f15321b0af0f9a7bdc0679b715ee50bfac8f7c68d82c01b2b604d222aa7566b2",
+        "DiagnosticPolicy/lua/spatial.lua": "e6d4997b30409dbbb4fd4b9f7d08c79816d53c03b5d34be39b3ae884ef11620d",
+        "DiagnosticPolicy/lua/teacher.lua": "abe5d8ce0957e1067dc5d63e6c815d30b5948f9e7ca07123079006d1d7a124e4",
+        "DiagnosticPolicy/lua/weights_duel.lua": "ab6ef2f5e17d9c738e30053936e5a1bd84de380bf4ab16332d913c134f5aed2a",
+        "export.json": "9b81bdf89c6610b3e8ff1cf8fb8d816d1dbf90455e2e45a9aed920e9c735f5ab",
+        "model.pt": "9aa12532c95eda4e1cee50222728dbd669344ff1a3a5edc20ae8e541504e0342"
+      }
+    },
+    "lambda-0.95-202611081": {
+      "folder": "/home/tongshu/acceptance/ppo-mode-interaction-20261115-sgUXX6/freeze/greedy/lambda-0.95-202611081",
+      "addon": "/home/tongshu/acceptance/ppo-mode-interaction-20261115-sgUXX6/freeze/greedy/lambda-0.95-202611081/DiagnosticPolicy",
+      "files": {
+        "DiagnosticPolicy/LICENSE": "aeee0e57f016bc95fea3c20dd6a2168493c4134ba5ae481217467613a1953e30",
+        "DiagnosticPolicy/README.md": "78cade1d299852c1640b071667529b99b6c5b7b352cf00f13c9f5dd9d3c528f3",
+        "DiagnosticPolicy/_main.cfg": "074d58b39e06988ff1c917b1ee0bbf1e9cfd95235361a520626b4ad32222ea49",
+        "DiagnosticPolicy/ai.cfg": "dc100efc4acfd39ccaab6bf3d198368db7faf0955f2becb41e29a83f3fd8452a",
+        "DiagnosticPolicy/arena.json": "4662234f0a35be5aee070b15995d3a83ecb334a90ed28ca09a1448ceddf3dc1c",
+        "DiagnosticPolicy/lua/bot.lua": "70d18d2ee14c16d1f95e48f1c92960aeabf24bde9126188fad7bf817950d9886",
+        "DiagnosticPolicy/lua/candidate_selection.lua": "6f9c3cb71ac50e1a9e6569ace657feb51e47793d18ea7608a6bc989d3aaaf289",
+        "DiagnosticPolicy/lua/candidates.lua": "0eee87fd416a74912866d483b247ea8c05133bdb907154ca83055cf9aeda2b19",
+        "DiagnosticPolicy/lua/config.lua": "7fb4a7769bc3c6c0ea864b1550ed7baed53651259689eb4e047c55e9e96b703a",
+        "DiagnosticPolicy/lua/features.lua": "2edb30cb0ab2b93a744f10bbde74bef025cedafaa807e8bf26256ba47770a70f",
+        "DiagnosticPolicy/lua/network.lua": "5d1b5887343f66e2f8549cfe9ad9297cc97720b03cd645d5879f97c9452dddf2",
+        "DiagnosticPolicy/lua/observation.lua": "83c8274f8774b65484b47bd28c288bb876c6f372e0bb2c676d3c9c4e8a755b9e",
+        "DiagnosticPolicy/lua/relational.lua": "43a352c6a0989fac6d63f39539b068876e9094939ef08a6e943e7856c12d93a2",
+        "DiagnosticPolicy/lua/rewards.lua": "c8618d69da6463fe7c67b93fa0289ae3d9bfc32df7f6ca6aaabda06d6a688f33",
+        "DiagnosticPolicy/lua/routing.lua": "f15321b0af0f9a7bdc0679b715ee50bfac8f7c68d82c01b2b604d222aa7566b2",
+        "DiagnosticPolicy/lua/spatial.lua": "e6d4997b30409dbbb4fd4b9f7d08c79816d53c03b5d34be39b3ae884ef11620d",
+        "DiagnosticPolicy/lua/teacher.lua": "abe5d8ce0957e1067dc5d63e6c815d30b5948f9e7ca07123079006d1d7a124e4",
+        "DiagnosticPolicy/lua/weights_duel.lua": "33f6624516dd1682152e3fe8024075c43747fed28ea7b39e9c80e29c356b1c0a",
+        "export.json": "0777f538b7176b747600551e8fc5eee665bc3813ecd175008df365c3a3dc6683",
+        "model.pt": "6a2f2bc096c8f19909e5f93e0472663f331d5d1431494baeb8098bfd49baf811"
+      }
+    },
+    "lambda-0.95-202611082": {
+      "folder": "/home/tongshu/acceptance/ppo-mode-interaction-20261115-sgUXX6/freeze/greedy/lambda-0.95-202611082",
+      "addon": "/home/tongshu/acceptance/ppo-mode-interaction-20261115-sgUXX6/freeze/greedy/lambda-0.95-202611082/DiagnosticPolicy",
+      "files": {
+        "DiagnosticPolicy/LICENSE": "aeee0e57f016bc95fea3c20dd6a2168493c4134ba5ae481217467613a1953e30",
+        "DiagnosticPolicy/README.md": "78cade1d299852c1640b071667529b99b6c5b7b352cf00f13c9f5dd9d3c528f3",
+        "DiagnosticPolicy/_main.cfg": "074d58b39e06988ff1c917b1ee0bbf1e9cfd95235361a520626b4ad32222ea49",
+        "DiagnosticPolicy/ai.cfg": "dc100efc4acfd39ccaab6bf3d198368db7faf0955f2becb41e29a83f3fd8452a",
+        "DiagnosticPolicy/arena.json": "4662234f0a35be5aee070b15995d3a83ecb334a90ed28ca09a1448ceddf3dc1c",
+        "DiagnosticPolicy/lua/bot.lua": "70d18d2ee14c16d1f95e48f1c92960aeabf24bde9126188fad7bf817950d9886",
+        "DiagnosticPolicy/lua/candidate_selection.lua": "6f9c3cb71ac50e1a9e6569ace657feb51e47793d18ea7608a6bc989d3aaaf289",
+        "DiagnosticPolicy/lua/candidates.lua": "0eee87fd416a74912866d483b247ea8c05133bdb907154ca83055cf9aeda2b19",
+        "DiagnosticPolicy/lua/config.lua": "439f571a632c6e7b6a84def7bc98e064008047ed8eace784b8d17a5ae6dbd94e",
+        "DiagnosticPolicy/lua/features.lua": "2edb30cb0ab2b93a744f10bbde74bef025cedafaa807e8bf26256ba47770a70f",
+        "DiagnosticPolicy/lua/network.lua": "5d1b5887343f66e2f8549cfe9ad9297cc97720b03cd645d5879f97c9452dddf2",
+        "DiagnosticPolicy/lua/observation.lua": "83c8274f8774b65484b47bd28c288bb876c6f372e0bb2c676d3c9c4e8a755b9e",
+        "DiagnosticPolicy/lua/relational.lua": "43a352c6a0989fac6d63f39539b068876e9094939ef08a6e943e7856c12d93a2",
+        "DiagnosticPolicy/lua/rewards.lua": "c8618d69da6463fe7c67b93fa0289ae3d9bfc32df7f6ca6aaabda06d6a688f33",
+        "DiagnosticPolicy/lua/routing.lua": "f15321b0af0f9a7bdc0679b715ee50bfac8f7c68d82c01b2b604d222aa7566b2",
+        "DiagnosticPolicy/lua/spatial.lua": "e6d4997b30409dbbb4fd4b9f7d08c79816d53c03b5d34be39b3ae884ef11620d",
+        "DiagnosticPolicy/lua/teacher.lua": "abe5d8ce0957e1067dc5d63e6c815d30b5948f9e7ca07123079006d1d7a124e4",
+        "DiagnosticPolicy/lua/weights_duel.lua": "f2cfe0bba6bffbde40eec51e28a21ac6cfb4ca51627955cab3fc85ce1eccf4ad",
+        "export.json": "db133a06ddc149e07020559d9e9888753985f43ded1e8a99d4be1295af7a1475",
+        "model.pt": "eda6b23ecb5927da0358ea4b1e90f53ba2632ea0a7753d4ddb3c038ad5eda5b1"
+      }
+    },
+    "lambda-0.95-202611083": {
+      "folder": "/home/tongshu/acceptance/ppo-mode-interaction-20261115-sgUXX6/freeze/greedy/lambda-0.95-202611083",
+      "addon": "/home/tongshu/acceptance/ppo-mode-interaction-20261115-sgUXX6/freeze/greedy/lambda-0.95-202611083/DiagnosticPolicy",
+      "files": {
+        "DiagnosticPolicy/LICENSE": "aeee0e57f016bc95fea3c20dd6a2168493c4134ba5ae481217467613a1953e30",
+        "DiagnosticPolicy/README.md": "78cade1d299852c1640b071667529b99b6c5b7b352cf00f13c9f5dd9d3c528f3",
+        "DiagnosticPolicy/_main.cfg": "074d58b39e06988ff1c917b1ee0bbf1e9cfd95235361a520626b4ad32222ea49",
+        "DiagnosticPolicy/ai.cfg": "dc100efc4acfd39ccaab6bf3d198368db7faf0955f2becb41e29a83f3fd8452a",
+        "DiagnosticPolicy/arena.json": "4662234f0a35be5aee070b15995d3a83ecb334a90ed28ca09a1448ceddf3dc1c",
+        "DiagnosticPolicy/lua/bot.lua": "70d18d2ee14c16d1f95e48f1c92960aeabf24bde9126188fad7bf817950d9886",
+        "DiagnosticPolicy/lua/candidate_selection.lua": "6f9c3cb71ac50e1a9e6569ace657feb51e47793d18ea7608a6bc989d3aaaf289",
+        "DiagnosticPolicy/lua/candidates.lua": "0eee87fd416a74912866d483b247ea8c05133bdb907154ca83055cf9aeda2b19",
+        "DiagnosticPolicy/lua/config.lua": "226b602143c12804270a2e5a0e1f1ea703cc0430db76739eca45bdbe57e22e50",
+        "DiagnosticPolicy/lua/features.lua": "2edb30cb0ab2b93a744f10bbde74bef025cedafaa807e8bf26256ba47770a70f",
+        "DiagnosticPolicy/lua/network.lua": "5d1b5887343f66e2f8549cfe9ad9297cc97720b03cd645d5879f97c9452dddf2",
+        "DiagnosticPolicy/lua/observation.lua": "83c8274f8774b65484b47bd28c288bb876c6f372e0bb2c676d3c9c4e8a755b9e",
+        "DiagnosticPolicy/lua/relational.lua": "43a352c6a0989fac6d63f39539b068876e9094939ef08a6e943e7856c12d93a2",
+        "DiagnosticPolicy/lua/rewards.lua": "c8618d69da6463fe7c67b93fa0289ae3d9bfc32df7f6ca6aaabda06d6a688f33",
+        "DiagnosticPolicy/lua/routing.lua": "f15321b0af0f9a7bdc0679b715ee50bfac8f7c68d82c01b2b604d222aa7566b2",
+        "DiagnosticPolicy/lua/spatial.lua": "e6d4997b30409dbbb4fd4b9f7d08c79816d53c03b5d34be39b3ae884ef11620d",
+        "DiagnosticPolicy/lua/teacher.lua": "abe5d8ce0957e1067dc5d63e6c815d30b5948f9e7ca07123079006d1d7a124e4",
+        "DiagnosticPolicy/lua/weights_duel.lua": "7826b8a91c3958f7e48910bdb5d3dbed3942df9f8c3fad77a29f8cdffc51900e",
+        "export.json": "2061caa8481d1394f2eaf82f3c5801546d017c6bed886ef315f72427b22e98fb",
+        "model.pt": "518018ca89985641a21186607d41b77a4627267adb1a93ea2ea369ae3b7f8f0d"
+      }
+    }
+  },
+  "code": {
+    "path": "/home/tongshu/acceptance/ppo-mode-interaction-20261115-sgUXX6/review.tar",
+    "commit": "af0b86f9819fddaf4ccb6f85397556e67af1e9b6",
+    "sha256": "2b7c12713f74c364edc5a6720ad49e0a88a6986007e2a6e91ef786121c7b9068"
+  },
+  "schedule_sha256": "ea7a2468b53f6d78df1090fc7dc5a1a2d90b7e84c7cd13f183dc63d2ea9fe3ea",
+  "inventory_sha256": "48fee532463950d96119f771d0f9219fc58bfaae1845c3147b304ca43b9301b2",
+  "task": "official-score-30-v1",
+  "modes": [
+    "sample",
+    "greedy"
+  ],
+  "games": {
+    "total": 288,
+    "reused": 96,
+    "new": 192,
+    "new_sample": 48,
+    "new_greedy": 144
+  },
+  "workers": 8,
+  "seconds": {
+    "preflight": 300,
+    "collection": 1200,
+    "audit": 300,
+    "total": 1800
+  },
+  "optimizer_updates": 0,
+  "actionable_interaction": 0.05,
+  "support_requires": "point >= 0.05, 95% lower > 0, >=2 positive history effects and positive sampled PPO-BC",
+  "scope": "official fixed-Astra mode interaction on three diagnostic layouts"
+}
