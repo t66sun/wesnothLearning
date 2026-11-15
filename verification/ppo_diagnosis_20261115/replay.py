@@ -144,6 +144,32 @@ def gradient_readout(model, rehearsal, rows, adv, ret):
                 rehearsal='first behavior batch policy rows; fixed micro-window probe')
 
 
+def delivered_update(model, checkpoint, expected, rows, credit):
+    identity=weights(checkpoint)
+    assert identity['weights_sha256']==expected
+    post,_=load_model(checkpoint,'duel')
+    post.eval()
+    before_cache,after_cache={},{}
+    kls, ratios, flips=[],[],0
+    with torch.no_grad():
+        for start in range(0,len(rows),32):
+            r=rows[start:start+32]
+            before=model(*batch(r,history_cache=before_cache))[0].double().log_softmax(-1)
+            after=post(*batch(r,history_cache=after_cache))[0].double().log_softmax(-1)
+            for i,row in enumerate(r):
+                size=len(row['candidates'])
+                b,a=before[i,:size],after[i,:size]
+                kls.append(float((b.exp()*(b-a)).sum()))
+                ratios.append(math.exp(float(a[row['choice']]-b[row['choice']])))
+                flips+=int(b.argmax()!=a.argmax())
+    assert all(math.isfinite(z) and z>=-1e-5 for z in kls)
+    assert all(math.isfinite(z) and z>0 for z in ratios)
+    relevant=[(m,s) for m,s in zip(ratios,credit) if abs(m-1)>1e-5 and abs(s)>1e-5]
+    return dict(post_checkpoint=identity,rows=len(rows),mean_forward_kl=mean(kls),max_forward_kl=max(kls),
+                greedy_action_changes=flips,outside_clip_band=sum(x<.8 or x>1.2 for x in ratios),
+                material_rows=len(relevant),advantage_ratio_direction_agreement=mean((x>1)==(y>0) for x,y in relevant))
+
+
 def inspect_batch(duel, entry, outcomes, anchor, later):
     path=duel/'schedules'/f"ppo-batch-{entry['batch']:06d}.json"
     jobs=read_json(path)
@@ -195,7 +221,9 @@ def inspect_batch(duel, entry, outcomes, anchor, later):
                  rows=len(rows),replayed=len(selected),map_counts=Counter(j['meta']['map'] for j in jobs),
                  score=Counter(terminal_points(j,outcomes[j['id']],j['meta']['seat']) for j in jobs),
                  diagnostic=measures,critic=calibration(games),clock=clock,
-                 gradients=gradient_readout(model,later,rows,adv,ret) if later else None),games,rows)
+                 gradients=gradient_readout(model,later,rows,adv,ret) if later else None,
+                 actual_stock_last_batch=delivered_update(model,duel/'wall.pt',entry['policy_sha256_after'],
+                      selected,normalized(adv)[positions].tolist()) if later else None),games,rows)
 
 
 def main():
