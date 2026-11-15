@@ -1,0 +1,103 @@
+{
+  "games": 240,
+  "paired_slots": 120,
+  "per_map": {
+    "fallenstar_lake": {
+      "greedy": {
+        "combat": 6184,
+        "queries": 0,
+        "astra_noncombat": 0,
+        "absent": 0,
+        "same": 0,
+        "changed": 0,
+        "wins": 13,
+        "games": 60,
+        "games_with_change": 0,
+        "round_cap": 30,
+        "draws": 30,
+        "losses": 17,
+        "points": 69,
+        "score": 0.38333333333333336,
+        "worker_minutes": 24.728320294672933
+      },
+      "astra": {
+        "combat": 6152,
+        "queries": 6152,
+        "astra_noncombat": 568,
+        "absent": 1339,
+        "same": 2431,
+        "changed": 1814,
+        "draws": 34,
+        "games": 60,
+        "games_with_change": 60,
+        "round_cap": 34,
+        "wins": 7,
+        "losses": 19,
+        "points": 55,
+        "score": 0.3055555555555556,
+        "worker_minutes": 25.557713623725196
+      }
+    },
+    "sullas_ruins": {
+      "greedy": {
+        "combat": 4988,
+        "queries": 0,
+        "astra_noncombat": 0,
+        "absent": 0,
+        "same": 0,
+        "changed": 0,
+        "wins": 23,
+        "games": 60,
+        "games_with_change": 0,
+        "round_cap": 11,
+        "losses": 26,
+        "draws": 11,
+        "points": 80,
+        "score": 0.4444444444444444,
+        "worker_minutes": 15.817277130321605
+      },
+      "astra": {
+        "combat": 5215,
+        "queries": 5215,
+        "astra_noncombat": 492,
+        "absent": 835,
+        "same": 2162,
+        "changed": 1726,
+        "wins": 18,
+        "games": 60,
+        "games_with_change": 60,
+        "round_cap": 18,
+        "losses": 24,
+        "draws": 18,
+        "points": 72,
+        "score": 0.4,
+        "worker_minutes": 16.742150371366492
+      }
+    }
+  },
+  "score": {
+    "greedy": 0.41388888888888886,
+    "astra": 0.3527777777777778
+  },
+  "difference": -0.06111111111111111,
+  "interval95": [
+    -0.1388888888888889,
+    0.016666666666666666
+  ],
+  "in_budget": true,
+  "passed": false,
+  "seconds": {
+    "preparation": 0.853911867365241,
+    "games": 647.0919564678334,
+    "audit": 0.3156715896911919,
+    "total": 648.2615399248898
+  },
+  "worker_pool_seconds": 647.0771396160126,
+  "file_sha256": {
+    "launch.json": "2dcc6cc1ae1dfcce57511089dd03ede4adedb505c44fbfbf05177bc7e5789dda",
+    "schedule.json": "7923fe2217d8b72f8c79fb5a5946987fd0c5a392b2882d2b510f04974216ec23",
+    "results.jsonl": "c2b63d035f89b96b616dafe7ca78a137ad656105f9b345afa5189e5c238f0685"
+  },
+  "game_start": "2026-11-15T11:43:09.078104+08:00",
+  "game_finish": "2026-11-15T11:53:56.155244+08:00"
+}
