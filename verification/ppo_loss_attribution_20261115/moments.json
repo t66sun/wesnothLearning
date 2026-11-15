@@ -1,0 +1,2112 @@
+{
+  "attribution_sha256": "17baf012be74f6b53022b8becda5b1a2001e246a25e55b8c69a5569749d45331",
+  "scores": {
+    "bc": {
+      "full": {
+        "kl": 0.0039076445355973296,
+        "games": {
+          "fallenstar_lake-bc-0-1": {
+            "rows": 8,
+            "positive": 8,
+            "margin": -0.08967618644237518,
+            "positive_logp": -0.026587367536615183,
+            "projection": -0.0022028078967201163,
+            "kl": 0.0023987835534513835,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-bc-0-2": {
+            "rows": 8,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.04633729010175137,
+            "kl": 0.005393033538043305,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-bc-0-1": {
+            "rows": 8,
+            "positive": 1,
+            "margin": 0.3146400451660156,
+            "positive_logp": 2.2874851444414563e-08,
+            "projection": -0.025662573235292998,
+            "kl": 0.0013325326084152856,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-bc-0-2": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.0122771342785796,
+            "kl": 0.005558698371900707,
+            "map": "weldyn_channel"
+          },
+          "fallenstar_lake-bc-8-1": {
+            "rows": 8,
+            "positive": 2,
+            "margin": -0.24797403812408447,
+            "positive_logp": -0.02204558394453325,
+            "projection": -0.01875040705963701,
+            "kl": 0.009511037416146137,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-bc-8-2": {
+            "rows": 8,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.039481763568346935,
+            "kl": 0.010718458466066262,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-bc-8-1": {
+            "rows": 7,
+            "positive": 1,
+            "margin": 0.030205249786376953,
+            "positive_logp": 0.010141204455772268,
+            "projection": 0.03199963506775851,
+            "kl": 0.0028974783095255877,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-bc-8-2": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.030779340815445647,
+            "kl": 0.0046486566222309405,
+            "map": "weldyn_channel"
+          },
+          "fallenstar_lake-bc-16-1": {
+            "rows": 8,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.002085002009502736,
+            "kl": 0.000535007147930563,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-bc-16-2": {
+            "rows": 8,
+            "positive": 3,
+            "margin": -0.07915576299031575,
+            "positive_logp": -0.012761787135141199,
+            "projection": -0.011514811060545797,
+            "kl": 0.0011734364378752765,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-bc-16-1": {
+            "rows": 8,
+            "positive": 8,
+            "margin": -0.10570460557937622,
+            "positive_logp": -0.007366228708840645,
+            "projection": -0.001678313430459235,
+            "kl": 0.0020307625946926113,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-bc-16-2": {
+            "rows": 8,
+            "positive": 2,
+            "margin": -0.023759126663208008,
+            "positive_logp": -0.031833990309386,
+            "projection": -0.038390891327279145,
+            "kl": 0.005220190872693537,
+            "map": "weldyn_channel"
+          },
+          "fallenstar_lake-bc-24-1": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.05974229433779089,
+            "kl": 0.007714643081328457,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-bc-24-2": {
+            "rows": 8,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.020151057030262105,
+            "kl": 0.002377852044606404,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-bc-24-1": {
+            "rows": 7,
+            "positive": 1,
+            "margin": 0.017966270446777344,
+            "positive_logp": 0.0013434690726955023,
+            "projection": 0.0022183817741905504,
+            "kl": 0.0002764224910519305,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-bc-24-2": {
+            "rows": 8,
+            "positive": 6,
+            "margin": 0.030481855074564617,
+            "positive_logp": 0.009930279586776346,
+            "projection": 0.0007314530488855634,
+            "kl": 0.0007353190135988886,
+            "map": "weldyn_channel"
+          }
+        }
+      },
+      "moments_only": {
+        "kl": 0.0,
+        "games": {
+          "fallenstar_lake-bc-0-1": {
+            "rows": 8,
+            "positive": 8,
+            "margin": 0.0,
+            "positive_logp": 0.0,
+            "projection": 0.0,
+            "kl": 0.0,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-bc-0-2": {
+            "rows": 8,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.0,
+            "kl": 0.0,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-bc-0-1": {
+            "rows": 8,
+            "positive": 1,
+            "margin": 0.0,
+            "positive_logp": 0.0,
+            "projection": 0.0,
+            "kl": 0.0,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-bc-0-2": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.0,
+            "kl": 0.0,
+            "map": "weldyn_channel"
+          },
+          "fallenstar_lake-bc-8-1": {
+            "rows": 8,
+            "positive": 2,
+            "margin": 0.0,
+            "positive_logp": 0.0,
+            "projection": 0.0,
+            "kl": 0.0,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-bc-8-2": {
+            "rows": 8,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.0,
+            "kl": 0.0,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-bc-8-1": {
+            "rows": 7,
+            "positive": 1,
+            "margin": 0.0,
+            "positive_logp": 0.0,
+            "projection": 0.0,
+            "kl": 0.0,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-bc-8-2": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.0,
+            "kl": 0.0,
+            "map": "weldyn_channel"
+          },
+          "fallenstar_lake-bc-16-1": {
+            "rows": 8,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.0,
+            "kl": 0.0,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-bc-16-2": {
+            "rows": 8,
+            "positive": 3,
+            "margin": 0.0,
+            "positive_logp": 0.0,
+            "projection": 0.0,
+            "kl": 0.0,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-bc-16-1": {
+            "rows": 8,
+            "positive": 8,
+            "margin": 0.0,
+            "positive_logp": 0.0,
+            "projection": 0.0,
+            "kl": 0.0,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-bc-16-2": {
+            "rows": 8,
+            "positive": 2,
+            "margin": 0.0,
+            "positive_logp": 0.0,
+            "projection": 0.0,
+            "kl": 0.0,
+            "map": "weldyn_channel"
+          },
+          "fallenstar_lake-bc-24-1": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.0,
+            "kl": 0.0,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-bc-24-2": {
+            "rows": 8,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.0,
+            "kl": 0.0,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-bc-24-1": {
+            "rows": 7,
+            "positive": 1,
+            "margin": 0.0,
+            "positive_logp": 0.0,
+            "projection": 0.0,
+            "kl": 0.0,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-bc-24-2": {
+            "rows": 8,
+            "positive": 6,
+            "margin": 0.0,
+            "positive_logp": 0.0,
+            "projection": 0.0,
+            "kl": 0.0,
+            "map": "weldyn_channel"
+          }
+        }
+      },
+      "active_parameters": 59
+    },
+    "lambda-0.95-202611081": {
+      "full": {
+        "kl": 0.00021688324991253572,
+        "games": {
+          "fallenstar_lake-lambda-0.95-202611081-0-1": {
+            "rows": 8,
+            "positive": 5,
+            "margin": -0.014135444164276123,
+            "positive_logp": -0.01078813565257083,
+            "projection": -0.008609471863117153,
+            "kl": 0.00020444625598627176,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-lambda-0.95-202611081-0-2": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.016046195276008184,
+            "kl": 4.227661574581711e-05,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-lambda-0.95-202611081-0-1": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.004366410133580542,
+            "kl": 9.517496373134785e-05,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-lambda-0.95-202611081-0-2": {
+            "rows": 5,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.0014557037737963666,
+            "kl": 6.750552092389253e-05,
+            "map": "weldyn_channel"
+          },
+          "fallenstar_lake-lambda-0.95-202611081-8-1": {
+            "rows": 8,
+            "positive": 1,
+            "margin": -0.0058746337890625,
+            "positive_logp": -0.000856357854172346,
+            "projection": 0.0018244158325823952,
+            "kl": 0.00022757521487140148,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-lambda-0.95-202611081-8-2": {
+            "rows": 7,
+            "positive": 2,
+            "margin": -0.018513202667236328,
+            "positive_logp": -0.019283410668659018,
+            "projection": -0.0058522937022697395,
+            "kl": 0.0005856505846887818,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-lambda-0.95-202611081-8-1": {
+            "rows": 8,
+            "positive": 7,
+            "margin": 0.00799250602722168,
+            "positive_logp": -0.0004129420727602477,
+            "projection": -0.0002496747222813314,
+            "kl": 8.527523834003518e-05,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-lambda-0.95-202611081-8-2": {
+            "rows": 8,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.000630370765472418,
+            "kl": 0.00023288989281881618,
+            "map": "weldyn_channel"
+          },
+          "fallenstar_lake-lambda-0.95-202611081-16-1": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.00807459776916034,
+            "kl": 0.00022115925480766836,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-lambda-0.95-202611081-16-2": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.00017944716170582555,
+            "kl": 4.7947531569173126e-05,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-lambda-0.95-202611081-16-1": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.0006416516143455427,
+            "kl": 0.0008521321632258593,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-lambda-0.95-202611081-16-2": {
+            "rows": 8,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.001424366466235662,
+            "kl": 0.00013984774560604784,
+            "map": "weldyn_channel"
+          },
+          "fallenstar_lake-lambda-0.95-202611081-24-1": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.004139134522131015,
+            "kl": 0.00027513469697127487,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-lambda-0.95-202611081-24-2": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.006000319614143358,
+            "kl": 0.00013626754584264008,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-lambda-0.95-202611081-24-1": {
+            "rows": 8,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.0005476447067288146,
+            "kl": 0.00020563652525724556,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-lambda-0.95-202611081-24-2": {
+            "rows": 8,
+            "positive": 5,
+            "margin": 0.001687416434288025,
+            "positive_logp": -0.00037820651678280445,
+            "projection": 0.0008291832907144173,
+            "kl": 5.1212248214298396e-05,
+            "map": "weldyn_channel"
+          }
+        }
+      },
+      "moments_only": {
+        "kl": 0.00017335732826938174,
+        "games": {
+          "fallenstar_lake-lambda-0.95-202611081-0-1": {
+            "rows": 8,
+            "positive": 5,
+            "margin": -0.03135609030723572,
+            "positive_logp": -0.015804036144945684,
+            "projection": -0.00739653646607065,
+            "kl": 0.00019299266654236174,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-lambda-0.95-202611081-0-2": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.02054027992084037,
+            "kl": 3.6784805658597005e-05,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-lambda-0.95-202611081-0-1": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.004451139532894704,
+            "kl": 0.00011834942259009095,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-lambda-0.95-202611081-0-2": {
+            "rows": 5,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.0015329944495709982,
+            "kl": 5.3384942544415105e-05,
+            "map": "weldyn_channel"
+          },
+          "fallenstar_lake-lambda-0.95-202611081-8-1": {
+            "rows": 8,
+            "positive": 1,
+            "margin": -0.012523651123046875,
+            "positive_logp": -0.0018377849072285235,
+            "projection": 0.001763864460230471,
+            "kl": 0.00017398074405199925,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-lambda-0.95-202611081-8-2": {
+            "rows": 7,
+            "positive": 2,
+            "margin": -0.015734553337097168,
+            "positive_logp": -0.01275180667057435,
+            "projection": -0.0026841996527809347,
+            "kl": 0.0001774648462062014,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-lambda-0.95-202611081-8-1": {
+            "rows": 8,
+            "positive": 7,
+            "margin": -0.002578939710344587,
+            "positive_logp": -0.002030768830117138,
+            "projection": -0.001443710815210909,
+            "kl": 6.719074763981434e-05,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-lambda-0.95-202611081-8-2": {
+            "rows": 8,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.000869274468457212,
+            "kl": 9.211194346995263e-05,
+            "map": "weldyn_channel"
+          },
+          "fallenstar_lake-lambda-0.95-202611081-16-1": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.009009047692465242,
+            "kl": 0.00022616554447900844,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-lambda-0.95-202611081-16-2": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 8.341470279499027e-05,
+            "kl": 8.543628155981511e-05,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-lambda-0.95-202611081-16-1": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.000498843636401694,
+            "kl": 0.0010969342552238225,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-lambda-0.95-202611081-16-2": {
+            "rows": 8,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.001569134768021526,
+            "kl": 0.00011697561910126127,
+            "map": "weldyn_channel"
+          },
+          "fallenstar_lake-lambda-0.95-202611081-24-1": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.0028720092709789585,
+            "kl": 8.424194717304949e-05,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-lambda-0.95-202611081-24-2": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.004560963245708905,
+            "kl": 0.00015689044475950643,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-lambda-0.95-202611081-24-1": {
+            "rows": 8,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.00035777617092829693,
+            "kl": 3.9858279655571815e-05,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-lambda-0.95-202611081-24-2": {
+            "rows": 8,
+            "positive": 5,
+            "margin": 2.2873282432556152e-05,
+            "positive_logp": -0.0012655527075128112,
+            "projection": 0.0008489284932063528,
+            "kl": 5.495476165464046e-05,
+            "map": "weldyn_channel"
+          }
+        }
+      },
+      "active_parameters": 59,
+      "matched_full": {
+        "scale": 0.8940423602196252,
+        "kl": 0.00017316256875205834,
+        "games": {
+          "fallenstar_lake-lambda-0.95-202611081-0-1": {
+            "rows": 8,
+            "positive": 5,
+            "margin": -0.012506091594696045,
+            "positive_logp": -0.009570809706058421,
+            "projection": -0.007671526665746529,
+            "kl": 0.00016358249052724044,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-lambda-0.95-202611081-0-2": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.014370826080308074,
+            "kl": 3.376961944693831e-05,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-lambda-0.95-202611081-0-1": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.0038891578503048954,
+            "kl": 7.640554165304576e-05,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-lambda-0.95-202611081-0-2": {
+            "rows": 5,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.001308782070327326,
+            "kl": 5.405241959058842e-05,
+            "map": "weldyn_channel"
+          },
+          "fallenstar_lake-lambda-0.95-202611081-8-1": {
+            "rows": 8,
+            "positive": 1,
+            "margin": -0.005252838134765625,
+            "positive_logp": -0.0007654448881834197,
+            "projection": 0.0016223071261263302,
+            "kl": 0.00018133825031481235,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-lambda-0.95-202611081-8-2": {
+            "rows": 7,
+            "positive": 2,
+            "margin": -0.016415119171142578,
+            "positive_logp": -0.01710092501162247,
+            "projection": -0.005268330710301009,
+            "kl": 0.0004671939217299883,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-lambda-0.95-202611081-8-1": {
+            "rows": 8,
+            "positive": 7,
+            "margin": 0.007132496152605329,
+            "positive_logp": -0.00035405300325947505,
+            "projection": -0.00021186692439780267,
+            "kl": 6.817869664582234e-05,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-lambda-0.95-202611081-8-2": {
+            "rows": 8,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.00055280144548149,
+            "kl": 0.00018605470800845945,
+            "map": "weldyn_channel"
+          },
+          "fallenstar_lake-lambda-0.95-202611081-16-1": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.007091100057985421,
+            "kl": 0.00017698877140093084,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-lambda-0.95-202611081-16-2": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.00016548424861690872,
+            "kl": 3.831913346258685e-05,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-lambda-0.95-202611081-16-1": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.0004915075229256544,
+            "kl": 0.0006794127704588914,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-lambda-0.95-202611081-16-2": {
+            "rows": 8,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.0012687679856488315,
+            "kl": 0.00011165949852672477,
+            "map": "weldyn_channel"
+          },
+          "fallenstar_lake-lambda-0.95-202611081-24-1": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.003734808185040476,
+            "kl": 0.0002191474623179639,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-lambda-0.95-202611081-24-2": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.0053926858170536465,
+            "kl": 0.00010926311711451668,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-lambda-0.95-202611081-24-1": {
+            "rows": 8,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.00048349285764078903,
+            "kl": 0.00016411713206012426,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-lambda-0.95-202611081-24-2": {
+            "rows": 8,
+            "positive": 5,
+            "margin": 0.0014957875013351441,
+            "positive_logp": -0.0003426829541984991,
+            "projection": 0.0007419052500880516,
+            "kl": 4.111756677429958e-05,
+            "map": "weldyn_channel"
+          }
+        }
+      },
+      "matched_moments": {
+        "scale": 1.0,
+        "kl": 0.00017335732826938174,
+        "games": {
+          "fallenstar_lake-lambda-0.95-202611081-0-1": {
+            "rows": 8,
+            "positive": 5,
+            "margin": -0.03135609030723572,
+            "positive_logp": -0.015804036144945684,
+            "projection": -0.00739653646607065,
+            "kl": 0.00019299266654236174,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-lambda-0.95-202611081-0-2": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.02054027992084037,
+            "kl": 3.6784805658597005e-05,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-lambda-0.95-202611081-0-1": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.004451139532894704,
+            "kl": 0.00011834942259009095,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-lambda-0.95-202611081-0-2": {
+            "rows": 5,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.0015329944495709982,
+            "kl": 5.3384942544415105e-05,
+            "map": "weldyn_channel"
+          },
+          "fallenstar_lake-lambda-0.95-202611081-8-1": {
+            "rows": 8,
+            "positive": 1,
+            "margin": -0.012523651123046875,
+            "positive_logp": -0.0018377849072285235,
+            "projection": 0.001763864460230471,
+            "kl": 0.00017398074405199925,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-lambda-0.95-202611081-8-2": {
+            "rows": 7,
+            "positive": 2,
+            "margin": -0.015734553337097168,
+            "positive_logp": -0.01275180667057435,
+            "projection": -0.0026841996527809347,
+            "kl": 0.0001774648462062014,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-lambda-0.95-202611081-8-1": {
+            "rows": 8,
+            "positive": 7,
+            "margin": -0.002578939710344587,
+            "positive_logp": -0.002030768830117138,
+            "projection": -0.001443710815210909,
+            "kl": 6.719074763981434e-05,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-lambda-0.95-202611081-8-2": {
+            "rows": 8,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.000869274468457212,
+            "kl": 9.211194346995263e-05,
+            "map": "weldyn_channel"
+          },
+          "fallenstar_lake-lambda-0.95-202611081-16-1": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.009009047692465242,
+            "kl": 0.00022616554447900844,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-lambda-0.95-202611081-16-2": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 8.341470279499027e-05,
+            "kl": 8.543628155981511e-05,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-lambda-0.95-202611081-16-1": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.000498843636401694,
+            "kl": 0.0010969342552238225,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-lambda-0.95-202611081-16-2": {
+            "rows": 8,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.001569134768021526,
+            "kl": 0.00011697561910126127,
+            "map": "weldyn_channel"
+          },
+          "fallenstar_lake-lambda-0.95-202611081-24-1": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.0028720092709789585,
+            "kl": 8.424194717304949e-05,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-lambda-0.95-202611081-24-2": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.004560963245708905,
+            "kl": 0.00015689044475950643,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-lambda-0.95-202611081-24-1": {
+            "rows": 8,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.00035777617092829693,
+            "kl": 3.9858279655571815e-05,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-lambda-0.95-202611081-24-2": {
+            "rows": 8,
+            "positive": 5,
+            "margin": 2.2873282432556152e-05,
+            "positive_logp": -0.0012655527075128112,
+            "projection": 0.0008489284932063528,
+            "kl": 5.495476165464046e-05,
+            "map": "weldyn_channel"
+          }
+        }
+      }
+    },
+    "lambda-0.95-202611082": {
+      "full": {
+        "kl": 9.514948383240446e-05,
+        "games": {
+          "fallenstar_lake-lambda-0.95-202611082-0-1": {
+            "rows": 7,
+            "positive": 4,
+            "margin": 0.02414107322692871,
+            "positive_logp": 0.001992825901674756,
+            "projection": -0.015279919515195889,
+            "kl": 0.0004584627050206164,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-lambda-0.95-202611082-0-2": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.0032005808639192774,
+            "kl": 0.00010088252367187313,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-lambda-0.95-202611082-0-1": {
+            "rows": 6,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.0014837940407639914,
+            "kl": 0.00013746085860993475,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-lambda-0.95-202611082-0-2": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.0005334454885065987,
+            "kl": 6.764254846606072e-05,
+            "map": "weldyn_channel"
+          },
+          "fallenstar_lake-lambda-0.95-202611082-8-1": {
+            "rows": 8,
+            "positive": 4,
+            "margin": 0.00561600923538208,
+            "positive_logp": -0.002724198567615344,
+            "projection": -0.0011413175604210652,
+            "kl": 5.829703944160515e-05,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-lambda-0.95-202611082-8-2": {
+            "rows": 8,
+            "positive": 2,
+            "margin": -0.0035355091094970703,
+            "positive_logp": 0.00030493882944523584,
+            "projection": 0.0010479683497474953,
+            "kl": 4.220630253781432e-05,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-lambda-0.95-202611082-8-1": {
+            "rows": 7,
+            "positive": 1,
+            "margin": 0.020876407623291016,
+            "positive_logp": 0.0001259754362686917,
+            "projection": -0.0002463375175266991,
+            "kl": 6.319102702037807e-05,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-lambda-0.95-202611082-8-2": {
+            "rows": 8,
+            "positive": 1,
+            "margin": -0.002766132354736328,
+            "positive_logp": -9.816749089472474e-06,
+            "projection": 0.0010442915198744407,
+            "kl": 2.85981180538233e-05,
+            "map": "weldyn_channel"
+          },
+          "fallenstar_lake-lambda-0.95-202611082-16-1": {
+            "rows": 8,
+            "positive": 8,
+            "margin": 0.0410342663526535,
+            "positive_logp": 0.0054883787366337075,
+            "projection": 0.00179874256745381,
+            "kl": 0.00013392901546721637,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-lambda-0.95-202611082-16-2": {
+            "rows": 8,
+            "positive": 8,
+            "margin": 0.002264883369207382,
+            "positive_logp": -0.00047249504867265236,
+            "projection": -4.269044093560496e-05,
+            "kl": 6.90451364992537e-05,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-lambda-0.95-202611082-16-1": {
+            "rows": 8,
+            "positive": 1,
+            "margin": 0.01786947250366211,
+            "positive_logp": 0.009875627900605366,
+            "projection": 0.0036931424456129224,
+            "kl": 0.00011185469225032017,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-lambda-0.95-202611082-16-2": {
+            "rows": 7,
+            "positive": 2,
+            "margin": -0.0074825286865234375,
+            "positive_logp": -0.0030924892681480076,
+            "projection": -4.4857193628866515e-05,
+            "kl": 3.514891447878149e-05,
+            "map": "weldyn_channel"
+          },
+          "fallenstar_lake-lambda-0.95-202611082-24-1": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.004532661527343702,
+            "kl": 6.847050588462573e-05,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-lambda-0.95-202611082-24-2": {
+            "rows": 7,
+            "positive": 2,
+            "margin": 0.013416081666946411,
+            "positive_logp": 0.006827321141605253,
+            "projection": -0.0028831465077942967,
+            "kl": 4.100536720786375e-05,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-lambda-0.95-202611082-24-1": {
+            "rows": 8,
+            "positive": 2,
+            "margin": 0.004011571407318115,
+            "positive_logp": 0.005216718004416244,
+            "projection": 0.0008735844040901664,
+            "kl": 5.031396530316241e-05,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-lambda-0.95-202611082-24-2": {
+            "rows": 8,
+            "positive": 7,
+            "margin": 0.006223201751708984,
+            "positive_logp": 0.0023114773206035903,
+            "projection": -0.0006946362151924472,
+            "kl": 5.5883021405141955e-05,
+            "map": "weldyn_channel"
+          }
+        }
+      },
+      "moments_only": {
+        "kl": 9.175114941925401e-05,
+        "games": {
+          "fallenstar_lake-lambda-0.95-202611082-0-1": {
+            "rows": 7,
+            "positive": 4,
+            "margin": 0.026050448417663574,
+            "positive_logp": 0.0003412499007780633,
+            "projection": -0.012747297579738267,
+            "kl": 0.0003170076618350356,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-lambda-0.95-202611082-0-2": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.002486544513409524,
+            "kl": 6.37733412696275e-05,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-lambda-0.95-202611082-0-1": {
+            "rows": 6,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.0011993514131440248,
+            "kl": 0.00013365163636904672,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-lambda-0.95-202611082-0-2": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.0008214123476963261,
+            "kl": 7.464931338757813e-05,
+            "map": "weldyn_channel"
+          },
+          "fallenstar_lake-lambda-0.95-202611082-8-1": {
+            "rows": 8,
+            "positive": 4,
+            "margin": -0.012197434902191162,
+            "positive_logp": -0.0036823396606710124,
+            "projection": -0.0007245302963116546,
+            "kl": 3.931279318163336e-05,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-lambda-0.95-202611082-8-2": {
+            "rows": 8,
+            "positive": 2,
+            "margin": -0.02676379680633545,
+            "positive_logp": -0.0025544357306615285,
+            "projection": 0.00028918285810161496,
+            "kl": 4.153951857431072e-05,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-lambda-0.95-202611082-8-1": {
+            "rows": 7,
+            "positive": 1,
+            "margin": 0.017900943756103516,
+            "positive_logp": 0.00016052439572774094,
+            "projection": 6.766391847101241e-05,
+            "kl": 0.00014269200655502072,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-lambda-0.95-202611082-8-2": {
+            "rows": 8,
+            "positive": 1,
+            "margin": 0.005070686340332031,
+            "positive_logp": 1.3715513803158087e-05,
+            "projection": 0.0003496676148370222,
+            "kl": 1.6222790940620617e-05,
+            "map": "weldyn_channel"
+          },
+          "fallenstar_lake-lambda-0.95-202611082-16-1": {
+            "rows": 8,
+            "positive": 8,
+            "margin": 0.03665526211261749,
+            "positive_logp": 0.00468554412901794,
+            "projection": 0.0019529957720564603,
+            "kl": 0.00010857060670106951,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-lambda-0.95-202611082-16-2": {
+            "rows": 8,
+            "positive": 8,
+            "margin": -0.00046515092253685,
+            "positive_logp": -0.0005797779803846975,
+            "projection": -0.00012178551416848948,
+            "kl": 6.238425692323577e-05,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-lambda-0.95-202611082-16-1": {
+            "rows": 8,
+            "positive": 1,
+            "margin": 0.010375499725341797,
+            "positive_logp": 0.006941159539390451,
+            "projection": 0.005708592879996966,
+            "kl": 9.734420420631106e-05,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-lambda-0.95-202611082-16-2": {
+            "rows": 7,
+            "positive": 2,
+            "margin": -0.0020172595977783203,
+            "positive_logp": -0.0012215534147047014,
+            "projection": -6.799101374860183e-05,
+            "kl": 2.9881117797597283e-05,
+            "map": "weldyn_channel"
+          },
+          "fallenstar_lake-lambda-0.95-202611082-24-1": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.004792286624658031,
+            "kl": 0.00011908446233655245,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-lambda-0.95-202611082-24-2": {
+            "rows": 7,
+            "positive": 2,
+            "margin": 0.010327547788619995,
+            "positive_logp": 0.0069762896205316505,
+            "projection": -0.0033583192104828406,
+            "kl": 4.4483946815548043e-05,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-lambda-0.95-202611082-24-1": {
+            "rows": 8,
+            "positive": 2,
+            "margin": 0.0051505714654922485,
+            "positive_logp": 0.007194819805581169,
+            "projection": 0.0011366658334966443,
+            "kl": 0.00012444145125431458,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-lambda-0.95-202611082-24-2": {
+            "rows": 8,
+            "positive": 7,
+            "margin": 0.007587977818080357,
+            "positive_logp": 0.002914669989119934,
+            "projection": -0.0002852626641279633,
+            "kl": 5.2979282560562115e-05,
+            "map": "weldyn_channel"
+          }
+        }
+      },
+      "active_parameters": 59,
+      "matched_full": {
+        "scale": 0.9819797645724972,
+        "kl": 9.17524044260156e-05,
+        "games": {
+          "fallenstar_lake-lambda-0.95-202611082-0-1": {
+            "rows": 7,
+            "positive": 4,
+            "margin": 0.023677587509155273,
+            "positive_logp": 0.0019319079535766075,
+            "projection": -0.015011091610967408,
+            "kl": 0.0004419623389808563,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-lambda-0.95-202611082-0-2": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.003140753019866416,
+            "kl": 9.720246135933246e-05,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-lambda-0.95-202611082-0-1": {
+            "rows": 6,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.001458915579956547,
+            "kl": 0.00013253139301353312,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-lambda-0.95-202611082-0-2": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.0005246233304881643,
+            "kl": 6.523986400361255e-05,
+            "map": "weldyn_channel"
+          },
+          "fallenstar_lake-lambda-0.95-202611082-8-1": {
+            "rows": 8,
+            "positive": 4,
+            "margin": 0.0054985880851745605,
+            "positive_logp": -0.0026803051781291685,
+            "projection": -0.001122685371404253,
+            "kl": 5.628136327531465e-05,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-lambda-0.95-202611082-8-2": {
+            "rows": 8,
+            "positive": 2,
+            "margin": -0.00346982479095459,
+            "positive_logp": 0.00030058392752113985,
+            "projection": 0.00102888961705308,
+            "kl": 4.070957772735607e-05,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-lambda-0.95-202611082-8-1": {
+            "rows": 7,
+            "positive": 1,
+            "margin": 0.02050638198852539,
+            "positive_logp": 0.00012390558689121672,
+            "projection": -0.0002418552575843271,
+            "kl": 6.094132793814181e-05,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-lambda-0.95-202611082-8-2": {
+            "rows": 8,
+            "positive": 1,
+            "margin": -0.002712726593017578,
+            "positive_logp": -9.638039399897588e-06,
+            "projection": 0.0010240434709776229,
+            "kl": 2.7589479348574224e-05,
+            "map": "weldyn_channel"
+          },
+          "fallenstar_lake-lambda-0.95-202611082-16-1": {
+            "rows": 8,
+            "positive": 8,
+            "margin": 0.04029657691717148,
+            "positive_logp": 0.005393802243854334,
+            "projection": 0.00176740185261831,
+            "kl": 0.0001292170819986544,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-lambda-0.95-202611082-16-2": {
+            "rows": 8,
+            "positive": 8,
+            "margin": 0.002234760671854019,
+            "positive_logp": -0.0004527755789096523,
+            "projection": -3.75606270900971e-05,
+            "kl": 6.663492584734127e-05,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-lambda-0.95-202611082-16-1": {
+            "rows": 8,
+            "positive": 1,
+            "margin": 0.017540454864501953,
+            "positive_logp": 0.009685003215339938,
+            "projection": 0.003626222037067632,
+            "kl": 0.00010781278909078859,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-lambda-0.95-202611082-16-2": {
+            "rows": 7,
+            "positive": 2,
+            "margin": -0.0073337554931640625,
+            "positive_logp": -0.003033064299842958,
+            "projection": -4.4379641988429814e-05,
+            "kl": 3.390949135999144e-05,
+            "map": "weldyn_channel"
+          },
+          "fallenstar_lake-lambda-0.95-202611082-24-1": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.004450153673689891,
+            "kl": 6.600822573098415e-05,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-lambda-0.95-202611082-24-2": {
+            "rows": 7,
+            "positive": 2,
+            "margin": 0.01318579912185669,
+            "positive_logp": 0.006701077806526179,
+            "projection": -0.0028337140290997315,
+            "kl": 3.9549161430746554e-05,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-lambda-0.95-202611082-24-1": {
+            "rows": 8,
+            "positive": 2,
+            "margin": 0.003936350345611572,
+            "positive_logp": 0.00511887844586394,
+            "projection": 0.0008559623316406119,
+            "kl": 4.85267126393433e-05,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-lambda-0.95-202611082-24-2": {
+            "rows": 8,
+            "positive": 7,
+            "margin": 0.00610574654170445,
+            "positive_logp": 0.002271896748339573,
+            "projection": -0.0006819873762009609,
+            "kl": 5.392227707167871e-05,
+            "map": "weldyn_channel"
+          }
+        }
+      },
+      "matched_moments": {
+        "scale": 1.0,
+        "kl": 9.175114941925401e-05,
+        "games": {
+          "fallenstar_lake-lambda-0.95-202611082-0-1": {
+            "rows": 7,
+            "positive": 4,
+            "margin": 0.026050448417663574,
+            "positive_logp": 0.0003412499007780633,
+            "projection": -0.012747297579738267,
+            "kl": 0.0003170076618350356,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-lambda-0.95-202611082-0-2": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.002486544513409524,
+            "kl": 6.37733412696275e-05,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-lambda-0.95-202611082-0-1": {
+            "rows": 6,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.0011993514131440248,
+            "kl": 0.00013365163636904672,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-lambda-0.95-202611082-0-2": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.0008214123476963261,
+            "kl": 7.464931338757813e-05,
+            "map": "weldyn_channel"
+          },
+          "fallenstar_lake-lambda-0.95-202611082-8-1": {
+            "rows": 8,
+            "positive": 4,
+            "margin": -0.012197434902191162,
+            "positive_logp": -0.0036823396606710124,
+            "projection": -0.0007245302963116546,
+            "kl": 3.931279318163336e-05,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-lambda-0.95-202611082-8-2": {
+            "rows": 8,
+            "positive": 2,
+            "margin": -0.02676379680633545,
+            "positive_logp": -0.0025544357306615285,
+            "projection": 0.00028918285810161496,
+            "kl": 4.153951857431072e-05,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-lambda-0.95-202611082-8-1": {
+            "rows": 7,
+            "positive": 1,
+            "margin": 0.017900943756103516,
+            "positive_logp": 0.00016052439572774094,
+            "projection": 6.766391847101241e-05,
+            "kl": 0.00014269200655502072,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-lambda-0.95-202611082-8-2": {
+            "rows": 8,
+            "positive": 1,
+            "margin": 0.005070686340332031,
+            "positive_logp": 1.3715513803158087e-05,
+            "projection": 0.0003496676148370222,
+            "kl": 1.6222790940620617e-05,
+            "map": "weldyn_channel"
+          },
+          "fallenstar_lake-lambda-0.95-202611082-16-1": {
+            "rows": 8,
+            "positive": 8,
+            "margin": 0.03665526211261749,
+            "positive_logp": 0.00468554412901794,
+            "projection": 0.0019529957720564603,
+            "kl": 0.00010857060670106951,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-lambda-0.95-202611082-16-2": {
+            "rows": 8,
+            "positive": 8,
+            "margin": -0.00046515092253685,
+            "positive_logp": -0.0005797779803846975,
+            "projection": -0.00012178551416848948,
+            "kl": 6.238425692323577e-05,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-lambda-0.95-202611082-16-1": {
+            "rows": 8,
+            "positive": 1,
+            "margin": 0.010375499725341797,
+            "positive_logp": 0.006941159539390451,
+            "projection": 0.005708592879996966,
+            "kl": 9.734420420631106e-05,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-lambda-0.95-202611082-16-2": {
+            "rows": 7,
+            "positive": 2,
+            "margin": -0.0020172595977783203,
+            "positive_logp": -0.0012215534147047014,
+            "projection": -6.799101374860183e-05,
+            "kl": 2.9881117797597283e-05,
+            "map": "weldyn_channel"
+          },
+          "fallenstar_lake-lambda-0.95-202611082-24-1": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.004792286624658031,
+            "kl": 0.00011908446233655245,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-lambda-0.95-202611082-24-2": {
+            "rows": 7,
+            "positive": 2,
+            "margin": 0.010327547788619995,
+            "positive_logp": 0.0069762896205316505,
+            "projection": -0.0033583192104828406,
+            "kl": 4.4483946815548043e-05,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-lambda-0.95-202611082-24-1": {
+            "rows": 8,
+            "positive": 2,
+            "margin": 0.0051505714654922485,
+            "positive_logp": 0.007194819805581169,
+            "projection": 0.0011366658334966443,
+            "kl": 0.00012444145125431458,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-lambda-0.95-202611082-24-2": {
+            "rows": 8,
+            "positive": 7,
+            "margin": 0.007587977818080357,
+            "positive_logp": 0.002914669989119934,
+            "projection": -0.0002852626641279633,
+            "kl": 5.2979282560562115e-05,
+            "map": "weldyn_channel"
+          }
+        }
+      }
+    },
+    "lambda-0.95-202611083": {
+      "full": {
+        "kl": 0.00011783591901280226,
+        "games": {
+          "fallenstar_lake-lambda-0.95-202611083-0-1": {
+            "rows": 8,
+            "positive": 1,
+            "margin": 0.047733306884765625,
+            "positive_logp": 0.007750022625098607,
+            "projection": -0.001898424579001446,
+            "kl": 4.119163954476119e-05,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-lambda-0.95-202611083-0-2": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.015051999027136118,
+            "kl": 0.0003886893142080955,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-lambda-0.95-202611083-0-1": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.0015208228183541124,
+            "kl": 0.00020241908701773063,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-lambda-0.95-202611083-0-2": {
+            "rows": 8,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.00300886837363782,
+            "kl": 0.00012822858954717871,
+            "map": "weldyn_channel"
+          },
+          "fallenstar_lake-lambda-0.95-202611083-8-1": {
+            "rows": 8,
+            "positive": 1,
+            "margin": -0.020292282104492188,
+            "positive_logp": -0.0008202371878037809,
+            "projection": -0.00794129391428025,
+            "kl": 7.623431928713333e-05,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-lambda-0.95-202611083-8-2": {
+            "rows": 8,
+            "positive": 6,
+            "margin": 0.012978951136271158,
+            "positive_logp": 0.005898993864542318,
+            "projection": 0.0010105771324637855,
+            "kl": 3.5948839379424584e-05,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-lambda-0.95-202611083-8-1": {
+            "rows": 7,
+            "positive": 1,
+            "margin": 0.04485893249511719,
+            "positive_logp": 0.0006300969150309435,
+            "projection": -0.001239628816285454,
+            "kl": 8.16471272049568e-05,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-lambda-0.95-202611083-8-2": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.0017098092423786996,
+            "kl": 5.758830480349074e-05,
+            "map": "weldyn_channel"
+          },
+          "fallenstar_lake-lambda-0.95-202611083-16-1": {
+            "rows": 8,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.004446166535090119,
+            "kl": 0.0001647045423628356,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-lambda-0.95-202611083-16-2": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.0020863099387269366,
+            "kl": 6.79159620254262e-05,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-lambda-0.95-202611083-16-1": {
+            "rows": 8,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.011976685074430778,
+            "kl": 0.0001645027290368837,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-lambda-0.95-202611083-16-2": {
+            "rows": 6,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.0013503297170498706,
+            "kl": 8.671546045249034e-05,
+            "map": "weldyn_channel"
+          },
+          "fallenstar_lake-lambda-0.95-202611083-24-1": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.0016373650550314815,
+            "kl": 7.747071231212883e-05,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-lambda-0.95-202611083-24-2": {
+            "rows": 8,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.00456596528988081,
+            "kl": 6.166535879058657e-05,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-lambda-0.95-202611083-24-1": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.0013614850650333543,
+            "kl": 0.00014494765940847482,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-lambda-0.95-202611083-24-2": {
+            "rows": 8,
+            "positive": 6,
+            "margin": -0.03083650271097819,
+            "positive_logp": -0.0010709559245080918,
+            "projection": -0.001040989643452828,
+            "kl": 0.00010550505882323869,
+            "map": "weldyn_channel"
+          }
+        }
+      },
+      "moments_only": {
+        "kl": 0.00012180703811831609,
+        "games": {
+          "fallenstar_lake-lambda-0.95-202611083-0-1": {
+            "rows": 8,
+            "positive": 1,
+            "margin": -0.029178619384765625,
+            "positive_logp": -0.005148445939037322,
+            "projection": -0.0024887960446723758,
+            "kl": 3.518711672189066e-05,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-lambda-0.95-202611083-0-2": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.017256522775941315,
+            "kl": 0.00044682809419519133,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-lambda-0.95-202611083-0-1": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -6.800333581943863e-05,
+            "kl": 0.00018913787508510497,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-lambda-0.95-202611083-0-2": {
+            "rows": 8,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.004053654021571291,
+            "kl": 7.279216165182606e-05,
+            "map": "weldyn_channel"
+          },
+          "fallenstar_lake-lambda-0.95-202611083-8-1": {
+            "rows": 8,
+            "positive": 1,
+            "margin": -0.01264190673828125,
+            "positive_logp": -0.0005154249096702875,
+            "projection": -0.008819017674123422,
+            "kl": 7.379304368398288e-05,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-lambda-0.95-202611083-8-2": {
+            "rows": 8,
+            "positive": 6,
+            "margin": 0.013841390609741211,
+            "positive_logp": 0.0061534121701257325,
+            "projection": 0.0012833323529483178,
+            "kl": 5.478643278099039e-05,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-lambda-0.95-202611083-8-1": {
+            "rows": 7,
+            "positive": 1,
+            "margin": 0.02667999267578125,
+            "positive_logp": 0.00033061606062671084,
+            "projection": -0.0002572985134872243,
+            "kl": 4.833587690315224e-05,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-lambda-0.95-202611083-8-2": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.0038819230199857798,
+            "kl": 8.420373525528474e-05,
+            "map": "weldyn_channel"
+          },
+          "fallenstar_lake-lambda-0.95-202611083-16-1": {
+            "rows": 8,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.005051928866222798,
+            "kl": 0.00021848773836202767,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-lambda-0.95-202611083-16-2": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.0016184586354576014,
+            "kl": 6.878354540193638e-05,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-lambda-0.95-202611083-16-1": {
+            "rows": 8,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.003886675980523228,
+            "kl": 9.655259730478252e-05,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-lambda-0.95-202611083-16-2": {
+            "rows": 6,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.0012250860514805395,
+            "kl": 9.854235926902769e-05,
+            "map": "weldyn_channel"
+          },
+          "fallenstar_lake-lambda-0.95-202611083-24-1": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 5.095492169844959e-06,
+            "kl": 0.00010330182942125015,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-lambda-0.95-202611083-24-2": {
+            "rows": 8,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.0036346717272195414,
+            "kl": 6.153226479566938e-05,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-lambda-0.95-202611083-24-1": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.0017240974801295504,
+            "kl": 0.0001996653851722334,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-lambda-0.95-202611083-24-2": {
+            "rows": 8,
+            "positive": 6,
+            "margin": -0.017981290817260742,
+            "positive_logp": -0.0007950385896150357,
+            "projection": -0.0008585845642231929,
+            "kl": 9.6982553888707e-05,
+            "map": "weldyn_channel"
+          }
+        }
+      },
+      "active_parameters": 59,
+      "matched_full": {
+        "scale": 1.0,
+        "kl": 0.00011783591901280226,
+        "games": {
+          "fallenstar_lake-lambda-0.95-202611083-0-1": {
+            "rows": 8,
+            "positive": 1,
+            "margin": 0.047733306884765625,
+            "positive_logp": 0.007750022625098607,
+            "projection": -0.001898424579001446,
+            "kl": 4.119163954476119e-05,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-lambda-0.95-202611083-0-2": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.015051999027136118,
+            "kl": 0.0003886893142080955,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-lambda-0.95-202611083-0-1": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.0015208228183541124,
+            "kl": 0.00020241908701773063,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-lambda-0.95-202611083-0-2": {
+            "rows": 8,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.00300886837363782,
+            "kl": 0.00012822858954717871,
+            "map": "weldyn_channel"
+          },
+          "fallenstar_lake-lambda-0.95-202611083-8-1": {
+            "rows": 8,
+            "positive": 1,
+            "margin": -0.020292282104492188,
+            "positive_logp": -0.0008202371878037809,
+            "projection": -0.00794129391428025,
+            "kl": 7.623431928713333e-05,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-lambda-0.95-202611083-8-2": {
+            "rows": 8,
+            "positive": 6,
+            "margin": 0.012978951136271158,
+            "positive_logp": 0.005898993864542318,
+            "projection": 0.0010105771324637855,
+            "kl": 3.5948839379424584e-05,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-lambda-0.95-202611083-8-1": {
+            "rows": 7,
+            "positive": 1,
+            "margin": 0.04485893249511719,
+            "positive_logp": 0.0006300969150309435,
+            "projection": -0.001239628816285454,
+            "kl": 8.16471272049568e-05,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-lambda-0.95-202611083-8-2": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.0017098092423786996,
+            "kl": 5.758830480349074e-05,
+            "map": "weldyn_channel"
+          },
+          "fallenstar_lake-lambda-0.95-202611083-16-1": {
+            "rows": 8,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.004446166535090119,
+            "kl": 0.0001647045423628356,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-lambda-0.95-202611083-16-2": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.0020863099387269366,
+            "kl": 6.79159620254262e-05,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-lambda-0.95-202611083-16-1": {
+            "rows": 8,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.011976685074430778,
+            "kl": 0.0001645027290368837,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-lambda-0.95-202611083-16-2": {
+            "rows": 6,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.0013503297170498706,
+            "kl": 8.671546045249034e-05,
+            "map": "weldyn_channel"
+          },
+          "fallenstar_lake-lambda-0.95-202611083-24-1": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.0016373650550314815,
+            "kl": 7.747071231212883e-05,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-lambda-0.95-202611083-24-2": {
+            "rows": 8,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.00456596528988081,
+            "kl": 6.166535879058657e-05,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-lambda-0.95-202611083-24-1": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.0013614850650333543,
+            "kl": 0.00014494765940847482,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-lambda-0.95-202611083-24-2": {
+            "rows": 8,
+            "positive": 6,
+            "margin": -0.03083650271097819,
+            "positive_logp": -0.0010709559245080918,
+            "projection": -0.001040989643452828,
+            "kl": 0.00010550505882323869,
+            "map": "weldyn_channel"
+          }
+        }
+      },
+      "matched_moments": {
+        "scale": 0.9835640694583848,
+        "kl": 0.00011778814327110702,
+        "games": {
+          "fallenstar_lake-lambda-0.95-202611083-0-1": {
+            "rows": 8,
+            "positive": 1,
+            "margin": -0.02869415283203125,
+            "positive_logp": -0.005062815063866105,
+            "projection": -0.002449167026707022,
+            "kl": 3.4051127104067156e-05,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-lambda-0.95-202611083-0-2": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.01698660511262997,
+            "kl": 0.0004319583329880341,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-lambda-0.95-202611083-0-1": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -6.963929601996485e-05,
+            "kl": 0.00018263070088663544,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-lambda-0.95-202611083-0-2": {
+            "rows": 8,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.003993289099282162,
+            "kl": 7.03243093314109e-05,
+            "map": "weldyn_channel"
+          },
+          "fallenstar_lake-lambda-0.95-202611083-8-1": {
+            "rows": 8,
+            "positive": 1,
+            "margin": -0.0124359130859375,
+            "positive_logp": -0.0005068309657097168,
+            "projection": -0.008666621988918577,
+            "kl": 7.133383610308763e-05,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-lambda-0.95-202611083-8-2": {
+            "rows": 8,
+            "positive": 6,
+            "margin": 0.013608296712239584,
+            "positive_logp": 0.006063642314257001,
+            "projection": 0.0012631973885952263,
+            "kl": 5.306579399896774e-05,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-lambda-0.95-202611083-8-1": {
+            "rows": 7,
+            "positive": 1,
+            "margin": 0.026241302490234375,
+            "positive_logp": 0.0003249417670052046,
+            "projection": -0.00025589449194632303,
+            "kl": 4.6753649200039136e-05,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-lambda-0.95-202611083-8-2": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.003803813777841366,
+            "kl": 8.135786256939067e-05,
+            "map": "weldyn_channel"
+          },
+          "fallenstar_lake-lambda-0.95-202611083-16-1": {
+            "rows": 8,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.004999541303465814,
+            "kl": 0.0002110784767225089,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-lambda-0.95-202611083-16-2": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.0015893301329905334,
+            "kl": 6.656201832931232e-05,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-lambda-0.95-202611083-16-1": {
+            "rows": 8,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.003825837033311027,
+            "kl": 9.334455519793112e-05,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-lambda-0.95-202611083-16-2": {
+            "rows": 6,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.0012061099605259957,
+            "kl": 9.534769434631312e-05,
+            "map": "weldyn_channel"
+          },
+          "fallenstar_lake-lambda-0.95-202611083-24-1": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -4.7374112501663005e-05,
+            "kl": 0.00010017470658514108,
+            "map": "fallenstar_lake"
+          },
+          "fallenstar_lake-lambda-0.95-202611083-24-2": {
+            "rows": 8,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": 0.0035685609407741774,
+            "kl": 5.95655889697269e-05,
+            "map": "fallenstar_lake"
+          },
+          "weldyn_channel-lambda-0.95-202611083-24-1": {
+            "rows": 7,
+            "positive": 0,
+            "margin": null,
+            "positive_logp": null,
+            "projection": -0.0016972153113314066,
+            "kl": 0.00019319065038713134,
+            "map": "weldyn_channel"
+          },
+          "weldyn_channel-lambda-0.95-202611083-24-2": {
+            "rows": 8,
+            "positive": 6,
+            "margin": -0.017694870630900066,
+            "positive_logp": -0.0007822323968191778,
+            "projection": -0.0008448451953037003,
+            "kl": 9.387098961801478e-05,
+            "map": "weldyn_channel"
+          }
+        }
+      }
+    }
+  },
+  "wall_seconds": 80.26490463782102,
+  "new_games": 0,
+  "committed_updates": 0
+}
