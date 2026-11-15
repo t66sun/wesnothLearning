@@ -1,0 +1,292 @@
+{
+  "differences": {
+    "b_minus_a": -0.040123456790123455,
+    "a_minus_bc": 0.03518518518518519,
+    "b_minus_bc": -0.0049382716049382715
+  },
+  "interval95": {
+    "b_minus_a": [
+      -0.12098765432098765,
+      0.03209876543209877
+    ],
+    "a_minus_bc": [
+      -0.024691358024691357,
+      0.09259259259259259
+    ],
+    "b_minus_bc": [
+      -0.08641975308641975,
+      0.0734567901234568
+    ]
+  },
+  "raw_differences": {
+    "b_minus_a": -65,
+    "a_minus_bc": 57,
+    "b_minus_bc": -8
+  },
+  "raw_max": 1620,
+  "passed": false,
+  "games": 1260,
+  "paired_slots": 180,
+  "per_map": {
+    "road_to_weldyn": {
+      "bc": {
+        "wins": 23,
+        "games": 60,
+        "round_cap": 9,
+        "losses": 28,
+        "draws": 9,
+        "score": 0.43333333333333335
+      },
+      "teacher-202611151": {
+        "wins": 27,
+        "games": 60,
+        "round_cap": 6,
+        "losses": 27,
+        "draws": 6,
+        "score": 0.48333333333333334
+      },
+      "learner-202611151": {
+        "wins": 24,
+        "games": 60,
+        "round_cap": 7,
+        "losses": 29,
+        "draws": 7,
+        "score": 0.4388888888888889
+      },
+      "learner-202611152": {
+        "wins": 25,
+        "games": 60,
+        "round_cap": 8,
+        "losses": 27,
+        "draws": 8,
+        "score": 0.46111111111111114
+      },
+      "teacher-202611152": {
+        "wins": 27,
+        "games": 60,
+        "round_cap": 6,
+        "losses": 27,
+        "draws": 6,
+        "score": 0.48333333333333334
+      },
+      "teacher-202611153": {
+        "wins": 24,
+        "games": 60,
+        "round_cap": 12,
+        "losses": 24,
+        "draws": 12,
+        "score": 0.4666666666666667
+      },
+      "learner-202611153": {
+        "wins": 26,
+        "games": 60,
+        "round_cap": 9,
+        "losses": 25,
+        "draws": 9,
+        "score": 0.48333333333333334
+      }
+    },
+    "summer_of_storms": {
+      "bc": {
+        "wins": 10,
+        "games": 60,
+        "round_cap": 30,
+        "losses": 20,
+        "draws": 30,
+        "score": 0.3333333333333333
+      },
+      "teacher-202611151": {
+        "wins": 15,
+        "games": 60,
+        "round_cap": 33,
+        "losses": 12,
+        "draws": 33,
+        "score": 0.43333333333333335
+      },
+      "learner-202611151": {
+        "wins": 8,
+        "games": 60,
+        "round_cap": 31,
+        "draws": 31,
+        "losses": 21,
+        "score": 0.3055555555555556
+      },
+      "learner-202611152": {
+        "wins": 10,
+        "games": 60,
+        "round_cap": 32,
+        "losses": 18,
+        "draws": 32,
+        "score": 0.34444444444444444
+      },
+      "teacher-202611152": {
+        "wins": 9,
+        "games": 60,
+        "round_cap": 35,
+        "losses": 16,
+        "draws": 35,
+        "score": 0.34444444444444444
+      },
+      "teacher-202611153": {
+        "wins": 14,
+        "games": 60,
+        "round_cap": 33,
+        "losses": 13,
+        "draws": 33,
+        "score": 0.4166666666666667
+      },
+      "learner-202611153": {
+        "wins": 12,
+        "games": 60,
+        "round_cap": 32,
+        "losses": 16,
+        "draws": 32,
+        "score": 0.37777777777777777
+      }
+    },
+    "ur_thorodor": {
+      "bc": {
+        "losses": 28,
+        "games": 60,
+        "round_cap": 7,
+        "draws": 7,
+        "wins": 25,
+        "score": 0.45555555555555555
+      },
+      "teacher-202611151": {
+        "wins": 24,
+        "games": 60,
+        "round_cap": 10,
+        "draws": 10,
+        "losses": 26,
+        "score": 0.45555555555555555
+      },
+      "learner-202611151": {
+        "wins": 13,
+        "games": 60,
+        "round_cap": 6,
+        "draws": 6,
+        "losses": 41,
+        "score": 0.25
+      },
+      "learner-202611152": {
+        "losses": 31,
+        "games": 60,
+        "round_cap": 7,
+        "wins": 22,
+        "draws": 7,
+        "score": 0.40555555555555556
+      },
+      "teacher-202611152": {
+        "wins": 22,
+        "games": 60,
+        "round_cap": 6,
+        "draws": 6,
+        "losses": 32,
+        "score": 0.4
+      },
+      "teacher-202611153": {
+        "losses": 28,
+        "games": 60,
+        "round_cap": 3,
+        "draws": 3,
+        "wins": 29,
+        "score": 0.5
+      },
+      "learner-202611153": {
+        "draws": 7,
+        "games": 60,
+        "round_cap": 7,
+        "wins": 31,
+        "losses": 22,
+        "score": 0.5555555555555556
+      }
+    }
+  },
+  "scores": {
+    "bc": 0.4074074074074074,
+    "teacher-202611151": 0.45740740740740743,
+    "learner-202611151": 0.3314814814814815,
+    "learner-202611152": 0.40370370370370373,
+    "teacher-202611152": 0.40925925925925927,
+    "teacher-202611153": 0.46111111111111114,
+    "learner-202611153": 0.4722222222222222
+  },
+  "times": {
+    "started": "2026-11-15T13:57:49.830616+08:00",
+    "finished": "2026-11-15T14:46:17.030168+08:00",
+    "deadline": "2026-11-15T17:57:49.830616+08:00",
+    "preflight_seconds": 0.19922113418579102,
+    "active_seconds": 2907.1995520591736,
+    "audit_and_archive_seconds": 4.0268714427948,
+    "training_seconds": 608.8952844142914,
+    "stages": {
+      "teacher-202611151": 91.01128959655762,
+      "learner-202611151": 108.95564579963684,
+      "learner-202611152": 111.55684208869934,
+      "teacher-202611152": 95.11845564842224,
+      "teacher-202611153": 92.0137026309967,
+      "learner-202611153": 110.23934864997864,
+      "panel": 2294.073007583618,
+      "audit": 3.9731273651123047
+    }
+  },
+  "endpoints": {
+    "bc": {
+      "checkpoint_sha256": "8fc61bbb0be5c2ad8d2ec5b56760ce3dbfa08eed008c490e9b2233624ea91ebe",
+      "weights_sha256": "d9d694f04d4179a5c65bbc29307a8e425a245d650d47f55a36ec04abeb206801",
+      "value_sha256": "4e45377bc2d75c53ddf58fc364abd3d376883049a1ffa07b9f111c14a68a9fca",
+      "steps": 0,
+      "visits": 0
+    },
+    "teacher-202611151": {
+      "checkpoint_sha256": "cd4466b873089ffe73cffc037728e352ba617f0a49dd362f240a07eaf015079e",
+      "weights_sha256": "dd87511cd9ec89866ff6fe9ca4d7ec754286bfc68cafff2a32d7c849656e5084",
+      "value_sha256": "4e45377bc2d75c53ddf58fc364abd3d376883049a1ffa07b9f111c14a68a9fca",
+      "steps": 64,
+      "visits": 4096
+    },
+    "learner-202611151": {
+      "checkpoint_sha256": "7e157e5a729d2ae0e4f9e0df2a4655a2ac7b1e67cbd06d9754536d7db66a77b1",
+      "weights_sha256": "db2eee501e8074b2deb1d73a80ea128b968363648abe6264425dcfb15b0e1b3b",
+      "value_sha256": "4e45377bc2d75c53ddf58fc364abd3d376883049a1ffa07b9f111c14a68a9fca",
+      "steps": 64,
+      "visits": 4096
+    },
+    "learner-202611152": {
+      "checkpoint_sha256": "0da9b7e102060ce29c2780aa9a5af389e472d5c1b49166ad30d0b8d699777a93",
+      "weights_sha256": "c5e4fecf21433823d19f046aa9b8b986a9712c6a505606d7f8e8354ba09cf207",
+      "value_sha256": "4e45377bc2d75c53ddf58fc364abd3d376883049a1ffa07b9f111c14a68a9fca",
+      "steps": 64,
+      "visits": 4096
+    },
+    "teacher-202611152": {
+      "checkpoint_sha256": "294f0850c0eb0484441354b655ed5177e369caac46ebb28b957f52fe82255e1b",
+      "weights_sha256": "bba9d72e4fd4b7be83ae008dce0fcf8a4c2c3dcba0b26c42d56586425c23703f",
+      "value_sha256": "4e45377bc2d75c53ddf58fc364abd3d376883049a1ffa07b9f111c14a68a9fca",
+      "steps": 64,
+      "visits": 4096
+    },
+    "teacher-202611153": {
+      "checkpoint_sha256": "28e60fbe861c05cf789a24f4a02a48bbf0a847a16f05bd71fb238c8a7058bc11",
+      "weights_sha256": "c89773d9b77144eb40503563e00b5d58bda3525c93880ab1c5e099f687b60fff",
+      "value_sha256": "4e45377bc2d75c53ddf58fc364abd3d376883049a1ffa07b9f111c14a68a9fca",
+      "steps": 64,
+      "visits": 4096
+    },
+    "learner-202611153": {
+      "checkpoint_sha256": "f7637ca7b74189ae0d857e9bd3107f473ecb5db7f17f7c1478c83374b538dce4",
+      "weights_sha256": "f1d6dbc82dc645b1532e5a9780fc7758cad822afad5fea838c126e6788772095",
+      "value_sha256": "4e45377bc2d75c53ddf58fc364abd3d376883049a1ffa07b9f111c14a68a9fca",
+      "steps": 64,
+      "visits": 4096
+    }
+  },
+  "file_sha256": {
+    "launch.json": "35694cb2c402a957a02fce88ac4a075836b435567164f21619ef5ced0bc7591d",
+    "schedule.json": "8c5bcc88a1315481e86968f58517316f94bbc3528936a08c74b1ca928b5b595d",
+    "results.jsonl": "f7fc606e3bbb6183b1e8b654f372b85687b4661e0d43ad109c3e20d12ab6c2cd",
+    "raw-metadata.tar.gz": "d0caef8c9f195420d4c17c12bc725a648ba5a62145b4ec97b3d5648a405614f9",
+    "run-exit.json": "eaca8d1a3ea84f28415e5c7a67cf5e5c438b9f73f6469af2f791d6c4e2133f5d"
+  }
+}
