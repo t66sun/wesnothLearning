@@ -1,0 +1,11 @@
+{
+  "sha256": "36b2cdbb84b1df705d677a2a1dbeca343d7f92b39b7f5ea837454d0939bffad2",
+  "roles": {
+    "bc": 1343,
+    "lambda-0.95-202611081": 1739,
+    "lambda-0.95-202611082": 1649,
+    "lambda-0.95-202611083": 1790
+  },
+  "new_games": 0,
+  "optimizer_updates": 0
+}

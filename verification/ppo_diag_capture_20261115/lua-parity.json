@@ -1,0 +1,26 @@
+{
+  "bc": {
+    "job": "fallenstar_lake-bc-0-1",
+    "rows": 8,
+    "turns": 2,
+    "max_abs_error": 8.526512829121202e-14
+  },
+  "lambda-0.95-202611081": {
+    "job": "fallenstar_lake-lambda-0.95-202611081-0-1",
+    "rows": 8,
+    "turns": 2,
+    "max_abs_error": 4.973799150320701e-14
+  },
+  "lambda-0.95-202611082": {
+    "job": "fallenstar_lake-lambda-0.95-202611082-0-1",
+    "rows": 8,
+    "turns": 2,
+    "max_abs_error": 4.263256414560601e-14
+  },
+  "lambda-0.95-202611083": {
+    "job": "fallenstar_lake-lambda-0.95-202611083-0-1",
+    "rows": 8,
+    "turns": 2,
+    "max_abs_error": 3.552713678800501e-14
+  }
+}

@@ -1,0 +1,11 @@
+test_completed_draw_telescopes_and_bc_matches_mc_and_ppo (tests.v5.test_finite_score.FiniteScoreArithmeticTests.test_completed_draw_telescopes_and_bc_matches_mc_and_ppo) ... ok
+test_natural_wins_and_losses_clear_endpoint_potential (tests.v5.test_finite_score.FiniteScoreArithmeticTests.test_natural_wins_and_losses_clear_endpoint_potential) ... ok
+test_same_turn_actions_and_multiturn_gap_keep_own_turn_lambda_clock (tests.v5.test_finite_score.FiniteScoreArithmeticTests.test_same_turn_actions_and_multiturn_gap_keep_own_turn_lambda_clock) ... ok
+test_early_external_cut_retains_potential_and_bootstrap (tests.v5.test_finite_score.FiniteScoreArithmeticTests.test_early_external_cut_retains_potential_and_bootstrap) ... ok
+test_cap_29_lite_round_30_is_still_external (tests.v5.test_finite_score.FiniteScoreArithmeticTests.test_cap_29_lite_round_30_is_still_external) ... ok
+test_missing_truncation_value_fails_instead_of_becoming_zero (tests.v5.test_critic_horizon.CriticHorizonTests.test_missing_truncation_value_fails_instead_of_becoming_zero) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.374s
+
+OK
