@@ -1,0 +1,673 @@
+{
+  "launch_sha256": "d50730235e9627d15c2eb11240ba6bd40a4b0c4d678cba8fecccbc1067c4aba5",
+  "verdict": "actionable_gap_excluded",
+  "interaction": {
+    "point": -0.1419753086419753,
+    "per_seed": [
+      -0.18518518518518517,
+      -0.07407407407407407,
+      -0.16666666666666666
+    ],
+    "interval95": [
+      -0.27469135802469136,
+      0.009259259259259259
+    ],
+    "status": "paired",
+    "exact_slots": 36,
+    "paired_blocks": {
+      "fallenstar_lake": 6,
+      "the_freelands": 6,
+      "weldyn_channel": 6
+    }
+  },
+  "sampled_gain": {
+    "point": -0.02160493827160494,
+    "per_seed": [
+      -0.05555555555555556,
+      0.009259259259259262,
+      -0.01851851851851852
+    ],
+    "interval95": [
+      -0.12962962962962962,
+      0.08641975308641976
+    ],
+    "status": "paired",
+    "exact_slots": 36,
+    "paired_blocks": {
+      "fallenstar_lake": 6,
+      "the_freelands": 6,
+      "weldyn_channel": 6
+    }
+  },
+  "greedy_gain": {
+    "point": 0.12037037037037036,
+    "per_seed": [
+      0.12962962962962962,
+      0.08333333333333333,
+      0.14814814814814814
+    ],
+    "interval95": [
+      -0.009259259259259254,
+      0.24691358024691357
+    ],
+    "status": "paired",
+    "exact_slots": 36,
+    "paired_blocks": {
+      "fallenstar_lake": 6,
+      "the_freelands": 6,
+      "weldyn_channel": 6
+    }
+  },
+  "mode_by_role": {
+    "bc": {
+      "point": -0.009259259259259264,
+      "per_seed": [
+        -0.009259259259259264
+      ],
+      "interval95": [
+        -0.0925925925925926,
+        0.07407407407407407
+      ],
+      "status": "paired",
+      "exact_slots": 36,
+      "paired_blocks": {
+        "fallenstar_lake": 6,
+        "the_freelands": 6,
+        "weldyn_channel": 6
+      }
+    },
+    "lambda-0.95-202611081": {
+      "point": -0.19444444444444445,
+      "per_seed": [
+        -0.19444444444444445
+      ],
+      "interval95": [
+        -0.3425925925925926,
+        -0.05555555555555556
+      ],
+      "status": "paired",
+      "exact_slots": 36,
+      "paired_blocks": {
+        "fallenstar_lake": 6,
+        "the_freelands": 6,
+        "weldyn_channel": 6
+      }
+    },
+    "lambda-0.95-202611082": {
+      "point": -0.08333333333333334,
+      "per_seed": [
+        -0.08333333333333334
+      ],
+      "interval95": [
+        -0.23148148148148148,
+        0.07407407407407407
+      ],
+      "status": "paired",
+      "exact_slots": 36,
+      "paired_blocks": {
+        "fallenstar_lake": 6,
+        "the_freelands": 6,
+        "weldyn_channel": 6
+      }
+    },
+    "lambda-0.95-202611083": {
+      "point": -0.17592592592592593,
+      "per_seed": [
+        -0.17592592592592593
+      ],
+      "interval95": [
+        -0.2962962962962963,
+        -0.05555555555555556
+      ],
+      "status": "paired",
+      "exact_slots": 36,
+      "paired_blocks": {
+        "fallenstar_lake": 6,
+        "the_freelands": 6,
+        "weldyn_channel": 6
+      }
+    }
+  },
+  "by_map": {
+    "the_freelands": {
+      "interaction": {
+        "point": 0.09259259259259259,
+        "per_seed": [
+          -4.625929269271485e-18,
+          0.11111111111111112,
+          0.16666666666666666
+        ],
+        "interval95": [
+          -0.16666666666666666,
+          0.3611111111111111
+        ],
+        "status": "paired",
+        "exact_slots": 12,
+        "paired_blocks": {
+          "the_freelands": 6
+        }
+      },
+      "sampled_gain": {
+        "point": 0.1111111111111111,
+        "per_seed": [
+          0.05555555555555555,
+          0.11111111111111112,
+          0.16666666666666666
+        ],
+        "interval95": [
+          -0.08333333333333333,
+          0.3333333333333333
+        ],
+        "status": "paired",
+        "exact_slots": 12,
+        "paired_blocks": {
+          "the_freelands": 6
+        }
+      },
+      "greedy_gain": {
+        "point": 0.018518518518518517,
+        "per_seed": [
+          0.05555555555555555,
+          0.0,
+          0.0
+        ],
+        "interval95": [
+          -0.23148148148148148,
+          0.2777777777777778
+        ],
+        "status": "paired",
+        "exact_slots": 12,
+        "paired_blocks": {
+          "the_freelands": 6
+        }
+      },
+      "mode_by_role": {
+        "bc": {
+          "point": -0.1388888888888889,
+          "per_seed": [
+            -0.1388888888888889
+          ],
+          "interval95": [
+            -0.3333333333333333,
+            0.027777777777777776
+          ],
+          "status": "paired",
+          "exact_slots": 12,
+          "paired_blocks": {
+            "the_freelands": 6
+          }
+        },
+        "lambda-0.95-202611081": {
+          "point": -0.1388888888888889,
+          "per_seed": [
+            -0.1388888888888889
+          ],
+          "interval95": [
+            -0.3333333333333333,
+            0.05555555555555555
+          ],
+          "status": "paired",
+          "exact_slots": 12,
+          "paired_blocks": {
+            "the_freelands": 6
+          }
+        },
+        "lambda-0.95-202611082": {
+          "point": -0.02777777777777778,
+          "per_seed": [
+            -0.02777777777777778
+          ],
+          "interval95": [
+            -0.25,
+            0.16666666666666666
+          ],
+          "status": "paired",
+          "exact_slots": 12,
+          "paired_blocks": {
+            "the_freelands": 6
+          }
+        },
+        "lambda-0.95-202611083": {
+          "point": 0.027777777777777776,
+          "per_seed": [
+            0.027777777777777776
+          ],
+          "interval95": [
+            -0.2222222222222222,
+            0.25
+          ],
+          "status": "paired",
+          "exact_slots": 12,
+          "paired_blocks": {
+            "the_freelands": 6
+          }
+        }
+      }
+    },
+    "weldyn_channel": {
+      "interaction": {
+        "point": -0.35185185185185186,
+        "per_seed": [
+          -0.3333333333333333,
+          -0.25,
+          -0.4722222222222222
+        ],
+        "interval95": [
+          -0.5925925925925926,
+          -0.05555555555555555
+        ],
+        "status": "paired",
+        "exact_slots": 12,
+        "paired_blocks": {
+          "weldyn_channel": 6
+        }
+      },
+      "sampled_gain": {
+        "point": -0.09259259259259259,
+        "per_seed": [
+          -0.08333333333333333,
+          -0.05555555555555555,
+          -0.1388888888888889
+        ],
+        "interval95": [
+          -0.3055555555555556,
+          0.1111111111111111
+        ],
+        "status": "paired",
+        "exact_slots": 12,
+        "paired_blocks": {
+          "weldyn_channel": 6
+        }
+      },
+      "greedy_gain": {
+        "point": 0.25925925925925924,
+        "per_seed": [
+          0.25,
+          0.19444444444444445,
+          0.3333333333333333
+        ],
+        "interval95": [
+          0.0,
+          0.5185185185185185
+        ],
+        "status": "paired",
+        "exact_slots": 12,
+        "paired_blocks": {
+          "weldyn_channel": 6
+        }
+      },
+      "mode_by_role": {
+        "bc": {
+          "point": 0.05555555555555555,
+          "per_seed": [
+            0.05555555555555555
+          ],
+          "interval95": [
+            0.0,
+            0.16666666666666666
+          ],
+          "status": "paired",
+          "exact_slots": 12,
+          "paired_blocks": {
+            "weldyn_channel": 6
+          }
+        },
+        "lambda-0.95-202611081": {
+          "point": -0.2777777777777778,
+          "per_seed": [
+            -0.2777777777777778
+          ],
+          "interval95": [
+            -0.6111111111111112,
+            -0.027777777777777776
+          ],
+          "status": "paired",
+          "exact_slots": 12,
+          "paired_blocks": {
+            "weldyn_channel": 6
+          }
+        },
+        "lambda-0.95-202611082": {
+          "point": -0.19444444444444445,
+          "per_seed": [
+            -0.19444444444444445
+          ],
+          "interval95": [
+            -0.5277777777777778,
+            0.16666666666666666
+          ],
+          "status": "paired",
+          "exact_slots": 12,
+          "paired_blocks": {
+            "weldyn_channel": 6
+          }
+        },
+        "lambda-0.95-202611083": {
+          "point": -0.41666666666666663,
+          "per_seed": [
+            -0.41666666666666663
+          ],
+          "interval95": [
+            -0.5555555555555556,
+            -0.2222222222222222
+          ],
+          "status": "paired",
+          "exact_slots": 12,
+          "paired_blocks": {
+            "weldyn_channel": 6
+          }
+        }
+      }
+    },
+    "fallenstar_lake": {
+      "interaction": {
+        "point": -0.16666666666666666,
+        "per_seed": [
+          -0.2222222222222222,
+          -0.08333333333333333,
+          -0.19444444444444445
+        ],
+        "interval95": [
+          -0.34259259259259256,
+          0.037037037037037035
+        ],
+        "status": "paired",
+        "exact_slots": 12,
+        "paired_blocks": {
+          "fallenstar_lake": 6
+        }
+      },
+      "sampled_gain": {
+        "point": -0.08333333333333333,
+        "per_seed": [
+          -0.1388888888888889,
+          -0.02777777777777778,
+          -0.08333333333333333
+        ],
+        "interval95": [
+          -0.2222222222222222,
+          0.07407407407407407
+        ],
+        "status": "paired",
+        "exact_slots": 12,
+        "paired_blocks": {
+          "fallenstar_lake": 6
+        }
+      },
+      "greedy_gain": {
+        "point": 0.08333333333333333,
+        "per_seed": [
+          0.08333333333333333,
+          0.05555555555555555,
+          0.1111111111111111
+        ],
+        "interval95": [
+          -0.07407407407407407,
+          0.2222222222222222
+        ],
+        "status": "paired",
+        "exact_slots": 12,
+        "paired_blocks": {
+          "fallenstar_lake": 6
+        }
+      },
+      "mode_by_role": {
+        "bc": {
+          "point": 0.05555555555555555,
+          "per_seed": [
+            0.05555555555555555
+          ],
+          "interval95": [
+            -0.1111111111111111,
+            0.16666666666666666
+          ],
+          "status": "paired",
+          "exact_slots": 12,
+          "paired_blocks": {
+            "fallenstar_lake": 6
+          }
+        },
+        "lambda-0.95-202611081": {
+          "point": -0.16666666666666666,
+          "per_seed": [
+            -0.16666666666666666
+          ],
+          "interval95": [
+            -0.41666666666666663,
+            0.08333333333333333
+          ],
+          "status": "paired",
+          "exact_slots": 12,
+          "paired_blocks": {
+            "fallenstar_lake": 6
+          }
+        },
+        "lambda-0.95-202611082": {
+          "point": -0.02777777777777778,
+          "per_seed": [
+            -0.02777777777777778
+          ],
+          "interval95": [
+            -0.25,
+            0.16666666666666666
+          ],
+          "status": "paired",
+          "exact_slots": 12,
+          "paired_blocks": {
+            "fallenstar_lake": 6
+          }
+        },
+        "lambda-0.95-202611083": {
+          "point": -0.1388888888888889,
+          "per_seed": [
+            -0.1388888888888889
+          ],
+          "interval95": [
+            -0.3333333333333333,
+            0.08333333333333333
+          ],
+          "status": "paired",
+          "exact_slots": 12,
+          "paired_blocks": {
+            "fallenstar_lake": 6
+          }
+        }
+      }
+    }
+  },
+  "raw_counts": {
+    "fallenstar_lake/bc/greedy": {
+      "win": 2,
+      "points": 10,
+      "turn_cap": 4,
+      "loss": 6,
+      "draw": 4
+    },
+    "fallenstar_lake/bc/sample": {
+      "win": 1,
+      "points": 12,
+      "turn_cap": 9,
+      "draw": 9,
+      "loss": 2
+    },
+    "fallenstar_lake/lambda-0.95-202611081/greedy": {
+      "draw": 10,
+      "points": 13,
+      "turn_cap": 10,
+      "loss": 1,
+      "win": 1
+    },
+    "fallenstar_lake/lambda-0.95-202611081/sample": {
+      "win": 1,
+      "points": 7,
+      "turn_cap": 4,
+      "loss": 7,
+      "draw": 4
+    },
+    "fallenstar_lake/lambda-0.95-202611082/greedy": {
+      "win": 1,
+      "points": 12,
+      "turn_cap": 9,
+      "draw": 9,
+      "loss": 2
+    },
+    "fallenstar_lake/lambda-0.95-202611082/sample": {
+      "draw": 5,
+      "points": 11,
+      "turn_cap": 5,
+      "loss": 5,
+      "win": 2
+    },
+    "fallenstar_lake/lambda-0.95-202611083/greedy": {
+      "win": 2,
+      "points": 14,
+      "turn_cap": 8,
+      "loss": 2,
+      "draw": 8
+    },
+    "fallenstar_lake/lambda-0.95-202611083/sample": {
+      "draw": 6,
+      "points": 9,
+      "turn_cap": 6,
+      "loss": 5,
+      "win": 1
+    },
+    "the_freelands/bc/greedy": {
+      "loss": 6,
+      "points": 16,
+      "turn_cap": 1,
+      "win": 5,
+      "draw": 1
+    },
+    "the_freelands/bc/sample": {
+      "loss": 7,
+      "points": 11,
+      "turn_cap": 2,
+      "win": 3,
+      "draw": 2
+    },
+    "the_freelands/lambda-0.95-202611081/greedy": {
+      "win": 6,
+      "points": 18,
+      "turn_cap": 0,
+      "loss": 6
+    },
+    "the_freelands/lambda-0.95-202611081/sample": {
+      "loss": 7,
+      "points": 13,
+      "turn_cap": 1,
+      "win": 4,
+      "draw": 1
+    },
+    "the_freelands/lambda-0.95-202611082/greedy": {
+      "win": 5,
+      "points": 16,
+      "turn_cap": 1,
+      "loss": 6,
+      "draw": 1
+    },
+    "the_freelands/lambda-0.95-202611082/sample": {
+      "win": 5,
+      "points": 15,
+      "turn_cap": 0,
+      "loss": 7
+    },
+    "the_freelands/lambda-0.95-202611083/greedy": {
+      "win": 5,
+      "points": 16,
+      "turn_cap": 1,
+      "loss": 6,
+      "draw": 1
+    },
+    "the_freelands/lambda-0.95-202611083/sample": {
+      "draw": 2,
+      "points": 17,
+      "turn_cap": 2,
+      "win": 5,
+      "loss": 5
+    },
+    "weldyn_channel/bc/greedy": {
+      "loss": 8,
+      "points": 10,
+      "turn_cap": 1,
+      "win": 3,
+      "draw": 1
+    },
+    "weldyn_channel/bc/sample": {
+      "loss": 8,
+      "points": 12,
+      "turn_cap": 0,
+      "win": 4
+    },
+    "weldyn_channel/lambda-0.95-202611081/greedy": {
+      "win": 6,
+      "points": 19,
+      "turn_cap": 1,
+      "loss": 5,
+      "draw": 1
+    },
+    "weldyn_channel/lambda-0.95-202611081/sample": {
+      "loss": 9,
+      "points": 9,
+      "turn_cap": 0,
+      "win": 3
+    },
+    "weldyn_channel/lambda-0.95-202611082/greedy": {
+      "loss": 5,
+      "points": 17,
+      "turn_cap": 2,
+      "win": 5,
+      "draw": 2
+    },
+    "weldyn_channel/lambda-0.95-202611082/sample": {
+      "loss": 8,
+      "points": 10,
+      "turn_cap": 1,
+      "draw": 1,
+      "win": 3
+    },
+    "weldyn_channel/lambda-0.95-202611083/greedy": {
+      "draw": 4,
+      "points": 22,
+      "turn_cap": 4,
+      "win": 6,
+      "loss": 2
+    },
+    "weldyn_channel/lambda-0.95-202611083/sample": {
+      "loss": 9,
+      "points": 7,
+      "turn_cap": 1,
+      "draw": 1,
+      "win": 2
+    }
+  },
+  "runtime_tags": [
+    "lite-0.2",
+    "splitmix64-rejection-v1",
+    "probabilistic_combat_v6"
+  ],
+  "games": {
+    "total": 288,
+    "reused": 96,
+    "new": 192,
+    "new_sample": 48,
+    "new_greedy": 144
+  },
+  "throughput": {
+    "started": 1794748483.8770835,
+    "seconds": 603.0020942687988,
+    "workers": 8,
+    "games": 192,
+    "completed": 192,
+    "decisions": 46128,
+    "completed_games_per_hour": 1146.264675644535
+  },
+  "collection_seconds": 603.0416045188904,
+  "wall_seconds": 608.5040581226349,
+  "recount_seconds": 5.363022075966001,
+  "archive": {
+    "sha256": "5367303ce5efd98040b476eb1b6ebf9cdc317e09bafcd0602d603f7cb27b8012",
+    "bytes": 487554
+  },
+  "optimizer_updates": 0
+}
