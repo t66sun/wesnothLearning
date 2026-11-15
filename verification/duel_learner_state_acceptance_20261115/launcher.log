@@ -1,0 +1,8 @@
+teacher-202611151 {'started': 1794722270.0298367, 'deadline': 1794723470.029675, 'finished': 1794722361.0411263, 'wall_seconds': 91.01128959655762, 'exit_code': 0, 'timed_out': False}
+learner-202611151 {'started': 1794722361.041734, 'deadline': 1794723561.0415823, 'finished': 1794722469.9973798, 'wall_seconds': 108.95564579963684, 'exit_code': 0, 'timed_out': False}
+learner-202611152 {'started': 1794722469.9980683, 'deadline': 1794723669.9978893, 'finished': 1794722581.5549104, 'wall_seconds': 111.55684208869934, 'exit_code': 0, 'timed_out': False}
+teacher-202611152 {'started': 1794722581.5554316, 'deadline': 1794723781.5553155, 'finished': 1794722676.6738873, 'wall_seconds': 95.11845564842224, 'exit_code': 0, 'timed_out': False}
+teacher-202611153 {'started': 1794722676.6746812, 'deadline': 1794723876.674496, 'finished': 1794722768.6883838, 'wall_seconds': 92.0137026309967, 'exit_code': 0, 'timed_out': False}
+learner-202611153 {'started': 1794722768.6887248, 'deadline': 1794723968.6886556, 'finished': 1794722878.9280734, 'wall_seconds': 110.23934864997864, 'exit_code': 0, 'timed_out': False}
+panel {'started': 1794722878.9297254, 'deadline': 1794728278.9295514, 'finished': 1794725173.002733, 'wall_seconds': 2294.073007583618, 'exit_code': 0, 'timed_out': False}
+audit {'started': 1794725173.0032961, 'deadline': 1794726373.003116, 'finished': 1794725176.9764235, 'wall_seconds': 3.9731273651123047, 'exit_code': 0, 'timed_out': False}
