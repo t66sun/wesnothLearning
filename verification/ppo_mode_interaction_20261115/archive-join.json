@@ -1,0 +1,98 @@
+{
+  "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/evaluation/holdout/plan.json": {
+    "sha256": "5daf75fa89f70cbc6acd5323fc884aae985cc6e07b81015a25de3d23792582a5",
+    "jobs": 420,
+    "combat_seed_overlap": 0,
+    "candidate_matches": 0
+  },
+  "/home/tongshu/acceptance/duel_comparison_20261106_43325b3/source/runs/duel_ppo_comparison_20261106/evaluation/validation/plan.json": {
+    "sha256": "3ec5c50996463dc6b9fdcc664392431ac843b47899341a6aca45480afb4025b2",
+    "jobs": 210,
+    "combat_seed_overlap": 0,
+    "candidate_matches": 0
+  },
+  "/home/tongshu/acceptance/ppo269_shared_20261107_gzzXd6/experiment/holdout-b-result/plan.json": {
+    "sha256": "9565916031f604c147f2d72e58fd9d26fc52e00247a09db56c6e5251018c0522",
+    "jobs": 240,
+    "combat_seed_overlap": 0,
+    "candidate_matches": 0
+  },
+  "/home/tongshu/acceptance/ppo269_shared_20261107_gzzXd6/experiment/holdout-base-result/plan.json": {
+    "sha256": "67fabac10f6cf5f801c777eeb61095d0b967962cee5199894b6b09d4a08b4835",
+    "jobs": 420,
+    "combat_seed_overlap": 0,
+    "candidate_matches": 0
+  },
+  "/home/tongshu/acceptance/ppo269_shared_20261107_gzzXd6/experiment/holdout-c-result/plan.json": {
+    "sha256": "ac733bb9f369a6a1421fbe1168dad65a316d3e08ac808e6764f1b2913cd2b6e2",
+    "jobs": 240,
+    "combat_seed_overlap": 0,
+    "candidate_matches": 0
+  },
+  "/home/tongshu/acceptance/ppo269_shared_20261107_gzzXd6/experiment/validation-b-result/plan.json": {
+    "sha256": "1b3d370197079fe376a231c00691a814404e70759629d200175235644aac4a77",
+    "jobs": 336,
+    "combat_seed_overlap": 0,
+    "candidate_matches": 0
+  },
+  "/home/tongshu/acceptance/ppo269_shared_20261107_gzzXd6/experiment/validation-base-result/plan.json": {
+    "sha256": "0b5e119f8c4ce2dbcfc7ffa4700d946b4644fae8e80a01669d6058f8636a19d2",
+    "jobs": 642,
+    "combat_seed_overlap": 0,
+    "candidate_matches": 0
+  },
+  "/home/tongshu/acceptance/ppo269_shared_20261107_gzzXd6/experiment/validation-c-result/plan.json": {
+    "sha256": "2c5470c29645373f2b5c0b393f5af95f71b8c7f5b9b2ada2b65cc2189430c5cd",
+    "jobs": 336,
+    "combat_seed_overlap": 0,
+    "candidate_matches": 0
+  },
+  "/home/tongshu/acceptance/ppo306_20261108_Miwoyq/source/runs/ppo306/holdout/road_to_weldyn/plan.json": {
+    "sha256": "876421471f7ae1dad416d455a7b9acaae54faae2230e7d78f113cac0ef343a95",
+    "jobs": 420,
+    "combat_seed_overlap": 0,
+    "candidate_matches": 0
+  },
+  "/home/tongshu/acceptance/ppo306_20261108_Miwoyq/source/runs/ppo306/holdout/summer_of_storms/plan.json": {
+    "sha256": "8c19b6f155c55278ef097e7bd40ae347500d2c0cdb385033462a6517304fc39d",
+    "jobs": 420,
+    "combat_seed_overlap": 0,
+    "candidate_matches": 0
+  },
+  "/home/tongshu/acceptance/ppo306_20261108_Miwoyq/source/runs/ppo306/validation/hamlets/plan.json": {
+    "sha256": "8c2496b782b2d9214043a83ceb22c15ed573e8848798d6a9ff3a0334a592cbf4",
+    "jobs": 210,
+    "combat_seed_overlap": 0,
+    "candidate_matches": 0
+  },
+  "/home/tongshu/acceptance/ppo322-formal-20261114-wGKDQ4/source/runs/ppo322/holdout/face_of_the_enemy/plan.json": {
+    "sha256": "c5289065281eeb05cc44f90dcb0c0c43cbe091d228690d569e8e898a45ec047e",
+    "jobs": 420,
+    "combat_seed_overlap": 0,
+    "candidate_matches": 0
+  },
+  "/home/tongshu/acceptance/ppo322-formal-20261114-wGKDQ4/source/runs/ppo322/holdout/ur_thorodor/plan.json": {
+    "sha256": "f11fb7d844d45746fa98addc96d7d7ba272f113d7829b11fc222bdd052be1621",
+    "jobs": 420,
+    "combat_seed_overlap": 0,
+    "candidate_matches": 0
+  },
+  "/home/tongshu/acceptance/ppo322-formal-20261114-wGKDQ4/source/runs/ppo322/validation/hamlets/plan.json": {
+    "sha256": "542ad2c3936a765c7891748085e01f3e2f24cab5ee07b9857efe0d49c2c03f7f",
+    "jobs": 210,
+    "combat_seed_overlap": 0,
+    "candidate_matches": 0
+  },
+  "/home/tongshu/acceptance/ppo-v38-20261115-8dIsba/formal/schedule.json": {
+    "sha256": "ebd3b3c16273f98919a1688e5e38168eb2c123821ebc1e2456625612d7549fe0",
+    "jobs": 720,
+    "combat_seed_overlap": 0,
+    "candidate_matches": 0
+  },
+  "/home/tongshu/acceptance/ppo306_20261108_Miwoyq/source/runs/ppo352-pilot-20261115-7cq5lA/pilot-panel-schedule.json": {
+    "sha256": "055a0a0f92c7ede79b792148198c5dec38db7d65b8323b43374c2918b6a70a11",
+    "jobs": 320,
+    "combat_seed_overlap": 0,
+    "candidate_matches": 0
+  }
+}
