@@ -1,0 +1,91 @@
+{
+  "games": 240,
+  "per_map": {
+    "fallenstar_lake": {
+      "greedy": {
+        "combat": 6184,
+        "queries": 0,
+        "astra_noncombat": 0,
+        "absent": 0,
+        "same": 0,
+        "changed": 0,
+        "games": 60,
+        "games_with_change": 0,
+        "worker_seconds": 1483.699217680376,
+        "wins": 13,
+        "draws": 30,
+        "losses": 17,
+        "score": 0.3833333333333333
+      },
+      "astra": {
+        "combat": 6152,
+        "queries": 6152,
+        "astra_noncombat": 568,
+        "absent": 1339,
+        "same": 2431,
+        "changed": 1814,
+        "games": 60,
+        "games_with_change": 60,
+        "worker_seconds": 1533.4628174235113,
+        "draws": 34,
+        "wins": 7,
+        "losses": 19,
+        "score": 0.3055555555555555
+      }
+    },
+    "sullas_ruins": {
+      "greedy": {
+        "combat": 4988,
+        "queries": 0,
+        "astra_noncombat": 0,
+        "absent": 0,
+        "same": 0,
+        "changed": 0,
+        "games": 60,
+        "games_with_change": 0,
+        "worker_seconds": 949.036627819296,
+        "wins": 23,
+        "losses": 26,
+        "draws": 11,
+        "score": 0.4444444444444444
+      },
+      "astra": {
+        "combat": 5215,
+        "queries": 5215,
+        "astra_noncombat": 492,
+        "absent": 835,
+        "same": 2162,
+        "changed": 1726,
+        "games": 60,
+        "games_with_change": 60,
+        "worker_seconds": 1004.5290222819895,
+        "wins": 18,
+        "losses": 24,
+        "draws": 18,
+        "score": 0.39999999999999997
+      }
+    }
+  },
+  "per_map_difference": {
+    "fallenstar_lake": -0.07777777777777778,
+    "sullas_ruins": -0.044444444444444446
+  },
+  "score": {
+    "greedy": 0.41388888888888886,
+    "astra": 0.35277777777777775
+  },
+  "difference": -0.06111111111111111,
+  "interval95": [
+    -0.1388888888888889,
+    0.016666666666666666
+  ],
+  "passed": false,
+  "status": "complete",
+  "in_budget": true,
+  "seconds": {
+    "preparation": 0.853911867365241,
+    "games": 647.0919564678334,
+    "audit": 0.3156715896911919,
+    "total": 648.2615399248898
+  }
+}
