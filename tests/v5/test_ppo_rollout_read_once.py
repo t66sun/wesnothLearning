@@ -230,6 +230,7 @@ class RolloutReadOnceTests(unittest.TestCase):
         self.assertEqual(len(full_reads), 1)
         self.assertEqual(full_reads[0].kwargs, dict(format_name='duel', expected_task=TASK_ID))
         self.assertEqual(ppo._digest(resumed.model), ppo._digest(control.model))
+        torch.testing.assert_close(resumed.optimizer.state_dict(), control.optimizer.state_dict(), rtol=0, atol=0)
         self.assertEqual(resumed.state['counters'], control.state['counters'])
         self.assertEqual(resumed.state['history'][-1]['cursor'], expected['metrics']['cursor'])
         self.assertEqual(resumed.state['history'][-1]['loss'], expected['metrics']['loss'])

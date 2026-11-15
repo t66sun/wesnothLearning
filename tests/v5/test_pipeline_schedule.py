@@ -192,11 +192,13 @@ class ConfigScheduleTests(unittest.TestCase):
             schedule.freeze_schedule(path, [dict(id='other')])
 
     def test_lite_experiment_rewrites_baseline_jobs(self):
+        from learning.tasks import TASK_ID, reward_config
+
         experiment = FormatExperiment.__new__(FormatExperiment)
         experiment.directory = self.directory
-        experiment.config = dict(engine='lite', allow_approximate=False)
+        experiment.config = default_config('cpu') | dict(allow_approximate=False)
         experiment.teachers = ['/x/gpt6astra.zip']
-        experiment.controller = SimpleNamespace(freeze=lambda: helpers.config())
+        experiment.controller = SimpleNamespace(freeze=reward_config)
         collected = []
         experiment.collector = lambda pending, log: collected.extend(pending)
         jobs = [dict(id='job-a', bots=['baseline', 'control'],
@@ -206,6 +208,8 @@ class ConfigScheduleTests(unittest.TestCase):
         self.assertEqual(returned[0]['meta']['context'], 'astra_partner')
         self.assertEqual(returned[0]['engine'], 'lite')
         self.assertEqual(returned[0]['meta']['engine_id'], 'lite')
+        self.assertEqual(returned[0]['task_id'], TASK_ID)
+        self.assertEqual(returned[0]['reward_config']['task_id'], TASK_ID)
         self.assertTrue(collected)
         self.assertEqual(results, [])
 

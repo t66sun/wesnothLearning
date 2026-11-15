@@ -91,9 +91,12 @@ class LiteDefaultTests(unittest.TestCase):
         self.assertIn('默认8', help_text)
 
     def test_resume_keeps_frozen_targets_workers_and_deadline(self):
+        from learning import features
         from learning.common import sha256, write_json
         from learning.experiment import default_config
         from learning.__main__ import parser, run_config
+        self.enterContext(mock.patch.dict(os.environ))
+        self.addCleanup(features.select_rules, features.RULES_DIR)
         with tempfile.TemporaryDirectory() as temporary:
             run = Path(temporary)
             baseline = run / 'baseline.engine'

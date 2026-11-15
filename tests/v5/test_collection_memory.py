@@ -167,7 +167,10 @@ class CollectionMemoryTests(unittest.TestCase):
 
     def test_index_streams_rows_with_identical_legacy_payload(self):
         rows = helpers.sequence_rows(turns=3, decisions_per_turn=3)
-        expected = json.dumps([sequences._raw(r) for r in rows], separators=(',', ':'), allow_nan=False).encode()
+        # Legacy rows omit the partition rule. Their indexed form records its default explicitly.
+        self.assertTrue(all('split_rule' not in row for row in rows))
+        expected_rows = [dict(sequences._raw(row), split_rule='family-seed-v1') for row in rows]
+        expected = json.dumps(expected_rows, separators=(',', ':'), allow_nan=False).encode()
         original = json.dumps
 
         def bounded_dumps(value, *args, **kwargs):
@@ -185,12 +188,16 @@ class CollectionMemoryTests(unittest.TestCase):
             changed[0]['reward_raw'] = dict(economy=.9, control=.2, explored=.1)
             with self.assertRaisesRegex(ValueError, 'different raw content'):
                 store.write(changed)
-        with tempfile.TemporaryDirectory() as directory, sequences.IndexedSequenceStore(directory) as store:
-            compact = [rowpack.compact_row(r) for r in rows]
-            self.assertEqual(store.write(compact), len(rows))
-            self.assertEqual(store.write(compact), len(rows))
-            payload = store.connection.execute('SELECT payload FROM sequences').fetchone()[0]
-            self.assertEqual(json.loads(zlib.decompress(payload)), json.loads(expected))
+        with tempfile.TemporaryDirectory() as directory:
+            with sequences.IndexedSequenceStore(directory) as store:
+                compact = [rowpack.compact_row(r) for r in rows]
+                self.assertEqual(store.write(compact), len(rows))
+                self.assertEqual(store.write(compact), len(rows))
+                payload = store.connection.execute('SELECT payload FROM sequences').fetchone()[0]
+                self.assertEqual(json.loads(zlib.decompress(payload)), expected_rows)
+                original_records = list(store.iter_records())
+            with sequences.IndexedSequenceStore(directory) as reopened:
+                self.assertEqual(list(reopened.iter_records()), original_records)
 
 
 if __name__ == '__main__':
