@@ -521,8 +521,11 @@ class FormatExperiment:
         self.state['control_metrics']=metrics
         write_json(self.directory/'validation'/f'control-v{version:06}.json',metrics)
         key=selection_key(comparison) if promotion and comparison[self.fmt]['blocks']>=blocks else None
+        field=method+'_key'
+        save_method_best=key is not None and (self.state[field] is None or key>self.state[field])
+        save_best=key is not None and (self.state['best_key'] is None or key>self.state['best_key'])
         champion=self.state.get('champion')
-        if promotion and champion:
+        if champion and (save_method_best or save_best):
             champion_jobs=evaluation_jobs(self.directory,greedy,champion,self.fixed,12,self.config['seed']+1000000,
                 self.update_deadline(),self.exe,label=f'champion{version:06}',formats=[self.fmt],team_contexts=contexts,min_distinct=min_distinct)
             champion_jobs,champion_results=self.execute(champion_jobs,f'champion-{version:06}')
@@ -530,17 +533,14 @@ class FormatExperiment:
             write_json(self.directory/'validation'/f'champion-v{version:06}.json',dict(tier='promotion',format=self.fmt,
                 engine_id=self.config['engine'],seed=self.config['seed']+1000000,blocks=12,control=champion,
                 contexts=list(contexts),comparison=champion_comparison))
-            if champion_comparison[self.fmt]['status']!='passed': key=None
-        save_method_best=False;save_best=False
-        if key is not None:
-            field=method+'_key'
-            if self.state[field] is None or key>self.state[field]:
-                self.state[field]=key;save_method_best=True
-            if self.state['best_key'] is None or key>self.state['best_key']:
-                save_best=True
-                self.state['best_key']=key;self.state['best_kind']=method
-                self.state['champion']=greedy
-                self.state['best_engine']='best_lite' if self.config['engine']=='lite' else 'native_candidate'
+            if champion_comparison[self.fmt]['status']!='passed':
+                save_method_best=save_best=False
+        if save_method_best:
+            self.state[field]=key
+        if save_best:
+            self.state['best_key']=key;self.state['best_kind']=method
+            self.state['champion']=greedy
+            self.state['best_engine']='best_lite' if self.config['engine']=='lite' else 'native_candidate'
         gate=read_json(self.directory/'bc_gate.json') if method=='bc' else None
         if method=='bc':
             # The file on disk is the evidence another reader sees; recompute from

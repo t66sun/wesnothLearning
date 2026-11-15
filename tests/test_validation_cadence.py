@@ -1,6 +1,6 @@
 """Focused smoke checks for ten updates per native validation."""
 from pathlib import Path
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 import tempfile
 import unittest
 from learning.common import read_json, write_json
@@ -93,6 +93,47 @@ class ValidationCadenceTests(unittest.TestCase):
                 if fmt=='team2v2':
                     self.assertEqual({j['meta']['context'] for j in seen[0]},{'baseline_partner','self_team'})
                     self.assertEqual({j['meta']['context'] for j in seen[1]},{'baseline_partner','self_team'})
+
+    def test_champion_panel_requires_a_candidate_that_can_improve_a_record(self):
+        from tests.v5.helpers import opening_map
+
+        cases = (
+            ('incomplete', False, False),
+            ('below_record', False, False),
+            ('above_record', True, True),
+            ('loses_to_champion', True, False),
+        )
+        for case, challenges, promotes in cases:
+            with self.subTest(case=case), tempfile.TemporaryDirectory() as temp:
+                runner = self.runner(temp)
+                runner.state.update(version=100, champion='champion', best_key=0.5, ppo_key=0.5)
+                runner._write_checkpoint = Mock()
+                calls = []
+
+                def execute(jobs, name):
+                    calls.append(name)
+                    if name.startswith('validation') and case == 'incomplete':
+                        return jobs, []
+                    beats_control = case == 'above_record' or (name.startswith('validation')
+                                                                and case == 'loses_to_champion')
+                    replies = [
+                        dict(id=job['id'], status='complete',
+                             result=dict(bots=job['bots'], faults=[],
+                                         winner=job['meta']['policy_sides'][0] if beats_control else 0))
+                        for job in jobs
+                    ]
+                    return jobs, replies
+
+                runner.execute = execute
+                with patch('learning.maps.frozen_map', return_value=(opening_map(2), '0' * 64)):
+                    runner.validate_model('ppo')
+                self.assertEqual(calls, ['validation-000100'] + (['champion-000100'] if challenges else []))
+                self.assertEqual(runner.state['champion'], 'policy' if promotes else 'champion')
+                if promotes:
+                    self.assertEqual([call.args[0].name for call in runner._write_checkpoint.call_args_list],
+                                     ['best_ppo.pt', 'best.pt'])
+                else:
+                    runner._write_checkpoint.assert_not_called()
 
     def test_reduced_team_validation_does_not_weaken_formal_evaluation(self):
         from tests.v5.helpers import opening_map
