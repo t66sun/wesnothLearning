@@ -104,7 +104,7 @@ def play_lite_job(job):
     from .teachers import identity as teacher_identity
     from .lite_policy import FrozenPolicies,game_spec,is_astra
     from .reward_metrics import summarize_game
-    from .tasks import TASK_ID, TASK_TURNS, bind_result, job_reward
+    from .tasks import TASK_ID, bind_result, is_truncated, job_reward
     job_id = job['id']
     if 'combat_choice' in job:
         return dict(id=job_id, status='infrastructure_error', engine='lite',
@@ -242,19 +242,6 @@ def play_lite_job(job):
                     metric_snapshot(side,'eliminated')
             if view['finished']:
                 break
-        scored_cap = config['task_id'] == TASK_ID and job['game_spec']['max_turns'] == TASK_TURNS
-        if view['truncated'] and not scored_cap and any(not is_astra(bots[side-1]) for side in learner_sides):
-            # Never replace missing truncation values with zero or a teacher score.
-            bootstrap_policy = job.get('bootstrap_policy')
-            if bootstrap_policy is None and policies is None:
-                raise RuntimeError('truncated policy game requires a frozen bootstrap_policy callback')
-            for side in learner_sides:
-                if is_astra(bots[side-1]): continue
-                decision = host.decision(side, teacher=False)
-                actor_input = {k: v for k, v in decision.items() if k not in ('reward_raw', 'reward_after', 'teacher_action')}
-                bootstraps[str(side)] = dict(side=side, value=policies.choose(actor_input,side,bootstrap=True) if policies else float(bootstrap_policy(actor_input)),
-                                             potential=decision['potential'], reward_raw=decision['reward_raw'], turn=decision['turn'],
-                                             version=job.get('learning', {}).get('version', 'v5-validation'))
         survivors = [s['id'] for s in view['sides'] if not s['eliminated']]
         if not view['truncated']:
             for side in sorted(learner_sides-set(defeated)):
@@ -270,6 +257,19 @@ def play_lite_job(job):
                       bots=bots or ['gpt6astra']*len(teams), factions=job.get('factions') or [None]*len(teams), teams=teams if len(set(teams))<len(teams) else None,
                       turns=view['turn'], faults=[], rank_points=rank_points, approximate=True)
         bind_result(result, job)
+
+        for side in sorted(learner_sides):
+            if is_astra(bots[side-1]) or not is_truncated(result, side):
+                continue
+            bootstrap_policy = job.get('bootstrap_policy')
+            if bootstrap_policy is None and policies is None:
+                raise RuntimeError('truncated policy game requires a frozen bootstrap_policy callback')
+            decision = host.decision(side, teacher=False)
+            actor_input = {k: v for k, v in decision.items() if k not in ('reward_raw', 'reward_after', 'teacher_action')}
+            value = policies.choose(actor_input, side, bootstrap=True) if policies else float(bootstrap_policy(actor_input))
+            bootstraps[str(side)] = dict(side=side, value=value, potential=decision['potential'],
+                                         reward_raw=decision['reward_raw'], turn=decision['turn'],
+                                         version=job.get('learning', {}).get('version', 'v5-validation'))
         written = write_shard(job['shard'], job_id, records, result, bootstraps) if job.get('shard') else None
         if dagger and job.get('shard'):
             path=Path(job['shard']);write_shard(path.with_name(path.name.replace('.jsonl.gz','.dagger.jsonl.gz')),job_id,dagger,result,bootstraps)
