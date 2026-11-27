@@ -1,0 +1,24 @@
+{
+  "archive_sha256": "95be671325e30ef6ecc0dd07da77a42e8ef76978bb6064a0f1ffa241079f3679",
+  "verified_games": 288,
+  "verified_map_role_tallies": 12,
+  "verified_crossed_intervals": 4,
+  "pooled": {
+    "point": 0.06172839506172839,
+    "per_seed": [
+      0.037037037037037035,
+      0.06481481481481481,
+      0.08333333333333333
+    ],
+    "interval95": [
+      -0.037037037037037035,
+      0.16512345679012347
+    ]
+  },
+  "timing": {
+    "collection_seconds": 919.8744702339172,
+    "total_seconds": 921.7040867805481,
+    "replies_sha256": "98f467c6148b6fbd729f35bdfa3fd38aa6fe104fd47db5b851a8eb573874d2e4",
+    "score_sha256": "8cbf77b6140854991d5a395a2618c21da9f536bbb0764f4d3e3321bdb3eca375"
+  }
+}
