@@ -1,0 +1,146 @@
+{
+  "games": 288,
+  "optimizer_updates": 0,
+  "roles": [
+    "bc",
+    "lambda-0.95-202611081",
+    "lambda-0.95-202611082",
+    "lambda-0.95-202611083"
+  ],
+  "pooled": {
+    "point": 0.06172839506172839,
+    "per_seed": [
+      0.037037037037037035,
+      0.06481481481481481,
+      0.08333333333333333
+    ],
+    "interval95": [
+      -0.037037037037037035,
+      0.16512345679012347
+    ]
+  },
+  "by_map": {
+    "fallenstar_lake": {
+      "point": 0.06481481481481481,
+      "per_seed": [
+        0.013888888888888883,
+        0.1111111111111111,
+        0.06944444444444443
+      ],
+      "interval95": [
+        -0.12037037037037038,
+        0.23148148148148148
+      ]
+    },
+    "the_freelands": {
+      "point": 0.10648148148148148,
+      "per_seed": [
+        0.08333333333333334,
+        0.11111111111111112,
+        0.125
+      ],
+      "interval95": [
+        -0.05555555555555555,
+        0.2638888888888889
+      ]
+    },
+    "weldyn_channel": {
+      "point": 0.01388888888888889,
+      "per_seed": [
+        0.01388888888888889,
+        -0.027777777777777773,
+        0.05555555555555555
+      ],
+      "interval95": [
+        -0.16203703703703703,
+        0.2175925925925926
+      ]
+    }
+  },
+  "raw_counts": {
+    "fallenstar_lake/bc": {
+      "win": 4,
+      "draw": 10,
+      "loss": 10,
+      "turn_cap": 10,
+      "points": 22
+    },
+    "fallenstar_lake/lambda-0.95-202611081": {
+      "win": 5,
+      "draw": 8,
+      "loss": 11,
+      "turn_cap": 8,
+      "points": 23
+    },
+    "fallenstar_lake/lambda-0.95-202611082": {
+      "win": 6,
+      "draw": 12,
+      "loss": 6,
+      "turn_cap": 12,
+      "points": 30
+    },
+    "fallenstar_lake/lambda-0.95-202611083": {
+      "win": 3,
+      "draw": 18,
+      "loss": 3,
+      "turn_cap": 18,
+      "points": 27
+    },
+    "the_freelands/bc": {
+      "win": 9,
+      "draw": 2,
+      "loss": 13,
+      "turn_cap": 2,
+      "points": 29
+    },
+    "the_freelands/lambda-0.95-202611081": {
+      "win": 11,
+      "draw": 2,
+      "loss": 11,
+      "turn_cap": 2,
+      "points": 35
+    },
+    "the_freelands/lambda-0.95-202611082": {
+      "win": 12,
+      "draw": 1,
+      "loss": 11,
+      "turn_cap": 1,
+      "points": 37
+    },
+    "the_freelands/lambda-0.95-202611083": {
+      "win": 12,
+      "draw": 2,
+      "loss": 10,
+      "turn_cap": 2,
+      "points": 38
+    },
+    "weldyn_channel/bc": {
+      "win": 13,
+      "draw": 0,
+      "loss": 11,
+      "turn_cap": 0,
+      "points": 39
+    },
+    "weldyn_channel/lambda-0.95-202611081": {
+      "win": 13,
+      "draw": 1,
+      "loss": 10,
+      "turn_cap": 1,
+      "points": 40
+    },
+    "weldyn_channel/lambda-0.95-202611082": {
+      "win": 12,
+      "draw": 1,
+      "loss": 11,
+      "turn_cap": 1,
+      "points": 37
+    },
+    "weldyn_channel/lambda-0.95-202611083": {
+      "win": 14,
+      "draw": 1,
+      "loss": 9,
+      "turn_cap": 1,
+      "points": 43
+    }
+  }
+}
