@@ -23,7 +23,7 @@ DIGEST='6f7f7a2c355abe5bc3a9856e30ccacf0d84f1573fe7e8287832f4f084a8dfea0'
 PANEL_SECONDS=12600
 
 
-def audit_cell(root, name, games, m):
+def audit_cell(root, name, games, m, timing):
     cell=root/'cells'/name
     directory=cell/'duel'
     checkpoint=directory/f'paired-{games:04}.pt'
@@ -49,8 +49,8 @@ def audit_cell(root, name, games, m):
             assert (meta['map'],j['scenario_family'],j['factions'],seat)==(
                 row[arm],row[arm+'_family'],row['factions'],row['seat'])
             assert j['reward_config']['gae_lambda']==.95 and j['max_turns']==30
-            assert meta['teacher_parent_sha256']==m['runtime']['astra']['teacher_parent_sha256']
-            assert sha256_control_cached(j['bots'][2-seat])==meta['teacher_parent_sha256']
+            astra_sha=meta['teacher_lineage']['teacher_parent_sha256']
+            assert sha256_control_cached(j['bots'][2-seat])==astra_sha==m['runtime']['astra']['teacher_parent_sha256']
             if meta['map'] in m['training_boards']:
                 assert board_digest(j['map_override'])==m['training_boards'][meta['map']]['board_sha256']
             r=logs[j['id']]
@@ -62,7 +62,6 @@ def audit_cell(root, name, games, m):
         assert rows==h['eligible_decisions']
     assert counts['arena2']==games*(2 if arm=='cover' else 5)//10
     stamp=checkpoint.stat().st_mtime
-    timing=read_json(root/f'{name}-exit.json')
     assert stamp<=timing['deadline'] and timing['start']<=stamp
     result=role(checkpoint)
     assert result['weights_sha256']==history[-1]['policy_sha256_after']
@@ -86,7 +85,8 @@ def endpoints(root,m):
     ledgers={}
     streams={}
     for cell in ORDER:
-        specs[cell],ledgers[cell],stream=audit_cell(root,cell,games,m)
+        timing=read_json(root/f'{cell}-exit.json')
+        specs[cell],ledgers[cell],stream=audit_cell(root,cell,games,m,timing)
         seed=int(cell.split('-')[1])
         assert streams.setdefault(seed,stream)==stream
     return specs,dict(common_games=games,target_games=GAMES,complete_target=games==GAMES,cells=ledgers)
