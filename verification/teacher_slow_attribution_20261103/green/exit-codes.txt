@@ -1,3 +1,0 @@
-python=0
-pair=0
-slow_boards=0

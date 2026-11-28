@@ -1,3 +1,0 @@
-usage: diagnose_bc_recruit_context.py [-h] --run RUN --format FORMAT --output
-                                      OUTPUT
-diagnose_bc_recruit_context.py: error: unrecognized arguments: --updates 600 --seconds 900

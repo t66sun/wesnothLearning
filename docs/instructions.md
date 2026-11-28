@@ -8,7 +8,7 @@ See the [architecture](architecture.md) for runtime contracts and parameters, an
 
 Current lite combat/teacher profile is `probabilistic_combat_v6`, RNG `splitmix64-rejection-v1`. Rebuild the matching extension. Resume expected_damage_v1/v2 and probabilistic_combat_v1/v2/v3/v4/v5 runs with their original source/build; never relabel frozen data, snapshots or checkpoints. Old weights require the existing explicit initialization/reset-optimizer route and new-rule acceptance.
 
-The current compiled package can be provisioned from the immutable prior captures using the recipe in `verification/weapon_filters_20261103/REPORT.md`; use a new output directory and keep old packages unchanged.
+The current compiled package can be provisioned from the immutable prior captures using the recipe in [`verification/weapon_filters_20261103/REPORT.md`](https://github.com/t66sun/wesnothLearning/blob/83266766dc5fbcc3121ccc58262d910a52dfe01a/verification/weapon_filters_20261103/REPORT.md); use a new output directory and keep old packages unchanged.
 ## 1. Determine the task first
 
 Read the root `AGENTS.md` first, then read the matching chapter below:
@@ -62,7 +62,7 @@ For a routine check, archive the source, tests and tracked inputs from the commi
 ```sh
 git archive --format=tar --output=source.tar COMMIT -- \
   AGENTS.md .gitattributes LICENSE README.md docs engine_lite learning lua \
-  tests vendor benchmarks requirements.txt setup.sh run.sh train.sh data
+  tests vendor benchmarks requirements.txt setup.sh run.sh train.sh data verification/__init__.py
 ```
 
 Fresh source archives lack compiled runtime files. Before paired native comparisons, build the existing entropy shim in the extracted tree and record its hash. Without it, `match._child_env` omits preloading and `--rng-seed` alone cannot pin native action RNG.
@@ -103,7 +103,7 @@ The target is Ubuntu 24.04 `x86_64` with `sudo` or root and network access; 22.0
 
 Failures: `preflight: SHA256SUMS verification failed` means the extracted copy differs from the archive — re-extract into a fresh directory and never repair hashes by hand; a missing `SHA256SUMS` means an incomplete extraction. An OS-gate or sudo refusal is satisfied by Ubuntu 24.04 `x86_64` with root/`sudo`, or by `--skip-system-deps` after installing the packages yourself. `identity: engine build … does not match declared …` means a stale extension: rerun setup. A wheel that is not picked up has two causes: `setup.sh` only searches `dist/` for names starting `wesnoth_learning_lite-`, `_engine_lite-` or `engine_lite-` (and `--preflight` prints the file it found), while the builder additionally demands `manylinux` and `x86_64` in the name. `train.sh` refuses without `.runtime/environment.sh`, `.venv/bin/python`, an importable `_engine_lite`, an executable `WESNOTH_EXE` or a free run directory. Section 4 starts a run once the user authorizes it.
 
-The reference workstation verified the archive layout and scripts. Extraction, installation and startup on a clean Ubuntu 24.04 host remain unverified. [Bundle verification record](../verification/acceptance_20261030/REPORT.md)
+The reference workstation verified the archive layout and scripts. Extraction, installation and startup on a clean Ubuntu 24.04 host remain unverified. [Bundle verification record](https://github.com/t66sun/wesnothLearning/blob/83266766dc5fbcc3121ccc58262d910a52dfe01a/verification/acceptance_20261030/REPORT.md)
 
 ## 3. Verify the actually runnable scope before starting
 
@@ -188,7 +188,7 @@ This guide does not prescribe a default pre-flight rerun of 277 tests, the 30-bl
 
 Use `--final-holdout-hours H` to reserve H hours of the final evaluation budget (default 0, `0 <= H < hours/6`). Nomination stops H hours before the total deadline and retains the champion if incomplete. Holdout keeps the original deadline, and resume uses the frozen configuration.
 
-Set `run --gae-lambda 1.0` on a new run or BC branch to use complete shaped returns for task-terminal PPO trajectories. The default is 0.95. A branch keeps the parent samples and records its own λ in new schedules and trajectories. Resume uses the saved value and budget. [Ubuntu configuration and recovery checks](../verification/ppo_gae_lambda_20261108/REPORT.md)
+Set `run --gae-lambda 1.0` on a new run or BC branch to use complete shaped returns for task-terminal PPO trajectories. The default is 0.95. A branch keeps the parent samples and records its own λ in new schedules and trajectories. Resume uses the saved value and budget. [Ubuntu configuration and recovery checks](https://github.com/t66sun/wesnothLearning/blob/83266766dc5fbcc3121ccc58262d910a52dfe01a/verification/ppo_gae_lambda_20261108/REPORT.md)
 
 ## 5. Resuming existing training
 
@@ -236,7 +236,7 @@ The normal/forced PPO commands above are alternatives. The command writes a phas
 
 For a committed stop before the deadline, add `--ppo-batches N` to `phase ppo`. Each requested format finishes after N newly scheduled PPO batches have applied at least one optimizer step and any due validation has run. A resumed batch already pending at the request boundary finishes under its existing plan and falls outside this count. Each new request starts its own count. The phase deadline can end training earlier.
 
-The bounded fixed-Astra duel comparison chooses `rollout_games=4` or `8` when `start_arm` creates the run. Its budget records the first PPO batch index and the admission and settlement deadlines. Use `resume_arm` with the same run directory to continue the saved stage within that budget. Omit `fresh_targets` for a wall-clock comparison. [Driver and Ubuntu contract](../verification/ppo_batch_contract_20261107/REPORT.md)
+The bounded fixed-Astra duel comparison chooses `rollout_games=4` or `8` when `start_arm` creates the run. Its budget records the first PPO batch index and the admission and settlement deadlines. Use `resume_arm` with the same run directory to continue the saved stage within that budget. Omit `fresh_targets` for a wall-clock comparison. [Driver and Ubuntu contract](https://github.com/t66sun/wesnothLearning/blob/83266766dc5fbcc3121ccc58262d910a52dfe01a/verification/ppo_batch_contract_20261107/REPORT.md)
 
 Read enough state for an existing experiment in one pass; widen the scope only on the first check or a real anomaly. Confirm the manifest exists before looking at the controller so no control directory is created for a nonexistent experiment path.
 
@@ -313,7 +313,7 @@ When sending signals, confirm ownership by PID, parent/child relation, command a
 
 After a fix, rerun only affected failed/new minimal cases and reuse accepted evidence. New output goes to a new `verification/<date or task>/`, keeping both the initial failure and the post-fix result. Routine maintenance does not modify the installed game AI, historical V4 weights or other experiments.
 
-To restore an archived experiment, locate its original path in the archive’s `index.json` and verify its files against `SHA256SUMS`. Follow the archive README to restore relative paths without overwriting an existing run. Resume with the original schema, frozen source and budget. [Archive location and recovery instructions](../verification/training_archive_20261023/REPORT.md)
+To restore an archived experiment, locate its original path in the archive’s `index.json` and verify its files against `SHA256SUMS`. Follow the archive README to restore relative paths without overwriting an existing run. Resume with the original schema, frozen source and budget. [Archive location and recovery instructions](https://github.com/t66sun/wesnothLearning/blob/83266766dc5fbcc3121ccc58262d910a52dfe01a/verification/training_archive_20261023/REPORT.md)
 
 ## 8. Tuning parameters on instruction
 
