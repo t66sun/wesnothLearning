@@ -1,2 +1,0 @@
-python=1
-lethal_board=1

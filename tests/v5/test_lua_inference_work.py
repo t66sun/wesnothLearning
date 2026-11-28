@@ -1,4 +1,6 @@
 """Bound interpreter work at the public forward interface, independent of host load."""
+import gzip
+import json
 import unittest
 
 import torch
@@ -7,12 +9,12 @@ from lupa.lua54 import LuaRuntime
 from learning.common import ROOT
 from learning.export import compact_lua, lua_parameters
 from learning.model import Policy
-from tests.profile_lua_inference import dense_decision
 
 
 class LuaInferenceWorkTests(unittest.TestCase):
     def test_dense_native_forward_instruction_budget(self):
-        row, _ = dense_decision(ROOT / 'verification/bc_root_20261101/native_v8/games', 'ffa4')
+        with gzip.open(ROOT / 'tests/fixtures/lua_dense_ffa4.json.gz', 'rt', encoding='utf-8') as stream:
+            row = json.load(stream)
         self.assertEqual(len(row['spatial']['entities']), 30)
         torch.manual_seed(0)
         lua = LuaRuntime(unpack_returned_tuples=True)

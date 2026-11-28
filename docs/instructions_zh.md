@@ -8,7 +8,7 @@
 
 当前 lite 战斗/教师 profile 为 `probabilistic_combat_v6`，RNG 为 `splitmix64-rejection-v1`。构建匹配扩展后才能使用。旧 expected_damage_v1/v2、probabilistic_combat_v1/v2/v3/v4/v5 运行须使用原源码/构建；不得重写冻结数据、快照或检查点身份。旧权重须走既有显式初始化/重置优化器流程，并重新验收。
 
-当前编译规则包可按 `verification/weapon_filters_20261103/REPORT.md` 中的步骤从既有不可变捕获生成；使用新输出目录并保留旧包。
+当前编译规则包可按 [`verification/weapon_filters_20261103/REPORT.md`](https://github.com/t66sun/wesnothLearning/blob/83266766dc5fbcc3121ccc58262d910a52dfe01a/verification/weapon_filters_20261103/REPORT.md) 中的步骤从既有不可变捕获生成；使用新输出目录并保留旧包。
 ## 1. 接手时先确定任务
 
 先读根目录 `AGENTS.md`，再按任务阅读本文对应章节：
@@ -62,7 +62,7 @@ export SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy
 ```sh
 git archive --format=tar --output=source.tar COMMIT -- \
   AGENTS.md .gitattributes LICENSE README.md docs engine_lite learning lua \
-  tests vendor benchmarks requirements.txt setup.sh run.sh train.sh data
+  tests vendor benchmarks requirements.txt setup.sh run.sh train.sh data verification/__init__.py
 ```
 
 新源码归档不包含已编译的运行依赖。同种子原版比较前，在解压目录编译已有随机流库并记录哈希。缺少它时，`match._child_env` 省略预加载，仅传入 `--rng-seed` 不能固定逐动作随机流。
@@ -103,7 +103,7 @@ tar -xzf WesnothLearning-training.tar.gz && cd WesnothLearning
 
 故障：`preflight: SHA256SUMS verification failed` 表示解压副本与归档不一致——重新解压到干净目录，不要手工修补哈希；缺少 `SHA256SUMS` 表示解压不完整。系统门禁或 sudo 拒绝，用 Ubuntu 24.04 `x86_64` 加 root/`sudo` 解决，或自行装好系统包后加 `--skip-system-deps`。`identity: engine build … does not match declared …` 表示扩展过期：重跑安装。wheel 未被选中通常有两种原因：`setup.sh` 只在 `dist/` 中查找以 `wesnoth_learning_lite-`、`_engine_lite-`、`engine_lite-` 开头的文件（`--preflight` 会打印找到的文件），而构建器还要求文件名同时含 `manylinux` 与 `x86_64`。缺少 `.runtime/environment.sh`、`.venv/bin/python`、可导入的 `_engine_lite`、可执行的 `WESNOTH_EXE` 或运行目录已存在时，`train.sh` 拒绝启动。用户授权后按第 4 节启动运行。
 
-参考工作站已验证归档结构和脚本。干净 Ubuntu 24.04 上的解压、安装和启动尚未验收。[归档包核验记录](../verification/acceptance_20261030/REPORT.md)
+参考工作站已验证归档结构和脚本。干净 Ubuntu 24.04 上的解压、安装和启动尚未验收。[归档包核验记录](https://github.com/t66sun/wesnothLearning/blob/83266766dc5fbcc3121ccc58262d910a52dfe01a/verification/acceptance_20261030/REPORT.md)
 
 ## 3. 启动前核对实际可运行范围
 
@@ -177,7 +177,7 @@ KL 模式在 PPO 开始前固定 `<format>/frozen_bc.pt`，并将身份写入 `s
 
 新运行使用 `official-score-30-v1`：教师、PPO 和 DAgger 将完整第 30 回合作为正式计分终局。`--training-max-turns` 仅接受 30；gamma 为 1，探索奖励为 0，经济/控制保留势函数差分。评估同为 30 回合。旧 60 回合数据与 manifest 不能恢复或混入本任务；`--human-data` 应指向空目录或兼容语料，不能重标历史数据。
 
-新运行或 BC 分支可设 `run --gae-lambda 1.0`，使到达任务终局的 PPO 轨迹使用完整成形回报。默认值为 0.95。分支保留父样本，并在新调度和轨迹中记录自己的 λ。恢复沿用保存的 λ 和原预算。[Ubuntu 配置与恢复验收](../verification/ppo_gae_lambda_20261108/REPORT.md)
+新运行或 BC 分支可设 `run --gae-lambda 1.0`，使到达任务终局的 PPO 轨迹使用完整成形回报。默认值为 0.95。分支保留父样本，并在新调度和轨迹中记录自己的 λ。恢复沿用保存的 λ 和原预算。[Ubuntu 配置与恢复验收](https://github.com/t66sun/wesnothLearning/blob/83266766dc5fbcc3121ccc58262d910a52dfe01a/verification/ppo_gae_lambda_20261108/REPORT.md)
 
 启动后的完成检查：
 
@@ -236,7 +236,7 @@ test -f "$run_dir/manifest.json" || exit 1
 
 若要在截止前停在已提交边界，可为 `phase ppo` 加上 `--ppo-batches N`。每种目标赛制各自提交 N 个新调度且至少执行一步优化器更新的 PPO 批次，完成到期验证后结束阶段。请求生效时已有的待提交批次按原计划完成，不计入本次目标。每次新请求独立计数，阶段截止时间仍可提前结束训练。
 
-固定 Astra 的有界单挑对照通过 `start_arm` 创建运行，选定 `rollout_games=4` 或 `8`。预算记录首个 PPO 批号、停止接纳新批次的时间及结算截止时间。用 `resume_arm` 从同一运行目录恢复已保存阶段，沿用原预算。按等墙钟时间对照时省略 `fresh_targets`。[驱动与 Ubuntu 验证](../verification/ppo_batch_contract_20261107/REPORT.md)
+固定 Astra 的有界单挑对照通过 `start_arm` 创建运行，选定 `rollout_games=4` 或 `8`。预算记录首个 PPO 批号、停止接纳新批次的时间及结算截止时间。用 `resume_arm` 从同一运行目录恢复已保存阶段，沿用原预算。按等墙钟时间对照时省略 `fresh_targets`。[驱动与 Ubuntu 验证](https://github.com/t66sun/wesnothLearning/blob/83266766dc5fbcc3121ccc58262d910a52dfe01a/verification/ppo_batch_contract_20261107/REPORT.md)
 
 对已有实验一次读取足够的状态；首次检查或实际异常才扩大范围。先确认 manifest 存在，再查看控制器，避免对不存在的实验路径创建控制目录。
 
@@ -300,7 +300,7 @@ BC 局数不增长不一定挂住：配额已满而质量未过时会继续学�
 
 修复后只重跑受影响的失败/新增最小用例，已通过项按有效证据复用。新输出放到新的 `verification/<日期或任务>/`，保留初次失败和修复后结果。普通维护不修改已安装游戏 AI、历史 V4 权重或其他实验。
 
-恢复已归档的实验时，先从对应归档的 `index.json` 找到原路径，再按 `SHA256SUMS` 校验文件。按归档 README 中的相对路径恢复，避开已有同名实验。恢复后使用原实验的 schema、冻结源码和预算。[归档位置与恢复说明](../verification/training_archive_20261023/REPORT.md)
+恢复已归档的实验时，先从对应归档的 `index.json` 找到原路径，再按 `SHA256SUMS` 校验文件。按归档 README 中的相对路径恢复，避开已有同名实验。恢复后使用原实验的 schema、冻结源码和预算。[归档位置与恢复说明](https://github.com/t66sun/wesnothLearning/blob/83266766dc5fbcc3121ccc58262d910a52dfe01a/verification/training_archive_20261023/REPORT.md)
 
 ## 8. 得到指示后微调参数
 

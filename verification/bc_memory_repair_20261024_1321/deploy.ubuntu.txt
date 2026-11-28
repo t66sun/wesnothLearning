@@ -1,3 +1,0 @@
-DEPLOYED /home/tongshu/myDev/wesnothLearning/validation_memory_repair_20261024_1321
-
-EXIT 0
